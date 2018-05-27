@@ -10,6 +10,7 @@
     package="me.zhanghai.android.materialfilemanager">
 
     <application
+        android:name=".AppApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
