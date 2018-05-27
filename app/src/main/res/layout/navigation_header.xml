@@ -9,6 +9,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/navigation_header_height"
-    android:background="?attr/colorPrimaryDark"
+    android:background="?attr/colorPrimary"
     android:fitsSystemWindows="true"
     android:theme="?actionBarTheme" />
