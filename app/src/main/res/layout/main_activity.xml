@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        app:insetBackground="?colorPrimaryDarkWithoutSystemWindowScrim">
+        app:insetBackground="?colorPrimaryDark">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -56,11 +56,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="@dimen/screen_edge_margin"
-                android:src="@android:drawable/ic_dialog_info" />
+                android:src="@drawable/add_icon_white_24dp" />
         </android.support.design.widget.CoordinatorLayout>
     </me.zhanghai.android.materialfilemanager.ui.InsetBackgroundFrameLayout>
 
-    <me.zhanghai.android.materialfilemanager.ui.FullscreenNavigationView
+    <android.support.design.widget.NavigationView
         android:id="@+id/navigation"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"

@@ -9,12 +9,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorPrimaryDarkWithoutSystemWindowScrim">@color/color_primary_dark_without_system_window_scrim</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="AppTheme.ScrimStatusBar">
-        <item name="android:statusBarColor">@color/system_window_scrim</item>
+    <style name="AppTheme.TransparentStatusBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

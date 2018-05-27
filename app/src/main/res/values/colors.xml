@@ -13,10 +13,7 @@
 
     <color name="pink_a200">#ff4081</color>
 
-    <color name="system_window_scrim">#44000000</color>
-
     <color name="color_primary">@color/blue_700</color>
     <color name="color_primary_dark">@color/blue_800</color>
-    <color name="color_primary_dark_without_system_window_scrim">#1d8aff</color>
     <color name="color_accent">@color/pink_a200</color>
 </resources>
