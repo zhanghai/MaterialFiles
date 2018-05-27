@@ -11,9 +11,9 @@
     <color name="blue_700">#1976d2</color>
     <color name="blue_800">#1565c0</color>
 
-    <color name="pink_a200">#ff4081</color>
+    <color name="pink_500">#e91e63</color>
 
     <color name="color_primary">@color/blue_700</color>
     <color name="color_primary_dark">@color/blue_800</color>
-    <color name="color_accent">@color/pink_a200</color>
+    <color name="color_accent">@color/pink_500</color>
 </resources>
