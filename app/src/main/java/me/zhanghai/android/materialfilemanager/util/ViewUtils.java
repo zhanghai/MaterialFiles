@@ -17,6 +17,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.util.ObjectsCompat;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
@@ -403,24 +404,94 @@ public class ViewUtils {
     }
 
     public static void postOnPreDraw(View view, Runnable runnable) {
-        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                view.getViewTreeObserver().removeOnPreDrawListener(this);
-                runnable.run();
+        view.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListenerRunnableWrapper(
+                view, runnable));
+    }
+
+    public static void removeOnPreDraw(View view, Runnable runnable) {
+        view.getViewTreeObserver().removeOnPreDrawListener(new OnPreDrawListenerRunnableWrapper(
+                view, runnable));
+    }
+
+    private static class OnPreDrawListenerRunnableWrapper
+            implements ViewTreeObserver.OnPreDrawListener {
+
+        private View mView;
+        private Runnable mRunnable;
+
+        public OnPreDrawListenerRunnableWrapper(View view, Runnable runnable) {
+            mView = view;
+            mRunnable = runnable;
+        }
+
+        @Override
+        public boolean onPreDraw() {
+            mView.getViewTreeObserver().removeOnPreDrawListener(this);
+            mRunnable.run();
+            return true;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (this == object) {
                 return true;
             }
-        });
+            if (object == null || getClass() != object.getClass()) {
+                return false;
+            }
+            OnPreDrawListenerRunnableWrapper that = (OnPreDrawListenerRunnableWrapper) object;
+            return ObjectsCompat.equals(mRunnable, that.mRunnable);
+        }
+
+        @Override
+        public int hashCode() {
+            return mRunnable.hashCode();
+        }
     }
 
     public static void postOnPreDraw(View view, BooleanSupplier runnable) {
-        view.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                view.getViewTreeObserver().removeOnPreDrawListener(this);
-                return runnable.getAsBoolean();
+        view.getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListenerBooleanSupplierWrapper(
+                view, runnable));
+    }
+
+    public static void removeOnPreDraw(View view, BooleanSupplier runnable) {
+        view.getViewTreeObserver().removeOnPreDrawListener(
+                new OnPreDrawListenerBooleanSupplierWrapper(view, runnable));
+    }
+
+    private static class OnPreDrawListenerBooleanSupplierWrapper
+            implements ViewTreeObserver.OnPreDrawListener {
+
+        private View mView;
+        private BooleanSupplier mRunnable;
+
+        public OnPreDrawListenerBooleanSupplierWrapper(View view, BooleanSupplier runnable) {
+            mView = view;
+            mRunnable = runnable;
+        }
+
+        @Override
+        public boolean onPreDraw() {
+            mView.getViewTreeObserver().removeOnPreDrawListener(this);
+            return mRunnable.getAsBoolean();
+        }
+
+        @Override
+        public boolean equals(Object object) {
+            if (this == object) {
+                return true;
             }
-        });
+            if (object == null || getClass() != object.getClass()) {
+                return false;
+            }
+            OnPreDrawListenerRunnableWrapper that = (OnPreDrawListenerRunnableWrapper) object;
+            return ObjectsCompat.equals(mRunnable, that.mRunnable);
+        }
+
+        @Override
+        public int hashCode() {
+            return mRunnable.hashCode();
+        }
     }
 
     public static float pxToDp(float px, Context context) {

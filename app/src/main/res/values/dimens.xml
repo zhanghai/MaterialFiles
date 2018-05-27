@@ -7,8 +7,11 @@
 
 <resources>
     <dimen name="screen_edge_margin">16dp</dimen>
-    <dimen name="content_horizontal_margin">72dp</dimen>
+    <dimen name="screen_edge_margin_minus_12dp">4dp</dimen>
+    <dimen name="content_start_margin">72dp</dimen>
+    <dimen name="content_start_margin_minus_12dp">60dp</dimen>
     <dimen name="navigation_header_height">172dp</dimen>
     <dimen name="toolbar_navigation_button_start_margin">-2dp</dimen>
     <dimen name="toolbar_title_start_margin">18dp</dimen>
+    <dimen name="tab_layout_height">48dp</dimen>
 </resources>

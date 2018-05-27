@@ -40,13 +40,12 @@
                     app:popupTheme="?actionBarPopupTheme"
                     app:titleMarginStart="@dimen/toolbar_title_start_margin" />
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/tab"
+                <me.zhanghai.android.materialfilemanager.main.ui.BreadcrumbLayout
+                    android:id="@+id/breadcrumb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:tabMode="scrollable"
-                    app:tabPaddingStart="@dimen/content_horizontal_margin"
-                    app:tabPaddingEnd="@dimen/screen_edge_margin" />
+                    android:paddingStart="@dimen/content_start_margin_minus_12dp"
+                    android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
             </android.support.design.widget.AppBarLayout>
 
             <include layout="@layout/main_content"/>

@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.main.ui;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.tab)
-    TabLayout mTabLayout;
+    @BindView(R.id.breadcrumb)
+    BreadcrumbLayout mBreadcrumbLayout;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
+        mBreadcrumbLayout.setItems(Arrays.asList("root/storage/emulated/0/Music/Angel Beats! Original Soundtrack Disc 2".split("/")));
         mFab.setOnClickListener(view -> Snackbar.make(view, "Action clicked",
                 Snackbar.LENGTH_LONG).setAction("Action", null).show());
     }
