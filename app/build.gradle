@@ -14,6 +14,10 @@ android {
         versionCode 1
         versionName "1.0.0"
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -21,10 +25,21 @@ android {
         }
     }
 }
+repositories {
+    maven {
+        url 'https://jitpack.io'
+    }
+}
+dependencies {
+    releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
 }

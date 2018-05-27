@@ -17,5 +17,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App" />
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".main.ui.MainActivity"
+            android:label="@string/main_title"
+            android:theme="@style/AppTheme.ScrimStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>

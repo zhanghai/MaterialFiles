@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<me.zhanghai.android.materialfilemanager.ui.DispatchInsetsDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    tools:context=".main.ui.MainActivity">
+
+    <me.zhanghai.android.materialfilemanager.ui.InsetBackgroundFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:insetBackground="?colorPrimaryDarkWithoutSystemWindowScrim">
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="?actionBarTheme">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:paddingStart="@dimen/toolbar_navigation_button_start_margin"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:navigationIcon="@drawable/menu_icon_white_24dp"
+                    app:popupTheme="?actionBarPopupTheme"
+                    app:titleMarginStart="@dimen/toolbar_title_start_margin" />
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="scrollable"
+                    app:tabPaddingStart="@dimen/content_horizontal_margin"
+                    app:tabPaddingEnd="@dimen/screen_edge_margin" />
+            </android.support.design.widget.AppBarLayout>
+
+            <include layout="@layout/main_content"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="@dimen/screen_edge_margin"
+                android:src="@android:drawable/ic_dialog_info" />
+        </android.support.design.widget.CoordinatorLayout>
+    </me.zhanghai.android.materialfilemanager.ui.InsetBackgroundFrameLayout>
+
+    <me.zhanghai.android.materialfilemanager.ui.FullscreenNavigationView
+        android:id="@+id/navigation"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation" />
+</me.zhanghai.android.materialfilemanager.ui.DispatchInsetsDrawerLayout>

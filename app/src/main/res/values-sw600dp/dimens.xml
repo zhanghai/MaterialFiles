@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <dimen name="screen_edge_margin">24dp</dimen>
+    <dimen name="content_horizontal_margin">80dp</dimen>
+    <dimen name="navigation_header_height">192dp</dimen>
+    <dimen name="toolbar_navigation_button_start_margin">6dp</dimen>
+</resources>

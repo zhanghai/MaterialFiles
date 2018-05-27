@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class AppApplication extends Application {
@@ -30,5 +31,6 @@ public class AppApplication extends Application {
 
         AndroidThreeTen.init(this);
         //FabricUtils.init(this);
+        Stetho.initializeWithDefaults(this);
     }
 }

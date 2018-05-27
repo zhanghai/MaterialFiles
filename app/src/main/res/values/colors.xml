@@ -6,7 +6,12 @@
   -->
 
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="system_window_scrim">#44000000</color>
+
+    <color name="color_primary">#3f51b5</color>
+    <color name="color_primary_dark">#303f9f</color>
+    <!-- FIXME -->
+    <color name="color_primary_dark_without_system_window_scrim">#3f51b5</color>
+    <color name="color_accent">#ff4081</color>
 </resources>
