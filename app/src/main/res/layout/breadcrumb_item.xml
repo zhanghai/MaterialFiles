@@ -7,7 +7,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:paddingStart="12dp"
@@ -30,6 +29,7 @@
         android:id="@+id/arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="-4dp"
         android:duplicateParentState="true"
         android:src="@drawable/arrow_end_icon_white_24dp" />
 </LinearLayout>
