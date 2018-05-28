@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.materialfilemanager.directory.ui;
+package me.zhanghai.android.materialfilemanager.directory;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

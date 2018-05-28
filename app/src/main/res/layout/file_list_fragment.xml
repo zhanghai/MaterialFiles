@@ -27,7 +27,7 @@
             app:popupTheme="?actionBarPopupTheme"
             app:titleMarginStart="@dimen/toolbar_title_start_margin" />
 
-        <me.zhanghai.android.materialfilemanager.directory.ui.BreadcrumbLayout
+        <me.zhanghai.android.materialfilemanager.directory.BreadcrumbLayout
             android:id="@+id/breadcrumb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
