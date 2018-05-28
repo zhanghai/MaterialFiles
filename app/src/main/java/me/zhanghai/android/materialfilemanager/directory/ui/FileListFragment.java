@@ -26,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 
-public class DirectoryFragment extends Fragment {
+public class FileListFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -37,15 +37,15 @@ public class DirectoryFragment extends Fragment {
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
-    public static DirectoryFragment newInstance() {
+    public static FileListFragment newInstance() {
         //noinspection deprecation
-        return new DirectoryFragment();
+        return new FileListFragment();
     }
 
     /**
      * @deprecated Use {@link #newInstance()} instead.
      */
-    public DirectoryFragment() {}
+    public FileListFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class DirectoryFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.directory_fragment, container, false);
+        return inflater.inflate(R.layout.file_list_fragment, container, false);
     }
 
     @Override
