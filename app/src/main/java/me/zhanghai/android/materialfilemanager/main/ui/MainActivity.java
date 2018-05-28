@@ -20,8 +20,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            MainFragment fragment = MainFragment.newInstance();
-            FragmentUtils.add(fragment, this, android.R.id.content);
+            FragmentUtils.add(MainFragment.newInstance(), this, android.R.id.content);
         }
     }
 }

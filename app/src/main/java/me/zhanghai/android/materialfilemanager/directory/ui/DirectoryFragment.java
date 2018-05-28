@@ -11,8 +11,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,6 +32,8 @@ public class DirectoryFragment extends Fragment {
     Toolbar mToolbar;
     @BindView(R.id.breadcrumb)
     BreadcrumbLayout mBreadcrumbLayout;
+    @BindView(R.id.files)
+    RecyclerView mFilesList;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
@@ -40,6 +46,13 @@ public class DirectoryFragment extends Fragment {
      * @deprecated Use {@link #newInstance()} instead.
      */
     public DirectoryFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
 
     @Nullable
     @Override
@@ -61,8 +74,27 @@ public class DirectoryFragment extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
+        // TODO
         mBreadcrumbLayout.setItems(Arrays.asList(
                 "root/storage/emulated/0/Music/Angel Beats! Original Soundtrack Disc 2".split(
                         "/")));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.directory, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                // TODO
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
