@@ -1,0 +1,68 @@
+/*
+ * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * All Rights Reserved.
+ */
+
+package me.zhanghai.android.materialfilemanager.directory.ui;
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import java.util.Arrays;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import me.zhanghai.android.materialfilemanager.R;
+
+public class DirectoryFragment extends Fragment {
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.breadcrumb)
+    BreadcrumbLayout mBreadcrumbLayout;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
+
+    public static DirectoryFragment newInstance() {
+        //noinspection deprecation
+        return new DirectoryFragment();
+    }
+
+    /**
+     * @deprecated Use {@link #newInstance()} instead.
+     */
+    public DirectoryFragment() {}
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.directory_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ButterKnife.bind(this, view);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        activity.setSupportActionBar(mToolbar);
+        mBreadcrumbLayout.setItems(Arrays.asList(
+                "root/storage/emulated/0/Music/Angel Beats! Original Soundtrack Disc 2".split(
+                        "/")));
+    }
+}

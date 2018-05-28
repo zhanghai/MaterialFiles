@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="?actionBarTheme">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:paddingStart="@dimen/toolbar_navigation_button_start_margin"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/menu_icon_white_24dp"
+            app:popupTheme="?actionBarPopupTheme"
+            app:titleMarginStart="@dimen/toolbar_title_start_margin" />
+
+        <me.zhanghai.android.materialfilemanager.directory.ui.BreadcrumbLayout
+            android:id="@+id/breadcrumb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/content_start_margin_minus_12dp"
+            android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/screen_edge_margin"
+            android:text="@string/large_text" />
+    </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/screen_edge_margin"
+        android:src="@drawable/add_icon_white_24dp" />
+</android.support.design.widget.CoordinatorLayout>

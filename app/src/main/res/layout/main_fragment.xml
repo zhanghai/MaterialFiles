@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<me.zhanghai.android.materialfilemanager.ui.DispatchInsetsDrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <me.zhanghai.android.materialfilemanager.ui.InsetBackgroundFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:insetBackground="?colorPrimaryDark">
+
+        <fragment
+            android:id="@+id/directory_fragment"
+            android:name="me.zhanghai.android.materialfilemanager.directory.ui.DirectoryFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout="@layout/directory_fragment" />
+    </me.zhanghai.android.materialfilemanager.ui.InsetBackgroundFrameLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigation"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/navigation_header"
+        app:menu="@menu/navigation" />
+</me.zhanghai.android.materialfilemanager.ui.DispatchInsetsDrawerLayout>
