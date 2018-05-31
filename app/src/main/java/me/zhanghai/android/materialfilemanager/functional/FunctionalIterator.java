@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.functional;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -72,6 +73,11 @@ public class FunctionalIterator {
         return collector;
     }
 
+    public static <T, J extends Collection<? super T>> ArrayList<T> filterRemaining(
+            Iterator<T> iterator, Predicate<T> predicate) {
+        return filterRemaining(iterator, predicate, new ArrayList<>());
+    }
+
     public static <T, J extends Collection<? super T>> J filterRemaining(
             Iterator<T> iterator, BiPredicate<T, Integer> predicate, J collector) {
         int index = 0;
@@ -85,6 +91,11 @@ public class FunctionalIterator {
         return collector;
     }
 
+    public static <T, J extends Collection<? super T>> ArrayList<T> filterRemaining(
+            Iterator<T> iterator, BiPredicate<T, Integer> predicate) {
+        return filterRemaining(iterator, predicate, new ArrayList<>());
+    }
+
     public static <I extends Iterator<T>, T, J extends Collection<? super T>> J filterRemaining(
             I iterator, TriPredicate<T, Integer, I> predicate, J collector) {
         int index = 0;
@@ -96,6 +107,11 @@ public class FunctionalIterator {
             ++index;
         }
         return collector;
+    }
+
+    public static <I extends Iterator<T>, T, J extends Collection<? super T>> ArrayList<T>
+    filterRemaining(I iterator, TriPredicate<T, Integer, I> predicate) {
+        return filterRemaining(iterator, predicate, new ArrayList<>());
     }
 
     public static <T> T findRemaining(Iterator<T> iterator, Predicate<T> predicate) {
@@ -207,6 +223,11 @@ public class FunctionalIterator {
         return collector;
     }
 
+    public static <T, U, J extends Collection<? super U>> ArrayList<U> mapRemaining(
+            Iterator<T> iterator, Function<T, U> function) {
+        return mapRemaining(iterator, function, new ArrayList<>());
+    }
+
     public static <T, U, J extends Collection<? super U>> J mapRemaining(
             Iterator<T> iterator, BiFunction<T, Integer, U> function, J collector) {
         int index = 0;
@@ -218,6 +239,11 @@ public class FunctionalIterator {
         return collector;
     }
 
+    public static <T, U, J extends Collection<? super U>> ArrayList<U> mapRemaining(
+            Iterator<T> iterator, BiFunction<T, Integer, U> function) {
+        return mapRemaining(iterator, function, new ArrayList<>());
+    }
+
     public static <I extends Iterator<T>, T, U, J extends Collection<? super U>> J mapRemaining(
             I iterator, TriFunction<T, Integer, I, U> function, J collector) {
         int index = 0;
@@ -227,6 +253,11 @@ public class FunctionalIterator {
             ++index;
         }
         return collector;
+    }
+
+    public static <I extends Iterator<T>, T, U, J extends Collection<? super U>> ArrayList<U>
+    mapRemaining(I iterator, TriFunction<T, Integer, I, U> function) {
+        return mapRemaining(iterator, function, new ArrayList<>());
     }
 
     public static <T, U> U reduceRemaining(Iterator<T> iterator, BiFunction<U, T, U> function,

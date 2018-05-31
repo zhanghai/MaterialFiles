@@ -3,14 +3,17 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.materialfilemanager.directory;
+package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -25,6 +28,7 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class FileListFragment extends Fragment {
 
@@ -33,9 +37,11 @@ public class FileListFragment extends Fragment {
     @BindView(R.id.breadcrumb)
     BreadcrumbLayout mBreadcrumbLayout;
     @BindView(R.id.files)
-    RecyclerView mFilesList;
+    RecyclerView mFileList;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
+
+    private FileListAdapter mAdapter;
 
     public static FileListFragment newInstance() {
         //noinspection deprecation
@@ -75,9 +81,16 @@ public class FileListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
         // TODO
-        mBreadcrumbLayout.setItems(Arrays.asList(
-                "root/storage/emulated/0/Music/Angel Beats! Original Soundtrack Disc 2".split(
-                        "/")));
+        mBreadcrumbLayout.setItems(Arrays.asList("root/storage/emulated/0/Music".split("/")));
+        mFileList.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
+        mAdapter = new FileListAdapter();
+        mFileList.setAdapter(mAdapter);
+
+        FileViewModel viewModel = ViewModelProviders.of(this).get(FileViewModel.class);
+        viewModel.getData().observe(this, this::onFileChanged);
+        // TODO: Request storage permission.
+        // TODO
+        viewModel.setPath(Uri.parse("file:///storage/emulated/0/Music"));
     }
 
     @Override
@@ -96,5 +109,9 @@ public class FileListFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void onFileChanged(File file) {
+        mAdapter.submitList(file.getFileList());
     }
 }

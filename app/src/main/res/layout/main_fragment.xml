@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/directory_fragment"
-        android:name="me.zhanghai.android.materialfilemanager.directory.FileListFragment"
+        android:name="me.zhanghai.android.materialfilemanager.filelist.FileListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/file_list_fragment" />
