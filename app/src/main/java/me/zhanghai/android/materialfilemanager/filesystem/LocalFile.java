@@ -74,8 +74,9 @@ public class LocalFile extends BaseFile {
     private void loadDirectoryFileList() {
         List<java.io.File> javaFiles = Arrays.asList(new java.io.File(mPath.getPath()).listFiles());
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
-        List<String> commands = Functional.map(paths, Stat::makeCommand);
-        List<String> outputs = Shell.SH.run(commands);
+        // TODO: ARG_MAX
+        String command = Stat.makeCommand(paths);
+        List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
             // TODO
         }

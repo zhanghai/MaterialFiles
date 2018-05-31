@@ -8,13 +8,16 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import org.apache.commons.text.StringEscapeUtils;
 import org.threeten.bp.Instant;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 import me.zhanghai.android.materialfilemanager.util.ObjectUtils;
+import me.zhanghai.android.materialfilemanager.util.StringCompat;
 
 public class Stat {
 
@@ -42,8 +45,13 @@ public class Stat {
                     .put(File.Permission.OTHERS_EXECUTE, 'x')
                     .buildUnmodifiable();
 
-    public static String makeCommand(String path) {
-        return "stat -c '%A %u %U %g %G %s %X %Y %Z' " + StringEscapeUtils.escapeXSI(path);
+    public static String makeCommand(Iterable<String> paths) {
+        return "stat -c '%A %u %U %g %G %s %X %Y %Z' " + StringCompat.join(" ", Functional.map(
+                paths, StringEscapeUtils::escapeXSI));
+    }
+
+    public static String makeCommand(String... paths) {
+        return makeCommand(Arrays.asList(paths));
     }
 
     public static Information parseOutput(String output) {
