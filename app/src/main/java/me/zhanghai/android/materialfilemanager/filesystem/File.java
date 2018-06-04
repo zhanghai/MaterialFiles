@@ -49,6 +49,11 @@ public interface File {
     @NonNull
     Type getType();
 
+    default boolean isDirectory() {
+        // TODO: Or archive directory.
+        return getType() == Type.DIRECTORY;
+    }
+
     boolean isListable();
 
     @WorkerThread

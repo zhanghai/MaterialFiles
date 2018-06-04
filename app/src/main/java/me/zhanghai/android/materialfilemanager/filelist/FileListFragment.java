@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,11 +26,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class FileListFragment extends Fragment {
 
@@ -112,6 +116,28 @@ public class FileListFragment extends Fragment {
     }
 
     private void onFileChanged(File file) {
-        mAdapter.submitList(file.getFileList());
+        List<File> files = file.getFileList();
+        int directoryCount = Functional.reduce(files, (count, file_) -> file_.isDirectory() ?
+                count + 1 : count, 0);
+        int fileCount = files.size() - directoryCount;
+        Resources resources = requireContext().getResources();
+        String directoryCountText = directoryCount > 0 ? resources.getQuantityString(
+                R.plurals.main_subtitle_directory_count_format, directoryCount, directoryCount)
+                : null;
+        String fileCountText = fileCount > 0 ? resources.getQuantityString(
+                R.plurals.main_subtitle_file_count_format, fileCount, fileCount) : null;
+        String subtitle;
+        if (!TextUtils.isEmpty(directoryCountText) && !TextUtils.isEmpty(fileCountText)) {
+            subtitle = directoryCountText + getString(R.string.main_subtitle_separator) +
+                    fileCountText;
+        } else if (!TextUtils.isEmpty(directoryCountText)) {
+            subtitle = directoryCountText;
+        } else if (!TextUtils.isEmpty(fileCountText)) {
+            subtitle = fileCountText;
+        } else {
+            subtitle = getString(R.string.main_subtitle_empty);
+        }
+        mToolbar.setSubtitle(subtitle);
+        mAdapter.submitList(files);
     }
 }

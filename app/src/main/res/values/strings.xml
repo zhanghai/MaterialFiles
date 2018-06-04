@@ -12,4 +12,14 @@
     <string name="search">Search</string>
 
     <string name="main_title">Files</string>
+    <plurals name="main_subtitle_directory_count_format">
+        <item quantity="one">%1$d directory</item>
+        <item quantity="other">%1$d directories</item>
+    </plurals>
+    <plurals name="main_subtitle_file_count_format">
+        <item quantity="one">%1$d file</item>
+        <item quantity="other">%1$d files</item>
+    </plurals>
+    <string name="main_subtitle_separator">", "</string>
+    <string name="main_subtitle_empty">Empty</string>
 </resources>
