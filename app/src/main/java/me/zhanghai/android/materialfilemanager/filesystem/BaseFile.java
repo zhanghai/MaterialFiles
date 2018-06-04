@@ -47,4 +47,14 @@ public abstract class BaseFile implements File {
     protected void setFileList(List<File> fileList) {
         mFileList = fileList;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        throw new UnsupportedOperationException("Subclass should override equals()");
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException("Subclass should override hashCode()");
+    }
 }

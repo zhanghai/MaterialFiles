@@ -5,48 +5,75 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/two_line_list_item_height"
-    android:background="?selectableItemBackground"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp" />
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:minHeight="@dimen/two_line_list_item_height"
+        android:paddingTop="@dimen/list_item_vertical_padding"
+        android:paddingBottom="@dimen/list_item_vertical_padding"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="@dimen/touch_target_size"
+            android:layout_height="@dimen/touch_target_size"
+            android:layout_gravity="top"
+            android:layout_marginStart="@dimen/screen_edge_margin_minus_4dp"
+            android:layout_marginEnd="@dimen/screen_edge_margin_minus_4dp"
+            android:layout_marginTop="@dimen/touch_target_large_icon_padding_negative"
+            android:layout_marginBottom="@dimen/touch_target_large_icon_padding_negative"
+            android:padding="@dimen/touch_target_large_icon_padding"
+            android:tint="?colorControlNormal" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="?android:textColorSecondary" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?android:textColorSecondary" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/more"
+            android:layout_width="@dimen/touch_target_size"
+            android:layout_height="@dimen/touch_target_size"
+            android:layout_marginStart="@dimen/screen_edge_margin_minus_20dp"
+            android:layout_marginEnd="@dimen/screen_edge_margin_minus_20dp"
+            android:layout_marginTop="@dimen/touch_target_large_icon_padding_negative"
+            android:layout_marginBottom="@dimen/touch_target_large_icon_padding_negative"
+            android:padding="@dimen/touch_target_icon_padding"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/more_vertical_icon_white_24dp"
+            android:tint="?colorControlNormal" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/more"
-        android:layout_width="wrap_content"
+    <View
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackgroundBorderless"
-        android:src="@drawable/more_vertical_icon_white_24dp"
-        android:tint="?colorControlNormal" />
-</LinearLayout>
+        android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/content_start_margin"
+        android:background="?dividerVertical" />
+</FrameLayout>

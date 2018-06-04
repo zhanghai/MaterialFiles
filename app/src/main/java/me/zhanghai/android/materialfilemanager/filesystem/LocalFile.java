@@ -11,6 +11,7 @@ import android.support.annotation.WorkerThread;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
@@ -89,5 +90,23 @@ public class LocalFile extends BaseFile {
     @WorkerThread
     private void loadArchiveFileList() {
         // TODO
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        LocalFile that = (LocalFile) object;
+        return Objects.equals(mPath, that.mPath) && Objects.equals(mInformation, that.mInformation)
+                && mIsArchive == that.mIsArchive;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mPath, mInformation, mIsArchive);
     }
 }

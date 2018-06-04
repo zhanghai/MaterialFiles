@@ -6,10 +6,10 @@
 package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.support.annotation.NonNull;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -42,14 +42,6 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
 
     public FileListAdapter() {
         super(sDiffCallback);
-
-        setHasStableIds(true);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        // TODO
-        return getItem(position).hashCode();
     }
 
     @NonNull
@@ -61,6 +53,8 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         File file = getItem(position);
+        holder.iconImage.setImageDrawable(AppCompatResources.getDrawable(
+                holder.iconImage.getContext(), R.drawable.directory_icon_white_40dp));
         holder.nameText.setText(file.getName());
         holder.descriptionText.setText(file.getType().name());
         holder.itemView.setOnClickListener(view -> {

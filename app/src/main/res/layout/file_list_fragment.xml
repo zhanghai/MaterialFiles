@@ -21,11 +21,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:paddingStart="@dimen/toolbar_navigation_button_start_margin"
             app:layout_scrollFlags="scroll|enterAlways"
             app:navigationIcon="@drawable/menu_icon_white_24dp"
-            app:popupTheme="?actionBarPopupTheme"
-            app:titleMarginStart="@dimen/toolbar_title_start_margin" />
+            app:popupTheme="?actionBarPopupTheme" />
 
         <me.zhanghai.android.materialfilemanager.filelist.BreadcrumbLayout
             android:id="@+id/breadcrumb"
@@ -39,6 +37,9 @@
         android:id="@+id/files"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/list_padding_bottom_with_fab"
+        android:clipToPadding="false"
+        android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
