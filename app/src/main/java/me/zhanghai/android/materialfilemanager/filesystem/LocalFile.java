@@ -11,28 +11,20 @@ import android.support.annotation.WorkerThread;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
-public class LocalFile extends BaseFile {
-
-    private Stat.Information mInformation;
-    private boolean mIsArchive;
+public class LocalFile extends BaseFile<Stat.Information> {
 
     public LocalFile(Uri path) {
         super(path);
-
-        loadInformation();
-        loadIsArchive();
     }
 
     private LocalFile(Uri path, Stat.Information information) {
         super(path);
 
         mInformation = information;
-        loadIsArchive();
     }
 
     @NonNull
@@ -43,28 +35,29 @@ public class LocalFile extends BaseFile {
 
     @Override
     public boolean isListable() {
-        return mInformation.type == Type.DIRECTORY || mIsArchive;
+        // TODO
+        return mInformation.type == Type.DIRECTORY/* || mIsArchive*/;
     }
 
     @WorkerThread
-    private void loadInformation() {
+    public void loadInformation() {
         String command = Stat.makeCommand(mPath.getPath());
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
             // TODO
         }
-        String output = outputs.get(0);
-        mInformation = Stat.parseOutput(output);
-    }
-
-    private void loadIsArchive() {
-        // TODO
-        mIsArchive = false;
+        mInformation = Stat.parseOutput(outputs.get(0));
     }
 
     @Override
-    protected void onLoadFileList() {
-        if (mInformation.type == Type.DIRECTORY) {
+    public void loadFileList() {
+        boolean isDirectory;
+        if (mInformation != null) {
+            isDirectory = mInformation.type == Type.DIRECTORY;
+        } else {
+            isDirectory = makeJavaFile().isDirectory();
+        }
+        if (isDirectory) {
             loadDirectoryFileList();
         } else {
             loadArchiveFileList();
@@ -73,7 +66,7 @@ public class LocalFile extends BaseFile {
 
     @WorkerThread
     private void loadDirectoryFileList() {
-        List<java.io.File> javaFiles = Arrays.asList(new java.io.File(mPath.getPath()).listFiles());
+        List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
         // TODO: ARG_MAX
         String command = Stat.makeCommand(paths);
@@ -82,9 +75,8 @@ public class LocalFile extends BaseFile {
             // TODO
         }
         List<Stat.Information> informations = Functional.map(outputs, Stat::parseOutput);
-        List<File> files = Functional.map(javaFiles, (javaFile, index) -> new LocalFile(
+        mFileList = Functional.map(javaFiles, (javaFile, index) -> new LocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
-        setFileList(files);
     }
 
     @WorkerThread
@@ -92,21 +84,7 @@ public class LocalFile extends BaseFile {
         // TODO
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        LocalFile that = (LocalFile) object;
-        return Objects.equals(mPath, that.mPath) && Objects.equals(mInformation, that.mInformation)
-                && mIsArchive == that.mIsArchive;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mPath, mInformation, mIsArchive);
+    private java.io.File makeJavaFile() {
+        return new java.io.File(mPath.getPath());
     }
 }

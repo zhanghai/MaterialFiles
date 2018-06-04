@@ -9,12 +9,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 
-public abstract class BaseFile implements File {
+public abstract class BaseFile<I> implements File {
 
     protected Uri mPath;
-
-    private List<File> mFileList;
+    protected I mInformation;
+    protected List<File> mFileList;
 
     public BaseFile(Uri path) {
         mPath = path;
@@ -28,33 +29,23 @@ public abstract class BaseFile implements File {
     @NonNull
     @Override
     public List<File> getFileList() {
-        if (!isListable()) {
-            throw new IllegalStateException("File is not listable");
-        }
         return mFileList;
     }
 
     @Override
-    public final void loadFileList() {
-        if (!isListable()) {
-            throw new IllegalStateException("File is not listable");
-        }
-        onLoadFileList();
-    }
-
-    protected abstract void onLoadFileList();
-
-    protected void setFileList(List<File> fileList) {
-        mFileList = fileList;
-    }
-
-    @Override
     public boolean equals(Object object) {
-        throw new UnsupportedOperationException("Subclass should override equals()");
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        LocalFile that = (LocalFile) object;
+        return Objects.equals(mPath, that.mPath) && Objects.equals(mInformation, that.mInformation);
     }
 
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException("Subclass should override hashCode()");
+        return Objects.hash(mPath, mInformation);
     }
 }

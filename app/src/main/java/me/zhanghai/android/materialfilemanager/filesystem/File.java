@@ -46,6 +46,9 @@ public interface File {
         return getPath().getLastPathSegment();
     }
 
+    @WorkerThread
+    void loadInformation();
+
     @NonNull
     Type getType();
 
