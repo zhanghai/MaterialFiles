@@ -39,7 +39,7 @@ public class PathHistory {
         return peek().segments.get(index).file;
     }
 
-    private static class Path {
+    public static class Path {
 
         public List<Segment> segments;
         public int index;

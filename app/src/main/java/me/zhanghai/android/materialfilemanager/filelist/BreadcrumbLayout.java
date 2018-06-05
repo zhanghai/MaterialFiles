@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindDimen;
@@ -106,7 +105,6 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     @Override
     public void requestLayout() {
         mIsLayoutDirty = true;
-
         super.requestLayout();
     }
 
@@ -125,51 +123,11 @@ public class BreadcrumbLayout extends HorizontalScrollView {
         mOnItemSelectedListener = onItemSelectedListener;
     }
 
-    public List<String> getItems() {
-        return Collections.unmodifiableList(mItems);
-    }
-
-    public void setItems(List<String> items) {
-        boolean isPrefix = items.size() <= mItems.size() && Functional.every(items, (item, index) ->
-                TextUtils.equals(item, mItems.get(index)));
-        if (!isPrefix) {
-            mItems.clear();
-            mItems.addAll(items);
-        }
-        mSelectedIndex = items.size() - 1;
-        if (isPrefix) {
-            onSelectedIndexChanged();
-        } else {
-            onItemsChanged();
-        }
-    }
-
-    public int getSelectedIndex() {
-        return mSelectedIndex;
-    }
-
-    public void setSelectedIndex(int index) {
-        if (mSelectedIndex == index) {
-            return;
-        }
-        mSelectedIndex = index;
-        onSelectedIndexChanged();
-    }
-
-    public void trimItems() {
-        if (mSelectedIndex == mItems.size() - 1) {
-            return;
-        }
-        mItems.subList(mSelectedIndex + 1, mItems.size()).clear();
-    }
-
-    private void onItemsChanged() {
+    public void setItems(List<String> items, int selectedIndex) {
+        mItems.clear();
+        mItems.addAll(items);
+        mSelectedIndex = selectedIndex;
         inflateItemViews();
-        bindItemViews();
-        scrollToSelectedItem();
-    }
-
-    private void onSelectedIndexChanged() {
         bindItemViews();
         scrollToSelectedItem();
     }
@@ -217,7 +175,9 @@ public class BreadcrumbLayout extends HorizontalScrollView {
                     scrollToSelectedItem();
                     return;
                 }
-                setSelectedIndex(index);
+                mSelectedIndex = index;
+                bindItemViews();
+                scrollToSelectedItem();
                 if (mOnItemSelectedListener != null) {
                     mOnItemSelectedListener.onItemSelected(mSelectedIndex);
                 }

@@ -87,7 +87,8 @@ public class FileListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
         // TODO
-        mBreadcrumbLayout.setItems(Arrays.asList("root/storage/emulated/0/Music".split("/")));
+        List<String> items = Arrays.asList("root/storage/emulated/0/Music".split("/"));
+        mBreadcrumbLayout.setItems(items, items.size() - 1);
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
         mFileList.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this::onFileSelected);
@@ -133,9 +134,12 @@ public class FileListFragment extends Fragment {
 
     private void onListableFileSelected(File file) {
         List<PathHistory.Segment> segments = file.makePathSegments();
-        mViewModel.getPathHistory().push(segments);
+        PathHistory pathHistory = mViewModel.getPathHistory();
+        pathHistory.push(segments);
+        PathHistory.Path path = pathHistory.peek();
+        mBreadcrumbLayout.setItems(Functional.map(path.segments, segment -> segment.title),
+                path.index);
         mViewModel.setPath(file.getPath());
-        mBreadcrumbLayout.setItems(Functional.map(segments, segment -> segment.title));
     }
 
     private void onFileChanged(File file) {
