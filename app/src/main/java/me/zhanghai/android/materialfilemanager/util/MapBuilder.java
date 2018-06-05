@@ -8,13 +8,13 @@ package me.zhanghai.android.materialfilemanager.util;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.util.ArrayMap;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
 
+@SuppressWarnings("unused")
 public class MapBuilder<K, V, M extends Map<K, V>> {
 
     private M mMap;
@@ -95,8 +95,8 @@ public class MapBuilder<K, V, M extends Map<K, V>> {
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
-    public MapBuilder<K, V, M> merge(K key, V value,
-                                  BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+    public MapBuilder<K, V, M> merge(
+            K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
         mMap.merge(key, value, remappingFunction);
         return this;
     }

@@ -40,8 +40,12 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
                 }
             };
 
-    public FileListAdapter() {
+    private Listener mListener;
+
+    public FileListAdapter(Listener listener) {
         super(sDiffCallback);
+
+        mListener = listener;
     }
 
     @NonNull
@@ -56,10 +60,12 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         holder.iconImage.setImageDrawable(AppCompatResources.getDrawable(
                 holder.iconImage.getContext(), R.drawable.directory_icon_white_40dp));
         holder.nameText.setText(file.getName());
-        holder.descriptionText.setText(file.getType().name());
-        holder.itemView.setOnClickListener(view -> {
-            // TODO
-        });
+        holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
+        holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
+    }
+
+    public interface Listener {
+        void onFileSelected(File file);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -11,6 +11,12 @@
 
     <string name="search">Search</string>
 
+    <string name="file_description_directory">Directory</string>
+    <plurals name="file_description_directory_subdirectory_count_format">
+        <item quantity="one">%1$d subdirectory</item>
+        <item quantity="other">%1$d subdirectories</item>
+    </plurals>
+
     <string name="main_title">Files</string>
     <plurals name="main_subtitle_directory_count_format">
         <item quantity="one">%1$d directory</item>

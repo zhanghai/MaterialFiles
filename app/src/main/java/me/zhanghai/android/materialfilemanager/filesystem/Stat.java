@@ -46,7 +46,7 @@ public class Stat {
                     .buildUnmodifiable();
 
     public static String makeCommand(Iterable<String> paths) {
-        return "stat -c '%A %u %U %g %G %s %X %Y %Z' " + StringCompat.join(" ", Functional.map(
+        return "stat -c '%A %h %u %U %g %G %s %X %Y %Z' " + StringCompat.join(" ", Functional.map(
                 paths, StringEscapeUtils::escapeXSI));
     }
 
@@ -59,14 +59,15 @@ public class Stat {
         String[] fields = output.split(" ");
         information.type = parseType(fields[0].charAt(0));
         information.permissions = parsePermissions(fields[0].substring(1));
-        information.userId = Long.parseLong(fields[1]);
-        information.userName = fields[2];
-        information.groupId = Long.parseLong(fields[3]);
-        information.groupName = fields[4];
-        information.size = Long.parseLong(fields[5]);
-        information.lastAccess = Instant.ofEpochSecond(Long.parseLong(fields[6]));
-        information.lastModification = Instant.ofEpochSecond(Long.parseLong(fields[7]));
-        information.lastStatusChange = Instant.ofEpochSecond(Long.parseLong(fields[8]));
+        information.hardLinkCount = Long.parseLong(fields[1]);
+        information.userId = Long.parseLong(fields[2]);
+        information.userName = fields[3];
+        information.groupId = Long.parseLong(fields[4]);
+        information.groupName = fields[5];
+        information.size = Long.parseLong(fields[6]);
+        information.lastAccess = Instant.ofEpochSecond(Long.parseLong(fields[7]));
+        information.lastModification = Instant.ofEpochSecond(Long.parseLong(fields[8]));
+        information.lastStatusChange = Instant.ofEpochSecond(Long.parseLong(fields[9]));
         return information;
     }
 
@@ -90,6 +91,7 @@ public class Stat {
 
         public File.Type type;
         public Set<File.Permission> permissions;
+        public long hardLinkCount;
         public long userId;
         public String userName;
         public long groupId;

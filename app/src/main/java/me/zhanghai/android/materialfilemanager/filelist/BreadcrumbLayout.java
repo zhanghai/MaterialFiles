@@ -40,7 +40,10 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     private List<String> mItems = new ArrayList<>();
     private int mSelectedIndex;
 
-    private final Runnable mScrollToSelectedItemRunnable = () -> scrollToSelectedItem(false);
+    private boolean mIsLayoutDirty = true;
+    private boolean mScrollToSelectedItem;
+
+    private boolean mIsFirstScroll = true;
 
     public BreadcrumbLayout(Context context) {
         super(context);
@@ -100,6 +103,24 @@ public class BreadcrumbLayout extends HorizontalScrollView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    @Override
+    public void requestLayout() {
+        mIsLayoutDirty = true;
+
+        super.requestLayout();
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+
+        mIsLayoutDirty = false;
+        if (mScrollToSelectedItem) {
+            scrollToSelectedItem();
+            mScrollToSelectedItem = false;
+        }
+    }
+
     public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
         mOnItemSelectedListener = onItemSelectedListener;
     }
@@ -109,9 +130,6 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     public void setItems(List<String> items) {
-        if (mItems.equals(items)) {
-            return;
-        }
         boolean isPrefix = items.size() <= mItems.size() && Functional.every(items, (item, index) ->
                 TextUtils.equals(item, mItems.get(index)));
         if (!isPrefix) {
@@ -148,39 +166,34 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     private void onItemsChanged() {
         inflateItemViews();
         bindItemViews();
-        scrollToSelectedItem(false);
+        scrollToSelectedItem();
     }
 
     private void onSelectedIndexChanged() {
         bindItemViews();
-        scrollToSelectedItem(true);
-        if (mOnItemSelectedListener != null) {
-            mOnItemSelectedListener.onItemSelected(mSelectedIndex);
-        }
+        scrollToSelectedItem();
     }
 
-    private void scrollToSelectedItem(boolean smooth) {
-        if (!isLaidOut()) {
-            ViewUtils.removeOnPreDraw(this, mScrollToSelectedItemRunnable);
-            ViewUtils.postOnPreDraw(this, mScrollToSelectedItemRunnable);
+    private void scrollToSelectedItem() {
+        if (mIsLayoutDirty) {
+            mScrollToSelectedItem = true;
             return;
         }
-        ViewUtils.removeOnPreDraw(this, mScrollToSelectedItemRunnable);
-        smooth &= getVisibility() == VISIBLE;
         View selectedItemView = mItemsLayout.getChildAt(mSelectedIndex);
         int itemsPaddingStart = mItemsLayout.getPaddingStart();
         int scrollX = getLayoutDirection() == LAYOUT_DIRECTION_LTR ?
                 selectedItemView.getLeft() - itemsPaddingStart
                 : selectedItemView.getRight() - getWidth() + itemsPaddingStart;
-        if (smooth) {
+        if (!mIsFirstScroll && isShown()) {
             smoothScrollTo(scrollX, 0);
         } else {
             scrollTo(scrollX, 0);
         }
+        mIsFirstScroll = false;
     }
 
     private void inflateItemViews() {
-        for (int i = mItemsLayout.getChildCount(), size = mItems.size(); i >= size; --i) {
+        for (int i = mItemsLayout.getChildCount() - 1, size = mItems.size(); i >= size; --i) {
             mItemsLayout.removeViewAt(i);
         }
         for (int i = mItemsLayout.getChildCount(), size = mItems.size(); i < size; ++i) {
@@ -201,10 +214,13 @@ public class BreadcrumbLayout extends HorizontalScrollView {
             int index = i;
             holder.itemView.setOnClickListener(view -> {
                 if (mSelectedIndex == index) {
-                    scrollToSelectedItem(true);
+                    scrollToSelectedItem();
                     return;
                 }
                 setSelectedIndex(index);
+                if (mOnItemSelectedListener != null) {
+                    mOnItemSelectedListener.onItemSelected(mSelectedIndex);
+                }
             });
             holder.text.setText(item);
             ViewUtils.setVisibleOrGone(holder.arrowImage, i != last);

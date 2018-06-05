@@ -47,6 +47,8 @@ public class FileListFragment extends Fragment {
 
     private FileListAdapter mAdapter;
 
+    private FileViewModel mViewModel;
+
     public static FileListFragment newInstance() {
         //noinspection deprecation
         return new FileListFragment();
@@ -86,15 +88,17 @@ public class FileListFragment extends Fragment {
         activity.setSupportActionBar(mToolbar);
         // TODO
         mBreadcrumbLayout.setItems(Arrays.asList("root/storage/emulated/0/Music".split("/")));
+        mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
         mFileList.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
-        mAdapter = new FileListAdapter();
+        mAdapter = new FileListAdapter(this::onFileSelected);
         mFileList.setAdapter(mAdapter);
 
-        FileViewModel viewModel = ViewModelProviders.of(this).get(FileViewModel.class);
-        viewModel.getData().observe(this, this::onFileChanged);
+        mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
+        mViewModel.getFileData().observe(this, this::onFileChanged);
+
         // TODO: Request storage permission.
         // TODO
-        viewModel.setPath(Uri.parse("file:///storage/emulated/0/Music"));
+        mViewModel.setPath(Uri.parse("file:///storage/emulated/0/Music"));
     }
 
     @Override
@@ -113,6 +117,25 @@ public class FileListFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void onBreadcrumbItemSelected(int index) {
+        onListableFileSelected(mViewModel.getPathHistory().getFileAt(index));
+    }
+
+    private void onFileSelected(File file) {
+        if (file.isListable()) {
+            onListableFileSelected(file);
+        } else {
+            // TODO
+        }
+    }
+
+    private void onListableFileSelected(File file) {
+        List<PathHistory.Segment> segments = file.makePathSegments();
+        mViewModel.getPathHistory().push(segments);
+        mViewModel.setPath(file.getPath());
+        mBreadcrumbLayout.setItems(Functional.map(segments, segment -> segment.title));
     }
 
     private void onFileChanged(File file) {

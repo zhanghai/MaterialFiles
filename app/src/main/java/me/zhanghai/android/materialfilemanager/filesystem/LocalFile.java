@@ -5,14 +5,20 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
+import android.text.format.Formatter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
+import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.filelist.PathHistory;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class LocalFile extends BaseFile<Stat.Information> {
@@ -29,14 +35,15 @@ public class LocalFile extends BaseFile<Stat.Information> {
 
     @NonNull
     @Override
-    public Type getType() {
-        return mInformation.type;
-    }
-
-    @Override
-    public boolean isListable() {
-        // TODO
-        return mInformation.type == Type.DIRECTORY/* || mIsArchive*/;
+    public List<PathHistory.Segment> makePathSegments() {
+        List<PathHistory.Segment> path = new ArrayList<>();
+        java.io.File file = makeJavaFile();
+        while (file != null) {
+            path.add(new PathHistory.Segment(file.getName(), new LocalFile(Uri.fromFile(file))));
+            file = file.getParentFile();
+        }
+        Collections.reverse(path);
+        return path;
     }
 
     @WorkerThread
@@ -47,6 +54,37 @@ public class LocalFile extends BaseFile<Stat.Information> {
             // TODO
         }
         mInformation = Stat.parseOutput(outputs.get(0));
+    }
+
+    @NonNull
+    @Override
+    public String getDescription(Context context) {
+        if (mInformation.type == Type.DIRECTORY) {
+            long subdirectoryCount = mInformation.hardLinkCount - 2;
+            if (subdirectoryCount > 0) {
+                int quantity = (int) Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE,
+                        subdirectoryCount));
+                return context.getResources().getQuantityString(
+                        R.plurals.file_description_directory_subdirectory_count_format, quantity,
+                        subdirectoryCount);
+            } else {
+                return context.getString(R.string.file_description_directory);
+            }
+        } else {
+            return Formatter.formatFileSize(context, mInformation.size);
+        }
+    }
+
+    @NonNull
+    @Override
+    public Type getType() {
+        return mInformation.type;
+    }
+
+    @Override
+    public boolean isListable() {
+        // TODO
+        return mInformation.type == Type.DIRECTORY/* || mIsArchive*/;
     }
 
     @Override

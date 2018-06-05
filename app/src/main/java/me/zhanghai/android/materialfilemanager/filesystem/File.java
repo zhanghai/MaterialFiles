@@ -5,11 +5,14 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
 import java.util.List;
+
+import me.zhanghai.android.materialfilemanager.filelist.PathHistory;
 
 public interface File {
 
@@ -42,12 +45,18 @@ public interface File {
     Uri getPath();
 
     @NonNull
+    List<PathHistory.Segment> makePathSegments();
+
+    @NonNull
     default String getName() {
         return getPath().getLastPathSegment();
     }
 
     @WorkerThread
     void loadInformation();
+
+    @NonNull
+    String getDescription(Context context);
 
     @NonNull
     Type getType();

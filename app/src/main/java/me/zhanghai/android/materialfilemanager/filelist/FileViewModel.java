@@ -15,14 +15,19 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class FileViewModel extends ViewModel {
 
-    private MutableLiveData<Uri> mPath = new MutableLiveData<>();
-    private LiveData<File> mFile = Transformations.switchMap(mPath, FileLiveData::new);
+    private PathHistory mPathHistory = new PathHistory();
+    private MutableLiveData<Uri> mPathData = new MutableLiveData<>();
+    private LiveData<File> mFileData = Transformations.switchMap(mPathData, FileLiveData::new);
 
-    public void setPath(Uri path) {
-        mPath.setValue(path);
+    public PathHistory getPathHistory() {
+        return mPathHistory;
     }
 
-    public LiveData<File> getData() {
-        return mFile;
+    public void setPath(Uri path) {
+        mPathData.setValue(path);
+    }
+
+    public LiveData<File> getFileData() {
+        return mFileData;
     }
 }
