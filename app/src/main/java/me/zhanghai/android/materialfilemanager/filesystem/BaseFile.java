@@ -11,10 +11,9 @@ import android.support.annotation.NonNull;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class BaseFile<I> implements File {
+public abstract class BaseFile implements File {
 
     protected Uri mPath;
-    protected I mInformation;
     protected List<File> mFileList;
 
     public BaseFile(Uri path) {
@@ -32,7 +31,6 @@ public abstract class BaseFile<I> implements File {
         return mFileList;
     }
 
-    // TODO: Only consider mPath? so that PathHistory works?
     @Override
     public boolean equals(Object object) {
         if (this == object) {
@@ -41,12 +39,12 @@ public abstract class BaseFile<I> implements File {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        LocalFile that = (LocalFile) object;
-        return Objects.equals(mPath, that.mPath) && Objects.equals(mInformation, that.mInformation);
+        BaseFile that = (BaseFile) object;
+        return Objects.equals(mPath, that.mPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPath, mInformation);
+        return Objects.hash(mPath);
     }
 }

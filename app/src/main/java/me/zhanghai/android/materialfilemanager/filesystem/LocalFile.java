@@ -20,7 +20,9 @@ import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
-public class LocalFile extends BaseFile<Stat.Information> {
+public class LocalFile extends BaseFile {
+
+    private Stat.Information mInformation;
 
     public LocalFile(Uri path) {
         super(path);
