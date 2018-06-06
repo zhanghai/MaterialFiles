@@ -79,7 +79,7 @@ public interface File {
         if (isDirectory()) {
             return DocumentsContract.Document.MIME_TYPE_DIR;
         }
-        return MimeTypes.getMimeType(getPath().toString());
+        return MimeTypes.getMimeType(getPath());
     }
 
     boolean isListable();

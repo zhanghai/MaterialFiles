@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
+import android.net.Uri;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -17,6 +18,10 @@ public class MimeTypes {
             mimeType = "application/octet-stream";
         }
         return mimeType;
+    }
+
+    public static String getMimeType(Uri uri) {
+        return getMimeType(uri.toString());
     }
 
     public static int getIconRes(String mimeType) {

@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
+import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolder> {
@@ -72,7 +73,7 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
                 holder.iconImage.getContext()));
         holder.iconImage.setImageDrawable(icon);
         if (MimeTypes.supportsThumbnail(mimeType)) {
-            Glide.with(mFragment)
+            GlideApp.with(mFragment)
                     .load(file.getPath())
                     .into(holder.iconImage);
         }
