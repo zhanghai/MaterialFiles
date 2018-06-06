@@ -75,7 +75,7 @@ class MimeTypeIcons {
                     .put("application/x-webarchive", Icons.ARCHIVE)
                     .put("application/x-webarchive-xml", Icons.ARCHIVE)
 
-
+                    .put("application/ogg", Icons.AUDIO)
                     .put("application/x-flac", Icons.AUDIO)
 
                     .put("application/epub+zip", Icons.BOOK)
@@ -188,7 +188,6 @@ class MimeTypeIcons {
                     .put("application/json", Icons.TEXT)
                     .put("application/typescript", Icons.TEXT)
 
-                    .put("application/ogg", Icons.VIDEO)
                     .put("application/x-quicktimeplayer", Icons.VIDEO)
                     .put("application/x-shockwave-flash", Icons.VIDEO)
 

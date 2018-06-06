@@ -93,7 +93,7 @@ public class FileListFragment extends Fragment {
 
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
         mFileList.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
-        mAdapter = new FileListAdapter(this::onFileSelected);
+        mAdapter = new FileListAdapter(this, this::onFileSelected);
         mFileList.setAdapter(mAdapter);
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
@@ -102,9 +102,10 @@ public class FileListFragment extends Fragment {
         // TODO: Request storage permission.
 
         // TODO
-        File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Music")));
-        mViewModel.getPathHistory().push(file.makeFilePath());
-        onPathChanged();
+        if (savedInstanceState == null) {
+            File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Music")));
+            mViewModel.pushPath(file.makeFilePath());
+        }
     }
 
     @Override
@@ -126,20 +127,16 @@ public class FileListFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
-        boolean wentBack = mViewModel.getPathHistory().pop();
-        if (wentBack) {
-            onPathChanged();
-        }
-        return wentBack;
+        return mViewModel.popPath();
     }
 
     private void onBreadcrumbItemSelected(int index) {
-        onListableFileSelected(mViewModel.getPathHistory().getTrail().get(index));
+        navigateToFile(mViewModel.getTrail().get(index));
     }
 
     private void onFileSelected(File file) {
         if (file.isListable()) {
-            onListableFileSelected(file);
+            navigateToFile(file);
             return;
         }
         Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(file.makeJavaFile()),
@@ -149,20 +146,17 @@ public class FileListFragment extends Fragment {
         AppUtils.startActivity(intent, requireContext());
     }
 
-    private void onListableFileSelected(File file) {
-        mViewModel.getPathHistory().push(file.makeFilePath());
-        onPathChanged();
-    }
-
-    private void onPathChanged() {
-        PathHistory pathHistory = mViewModel.getPathHistory();
-        List<File> path = pathHistory.getTrail();
-        mBreadcrumbLayout.setItems(Functional.map(path, file -> file.getName(
-                mBreadcrumbLayout.getContext())), pathHistory.getTrailIndex());
-        mViewModel.setPath(pathHistory.getCurrentFile().getPath());
+    private void navigateToFile(File file) {
+        mViewModel.pushPath(file.makeFilePath());
     }
 
     private void onFileChanged(File file) {
+        updateSubtitle(file);
+        updateBreadcrumbLayout();
+        mAdapter.submitList(file.getFileList());
+    }
+
+    private void updateSubtitle(File file) {
         List<File> files = file.getFileList();
         int directoryCount = Functional.reduce(files, (count, file_) -> file_.isDirectory() ?
                 count + 1 : count, 0);
@@ -185,6 +179,11 @@ public class FileListFragment extends Fragment {
             subtitle = getString(R.string.main_subtitle_empty);
         }
         mToolbar.setSubtitle(subtitle);
-        mAdapter.submitList(files);
+    }
+
+    private void updateBreadcrumbLayout() {
+        List<File> trail = mViewModel.getTrail();
+        mBreadcrumbLayout.setItems(Functional.map(trail, file -> file.getName(
+                mBreadcrumbLayout.getContext())), mViewModel.getTrailIndex());
     }
 }

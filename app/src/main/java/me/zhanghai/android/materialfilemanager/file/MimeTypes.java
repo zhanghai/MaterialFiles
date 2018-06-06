@@ -22,4 +22,9 @@ public class MimeTypes {
     public static int getIconRes(String mimeType) {
         return MimeTypeIcons.get(mimeType);
     }
+
+    public static boolean supportsThumbnail(String mimeType) {
+        return mimeType.startsWith("image/") || mimeType.startsWith("video/")
+                || mimeType.equals("application/vnd.android.package-archive");
+    }
 }

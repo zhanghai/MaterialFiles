@@ -29,8 +29,7 @@
             android:layout_marginEnd="@dimen/screen_edge_margin_minus_4dp"
             android:layout_marginTop="@dimen/touch_target_large_icon_padding_negative"
             android:layout_marginBottom="@dimen/touch_target_large_icon_padding_negative"
-            android:padding="@dimen/touch_target_large_icon_padding"
-            android:tint="?colorControlNormal" />
+            android:padding="@dimen/touch_target_large_icon_padding" />
 
         <LinearLayout
             android:layout_width="0dp"

@@ -5,7 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Objects;
 
@@ -41,11 +45,13 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
                 }
             };
 
+    private Fragment mFragment;
     private Listener mListener;
 
-    public FileListAdapter(Listener listener) {
+    public FileListAdapter(Fragment fragment, Listener listener) {
         super(sDiffCallback);
 
+        mFragment = fragment;
         mListener = listener;
     }
 
@@ -58,8 +64,18 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         File file = getItem(position);
-        holder.iconImage.setImageDrawable(AppCompatResources.getDrawable(
-                holder.iconImage.getContext(), MimeTypes.getIconRes(file.getMimeType())));
+        String mimeType = file.getMimeType();
+        Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
+                MimeTypes.getIconRes(mimeType));
+        icon.mutate();
+        icon.setTintList(ViewUtils.getColorStateListFromAttrRes(R.attr.colorControlNormal,
+                holder.iconImage.getContext()));
+        holder.iconImage.setImageDrawable(icon);
+        if (MimeTypes.supportsThumbnail(mimeType)) {
+            Glide.with(mFragment)
+                    .load(file.getPath())
+                    .into(holder.iconImage);
+        }
         holder.nameText.setText(file.getName(holder.nameText.getContext()));
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
