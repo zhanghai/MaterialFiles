@@ -9,15 +9,28 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
+import java.util.Map;
+
+import me.zhanghai.android.materialfilemanager.util.MapBuilder;
+
 public class MimeTypes {
+
+    private static final Map<String, String> sExtensionToMimeTypeMap =
+            MapBuilder.<String, String>newHashMap()
+                    .put("json", "application/json")
+                    .buildUnmodifiable();
 
     public static String getMimeType(String url) {
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
         String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
-        if (TextUtils.isEmpty(mimeType)) {
-            mimeType = "application/octet-stream";
+        if (!TextUtils.isEmpty(mimeType)) {
+            return mimeType;
         }
-        return mimeType;
+        mimeType = sExtensionToMimeTypeMap.get(extension);
+        if (!TextUtils.isEmpty(mimeType)) {
+            return mimeType;
+        }
+        return "application/octet-stream";
     }
 
     public static String getMimeType(Uri uri) {

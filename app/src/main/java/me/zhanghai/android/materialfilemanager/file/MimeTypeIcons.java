@@ -39,15 +39,6 @@ class MimeTypeIcons {
         int VIDEO = R.drawable.file_video_icon_white_40dp;
     }
 
-    private static final Map<String, Integer> sTypeToIconMap =
-            MapBuilder.<String, Integer>newHashMap()
-                    .put("audio", Icons.AUDIO)
-                    .put("font", Icons.FONT)
-                    .put("image", Icons.IMAGE)
-                    .put("text", Icons.TEXT)
-                    .put("video", Icons.VIDEO)
-                    .buildUnmodifiable();
-
     private static final Map<String, Integer> sMimeTypeToIconMap =
             MapBuilder.<String, Integer>newHashMap()
 
@@ -98,6 +89,7 @@ class MimeTypeIcons {
                     .put("application/ecmascript", Icons.CODE)
                     .put("application/javascript", Icons.CODE)
                     .put("application/json", Icons.CODE)
+                    .put("application/typescript", Icons.CODE)
                     .put("application/xml", Icons.CODE)
                     .put("application/x-csh", Icons.CODE)
                     .put("application/x-javascript", Icons.CODE)
@@ -183,14 +175,18 @@ class MimeTypeIcons {
                     .put("application/vnd.sun.xml.calc.template", Icons.SPREADSHEET)
                     .put("application/x-kspread", Icons.SPREADSHEET)
 
-                    .put("application/ecmascript", Icons.TEXT)
-                    .put("application/javascript", Icons.TEXT)
-                    .put("application/json", Icons.TEXT)
-                    .put("application/typescript", Icons.TEXT)
-
                     .put("application/x-quicktimeplayer", Icons.VIDEO)
                     .put("application/x-shockwave-flash", Icons.VIDEO)
 
+                    .buildUnmodifiable();
+
+    private static final Map<String, Integer> sTypeToIconMap =
+            MapBuilder.<String, Integer>newHashMap()
+                    .put("audio", Icons.AUDIO)
+                    .put("font", Icons.FONT)
+                    .put("image", Icons.IMAGE)
+                    .put("text", Icons.TEXT)
+                    .put("video", Icons.VIDEO)
                     .buildUnmodifiable();
 
     private static final Map<String, Integer> sSuffixToIconMap =
@@ -206,7 +202,10 @@ class MimeTypeIcons {
         if (TextUtils.isEmpty(mimeType)) {
             return Icons.GENERIC;
         }
-        Integer icon;
+        Integer icon = sMimeTypeToIconMap.get(mimeType);
+        if (icon != null) {
+            return icon;
+        }
         int firstSlashIndex = mimeType.indexOf('/');
         if (firstSlashIndex != -1) {
             String type = mimeType.substring(0, mimeType.indexOf('/'));
@@ -214,10 +213,6 @@ class MimeTypeIcons {
             if (icon != null) {
                 return icon;
             }
-        }
-        icon = sMimeTypeToIconMap.get(mimeType);
-        if (icon != null) {
-            return icon;
         }
         int lastPlusIndex = mimeType.lastIndexOf('+');
         if (lastPlusIndex != -1 && lastPlusIndex + 1 < mimeType.length()) {
