@@ -10,10 +10,13 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
+import android.text.TextUtils;
 
 import java.util.List;
 
+import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
+import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 
 public interface File {
 
@@ -49,8 +52,12 @@ public interface File {
     List<File> makeFilePath();
 
     @NonNull
-    default String getName() {
-        return getPath().getLastPathSegment();
+    default String getName(Context context) {
+        List<String> segments = getPath().getPathSegments();
+        if (!segments.isEmpty()) {
+            return CollectionUtils.last(segments);
+        }
+        return context.getString(R.string.file_name_root);
     }
 
     @WorkerThread

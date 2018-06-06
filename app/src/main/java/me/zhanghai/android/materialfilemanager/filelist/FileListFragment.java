@@ -157,8 +157,8 @@ public class FileListFragment extends Fragment {
     private void onPathChanged() {
         PathHistory pathHistory = mViewModel.getPathHistory();
         List<File> path = pathHistory.getTrail();
-        mBreadcrumbLayout.setItems(Functional.map(path, File::getName),
-                pathHistory.getTrailIndex());
+        mBreadcrumbLayout.setItems(Functional.map(path, file -> file.getName(
+                mBreadcrumbLayout.getContext())), pathHistory.getTrailIndex());
         mViewModel.setPath(pathHistory.getCurrentFile().getPath());
     }
 

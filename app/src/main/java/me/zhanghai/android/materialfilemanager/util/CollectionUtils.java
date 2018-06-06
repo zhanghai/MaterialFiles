@@ -18,6 +18,14 @@ public class CollectionUtils {
 
     private CollectionUtils() {}
 
+    public static <E> E first(List<? extends E> list) {
+        return list.get(0);
+    }
+
+    public static <E> E last(List<? extends E> list) {
+        return list.get(list.size() - 1);
+    }
+
     public static <E> E firstOrNull(List<? extends E> list) {
         return getOrNull(list, 0);
     }

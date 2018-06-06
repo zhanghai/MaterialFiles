@@ -60,7 +60,7 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         File file = getItem(position);
         holder.iconImage.setImageDrawable(AppCompatResources.getDrawable(
                 holder.iconImage.getContext(), MimeTypes.getIconRes(file.getMimeType())));
-        holder.nameText.setText(file.getName());
+        holder.nameText.setText(file.getName(holder.nameText.getContext()));
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
     }
