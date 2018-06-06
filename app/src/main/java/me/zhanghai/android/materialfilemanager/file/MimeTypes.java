@@ -5,13 +5,18 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
+import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 public class MimeTypes {
 
     public static String getMimeType(String url) {
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);
-        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        if (TextUtils.isEmpty(mimeType)) {
+            mimeType = "application/octet-stream";
+        }
+        return mimeType;
     }
 
     public static int getIconRes(String mimeType) {

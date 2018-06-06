@@ -47,7 +47,7 @@ public class Stat {
 
     public static String makeCommand(Iterable<String> paths) {
         return "stat -c '%A %h %u %U %g %G %s %X %Y %Z' " + StringCompat.join(" ", Functional.map(
-                paths, StringEscapeUtils::escapeXSI));
+                paths, ShellEscaper::escape));
     }
 
     public static String makeCommand(String... paths) {

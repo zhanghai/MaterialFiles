@@ -10,6 +10,8 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import eu.chainfire.libsuperuser.Debug;
+
 public class AppApplication extends Application {
 
     private static AppApplication sInstance;
@@ -25,6 +27,10 @@ public class AppApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        if (BuildConfig.DEBUG) {
+            Debug.setDebug(true);
+        }
 
         // TODO
         //NightModeHelper.setup(this);
