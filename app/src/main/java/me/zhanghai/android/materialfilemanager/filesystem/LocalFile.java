@@ -122,7 +122,9 @@ public class LocalFile extends BaseFile<Stat.Information> {
         // TODO
     }
 
-    private java.io.File makeJavaFile() {
+    @NonNull
+    @Override
+    public java.io.File makeJavaFile() {
         return new java.io.File(mPath.getPath());
     }
 }

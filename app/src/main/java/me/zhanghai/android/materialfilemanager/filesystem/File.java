@@ -14,7 +14,7 @@ import android.support.annotation.WorkerThread;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filelist.PathHistory;
-import me.zhanghai.android.materialfilemanager.mimetype.MimeTypeUtils;
+import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 
 public interface File {
 
@@ -73,7 +73,7 @@ public interface File {
         if (isDirectory()) {
             return DocumentsContract.Document.MIME_TYPE_DIR;
         }
-        return MimeTypeUtils.getMimeType(getPath().toString());
+        return MimeTypes.getMimeType(getPath().toString());
     }
 
     boolean isListable();
@@ -83,6 +83,9 @@ public interface File {
 
     @NonNull
     List<File> getFileList();
+
+    @NonNull
+    java.io.File makeJavaFile();
 
     boolean equals(Object object);
 

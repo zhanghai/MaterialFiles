@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.materialfilemanager.mimetype;
+package me.zhanghai.android.materialfilemanager.file;
 
 import android.provider.DocumentsContract;
 

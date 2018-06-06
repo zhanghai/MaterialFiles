@@ -3,11 +3,11 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.materialfilemanager.mimetype;
+package me.zhanghai.android.materialfilemanager.file;
 
 import android.webkit.MimeTypeMap;
 
-public class MimeTypeUtils {
+public class MimeTypes {
 
     public static String getMimeType(String url) {
         String extension = MimeTypeMap.getFileExtensionFromUrl(url);

@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
@@ -141,8 +143,11 @@ public class FileListFragment extends Fragment {
             onListableFileSelected(file);
             return;
         }
-        AppUtils.startActivity(IntentUtils.makeView(file.getPath(), file.getMimeType()),
-                requireContext());
+        Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(file.makeJavaFile()),
+                file.getMimeType())
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        AppUtils.startActivity(intent, requireContext());
     }
 
     private void onListableFileSelected(File file) {

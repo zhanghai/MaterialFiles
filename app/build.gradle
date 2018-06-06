@@ -13,6 +13,8 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0.0"
+        buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
+        resValue 'string', 'file_provider_authority', applicationId + '.file_provider'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

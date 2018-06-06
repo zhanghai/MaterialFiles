@@ -115,8 +115,9 @@ public class IntentUtils {
     }
 
     public static Intent makeView(Uri uri, String type) {
-        return makeView(uri)
-                .setType(type);
+        return new Intent(Intent.ACTION_VIEW)
+                // Calling setType() will clear data.
+                .setDataAndType(uri, type);
     }
 
     public static Intent makeViewAppInMarket(String packageName) {
