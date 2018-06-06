@@ -12,6 +12,8 @@ import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MainFragment mMainFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +22,18 @@ public class MainActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            FragmentUtils.add(MainFragment.newInstance(), this, android.R.id.content);
+            mMainFragment = MainFragment.newInstance();
+            FragmentUtils.add(mMainFragment, this, android.R.id.content);
+        } else {
+            mMainFragment = FragmentUtils.findById(this, android.R.id.content);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mMainFragment.onBackPressed()) {
+            return;
+        }
+        super.onBackPressed();
     }
 }

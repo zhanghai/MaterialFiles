@@ -15,7 +15,7 @@
     android:fitsSystemWindows="true">
 
     <fragment
-        android:id="@+id/directory_fragment"
+        android:id="@+id/file_list_fragment"
         android:name="me.zhanghai.android.materialfilemanager.filelist.FileListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

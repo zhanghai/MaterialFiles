@@ -17,12 +17,8 @@ public class PathHistory {
 
     private List<Path> mHistory = new ArrayList<>();
 
-    public Path peek() {
-        return CollectionUtils.lastOrNull(mHistory);
-    }
-
     public void push(List<Segment> segments) {
-        Path lastPath = peek();
+        Path lastPath = getCurrent();
         List<Segment> lastSegments = lastPath != null ? lastPath.segments : null;
         boolean isPrefix = lastSegments != null && segments.size() <= lastSegments.size()
                 && Functional.every(segments, (segment, index) -> segment.equals(lastSegments.get(
@@ -31,12 +27,25 @@ public class PathHistory {
         CollectionUtils.push(mHistory, path);
     }
 
-    public void pop() {
-        CollectionUtils.popOrNull(mHistory);
+    public boolean goBack() {
+        if (mHistory.size() <= 1) {
+            return false;
+        }
+        CollectionUtils.pop(mHistory);
+        return true;
+    }
+
+    public Path getCurrent() {
+        return CollectionUtils.lastOrNull(mHistory);
+    }
+
+    public File getCurrentFile() {
+        Path path = getCurrent();
+        return path.segments.get(path.index).file;
     }
 
     public File getFileAt(int index) {
-        return peek().segments.get(index).file;
+        return getCurrent().segments.get(index).file;
     }
 
     public static class Path {

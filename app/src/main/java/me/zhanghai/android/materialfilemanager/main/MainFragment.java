@@ -19,11 +19,15 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.filelist.FileListFragment;
+import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
 public class MainFragment extends Fragment {
 
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
+
+    private FileListFragment mFileListFragment;
 
     public static MainFragment newInstance() {
         //noinspection deprecation
@@ -54,6 +58,8 @@ public class MainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
+
+        mFileListFragment = FragmentUtils.findById(this, R.id.file_list_fragment);
     }
 
     @Override
@@ -65,5 +71,9 @@ public class MainFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public boolean onBackPressed() {
+        return mFileListFragment.onBackPressed();
     }
 }

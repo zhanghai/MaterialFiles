@@ -32,7 +32,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.util.AppUtils;
+import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 
 public class FileListFragment extends Fragment {
 
@@ -86,9 +89,7 @@ public class FileListFragment extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
-        // TODO
-        List<String> items = Arrays.asList("root/storage/emulated/0/Music".split("/"));
-        mBreadcrumbLayout.setItems(items, items.size() - 1);
+
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
         mFileList.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this::onFileSelected);
@@ -98,8 +99,11 @@ public class FileListFragment extends Fragment {
         mViewModel.getFileData().observe(this, this::onFileChanged);
 
         // TODO: Request storage permission.
+
         // TODO
-        mViewModel.setPath(Uri.parse("file:///storage/emulated/0/Music"));
+        File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Music")));
+        mViewModel.getPathHistory().push(file.makePathSegments());
+        onPathChanged();
     }
 
     @Override
@@ -120,6 +124,14 @@ public class FileListFragment extends Fragment {
         }
     }
 
+    public boolean onBackPressed() {
+        boolean wentBack = mViewModel.getPathHistory().goBack();
+        if (wentBack) {
+            onPathChanged();
+        }
+        return wentBack;
+    }
+
     private void onBreadcrumbItemSelected(int index) {
         onListableFileSelected(mViewModel.getPathHistory().getFileAt(index));
     }
@@ -127,19 +139,24 @@ public class FileListFragment extends Fragment {
     private void onFileSelected(File file) {
         if (file.isListable()) {
             onListableFileSelected(file);
-        } else {
-            // TODO
+            return;
         }
+        AppUtils.startActivity(IntentUtils.makeView(file.getPath(), file.getMimeType()),
+                requireContext());
     }
 
     private void onListableFileSelected(File file) {
         List<PathHistory.Segment> segments = file.makePathSegments();
+        mViewModel.getPathHistory().push(segments);
+        onPathChanged();
+    }
+
+    private void onPathChanged() {
         PathHistory pathHistory = mViewModel.getPathHistory();
-        pathHistory.push(segments);
-        PathHistory.Path path = pathHistory.peek();
+        PathHistory.Path path = pathHistory.getCurrent();
         mBreadcrumbLayout.setItems(Functional.map(path.segments, segment -> segment.title),
                 path.index);
-        mViewModel.setPath(file.getPath());
+        mViewModel.setPath(pathHistory.getCurrentFile().getPath());
     }
 
     private void onFileChanged(File file) {
