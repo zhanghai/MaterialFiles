@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.mimetype.MimeTypeUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolder> {
@@ -58,7 +59,7 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         File file = getItem(position);
         holder.iconImage.setImageDrawable(AppCompatResources.getDrawable(
-                holder.iconImage.getContext(), R.drawable.directory_icon_white_40dp));
+                holder.iconImage.getContext(), MimeTypeUtils.getIconRes(file.getMimeType())));
         holder.nameText.setText(file.getName());
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));

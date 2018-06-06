@@ -7,12 +7,14 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.content.Context;
 import android.net.Uri;
+import android.provider.DocumentsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filelist.PathHistory;
+import me.zhanghai.android.materialfilemanager.mimetype.MimeTypeUtils;
 
 public interface File {
 
@@ -64,6 +66,14 @@ public interface File {
     default boolean isDirectory() {
         // TODO: Or archive directory.
         return getType() == Type.DIRECTORY;
+    }
+
+    @NonNull
+    default String getMimeType() {
+        if (isDirectory()) {
+            return DocumentsContract.Document.MIME_TYPE_DIR;
+        }
+        return MimeTypeUtils.getMimeType(getPath().toString());
     }
 
     boolean isListable();
