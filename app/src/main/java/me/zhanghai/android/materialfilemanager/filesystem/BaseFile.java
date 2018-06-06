@@ -32,6 +32,7 @@ public abstract class BaseFile<I> implements File {
         return mFileList;
     }
 
+    // TODO: Only consider mPath? so that PathHistory works?
     @Override
     public boolean equals(Object object) {
         if (this == object) {

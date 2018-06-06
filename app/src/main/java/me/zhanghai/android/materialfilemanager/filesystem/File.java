@@ -13,7 +13,6 @@ import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
-import me.zhanghai.android.materialfilemanager.filelist.PathHistory;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 
 public interface File {
@@ -47,7 +46,7 @@ public interface File {
     Uri getPath();
 
     @NonNull
-    List<PathHistory.Segment> makePathSegments();
+    List<File> makeFilePath();
 
     @NonNull
     default String getName() {

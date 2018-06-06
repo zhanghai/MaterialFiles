@@ -16,10 +16,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import eu.chainfire.libsuperuser.Debug;
 import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.filelist.PathHistory;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class LocalFile extends BaseFile<Stat.Information> {
@@ -36,11 +34,11 @@ public class LocalFile extends BaseFile<Stat.Information> {
 
     @NonNull
     @Override
-    public List<PathHistory.Segment> makePathSegments() {
-        List<PathHistory.Segment> path = new ArrayList<>();
+    public List<File> makeFilePath() {
+        List<File> path = new ArrayList<>();
         java.io.File file = makeJavaFile();
         while (file != null) {
-            path.add(new PathHistory.Segment(file.getName(), new LocalFile(Uri.fromFile(file))));
+            path.add(new LocalFile(Uri.fromFile(file)));
             file = file.getParentFile();
         }
         Collections.reverse(path);
@@ -109,7 +107,6 @@ public class LocalFile extends BaseFile<Stat.Information> {
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
         // TODO: ARG_MAX
         String command = Stat.makeCommand(paths);
-        Debug.setDebug(true);
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
             // TODO

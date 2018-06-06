@@ -26,7 +26,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -104,7 +103,7 @@ public class FileListFragment extends Fragment {
 
         // TODO
         File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Music")));
-        mViewModel.getPathHistory().push(file.makePathSegments());
+        mViewModel.getPathHistory().push(file.makeFilePath());
         onPathChanged();
     }
 
@@ -127,7 +126,7 @@ public class FileListFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
-        boolean wentBack = mViewModel.getPathHistory().goBack();
+        boolean wentBack = mViewModel.getPathHistory().pop();
         if (wentBack) {
             onPathChanged();
         }
@@ -135,7 +134,7 @@ public class FileListFragment extends Fragment {
     }
 
     private void onBreadcrumbItemSelected(int index) {
-        onListableFileSelected(mViewModel.getPathHistory().getFileAt(index));
+        onListableFileSelected(mViewModel.getPathHistory().getTrail().get(index));
     }
 
     private void onFileSelected(File file) {
@@ -151,16 +150,15 @@ public class FileListFragment extends Fragment {
     }
 
     private void onListableFileSelected(File file) {
-        List<PathHistory.Segment> segments = file.makePathSegments();
-        mViewModel.getPathHistory().push(segments);
+        mViewModel.getPathHistory().push(file.makeFilePath());
         onPathChanged();
     }
 
     private void onPathChanged() {
         PathHistory pathHistory = mViewModel.getPathHistory();
-        PathHistory.Path path = pathHistory.getCurrent();
-        mBreadcrumbLayout.setItems(Functional.map(path.segments, segment -> segment.title),
-                path.index);
+        List<File> path = pathHistory.getTrail();
+        mBreadcrumbLayout.setItems(Functional.map(path, File::getName),
+                pathHistory.getTrailIndex());
         mViewModel.setPath(pathHistory.getCurrentFile().getPath());
     }
 

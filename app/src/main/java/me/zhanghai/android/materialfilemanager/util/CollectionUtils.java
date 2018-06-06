@@ -5,10 +5,14 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
+import android.support.v4.util.ObjectsCompat;
+
 import java.util.AbstractList;
 import java.util.Collection;
 import java.util.List;
 import java.util.RandomAccess;
+
+import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class CollectionUtils {
 
@@ -44,6 +48,11 @@ public class CollectionUtils {
 
     public static boolean isEmpty(Collection<?> collection) {
         return collection == null || collection.isEmpty();
+    }
+
+    public static boolean isPrefix(List<?> prefix, List<?> list) {
+        return prefix.size() <= list.size() && Functional.every(prefix,
+                (element, index) -> ObjectsCompat.equals(element, list.get(index)));
     }
 
     public static int size(Collection<?> collection) {
