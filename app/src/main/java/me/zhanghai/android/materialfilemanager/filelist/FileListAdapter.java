@@ -18,15 +18,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
+import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
@@ -68,14 +66,13 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         String mimeType = file.getMimeType();
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 MimeTypes.getIconRes(mimeType));
-        icon.mutate();
-        icon.setTintList(ViewUtils.getColorStateListFromAttrRes(R.attr.colorControlNormal,
-                holder.iconImage.getContext()));
-        holder.iconImage.setImageDrawable(icon);
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
                     .load(file.getPath())
+                    .placeholder(icon)
                     .into(holder.iconImage);
+        } else {
+            holder.iconImage.setImageDrawable(icon);
         }
         holder.nameText.setText(file.getName(holder.nameText.getContext()));
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));

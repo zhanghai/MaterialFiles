@@ -19,24 +19,24 @@ import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 class MimeTypeIcons {
 
     private interface Icons {
-        int APK = R.drawable.file_apk_icon_white_40dp;
-        int ARCHIVE = R.drawable.file_archive_icon_white_40dp;
-        int AUDIO = R.drawable.file_audio_icon_white_40dp;
-        int BOOK = R.drawable.file_book_icon_white_40dp;
-        int CALENDAR = R.drawable.file_calendar_icon_white_40dp;
-        int CERTIFICATE = R.drawable.file_certificate_icon_white_40dp;
-        int CODE = R.drawable.file_code_icon_white_40dp;
-        int CONTACT = R.drawable.file_contact_icon_white_40dp;
-        int DIRECTORY = R.drawable.directory_icon_white_40dp;
-        int DOCUMENT = R.drawable.file_document_icon_white_40dp;
-        int FONT = R.drawable.file_font_icon_white_40dp;
-        int GENERIC = R.drawable.file_icon_white_40dp;
-        int IMAGE = R.drawable.file_image_icon_white_40dp;
-        int PDF = R.drawable.file_pdf_icon_white_40dp;
-        int PRESENTATION = R.drawable.file_presentation_icon_white_40dp;
-        int SPREADSHEET = R.drawable.file_spreadsheet_icon_white_40dp;
-        int TEXT = R.drawable.file_text_icon_white_40dp;
-        int VIDEO = R.drawable.file_video_icon_white_40dp;
+        int APK = R.drawable.file_apk_icon_40dp;
+        int ARCHIVE = R.drawable.file_archive_icon_40dp;
+        int AUDIO = R.drawable.file_audio_icon_40dp;
+        int BOOK = R.drawable.file_book_icon_40dp;
+        int CALENDAR = R.drawable.file_calendar_icon_40dp;
+        int CERTIFICATE = R.drawable.file_certificate_icon_40dp;
+        int CODE = R.drawable.file_code_icon_40dp;
+        int CONTACT = R.drawable.file_contact_icon_40dp;
+        int DIRECTORY = R.drawable.directory_icon_40dp;
+        int DOCUMENT = R.drawable.file_document_icon_40dp;
+        int FONT = R.drawable.file_font_icon_40dp;
+        int GENERIC = R.drawable.file_icon_40dp;
+        int IMAGE = R.drawable.file_image_icon_40dp;
+        int PDF = R.drawable.file_pdf_icon_40dp;
+        int PRESENTATION = R.drawable.file_presentation_icon_40dp;
+        int SPREADSHEET = R.drawable.file_spreadsheet_icon_40dp;
+        int TEXT = R.drawable.file_text_icon_40dp;
+        int VIDEO = R.drawable.file_video_icon_40dp;
     }
 
     private static final Map<String, Integer> sMimeTypeToIconMap =
