@@ -103,7 +103,7 @@ public class FileListFragment extends Fragment {
 
         // TODO
         if (savedInstanceState == null) {
-            File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Music")));
+            File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Download")));
             mViewModel.pushPath(file.makeFilePath());
         }
     }
