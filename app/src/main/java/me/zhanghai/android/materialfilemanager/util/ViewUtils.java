@@ -18,6 +18,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.util.ObjectsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.animation.FastOutLinearInInterpolator;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v4.widget.DrawerLayout;
@@ -575,6 +576,36 @@ public class ViewUtils {
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) view.getLayoutParams();
         layoutParams.weight = weight;
         view.setLayoutParams(layoutParams);
+    }
+
+    public static void setPaddingStart(View view, int paddingStart) {
+        ViewCompat.setPaddingRelative(view, paddingStart, view.getPaddingTop(),
+                ViewCompat.getPaddingEnd(view), view.getPaddingBottom());
+    }
+
+    public static void setPaddingEnd(View view, int paddingEnd) {
+        ViewCompat.setPaddingRelative(view, ViewCompat.getPaddingStart(view), view.getPaddingTop(),
+                paddingEnd, view.getPaddingBottom());
+    }
+
+    public static void setPaddingLeft(View view, int paddingLeft) {
+        view.setPadding(paddingLeft, view.getPaddingTop(), view.getPaddingRight(),
+                view.getPaddingBottom());
+    }
+
+    public static void setPaddingRight(View view, int paddingRight) {
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), paddingRight,
+                view.getPaddingBottom());
+    }
+
+    public static void setPaddingTop(View view, int paddingTop) {
+        view.setPadding(view.getPaddingLeft(), paddingTop, view.getPaddingRight(),
+                view.getPaddingBottom());
+    }
+
+    public static void setPaddingBottom(View view, int paddingBottom) {
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
+                paddingBottom);
     }
 
     public static void setLayoutFullscreen(View view) {

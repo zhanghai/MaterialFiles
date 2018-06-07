@@ -38,6 +38,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
+import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListFragment extends Fragment {
 
@@ -96,10 +97,10 @@ public class FileListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
+        int contentLayoutInitialPaddingBottom = mContentLayout.getPaddingBottom();
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
-                mContentLayout.setPadding(mContentLayout.getPaddingLeft(),
-                        mContentLayout.getPaddingTop(), mContentLayout.getPaddingRight(),
-                        mAppBarLayout.getTotalScrollRange() + verticalOffset));
+                ViewUtils.setPaddingBottom(mContentLayout, contentLayoutInitialPaddingBottom
+                        + mAppBarLayout.getTotalScrollRange() + verticalOffset));
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this::onFileSelected);
