@@ -14,8 +14,9 @@ import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 
 // See also https://android.googlesource.com/platform/frameworks/base.git/+/master/core/java/com/android/internal/util/MimeIconUtils.java
-// See also http://www.iana.org/assignments/media-types/media-types.xhtml
 // See also https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types
+// See also http://www.iana.org/assignments/media-types/media-types.xhtml
+// See also /usr/share/mime/packages/freedesktop.org.xml
 class MimeTypeIcons {
 
     private interface Icons {
@@ -45,10 +46,13 @@ class MimeTypeIcons {
                     .put("application/vnd.android.package-archive", Icons.APK)
 
                     .put("application/gzip", Icons.ARCHIVE)
+                    // Not in IANA list, but Mozilla and Wikipedia say so.
                     .put("application/java-archive", Icons.ARCHIVE)
                     .put("application/mac-binhex40", Icons.ARCHIVE)
+                    // Not in IANA list, but AOSP MimeUtils says so.
                     .put("application/rar", Icons.ARCHIVE)
                     .put("application/zip", Icons.ARCHIVE)
+                    .put("application/vnd.debian.binary-package", Icons.ARCHIVE)
                     .put("application/x-7z-compressed", Icons.ARCHIVE)
                     .put("application/x-apple-diskimage", Icons.ARCHIVE)
                     .put("application/x-bzip", Icons.ARCHIVE)
@@ -57,6 +61,7 @@ class MimeTypeIcons {
                     .put("application/x-debian-package", Icons.ARCHIVE)
                     .put("application/x-gtar", Icons.ARCHIVE)
                     .put("application/x-iso9660-image", Icons.ARCHIVE)
+                    .put("application/x-java-archive", Icons.ARCHIVE)
                     .put("application/x-lha", Icons.ARCHIVE)
                     .put("application/x-lzh", Icons.ARCHIVE)
                     .put("application/x-lzx", Icons.ARCHIVE)
@@ -65,12 +70,14 @@ class MimeTypeIcons {
                     .put("application/x-tar", Icons.ARCHIVE)
                     .put("application/x-webarchive", Icons.ARCHIVE)
                     .put("application/x-webarchive-xml", Icons.ARCHIVE)
+                    .put("application/vnd.rar", Icons.ARCHIVE)
 
                     .put("application/ogg", Icons.AUDIO)
                     .put("application/x-flac", Icons.AUDIO)
 
                     .put("application/epub+zip", Icons.BOOK)
                     .put("application/vnd.amazon.ebook", Icons.BOOK)
+                    .put("application/x-mobipocket-ebook", Icons.BOOK)
 
                     .put("text/calendar", Icons.CALENDAR)
                     .put("text/x-vcalendar", Icons.CALENDAR)
@@ -84,6 +91,7 @@ class MimeTypeIcons {
                     .put("application/x-pkcs7-mime", Icons.CERTIFICATE)
                     .put("application/x-pkcs7-signature", Icons.CERTIFICATE)
                     .put("application/x-x509-ca-cert", Icons.CERTIFICATE)
+                    .put("application/x-x509-server-cert", Icons.CERTIFICATE)
                     .put("application/x-x509-user-cert", Icons.CERTIFICATE)
 
                     .put("application/ecmascript", Icons.CODE)
@@ -95,6 +103,7 @@ class MimeTypeIcons {
                     .put("application/x-javascript", Icons.CODE)
                     .put("application/x-latex", Icons.CODE)
                     .put("application/x-sh", Icons.CODE)
+                    .put("application/x-shellscript", Icons.CODE)
                     .put("application/x-texinfo", Icons.CODE)
                     .put("application/x-yaml", Icons.CODE)
                     .put("text/css", Icons.CODE)
@@ -137,6 +146,7 @@ class MimeTypeIcons {
                     .put("application/vnd.sun.xml.writer.template", Icons.DOCUMENT)
                     .put("application/x-abiword", Icons.DOCUMENT)
                     .put("application/x-kword", Icons.DOCUMENT)
+                    .put("text/rtf", Icons.DOCUMENT)
 
                     .put("application/font-woff", Icons.FONT)
                     .put("application/vnd.ms-fontobject", Icons.FONT)
