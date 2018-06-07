@@ -39,6 +39,9 @@ class MimeTypeIcons {
         int SPREADSHEET = R.drawable.file_spreadsheet_icon_40dp;
         int TEXT = R.drawable.file_text_icon_40dp;
         int VIDEO = R.drawable.file_video_icon_40dp;
+        int WORD = R.drawable.file_word_icon_40dp;
+        int EXCEL = R.drawable.file_excel_icon_40dp;
+        int POWERPOINT = R.drawable.file_powerpoint_icon_40dp;
     }
 
     private static final Map<String, Integer> sMimeTypeToIconMap =
@@ -138,14 +141,11 @@ class MimeTypeIcons {
                     .put("inode/directory", Icons.DIRECTORY)
                     .put(DocumentsContract.Document.MIME_TYPE_DIR, Icons.DIRECTORY)
 
-                    .put("application/msword", Icons.DOCUMENT)
                     .put("application/rtf", Icons.DOCUMENT)
                     .put("application/vnd.oasis.opendocument.text", Icons.DOCUMENT)
                     .put("application/vnd.oasis.opendocument.text-master", Icons.DOCUMENT)
                     .put("application/vnd.oasis.opendocument.text-template", Icons.DOCUMENT)
                     .put("application/vnd.oasis.opendocument.text-web", Icons.DOCUMENT)
-                    .put("application/vnd.openxmlformats-officedocument.wordprocessingml.document", Icons.DOCUMENT)
-                    .put("application/vnd.openxmlformats-officedocument.wordprocessingml.template", Icons.DOCUMENT)
                     .put("application/vnd.stardivision.writer", Icons.DOCUMENT)
                     .put("application/vnd.stardivision.writer-global", Icons.DOCUMENT)
                     .put("application/vnd.sun.xml.writer", Icons.DOCUMENT)
@@ -179,22 +179,15 @@ class MimeTypeIcons {
 
                     .put("application/pdf", Icons.PDF)
 
-                    .put("application/vnd.ms-powerpoint", Icons.PRESENTATION)
                     .put("application/vnd.oasis.opendocument.presentation", Icons.PRESENTATION)
                     .put("application/vnd.oasis.opendocument.presentation-template", Icons.PRESENTATION)
-                    .put("application/vnd.openxmlformats-officedocument.presentationml.presentation", Icons.PRESENTATION)
-                    .put("application/vnd.openxmlformats-officedocument.presentationml.slideshow", Icons.PRESENTATION)
-                    .put("application/vnd.openxmlformats-officedocument.presentationml.template", Icons.PRESENTATION)
                     .put("application/vnd.stardivision.impress", Icons.PRESENTATION)
                     .put("application/vnd.sun.xml.impress", Icons.PRESENTATION)
                     .put("application/vnd.sun.xml.impress.template", Icons.PRESENTATION)
                     .put("application/x-kpresenter", Icons.PRESENTATION)
 
-                    .put("application/vnd.ms-excel", Icons.SPREADSHEET)
                     .put("application/vnd.oasis.opendocument.spreadsheet", Icons.SPREADSHEET)
                     .put("application/vnd.oasis.opendocument.spreadsheet-template", Icons.SPREADSHEET)
-                    .put("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Icons.SPREADSHEET)
-                    .put("application/vnd.openxmlformats-officedocument.spreadsheetml.template", Icons.SPREADSHEET)
                     .put("application/vnd.stardivision.calc", Icons.SPREADSHEET)
                     .put("application/vnd.sun.xml.calc", Icons.SPREADSHEET)
                     .put("application/vnd.sun.xml.calc.template", Icons.SPREADSHEET)
@@ -202,6 +195,17 @@ class MimeTypeIcons {
 
                     .put("application/x-quicktimeplayer", Icons.VIDEO)
                     .put("application/x-shockwave-flash", Icons.VIDEO)
+
+                    .put("application/msword", Icons.WORD)
+                    .put("application/vnd.openxmlformats-officedocument.wordprocessingml.document", Icons.WORD)
+                    .put("application/vnd.openxmlformats-officedocument.wordprocessingml.template", Icons.WORD)
+                    .put("application/vnd.ms-excel", Icons.EXCEL)
+                    .put("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Icons.EXCEL)
+                    .put("application/vnd.openxmlformats-officedocument.spreadsheetml.template", Icons.EXCEL)
+                    .put("application/vnd.ms-powerpoint", Icons.POWERPOINT)
+                    .put("application/vnd.openxmlformats-officedocument.presentationml.presentation", Icons.POWERPOINT)
+                    .put("application/vnd.openxmlformats-officedocument.presentationml.slideshow", Icons.POWERPOINT)
+                    .put("application/vnd.openxmlformats-officedocument.presentationml.template", Icons.POWERPOINT)
 
                     .buildUnmodifiable();
 
