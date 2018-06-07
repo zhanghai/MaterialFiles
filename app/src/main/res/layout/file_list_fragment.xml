@@ -11,7 +11,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <me.zhanghai.android.materialfilemanager.ui.FixNestedScrollAppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/content_start_margin_minus_12dp"
             android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
-    </android.support.design.widget.AppBarLayout>
+    </me.zhanghai.android.materialfilemanager.ui.FixNestedScrollAppBarLayout>
 
     <FrameLayout
         android:id="@+id/content"
