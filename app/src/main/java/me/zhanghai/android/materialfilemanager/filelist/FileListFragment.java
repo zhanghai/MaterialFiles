@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -40,12 +41,16 @@ import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 
 public class FileListFragment extends Fragment {
 
+    @BindView(R.id.app_bar)
+    AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.breadcrumb)
     BreadcrumbLayout mBreadcrumbLayout;
-    @BindView(R.id.files)
-    RecyclerView mFileList;
+    @BindView(R.id.content)
+    ViewGroup mContentLayout;
+    @BindView(R.id.recycler)
+    RecyclerView mRecyclerView;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
@@ -91,10 +96,14 @@ public class FileListFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
+        mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
+                mContentLayout.setPadding(mContentLayout.getPaddingLeft(),
+                        mContentLayout.getPaddingTop(), mContentLayout.getPaddingRight(),
+                        mAppBarLayout.getTotalScrollRange() + verticalOffset));
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
-        mFileList.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this::onFileSelected);
-        mFileList.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
         mViewModel.getFileData().observe(this, this::onFileChanged);

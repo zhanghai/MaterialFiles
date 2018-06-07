@@ -33,15 +33,23 @@
             android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/files"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/list_padding_bottom_with_fab"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/list_padding_bottom_with_fab"
+            android:clipToPadding="false"
+            app:fastScrollEnableThumbInactiveColor="false"
+            app:fastScrollPopupBgColor="?colorAccent"
+            app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
+            app:fastScrollThumbColor="?colorAccent" />
+    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

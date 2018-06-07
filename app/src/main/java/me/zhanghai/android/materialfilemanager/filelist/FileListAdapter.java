@@ -12,11 +12,14 @@ import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.Objects;
 
@@ -28,7 +31,8 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolder> {
+public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolder>
+        implements FastScrollRecyclerView.SectionedAdapter {
 
     private static final DiffUtil.ItemCallback<File> sDiffCallback =
             new DiffUtil.ItemCallback<File>() {
@@ -80,6 +84,14 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         holder.nameText.setText(file.getName(holder.nameText.getContext()));
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
+    }
+
+    @NonNull
+    @Override
+    public String getSectionName(int position) {
+        File file = getItem(position);
+        String name = file.getName(mFragment.requireContext());
+        return !TextUtils.isEmpty(name) ? name.substring(0, 1) : "";
     }
 
     public interface Listener {

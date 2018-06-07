@@ -20,7 +20,5 @@
     <dimen name="list_item_vertical_padding">16dp</dimen>
     <dimen name="touch_target_size">48dp</dimen>
     <dimen name="touch_target_icon_padding">12dp</dimen>
-    <dimen name="touch_target_icon_padding_negative">-12dp</dimen>
     <dimen name="touch_target_large_icon_padding">4dp</dimen>
-    <dimen name="touch_target_large_icon_padding_negative">-4dp</dimen>
 </resources>

@@ -13,10 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="@dimen/two_line_list_item_height"
-        android:paddingTop="@dimen/list_item_vertical_padding"
-        android:paddingBottom="@dimen/list_item_vertical_padding"
+        android:layout_height="@dimen/two_line_list_item_height"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -24,11 +21,8 @@
             android:id="@+id/icon"
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"
-            android:layout_gravity="top"
             android:layout_marginStart="@dimen/screen_edge_margin_minus_4dp"
             android:layout_marginEnd="@dimen/screen_edge_margin_minus_4dp"
-            android:layout_marginTop="@dimen/touch_target_large_icon_padding_negative"
-            android:layout_marginBottom="@dimen/touch_target_large_icon_padding_negative"
             android:padding="@dimen/touch_target_large_icon_padding"
             android:scaleType="centerCrop" />
 
@@ -43,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="2"
+                android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
@@ -62,8 +56,6 @@
             android:layout_height="@dimen/touch_target_size"
             android:layout_marginStart="@dimen/screen_edge_margin_minus_20dp"
             android:layout_marginEnd="@dimen/screen_edge_margin_minus_20dp"
-            android:layout_marginTop="@dimen/touch_target_large_icon_padding_negative"
-            android:layout_marginBottom="@dimen/touch_target_large_icon_padding_negative"
             android:padding="@dimen/touch_target_icon_padding"
             android:background="?selectableItemBackgroundBorderless"
             android:src="@drawable/more_vertical_icon_white_24dp"
