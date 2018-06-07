@@ -23,13 +23,14 @@ class MimeTypeIcons {
         int APK = R.drawable.file_apk_icon_40dp;
         int ARCHIVE = R.drawable.file_archive_icon_40dp;
         int AUDIO = R.drawable.file_audio_icon_40dp;
-        int BOOK = R.drawable.file_book_icon_40dp;
         int CALENDAR = R.drawable.file_calendar_icon_40dp;
         int CERTIFICATE = R.drawable.file_certificate_icon_40dp;
         int CODE = R.drawable.file_code_icon_40dp;
         int CONTACT = R.drawable.file_contact_icon_40dp;
         int DIRECTORY = R.drawable.directory_icon_40dp;
         int DOCUMENT = R.drawable.file_document_icon_40dp;
+        int EBOOK = R.drawable.file_ebook_icon_40dp;
+        int EMAIL = R.drawable.file_email_icon_40dp;
         int FONT = R.drawable.file_font_icon_40dp;
         int GENERIC = R.drawable.file_icon_40dp;
         int IMAGE = R.drawable.file_image_icon_40dp;
@@ -57,6 +58,7 @@ class MimeTypeIcons {
                     .put("application/x-apple-diskimage", Icons.ARCHIVE)
                     .put("application/x-bzip", Icons.ARCHIVE)
                     .put("application/x-bzip2", Icons.ARCHIVE)
+                    .put("application/x-compress", Icons.ARCHIVE)
                     .put("application/x-deb", Icons.ARCHIVE)
                     .put("application/x-debian-package", Icons.ARCHIVE)
                     .put("application/x-gtar", Icons.ARCHIVE)
@@ -70,14 +72,11 @@ class MimeTypeIcons {
                     .put("application/x-tar", Icons.ARCHIVE)
                     .put("application/x-webarchive", Icons.ARCHIVE)
                     .put("application/x-webarchive-xml", Icons.ARCHIVE)
+                    .put("application/vnd.ms-cab-compressed", Icons.ARCHIVE)
                     .put("application/vnd.rar", Icons.ARCHIVE)
 
                     .put("application/ogg", Icons.AUDIO)
                     .put("application/x-flac", Icons.AUDIO)
-
-                    .put("application/epub+zip", Icons.BOOK)
-                    .put("application/vnd.amazon.ebook", Icons.BOOK)
-                    .put("application/x-mobipocket-ebook", Icons.BOOK)
 
                     .put("text/calendar", Icons.CALENDAR)
                     .put("text/x-vcalendar", Icons.CALENDAR)
@@ -102,6 +101,9 @@ class MimeTypeIcons {
                     .put("application/x-csh", Icons.CODE)
                     .put("application/x-javascript", Icons.CODE)
                     .put("application/x-latex", Icons.CODE)
+                    .put("application/x-perl", Icons.CODE)
+                    .put("application/x-python", Icons.CODE)
+                    .put("application/x-ruby", Icons.CODE)
                     .put("application/x-sh", Icons.CODE)
                     .put("application/x-shellscript", Icons.CODE)
                     .put("application/x-texinfo", Icons.CODE)
@@ -110,16 +112,21 @@ class MimeTypeIcons {
                     .put("text/html", Icons.CODE)
                     .put("text/javascript", Icons.CODE)
                     .put("text/xml", Icons.CODE)
-                    .put("text/x-chdr", Icons.CODE)
-                    .put("text/x-csh", Icons.CODE)
-                    .put("text/x-csrc", Icons.CODE)
+                    .put("text/x-asm", Icons.CODE)
                     .put("text/x-c++hdr", Icons.CODE)
                     .put("text/x-c++src", Icons.CODE)
+                    .put("text/x-chdr", Icons.CODE)
+                    .put("text/x-csh", Icons.CODE)
+                    .put("text/x-csharp", Icons.CODE)
+                    .put("text/x-csrc", Icons.CODE)
                     .put("text/x-dsrc", Icons.CODE)
                     .put("text/x-haskell", Icons.CODE)
                     .put("text/x-java", Icons.CODE)
                     .put("text/x-literate-haskell", Icons.CODE)
                     .put("text/x-pascal", Icons.CODE)
+                    .put("text/x-perl", Icons.CODE)
+                    .put("text/x-python", Icons.CODE)
+                    .put("text/x-ruby", Icons.CODE)
                     .put("text/x-shellscript", Icons.CODE)
                     .put("text/x-tcl", Icons.CODE)
                     .put("text/x-tex", Icons.CODE)
@@ -147,6 +154,14 @@ class MimeTypeIcons {
                     .put("application/x-abiword", Icons.DOCUMENT)
                     .put("application/x-kword", Icons.DOCUMENT)
                     .put("text/rtf", Icons.DOCUMENT)
+
+                    .put("application/epub+zip", Icons.EBOOK)
+                    .put("application/vnd.amazon.ebook", Icons.EBOOK)
+                    .put("application/x-ibooks+zip", Icons.EBOOK)
+                    .put("application/x-mobipocket-ebook", Icons.EBOOK)
+
+                    .put("application/vnd.ms-outlook", Icons.EMAIL)
+                    .put("message/rfc822", Icons.EMAIL)
 
                     .put("application/font-woff", Icons.FONT)
                     .put("application/vnd.ms-fontobject", Icons.FONT)
