@@ -13,6 +13,6 @@
     android:viewportHeight="24">
 
     <path
-        android:fillColor="#FF16A765"
+        android:fillColor="@color/file_icon_green"
         android:pathData="M19 3H5c-1.1 0,-1.99 0.9,-1.99 2L3 8v11c0 1.1 0.9 2 2 2h14c1.1 0 2,-0.9 2,-2V5c0,-1.1,-0.9,-2,-2,-2zm0 8h-8v8H9v-8H5V9h4V5h2v4h8v2z" />
 </vector>
