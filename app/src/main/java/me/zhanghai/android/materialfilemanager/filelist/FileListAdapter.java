@@ -76,10 +76,9 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
                     .placeholder(icon)
                     .into(holder.iconImage);
         } else {
-            // Otherwise Glide requests initiated by other items won't be canceled.
             GlideApp.with(mFragment)
-                    .load(icon)
-                    .into(holder.iconImage);
+                    .clear(holder.iconImage);
+            holder.iconImage.setImageDrawable(icon);
         }
         holder.nameText.setText(file.getName(holder.nameText.getContext()));
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
