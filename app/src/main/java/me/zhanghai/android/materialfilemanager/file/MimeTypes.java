@@ -12,6 +12,7 @@ import android.webkit.MimeTypeMap;
 import java.util.Locale;
 import java.util.Map;
 
+import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 
 public class MimeTypes {
@@ -108,8 +109,8 @@ public class MimeTypes {
                     .put("flv", "video/x-flv")
                     .buildUnmodifiable();
 
-    public static String getMimeType(String url) {
-        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+    public static String getMimeType(String path) {
+        String extension = FileNameUtils.getExtension(path);
         extension = extension.toLowerCase(Locale.US);
         String mimeType = sExtensionToMimeTypeMap.get(extension);
         if (!TextUtils.isEmpty(mimeType)) {
@@ -123,7 +124,7 @@ public class MimeTypes {
     }
 
     public static String getMimeType(Uri uri) {
-        return getMimeType(uri.toString());
+        return getMimeType(uri.getPath());
     }
 
     public static int getIconRes(String mimeType) {
@@ -131,7 +132,16 @@ public class MimeTypes {
     }
 
     public static boolean supportsThumbnail(String mimeType) {
-        return mimeType.startsWith("image/") || mimeType.startsWith("video/")
-                || mimeType.equals("application/vnd.android.package-archive");
+        return isImage(mimeType) || isMedia(mimeType) || TextUtils.equals(mimeType,
+                "application/vnd.android.package-archive");
+    }
+
+    public static boolean isImage(String mimeType) {
+        return getIconRes(mimeType) == MimeTypeIcons.Icons.IMAGE;
+    }
+
+    public static boolean isMedia(String mimeType) {
+        int icon = getIconRes(mimeType);
+        return icon == MimeTypeIcons.Icons.AUDIO || icon == MimeTypeIcons.Icons.VIDEO;
     }
 }

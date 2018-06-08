@@ -15,13 +15,25 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 
 @GlideModule
 public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
 
     @Override
+    public boolean isManifestParsingEnabled() {
+        return false;
+    }
+
+    @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide,
                                    @NonNull Registry registry) {
+        registry.prepend(String.class, ByteBuffer.class,
+                new MediaEmbeddedPictureModelLoader.Factory<>());
+        registry.prepend(File.class, ByteBuffer.class,
+                new MediaEmbeddedPictureModelLoader.Factory<>());
+        registry.prepend(Uri.class, ByteBuffer.class,
+                new MediaEmbeddedPictureModelLoader.Factory<>());
         registry.prepend(String.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
         registry.prepend(File.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
         registry.prepend(Uri.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));

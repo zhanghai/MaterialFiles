@@ -17,7 +17,6 @@ import android.text.TextUtils;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Options;
-import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
@@ -35,14 +34,6 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
         this.context = context.getApplicationContext();
     }
 
-    @Nullable
-    @Override
-    public LoadData<Drawable> buildLoadData(@NonNull Model model, int width, int height,
-                                            @NonNull Options options) {
-        return new LoadData<>(new ObjectKey(model), new ApkIconDataFetcher(getPath(model),
-                context));
-    }
-
     @Override
     public boolean handles(@NonNull Model model) {
         String path = getPath(model);
@@ -51,6 +42,14 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
         }
         String mimeType = MimeTypes.getMimeType(path);
         return TextUtils.equals(mimeType, "application/vnd.android.package-archive");
+    }
+
+    @Nullable
+    @Override
+    public LoadData<Drawable> buildLoadData(@NonNull Model model, int width, int height,
+                                            @NonNull Options options) {
+        return new LoadData<>(new ObjectKey(model), new DataFetcher(getPath(model),
+                context));
     }
 
     private String getPath(Model model) {
@@ -68,12 +67,12 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
         return null;
     }
 
-    private static class ApkIconDataFetcher implements DataFetcher<Drawable> {
+    private static class DataFetcher implements com.bumptech.glide.load.data.DataFetcher<Drawable> {
 
         private String path;
         private Context context;
 
-        public ApkIconDataFetcher(@NonNull String path, @NonNull Context context) {
+        public DataFetcher(@NonNull String path, @NonNull Context context) {
             this.path = path;
             this.context = context.getApplicationContext();
         }

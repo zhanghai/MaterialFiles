@@ -19,7 +19,7 @@ import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 // See also /usr/share/mime/packages/freedesktop.org.xml
 class MimeTypeIcons {
 
-    private interface Icons {
+    interface Icons {
         int APK = R.drawable.file_apk_icon_40dp;
         int ARCHIVE = R.drawable.file_archive_icon_40dp;
         int AUDIO = R.drawable.file_audio_icon_40dp;

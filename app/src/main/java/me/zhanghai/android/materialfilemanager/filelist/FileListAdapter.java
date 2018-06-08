@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.signature.ObjectKey;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.Objects;
@@ -73,6 +74,8 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
                     .load(file.getPath())
+                    // FIXME: Hack
+                    .signature(new ObjectKey(new java.io.File(file.getPath().getPath()).lastModified()))
                     .placeholder(icon)
                     .into(holder.iconImage);
         } else {
