@@ -32,12 +32,13 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
+            <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
