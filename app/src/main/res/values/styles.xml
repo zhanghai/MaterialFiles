@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small">
+        <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
+    </style>
+</resources>

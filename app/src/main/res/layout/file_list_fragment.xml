@@ -23,7 +23,8 @@
             android:layout_height="?actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:navigationIcon="@drawable/menu_icon_white_24dp"
-            app:popupTheme="?actionBarPopupTheme" />
+            app:popupTheme="?actionBarPopupTheme"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
 
         <me.zhanghai.android.materialfilemanager.filelist.BreadcrumbLayout
             android:id="@+id/breadcrumb"
