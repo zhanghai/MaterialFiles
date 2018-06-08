@@ -50,5 +50,6 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
     implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
+    implementation 'org.apache.commons:commons-compress:1.17'
     implementation 'org.apache.commons:commons-text:1.3'
 }
