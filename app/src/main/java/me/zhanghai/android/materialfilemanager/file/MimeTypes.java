@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.file;
 
 import android.net.Uri;
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -108,6 +109,8 @@ public class MimeTypes {
                     .put("rc", "text/plain")
                     .put("flv", "video/x-flv")
                     .buildUnmodifiable();
+
+    public static final String MIME_TYPE_DIRECTORY = DocumentsContract.Document.MIME_TYPE_DIR;
 
     public static String getMimeType(String path) {
         String extension = FileNameUtils.getExtension(path);
