@@ -72,23 +72,8 @@ public class ShellLocalFile extends LocalFile {
     }
 
     @Override
-    public void loadFileList() {
-        boolean isDirectory;
-        if (mInformation != null) {
-            isDirectory = mInformation.type == PosixFileType.DIRECTORY;
-        } else {
-            isDirectory = makeJavaFile().isDirectory();
-        }
-        if (isDirectory) {
-            loadDirectoryFileList();
-        } else {
-            loadArchiveFileList();
-        }
-    }
-
-    @Override
     @WorkerThread
-    protected void loadDirectoryFileList() {
+    public void loadFileList() {
         List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
         // TODO: ARG_MAX

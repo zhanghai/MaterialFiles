@@ -53,7 +53,7 @@ public class JavaLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    protected void loadDirectoryFileList() {
+    public void loadFileList() {
         List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<JavaFile.Information> informations = Functional.map(javaFiles,
                 JavaFile::loadInformation);

@@ -38,20 +38,4 @@ public abstract class LocalFile extends BaseFile {
     public java.io.File makeJavaFile() {
         return new java.io.File(mPath.getPath());
     }
-
-    @Override
-    public void loadFileList() {
-        if (isDirectory()) {
-            loadDirectoryFileList();
-        } else {
-            loadArchiveFileList();
-        }
-    }
-
-    protected abstract void loadDirectoryFileList();
-
-    @WorkerThread
-    protected void loadArchiveFileList() {
-        // TODO
-    }
 }
