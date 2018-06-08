@@ -175,11 +175,8 @@ public class BreadcrumbLayout extends HorizontalScrollView {
                     scrollToSelectedItem();
                     return;
                 }
-                mSelectedIndex = index;
-                bindItemViews();
-                scrollToSelectedItem();
                 if (mOnItemSelectedListener != null) {
-                    mOnItemSelectedListener.onItemSelected(mSelectedIndex);
+                    mOnItemSelectedListener.onItemSelected(index);
                 }
             });
             holder.text.setText(item);
