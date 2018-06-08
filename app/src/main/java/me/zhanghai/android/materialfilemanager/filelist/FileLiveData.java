@@ -9,11 +9,9 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.FileObserver;
-import android.support.annotation.Nullable;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
-import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
+import me.zhanghai.android.materialfilemanager.filesystem.JavaLocalFile;
 
 public class FileLiveData extends LiveData<File> {
 
@@ -29,7 +27,7 @@ public class FileLiveData extends LiveData<File> {
         new AsyncTask<Void, Void, File>() {
             @Override
             protected File doInBackground(Void... strings) {
-                File file = new LocalFile(mPath);
+                File file = new JavaLocalFile(mPath);
                 file.loadFileList();
                 return file;
             }

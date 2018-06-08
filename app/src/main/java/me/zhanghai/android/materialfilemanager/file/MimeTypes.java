@@ -12,11 +12,15 @@ import android.webkit.MimeTypeMap;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
+import me.zhanghai.android.materialfilemanager.util.SetBuilder;
 
 public class MimeTypes {
+
+    public static final String MIME_TYPE_DIRECTORY = DocumentsContract.Document.MIME_TYPE_DIR;
 
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/MimeUtils.java
@@ -110,7 +114,22 @@ public class MimeTypes {
                     .put("flv", "video/x-flv")
                     .buildUnmodifiable();
 
-    public static final String MIME_TYPE_DIRECTORY = DocumentsContract.Document.MIME_TYPE_DIR;
+    private static final Set<String> sSupportedArchiveMimeTypes = SetBuilder.<String>newHashSet()
+            .add("application/vnd.android.package-archive")
+            .add("application/gzip")
+            .add("application/java-archive")
+            .add("application/zip")
+            .add("application/vnd.debian.binary-package")
+            .add("application/x-7z-compressed")
+            .add("application/x-bzip2")
+            .add("application/x-compress")
+            .add("application/x-deb")
+            .add("application/x-debian-package")
+            .add("application/x-gtar")
+            .add("application/x-java-archive")
+            .add("application/x-tar")
+
+            .buildUnmodifiable();
 
     public static String getMimeType(String path) {
         String extension = FileNameUtils.getExtension(path);
@@ -137,6 +156,10 @@ public class MimeTypes {
     public static boolean supportsThumbnail(String mimeType) {
         return isImage(mimeType) || isMedia(mimeType) || TextUtils.equals(mimeType,
                 "application/vnd.android.package-archive");
+    }
+
+    public static boolean isSupportedArchive(String mimeType) {
+        return sSupportedArchiveMimeTypes.contains(mimeType);
     }
 
     public static boolean isImage(String mimeType) {

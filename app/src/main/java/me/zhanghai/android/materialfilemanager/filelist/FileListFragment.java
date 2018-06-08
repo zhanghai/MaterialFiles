@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
-import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
+import me.zhanghai.android.materialfilemanager.filesystem.JavaLocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
@@ -113,7 +113,7 @@ public class FileListFragment extends Fragment {
 
         // TODO
         if (savedInstanceState == null) {
-            File file = new LocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Download")));
+            File file = new JavaLocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Download")));
             mViewModel.pushPath(file.makeFilePath());
         }
     }

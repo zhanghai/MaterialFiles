@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import org.apache.commons.text.StringEscapeUtils;
 import org.threeten.bp.Instant;
 
 import java.util.Arrays;
@@ -21,28 +20,28 @@ import me.zhanghai.android.materialfilemanager.util.StringCompat;
 
 public class Stat {
 
-    private static final Map<Character, File.Type> sCharToTypeMap =
-            MapBuilder.<Character, File.Type>newHashMap()
-                    .put('d', File.Type.DIRECTORY)
-                    .put('c', File.Type.CHARACTER_DEVICE)
-                    .put('b', File.Type.BLOCK_DEVICE)
-                    .put('-', File.Type.REGULAR_FILE)
-                    .put('p', File.Type.FIFO)
-                    .put('l', File.Type.SYMBOLIC_LINK)
-                    .put('s', File.Type.SOCKET)
+    private static final Map<Character, PosixFileType> sCharToTypeMap =
+            MapBuilder.<Character, PosixFileType>newHashMap()
+                    .put('d', PosixFileType.DIRECTORY)
+                    .put('c', PosixFileType.CHARACTER_DEVICE)
+                    .put('b', PosixFileType.BLOCK_DEVICE)
+                    .put('-', PosixFileType.REGULAR_FILE)
+                    .put('p', PosixFileType.FIFO)
+                    .put('l', PosixFileType.SYMBOLIC_LINK)
+                    .put('s', PosixFileType.SOCKET)
                     .buildUnmodifiable();
 
-    private static final Map<File.Permission, Character> sPermissionToCharMap =
-            MapBuilder.<File.Permission, Character>newHashMap()
-                    .put(File.Permission.OWNER_READ, 'r')
-                    .put(File.Permission.OWNER_WRITE, 'w')
-                    .put(File.Permission.OWNER_EXECUTE, 'x')
-                    .put(File.Permission.GROUP_READ, 'r')
-                    .put(File.Permission.GROUP_WRITE, 'w')
-                    .put(File.Permission.GROUP_EXECUTE, 'x')
-                    .put(File.Permission.OTHERS_READ, 'r')
-                    .put(File.Permission.OTHERS_WRITE, 'w')
-                    .put(File.Permission.OTHERS_EXECUTE, 'x')
+    private static final Map<PosixFilePermission, Character> sPermissionToCharMap =
+            MapBuilder.<PosixFilePermission, Character>newHashMap()
+                    .put(PosixFilePermission.OWNER_READ, 'r')
+                    .put(PosixFilePermission.OWNER_WRITE, 'w')
+                    .put(PosixFilePermission.OWNER_EXECUTE, 'x')
+                    .put(PosixFilePermission.GROUP_READ, 'r')
+                    .put(PosixFilePermission.GROUP_WRITE, 'w')
+                    .put(PosixFilePermission.GROUP_EXECUTE, 'x')
+                    .put(PosixFilePermission.OTHERS_READ, 'r')
+                    .put(PosixFilePermission.OTHERS_WRITE, 'w')
+                    .put(PosixFilePermission.OTHERS_EXECUTE, 'x')
                     .buildUnmodifiable();
 
     public static String makeCommand(Iterable<String> paths) {
@@ -71,15 +70,15 @@ public class Stat {
         return information;
     }
 
-    private static File.Type parseType(char typeChar) {
-        return ObjectUtils.firstNonNull(sCharToTypeMap.get(typeChar), File.Type.UNKNOWN);
+    private static PosixFileType parseType(char typeChar) {
+        return ObjectUtils.firstNonNull(sCharToTypeMap.get(typeChar), PosixFileType.UNKNOWN);
     }
 
-    private static Set<File.Permission> parsePermissions(String permissionsString) {
-        Set<File.Permission> permissions = EnumSet.noneOf(File.Permission.class);
-        File.Permission[] permissionValues = File.Permission.values();
+    private static Set<PosixFilePermission> parsePermissions(String permissionsString) {
+        Set<PosixFilePermission> permissions = EnumSet.noneOf(PosixFilePermission.class);
+        PosixFilePermission[] permissionValues = PosixFilePermission.values();
         for (int i = 0; i < permissionValues.length; ++i) {
-            File.Permission permission = permissionValues[i];
+            PosixFilePermission permission = permissionValues[i];
             if (permissionsString.charAt(i) == sPermissionToCharMap.get(permission)) {
                 permissions.add(permission);
             }
@@ -89,8 +88,8 @@ public class Stat {
 
     public static class Information {
 
-        public File.Type type;
-        public Set<File.Permission> permissions;
+        public PosixFileType type;
+        public Set<PosixFilePermission> permissions;
         public long hardLinkCount;
         public long userId;
         public String userName;
