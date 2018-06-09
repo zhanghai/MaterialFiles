@@ -16,6 +16,7 @@ public class FileSortOptions {
 
     public enum By {
         NAME,
+        TYPE,
         SIZE,
         MODIFIED
     }
@@ -40,6 +41,11 @@ public class FileSortOptions {
         switch (mBy) {
             case NAME:
                 comparator = ComparatorCompat.comparing(File::getName, String::compareToIgnoreCase);
+                break;
+            case TYPE:
+                comparator = ComparatorCompat.thenComparing(
+                        ComparatorCompat.comparing(File::getExtension, String::compareToIgnoreCase),
+                        ComparatorCompat.comparing(File::getName, String::compareToIgnoreCase));
                 break;
             case SIZE:
                 comparator = ComparatorCompat.comparing(File::getSize);

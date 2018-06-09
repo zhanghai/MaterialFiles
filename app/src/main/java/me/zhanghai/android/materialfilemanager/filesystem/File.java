@@ -17,6 +17,7 @@ import java.util.List;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
+import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 
 public interface File {
 
@@ -33,6 +34,14 @@ public interface File {
             return "/";
         }
         return CollectionUtils.last(segments);
+    }
+
+    default String getExtension() {
+        if (isDirectory()) {
+            return "";
+        } else {
+            return FileNameUtils.getExtension(getName());
+        }
     }
 
     @WorkerThread
