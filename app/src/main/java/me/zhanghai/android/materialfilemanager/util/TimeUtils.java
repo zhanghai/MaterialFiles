@@ -11,6 +11,8 @@ import android.text.format.Time;
 
 public class TimeUtils {
 
+    private TimeUtils() {}
+
     /*
      * @see com.android.documentsui.base.Shared#formatTime(Context, long)
      */

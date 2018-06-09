@@ -8,7 +8,6 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,7 +34,6 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
-import me.zhanghai.android.materialfilemanager.filesystem.JavaLocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
@@ -115,18 +113,10 @@ public class FileListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
+        mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
         mViewModel.getFileData().observe(this, this::onFileChanged);
 
         // TODO: Request storage permission.
-
-        // TODO
-        if (savedInstanceState == null) {
-            File file = new JavaLocalFile(Uri.fromFile(new java.io.File(
-                    "/storage/emulated/0/Download")));
-            mViewModel.setSortOptions(new FileSortOptions(FileSortOptions.By.NAME,
-                    FileSortOptions.Order.ASCENDING, true));
-            mViewModel.pushPath(file.makeFilePath());
-        }
     }
 
     @Override
@@ -146,7 +136,7 @@ public class FileListFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        updateOptionsMenu();
+        onSortOptionsChanged(mViewModel.getSortOptions());
     }
 
     @Override
@@ -247,7 +237,6 @@ public class FileListFragment extends Fragment {
             return;
         }
         mViewModel.setSortOptions(sortOptions.withBy(by));
-        updateOptionsMenu();
     }
 
     private void setSortOrder(FileSortOptions.Order order) {
@@ -256,7 +245,6 @@ public class FileListFragment extends Fragment {
             return;
         }
         mViewModel.setSortOptions(sortOptions.withOrder(order));
-        updateOptionsMenu();
     }
 
     private void setSortDirectoriesFirst(boolean directoriesFirst) {
@@ -265,16 +253,14 @@ public class FileListFragment extends Fragment {
             return;
         }
         mViewModel.setSortOptions(sortOptions.withDirectoriesFirst(directoriesFirst));
-        updateOptionsMenu();
     }
 
-    private void updateOptionsMenu() {
+    private void onSortOptionsChanged(FileSortOptions sortOptions) {
         if (mSortByNameMenuItem == null || mSortByTypeMenuItem == null
                 || mSortBySizeMenuItem == null || mSortByLastModifiedMenuItem == null
                 || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null) {
             return;
         }
-        FileSortOptions sortOptions = mViewModel.getSortOptions();
         MenuItem checkedSortByMenuItem;
         switch (sortOptions.getBy()) {
             case NAME:

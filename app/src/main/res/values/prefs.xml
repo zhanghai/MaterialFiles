@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="pref_key_file_list_sort_by">key_file_list_sort_by</string>
+    <string name="pref_default_value_file_list_sort_by">0</string>
+    <string name="pref_key_file_list_sort_order">key_file_list_sort_order</string>
+    <string name="pref_default_value_file_list_sort_order">0</string>
+    <string name="pref_key_file_list_sort_directories_first">key_file_list_sort_directories_first</string>
+    <bool name="pref_default_value_file_list_sort_directories_first">true</bool>
+</resources>

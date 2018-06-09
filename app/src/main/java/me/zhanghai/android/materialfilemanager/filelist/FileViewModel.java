@@ -16,6 +16,8 @@ import android.support.annotation.Nullable;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.JavaLocalFile;
+import me.zhanghai.android.materialfilemanager.settings.Settings;
 
 public class FileViewModel extends ViewModel {
 
@@ -24,6 +26,16 @@ public class FileViewModel extends ViewModel {
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
     private MediatorLiveData<File> mFileData = new FileMediatorLiveData(mPathData,
             mSortOptionsData);
+
+    public FileViewModel() {
+        // TODO
+        File file = new JavaLocalFile(Uri.fromFile(new java.io.File(
+                "/storage/emulated/0/Download")));
+        pushPath(file.makeFilePath());
+        mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
+                Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
+                Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));
+    }
 
     public void pushPath(List<File> path) {
         mPathHistory.push(path);
@@ -38,12 +50,23 @@ public class FileViewModel extends ViewModel {
         return changed;
     }
 
+    public LiveData<FileSortOptions> getSortOptionsData() {
+        return mSortOptionsData;
+    }
+
     public FileSortOptions getSortOptions() {
         return mSortOptionsData.getValue();
     }
 
     public void setSortOptions(FileSortOptions sortOptions) {
+        Settings.FILE_LIST_SORT_BY.putEnumValue(sortOptions.getBy());
+        Settings.FILE_LIST_SORT_ORDER.putEnumValue(sortOptions.getOrder());
+        Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.putValue(sortOptions.isDirectoriesFirst());
         mSortOptionsData.setValue(sortOptions);
+    }
+
+    public LiveData<File> getFileData() {
+        return mFileData;
     }
 
     public List<File> getTrail() {
@@ -56,10 +79,6 @@ public class FileViewModel extends ViewModel {
 
     public File getPathFile() {
         return mPathHistory.getCurrentFile();
-    }
-
-    public LiveData<File> getFileData() {
-        return mFileData;
     }
 
     private static class FileMediatorLiveData extends MediatorLiveData<File> {
