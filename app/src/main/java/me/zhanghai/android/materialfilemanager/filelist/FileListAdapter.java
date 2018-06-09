@@ -13,8 +13,6 @@ import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +23,6 @@ import android.widget.TextView;
 import com.bumptech.glide.signature.ObjectKey;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
-import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -80,7 +77,7 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
                     .load(file.getPath())
-                    .signature(new ObjectKey(file.getModified()))
+                    .signature(new ObjectKey(file.getLastModified()))
                     .placeholder(icon)
                     .into(holder.iconImage);
         } else {
@@ -95,11 +92,11 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         } else {
             String descriptionSeparator = holder.descriptionText.getContext().getString(
                     R.string.file_description_separator);
-            String modified = TimeUtils.formatTime(file.getModified().toEpochMilli(),
+            String lastModified = TimeUtils.formatTime(file.getLastModified().toEpochMilli(),
                     holder.descriptionText.getContext());
             String size = Formatter.formatFileSize(holder.descriptionText.getContext(),
                     file.getSize());
-            description = StringCompat.join(descriptionSeparator, modified, size);
+            description = StringCompat.join(descriptionSeparator, lastModified, size);
         }
         holder.descriptionText.setText(description);
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));

@@ -50,7 +50,7 @@ public class ShellLocalFile extends LocalFile {
     }
 
     @Override
-    public Instant getModified() {
+    public Instant getLastModified() {
         return mInformation.lastModification;
     }
 

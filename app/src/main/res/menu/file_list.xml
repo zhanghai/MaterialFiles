@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/search_icon_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/search"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:icon="@drawable/sort_icon_white_24dp"
+        android:orderInCategory="100"
+        android:title="@string/file_list_action_sort"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_sort_by_name"
+                    android:title="@string/file_list_action_sort_by_name" />
+                <item
+                    android:id="@+id/action_sort_by_type"
+                    android:title="@string/file_list_action_sort_by_type" />
+                <item
+                    android:id="@+id/action_sort_by_size"
+                    android:title="@string/file_list_action_sort_by_size" />
+                <item
+                    android:id="@+id/action_sort_by_last_modified"
+                    android:title="@string/file_list_action_sort_by_last_modified" />
+            </group>
+            <item
+                android:id="@+id/action_sort_order_ascending"
+                android:checkable="true"
+                android:title="@string/file_list_action_sort_order_ascending" />
+            <item
+                android:id="@+id/action_sort_directories_first"
+                android:checkable="true"
+                android:title="@string/file_list_action_sort_directories_first" />
+        </menu>
+    </item>
+</menu>

@@ -28,4 +28,12 @@
     </plurals>
     <string name="main_subtitle_separator">", "</string>
     <string name="main_subtitle_empty">Empty</string>
+
+    <string name="file_list_action_sort">Sort</string>
+    <string name="file_list_action_sort_by_name">Name</string>
+    <string name="file_list_action_sort_by_type">Type</string>
+    <string name="file_list_action_sort_by_size">Size</string>
+    <string name="file_list_action_sort_by_last_modified">Last modified</string>
+    <string name="file_list_action_sort_order_ascending">Ascending</string>
+    <string name="file_list_action_sort_directories_first">Directories first</string>
 </resources>

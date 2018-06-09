@@ -44,7 +44,7 @@ public class JavaLocalFile extends LocalFile {
     }
 
     @Override
-    public Instant getModified() {
+    public Instant getLastModified() {
         return mInformation.lastModified;
     }
 

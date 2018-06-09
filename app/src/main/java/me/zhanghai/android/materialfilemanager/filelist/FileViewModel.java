@@ -38,6 +38,10 @@ public class FileViewModel extends ViewModel {
         return changed;
     }
 
+    public FileSortOptions getSortOptions() {
+        return mSortOptionsData.getValue();
+    }
+
     public void setSortOptions(FileSortOptions sortOptions) {
         mSortOptionsData.setValue(sortOptions);
     }

@@ -18,7 +18,7 @@ public class FileSortOptions {
         NAME,
         TYPE,
         SIZE,
-        MODIFIED
+        LAST_MODIFIED
     }
 
     public enum Order {
@@ -36,22 +36,49 @@ public class FileSortOptions {
         mDirectoriesFirst = directoriesFirst;
     }
 
+    public By getBy() {
+        return mBy;
+    }
+
+    public Order getOrder() {
+        return mOrder;
+    }
+
+    public boolean isDirectoriesFirst() {
+        return mDirectoriesFirst;
+    }
+
+    public FileSortOptions withBy(FileSortOptions.By by) {
+        return new FileSortOptions(by, mOrder, mDirectoriesFirst);
+    }
+
+    public FileSortOptions withOrder(FileSortOptions.Order order) {
+        return new FileSortOptions(mBy, order, mDirectoriesFirst);
+    }
+
+    public FileSortOptions withDirectoriesFirst(boolean directoriesFirst) {
+        return new FileSortOptions(mBy, mOrder, directoriesFirst);
+    }
+
     public Comparator<File> makeComparator() {
-        Comparator<File> comparator;
+        Comparator<File> comparator = ComparatorCompat.comparing(File::getName,
+                String::compareToIgnoreCase);
         switch (mBy) {
             case NAME:
-                comparator = ComparatorCompat.comparing(File::getName, String::compareToIgnoreCase);
+                // Nothing to do here.
                 break;
             case TYPE:
                 comparator = ComparatorCompat.thenComparing(
                         ComparatorCompat.comparing(File::getExtension, String::compareToIgnoreCase),
-                        ComparatorCompat.comparing(File::getName, String::compareToIgnoreCase));
+                        comparator);
                 break;
             case SIZE:
-                comparator = ComparatorCompat.comparing(File::getSize);
+                comparator = ComparatorCompat.thenComparing(
+                        ComparatorCompat.comparing(File::getSize), comparator);
                 break;
-            case MODIFIED:
-                comparator = ComparatorCompat.comparing(File::getModified);
+            case LAST_MODIFIED:
+                comparator = ComparatorCompat.thenComparing(
+                        ComparatorCompat.comparing(File::getLastModified), comparator);
                 break;
             default:
                 throw new IllegalStateException();

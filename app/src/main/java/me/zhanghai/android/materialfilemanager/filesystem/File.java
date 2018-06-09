@@ -49,7 +49,7 @@ public interface File {
 
     long getSize();
 
-    Instant getModified();
+    Instant getLastModified();
 
     boolean isDirectory();
 

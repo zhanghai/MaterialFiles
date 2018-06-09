@@ -55,6 +55,13 @@ public class FileListFragment extends Fragment {
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
+    private MenuItem mSortByNameMenuItem;
+    private MenuItem mSortByTypeMenuItem;
+    private MenuItem mSortBySizeMenuItem;
+    private MenuItem mSortByLastModifiedMenuItem;
+    private MenuItem mSortOrderAscendingMenuItem;
+    private MenuItem mSortDirectoriesFirstMenuItem;
+
     private FileListAdapter mAdapter;
 
     private FileViewModel mViewModel;
@@ -125,7 +132,20 @@ public class FileListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        inflater.inflate(R.menu.directory, menu);
+        inflater.inflate(R.menu.file_list, menu);
+        mSortByNameMenuItem = menu.findItem(R.id.action_sort_by_name);
+        mSortByTypeMenuItem = menu.findItem(R.id.action_sort_by_type);
+        mSortBySizeMenuItem = menu.findItem(R.id.action_sort_by_size);
+        mSortByLastModifiedMenuItem = menu.findItem(R.id.action_sort_by_last_modified);
+        mSortOrderAscendingMenuItem = menu.findItem(R.id.action_sort_order_ascending);
+        mSortDirectoriesFirstMenuItem = menu.findItem(R.id.action_sort_directories_first);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        updateOptionsMenu();
     }
 
     @Override
@@ -133,6 +153,25 @@ public class FileListFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.action_search:
                 // TODO
+                return true;
+            case R.id.action_sort_by_name:
+                setSortBy(FileSortOptions.By.NAME);
+                return true;
+            case R.id.action_sort_by_type:
+                setSortBy(FileSortOptions.By.TYPE);
+                return true;
+            case R.id.action_sort_by_size:
+                setSortBy(FileSortOptions.By.SIZE);
+                return true;
+            case R.id.action_sort_by_last_modified:
+                setSortBy(FileSortOptions.By.LAST_MODIFIED);
+                return true;
+            case R.id.action_sort_order_ascending:
+                setSortOrder(!mSortOrderAscendingMenuItem.isChecked() ?
+                        FileSortOptions.Order.ASCENDING : FileSortOptions.Order.DESCENDING);
+                return true;
+            case R.id.action_sort_directories_first:
+                setSortDirectoriesFirst(!mSortDirectoriesFirstMenuItem.isChecked());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -198,5 +237,51 @@ public class FileListFragment extends Fragment {
         List<File> trail = mViewModel.getTrail();
         mBreadcrumbLayout.setItems(Functional.map(trail, File::getName),
                 mViewModel.getTrailIndex());
+    }
+
+    private void setSortBy(FileSortOptions.By by) {
+        mViewModel.setSortOptions(mViewModel.getSortOptions().withBy(by));
+        updateOptionsMenu();
+    }
+
+    private void setSortOrder(FileSortOptions.Order order) {
+        mViewModel.setSortOptions(mViewModel.getSortOptions().withOrder(order));
+        updateOptionsMenu();
+    }
+
+    private void setSortDirectoriesFirst(boolean directoriesFirst) {
+        mViewModel.setSortOptions(mViewModel.getSortOptions().withDirectoriesFirst(
+                directoriesFirst));
+        updateOptionsMenu();
+    }
+
+    private void updateOptionsMenu() {
+        if (mSortByNameMenuItem == null || mSortByTypeMenuItem == null
+                || mSortBySizeMenuItem == null || mSortByLastModifiedMenuItem == null
+                || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null) {
+            return;
+        }
+        FileSortOptions sortOptions = mViewModel.getSortOptions();
+        MenuItem checkedSortByMenuItem;
+        switch (sortOptions.getBy()) {
+            case NAME:
+                checkedSortByMenuItem = mSortByNameMenuItem;
+                break;
+            case TYPE:
+                checkedSortByMenuItem = mSortByTypeMenuItem;
+                break;
+            case SIZE:
+                checkedSortByMenuItem = mSortBySizeMenuItem;
+                break;
+            case LAST_MODIFIED:
+                checkedSortByMenuItem = mSortByLastModifiedMenuItem;
+                break;
+            default:
+                throw new IllegalStateException();
+        }
+        checkedSortByMenuItem.setChecked(true);
+        mSortOrderAscendingMenuItem.setChecked(sortOptions.getOrder()
+                == FileSortOptions.Order.ASCENDING);
+        mSortDirectoriesFirstMenuItem.setChecked(sortOptions.isDirectoriesFirst());
     }
 }
