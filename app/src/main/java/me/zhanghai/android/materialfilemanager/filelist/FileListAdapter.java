@@ -89,12 +89,18 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
             holder.iconImage.setImageDrawable(icon);
         }
         holder.nameText.setText(file.getName());
-        String descriptionSeparator = holder.descriptionText.getContext().getString(
-                R.string.file_description_separator);
-        String modified = TimeUtils.formatTime(file.getModified().toEpochMilli(),
-                holder.descriptionText.getContext());
-        String size = Formatter.formatFileSize(holder.descriptionText.getContext(), file.getSize());
-        String description = StringCompat.join(descriptionSeparator, modified, size);
+        String description;
+        if (file.isDirectory()) {
+            description = null;
+        } else {
+            String descriptionSeparator = holder.descriptionText.getContext().getString(
+                    R.string.file_description_separator);
+            String modified = TimeUtils.formatTime(file.getModified().toEpochMilli(),
+                    holder.descriptionText.getContext());
+            String size = Formatter.formatFileSize(holder.descriptionText.getContext(),
+                    file.getSize());
+            description = StringCompat.join(descriptionSeparator, modified, size);
+        }
         holder.descriptionText.setText(description);
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
     }

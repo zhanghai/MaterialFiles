@@ -41,7 +41,7 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-            <TextView
+            <me.zhanghai.android.materialfilemanager.ui.AutoGoneTextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
