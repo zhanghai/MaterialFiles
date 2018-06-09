@@ -242,18 +242,29 @@ public class FileListFragment extends Fragment {
     }
 
     private void setSortBy(FileSortOptions.By by) {
-        mViewModel.setSortOptions(mViewModel.getSortOptions().withBy(by));
+        FileSortOptions sortOptions = mViewModel.getSortOptions();
+        if (sortOptions.getBy() == by) {
+            return;
+        }
+        mViewModel.setSortOptions(sortOptions.withBy(by));
         updateOptionsMenu();
     }
 
     private void setSortOrder(FileSortOptions.Order order) {
-        mViewModel.setSortOptions(mViewModel.getSortOptions().withOrder(order));
+        FileSortOptions sortOptions = mViewModel.getSortOptions();
+        if (sortOptions.getOrder() == order) {
+            return;
+        }
+        mViewModel.setSortOptions(sortOptions.withOrder(order));
         updateOptionsMenu();
     }
 
     private void setSortDirectoriesFirst(boolean directoriesFirst) {
-        mViewModel.setSortOptions(mViewModel.getSortOptions().withDirectoriesFirst(
-                directoriesFirst));
+        FileSortOptions sortOptions = mViewModel.getSortOptions();
+        if (sortOptions.isDirectoriesFirst() == directoriesFirst) {
+            return;
+        }
+        mViewModel.setSortOptions(sortOptions.withDirectoriesFirst(directoriesFirst));
         updateOptionsMenu();
     }
 
