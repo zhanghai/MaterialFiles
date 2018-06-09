@@ -13,6 +13,9 @@ import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -31,6 +34,8 @@ import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
+import me.zhanghai.android.materialfilemanager.util.StringCompat;
+import me.zhanghai.android.materialfilemanager.util.TimeUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolder>
@@ -75,8 +80,7 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
                     .load(file.getPath())
-                    // FIXME: Hack
-                    .signature(new ObjectKey(new java.io.File(file.getPath().getPath()).lastModified()))
+                    .signature(new ObjectKey(file.getModified()))
                     .placeholder(icon)
                     .into(holder.iconImage);
         } else {
@@ -85,7 +89,13 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
             holder.iconImage.setImageDrawable(icon);
         }
         holder.nameText.setText(file.getName());
-        holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
+        String descriptionSeparator = holder.descriptionText.getContext().getString(
+                R.string.file_description_separator);
+        String modified = TimeUtils.formatTime(file.getModified().toEpochMilli(),
+                holder.descriptionText.getContext());
+        String size = Formatter.formatFileSize(holder.descriptionText.getContext(), file.getSize());
+        String description = StringCompat.join(descriptionSeparator, modified, size);
+        holder.descriptionText.setText(description);
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
     }
 

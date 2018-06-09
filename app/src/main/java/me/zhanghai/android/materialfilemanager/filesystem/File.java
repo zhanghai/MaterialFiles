@@ -42,9 +42,6 @@ public interface File {
 
     Instant getModified();
 
-    @NonNull
-    String getDescription(Context context);
-
     boolean isDirectory();
 
     @NonNull

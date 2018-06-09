@@ -44,25 +44,6 @@ public class ShellLocalFile extends LocalFile {
         mInformation = Stat.parseOutput(outputs.get(0));
     }
 
-    @NonNull
-    @Override
-    public String getDescription(Context context) {
-        if (mInformation.type == PosixFileType.DIRECTORY) {
-            long subdirectoryCount = mInformation.hardLinkCount - 2;
-            if (subdirectoryCount > 0) {
-                int quantity = (int) Math.max(Integer.MIN_VALUE, Math.min(Integer.MAX_VALUE,
-                        subdirectoryCount));
-                return context.getResources().getQuantityString(
-                        R.plurals.file_description_directory_subdirectory_count_format, quantity,
-                        subdirectoryCount);
-            } else {
-                return context.getString(R.string.file_description_directory);
-            }
-        } else {
-            return Formatter.formatFileSize(context, mInformation.size);
-        }
-    }
-
     @Override
     public long getSize() {
         return mInformation.size;

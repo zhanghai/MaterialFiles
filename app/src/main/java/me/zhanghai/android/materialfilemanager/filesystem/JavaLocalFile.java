@@ -48,16 +48,6 @@ public class JavaLocalFile extends LocalFile {
         return mInformation.lastModified;
     }
 
-    @NonNull
-    @Override
-    public String getDescription(Context context) {
-        if (isDirectory()) {
-            return context.getString(R.string.file_description_directory);
-        } else {
-            return Formatter.formatFileSize(context, mInformation.length);
-        }
-    }
-
     @Override
     public boolean isDirectory() {
         return mInformation.isDirectory;
