@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.bumptech.glide.signature.ObjectKey;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
+import java.util.Locale;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -83,7 +84,7 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
                     .clear(holder.iconImage);
             holder.iconImage.setImageDrawable(icon);
         }
-        holder.nameText.setText(file.getName(holder.nameText.getContext()));
+        holder.nameText.setText(file.getName());
         holder.descriptionText.setText(file.getDescription(holder.descriptionText.getContext()));
         holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
     }
@@ -92,8 +93,12 @@ public class FileListAdapter extends ListAdapter<File, FileListAdapter.ViewHolde
     @Override
     public String getSectionName(int position) {
         File file = getItem(position);
-        String name = file.getName(mFragment.requireContext());
-        return !TextUtils.isEmpty(name) ? name.substring(0, 1) : "";
+        String name = file.getName();
+        if (TextUtils.isEmpty(name)) {
+            return "";
+
+        }
+        return name.substring(0, 1).toUpperCase();
     }
 
     public interface Listener {

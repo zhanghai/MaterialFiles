@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 import android.text.format.Formatter;
 
+import org.threeten.bp.Instant;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,6 +36,16 @@ public class JavaLocalFile extends LocalFile {
     @WorkerThread
     public void loadInformation() {
         mInformation = JavaFile.loadInformation(makeJavaFile());
+    }
+
+    @Override
+    public long getSize() {
+        return mInformation.length;
+    }
+
+    @Override
+    public Instant getModified() {
+        return mInformation.lastModified;
     }
 
     @NonNull

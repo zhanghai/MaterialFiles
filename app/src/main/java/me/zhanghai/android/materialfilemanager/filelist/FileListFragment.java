@@ -113,7 +113,10 @@ public class FileListFragment extends Fragment {
 
         // TODO
         if (savedInstanceState == null) {
-            File file = new JavaLocalFile(Uri.fromFile(new java.io.File("/storage/emulated/0/Download")));
+            File file = new JavaLocalFile(Uri.fromFile(new java.io.File(
+                    "/storage/emulated/0/Download")));
+            mViewModel.setSortOptions(new FileSortOptions(FileSortOptions.By.NAME,
+                    FileSortOptions.Order.ASCENDING, true));
             mViewModel.pushPath(file.makeFilePath());
         }
     }
@@ -193,7 +196,7 @@ public class FileListFragment extends Fragment {
 
     private void updateBreadcrumbLayout() {
         List<File> trail = mViewModel.getTrail();
-        mBreadcrumbLayout.setItems(Functional.map(trail, file -> file.getName(
-                mBreadcrumbLayout.getContext())), mViewModel.getTrailIndex());
+        mBreadcrumbLayout.setItems(Functional.map(trail, File::getName),
+                mViewModel.getTrailIndex());
     }
 }

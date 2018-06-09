@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import org.threeten.bp.Instant;
+
 import java.io.File;
 import java.util.Objects;
 
@@ -18,7 +20,7 @@ public class JavaFile {
         information.isDirectory = file.isDirectory();
         information.isFile = file.isFile();
         information.isHidden = file.isHidden();
-        information.lastModified = file.lastModified();
+        information.lastModified = Instant.ofEpochMilli(file.lastModified());
         information.length = file.length();
         return information;
     }
@@ -31,7 +33,7 @@ public class JavaFile {
         public boolean isDirectory;
         public boolean isFile;
         public boolean isHidden;
-        public long lastModified;
+        public Instant lastModified;
         public long length;
 
         @Override
@@ -49,7 +51,7 @@ public class JavaFile {
                     && isDirectory == that.isDirectory
                     && isFile == that.isFile
                     && isHidden == that.isHidden
-                    && lastModified == that.lastModified
+                    && Objects.equals(lastModified, that.lastModified)
                     && length == that.length;
         }
 

@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
+import org.threeten.bp.Instant;
+
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.R;
@@ -25,16 +27,20 @@ public interface File {
     List<File> makeFilePath();
 
     @NonNull
-    default String getName(Context context) {
+    default String getName() {
         List<String> segments = getPath().getPathSegments();
-        if (!segments.isEmpty()) {
-            return CollectionUtils.last(segments);
+        if (segments.isEmpty()) {
+            return "/";
         }
-        return context.getString(R.string.file_name_root);
+        return CollectionUtils.last(segments);
     }
 
     @WorkerThread
     void loadInformation();
+
+    long getSize();
+
+    Instant getModified();
 
     @NonNull
     String getDescription(Context context);
