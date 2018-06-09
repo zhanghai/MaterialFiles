@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -205,7 +206,8 @@ public class FileListFragment extends Fragment {
     private void onFileChanged(File file) {
         updateSubtitle(file);
         updateBreadcrumbLayout();
-        mAdapter.submitList(file.getFileList());
+        // Create a new instance every time so that AsyncListDiffer won't skip the update.
+        mAdapter.submitList(new ArrayList<>(file.getFileList()));
     }
 
     private void updateSubtitle(File file) {
