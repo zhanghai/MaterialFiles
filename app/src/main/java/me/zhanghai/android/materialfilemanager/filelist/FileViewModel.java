@@ -50,6 +50,10 @@ public class FileViewModel extends ViewModel {
         return changed;
     }
 
+    public void reload() {
+        mPathData.setValue(mPathData.getValue());
+    }
+
     public LiveData<FileSortOptions> getSortOptionsData() {
         return mSortOptionsData;
     }

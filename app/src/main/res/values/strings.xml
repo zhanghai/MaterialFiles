@@ -36,4 +36,5 @@
     <string name="file_list_action_sort_by_last_modified">Last modified</string>
     <string name="file_list_action_sort_order_ascending">Ascending</string>
     <string name="file_list_action_sort_directories_first">Directories first</string>
+    <string name="file_list_action_refresh">Refresh</string>
 </resources>

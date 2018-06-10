@@ -40,16 +40,22 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-            android:id="@+id/recycler"
+        <me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/list_padding_bottom_with_fab"
-            android:clipToPadding="false"
-            app:fastScrollEnableThumbInactiveColor="false"
-            app:fastScrollPopupBgColor="?colorAccent"
-            app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
-            app:fastScrollThumbColor="?colorAccent" />
+            android:layout_height="match_parent">
+
+            <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/list_padding_bottom_with_fab"
+                android:clipToPadding="false"
+                app:fastScrollEnableThumbInactiveColor="false"
+                app:fastScrollPopupBgColor="?colorAccent"
+                app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
+                app:fastScrollThumbColor="?colorAccent" />
+        </me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout>
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton

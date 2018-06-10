@@ -46,4 +46,10 @@
                 android:title="@string/file_list_action_sort_directories_first" />
         </menu>
     </item>
+
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="100"
+        android:title="@string/file_list_action_refresh"
+        app:showAsAction="never" />
 </menu>

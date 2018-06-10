@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +50,8 @@ public class FileListFragment extends Fragment {
     BreadcrumbLayout mBreadcrumbLayout;
     @BindView(R.id.content)
     ViewGroup mContentLayout;
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.fab)
@@ -108,6 +111,7 @@ public class FileListFragment extends Fragment {
                 ViewUtils.setPaddingBottom(mContentLayout, contentLayoutInitialPaddingBottom
                         + mAppBarLayout.getTotalScrollRange() + verticalOffset));
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
+        mSwipeRefreshLayout.setOnRefreshListener(this::reloadFile);
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this::onFileSelected);
         mRecyclerView.setAdapter(mAdapter);
@@ -164,6 +168,9 @@ public class FileListFragment extends Fragment {
             case R.id.action_sort_directories_first:
                 setSortDirectoriesFirst(!mSortDirectoriesFirstMenuItem.isChecked());
                 return true;
+            case R.id.action_refresh:
+                reloadFile();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -193,9 +200,14 @@ public class FileListFragment extends Fragment {
         mViewModel.pushPath(file.makeFilePath());
     }
 
+    private void reloadFile() {
+        mViewModel.reload();
+    }
+
     private void onFileChanged(File file) {
         updateSubtitle(file);
         updateBreadcrumbLayout();
+        mSwipeRefreshLayout.setRefreshing(false);
         // Create a new instance every time so that AsyncListDiffer won't skip the update.
         mAdapter.submitList(new ArrayList<>(file.getFileList()));
     }
