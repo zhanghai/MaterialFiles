@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,6 +70,8 @@ public class FileListFragment extends Fragment {
     private FileListAdapter mAdapter;
 
     private FileViewModel mViewModel;
+
+    private Uri mLastPath;
 
     public static FileListFragment newInstance() {
         //noinspection deprecation
@@ -210,7 +214,9 @@ public class FileListFragment extends Fragment {
         updateSubtitle(file);
         updateBreadcrumbLayout();
         mSwipeRefreshLayout.setRefreshing(false);
-        mAdapter.replaceAll(file.getFileList());
+        Uri path = file.getPath();
+        mAdapter.replaceAll(file.getFileList(), Objects.equals(path, mLastPath));
+        mLastPath = path;
         Parcelable state = mViewModel.getPendingState();
         if (state != null) {
             mRecyclerView.getLayoutManager().onRestoreInstanceState(state);

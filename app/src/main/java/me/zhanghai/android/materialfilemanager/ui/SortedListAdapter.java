@@ -22,7 +22,7 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         mSortedList = new SortedList<>(classOfT, callback);
     }
 
-    public void rebuild() {
+    public void refresh() {
         mSortedList.beginBatchedUpdates();
         for (int i = mSortedList.size() - 1; i >= 0; --i) {
             mSortedList.removeItemAt(i);
@@ -31,9 +31,13 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         mSortedList.endBatchedUpdates();
     }
 
-    public void replaceAll(List<T> list) {
+    public void replaceAll(List<T> list, boolean isSameList) {
         mList = new ArrayList<>(list);
-        mSortedList.replaceAll(mList);
+        if (isSameList) {
+            mSortedList.replaceAll(mList);
+        } else {
+            refresh();
+        }
     }
 
     protected T getItem(int position) {

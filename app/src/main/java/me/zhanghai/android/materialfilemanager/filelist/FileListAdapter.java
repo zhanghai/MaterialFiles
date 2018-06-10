@@ -67,7 +67,7 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
 
     public void setComparator(Comparator<File> comparator) {
         mComparator = comparator;
-        rebuild();
+        refresh();
     }
 
     @NonNull
