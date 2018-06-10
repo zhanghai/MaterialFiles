@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,23 +15,34 @@ import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 
 public class PathHistory {
 
-    private List<List<File>> mHistory = new ArrayList<>();
+    private List<List<File>> mPathHistory = new ArrayList<>();
+    private List<Parcelable> mStateHistory = new ArrayList<>();
     private List<File> mTrail = new ArrayList<>();
     private int mTrailIndex;
 
-    public void push(List<File> path) {
-        CollectionUtils.push(mHistory, path);
+    public void push(Parcelable lastState, List<File> path) {
+        if (!mPathHistory.isEmpty()) {
+            CollectionUtils.push(mStateHistory, lastState);
+        }
+        CollectionUtils.push(mPathHistory, path);
         updateTrail(path);
     }
 
     public boolean pop() {
-        if (mHistory.size() < 2) {
+        if (mPathHistory.size() < 2) {
             return false;
         }
-        CollectionUtils.pop(mHistory);
-        List<File> path = CollectionUtils.peek(mHistory);
+        CollectionUtils.pop(mPathHistory);
+        List<File> path = CollectionUtils.peek(mPathHistory);
         updateTrail(path);
         return true;
+    }
+
+    public Parcelable getPendingState() {
+        if (mStateHistory.size() != mPathHistory.size()) {
+            return null;
+        }
+        return CollectionUtils.pop(mStateHistory);
     }
 
     private void updateTrail(List<File> path) {

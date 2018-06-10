@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
@@ -14,7 +13,6 @@ import org.threeten.bp.Instant;
 
 import java.util.List;
 
-import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;

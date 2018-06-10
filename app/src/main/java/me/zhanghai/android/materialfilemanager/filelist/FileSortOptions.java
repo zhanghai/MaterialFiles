@@ -5,9 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.functional.ComparatorCompat;
@@ -98,9 +96,5 @@ public class FileSortOptions {
             comparator = ComparatorCompat.thenComparing(isDirectoryComparator, comparator);
         }
         return comparator;
-    }
-
-    public void sort(List<File> fileList) {
-        Collections.sort(fileList, makeComparator());
     }
 }

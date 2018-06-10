@@ -9,6 +9,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -117,8 +118,8 @@ public class FileListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
-        mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
         mViewModel.getFileData().observe(this, this::onFileChanged);
+        mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
 
         // TODO: Request storage permission.
     }
@@ -140,7 +141,7 @@ public class FileListFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        onSortOptionsChanged(mViewModel.getSortOptions());
+        updateSortOptionsMenu();
     }
 
     @Override
@@ -197,7 +198,8 @@ public class FileListFragment extends Fragment {
     }
 
     private void navigateToFile(File file) {
-        mViewModel.pushPath(file.makeFilePath());
+        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        mViewModel.pushPath(state, file.makeFilePath());
     }
 
     private void reloadFile() {
@@ -208,8 +210,11 @@ public class FileListFragment extends Fragment {
         updateSubtitle(file);
         updateBreadcrumbLayout();
         mSwipeRefreshLayout.setRefreshing(false);
-        // Create a new instance every time so that AsyncListDiffer won't skip the update.
-        mAdapter.submitList(new ArrayList<>(file.getFileList()));
+        mAdapter.replaceAll(file.getFileList());
+        Parcelable state = mViewModel.getPendingState();
+        if (state != null) {
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(state);
+        }
     }
 
     private void updateSubtitle(File file) {
@@ -268,12 +273,18 @@ public class FileListFragment extends Fragment {
     }
 
     private void onSortOptionsChanged(FileSortOptions sortOptions) {
+        mAdapter.setComparator(sortOptions.makeComparator());
+        updateSortOptionsMenu();
+    }
+
+    private void updateSortOptionsMenu() {
         if (mSortByNameMenuItem == null || mSortByTypeMenuItem == null
                 || mSortBySizeMenuItem == null || mSortByLastModifiedMenuItem == null
                 || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null) {
             return;
         }
         MenuItem checkedSortByMenuItem;
+        FileSortOptions sortOptions = mViewModel.getSortOptions();
         switch (sortOptions.getBy()) {
             case NAME:
                 checkedSortByMenuItem = mSortByNameMenuItem;
