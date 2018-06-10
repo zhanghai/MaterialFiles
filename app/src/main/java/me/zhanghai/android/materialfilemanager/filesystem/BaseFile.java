@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import java.util.List;
-import java.util.Objects;
 
 public abstract class BaseFile implements File {
 
@@ -29,22 +28,5 @@ public abstract class BaseFile implements File {
     @Override
     public List<File> getFileList() {
         return mFileList;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        BaseFile that = (BaseFile) object;
-        return Objects.equals(mPath, that.mPath);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mPath);
     }
 }

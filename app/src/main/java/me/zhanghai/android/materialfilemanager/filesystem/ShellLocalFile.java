@@ -5,19 +5,17 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
-import android.text.format.Formatter;
 
 import org.threeten.bp.Instant;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
-import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class ShellLocalFile extends LocalFile {
@@ -78,5 +76,23 @@ public class ShellLocalFile extends LocalFile {
         List<Stat.Information> informations = Functional.map(outputs, Stat::parseOutput);
         mFileList = Functional.map(javaFiles, (javaFile, index) -> new ShellLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        ShellLocalFile that = (ShellLocalFile) object;
+        return Objects.equals(mPath, that.mPath)
+                && Objects.equals(mInformation, that.mInformation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mPath, mInformation);
     }
 }

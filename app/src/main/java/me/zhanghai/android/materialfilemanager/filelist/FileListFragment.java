@@ -215,8 +215,9 @@ public class FileListFragment extends Fragment {
         updateBreadcrumbLayout();
         mSwipeRefreshLayout.setRefreshing(false);
         Uri path = file.getPath();
-        mAdapter.replaceAll(file.getFileList(), Objects.equals(path, mLastPath));
+        boolean isSameList = Objects.equals(path, mLastPath);
         mLastPath = path;
+        mAdapter.replaceAll(file.getFileList(), isSameList);
         Parcelable state = mViewModel.getPendingState();
         if (state != null) {
             mRecyclerView.getLayoutManager().onRestoreInstanceState(state);

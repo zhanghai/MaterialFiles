@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 
 public class PathHistory {
@@ -46,7 +47,10 @@ public class PathHistory {
     }
 
     private void updateTrail(List<File> path) {
-        if (!CollectionUtils.isPrefix(path, mTrail)) {
+        if (CollectionUtils.isPrefix(Functional.map(path, File::getPath),
+                        Functional.map(mTrail, File::getPath))) {
+            Functional.forEach(path, (file, index) -> mTrail.set(index, file));
+        } else {
             mTrail.clear();
             mTrail.addAll(path);
         }

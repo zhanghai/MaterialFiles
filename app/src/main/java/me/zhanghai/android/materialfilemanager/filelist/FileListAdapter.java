@@ -48,7 +48,7 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
             }
             @Override
             public boolean areItemsTheSame(File oldItem, File newItem) {
-                return Objects.equals(oldItem, newItem);
+                return oldItem == newItem || Objects.equals(oldItem.getPath(), newItem.getPath());
             }
             @Override
             public boolean areContentsTheSame(File oldItem, File newItem) {
