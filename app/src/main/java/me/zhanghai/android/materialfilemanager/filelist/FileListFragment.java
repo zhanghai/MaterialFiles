@@ -191,7 +191,7 @@ public class FileListFragment extends Fragment {
 
     private void onFileSelected(File file) {
         if (file.isListable()) {
-            navigateToFile(file);
+            navigateToFile(file.asListableFile());
             return;
         }
         Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(file.makeJavaFile()),

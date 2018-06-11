@@ -14,6 +14,8 @@ import java.util.List;
 
 public abstract class LocalFile extends BaseFile {
 
+    public static final String SCHEME = "file";
+
     public LocalFile(Uri path) {
         super(path);
     }

@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.functional;
 
+import android.support.annotation.CheckResult;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -73,6 +75,7 @@ public class FunctionalIterator {
         return collector;
     }
 
+    @CheckResult
     public static <T, J extends Collection<? super T>> ArrayList<T> filterRemaining(
             Iterator<T> iterator, Predicate<T> predicate) {
         return filterRemaining(iterator, predicate, new ArrayList<>());
@@ -91,6 +94,7 @@ public class FunctionalIterator {
         return collector;
     }
 
+    @CheckResult
     public static <T, J extends Collection<? super T>> ArrayList<T> filterRemaining(
             Iterator<T> iterator, BiPredicate<T, Integer> predicate) {
         return filterRemaining(iterator, predicate, new ArrayList<>());
@@ -109,6 +113,7 @@ public class FunctionalIterator {
         return collector;
     }
 
+    @CheckResult
     public static <I extends Iterator<T>, T, J extends Collection<? super T>> ArrayList<T>
     filterRemaining(I iterator, TriPredicate<T, Integer, I> predicate) {
         return filterRemaining(iterator, predicate, new ArrayList<>());
@@ -223,6 +228,7 @@ public class FunctionalIterator {
         return collector;
     }
 
+    @CheckResult
     public static <T, U, J extends Collection<? super U>> ArrayList<U> mapRemaining(
             Iterator<T> iterator, Function<T, U> function) {
         return mapRemaining(iterator, function, new ArrayList<>());
@@ -239,6 +245,7 @@ public class FunctionalIterator {
         return collector;
     }
 
+    @CheckResult
     public static <T, U, J extends Collection<? super U>> ArrayList<U> mapRemaining(
             Iterator<T> iterator, BiFunction<T, Integer, U> function) {
         return mapRemaining(iterator, function, new ArrayList<>());
@@ -255,6 +262,7 @@ public class FunctionalIterator {
         return collector;
     }
 
+    @CheckResult
     public static <I extends Iterator<T>, T, U, J extends Collection<? super U>> ArrayList<U>
     mapRemaining(I iterator, TriFunction<T, Integer, I, U> function) {
         return mapRemaining(iterator, function, new ArrayList<>());

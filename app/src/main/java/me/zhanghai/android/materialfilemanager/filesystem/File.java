@@ -56,7 +56,7 @@ public interface File {
         if (isDirectory()) {
             return MimeTypes.MIME_TYPE_DIRECTORY;
         }
-        return MimeTypes.getMimeType(getPath());
+        return MimeTypes.getMimeType(getName());
     }
 
     default boolean isSupportedArchive() {
@@ -65,6 +65,13 @@ public interface File {
 
     default boolean isListable() {
         return isDirectory() || isSupportedArchive();
+    }
+
+    default File asListableFile() {
+        if (!(this instanceof ArchiveFile) && isSupportedArchive()) {
+            return new ArchiveFile(getPath(), Uri.parse("/"));
+        }
+        return this;
     }
 
     @NonNull

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.FileFactory;
 import me.zhanghai.android.materialfilemanager.filesystem.JavaLocalFile;
 
 public class FileLiveData extends LiveData<File> {
@@ -27,7 +28,7 @@ public class FileLiveData extends LiveData<File> {
         new AsyncTask<Void, Void, File>() {
             @Override
             protected File doInBackground(Void... strings) {
-                File file = new JavaLocalFile(mPath);
+                File file = FileFactory.create(mPath);
                 file.loadFileList();
                 return file;
             }
