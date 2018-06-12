@@ -18,10 +18,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.MapCompat;
@@ -122,27 +120,6 @@ public class Archive {
             builder.appendPath(pathSegment);
         }
         return builder.build();
-    }
-
-    private static Iterable<Uri> getAncestorPaths(Uri path) {
-        return () -> new Iterator<Uri>() {
-            private List<String> mPathSegments = path.getPathSegments();
-            private int mIndex = 0;
-            private Uri.Builder mBuilder = path.buildUpon().path("/");
-            @Override
-            public boolean hasNext() {
-                return mIndex < mPathSegments.size();
-            }
-            @Override
-            public Uri next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-                mBuilder.appendPath(mPathSegments.get(mIndex));
-                ++mIndex;
-                return mBuilder.build();
-            }
-        };
     }
 
     public static class Information {
