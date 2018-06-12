@@ -32,6 +32,7 @@ import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
+import me.zhanghai.android.materialfilemanager.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.materialfilemanager.ui.SortedListAdapter;
 import me.zhanghai.android.materialfilemanager.util.StringCompat;
 import me.zhanghai.android.materialfilemanager.util.TimeUtils;
@@ -87,7 +88,7 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
                     .load(file.getPath())
                     .signature(new ObjectKey(file.getLastModified()))
                     .placeholder(icon)
-                    .into(holder.iconImage);
+                    .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));
         } else {
             GlideApp.with(mFragment)
                     .clear(holder.iconImage);
