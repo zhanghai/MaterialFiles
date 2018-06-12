@@ -59,6 +59,7 @@ public class FileSortOptions {
     }
 
     public Comparator<File> makeComparator() {
+        // FIXME: Should sort with integer in mind.
         Comparator<File> comparator = ComparatorCompat.comparing(File::getName,
                 String::compareToIgnoreCase);
         switch (mBy) {
