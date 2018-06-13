@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 
+// Setting the placeholder drawable as error drawable again causes animation glitches, so we just
+// ignore the onLoadFailed callback.
 public class IgnoreErrorDrawableImageViewTarget extends DrawableImageViewTarget {
 
     public IgnoreErrorDrawableImageViewTarget(ImageView view) {
