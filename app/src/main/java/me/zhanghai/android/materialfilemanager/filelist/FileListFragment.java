@@ -122,8 +122,8 @@ public class FileListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
-        mViewModel.getFileData().observe(this, this::onFileChanged);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
+        mViewModel.getFileData().observe(this, this::onFileChanged);
 
         // TODO: Request storage permission.
     }
