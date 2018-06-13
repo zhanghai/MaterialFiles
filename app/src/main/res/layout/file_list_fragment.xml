@@ -8,6 +8,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -40,6 +41,18 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableTop="@drawable/file_icon_240dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/file_list_empty"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:visibility="gone" />
+
         <me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
@@ -54,7 +67,8 @@
                 app:fastScrollEnableThumbInactiveColor="false"
                 app:fastScrollPopupBgColor="?colorAccent"
                 app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
-                app:fastScrollThumbColor="?colorAccent" />
+                app:fastScrollThumbColor="?colorAccent"
+                tools:listitem="@layout/file_item" />
         </me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout>
     </FrameLayout>
 

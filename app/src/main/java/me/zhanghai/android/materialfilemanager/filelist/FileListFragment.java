@@ -57,6 +57,8 @@ public class FileListFragment extends Fragment {
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
+    @BindView(R.id.empty)
+    View mEmptyView;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
@@ -217,7 +219,9 @@ public class FileListFragment extends Fragment {
         Uri path = file.getPath();
         boolean isSameList = Objects.equals(path, mLastPath);
         mLastPath = path;
-        mAdapter.replaceAll(file.getFileList(), isSameList);
+        List<File> fileList = file.getFileList();
+        mAdapter.replaceAll(fileList, isSameList);
+        ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
         Parcelable state = mViewModel.getPendingState();
         if (state != null) {
             mRecyclerView.getLayoutManager().onRestoreInstanceState(state);
