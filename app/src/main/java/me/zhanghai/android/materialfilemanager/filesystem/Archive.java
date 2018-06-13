@@ -6,7 +6,6 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
-import android.os.Build;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
