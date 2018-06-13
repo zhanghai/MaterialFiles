@@ -54,7 +54,7 @@ public class ArchiveFile extends BaseFile {
     @NonNull
     @Override
     public List<File> makeFilePath() {
-        File archiveFile = FileFactory.create(mArchivePath);
+        File archiveFile = Files.create(mArchivePath);
         List<File> path = new ArrayList<>(archiveFile.makeFilePath());
         CollectionUtils.pop(path);
         Uri.Builder entryPathBuilder = mEntryPath.buildUpon().path("/");
@@ -105,10 +105,14 @@ public class ArchiveFile extends BaseFile {
 
     @Override
     public void loadFileList() {
-        Map<Uri, List<Archive.Information>> tree = Archive.read(new java.io.File(
+        Map<Uri, List<Archive.Information>> tree = Archive.readTree(new java.io.File(
                 mArchivePath.getPath()));
         // TODO: Handle non-existent path NPE.
         mFileList = Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(
                 mArchivePath, information.path, information));
+    }
+
+    public void invalidateCache() {
+        Archive.invalidateCache(new java.io.File(mArchivePath.getPath()));
     }
 }

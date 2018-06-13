@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.util.SortedList;
@@ -43,18 +44,23 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
 
     private Comparator<File> mComparator;
     private final SortedList.Callback<File> mCallback = new SortedListAdapterCallback<File>(this) {
-            @Override
-            public int compare(File file1, File file2) {
-                return mComparator.compare(file1, file2);
-            }
-            @Override
-            public boolean areItemsTheSame(File oldItem, File newItem) {
-                return oldItem == newItem || Objects.equals(oldItem.getPath(), newItem.getPath());
-            }
-            @Override
-            public boolean areContentsTheSame(File oldItem, File newItem) {
-                return Objects.equals(oldItem, newItem);
-            }
+        @Override
+        public int compare(File file1, File file2) {
+            return mComparator.compare(file1, file2);
+        }
+        @Override
+        public boolean areItemsTheSame(File oldItem, File newItem) {
+            return oldItem == newItem || Objects.equals(oldItem.getPath(), newItem.getPath());
+        }
+        @Override
+        public boolean areContentsTheSame(File oldItem, File newItem) {
+            return Objects.equals(oldItem, newItem);
+        }
+        @Nullable
+        @Override
+        public Object getChangePayload(File item1, File item2) {
+            return new Object();
+        }
     };
 
     private Fragment mFragment;

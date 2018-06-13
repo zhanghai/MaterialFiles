@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.util.LruCache;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -35,46 +36,56 @@ public class Archive {
 
     private static final ArchiveStreamFactory sArchiveStreamFactory = new ArchiveStreamFactory();
 
+    private static final LruCache<File, Map<Uri, List<Information>>> sTreeCache = new LruCache<>(2);
+
     private Archive() {}
 
-    public static Map<Uri, List<Information>> read(File file) {
-        List<ArchiveEntry> entries;
-        try {
-            entries = readEntries(file);
-        } catch (ArchiveException | IOException e) {
-            // TODO
-            e.printStackTrace();
-            return null;
-        }
-        List<Information> informations = Functional.map(entries, entry -> new Information(
-                getEntryPath(entry), entry));
-        Map<Uri, List<Information>> tree = new HashMap<>();
-        tree.put(Uri.parse("/"), new ArrayList<>());
-        Map<Uri, Boolean> directoryInformationExists = new HashMap<>();
-        for (Information information : informations) {
-            Uri parentPath = getParentPath(information.path);
-            MapCompat.putIfAbsent(directoryInformationExists, parentPath, false);
-            MapCompat.computeIfAbsent(tree, parentPath, _1 -> new ArrayList<>())
-                    .add(information);
-            if (information.entry.isDirectory()) {
-                directoryInformationExists.put(information.path, true);
-                MapCompat.computeIfAbsent(tree, information.path, _1 -> new ArrayList<>());
+    public static void invalidateCache(File file) {
+        sTreeCache.remove(file);
+    }
+
+    public static Map<Uri, List<Information>> readTree(File file) {
+        Map<Uri, List<Information>> tree = sTreeCache.get(file);
+        if (tree == null) {
+            List<ArchiveEntry> entries;
+            try {
+                entries = readEntries(file);
+            } catch (ArchiveException | IOException e) {
+                // TODO
+                e.printStackTrace();
+                return null;
             }
-        }
-        for (Map.Entry<Uri, Boolean> mapEntry : directoryInformationExists.entrySet()) {
-            Uri.Builder builder = Uri.parse("/").buildUpon();
-            Uri parentPath = builder.build();
-            for (String pathSegment : mapEntry.getKey().getPathSegments()) {
-                builder.appendPath(pathSegment);
-                Uri path = builder.build();
-                if (!MapCompat.getOrDefault(directoryInformationExists, path, false)) {
-                    ArchiveEntry entry = new ArchiveDirectoryEntry(path.getPath());
-                    Information information = new Information(path, entry);
-                    tree.get(parentPath).add(information);
+            List<Information> informations = Functional.map(entries, entry -> new Information(
+                    getEntryPath(entry), entry));
+            tree = new HashMap<>();
+            tree.put(Uri.parse("/"), new ArrayList<>());
+            Map<Uri, Boolean> directoryInformationExists = new HashMap<>();
+            for (Information information : informations) {
+                Uri parentPath = getParentPath(information.path);
+                MapCompat.putIfAbsent(directoryInformationExists, parentPath, false);
+                MapCompat.computeIfAbsent(tree, parentPath, _1 -> new ArrayList<>())
+                        .add(information);
+                if (information.entry.isDirectory()) {
+                    directoryInformationExists.put(information.path, true);
+                    MapCompat.computeIfAbsent(tree, information.path, _1 -> new ArrayList<>());
                 }
-                MapCompat.computeIfAbsent(tree, path, _1 -> new ArrayList<>());
-                parentPath = path;
             }
+            for (Map.Entry<Uri, Boolean> mapEntry : directoryInformationExists.entrySet()) {
+                Uri.Builder builder = Uri.parse("/").buildUpon();
+                Uri parentPath = builder.build();
+                for (String pathSegment : mapEntry.getKey().getPathSegments()) {
+                    builder.appendPath(pathSegment);
+                    Uri path = builder.build();
+                    if (!MapCompat.getOrDefault(directoryInformationExists, path, false)) {
+                        ArchiveEntry entry = new ArchiveDirectoryEntry(path.getPath());
+                        Information information = new Information(path, entry);
+                        tree.get(parentPath).add(information);
+                    }
+                    MapCompat.computeIfAbsent(tree, path, _1 -> new ArrayList<>());
+                    parentPath = path;
+                }
+            }
+            sTreeCache.put(file, tree);
         }
         return tree;
     }

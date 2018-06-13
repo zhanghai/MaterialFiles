@@ -7,9 +7,9 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
 
-public class FileFactory {
+public class Files {
 
-    private FileFactory() {}
+    private Files() {}
 
     public static File create(Uri path) {
         switch (path.getScheme()) {
@@ -19,6 +19,14 @@ public class FileFactory {
                 return new ArchiveFile(path);
             default:
                 throw new UnsupportedOperationException("Unknown path: " + path);
+        }
+    }
+
+    public static void invalidateCache(Uri path) {
+        switch (path.getScheme()) {
+            case ArchiveFile.SCHEME:
+                new ArchiveFile(path).invalidateCache();
+                break;
         }
     }
 }

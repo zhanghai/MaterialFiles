@@ -15,6 +15,7 @@ import android.os.Parcelable;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.filesystem.JavaLocalFile;
 import me.zhanghai.android.materialfilemanager.settings.Settings;
 
@@ -53,7 +54,9 @@ public class FileViewModel extends ViewModel {
     }
 
     public void reload() {
-        mPathData.setValue(mPathData.getValue());
+        Uri path = mPathData.getValue();
+        Files.invalidateCache(path);
+        mPathData.setValue(path);
     }
 
     public LiveData<File> getFileData() {
