@@ -7,7 +7,6 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.util.SortedList;
@@ -55,11 +54,6 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
         @Override
         public boolean areContentsTheSame(File oldItem, File newItem) {
             return Objects.equals(oldItem, newItem);
-        }
-        @Nullable
-        @Override
-        public Object getChangePayload(File item1, File item2) {
-            return new Object();
         }
     };
 
