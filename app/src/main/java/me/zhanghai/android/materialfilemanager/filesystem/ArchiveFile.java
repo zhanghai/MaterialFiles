@@ -107,14 +107,8 @@ public class ArchiveFile extends BaseFile {
 
     @Override
     public void loadFileList() {
-        Map<Uri, List<Archive.Information>> tree;
-        try {
-            tree = Archive.read(new FileInputStream(mArchivePath.getPath()));
-        } catch (FileNotFoundException e) {
-            // TODO
-            e.printStackTrace();
-            return;
-        }
+        Map<Uri, List<Archive.Information>> tree = Archive.read(new java.io.File(
+                mArchivePath.getPath()));
         // TODO: Handle non-existent path NPE.
         mFileList = Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(
                 mArchivePath, information.path, information));

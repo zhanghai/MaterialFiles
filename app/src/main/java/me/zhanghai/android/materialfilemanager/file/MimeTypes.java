@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.file;
 
 import android.net.Uri;
+import android.os.Build;
 import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
@@ -120,7 +121,6 @@ public class MimeTypes {
             .add("application/java-archive")
             .add("application/zip")
             .add("application/vnd.debian.binary-package")
-            .add("application/x-7z-compressed")
             .add("application/x-bzip2")
             .add("application/x-compress")
             .add("application/x-deb")
@@ -128,8 +128,9 @@ public class MimeTypes {
             .add("application/x-gtar")
             .add("application/x-java-archive")
             .add("application/x-tar")
-
             .buildUnmodifiable();
+
+    private static final String SEVEN_Z_MIME_TYPE = "application/x-7z-compressed";
 
     public static String getMimeType(String path) {
         String extension = FileNameUtils.getExtension(path);
@@ -159,7 +160,9 @@ public class MimeTypes {
     }
 
     public static boolean isSupportedArchive(String mimeType) {
-        return sSupportedArchiveMimeTypes.contains(mimeType);
+        return sSupportedArchiveMimeTypes.contains(mimeType)
+                || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                        && TextUtils.equals(mimeType, SEVEN_Z_MIME_TYPE));
     }
 
     public static boolean isImage(String mimeType) {

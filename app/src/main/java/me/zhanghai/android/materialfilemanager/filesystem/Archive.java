@@ -6,13 +6,19 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Build;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.ArchiveInputStream;
 import org.apache.commons.compress.archivers.ArchiveStreamFactory;
+import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
+import org.apache.commons.compress.archivers.sevenz.SevenZFile;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -22,6 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.functional.FunctionalIterator;
+import me.zhanghai.android.materialfilemanager.functional.compat.Consumer;
 import me.zhanghai.android.materialfilemanager.util.MapCompat;
 
 public class Archive {
@@ -30,13 +38,14 @@ public class Archive {
 
     private Archive() {}
 
-    public static Map<Uri, List<Information>> read(InputStream inputStream) {
-        List<ArchiveEntry> entries = new ArrayList<>();
+    public static Map<Uri, List<Information>> read(File file) {
+        List<ArchiveEntry> entries;
         try {
-            readEntries(inputStream, entries);
+            entries = readEntries(file);
         } catch (ArchiveException | IOException e) {
             // TODO
             e.printStackTrace();
+            return null;
         }
         List<Information> informations = Functional.map(entries, entry -> new Information(
                 getEntryPath(entry), entry));
@@ -71,18 +80,44 @@ public class Archive {
         return tree;
     }
 
-    private static void readEntries(InputStream inputStream, List<ArchiveEntry> entries)
-            throws ArchiveException, IOException {
-        try (ArchiveInputStream archiveInputStream = sArchiveStreamFactory.createArchiveInputStream(
-                new BufferedInputStream(inputStream))) {
-            while (true) {
-                ArchiveEntry entry = archiveInputStream.getNextEntry();
-                if (entry == null) {
-                    break;
+    private static List<ArchiveEntry> readEntries(File file) throws ArchiveException, IOException {
+        String type;
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
+            type = ArchiveStreamFactory.detect(inputStream);
+        }
+        ArrayList<ArchiveEntry> entries = new ArrayList<>();
+        switch (type) {
+            case ArchiveStreamFactory.ZIP: {
+                try (ZipFileCompat zipFile = new ZipFileCompat(file, /*FIXME*/"GB18030")) {
+                    FunctionalIterator.forEachRemaining(zipFile.getEntries(),
+                            (Consumer<ZipArchiveEntry>) entries::add);
                 }
-                entries.add(entry);
+                break;
+            }
+            case ArchiveStreamFactory.SEVEN_Z: {
+                try (SevenZFile sevenZFile = new SevenZFile(file)) {
+                    Functional.forEach(sevenZFile.getEntries(),
+                            (Consumer<SevenZArchiveEntry>) entries::add);
+                }
+                break;
+            }
+            default: {
+                try (FileInputStream fileInputStream = new FileInputStream(file)) {
+                    try (ArchiveInputStream archiveInputStream =
+                                 sArchiveStreamFactory.createArchiveInputStream(
+                                         new BufferedInputStream(fileInputStream))) {
+                        while (true) {
+                            ArchiveEntry entry = archiveInputStream.getNextEntry();
+                            if (entry == null) {
+                                break;
+                            }
+                            entries.add(entry);
+                        }
+                    }
+                }
             }
         }
+        return entries;
     }
 
     private static Uri getEntryPath(ArchiveEntry entry) {
