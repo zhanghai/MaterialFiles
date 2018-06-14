@@ -8,8 +8,8 @@
 <resources>
     <dimen name="screen_edge_margin">24dp</dimen>
     <dimen name="screen_edge_margin_minus_4dp">20dp</dimen>
+    <dimen name="screen_edge_margin_minus_8dp">16dp</dimen>
     <dimen name="screen_edge_margin_minus_12dp">12dp</dimen>
-    <dimen name="screen_edge_margin_minus_20dp">4dp</dimen>
     <dimen name="content_start_margin">80dp</dimen>
     <dimen name="content_start_margin_minus_12dp">68dp</dimen>
     <dimen name="navigation_header_height">192dp</dimen>
