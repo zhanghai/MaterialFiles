@@ -6,7 +6,6 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
-import android.util.LruCache;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -37,9 +36,13 @@ public class Archive {
 
     private static final ArchiveStreamFactory sArchiveStreamFactory = new ArchiveStreamFactory();
 
-    private static final LruCache<File, Map<Uri, List<Information>>> sTreeCache = new LruCache<>(2);
+    private static final Map<File, Map<Uri, List<Information>>> sTreeCache = new HashMap<>();
 
     private Archive() {}
+
+    public static void retainCache(List<File> files) {
+        sTreeCache.keySet().retainAll(files);
+    }
 
     public static void invalidateCache(File file) {
         sTreeCache.remove(file);

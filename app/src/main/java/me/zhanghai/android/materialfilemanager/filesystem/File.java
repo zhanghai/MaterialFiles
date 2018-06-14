@@ -69,7 +69,7 @@ public interface File {
 
     default File asListableFile() {
         if (!(this instanceof ArchiveFile) && isSupportedArchive()) {
-            return new ArchiveFile(getPath(), Uri.parse("/"));
+            return new ArchiveFile(this, Uri.parse("/"));
         }
         return this;
     }

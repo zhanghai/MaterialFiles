@@ -8,9 +8,11 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 
@@ -55,6 +57,7 @@ public class PathHistory {
             mTrail.addAll(path);
         }
         mTrailIndex = path.size() - 1;
+        Files.onTrailChanged(Collections.unmodifiableList(mTrail));
     }
 
     public List<File> getTrail() {

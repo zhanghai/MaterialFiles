@@ -22,21 +22,21 @@ public class ArchiveFile extends BaseFile {
 
     public static final String SCHEME = "archive";
 
-    private Uri mArchivePath;
+    private File mArchiveFile;
     private Uri mEntryPath;
     private Archive.Information mInformation;
 
     public ArchiveFile(Uri path) {
         super(path);
 
-        mArchivePath = Uri.parse(path.getSchemeSpecificPart());
+        mArchiveFile = Files.create(Uri.parse(path.getSchemeSpecificPart()));
         mEntryPath = Uri.parse(path.getFragment());
     }
 
-    public ArchiveFile(Uri archivePath, Uri entryPath) {
-        super(Uri.fromParts(SCHEME, archivePath.toString(), entryPath.toString()));
+    public ArchiveFile(File archiveFile, Uri entryPath) {
+        super(Uri.fromParts(SCHEME, archiveFile.getPath().toString(), entryPath.toString()));
 
-        mArchivePath = archivePath;
+        mArchiveFile = archiveFile;
         mEntryPath = entryPath;
     }
 
@@ -46,23 +46,30 @@ public class ArchiveFile extends BaseFile {
         mInformation = information;
     }
 
-    private ArchiveFile(Uri archivePath, Uri entryPath, Archive.Information information) {
-        this(archivePath, entryPath);
+    private ArchiveFile(File archiveFile, Uri entryPath, Archive.Information information) {
+        this(archiveFile, entryPath);
 
         mInformation = information;
+    }
+
+    public File getArchiveFile() {
+        return mArchiveFile;
+    }
+
+    public Uri getEntryPath() {
+        return mEntryPath;
     }
 
     @NonNull
     @Override
     public List<File> makeFilePath() {
-        File archiveFile = Files.create(mArchivePath);
-        List<File> path = new ArrayList<>(archiveFile.makeFilePath());
+        List<File> path = new ArrayList<>(mArchiveFile.makeFilePath());
         CollectionUtils.pop(path);
         Uri.Builder entryPathBuilder = mEntryPath.buildUpon().path("/");
-        path.add(new ArchiveFile(mArchivePath, entryPathBuilder.build()));
+        path.add(new ArchiveFile(mArchiveFile, entryPathBuilder.build()));
         for (String entryPathSegment : mEntryPath.getPathSegments()) {
             entryPathBuilder.appendPath(entryPathSegment);
-            path.add(new ArchiveFile(mArchivePath, entryPathBuilder.build()));
+            path.add(new ArchiveFile(mArchiveFile, entryPathBuilder.build()));
         }
         return path;
     }
@@ -72,7 +79,7 @@ public class ArchiveFile extends BaseFile {
     public String getName() {
         List<String> segments = mEntryPath.getPathSegments();
         if (segments.isEmpty()) {
-            return mArchivePath.getLastPathSegment();
+            return mArchiveFile.getName();
         }
         return CollectionUtils.last(segments);
     }
@@ -106,15 +113,10 @@ public class ArchiveFile extends BaseFile {
 
     @Override
     public void loadFileList() {
-        Map<Uri, List<Archive.Information>> tree = Archive.readTree(new java.io.File(
-                mArchivePath.getPath()));
+        Map<Uri, List<Archive.Information>> tree = Archive.readTree(mArchiveFile.makeJavaFile());
         // TODO: Handle non-existent path NPE.
         mFileList = Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(
-                mArchivePath, information.path, information));
-    }
-
-    public void invalidateCache() {
-        Archive.invalidateCache(new java.io.File(mArchivePath.getPath()));
+                mArchiveFile, information.path, information));
     }
 
     @Override
@@ -127,13 +129,13 @@ public class ArchiveFile extends BaseFile {
         }
         ArchiveFile that = (ArchiveFile) object;
         return Objects.equals(mPath, that.mPath)
-                && Objects.equals(mArchivePath, that.mArchivePath)
+                && Objects.equals(mArchiveFile, that.mArchiveFile)
                 && Objects.equals(mEntryPath, that.mEntryPath)
                 && Objects.equals(mInformation, that.mInformation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPath, mArchivePath, mEntryPath, mInformation);
+        return Objects.hash(mPath, mArchiveFile, mEntryPath, mInformation);
     }
 }
