@@ -19,8 +19,8 @@
 
     <string name="main_title">Files</string>
     <plurals name="main_subtitle_directory_count_format">
-        <item quantity="one">%1$d directory</item>
-        <item quantity="other">%1$d directories</item>
+        <item quantity="one">%1$d folder</item>
+        <item quantity="other">%1$d folders</item>
     </plurals>
     <plurals name="main_subtitle_file_count_format">
         <item quantity="one">%1$d file</item>
