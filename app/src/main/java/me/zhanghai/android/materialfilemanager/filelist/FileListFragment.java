@@ -44,7 +44,7 @@ import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class FileListFragment extends Fragment {
+public class FileListFragment extends Fragment implements FileListAdapter.Listener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -125,7 +125,7 @@ public class FileListFragment extends Fragment {
         mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
         mSwipeRefreshLayout.setOnRefreshListener(this::reloadFile);
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
-        mAdapter = new FileListAdapter(this, this::onFileSelected);
+        mAdapter = new FileListAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
@@ -190,31 +190,6 @@ public class FileListFragment extends Fragment {
 
     public boolean onBackPressed() {
         return mViewModel.popPath();
-    }
-
-    private void onBreadcrumbItemSelected(int index) {
-        navigateToFile(mViewModel.getTrail().get(index));
-    }
-
-    private void onFileSelected(File file) {
-        if (file.isListable()) {
-            navigateToFile(file.asListableFile());
-            return;
-        }
-        Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(file.makeJavaFile()),
-                file.getMimeType())
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        AppUtils.startActivity(intent, requireContext());
-    }
-
-    private void navigateToFile(File file) {
-        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.pushPath(state, file.makeFilePath());
-    }
-
-    private void reloadFile() {
-        mViewModel.reload();
     }
 
     private void onFileListChanged(FileListData fileListData) {
@@ -347,5 +322,61 @@ public class FileListFragment extends Fragment {
         mSortOrderAscendingMenuItem.setChecked(sortOptions.getOrder()
                 == FileSortOptions.Order.ASCENDING);
         mSortDirectoriesFirstMenuItem.setChecked(sortOptions.isDirectoriesFirst());
+    }
+
+    private void reloadFile() {
+        mViewModel.reload();
+    }
+
+    private void onBreadcrumbItemSelected(int index) {
+        navigateToFile(mViewModel.getTrail().get(index));
+    }
+
+    @Override
+    public void onOpenFile(File file) {
+        if (file.isListable()) {
+            navigateToFile(file.asListableFile());
+            return;
+        }
+        Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(file.makeJavaFile()),
+                file.getMimeType())
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        AppUtils.startActivity(intent, requireContext());
+    }
+
+    private void navigateToFile(File file) {
+        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        mViewModel.pushPath(state, file.makeFilePath());
+    }
+
+    @Override
+    public void onOpenFileAs(File file) {
+
+    }
+
+    @Override
+    public void onCutFile(File file) {
+
+    }
+
+    @Override
+    public void onCopyFile(File file) {
+
+    }
+
+    @Override
+    public void onDeleteFile(File file) {
+
+    }
+
+    @Override
+    public void onRenameFile(File file) {
+
+    }
+
+    @Override
+    public void onOpenFileProperties(File file) {
+
     }
 }

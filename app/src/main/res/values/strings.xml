@@ -40,4 +40,11 @@
     <string name="file_list_action_sort_directories_first">Directories first</string>
     <string name="file_list_action_refresh">Refresh</string>
     <string name="file_list_empty">No files</string>
+
+    <string name="file_item_action_open_as">Open as</string>
+    <string name="file_item_action_cut">Cut</string>
+    <string name="file_item_action_copy">Copy</string>
+    <string name="file_item_action_delete">Delete</string>
+    <string name="file_item_action_rename">Rename</string>
+    <string name="file_item_action_properties">Properties</string>
 </resources>

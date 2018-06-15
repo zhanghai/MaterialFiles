@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.util.SortedList;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.text.TextUtils;
@@ -74,7 +75,12 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ViewUtils.inflate(R.layout.file_item, parent));
+        ViewHolder holder = new ViewHolder(ViewUtils.inflate(R.layout.file_item, parent));
+        holder.menu = new PopupMenu(holder.menuButton.getContext(), holder.menuButton);
+        holder.menu.inflate(R.menu.file_item);
+        holder.menuButton.setOnClickListener(view -> holder.menu.show());
+        holder.menuButton.setOnTouchListener(holder.menu.getDragToOpenListener());
+        return holder;
     }
 
     @Override
@@ -108,7 +114,25 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
             description = StringCompat.join(descriptionSeparator, lastModified, size);
         }
         holder.descriptionText.setText(description);
-        holder.itemView.setOnClickListener(view -> mListener.onFileSelected(file));
+        holder.menu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_open_as:
+                    return true;
+                case R.id.action_cut:
+                    return true;
+                case R.id.action_copy:
+                    return true;
+                case R.id.action_delete:
+                    return true;
+                case R.id.action_rename:
+                    return true;
+                case R.id.action_properties:
+                    return true;
+                default:
+                    return false;
+            }
+        });
+        holder.itemView.setOnClickListener(view -> mListener.onOpenFile(file));
     }
 
     @NonNull
@@ -124,19 +148,27 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
     }
 
     public interface Listener {
-        void onFileSelected(File file);
+        void onOpenFile(File file);
+        void onOpenFileAs(File file);
+        void onCutFile(File file);
+        void onCopyFile(File file);
+        void onDeleteFile(File file);
+        void onRenameFile(File file);
+        void onOpenFileProperties(File file);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.icon)
-        ImageView iconImage;
+        public ImageView iconImage;
         @BindView(R.id.name)
-        TextView nameText;
+        public TextView nameText;
         @BindView(R.id.description)
-        TextView descriptionText;
-        @BindView(R.id.more)
-        ImageButton moreButton;
+        public TextView descriptionText;
+        @BindView(R.id.menu)
+        public ImageButton menuButton;
+
+        public PopupMenu menu;
 
         public ViewHolder(View itemView) {
             super(itemView);

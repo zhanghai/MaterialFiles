@@ -52,7 +52,7 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/more"
+            android:id="@+id/menu"
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"
             android:layout_marginStart="@dimen/screen_edge_margin_minus_8dp"

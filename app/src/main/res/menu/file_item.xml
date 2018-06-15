@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_open_as"
+        android:title="@string/file_item_action_open_as" />
+
+    <item
+        android:id="@+id/action_cut"
+        android:title="@string/file_item_action_cut" />
+
+    <item
+        android:id="@+id/action_copy"
+        android:title="@string/file_item_action_copy" />
+
+    <item
+        android:id="@+id/action_delete"
+        android:title="@string/file_item_action_delete" />
+
+    <item
+        android:id="@+id/action_rename"
+        android:title="@string/file_item_action_rename" />
+
+    <item
+        android:id="@+id/action_properties"
+        android:title="@string/file_item_action_properties" />
+</menu>
