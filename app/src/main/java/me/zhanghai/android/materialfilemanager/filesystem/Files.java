@@ -7,7 +7,9 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
@@ -27,17 +29,20 @@ public class Files {
     }
 
     public static void onTrailChanged(List<File> path) {
-        List<java.io.File> archiveJavaFiles = Functional.map(
+        Set<java.io.File> archiveJavaFiles = Functional.map(
                 Functional.filter(path, file -> file instanceof ArchiveFile),
-                file -> ((ArchiveFile) file).getArchiveFile().makeJavaFile());
+                file -> ((ArchiveFile) file).getArchiveFile().makeJavaFile(), new HashSet<>());
         Archive.retainCache(archiveJavaFiles);
     }
 
     public static void invalidateCache(Uri path) {
         switch (path.getScheme()) {
-            case ArchiveFile.SCHEME:
-                Archive.invalidateCache(new ArchiveFile(path).getArchiveFile().makeJavaFile());
+            case ArchiveFile.SCHEME: {
+                java.io.File archiveJavaFile = new ArchiveFile(path).getArchiveFile()
+                        .makeJavaFile();
+                Archive.invalidateCache(archiveJavaFile);
                 break;
+            }
         }
     }
 }

@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public class Archive {
 
     private Archive() {}
 
-    public static void retainCache(List<File> files) {
+    public static void retainCache(Collection<File> files) {
         sTreeCache.keySet().retainAll(files);
     }
 
