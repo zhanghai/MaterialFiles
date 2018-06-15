@@ -124,6 +124,9 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     public void setItems(List<String> items, int selectedIndex) {
+        if (mItems.equals(items) && mSelectedIndex == selectedIndex) {
+            return;
+        }
         mItems.clear();
         mItems.addAll(items);
         mSelectedIndex = selectedIndex;

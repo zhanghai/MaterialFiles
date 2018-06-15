@@ -210,6 +210,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             }
             case ERROR:
                 mToolbar.setSubtitle(R.string.file_list_subtitle_error);
+                updateBreadcrumbLayout();
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeIn(mErrorView);
@@ -219,6 +220,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             case SUCCESS: {
                 List<File> fileList = fileListData.fileList;
                 updateSubtitle(fileList);
+                updateBreadcrumbLayout();
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
