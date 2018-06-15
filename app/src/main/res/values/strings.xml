@@ -18,17 +18,19 @@
     <string name="file_description_separator">"    "</string>
 
     <string name="main_title">Files</string>
-    <plurals name="main_subtitle_directory_count_format">
+
+    <string name="file_list_subtitle_loading">Loading</string>
+    <string name="file_list_subtitle_error">Error</string>
+    <string name="file_list_subtitle_empty">Empty</string>
+    <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$d folder</item>
         <item quantity="other">%1$d folders</item>
     </plurals>
-    <plurals name="main_subtitle_file_count_format">
+    <plurals name="file_list_subtitle_file_count_format">
         <item quantity="one">%1$d file</item>
         <item quantity="other">%1$d files</item>
     </plurals>
-    <string name="main_subtitle_separator">", "</string>
-    <string name="main_subtitle_empty">Empty</string>
-
+    <string name="file_list_subtitle_separator">", "</string>
     <string name="file_list_action_sort">Sort</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Type</string>

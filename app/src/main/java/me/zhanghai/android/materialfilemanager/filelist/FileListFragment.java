@@ -28,6 +28,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Objects;
@@ -52,12 +54,16 @@ public class FileListFragment extends Fragment {
     BreadcrumbLayout mBreadcrumbLayout;
     @BindView(R.id.content)
     ViewGroup mContentLayout;
+    @BindView(R.id.progress)
+    ProgressBar mProgress;
+    @BindView(R.id.empty)
+    View mEmptyView;
+    @BindView(R.id.error)
+    TextView mErrorView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
-    @BindView(R.id.empty)
-    View mEmptyView;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
 
@@ -212,18 +218,45 @@ public class FileListFragment extends Fragment {
     }
 
     private void onFileListChanged(FileListData fileListData) {
-        List<File> fileList = fileListData.fileList;
-        updateSubtitle(fileList);
-        updateBreadcrumbLayout();
-        mSwipeRefreshLayout.setRefreshing(false);
-        Uri path = fileListData.file.getPath();
-        boolean isSameList = Objects.equals(path, mLastPath);
-        mLastPath = path;
-        mAdapter.replaceAll(fileList, isSameList);
-        ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
-        Parcelable state = mViewModel.getPendingState();
-        if (state != null) {
-            mRecyclerView.getLayoutManager().onRestoreInstanceState(state);
+        switch (fileListData.state) {
+            case LOADING: {
+                Uri path = fileListData.file.getPath();
+                boolean isReload = Objects.equals(path, mLastPath);
+                mLastPath = path;
+                if (!isReload) {
+                    mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
+                    updateBreadcrumbLayout();
+                    ViewUtils.fadeIn(mProgress);
+                    ViewUtils.fadeOut(mErrorView);
+                    ViewUtils.fadeOut(mEmptyView);
+                    mAdapter.clear();
+                }
+                break;
+            }
+            case ERROR:
+                mToolbar.setSubtitle(R.string.file_list_subtitle_error);
+                mSwipeRefreshLayout.setRefreshing(false);
+                ViewUtils.fadeOut(mProgress);
+                ViewUtils.fadeIn(mErrorView);
+                mErrorView.setText(fileListData.exception.toString());
+                ViewUtils.fadeOut(mEmptyView);
+                break;
+            case SUCCESS: {
+                List<File> fileList = fileListData.fileList;
+                updateSubtitle(fileList);
+                mSwipeRefreshLayout.setRefreshing(false);
+                ViewUtils.fadeOut(mProgress);
+                ViewUtils.fadeOut(mErrorView);
+                ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
+                mAdapter.replaceAll(fileList);
+                Parcelable state = mViewModel.getPendingState();
+                if (state != null) {
+                    mRecyclerView.getLayoutManager().onRestoreInstanceState(state);
+                }
+                break;
+            }
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
@@ -233,20 +266,20 @@ public class FileListFragment extends Fragment {
         int fileCount = files.size() - directoryCount;
         Resources resources = requireContext().getResources();
         String directoryCountText = directoryCount > 0 ? resources.getQuantityString(
-                R.plurals.main_subtitle_directory_count_format, directoryCount, directoryCount)
+                R.plurals.file_list_subtitle_directory_count_format, directoryCount, directoryCount)
                 : null;
         String fileCountText = fileCount > 0 ? resources.getQuantityString(
-                R.plurals.main_subtitle_file_count_format, fileCount, fileCount) : null;
+                R.plurals.file_list_subtitle_file_count_format, fileCount, fileCount) : null;
         String subtitle;
         if (!TextUtils.isEmpty(directoryCountText) && !TextUtils.isEmpty(fileCountText)) {
-            subtitle = directoryCountText + getString(R.string.main_subtitle_separator) +
+            subtitle = directoryCountText + getString(R.string.file_list_subtitle_separator) +
                     fileCountText;
         } else if (!TextUtils.isEmpty(directoryCountText)) {
             subtitle = directoryCountText;
         } else if (!TextUtils.isEmpty(fileCountText)) {
             subtitle = fileCountText;
         } else {
-            subtitle = getString(R.string.main_subtitle_empty);
+            subtitle = getString(R.string.file_list_subtitle_empty);
         }
         mToolbar.setSubtitle(subtitle);
     }

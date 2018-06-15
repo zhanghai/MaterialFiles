@@ -24,20 +24,19 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
 
     public void refresh() {
         mSortedList.beginBatchedUpdates();
-        for (int i = mSortedList.size() - 1; i >= 0; --i) {
-            mSortedList.removeItemAt(i);
-        }
+        mSortedList.clear();
         mSortedList.addAll(mList);
         mSortedList.endBatchedUpdates();
     }
 
-    public void replaceAll(List<T> list, boolean isSameList) {
+    public void replaceAll(List<T> list) {
         mList = new ArrayList<>(list);
-        if (isSameList) {
-            mSortedList.replaceAll(mList);
-        } else {
-            refresh();
-        }
+        mSortedList.replaceAll(mList);
+    }
+
+    public void clear() {
+        mList.clear();
+        mSortedList.clear();
     }
 
     protected T getItem(int position) {

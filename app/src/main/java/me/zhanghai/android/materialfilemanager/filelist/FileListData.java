@@ -13,8 +13,8 @@ public class FileListData {
 
     public enum State {
         LOADING,
-        SUCCESS,
-        ERROR
+        ERROR,
+        SUCCESS
     }
 
     public State state;
@@ -33,11 +33,11 @@ public class FileListData {
         return new FileListData(State.LOADING, file, null, null);
     }
 
-    public static FileListData ofSuccess(File file, List<File> fileList) {
-        return new FileListData(State.SUCCESS, file, fileList, null);
-    }
-
     public static FileListData ofError(File file, Exception exception) {
         return new FileListData(State.ERROR, file, null, exception);
+    }
+
+    public static FileListData ofSuccess(File file, List<File> fileList) {
+        return new FileListData(State.SUCCESS, file, fileList, null);
     }
 }

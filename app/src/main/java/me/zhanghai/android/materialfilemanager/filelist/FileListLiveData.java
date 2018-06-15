@@ -26,12 +26,17 @@ public class FileListLiveData extends LiveData<FileListData> {
 
     @SuppressLint("StaticFieldLeak")
     private void loadData() {
+        File file = Files.create(mPath);
+        setValue(FileListData.ofLoading(file));
         new AsyncTask<Void, Void, FileListData>() {
             @Override
-            protected FileListData doInBackground(Void... strings) {
-                File file = Files.create(mPath);
-                List<File> fileList = file.loadFileList();
-                return FileListData.ofSuccess(file, fileList);
+            protected FileListData doInBackground(Void... parameters) {
+                try {
+                    List<File> fileList = file.loadFileList();
+                    return FileListData.ofSuccess(file, fileList);
+                } catch (Exception e) {
+                    return FileListData.ofError(file, e);
+                }
             }
             @Override
             protected void onPostExecute(FileListData fileListData) {
