@@ -23,7 +23,7 @@ public class FileViewModel extends ViewModel {
 
     private PathHistory mPathHistory = new PathHistory();
     private MutableLiveData<Uri> mPathData = new MutableLiveData<>();
-    private LiveData<File> mFileData = Transformations.switchMap(mPathData, FileLiveData::new);
+    private LiveData<FileListData> mFileListData = Transformations.switchMap(mPathData, FileListLiveData::new);
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
 
     public FileViewModel() {
@@ -59,8 +59,8 @@ public class FileViewModel extends ViewModel {
         mPathData.setValue(path);
     }
 
-    public LiveData<File> getFileData() {
-        return mFileData;
+    public LiveData<FileListData> getFileListData() {
+        return mFileListData;
     }
 
     public List<File> getTrail() {

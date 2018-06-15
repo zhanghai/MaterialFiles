@@ -64,7 +64,7 @@ public class ShellLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    public void loadFileList() {
+    public List<File> loadFileList() {
         List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
         // TODO: ARG_MAX
@@ -74,7 +74,7 @@ public class ShellLocalFile extends LocalFile {
             // TODO
         }
         List<Stat.Information> informations = Functional.map(outputs, Stat::parseOutput);
-        mFileList = Functional.map(javaFiles, (javaFile, index) -> new ShellLocalFile(
+        return Functional.map(javaFiles, (javaFile, index) -> new ShellLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
     }
 

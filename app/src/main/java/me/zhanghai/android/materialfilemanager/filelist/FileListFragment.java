@@ -29,7 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -125,7 +124,7 @@ public class FileListFragment extends Fragment {
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
-        mViewModel.getFileData().observe(this, this::onFileChanged);
+        mViewModel.getFileListData().observe(this, this::onFileListChanged);
 
         // TODO: Request storage permission.
     }
@@ -212,14 +211,14 @@ public class FileListFragment extends Fragment {
         mViewModel.reload();
     }
 
-    private void onFileChanged(File file) {
-        updateSubtitle(file);
+    private void onFileListChanged(FileListData fileListData) {
+        List<File> fileList = fileListData.fileList;
+        updateSubtitle(fileList);
         updateBreadcrumbLayout();
         mSwipeRefreshLayout.setRefreshing(false);
-        Uri path = file.getPath();
+        Uri path = fileListData.file.getPath();
         boolean isSameList = Objects.equals(path, mLastPath);
         mLastPath = path;
-        List<File> fileList = file.getFileList();
         mAdapter.replaceAll(fileList, isSameList);
         ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
         Parcelable state = mViewModel.getPendingState();
@@ -228,9 +227,8 @@ public class FileListFragment extends Fragment {
         }
     }
 
-    private void updateSubtitle(File file) {
-        List<File> files = file.getFileList();
-        int directoryCount = Functional.reduce(files, (count, file_) -> file_.isDirectory() ?
+    private void updateSubtitle(List<File> files) {
+        int directoryCount = Functional.reduce(files, (count, file) -> file.isDirectory() ?
                 count + 1 : count, 0);
         int fileCount = files.size() - directoryCount;
         Resources resources = requireContext().getResources();

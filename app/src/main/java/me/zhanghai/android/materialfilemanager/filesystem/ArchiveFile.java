@@ -112,11 +112,11 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public void loadFileList() {
+    public List<File> loadFileList() {
         Map<Uri, List<Archive.Information>> tree = Archive.readTree(mArchiveFile.makeJavaFile());
         // TODO: Handle non-existent path NPE.
-        mFileList = Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(
-                mArchiveFile, information.path, information));
+        return Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(mArchiveFile,
+                information.path, information));
     }
 
     @Override

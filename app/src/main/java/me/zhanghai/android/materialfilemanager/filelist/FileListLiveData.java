@@ -10,30 +10,32 @@ import android.arch.lifecycle.LiveData;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import java.util.List;
+
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
 
-public class FileLiveData extends LiveData<File> {
+public class FileListLiveData extends LiveData<FileListData> {
 
     private Uri mPath;
 
-    public FileLiveData(Uri path) {
+    public FileListLiveData(Uri path) {
         mPath = path;
         loadData();
     }
 
     @SuppressLint("StaticFieldLeak")
     private void loadData() {
-        new AsyncTask<Void, Void, File>() {
+        new AsyncTask<Void, Void, FileListData>() {
             @Override
-            protected File doInBackground(Void... strings) {
+            protected FileListData doInBackground(Void... strings) {
                 File file = Files.create(mPath);
-                file.loadFileList();
-                return file;
+                List<File> fileList = file.loadFileList();
+                return FileListData.ofSuccess(file, fileList);
             }
             @Override
-            protected void onPostExecute(File file) {
-                setValue(file);
+            protected void onPostExecute(FileListData fileListData) {
+                setValue(fileListData);
             }
         }.execute();
     }

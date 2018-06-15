@@ -78,10 +78,7 @@ public interface File {
     java.io.File makeJavaFile();
 
     @WorkerThread
-    void loadFileList();
-
-    @NonNull
-    List<File> getFileList();
+    List<File> loadFileList();
 
     boolean equals(Object object);
 

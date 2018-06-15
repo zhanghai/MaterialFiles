@@ -52,11 +52,11 @@ public class JavaLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    public void loadFileList() {
+    public List<File> loadFileList() {
         List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<JavaFile.Information> informations = Functional.map(javaFiles,
                 JavaFile::loadInformation);
-        mFileList = Functional.map(javaFiles, (javaFile, index) -> new JavaLocalFile(
+        return Functional.map(javaFiles, (javaFile, index) -> new JavaLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
     }
 

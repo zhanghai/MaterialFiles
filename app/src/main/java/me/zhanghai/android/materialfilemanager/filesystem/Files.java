@@ -27,8 +27,8 @@ public class Files {
     }
 
     public static void onTrailChanged(List<File> path) {
-        List<java.io.File> archiveJavaFiles = Functional.map(Functional.filter(path,
-                file -> file instanceof ArchiveFile),
+        List<java.io.File> archiveJavaFiles = Functional.map(
+                Functional.filter(path, file -> file instanceof ArchiveFile),
                 file -> ((ArchiveFile) file).getArchiveFile().makeJavaFile());
         Archive.retainCache(archiveJavaFiles);
     }

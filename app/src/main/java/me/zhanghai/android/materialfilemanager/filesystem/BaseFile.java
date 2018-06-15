@@ -8,12 +8,9 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import java.util.List;
-
 public abstract class BaseFile implements File {
 
     protected Uri mPath;
-    protected List<File> mFileList;
 
     public BaseFile(Uri path) {
         mPath = path;
@@ -22,11 +19,5 @@ public abstract class BaseFile implements File {
     @NonNull
     public Uri getPath() {
         return mPath;
-    }
-
-    @NonNull
-    @Override
-    public List<File> getFileList() {
-        return mFileList;
     }
 }
