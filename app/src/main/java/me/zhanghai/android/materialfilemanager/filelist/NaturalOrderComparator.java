@@ -77,11 +77,6 @@ public class NaturalOrderComparator implements Comparator<String> {
         if (leadingZeroCompareResult != 0) {
             return leadingZeroCompareResult;
         }
-        int charLength1 = string1.length();
-        int charLength2 = string2.length();
-        if (charLength1 != charLength2) {
-            return charLength1 - charLength2;
-        }
         return string1.compareTo(string2);
     }
 
