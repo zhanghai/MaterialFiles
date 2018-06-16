@@ -327,6 +327,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     private void reloadFile() {
+        mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.reload();
     }
 
