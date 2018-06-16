@@ -50,9 +50,8 @@ public class NaturalOrderComparator implements Comparator<String> {
             if (noLeadingZeroLength1 != noLeadingZeroLength2) {
                 return noLeadingZeroLength1 - noLeadingZeroLength2;
             }
-            for (int i = 0, digitIndex1 = noLeadingZeroStart1, digitIndex2 = noLeadingZeroStart2;
-                 i < noLeadingZeroLength1; ++i,
-                         digitIndex1 = string1.offsetByCodePoints(digitIndex1, 1),
+            for (int digitIndex1 = noLeadingZeroStart1, digitIndex2 = noLeadingZeroStart2;
+                 digitIndex1 < end1; digitIndex1 = string1.offsetByCodePoints(digitIndex1, 1),
                          digitIndex2 = string2.offsetByCodePoints(digitIndex2, 1)) {
                 int digit1 = Character.digit(string1.codePointAt(digitIndex1), DIGIT_RADIX);
                 int digit2 = Character.digit(string2.codePointAt(digitIndex2), DIGIT_RADIX);
