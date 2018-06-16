@@ -17,48 +17,51 @@ public class NaturalOrderComparator implements Comparator<String> {
         int start2 = 0;
         int leadingZeroCompareResult = 0;
         while (start1 < string1.length() && start2 < string2.length()) {
-            char char1 = string1.charAt(start1);
-            char char2 = string2.charAt(start2);
-            if (characterEqualsIgnoreCase(char1, char2)) {
-                ++start1;
-                ++start2;
+            int codePoint1 = string1.codePointAt(start1);
+            int codePoint2 = string2.codePointAt(start2);
+            if (codePointEqualsIgnoreCase(codePoint1, codePoint2)) {
+                start1 = string1.offsetByCodePoints(start1, 1);
+                start2 = string2.offsetByCodePoints(start2, 1);
                 continue;
             }
-            if (!Character.isDigit(char1) || !Character.isDigit(char2)) {
-                return characterCompareToIgnoreCase(char1, char2);
+            if (!Character.isDigit(codePoint1) || !Character.isDigit(codePoint2)) {
+                return codePointCompareToIgnoreCase(codePoint1, codePoint2);
             }
-            int end1 = start1 + 1;
-            while (end1 < string1.length() && Character.isDigit(string1.charAt(end1))) {
-                ++end1;
-            }
-            int end2 = start2 + 1;
-            while (end2 < string2.length() && Character.isDigit(string2.charAt(end2))) {
-                ++end2;
-            }
+            int end1 = start1;
+            do {
+                end1 = string1.offsetByCodePoints(end1, 1);
+            } while (end1 < string1.length() && Character.isDigit(string1.codePointAt(end1)));
+            int end2 = start2;
+            do {
+                end2 = string2.offsetByCodePoints(end2, 1);
+            } while (end2 < string2.length() && Character.isDigit(string2.codePointAt(end2)));
             int noLeadingZeroStart1 = start1;
-            while (noLeadingZeroStart1 < end1
-                    && Character.digit(string1.charAt(noLeadingZeroStart1), DIGIT_RADIX) == 0) {
-                ++noLeadingZeroStart1;
+            while (noLeadingZeroStart1 < end1 && Character.digit(string1.codePointAt(
+                    noLeadingZeroStart1), DIGIT_RADIX) == 0) {
+                noLeadingZeroStart1 = string1.offsetByCodePoints(noLeadingZeroStart1, 1);
             }
             int noLeadingZeroStart2 = start2;
-            while (noLeadingZeroStart2 < end2
-                    && Character.digit(string2.charAt(noLeadingZeroStart2), DIGIT_RADIX) == 0) {
-                ++noLeadingZeroStart2;
+            while (noLeadingZeroStart2 < end2 && Character.digit(string2.codePointAt(
+                    noLeadingZeroStart2), DIGIT_RADIX) == 0) {
+                noLeadingZeroStart2 = string2.offsetByCodePoints(noLeadingZeroStart2, 1);
             }
-            int noLeadingZeroLength1 = end1 - noLeadingZeroStart1;
-            int noLeadingZeroLength2 = end2 - noLeadingZeroStart2;
+            int noLeadingZeroLength1 = string1.codePointCount(noLeadingZeroStart1, end1);
+            int noLeadingZeroLength2 = string2.codePointCount(noLeadingZeroStart2, end2);
             if (noLeadingZeroLength1 != noLeadingZeroLength2) {
                 return noLeadingZeroLength1 - noLeadingZeroLength2;
             }
-            for (int i = 0; i < noLeadingZeroLength1; ++i) {
-                int digit1 = Character.digit(string1.charAt(noLeadingZeroStart1 + i), DIGIT_RADIX);
-                int digit2 = Character.digit(string2.charAt(noLeadingZeroStart2 + i), DIGIT_RADIX);
+            for (int i = 0, digitIndex1 = noLeadingZeroStart1, digitIndex2 = noLeadingZeroStart2;
+                 i < noLeadingZeroLength1; ++i,
+                         digitIndex1 = string1.offsetByCodePoints(digitIndex1, 1),
+                         digitIndex2 = string2.offsetByCodePoints(digitIndex2, 1)) {
+                int digit1 = Character.digit(string1.codePointAt(digitIndex1), DIGIT_RADIX);
+                int digit2 = Character.digit(string2.codePointAt(digitIndex2), DIGIT_RADIX);
                 if (digit1 != digit2) {
                     return digit1 - digit2;
                 }
             }
-            int leadingZeroLength1 = noLeadingZeroStart1 - start1;
-            int leadingZeroLength2 = noLeadingZeroStart2 - start2;
+            int leadingZeroLength1 = string1.codePointCount(start1, noLeadingZeroStart1);
+            int leadingZeroLength2 = string2.codePointCount(start2, noLeadingZeroStart2);
             if (leadingZeroLength1 != leadingZeroLength2) {
                 if (leadingZeroCompareResult == 0) {
                     leadingZeroCompareResult = leadingZeroLength1 - leadingZeroLength2;
@@ -67,38 +70,44 @@ public class NaturalOrderComparator implements Comparator<String> {
             start1 = end1;
             start2 = end2;
         }
-        int remainingLength1 = string1.length() - start1;
-        int remainingLength2 = string2.length() - start2;
+        int remainingLength1 = string1.codePointCount(start1, string1.length());
+        int remainingLength2 = string2.codePointCount(start2, string2.length());
         if (remainingLength1 != remainingLength2) {
             return remainingLength1 - remainingLength2;
         }
         if (leadingZeroCompareResult != 0) {
             return leadingZeroCompareResult;
         }
-        if (string1.length() != string2.length()) {
-            return string1.length() - string2.length();
+        int charLength1 = string1.length();
+        int charLength2 = string2.length();
+        if (charLength1 != charLength2) {
+            return charLength1 - charLength2;
         }
         return string1.compareTo(string2);
     }
 
     // @see String#regionMatches(boolean, int, String, int, int)
-    private static boolean characterEqualsIgnoreCase(char char1, char char2) {
-        char upperCaseChar1 = Character.toUpperCase(char1);
-        char upperCaseChar2 = Character.toUpperCase(char2);
-        return upperCaseChar1 == upperCaseChar2
-                || Character.toLowerCase(upperCaseChar1) == Character.toLowerCase(upperCaseChar2);
+    private static boolean codePointEqualsIgnoreCase(int codePoint1, int codePoint2) {
+        codePoint1 = Character.toUpperCase(codePoint1);
+        codePoint2 = Character.toUpperCase(codePoint2);
+        if (codePoint1 == codePoint2) {
+            return true;
+        }
+        codePoint1 = Character.toLowerCase(codePoint1);
+        codePoint2 = Character.toLowerCase(codePoint2);
+        return codePoint1 == codePoint2;
     }
 
     // @see String.CaseInsensitiveComparator#compare(String, String)
-    private static int characterCompareToIgnoreCase(char char1, char char2) {
-        if (char1 != char2) {
-            char1 = Character.toUpperCase(char1);
-            char2 = Character.toUpperCase(char2);
-            if (char1 != char2) {
-                char1 = Character.toUpperCase(char1);
-                char2 = Character.toUpperCase(char2);
-                if (char1 != char2) {
-                    return char1 - char2;
+    private static int codePointCompareToIgnoreCase(int codePoint1, int codePoint2) {
+        if (codePoint1 != codePoint2) {
+            codePoint1 = Character.toUpperCase(codePoint1);
+            codePoint2 = Character.toUpperCase(codePoint2);
+            if (codePoint1 != codePoint2) {
+                codePoint1 = Character.toUpperCase(codePoint1);
+                codePoint2 = Character.toUpperCase(codePoint2);
+                if (codePoint1 != codePoint2) {
+                    return codePoint1 - codePoint2;
                 }
             }
         }
