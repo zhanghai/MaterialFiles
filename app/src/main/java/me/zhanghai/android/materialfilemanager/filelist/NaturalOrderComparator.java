@@ -19,13 +19,13 @@ public class NaturalOrderComparator implements Comparator<String> {
         while (start1 < string1.length() && start2 < string2.length()) {
             int codePoint1 = string1.codePointAt(start1);
             int codePoint2 = string2.codePointAt(start2);
-            if (codePointEqualsIgnoreCase(codePoint1, codePoint2)) {
+            if (!Character.isDigit(codePoint1) || !Character.isDigit(codePoint2)) {
+                if (!codePointEqualsIgnoreCase(codePoint1, codePoint2)) {
+                    return codePointCompareToIgnoreCase(codePoint1, codePoint2);
+                }
                 start1 = string1.offsetByCodePoints(start1, 1);
                 start2 = string2.offsetByCodePoints(start2, 1);
                 continue;
-            }
-            if (!Character.isDigit(codePoint1) || !Character.isDigit(codePoint2)) {
-                return codePointCompareToIgnoreCase(codePoint1, codePoint2);
             }
             int end1 = start1;
             do {
