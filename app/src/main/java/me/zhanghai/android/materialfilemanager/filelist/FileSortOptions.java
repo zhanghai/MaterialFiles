@@ -5,10 +5,15 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.functional.ComparatorCompat;
+import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.functional.MoreComparator;
+import me.zhanghai.android.materialfilemanager.functional.compat.Predicate;
 
 public class FileSortOptions {
 
@@ -23,6 +28,9 @@ public class FileSortOptions {
         ASCENDING,
         DESCENDING
     }
+
+    // Same behavior as Nautilus.
+    private static final List<String> NAME_UNIMPORTANT_PREFIXES = Arrays.asList(".", "#");
 
     private By mBy;
     private Order mOrder;
@@ -59,12 +67,13 @@ public class FileSortOptions {
     }
 
     public Comparator<File> makeComparator() {
-        Comparator<File> comparator = ComparatorCompat.thenComparing(
-                ComparatorCompat.comparing(File::getName, new FileNamePrefixComparator()),
-                ComparatorCompat.comparing(File::getName, new NaturalOrderComparator()));
+        Comparator<String> namePrefixComparator = MoreComparator.comparingBoolean(name ->
+                Functional.some(NAME_UNIMPORTANT_PREFIXES, (Predicate<String>) name::startsWith));
+        Comparator<File> comparator = ComparatorCompat.comparing(File::getName,
+                ComparatorCompat.thenComparing(namePrefixComparator, new NaturalOrderComparator()));
         switch (mBy) {
             case NAME:
-                // Nothing to do here.
+                // Nothing to do.
                 break;
             case TYPE:
                 comparator = ComparatorCompat.thenComparing(
@@ -92,8 +101,8 @@ public class FileSortOptions {
                 throw new IllegalStateException();
         }
         if (mDirectoriesFirst) {
-            Comparator<File> isDirectoryComparator = ComparatorCompat.comparingInt(
-                    file -> file.isDirectory() ? -1 : 1);
+            Comparator<File> isDirectoryComparator = ComparatorCompat.reversed(
+                    MoreComparator.comparingBoolean(File::isDirectory));
             comparator = ComparatorCompat.thenComparing(isDirectoryComparator, comparator);
         }
         return comparator;

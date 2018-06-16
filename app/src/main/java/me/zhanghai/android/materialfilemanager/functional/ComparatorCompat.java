@@ -131,7 +131,8 @@ public class ComparatorCompat {
 
         public static class NullComparator<T> implements Comparator<T>, Serializable {
 
-            private static final long serialVersionUID = -7569533591570686392L;
+            private static final long serialVersionUID = -6860745584223624556L;
+
             private final boolean nullFirst;
             private final Comparator<T> real;
 
