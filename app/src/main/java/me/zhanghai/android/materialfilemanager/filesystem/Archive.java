@@ -49,17 +49,11 @@ public class Archive {
         sTreeCache.remove(file);
     }
 
-    public static Map<Uri, List<Information>> readTree(File file) {
+    public static Map<Uri, List<Information>> readTree(File file)
+            throws ArchiveException, IOException {
         Map<Uri, List<Information>> tree = sTreeCache.get(file);
         if (tree == null) {
-            List<ArchiveEntry> entries;
-            try {
-                entries = readEntries(file);
-            } catch (ArchiveException | IOException e) {
-                // TODO
-                e.printStackTrace();
-                return null;
-            }
+            List<ArchiveEntry> entries = readEntries(file);
             List<Information> informations = Functional.map(entries, entry -> new Information(
                     getEntryPath(entry), entry));
             tree = new HashMap<>();

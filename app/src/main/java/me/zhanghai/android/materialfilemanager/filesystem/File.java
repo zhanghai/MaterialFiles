@@ -78,7 +78,7 @@ public interface File {
     java.io.File makeJavaFile();
 
     @WorkerThread
-    List<File> loadFileList();
+    List<File> loadFileList() throws FileSystemException;
 
     boolean equals(Object object);
 

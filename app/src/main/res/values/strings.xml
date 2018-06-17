@@ -14,6 +14,9 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
 
+    <string name="error_unable_to_open_directory">Unable to open folder</string>
+    <string name="error_unable_to_open_archive">Unable to open archive</string>
+
     <string name="file_name_root">Root</string>
     <string name="file_description_separator">"    "</string>
 

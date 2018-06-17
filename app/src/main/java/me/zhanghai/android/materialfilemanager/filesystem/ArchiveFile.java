@@ -8,13 +8,16 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import org.apache.commons.compress.archivers.ArchiveException;
 import org.threeten.bp.Instant;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 
@@ -112,8 +115,13 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public List<File> loadFileList() {
-        Map<Uri, List<Archive.Information>> tree = Archive.readTree(mArchiveFile.makeJavaFile());
+    public List<File> loadFileList() throws FileSystemException {
+        Map<Uri, List<Archive.Information>> tree;
+        try {
+            tree = Archive.readTree(mArchiveFile.makeJavaFile());
+        } catch (ArchiveException | IOException e) {
+            throw new FileSystemException(R.string.error_unable_to_open_archive, e);
+        }
         // TODO: Handle non-existent path NPE.
         return Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(mArchiveFile,
                 information.path, information));

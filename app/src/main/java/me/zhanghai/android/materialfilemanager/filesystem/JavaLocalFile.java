@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class JavaLocalFile extends LocalFile {
@@ -52,8 +53,12 @@ public class JavaLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    public List<File> loadFileList() {
-        List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
+    public List<File> loadFileList() throws FileSystemException {
+        java.io.File[] javaFileArray = makeJavaFile().listFiles();
+        if (javaFileArray == null) {
+            throw new FileSystemException(R.string.error_unable_to_open_directory);
+        }
+        List<java.io.File> javaFiles = Arrays.asList(javaFileArray);
         List<JavaFile.Information> informations = Functional.map(javaFiles,
                 JavaFile::loadInformation);
         return Functional.map(javaFiles, (javaFile, index) -> new JavaLocalFile(

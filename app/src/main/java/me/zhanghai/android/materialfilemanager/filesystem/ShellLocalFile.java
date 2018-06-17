@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
+import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class ShellLocalFile extends LocalFile {
@@ -64,15 +65,16 @@ public class ShellLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    public List<File> loadFileList() {
+    public List<File> loadFileList() throws FileSystemException {
         List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
         // TODO: ARG_MAX
         String command = Stat.makeCommand(paths);
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
-            // TODO
+            throw new FileSystemException(R.string.error_unable_to_open_directory);
         }
+        // TODO: Size mismatch.
         List<Stat.Information> informations = Functional.map(outputs, Stat::parseOutput);
         return Functional.map(javaFiles, (javaFile, index) -> new ShellLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));

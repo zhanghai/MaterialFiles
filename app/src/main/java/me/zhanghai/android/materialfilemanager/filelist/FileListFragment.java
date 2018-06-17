@@ -39,6 +39,7 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
@@ -214,7 +215,12 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeIn(mErrorView);
-                mErrorView.setText(fileListData.exception.toString());
+                if (fileListData.exception instanceof FileSystemException) {
+                    FileSystemException exception = (FileSystemException) fileListData.exception;
+                    mErrorView.setText(exception.getMessage(mErrorView.getContext()));
+                } else {
+                    mErrorView.setText(fileListData.exception.toString());
+                }
                 ViewUtils.fadeOut(mEmptyView);
                 break;
             case SUCCESS: {
