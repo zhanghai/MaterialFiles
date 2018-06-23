@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
@@ -17,7 +18,7 @@ import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 
-public interface File {
+public interface File extends Parcelable {
 
     @NonNull
     Uri getPath();

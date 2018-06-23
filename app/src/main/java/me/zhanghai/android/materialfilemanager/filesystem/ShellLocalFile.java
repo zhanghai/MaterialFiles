@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
@@ -96,5 +97,21 @@ public class ShellLocalFile extends LocalFile {
     @Override
     public int hashCode() {
         return Objects.hash(mPath, mInformation);
+    }
+
+
+    public static final Creator<ShellLocalFile> CREATOR = new Creator<ShellLocalFile>() {
+        @Override
+        public ShellLocalFile createFromParcel(Parcel source) {
+            return new ShellLocalFile(source);
+        }
+        @Override
+        public ShellLocalFile[] newArray(int size) {
+            return new ShellLocalFile[size];
+        }
+    };
+
+    protected ShellLocalFile(Parcel in) {
+        super(in);
     }
 }

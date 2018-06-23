@@ -37,6 +37,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.file.FileOperationService;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
@@ -45,7 +46,8 @@ import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class FileListFragment extends Fragment implements FileListAdapter.Listener {
+public class FileListFragment extends Fragment implements FileListAdapter.Listener,
+        RenameFileDialogFragment.Listener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -381,7 +383,23 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public void onRenameFile(File file) {
+        RenameFileDialogFragment.show(file, this);
+    }
 
+    @Override
+    public boolean hasFileWithName(String name) {
+        FileListData fileListData = mViewModel.getFileListData().getValue();
+        if (fileListData == null || fileListData.state != FileListData.State.SUCCESS) {
+            return false;
+        }
+        return Functional.some(fileListData.fileList, file -> TextUtils.equals(file.getName(),
+                name));
+    }
+
+    @Override
+    public void renameFile(File file, String name) {
+        // TODO
+        FileOperationService.rename(file, name, requireContext());
     }
 
     @Override

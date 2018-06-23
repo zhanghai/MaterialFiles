@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Parcel;
 import android.support.annotation.WorkerThread;
 
 import org.threeten.bp.Instant;
@@ -81,5 +82,21 @@ public class JavaLocalFile extends LocalFile {
     @Override
     public int hashCode() {
         return Objects.hash(mPath, mInformation);
+    }
+
+
+    public static final Creator<JavaLocalFile> CREATOR = new Creator<JavaLocalFile>() {
+        @Override
+        public JavaLocalFile createFromParcel(Parcel source) {
+            return new JavaLocalFile(source);
+        }
+        @Override
+        public JavaLocalFile[] newArray(int size) {
+            return new JavaLocalFile[size];
+        }
+    };
+
+    protected JavaLocalFile(Parcel in) {
+        super(in);
     }
 }

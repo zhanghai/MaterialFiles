@@ -31,6 +31,8 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".file.FileOperationService" />
+
         <provider
             android:name=".file.FileProvider"
             android:authorities="@string/file_provider_authority"

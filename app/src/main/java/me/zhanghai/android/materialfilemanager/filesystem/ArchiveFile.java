@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -145,5 +146,37 @@ public class ArchiveFile extends BaseFile {
     @Override
     public int hashCode() {
         return Objects.hash(mPath, mArchiveFile, mEntryPath, mInformation);
+    }
+
+
+    public static final Creator<ArchiveFile> CREATOR = new Creator<ArchiveFile>() {
+        @Override
+        public ArchiveFile createFromParcel(Parcel source) {
+            return new ArchiveFile(source);
+        }
+        @Override
+        public ArchiveFile[] newArray(int size) {
+            return new ArchiveFile[size];
+        }
+    };
+
+    protected ArchiveFile(Parcel in) {
+        super(in);
+
+        mArchiveFile = in.readParcelable(File.class.getClassLoader());
+        mEntryPath = in.readParcelable(Uri.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+
+        dest.writeParcelable(mArchiveFile, flags);
+        dest.writeParcelable(mEntryPath, flags);
     }
 }

@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -38,5 +39,10 @@ public abstract class LocalFile extends BaseFile {
     @Override
     public java.io.File makeJavaFile() {
         return new java.io.File(mPath.getPath());
+    }
+
+
+    protected LocalFile(Parcel in) {
+        super(in);
     }
 }

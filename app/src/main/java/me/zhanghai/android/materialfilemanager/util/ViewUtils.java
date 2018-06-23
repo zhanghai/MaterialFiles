@@ -352,6 +352,10 @@ public class ViewUtils {
         });
     }
 
+    public static View inflate(int resource, Context context) {
+        return inflate(resource, null, false, context);
+    }
+
     public static View inflate(int resource, ViewGroup parent) {
         return inflate(resource, parent, false, parent.getContext());
     }

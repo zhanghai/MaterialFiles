@@ -117,16 +117,22 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_open_as:
+                    mListener.onOpenFileAs(file);
                     return true;
                 case R.id.action_cut:
+                    mListener.onCutFile(file);
                     return true;
                 case R.id.action_copy:
+                    mListener.onCopyFile(file);
                     return true;
                 case R.id.action_delete:
+                    mListener.onDeleteFile(file);
                     return true;
                 case R.id.action_rename:
+                    mListener.onRenameFile(file);
                     return true;
                 case R.id.action_properties:
+                    mListener.onOpenFileProperties(file);
                     return true;
                 default:
                     return false;

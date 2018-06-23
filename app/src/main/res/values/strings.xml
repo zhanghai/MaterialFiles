@@ -20,6 +20,11 @@
     <string name="file_name_root">Root</string>
     <string name="file_description_separator">"    "</string>
 
+    <string name="file_rename_title">Rename</string>
+    <string name="file_rename_error_invalid_name">Invalid file name</string>
+    <string name="file_rename_error_name_already_exists">A file with this name already exists</string>
+    <string name="file_rename_error">Unable to rename file</string>
+
     <string name="main_title">Files</string>
 
     <string name="file_list_subtitle_loading">Loading</string>
