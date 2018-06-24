@@ -5,17 +5,17 @@
   ~ All Rights Reserved.
   -->
 
-<android.support.design.widget.TextInputLayout
+<me.zhanghai.android.materialedittext.MaterialTextInputLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/name_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="?dialogPreferredPadding"
-    android:paddingEnd="?dialogPreferredPadding">
+    android:paddingStart="@dimen/dialog_padding_minus_4dp"
+    android:paddingEnd="@dimen/dialog_padding_minus_4dp">
 
-    <EditText
+    <me.zhanghai.android.materialedittext.MaterialEditText
         android:id="@id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text" />
-</android.support.design.widget.TextInputLayout>
+</me.zhanghai.android.materialedittext.MaterialTextInputLayout>

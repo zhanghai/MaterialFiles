@@ -12,6 +12,8 @@
     <dimen name="screen_edge_margin_minus_12dp">4dp</dimen>
     <dimen name="content_start_margin">72dp</dimen>
     <dimen name="content_start_margin_minus_12dp">60dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="dialog_padding_minus_4dp">20dp</dimen>
     <dimen name="navigation_header_height">172dp</dimen>
     <dimen name="tab_layout_height">48dp</dimen>
     <dimen name="list_padding_top">8dp</dimen>
