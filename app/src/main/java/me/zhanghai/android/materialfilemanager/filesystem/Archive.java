@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalIterator;
@@ -37,7 +38,8 @@ public class Archive {
 
     private static final ArchiveStreamFactory sArchiveStreamFactory = new ArchiveStreamFactory();
 
-    private static final Map<File, Map<Uri, List<Information>>> sTreeCache = new HashMap<>();
+    private static final Map<File, Map<Uri, List<Information>>> sTreeCache =
+            new ConcurrentHashMap<>();
 
     private Archive() {}
 
