@@ -208,6 +208,10 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     public boolean onBackPressed() {
+        if (mFam.isOpened()) {
+            mFam.close(true);
+            return true;
+        }
         return mViewModel.popPath();
     }
 
