@@ -44,7 +44,7 @@ public interface File extends Parcelable {
     }
 
     @WorkerThread
-    void loadInformation();
+    void loadInformation() throws FileSystemException;
 
     long getSize();
 

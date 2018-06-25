@@ -11,12 +11,12 @@ import android.support.annotation.WorkerThread;
 
 import org.threeten.bp.Instant;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
+import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;
 
 public class JavaLocalFile extends LocalFile {
 
@@ -33,7 +33,7 @@ public class JavaLocalFile extends LocalFile {
     }
 
     @WorkerThread
-    public void loadInformation() {
+    public void loadInformation() throws FileSystemException {
         mInformation = JavaFile.loadInformation(makeJavaFile());
     }
 
@@ -55,13 +55,14 @@ public class JavaLocalFile extends LocalFile {
     @Override
     @WorkerThread
     public List<File> loadFileList() throws FileSystemException {
-        java.io.File[] javaFileArray = makeJavaFile().listFiles();
-        if (javaFileArray == null) {
-            throw new FileSystemException(R.string.file_list_error_directory);
+        List<java.io.File> javaFiles = JavaFile.listFiles(makeJavaFile());
+        List<JavaFile.Information> informations;
+        try {
+            informations = Functional.map(javaFiles, (ThrowingFunction<java.io.File,
+                    JavaFile.Information>) JavaFile::loadInformation);
+        } catch (FunctionalException e) {
+            throw e.getCauseAs(FileSystemException.class);
         }
-        List<java.io.File> javaFiles = Arrays.asList(javaFileArray);
-        List<JavaFile.Information> informations = Functional.map(javaFiles,
-                JavaFile::loadInformation);
         return Functional.map(javaFiles, (javaFile, index) -> new JavaLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
     }

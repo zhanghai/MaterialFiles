@@ -5,17 +5,24 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.threeten.bp.Instant;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+
+import me.zhanghai.android.materialfilemanager.R;
 
 public class JavaFile {
 
-    public static Information loadInformation(File file) {
+    public static Information loadInformation(File file) throws FileSystemException {
         Information information = new Information();
         information.canRead = file.canRead();
         information.canWrite = file.canWrite();
@@ -25,7 +32,41 @@ public class JavaFile {
         information.isHidden = file.isHidden();
         information.lastModified = Instant.ofEpochMilli(file.lastModified());
         information.length = file.length();
+        try {
+            information.isSymbolicLink = isSymbolicLink(file);
+        } catch (IOException e) {
+            throw new FileSystemException(R.string.file_error_information, e);
+        }
         return information;
+    }
+
+    // @see https://github.com/apache/commons-io/commit/9d432121e1c60557da3e159252a88885944e5f00
+    public static boolean isSymbolicLink(File file) throws IOException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Files.isSymbolicLink(file.toPath());
+        } else {
+            File fileWithCanonicalParent;
+            File parentFile = file.getParentFile();
+            if (parentFile != null) {
+                fileWithCanonicalParent = new File(parentFile.getCanonicalFile(), file.getName());
+            } else {
+                fileWithCanonicalParent = file;
+            }
+            if (!fileWithCanonicalParent.getAbsoluteFile().equals(
+                    fileWithCanonicalParent.getCanonicalFile())) {
+                return true;
+            }
+            // TODO: Check for broken symbolic link?
+            return false;
+        }
+    }
+
+    public static List<File> listFiles(File directory) throws FileSystemException {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new FileSystemException(R.string.file_list_error_directory);
+        }
+        return Arrays.asList(files);
     }
 
     public static class Information implements Parcelable {
@@ -38,6 +79,7 @@ public class JavaFile {
         public boolean isHidden;
         public Instant lastModified;
         public long length;
+        public boolean isSymbolicLink;
 
         @Override
         public boolean equals(Object object) {
@@ -55,13 +97,14 @@ public class JavaFile {
                     && isFile == that.isFile
                     && isHidden == that.isHidden
                     && Objects.equals(lastModified, that.lastModified)
-                    && length == that.length;
+                    && length == that.length
+                    && isSymbolicLink == that.isSymbolicLink;
         }
 
         @Override
         public int hashCode() {
             return Objects.hash(canRead, canWrite, exists, isDirectory, isFile, isHidden,
-                    lastModified, length);
+                    lastModified, length, isSymbolicLink);
         }
 
 
@@ -87,6 +130,7 @@ public class JavaFile {
             isHidden = in.readByte() != 0;
             lastModified = (Instant) in.readSerializable();
             length = in.readLong();
+            isSymbolicLink = in.readByte() != 0;
         }
 
         @Override
@@ -104,6 +148,7 @@ public class JavaFile {
             dest.writeByte(isHidden ? (byte) 1 : (byte) 0);
             dest.writeSerializable(lastModified);
             dest.writeLong(length);
+            dest.writeByte(isSymbolicLink ? (byte) 1 : (byte) 0);
         }
     }
 }
