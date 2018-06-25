@@ -30,6 +30,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -40,13 +43,15 @@ import me.zhanghai.android.materialfilemanager.file.FileOperationService;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
+import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListFragment extends Fragment implements FileListAdapter.Listener,
-        RenameFileDialogFragment.Listener {
+        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
+        CreateDirectoryDialogFragment.Listener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -66,6 +71,12 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
+    @BindView(R.id.fam)
+    FloatingActionMenu mFam;
+    @BindView(R.id.create_file)
+    FloatingActionButton mCreateFileFab;
+    @BindView(R.id.create_directory)
+    FloatingActionButton mCreateDirectoryFab;
 
     private MenuItem mSortByNameMenuItem;
     private MenuItem mSortByTypeMenuItem;
@@ -127,6 +138,14 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
+        mCreateFileFab.setOnClickListener(view -> {
+            onCreateFile();
+            mFam.close(true);
+        });
+        mCreateDirectoryFab.setOnClickListener(view -> {
+            onCreateDirectory();
+            mFam.close(true);
+        });
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
@@ -402,5 +421,27 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public void onOpenFileProperties(File file) {
 
+    }
+
+    private void onCreateFile() {
+        CreateFileDialogFragment.show(this);
+    }
+
+    @Override
+    public void createFile(String name) {
+        // TODO
+        File file = Files.childOf(mViewModel.getPathFile(), name);
+        FileOperationService.createFile(file, requireContext());
+    }
+
+    private void onCreateDirectory() {
+        CreateDirectoryDialogFragment.show(this);
+    }
+
+    @Override
+    public void createDirectory(String name) {
+        // TODO
+        File file = Files.childOf(mViewModel.getPathFile(), name);
+        FileOperationService.createDirectory(file, requireContext());
     }
 }

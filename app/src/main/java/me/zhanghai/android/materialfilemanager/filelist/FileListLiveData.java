@@ -26,7 +26,7 @@ public class FileListLiveData extends LiveData<FileListData> {
 
     @SuppressLint("StaticFieldLeak")
     private void loadData() {
-        File file = Files.create(mPath);
+        File file = Files.ofPath(mPath);
         setValue(FileListData.ofLoading(file));
         new AsyncTask<Void, Void, FileListData>() {
             @Override

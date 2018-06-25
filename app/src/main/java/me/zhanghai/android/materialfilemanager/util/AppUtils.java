@@ -136,7 +136,7 @@ public class AppUtils {
                 upIntent.putExtras(extras);
             }
             if (NavUtils.shouldUpRecreateTask(activity, upIntent)) {
-                // This activity is NOT part of this app's task, so create a new task
+                // This activity is NOT part of this app's task, so ofPath a new task
                 // when navigating up, with a synthesized back stack.
                 TaskStackBuilder.create(activity)
                         // Add all of this activity's parents to the back stack.

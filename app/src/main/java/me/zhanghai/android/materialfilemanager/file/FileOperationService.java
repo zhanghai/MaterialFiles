@@ -42,6 +42,14 @@ public class FileOperationService extends Service {
         startJob(new FileJobs.RenameJob(file, name), context);
     }
 
+    public static void createFile(File file, Context context) {
+        startJob(new FileJobs.CreateFileJob(file), context);
+    }
+
+    public static void createDirectory(File file, Context context) {
+        startJob(new FileJobs.CreateDirectoryJob(file), context);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

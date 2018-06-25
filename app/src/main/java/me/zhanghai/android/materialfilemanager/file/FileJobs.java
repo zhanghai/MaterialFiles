@@ -45,4 +45,50 @@ public interface FileJobs {
             }
         }
     }
+
+    class CreateFileJob implements Job {
+
+        private File mFile;
+
+        public CreateFileJob(File file) {
+            mFile = file;
+        }
+
+        @Override
+        public void run(Service service) {
+            try {
+                FileOperations.createFile(mFile);
+                // TODO: Toast
+            } catch (CancellationException e) {
+                // TODO
+                e.printStackTrace();
+            } catch (FileSystemException e) {
+                e.printStackTrace();
+                AppUtils.runOnUiThread(() -> ToastUtils.show(e.getMessage(service), service));
+            }
+        }
+    }
+
+    class CreateDirectoryJob implements Job {
+
+        private File mFile;
+
+        public CreateDirectoryJob(File file) {
+            mFile = file;
+        }
+
+        @Override
+        public void run(Service service) {
+            try {
+                FileOperations.createDirectory(mFile);
+                // TODO: Toast
+            } catch (CancellationException e) {
+                // TODO
+                e.printStackTrace();
+            } catch (FileSystemException e) {
+                e.printStackTrace();
+                AppUtils.runOnUiThread(() -> ToastUtils.show(e.getMessage(service), service));
+            }
+        }
+    }
 }

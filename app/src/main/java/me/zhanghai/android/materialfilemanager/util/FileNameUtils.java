@@ -73,7 +73,7 @@ public class FileNameUtils {
     }
 
     public static boolean isValidFileName(String fileName) {
-        return fileName.indexOf('/') == -1 && fileName.indexOf('\0') == -1;
+        return !fileName.isEmpty() && fileName.indexOf('/') == -1 && fileName.indexOf('\0') == -1;
     }
 
     public static boolean isValidPath(String path) {

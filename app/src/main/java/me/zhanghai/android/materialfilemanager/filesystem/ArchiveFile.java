@@ -33,7 +33,7 @@ public class ArchiveFile extends BaseFile {
     public ArchiveFile(Uri path) {
         super(path);
 
-        mArchiveFile = Files.create(Uri.parse(path.getSchemeSpecificPart()));
+        mArchiveFile = Files.ofPath(Uri.parse(path.getSchemeSpecificPart()));
         mEntryPath = Uri.parse(path.getFragment());
     }
 
@@ -121,7 +121,7 @@ public class ArchiveFile extends BaseFile {
         try {
             tree = Archive.readTree(mArchiveFile.makeJavaFile());
         } catch (ArchiveException | IOException e) {
-            throw new FileSystemException(R.string.error_unable_to_open_archive, e);
+            throw new FileSystemException(R.string.file_list_error_archive, e);
         }
         // TODO: Handle non-existent path NPE.
         return Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(mArchiveFile,

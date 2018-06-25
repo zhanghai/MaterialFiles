@@ -17,7 +17,7 @@ public class Files {
 
     private Files() {}
 
-    public static File create(Uri path) {
+    public static File ofPath(Uri path) {
         switch (path.getScheme()) {
             case LocalFile.SCHEME:
                 return new JavaLocalFile(path);
@@ -26,6 +26,11 @@ public class Files {
             default:
                 throw new UnsupportedOperationException("Unknown path: " + path);
         }
+    }
+
+    public static File childOf(File file, String name) {
+        Uri path = file.getPath().buildUpon().appendPath(name).build();
+        return ofPath(path);
     }
 
     public static void onTrailChanged(List<File> path) {

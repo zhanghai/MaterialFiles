@@ -14,16 +14,19 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
 
-    <string name="error_unable_to_open_directory">Unable to open folder</string>
-    <string name="error_unable_to_open_archive">Unable to open archive</string>
-
     <string name="file_name_root">Root</string>
     <string name="file_description_separator">"    "</string>
 
+    <string name="file_name_error_empty">File name cannot be empty</string>
+    <string name="file_name_error_invalid">Invalid file name</string>
+    <string name="file_name_error_already_exists">A file with this name already exists</string>
     <string name="file_rename_title">Rename</string>
-    <string name="file_rename_error_invalid_name">Invalid file name</string>
-    <string name="file_rename_error_name_already_exists">A file with this name already exists</string>
     <string name="file_rename_error">Unable to rename file</string>
+    <string name="file_create_file_title">New File</string>
+    <string name="file_create_file_error_already_exists">A file with this name already exists</string>
+    <string name="file_create_file_error">Unable to create file</string>
+    <string name="file_create_directory_title">New Folder</string>
+    <string name="file_create_directory_error">Unable to create folder</string>
 
     <string name="main_title">Files</string>
 
@@ -47,11 +50,11 @@
     <string name="file_list_action_sort_order_ascending">Ascending</string>
     <string name="file_list_action_sort_directories_first">Folders first</string>
     <string name="file_list_action_refresh">Refresh</string>
+    <string name="file_list_error_directory">Unable to open folder</string>
+    <string name="file_list_error_archive">Unable to open archive</string>
     <string name="file_list_empty">No files</string>
     <string name="file_list_create_file_fab">File</string>
-    <string name="file_list_create_file_title">New File</string>
     <string name="file_list_create_directory_fab">Folder</string>
-    <string name="file_list_create_directory_title">New Folder</string>
 
     <string name="file_item_action_open_as">Open as</string>
     <string name="file_item_action_cut">Cut</string>

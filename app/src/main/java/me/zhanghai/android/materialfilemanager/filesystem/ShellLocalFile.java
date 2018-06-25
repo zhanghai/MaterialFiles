@@ -73,7 +73,7 @@ public class ShellLocalFile extends LocalFile {
         String command = Stat.makeCommand(paths);
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
-            throw new FileSystemException(R.string.error_unable_to_open_directory);
+            throw new FileSystemException(R.string.file_list_error_directory);
         }
         // TODO: Size mismatch.
         List<Stat.Information> informations = Functional.map(outputs, Stat::parseOutput);

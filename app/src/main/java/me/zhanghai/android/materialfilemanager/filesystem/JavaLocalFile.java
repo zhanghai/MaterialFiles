@@ -57,7 +57,7 @@ public class JavaLocalFile extends LocalFile {
     public List<File> loadFileList() throws FileSystemException {
         java.io.File[] javaFileArray = makeJavaFile().listFiles();
         if (javaFileArray == null) {
-            throw new FileSystemException(R.string.error_unable_to_open_directory);
+            throw new FileSystemException(R.string.file_list_error_directory);
         }
         List<java.io.File> javaFiles = Arrays.asList(javaFileArray);
         List<JavaFile.Information> informations = Functional.map(javaFiles,
