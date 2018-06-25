@@ -5,13 +5,15 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.threeten.bp.Instant;
 
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
@@ -74,8 +76,8 @@ public class Stat {
         return ObjectUtils.firstNonNull(sCharToTypeMap.get(typeChar), PosixFileType.UNKNOWN);
     }
 
-    private static Set<PosixFilePermission> parsePermissions(String permissionsString) {
-        Set<PosixFilePermission> permissions = EnumSet.noneOf(PosixFilePermission.class);
+    private static EnumSet<PosixFilePermission> parsePermissions(String permissionsString) {
+        EnumSet<PosixFilePermission> permissions = EnumSet.noneOf(PosixFilePermission.class);
         PosixFilePermission[] permissionValues = PosixFilePermission.values();
         for (int i = 0; i < permissionValues.length; ++i) {
             PosixFilePermission permission = permissionValues[i];
@@ -86,10 +88,10 @@ public class Stat {
         return permissions;
     }
 
-    public static class Information {
+    public static class Information implements Parcelable {
 
         public PosixFileType type;
-        public Set<PosixFilePermission> permissions;
+        public EnumSet<PosixFilePermission> permissions;
         public long hardLinkCount;
         public long userId;
         public String userName;
@@ -125,6 +127,58 @@ public class Stat {
         public int hashCode() {
             return Objects.hash(type, permissions, userId, userName, groupId, groupName, size,
                     lastAccess, lastModification, lastStatusChange);
+        }
+
+
+        public static final Parcelable.Creator<Information> CREATOR =
+                new Parcelable.Creator<Information>() {
+                    @Override
+                    public Information createFromParcel(Parcel source) {
+                        return new Information(source);
+                    }
+
+                    @Override
+                    public Information[] newArray(int size) {
+                        return new Information[size];
+                    }
+                };
+
+        public Information() {}
+
+        protected Information(Parcel in) {
+            int typeOrdinal = in.readInt();
+            type = typeOrdinal != -1 ? PosixFileType.values()[typeOrdinal] : null;
+            //noinspection unchecked
+            permissions = (EnumSet<PosixFilePermission>) in.readSerializable();
+            hardLinkCount = in.readLong();
+            userId = in.readLong();
+            userName = in.readString();
+            groupId = in.readLong();
+            groupName = in.readString();
+            size = in.readLong();
+            lastAccess = (Instant) in.readSerializable();
+            lastModification = (Instant) in.readSerializable();
+            lastStatusChange = (Instant) in.readSerializable();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(type != null ? type.ordinal() : -1);
+            dest.writeSerializable(permissions);
+            dest.writeLong(hardLinkCount);
+            dest.writeLong(userId);
+            dest.writeString(userName);
+            dest.writeLong(groupId);
+            dest.writeString(groupName);
+            dest.writeLong(size);
+            dest.writeSerializable(lastAccess);
+            dest.writeSerializable(lastModification);
+            dest.writeSerializable(lastStatusChange);
         }
     }
 }

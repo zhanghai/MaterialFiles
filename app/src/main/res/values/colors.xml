@@ -19,6 +19,8 @@
     <color name="file_icon_red">#DB4437</color>
     <color name="file_icon_yellow">#F4B400</color>
 
+    <color name="fam_background">#CCFFFFFF</color>
+
     <color name="color_primary">@color/blue_700</color>
     <color name="color_primary_dark">@color/blue_800</color>
     <color name="color_accent">@color/pink_500</color>

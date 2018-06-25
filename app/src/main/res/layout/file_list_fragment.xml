@@ -94,11 +94,44 @@
         </me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout>
     </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="@dimen/screen_edge_margin"
-        android:src="@drawable/add_icon_white_24dp" />
+    <me.zhanghai.android.materialfilemanager.ui.FloatingActionMenu
+        android:id="@+id/fam"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/screen_edge_margin"
+        app:menu_backgroundColor="@color/fam_background"
+        app:menu_buttonSpacing="8dp"
+        app:menu_colorNormal="?colorAccent"
+        app:menu_colorPressed="?colorAccent"
+        app:menu_icon="@drawable/add_icon_white_24dp"
+        app:menu_labels_margin="16dp"
+        app:menu_labels_colorNormal="?colorBackgroundFloating"
+        app:menu_labels_colorPressed="?colorBackgroundFloating"
+        app:menu_labels_colorRipple="?colorControlHighlight"
+        app:menu_labels_cornerRadius="@dimen/abc_control_corner_material"
+        app:menu_labels_showShadow="false"
+        app:menu_labels_textColor="?android:textColorPrimary">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/create_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/design_fab_elevation"
+            android:src="@drawable/file_icon_white_24dp"
+            app:fab_colorNormal="?colorAccent"
+            app:fab_colorPressed="?colorAccent"
+            app:fab_label="@string/file_list_create_file_fab"
+            app:fab_size="mini" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/create_directory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/design_fab_elevation"
+            android:src="@drawable/directory_icon_white_24dp"
+            app:fab_colorNormal="?colorAccent"
+            app:fab_colorPressed="?colorAccent"
+            app:fab_label="@string/file_list_create_directory_fab"
+            app:fab_size="mini" />
+    </me.zhanghai.android.materialfilemanager.ui.FloatingActionMenu>
 </android.support.design.widget.CoordinatorLayout>

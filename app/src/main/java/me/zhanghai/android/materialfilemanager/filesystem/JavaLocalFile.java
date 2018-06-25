@@ -98,5 +98,19 @@ public class JavaLocalFile extends LocalFile {
 
     protected JavaLocalFile(Parcel in) {
         super(in);
+
+        mInformation = in.readParcelable(JavaFile.Information.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+
+        dest.writeParcelable(mInformation, flags);
     }
 }

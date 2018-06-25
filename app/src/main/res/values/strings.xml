@@ -45,9 +45,13 @@
     <string name="file_list_action_sort_by_size">Size</string>
     <string name="file_list_action_sort_by_last_modified">Last modified</string>
     <string name="file_list_action_sort_order_ascending">Ascending</string>
-    <string name="file_list_action_sort_directories_first">Directories first</string>
+    <string name="file_list_action_sort_directories_first">Folders first</string>
     <string name="file_list_action_refresh">Refresh</string>
     <string name="file_list_empty">No files</string>
+    <string name="file_list_create_file_fab">File</string>
+    <string name="file_list_create_file_title">New File</string>
+    <string name="file_list_create_directory_fab">Folder</string>
+    <string name="file_list_create_directory_title">New Folder</string>
 
     <string name="file_item_action_open_as">Open as</string>
     <string name="file_item_action_cut">Cut</string>

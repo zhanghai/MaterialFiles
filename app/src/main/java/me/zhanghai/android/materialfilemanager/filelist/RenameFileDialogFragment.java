@@ -76,9 +76,14 @@ public class RenameFileDialogFragment extends AppCompatDialogFragment {
         if (savedInstanceState == null) {
             String name = mFile.getName();
             mNameEdit.setText(name);
-            int selectionEnd = FileNameUtils.indexOfExtensionSeparator(name);
-            if (selectionEnd == -1) {
+            int selectionEnd;
+            if (mFile.isDirectory()) {
                 selectionEnd = name.length();
+            } else {
+                selectionEnd = FileNameUtils.indexOfExtensionSeparator(name);
+                if (selectionEnd == -1) {
+                    selectionEnd = name.length();
+                }
             }
             mNameEdit.setSelection(0, selectionEnd);
         }

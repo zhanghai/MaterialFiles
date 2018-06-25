@@ -105,6 +105,7 @@ public class ShellLocalFile extends LocalFile {
         public ShellLocalFile createFromParcel(Parcel source) {
             return new ShellLocalFile(source);
         }
+
         @Override
         public ShellLocalFile[] newArray(int size) {
             return new ShellLocalFile[size];
@@ -113,5 +114,19 @@ public class ShellLocalFile extends LocalFile {
 
     protected ShellLocalFile(Parcel in) {
         super(in);
+
+        mInformation = in.readParcelable(Stat.Information.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+
+        dest.writeParcelable(mInformation, flags);
     }
 }
