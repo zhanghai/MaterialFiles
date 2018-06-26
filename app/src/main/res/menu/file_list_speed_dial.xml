@@ -8,12 +8,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_create_file"
-        android:icon="@drawable/file_icon_white_24dp"
-        android:title="@string/file_list_action_create_file" />
-
-    <item
         android:id="@+id/action_create_directory"
         android:icon="@drawable/directory_icon_white_24dp"
         android:title="@string/file_list_action_create_directory" />
+
+    <item
+        android:id="@+id/action_create_file"
+        android:icon="@drawable/file_icon_white_24dp"
+        android:title="@string/file_list_action_create_file" />
 </menu>
