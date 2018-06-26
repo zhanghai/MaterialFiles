@@ -10,6 +10,7 @@
     <dimen name="screen_edge_margin_minus_4dp">12dp</dimen>
     <dimen name="screen_edge_margin_minus_8dp">8dp</dimen>
     <dimen name="screen_edge_margin_minus_12dp">4dp</dimen>
+    <dimen name="screen_edge_margin_minus_16dp">0dp</dimen>
     <dimen name="content_start_margin">72dp</dimen>
     <dimen name="content_start_margin_minus_12dp">60dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>

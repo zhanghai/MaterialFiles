@@ -30,8 +30,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
+import com.leinardi.android.speeddial.SpeedDialView;
 
 import java.util.List;
 import java.util.Objects;
@@ -71,12 +70,8 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
-    @BindView(R.id.fam)
-    FloatingActionMenu mFam;
-    @BindView(R.id.create_file)
-    FloatingActionButton mCreateFileFab;
-    @BindView(R.id.create_directory)
-    FloatingActionButton mCreateDirectoryFab;
+    @BindView(R.id.speed_dial)
+    SpeedDialView mSpeedDialView;
 
     private MenuItem mSortByNameMenuItem;
     private MenuItem mSortByTypeMenuItem;
@@ -138,13 +133,20 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
-        mCreateFileFab.setOnClickListener(view -> {
-            onCreateFile();
-            mFam.close(true);
-        });
-        mCreateDirectoryFab.setOnClickListener(view -> {
-            onCreateDirectory();
-            mFam.close(true);
+        mSpeedDialView.inflate(R.menu.file_list_speed_dial);
+        mSpeedDialView.setOnActionSelectedListener(actionItem -> {
+            switch (actionItem.getId()) {
+                case R.id.action_create_file:
+                    onCreateFile();
+                    break;
+                case R.id.action_create_directory:
+                    onCreateDirectory();
+                    break;
+            }
+            // Returning false causes the speed dial to close without animation.
+            //return false;
+            mSpeedDialView.close();
+            return true;
         });
 
         mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
@@ -208,8 +210,8 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     public boolean onBackPressed() {
-        if (mFam.isOpened()) {
-            mFam.close(true);
+        if (mSpeedDialView.isOpen()) {
+            mSpeedDialView.close();
             return true;
         }
         return mViewModel.popPath();

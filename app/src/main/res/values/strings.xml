@@ -54,8 +54,8 @@
     <string name="file_list_error_directory">Unable to open folder</string>
     <string name="file_list_error_archive">Unable to open archive</string>
     <string name="file_list_empty">No files</string>
-    <string name="file_list_create_file_fab">File</string>
-    <string name="file_list_create_directory_fab">Folder</string>
+    <string name="file_list_action_create_file">File</string>
+    <string name="file_list_action_create_directory">Folder</string>
 
     <string name="file_item_action_open_as">Open as</string>
     <string name="file_item_action_cut">Cut</string>
