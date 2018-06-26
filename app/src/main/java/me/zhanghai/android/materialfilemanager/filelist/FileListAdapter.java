@@ -106,7 +106,7 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
             description = null;
         } else {
             String descriptionSeparator = holder.descriptionText.getContext().getString(
-                    R.string.file_description_separator);
+                    R.string.file_item_description_separator);
             String lastModified = TimeUtils.formatTime(file.getLastModified().toEpochMilli(),
                     holder.descriptionText.getContext());
             String size = Formatter.formatFileSize(holder.descriptionText.getContext(),

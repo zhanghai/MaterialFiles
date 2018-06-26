@@ -15,8 +15,6 @@
     <string name="activity_not_found">No application found to handle this action</string>
 
     <string name="file_name_root">Root</string>
-    <string name="file_description_separator">"    "</string>
-
     <string name="file_error_information">Unable to read file information</string>
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
@@ -28,8 +26,6 @@
     <string name="file_create_file_error">Unable to create file</string>
     <string name="file_create_directory_title">New Folder</string>
     <string name="file_create_directory_error">Unable to create folder</string>
-
-    <string name="main_title">Files</string>
 
     <string name="file_list_subtitle_loading">Loading</string>
     <string name="file_list_subtitle_error">Error</string>
@@ -57,10 +53,13 @@
     <string name="file_list_action_create_file">File</string>
     <string name="file_list_action_create_directory">Folder</string>
 
+    <string name="file_item_description_separator">"    "</string>
     <string name="file_item_action_open_as">Open as</string>
     <string name="file_item_action_cut">Cut</string>
     <string name="file_item_action_copy">Copy</string>
     <string name="file_item_action_delete">Delete</string>
     <string name="file_item_action_rename">Rename</string>
     <string name="file_item_action_properties">Properties</string>
+
+    <string name="main_title">Files</string>
 </resources>
