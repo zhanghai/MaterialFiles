@@ -37,10 +37,6 @@
             android:name=".file.FileProvider"
             android:authorities="@string/file_provider_authority"
             android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths" />
-        </provider>
+            android:grantUriPermissions="true" />
     </application>
 </manifest>
