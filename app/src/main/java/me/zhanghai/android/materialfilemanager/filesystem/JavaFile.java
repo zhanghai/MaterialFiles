@@ -69,6 +69,39 @@ public class JavaFile {
         return Arrays.asList(files);
     }
 
+    public static void delete(File file) throws FileSystemException {
+        boolean result = file.delete();
+        if (!result) {
+            throw new FileSystemException(R.string.file_delete_error);
+        }
+    }
+
+    public static void rename(File file, String name) throws FileSystemException {
+        File newFile = new File(file.getParent(), name);
+        boolean result = file.renameTo(newFile);
+        if (!result) {
+            throw new FileSystemException(R.string.file_rename_error);
+        }
+    }
+
+    public static void createFile(File file) throws FileSystemException {
+        try {
+            boolean result = file.createNewFile();
+            if (!result) {
+                throw new FileSystemException(R.string.file_create_file_error_already_exists);
+            }
+        } catch (IOException e) {
+            throw new FileSystemException(R.string.file_create_file_error, e);
+        }
+    }
+
+    public static void createDirectory(File file) throws FileSystemException {
+        boolean result = file.mkdir();
+        if (!result) {
+            throw new FileSystemException(R.string.file_create_directory_error);
+        }
+    }
+
     public static class Information implements Parcelable {
 
         public boolean canRead;

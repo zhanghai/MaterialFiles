@@ -79,7 +79,7 @@ public interface File extends Parcelable {
     java.io.File makeJavaFile();
 
     @WorkerThread
-    List<File> loadFileList() throws FileSystemException;
+    List<File> getFileList() throws FileSystemException;
 
     boolean equals(Object object);
 

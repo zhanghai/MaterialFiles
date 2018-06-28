@@ -16,6 +16,7 @@
 
     <string name="file_name_root">Root</string>
     <string name="file_error_information">Unable to read file information</string>
+    <string name="file_delete_error">Unable to delete file</string>
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>

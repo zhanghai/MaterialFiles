@@ -32,7 +32,7 @@ public class FileListLiveData extends LiveData<FileListData> {
             @Override
             protected FileListData doInBackground(Void... parameters) {
                 try {
-                    List<File> fileList = file.loadFileList();
+                    List<File> fileList = file.getFileList();
                     return FileListData.ofSuccess(file, fileList);
                 } catch (Exception e) {
                     return FileListData.ofError(file, e);

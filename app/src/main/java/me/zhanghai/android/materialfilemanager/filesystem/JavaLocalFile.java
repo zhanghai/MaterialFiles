@@ -54,7 +54,7 @@ public class JavaLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    public List<File> loadFileList() throws FileSystemException {
+    public List<File> getFileList() throws FileSystemException {
         List<java.io.File> javaFiles = JavaFile.listFiles(makeJavaFile());
         List<JavaFile.Information> informations;
         try {

@@ -116,7 +116,7 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public List<File> loadFileList() throws FileSystemException {
+    public List<File> getFileList() throws FileSystemException {
         Map<Uri, List<Archive.Information>> tree;
         try {
             tree = Archive.readTree(mArchiveFile.makeJavaFile());
