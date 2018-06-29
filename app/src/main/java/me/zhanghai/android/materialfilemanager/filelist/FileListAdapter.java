@@ -6,8 +6,6 @@
 package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
@@ -19,8 +17,6 @@ import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,7 +25,6 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -39,12 +34,12 @@ import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.glide.IgnoreErrorDrawableImageViewTarget;
-import me.zhanghai.android.materialfilemanager.ui.SortedListAdapter;
+import me.zhanghai.android.materialfilemanager.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.materialfilemanager.util.StringCompat;
 import me.zhanghai.android.materialfilemanager.util.TimeUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.ViewHolder>
+public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAdapter.ViewHolder>
         implements FastScrollRecyclerView.SectionedAdapter {
 
     private Comparator<File> mComparator;
@@ -65,11 +60,6 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
 
     private Fragment mFragment;
     private Listener mListener;
-
-    private boolean mShouldStartAnimation;
-    private int mAnimationStartOffset;
-    private Handler mStopAnimationHandler = new Handler(Looper.getMainLooper());
-    private final Runnable mStopAnimationRunnable = this::stopAnimation;
 
     public FileListAdapter(Fragment fragment, Listener listener) {
         init(File.class, mCallback);
@@ -149,15 +139,7 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
             }
         });
         holder.itemView.setOnClickListener(view -> mListener.onOpenFile(file));
-        holder.itemView.clearAnimation();
-        if (mShouldStartAnimation) {
-            Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(),
-                    R.anim.list_item);
-            animation.setStartOffset(mAnimationStartOffset);
-            mAnimationStartOffset += 20;
-            holder.itemView.startAnimation(animation);
-            postStopAnimation();
-        }
+        bindViewHolderAnimation(holder);
     }
 
     @NonNull
@@ -170,34 +152,6 @@ public class FileListAdapter extends SortedListAdapter<File, FileListAdapter.Vie
 
         }
         return name.substring(0, 1).toUpperCase();
-    }
-
-    @Override
-    public void refresh() {
-        resetAnimation();
-        super.refresh();
-    }
-
-    @Override
-    public void clear() {
-        resetAnimation();
-        super.clear();
-    }
-
-    private void stopAnimation() {
-        mStopAnimationHandler.removeCallbacks(mStopAnimationRunnable);
-        mShouldStartAnimation = false;
-        mAnimationStartOffset = 0;
-    }
-
-    private void postStopAnimation() {
-        mStopAnimationHandler.removeCallbacks(mStopAnimationRunnable);
-        mStopAnimationHandler.post(mStopAnimationRunnable);
-    }
-
-    private void resetAnimation() {
-        stopAnimation();
-        mShouldStartAnimation = true;
     }
 
     public interface Listener {
