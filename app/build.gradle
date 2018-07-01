@@ -48,7 +48,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
-    implementation "com.leinardi.android:speed-dial:1.0.1"
+    implementation "com.leinardi.android:speed-dial:1.0.2"
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
     implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
