@@ -17,25 +17,24 @@ import me.zhanghai.android.materialfilemanager.filesystem.Files;
 
 public class FileListLiveData extends LiveData<FileListData> {
 
-    private Uri mPath;
+    private File mFile;
 
     public FileListLiveData(Uri path) {
-        mPath = path;
+        mFile = Files.ofPath(path);
         loadData();
     }
 
     @SuppressLint("StaticFieldLeak")
     private void loadData() {
-        File file = Files.ofPath(mPath);
-        setValue(FileListData.ofLoading(file));
+        setValue(FileListData.ofLoading(mFile));
         new AsyncTask<Void, Void, FileListData>() {
             @Override
             protected FileListData doInBackground(Void... parameters) {
                 try {
-                    List<File> fileList = file.getFileList();
-                    return FileListData.ofSuccess(file, fileList);
+                    List<File> fileList = mFile.getFileList();
+                    return FileListData.ofSuccess(mFile, fileList);
                 } catch (Exception e) {
-                    return FileListData.ofError(file, e);
+                    return FileListData.ofError(mFile, e);
                 }
             }
             @Override
@@ -43,5 +42,15 @@ public class FileListLiveData extends LiveData<FileListData> {
                 setValue(fileListData);
             }
         }.execute();
+    }
+
+    @Override
+    protected void onActive() {
+        mFile.observe(this::loadData);
+    }
+
+    @Override
+    protected void onInactive() {
+        mFile.stopObserving();
     }
 }

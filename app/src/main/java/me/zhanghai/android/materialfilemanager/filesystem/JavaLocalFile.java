@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
 import android.os.Parcel;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import org.threeten.bp.Instant;
@@ -21,6 +22,8 @@ import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunct
 public class JavaLocalFile extends LocalFile {
 
     private JavaFile.Information mInformation;
+
+    private JavaFileObserver mObserver;
 
     public JavaLocalFile(Uri path) {
         super(path);
@@ -65,6 +68,28 @@ public class JavaLocalFile extends LocalFile {
         }
         return Functional.map(javaFiles, (javaFile, index) -> new JavaLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
+    }
+
+    @Override
+    public void observe(Runnable onChange) {
+        if (mObserver != null) {
+            throw new IllegalStateException("Already observing");
+        }
+        mObserver = new JavaFileObserver(mPath.getPath(), onChange);
+        mObserver.startWatching();
+    }
+
+    @Override
+    public boolean isObserving() {
+        return mObserver != null;
+    }
+
+    @Override
+    public void stopObserving() {
+        if (mObserver != null) {
+            mObserver.stopWatching();
+            mObserver = null;
+        }
     }
 
     @Override
