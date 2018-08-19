@@ -7,7 +7,6 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
 import android.os.Parcel;
-import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import org.threeten.bp.Instant;
