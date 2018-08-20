@@ -33,7 +33,7 @@
     <string name="file_create_directory_title">New Folder</string>
     <string name="file_create_directory_error">Unable to create folder</string>
 
-    <string name="file_list_subtitle_loading">Loading</string>
+    <string name="file_list_subtitle_loading">Loading…</string>
     <string name="file_list_subtitle_error">Error</string>
     <string name="file_list_subtitle_empty">Empty</string>
     <plurals name="file_list_subtitle_directory_count_format">
