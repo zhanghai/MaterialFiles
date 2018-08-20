@@ -14,11 +14,11 @@ import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 
 public interface FileJobs {
 
-    class CreateDirectoryJob extends FileJob {
+    class CreateDirectory extends FileJob {
 
         private File mFile;
 
-        public CreateDirectoryJob(File file) {
+        public CreateDirectory(File file) {
             mFile = file;
         }
 
@@ -28,11 +28,11 @@ public interface FileJobs {
         }
     }
 
-    class CreateFileJob extends FileJob {
+    class CreateFile extends FileJob {
 
         private File mFile;
 
-        public CreateFileJob(File file) {
+        public CreateFile(File file) {
             mFile = file;
         }
 
@@ -42,26 +42,26 @@ public interface FileJobs {
         }
     }
 
-    class DeleteFileJob extends FileJob {
+    class Delete extends FileJob {
 
-        private File mFile;
+        private List<File> mFiles;
 
-        public DeleteFileJob(File file) {
-            mFile = file;
+        public Delete(List<File> files) {
+            mFiles = files;
         }
 
         @Override
         public List<FileOperation> prepareOperations() throws FileSystemException {
-            return FileOperations.delete(mFile);
+            return FileOperations.delete(mFiles);
         }
     }
 
-    class RenameJob extends FileJob {
+    class Rename extends FileJob {
 
         private File mFile;
         private String mNewName;
 
-        public RenameJob(File file, String newName) {
+        public Rename(File file, String newName) {
             mFile = file;
             mNewName = newName;
         }

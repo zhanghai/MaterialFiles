@@ -49,8 +49,8 @@ import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListFragment extends Fragment implements FileListAdapter.Listener,
-        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
-        CreateDirectoryDialogFragment.Listener {
+        ConfirmDeleteFilesDialogFragment.Listener, RenameFileDialogFragment.Listener,
+        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -400,7 +400,13 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public void onDeleteFile(File file) {
+        ConfirmDeleteFilesDialogFragment.show(file, this);
+    }
 
+    @Override
+    public void deleteFiles(List<File> files) {
+        // TODO
+        FileJobService.delete(files, requireContext());
     }
 
     @Override

@@ -19,9 +19,11 @@ public class FileOperations {
         return Collections.singletonList(new CreateFile(file));
     }
 
-    public static List<FileOperation> delete(File file) throws FileSystemException {
+    public static List<FileOperation> delete(List<File> files) throws FileSystemException {
         List<FileOperation> operations = new ArrayList<>();
-        delete(file, operations);
+        for (File file : files) {
+            delete(file, operations);
+        }
         return operations;
     }
 

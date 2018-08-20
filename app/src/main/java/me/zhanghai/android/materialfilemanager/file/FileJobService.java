@@ -38,16 +38,20 @@ public class FileJobService extends Service {
         }
     }
 
-    public static void rename(File file, String name, Context context) {
-        startJob(new FileJobs.RenameJob(file, name), context);
+    public static void delete(List<File> files, Context context) {
+        startJob(new FileJobs.Delete(files), context);
     }
 
     public static void createFile(File file, Context context) {
-        startJob(new FileJobs.CreateFileJob(file), context);
+        startJob(new FileJobs.CreateFile(file), context);
     }
 
     public static void createDirectory(File file, Context context) {
-        startJob(new FileJobs.CreateDirectoryJob(file), context);
+        startJob(new FileJobs.CreateDirectory(file), context);
+    }
+
+    public static void rename(File file, String name, Context context) {
+        startJob(new FileJobs.Rename(file, name), context);
     }
 
     @Override
