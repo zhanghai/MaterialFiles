@@ -71,11 +71,11 @@ public class JavaLocalFile extends LocalFile {
     }
 
     @Override
-    public void observe(Runnable onChange) {
+    public void startObserving(Runnable observer) {
         if (mObserver != null) {
             throw new IllegalStateException("Already observing");
         }
-        mObserver = new JavaFileObserver(mPath.getPath(), onChange);
+        mObserver = new JavaFileObserver(mPath.getPath(), observer);
         mObserver.startWatching();
     }
 

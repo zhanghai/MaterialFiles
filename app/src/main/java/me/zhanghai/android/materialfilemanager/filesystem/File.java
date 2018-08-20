@@ -81,7 +81,7 @@ public interface File extends Parcelable {
     @WorkerThread
     List<File> getFileList() throws FileSystemException;
 
-    default void observe(Runnable onChange) {}
+    default void startObserving(Runnable observer) {}
 
     default boolean isObserving() {
         return false;

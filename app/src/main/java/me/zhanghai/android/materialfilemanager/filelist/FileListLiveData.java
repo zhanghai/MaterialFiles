@@ -46,7 +46,7 @@ public class FileListLiveData extends LiveData<FileListData> {
 
     @Override
     protected void onActive() {
-        mFile.observe(this::loadData);
+        mFile.startObserving(this::loadData);
     }
 
     @Override
