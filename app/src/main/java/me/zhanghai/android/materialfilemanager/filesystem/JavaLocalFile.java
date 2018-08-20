@@ -18,6 +18,7 @@ import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
 import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;
 
+// TODO: OsLocalFile and Os.lstat().
 public class JavaLocalFile extends LocalFile {
 
     private JavaFile.Information mInformation;

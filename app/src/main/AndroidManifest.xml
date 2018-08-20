@@ -31,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".file.FileOperationService" />
+        <service android:name=".file.FileJobService" />
 
         <provider
             android:name=".file.FileProvider"

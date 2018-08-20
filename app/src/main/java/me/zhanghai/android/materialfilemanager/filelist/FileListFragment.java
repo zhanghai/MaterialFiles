@@ -38,7 +38,7 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.file.FileOperationService;
+import me.zhanghai.android.materialfilemanager.file.FileJobService;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
@@ -421,7 +421,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public void renameFile(File file, String name) {
         // TODO
-        FileOperationService.rename(file, name, requireContext());
+        FileJobService.rename(file, name, requireContext());
     }
 
     @Override
@@ -437,7 +437,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     public void createFile(String name) {
         // TODO
         File file = Files.childOf(mViewModel.getPathFile(), name);
-        FileOperationService.createFile(file, requireContext());
+        FileJobService.createFile(file, requireContext());
     }
 
     private void onCreateDirectory() {
@@ -448,6 +448,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     public void createDirectory(String name) {
         // TODO
         File file = Files.childOf(mViewModel.getPathFile(), name);
-        FileOperationService.createDirectory(file, requireContext());
+        FileJobService.createDirectory(file, requireContext());
     }
 }

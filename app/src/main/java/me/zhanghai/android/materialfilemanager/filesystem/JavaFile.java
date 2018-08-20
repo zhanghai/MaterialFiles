@@ -76,8 +76,8 @@ public class JavaFile {
         }
     }
 
-    public static void rename(File file, String name) throws FileSystemException {
-        File newFile = new File(file.getParent(), name);
+    public static void rename(File file, String newName) throws FileSystemException {
+        File newFile = new File(file.getParent(), newName);
         boolean result = file.renameTo(newFile);
         if (!result) {
             throw new FileSystemException(R.string.file_rename_error);

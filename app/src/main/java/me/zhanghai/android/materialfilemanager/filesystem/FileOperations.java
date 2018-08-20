@@ -6,59 +6,117 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Queue;
 
 public class FileOperations {
 
-    public static void delete(File file) throws FileSystemException {
-        Queue<File> queue = new LinkedList<>();
-        buildDeleteQueue(file, queue);
-        while (!queue.isEmpty()) {
-            deleteSingle(queue.poll());
-        }
+    public static List<FileOperation> createDirectory(File file) throws FileSystemException {
+        return Collections.singletonList(new CreateDirectory(file));
     }
 
-    private static void deleteSingle(File file) throws FileSystemException {
-        if (file instanceof JavaLocalFile) {
-            JavaFile.delete(file.makeJavaFile());
-        } else {
-            // TODO
-            throw new UnsupportedOperationException();
-        }
+    public static List<FileOperation> createFile(File file) throws FileSystemException {
+        return Collections.singletonList(new CreateFile(file));
     }
 
-    private static void buildDeleteQueue(File file, Queue<File> fileList)
+    public static List<FileOperation> delete(File file) throws FileSystemException {
+        List<FileOperation> operations = new ArrayList<>();
+        delete(file, operations);
+        return operations;
+    }
+
+    private static void delete(File file, List<FileOperation> operations)
             throws FileSystemException {
         file.loadInformation();
+        // FIXME: Symbolic links
         if (file.isDirectory()) {
             List<File> children = file.getFileList();
             for (File child : children) {
-                buildDeleteQueue(child, fileList);
+                delete(child, operations);
             }
         }
-        fileList.offer(file);
+        operations.add(new Delete(file));
     }
 
-    public static void rename(File file, String name) throws FileSystemException {
-        if (file instanceof JavaLocalFile) {
-            JavaFile.rename(file.makeJavaFile(), name);
-        } else {
-            // TODO
-            throw new UnsupportedOperationException();
+    public static List<FileOperation> rename(File file, String newName) throws FileSystemException {
+        return Collections.singletonList(new Rename(file, newName));
+    }
+
+    private static class CreateDirectory implements FileOperation {
+
+        private File mFile;
+
+        public CreateDirectory(File file) {
+            mFile = file;
+        }
+
+        @Override
+        public void run() throws FileSystemException {
+            if (mFile instanceof JavaLocalFile) {
+                JavaFile.createDirectory(mFile.makeJavaFile());
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
         }
     }
 
-    public static void createFile(File file) throws FileSystemException {
-        if (file instanceof JavaLocalFile) {
-            JavaFile.createFile(file.makeJavaFile());
+    private static class CreateFile implements FileOperation {
+
+        private File mFile;
+
+        public CreateFile(File file) {
+            mFile = file;
+        }
+
+        @Override
+        public void run() throws FileSystemException {
+            if (mFile instanceof JavaLocalFile) {
+                JavaFile.createFile(mFile.makeJavaFile());
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
         }
     }
 
-    public static void createDirectory(File file) throws FileSystemException {
-        if (file instanceof JavaLocalFile) {
-            JavaFile.createDirectory(file.makeJavaFile());
+    private static class Delete implements FileOperation {
+
+        private File mFile;
+
+        public Delete(File file) {
+            mFile = file;
+        }
+
+        @Override
+        public void run() throws FileSystemException {
+            if (mFile instanceof JavaLocalFile) {
+                JavaFile.delete(mFile.makeJavaFile());
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
+        }
+    }
+
+    private static class Rename implements FileOperation {
+
+        private File mFile;
+        private String mNewName;
+
+        public Rename(File file, String newName) {
+            mFile = file;
+            mNewName = newName;
+        }
+
+        @Override
+        public void run() throws FileSystemException {
+            if (mFile instanceof JavaLocalFile) {
+                JavaFile.rename(mFile.makeJavaFile(), mNewName);
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
         }
     }
 }

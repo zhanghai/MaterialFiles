@@ -18,23 +18,23 @@ import java.util.concurrent.Executors;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
-public class FileOperationService extends Service {
+public class FileJobService extends Service {
 
-    private static FileOperationService sInstance;
+    private static FileJobService sInstance;
 
-    private static List<FileJobs.Job> sPendingJobs = new ArrayList<>();
+    private static List<FileJob> sPendingJobs = new ArrayList<>();
 
-    private List<FileJobs.Job> mRunningJobs = new ArrayList<>();
+    private List<FileJob> mRunningJobs = new ArrayList<>();
 
     private ExecutorService mExecutorService = Executors.newCachedThreadPool();
 
-    private static void startJob(FileJobs.Job job, Context context) {
+    private static void startJob(FileJob job, Context context) {
         if (sInstance != null) {
             sInstance.mRunningJobs.add(job);
             sInstance.startJob(job);
         } else {
             sPendingJobs.add(job);
-            context.startService(new Intent(context, FileOperationService.class));
+            context.startService(new Intent(context, FileJobService.class));
         }
     }
 
@@ -56,16 +56,16 @@ public class FileOperationService extends Service {
 
         sInstance = this;
 
-        Iterator<FileJobs.Job> iterator = sPendingJobs.iterator();
+        Iterator<FileJob> iterator = sPendingJobs.iterator();
         while (iterator.hasNext()) {
-            FileJobs.Job job = iterator.next();
+            FileJob job = iterator.next();
             iterator.remove();
             mRunningJobs.add(job);
             startJob(job);
         }
     }
 
-    private void startJob(FileJobs.Job job) {
+    private void startJob(FileJob job) {
         // TODO
         job.run(this);
     }
@@ -86,9 +86,9 @@ public class FileOperationService extends Service {
 
         sInstance = null;
 
-        Iterator<FileJobs.Job> iterator = mRunningJobs.iterator();
+        Iterator<FileJob> iterator = mRunningJobs.iterator();
         while (iterator.hasNext()) {
-            FileJobs.Job job = iterator.next();
+            FileJob job = iterator.next();
             stopJob(job);
             iterator.remove();
         }
@@ -96,7 +96,7 @@ public class FileOperationService extends Service {
         mExecutorService.shutdownNow();
     }
 
-    private void stopJob(FileJobs.Job job) {
+    private void stopJob(FileJob job) {
         // TODO
     }
 }
