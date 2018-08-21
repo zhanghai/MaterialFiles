@@ -54,7 +54,7 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaLocalFile) {
+            if (mFile instanceof JavaFileLocalFile) {
                 JavaFile.createDirectory(mFile.makeJavaFile());
             } else {
                 // TODO
@@ -73,7 +73,7 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaLocalFile) {
+            if (mFile instanceof JavaFileLocalFile) {
                 JavaFile.createFile(mFile.makeJavaFile());
             } else {
                 // TODO
@@ -92,7 +92,7 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaLocalFile) {
+            if (mFile instanceof JavaFileLocalFile) {
                 JavaFile.delete(mFile.makeJavaFile());
             } else {
                 // TODO
@@ -113,7 +113,7 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaLocalFile) {
+            if (mFile instanceof JavaFileLocalFile) {
                 JavaFile.rename(mFile.makeJavaFile(), mNewName);
             } else {
                 // TODO

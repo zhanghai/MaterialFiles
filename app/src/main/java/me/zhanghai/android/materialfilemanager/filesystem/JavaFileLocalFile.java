@@ -19,17 +19,17 @@ import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
 import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;
 
 // TODO: OsLocalFile and Os.lstat().
-public class JavaLocalFile extends LocalFile {
+public class JavaFileLocalFile extends LocalFile {
 
     private JavaFile.Information mInformation;
 
     private JavaFileObserver mObserver;
 
-    public JavaLocalFile(Uri path) {
+    public JavaFileLocalFile(Uri path) {
         super(path);
     }
 
-    private JavaLocalFile(Uri path, JavaFile.Information information) {
+    private JavaFileLocalFile(Uri path, JavaFile.Information information) {
         super(path);
 
         mInformation = information;
@@ -66,7 +66,7 @@ public class JavaLocalFile extends LocalFile {
         } catch (FunctionalException e) {
             throw e.getCauseAs(FileSystemException.class);
         }
-        return Functional.map(javaFiles, (javaFile, index) -> new JavaLocalFile(
+        return Functional.map(javaFiles, (javaFile, index) -> new JavaFileLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
     }
 
@@ -100,7 +100,7 @@ public class JavaLocalFile extends LocalFile {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        JavaLocalFile that = (JavaLocalFile) object;
+        JavaFileLocalFile that = (JavaFileLocalFile) object;
         return Objects.equals(mPath, that.mPath)
                 && Objects.equals(mInformation, that.mInformation);
     }
@@ -111,18 +111,18 @@ public class JavaLocalFile extends LocalFile {
     }
 
 
-    public static final Creator<JavaLocalFile> CREATOR = new Creator<JavaLocalFile>() {
+    public static final Creator<JavaFileLocalFile> CREATOR = new Creator<JavaFileLocalFile>() {
         @Override
-        public JavaLocalFile createFromParcel(Parcel source) {
-            return new JavaLocalFile(source);
+        public JavaFileLocalFile createFromParcel(Parcel source) {
+            return new JavaFileLocalFile(source);
         }
         @Override
-        public JavaLocalFile[] newArray(int size) {
-            return new JavaLocalFile[size];
+        public JavaFileLocalFile[] newArray(int size) {
+            return new JavaFileLocalFile[size];
         }
     };
 
-    protected JavaLocalFile(Parcel in) {
+    protected JavaFileLocalFile(Parcel in) {
         super(in);
 
         mInformation = in.readParcelable(JavaFile.Information.class.getClassLoader());

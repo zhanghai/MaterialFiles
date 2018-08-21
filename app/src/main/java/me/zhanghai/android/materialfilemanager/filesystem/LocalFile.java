@@ -28,7 +28,7 @@ public abstract class LocalFile extends BaseFile {
         java.io.File file = makeJavaFile();
         while (file != null) {
             // TODO
-            path.add(new JavaLocalFile(Uri.fromFile(file)));
+            path.add(new JavaFileLocalFile(Uri.fromFile(file)));
             file = file.getParentFile();
         }
         Collections.reverse(path);

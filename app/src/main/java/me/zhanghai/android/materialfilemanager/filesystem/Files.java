@@ -20,7 +20,7 @@ public class Files {
     public static File ofPath(Uri path) {
         switch (path.getScheme()) {
             case LocalFile.SCHEME:
-                return new JavaLocalFile(path);
+                return new JavaFileLocalFile(path);
             case ArchiveFile.SCHEME:
                 return new ArchiveFile(path);
             default:

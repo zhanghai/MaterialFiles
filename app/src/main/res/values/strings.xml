@@ -27,6 +27,7 @@
     <string name="file_delete_message_multiple_files_format">Delete %1$d files?</string>
     <string name="file_delete_message_multiple_directories_format">Delete %1$d folders and their contents?</string>
     <string name="file_delete_message_multiple_mixed_format">Delete %1$d items?</string>
+    <string name="file_move_error">Unable to move file</string>
     <string name="file_create_file_title">New File</string>
     <string name="file_create_file_error_already_exists">A file with this name already exists</string>
     <string name="file_create_file_error">Unable to create file</string>

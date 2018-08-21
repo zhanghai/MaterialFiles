@@ -5,7 +5,10 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-public enum PosixFilePermission {
+public enum PosixFileModeBit {
+    SET_USER_ID,
+    SET_GROUP_ID,
+    STICKY,
     OWNER_READ,
     OWNER_WRITE,
     OWNER_EXECUTE,

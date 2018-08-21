@@ -33,17 +33,18 @@ public class Stat {
                     .put('s', PosixFileType.SOCKET)
                     .buildUnmodifiable();
 
-    private static final Map<PosixFilePermission, Character> sPermissionToCharMap =
-            MapBuilder.<PosixFilePermission, Character>newHashMap()
-                    .put(PosixFilePermission.OWNER_READ, 'r')
-                    .put(PosixFilePermission.OWNER_WRITE, 'w')
-                    .put(PosixFilePermission.OWNER_EXECUTE, 'x')
-                    .put(PosixFilePermission.GROUP_READ, 'r')
-                    .put(PosixFilePermission.GROUP_WRITE, 'w')
-                    .put(PosixFilePermission.GROUP_EXECUTE, 'x')
-                    .put(PosixFilePermission.OTHERS_READ, 'r')
-                    .put(PosixFilePermission.OTHERS_WRITE, 'w')
-                    .put(PosixFilePermission.OTHERS_EXECUTE, 'x')
+    // FIXME: We've expanded three bits.
+    private static final Map<PosixFileModeBit, Character> sPermissionToCharMap =
+            MapBuilder.<PosixFileModeBit, Character>newHashMap()
+                    .put(PosixFileModeBit.OWNER_READ, 'r')
+                    .put(PosixFileModeBit.OWNER_WRITE, 'w')
+                    .put(PosixFileModeBit.OWNER_EXECUTE, 'x')
+                    .put(PosixFileModeBit.GROUP_READ, 'r')
+                    .put(PosixFileModeBit.GROUP_WRITE, 'w')
+                    .put(PosixFileModeBit.GROUP_EXECUTE, 'x')
+                    .put(PosixFileModeBit.OTHERS_READ, 'r')
+                    .put(PosixFileModeBit.OTHERS_WRITE, 'w')
+                    .put(PosixFileModeBit.OTHERS_EXECUTE, 'x')
                     .buildUnmodifiable();
 
     public static String makeCommand(Iterable<String> paths) {
@@ -76,11 +77,12 @@ public class Stat {
         return ObjectUtils.firstNonNull(sCharToTypeMap.get(typeChar), PosixFileType.UNKNOWN);
     }
 
-    private static EnumSet<PosixFilePermission> parsePermissions(String permissionsString) {
-        EnumSet<PosixFilePermission> permissions = EnumSet.noneOf(PosixFilePermission.class);
-        PosixFilePermission[] permissionValues = PosixFilePermission.values();
+    private static EnumSet<PosixFileModeBit> parsePermissions(String permissionsString) {
+        // FIXME: We've expanded three bits.
+        EnumSet<PosixFileModeBit> permissions = EnumSet.noneOf(PosixFileModeBit.class);
+        PosixFileModeBit[] permissionValues = PosixFileModeBit.values();
         for (int i = 0; i < permissionValues.length; ++i) {
-            PosixFilePermission permission = permissionValues[i];
+            PosixFileModeBit permission = permissionValues[i];
             if (permissionsString.charAt(i) == sPermissionToCharMap.get(permission)) {
                 permissions.add(permission);
             }
@@ -91,7 +93,7 @@ public class Stat {
     public static class Information implements Parcelable {
 
         public PosixFileType type;
-        public EnumSet<PosixFilePermission> permissions;
+        public EnumSet<PosixFileModeBit> permissions;
         public long hardLinkCount;
         public long userId;
         public String userName;
@@ -149,7 +151,7 @@ public class Stat {
             int typeOrdinal = in.readInt();
             type = typeOrdinal != -1 ? PosixFileType.values()[typeOrdinal] : null;
             //noinspection unchecked
-            permissions = (EnumSet<PosixFilePermission>) in.readSerializable();
+            permissions = (EnumSet<PosixFileModeBit>) in.readSerializable();
             hardLinkCount = in.readLong();
             userId = in.readLong();
             userName = in.readString();
