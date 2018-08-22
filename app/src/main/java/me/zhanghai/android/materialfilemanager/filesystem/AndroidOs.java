@@ -239,6 +239,7 @@ public class AndroidOs {
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
             symbolicLinkPath = in.readString();
+            //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
             linkCount = in.readLong();
             userId = in.readLong();

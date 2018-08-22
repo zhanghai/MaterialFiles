@@ -19,6 +19,8 @@ import java.util.Objects;
 import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
+import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;
 
 public class ShellLocalFile extends LocalFile {
 
@@ -35,7 +37,7 @@ public class ShellLocalFile extends LocalFile {
     }
 
     @WorkerThread
-    public void loadInformation() {
+    public void loadInformation() throws FileSystemException {
         String command = Stat.makeCommand(mUri.getPath());
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
@@ -51,7 +53,7 @@ public class ShellLocalFile extends LocalFile {
 
     @Override
     public Instant getLastModificationTime() {
-        return mInformation.lastModification;
+        return mInformation.lastModificationTime;
     }
 
     @NonNull
@@ -76,7 +78,13 @@ public class ShellLocalFile extends LocalFile {
             throw new FileSystemException(R.string.file_list_error_directory);
         }
         // TODO: Size mismatch.
-        List<Stat.Information> informations = Functional.map(outputs, Stat::parseOutput);
+        List<Stat.Information> informations;
+        try {
+            informations = Functional.map(outputs, (ThrowingFunction<String, Stat.Information>)
+                    Stat::parseOutput);
+        } catch (FunctionalException e) {
+            throw e.getCauseAs(FileSystemException.class);
+        }
         return Functional.map(javaFiles, (javaFile, index) -> new ShellLocalFile(
                 Uri.fromFile(javaFile), informations.get(index)));
     }
