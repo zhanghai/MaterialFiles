@@ -26,18 +26,19 @@ public class ArchiveFile extends BaseFile {
 
     public static final String SCHEME = "archive";
 
-    private File mArchiveFile;
+    private LocalFile mArchiveFile;
     private Uri mEntryPath;
     private Archive.Information mInformation;
 
     public ArchiveFile(Uri uri) {
         super(uri);
 
-        mArchiveFile = Files.ofUri(Uri.parse(uri.getSchemeSpecificPart()));
+        // TODO: Instead of a cast?
+        mArchiveFile = (LocalFile) Files.ofUri(Uri.parse(uri.getSchemeSpecificPart()));
         mEntryPath = Archive.pathFromString(uri.getFragment());
     }
 
-    public ArchiveFile(File archiveFile, Uri entryPath) {
+    public ArchiveFile(LocalFile archiveFile, Uri entryPath) {
         super(Uri.fromParts(SCHEME, archiveFile.getUri().toString(), entryPath.toString()));
 
         mArchiveFile = archiveFile;
@@ -50,13 +51,13 @@ public class ArchiveFile extends BaseFile {
         mInformation = information;
     }
 
-    private ArchiveFile(File archiveFile, Uri entryPath, Archive.Information information) {
+    private ArchiveFile(LocalFile archiveFile, Uri entryPath, Archive.Information information) {
         this(archiveFile, entryPath);
 
         mInformation = information;
     }
 
-    public File getArchiveFile() {
+    public LocalFile getArchiveFile() {
         return mArchiveFile;
     }
 
@@ -111,12 +112,8 @@ public class ArchiveFile extends BaseFile {
     @Override
     public List<File> getChildren() throws FileSystemException {
         Map<Uri, List<Archive.Information>> tree;
-        // FIXME
-        if (!(mArchiveFile instanceof LocalFile)) {
-            throw new UnsupportedOperationException();
-        }
         try {
-            tree = Archive.readTree(((LocalFile) mArchiveFile).makeJavaFile());
+            tree = Archive.readTree(mArchiveFile.makeJavaFile());
         } catch (ArchiveException | IOException e) {
             throw new FileSystemException(R.string.file_list_error_archive, e);
         }

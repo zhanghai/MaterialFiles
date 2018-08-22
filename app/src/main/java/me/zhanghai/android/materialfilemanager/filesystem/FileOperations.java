@@ -55,7 +55,11 @@ public class FileOperations {
         @Override
         public void run() throws FileSystemException {
             if (mFile instanceof JavaFileLocalFile) {
-                JavaFile.createDirectory(mFile.makeJavaFile());
+                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
+                JavaFile.createDirectory(file.makeJavaFile());
+            } else if (mFile instanceof AndroidOsLocalFile) {
+                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
+                AndroidOs.createDirectory(file.getPath());
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -74,7 +78,11 @@ public class FileOperations {
         @Override
         public void run() throws FileSystemException {
             if (mFile instanceof JavaFileLocalFile) {
-                JavaFile.createFile(mFile.makeJavaFile());
+                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
+                JavaFile.createFile(file.makeJavaFile());
+            } else if (mFile instanceof AndroidOsLocalFile) {
+                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
+                AndroidOs.createFile(file.getPath());
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -93,7 +101,11 @@ public class FileOperations {
         @Override
         public void run() throws FileSystemException {
             if (mFile instanceof JavaFileLocalFile) {
-                JavaFile.delete(mFile.makeJavaFile());
+                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
+                JavaFile.delete(file.makeJavaFile());
+            } else if (mFile instanceof AndroidOsLocalFile) {
+                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
+                AndroidOs.delete(file.getPath());
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -114,7 +126,11 @@ public class FileOperations {
         @Override
         public void run() throws FileSystemException {
             if (mFile instanceof JavaFileLocalFile) {
-                JavaFile.rename(mFile.makeJavaFile(), mNewName);
+                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
+                JavaFile.rename(file.makeJavaFile(), mNewName);
+            } else if (mFile instanceof AndroidOsLocalFile) {
+                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
+                AndroidOs.rename(file.getPath(), mNewName);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
