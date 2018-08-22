@@ -144,8 +144,9 @@ public class AndroidOs {
 
     public static void createFile(String path) throws FileSystemException {
         try {
-            FileDescriptor fd = Os_creat(path, OsConstants.S_IRWXU | OsConstants.S_IRWXG
-                    | OsConstants.S_IRWXO);
+            FileDescriptor fd = Os_creat(path, OsConstants.S_IRUSR | OsConstants.S_IWUSR
+                    | OsConstants.S_IRGRP | OsConstants.S_IWGRP | OsConstants.S_IROTH
+                    | OsConstants.S_IWOTH);
             Os.close(fd);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_create_file_error, e);
