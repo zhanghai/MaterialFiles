@@ -25,9 +25,14 @@ import me.zhanghai.android.materialfilemanager.R;
 public class AndroidOs {
 
     public static Information loadInformation(String path) throws FileSystemException {
+        return loadInformation(path, false);
+    }
+
+    private static Information loadInformation(String path, boolean followSymbolicLinks)
+            throws FileSystemException {
         StructStat stat;
         try {
-            stat = Os.lstat(path);
+            stat = followSymbolicLinks ? Os.stat(path) : Os.lstat(path);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
@@ -40,6 +45,16 @@ public class AndroidOs {
                 information.symbolicLinkPath = Os.readlink(path);
             } catch (ErrnoException e) {
                 throw new FileSystemException(R.string.file_error_information, e);
+            }
+            try {
+                information.symbolicLinkStatInformation = loadInformation(path, true);
+            } catch (FileSystemException e) {
+                e.printStackTrace();
+                Throwable cause = e.getCause();
+                if (cause instanceof ErrnoException) {
+                    ErrnoException errnoException = (ErrnoException) cause;
+                    information.symbolicLinkStatErrno = errnoException.errno;
+                }
             }
         }
         information.mode = parseMode(stat.st_mode);
@@ -172,6 +187,8 @@ public class AndroidOs {
         public long inodeNumber;
         public PosixFileType type;
         public String symbolicLinkPath;
+        public Information symbolicLinkStatInformation;
+        public int symbolicLinkStatErrno;
         public EnumSet<PosixFileModeBit> mode;
         public long linkCount;
         public long userId;
@@ -196,6 +213,7 @@ public class AndroidOs {
             Information that = (Information) object;
             return containingDeviceId == that.containingDeviceId
                     && inodeNumber == that.inodeNumber
+                    && symbolicLinkStatErrno == that.symbolicLinkStatErrno
                     && linkCount == that.linkCount
                     && userId == that.userId
                     && groupId == that.groupId
@@ -205,6 +223,7 @@ public class AndroidOs {
                     && allocatedBlockCount == that.allocatedBlockCount
                     && type == that.type
                     && Objects.equals(symbolicLinkPath, that.symbolicLinkPath)
+                    && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation)
                     && Objects.equals(mode, that.mode)
                     && Objects.equals(lastAccessTime, that.lastAccessTime)
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
@@ -213,10 +232,10 @@ public class AndroidOs {
 
         @Override
         public int hashCode() {
-            return Objects.hash(containingDeviceId, inodeNumber, type, symbolicLinkPath, mode,
-                    linkCount, userId, groupId, deviceId, size, lastAccessTime,
-                    lastModificationTime, lastStatusChangeTime, preferredIoBlockSize,
-                    allocatedBlockCount);
+            return Objects.hash(containingDeviceId, inodeNumber, type, symbolicLinkPath,
+                    symbolicLinkStatInformation, symbolicLinkStatErrno, mode, linkCount, userId,
+                    groupId, deviceId, size, lastAccessTime, lastModificationTime,
+                    lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount);
         }
 
 
@@ -239,6 +258,8 @@ public class AndroidOs {
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
             symbolicLinkPath = in.readString();
+            symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
+            symbolicLinkStatErrno = in.readInt();
             //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
             linkCount = in.readLong();
@@ -264,6 +285,8 @@ public class AndroidOs {
             dest.writeLong(inodeNumber);
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeString(symbolicLinkPath);
+            dest.writeParcelable(symbolicLinkStatInformation, flags);
+            dest.writeInt(symbolicLinkStatErrno);
             dest.writeSerializable(mode);
             dest.writeLong(linkCount);
             dest.writeLong(userId);
