@@ -16,7 +16,6 @@ import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
-import me.zhanghai.android.materialfilemanager.filesystem.JavaFileLocalFile;
 import me.zhanghai.android.materialfilemanager.settings.Settings;
 
 public class FileViewModel extends ViewModel {
@@ -29,8 +28,7 @@ public class FileViewModel extends ViewModel {
 
     public FileViewModel() {
         // TODO
-        File file = new JavaFileLocalFile(Uri.fromFile(new java.io.File(
-                "/storage/emulated/0/Download")));
+        File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
         pushPath(null, file.makeBreadcrumbPath());
         mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
                 Settings.FILE_LIST_SORT_ORDER.getEnumValue(),

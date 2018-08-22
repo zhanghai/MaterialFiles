@@ -20,7 +20,8 @@ public class Files {
     public static File ofUri(Uri uri) {
         switch (uri.getScheme()) {
             case LocalFile.SCHEME:
-                return new JavaFileLocalFile(uri);
+                // TODO
+                return new AndroidOsLocalFile(uri);
             case ArchiveFile.SCHEME:
                 return new ArchiveFile(uri);
             default:

@@ -71,7 +71,8 @@ public interface File extends Parcelable {
 
     default File asListableFile() {
         if (!(this instanceof ArchiveFile) && isSupportedArchive()) {
-            return new ArchiveFile(this, Uri.parse("/"));
+            // FIXME
+            return new ArchiveFile((LocalFile) this, Archive.pathForRoot());
         }
         return this;
     }
