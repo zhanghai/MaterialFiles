@@ -30,22 +30,22 @@ public class ArchiveFile extends BaseFile {
     private Uri mEntryPath;
     private Archive.Information mInformation;
 
-    public ArchiveFile(Uri path) {
-        super(path);
+    public ArchiveFile(Uri uri) {
+        super(uri);
 
-        mArchiveFile = Files.ofPath(Uri.parse(path.getSchemeSpecificPart()));
-        mEntryPath = Uri.parse(path.getFragment());
+        mArchiveFile = Files.ofUri(Uri.parse(uri.getSchemeSpecificPart()));
+        mEntryPath = Uri.parse(uri.getFragment());
     }
 
     public ArchiveFile(File archiveFile, Uri entryPath) {
-        super(Uri.fromParts(SCHEME, archiveFile.getPath().toString(), entryPath.toString()));
+        super(Uri.fromParts(SCHEME, archiveFile.getUri().toString(), entryPath.toString()));
 
         mArchiveFile = archiveFile;
         mEntryPath = entryPath;
     }
 
-    private ArchiveFile(Uri path, Archive.Information information) {
-        this(path);
+    private ArchiveFile(Uri uri, Archive.Information information) {
+        this(uri);
 
         mInformation = information;
     }
@@ -137,7 +137,7 @@ public class ArchiveFile extends BaseFile {
             return false;
         }
         ArchiveFile that = (ArchiveFile) object;
-        return Objects.equals(mPath, that.mPath)
+        return Objects.equals(mUri, that.mUri)
                 && Objects.equals(mArchiveFile, that.mArchiveFile)
                 && Objects.equals(mEntryPath, that.mEntryPath)
                 && Objects.equals(mInformation, that.mInformation);
@@ -145,7 +145,7 @@ public class ArchiveFile extends BaseFile {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPath, mArchiveFile, mEntryPath, mInformation);
+        return Objects.hash(mUri, mArchiveFile, mEntryPath, mInformation);
     }
 
 

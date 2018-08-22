@@ -17,20 +17,20 @@ public class Files {
 
     private Files() {}
 
-    public static File ofPath(Uri path) {
-        switch (path.getScheme()) {
+    public static File ofUri(Uri uri) {
+        switch (uri.getScheme()) {
             case LocalFile.SCHEME:
-                return new JavaFileLocalFile(path);
+                return new JavaFileLocalFile(uri);
             case ArchiveFile.SCHEME:
-                return new ArchiveFile(path);
+                return new ArchiveFile(uri);
             default:
-                throw new UnsupportedOperationException("Unknown path: " + path);
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
     }
 
     public static File childOf(File file, String name) {
-        Uri path = file.getPath().buildUpon().appendPath(name).build();
-        return ofPath(path);
+        Uri uri = file.getUri().buildUpon().appendPath(name).build();
+        return ofUri(uri);
     }
 
     public static void onTrailChanged(List<File> path) {

@@ -24,19 +24,19 @@ public class ShellLocalFile extends LocalFile {
 
     private Stat.Information mInformation;
 
-    public ShellLocalFile(Uri path) {
-        super(path);
+    public ShellLocalFile(Uri uri) {
+        super(uri);
     }
 
-    private ShellLocalFile(Uri path, Stat.Information information) {
-        super(path);
+    private ShellLocalFile(Uri uri, Stat.Information information) {
+        super(uri);
 
         mInformation = information;
     }
 
     @WorkerThread
     public void loadInformation() {
-        String command = Stat.makeCommand(mPath.getPath());
+        String command = Stat.makeCommand(mUri.getPath());
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {
             // TODO
@@ -90,13 +90,13 @@ public class ShellLocalFile extends LocalFile {
             return false;
         }
         ShellLocalFile that = (ShellLocalFile) object;
-        return Objects.equals(mPath, that.mPath)
+        return Objects.equals(mUri, that.mUri)
                 && Objects.equals(mInformation, that.mInformation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPath, mInformation);
+        return Objects.hash(mUri, mInformation);
     }
 
 

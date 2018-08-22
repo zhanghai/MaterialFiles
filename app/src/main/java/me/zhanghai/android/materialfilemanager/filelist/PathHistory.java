@@ -49,8 +49,8 @@ public class PathHistory {
     }
 
     private void updateTrail(List<File> path) {
-        if (CollectionUtils.isPrefix(Functional.map(path, File::getPath),
-                        Functional.map(mTrail, File::getPath))) {
+        if (CollectionUtils.isPrefix(Functional.map(path, File::getUri),
+                        Functional.map(mTrail, File::getUri))) {
             Functional.forEach(path, (file, index) -> mTrail.set(index, file));
         } else {
             mTrail.clear();

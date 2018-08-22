@@ -39,13 +39,13 @@ public class FileViewModel extends ViewModel {
 
     public void pushPath(Parcelable lastState, List<File> path) {
         mPathHistory.push(lastState, path);
-        mPathData.setValue(getPathFile().getPath());
+        mPathData.setValue(getPathFile().getUri());
     }
 
     public boolean popPath() {
         boolean changed = mPathHistory.pop();
         if (changed) {
-            mPathData.setValue(getPathFile().getPath());
+            mPathData.setValue(getPathFile().getUri());
         }
         return changed;
     }

@@ -22,14 +22,14 @@ public interface File extends Parcelable {
 
     // TODO: Rename to Uri.
     @NonNull
-    Uri getPath();
+    Uri getUri();
 
     @NonNull
     List<File> makeFilePath();
 
     @NonNull
     default String getName() {
-        List<String> segments = getPath().getPathSegments();
+        List<String> segments = getUri().getPathSegments();
         if (segments.isEmpty()) {
             return "/";
         }

@@ -11,20 +11,20 @@ import android.support.annotation.NonNull;
 
 public abstract class BaseFile implements File {
 
-    protected Uri mPath;
+    protected Uri mUri;
 
-    public BaseFile(Uri path) {
-        mPath = path;
+    public BaseFile(Uri uri) {
+        mUri = uri;
     }
 
     @NonNull
-    public Uri getPath() {
-        return mPath;
+    public Uri getUri() {
+        return mUri;
     }
 
 
     protected BaseFile(Parcel in) {
-        mPath = in.readParcelable(Uri.class.getClassLoader());
+        mUri = in.readParcelable(Uri.class.getClassLoader());
     }
 
     @Override
@@ -34,6 +34,6 @@ public abstract class BaseFile implements File {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(mPath, flags);
+        dest.writeParcelable(mUri, flags);
     }
 }

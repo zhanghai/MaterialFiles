@@ -24,19 +24,19 @@ public class AndroidOsLocalFile extends LocalFile {
 
     private JavaFileObserver mObserver;
 
-    public AndroidOsLocalFile(Uri path) {
-        super(path);
+    public AndroidOsLocalFile(Uri uri) {
+        super(uri);
     }
 
-    private AndroidOsLocalFile(Uri path, AndroidOs.Information information) {
-        super(path);
+    private AndroidOsLocalFile(Uri uri, AndroidOs.Information information) {
+        super(uri);
 
         mInformation = information;
     }
 
     @WorkerThread
     public void loadInformation() throws FileSystemException {
-        mInformation = AndroidOs.loadInformation(mPath.getPath());
+        mInformation = AndroidOs.loadInformation(mUri.getPath());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class AndroidOsLocalFile extends LocalFile {
         if (mObserver != null) {
             throw new IllegalStateException("Already observing");
         }
-        mObserver = new JavaFileObserver(mPath.getPath(), observer);
+        mObserver = new JavaFileObserver(mUri.getPath(), observer);
         mObserver.startWatching();
     }
 
@@ -101,13 +101,13 @@ public class AndroidOsLocalFile extends LocalFile {
             return false;
         }
         AndroidOsLocalFile that = (AndroidOsLocalFile) object;
-        return Objects.equals(mPath, that.mPath)
+        return Objects.equals(mUri, that.mUri)
                 && Objects.equals(mInformation, that.mInformation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPath, mInformation);
+        return Objects.hash(mUri, mInformation);
     }
 
 

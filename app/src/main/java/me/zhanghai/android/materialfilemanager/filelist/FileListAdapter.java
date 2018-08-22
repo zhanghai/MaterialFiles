@@ -50,7 +50,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         }
         @Override
         public boolean areItemsTheSame(File oldItem, File newItem) {
-            return oldItem == newItem || Objects.equals(oldItem.getPath(), newItem.getPath());
+            return oldItem == newItem || Objects.equals(oldItem.getUri(), newItem.getUri());
         }
         @Override
         public boolean areContentsTheSame(File oldItem, File newItem) {
@@ -91,7 +91,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                 MimeTypes.getIconRes(mimeType));
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
-                    .load(file.getPath())
+                    .load(file.getUri())
                     .signature(new ObjectKey(file.getLastModified()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));

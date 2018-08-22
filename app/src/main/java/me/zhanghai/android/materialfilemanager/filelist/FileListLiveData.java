@@ -20,7 +20,7 @@ public class FileListLiveData extends LiveData<FileListData> {
     private File mFile;
 
     public FileListLiveData(Uri path) {
-        mFile = Files.ofPath(path);
+        mFile = Files.ofUri(path);
         loadData();
     }
 

@@ -25,12 +25,12 @@ public class JavaFileLocalFile extends LocalFile {
 
     private JavaFileObserver mObserver;
 
-    public JavaFileLocalFile(Uri path) {
-        super(path);
+    public JavaFileLocalFile(Uri uri) {
+        super(uri);
     }
 
-    private JavaFileLocalFile(Uri path, JavaFile.Information information) {
-        super(path);
+    private JavaFileLocalFile(Uri uri, JavaFile.Information information) {
+        super(uri);
 
         mInformation = information;
     }
@@ -75,7 +75,7 @@ public class JavaFileLocalFile extends LocalFile {
         if (mObserver != null) {
             throw new IllegalStateException("Already observing");
         }
-        mObserver = new JavaFileObserver(mPath.getPath(), observer);
+        mObserver = new JavaFileObserver(mUri.getPath(), observer);
         mObserver.startWatching();
     }
 
@@ -101,13 +101,13 @@ public class JavaFileLocalFile extends LocalFile {
             return false;
         }
         JavaFileLocalFile that = (JavaFileLocalFile) object;
-        return Objects.equals(mPath, that.mPath)
+        return Objects.equals(mUri, that.mUri)
                 && Objects.equals(mInformation, that.mInformation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mPath, mInformation);
+        return Objects.hash(mUri, mInformation);
     }
 
 

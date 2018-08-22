@@ -84,7 +84,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private FileViewModel mViewModel;
 
-    private Uri mLastPath;
+    private Uri mLastUri;
 
     public static FileListFragment newInstance() {
         //noinspection deprecation
@@ -220,9 +220,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     private void onFileListChanged(FileListData fileListData) {
         switch (fileListData.state) {
             case LOADING: {
-                Uri path = fileListData.file.getPath();
-                boolean isReload = Objects.equals(path, mLastPath);
-                mLastPath = path;
+                Uri uri = fileListData.file.getUri();
+                boolean isReload = Objects.equals(uri, mLastUri);
+                mLastUri = uri;
                 if (!isReload) {
                     mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
                     updateBreadcrumbLayout();

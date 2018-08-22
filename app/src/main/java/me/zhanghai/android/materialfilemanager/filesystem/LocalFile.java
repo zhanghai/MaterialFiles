@@ -17,8 +17,8 @@ public abstract class LocalFile extends BaseFile {
 
     public static final String SCHEME = "file";
 
-    public LocalFile(Uri path) {
-        super(path);
+    public LocalFile(Uri uri) {
+        super(uri);
     }
 
     @NonNull
@@ -38,7 +38,7 @@ public abstract class LocalFile extends BaseFile {
     @NonNull
     @Override
     public java.io.File makeJavaFile() {
-        return new java.io.File(mPath.getPath());
+        return new java.io.File(mUri.getPath());
     }
 
 
