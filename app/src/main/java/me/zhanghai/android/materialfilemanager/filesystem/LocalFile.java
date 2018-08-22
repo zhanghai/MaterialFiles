@@ -17,28 +17,43 @@ public abstract class LocalFile extends BaseFile {
 
     public static final String SCHEME = "file";
 
+    protected static Uri uriFromPath(String path) {
+        return new Uri.Builder()
+                .scheme(SCHEME)
+                .path(path)
+                .build();
+    }
+
+    protected static String uriToPath(Uri uri) {
+        return uri.getPath();
+    }
+
     public LocalFile(Uri uri) {
         super(uri);
     }
 
     @NonNull
     @Override
-    public List<File> makeFilePath() {
-        List<File> path = new ArrayList<>();
-        java.io.File file = makeJavaFile();
-        while (file != null) {
-            // TODO
-            path.add(new JavaFileLocalFile(Uri.fromFile(file)));
-            file = file.getParentFile();
+    public List<File> makeBreadcrumbPath() {
+        List<File> breadcrumbPath = new ArrayList<>();
+        java.io.File javaFile = makeJavaFile();
+        while (javaFile != null) {
+            File file = Files.ofUri(uriFromPath(javaFile.getPath()));
+            breadcrumbPath.add(file);
+            javaFile = javaFile.getParentFile();
         }
-        Collections.reverse(path);
-        return path;
+        Collections.reverse(breadcrumbPath);
+        return breadcrumbPath;
     }
 
     @NonNull
-    @Override
+    public String getPath() {
+        return uriToPath(mUri);
+    }
+
+    @NonNull
     public java.io.File makeJavaFile() {
-        return new java.io.File(mUri.getPath());
+        return new java.io.File(getPath());
     }
 
 

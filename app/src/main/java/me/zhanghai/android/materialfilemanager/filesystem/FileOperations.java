@@ -32,7 +32,7 @@ public class FileOperations {
         file.loadInformation();
         // FIXME: Symbolic links
         if (file.isDirectory()) {
-            List<File> children = file.getFileList();
+            List<File> children = file.getChildren();
             for (File child : children) {
                 delete(child, operations);
             }

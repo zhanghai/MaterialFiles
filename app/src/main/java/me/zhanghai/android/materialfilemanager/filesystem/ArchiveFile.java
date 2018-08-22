@@ -66,8 +66,8 @@ public class ArchiveFile extends BaseFile {
 
     @NonNull
     @Override
-    public List<File> makeFilePath() {
-        List<File> path = new ArrayList<>(mArchiveFile.makeFilePath());
+    public List<File> makeBreadcrumbPath() {
+        List<File> path = new ArrayList<>(mArchiveFile.makeBreadcrumbPath());
         CollectionUtils.pop(path);
         Uri.Builder entryPathBuilder = mEntryPath.buildUpon().path("/");
         path.add(new ArchiveFile(mArchiveFile, entryPathBuilder.build()));
@@ -108,18 +108,15 @@ public class ArchiveFile extends BaseFile {
         return mInformation.entry.isDirectory();
     }
 
-    @NonNull
     @Override
-    public java.io.File makeJavaFile() {
-        // TODO
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<File> getFileList() throws FileSystemException {
+    public List<File> getChildren() throws FileSystemException {
         Map<Uri, List<Archive.Information>> tree;
+        // FIXME
+        if (!(mArchiveFile instanceof LocalFile)) {
+            throw new UnsupportedOperationException();
+        }
         try {
-            tree = Archive.readTree(mArchiveFile.makeJavaFile());
+            tree = Archive.readTree(((LocalFile) mArchiveFile).makeJavaFile());
         } catch (ArchiveException | IOException e) {
             throw new FileSystemException(R.string.file_list_error_archive, e);
         }

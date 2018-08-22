@@ -66,7 +66,7 @@ public class ShellLocalFile extends LocalFile {
 
     @Override
     @WorkerThread
-    public List<File> getFileList() throws FileSystemException {
+    public List<File> getChildren() throws FileSystemException {
         List<java.io.File> javaFiles = Arrays.asList(makeJavaFile().listFiles());
         List<String> paths = Functional.map(javaFiles, java.io.File::getPath);
         // TODO: ARG_MAX

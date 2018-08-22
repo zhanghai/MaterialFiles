@@ -57,7 +57,7 @@ public class Archive {
         if (tree == null) {
             List<ArchiveEntry> entries = readEntries(file);
             List<Information> informations = Functional.map(entries, entry -> new Information(
-                    getEntryPath(entry), entry));
+                    makeEntryPath(entry), entry));
             tree = new HashMap<>();
             tree.put(Uri.parse("/"), new ArrayList<>());
             Map<Uri, Boolean> directoryInformationExists = new HashMap<>();
@@ -131,8 +131,9 @@ public class Archive {
         return entries;
     }
 
-    private static Uri getEntryPath(ArchiveEntry entry) {
+    private static Uri makeEntryPath(ArchiveEntry entry) {
         String name = entry.getName();
+        // TODO: Use Uri.Builder.
         StringBuilder builder = new StringBuilder();
         int startIndex = 0;
         while (true) {

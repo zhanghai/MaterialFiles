@@ -43,6 +43,7 @@ import me.zhanghai.android.materialfilemanager.file.FileProvider;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
+import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
@@ -371,16 +372,22 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             navigateToFile(file.asListableFile());
             return;
         }
-        Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(file.makeJavaFile()),
-                file.getMimeType())
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        AppUtils.startActivity(intent, requireContext());
+        if (file instanceof LocalFile) {
+            LocalFile localFile = (LocalFile) file;
+            java.io.File javaFile = localFile.makeJavaFile();
+            Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(javaFile),
+                    file.getMimeType())
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            AppUtils.startActivity(intent, requireContext());
+        } else {
+            // TODO
+        }
     }
 
     private void navigateToFile(File file) {
         Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.pushPath(state, file.makeFilePath());
+        mViewModel.pushPath(state, file.makeBreadcrumbPath());
     }
 
     @Override

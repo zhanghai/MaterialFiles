@@ -31,7 +31,7 @@ public class FileViewModel extends ViewModel {
         // TODO
         File file = new JavaFileLocalFile(Uri.fromFile(new java.io.File(
                 "/storage/emulated/0/Download")));
-        pushPath(null, file.makeFilePath());
+        pushPath(null, file.makeBreadcrumbPath());
         mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
                 Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
                 Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));

@@ -25,7 +25,7 @@ public interface File extends Parcelable {
     Uri getUri();
 
     @NonNull
-    List<File> makeFilePath();
+    List<File> makeBreadcrumbPath();
 
     @NonNull
     default String getName() {
@@ -76,11 +76,8 @@ public interface File extends Parcelable {
         return this;
     }
 
-    @NonNull
-    java.io.File makeJavaFile();
-
     @WorkerThread
-    List<File> getFileList() throws FileSystemException;
+    List<File> getChildren() throws FileSystemException;
 
     default void startObserving(Runnable observer) {}
 

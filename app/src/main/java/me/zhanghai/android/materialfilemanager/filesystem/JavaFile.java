@@ -61,12 +61,20 @@ public class JavaFile {
         }
     }
 
-    public static List<File> listFiles(File directory) throws FileSystemException {
-        File[] files = directory.listFiles();
-        if (files == null) {
+    public static List<String> list(File directory) throws FileSystemException {
+        String[] children = directory.list();
+        if (children == null) {
             throw new FileSystemException(R.string.file_list_error_directory);
         }
-        return Arrays.asList(files);
+        return Arrays.asList(children);
+    }
+
+    public static List<File> listFiles(File directory) throws FileSystemException {
+        File[] children = directory.listFiles();
+        if (children == null) {
+            throw new FileSystemException(R.string.file_list_error_directory);
+        }
+        return Arrays.asList(children);
     }
 
     public static void delete(File file) throws FileSystemException {
