@@ -34,7 +34,7 @@ public class ArchiveFile extends BaseFile {
         super(uri);
 
         mArchiveFile = Files.ofUri(Uri.parse(uri.getSchemeSpecificPart()));
-        mEntryPath = Uri.parse(uri.getFragment());
+        mEntryPath = Archive.pathFromString(uri.getFragment());
     }
 
     public ArchiveFile(File archiveFile, Uri entryPath) {
@@ -69,7 +69,7 @@ public class ArchiveFile extends BaseFile {
     public List<File> makeBreadcrumbPath() {
         List<File> path = new ArrayList<>(mArchiveFile.makeBreadcrumbPath());
         CollectionUtils.pop(path);
-        Uri.Builder entryPathBuilder = mEntryPath.buildUpon().path("/");
+        Uri.Builder entryPathBuilder = Archive.pathBuilderForRoot();
         path.add(new ArchiveFile(mArchiveFile, entryPathBuilder.build()));
         for (String entryPathSegment : mEntryPath.getPathSegments()) {
             entryPathBuilder.appendPath(entryPathSegment);

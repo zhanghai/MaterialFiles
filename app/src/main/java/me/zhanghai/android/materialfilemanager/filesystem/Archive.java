@@ -41,6 +41,21 @@ public class Archive {
     private static final Map<File, Map<Uri, List<Information>>> sTreeCache =
             new ConcurrentHashMap<>();
 
+    public static Uri.Builder pathBuilderForRoot() {
+        return new Uri.Builder()
+                .path("/");
+    }
+
+    public static Uri pathForRoot() {
+        return pathBuilderForRoot().build();
+    }
+
+    public static Uri pathFromString(String path) {
+        return new Uri.Builder()
+                .path(path)
+                .build();
+    }
+
     private Archive() {}
 
     public static void retainCache(Collection<File> files) {
@@ -57,9 +72,9 @@ public class Archive {
         if (tree == null) {
             List<ArchiveEntry> entries = readEntries(file);
             List<Information> informations = Functional.map(entries, entry -> new Information(
-                    makeEntryPath(entry), entry));
+                    makePath(entry), entry));
             tree = new HashMap<>();
-            tree.put(Uri.parse("/"), new ArrayList<>());
+            tree.put(pathForRoot(), new ArrayList<>());
             Map<Uri, Boolean> directoryInformationExists = new HashMap<>();
             for (Information information : informations) {
                 Uri parentPath = getParentPath(information.path);
@@ -72,7 +87,7 @@ public class Archive {
                 }
             }
             for (Map.Entry<Uri, Boolean> mapEntry : directoryInformationExists.entrySet()) {
-                Uri.Builder builder = Uri.parse("/").buildUpon();
+                Uri.Builder builder = pathBuilderForRoot();
                 Uri parentPath = builder.build();
                 for (String pathSegment : mapEntry.getKey().getPathSegments()) {
                     builder.appendPath(pathSegment);
@@ -131,10 +146,9 @@ public class Archive {
         return entries;
     }
 
-    private static Uri makeEntryPath(ArchiveEntry entry) {
+    private static Uri makePath(ArchiveEntry entry) {
         String name = entry.getName();
-        // TODO: Use Uri.Builder.
-        StringBuilder builder = new StringBuilder();
+        Uri.Builder pathBuilder = pathBuilderForRoot();
         int startIndex = 0;
         while (true) {
             while (startIndex < name.length() && name.charAt(startIndex) == '/') {
@@ -147,26 +161,20 @@ public class Archive {
             do {
                 ++endIndex;
             } while (endIndex < name.length() && name.charAt(endIndex) != '/');
-            builder
-                    .append('/')
-                    .append(name.substring(startIndex, endIndex));
+            pathBuilder.appendPath(name.substring(startIndex, endIndex));
             startIndex = endIndex;
         }
-        if (builder.length() == 0) {
-            builder.append('/');
-        }
-        return Uri.parse(builder.toString());
+        return pathBuilder.build();
     }
 
     private static Uri getParentPath(Uri path) {
-        Uri.Builder builder = path.buildUpon()
-                .path("/");
+        Uri.Builder pathBuilder = pathBuilderForRoot();
         List<String> pathSegments = path.getPathSegments();
         for (int i = 0, count = pathSegments.size() - 1; i < count; ++i) {
             String pathSegment = pathSegments.get(i);
-            builder.appendPath(pathSegment);
+            pathBuilder.appendPath(pathSegment);
         }
-        return builder.build();
+        return pathBuilder.build();
     }
 
     public static class Information {
