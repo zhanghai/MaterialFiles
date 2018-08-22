@@ -86,7 +86,7 @@ public class FileSortOptions {
                 break;
             case LAST_MODIFIED:
                 comparator = ComparatorCompat.thenComparing(
-                        ComparatorCompat.comparing(File::getLastModified), comparator);
+                        ComparatorCompat.comparing(File::getLastModificationTime), comparator);
                 break;
             default:
                 throw new IllegalStateException();

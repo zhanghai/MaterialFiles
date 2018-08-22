@@ -10,6 +10,7 @@ import android.os.Parcel;
 import android.support.annotation.NonNull;
 
 import org.apache.commons.compress.archivers.ArchiveException;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.threeten.bp.Instant;
 
 import java.io.IOException;
@@ -100,13 +101,20 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public Instant getLastModified() {
+    public Instant getLastModificationTime() {
         return Instant.ofEpochMilli(mInformation.entry.getLastModifiedDate().getTime());
     }
 
     @Override
     public boolean isDirectory() {
         return mInformation.entry.isDirectory();
+    }
+
+    @Override
+    public boolean isSymbolicLink() {
+        // FIXME: Move this to information.
+        return (mInformation.entry instanceof ZipArchiveEntry)
+                && ((ZipArchiveEntry) mInformation.entry).isUnixSymlink();
     }
 
     @Override

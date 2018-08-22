@@ -54,12 +54,9 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaFileLocalFile) {
-                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
-                JavaFile.createDirectory(file.makeJavaFile());
-            } else if (mFile instanceof AndroidOsLocalFile) {
-                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
-                AndroidOs.createDirectory(file.getPath());
+            if (mFile instanceof LocalFile) {
+                LocalFile file = (LocalFile) mFile;
+                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.createDirectory(file);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -77,12 +74,9 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaFileLocalFile) {
-                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
-                JavaFile.createFile(file.makeJavaFile());
-            } else if (mFile instanceof AndroidOsLocalFile) {
-                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
-                AndroidOs.createFile(file.getPath());
+            if (mFile instanceof LocalFile) {
+                LocalFile file = (LocalFile) mFile;
+                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.createFile(file);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -100,12 +94,9 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaFileLocalFile) {
-                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
-                JavaFile.delete(file.makeJavaFile());
-            } else if (mFile instanceof AndroidOsLocalFile) {
-                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
-                AndroidOs.delete(file.getPath());
+            if (mFile instanceof LocalFile) {
+                LocalFile file = (LocalFile) mFile;
+                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.delete(file);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -125,12 +116,9 @@ public class FileOperations {
 
         @Override
         public void run() throws FileSystemException {
-            if (mFile instanceof JavaFileLocalFile) {
-                JavaFileLocalFile file = (JavaFileLocalFile) mFile;
-                JavaFile.rename(file.makeJavaFile(), mNewName);
-            } else if (mFile instanceof AndroidOsLocalFile) {
-                AndroidOsLocalFile file = (AndroidOsLocalFile) mFile;
-                AndroidOs.rename(file.getPath(), mNewName);
+            if (mFile instanceof LocalFile) {
+                LocalFile file = (LocalFile) mFile;
+                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.rename(file, mNewName);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();

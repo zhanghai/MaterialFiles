@@ -49,9 +49,11 @@ public interface File extends Parcelable {
 
     long getSize();
 
-    Instant getLastModified();
+    Instant getLastModificationTime();
 
     boolean isDirectory();
+
+    boolean isSymbolicLink();
 
     @NonNull
     default String getMimeType() {

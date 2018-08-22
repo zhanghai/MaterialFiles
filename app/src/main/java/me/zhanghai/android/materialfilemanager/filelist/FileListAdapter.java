@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -92,7 +93,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
                     .load(file.getUri())
-                    .signature(new ObjectKey(file.getLastModified()))
+                    .signature(new ObjectKey(file.getLastModificationTime()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));
         } else {
@@ -105,13 +106,13 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         if (file.isDirectory()) {
             description = null;
         } else {
-            String descriptionSeparator = holder.descriptionText.getContext().getString(
+            Context context = holder.descriptionText.getContext();
+            String descriptionSeparator = context.getString(
                     R.string.file_item_description_separator);
-            String lastModified = TimeUtils.formatTime(file.getLastModified().toEpochMilli(),
-                    holder.descriptionText.getContext());
-            String size = Formatter.formatFileSize(holder.descriptionText.getContext(),
-                    file.getSize());
-            description = StringCompat.join(descriptionSeparator, lastModified, size);
+            String lastModificationTime = TimeUtils.formatTime(
+                    file.getLastModificationTime().toEpochMilli(), context);
+            String size = Formatter.formatFileSize(context, file.getSize());
+            description = StringCompat.join(descriptionSeparator, lastModificationTime, size);
         }
         holder.descriptionText.setText(description);
         holder.menu.setOnMenuItemClickListener(item -> {
