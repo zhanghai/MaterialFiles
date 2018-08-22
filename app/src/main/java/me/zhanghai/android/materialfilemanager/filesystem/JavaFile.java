@@ -61,7 +61,7 @@ public class JavaFile {
         }
     }
 
-    public static List<String> list(File directory) throws FileSystemException {
+    public static List<String> getChildren(File directory) throws FileSystemException {
         String[] children = directory.list();
         if (children == null) {
             throw new FileSystemException(R.string.file_list_error_directory);
@@ -69,7 +69,7 @@ public class JavaFile {
         return Arrays.asList(children);
     }
 
-    public static List<File> listFiles(File directory) throws FileSystemException {
+    public static List<File> getChildFiles(File directory) throws FileSystemException {
         File[] children = directory.listFiles();
         if (children == null) {
             throw new FileSystemException(R.string.file_list_error_directory);

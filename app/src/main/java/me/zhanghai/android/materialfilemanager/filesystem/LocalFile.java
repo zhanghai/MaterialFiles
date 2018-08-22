@@ -28,6 +28,10 @@ public abstract class LocalFile extends BaseFile {
         return uri.getPath();
     }
 
+    protected static String joinPaths(String parent, String child) {
+        return new java.io.File(parent, child).getPath();
+    }
+
     public LocalFile(Uri uri) {
         super(uri);
     }

@@ -57,7 +57,7 @@ public class JavaFileLocalFile extends LocalFile {
     @Override
     @WorkerThread
     public List<File> getChildren() throws FileSystemException {
-        List<java.io.File> javaFiles = JavaFile.listFiles(makeJavaFile());
+        List<java.io.File> javaFiles = JavaFile.getChildFiles(makeJavaFile());
         List<JavaFile.Information> informations;
         try {
             informations = Functional.map(javaFiles, (ThrowingFunction<java.io.File,

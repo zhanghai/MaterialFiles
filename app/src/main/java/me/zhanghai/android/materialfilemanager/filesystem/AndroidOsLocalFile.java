@@ -58,7 +58,9 @@ public class AndroidOsLocalFile extends LocalFile {
     @Override
     @WorkerThread
     public List<File> getChildren() throws FileSystemException {
-        List<String> children = JavaFile.list(makeJavaFile());
+        String parent = getPath();
+        List<String> children = Functional.map(JavaFile.getChildren(makeJavaFile()), childName ->
+                joinPaths(parent, childName));
         List<AndroidOs.Information> informations;
         try {
             informations = Functional.map(children, (ThrowingFunction<String,
@@ -66,8 +68,8 @@ public class AndroidOsLocalFile extends LocalFile {
         } catch (FunctionalException e) {
             throw e.getCauseAs(FileSystemException.class);
         }
-        return Functional.map(children, (child, index) -> new AndroidOsLocalFile(
-                uriFromPath(child), informations.get(index)));
+        return Functional.map(children, (child, index) -> new AndroidOsLocalFile(uriFromPath(child),
+                informations.get(index)));
     }
 
     @Override
