@@ -91,7 +91,12 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public void loadInformation() {
+    public boolean hasInformation() {
+        return mInformation != null;
+    }
+
+    @Override
+    public void reloadInformation() {
 
     }
 

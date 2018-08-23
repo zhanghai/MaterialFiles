@@ -75,8 +75,13 @@ public class LocalFile extends BaseFile {
     }
 
     @Override
-    public void loadInformation() throws FileSystemException {
-        mStrategy.loadInformation(this);
+    public boolean hasInformation() {
+        return mStrategy.hasInformation();
+    }
+
+    @Override
+    public void reloadInformation() throws FileSystemException {
+        mStrategy.reloadInformation(this);
     }
 
     @Override

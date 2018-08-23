@@ -36,8 +36,13 @@ public class ShellLocalFile extends LocalFile {
         mInformation = information;
     }
 
+    @Override
+    public boolean hasInformation() {
+        return mInformation != null;
+    }
+
     @WorkerThread
-    public void loadInformation() throws FileSystemException {
+    public void reloadInformation() throws FileSystemException {
         String command = Stat.makeCommand(mUri.getPath());
         List<String> outputs = Shell.SH.run(command);
         if (outputs == null) {

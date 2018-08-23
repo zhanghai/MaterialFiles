@@ -14,8 +14,10 @@ import java.util.List;
 
 interface LocalFileStrategy extends Parcelable {
 
+    boolean hasInformation();
+
     @WorkerThread
-    void loadInformation(LocalFile file) throws FileSystemException;
+    void reloadInformation(LocalFile file) throws FileSystemException;
 
     long getSize();
 

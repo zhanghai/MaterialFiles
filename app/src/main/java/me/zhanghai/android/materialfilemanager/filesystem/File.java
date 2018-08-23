@@ -44,8 +44,16 @@ public interface File extends Parcelable {
         }
     }
 
+    boolean hasInformation();
+
+    default void loadInformation() throws FileSystemException {
+        if (!hasInformation()) {
+            reloadInformation();
+        }
+    }
+
     @WorkerThread
-    void loadInformation() throws FileSystemException;
+    void reloadInformation() throws FileSystemException;
 
     long getSize();
 

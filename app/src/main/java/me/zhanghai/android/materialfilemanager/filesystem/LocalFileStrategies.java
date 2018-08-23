@@ -30,8 +30,13 @@ public interface LocalFileStrategies {
         }
 
         @Override
+        public boolean hasInformation() {
+            return mInformation != null;
+        }
+
+        @Override
         @WorkerThread
-        public void loadInformation(LocalFile file) throws FileSystemException {
+        public void reloadInformation(LocalFile file) throws FileSystemException {
             mInformation = JavaFile.loadInformation(file.makeJavaFile());
         }
 
@@ -129,8 +134,13 @@ public interface LocalFileStrategies {
         }
 
         @Override
+        public boolean hasInformation() {
+            return mInformation != null;
+        }
+
+        @Override
         @WorkerThread
-        public void loadInformation(LocalFile file) throws FileSystemException {
+        public void reloadInformation(LocalFile file) throws FileSystemException {
             mInformation = AndroidOs.loadInformation(file.getPath());
         }
 

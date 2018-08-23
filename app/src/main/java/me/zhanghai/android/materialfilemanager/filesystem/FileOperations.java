@@ -22,6 +22,7 @@ public class FileOperations {
     public static List<FileOperation> delete(List<File> files) throws FileSystemException {
         List<FileOperation> operations = new ArrayList<>();
         for (File file : files) {
+            file.reloadInformation();
             delete(file, operations);
         }
         return operations;
@@ -29,7 +30,6 @@ public class FileOperations {
 
     private static void delete(File file, List<FileOperation> operations)
             throws FileSystemException {
-        file.loadInformation();
         // FIXME: Symbolic links
         if (file.isDirectory()) {
             List<File> children = file.getChildren();
