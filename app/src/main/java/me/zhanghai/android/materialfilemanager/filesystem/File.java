@@ -20,7 +20,6 @@ import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 
 public interface File extends Parcelable {
 
-    // TODO: Rename to Uri.
     @NonNull
     Uri getUri();
 

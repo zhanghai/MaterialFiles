@@ -34,8 +34,7 @@ public class ArchiveFile extends BaseFile {
     public ArchiveFile(Uri uri) {
         super(uri);
 
-        // TODO: Instead of a cast?
-        mArchiveFile = (LocalFile) Files.ofUri(Uri.parse(uri.getSchemeSpecificPart()));
+        mArchiveFile = new LocalFile(Uri.parse(uri.getSchemeSpecificPart()));
         mEntryPath = Archive.pathFromString(uri.getFragment());
     }
 
