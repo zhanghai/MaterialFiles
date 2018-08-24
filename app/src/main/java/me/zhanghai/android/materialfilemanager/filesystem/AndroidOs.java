@@ -40,23 +40,6 @@ public class AndroidOs {
         information.containingDeviceId = stat.st_dev;
         information.inodeNumber = stat.st_ino;
         information.type = parseType(stat.st_mode);
-        if (information.type == PosixFileType.SYMBOLIC_LINK) {
-            try {
-                information.symbolicLinkTarget = Os.readlink(path);
-            } catch (ErrnoException e) {
-                throw new FileSystemException(R.string.file_error_information, e);
-            }
-            try {
-                information.symbolicLinkStatInformation = loadInformation(path, true);
-            } catch (FileSystemException e) {
-                e.printStackTrace();
-                Throwable cause = e.getCause();
-                if (cause instanceof ErrnoException) {
-                    ErrnoException errnoException = (ErrnoException) cause;
-                    information.symbolicLinkStatErrno = errnoException.errno;
-                }
-            }
-        }
         information.mode = parseMode(stat.st_mode);
         information.linkCount = stat.st_nlink;
         information.userId = stat.st_uid;
@@ -77,6 +60,23 @@ public class AndroidOs {
         }
         information.preferredIoBlockSize = stat.st_blksize;
         information.allocatedBlockCount = stat.st_blocks;
+        if (information.type == PosixFileType.SYMBOLIC_LINK) {
+            try {
+                information.symbolicLinkTarget = Os.readlink(path);
+            } catch (ErrnoException e) {
+                throw new FileSystemException(R.string.file_error_information, e);
+            }
+            try {
+                information.symbolicLinkStatInformation = loadInformation(path, true);
+            } catch (FileSystemException e) {
+                e.printStackTrace();
+                Throwable cause = e.getCause();
+                if (cause instanceof ErrnoException) {
+                    ErrnoException errnoException = (ErrnoException) cause;
+                    information.symbolicLinkStatErrno = errnoException.errno;
+                }
+            }
+        }
         return information;
     }
 
@@ -186,9 +186,6 @@ public class AndroidOs {
         public long containingDeviceId;
         public long inodeNumber;
         public PosixFileType type;
-        public String symbolicLinkTarget;
-        public Information symbolicLinkStatInformation;
-        public int symbolicLinkStatErrno;
         public EnumSet<PosixFileModeBit> mode;
         public long linkCount;
         public long userId;
@@ -200,6 +197,9 @@ public class AndroidOs {
         public Instant lastStatusChangeTime;
         public long preferredIoBlockSize;
         public long allocatedBlockCount;
+        public String symbolicLinkTarget;
+        public Information symbolicLinkStatInformation;
+        public int symbolicLinkStatErrno;
 
 
         @Override
@@ -213,7 +213,6 @@ public class AndroidOs {
             Information that = (Information) object;
             return containingDeviceId == that.containingDeviceId
                     && inodeNumber == that.inodeNumber
-                    && symbolicLinkStatErrno == that.symbolicLinkStatErrno
                     && linkCount == that.linkCount
                     && userId == that.userId
                     && groupId == that.groupId
@@ -221,23 +220,23 @@ public class AndroidOs {
                     && size == that.size
                     && preferredIoBlockSize == that.preferredIoBlockSize
                     && allocatedBlockCount == that.allocatedBlockCount
+                    && symbolicLinkStatErrno == that.symbolicLinkStatErrno
                     && type == that.type
-                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
-                    && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation)
                     && Objects.equals(mode, that.mode)
                     && Objects.equals(lastAccessTime, that.lastAccessTime)
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
-                    && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime);
+                    && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime)
+                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
+                    && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(containingDeviceId, inodeNumber, type, symbolicLinkTarget,
-                    symbolicLinkStatInformation, symbolicLinkStatErrno, mode, linkCount, userId,
+            return Objects.hash(containingDeviceId, inodeNumber, type, mode, linkCount, userId,
                     groupId, deviceId, size, lastAccessTime, lastModificationTime,
-                    lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount);
+                    lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount,
+                    symbolicLinkTarget, symbolicLinkStatInformation, symbolicLinkStatErrno);
         }
-
 
         public static final Creator<Information> CREATOR = new Creator<Information>() {
             @Override
@@ -257,9 +256,6 @@ public class AndroidOs {
             inodeNumber = in.readLong();
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
-            symbolicLinkTarget = in.readString();
-            symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
-            symbolicLinkStatErrno = in.readInt();
             //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
             linkCount = in.readLong();
@@ -272,6 +268,9 @@ public class AndroidOs {
             lastStatusChangeTime = (Instant) in.readSerializable();
             preferredIoBlockSize = in.readLong();
             allocatedBlockCount = in.readLong();
+            symbolicLinkTarget = in.readString();
+            symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
+            symbolicLinkStatErrno = in.readInt();
         }
 
         @Override
@@ -284,9 +283,6 @@ public class AndroidOs {
             dest.writeLong(containingDeviceId);
             dest.writeLong(inodeNumber);
             dest.writeInt(type == null ? -1 : type.ordinal());
-            dest.writeString(symbolicLinkTarget);
-            dest.writeParcelable(symbolicLinkStatInformation, flags);
-            dest.writeInt(symbolicLinkStatErrno);
             dest.writeSerializable(mode);
             dest.writeLong(linkCount);
             dest.writeLong(userId);
@@ -298,6 +294,9 @@ public class AndroidOs {
             dest.writeSerializable(lastStatusChangeTime);
             dest.writeLong(preferredIoBlockSize);
             dest.writeLong(allocatedBlockCount);
+            dest.writeString(symbolicLinkTarget);
+            dest.writeParcelable(symbolicLinkStatInformation, flags);
+            dest.writeInt(symbolicLinkStatErrno);
         }
     }
 }
