@@ -54,7 +54,7 @@ public interface LocalFileStrategies {
 
         @Override
         public boolean isDirectory() {
-            // TODO: Symbolic link?
+            // This includes symbolic link to directory.
             return mInformation.isDirectory;
         }
 
@@ -159,8 +159,9 @@ public interface LocalFileStrategies {
 
         @Override
         public boolean isDirectory() {
-            // TODO: Symbolic link?
-            return mInformation.type == PosixFileType.DIRECTORY;
+            return mInformation.type == PosixFileType.DIRECTORY
+                    || (isSymbolicLink() && mInformation.symbolicLinkStatInformation != null
+                    && mInformation.symbolicLinkStatInformation.type == PosixFileType.DIRECTORY);
         }
 
         @Override
@@ -267,8 +268,9 @@ public interface LocalFileStrategies {
 
         @Override
         public boolean isDirectory() {
-            // TODO: Symbolic link?
-            return mInformation.type == PosixFileType.DIRECTORY;
+            return mInformation.type == PosixFileType.DIRECTORY
+                    || (isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null
+                    && mInformation.symbolicLinkStatLInformation.type == PosixFileType.DIRECTORY);
         }
 
         @Override

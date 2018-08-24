@@ -30,8 +30,7 @@ public class FileOperations {
 
     private static void delete(File file, List<FileOperation> operations)
             throws FileSystemException {
-        // FIXME: Symbolic links
-        if (file.isDirectory()) {
+        if (file.isDirectoryExcludingSymbolicLink()) {
             List<File> children = file.getChildren();
             for (File child : children) {
                 delete(child, operations);

@@ -75,12 +75,15 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
         String message;
         if (mFiles.size() == 1) {
             File file = mFiles.get(0);
-            int messageRes = file.isDirectory() ? R.string.file_delete_message_directory_format
+            int messageRes = file.isDirectoryExcludingSymbolicLink() ?
+                    R.string.file_delete_message_directory_format
                     : R.string.file_delete_message_file_format;
             message = getString(messageRes, file.getName());
         } else {
-            boolean allDirectories = Functional.every(mFiles, File::isDirectory);
-            boolean allFiles = Functional.every(mFiles, file -> !file.isDirectory());
+            boolean allDirectories = Functional.every(mFiles,
+                    File::isDirectoryExcludingSymbolicLink);
+            boolean allFiles = Functional.every(mFiles, file ->
+                    !file.isDirectoryExcludingSymbolicLink());
             int messageRes = allDirectories ?
                     R.string.file_delete_message_multiple_directories_format
                     : allFiles ? R.string.file_delete_message_multiple_files_format

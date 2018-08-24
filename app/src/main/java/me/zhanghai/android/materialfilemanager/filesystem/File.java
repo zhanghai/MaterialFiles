@@ -60,6 +60,10 @@ public interface File extends Parcelable {
 
     boolean isDirectory();
 
+    default boolean isDirectoryExcludingSymbolicLink() {
+        return isDirectory() && !isSymbolicLink();
+    }
+
     boolean isSymbolicLink();
 
     @NonNull
