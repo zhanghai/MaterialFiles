@@ -42,7 +42,7 @@ public class AndroidOs {
         information.type = parseType(stat.st_mode);
         if (information.type == PosixFileType.SYMBOLIC_LINK) {
             try {
-                information.symbolicLinkPath = Os.readlink(path);
+                information.symbolicLinkTarget = Os.readlink(path);
             } catch (ErrnoException e) {
                 throw new FileSystemException(R.string.file_error_information, e);
             }
@@ -186,7 +186,7 @@ public class AndroidOs {
         public long containingDeviceId;
         public long inodeNumber;
         public PosixFileType type;
-        public String symbolicLinkPath;
+        public String symbolicLinkTarget;
         public Information symbolicLinkStatInformation;
         public int symbolicLinkStatErrno;
         public EnumSet<PosixFileModeBit> mode;
@@ -222,7 +222,7 @@ public class AndroidOs {
                     && preferredIoBlockSize == that.preferredIoBlockSize
                     && allocatedBlockCount == that.allocatedBlockCount
                     && type == that.type
-                    && Objects.equals(symbolicLinkPath, that.symbolicLinkPath)
+                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
                     && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation)
                     && Objects.equals(mode, that.mode)
                     && Objects.equals(lastAccessTime, that.lastAccessTime)
@@ -232,7 +232,7 @@ public class AndroidOs {
 
         @Override
         public int hashCode() {
-            return Objects.hash(containingDeviceId, inodeNumber, type, symbolicLinkPath,
+            return Objects.hash(containingDeviceId, inodeNumber, type, symbolicLinkTarget,
                     symbolicLinkStatInformation, symbolicLinkStatErrno, mode, linkCount, userId,
                     groupId, deviceId, size, lastAccessTime, lastModificationTime,
                     lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount);
@@ -257,7 +257,7 @@ public class AndroidOs {
             inodeNumber = in.readLong();
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
-            symbolicLinkPath = in.readString();
+            symbolicLinkTarget = in.readString();
             symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
             symbolicLinkStatErrno = in.readInt();
             //noinspection unchecked
@@ -284,7 +284,7 @@ public class AndroidOs {
             dest.writeLong(containingDeviceId);
             dest.writeLong(inodeNumber);
             dest.writeInt(type == null ? -1 : type.ordinal());
-            dest.writeString(symbolicLinkPath);
+            dest.writeString(symbolicLinkTarget);
             dest.writeParcelable(symbolicLinkStatInformation, flags);
             dest.writeInt(symbolicLinkStatErrno);
             dest.writeSerializable(mode);
