@@ -76,7 +76,7 @@ public class ShellStat {
             throw new FileSystemException(R.string.file_error_information);
         }
         output = output.substring(0, output.length() - 2);
-        List<String> childStats = Arrays.asList(output.split("\n//"));
+        List<String> childStats = Arrays.asList(output.split("//\n"));
         // Strip the leading path.
         String finalPath = path;
         if (!Functional.every(childStats, childStat -> childStat.startsWith(finalPath))) {
