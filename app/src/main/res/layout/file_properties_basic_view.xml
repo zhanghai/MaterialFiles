@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="?dialogPreferredPadding"
+            android:paddingBottom="?dialogPreferredPadding"
+            android:shrinkColumns="1"
+            android:stretchColumns="1">
+
+            <TableRow
+                android:paddingStart="?dialogPreferredPadding"
+                android:paddingEnd="?dialogPreferredPadding">
+
+                <TextView
+                    android:text="@string/file_properties_basic_name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_marginStart="?dialogPreferredPadding"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="?android:textColorSecondary" />
+            </TableRow>
+
+            <TableRow
+                android:paddingStart="?dialogPreferredPadding"
+                android:paddingEnd="?dialogPreferredPadding">
+
+                <TextView
+                    android:text="@string/file_properties_basic_type"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_marginStart="?dialogPreferredPadding"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="?android:textColorSecondary" />
+            </TableRow>
+
+            <TableRow
+                android:paddingStart="?dialogPreferredPadding"
+                android:paddingEnd="?dialogPreferredPadding">
+
+                <TextView
+                    android:text="@string/file_properties_basic_size"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                <TextView
+                    android:id="@+id/size"
+                    android:layout_marginStart="?dialogPreferredPadding"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="?android:textColorSecondary" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.ProgressBar" />
+</FrameLayout>

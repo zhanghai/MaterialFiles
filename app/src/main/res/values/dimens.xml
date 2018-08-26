@@ -21,6 +21,7 @@
     <dimen name="list_padding_bottom_with_fab">88dp</dimen>
     <dimen name="two_line_list_item_height">72dp</dimen>
     <dimen name="list_item_vertical_padding">16dp</dimen>
+    <dimen name="horizontal_divider_height">1dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="large_icon_size">40dp</dimen>
     <dimen name="touch_target_size">48dp</dimen>

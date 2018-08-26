@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.FileJobService;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
+import me.zhanghai.android.materialfilemanager.fileproperties.FilePropertiesDialogFragment;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
@@ -439,7 +440,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public void onOpenFileProperties(File file) {
-
+        FilePropertiesDialogFragment.show(file, this);
     }
 
     private void onCreateFile() {
