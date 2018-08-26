@@ -8,10 +8,13 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import org.threeten.bp.Instant;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
@@ -23,8 +26,20 @@ public interface File extends Parcelable {
     @NonNull
     Uri getUri();
 
+    @Nullable
+    File getParent();
+
     @NonNull
-    List<File> makeBreadcrumbPath();
+    default List<File> makeBreadcrumbPath() {
+        List<File> breadcrumbPath = new ArrayList<>();
+        File file = this;
+        do {
+            breadcrumbPath.add(file);
+            file = file.getParent();
+        } while (file != null);
+        Collections.reverse(breadcrumbPath);
+        return breadcrumbPath;
+    }
 
     @NonNull
     default String getName() {

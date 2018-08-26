@@ -64,20 +64,66 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 android:textIsSelectable="true"  />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/parent_directory_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/file_properties_basic_parent_directory"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:orientation="vertical"
+                android:visibility="gone">
 
-            <TextView
-                android:id="@+id/parent_directory"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/file_properties_basic_parent_directory"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/parent_directory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textIsSelectable="true"  />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/archive_file_and_entry_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textIsSelectable="true"  />
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/file_properties_basic_archive_file"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/archive_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textIsSelectable="true"  />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/file_properties_basic_archive_entry"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <TextView
+                    android:id="@+id/archive_entry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textIsSelectable="true"  />
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"

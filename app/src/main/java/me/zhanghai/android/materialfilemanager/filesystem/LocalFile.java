@@ -8,6 +8,8 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import org.threeten.bp.Instant;
 
@@ -50,28 +52,22 @@ public class LocalFile extends BaseFile {
         this(uri, new LocalFileStrategies.AndroidOsStrategy());
     }
 
-    @NonNull
     public String getPath() {
         return uriToPath(mUri);
     }
 
-    @NonNull
     public java.io.File makeJavaFile() {
         return new java.io.File(getPath());
     }
 
-    @NonNull
+    @Nullable
     @Override
-    public List<File> makeBreadcrumbPath() {
-        List<File> breadcrumbPath = new ArrayList<>();
-        java.io.File javaFile = makeJavaFile();
-        while (javaFile != null) {
-            File file = Files.ofUri(uriFromPath(javaFile.getPath()));
-            breadcrumbPath.add(file);
-            javaFile = javaFile.getParentFile();
+    public LocalFile getParent() {
+        String parentPath = makeJavaFile().getParent();
+        if (TextUtils.isEmpty(parentPath)) {
+            return null;
         }
-        Collections.reverse(breadcrumbPath);
-        return breadcrumbPath;
+        return new LocalFile(uriFromPath(parentPath));
     }
 
     @Override

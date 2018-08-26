@@ -14,13 +14,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDialog;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,9 +96,9 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         mTabAdapter = new TabFragmentPagerAdapter(this);
-        mTabAdapter.addTab(() -> FilePropertiesBasicFragment.newInstance(mFile), getString(
+        mTabAdapter.addTab(() -> FilePropertiesBasicTabFragment.newInstance(mFile), getString(
                 R.string.file_properties_basic));
-        mTabAdapter.addTab(() -> FilePropertiesBasicFragment.newInstance(mFile), getString(
+        mTabAdapter.addTab(() -> FilePropertiesBasicTabFragment.newInstance(mFile), getString(
                 R.string.file_properties_permissions));
         mViewPager.setOffscreenPageLimit(mTabAdapter.getCount() - 1);
         mViewPager.setAdapter(mTabAdapter);

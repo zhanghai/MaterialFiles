@@ -74,6 +74,8 @@
     <string name="file_properties_basic_size">Size</string>
     <string name="file_properties_basic_contents">Contents</string>
     <string name="file_properties_basic_parent_directory">Parent Folder</string>
+    <string name="file_properties_basic_archive_file">Archive File</string>
+    <string name="file_properties_basic_archive_entry">Archive Entry</string>
     <string name="file_properties_basic_last_modification_time">Modified</string>
     <string name="file_properties_basic_free_space">Free space</string>
     <string name="file_properties_permissions">Permissions</string>

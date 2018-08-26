@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.threeten.bp.Instant;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
@@ -23,13 +22,15 @@ import org.threeten.bp.format.FormatStyle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.filesystem.ArchiveFile;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class FilePropertiesBasicFragment extends AppCompatDialogFragment {
+public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
 
-    private static final String KEY_PREFIX = FilePropertiesBasicFragment.class.getName() + '.';
+    private static final String KEY_PREFIX = FilePropertiesBasicTabFragment.class.getName() + '.';
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
@@ -39,8 +40,16 @@ public class FilePropertiesBasicFragment extends AppCompatDialogFragment {
     TextView mTypeText;
     @BindView(R.id.size)
     TextView mSizeText;
+    @BindView(R.id.parent_directory_layout)
+    ViewGroup mParentDirectoryLayout;
     @BindView(R.id.parent_directory)
     TextView mParentDirectoryText;
+    @BindView(R.id.archive_file_and_entry_layout)
+    ViewGroup mArchiveFileAndEntryLayout;
+    @BindView(R.id.archive_file)
+    TextView mArchiveFileText;
+    @BindView(R.id.archive_entry)
+    TextView mArchiveEntryText;
     @BindView(R.id.last_modification_time)
     TextView mLastModificationTimeText;
 
@@ -49,11 +58,11 @@ public class FilePropertiesBasicFragment extends AppCompatDialogFragment {
     /**
      * @deprecated Use {@link #newInstance(File)} instead.
      */
-    public FilePropertiesBasicFragment() {}
+    public FilePropertiesBasicTabFragment() {}
 
-    public static FilePropertiesBasicFragment newInstance(File file) {
+    public static FilePropertiesBasicTabFragment newInstance(File file) {
         //noinspection deprecation
-        FilePropertiesBasicFragment fragment = new FilePropertiesBasicFragment();
+        FilePropertiesBasicTabFragment fragment = new FilePropertiesBasicTabFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
                 .putParcelable(EXTRA_FILE, file);
         return fragment;
@@ -70,7 +79,7 @@ public class FilePropertiesBasicFragment extends AppCompatDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.file_properties_basic_fragment, container, false);
+        return inflater.inflate(R.layout.file_properties_basic_tab_fragment, container, false);
     }
 
     @Override
@@ -88,8 +97,19 @@ public class FilePropertiesBasicFragment extends AppCompatDialogFragment {
         mTypeText.setText(mFile.getMimeType());
         String size = Formatter.formatFileSize(mSizeText.getContext(), mFile.getSize());
         mSizeText.setText(size);
-        // TODO
-        //mParentDirectoryText.setText(mFile.getPath());
+        if (mFile instanceof LocalFile) {
+            LocalFile file = (LocalFile) mFile;
+            LocalFile parentFile = file.getParent();
+            if (parentFile != null) {
+                ViewUtils.setVisibleOrGone(mParentDirectoryLayout, true);
+                mParentDirectoryText.setText(parentFile.getPath());
+            }
+        } else if (mFile instanceof ArchiveFile) {
+            ViewUtils.setVisibleOrGone(mArchiveFileAndEntryLayout, true);
+            ArchiveFile file = (ArchiveFile) mFile;
+            mArchiveFileText.setText(file.getArchiveFile().getPath());
+            mArchiveEntryText.setText(file.getEntryName());
+        }
         String lastModificationTime = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                 .withZone(ZoneId.systemDefault())
                 .format(mFile.getLastModificationTime());

@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -65,18 +66,21 @@ public class ArchiveFile extends BaseFile {
         return mEntryPath;
     }
 
-    @NonNull
+    public String getEntryName() {
+        return mInformation.entry.getName();
+    }
+
+    @Nullable
     @Override
-    public List<File> makeBreadcrumbPath() {
-        List<File> path = new ArrayList<>(mArchiveFile.makeBreadcrumbPath());
-        CollectionUtils.pop(path);
-        Uri.Builder entryPathBuilder = Archive.pathBuilderForRoot();
-        path.add(new ArchiveFile(mArchiveFile, entryPathBuilder.build()));
-        for (String entryPathSegment : mEntryPath.getPathSegments()) {
-            entryPathBuilder.appendPath(entryPathSegment);
-            path.add(new ArchiveFile(mArchiveFile, entryPathBuilder.build()));
+    public File getParent() {
+        List<String> entryPathSegments = mEntryPath.getPathSegments();
+        if (entryPathSegments.isEmpty()) {
+            return mArchiveFile.getParent();
         }
-        return path;
+        Uri.Builder entryPathBuilder = Archive.pathBuilderForRoot();
+        entryPathSegments = entryPathSegments.subList(0, entryPathSegments.size() - 1);
+        Functional.forEach(entryPathSegments, entryPathBuilder::appendPath);
+        return new ArchiveFile(mArchiveFile, entryPathBuilder.build());
     }
 
     @NonNull
@@ -133,6 +137,7 @@ public class ArchiveFile extends BaseFile {
         return Functional.map(tree.get(mEntryPath), information -> new ArchiveFile(mArchiveFile,
                 information.path, information));
     }
+
 
     @Override
     public boolean equals(Object object) {
