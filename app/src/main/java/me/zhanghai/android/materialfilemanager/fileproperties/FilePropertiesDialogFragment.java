@@ -26,9 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
-import me.zhanghai.android.materialfilemanager.ui.TabViewPagerAdapter;
+import me.zhanghai.android.materialfilemanager.ui.TabFragmentPagerAdapter;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
-import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
 
@@ -47,9 +46,7 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     @BindView(android.R.id.button3)
     Button mNeutralButton;
 
-    private BasicHolder mBasicHolder;
-
-    private TabViewPagerAdapter mTabAdapter;
+    private TabFragmentPagerAdapter mTabAdapter;
 
     private File mFile;
 
@@ -100,15 +97,11 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        View basicView = ViewUtils.inflate(R.layout.file_properties_basic_view, mViewPager);
-        mBasicHolder = new BasicHolder(basicView);
-        mTabAdapter = new TabViewPagerAdapter(new View[] {
-                basicView,
-                new View(mViewPager.getContext())
-        }, new int[] {
-                R.string.file_properties_basic,
-                R.string.file_properties_permissions
-        }, mTabLayout.getContext());
+        mTabAdapter = new TabFragmentPagerAdapter(this);
+        mTabAdapter.addTab(() -> FilePropertiesBasicFragment.newInstance(mFile), getString(
+                R.string.file_properties_basic));
+        mTabAdapter.addTab(() -> FilePropertiesBasicFragment.newInstance(mFile), getString(
+                R.string.file_properties_permissions));
         mViewPager.setOffscreenPageLimit(mTabAdapter.getCount() - 1);
         mViewPager.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -117,30 +110,10 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
         mPositiveButton.setOnClickListener(view -> dismiss());
         mNegativeButton.setVisibility(View.GONE);
         mNeutralButton.setVisibility(View.GONE);
-
-        mBasicHolder.mNameText.setText(mFile.getName());
-        mBasicHolder.mTypeText.setText(mFile.getMimeType());
-        String size = Formatter.formatFileSize(mBasicHolder.mSizeText.getContext(),
-                mFile.getSize());
-        mBasicHolder.mSizeText.setText(size);
     }
 
     public static void show(File file, Fragment fragment) {
         FilePropertiesDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
-    }
-
-    static class BasicHolder {
-
-        @BindView(R.id.name)
-        TextView mNameText;
-        @BindView(R.id.type)
-        TextView mTypeText;
-        @BindView(R.id.size)
-        TextView mSizeText;
-
-        public BasicHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
     }
 }
