@@ -9,19 +9,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.text.format.Formatter;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.format.FormatStyle;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.file.FormatUtils;
 import me.zhanghai.android.materialfilemanager.filesystem.ArchiveFile;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
@@ -95,7 +92,15 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
 
         mNameText.setText(mFile.getName());
         mTypeText.setText(mFile.getMimeType());
-        String size = Formatter.formatFileSize(mSizeText.getContext(), mFile.getSize());
+        long fileSize = mFile.getSize();
+        String shortSize = FormatUtils.formatShortSize(fileSize, mSizeText.getContext());
+        String longSize = FormatUtils.formatLongSize(fileSize, mSizeText.getContext());
+        String size;
+        if (!TextUtils.equals(shortSize, longSize)) {
+            size = getString(R.string.file_properties_basic_size_format, shortSize, longSize);
+        } else {
+            size = shortSize;
+        }
         mSizeText.setText(size);
         if (mFile instanceof LocalFile) {
             LocalFile file = (LocalFile) mFile;
@@ -110,9 +115,7 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
             mArchiveFileText.setText(file.getArchiveFile().getPath());
             mArchiveEntryText.setText(file.getEntryName());
         }
-        String lastModificationTime = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                .withZone(ZoneId.systemDefault())
-                .format(mFile.getLastModificationTime());
+        String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());
         mLastModificationTimeText.setText(lastModificationTime);
     }
 }

@@ -15,7 +15,6 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.text.TextUtils;
-import android.text.format.Formatter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -31,13 +30,13 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.file.FormatUtils;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.materialfilemanager.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.materialfilemanager.util.StringCompat;
-import me.zhanghai.android.materialfilemanager.util.TimeUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAdapter.ViewHolder>
@@ -109,9 +108,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
             Context context = holder.descriptionText.getContext();
             String descriptionSeparator = context.getString(
                     R.string.file_item_description_separator);
-            String lastModificationTime = TimeUtils.formatTime(
-                    file.getLastModificationTime().toEpochMilli(), context);
-            String size = Formatter.formatFileSize(context, file.getSize());
+            String lastModificationTime = FormatUtils.formatShortTime(
+                    file.getLastModificationTime(), context);
+            String size = FormatUtils.formatShortSize(file.getSize(), context);
             description = StringCompat.join(descriptionSeparator, lastModificationTime, size);
         }
         holder.descriptionText.setText(description);

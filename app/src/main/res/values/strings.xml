@@ -72,6 +72,7 @@
     <string name="file_properties_basic_name">Name</string>
     <string name="file_properties_basic_type">Type</string>
     <string name="file_properties_basic_size">Size</string>
+    <string name="file_properties_basic_size_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Contents</string>
     <string name="file_properties_basic_parent_directory">Parent Folder</string>
     <string name="file_properties_basic_archive_file">Archive File</string>
