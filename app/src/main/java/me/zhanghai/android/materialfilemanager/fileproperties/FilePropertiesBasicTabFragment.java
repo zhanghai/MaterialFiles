@@ -102,6 +102,8 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
             size = shortSize;
         }
         mSizeText.setText(size);
+        String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());
+        mLastModificationTimeText.setText(lastModificationTime);
         if (mFile instanceof LocalFile) {
             LocalFile file = (LocalFile) mFile;
             LocalFile parentFile = file.getParent();
@@ -115,7 +117,5 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
             mArchiveFileText.setText(file.getArchiveFile().getPath());
             mArchiveEntryText.setText(file.getEntryName());
         }
-        String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());
-        mLastModificationTimeText.setText(lastModificationTime);
     }
 }
