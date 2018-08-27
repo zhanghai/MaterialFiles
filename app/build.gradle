@@ -7,12 +7,13 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    buildToolsVersion '28.0.2'
     defaultConfig {
-        applicationId "me.zhanghai.android.materialfilemanager"
+        applicationId 'me.zhanghai.android.materialfilemanager'
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0.0"
+        versionName '1.0.0'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'file_provider_authority', applicationId + '.file_provider'
     }
