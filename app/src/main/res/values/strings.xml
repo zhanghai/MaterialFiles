@@ -14,6 +14,11 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
 
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d byte</item>
+        <item quantity="other">%1$,d bytes</item>
+    </plurals>
+
     <string name="file_name_root">Root</string>
     <string name="file_error_information">Unable to read file information</string>
     <string name="file_delete_error">Unable to delete file</string>
@@ -72,7 +77,7 @@
     <string name="file_properties_basic_name">Name</string>
     <string name="file_properties_basic_type">Type</string>
     <string name="file_properties_basic_size">Size</string>
-    <string name="file_properties_basic_size_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Contents</string>
     <string name="file_properties_basic_last_modification_time">Last Modified</string>
     <string name="file_properties_basic_parent_directory">Parent Folder</string>

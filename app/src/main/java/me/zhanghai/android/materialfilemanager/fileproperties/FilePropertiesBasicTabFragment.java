@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,14 +91,16 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
 
         mNameText.setText(mFile.getName());
         mTypeText.setText(mFile.getMimeType());
-        long fileSize = mFile.getSize();
-        String shortSize = FormatUtils.formatShortSize(fileSize, mSizeText.getContext());
-        String longSize = FormatUtils.formatLongSize(fileSize, mSizeText.getContext());
+        long sizeLong = mFile.getSize();
+        String sizeInBytes = FormatUtils.formatSizeInBytes(sizeLong, mSizeText.getContext());
         String size;
-        if (!TextUtils.equals(shortSize, longSize)) {
-            size = getString(R.string.file_properties_basic_size_format, shortSize, longSize);
+        if (FormatUtils.isHumanReadableSizeInBytes(sizeLong)) {
+            size = sizeInBytes;
         } else {
-            size = shortSize;
+            String humanReadableSize = FormatUtils.formatHumanReadableSize(sizeLong,
+                    mSizeText.getContext());
+            size = getString(R.string.file_properties_basic_size_with_human_readable_format,
+                    humanReadableSize, sizeInBytes);
         }
         mSizeText.setText(size);
         String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());

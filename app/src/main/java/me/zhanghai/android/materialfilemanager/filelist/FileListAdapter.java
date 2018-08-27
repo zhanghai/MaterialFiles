@@ -110,7 +110,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                     R.string.file_item_description_separator);
             String lastModificationTime = FormatUtils.formatShortTime(
                     file.getLastModificationTime(), context);
-            String size = FormatUtils.formatShortSize(file.getSize(), context);
+            String size = FormatUtils.formatHumanReadableSize(file.getSize(), context);
             description = StringCompat.join(descriptionSeparator, lastModificationTime, size);
         }
         holder.descriptionText.setText(description);
