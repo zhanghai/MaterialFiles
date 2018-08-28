@@ -85,6 +85,8 @@
     <string name="file_properties_basic_archive_entry">Archive Entry</string>
     <string name="file_properties_basic_free_space">Free space</string>
     <string name="file_properties_permissions">Permissions</string>
+    <string name="file_properties_permissions_owner">Owner</string>
+    <string name="file_properties_permissions_owner_access">Owner Access</string>
 
     <string name="main_title">Files</string>
 </resources>
