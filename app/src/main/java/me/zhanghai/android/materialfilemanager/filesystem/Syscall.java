@@ -45,8 +45,10 @@ public class Syscall {
         information.type = parseType(stat.st_mode);
         information.mode = parseMode(stat.st_mode);
         information.linkCount = stat.st_nlink;
-        information.userId = stat.st_uid;
-        information.groupId = stat.st_gid;
+        information.owner = new PosixUser();
+        information.owner.id = stat.st_uid;
+        information.group = new PosixGroup();
+        information.group.id = stat.st_gid;
         information.deviceId = stat.st_rdev;
         information.size = stat.st_size;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
@@ -81,14 +83,14 @@ public class Syscall {
             }
         }
         try {
-            StructPasswd passwd = Linux.getpwuid(information.userId);
-            information.userName = passwd.pw_name;
+            StructPasswd passwd = Linux.getpwuid(information.owner.id);
+            information.owner.name = passwd.pw_name;
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
         try {
-            StructGroup group = Linux.getgrgid(information.groupId);
-            information.groupName = group.gr_name;
+            StructGroup group = Linux.getgrgid(information.group.id);
+            information.group.name = group.gr_name;
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
@@ -203,8 +205,8 @@ public class Syscall {
         public PosixFileType type;
         public EnumSet<PosixFileModeBit> mode;
         public long linkCount;
-        public int userId;
-        public int groupId;
+        public PosixUser owner;
+        public PosixGroup group;
         public long deviceId;
         public long size;
         public Instant lastAccessTime;
@@ -215,8 +217,6 @@ public class Syscall {
         public String symbolicLinkTarget;
         public Information symbolicLinkStatInformation;
         public int symbolicLinkStatErrno;
-        public String userName;
-        public String groupName;
 
 
         @Override
@@ -231,8 +231,6 @@ public class Syscall {
             return containingDeviceId == that.containingDeviceId
                     && inodeNumber == that.inodeNumber
                     && linkCount == that.linkCount
-                    && userId == that.userId
-                    && groupId == that.groupId
                     && deviceId == that.deviceId
                     && size == that.size
                     && preferredIoBlockSize == that.preferredIoBlockSize
@@ -240,22 +238,22 @@ public class Syscall {
                     && symbolicLinkStatErrno == that.symbolicLinkStatErrno
                     && type == that.type
                     && Objects.equals(mode, that.mode)
+                    && Objects.equals(owner, that.owner)
+                    && Objects.equals(group, that.group)
                     && Objects.equals(lastAccessTime, that.lastAccessTime)
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
                     && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime)
                     && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
-                    && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation)
-                    && Objects.equals(userName, that.userName)
-                    && Objects.equals(groupName, that.groupName);
+                    && Objects.equals(symbolicLinkStatInformation,
+                    that.symbolicLinkStatInformation);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(containingDeviceId, inodeNumber, type, mode, linkCount, userId,
-                    groupId, deviceId, size, lastAccessTime, lastModificationTime,
+            return Objects.hash(containingDeviceId, inodeNumber, type, mode, linkCount, owner,
+                    group, deviceId, size, lastAccessTime, lastModificationTime,
                     lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount,
-                    symbolicLinkTarget, symbolicLinkStatInformation, symbolicLinkStatErrno,
-                    userName, groupName);
+                    symbolicLinkTarget, symbolicLinkStatInformation, symbolicLinkStatErrno);
         }
 
 
@@ -280,8 +278,8 @@ public class Syscall {
             //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
             linkCount = in.readLong();
-            userId = in.readInt();
-            groupId = in.readInt();
+            owner = in.readParcelable(PosixUser.class.getClassLoader());
+            group = in.readParcelable(PosixGroup.class.getClassLoader());
             deviceId = in.readLong();
             size = in.readLong();
             lastAccessTime = (Instant) in.readSerializable();
@@ -292,8 +290,6 @@ public class Syscall {
             symbolicLinkTarget = in.readString();
             symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
             symbolicLinkStatErrno = in.readInt();
-            userName = in.readString();
-            groupName = in.readString();
         }
 
         @Override
@@ -308,8 +304,8 @@ public class Syscall {
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);
             dest.writeLong(linkCount);
-            dest.writeInt(userId);
-            dest.writeInt(groupId);
+            dest.writeParcelable(owner, flags);
+            dest.writeParcelable(group, flags);
             dest.writeLong(deviceId);
             dest.writeLong(size);
             dest.writeSerializable(lastAccessTime);
@@ -320,8 +316,6 @@ public class Syscall {
             dest.writeString(symbolicLinkTarget);
             dest.writeParcelable(symbolicLinkStatInformation, flags);
             dest.writeInt(symbolicLinkStatErrno);
-            dest.writeString(userName);
-            dest.writeString(groupName);
         }
     }
 }
