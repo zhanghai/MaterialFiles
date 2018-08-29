@@ -125,6 +125,7 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
     }
     jint pw_uid = passwd->pw_uid;
     jint pw_gid = passwd->pw_gid;
+#ifdef __LP64__
     jstring pw_gecos;
     if (passwd->pw_gecos) {
         pw_gecos = (*env)->NewStringUTF(env, passwd->pw_gecos);
@@ -134,6 +135,9 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
     } else {
         pw_gecos = NULL;
     }
+#else
+    jstring pw_gecos = NULL;
+#endif
     jstring pw_dir;
     if (passwd->pw_dir) {
         pw_dir = (*env)->NewStringUTF(env, passwd->pw_dir);
