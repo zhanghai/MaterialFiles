@@ -114,23 +114,43 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
     if (!constructor) {
         return NULL;
     }
-    jstring pw_name = (*env)->NewStringUTF(env, passwd->pw_name);
-    if (!pw_name) {
-        return NULL;
+    jstring pw_name;
+    if (passwd->pw_name) {
+        pw_name = (*env)->NewStringUTF(env, passwd->pw_name);
+        if (!pw_name) {
+            return NULL;
+        }
+    } else {
+        pw_name = NULL;
     }
     jint pw_uid = passwd->pw_uid;
     jint pw_gid = passwd->pw_gid;
-    jstring pw_gecos = (*env)->NewStringUTF(env, passwd->pw_gecos);
-    if (!pw_gecos) {
-        return NULL;
+    jstring pw_gecos;
+    if (passwd->pw_gecos) {
+        pw_gecos = (*env)->NewStringUTF(env, passwd->pw_gecos);
+        if (!pw_gecos) {
+            return NULL;
+        }
+    } else {
+        pw_gecos = NULL;
     }
-    jstring pw_dir = (*env)->NewStringUTF(env, passwd->pw_dir);
-    if (!pw_dir) {
-        return NULL;
+    jstring pw_dir;
+    if (passwd->pw_dir) {
+        pw_dir = (*env)->NewStringUTF(env, passwd->pw_dir);
+        if (!pw_dir) {
+            return NULL;
+        }
+    } else {
+        pw_dir = NULL;
     }
-    jstring pw_shell = (*env)->NewStringUTF(env, passwd->pw_shell);
-    if (!pw_shell) {
-        return NULL;
+    jstring pw_shell;
+    if (passwd->pw_shell) {
+        pw_shell = (*env)->NewStringUTF(env, passwd->pw_shell);
+        if (!pw_shell) {
+            return NULL;
+        }
+    } else {
+        pw_shell = NULL;
     }
     return (*env)->NewObject(env, getStructPasswdClass(env), constructor, pw_name, pw_uid, pw_gid,
                              pw_gecos, pw_dir, pw_shell);
@@ -189,32 +209,48 @@ static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
     if (!constructor) {
         return NULL;
     }
-    jstring gr_name = (*env)->NewStringUTF(env, group->gr_name);
-    if (!gr_name) {
-        return NULL;
-    }
-    jstring gr_passwd = (*env)->NewStringUTF(env, group->gr_passwd);
-    if (!gr_passwd) {
-        return NULL;
-    }
-    jint gr_gid = group->gr_gid;
-    jsize gr_memSize = 0;
-    for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
-        ++gr_memSize;
-    };
-    jobjectArray gr_mem = (*env)->NewObjectArray(env, gr_memSize, getStringClass(env), NULL);
-    if (!gr_mem) {
-        return NULL;
-    }
-    jsize gr_memIndex = 0;
-    for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator, ++gr_memIndex) {
-        jstring gr_memElement = (*env)->NewStringUTF(env, *gr_memIterator);
-        if (!gr_memElement) {
+    jstring gr_name;
+    if (group->gr_name) {
+        gr_name = (*env)->NewStringUTF(env, group->gr_name);
+        if (!gr_name) {
             return NULL;
         }
-        (*env)->SetObjectArrayElement(env, gr_mem, gr_memIndex, gr_memElement);
-        (*env)->DeleteLocalRef(env, gr_memElement);
-    };
+    } else {
+        gr_name = NULL;
+    }
+    jstring gr_passwd;
+    if (group->gr_passwd) {
+        gr_passwd = (*env)->NewStringUTF(env, group->gr_passwd);
+        if (!gr_passwd) {
+            return NULL;
+        }
+    } else {
+        gr_passwd = NULL;
+    }
+    jint gr_gid = group->gr_gid;
+    jobjectArray gr_mem;
+    if (group->gr_mem) {
+        jsize gr_memSize = 0;
+        for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
+            ++gr_memSize;
+        };
+        gr_mem = (*env)->NewObjectArray(env, gr_memSize, getStringClass(env), NULL);
+        if (!gr_mem) {
+            return NULL;
+        }
+        jsize gr_memIndex = 0;
+        for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator,
+                ++gr_memIndex) {
+            jstring gr_memElement = (*env)->NewStringUTF(env, *gr_memIterator);
+            if (!gr_memElement) {
+                return NULL;
+            }
+            (*env)->SetObjectArrayElement(env, gr_mem, gr_memIndex, gr_memElement);
+            (*env)->DeleteLocalRef(env, gr_memElement);
+        };
+    } else {
+        gr_mem = NULL;
+    }
     return (*env)->NewObject(env, getStructGroupClass(env), constructor, gr_name, gr_passwd, gr_gid,
                              gr_mem);
 }

@@ -5,17 +5,19 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
+import android.system.ErrnoException;
+
 public class Linux {
 
     static {
         System.loadLibrary("linux");
     }
 
-    public static native StructPasswd getpwnam(String name);
+    public static native StructPasswd getpwnam(String name) throws ErrnoException;
 
-    public static native StructPasswd getpwuid(int uid);
+    public static native StructPasswd getpwuid(int uid) throws ErrnoException;
 
-    public static native StructGroup getgrnam(String name);
+    public static native StructGroup getgrnam(String name) throws ErrnoException;
 
-    public static native StructGroup getgrgid(int gid);
+    public static native StructGroup getgrgid(int gid) throws ErrnoException;
 }

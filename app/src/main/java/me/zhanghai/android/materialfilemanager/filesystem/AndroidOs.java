@@ -21,6 +21,9 @@ import java.util.EnumSet;
 import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.jni.Linux;
+import me.zhanghai.android.materialfilemanager.jni.StructGroup;
+import me.zhanghai.android.materialfilemanager.jni.StructPasswd;
 
 public class AndroidOs {
 
@@ -76,6 +79,18 @@ public class AndroidOs {
                     information.symbolicLinkStatErrno = errnoException.errno;
                 }
             }
+        }
+        try {
+            StructPasswd passwd = Linux.getpwuid(information.userId);
+            information.userName = passwd.pw_name;
+        } catch (ErrnoException e) {
+            throw new FileSystemException(R.string.file_error_information, e);
+        }
+        try {
+            StructGroup group = Linux.getgrgid(information.groupId);
+            information.groupName = group.gr_name;
+        } catch (ErrnoException e) {
+            throw new FileSystemException(R.string.file_error_information, e);
         }
         return information;
     }
@@ -188,8 +203,8 @@ public class AndroidOs {
         public PosixFileType type;
         public EnumSet<PosixFileModeBit> mode;
         public long linkCount;
-        public long userId;
-        public long groupId;
+        public int userId;
+        public int groupId;
         public long deviceId;
         public long size;
         public Instant lastAccessTime;
@@ -200,6 +215,8 @@ public class AndroidOs {
         public String symbolicLinkTarget;
         public Information symbolicLinkStatInformation;
         public int symbolicLinkStatErrno;
+        public String userName;
+        public String groupName;
 
 
         @Override
@@ -227,7 +244,9 @@ public class AndroidOs {
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
                     && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime)
                     && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
-                    && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation);
+                    && Objects.equals(symbolicLinkStatInformation, that.symbolicLinkStatInformation)
+                    && Objects.equals(userName, that.userName)
+                    && Objects.equals(groupName, that.groupName);
         }
 
         @Override
@@ -235,8 +254,10 @@ public class AndroidOs {
             return Objects.hash(containingDeviceId, inodeNumber, type, mode, linkCount, userId,
                     groupId, deviceId, size, lastAccessTime, lastModificationTime,
                     lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount,
-                    symbolicLinkTarget, symbolicLinkStatInformation, symbolicLinkStatErrno);
+                    symbolicLinkTarget, symbolicLinkStatInformation, symbolicLinkStatErrno,
+                    userName, groupName);
         }
+
 
         public static final Creator<Information> CREATOR = new Creator<Information>() {
             @Override
@@ -259,8 +280,8 @@ public class AndroidOs {
             //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
             linkCount = in.readLong();
-            userId = in.readLong();
-            groupId = in.readLong();
+            userId = in.readInt();
+            groupId = in.readInt();
             deviceId = in.readLong();
             size = in.readLong();
             lastAccessTime = (Instant) in.readSerializable();
@@ -271,6 +292,8 @@ public class AndroidOs {
             symbolicLinkTarget = in.readString();
             symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
             symbolicLinkStatErrno = in.readInt();
+            userName = in.readString();
+            groupName = in.readString();
         }
 
         @Override
@@ -285,8 +308,8 @@ public class AndroidOs {
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);
             dest.writeLong(linkCount);
-            dest.writeLong(userId);
-            dest.writeLong(groupId);
+            dest.writeInt(userId);
+            dest.writeInt(groupId);
             dest.writeLong(deviceId);
             dest.writeLong(size);
             dest.writeSerializable(lastAccessTime);
@@ -297,6 +320,8 @@ public class AndroidOs {
             dest.writeString(symbolicLinkTarget);
             dest.writeParcelable(symbolicLinkStatInformation, flags);
             dest.writeInt(symbolicLinkStatErrno);
+            dest.writeString(userName);
+            dest.writeString(groupName);
         }
     }
 }
