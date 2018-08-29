@@ -86,13 +86,15 @@ public class Syscall {
             StructPasswd passwd = Linux.getpwuid(information.owner.id);
             information.owner.name = passwd.pw_name;
         } catch (ErrnoException e) {
-            throw new FileSystemException(R.string.file_error_information, e);
+            // It's valid to have a file with a non-existent owner.
+            e.printStackTrace();
         }
         try {
             StructGroup group = Linux.getgrgid(information.group.id);
             information.group.name = group.gr_name;
         } catch (ErrnoException e) {
-            throw new FileSystemException(R.string.file_error_information, e);
+            // It's valid to have a file with a non-existent group.
+            e.printStackTrace();
         }
         return information;
     }

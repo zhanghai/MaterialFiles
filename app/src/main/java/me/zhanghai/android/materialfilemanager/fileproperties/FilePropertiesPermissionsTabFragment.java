@@ -22,6 +22,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.ArchiveFile;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
+import me.zhanghai.android.materialfilemanager.util.ObjectUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
@@ -78,7 +79,8 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
 
         if (mFile instanceof LocalFile) {
             LocalFile file = (LocalFile) mFile;
-            mOwnerText.setText(file.getOwner().name);
+            mOwnerText.setText(ObjectUtils.firstNonNull(file.getOwner().name, String.valueOf(
+                    file.getOwner().id)));
             mOwnerAccessText.setText("Read and write");
         }
     }
