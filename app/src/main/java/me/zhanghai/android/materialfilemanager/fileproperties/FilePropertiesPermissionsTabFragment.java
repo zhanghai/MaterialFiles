@@ -78,8 +78,7 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
 
         if (mFile instanceof LocalFile) {
             LocalFile file = (LocalFile) mFile;
-            // TODO
-            mOwnerText.setText("owner");
+            mOwnerText.setText(file.getOwner().name);
             mOwnerAccessText.setText("Read and write");
         }
     }

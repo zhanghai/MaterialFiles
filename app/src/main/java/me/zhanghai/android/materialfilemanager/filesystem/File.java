@@ -69,10 +69,6 @@ public interface File extends Parcelable {
     @WorkerThread
     void reloadInformation() throws FileSystemException;
 
-    long getSize();
-
-    Instant getLastModificationTime();
-
     boolean isDirectory();
 
     default boolean isDirectoryExcludingSymbolicLink() {
@@ -104,6 +100,10 @@ public interface File extends Parcelable {
         }
         return this;
     }
+
+    long getSize();
+
+    Instant getLastModificationTime();
 
     @WorkerThread
     List<File> getChildren() throws FileSystemException;

@@ -140,10 +140,12 @@ public class ShellStat {
             information.type = parseType(modeString);
             information.mode = parseMode(modeString);
             information.linkCount = Long.parseLong(fields[1]);
-            information.userId = Long.parseLong(fields[2]);
-            information.userName = fields[3];
-            information.groupId = Long.parseLong(fields[4]);
-            information.groupName = fields[5];
+            information.owner = new PosixUser();
+            information.owner.id = Integer.parseInt(fields[2]);
+            information.owner.name = fields[3];
+            information.group = new PosixGroup();
+            information.group.id = Integer.parseInt(fields[4]);
+            information.group.name = fields[5];
             information.size = Long.parseLong(fields[6]);
             information.lastAccessTime = Instant.ofEpochSecond(Long.parseLong(fields[7]));
             information.lastModificationTime = Instant.ofEpochSecond(Long.parseLong(fields[8]));
@@ -285,10 +287,8 @@ public class ShellStat {
         public PosixFileType type;
         public EnumSet<PosixFileModeBit> mode;
         public long linkCount;
-        public long userId;
-        public String userName;
-        public long groupId;
-        public String groupName;
+        public PosixUser owner;
+        public PosixGroup group;
         public long size;
         public Instant lastAccessTime;
         public Instant lastModificationTime;
@@ -307,13 +307,11 @@ public class ShellStat {
             }
             Information that = (Information) object;
             return linkCount == that.linkCount
-                    && userId == that.userId
-                    && groupId == that.groupId
                     && size == that.size
                     && type == that.type
                     && Objects.equals(mode, that.mode)
-                    && Objects.equals(userName, that.userName)
-                    && Objects.equals(groupName, that.groupName)
+                    && Objects.equals(owner, that.owner)
+                    && Objects.equals(group, that.group)
                     && Objects.equals(lastAccessTime, that.lastAccessTime)
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
                     && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime)
@@ -324,8 +322,8 @@ public class ShellStat {
 
         @Override
         public int hashCode() {
-            return Objects.hash(type, mode, linkCount, userId, userName, groupId, groupName, size,
-                    lastAccessTime, lastModificationTime, lastStatusChangeTime, symbolicLinkTarget,
+            return Objects.hash(type, mode, linkCount, owner, group, size, lastAccessTime,
+                    lastModificationTime, lastStatusChangeTime, symbolicLinkTarget,
                     symbolicLinkStatLInformation);
         }
 
@@ -349,10 +347,8 @@ public class ShellStat {
             //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
             linkCount = in.readLong();
-            userId = in.readLong();
-            userName = in.readString();
-            groupId = in.readLong();
-            groupName = in.readString();
+            owner = in.readParcelable(PosixUser.class.getClassLoader());
+            group = in.readParcelable(PosixGroup.class.getClassLoader());
             size = in.readLong();
             lastAccessTime = (Instant) in.readSerializable();
             lastModificationTime = (Instant) in.readSerializable();
@@ -371,10 +367,8 @@ public class ShellStat {
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);
             dest.writeLong(linkCount);
-            dest.writeLong(userId);
-            dest.writeString(userName);
-            dest.writeLong(groupId);
-            dest.writeString(groupName);
+            dest.writeParcelable(owner, flags);
+            dest.writeParcelable(group, flags);
             dest.writeLong(size);
             dest.writeSerializable(lastAccessTime);
             dest.writeSerializable(lastModificationTime);

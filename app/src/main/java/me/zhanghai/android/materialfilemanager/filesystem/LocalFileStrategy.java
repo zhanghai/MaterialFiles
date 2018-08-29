@@ -11,6 +11,7 @@ import android.support.annotation.WorkerThread;
 import org.threeten.bp.Instant;
 
 import java.util.List;
+import java.util.Set;
 
 interface LocalFileStrategy extends Parcelable {
 
@@ -19,13 +20,19 @@ interface LocalFileStrategy extends Parcelable {
     @WorkerThread
     void reloadInformation(LocalFile file) throws FileSystemException;
 
-    long getSize();
-
-    Instant getLastModificationTime();
-
     boolean isDirectory();
 
     boolean isSymbolicLink();
+
+    Set<PosixFileModeBit> getMode();
+
+    PosixUser getOwner();
+
+    PosixGroup getGroup();
+
+    long getSize();
+
+    Instant getLastModificationTime();
 
     @WorkerThread
     List<File> getChildren(LocalFile file) throws FileSystemException;

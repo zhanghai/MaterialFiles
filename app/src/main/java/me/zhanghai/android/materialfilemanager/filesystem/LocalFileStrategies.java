@@ -14,6 +14,7 @@ import org.threeten.bp.Instant;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
@@ -43,16 +44,6 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public long getSize() {
-            return mInformation.length;
-        }
-
-        @Override
-        public Instant getLastModificationTime() {
-            return mInformation.lastModified;
-        }
-
-        @Override
         public boolean isDirectory() {
             // This includes symbolic link to directory.
             return mInformation.isDirectory;
@@ -61,6 +52,31 @@ public interface LocalFileStrategies {
         @Override
         public boolean isSymbolicLink() {
             return mInformation.isSymbolicLink;
+        }
+
+        @Override
+        public Set<PosixFileModeBit> getMode() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public PosixUser getOwner() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public PosixGroup getGroup() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public long getSize() {
+            return mInformation.length;
+        }
+
+        @Override
+        public Instant getLastModificationTime() {
+            return mInformation.lastModified;
         }
 
         @Override
@@ -148,16 +164,6 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public long getSize() {
-            return mInformation.size;
-        }
-
-        @Override
-        public Instant getLastModificationTime() {
-            return mInformation.lastModificationTime;
-        }
-
-        @Override
         public boolean isDirectory() {
             return mInformation.type == PosixFileType.DIRECTORY
                     || (isSymbolicLink() && mInformation.symbolicLinkStatInformation != null
@@ -167,6 +173,31 @@ public interface LocalFileStrategies {
         @Override
         public boolean isSymbolicLink() {
             return mInformation.type == PosixFileType.SYMBOLIC_LINK;
+        }
+
+        @Override
+        public Set<PosixFileModeBit> getMode() {
+            return mInformation.mode;
+        }
+
+        @Override
+        public PosixUser getOwner() {
+            return mInformation.owner;
+        }
+
+        @Override
+        public PosixGroup getGroup() {
+            return mInformation.group;
+        }
+
+        @Override
+        public long getSize() {
+            return mInformation.size;
+        }
+
+        @Override
+        public Instant getLastModificationTime() {
+            return mInformation.lastModificationTime;
         }
 
         @Override
@@ -257,16 +288,6 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public long getSize() {
-            return mInformation.size;
-        }
-
-        @Override
-        public Instant getLastModificationTime() {
-            return mInformation.lastModificationTime;
-        }
-
-        @Override
         public boolean isDirectory() {
             return mInformation.type == PosixFileType.DIRECTORY
                     || (isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null
@@ -276,6 +297,31 @@ public interface LocalFileStrategies {
         @Override
         public boolean isSymbolicLink() {
             return mInformation.type == PosixFileType.SYMBOLIC_LINK;
+        }
+
+        @Override
+        public Set<PosixFileModeBit> getMode() {
+            return mInformation.mode;
+        }
+
+        @Override
+        public PosixUser getOwner() {
+            return mInformation.owner;
+        }
+
+        @Override
+        public PosixGroup getGroup() {
+            return mInformation.group;
+        }
+
+        @Override
+        public long getSize() {
+            return mInformation.size;
+        }
+
+        @Override
+        public Instant getLastModificationTime() {
+            return mInformation.lastModificationTime;
         }
 
         @Override

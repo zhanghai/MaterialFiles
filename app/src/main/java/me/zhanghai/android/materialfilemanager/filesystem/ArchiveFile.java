@@ -104,16 +104,6 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public long getSize() {
-        return mInformation.entry.getSize();
-    }
-
-    @Override
-    public Instant getLastModificationTime() {
-        return Instant.ofEpochMilli(mInformation.entry.getLastModifiedDate().getTime());
-    }
-
-    @Override
     public boolean isDirectory() {
         return mInformation.entry.isDirectory();
     }
@@ -123,6 +113,16 @@ public class ArchiveFile extends BaseFile {
         // FIXME: Move this to information.
         return (mInformation.entry instanceof ZipArchiveEntry)
                 && ((ZipArchiveEntry) mInformation.entry).isUnixSymlink();
+    }
+
+    @Override
+    public long getSize() {
+        return mInformation.entry.getSize();
+    }
+
+    @Override
+    public Instant getLastModificationTime() {
+        return Instant.ofEpochMilli(mInformation.entry.getLastModifiedDate().getTime());
     }
 
     @Override

@@ -14,6 +14,7 @@ import org.threeten.bp.Instant;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 public class LocalFile extends BaseFile {
 
@@ -77,14 +78,16 @@ public class LocalFile extends BaseFile {
         mStrategy.reloadInformation(this);
     }
 
-    @Override
-    public long getSize() {
-        return mStrategy.getSize();
+    public Set<PosixFileModeBit> getMode() {
+        return mStrategy.getMode();
     }
 
-    @Override
-    public Instant getLastModificationTime() {
-        return mStrategy.getLastModificationTime();
+    public PosixUser getOwner() {
+        return mStrategy.getOwner();
+    }
+
+    public PosixGroup getGroup() {
+        return mStrategy.getGroup();
     }
 
     @Override
@@ -95,6 +98,16 @@ public class LocalFile extends BaseFile {
     @Override
     public boolean isSymbolicLink() {
         return mStrategy.isSymbolicLink();
+    }
+
+    @Override
+    public long getSize() {
+        return mStrategy.getSize();
+    }
+
+    @Override
+    public Instant getLastModificationTime() {
+        return mStrategy.getLastModificationTime();
     }
 
     @Override
