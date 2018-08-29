@@ -55,7 +55,7 @@ public class FileOperations {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.createDirectory(file);
+                LocalFileOperationStrategies.SYSCALL_STRATEGY.createDirectory(file);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -75,7 +75,7 @@ public class FileOperations {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.createFile(file);
+                LocalFileOperationStrategies.SYSCALL_STRATEGY.createFile(file);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -95,7 +95,7 @@ public class FileOperations {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.delete(file);
+                LocalFileOperationStrategies.SYSCALL_STRATEGY.delete(file);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -117,7 +117,7 @@ public class FileOperations {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.ANDROID_OS_STRATEGY.rename(file, mNewName);
+                LocalFileOperationStrategies.SYSCALL_STRATEGY.rename(file, mNewName);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();

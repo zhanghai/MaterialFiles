@@ -126,13 +126,13 @@ public interface LocalFileStrategies {
         }
     }
 
-    class AndroidOsStrategy implements LocalFileStrategy {
+    class SyscallStrategy implements LocalFileStrategy {
 
-        private AndroidOs.Information mInformation;
+        private Syscall.Information mInformation;
 
-        public AndroidOsStrategy() {}
+        public SyscallStrategy() {}
 
-        public AndroidOsStrategy(AndroidOs.Information information) {
+        public SyscallStrategy(Syscall.Information information) {
             mInformation = information;
         }
 
@@ -144,7 +144,7 @@ public interface LocalFileStrategies {
         @Override
         @WorkerThread
         public void reloadInformation(LocalFile file) throws FileSystemException {
-            mInformation = AndroidOs.loadInformation(file.getPath());
+            mInformation = Syscall.loadInformation(file.getPath());
         }
 
         @Override
@@ -175,16 +175,16 @@ public interface LocalFileStrategies {
             String parentPath = file.getPath();
             List<String> childPaths = Functional.map(JavaFile.getChildren(file.makeJavaFile()),
                     childName -> LocalFile.joinPaths(parentPath, childName));
-            List<AndroidOs.Information> childInformations;
+            List<Syscall.Information> childInformations;
             try {
                 childInformations = Functional.map(childPaths, (ThrowingFunction<String,
-                        AndroidOs.Information>) AndroidOs::loadInformation);
+                        Syscall.Information>) Syscall::loadInformation);
             } catch (FunctionalException e) {
                 throw e.getCauseAs(FileSystemException.class);
             }
             return Functional.map(childPaths, (childPath, index) -> {
                 Uri childUri = LocalFile.uriFromPath(childPath);
-                AndroidOsStrategy childStrategy = new AndroidOsStrategy(childInformations.get(
+                SyscallStrategy childStrategy = new SyscallStrategy(childInformations.get(
                         index));
                 return new LocalFile(childUri, childStrategy);
             });
@@ -199,7 +199,7 @@ public interface LocalFileStrategies {
             if (object == null || getClass() != object.getClass()) {
                 return false;
             }
-            AndroidOsStrategy that = (AndroidOsStrategy) object;
+            SyscallStrategy that = (SyscallStrategy) object;
             return Objects.equals(mInformation, that.mInformation);
         }
 
@@ -209,19 +209,19 @@ public interface LocalFileStrategies {
         }
 
 
-        public static final Creator<AndroidOsStrategy> CREATOR = new Creator<AndroidOsStrategy>() {
+        public static final Creator<SyscallStrategy> CREATOR = new Creator<SyscallStrategy>() {
             @Override
-            public AndroidOsStrategy createFromParcel(Parcel source) {
-                return new AndroidOsStrategy(source);
+            public SyscallStrategy createFromParcel(Parcel source) {
+                return new SyscallStrategy(source);
             }
             @Override
-            public AndroidOsStrategy[] newArray(int size) {
-                return new AndroidOsStrategy[size];
+            public SyscallStrategy[] newArray(int size) {
+                return new SyscallStrategy[size];
             }
         };
 
-        protected AndroidOsStrategy(Parcel in) {
-            mInformation = in.readParcelable(AndroidOs.Information.class.getClassLoader());
+        protected SyscallStrategy(Parcel in) {
+            mInformation = in.readParcelable(Syscall.Information.class.getClassLoader());
         }
 
         @Override

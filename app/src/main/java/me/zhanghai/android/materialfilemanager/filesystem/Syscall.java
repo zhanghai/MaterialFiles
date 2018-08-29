@@ -25,7 +25,7 @@ import me.zhanghai.android.materialfilemanager.jni.Linux;
 import me.zhanghai.android.materialfilemanager.jni.StructGroup;
 import me.zhanghai.android.materialfilemanager.jni.StructPasswd;
 
-public class AndroidOs {
+public class Syscall {
 
     public static Information loadInformation(String path) throws FileSystemException {
         return loadInformation(path, false);

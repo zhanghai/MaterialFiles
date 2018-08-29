@@ -30,26 +30,26 @@ public interface LocalFileOperationStrategies {
         }
     };
 
-    LocalFileOperationStrategy ANDROID_OS_STRATEGY = new LocalFileOperationStrategy() {
+    LocalFileOperationStrategy SYSCALL_STRATEGY = new LocalFileOperationStrategy() {
 
         @Override
         public void createDirectory(LocalFile file) throws FileSystemException {
-            AndroidOs.createDirectory(file.getPath());
+            Syscall.createDirectory(file.getPath());
         }
 
         @Override
         public void createFile(LocalFile file) throws FileSystemException {
-            AndroidOs.createFile(file.getPath());
+            Syscall.createFile(file.getPath());
         }
 
         @Override
         public void delete(LocalFile file) throws FileSystemException {
-            AndroidOs.delete(file.getPath());
+            Syscall.delete(file.getPath());
         }
 
         @Override
         public void rename(LocalFile file, String newName) throws FileSystemException {
-            AndroidOs.rename(file.getPath(), newName);
+            Syscall.rename(file.getPath(), newName);
         }
     };
 }
