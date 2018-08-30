@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
+// FIXME: Currently running jobs on main thread.
 public class FileJobService extends Service {
 
     private static FileJobService sInstance;
