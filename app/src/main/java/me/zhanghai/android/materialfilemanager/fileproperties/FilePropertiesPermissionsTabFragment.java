@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatDialogFragment;
+import android.support.v7.widget.IndeterminateSwitch;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Switch;
 
 import java.util.Set;
 
@@ -24,6 +26,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.filesystem.PosixFileModeBit;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 import me.zhanghai.android.materialfilemanager.util.ObjectUtils;
+import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
 
@@ -41,6 +44,12 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     Button mGroupAccessButton;
     @BindView(R.id.others_access)
     Button mOthersAccessButton;
+    @BindView(R.id.executable_layout)
+    ViewGroup mExecutableLayout;
+    @BindView(R.id.executable_switch_layout)
+    ViewGroup mExecutableSwitchLayout;
+    @BindView(R.id.executable)
+    IndeterminateSwitch mExecutableSwitch;
 
     private File mFile;
 
@@ -89,14 +98,25 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                     file.getOwner().id)));
             boolean isDirectory = file.isDirectory();
             Set<PosixFileModeBit> mode = file.getMode();
-            mOwnerAccessButton.setText(FilePropertiesPermissions.getOwnerPermissionsString(isDirectory,
-                    mode, mOwnerAccessButton.getContext()));
+            mOwnerAccessButton.setText(FilePropertiesPermissions.getOwnerPermissionsString(
+                    isDirectory, mode, mOwnerAccessButton.getContext()));
             mGroupButton.setText(ObjectUtils.firstNonNull(file.getGroup().name, String.valueOf(
                     file.getGroup().id)));
-            mGroupAccessButton.setText(FilePropertiesPermissions.getGroupPermissionsString(isDirectory,
-                    mode, mGroupAccessButton.getContext()));
-            mOthersAccessButton.setText(FilePropertiesPermissions.getOthersPermissionsString(isDirectory,
-                    mode, mOthersAccessButton.getContext()));
+            mGroupAccessButton.setText(FilePropertiesPermissions.getGroupPermissionsString(
+                    isDirectory, mode, mGroupAccessButton.getContext()));
+            mOthersAccessButton.setText(FilePropertiesPermissions.getOthersPermissionsString(
+                    isDirectory, mode, mOthersAccessButton.getContext()));
+            boolean showExecutable = !isDirectory;
+            ViewUtils.setVisibleOrGone(mExecutableLayout, showExecutable);
+            if (showExecutable) {
+                mExecutableSwitchLayout.setOnClickListener(view -> mExecutableSwitch.toggle());
+                Boolean executable = FilePropertiesPermissions.isExecutable(mode);
+                if (executable != null) {
+                    mExecutableSwitch.setChecked(executable);
+                } else {
+                    mExecutableSwitch.setIndeterminate(true);
+                }
+            }
         }
     }
 }

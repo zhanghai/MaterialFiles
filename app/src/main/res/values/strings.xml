@@ -102,6 +102,8 @@
     <string name="file_properties_permissions_group">Group</string>
     <string name="file_properties_permissions_group_access">Group Access</string>
     <string name="file_properties_permissions_others_access">Others Access</string>
+    <string name="file_properties_permissions_executable">Executable</string>
+    <string name="file_properties_permissions_executable_hint">Allow executing file as program</string>
 
     <string name="main_title">Files</string>
 </resources>

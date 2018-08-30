@@ -90,4 +90,17 @@ public class FilePropertiesPermissions {
             }
         }
     }
+
+    public static Boolean isExecutable(Set<PosixFileModeBit> mode) {
+        boolean ownerExecute = mode.contains(PosixFileModeBit.OWNER_EXECUTE);
+        boolean groupExecute = mode.contains(PosixFileModeBit.GROUP_EXECUTE);
+        boolean othersExecute = mode.contains(PosixFileModeBit.OTHERS_EXECUTE);
+        if (ownerExecute && groupExecute && othersExecute) {
+            return true;
+        } else if (!ownerExecute && !groupExecute && !othersExecute) {
+            return false;
+        } else {
+            return null;
+        }
+    }
 }
