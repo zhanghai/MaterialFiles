@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -18,20 +19,18 @@ import java.util.concurrent.Executors;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
-// FIXME: Currently running jobs on main thread.
 public class FileJobService extends Service {
 
     private static FileJobService sInstance;
 
     private static List<FileJob> sPendingJobs = new ArrayList<>();
 
-    private List<FileJob> mRunningJobs = new ArrayList<>();
+    private List<FileJob> mRunningJobs = Collections.synchronizedList(new ArrayList<>());
 
     private ExecutorService mExecutorService = Executors.newCachedThreadPool();
 
     private static void startJob(FileJob job, Context context) {
         if (sInstance != null) {
-            sInstance.mRunningJobs.add(job);
             sInstance.startJob(job);
         } else {
             sPendingJobs.add(job);
@@ -65,14 +64,16 @@ public class FileJobService extends Service {
         while (iterator.hasNext()) {
             FileJob job = iterator.next();
             iterator.remove();
-            mRunningJobs.add(job);
             startJob(job);
         }
     }
 
     private void startJob(FileJob job) {
-        // TODO
-        job.run(this);
+        mRunningJobs.add(job);
+        mExecutorService.submit(() -> {
+            job.run(this);
+            mRunningJobs.remove(job);
+        });
     }
 
     @Override
@@ -91,17 +92,18 @@ public class FileJobService extends Service {
 
         sInstance = null;
 
-        Iterator<FileJob> iterator = mRunningJobs.iterator();
-        while (iterator.hasNext()) {
-            FileJob job = iterator.next();
-            stopJob(job);
-            iterator.remove();
-        }
-
+        stopJobs();
         mExecutorService.shutdownNow();
     }
 
-    private void stopJob(FileJob job) {
-        // TODO
+    private void stopJobs() {
+        synchronized (mRunningJobs) {
+            Iterator<FileJob> iterator = mRunningJobs.iterator();
+            while (iterator.hasNext()) {
+                FileJob job = iterator.next();
+                // TODO: Stop the job.
+                iterator.remove();
+            }
+        }
     }
 }
