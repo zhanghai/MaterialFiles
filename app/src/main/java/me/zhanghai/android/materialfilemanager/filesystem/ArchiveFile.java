@@ -104,15 +104,15 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public boolean isDirectory() {
-        return mInformation.entry.isDirectory();
-    }
-
-    @Override
     public boolean isSymbolicLink() {
         // FIXME: Move this to information.
         return (mInformation.entry instanceof ZipArchiveEntry)
                 && ((ZipArchiveEntry) mInformation.entry).isUnixSymlink();
+    }
+
+    @Override
+    public boolean isDirectory() {
+        return mInformation.entry.isDirectory();
     }
 
     @Override

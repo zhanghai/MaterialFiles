@@ -20,7 +20,6 @@ import java.util.List;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
-import me.zhanghai.android.materialfilemanager.functional.compat.Predicate;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
 public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
@@ -75,15 +74,15 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
         String message;
         if (mFiles.size() == 1) {
             File file = mFiles.get(0);
-            int messageRes = file.isDirectoryExcludingSymbolicLink() ?
+            int messageRes = file.isDirectoryDoNotFollowSymbolicLinks() ?
                     R.string.file_delete_message_directory_format
                     : R.string.file_delete_message_file_format;
             message = getString(messageRes, file.getName());
         } else {
             boolean allDirectories = Functional.every(mFiles,
-                    File::isDirectoryExcludingSymbolicLink);
+                    File::isDirectoryDoNotFollowSymbolicLinks);
             boolean allFiles = Functional.every(mFiles, file ->
-                    !file.isDirectoryExcludingSymbolicLink());
+                    !file.isDirectoryDoNotFollowSymbolicLinks());
             int messageRes = allDirectories ?
                     R.string.file_delete_message_multiple_directories_format
                     : allFiles ? R.string.file_delete_message_multiple_files_format

@@ -78,6 +78,16 @@ public class LocalFile extends BaseFile {
         mStrategy.reloadInformation(this);
     }
 
+    @Override
+    public boolean isSymbolicLink() {
+        return mStrategy.isSymbolicLink();
+    }
+
+    @Override
+    public boolean isDirectory() {
+        return mStrategy.isDirectory();
+    }
+
     public Set<PosixFileModeBit> getMode() {
         return mStrategy.getMode();
     }
@@ -88,16 +98,6 @@ public class LocalFile extends BaseFile {
 
     public PosixGroup getGroup() {
         return mStrategy.getGroup();
-    }
-
-    @Override
-    public boolean isDirectory() {
-        return mStrategy.isDirectory();
-    }
-
-    @Override
-    public boolean isSymbolicLink() {
-        return mStrategy.isSymbolicLink();
     }
 
     @Override

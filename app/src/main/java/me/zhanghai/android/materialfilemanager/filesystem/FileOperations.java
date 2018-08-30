@@ -30,7 +30,7 @@ public class FileOperations {
 
     private static void delete(File file, List<FileOperation> operations)
             throws FileSystemException {
-        if (file.isDirectoryExcludingSymbolicLink()) {
+        if (file.isDirectoryDoNotFollowSymbolicLinks()) {
             List<File> children = file.getChildren();
             for (File child : children) {
                 delete(child, operations);

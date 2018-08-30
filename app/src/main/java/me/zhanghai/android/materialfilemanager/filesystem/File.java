@@ -69,13 +69,13 @@ public interface File extends Parcelable {
     @WorkerThread
     void reloadInformation() throws FileSystemException;
 
+    boolean isSymbolicLink();
+
     boolean isDirectory();
 
-    default boolean isDirectoryExcludingSymbolicLink() {
+    default boolean isDirectoryDoNotFollowSymbolicLinks() {
         return isDirectory() && !isSymbolicLink();
     }
-
-    boolean isSymbolicLink();
 
     @NonNull
     default String getMimeType() {

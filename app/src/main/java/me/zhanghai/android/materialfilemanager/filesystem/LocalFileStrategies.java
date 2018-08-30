@@ -44,14 +44,14 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public boolean isDirectory() {
-            // This includes symbolic link to directory.
-            return mInformation.isDirectory;
+        public boolean isSymbolicLink() {
+            return mInformation.isSymbolicLink;
         }
 
         @Override
-        public boolean isSymbolicLink() {
-            return mInformation.isSymbolicLink;
+        public boolean isDirectory() {
+            // This includes symbolic link to directory.
+            return mInformation.isDirectory;
         }
 
         @Override
@@ -164,40 +164,43 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public boolean isDirectory() {
-            return mInformation.type == PosixFileType.DIRECTORY
-                    || (isSymbolicLink() && mInformation.symbolicLinkStatInformation != null
-                    && mInformation.symbolicLinkStatInformation.type == PosixFileType.DIRECTORY);
-        }
-
-        @Override
         public boolean isSymbolicLink() {
             return mInformation.type == PosixFileType.SYMBOLIC_LINK;
         }
 
+        private Syscall.Information getInformationFollowingSymbolicLinks() {
+            return isSymbolicLink() && mInformation.symbolicLinkStatInformation != null ?
+                    mInformation.symbolicLinkStatInformation : mInformation;
+        }
+
+        @Override
+        public boolean isDirectory() {
+            return getInformationFollowingSymbolicLinks().type == PosixFileType.DIRECTORY;
+        }
+
         @Override
         public Set<PosixFileModeBit> getMode() {
-            return mInformation.mode;
+            return getInformationFollowingSymbolicLinks().mode;
         }
 
         @Override
         public PosixUser getOwner() {
-            return mInformation.owner;
+            return getInformationFollowingSymbolicLinks().owner;
         }
 
         @Override
         public PosixGroup getGroup() {
-            return mInformation.group;
+            return getInformationFollowingSymbolicLinks().group;
         }
 
         @Override
         public long getSize() {
-            return mInformation.size;
+            return getInformationFollowingSymbolicLinks().size;
         }
 
         @Override
         public Instant getLastModificationTime() {
-            return mInformation.lastModificationTime;
+            return getInformationFollowingSymbolicLinks().lastModificationTime;
         }
 
         @Override
@@ -288,40 +291,43 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public boolean isDirectory() {
-            return mInformation.type == PosixFileType.DIRECTORY
-                    || (isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null
-                    && mInformation.symbolicLinkStatLInformation.type == PosixFileType.DIRECTORY);
-        }
-
-        @Override
         public boolean isSymbolicLink() {
             return mInformation.type == PosixFileType.SYMBOLIC_LINK;
         }
 
+        private ShellStat.Information getInformationFollowingSymbolicLinks() {
+            return isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null ?
+                    mInformation.symbolicLinkStatLInformation : mInformation;
+        }
+
+        @Override
+        public boolean isDirectory() {
+            return getInformationFollowingSymbolicLinks().type == PosixFileType.DIRECTORY;
+        }
+
         @Override
         public Set<PosixFileModeBit> getMode() {
-            return mInformation.mode;
+            return getInformationFollowingSymbolicLinks().mode;
         }
 
         @Override
         public PosixUser getOwner() {
-            return mInformation.owner;
+            return getInformationFollowingSymbolicLinks().owner;
         }
 
         @Override
         public PosixGroup getGroup() {
-            return mInformation.group;
+            return getInformationFollowingSymbolicLinks().group;
         }
 
         @Override
         public long getSize() {
-            return mInformation.size;
+            return getInformationFollowingSymbolicLinks().size;
         }
 
         @Override
         public Instant getLastModificationTime() {
-            return mInformation.lastModificationTime;
+            return getInformationFollowingSymbolicLinks().lastModificationTime;
         }
 
         @Override

@@ -12,18 +12,18 @@ import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
+
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.file.FormatUtils;
-import me.zhanghai.android.materialfilemanager.filesystem.ArchiveFile;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
+import me.zhanghai.android.materialfilemanager.filesystem.PosixFileModeBit;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 import me.zhanghai.android.materialfilemanager.util.ObjectUtils;
-import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
 
@@ -32,9 +32,15 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
     @BindView(R.id.owner)
-    TextView mOwnerText;
+    Button mOwnerButton;
     @BindView(R.id.owner_access)
-    TextView mOwnerAccessText;
+    Button mOwnerAccessButton;
+    @BindView(R.id.group)
+    Button mGroupButton;
+    @BindView(R.id.group_access)
+    Button mGroupAccessButton;
+    @BindView(R.id.others_access)
+    Button mOthersAccessButton;
 
     private File mFile;
 
@@ -79,9 +85,18 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
 
         if (mFile instanceof LocalFile) {
             LocalFile file = (LocalFile) mFile;
-            mOwnerText.setText(ObjectUtils.firstNonNull(file.getOwner().name, String.valueOf(
+            mOwnerButton.setText(ObjectUtils.firstNonNull(file.getOwner().name, String.valueOf(
                     file.getOwner().id)));
-            mOwnerAccessText.setText("Read and write");
+            boolean isDirectory = file.isDirectory();
+            Set<PosixFileModeBit> mode = file.getMode();
+            mOwnerAccessButton.setText(FilePropertiesPermissions.getOwnerPermissionsString(isDirectory,
+                    mode, mOwnerAccessButton.getContext()));
+            mGroupButton.setText(ObjectUtils.firstNonNull(file.getGroup().name, String.valueOf(
+                    file.getGroup().id)));
+            mGroupAccessButton.setText(FilePropertiesPermissions.getGroupPermissionsString(isDirectory,
+                    mode, mGroupAccessButton.getContext()));
+            mOthersAccessButton.setText(FilePropertiesPermissions.getOthersPermissionsString(isDirectory,
+                    mode, mOthersAccessButton.getContext()));
         }
     }
 }

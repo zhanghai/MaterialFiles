@@ -20,9 +20,9 @@ interface LocalFileStrategy extends Parcelable {
     @WorkerThread
     void reloadInformation(LocalFile file) throws FileSystemException;
 
-    boolean isDirectory();
-
     boolean isSymbolicLink();
+
+    boolean isDirectory();
 
     Set<PosixFileModeBit> getMode();
 
