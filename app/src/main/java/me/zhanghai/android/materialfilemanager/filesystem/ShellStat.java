@@ -42,7 +42,7 @@ public class ShellStat {
 
     public static Information loadInformation(String path) throws FileSystemException {
         String command = "stat -c '%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z' " + ShellEscaper.escape(path);
-        List<String> outputLines = Shell.SH.run(command);
+        List<String> outputLines = Shell.SU.run(command);
         if (outputLines == null) {
             throw new FileSystemException(R.string.file_error_information);
         }
@@ -63,7 +63,7 @@ public class ShellStat {
         String command = "find " + ShellEscaper.escape(path) + " -mindepth 1 -maxdepth 1 -exec " +
                 "stat -c '%n/%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z//' {} \\;";
         // TODO: Handle error and show the file name at least.
-        List<String> outputLines = Shell.SH.run(command);
+        List<String> outputLines = Shell.SU.run(command);
         if (outputLines == null) {
             throw new FileSystemException(R.string.file_list_error_directory);
         }
@@ -115,7 +115,7 @@ public class ShellStat {
                 "stat -L -c '%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z' " + escapedPath + " || echo",
                 "readlink " + escapedPath
         };
-        List<String> outputLines = Shell.SH.run(commands);
+        List<String> outputLines = Shell.SU.run(commands);
         if (outputLines == null || outputLines.size() < 1) {
             throw new FileSystemException(R.string.file_error_information);
         }
