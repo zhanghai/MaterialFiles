@@ -41,9 +41,6 @@ public class IndeterminateSwitch extends SwitchCompat {
 
     @Override
     public void setChecked(boolean checked) {
-        if (!mIndeterminate && isChecked() == checked) {
-            return;
-        }
         mIndeterminate = false;
         super.setChecked(checked);
     }
