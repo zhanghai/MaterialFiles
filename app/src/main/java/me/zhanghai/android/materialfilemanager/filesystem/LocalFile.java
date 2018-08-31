@@ -46,7 +46,7 @@ public class LocalFile extends BaseFile {
     }
 
     public LocalFile(Uri uri) {
-        // TODO
+        // TODO: Better determination of strategy?
         this(uri, new LocalFileStrategies.SyscallStrategy());
     }
 
@@ -75,7 +75,17 @@ public class LocalFile extends BaseFile {
 
     @Override
     public void reloadInformation() throws FileSystemException {
-        mStrategy.reloadInformation(this);
+        try {
+            mStrategy.reloadInformation(this);
+        } catch (FileSystemException e) {
+            // TODO: Better determination of strategy beforehand?
+            if (mStrategy instanceof LocalFileStrategies.ShellStatStrategy) {
+                throw e;
+            }
+            e.printStackTrace();
+            mStrategy = new LocalFileStrategies.ShellStatStrategy();
+            reloadInformation();
+        }
     }
 
     @Override
@@ -112,7 +122,17 @@ public class LocalFile extends BaseFile {
 
     @Override
     public List<File> getChildren() throws FileSystemException {
-        return mStrategy.getChildren(this);
+        try {
+            return mStrategy.getChildren(this);
+        } catch (FileSystemException e) {
+            // TODO: Better determination of strategy beforehand?
+            if (mStrategy instanceof LocalFileStrategies.ShellStatStrategy) {
+                throw e;
+            }
+            e.printStackTrace();
+            mStrategy = new LocalFileStrategies.ShellStatStrategy();
+            return getChildren();
+        }
     }
 
     @Override
