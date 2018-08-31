@@ -10,7 +10,7 @@ import android.app.Application;
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
-import eu.chainfire.libsuperuser.Debug;
+import me.zhanghai.android.materialfilemanager.shell.SuShell;
 
 public class AppApplication extends Application {
 
@@ -28,15 +28,13 @@ public class AppApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        if (BuildConfig.DEBUG) {
-            Debug.setDebug(true);
-        }
-
         // TODO
         //NightModeHelper.setup(this);
 
         AndroidThreeTen.init(this);
         //FabricUtils.init(this);
         Stetho.initializeWithDefaults(this);
+
+        SuShell.setupWithLifecycle(this);
     }
 }

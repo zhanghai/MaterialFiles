@@ -11,6 +11,7 @@ import android.support.v4.util.Pair;
 
 import org.threeten.bp.Instant;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -18,11 +19,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
 import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;
+import me.zhanghai.android.materialfilemanager.shell.SuShell;
+import me.zhanghai.android.materialfilemanager.util.Holder;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 import me.zhanghai.android.materialfilemanager.util.MapCompat;
 import me.zhanghai.android.materialfilemanager.util.StringCompat;
@@ -42,11 +44,12 @@ public class ShellStat {
 
     public static Information loadInformation(String path) throws FileSystemException {
         String command = "stat -c '%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z' " + ShellEscaper.escape(path);
-        List<String> outputLines = Shell.SU.run(command);
-        if (outputLines == null) {
+        Holder<String> outputHolder = new Holder<>();
+        int exitCode = SuShell.run(command, outputHolder, null);
+        if (exitCode != 0) {
             throw new FileSystemException(R.string.file_error_information);
         }
-        String output = StringCompat.join("\n", outputLines);
+        String output = outputHolder.value;
         Information information = parseInformation(output);
         loadSymbolicLinkInformationIf(path, information);
         return information;
@@ -63,11 +66,12 @@ public class ShellStat {
         String command = "find " + ShellEscaper.escape(path) + " -mindepth 1 -maxdepth 1 -exec " +
                 "stat -c '%n/%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z//' {} \\;";
         // TODO: Handle error and show the file name at least.
-        List<String> outputLines = Shell.SU.run(command);
-        if (outputLines == null) {
+        Holder<String> outputHolder = new Holder<>();
+        int exitCode = SuShell.run(command, outputHolder, null);
+        if (exitCode != 0) {
             throw new FileSystemException(R.string.file_list_error_directory);
         }
-        String output = StringCompat.join("\n", outputLines);
+        String output = outputHolder.value;
         if (output.isEmpty()) {
             return Collections.emptyList();
         }
@@ -111,21 +115,24 @@ public class ShellStat {
             return;
         }
         String escapedPath = ShellEscaper.escape(path);
-        String[] commands = {
-                "stat -L -c '%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z' " + escapedPath + " || echo",
-                "readlink " + escapedPath
-        };
-        List<String> outputLines = Shell.SU.run(commands);
-        if (outputLines == null || outputLines.size() < 1) {
+        String readlinkCommand = "readlink " + escapedPath;
+        Holder<String> readlinkOutputHolder = new Holder<>();
+        int readlinkExitCode = SuShell.run(readlinkCommand, readlinkOutputHolder, null);
+        if (readlinkExitCode != 0) {
             throw new FileSystemException(R.string.file_error_information);
         }
-        String statLOutput = outputLines.get(0);
-        String readlinkOutput = StringCompat.join("\n", outputLines.subList(1, outputLines.size()));
+        String readlinkOutput = readlinkOutputHolder.value;
         information.symbolicLinkTarget = readlinkOutput;
-        try {
-            information.symbolicLinkStatLInformation = parseInformation(statLOutput);
-        } catch (FileSystemException e) {
-            e.printStackTrace();
+        String statLCommand = "stat -L -c '%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z' " + escapedPath;
+        Holder<String> statLOutputHolder = new Holder<>();
+        int statLExitCode = SuShell.run(statLCommand, statLOutputHolder, null);
+        if (statLExitCode == 0) {
+            String statLOutput = statLOutputHolder.value;
+            try {
+                information.symbolicLinkStatLInformation = parseInformation(statLOutput);
+            } catch (FileSystemException e) {
+                e.printStackTrace();
+            }
         }
     }
 

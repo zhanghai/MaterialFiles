@@ -1,0 +1,114 @@
+/*
+ * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * All Rights Reserved.
+ */
+
+package me.zhanghai.android.materialfilemanager.shell;
+
+import android.app.Activity;
+import android.app.Application;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.support.annotation.WorkerThread;
+
+import eu.chainfire.libsuperuser.Debug;
+import me.zhanghai.android.materialfilemanager.BuildConfig;
+import me.zhanghai.android.materialfilemanager.util.Holder;
+import me.zhanghai.android.materialfilemanager.util.StringCompat;
+
+public class SuShell {
+
+    private static HandlerThread sHandlerThread;
+    private static Shell sShell;
+
+    static {
+        if (BuildConfig.DEBUG) {
+            Debug.setDebug(true);
+        }
+    }
+
+    private SuShell() {}
+
+    public static boolean isOpen() {
+        return sHandlerThread != null && sShell != null;
+    }
+
+    public static void open() {
+        if (isOpen()) {
+            throw new IllegalStateException("SuShell is already open");
+        }
+        sHandlerThread = new HandlerThread("SuShellHandler");
+        sHandlerThread.start();
+        Handler handler = new Handler(sHandlerThread.getLooper());
+        sShell = new Shell.Builder()
+                .useSU()
+                .setHandler(handler)
+                .open();
+    }
+
+    @WorkerThread
+    public static int run(String command, Holder<String> stdout, Holder<String> stderr) {
+        Holder<Integer> exitCodeHolder = new Holder<>();
+        sShell.addCommand(command, 0, (commandCode, exitCode, stdoutLines, stderrLines) -> {
+            if (stdout != null) {
+                stdout.value = StringCompat.join("\n", stdoutLines);
+            }
+            if (stderr != null) {
+                stderr.value = StringCompat.join("\n", stderrLines);
+            }
+            exitCodeHolder.value = exitCode;
+        });
+        sShell.waitForIdle();
+        return exitCodeHolder.value;
+    }
+
+    public static void close() {
+        if (!isOpen()) {
+            return;
+        }
+        sShell.close();
+        sShell = null;
+        sHandlerThread.quitSafely();
+        sHandlerThread = null;
+    }
+
+    public static void setupWithLifecycle(Application application) {
+        application.registerActivityLifecycleCallbacks(
+                new Application.ActivityLifecycleCallbacks() {
+
+                    private int mActivityCount;
+
+                    @Override
+                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                        if (mActivityCount == 0) {
+                            open();
+                        }
+                        ++mActivityCount;
+                    }
+
+                    @Override
+                    public void onActivityStarted(Activity activity) {}
+
+                    @Override
+                    public void onActivityResumed(Activity activity) {}
+
+                    @Override
+                    public void onActivityPaused(Activity activity) {}
+
+                    @Override
+                    public void onActivityStopped(Activity activity) {}
+
+                    @Override
+                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}
+
+                    @Override
+                    public void onActivityDestroyed(Activity activity) {
+                        --mActivityCount;
+                        if (mActivityCount == 0) {
+                            SuShell.close();
+                        }
+                    }
+                });
+    }
+}
