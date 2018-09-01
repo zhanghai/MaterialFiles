@@ -156,17 +156,24 @@ int print_directory(char *path) {
     struct dirent64 *dirent;
     while ((dirent = readdir64(dir))) {
 
-        print_field_string(dirent->d_name);
+        char *file_name = dirent->d_name;
+        if (!strcmp(file_name, ".") || !strcmp(file_name, "..")) {
+            continue;
+        }
+
+        print_field_string(file_name);
 
         errno = 0;
-        char *file_path = malloc(strlen(path) + strlen(dirent->d_name) + 2);
+        char *file_path = malloc(strlen(path) + strlen(file_name) + 2);
         if (errno) {
             print_record_separator();
             continue;
         }
         strcpy(file_path, path);
         strcat(file_path, "/");
-        strcat(file_path, dirent->d_name);
+        strcat(file_path, file_name);
+
+        print_field_seperator();
         print_file(file_path);
         free(file_path);
 

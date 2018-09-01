@@ -79,11 +79,11 @@ public class LocalFile extends BaseFile {
             mStrategy.reloadInformation(this);
         } catch (FileSystemException e) {
             // TODO: Better determination of strategy beforehand?
-            if (mStrategy instanceof LocalFileStrategies.ShellStatStrategy) {
+            if (mStrategy instanceof LocalFileStrategies.ShellFsStrategy) {
                 throw e;
             }
             e.printStackTrace();
-            mStrategy = new LocalFileStrategies.ShellStatStrategy();
+            mStrategy = new LocalFileStrategies.ShellFsStrategy();
             reloadInformation();
         }
     }
@@ -126,11 +126,11 @@ public class LocalFile extends BaseFile {
             return mStrategy.getChildren(this);
         } catch (FileSystemException e) {
             // TODO: Better determination of strategy beforehand?
-            if (mStrategy instanceof LocalFileStrategies.ShellStatStrategy) {
+            if (mStrategy instanceof LocalFileStrategies.ShellFsStrategy) {
                 throw e;
             }
             e.printStackTrace();
-            mStrategy = new LocalFileStrategies.ShellStatStrategy();
+            mStrategy = new LocalFileStrategies.ShellFsStrategy();
             return getChildren();
         }
     }

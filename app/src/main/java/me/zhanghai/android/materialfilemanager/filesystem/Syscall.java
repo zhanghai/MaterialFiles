@@ -103,7 +103,7 @@ public class Syscall {
         return information;
     }
 
-    private static PosixFileType parseType(int st_mode) {
+    static PosixFileType parseType(int st_mode) {
         return OsConstants.S_ISDIR(st_mode) ? PosixFileType.DIRECTORY
                 : OsConstants.S_ISCHR(st_mode) ? PosixFileType.CHARACTER_DEVICE
                 : OsConstants.S_ISBLK(st_mode) ? PosixFileType.BLOCK_DEVICE
@@ -114,7 +114,7 @@ public class Syscall {
                 : PosixFileType.UNKNOWN;
     }
 
-    private static EnumSet<PosixFileModeBit> parseMode(int st_mode) {
+    static EnumSet<PosixFileModeBit> parseMode(int st_mode) {
         EnumSet<PosixFileModeBit> mode = EnumSet.noneOf(PosixFileModeBit.class);
         if ((st_mode & OsConstants.S_ISUID) != 0) {
             mode.add(PosixFileModeBit.SET_USER_ID);
