@@ -184,17 +184,16 @@ int print_directory(char *path) {
 }
 
 int main(int argc, char **argv) {
-    switch (argc) {
-        case 2:
-            return print_file(argv[1]);
-        case 3:
-            if (strcmp(argv[1], "-d")) {
-                fprintf(stderr, "Invalid argument, expected \"-d\"\n");
-                return EXIT_FAILURE;
-            }
-            return print_directory(argv[2]);
-        default:
-            fprintf(stderr, "Invalid argument\n");
-            return EXIT_FAILURE;
+    if (argc != 3) {
+        fprintf(stderr, "Invalid argument\n");
+        return EXIT_FAILURE;
+    }
+    if (!strcmp(argv[1], "-f")) {
+        return print_file(argv[2]);
+    } else if (!strcmp(argv[1], "-d")) {
+        return print_directory(argv[2]);
+    } else {
+        fprintf(stderr, "Invalid first argument, expected -f or -d\n");
+        return EXIT_FAILURE;
     }
 }

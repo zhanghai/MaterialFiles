@@ -29,7 +29,7 @@ import me.zhanghai.android.materialfilemanager.util.Holder;
 public class ShellFs {
 
     public static Information loadInformation(String path) throws FileSystemException {
-        String command = ShellEscaper.escape(getFsPath()) + " " + ShellEscaper.escape(path);
+        String command = ShellEscaper.escape(getFsPath()) + " -f " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
         int exitCode = SuShell.run(command, outputHolder, null);
         if (exitCode != 0) {
