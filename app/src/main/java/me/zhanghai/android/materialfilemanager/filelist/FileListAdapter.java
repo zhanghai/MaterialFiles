@@ -100,6 +100,17 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                     .clear(holder.iconImage);
             holder.iconImage.setImageDrawable(icon);
         }
+        Integer badgeIconRes;
+        if (file.isSymbolicLink()) {
+            badgeIconRes = R.drawable.symbolic_link_badge_icon_18dp;
+        } else {
+            badgeIconRes = null;
+        }
+        boolean hasBadge = badgeIconRes != null;
+        ViewUtils.setVisibleOrGone(holder.badgeImage, hasBadge);
+        if (hasBadge) {
+            holder.badgeImage.setImageResource(badgeIconRes);
+        }
         holder.nameText.setText(file.getName());
         String description;
         if (file.isDirectory()) {
@@ -168,6 +179,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
 
         @BindView(R.id.icon)
         public ImageView iconImage;
+        @BindView(R.id.badge)
+        public ImageView badgeImage;
         @BindView(R.id.name)
         public TextView nameText;
         @BindView(R.id.description)

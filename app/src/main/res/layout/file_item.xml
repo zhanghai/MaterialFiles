@@ -23,6 +23,7 @@
             android:layout_height="@dimen/touch_target_size"
             android:layout_marginStart="@dimen/screen_edge_margin_minus_4dp"
             android:layout_marginEnd="@dimen/screen_edge_margin_minus_4dp"
+            android:clipToPadding="false"
             android:padding="@dimen/touch_target_large_icon_padding">
 
             <ImageView
@@ -30,6 +31,15 @@
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
                 android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/badge"
+                android:layout_width="@dimen/badge_size"
+                android:layout_height="@dimen/badge_size"
+                android:layout_gravity="end|bottom"
+                android:padding="@dimen/badge_icon_padding"
+                android:background="@drawable/badge_background_18dp"
+                android:elevation="@dimen/badge_elevation" />
         </FrameLayout>
 
         <LinearLayout
