@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.system.ErrnoException;
 
 public class Linux {
@@ -13,11 +15,15 @@ public class Linux {
         System.loadLibrary("linux");
     }
 
-    public static native StructPasswd getpwnam(String name) throws ErrnoException;
+    @Nullable
+    public static native StructPasswd getpwnam(@NonNull String name) throws ErrnoException;
 
+    @Nullable
     public static native StructPasswd getpwuid(int uid) throws ErrnoException;
 
-    public static native StructGroup getgrnam(String name) throws ErrnoException;
+    @Nullable
+    public static native StructGroup getgrnam(@NonNull String name) throws ErrnoException;
 
+    @Nullable
     public static native StructGroup getgrgid(int gid) throws ErrnoException;
 }

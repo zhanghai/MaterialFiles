@@ -1,7 +1,7 @@
+#include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <errno.h>
 #include <grp.h>
 #include <pwd.h>
 #include <sys/types.h>
@@ -172,11 +172,13 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getpwnam(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct passwd passwd;
     struct passwd *result;
-    int error = getpwnam_r(name, &passwd, buffer, bufferSize, &result);
+    errno = getpwnam_r(name, &passwd, buffer, bufferSize, &result);
     (*env)->ReleaseStringUTFChars(env, javaName, name);
-    if (!result) {
-        errno = error;
+    if (errno) {
         throwErrnoException(env, "getpwnam_r");
+        return NULL;
+    }
+    if (!result) {
         return NULL;
     }
     return makeStructPasswd(env, result);
@@ -194,10 +196,12 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getpwuid(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct passwd passwd;
     struct passwd *result;
-    int error = getpwuid_r(uid, &passwd, buffer, bufferSize, &result);
-    if (!result) {
-        errno = error;
+    errno = getpwuid_r(uid, &passwd, buffer, bufferSize, &result);
+    if (errno) {
         throwErrnoException(env, "getpwnam_r");
+        return NULL;
+    }
+    if (!result) {
         return NULL;
     }
     return makeStructPasswd(env, result);
@@ -264,7 +268,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jcl
                                                                 jstring javaName) {
 #if __ANDROID_API__ >= 24
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
-    size_t bufferSize = (size_t) sysconf(_SC_GETPW_R_SIZE_MAX);
+    size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
     if (bufferSize == -1) {
         // See `man 3 getpwnam`
         bufferSize = 16384;
@@ -272,11 +276,13 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct group group;
     struct group *result;
-    int error = getgrnam_r(name, &group, buffer, bufferSize, &result);
+    errno = getgrnam_r(name, &group, buffer, bufferSize, &result);
     (*env)->ReleaseStringUTFChars(env, javaName, name);
-    if (!result) {
-        errno = error;
+    if (errno) {
         throwErrnoException(env, "getgrnam_r");
+        return NULL;
+    }
+    if (!result) {
         return NULL;
     }
     return makeStructGroup(env, result);
@@ -285,8 +291,11 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jcl
     errno = 0;
     struct group *result = getgrnam(name);
     (*env)->ReleaseStringUTFChars(env, javaName, name);
-    if (!result) {
+    if (errno) {
         throwErrnoException(env, "getgrnam");
+        return NULL;
+    }
+    if (!result) {
         return NULL;
     }
     return makeStructGroup(env, result);
@@ -298,7 +307,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
                                                                 jint javaGid) {
 #if __ANDROID_API__ >= 24
     gid_t gid = (gid_t) javaGid;
-    size_t bufferSize = (size_t) sysconf(_SC_GETPW_R_SIZE_MAX);
+    size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
     if (bufferSize == -1) {
         // See `man 3 getpwnam`
         bufferSize = 16384;
@@ -306,10 +315,12 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct group group;
     struct group *result;
-    int error = getgrgid_r(gid, &group, buffer, bufferSize, &result);
-    if (!result) {
-        errno = error;
+    errno = getgrgid_r(gid, &group, buffer, bufferSize, &result);
+    if (errno) {
         throwErrnoException(env, "getgrgid_r");
+        return NULL;
+    }
+    if (!result) {
         return NULL;
     }
     return makeStructGroup(env, result);
@@ -317,8 +328,11 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
     gid_t gid = (gid_t) javaGid;
     errno = 0;
     struct group *result = getgrgid(gid);
-    if (!result) {
+    if (errno) {
         throwErrnoException(env, "getgrgid");
+        return NULL;
+    }
+    if (!result) {
         return NULL;
     }
     return makeStructGroup(env, result);
