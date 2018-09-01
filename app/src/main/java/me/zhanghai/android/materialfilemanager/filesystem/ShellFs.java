@@ -89,7 +89,7 @@ public class ShellFs {
     private static Information parseInformation(String output) throws FileSystemException {
         Information information = new Information();
         String[] fields = output.split("\0");
-        if (fields.length < 9 || fields.length > 12) {
+        if (fields.length < 6) {
             throw new FileSystemException(R.string.file_error_information);
         }
         try {
@@ -104,23 +104,44 @@ public class ShellFs {
             information.lastModificationTime = Instant.ofEpochSecond(Long.parseLong(fields[4]),
                     Long.parseLong(fields[5]));
             int index = 6;
+            if (index >= fields.length) {
+                throw new IllegalArgumentException();
+            }
             information.isSymbolicLink = Integer.parseInt(fields[index]) == 1;
             ++index;
             if (information.isSymbolicLink) {
+                if (index >= fields.length) {
+                    throw new IllegalArgumentException();
+                }
                 information.symbolicLinkTarget = fields[index];
                 ++index;
+            }
+            if (index >= fields.length) {
+                throw new IllegalArgumentException();
             }
             boolean hasOwnerName = Integer.parseInt(fields[index]) == 1;
             ++index;
             if (hasOwnerName) {
+                if (index >= fields.length) {
+                    throw new IllegalArgumentException();
+                }
                 information.owner.name = fields[index];
                 ++index;
+            }
+            if (index >= fields.length) {
+                throw new IllegalArgumentException();
             }
             boolean hasGroupName = Integer.parseInt(fields[index]) == 1;
             ++index;
             if (hasGroupName) {
+                if (index >= fields.length) {
+                    throw new IllegalArgumentException();
+                }
                 information.group.name = fields[index];
                 ++index;
+            }
+            if (index != fields.length) {
+                throw new IllegalArgumentException();
             }
         } catch (IllegalArgumentException e) {
             throw new FileSystemException(R.string.file_error_information, e);
