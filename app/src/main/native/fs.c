@@ -1,11 +1,11 @@
 /**
  * Output format:
  * - File:
- *     - OK: mode(unsigned integer) NULL owner_id(unsigned integer) NULL group_id(unsigned integer)
- *     NULL size(long) last_modification_time_seconds(long) NULL
- *     last_modification_time_nanoseconds(long) NULL is_symbolic_link(boolean) ( NULL
- *     symbolic_link_target(string) )? NULL has_owner_name(boolean) ( NULL owner_name(string) )?
- *     NULL has_group_name(boolean) ( NULL group_name(string) )?
+ *     - OK: is_symbolic_link_stat(boolean) NULL mode(unsigned integer) NULL
+ *     owner_id(unsigned integer) NULL group_id(unsigned integer) NULL size(long)
+ *     last_modification_time_seconds(long) NULL last_modification_time_nanoseconds(long) NULL
+ *     is_symbolic_link(boolean) ( NULL symbolic_link_target(string) )? NULL has_owner_name(boolean)
+ *     ( NULL owner_name(string) )? NULL has_group_name(boolean) ( NULL group_name(string) )?
  *     - Error: (empty)
  * - Directory:
  *     - OK: name file_output? ( NULL NULL NULL \n NULL NULL NULL name file_output? )+
@@ -68,7 +68,7 @@ int print_file(char *path) {
 
     bool is_symbolic_link = S_ISLNK(lstat.st_mode);
     char *symbolic_link_target = NULL;
-    bool symbolic_link_has_stat = false;
+    bool has_symbolic_link_stat = false;
     struct stat64 symbolic_link_stat;
     if (is_symbolic_link) {
 
@@ -90,11 +90,11 @@ int print_file(char *path) {
         errno = 0;
         stat64(path, &symbolic_link_stat);
         if (!errno) {
-            symbolic_link_has_stat = true;
+            has_symbolic_link_stat = true;
         }
     }
 
-    struct stat64 *stat = symbolic_link_has_stat ? &symbolic_link_stat : &lstat;
+    struct stat64 *stat = has_symbolic_link_stat ? &symbolic_link_stat : &lstat;
 
     // TODO: Use getpwuid_r()?
     char *owner_name = NULL;
@@ -110,6 +110,8 @@ int print_file(char *path) {
         group_name = group->gr_name;
     }
 
+    print_field_boolean(has_symbolic_link_stat);
+    print_field_seperator();
     print_field_unsigned_integer(stat->st_mode);
     print_field_seperator();
     print_field_unsigned_integer(stat->st_uid);

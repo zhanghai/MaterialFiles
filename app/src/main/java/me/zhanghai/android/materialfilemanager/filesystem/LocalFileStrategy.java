@@ -22,7 +22,9 @@ interface LocalFileStrategy extends Parcelable {
 
     boolean isSymbolicLink();
 
-    boolean isDirectory();
+    boolean isSymbolicLinkBroken();
+
+    PosixFileType getType();
 
     Set<PosixFileModeBit> getMode();
 

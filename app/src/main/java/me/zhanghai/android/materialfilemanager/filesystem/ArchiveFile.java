@@ -111,6 +111,11 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
+    public boolean isSymbolicLinkBroken() {
+        return false;
+    }
+
+    @Override
     public boolean isDirectory() {
         return mInformation.entry.isDirectory();
     }

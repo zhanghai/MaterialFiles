@@ -5,9 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
-import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -15,13 +15,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import me.zhanghai.android.materialfilemanager.filesystem.PosixFileType;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 import me.zhanghai.android.materialfilemanager.util.SetBuilder;
 
 public class MimeTypes {
-
-    public static final String MIME_TYPE_DIRECTORY = DocumentsContract.Document.MIME_TYPE_DIR;
 
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/MimeUtils.java
@@ -115,6 +114,18 @@ public class MimeTypes {
                     .put("flv", "video/x-flv")
                     .buildUnmodifiable();
 
+    // See also https://developer.gnome.org/shared-mime-info-spec/
+    /** @see FileTypeNames#sPosixFileTypeToTypeNameResMap */
+    private static final Map<PosixFileType, String> sPosixFileTypeToMimeTypeMap =
+            MapBuilder.<PosixFileType, String>newHashMap()
+                    .put(PosixFileType.DIRECTORY, getDirectoryMimeType())
+                    .put(PosixFileType.CHARACTER_DEVICE, "inode/chardevice")
+                    .put(PosixFileType.BLOCK_DEVICE, "inode/blockdevice")
+                    .put(PosixFileType.FIFO, "inode/fifo")
+                    .put(PosixFileType.SYMBOLIC_LINK, "inode/symlink")
+                    .put(PosixFileType.SOCKET, "inode/socket")
+                    .buildUnmodifiable();
+
     private static final Set<String> sSupportedArchiveMimeTypes = SetBuilder.<String>newHashSet()
             .add("application/vnd.android.package-archive")
             .add("application/gzip")
@@ -146,8 +157,13 @@ public class MimeTypes {
         return "application/octet-stream";
     }
 
-    public static String getMimeType(Uri uri) {
-        return getMimeType(uri.getPath());
+    public static String getDirectoryMimeType() {
+        return DocumentsContract.Document.MIME_TYPE_DIR;
+    }
+
+    @Nullable
+    public static String getPosixMimeType(PosixFileType type) {
+        return sPosixFileTypeToMimeTypeMap.get(type);
     }
 
     public static int getIconRes(String mimeType) {

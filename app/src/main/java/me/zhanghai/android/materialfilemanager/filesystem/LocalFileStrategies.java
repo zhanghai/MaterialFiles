@@ -49,9 +49,17 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public boolean isDirectory() {
-            // This includes symbolic link to directory.
-            return mInformation.isDirectory;
+        public boolean isSymbolicLinkBroken() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return !mInformation.exists;
+        }
+
+        @Override
+        public PosixFileType getType() {
+            // FIXME
+            return mInformation.isDirectory ? PosixFileType.DIRECTORY : PosixFileType.REGULAR_FILE;
         }
 
         @Override
@@ -168,14 +176,22 @@ public interface LocalFileStrategies {
             return mInformation.type == PosixFileType.SYMBOLIC_LINK;
         }
 
+        @Override
+        public boolean isSymbolicLinkBroken() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return mInformation.symbolicLinkStatInformation != null;
+        }
+
         private Syscall.Information getInformationFollowingSymbolicLinks() {
             return isSymbolicLink() && mInformation.symbolicLinkStatInformation != null ?
                     mInformation.symbolicLinkStatInformation : mInformation;
         }
 
         @Override
-        public boolean isDirectory() {
-            return getInformationFollowingSymbolicLinks().type == PosixFileType.DIRECTORY;
+        public PosixFileType getType() {
+            return getInformationFollowingSymbolicLinks().type;
         }
 
         @Override
@@ -295,14 +311,22 @@ public interface LocalFileStrategies {
             return mInformation.type == PosixFileType.SYMBOLIC_LINK;
         }
 
+        @Override
+        public boolean isSymbolicLinkBroken() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return mInformation.symbolicLinkStatLInformation != null;
+        }
+
         private ShellStat.Information getInformationFollowingSymbolicLinks() {
             return isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null ?
                     mInformation.symbolicLinkStatLInformation : mInformation;
         }
 
         @Override
-        public boolean isDirectory() {
-            return getInformationFollowingSymbolicLinks().type == PosixFileType.DIRECTORY;
+        public PosixFileType getType() {
+            return getInformationFollowingSymbolicLinks().type;
         }
 
         @Override
@@ -415,8 +439,16 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public boolean isDirectory() {
-            return mInformation.type == PosixFileType.DIRECTORY;
+        public boolean isSymbolicLinkBroken() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return !mInformation.isSymbolicLinkStat;
+        }
+
+        @Override
+        public PosixFileType getType() {
+            return mInformation.type;
         }
 
         @Override

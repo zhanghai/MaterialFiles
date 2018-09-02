@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
 import android.os.Parcel;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -15,6 +16,8 @@ import org.threeten.bp.Instant;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 
 public class LocalFile extends BaseFile {
 
@@ -94,8 +97,27 @@ public class LocalFile extends BaseFile {
     }
 
     @Override
+    public boolean isSymbolicLinkBroken() {
+        return mStrategy.isSymbolicLinkBroken();
+    }
+
+    public PosixFileType getType() {
+        return mStrategy.getType();
+    }
+
+    @Override
     public boolean isDirectory() {
-        return mStrategy.isDirectory();
+        return getType() == PosixFileType.DIRECTORY;
+    }
+
+    @NonNull
+    @Override
+    public String getMimeType() {
+        String mimeType = MimeTypes.getPosixMimeType(getType());
+        if (!TextUtils.isEmpty(mimeType)) {
+            return mimeType;
+        }
+        return super.getMimeType();
     }
 
     public Set<PosixFileModeBit> getMode() {

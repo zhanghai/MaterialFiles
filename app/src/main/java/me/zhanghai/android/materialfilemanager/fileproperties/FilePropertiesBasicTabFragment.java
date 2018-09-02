@@ -90,19 +90,8 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         mNameText.setText(mFile.getName());
-        mTypeText.setText(mFile.getMimeType());
-        long sizeLong = mFile.getSize();
-        String sizeInBytes = FormatUtils.formatSizeInBytes(sizeLong, mSizeText.getContext());
-        String size;
-        if (FormatUtils.isHumanReadableSizeInBytes(sizeLong)) {
-            size = sizeInBytes;
-        } else {
-            String humanReadableSize = FormatUtils.formatHumanReadableSize(sizeLong,
-                    mSizeText.getContext());
-            size = getString(R.string.file_properties_basic_size_with_human_readable_format,
-                    humanReadableSize, sizeInBytes);
-        }
-        mSizeText.setText(size);
+        mTypeText.setText(getTypeText(mFile));
+        mSizeText.setText(getSizeText(mFile));
         String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());
         mLastModificationTimeText.setText(lastModificationTime);
         if (mFile instanceof LocalFile) {
@@ -117,6 +106,28 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
             ArchiveFile file = (ArchiveFile) mFile;
             mArchiveFileText.setText(file.getArchiveFile().getPath());
             mArchiveEntryText.setText(file.getEntryName());
+        }
+    }
+
+    private String getTypeText(File file) {
+        int typeFormatRes = file.isSymbolicLink() && !file.isSymbolicLinkBroken() ?
+                R.string.file_properties_basic_type_symbolic_link_format
+                : R.string.file_properties_basic_type_format;
+        String typeName = file.getTypeName(requireContext());
+        String mimeType = file.getMimeType();
+        return getString(typeFormatRes, typeName, mimeType);
+    }
+
+    private String getSizeText(File file) {
+        long size = file.getSize();
+        String sizeInBytes = FormatUtils.formatSizeInBytes(size, mSizeText.getContext());
+        if (FormatUtils.isHumanReadableSizeInBytes(size)) {
+            return sizeInBytes;
+        } else {
+            String humanReadableSize = FormatUtils.formatHumanReadableSize(size,
+                    mSizeText.getContext());
+            return getString(R.string.file_properties_basic_size_with_human_readable_format,
+                    humanReadableSize, sizeInBytes);
         }
     }
 }

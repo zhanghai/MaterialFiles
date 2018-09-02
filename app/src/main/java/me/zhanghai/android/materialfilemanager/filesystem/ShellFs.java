@@ -89,21 +89,22 @@ public class ShellFs {
     private static Information parseInformation(String output) throws FileSystemException {
         Information information = new Information();
         String[] fields = output.split("\0");
-        if (fields.length < 6) {
+        if (fields.length < 7) {
             throw new FileSystemException(R.string.file_error_information);
         }
         try {
-            int mode = Integer.parseInt(fields[0]);
+            information.isSymbolicLinkStat = Integer.parseInt(fields[0]) == 1;
+            int mode = Integer.parseInt(fields[1]);
             information.type = Syscall.parseType(mode);
             information.mode = Syscall.parseMode(mode);
             information.owner = new PosixUser();
-            information.owner.id = Integer.parseInt(fields[1]);
+            information.owner.id = Integer.parseInt(fields[2]);
             information.group = new PosixGroup();
-            information.group.id = Integer.parseInt(fields[2]);
-            information.size = Long.parseLong(fields[3]);
-            information.lastModificationTime = Instant.ofEpochSecond(Long.parseLong(fields[4]),
-                    Long.parseLong(fields[5]));
-            int index = 6;
+            information.group.id = Integer.parseInt(fields[3]);
+            information.size = Long.parseLong(fields[4]);
+            information.lastModificationTime = Instant.ofEpochSecond(Long.parseLong(fields[5]),
+                    Long.parseLong(fields[6]));
+            int index = 7;
             if (index >= fields.length) {
                 throw new IllegalArgumentException();
             }
@@ -151,17 +152,15 @@ public class ShellFs {
 
     public static class Information implements Parcelable {
 
+        public boolean isSymbolicLinkStat;
         public PosixFileType type;
         public EnumSet<PosixFileModeBit> mode;
         public PosixUser owner;
         public PosixGroup group;
         public long size;
-        public Instant lastAccessTime;
         public Instant lastModificationTime;
-        public Instant lastStatusChangeTime;
         public boolean isSymbolicLink;
         public String symbolicLinkTarget;
-        public Information symbolicLinkStatLInformation;
 
 
         @Override
@@ -173,25 +172,21 @@ public class ShellFs {
                 return false;
             }
             Information that = (Information) object;
-            return size == that.size
+            return isSymbolicLinkStat == that.isSymbolicLinkStat
+                    && size == that.size
                     && isSymbolicLink == that.isSymbolicLink
                     && type == that.type
                     && Objects.equals(mode, that.mode)
                     && Objects.equals(owner, that.owner)
                     && Objects.equals(group, that.group)
-                    && Objects.equals(lastAccessTime, that.lastAccessTime)
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
-                    && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime)
-                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
-                    && Objects.equals(symbolicLinkStatLInformation,
-                    that.symbolicLinkStatLInformation);
+                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(type, mode, owner, group, size, lastAccessTime,
-                    lastModificationTime, lastStatusChangeTime, isSymbolicLink, symbolicLinkTarget,
-                    symbolicLinkStatLInformation);
+            return Objects.hash(isSymbolicLinkStat, type, mode, owner, group, size,
+                    lastModificationTime, isSymbolicLink, symbolicLinkTarget);
         }
 
 
@@ -209,6 +204,7 @@ public class ShellFs {
         public Information() {}
 
         protected Information(Parcel in) {
+            isSymbolicLinkStat = in.readByte() != 0;
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
             //noinspection unchecked
@@ -216,12 +212,9 @@ public class ShellFs {
             owner = in.readParcelable(PosixUser.class.getClassLoader());
             group = in.readParcelable(PosixGroup.class.getClassLoader());
             size = in.readLong();
-            lastAccessTime = (Instant) in.readSerializable();
             lastModificationTime = (Instant) in.readSerializable();
-            lastStatusChangeTime = (Instant) in.readSerializable();
             isSymbolicLink = in.readByte() != 0;
             symbolicLinkTarget = in.readString();
-            symbolicLinkStatLInformation = in.readParcelable(Information.class.getClassLoader());
         }
 
         @Override
@@ -231,17 +224,15 @@ public class ShellFs {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
+            dest.writeByte(isSymbolicLinkStat ? (byte) 1 : (byte) 0);
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);
             dest.writeParcelable(owner, flags);
             dest.writeParcelable(group, flags);
             dest.writeLong(size);
-            dest.writeSerializable(lastAccessTime);
             dest.writeSerializable(lastModificationTime);
-            dest.writeSerializable(lastStatusChangeTime);
             dest.writeByte(isSymbolicLink ? (byte) 1 : (byte) 0);
             dest.writeString(symbolicLinkTarget);
-            dest.writeParcelable(symbolicLinkStatLInformation, flags);
         }
     }
 }

@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.zhanghai.android.materialfilemanager.file.FileTypeNames;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
@@ -71,6 +73,8 @@ public interface File extends Parcelable {
 
     boolean isSymbolicLink();
 
+    boolean isSymbolicLinkBroken();
+
     boolean isDirectory();
 
     default boolean isDirectoryDoNotFollowSymbolicLinks() {
@@ -80,9 +84,18 @@ public interface File extends Parcelable {
     @NonNull
     default String getMimeType() {
         if (isDirectory()) {
-            return MimeTypes.MIME_TYPE_DIRECTORY;
+            return MimeTypes.getDirectoryMimeType();
         }
         return MimeTypes.getMimeType(getName());
+    }
+
+    @NonNull
+    default String getTypeName(Context context) {
+        String extension = FileNameUtils.getExtension(getName());
+        if (isSymbolicLink() && isSymbolicLinkBroken()) {
+            return FileTypeNames.getBrokenSymbolicLinkTypeName(context);
+        }
+        return FileTypeNames.getTypeName(getMimeType(), extension, context);
     }
 
     default boolean isSupportedArchive() {
