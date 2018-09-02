@@ -102,7 +102,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         }
         Integer badgeIconRes;
         if (file.isSymbolicLink()) {
-            badgeIconRes = R.drawable.symbolic_link_badge_icon_18dp;
+            badgeIconRes = file.isSymbolicLinkBroken() ? R.drawable.error_badge_icon_18dp
+                    : R.drawable.symbolic_link_badge_icon_18dp;
         } else {
             badgeIconRes = null;
         }
