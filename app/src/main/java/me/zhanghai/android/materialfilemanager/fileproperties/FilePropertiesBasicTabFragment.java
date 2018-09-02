@@ -32,16 +32,6 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
 
     @BindView(R.id.name)
     TextView mNameText;
-    @BindView(R.id.type)
-    TextView mTypeText;
-    @BindView(R.id.symbolic_link_target_layout)
-    ViewGroup mSymbolicLinkTargetLayout;
-    @BindView(R.id.symbolic_link_target)
-    TextView mSymbolicLinkTargetText;
-    @BindView(R.id.size)
-    TextView mSizeText;
-    @BindView(R.id.last_modification_time)
-    TextView mLastModificationTimeText;
     @BindView(R.id.parent_directory_layout)
     ViewGroup mParentDirectoryLayout;
     @BindView(R.id.parent_directory)
@@ -52,6 +42,16 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
     TextView mArchiveFileText;
     @BindView(R.id.archive_entry)
     TextView mArchiveEntryText;
+    @BindView(R.id.type)
+    TextView mTypeText;
+    @BindView(R.id.symbolic_link_target_layout)
+    ViewGroup mSymbolicLinkTargetLayout;
+    @BindView(R.id.symbolic_link_target)
+    TextView mSymbolicLinkTargetText;
+    @BindView(R.id.size)
+    TextView mSizeText;
+    @BindView(R.id.last_modification_time)
+    TextView mLastModificationTimeText;
 
     private File mFile;
 
@@ -94,15 +94,6 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         mNameText.setText(mFile.getName());
-        mTypeText.setText(getTypeText(mFile));
-        boolean isSymbolicLink = mFile.isSymbolicLink();
-        ViewUtils.setVisibleOrGone(mSymbolicLinkTargetLayout, isSymbolicLink);
-        if (isSymbolicLink) {
-            mSymbolicLinkTargetText.setText(mFile.getSymbolicLinkTarget());
-        }
-        mSizeText.setText(getSizeText(mFile));
-        String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());
-        mLastModificationTimeText.setText(lastModificationTime);
         if (mFile instanceof LocalFile) {
             LocalFile file = (LocalFile) mFile;
             LocalFile parentFile = file.getParent();
@@ -116,6 +107,15 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
             mArchiveFileText.setText(file.getArchiveFile().getPath());
             mArchiveEntryText.setText(file.getEntryName());
         }
+        mTypeText.setText(getTypeText(mFile));
+        boolean isSymbolicLink = mFile.isSymbolicLink();
+        ViewUtils.setVisibleOrGone(mSymbolicLinkTargetLayout, isSymbolicLink);
+        if (isSymbolicLink) {
+            mSymbolicLinkTargetText.setText(mFile.getSymbolicLinkTarget());
+        }
+        mSizeText.setText(getSizeText(mFile));
+        String lastModificationTime = FormatUtils.formatLongTime(mFile.getLastModificationTime());
+        mLastModificationTimeText.setText(lastModificationTime);
     }
 
     private String getTypeText(File file) {
