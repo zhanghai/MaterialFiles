@@ -24,6 +24,8 @@ interface LocalFileStrategy extends Parcelable {
 
     boolean isSymbolicLinkBroken();
 
+    String getSymbolicLinkTarget();
+
     PosixFileType getType();
 
     Set<PosixFileModeBit> getMode();

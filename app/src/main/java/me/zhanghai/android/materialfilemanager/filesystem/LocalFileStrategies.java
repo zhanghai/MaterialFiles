@@ -57,6 +57,14 @@ public interface LocalFileStrategies {
         }
 
         @Override
+        public String getSymbolicLinkTarget() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public PosixFileType getType() {
             // FIXME
             return mInformation.isDirectory ? PosixFileType.DIRECTORY : PosixFileType.REGULAR_FILE;
@@ -182,6 +190,14 @@ public interface LocalFileStrategies {
                 throw new IllegalStateException("Not a symbolic link");
             }
             return mInformation.symbolicLinkStatInformation != null;
+        }
+
+        @Override
+        public String getSymbolicLinkTarget() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return mInformation.symbolicLinkTarget;
         }
 
         private Syscall.Information getInformationFollowingSymbolicLinks() {
@@ -319,6 +335,14 @@ public interface LocalFileStrategies {
             return mInformation.symbolicLinkStatLInformation != null;
         }
 
+        @Override
+        public String getSymbolicLinkTarget() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return mInformation.symbolicLinkTarget;
+        }
+
         private ShellStat.Information getInformationFollowingSymbolicLinks() {
             return isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null ?
                     mInformation.symbolicLinkStatLInformation : mInformation;
@@ -444,6 +468,14 @@ public interface LocalFileStrategies {
                 throw new IllegalStateException("Not a symbolic link");
             }
             return !mInformation.isSymbolicLinkStat;
+        }
+
+        @Override
+        public String getSymbolicLinkTarget() {
+            if (!isSymbolicLink()) {
+                throw new IllegalStateException("Not a symbolic link");
+            }
+            return mInformation.symbolicLinkTarget;
         }
 
         @Override

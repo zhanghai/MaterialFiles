@@ -116,6 +116,14 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
+    public String getSymbolicLinkTarget() {
+        // TODO: Read entry content of symbolic link beforehand.
+        //return (mInformation.entry instanceof ZipArchiveEntry)
+        //        && ((ZipArchiveEntry) mInformation.entry).;
+        return "TODO";
+    }
+
+    @Override
     public boolean isDirectory() {
         return mInformation.entry.isDirectory();
     }

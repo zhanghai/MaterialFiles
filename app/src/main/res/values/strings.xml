@@ -79,6 +79,7 @@
     <string name="file_properties_basic_type">Type</string>
     <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_type_symbolic_link_format">Link to %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Link Target</string>
     <string name="file_properties_basic_size">Size</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Contents</string>

@@ -75,6 +75,8 @@ public interface File extends Parcelable {
 
     boolean isSymbolicLinkBroken();
 
+    String getSymbolicLinkTarget();
+
     boolean isDirectory();
 
     default boolean isDirectoryDoNotFollowSymbolicLinks() {

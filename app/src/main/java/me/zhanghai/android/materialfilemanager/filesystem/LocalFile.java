@@ -101,6 +101,11 @@ public class LocalFile extends BaseFile {
         return mStrategy.isSymbolicLinkBroken();
     }
 
+    @Override
+    public String getSymbolicLinkTarget() {
+        return mStrategy.getSymbolicLinkTarget();
+    }
+
     public PosixFileType getType() {
         return mStrategy.getType();
     }
