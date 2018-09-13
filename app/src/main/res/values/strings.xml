@@ -74,6 +74,7 @@
     <string name="file_item_action_rename">Rename</string>
     <string name="file_item_action_properties">Properties</string>
 
+    <string name="file_properties_title_format">%1$s Properties</string>
     <string name="file_properties_basic">Basic</string>
     <string name="file_properties_basic_name">Name</string>
     <string name="file_properties_basic_type">Type</string>

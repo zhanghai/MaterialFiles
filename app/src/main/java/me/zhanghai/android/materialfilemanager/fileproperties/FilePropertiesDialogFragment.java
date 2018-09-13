@@ -68,8 +68,9 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     @Override
     @SuppressLint("InflateParams")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        String title = getString(R.string.file_properties_title_format, mFile.getName());
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
-                .setTitle(mFile.getName());
+                .setTitle(title);
         mView = ViewUtils.inflate(R.layout.file_properties_dialog, builder.getContext());
         ButterKnife.bind(this, mView);
         return builder.setView(mView)
