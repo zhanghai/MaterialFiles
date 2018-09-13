@@ -6,7 +6,6 @@
 package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -35,8 +34,9 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Context context = requireContext();
-        View contentView = ViewUtils.inflate(R.layout.file_name_dialog, context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
+                .setTitle(getTitleRes());
+        View contentView = ViewUtils.inflate(R.layout.file_name_dialog, builder.getContext());
         ButterKnife.bind(this, contentView);
         ViewUtils.hideTextInputLayoutErrorOnTextChange(mNameEdit, mNameLayout);
         mNameEdit.setOnEditorActionListener((view, actionId, event) -> {
@@ -47,8 +47,7 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
             }
             return false;
         });
-        AlertDialog dialog = new AlertDialog.Builder(context, getTheme())
-                .setTitle(getTitleRes())
+        AlertDialog dialog = builder
                 .setView(contentView)
                 .setPositiveButton(android.R.string.ok, null)
                 .setNegativeButton(android.R.string.cancel, null)
