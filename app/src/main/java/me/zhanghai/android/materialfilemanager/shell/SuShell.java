@@ -5,9 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.shell;
 
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.WorkerThread;
@@ -21,6 +18,7 @@ public class SuShell {
 
     private static HandlerThread sHandlerThread;
     private static Shell sShell;
+    private static int sShellReferenceCount;
 
     static {
         if (BuildConfig.DEBUG) {
@@ -73,42 +71,17 @@ public class SuShell {
         sHandlerThread = null;
     }
 
-    public static void setupWithLifecycle(Application application) {
-        application.registerActivityLifecycleCallbacks(
-                new Application.ActivityLifecycleCallbacks() {
+    public static void acquire() {
+        if (sShellReferenceCount == 0) {
+            open();
+        }
+        ++sShellReferenceCount;
+    }
 
-                    private int mActivityCount;
-
-                    @Override
-                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                        if (mActivityCount == 0) {
-                            open();
-                        }
-                        ++mActivityCount;
-                    }
-
-                    @Override
-                    public void onActivityStarted(Activity activity) {}
-
-                    @Override
-                    public void onActivityResumed(Activity activity) {}
-
-                    @Override
-                    public void onActivityPaused(Activity activity) {}
-
-                    @Override
-                    public void onActivityStopped(Activity activity) {}
-
-                    @Override
-                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {}
-
-                    @Override
-                    public void onActivityDestroyed(Activity activity) {
-                        --mActivityCount;
-                        if (mActivityCount == 0) {
-                            SuShell.close();
-                        }
-                    }
-                });
+    public static void release() {
+        --sShellReferenceCount;
+        if (sShellReferenceCount == 0) {
+            close();
+        }
     }
 }
