@@ -53,6 +53,7 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
         dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        // Override the listener here so that we have control over when to close the dialog.
         dialog.setOnShowListener(dialog2 -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 .setOnClickListener(view -> onOk()));
         return dialog;
