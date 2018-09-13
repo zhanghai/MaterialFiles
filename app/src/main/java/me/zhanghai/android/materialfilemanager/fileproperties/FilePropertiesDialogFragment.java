@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.fileproperties;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,13 +13,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatDialog;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,6 +25,7 @@ import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.ui.TabFragmentPagerAdapter;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
+import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
 
@@ -37,12 +37,8 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     TabLayout mTabLayout;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
-    @BindView(android.R.id.button1)
-    Button mPositiveButton;
-    @BindView(android.R.id.button2)
-    Button mNegativeButton;
-    @BindView(android.R.id.button3)
-    Button mNeutralButton;
+
+    private View mView;
 
     private TabFragmentPagerAdapter mTabAdapter;
 
@@ -70,25 +66,23 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     @Override
+    @SuppressLint("InflateParams")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AppCompatDialog dialog = (AppCompatDialog) super.onCreateDialog(savedInstanceState);
-        // We are using a custom title, as in AlertDialog.
-        dialog.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
+                .setTitle(mFile.getName());
+        mView = ViewUtils.inflate(R.layout.file_properties_dialog, builder.getContext());
+        ButterKnife.bind(this, mView);
+        return builder.setView(mView)
+                .setPositiveButton(android.R.string.ok, null)
+                .create();
     }
 
+    // HACK: Work around child FragmentManager requiring a view.
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.file_properties_dialog_fragment, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        ButterKnife.bind(this, view);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return mView;
     }
 
     @Override
@@ -103,11 +97,6 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
         mViewPager.setOffscreenPageLimit(mTabAdapter.getCount() - 1);
         mViewPager.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
-        mPositiveButton.setText(android.R.string.ok);
-        mPositiveButton.setVisibility(View.VISIBLE);
-        mPositiveButton.setOnClickListener(view -> dismiss());
-        mNegativeButton.setVisibility(View.GONE);
-        mNeutralButton.setVisibility(View.GONE);
     }
 
     public static void show(File file, Fragment fragment) {
