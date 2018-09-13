@@ -30,6 +30,7 @@ public class LocalFile extends BaseFile {
     static Uri uriFromPath(String path) {
         return new Uri.Builder()
                 .scheme(SCHEME)
+                .authority("")
                 .path(path)
                 .build();
     }
