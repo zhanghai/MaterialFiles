@@ -4,6 +4,7 @@
 
 #include <grp.h>
 #include <pwd.h>
+#include <sys/sendfile.h>
 #include <sys/types.h>
 #include <unistd.h>
 
@@ -19,15 +20,49 @@
 
 #define LOG_TAG "Linux"
 
+#undef TEMP_FAILURE_RETRY
+#define TEMP_FAILURE_RETRY(exp) ({ \
+    errno = 0; \
+    __typeof__(exp) _rc; \
+    do { \
+        _rc = (exp); \
+    } while (errno == EINTR); \
+    _rc; })
+
+#define TEMP_FAILURE_RETRY_R(exp) ({ \
+    __typeof__(exp) _rc; \
+    do { \
+        _rc = (exp); \
+    } while (_rc == EINTR); \
+    _rc; })
+
 static jclass findClass(JNIEnv *env, const char *name) {
     jclass localClass = (*env)->FindClass(env, name);
     jclass result = (*env)->NewGlobalRef(env, localClass);
     (*env)->DeleteLocalRef(env, localClass);
-    if (result == NULL) {
+    if (!result) {
         ALOGE("failed to find class '%s'", name);
         abort();
     }
     return result;
+}
+
+static jfieldID findField(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
+    jfieldID field = (*env)->GetFieldID(env, clazz, name, signature);
+    if (!field) {
+        ALOGE("failed to find field '%s'", name);
+        abort();
+    }
+    return field;
+}
+
+static jmethodID findMethod(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
+    jmethodID method = (*env)->GetMethodID(env, clazz, name, signature);
+    if (!method) {
+        ALOGE("failed to find method '%s'", name);
+        abort();
+    }
+    return method;
 }
 
 static jclass getErrnoExceptionClass(JNIEnv *env) {
@@ -92,27 +127,23 @@ static void throwErrnoException(JNIEnv* env, const char* functionName) {
     int error = errno;
     static jmethodID constructor3 = NULL;
     if (!constructor3) {
-        constructor3 = (*env)->GetMethodID(env, getErrnoExceptionClass(env), "<init>",
-                                    "(Ljava/lang/String;ILjava/lang/Throwable;)V");
+        constructor3 = findMethod(env, getErrnoExceptionClass(env), "<init>",
+                                  "(Ljava/lang/String;ILjava/lang/Throwable;)V");
     }
     static jmethodID constructor2 = NULL;
     if (!constructor2) {
-        constructor2 = (*env)->GetMethodID(env, getErrnoExceptionClass(env), "<init>",
-                                    "(Ljava/lang/String;I)V");
+        constructor2 = findMethod(env, getErrnoExceptionClass(env), "<init>",
+                                  "(Ljava/lang/String;I)V");
     }
     throwException(env, getErrnoExceptionClass(env), constructor3, constructor2, functionName,
                    error);
 }
 
 static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
-    static jmethodID constructor;
+    static jmethodID constructor = NULL;
     if (!constructor) {
-        constructor = (*env)->GetMethodID(
-                env, getStructPasswdClass(env), "<init>",
+        constructor = findMethod(env, getStructPasswdClass(env), "<init>",
                 "(Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    }
-    if (!constructor) {
-        return NULL;
     }
     jstring pw_name;
     if (passwd->pw_name) {
@@ -172,7 +203,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getpwnam(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct passwd passwd;
     struct passwd *result;
-    errno = getpwnam_r(name, &passwd, buffer, bufferSize, &result);
+    errno = TEMP_FAILURE_RETRY_R(getpwnam_r(name, &passwd, buffer, bufferSize, &result));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
         throwErrnoException(env, "getpwnam_r");
@@ -196,7 +227,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getpwuid(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct passwd passwd;
     struct passwd *result;
-    errno = getpwuid_r(uid, &passwd, buffer, bufferSize, &result);
+    errno = TEMP_FAILURE_RETRY_R(getpwuid_r(uid, &passwd, buffer, bufferSize, &result));
     if (errno) {
         throwErrnoException(env, "getpwnam_r");
         return NULL;
@@ -208,14 +239,10 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getpwuid(JNIEnv *env, jcl
 }
 
 static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
-    static jmethodID constructor;
+    static jmethodID constructor = NULL;
     if (!constructor) {
-        constructor = (*env)->GetMethodID(
-                env, getStructGroupClass(env), "<init>",
-                "(Ljava/lang/String;Ljava/lang/String;I[Ljava/lang/String;)V");
-    }
-    if (!constructor) {
-        return NULL;
+        constructor = findMethod(env, getStructGroupClass(env), "<init>",
+                                 "(Ljava/lang/String;Ljava/lang/String;I[Ljava/lang/String;)V");
     }
     jstring gr_name;
     if (group->gr_name) {
@@ -276,7 +303,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct group group;
     struct group *result;
-    errno = getgrnam_r(name, &group, buffer, bufferSize, &result);
+    errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
         throwErrnoException(env, "getgrnam_r");
@@ -289,7 +316,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jcl
 #else
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
     errno = 0;
-    struct group *result = getgrnam(name);
+    struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
         throwErrnoException(env, "getgrnam");
@@ -315,7 +342,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
     char buffer[bufferSize];
     struct group group;
     struct group *result;
-    errno = getgrgid_r(gid, &group, buffer, bufferSize, &result);
+    errno = TEMP_FAILURE_RETRY_R(getgrgid_r(gid, &group, buffer, bufferSize, &result));
     if (errno) {
         throwErrnoException(env, "getgrgid_r");
         return NULL;
@@ -327,7 +354,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
 #else
     gid_t gid = (gid_t) javaGid;
     errno = 0;
-    struct group *result = getgrgid(gid);
+    struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
     if (errno) {
         throwErrnoException(env, "getgrgid");
         return NULL;
@@ -337,4 +364,83 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
     }
     return makeStructGroup(env, result);
 #endif
+}
+
+static jclass getFileDescriptorClass(JNIEnv *env) {
+    static jclass fileDescriptorClass = NULL;
+    if (!fileDescriptorClass) {
+        fileDescriptorClass = findClass(env, "java/io/FileDescriptor");
+    }
+    return fileDescriptorClass;
+}
+
+static jfieldID getFileDescriptorDescriptorField(JNIEnv *env) {
+    static jclass fileDescriptorDescriptorField = NULL;
+    if (!fileDescriptorDescriptorField) {
+        fileDescriptorDescriptorField = findField(env, getFileDescriptorClass(env), "descriptor",
+                                                  "I");
+    }
+    return fileDescriptorDescriptorField;
+}
+
+static int getFileDescriptorDescriptor(JNIEnv *env, jobject javaFileDescriptor) {
+    if (!javaFileDescriptor) {
+        return -1;
+    }
+    return (*env)->GetIntField(env, javaFileDescriptor, getFileDescriptorDescriptorField(env));
+}
+
+static jclass getInt64RefClass(JNIEnv *env) {
+    static jclass Int64RefClass = NULL;
+    if (!Int64RefClass) {
+        Int64RefClass = findClass(env, "android/system/Int64Ref");
+    }
+    return Int64RefClass;
+}
+
+static jfieldID getInt64RefValueField(JNIEnv *env) {
+    static jclass Int64RefValueField = NULL;
+    if (!Int64RefValueField) {
+        Int64RefValueField = findField(env, getInt64RefClass(env), "value", "J");
+    }
+    return Int64RefValueField;
+}
+
+static jlong getInt64RefValue(JNIEnv *env, jobject javaInt64Ref) {
+    if (!javaInt64Ref) {
+        return -1;
+    }
+    return (*env)->GetLongField(env, javaInt64Ref, getInt64RefValueField(env));
+}
+
+static void setInt64RefValue(JNIEnv *env, jobject javaInt64Ref, jlong value) {
+    (*env)->SetLongField(env, javaInt64Ref, getInt64RefValueField(env), value);
+}
+
+JNIEXPORT jlong JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_sendfile(JNIEnv* env, jclass clazz,
+                                                                jobject javaOutFd, jobject javaInFd,
+                                                                jobject javaOffset,
+                                                                jlong javaCount) {
+    int outFd = javaOutFd ? (*env)->GetIntField(env, javaOutFd, getFileDescriptorDescriptorField(
+            env)) : -1;
+    int inFd = javaInFd ? (*env)->GetIntField(env, javaInFd, getFileDescriptorDescriptorField(env))
+                        : -1;
+    off64_t offset = 0;
+    off64_t* offsetPointer = NULL;
+    if (javaOffset) {
+        offset = (*env)->GetLongField(env, javaOffset, getInt64RefValueField(env));
+        offsetPointer = &offset;
+    }
+    size_t count = (size_t) javaCount;
+    errno = 0;
+    jlong result = TEMP_FAILURE_RETRY(sendfile64(outFd, inFd, offsetPointer, count));
+    if (errno) {
+        throwErrnoException(env, "sendfile64");
+        return result;
+    }
+    if (javaOffset) {
+        (*env)->SetLongField(env, javaOffset, getInt64RefValueField(env), offset);
+    }
+    return result;
 }

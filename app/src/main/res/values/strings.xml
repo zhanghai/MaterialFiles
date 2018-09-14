@@ -21,6 +21,7 @@
 
     <string name="file_name_root">Root</string>
     <string name="file_error_information">Unable to read file information</string>
+    <string name="file_error_cancelled">Operation cancelled</string>
     <string name="file_delete_error">Unable to delete file</string>
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
@@ -32,6 +33,8 @@
     <string name="file_delete_message_multiple_files_format">Delete %1$d files?</string>
     <string name="file_delete_message_multiple_directories_format">Delete %1$d folders and their contents?</string>
     <string name="file_delete_message_multiple_mixed_format">Delete %1$d items?</string>
+    <string name="file_copy_error">Unable to copy file</string>
+    <string name="file_copy_error_special_file">Unable to copy special file</string>
     <string name="file_move_error">Unable to move file</string>
     <string name="file_create_file_title">New File</string>
     <string name="file_create_file_error_already_exists">A file with this name already exists</string>

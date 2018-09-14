@@ -21,6 +21,7 @@ import java.util.EnumSet;
 import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.functional.compat.LongConsumer;
 import me.zhanghai.android.materialfilemanager.jni.Linux;
 import me.zhanghai.android.materialfilemanager.jni.StructGroup;
 import me.zhanghai.android.materialfilemanager.jni.StructPasswd;
@@ -155,6 +156,52 @@ public class Syscall {
         return mode;
     }
 
+    /*
+     * @see android.os.FileUtils#copy(java.io.FileDescriptor, java.io.FileDescriptor,
+     *      android.os.FileUtils.ProgressListener, android.os.CancellationSignal, long)
+     */
+    public static void copy(String fromPath, String toPath, long notifyByteCount,
+                            LongConsumer listener)
+            throws FileSystemException {
+        try {
+            StructStat fromStat = Os.lstat(fromPath);
+            if (OsConstants.S_ISREG(fromStat.st_mode)) {
+                FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
+                FileDescriptor toFd = Os_creat(toPath, fromStat.st_mode);
+                long copiedByteCount = 0;
+                long unnotifiedByteCount = 0;
+                try {
+                    long sentByteCount;
+                    while ((sentByteCount = Linux.sendfile(toFd, fromFd, null,
+                            notifyByteCount)) != 0) {
+                        copiedByteCount += sentByteCount;
+                        unnotifiedByteCount += sentByteCount;
+                        if (unnotifiedByteCount >= notifyByteCount) {
+                            if (listener != null) {
+                                listener.accept(copiedByteCount);
+                            }
+                            unnotifiedByteCount = 0;
+                        }
+                        FileSystemException.throwIfInterrupted();
+                    }
+                } finally {
+                    if (unnotifiedByteCount > 0 && listener != null) {
+                        listener.accept(copiedByteCount);
+                    }
+                }
+            } else if (OsConstants.S_ISDIR(fromStat.st_mode)) {
+                Os.mkdir(toPath, fromStat.st_mode);
+            } else if (OsConstants.S_ISLNK(fromStat.st_mode)) {
+                String target = Os.readlink(fromPath);
+                Os.symlink(target, toPath);
+            } else {
+                throw new FileSystemException(R.string.file_copy_error_special_file);
+            }
+        } catch (ErrnoException e) {
+            throw new FileSystemException(R.string.file_copy_error, e);
+        }
+    }
+
     public static void delete(String path) throws FileSystemException {
         try {
             Os.remove(path);
@@ -163,9 +210,9 @@ public class Syscall {
         }
     }
 
-    public static void move(String path, String newPath) throws FileSystemException {
+    public static void move(String fromPath, String toPath) throws FileSystemException {
         try {
-            Os.rename(path, newPath);
+            Os.rename(fromPath, toPath);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_move_error, e);
         }
