@@ -189,6 +189,7 @@ public class Syscall {
                         listener.accept(copiedByteCount);
                     }
                 }
+                // TODO: xattr
             } else if (OsConstants.S_ISDIR(fromStat.st_mode)) {
                 Os.mkdir(toPath, fromStat.st_mode);
             } else if (OsConstants.S_ISLNK(fromStat.st_mode)) {

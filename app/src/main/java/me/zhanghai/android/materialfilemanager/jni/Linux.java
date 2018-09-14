@@ -30,6 +30,16 @@ public class Linux {
     @Nullable
     public static native StructGroup getgrgid(int gid) throws ErrnoException;
 
+    @Nullable
+    public static native byte[] lgetxattr(@NonNull String path, @NonNull String name)
+            throws ErrnoException;
+
+    @Nullable
+    public static native String[] llistxattr(@NonNull String path) throws ErrnoException;
+
+    public static native void lsetxattr(@NonNull String path, @NonNull String name,
+                                        @NonNull byte[] value, int flags) throws ErrnoException;
+
     public static native long sendfile(@NonNull FileDescriptor outFd, @NonNull FileDescriptor inFd,
                                        Int64Ref offset, long count) throws ErrnoException;
 }

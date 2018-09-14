@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -6,6 +7,7 @@
 #include <pwd.h>
 #include <sys/sendfile.h>
 #include <sys/types.h>
+#include <sys/xattr.h>
 #include <unistd.h>
 
 #include <jni.h>
@@ -265,11 +267,11 @@ static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
     jint gr_gid = group->gr_gid;
     jobjectArray gr_mem;
     if (group->gr_mem) {
-        jsize gr_memSize = 0;
+        jsize gr_memLength = 0;
         for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
-            ++gr_memSize;
+            ++gr_memLength;
         };
-        gr_mem = (*env)->NewObjectArray(env, gr_memSize, getStringClass(env), NULL);
+        gr_mem = (*env)->NewObjectArray(env, gr_memLength, getStringClass(env), NULL);
         if (!gr_mem) {
             return NULL;
         }
@@ -364,6 +366,128 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jcl
     }
     return makeStructGroup(env, result);
 #endif
+}
+
+JNIEXPORT jbyteArray JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_lgetxattr(JNIEnv *env, jclass clazz,
+                                                                 jstring javaPath,
+                                                                 jstring javaName) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    jbyteArray javaValue = NULL;
+    while (true) {
+        errno = 0;
+        size_t size = (size_t) TEMP_FAILURE_RETRY(lgetxattr(path, name, NULL, 0));
+        if (errno) {
+            break;
+        }
+        char value[size];
+        errno = 0;
+        TEMP_FAILURE_RETRY(lgetxattr(path, name, value, size));
+        if (errno) {
+            if (errno == ERANGE) {
+                // Attribute value changed since our last call to lgetxattr(), try again.
+                continue;
+            }
+            break;
+        }
+        jsize javaValueLength = (jsize) size;
+        javaValue = (*env)->NewByteArray(env, javaValueLength);
+        if (!javaValue) {
+            break;
+        }
+        const jbyte *javaValueBuffer = (const jbyte *) value;
+        (*env)->SetByteArrayRegion(env, javaValue, 0, javaValueLength, javaValueBuffer);
+    }
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    if (errno) {
+        throwErrnoException(env, "lgetxattr");
+        return NULL;
+    }
+    return javaValue;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_llistxattr(JNIEnv *env, jclass clazz,
+                                                                  jstring javaPath) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    jbyteArray javaNames = NULL;
+    while (true) {
+        errno = 0;
+        size_t size = (size_t) TEMP_FAILURE_RETRY(llistxattr(path, NULL, 0));
+        if (errno) {
+            break;
+        }
+        char names[size];
+        errno = 0;
+        TEMP_FAILURE_RETRY(llistxattr(path, names, size));
+        if (errno) {
+            if (errno == ERANGE) {
+                // Attribute value changed since our last call to llistxattr(), try again.
+                continue;
+            }
+            break;
+        }
+        jsize javaNamesLength = 0;
+        for (char *nameStart = names, *namesEnd = names + size; ; ) {
+            char *nameEnd = memchr(nameStart, NULL, namesEnd - nameStart);
+            if (!nameEnd) {
+                break;
+            }
+            ++javaNamesLength;
+            nameStart = nameEnd + 1;
+        }
+        javaNames = (*env)->NewObjectArray(env, javaNamesLength, getStringClass(env), NULL);
+        if (!javaNames) {
+            break;
+        }
+        jsize nameIndex = 0;
+        for (char *nameStart = names, *namesEnd = names + size; ; ++nameIndex) {
+            char *nameEnd = memchr(nameStart, NULL, namesEnd - nameStart);
+            if (!nameEnd) {
+                break;
+            }
+            jstring javaName = (*env)->NewStringUTF(env, nameStart);
+            if (!javaName) {
+                (*env)->DeleteLocalRef(env, javaNames);
+                javaNames = NULL;
+                break;
+            }
+            (*env)->SetObjectArrayElement(env, javaNames, nameIndex, javaName);
+            (*env)->DeleteLocalRef(env, javaName);
+            nameStart = nameEnd + 1;
+        }
+        if (!javaNames) {
+            break;
+        }
+    }
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    if (errno) {
+        throwErrnoException(env, "llistxattr");
+        return NULL;
+    }
+    return javaNames;
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_lsetxattr(JNIEnv *env, jclass clazz,
+                                                                 jstring javaPath, jstring javaName,
+                                                                 jbyteArray javaValue,
+                                                                 jint javaFlags) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    jbyte *value = (*env)->GetByteArrayElements(env, javaValue, NULL);
+    size_t size = (size_t) (*env)->GetArrayLength(env, javaValue);
+    int flags = javaFlags;
+    errno = 0;
+    TEMP_FAILURE_RETRY(lsetxattr(path, name, value, size, flags));
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    (*env)->ReleaseByteArrayElements(env, javaValue, value, JNI_ABORT);
+    if (errno) {
+        throwErrnoException(env, "lsetxattr");
+    }
 }
 
 static jclass getFileDescriptorClass(JNIEnv *env) {
