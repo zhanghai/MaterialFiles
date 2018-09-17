@@ -3,9 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <fcntl.h>
 #include <grp.h>
 #include <pwd.h>
 #include <sys/sendfile.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/xattr.h>
 #include <unistd.h>
@@ -75,6 +77,39 @@ static jclass getErrnoExceptionClass(JNIEnv *env) {
     return errnoExceptionClass;
 }
 
+static jclass getFileDescriptorClass(JNIEnv *env) {
+    static jclass fileDescriptorClass = NULL;
+    if (!fileDescriptorClass) {
+        fileDescriptorClass = findClass(env, "java/io/FileDescriptor");
+    }
+    return fileDescriptorClass;
+}
+
+static jfieldID getFileDescriptorDescriptorField(JNIEnv *env) {
+    static jclass fileDescriptorDescriptorField = NULL;
+    if (!fileDescriptorDescriptorField) {
+        fileDescriptorDescriptorField = findField(env, getFileDescriptorClass(env), "descriptor",
+                                                  "I");
+    }
+    return fileDescriptorDescriptorField;
+}
+
+static jclass getInt64RefClass(JNIEnv *env) {
+    static jclass int64RefClass = NULL;
+    if (!int64RefClass) {
+        int64RefClass = findClass(env, "android/system/Int64Ref");
+    }
+    return int64RefClass;
+}
+
+static jfieldID getInt64RefValueField(JNIEnv *env) {
+    static jclass int64RefValueField = NULL;
+    if (!int64RefValueField) {
+        int64RefValueField = findField(env, getInt64RefClass(env), "value", "J");
+    }
+    return int64RefValueField;
+}
+
 static jclass getStringClass(JNIEnv *env) {
     static jclass stringClass = NULL;
     if (!stringClass) {
@@ -99,6 +134,32 @@ static jclass getStructPasswdClass(JNIEnv *env) {
                                       "me/zhanghai/android/materialfilemanager/jni/StructPasswd");
     }
     return structPasswdClass;
+}
+
+static jclass getStructTimespecClass(JNIEnv *env) {
+    static jclass structTimespecClass = NULL;
+    if (!structTimespecClass) {
+        //structTimespecClass = findClass(env, "android/system/StructTimespec");
+        structTimespecClass = findClass(env,
+                "me/zhanghai/android/materialfilemanager/jni/StructTimespecCompat");
+    }
+    return structTimespecClass;
+}
+
+static jfieldID getStructTimespecTvSecField(JNIEnv *env) {
+    static jclass structTimespecTvSecField = NULL;
+    if (!structTimespecTvSecField) {
+        structTimespecTvSecField = findField(env, getStructTimespecClass(env), "tv_sec", "J");
+    }
+    return structTimespecTvSecField;
+}
+
+static jfieldID getStructTimespecTvNsecField(JNIEnv *env) {
+    static jclass structTimespecTvNsecField = NULL;
+    if (!structTimespecTvNsecField) {
+        structTimespecTvNsecField = findField(env, getStructTimespecClass(env), "tv_nsec", "J");
+    }
+    return structTimespecTvNsecField;
 }
 
 static void throwException(JNIEnv *env, jclass exceptionClass, jmethodID constructor3,
@@ -490,55 +551,30 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_lsetxattr(JNIEnv *env, jc
     }
 }
 
-static jclass getFileDescriptorClass(JNIEnv *env) {
-    static jclass fileDescriptorClass = NULL;
-    if (!fileDescriptorClass) {
-        fileDescriptorClass = findClass(env, "java/io/FileDescriptor");
-    }
-    return fileDescriptorClass;
+static void readStructTimespec(JNIEnv *env, jobject javaTime, struct timespec *time) {
+    time->tv_sec = (*env)->GetLongField(env, javaTime, getStructTimespecTvSecField(env));
+    time->tv_nsec = (*env)->GetLongField(env, javaTime, getStructTimespecTvNsecField(env));
 }
 
-static jfieldID getFileDescriptorDescriptorField(JNIEnv *env) {
-    static jclass fileDescriptorDescriptorField = NULL;
-    if (!fileDescriptorDescriptorField) {
-        fileDescriptorDescriptorField = findField(env, getFileDescriptorClass(env), "descriptor",
-                                                  "I");
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_lutimens(JNIEnv *env, jclass clazz,
+                                                                jstring javaPath,
+                                                                jobjectArray javaTimes) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    size_t timesSize = (size_t) (*env)->GetArrayLength(env, javaTimes);
+    struct timespec times[timesSize];
+    for (size_t i = 0; i < timesSize; ++i) {
+        jsize javaTimeIndex = (jsize) i;
+        jobject javaTime = (*env)->GetObjectArrayElement(env, javaTimes, javaTimeIndex);
+        readStructTimespec(env, javaTime, &times[i]);
+        (*env)->DeleteLocalRef(env, javaTime);
     }
-    return fileDescriptorDescriptorField;
-}
-
-static int getFileDescriptorDescriptor(JNIEnv *env, jobject javaFileDescriptor) {
-    if (!javaFileDescriptor) {
-        return -1;
+    errno = 0;
+    TEMP_FAILURE_RETRY(utimensat(AT_FDCWD, path, times, AT_SYMLINK_NOFOLLOW));
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    if (errno) {
+        throwErrnoException(env, "utimensat");
     }
-    return (*env)->GetIntField(env, javaFileDescriptor, getFileDescriptorDescriptorField(env));
-}
-
-static jclass getInt64RefClass(JNIEnv *env) {
-    static jclass Int64RefClass = NULL;
-    if (!Int64RefClass) {
-        Int64RefClass = findClass(env, "android/system/Int64Ref");
-    }
-    return Int64RefClass;
-}
-
-static jfieldID getInt64RefValueField(JNIEnv *env) {
-    static jclass Int64RefValueField = NULL;
-    if (!Int64RefValueField) {
-        Int64RefValueField = findField(env, getInt64RefClass(env), "value", "J");
-    }
-    return Int64RefValueField;
-}
-
-static jlong getInt64RefValue(JNIEnv *env, jobject javaInt64Ref) {
-    if (!javaInt64Ref) {
-        return -1;
-    }
-    return (*env)->GetLongField(env, javaInt64Ref, getInt64RefValueField(env));
-}
-
-static void setInt64RefValue(JNIEnv *env, jobject javaInt64Ref, jlong value) {
-    (*env)->SetLongField(env, javaInt64Ref, getInt64RefValueField(env), value);
 }
 
 JNIEXPORT jlong JNICALL

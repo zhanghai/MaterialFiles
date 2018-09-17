@@ -25,6 +25,8 @@ import me.zhanghai.android.materialfilemanager.functional.compat.LongConsumer;
 import me.zhanghai.android.materialfilemanager.jni.Linux;
 import me.zhanghai.android.materialfilemanager.jni.StructGroup;
 import me.zhanghai.android.materialfilemanager.jni.StructPasswd;
+import me.zhanghai.android.materialfilemanager.jni.StructTimespecCompat;
+import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 
 public class Syscall {
 
@@ -159,37 +161,45 @@ public class Syscall {
     /*
      * @see android.os.FileUtils#copy(java.io.FileDescriptor, java.io.FileDescriptor,
      *      android.os.FileUtils.ProgressListener, android.os.CancellationSignal, long)
+     * @see https://github.com/gnome/glib/blob/master/gio/gfile.c g_file_copy()
      */
-    public static void copy(String fromPath, String toPath, long notifyByteCount,
-                            LongConsumer listener)
-            throws FileSystemException {
+    public static void copy(String fromPath, String toPath, boolean forMove, long notifyByteCount,
+                            LongConsumer listener) throws FileSystemException {
+        StructStat fromStat;
         try {
-            StructStat fromStat = Os.lstat(fromPath);
+            fromStat = Os.lstat(fromPath);
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
                 FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
-                FileDescriptor toFd = Os_creat(toPath, fromStat.st_mode);
-                long copiedByteCount = 0;
-                long unnotifiedByteCount = 0;
                 try {
-                    long sentByteCount;
-                    while ((sentByteCount = Linux.sendfile(toFd, fromFd, null,
-                            notifyByteCount)) != 0) {
-                        copiedByteCount += sentByteCount;
-                        unnotifiedByteCount += sentByteCount;
-                        if (unnotifiedByteCount >= notifyByteCount) {
-                            if (listener != null) {
+                    FileDescriptor toFd = Os_creat(toPath, fromStat.st_mode);
+                    try {
+                        long copiedByteCount = 0;
+                        long unnotifiedByteCount = 0;
+                        try {
+                            long sentByteCount;
+                            while ((sentByteCount = Linux.sendfile(toFd, fromFd, null,
+                                    notifyByteCount)) != 0) {
+                                copiedByteCount += sentByteCount;
+                                unnotifiedByteCount += sentByteCount;
+                                if (unnotifiedByteCount >= notifyByteCount) {
+                                    if (listener != null) {
+                                        listener.accept(copiedByteCount);
+                                    }
+                                    unnotifiedByteCount = 0;
+                                }
+                                FileSystemException.throwIfInterrupted();
+                            }
+                        } finally {
+                            if (unnotifiedByteCount > 0 && listener != null) {
                                 listener.accept(copiedByteCount);
                             }
-                            unnotifiedByteCount = 0;
                         }
-                        FileSystemException.throwIfInterrupted();
+                    } finally {
+                        Os.close(toFd);
                     }
                 } finally {
-                    if (unnotifiedByteCount > 0 && listener != null) {
-                        listener.accept(copiedByteCount);
-                    }
+                    Os.close(fromFd);
                 }
-                // TODO: xattr
             } else if (OsConstants.S_ISDIR(fromStat.st_mode)) {
                 Os.mkdir(toPath, fromStat.st_mode);
             } else if (OsConstants.S_ISLNK(fromStat.st_mode)) {
@@ -201,6 +211,62 @@ public class Syscall {
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_copy_error, e);
         }
+        // We don't take error when copying attribute fatal, so errors will only be logged from now
+        // on.
+        // Ownership should be copied before permissions so that special permission bits like
+        // setuid work properly.
+        try {
+            if (forMove) {
+                Os.lchown(toPath, fromStat.st_uid, fromStat.st_gid);
+            }
+        } catch (ErrnoException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (!OsConstants.S_ISLNK(fromStat.st_mode)) {
+                Os.chmod(toPath, fromStat.st_mode);
+            }
+        } catch (ErrnoException e) {
+            e.printStackTrace();
+        }
+        try {
+            StructTimespecCompat[] times;
+            // TODO: Use a compat lstat() for StructTimespec.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+                times = new StructTimespecCompat[] {
+                        forMove ? StructTimespecCompat.fromStructTimespec(fromStat.st_atim)
+                                : new StructTimespecCompat(0, Linux.UTIME_OMIT),
+                        StructTimespecCompat.fromStructTimespec(fromStat.st_mtim)
+                };
+            } else {
+                times = new StructTimespecCompat[] {
+                        forMove ? new StructTimespecCompat(fromStat.st_atime, 0)
+                                : new StructTimespecCompat(0, Linux.UTIME_OMIT),
+                        new StructTimespecCompat(fromStat.st_mtime, 0)
+                };
+            }
+            Linux.lutimens(toPath, times);
+        } catch (ErrnoException e) {
+            e.printStackTrace();
+        }
+        try {
+            // TODO: Allow u+rw temporarily if we are to copy xattrs.
+            String[] xattrNames = Linux.llistxattr(fromPath);
+            if (xattrNames != null) {
+                for (String xattrName : xattrNames) {
+                    if (!(forMove || MoreTextUtils.startsWith(xattrName, "user."))) {
+                        continue;
+                    }
+                    byte[] xattrValue = Linux.lgetxattr(fromPath, xattrName);
+                    if (xattrValue != null) {
+                        Linux.lsetxattr(fromPath, xattrName, xattrValue, 0);
+                    }
+                }
+            }
+        } catch (ErrnoException e) {
+            e.printStackTrace();
+        }
+        // TODO: SELinux?
     }
 
     public static void delete(String path) throws FileSystemException {

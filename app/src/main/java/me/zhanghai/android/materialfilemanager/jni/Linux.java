@@ -7,12 +7,16 @@ package me.zhanghai.android.materialfilemanager.jni;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 import android.system.ErrnoException;
 import android.system.Int64Ref;
 
 import java.io.FileDescriptor;
 
 public class Linux {
+
+    public static final long UTIME_NOW = (1L << 30) - 1L;
+    public static final long UTIME_OMIT = (1L << 30) - 2L;
 
     static {
         System.loadLibrary("linux");
@@ -40,6 +44,12 @@ public class Linux {
     public static native void lsetxattr(@NonNull String path, @NonNull String name,
                                         @NonNull byte[] value, int flags) throws ErrnoException;
 
+    //public static native void lutimens(@NonNull String path,
+    //                                   @NonNull @Size(2) StructTimespec[] times)
+    public static native void lutimens(@NonNull String path,
+                                       @NonNull @Size(2) StructTimespecCompat[] times)
+            throws ErrnoException;
+
     public static native long sendfile(@NonNull FileDescriptor outFd, @NonNull FileDescriptor inFd,
-                                       Int64Ref offset, long count) throws ErrnoException;
+                                       @Nullable Int64Ref offset, long count) throws ErrnoException;
 }
