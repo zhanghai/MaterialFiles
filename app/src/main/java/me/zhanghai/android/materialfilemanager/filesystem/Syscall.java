@@ -11,7 +11,6 @@ import android.os.Parcelable;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
-import android.system.StructStat;
 
 import org.threeten.bp.Instant;
 
@@ -25,6 +24,7 @@ import me.zhanghai.android.materialfilemanager.functional.compat.LongConsumer;
 import me.zhanghai.android.materialfilemanager.jni.Linux;
 import me.zhanghai.android.materialfilemanager.jni.StructGroup;
 import me.zhanghai.android.materialfilemanager.jni.StructPasswd;
+import me.zhanghai.android.materialfilemanager.jni.StructStatCompat;
 import me.zhanghai.android.materialfilemanager.jni.StructTimespecCompat;
 import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 
@@ -36,9 +36,9 @@ public class Syscall {
 
     private static Information loadInformation(String path, boolean followSymbolicLinks)
             throws FileSystemException {
-        StructStat stat;
+        StructStatCompat stat;
         try {
-            stat = followSymbolicLinks ? Os.stat(path) : Os.lstat(path);
+            stat = followSymbolicLinks ? Linux.stat(path) : Linux.lstat(path);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
@@ -165,9 +165,9 @@ public class Syscall {
      */
     public static void copy(String fromPath, String toPath, boolean forMove, long notifyByteCount,
                             LongConsumer listener) throws FileSystemException {
-        StructStat fromStat;
+        StructStatCompat fromStat;
         try {
-            fromStat = Os.lstat(fromPath);
+            fromStat = Linux.lstat(fromPath);
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
                 FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
                 try {
@@ -230,21 +230,10 @@ public class Syscall {
             e.printStackTrace();
         }
         try {
-            StructTimespecCompat[] times;
-            // TODO: Use a compat lstat() for StructTimespec.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                times = new StructTimespecCompat[] {
-                        forMove ? StructTimespecCompat.fromStructTimespec(fromStat.st_atim)
-                                : new StructTimespecCompat(0, Linux.UTIME_OMIT),
-                        StructTimespecCompat.fromStructTimespec(fromStat.st_mtim)
-                };
-            } else {
-                times = new StructTimespecCompat[] {
-                        forMove ? new StructTimespecCompat(fromStat.st_atime, 0)
-                                : new StructTimespecCompat(0, Linux.UTIME_OMIT),
-                        new StructTimespecCompat(fromStat.st_mtime, 0)
-                };
-            }
+            StructTimespecCompat[] times = {
+                    forMove ? fromStat.st_atim : new StructTimespecCompat(0, Linux.UTIME_OMIT),
+                    fromStat.st_mtim
+            };
             Linux.lutimens(toPath, times);
         } catch (ErrnoException e) {
             e.printStackTrace();

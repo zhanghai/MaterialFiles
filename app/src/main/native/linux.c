@@ -54,7 +54,7 @@ static jclass findClass(JNIEnv *env, const char *name) {
 static jfieldID findField(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
     jfieldID field = (*env)->GetFieldID(env, clazz, name, signature);
     if (!field) {
-        ALOGE("failed to find field '%s'", name);
+        ALOGE("failed to find field '%s' '%s'", name, signature);
         abort();
     }
     return field;
@@ -63,7 +63,7 @@ static jfieldID findField(JNIEnv *env, jclass clazz, const char *name, const cha
 static jmethodID findMethod(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
     jmethodID method = (*env)->GetMethodID(env, clazz, name, signature);
     if (!method) {
-        ALOGE("failed to find method '%s'", name);
+        ALOGE("failed to find method '%s' '%s'", name, signature);
         abort();
     }
     return method;
@@ -136,12 +136,20 @@ static jclass getStructPasswdClass(JNIEnv *env) {
     return structPasswdClass;
 }
 
+static jclass getStructStatClass(JNIEnv *env) {
+    static jclass structStatClass = NULL;
+    if (!structStatClass) {
+        structStatClass = findClass(env,
+                                    "me/zhanghai/android/materialfilemanager/jni/StructStatCompat");
+    }
+    return structStatClass;
+}
+
 static jclass getStructTimespecClass(JNIEnv *env) {
     static jclass structTimespecClass = NULL;
     if (!structTimespecClass) {
-        //structTimespecClass = findClass(env, "android/system/StructTimespec");
-        structTimespecClass = findClass(env,
-                "me/zhanghai/android/materialfilemanager/jni/StructTimespecCompat");
+        structTimespecClass = findClass(env, "me/zhanghai/android/materialfilemanager/jni"
+                "/StructTimespecCompat");
     }
     return structTimespecClass;
 }
@@ -551,6 +559,70 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_lsetxattr(JNIEnv *env, jc
     }
 }
 
+static jobject makeStructTimespec(JNIEnv* env, const struct timespec *timespec) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getStructTimespecClass(env), "<init>", "(JJ)V");
+    }
+    jlong tv_sec = timespec->tv_sec;
+    jlong tv_nsec = timespec->tv_nsec;
+    return (*env)->NewObject(env, getStructTimespecClass(env), constructor, tv_sec, tv_nsec);
+}
+
+static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getStructStatClass(env), "<init>", "(JJIJIIJJJJ"
+                "Lme/zhanghai/android/materialfilemanager/jni/StructTimespecCompat;"
+                "Lme/zhanghai/android/materialfilemanager/jni/StructTimespecCompat;"
+                "Lme/zhanghai/android/materialfilemanager/jni/StructTimespecCompat;)V");
+    }
+    jlong st_dev = stat->st_dev;
+    jlong st_ino = stat->st_ino;
+    jint st_mode = stat->st_mode;
+    jlong st_nlink = stat->st_nlink;
+    jint st_uid = stat->st_uid;
+    jint st_gid = stat->st_gid;
+    jlong st_rdev = stat->st_rdev;
+    jlong st_size = stat->st_size;
+    jlong st_blksize = stat->st_blksize;
+    jlong st_blocks = stat->st_blocks;
+    jobject st_atim = makeStructTimespec(env, &stat->st_atim);
+    if (!st_atim) {
+        return NULL;
+    }
+    jobject st_mtim = makeStructTimespec(env, &stat->st_mtim);
+    if (!st_mtim) {
+        return NULL;
+    }
+    jobject st_ctim = makeStructTimespec(env, &stat->st_ctim);
+    if (!st_ctim) {
+        return NULL;
+    }
+    return (*env)->NewObject(env, getStructStatClass(env), constructor, st_dev, st_ino, st_mode,
+                             st_nlink, st_uid, st_gid, st_rdev, st_size, st_blksize, st_blocks,
+                             st_atim, st_mtim, st_ctim);
+}
+
+static jobject doStat(JNIEnv *env, jstring javaPath, bool isLstat) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    struct stat64 stat;
+    errno = 0;
+    TEMP_FAILURE_RETRY((isLstat ? lstat64 : stat64)(path, &stat));
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    if (errno) {
+        throwErrnoException(env, isLstat ? "lstat64" : "stat64");
+        return NULL;
+    }
+    return makeStructStat(env, &stat);
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_lstat(JNIEnv *env, jclass clazz,
+                                                             jstring javaPath) {
+    return doStat(env, javaPath, true);
+}
+
 static void readStructTimespec(JNIEnv *env, jobject javaTime, struct timespec *time) {
     time->tv_sec = (*env)->GetLongField(env, javaTime, getStructTimespecTvSecField(env));
     time->tv_nsec = (*env)->GetLongField(env, javaTime, getStructTimespecTvNsecField(env));
@@ -603,4 +675,10 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_sendfile(JNIEnv* env, jcl
         (*env)->SetLongField(env, javaOffset, getInt64RefValueField(env), offset);
     }
     return result;
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_stat(JNIEnv *env, jclass clazz,
+                                                            jstring javaPath) {
+    return doStat(env, javaPath, false);
 }
