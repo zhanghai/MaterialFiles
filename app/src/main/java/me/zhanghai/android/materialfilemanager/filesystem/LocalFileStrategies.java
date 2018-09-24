@@ -181,7 +181,7 @@ public interface LocalFileStrategies {
 
         @Override
         public boolean isSymbolicLink() {
-            return mInformation.type == PosixFileType.SYMBOLIC_LINK;
+            return mInformation.isSymbolicLink;
         }
 
         @Override
@@ -189,7 +189,7 @@ public interface LocalFileStrategies {
             if (!isSymbolicLink()) {
                 throw new IllegalStateException("Not a symbolic link");
             }
-            return mInformation.symbolicLinkStatInformation != null;
+            return !mInformation.isSymbolicLinkStat;
         }
 
         @Override
@@ -200,39 +200,34 @@ public interface LocalFileStrategies {
             return mInformation.symbolicLinkTarget;
         }
 
-        private Syscall.Information getInformationFollowingSymbolicLinks() {
-            return isSymbolicLink() && mInformation.symbolicLinkStatInformation != null ?
-                    mInformation.symbolicLinkStatInformation : mInformation;
-        }
-
         @Override
         public PosixFileType getType() {
-            return getInformationFollowingSymbolicLinks().type;
+            return mInformation.type;
         }
 
         @Override
         public Set<PosixFileModeBit> getMode() {
-            return getInformationFollowingSymbolicLinks().mode;
+            return mInformation.mode;
         }
 
         @Override
         public PosixUser getOwner() {
-            return getInformationFollowingSymbolicLinks().owner;
+            return mInformation.owner;
         }
 
         @Override
         public PosixGroup getGroup() {
-            return getInformationFollowingSymbolicLinks().group;
+            return mInformation.group;
         }
 
         @Override
         public long getSize() {
-            return getInformationFollowingSymbolicLinks().size;
+            return mInformation.size;
         }
 
         @Override
         public Instant getLastModificationTime() {
-            return getInformationFollowingSymbolicLinks().lastModificationTime;
+            return mInformation.lastModificationTime;
         }
 
         @Override
@@ -438,11 +433,11 @@ public interface LocalFileStrategies {
 
     class ShellFsStrategy implements LocalFileStrategy {
 
-        private ShellFs.Information mInformation;
+        private Syscall.Information mInformation;
 
         public ShellFsStrategy() {}
 
-        public ShellFsStrategy(ShellFs.Information information) {
+        public ShellFsStrategy(Syscall.Information information) {
             mInformation = information;
         }
 
@@ -512,7 +507,7 @@ public interface LocalFileStrategies {
         @WorkerThread
         public List<File> getChildren(LocalFile file) throws FileSystemException {
             String parentPath = file.getPath();
-            List<Pair<String, ShellFs.Information>> children =
+            List<Pair<String, Syscall.Information>> children =
                     ShellFs.getChildrenAndInformation(parentPath);
             return Functional.map(children, child -> {
                 Uri childUri = LocalFile.uriFromPath(LocalFile.joinPaths(parentPath, child.first));
@@ -552,7 +547,7 @@ public interface LocalFileStrategies {
         };
 
         protected ShellFsStrategy(Parcel in) {
-            mInformation = in.readParcelable(ShellFs.Information.class.getClassLoader());
+            mInformation = in.readParcelable(Syscall.Information.class.getClassLoader());
         }
 
         @Override

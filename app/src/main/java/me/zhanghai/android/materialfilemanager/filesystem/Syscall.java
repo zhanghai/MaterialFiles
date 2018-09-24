@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.system.ErrnoException;
@@ -31,60 +30,42 @@ import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 public class Syscall {
 
     public static Information loadInformation(String path) throws FileSystemException {
-        return loadInformation(path, false);
-    }
-
-    private static Information loadInformation(String path, boolean followSymbolicLinks)
-            throws FileSystemException {
         StructStatCompat stat;
         try {
-            stat = followSymbolicLinks ? Linux.stat(path) : Linux.lstat(path);
+            stat = Linux.lstat(path);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
-        Information information = new Information();
-        information.containingDeviceId = stat.st_dev;
-        information.inodeNumber = stat.st_ino;
-        information.type = parseType(stat.st_mode);
-        information.mode = parseMode(stat.st_mode);
-        information.linkCount = stat.st_nlink;
-        information.owner = new PosixUser();
-        information.owner.id = stat.st_uid;
-        information.group = new PosixGroup();
-        information.group.id = stat.st_gid;
-        information.deviceId = stat.st_rdev;
-        information.size = stat.st_size;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-            information.lastAccessTime = Instant.ofEpochSecond(stat.st_atim.tv_sec,
-                    stat.st_atim.tv_nsec);
-            information.lastModificationTime = Instant.ofEpochSecond(stat.st_mtim.tv_sec,
-                    stat.st_mtim.tv_nsec);
-            information.lastStatusChangeTime = Instant.ofEpochSecond(stat.st_ctim.tv_sec,
-                    stat.st_ctim.tv_nsec);
-        } else {
-            information.lastAccessTime = Instant.ofEpochSecond(stat.st_atime);
-            information.lastModificationTime = Instant.ofEpochSecond(stat.st_mtime);
-            information.lastStatusChangeTime = Instant.ofEpochSecond(stat.st_ctime);
+        if (stat == null) {
+            throw new FileSystemException(R.string.file_error_information);
         }
-        information.preferredIoBlockSize = stat.st_blksize;
-        information.allocatedBlockCount = stat.st_blocks;
-        if (information.type == PosixFileType.SYMBOLIC_LINK) {
+        Information information = new Information();
+        boolean isSymbolicLink = OsConstants.S_ISLNK(stat.st_mode);
+        if (isSymbolicLink) {
             try {
                 information.symbolicLinkTarget = Os.readlink(path);
             } catch (ErrnoException e) {
                 throw new FileSystemException(R.string.file_error_information, e);
             }
             try {
-                information.symbolicLinkStatInformation = loadInformation(path, true);
-            } catch (FileSystemException e) {
-                e.printStackTrace();
-                Throwable cause = e.getCause();
-                if (cause instanceof ErrnoException) {
-                    ErrnoException errnoException = (ErrnoException) cause;
-                    information.symbolicLinkStatErrno = errnoException.errno;
+                StructStatCompat symbolicLinkStat = Linux.stat(path);
+                if (symbolicLinkStat != null) {
+                    stat = symbolicLinkStat;
+                    information.isSymbolicLinkStat = true;
                 }
+            } catch (ErrnoException e) {
+                e.printStackTrace();
             }
         }
+        information.type = parseType(stat.st_mode);
+        information.mode = parseMode(stat.st_mode);
+        information.owner = new PosixUser();
+        information.owner.id = stat.st_uid;
+        information.group = new PosixGroup();
+        information.group.id = stat.st_gid;
+        information.size = stat.st_size;
+        information.lastModificationTime = Instant.ofEpochSecond(stat.st_mtim.tv_sec,
+                stat.st_mtim.tv_nsec);
         try {
             StructPasswd passwd = Linux.getpwuid(information.owner.id);
             if (passwd != null) {
@@ -168,6 +149,9 @@ public class Syscall {
         StructStatCompat fromStat;
         try {
             fromStat = Linux.lstat(fromPath);
+            if (fromStat == null) {
+                throw new FileSystemException(R.string.file_copy_error);
+            }
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
                 FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
                 try {
@@ -309,23 +293,15 @@ public class Syscall {
 
     public static class Information implements Parcelable {
 
-        public long containingDeviceId;
-        public long inodeNumber;
+        public boolean isSymbolicLinkStat;
         public PosixFileType type;
         public EnumSet<PosixFileModeBit> mode;
-        public long linkCount;
         public PosixUser owner;
         public PosixGroup group;
-        public long deviceId;
         public long size;
-        public Instant lastAccessTime;
         public Instant lastModificationTime;
-        public Instant lastStatusChangeTime;
-        public long preferredIoBlockSize;
-        public long allocatedBlockCount;
+        public boolean isSymbolicLink;
         public String symbolicLinkTarget;
-        public Information symbolicLinkStatInformation;
-        public int symbolicLinkStatErrno;
 
 
         @Override
@@ -337,32 +313,21 @@ public class Syscall {
                 return false;
             }
             Information that = (Information) object;
-            return containingDeviceId == that.containingDeviceId
-                    && inodeNumber == that.inodeNumber
-                    && linkCount == that.linkCount
-                    && deviceId == that.deviceId
+            return isSymbolicLinkStat == that.isSymbolicLinkStat
                     && size == that.size
-                    && preferredIoBlockSize == that.preferredIoBlockSize
-                    && allocatedBlockCount == that.allocatedBlockCount
-                    && symbolicLinkStatErrno == that.symbolicLinkStatErrno
+                    && isSymbolicLink == that.isSymbolicLink
                     && type == that.type
                     && Objects.equals(mode, that.mode)
                     && Objects.equals(owner, that.owner)
                     && Objects.equals(group, that.group)
-                    && Objects.equals(lastAccessTime, that.lastAccessTime)
                     && Objects.equals(lastModificationTime, that.lastModificationTime)
-                    && Objects.equals(lastStatusChangeTime, that.lastStatusChangeTime)
-                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget)
-                    && Objects.equals(symbolicLinkStatInformation,
-                    that.symbolicLinkStatInformation);
+                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(containingDeviceId, inodeNumber, type, mode, linkCount, owner,
-                    group, deviceId, size, lastAccessTime, lastModificationTime,
-                    lastStatusChangeTime, preferredIoBlockSize, allocatedBlockCount,
-                    symbolicLinkTarget, symbolicLinkStatInformation, symbolicLinkStatErrno);
+            return Objects.hash(isSymbolicLinkStat, type, mode, owner, group, size,
+                    lastModificationTime, isSymbolicLink, symbolicLinkTarget);
         }
 
 
@@ -380,25 +345,17 @@ public class Syscall {
         public Information() {}
 
         protected Information(Parcel in) {
-            containingDeviceId = in.readLong();
-            inodeNumber = in.readLong();
+            isSymbolicLinkStat = in.readByte() != 0;
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
             //noinspection unchecked
             mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
-            linkCount = in.readLong();
             owner = in.readParcelable(PosixUser.class.getClassLoader());
             group = in.readParcelable(PosixGroup.class.getClassLoader());
-            deviceId = in.readLong();
             size = in.readLong();
-            lastAccessTime = (Instant) in.readSerializable();
             lastModificationTime = (Instant) in.readSerializable();
-            lastStatusChangeTime = (Instant) in.readSerializable();
-            preferredIoBlockSize = in.readLong();
-            allocatedBlockCount = in.readLong();
+            isSymbolicLink = in.readByte() != 0;
             symbolicLinkTarget = in.readString();
-            symbolicLinkStatInformation = in.readParcelable(Information.class.getClassLoader());
-            symbolicLinkStatErrno = in.readInt();
         }
 
         @Override
@@ -408,23 +365,15 @@ public class Syscall {
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeLong(containingDeviceId);
-            dest.writeLong(inodeNumber);
+            dest.writeByte(isSymbolicLinkStat ? (byte) 1 : (byte) 0);
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);
-            dest.writeLong(linkCount);
             dest.writeParcelable(owner, flags);
             dest.writeParcelable(group, flags);
-            dest.writeLong(deviceId);
             dest.writeLong(size);
-            dest.writeSerializable(lastAccessTime);
             dest.writeSerializable(lastModificationTime);
-            dest.writeSerializable(lastStatusChangeTime);
-            dest.writeLong(preferredIoBlockSize);
-            dest.writeLong(allocatedBlockCount);
+            dest.writeByte(isSymbolicLink ? (byte) 1 : (byte) 0);
             dest.writeString(symbolicLinkTarget);
-            dest.writeParcelable(symbolicLinkStatInformation, flags);
-            dest.writeInt(symbolicLinkStatErrno);
         }
     }
 }

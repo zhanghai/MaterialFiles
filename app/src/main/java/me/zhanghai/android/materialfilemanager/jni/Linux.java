@@ -44,6 +44,7 @@ public class Linux {
     public static native void lsetxattr(@NonNull String path, @NonNull String name,
                                         @NonNull byte[] value, int flags) throws ErrnoException;
 
+    @Nullable
     public static native StructStatCompat lstat(@NonNull String path) throws ErrnoException;
 
     //public static native void lutimens(@NonNull String path,
@@ -55,5 +56,6 @@ public class Linux {
     public static native long sendfile(@NonNull FileDescriptor outFd, @NonNull FileDescriptor inFd,
                                        @Nullable Int64Ref offset, long count) throws ErrnoException;
 
+    @Nullable
     public static native StructStatCompat stat(@NonNull String path) throws ErrnoException;
 }

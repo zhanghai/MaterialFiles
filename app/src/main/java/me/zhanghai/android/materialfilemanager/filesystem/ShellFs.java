@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
@@ -14,9 +12,7 @@ import org.threeten.bp.Instant;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.AppApplication;
 import me.zhanghai.android.materialfilemanager.R;
@@ -28,7 +24,7 @@ import me.zhanghai.android.materialfilemanager.util.Holder;
 
 public class ShellFs {
 
-    public static Information loadInformation(String path) throws FileSystemException {
+    public static Syscall.Information loadInformation(String path) throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -f " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
         int exitCode = SuShell.run(command, outputHolder, null);
@@ -36,11 +32,11 @@ public class ShellFs {
             throw new FileSystemException(R.string.file_error_information);
         }
         String output = outputHolder.value;
-        Information information = parseInformation(output);
+        Syscall.Information information = parseInformation(output);
         return information;
     }
 
-    public static List<Pair<String, Information>> getChildrenAndInformation(String path)
+    public static List<Pair<String, Syscall.Information>> getChildrenAndInformation(String path)
             throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -d " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
@@ -53,10 +49,10 @@ public class ShellFs {
             return Collections.emptyList();
         }
         List<String> childOutputs = Arrays.asList(output.split("\0\0\0\n\0\0\0"));
-        List<Pair<String, Information>> children;
+        List<Pair<String, Syscall.Information>> children;
         try {
             children = Functional.map(childOutputs,
-                    (ThrowingFunction<String, Pair<String, Information>>) childStat -> {
+                    (ThrowingFunction<String, Pair<String, Syscall.Information>>) childStat -> {
                         String[] childNameAndFile = childStat.split("\0", 2);
                         String childName;
                         String childFile;
@@ -72,7 +68,7 @@ public class ShellFs {
                             default:
                                 throw new FileSystemException(R.string.file_error_information);
                         }
-                        Information childInformation = !TextUtils.isEmpty(childFile) ?
+                        Syscall.Information childInformation = !TextUtils.isEmpty(childFile) ?
                                 parseInformation(childFile) : null;
                         return new Pair<>(childName, childInformation);
                     });
@@ -86,8 +82,8 @@ public class ShellFs {
         return AppApplication.getInstance().getApplicationInfo().nativeLibraryDir + "/libfs.so";
     }
 
-    private static Information parseInformation(String output) throws FileSystemException {
-        Information information = new Information();
+    private static Syscall.Information parseInformation(String output) throws FileSystemException {
+        Syscall.Information information = new Syscall.Information();
         String[] fields = output.split("\0");
         if (fields.length < 7) {
             throw new FileSystemException(R.string.file_error_information);
@@ -148,91 +144,5 @@ public class ShellFs {
             throw new FileSystemException(R.string.file_error_information, e);
         }
         return information;
-    }
-
-    public static class Information implements Parcelable {
-
-        public boolean isSymbolicLinkStat;
-        public PosixFileType type;
-        public EnumSet<PosixFileModeBit> mode;
-        public PosixUser owner;
-        public PosixGroup group;
-        public long size;
-        public Instant lastModificationTime;
-        public boolean isSymbolicLink;
-        public String symbolicLinkTarget;
-
-
-        @Override
-        public boolean equals(Object object) {
-            if (this == object) {
-                return true;
-            }
-            if (object == null || getClass() != object.getClass()) {
-                return false;
-            }
-            Information that = (Information) object;
-            return isSymbolicLinkStat == that.isSymbolicLinkStat
-                    && size == that.size
-                    && isSymbolicLink == that.isSymbolicLink
-                    && type == that.type
-                    && Objects.equals(mode, that.mode)
-                    && Objects.equals(owner, that.owner)
-                    && Objects.equals(group, that.group)
-                    && Objects.equals(lastModificationTime, that.lastModificationTime)
-                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(isSymbolicLinkStat, type, mode, owner, group, size,
-                    lastModificationTime, isSymbolicLink, symbolicLinkTarget);
-        }
-
-
-        public static final Creator<Information> CREATOR = new Creator<Information>() {
-            @Override
-            public Information createFromParcel(Parcel source) {
-                return new Information(source);
-            }
-            @Override
-            public Information[] newArray(int size) {
-                return new Information[size];
-            }
-        };
-
-        public Information() {}
-
-        protected Information(Parcel in) {
-            isSymbolicLinkStat = in.readByte() != 0;
-            int tmpType = in.readInt();
-            type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
-            //noinspection unchecked
-            mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
-            owner = in.readParcelable(PosixUser.class.getClassLoader());
-            group = in.readParcelable(PosixGroup.class.getClassLoader());
-            size = in.readLong();
-            lastModificationTime = (Instant) in.readSerializable();
-            isSymbolicLink = in.readByte() != 0;
-            symbolicLinkTarget = in.readString();
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeByte(isSymbolicLinkStat ? (byte) 1 : (byte) 0);
-            dest.writeInt(type == null ? -1 : type.ordinal());
-            dest.writeSerializable(mode);
-            dest.writeParcelable(owner, flags);
-            dest.writeParcelable(group, flags);
-            dest.writeLong(size);
-            dest.writeSerializable(lastModificationTime);
-            dest.writeByte(isSymbolicLink ? (byte) 1 : (byte) 0);
-            dest.writeString(symbolicLinkTarget);
-        }
     }
 }
