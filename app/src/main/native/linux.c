@@ -210,6 +210,134 @@ static void throwErrnoException(JNIEnv* env, const char* functionName) {
                    error);
 }
 
+static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getStructGroupClass(env), "<init>",
+                                 "(Ljava/lang/String;Ljava/lang/String;I[Ljava/lang/String;)V");
+    }
+    jstring gr_name;
+    if (group->gr_name) {
+        gr_name = (*env)->NewStringUTF(env, group->gr_name);
+        if (!gr_name) {
+            return NULL;
+        }
+    } else {
+        gr_name = NULL;
+    }
+    jstring gr_passwd;
+    if (group->gr_passwd) {
+        gr_passwd = (*env)->NewStringUTF(env, group->gr_passwd);
+        if (!gr_passwd) {
+            return NULL;
+        }
+    } else {
+        gr_passwd = NULL;
+    }
+    jint gr_gid = group->gr_gid;
+    jobjectArray gr_mem;
+    if (group->gr_mem) {
+        jsize gr_memLength = 0;
+        for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
+            ++gr_memLength;
+        };
+        gr_mem = (*env)->NewObjectArray(env, gr_memLength, getStringClass(env), NULL);
+        if (!gr_mem) {
+            return NULL;
+        }
+        jsize gr_memIndex = 0;
+        for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator,
+                ++gr_memIndex) {
+            jstring gr_memElement = (*env)->NewStringUTF(env, *gr_memIterator);
+            if (!gr_memElement) {
+                return NULL;
+            }
+            (*env)->SetObjectArrayElement(env, gr_mem, gr_memIndex, gr_memElement);
+            (*env)->DeleteLocalRef(env, gr_memElement);
+        };
+    } else {
+        gr_mem = NULL;
+    }
+    return (*env)->NewObject(env, getStructGroupClass(env), constructor, gr_name, gr_passwd, gr_gid,
+                             gr_mem);
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jclass clazz,
+                                                                jint javaGid) {
+#if __ANDROID_API__ >= 24
+    gid_t gid = (gid_t) javaGid;
+    size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
+    if (bufferSize == -1) {
+        // See `man 3 getpwnam`
+        bufferSize = 16384;
+    }
+    char buffer[bufferSize];
+    struct group group;
+    struct group *result;
+    errno = TEMP_FAILURE_RETRY_R(getgrgid_r(gid, &group, buffer, bufferSize, &result));
+    if (errno) {
+        throwErrnoException(env, "getgrgid_r");
+        return NULL;
+    }
+    if (!result) {
+        return NULL;
+    }
+    return makeStructGroup(env, result);
+#else
+    gid_t gid = (gid_t) javaGid;
+    errno = 0;
+    struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
+    if (errno) {
+        throwErrnoException(env, "getgrgid");
+        return NULL;
+    }
+    if (!result) {
+        return NULL;
+    }
+    return makeStructGroup(env, result);
+#endif
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jclass clazz,
+                                                                jstring javaName) {
+#if __ANDROID_API__ >= 24
+    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
+    if (bufferSize == -1) {
+        // See `man 3 getpwnam`
+        bufferSize = 16384;
+    }
+    char buffer[bufferSize];
+    struct group group;
+    struct group *result;
+    errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
+    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    if (errno) {
+        throwErrnoException(env, "getgrnam_r");
+        return NULL;
+    }
+    if (!result) {
+        return NULL;
+    }
+    return makeStructGroup(env, result);
+#else
+    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    errno = 0;
+    struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
+    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    if (errno) {
+        throwErrnoException(env, "getgrnam");
+        return NULL;
+    }
+    if (!result) {
+        return NULL;
+    }
+    return makeStructGroup(env, result);
+#endif
+}
+
 static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
     static jmethodID constructor = NULL;
     if (!constructor) {
@@ -307,134 +435,6 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_getpwuid(JNIEnv *env, jcl
         return NULL;
     }
     return makeStructPasswd(env, result);
-}
-
-static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
-    static jmethodID constructor = NULL;
-    if (!constructor) {
-        constructor = findMethod(env, getStructGroupClass(env), "<init>",
-                                 "(Ljava/lang/String;Ljava/lang/String;I[Ljava/lang/String;)V");
-    }
-    jstring gr_name;
-    if (group->gr_name) {
-        gr_name = (*env)->NewStringUTF(env, group->gr_name);
-        if (!gr_name) {
-            return NULL;
-        }
-    } else {
-        gr_name = NULL;
-    }
-    jstring gr_passwd;
-    if (group->gr_passwd) {
-        gr_passwd = (*env)->NewStringUTF(env, group->gr_passwd);
-        if (!gr_passwd) {
-            return NULL;
-        }
-    } else {
-        gr_passwd = NULL;
-    }
-    jint gr_gid = group->gr_gid;
-    jobjectArray gr_mem;
-    if (group->gr_mem) {
-        jsize gr_memLength = 0;
-        for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
-            ++gr_memLength;
-        };
-        gr_mem = (*env)->NewObjectArray(env, gr_memLength, getStringClass(env), NULL);
-        if (!gr_mem) {
-            return NULL;
-        }
-        jsize gr_memIndex = 0;
-        for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator,
-                ++gr_memIndex) {
-            jstring gr_memElement = (*env)->NewStringUTF(env, *gr_memIterator);
-            if (!gr_memElement) {
-                return NULL;
-            }
-            (*env)->SetObjectArrayElement(env, gr_mem, gr_memIndex, gr_memElement);
-            (*env)->DeleteLocalRef(env, gr_memElement);
-        };
-    } else {
-        gr_mem = NULL;
-    }
-    return (*env)->NewObject(env, getStructGroupClass(env), constructor, gr_name, gr_passwd, gr_gid,
-                             gr_mem);
-}
-
-JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrnam(JNIEnv *env, jclass clazz,
-                                                                jstring javaName) {
-#if __ANDROID_API__ >= 24
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
-    size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
-    if (bufferSize == -1) {
-        // See `man 3 getpwnam`
-        bufferSize = 16384;
-    }
-    char buffer[bufferSize];
-    struct group group;
-    struct group *result;
-    errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
-    if (errno) {
-        throwErrnoException(env, "getgrnam_r");
-        return NULL;
-    }
-    if (!result) {
-        return NULL;
-    }
-    return makeStructGroup(env, result);
-#else
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
-    errno = 0;
-    struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
-    if (errno) {
-        throwErrnoException(env, "getgrnam");
-        return NULL;
-    }
-    if (!result) {
-        return NULL;
-    }
-    return makeStructGroup(env, result);
-#endif
-}
-
-JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_materialfilemanager_jni_Linux_getgrgid(JNIEnv *env, jclass clazz,
-                                                                jint javaGid) {
-#if __ANDROID_API__ >= 24
-    gid_t gid = (gid_t) javaGid;
-    size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
-    if (bufferSize == -1) {
-        // See `man 3 getpwnam`
-        bufferSize = 16384;
-    }
-    char buffer[bufferSize];
-    struct group group;
-    struct group *result;
-    errno = TEMP_FAILURE_RETRY_R(getgrgid_r(gid, &group, buffer, bufferSize, &result));
-    if (errno) {
-        throwErrnoException(env, "getgrgid_r");
-        return NULL;
-    }
-    if (!result) {
-        return NULL;
-    }
-    return makeStructGroup(env, result);
-#else
-    gid_t gid = (gid_t) javaGid;
-    errno = 0;
-    struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
-    if (errno) {
-        throwErrnoException(env, "getgrgid");
-        return NULL;
-    }
-    if (!result) {
-        return NULL;
-    }
-    return makeStructGroup(env, result);
-#endif
 }
 
 JNIEXPORT jbyteArray JNICALL

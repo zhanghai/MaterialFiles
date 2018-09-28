@@ -23,16 +23,16 @@ public class Linux {
     }
 
     @Nullable
-    public static native StructPasswd getpwnam(@NonNull String name) throws ErrnoException;
-
-    @Nullable
-    public static native StructPasswd getpwuid(int uid) throws ErrnoException;
+    public static native StructGroup getgrgid(int gid) throws ErrnoException;
 
     @Nullable
     public static native StructGroup getgrnam(@NonNull String name) throws ErrnoException;
 
     @Nullable
-    public static native StructGroup getgrgid(int gid) throws ErrnoException;
+    public static native StructPasswd getpwnam(@NonNull String name) throws ErrnoException;
+
+    @Nullable
+    public static native StructPasswd getpwuid(int uid) throws ErrnoException;
 
     @Nullable
     public static native byte[] lgetxattr(@NonNull String path, @NonNull String name)
