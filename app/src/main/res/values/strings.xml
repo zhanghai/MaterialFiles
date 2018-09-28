@@ -93,25 +93,12 @@
     <string name="file_properties_basic_archive_entry">Archive Entry</string>
     <string name="file_properties_basic_free_space">Free space</string>
     <string name="file_properties_permissions">Permissions</string>
-    <string name="file_properties_permissions_file_none">None</string>
-    <string name="file_properties_permissions_file_read">Read-only</string>
-    <string name="file_properties_permissions_file_write">No read, write</string>
-    <string name="file_properties_permissions_file_read_write">Read and write</string>
-    <string name="file_properties_permissions_directory_none">None</string>
-    <string name="file_properties_permissions_directory_read">List files only</string>
-    <string name="file_properties_permissions_directory_write">No list, create/delete, no access</string>
-    <string name="file_properties_permissions_directory_execute">No list, no create/delete, access</string>
-    <string name="file_properties_permissions_directory_read_write">List, create/delete, no access</string>
-    <string name="file_properties_permissions_directory_read_execute">Access files</string>
-    <string name="file_properties_permissions_directory_write_execute">No list, create/delete, access</string>
-    <string name="file_properties_permissions_directory_read_write_execute">Create and delete files</string>
     <string name="file_properties_permissions_owner">Owner</string>
-    <string name="file_properties_permissions_owner_access">Owner Access</string>
+    <string name="file_properties_permissions_owner_format">%1$s (%2$d)</string>
     <string name="file_properties_permissions_group">Group</string>
-    <string name="file_properties_permissions_group_access">Group Access</string>
-    <string name="file_properties_permissions_others_access">Others Access</string>
-    <string name="file_properties_permissions_executable">Executable</string>
-    <string name="file_properties_permissions_executable_hint">Allow executing file as program</string>
+    <string name="file_properties_permissions_group_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_mode">Mode</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
 
     <string name="main_title">Files</string>
 </resources>

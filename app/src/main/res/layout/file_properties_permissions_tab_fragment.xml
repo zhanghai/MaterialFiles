@@ -7,7 +7,6 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,152 +17,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="?dialogPreferredPadding"
-            android:paddingBottom="?dialogPreferredPadding"
-            android:clipChildren="false"
+            android:padding="?dialogPreferredPadding"
             android:clipToPadding="false"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/file_properties_permissions_owner"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+            <Button
+                android:id="@+id/owner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="?dialogPreferredPadding"
-                android:paddingEnd="?dialogPreferredPadding"
-                android:clipToPadding="false"
-                android:orientation="vertical">
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-9dp"
+                android:layout_marginEnd="-19dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="?spinnerStyle" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/file_properties_permissions_owner"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/file_properties_permissions_group"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-                <Button
-                    android:id="@+id/owner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginBottom="-9dp"
-                    android:layout_marginEnd="-19dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    style="?spinnerStyle" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/file_properties_permissions_owner_access"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <Button
-                    android:id="@+id/owner_access"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginBottom="-9dp"
-                    android:layout_marginEnd="-19dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    style="?spinnerStyle" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/file_properties_permissions_group"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <Button
-                    android:id="@+id/group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginBottom="-9dp"
-                    android:layout_marginEnd="-19dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    style="?spinnerStyle" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/file_properties_permissions_group_access"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <Button
-                    android:id="@+id/group_access"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginBottom="-9dp"
-                    android:layout_marginEnd="-19dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    style="?spinnerStyle" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/file_properties_permissions_others_access"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <Button
-                    android:id="@+id/others_access"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginBottom="-9dp"
-                    android:layout_marginEnd="-19dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    style="?spinnerStyle" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/executable_layout"
+            <Button
+                android:id="@+id/group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-4dp"
-                android:orientation="vertical">
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-9dp"
+                android:layout_marginEnd="-19dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="?spinnerStyle" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="?dialogPreferredPadding"
-                    android:layout_marginEnd="?dialogPreferredPadding"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/file_properties_permissions_executable"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/file_properties_permissions_mode"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-                <LinearLayout
-                    android:id="@+id/executable_switch_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="?dialogPreferredPadding"
-                    android:paddingEnd="?dialogPreferredPadding"
-                    android:background="?selectableItemBackground"
-                    android:clickable="true"
-                    android:clipToPadding="false"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:text="@string/file_properties_permissions_executable_hint"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                    <android.support.v7.widget.IndeterminateSwitch
-                        android:id="@+id/executable"
-                        android:layout_width="wrap_content"
-                        app:switchMinWidth="56dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="-11.5dp"
-                        android:duplicateParentState="true" />
-                </LinearLayout>
-            </LinearLayout>
+            <Button
+                android:id="@+id/mode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-9dp"
+                android:layout_marginEnd="-19dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="?spinnerStyle" />
         </LinearLayout>
     </ScrollView>
 
