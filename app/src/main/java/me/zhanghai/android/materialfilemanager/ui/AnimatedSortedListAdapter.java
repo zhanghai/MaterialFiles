@@ -30,7 +30,7 @@ public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewH
     private final RecyclerView.OnScrollListener mClearAnimationListener =
             new RecyclerView.OnScrollListener() {
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                     clearAnimation();
                 }
             };
