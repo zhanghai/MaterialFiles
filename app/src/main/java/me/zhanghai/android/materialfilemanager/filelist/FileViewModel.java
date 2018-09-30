@@ -37,12 +37,14 @@ public class FileViewModel extends ViewModel {
 
     public void navigateTo(Parcelable lastState, List<File> path) {
         mTrail.navigateTo(lastState, path);
+        Files.onTrailChanged(mTrail.getTrail());
         mPathData.setValue(getPathFile().getUri());
     }
 
     public boolean navigateUp() {
         boolean changed = mTrail.navigateUp();
         if (changed) {
+            Files.onTrailChanged(mTrail.getTrail());
             mPathData.setValue(getPathFile().getUri());
         }
         return changed;

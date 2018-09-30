@@ -54,7 +54,7 @@ public class Trail {
     }
 
     public boolean navigateUp() {
-        if (mIndex < 1) {
+        if (mIndex == 0) {
             return false;
         }
         --mIndex;
