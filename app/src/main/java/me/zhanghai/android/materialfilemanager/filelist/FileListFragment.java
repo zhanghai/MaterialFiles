@@ -223,7 +223,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             mSpeedDialView.close();
             return true;
         }
-        return mViewModel.popPath();
+        return mViewModel.navigateUp();
     }
 
     private void onFileListChanged(FileListData fileListData) {
@@ -404,7 +404,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void navigateToFile(File file) {
         Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.pushPath(state, file.makeBreadcrumbPath());
+        mViewModel.navigateTo(state, file.makeBreadcrumbPath());
     }
 
     @Override

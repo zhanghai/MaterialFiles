@@ -20,7 +20,7 @@ import me.zhanghai.android.materialfilemanager.settings.Settings;
 
 public class FileViewModel extends ViewModel {
 
-    private PathHistory mPathHistory = new PathHistory();
+    private Trail mTrail = new Trail();
     private MutableLiveData<Uri> mPathData = new MutableLiveData<>();
     private LiveData<FileListData> mFileListData = Transformations.switchMap(mPathData,
             FileListLiveData::new);
@@ -29,19 +29,19 @@ public class FileViewModel extends ViewModel {
     public FileViewModel() {
         // TODO
         File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
-        pushPath(null, file.makeBreadcrumbPath());
+        navigateTo(null, file.makeBreadcrumbPath());
         mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
                 Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
                 Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));
     }
 
-    public void pushPath(Parcelable lastState, List<File> path) {
-        mPathHistory.push(lastState, path);
+    public void navigateTo(Parcelable lastState, List<File> path) {
+        mTrail.navigateTo(lastState, path);
         mPathData.setValue(getPathFile().getUri());
     }
 
-    public boolean popPath() {
-        boolean changed = mPathHistory.pop();
+    public boolean navigateUp() {
+        boolean changed = mTrail.navigateUp();
         if (changed) {
             mPathData.setValue(getPathFile().getUri());
         }
@@ -49,7 +49,7 @@ public class FileViewModel extends ViewModel {
     }
 
     public Parcelable getPendingState() {
-        return mPathHistory.getPendingState();
+        return mTrail.getPendingState();
     }
 
     public void reload() {
@@ -63,15 +63,15 @@ public class FileViewModel extends ViewModel {
     }
 
     public List<File> getTrail() {
-        return mPathHistory.getTrail();
+        return mTrail.getTrail();
     }
 
     public int getTrailIndex() {
-        return mPathHistory.getTrailIndex();
+        return mTrail.getIndex();
     }
 
     public File getPathFile() {
-        return mPathHistory.getCurrentFile();
+        return mTrail.getCurrentFile();
     }
 
     public LiveData<FileSortOptions> getSortOptionsData() {
