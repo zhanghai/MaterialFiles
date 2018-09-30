@@ -56,6 +56,14 @@ public class CrossfadeSubtitleToolbar extends Toolbar {
     }
 
     @Override
+    public CharSequence getSubtitle() {
+        if (mNextSubtitle != null) {
+            return mNextSubtitle;
+        }
+        return super.getSubtitle();
+    }
+
+    @Override
     public void setSubtitle(CharSequence subtitle) {
 
         if (TextUtils.equals(getSubtitle(), subtitle)) {
