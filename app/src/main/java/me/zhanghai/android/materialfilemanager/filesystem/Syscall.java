@@ -250,11 +250,13 @@ public class Syscall {
         }
     }
 
-    public static void move(String fromPath, String toPath) throws FileSystemException {
+    public static void move(String fromPath, String toPath, long notifyByteCount,
+                            LongConsumer listener) throws FileSystemException {
         try {
             Os.rename(fromPath, toPath);
         } catch (ErrnoException e) {
-            throw new FileSystemException(R.string.file_move_error, e);
+            copy(fromPath, toPath, true, notifyByteCount, listener);
+            delete(fromPath);
         }
     }
 
