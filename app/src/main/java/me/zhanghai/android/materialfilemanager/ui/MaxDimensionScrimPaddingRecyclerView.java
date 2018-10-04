@@ -8,8 +8,6 @@ package me.zhanghai.android.materialfilemanager.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -17,33 +15,42 @@ import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 
-public class ScrimPaddingRecyclerView extends RecyclerView {
+public class MaxDimensionScrimPaddingRecyclerView extends RecyclerView {
 
     @BindDrawable(R.color.system_window_scrim)
     Drawable mScrimDrawable;
 
-    public ScrimPaddingRecyclerView(@NonNull Context context) {
+    private MaxDimensionHelper mMaxDimensionHelper = new MaxDimensionHelper((widthSpec, heightSpec)
+            -> MaxDimensionScrimPaddingRecyclerView.super.onMeasure(widthSpec, heightSpec));
+
+    public MaxDimensionScrimPaddingRecyclerView(Context context) {
         super(context);
 
-        init();
+        init(null, 0, 0);
     }
 
-    public ScrimPaddingRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public MaxDimensionScrimPaddingRecyclerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        init();
+        init(attrs, 0, 0);
     }
 
-    public ScrimPaddingRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs,
-                                    int defStyle) {
-        super(context, attrs, defStyle);
+    public MaxDimensionScrimPaddingRecyclerView(Context context, AttributeSet attrs,
+                                                int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
 
-        init();
+        init(attrs, defStyleAttr, 0);
     }
 
-    private void init() {
+    private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         ButterKnife.bind(this);
+        mMaxDimensionHelper.init(getContext(), attrs, defStyleAttr, defStyleRes);
         setWillNotDraw(false);
+    }
+
+    @Override
+    protected void onMeasure(int widthSpec, int heightSpec) {
+        mMaxDimensionHelper.onMeasure(widthSpec, heightSpec);
     }
 
     @Override
