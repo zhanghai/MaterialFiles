@@ -7,7 +7,6 @@
 
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer"
     android:layout_height="match_parent"
@@ -21,11 +20,11 @@
         android:layout_height="match_parent"
         tools:layout="@layout/file_list_fragment" />
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation"
+    <fragment
+        android:id="@+id/navigation_fragment"
+        android:name="me.zhanghai.android.materialfilemanager.navigation.NavigationFragment"
+        android:layout_width="@dimen/design_navigation_max_width"
         android:layout_height="match_parent"
-        android:layout_width="wrap_content"
         android:layout_gravity="start"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation" />
+        tools:layout="@layout/navigation_fragment" />
 </android.support.v4.widget.DrawerLayout>

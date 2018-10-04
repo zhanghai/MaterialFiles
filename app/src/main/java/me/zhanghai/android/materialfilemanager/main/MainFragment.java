@@ -74,6 +74,10 @@ public class MainFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(Gravity.START)) {
+            mDrawerLayout.closeDrawer(Gravity.START);
+            return true;
+        }
         return mFileListFragment.onBackPressed();
     }
 }

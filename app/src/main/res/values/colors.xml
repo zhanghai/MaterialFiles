@@ -20,6 +20,7 @@
     <color name="file_icon_yellow">#F4B400</color>
 
     <color name="fam_background">#CCFFFFFF</color>
+    <color name="system_window_scrim">#44000000</color>
 
     <color name="color_primary">@color/blue_700</color>
     <color name="color_primary_dark">@color/blue_800</color>
