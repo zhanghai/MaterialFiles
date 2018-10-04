@@ -20,12 +20,14 @@ public class Trail {
     private List<File> mTrail = new ArrayList<>();
     private List<Parcelable> mStates = new ArrayList<>();
     private int mIndex;
+    private int mInitialIndex = -1;
 
     public void navigateTo(Parcelable lastState, List<File> path) {
         if (mTrail.isEmpty()) {
             mTrail.addAll(path);
             mStates.addAll(Collections.nCopies(path.size(), null));
             mIndex = path.size() - 1;
+            mInitialIndex = mIndex;
             return;
         }
         mStates.set(mIndex, lastState);
@@ -51,10 +53,16 @@ public class Trail {
         }
         mIndex = path.size() - 1;
         mStates.set(mIndex, null);
+        if (mIndex < mInitialIndex || !isPrefix) {
+            mInitialIndex = -1;
+        }
     }
 
     public boolean navigateUp() {
         if (mIndex == 0) {
+            return false;
+        }
+        if (mIndex == mInitialIndex) {
             return false;
         }
         --mIndex;
