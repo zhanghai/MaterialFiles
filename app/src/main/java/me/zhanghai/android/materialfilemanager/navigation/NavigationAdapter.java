@@ -93,8 +93,6 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
                         holder.iconImage.getImageTintList(), holder.iconImage.getContext()));
                 holder.titleText.setTextColor(NavigationItemColor.from(
                         holder.titleText.getTextColors(), holder.titleText.getContext()));
-                holder.subtitleText.setTextColor(NavigationItemColor.from(
-                        holder.subtitleText.getTextColors(), holder.subtitleText.getContext()));
                 return holder;
             }
             case VIEW_TYPE_DIVIDER:
