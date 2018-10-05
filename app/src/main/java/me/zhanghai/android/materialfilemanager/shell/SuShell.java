@@ -50,10 +50,10 @@ public class SuShell {
         Holder<Integer> exitCodeHolder = new Holder<>();
         sShell.addCommand(command, 0, (commandCode, exitCode, stdoutLines, stderrLines) -> {
             if (stdout != null) {
-                stdout.value = StringCompat.join("\n", stdoutLines);
+                stdout.value = stdoutLines != null ? StringCompat.join("\n", stdoutLines) : null;
             }
             if (stderr != null) {
-                stderr.value = StringCompat.join("\n", stderrLines);
+                stderr.value = stderrLines != null ? StringCompat.join("\n", stderrLines) : null;
             }
             exitCodeHolder.value = exitCode;
         });
