@@ -5,14 +5,12 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.materialfilemanager.ui.MaxDimensionScrimPaddingRecyclerView
+<me.zhanghai.android.materialfilemanager.navigation.NavigationRecyclerView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recycler"
-    android:layout_width="match_parent"
-    android:maxWidth="@dimen/design_navigation_max_width"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="?colorBackgroundFloating"
+    android:background="?android:windowBackground"
     android:clipToPadding="false"
-    android:fitsSystemWindows="true"
     android:scrollbars="vertical"
     android:scrollbarStyle="outsideOverlay" />

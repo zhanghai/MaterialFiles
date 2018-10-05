@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/navigation_fragment"
         android:name="me.zhanghai.android.materialfilemanager.navigation.NavigationFragment"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         tools:layout="@layout/navigation_fragment" />

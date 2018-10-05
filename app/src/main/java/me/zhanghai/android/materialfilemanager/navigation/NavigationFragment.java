@@ -5,10 +5,12 @@
 
 package me.zhanghai.android.materialfilemanager.navigation;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ public class NavigationFragment extends Fragment {
 
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
+
+    private NavigationAdapter mAdapter;
 
     public static NavigationFragment newInstance() {
         //noinspection deprecation
@@ -51,6 +55,12 @@ public class NavigationFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // TODO
+        mRecyclerView.setHasFixedSize(true);
+        // TODO: Needed?
+        //mRecyclerView.setItemAnimator(new NoChangeAnimationItemAnimator());
+        Context context = requireContext();
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mAdapter = new NavigationAdapter();
+        mRecyclerView.setAdapter(mAdapter);
     }
 }
