@@ -22,16 +22,7 @@ public class NavigationItemBackground {
 
     private NavigationItemBackground() {}
 
-    private static StateListDrawable sNavigationItemBackground;
-
-    public static StateListDrawable get(Context context) {
-        if (sNavigationItemBackground == null) {
-            sNavigationItemBackground = create(context);
-        }
-        return sNavigationItemBackground;
-    }
-
-    private static StateListDrawable create(Context context) {
+    public static StateListDrawable create(Context context) {
         StateListDrawable navigationItemBackground = new StateListDrawable();
         int controlHighlightColor = ViewUtils.getColorFromAttrRes(R.attr.colorControlHighlight, 0,
                 context);

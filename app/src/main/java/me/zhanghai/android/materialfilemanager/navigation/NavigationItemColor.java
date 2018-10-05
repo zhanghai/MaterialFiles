@@ -20,7 +20,7 @@ public class NavigationItemColor {
 
     private NavigationItemColor() {}
 
-    public static ColorStateList from(ColorStateList color, Context context) {
+    public static ColorStateList create(ColorStateList color, Context context) {
         int primaryColor = ViewUtils.getColorFromAttrRes(R.attr.colorPrimary, 0, context);
         int defaultColor = color.getDefaultColor();
         int disabledColor = color.getColorForState(DISABLED_STATE_SET, defaultColor);

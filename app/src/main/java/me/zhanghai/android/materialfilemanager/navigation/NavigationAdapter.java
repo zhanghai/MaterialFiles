@@ -33,6 +33,8 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
         setHasStableIds(true);
 
         // TODO: Debugging
+        add(new Item(R.drawable.file_icon_white_24dp, "Root", "56.89 MB free of 1.45 GB"));
+        add(new Item(R.drawable.file_icon_white_24dp, "Internal Storage", "465.21 MB free of 744.89 MB"));
         add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
         add(new Item(R.drawable.file_icon_white_24dp, "File", null));
         add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
@@ -84,15 +86,17 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
                 ItemHolder holder = new ItemHolder(ViewUtils.inflate(R.layout.navigation_item,
                         parent));
                 Context context = holder.itemView.getContext();
-                Drawable navigationItemBackground = NavigationItemBackground.get(context);
+                Drawable navigationItemBackground = NavigationItemBackground.create(context);
                 holder.itemLayout.setBackground(navigationItemBackground);
                 holder.itemLayout.setOnClickListener(view -> {
                     // TODO
                 });
-                holder.iconImage.setImageTintList(NavigationItemColor.from(
+                holder.iconImage.setImageTintList(NavigationItemColor.create(
                         holder.iconImage.getImageTintList(), holder.iconImage.getContext()));
-                holder.titleText.setTextColor(NavigationItemColor.from(
+                holder.titleText.setTextColor(NavigationItemColor.create(
                         holder.titleText.getTextColors(), holder.titleText.getContext()));
+                holder.subtitleText.setTextColor(NavigationItemColor.create(
+                        holder.subtitleText.getTextColors(), holder.subtitleText.getContext()));
                 return holder;
             }
             case VIEW_TYPE_DIVIDER:
@@ -108,7 +112,7 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
         switch (getItemViewType(position)) {
             case VIEW_TYPE_ITEM: {
                 ItemHolder itemHolder = (ItemHolder) holder;
-                itemHolder.itemLayout.setChecked(/* TODO */ false);
+                itemHolder.itemLayout.setChecked(/* TODO */ position == 1);
                 Item item = getItem(position);
                 itemHolder.iconImage.setImageResource(item.iconRes);
                 itemHolder.titleText.setText(item.title);
