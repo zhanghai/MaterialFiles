@@ -9,7 +9,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item"
     android:layout_width="match_parent"
-    android:layout_height="?listPreferredItemHeightSmall"
+    android:layout_height="?actionBarSize"
     android:paddingStart="?android:listPreferredItemPaddingStart"
     android:paddingEnd="?android:listPreferredItemPaddingEnd"
     android:foreground="?selectableItemBackground"
