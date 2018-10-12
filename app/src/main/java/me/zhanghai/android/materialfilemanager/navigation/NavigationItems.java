@@ -81,10 +81,7 @@ public class NavigationItems {
     private static List<NavigationItem> getFavoriteItems() {
         List<NavigationItem> favoriteItems = new ArrayList<>();
         for (Pair<String, Integer> directory : DEFAULT_FAVORITE_DIRECTORIES) {
-            String path = directory.first;
-            if (!JavaFile.isDirectory(path)) {
-                continue;
-            }
+            String path = Environment.getExternalStoragePublicDirectory(directory.first).getPath();
             int titleRes = directory.second;
             favoriteItems.add(new FavoriteItem(Files.ofLocalPath(path), titleRes));
         }
@@ -127,6 +124,7 @@ public class NavigationItems {
         @Override
         public void onClick(@NonNull Listener listener) {
             listener.navigateToFile(mFile);
+            listener.closeNavigationDrawer();
         }
     }
 
@@ -276,6 +274,7 @@ public class NavigationItems {
         @Override
         public void onClick(@NonNull Listener listener) {
             listener.startActivity(mIntent);
+            listener.closeNavigationDrawer();
         }
     }
 }

@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.navigation;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,7 +34,9 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     private NavigationAdapter mAdapter;
 
     @NonNull
-    private Listener mListener;
+    private MainListener mMainListener;
+    @NonNull
+    private FileListListener mFileListListener;
 
     public static NavigationFragment newInstance() {
         //noinspection deprecation
@@ -44,8 +48,10 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
      */
     public NavigationFragment() {}
 
-    public void setListener(@NonNull Listener listener) {
-        mListener = listener;
+    public void setListeners(@NonNull MainListener mainListener,
+                             @NonNull FileListListener fileListListener) {
+        mMainListener = mainListener;
+        mFileListListener = fileListListener;
     }
 
     @Nullable
@@ -75,28 +81,45 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         mRecyclerView.setAdapter(mAdapter);
 
         NavigationItemListLiveData.getInstance().observe(this, this::onNavigationItemsChanged);
+        mFileListListener.observeCurrentFile(this, this::onCurrentFileChanged);
     }
 
     private void onNavigationItemsChanged(List<NavigationItem> navigationItems) {
         mAdapter.replace(navigationItems);
     }
 
+    private void onCurrentFileChanged(File file) {
+        mAdapter.notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public File getCurrentFile() {
-        return mListener.getCurrentFile();
+        return mFileListListener.getCurrentFile();
     }
 
     @Override
     public void navigateToFile(@NonNull File file) {
-        mListener.navigateToFile(file);
+        mFileListListener.navigateToFile(file);
     }
 
-    public interface Listener {
+    @Override
+    public void closeNavigationDrawer() {
+        mMainListener.closeNavigationDrawer();
+    }
+
+    public interface MainListener {
+
+        void closeNavigationDrawer();
+    }
+
+    public interface FileListListener {
 
         @NonNull
         File getCurrentFile();
 
         void navigateToFile(@NonNull File file);
+
+        void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer);
     }
 }

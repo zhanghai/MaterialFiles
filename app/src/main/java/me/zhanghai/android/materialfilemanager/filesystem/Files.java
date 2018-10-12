@@ -44,14 +44,11 @@ public class Files {
         Archive.retainCache(archiveJavaFiles);
     }
 
-    public static void invalidateCache(Uri path) {
-        switch (path.getScheme()) {
-            case ArchiveFile.SCHEME: {
-                java.io.File archiveJavaFile = new ArchiveFile(path).getArchiveFile()
-                        .makeJavaFile();
-                Archive.invalidateCache(archiveJavaFile);
-                break;
-            }
+    public static void invalidateCache(File file) {
+        if (file instanceof ArchiveFile) {
+            ArchiveFile archiveFile = (ArchiveFile) file;
+            java.io.File archiveJavaFile = archiveFile.getArchiveFile().makeJavaFile();
+            Archive.invalidateCache(archiveJavaFile);
         }
     }
 }

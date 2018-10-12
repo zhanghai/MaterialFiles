@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -56,7 +58,7 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 public class FileListFragment extends Fragment implements FileListAdapter.Listener,
         ConfirmDeleteFilesDialogFragment.Listener, RenameFileDialogFragment.Listener,
         CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-        NavigationFragment.Listener {
+        NavigationFragment.FileListListener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -481,7 +483,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @NonNull
     @Override
     public File getCurrentFile() {
-        return mViewModel.getCurrentFile();
+        return mViewModel.getFileData().getValue();
     }
 
     @Override
@@ -490,7 +492,8 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mViewModel.navigateTo(state, file.makeBreadcrumbPath());
     }
 
-    public void observeFile() {
-        // TODO
+    @Override
+    public void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer) {
+        mViewModel.getFileData().observe(owner, observer);
     }
 }

@@ -61,11 +61,6 @@ public class JavaFile {
         }
     }
 
-    public static boolean isDirectory(String path) {
-        File file = new File(path);
-        return file.isDirectory();
-    }
-
     public static long getFreeSpace(String path) {
         File file = new File(path);
         return file.getFreeSpace();

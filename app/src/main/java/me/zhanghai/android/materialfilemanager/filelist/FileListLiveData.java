@@ -7,21 +7,19 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
-import me.zhanghai.android.materialfilemanager.filesystem.Files;
 
 public class FileListLiveData extends LiveData<FileListData> {
 
     private File mFile;
 
-    public FileListLiveData(Uri path) {
-        mFile = Files.ofUri(path);
+    public FileListLiveData(File file) {
+        mFile = file;
         loadData();
     }
 

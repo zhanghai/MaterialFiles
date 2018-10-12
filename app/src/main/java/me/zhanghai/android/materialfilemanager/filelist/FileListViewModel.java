@@ -21,8 +21,8 @@ import me.zhanghai.android.materialfilemanager.settings.Settings;
 public class FileListViewModel extends ViewModel {
 
     private Trail mTrail = new Trail();
-    private MutableLiveData<Uri> mPathData = new MutableLiveData<>();
-    private LiveData<FileListData> mFileListData = Transformations.switchMap(mPathData,
+    private MutableLiveData<File> mFileData = new MutableLiveData<>();
+    private LiveData<FileListData> mFileListData = Transformations.switchMap(mFileData,
             FileListLiveData::new);
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
 
@@ -38,14 +38,14 @@ public class FileListViewModel extends ViewModel {
     public void navigateTo(Parcelable lastState, List<File> path) {
         mTrail.navigateTo(lastState, path);
         Files.onTrailChanged(mTrail.getTrail());
-        mPathData.setValue(getCurrentFile().getUri());
+        mFileData.setValue(mTrail.getCurrentFile());
     }
 
     public boolean navigateUp() {
         boolean changed = mTrail.navigateUp();
         if (changed) {
             Files.onTrailChanged(mTrail.getTrail());
-            mPathData.setValue(getCurrentFile().getUri());
+            mFileData.setValue(mTrail.getCurrentFile());
         }
         return changed;
     }
@@ -55,9 +55,13 @@ public class FileListViewModel extends ViewModel {
     }
 
     public void reload() {
-        Uri path = mPathData.getValue();
-        Files.invalidateCache(path);
-        mPathData.setValue(path);
+        File file = mFileData.getValue();
+        Files.invalidateCache(file);
+        mFileData.setValue(file);
+    }
+
+    public LiveData<File> getFileData() {
+        return mFileData;
     }
 
     public LiveData<FileListData> getFileListData() {
@@ -70,10 +74,6 @@ public class FileListViewModel extends ViewModel {
 
     public int getTrailIndex() {
         return mTrail.getIndex();
-    }
-
-    public File getCurrentFile() {
-        return mTrail.getCurrentFile();
     }
 
     public LiveData<FileSortOptions> getSortOptionsData() {

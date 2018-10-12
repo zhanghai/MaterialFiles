@@ -23,7 +23,7 @@ import me.zhanghai.android.materialfilemanager.filelist.FileListFragment;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements NavigationFragment.MainListener {
 
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
@@ -69,7 +69,7 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mNavigationFragment.setListener(mFileListFragment);
+        mNavigationFragment.setListeners(this, mFileListFragment);
     }
 
     @Override
@@ -81,6 +81,11 @@ public class MainFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void closeNavigationDrawer() {
+        mDrawerLayout.closeDrawer(Gravity.START);
     }
 
     public boolean onBackPressed() {
