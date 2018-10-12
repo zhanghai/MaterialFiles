@@ -28,6 +28,10 @@ public class Files {
         }
     }
 
+    public static File ofLocalPath(String path) {
+        return new LocalFile(LocalFile.uriFromPath(path));
+    }
+
     public static File childOf(File file, String name) {
         Uri uri = file.getUri().buildUpon().appendPath(name).build();
         return ofUri(uri);

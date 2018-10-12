@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class FileListLiveData extends LiveData<FileListData> {
         setValue(FileListData.ofLoading(mFile));
         new AsyncTask<Void, Void, FileListData>() {
             @Override
+            @WorkerThread
             protected FileListData doInBackground(Void... parameters) {
                 try {
                     List<File> fileList = mFile.getChildren();
@@ -41,7 +43,7 @@ public class FileListLiveData extends LiveData<FileListData> {
             protected void onPostExecute(FileListData fileListData) {
                 setValue(fileListData);
             }
-        }.execute();
+        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

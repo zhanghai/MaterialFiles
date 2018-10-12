@@ -23,46 +23,24 @@ import me.zhanghai.android.materialfilemanager.ui.CheckableLinearLayout;
 import me.zhanghai.android.materialfilemanager.ui.SimpleAdapter;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
+public class NavigationAdapter extends SimpleAdapter<NavigationItem,
         RecyclerView.ViewHolder> {
+
+    private NavigationItem.Listener mListener;
 
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_DIVIDER = 1;
 
-    public NavigationAdapter() {
+    public NavigationAdapter(NavigationItem.Listener listener) {
+        mListener = listener;
         setHasStableIds(true);
-
-        // TODO: Debugging
-        add(new Item(R.drawable.file_icon_white_24dp, "Root", "56.89 MB free of 1.45 GB"));
-        add(new Item(R.drawable.file_icon_white_24dp, "Internal Storage", "465.21 MB free of 744.89 MB"));
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", null));
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", null));
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", null));
-        add(null);
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", "Description"));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", "Description"));
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", "Description"));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", "Description"));
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", "Description"));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", "Description"));
-        add(null);
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", null));
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", null));
-        add(null);
-        add(new Item(R.drawable.directory_icon_white_24dp, "Directory", null));
-        add(new Item(R.drawable.file_icon_white_24dp, "File", null));
     }
 
     @Override
     public long getItemId(int position) {
-        Item item = getItem(position);
+        NavigationItem item = getItem(position);
         if (item != null) {
-            return item.title.hashCode();
+            return item.getId();
         } else {
             return Collections.frequency(getList().subList(0, position), null);
         }
@@ -70,7 +48,7 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
 
     @Override
     public int getItemViewType(int position) {
-        Item item = getItem(position);
+        NavigationItem item = getItem(position);
         if (item != null) {
             return VIEW_TYPE_ITEM;
         } else {
@@ -88,9 +66,6 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
                 Context context = holder.itemView.getContext();
                 Drawable navigationItemBackground = NavigationItemBackground.create(context);
                 holder.itemLayout.setBackground(navigationItemBackground);
-                holder.itemLayout.setOnClickListener(view -> {
-                    // TODO
-                });
                 holder.iconImage.setImageTintList(NavigationItemColor.create(
                         holder.iconImage.getImageTintList(), holder.iconImage.getContext()));
                 holder.titleText.setTextColor(NavigationItemColor.create(
@@ -111,12 +86,15 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (getItemViewType(position)) {
             case VIEW_TYPE_ITEM: {
+                NavigationItem item = getItem(position);
                 ItemHolder itemHolder = (ItemHolder) holder;
-                itemHolder.itemLayout.setChecked(/* TODO */ position == 1);
-                Item item = getItem(position);
-                itemHolder.iconImage.setImageResource(item.iconRes);
-                itemHolder.titleText.setText(item.title);
-                itemHolder.subtitleText.setText(item.subtitle);
+                itemHolder.itemLayout.setChecked(item.isChecked(mListener));
+                itemHolder.itemLayout.setOnClickListener(view -> item.onClick(mListener));
+                itemHolder.iconImage.setImageDrawable(item.getIcon(
+                        itemHolder.iconImage.getContext()));
+                itemHolder.titleText.setText(item.getTitle(itemHolder.titleText.getContext()));
+                itemHolder.subtitleText.setText(item.getSubtitle(itemHolder.subtitleText
+                        .getContext()));
                 break;
             }
             case VIEW_TYPE_DIVIDER:
@@ -124,19 +102,6 @@ public class NavigationAdapter extends SimpleAdapter<NavigationAdapter.Item,
                 break;
             default:
                 throw new IllegalArgumentException();
-        }
-    }
-
-    public static class Item {
-
-        public int iconRes;
-        public String title;
-        public String subtitle;
-
-        public Item(int iconRes, String title, String subtitle) {
-            this.iconRes = iconRes;
-            this.title = title;
-            this.subtitle = subtitle;
         }
     }
 

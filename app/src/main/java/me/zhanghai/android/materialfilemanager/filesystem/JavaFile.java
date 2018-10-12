@@ -61,6 +61,21 @@ public class JavaFile {
         }
     }
 
+    public static boolean isDirectory(String path) {
+        File file = new File(path);
+        return file.isDirectory();
+    }
+
+    public static long getFreeSpace(String path) {
+        File file = new File(path);
+        return file.getFreeSpace();
+    }
+
+    public static long getTotalSpace(String path) {
+        File file = new File(path);
+        return file.getTotalSpace();
+    }
+
     public static List<String> getChildren(File directory) throws FileSystemException {
         String[] children = directory.list();
         if (children == null) {

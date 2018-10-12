@@ -18,7 +18,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.settings.Settings;
 
-public class FileViewModel extends ViewModel {
+public class FileListViewModel extends ViewModel {
 
     private Trail mTrail = new Trail();
     private MutableLiveData<Uri> mPathData = new MutableLiveData<>();
@@ -26,7 +26,7 @@ public class FileViewModel extends ViewModel {
             FileListLiveData::new);
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
 
-    public FileViewModel() {
+    public FileListViewModel() {
         // TODO
         File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
         navigateTo(null, file.makeBreadcrumbPath());
@@ -38,14 +38,14 @@ public class FileViewModel extends ViewModel {
     public void navigateTo(Parcelable lastState, List<File> path) {
         mTrail.navigateTo(lastState, path);
         Files.onTrailChanged(mTrail.getTrail());
-        mPathData.setValue(getPathFile().getUri());
+        mPathData.setValue(getCurrentFile().getUri());
     }
 
     public boolean navigateUp() {
         boolean changed = mTrail.navigateUp();
         if (changed) {
             Files.onTrailChanged(mTrail.getTrail());
-            mPathData.setValue(getPathFile().getUri());
+            mPathData.setValue(getCurrentFile().getUri());
         }
         return changed;
     }
@@ -72,7 +72,7 @@ public class FileViewModel extends ViewModel {
         return mTrail.getIndex();
     }
 
-    public File getPathFile() {
+    public File getCurrentFile() {
         return mTrail.getCurrentFile();
     }
 

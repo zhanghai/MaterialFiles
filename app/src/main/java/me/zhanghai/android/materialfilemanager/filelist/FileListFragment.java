@@ -46,6 +46,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
@@ -54,7 +55,8 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListFragment extends Fragment implements FileListAdapter.Listener,
         ConfirmDeleteFilesDialogFragment.Listener, RenameFileDialogFragment.Listener,
-        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener {
+        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
+        NavigationFragment.Listener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -86,7 +88,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private FileListAdapter mAdapter;
 
-    private FileViewModel mViewModel;
+    private FileListViewModel mViewModel;
 
     private Uri mLastUri;
 
@@ -155,7 +157,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             return true;
         });
 
-        mViewModel = ViewModelProviders.of(this).get(FileViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
         mViewModel.getFileListData().observe(this, this::onFileListChanged);
 
@@ -372,7 +374,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void openInTerminal() {
         // TODO
-        File file = mViewModel.getPathFile();
+        File file = getCurrentFile();
         if (file instanceof LocalFile) {
             LocalFile localFile = (LocalFile) file;
             Terminal.open(localFile.getPath(), requireContext());
@@ -400,11 +402,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         } else {
             // TODO
         }
-    }
-
-    private void navigateToFile(File file) {
-        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.navigateTo(state, file.makeBreadcrumbPath());
     }
 
     @Override
@@ -466,7 +463,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public void createFile(String name) {
         // TODO
-        File file = Files.childOf(mViewModel.getPathFile(), name);
+        File file = Files.childOf(getCurrentFile(), name);
         FileJobService.createFile(file, requireContext());
     }
 
@@ -477,7 +474,23 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public void createDirectory(String name) {
         // TODO
-        File file = Files.childOf(mViewModel.getPathFile(), name);
+        File file = Files.childOf(getCurrentFile(), name);
         FileJobService.createDirectory(file, requireContext());
+    }
+
+    @NonNull
+    @Override
+    public File getCurrentFile() {
+        return mViewModel.getCurrentFile();
+    }
+
+    @Override
+    public void navigateToFile(@NonNull File file) {
+        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        mViewModel.navigateTo(state, file.makeBreadcrumbPath());
+    }
+
+    public void observeFile() {
+        // TODO
     }
 }

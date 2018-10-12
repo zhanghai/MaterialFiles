@@ -16,16 +16,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.filesystem.File;
 
-public class NavigationFragment extends Fragment {
+public class NavigationFragment extends Fragment implements NavigationItem.Listener {
 
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
 
+    @NonNull
     private NavigationAdapter mAdapter;
+
+    @NonNull
+    private Listener mListener;
 
     public static NavigationFragment newInstance() {
         //noinspection deprecation
@@ -36,6 +43,10 @@ public class NavigationFragment extends Fragment {
      * @deprecated Use {@link #newInstance()} instead.
      */
     public NavigationFragment() {}
+
+    public void setListener(@NonNull Listener listener) {
+        mListener = listener;
+    }
 
     @Nullable
     @Override
@@ -60,7 +71,32 @@ public class NavigationFragment extends Fragment {
         //mRecyclerView.setItemAnimator(new NoChangeAnimationItemAnimator());
         Context context = requireContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new NavigationAdapter();
+        mAdapter = new NavigationAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+
+        NavigationItemListLiveData.getInstance().observe(this, this::onNavigationItemsChanged);
+    }
+
+    private void onNavigationItemsChanged(List<NavigationItem> navigationItems) {
+        mAdapter.replace(navigationItems);
+    }
+
+    @NonNull
+    @Override
+    public File getCurrentFile() {
+        return mListener.getCurrentFile();
+    }
+
+    @Override
+    public void navigateToFile(@NonNull File file) {
+        mListener.navigateToFile(file);
+    }
+
+    public interface Listener {
+
+        @NonNull
+        File getCurrentFile();
+
+        void navigateToFile(@NonNull File file);
     }
 }

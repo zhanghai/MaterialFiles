@@ -20,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filelist.FileListFragment;
+import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
 public class MainFragment extends Fragment {
@@ -27,6 +28,7 @@ public class MainFragment extends Fragment {
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
 
+    private NavigationFragment mNavigationFragment;
     private FileListFragment mFileListFragment;
 
     public static MainFragment newInstance() {
@@ -59,7 +61,15 @@ public class MainFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        mNavigationFragment = FragmentUtils.findById(this, R.id.navigation_fragment);
         mFileListFragment = FragmentUtils.findById(this, R.id.file_list_fragment);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mNavigationFragment.setListener(mFileListFragment);
     }
 
     @Override

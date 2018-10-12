@@ -43,7 +43,7 @@ public class LocalFile extends BaseFile {
         return new java.io.File(parent, child).getPath();
     }
 
-    public LocalFile(Uri uri, LocalFileStrategy strategy) {
+    LocalFile(Uri uri, LocalFileStrategy strategy) {
         super(uri);
 
         mStrategy = strategy;
