@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.content.res.AppCompatResources;
@@ -25,7 +26,13 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +43,15 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.materialfilemanager.ui.AnimatedSortedListAdapter;
+import me.zhanghai.android.materialfilemanager.ui.CheckableFrameLayout;
+import me.zhanghai.android.materialfilemanager.ui.CheckableItemBackground;
 import me.zhanghai.android.materialfilemanager.util.StringCompat;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAdapter.ViewHolder>
         implements FastScrollRecyclerView.SectionedAdapter {
+
+    private static final Object PAYLOAD_SELECTED_CHANGED = new Object();
 
     private Comparator<File> mComparator;
     private final SortedList.Callback<File> mCallback = new SortedListAdapterCallback<File>(this) {
@@ -58,6 +69,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         }
     };
 
+    private Set<Uri> mSelectedUris = new HashSet<>();
+    private Map<Uri, Integer> mUriPositionMap = new HashMap<>();
+
     private Fragment mFragment;
     private Listener mListener;
 
@@ -70,12 +84,57 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     public void setComparator(Comparator<File> comparator) {
         mComparator = comparator;
         refresh();
+        rebuildUriPositionMap();
+    }
+
+    public void replaceSelectedUris(Set<Uri> selectedUris) {
+        Set<Uri> selectedChangedUris = new HashSet<>();
+        for (Iterator<Uri> iterator = mSelectedUris.iterator(); iterator.hasNext(); ) {
+            Uri uri = iterator.next();
+            if (!selectedUris.contains(uri)) {
+                iterator.remove();
+                selectedChangedUris.add(uri);
+            }
+        }
+        for (Uri uri : selectedUris) {
+            if (!mSelectedUris.contains(uri)) {
+                mSelectedUris.add(uri);
+                selectedChangedUris.add(uri);
+            }
+        }
+        for (Uri uri : selectedChangedUris) {
+            notifyItemChanged(mUriPositionMap.get(uri), PAYLOAD_SELECTED_CHANGED);
+        }
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+
+        rebuildUriPositionMap();
+    }
+
+    @Override
+    public void replaceAll(List<File> list) {
+        super.replaceAll(list);
+
+        rebuildUriPositionMap();
+    }
+
+    private void rebuildUriPositionMap() {
+        mUriPositionMap.clear();
+        for (int i = 0, count = getItemCount(); i < count; ++i) {
+            File file = getItem(i);
+            mUriPositionMap.put(file.getUri(), i);
+        }
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewHolder holder = new ViewHolder(ViewUtils.inflate(R.layout.file_item, parent));
+        holder.itemLayout.setBackground(CheckableItemBackground.create(
+                holder.itemLayout.getContext()));
         holder.menu = new PopupMenu(holder.menuButton.getContext(), holder.menuButton);
         holder.menu.inflate(R.menu.file_item);
         holder.menuButton.setOnClickListener(view -> holder.menu.show());
@@ -85,13 +144,36 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position,
+                                 @NonNull List<Object> payloads) {
         File file = getItem(position);
+        Uri uri = file.getUri();
+        holder.itemLayout.setChecked(mSelectedUris.contains(uri));
+        if (!payloads.isEmpty()) {
+            return;
+        }
+        bindViewHolderAnimation(holder);
+        holder.itemView.setOnClickListener(view -> {
+            if (mSelectedUris.isEmpty()) {
+                mListener.onOpenFile(file);
+            } else {
+                mListener.onSelectUri(uri, !mSelectedUris.contains(uri));
+            }
+        });
+        holder.itemLayout.setOnLongClickListener(view -> {
+            mListener.onSelectUri(uri, !mSelectedUris.contains(uri));
+            return true;
+        });
         String mimeType = file.getMimeType();
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 MimeTypes.getIconRes(mimeType));
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
-                    .load(file.getUri())
+                    .load(uri)
                     .signature(new ObjectKey(file.getLastModificationTime()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));
@@ -100,6 +182,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                     .clear(holder.iconImage);
             holder.iconImage.setImageDrawable(icon);
         }
+        holder.iconImage.setOnClickListener(view -> mListener.onSelectUri(uri,
+                !mSelectedUris.contains(uri)));
         Integer badgeIconRes;
         if (file.isSymbolicLink()) {
             badgeIconRes = file.isSymbolicLinkBroken() ? R.drawable.error_badge_icon_18dp
@@ -150,8 +234,6 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                     return false;
             }
         });
-        holder.itemView.setOnClickListener(view -> mListener.onOpenFile(file));
-        bindViewHolderAnimation(holder);
     }
 
     @NonNull
@@ -167,6 +249,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     }
 
     public interface Listener {
+        void onSelectUri(Uri uri, boolean selected);
         void onOpenFile(File file);
         void onOpenFileAs(File file);
         void onCutFile(File file);
@@ -178,6 +261,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.item)
+        public CheckableFrameLayout itemLayout;
         @BindView(R.id.icon)
         public ImageView iconImage;
         @BindView(R.id.badge)

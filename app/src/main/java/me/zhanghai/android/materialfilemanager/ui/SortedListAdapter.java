@@ -9,13 +9,12 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
 
-    private List<T> mList = Collections.emptyList();
+    private List<T> mList = new ArrayList<>();
     private SortedList<T> mSortedList;
 
     protected void init(Class<T> classOfT, SortedList.Callback<T> callback) {
@@ -30,7 +29,8 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
     }
 
     public void replaceAll(List<T> list) {
-        mList = new ArrayList<>(list);
+        mList.clear();
+        mList.addAll(list);
         mSortedList.replaceAll(mList);
     }
 

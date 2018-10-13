@@ -9,8 +9,10 @@ import android.support.v4.util.ObjectsCompat;
 
 import java.util.AbstractList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.RandomAccess;
+import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
@@ -67,7 +69,29 @@ public class CollectionUtils {
         return collection != null ? collection.size() : 0;
     }
 
-    public static <E> List<E> union(List<E> list1, List<E> list2) {
+    public static <E> Set<E> difference(Set<? extends E> set1, Set<? extends E> set2) {
+        Set<E> result = new HashSet<>();
+        difference(set1, set2, result);
+        return result;
+    }
+
+    public static <E> Set<E> symmetricDifference(Set<? extends E> set1, Set<? extends E> set2) {
+        Set<E> result = new HashSet<>();
+        difference(set1, set2, result);
+        difference(set2, set1, result);
+        return result;
+    }
+
+    private static <E> void difference(Set<? extends E> set1, Set<? extends E> set2,
+                                       Set<E> result) {
+        for (E element : set1) {
+            if (!set2.contains(element)) {
+                result.add(element);
+            }
+        }
+    }
+
+    public static <E> List<E> union(List<? extends E> list1, List<? extends E> list2) {
         if (list1 instanceof RandomAccess && list2 instanceof RandomAccess) {
             return new RandomAccessUnionList<>(list1, list2);
         } else {
@@ -77,10 +101,10 @@ public class CollectionUtils {
 
     private static class UnionList<E> extends AbstractList<E> {
 
-        private List<E> mList1;
-        private List<E> mList2;
+        private List<? extends E> mList1;
+        private List<? extends E> mList2;
 
-        public UnionList(List<E> list1, List<E> list2) {
+        public UnionList(List<? extends E> list1, List<? extends E> list2) {
             mList1 = list1;
             mList2 = list2;
         }
@@ -99,7 +123,7 @@ public class CollectionUtils {
 
     private static class RandomAccessUnionList<E> extends UnionList<E> implements RandomAccess {
 
-        public RandomAccessUnionList(List<E> list1, List<E> list2) {
+        public RandomAccessUnionList(List<? extends E> list1, List<? extends E> list2) {
             super(list1, list2);
         }
     }

@@ -36,6 +36,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -160,8 +161,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         });
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
-        mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
         mViewModel.getFileListData().observe(this, this::onFileListChanged);
+        mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
+        mViewModel.getSelectedUrisData().observe(this, this::onSelectedUrisChanged);
 
         // TODO: Request storage permission.
     }
@@ -385,6 +387,15 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void onBreadcrumbItemSelected(int index) {
         navigateToFile(mViewModel.getTrail().get(index));
+    }
+
+    @Override
+    public void onSelectUri(Uri uri, boolean selected) {
+        mViewModel.selectUri(uri, selected);
+    }
+
+    private void onSelectedUrisChanged(Set<Uri> selectedUris) {
+        mAdapter.replaceSelectedUris(selectedUris);
     }
 
     @Override

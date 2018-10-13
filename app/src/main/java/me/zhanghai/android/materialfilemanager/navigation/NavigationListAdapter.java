@@ -19,11 +19,12 @@ import java.util.Collections;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.ui.CheckableItemBackground;
 import me.zhanghai.android.materialfilemanager.ui.CheckableLinearLayout;
 import me.zhanghai.android.materialfilemanager.ui.SimpleAdapter;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class NavigationAdapter extends SimpleAdapter<NavigationItem,
+public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
         RecyclerView.ViewHolder> {
 
     private NavigationItem.Listener mListener;
@@ -31,7 +32,7 @@ public class NavigationAdapter extends SimpleAdapter<NavigationItem,
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_DIVIDER = 1;
 
-    public NavigationAdapter(NavigationItem.Listener listener) {
+    public NavigationListAdapter(NavigationItem.Listener listener) {
         mListener = listener;
         setHasStableIds(true);
     }
@@ -64,7 +65,7 @@ public class NavigationAdapter extends SimpleAdapter<NavigationItem,
                 ItemHolder holder = new ItemHolder(ViewUtils.inflate(R.layout.navigation_item,
                         parent));
                 Context context = holder.itemView.getContext();
-                Drawable navigationItemBackground = NavigationItemBackground.create(context);
+                Drawable navigationItemBackground = CheckableItemBackground.create(context);
                 holder.itemLayout.setBackground(navigationItemBackground);
                 holder.iconImage.setImageTintList(NavigationItemColor.create(
                         holder.iconImage.getImageTintList(), holder.iconImage.getContext()));

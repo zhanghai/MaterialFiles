@@ -12,7 +12,9 @@ import android.arch.lifecycle.ViewModel;
 import android.net.Uri;
 import android.os.Parcelable;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
@@ -25,6 +27,7 @@ public class FileListViewModel extends ViewModel {
     private LiveData<FileListData> mFileListData = Transformations.switchMap(mFileData,
             FileListLiveData::new);
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
+    private MutableLiveData<Set<Uri>> mSelectedUrisData = new MutableLiveData<>();
 
     public FileListViewModel() {
         // TODO
@@ -33,6 +36,7 @@ public class FileListViewModel extends ViewModel {
         mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
                 Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
                 Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));
+        mSelectedUrisData.setValue(new HashSet<>());
     }
 
     public void navigateTo(Parcelable lastState, List<File> path) {
@@ -89,5 +93,17 @@ public class FileListViewModel extends ViewModel {
         Settings.FILE_LIST_SORT_ORDER.putEnumValue(sortOptions.getOrder());
         Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.putValue(sortOptions.isDirectoriesFirst());
         mSortOptionsData.setValue(sortOptions);
+    }
+
+    public LiveData<Set<Uri>> getSelectedUrisData() {
+        return mSelectedUrisData;
+    }
+
+    public void selectUri(Uri uri, boolean selected) {
+        Set<Uri> selectedUris = mSelectedUrisData.getValue();
+        boolean changed = selected ? selectedUris.add(uri) : selectedUris.remove(uri);
+        if (changed) {
+            mSelectedUrisData.setValue(selectedUris);
+        }
     }
 }

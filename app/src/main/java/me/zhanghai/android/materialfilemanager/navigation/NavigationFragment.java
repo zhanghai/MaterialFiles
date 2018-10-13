@@ -37,7 +37,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     RecyclerView mRecyclerView;
 
     @NonNull
-    private NavigationAdapter mAdapter;
+    private NavigationListAdapter mAdapter;
 
     @NonNull
     private MainListener mMainListener;
@@ -83,7 +83,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         //mRecyclerView.setItemAnimator(new NoChangeAnimationItemAnimator());
         Context context = requireContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new NavigationAdapter(this);
+        mAdapter = new NavigationListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
         NavigationItemListLiveData.getInstance().observe(this, this::onNavigationItemsChanged);

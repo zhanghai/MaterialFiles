@@ -5,11 +5,12 @@
   ~ All Rights Reserved.
   -->
 
-<FrameLayout
+<me.zhanghai.android.materialfilemanager.ui.CheckableFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?selectableItemBackground">
+    android:foreground="?selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,4 +86,4 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="@dimen/content_start_margin"
         android:background="?dividerVertical" />
-</FrameLayout>
+</me.zhanghai.android.materialfilemanager.ui.CheckableFrameLayout>
