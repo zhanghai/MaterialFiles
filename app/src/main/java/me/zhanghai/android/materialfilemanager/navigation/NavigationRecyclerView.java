@@ -26,11 +26,12 @@ public class NavigationRecyclerView extends RecyclerView {
     @BindDimen(R.dimen.design_navigation_max_width)
     int mMaxWidth;
     @BindDimen(R.dimen.design_navigation_padding_bottom)
-    int mPaddingBottom;
+    int mVerticalPadding;
     @BindDrawable(R.color.system_window_scrim)
     Drawable mScrim;
-
     private int mActionBarSize;
+
+    private int mInsetTop;
 
     public NavigationRecyclerView(Context context) {
         super(context);
@@ -55,7 +56,7 @@ public class NavigationRecyclerView extends RecyclerView {
         ButterKnife.bind(this);
         mActionBarSize = ViewUtils.getDimensionPixelSizeFromAttrRes(R.attr.actionBarSize, 0,
                 getContext());
-        setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), mPaddingBottom);
+        setPadding(getPaddingLeft(), mVerticalPadding, getPaddingRight(), mVerticalPadding);
         setElevation(mElevation);
         setFitsSystemWindows(true);
         setWillNotDraw(false);
@@ -78,8 +79,9 @@ public class NavigationRecyclerView extends RecyclerView {
 
     @Override
     public WindowInsets onApplyWindowInsets(WindowInsets insets) {
-        int insetTop = insets.getSystemWindowInsetTop();
-        setPadding(getPaddingLeft(), insetTop, getPaddingRight(), getPaddingBottom());
+        mInsetTop = insets.getSystemWindowInsetTop();
+        setPadding(getPaddingLeft(), mVerticalPadding + mInsetTop, getPaddingRight(),
+                mVerticalPadding);
         return insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
                 insets.getSystemWindowInsetRight(), insets.getSystemWindowInsetBottom());
     }
@@ -90,7 +92,7 @@ public class NavigationRecyclerView extends RecyclerView {
 
         int saveCount = canvas.save();
         canvas.translate(getScrollX(), getScrollY());
-        mScrim.setBounds(0, 0, getWidth(), getPaddingTop());
+        mScrim.setBounds(0, 0, getWidth(), mInsetTop);
         mScrim.draw(canvas);
         canvas.restoreToCount(saveCount);
     }
