@@ -41,12 +41,15 @@ public class NavigationItems {
 
     private static final List<Pair<String, Integer>> DEFAULT_FAVORITE_DIRECTORIES =
             ListBuilder.<Pair<String, Integer>>newArrayList()
-                    .add(new Pair<>(Environment.DIRECTORY_DCIM, R.string.navigation_dcim))
-                    .add(new Pair<>(Environment.DIRECTORY_DOCUMENTS, R.string.navigation_documents))
-                    .add(new Pair<>(Environment.DIRECTORY_DOWNLOADS, R.string.navigation_downloads))
-                    .add(new Pair<>(Environment.DIRECTORY_MOVIES, R.string.navigation_movies))
-                    .add(new Pair<>(Environment.DIRECTORY_MUSIC, R.string.navigation_music))
-                    .add(new Pair<>(Environment.DIRECTORY_PICTURES, R.string.navigation_pictures))
+                    .add(new Pair<>(Environment.DIRECTORY_DCIM, R.drawable.camera_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_DOCUMENTS,
+                            R.drawable.document_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_DOWNLOADS,
+                            R.drawable.download_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_MOVIES, R.drawable.video_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_MUSIC, R.drawable.audio_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_PICTURES,
+                            R.drawable.image_icon_white_24dp))
                     .buildUnmodifiable();
 
     @NonNull
@@ -82,8 +85,8 @@ public class NavigationItems {
         List<NavigationItem> favoriteItems = new ArrayList<>();
         for (Pair<String, Integer> directory : DEFAULT_FAVORITE_DIRECTORIES) {
             String path = Environment.getExternalStoragePublicDirectory(directory.first).getPath();
-            int titleRes = directory.second;
-            favoriteItems.add(new FavoriteItem(Files.ofLocalPath(path), titleRes));
+            int iconRes = directory.second;
+            favoriteItems.add(new FavoriteItem(Files.ofLocalPath(path), iconRes));
         }
         // TODO: Persist and load favorites.
         return favoriteItems;
@@ -196,30 +199,30 @@ public class NavigationItems {
 
     public static class FavoriteItem extends FileItem {
 
-        @StringRes
-        private int mTitleRes;
+        @DrawableRes
+        private int mIconRes;
 
-        public FavoriteItem(@NonNull File file, @StringRes int titleRes) {
+        public FavoriteItem(@NonNull File file, @DrawableRes int iconRes) {
             super(file);
 
-            mTitleRes = titleRes;
+            mIconRes = iconRes;
         }
 
         @DrawableRes
         @Override
         public int getIconRes() {
-            return R.drawable.directory_icon_white_24dp;
+            return mIconRes;
         }
 
         @NonNull
         @Override
         public String getTitle(@NonNull Context context) {
-            return mTitleRes != 0 ? super.getTitle(context) : mFile.getName();
+            return mFile.getName();
         }
 
         @Override
         protected int getTitleRes() {
-            return mTitleRes;
+            throw new UnsupportedOperationException();
         }
     }
 
