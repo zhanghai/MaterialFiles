@@ -54,6 +54,8 @@ public abstract class NavigationItem {
 
         void navigateToFile(@NonNull File file);
 
+        void onAddDocumentTree();
+
         void closeNavigationDrawer();
 
         void startActivity(@NonNull Intent intent);

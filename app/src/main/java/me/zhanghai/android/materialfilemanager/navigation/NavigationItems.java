@@ -75,7 +75,7 @@ public class NavigationItems {
                 StorageManager.class);
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
         Functional.map(storageVolumes, StorageVolumeRootItem::new, rootItems);
-        // TODO: Add root action item
+        rootItems.add(new AddDocumentTreeRootItem());
         return rootItems;
     }
 
@@ -162,7 +162,7 @@ public class NavigationItems {
         }
     }
 
-    public static class RootDirectoryRootItem extends LocalRootItem {
+    private static class RootDirectoryRootItem extends LocalRootItem {
 
         public RootDirectoryRootItem() {
             super("/", R.drawable.device_icon_white_24dp);
@@ -175,7 +175,7 @@ public class NavigationItems {
         }
     }
 
-    public static class StorageVolumeRootItem extends LocalRootItem {
+    private static class StorageVolumeRootItem extends LocalRootItem {
 
         private StorageVolume mStorageVolume;
 
@@ -197,7 +197,32 @@ public class NavigationItems {
         }
     }
 
-    public static class FavoriteItem extends FileItem {
+    private static class AddDocumentTreeRootItem extends NavigationItem {
+
+        @Override
+        public long getId() {
+            return R.string.navigation_add_document_tree;
+        }
+
+        @DrawableRes
+        @Override
+        protected int getIconRes() {
+            return R.drawable.add_icon_white_24dp;
+        }
+
+        @StringRes
+        @Override
+        protected int getTitleRes() {
+            return R.string.navigation_add_document_tree;
+        }
+
+        @Override
+        public void onClick(@NonNull Listener listener) {
+            listener.onAddDocumentTree();
+        }
+    }
+
+    private static class FavoriteItem extends FileItem {
 
         @DrawableRes
         private int mIconRes;
