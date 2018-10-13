@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
-import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class Trail {
 
@@ -31,22 +30,21 @@ public class Trail {
             return;
         }
         mStates.set(mIndex, lastState);
-        boolean isPrefix = Functional.every(path, (file, index) -> {
-            if (index < mTrail.size()) {
-                File oldFile = mTrail.get(index);
-                mTrail.set(index, file);
-                if (Objects.equals(oldFile.getUri(), file.getUri())) {
-                    return true;
-                } else {
-                    mStates.set(index, null);
-                    return false;
+        boolean isPrefix = true;
+        for (int i = 0; i < path.size(); ++i) {
+            File file = path.get(i);
+            if (i < mTrail.size()) {
+                File oldFile = mTrail.get(i);
+                mTrail.set(i, file);
+                if (!Objects.equals(oldFile.getUri(), file.getUri())) {
+                    mStates.set(i, null);
+                    isPrefix = false;
                 }
             } else {
                 mTrail.add(file);
                 mStates.add(null);
-                return true;
             }
-        });
+        }
         if (mTrail.size() > path.size() && !isPrefix) {
             mTrail.subList(path.size(), mTrail.size()).clear();
             mStates.subList(path.size(), mStates.size()).clear();
