@@ -10,7 +10,7 @@ import java.util.List;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
-import me.zhanghai.android.materialfilemanager.filesystem.LocalFileOperationStrategies;
+import me.zhanghai.android.materialfilemanager.filesystem.Syscall;
 
 public interface FileJobs {
 
@@ -42,7 +42,7 @@ public interface FileJobs {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.SYSCALL_STRATEGY.createDirectory(file);
+                Syscall.createDirectory(file.getPath());
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -62,7 +62,7 @@ public interface FileJobs {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.SYSCALL_STRATEGY.createFile(file);
+                Syscall.createFile(file.getPath());
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -101,7 +101,7 @@ public interface FileJobs {
         private void delete(File file) throws FileSystemException {
             if (file instanceof LocalFile) {
                 LocalFile localFile = (LocalFile) file;
-                LocalFileOperationStrategies.SYSCALL_STRATEGY.delete(localFile);
+                Syscall.delete(localFile.getPath());
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
@@ -123,6 +123,11 @@ public interface FileJobs {
         public void run() throws FileSystemException {
             // TODO
         }
+
+        private void moveWithRename(File fromFile, File toDirectory) {
+            // TODO: Handle into oneself or vice versa and name collision.
+
+        }
     }
 
     class Rename extends FileJob {
@@ -139,7 +144,7 @@ public interface FileJobs {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                LocalFileOperationStrategies.SYSCALL_STRATEGY.rename(file, mNewName);
+                Syscall.rename(file.getPath(), mNewName);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
