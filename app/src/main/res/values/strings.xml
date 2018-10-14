@@ -19,7 +19,6 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="file_name_root">Root</string>
     <string name="file_error_information">Unable to read file information</string>
     <string name="file_error_cancelled">Operation cancelled</string>
     <string name="file_delete_error">Unable to delete file</string>
@@ -63,6 +62,7 @@
     <string name="file_list_action_sort_directories_first">Folders first</string>
     <string name="file_list_action_refresh">Refresh</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
+    <string name="file_list_breadcrumb_name_root">Root</string>
     <string name="file_list_cab_title_format">%1$d selected</string>
     <string name="file_list_error_directory">Unable to open folder</string>
     <string name="file_list_error_archive">Unable to open archive</string>
@@ -103,11 +103,11 @@
 
     <string name="main_title">Files</string>
 
-    <string name="navigation_root_directory">Root</string>
+    <string name="navigation_root_directory">@string/file_list_breadcrumb_name_root</string>
     <string name="navigation_root_subtitle_format">%s free of %s</string>
     <string name="navigation_add_document_tree">Add external storage…</string>
-    <string name="navigation_settings">Settings</string>
-    <string name="navigation_about">About</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
 
     <string name="settings_title">Settings</string>
 

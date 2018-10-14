@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -324,8 +325,17 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void updateBreadcrumbLayout() {
         List<File> trail = mViewModel.getTrail();
-        mBreadcrumbLayout.setItems(Functional.map(trail, File::getName),
+        Context context = mBreadcrumbLayout.getContext();
+        mBreadcrumbLayout.setItems(Functional.map(trail, file -> getBreadcrumbName(file, context)),
                 mViewModel.getTrailIndex());
+    }
+
+    private String getBreadcrumbName(File file, Context context) {
+        String name = file.getName();
+        if (TextUtils.equals(name, "/")) {
+            return context.getString(R.string.file_list_breadcrumb_name_root);
+        }
+        return name;
     }
 
     private void setSortBy(FileSortOptions.By by) {
