@@ -38,8 +38,8 @@ public class FileJobService extends Service {
         }
     }
 
-    public static void delete(List<File> files, Context context) {
-        startJob(new FileJobs.Delete(files), context);
+    public static void copy(List<File> fromFiles, File toDirectory, Context context) {
+        startJob(new FileJobs.Copy(fromFiles, toDirectory), context);
     }
 
     public static void createFile(File file, Context context) {
@@ -48,6 +48,14 @@ public class FileJobService extends Service {
 
     public static void createDirectory(File file, Context context) {
         startJob(new FileJobs.CreateDirectory(file), context);
+    }
+
+    public static void delete(List<File> files, Context context) {
+        startJob(new FileJobs.Delete(files), context);
+    }
+
+    public static void move(List<File> fromFiles, File toDirectory, Context context) {
+        startJob(new FileJobs.Move(fromFiles, toDirectory), context);
     }
 
     public static void rename(File file, String name, Context context) {

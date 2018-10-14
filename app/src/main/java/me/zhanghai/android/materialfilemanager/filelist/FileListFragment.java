@@ -484,7 +484,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
                 selectAllFiles();
                 return true;
             case R.id.action_paste:
-                pasteFiles(mViewModel.getSelectedFiles());
+                pasteFiles(mViewModel.getSelectedFiles(), getCurrentFile());
                 return true;
             default:
                 return false;
@@ -521,10 +521,19 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         updateCab();
     }
 
-    private void pasteFiles(Set<File> files) {
-        mViewModel.selectFiles(files, false);
+    private void pasteFiles(Set<File> fromFiles, File toDirectory) {
+        switch (mViewModel.getPasteMode()) {
+            case MOVE:
+                FileJobService.move(makeFileListForJob(fromFiles), toDirectory, requireContext());
+                break;
+            case COPY:
+                FileJobService.copy(makeFileListForJob(fromFiles), toDirectory, requireContext());
+                break;
+            default:
+                throw new IllegalStateException();
+        }
+        mViewModel.selectFiles(fromFiles, false);
         mViewModel.setPasteMode(FilePasteMode.NONE);
-        // TODO
     }
 
     private void confirmDeleteFiles(Set<File> files) {
