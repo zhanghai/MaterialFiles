@@ -168,7 +168,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
             }
         });
         holder.itemLayout.setOnLongClickListener(view -> {
-            mListener.onSelectUri(uri, !mSelectedUris.contains(uri));
+            if (mSelectedUris.isEmpty()) {
+                mListener.onSelectUri(uri, !mSelectedUris.contains(uri));
+            } else {
+                mListener.onOpenFile(file);
+            }
             return true;
         });
         String mimeType = file.getMimeType();
