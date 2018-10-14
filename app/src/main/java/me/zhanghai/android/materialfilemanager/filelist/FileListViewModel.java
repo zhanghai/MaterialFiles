@@ -12,6 +12,7 @@ import android.arch.lifecycle.ViewModel;
 import android.net.Uri;
 import android.os.Parcelable;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -104,18 +105,14 @@ public class FileListViewModel extends ViewModel {
     }
 
     public void selectFile(File file, boolean selected) {
-        Set<File> selectedFiles = mSelectedFilesData.getValue();
-        boolean changed = selected ? selectedFiles.add(file) : selectedFiles.remove(file);
-        if (changed) {
-            mSelectedFilesData.setValue(selectedFiles);
-        }
+        selectFiles(Collections.singleton(file), selected);
     }
 
-    public void selectFiles(Set<File> files) {
+    public void selectFiles(Set<File> files, boolean selected) {
         Set<File> selectedFiles = mSelectedFilesData.getValue();
         boolean changed = false;
         for (File file : files) {
-            changed |= selectedFiles.add(file);
+            changed |= selected ? selectedFiles.add(file) : selectedFiles.remove(file);
         }
         if (changed) {
             mSelectedFilesData.setValue(selectedFiles);
@@ -127,10 +124,10 @@ public class FileListViewModel extends ViewModel {
         if (fileList == null) {
             return;
         }
-        selectFiles(new HashSet<>(fileList));
+        selectFiles(new HashSet<>(fileList), true);
     }
 
-    public void setSelectFiles(Set<File> files) {
+    public void setSelectedFiles(Set<File> files) {
         Set<File> selectedFiles = mSelectedFilesData.getValue();
         if (selectedFiles.equals(files)) {
             return;

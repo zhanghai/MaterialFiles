@@ -56,6 +56,7 @@ import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
+import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
@@ -93,7 +94,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     private MenuItem mSortOrderAscendingMenuItem;
     private MenuItem mSortDirectoriesFirstMenuItem;
 
-    private MaterialCab mCab;
+    private SetMenuResourceMaterialCab mCab;
 
     private FileListAdapter mAdapter;
 
@@ -142,9 +143,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         activity.setSupportActionBar(mToolbar);
 
         if (savedInstanceState == null) {
-            mCab = new MaterialCab(activity, R.id.cab_stub);
+            mCab = new SetMenuResourceMaterialCab(activity, R.id.cab_stub);
         } else {
-            mCab = MaterialCab.restoreState(savedInstanceState, activity, this);
+            mCab = SetMenuResourceMaterialCab.restoreState(savedInstanceState, activity, this);
         }
 
         int contentLayoutInitialPaddingBottom = mContentLayout.getPaddingBottom();
@@ -426,8 +427,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mAdapter.replaceSelectedFiles(selectedFiles);
         if (!selectedFiles.isEmpty()) {
             mCab.setTitle(getString(R.string.file_list_cab_title_format, selectedFiles.size()));
-            // TODO: Avoid recreating menu.
-            mCab.setMenu(R.menu.file_list_cab);
+            mCab.setMenuResource(R.menu.file_list_cab);
             if (!mCab.isActive()) {
                 mCab.start(this);
             }
@@ -471,18 +471,18 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void cutFiles(Set<File> files) {
         if (/* mode is cut*/ true) {
-            mViewModel.selectFiles(files);
+            mViewModel.selectFiles(files, true);
         } else {
-            mViewModel.setSelectFiles(files);
+            mViewModel.setSelectedFiles(files);
             // Set mode to cut
         }
     }
 
     private void copyFiles(Set<File> files) {
         if (/* mode is copy */ true) {
-            mViewModel.selectFiles(files);
+            mViewModel.selectFiles(files, true);
         } else {
-            mViewModel.setSelectFiles(files);
+            mViewModel.setSelectedFiles(files);
             // Set mode to copy
         }
     }
@@ -493,6 +493,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public void deleteFiles(Set<File> files) {
+        mViewModel.selectFiles(files, false);
         FileJobService.delete(makeFileListForJob(files), requireContext());
     }
 
