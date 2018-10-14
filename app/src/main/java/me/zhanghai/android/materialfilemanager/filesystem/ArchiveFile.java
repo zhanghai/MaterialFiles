@@ -153,7 +153,7 @@ public class ArchiveFile extends BaseFile {
 
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equalsIncludingInformation(Object object) {
         if (this == object) {
             return true;
         }
@@ -165,11 +165,6 @@ public class ArchiveFile extends BaseFile {
                 && Objects.equals(mArchiveFile, that.mArchiveFile)
                 && Objects.equals(mEntryPath, that.mEntryPath)
                 && Objects.equals(mInformation, that.mInformation);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mUri, mArchiveFile, mEntryPath, mInformation);
     }
 
 

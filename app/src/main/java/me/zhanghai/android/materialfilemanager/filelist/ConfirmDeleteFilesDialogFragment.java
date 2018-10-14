@@ -14,12 +14,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
 public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
@@ -28,36 +29,23 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
 
     private static final String EXTRA_FILES = KEY_PREFIX + "FILES";
 
-    private ArrayList<File> mFiles;
+    private Set<File> mFiles;
 
-    private static ConfirmDeleteFilesDialogFragment newInstance(ArrayList<File> files) {
+    private static ConfirmDeleteFilesDialogFragment newInstance(Set<File> files) {
         //noinspection deprecation
         ConfirmDeleteFilesDialogFragment fragment = new ConfirmDeleteFilesDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelableArrayList(EXTRA_FILES, files);
+                .putParcelableArrayList(EXTRA_FILES, new ArrayList<>(files));
         return fragment;
     }
 
-    public static ConfirmDeleteFilesDialogFragment newInstance(File file) {
-        return newInstance(Collections.singletonList(file));
-    }
-
-    public static ConfirmDeleteFilesDialogFragment newInstance(List<File> files) {
-        return newInstance(new ArrayList<>(files));
-    }
-
-    public static void show(File file, Fragment fragment) {
-        ConfirmDeleteFilesDialogFragment.newInstance(file)
-                .show(fragment.getChildFragmentManager(), null);
-    }
-
-    public static void show(List<File> files, Fragment fragment) {
+    public static void show(Set<File> files, Fragment fragment) {
         ConfirmDeleteFilesDialogFragment.newInstance(files)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(Set)} instead.
      */
     public ConfirmDeleteFilesDialogFragment() {}
 
@@ -65,7 +53,7 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFiles = getArguments().getParcelableArrayList(EXTRA_FILES);
+        mFiles = new HashSet<>(getArguments().getParcelableArrayList(EXTRA_FILES));
     }
 
     @NonNull
@@ -73,7 +61,7 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String message;
         if (mFiles.size() == 1) {
-            File file = mFiles.get(0);
+            File file = CollectionUtils.first(mFiles);
             int messageRes = file.isDirectoryDoNotFollowSymbolicLinks() ?
                     R.string.file_delete_message_directory_format
                     : R.string.file_delete_message_file_format;
@@ -102,6 +90,6 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     }
 
     public interface Listener {
-        void deleteFiles(List<File> files);
+        void deleteFiles(Set<File> files);
     }
 }

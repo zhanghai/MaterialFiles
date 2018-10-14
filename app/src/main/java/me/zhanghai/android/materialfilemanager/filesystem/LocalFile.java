@@ -187,7 +187,7 @@ public class LocalFile extends BaseFile {
 
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equalsIncludingInformation(Object object) {
         if (this == object) {
             return true;
         }
@@ -197,11 +197,6 @@ public class LocalFile extends BaseFile {
         LocalFile that = (LocalFile) object;
         return Objects.equals(mUri, that.mUri)
                 && Objects.equals(mStrategy, that.mStrategy);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mUri, mStrategy);
     }
 
 

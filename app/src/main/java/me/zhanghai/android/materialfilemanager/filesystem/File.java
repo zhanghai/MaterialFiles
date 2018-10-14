@@ -23,7 +23,7 @@ import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 
-public interface File extends Parcelable {
+public interface File extends Comparable<File>, Parcelable {
 
     @NonNull
     Uri getUri();
@@ -131,7 +131,25 @@ public interface File extends Parcelable {
 
     default void stopObserving() {}
 
-    boolean equals(Object object);
+    @Override
+    default int compareTo(@NonNull File that) {
+        return getUri().compareTo(that.getUri());
+    }
 
-    int hashCode();
+    default boolean equalsAsFile(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (!(object instanceof File)) {
+            return false;
+        }
+        File that = (File) object;
+        return getUri().equals(that.getUri());
+    }
+
+    default int hashCodeAsFile() {
+        return getUri().hashCode();
+    }
+
+    boolean equalsIncludingInformation(Object object);
 }

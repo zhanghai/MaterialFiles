@@ -28,7 +28,7 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         mSortedList.endBatchedUpdates();
     }
 
-    public void replaceAll(List<T> list) {
+    public void replace(List<T> list) {
         mList.clear();
         mList.addAll(list);
         mSortedList.replaceAll(mList);

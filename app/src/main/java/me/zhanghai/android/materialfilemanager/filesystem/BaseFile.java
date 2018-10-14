@@ -36,4 +36,14 @@ public abstract class BaseFile implements File {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(mUri, flags);
     }
+
+    @Override
+    public boolean equals(Object object) {
+        return equalsAsFile(object);
+    }
+
+    @Override
+    public int hashCode() {
+        return hashCodeAsFile();
+    }
 }

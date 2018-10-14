@@ -7,20 +7,22 @@
 
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
 
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/search_icon_white_24dp"
         android:orderInCategory="100"
         android:title="@string/search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:icon="@drawable/sort_icon_white_24dp"
         android:orderInCategory="100"
         android:title="@string/file_list_action_sort"
-        app:showAsAction="ifRoom">
+        app:showAsAction="always">
         <menu>
             <group android:checkableBehavior="single">
                 <item

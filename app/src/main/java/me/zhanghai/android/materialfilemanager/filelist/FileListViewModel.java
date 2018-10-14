@@ -27,16 +27,16 @@ public class FileListViewModel extends ViewModel {
     private LiveData<FileListData> mFileListData = Transformations.switchMap(mFileData,
             FileListLiveData::new);
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
-    private MutableLiveData<Set<Uri>> mSelectedUrisData = new MutableLiveData<>();
+    private MutableLiveData<Set<File>> mSelectedFilesData = new MutableLiveData<>();
 
     public FileListViewModel() {
-        // TODO
-        File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
-        navigateTo(null, file.makeBreadcrumbPath());
         mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
                 Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
                 Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));
-        mSelectedUrisData.setValue(new HashSet<>());
+        mSelectedFilesData.setValue(new HashSet<>());
+        // TODO
+        File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
+        navigateTo(null, file.makeBreadcrumbPath());
     }
 
     public void navigateTo(Parcelable lastState, List<File> path) {
@@ -95,24 +95,57 @@ public class FileListViewModel extends ViewModel {
         mSortOptionsData.setValue(sortOptions);
     }
 
-    public LiveData<Set<Uri>> getSelectedUrisData() {
-        return mSelectedUrisData;
+    public LiveData<Set<File>> getSelectedFilesData() {
+        return mSelectedFilesData;
     }
 
-    public void selectUri(Uri uri, boolean selected) {
-        Set<Uri> selectedUris = mSelectedUrisData.getValue();
-        boolean changed = selected ? selectedUris.add(uri) : selectedUris.remove(uri);
+    public Set<File> getSelectedFiles() {
+        return mSelectedFilesData.getValue();
+    }
+
+    public void selectFile(File file, boolean selected) {
+        Set<File> selectedFiles = mSelectedFilesData.getValue();
+        boolean changed = selected ? selectedFiles.add(file) : selectedFiles.remove(file);
         if (changed) {
-            mSelectedUrisData.setValue(selectedUris);
+            mSelectedFilesData.setValue(selectedFiles);
         }
     }
 
-    public void clearSelectedUris() {
-        Set<Uri> selectedUris = mSelectedUrisData.getValue();
-        if (selectedUris.isEmpty()) {
+    public void selectFiles(Set<File> files) {
+        Set<File> selectedFiles = mSelectedFilesData.getValue();
+        boolean changed = false;
+        for (File file : files) {
+            changed |= selectedFiles.add(file);
+        }
+        if (changed) {
+            mSelectedFilesData.setValue(selectedFiles);
+        }
+    }
+
+    public void selectAllFiles() {
+        List<File> fileList = mFileListData.getValue().fileList;
+        if (fileList == null) {
             return;
         }
-        selectedUris.clear();
-        mSelectedUrisData.setValue(selectedUris);
+        selectFiles(new HashSet<>(fileList));
+    }
+
+    public void setSelectFiles(Set<File> files) {
+        Set<File> selectedFiles = mSelectedFilesData.getValue();
+        if (selectedFiles.equals(files)) {
+            return;
+        }
+        selectedFiles.clear();
+        selectedFiles.addAll(files);
+        mSelectedFilesData.setValue(selectedFiles);
+    }
+
+    public void clearSelectedFiles() {
+        Set<File> selectedFiles = mSelectedFilesData.getValue();
+        if (selectedFiles.isEmpty()) {
+            return;
+        }
+        selectedFiles.clear();
+        mSelectedFilesData.setValue(selectedFiles);
     }
 }

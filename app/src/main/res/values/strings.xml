@@ -64,6 +64,10 @@
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
     <string name="file_list_breadcrumb_name_root">Root</string>
     <string name="file_list_cab_title_format">%1$d selected</string>
+    <string name="file_list_cab_action_cut">@string/file_item_action_cut</string>
+    <string name="file_list_cab_action_copy">@string/file_item_action_copy</string>
+    <string name="file_list_cab_action_delete">@string/file_item_action_delete</string>
+    <string name="file_list_cab_action_select_all">Select all</string>
     <string name="file_list_error_directory">Unable to open folder</string>
     <string name="file_list_error_archive">Unable to open archive</string>
     <string name="file_list_empty">No files</string>

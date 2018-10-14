@@ -40,6 +40,14 @@ public class CollectionUtils {
         return index >= 0 && index < list.size() ? list.get(index) : null;
     }
 
+    public static <E> E first(Collection<? extends E> collection) {
+        return collection.iterator().next();
+    }
+
+    public static <E> E firstOrNull(Collection<? extends E> collection) {
+        return collection.size() > 0 ? first(collection) : null;
+    }
+
     public static <E> E peek(List<? extends E> list) {
         return lastOrNull(list);
     }

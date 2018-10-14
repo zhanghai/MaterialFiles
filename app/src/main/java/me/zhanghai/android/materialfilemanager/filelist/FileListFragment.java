@@ -36,6 +36,8 @@ import android.widget.TextView;
 import com.afollestad.materialcab.MaterialCab;
 import com.leinardi.android.speeddial.SpeedDialView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -172,7 +174,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
-        mViewModel.getSelectedUrisData().observe(this, this::onSelectedUrisChanged);
+        mViewModel.getSelectedFilesData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getFileListData().observe(this, this::onFileListChanged);
 
         // TODO: Request storage permission.
@@ -287,7 +289,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
                 ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
-                mAdapter.replaceAll(fileList);
+                mAdapter.replace(fileList);
                 Parcelable state = mViewModel.getPendingState();
                 if (state != null) {
                     mRecyclerView.getLayoutManager().onRestoreInstanceState(state);
@@ -416,14 +418,16 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
-    public void onSelectUri(Uri uri, boolean selected) {
-        mViewModel.selectUri(uri, selected);
+    public void onSelectFile(File file, boolean selected) {
+        mViewModel.selectFile(file, selected);
     }
 
-    private void onSelectedUrisChanged(Set<Uri> selectedUris) {
-        mAdapter.replaceSelectedUris(selectedUris);
-        if (!selectedUris.isEmpty()) {
-            mCab.setTitle(getString(R.string.file_list_cab_title_format, selectedUris.size()));
+    private void onSelectedFilesChanged(Set<File> selectedFiles) {
+        mAdapter.replaceSelectedFiles(selectedFiles);
+        if (!selectedFiles.isEmpty()) {
+            mCab.setTitle(getString(R.string.file_list_cab_title_format, selectedFiles.size()));
+            // TODO: Avoid recreating menu.
+            mCab.setMenu(R.menu.file_list_cab);
             if (!mCab.isActive()) {
                 mCab.start(this);
             }
@@ -441,13 +445,65 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public boolean onCabItemClicked(MenuItem item) {
-        return false;
+        switch (item.getItemId()) {
+            case R.id.action_cut:
+                cutFiles(mViewModel.getSelectedFiles());
+                return true;
+            case R.id.action_copy:
+                copyFiles(mViewModel.getSelectedFiles());
+                return true;
+            case R.id.action_delete:
+                confirmDeleteFiles(mViewModel.getSelectedFiles());
+                return true;
+            case R.id.action_select_all:
+                selectAllFiles();
+                return true;
+            default:
+                return false;
+        }
     }
 
     @Override
     public boolean onCabFinished(MaterialCab cab) {
-        mViewModel.clearSelectedUris();
+        mViewModel.clearSelectedFiles();
         return true;
+    }
+
+    private void cutFiles(Set<File> files) {
+        if (/* mode is cut*/ true) {
+            mViewModel.selectFiles(files);
+        } else {
+            mViewModel.setSelectFiles(files);
+            // Set mode to cut
+        }
+    }
+
+    private void copyFiles(Set<File> files) {
+        if (/* mode is copy */ true) {
+            mViewModel.selectFiles(files);
+        } else {
+            mViewModel.setSelectFiles(files);
+            // Set mode to copy
+        }
+    }
+
+    private void confirmDeleteFiles(Set<File> files) {
+        ConfirmDeleteFilesDialogFragment.show(files, this);
+    }
+
+    @Override
+    public void deleteFiles(Set<File> files) {
+        FileJobService.delete(makeFileListForJob(files), requireContext());
+    }
+
+    private List<File> makeFileListForJob(Set<File> files) {
+        List<File> fileList = new ArrayList<>(files);
+        Collections.sort(fileList);
+        return fileList;
+    }
+
+    private void selectAllFiles() {
+        mViewModel.selectAllFiles();
     }
 
     @Override
@@ -476,23 +532,17 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public void onCutFile(File file) {
-
+        cutFiles(Collections.singleton(file));
     }
 
     @Override
     public void onCopyFile(File file) {
-
+        copyFiles(Collections.singleton(file));
     }
 
     @Override
     public void onDeleteFile(File file) {
-        ConfirmDeleteFilesDialogFragment.show(file, this);
-    }
-
-    @Override
-    public void deleteFiles(List<File> files) {
-        // TODO
-        FileJobService.delete(files, requireContext());
+        confirmDeleteFiles(Collections.singleton(file));
     }
 
     @Override
