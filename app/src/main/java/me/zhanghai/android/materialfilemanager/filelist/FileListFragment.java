@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.afollestad.materialcab.MaterialCab;
 import com.leinardi.android.speeddial.SpeedDialView;
 
 import java.util.List;
@@ -57,9 +58,9 @@ import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListFragment extends Fragment implements FileListAdapter.Listener,
-        ConfirmDeleteFilesDialogFragment.Listener, RenameFileDialogFragment.Listener,
-        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-        NavigationFragment.FileListListener {
+        MaterialCab.Callback, ConfirmDeleteFilesDialogFragment.Listener,
+        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
+        CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -88,6 +89,8 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     private MenuItem mSortByLastModifiedMenuItem;
     private MenuItem mSortOrderAscendingMenuItem;
     private MenuItem mSortDirectoriesFirstMenuItem;
+
+    private MaterialCab mCab;
 
     private FileListAdapter mAdapter;
 
@@ -135,6 +138,12 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
+        if (savedInstanceState == null) {
+            mCab = new MaterialCab(activity, R.id.cab_stub);
+        } else {
+            mCab = MaterialCab.restoreState(savedInstanceState, activity, this);
+        }
+
         int contentLayoutInitialPaddingBottom = mContentLayout.getPaddingBottom();
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
                 ViewUtils.setPaddingBottom(mContentLayout, contentLayoutInitialPaddingBottom
@@ -166,6 +175,13 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mViewModel.getSelectedUrisData().observe(this, this::onSelectedUrisChanged);
 
         // TODO: Request storage permission.
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mCab.saveState(outState);
     }
 
     @Override
@@ -396,6 +412,32 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void onSelectedUrisChanged(Set<Uri> selectedUris) {
         mAdapter.replaceSelectedUris(selectedUris);
+        if (!selectedUris.isEmpty()) {
+            mCab.setTitle(getString(R.string.file_list_cab_title_format, selectedUris.size()));
+            if (!mCab.isActive()) {
+                mCab.start(this);
+            }
+        } else {
+            if (mCab.isActive()) {
+                mCab.finish();
+            }
+        }
+    }
+
+    @Override
+    public boolean onCabCreated(MaterialCab cab, Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onCabItemClicked(MenuItem item) {
+        return false;
+    }
+
+    @Override
+    public boolean onCabFinished(MaterialCab cab) {
+        mViewModel.clearSelectedUris();
+        return true;
     }
 
     @Override

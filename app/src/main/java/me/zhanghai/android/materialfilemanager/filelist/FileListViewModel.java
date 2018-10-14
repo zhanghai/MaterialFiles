@@ -106,4 +106,13 @@ public class FileListViewModel extends ViewModel {
             mSelectedUrisData.setValue(selectedUris);
         }
     }
+
+    public void clearSelectedUris() {
+        Set<Uri> selectedUris = mSelectedUrisData.getValue();
+        if (selectedUris.isEmpty()) {
+            return;
+        }
+        selectedUris.clear();
+        mSelectedUrisData.setValue(selectedUris);
+    }
 }

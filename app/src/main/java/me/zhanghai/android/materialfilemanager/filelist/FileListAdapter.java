@@ -103,7 +103,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
             }
         }
         for (Uri uri : selectedChangedUris) {
-            notifyItemChanged(mUriPositionMap.get(uri), PAYLOAD_SELECTED_CHANGED);
+            Integer position = mUriPositionMap.get(uri);
+            if (position != null) {
+                notifyItemChanged(position, PAYLOAD_SELECTED_CHANGED);
+            }
         }
     }
 

@@ -18,14 +18,24 @@
         android:layout_height="wrap_content"
         android:theme="?actionBarTheme">
 
-        <me.zhanghai.android.materialfilemanager.ui.CrossfadeSubtitleToolbar
-            android:id="@+id/toolbar"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@drawable/menu_icon_white_24dp"
-            app:popupTheme="?actionBarPopupTheme"
-            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <me.zhanghai.android.materialfilemanager.ui.CrossfadeSubtitleToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:navigationIcon="@drawable/menu_icon_white_24dp"
+                app:popupTheme="?actionBarPopupTheme"
+                app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
+
+            <ViewStub
+                android:id="@+id/cab_stub"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize" />
+        </FrameLayout>
 
         <me.zhanghai.android.materialfilemanager.filelist.BreadcrumbLayout
             android:id="@+id/breadcrumb"
