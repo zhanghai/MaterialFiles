@@ -171,9 +171,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         });
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
-        mViewModel.getFileListData().observe(this, this::onFileListChanged);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
         mViewModel.getSelectedUrisData().observe(this, this::onSelectedUrisChanged);
+        mViewModel.getFileListData().observe(this, this::onFileListChanged);
 
         // TODO: Request storage permission.
     }
