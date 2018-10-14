@@ -176,6 +176,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
         mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
         mViewModel.getSelectedFilesData().observe(this, this::onSelectedFilesChanged);
+        mViewModel.getPasteModeData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListData().observe(this, this::onFileListChanged);
 
         // TODO: Request storage permission.
@@ -425,16 +426,40 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void onSelectedFilesChanged(Set<File> selectedFiles) {
         mAdapter.replaceSelectedFiles(selectedFiles);
-        if (!selectedFiles.isEmpty()) {
-            mCab.setTitle(getString(R.string.file_list_cab_title_format, selectedFiles.size()));
-            mCab.setMenuResource(R.menu.file_list_cab);
-            if (!mCab.isActive()) {
-                mCab.start(this);
-            }
-        } else {
+        updateCab();
+    }
+
+    private void updateCab() {
+        Set<File> selectedFiles = mViewModel.getSelectedFiles();
+        if (selectedFiles.isEmpty()) {
             if (mCab.isActive()) {
                 mCab.finish();
             }
+            return;
+        }
+        FilePasteMode pasteMode = mViewModel.getPasteMode();
+        int titleRes;
+        int menuRes;
+        switch (pasteMode) {
+            case NONE:
+                titleRes = R.string.file_list_cab_select_title_format;
+                menuRes = R.menu.file_list_cab_select;
+                break;
+            case MOVE:
+                titleRes = R.string.file_list_cab_paste_move_title_format;
+                menuRes = R.menu.file_list_cab_paste;
+                break;
+            case COPY:
+                titleRes = R.string.file_list_cab_paste_copy_title_format;
+                menuRes = R.menu.file_list_cab_paste;
+                break;
+            default:
+                throw new IllegalStateException();
+        }
+        mCab.setTitle(getString(titleRes, selectedFiles.size()));
+        mCab.setMenuResource(menuRes);
+        if (!mCab.isActive()) {
+            mCab.start(this);
         }
     }
 
@@ -458,6 +483,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             case R.id.action_select_all:
                 selectAllFiles();
                 return true;
+            case R.id.action_paste:
+                pasteFiles(mViewModel.getSelectedFiles());
+                return true;
             default:
                 return false;
         }
@@ -466,25 +494,37 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public boolean onCabFinished(MaterialCab cab) {
         mViewModel.clearSelectedFiles();
+        mViewModel.setPasteMode(FilePasteMode.NONE);
         return true;
     }
 
     private void cutFiles(Set<File> files) {
-        if (/* mode is cut*/ true) {
+        if (mViewModel.getPasteMode() == FilePasteMode.MOVE) {
             mViewModel.selectFiles(files, true);
         } else {
             mViewModel.setSelectedFiles(files);
-            // Set mode to cut
+            mViewModel.setPasteMode(FilePasteMode.MOVE);
         }
     }
 
     private void copyFiles(Set<File> files) {
-        if (/* mode is copy */ true) {
+        if (mViewModel.getPasteMode() == FilePasteMode.COPY) {
             mViewModel.selectFiles(files, true);
         } else {
             mViewModel.setSelectedFiles(files);
-            // Set mode to copy
+            mViewModel.setPasteMode(FilePasteMode.COPY);
         }
+    }
+
+    private void onPasteModeChanged(FilePasteMode pasteMode) {
+        mAdapter.setPasteMode(pasteMode);
+        updateCab();
+    }
+
+    private void pasteFiles(Set<File> files) {
+        mViewModel.selectFiles(files, false);
+        mViewModel.setPasteMode(FilePasteMode.NONE);
+        // TODO
     }
 
     private void confirmDeleteFiles(Set<File> files) {
@@ -597,7 +637,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @NonNull
     @Override
     public File getCurrentFile() {
-        return mViewModel.getFileData().getValue();
+        return mViewModel.getFile();
     }
 
     @Override

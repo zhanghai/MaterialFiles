@@ -29,12 +29,14 @@ public class FileListViewModel extends ViewModel {
             FileListLiveData::new);
     private MutableLiveData<FileSortOptions> mSortOptionsData = new MutableLiveData<>();
     private MutableLiveData<Set<File>> mSelectedFilesData = new MutableLiveData<>();
+    private MutableLiveData<FilePasteMode> mPasteModeData = new MutableLiveData<>();
 
     public FileListViewModel() {
         mSortOptionsData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
                 Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
                 Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));
         mSelectedFilesData.setValue(new HashSet<>());
+        mPasteModeData.setValue(FilePasteMode.NONE);
         // TODO
         File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
         navigateTo(null, file.makeBreadcrumbPath());
@@ -67,6 +69,10 @@ public class FileListViewModel extends ViewModel {
 
     public LiveData<File> getFileData() {
         return mFileData;
+    }
+
+    public File getFile() {
+        return mFileData.getValue();
     }
 
     public LiveData<FileListData> getFileListData() {
@@ -110,6 +116,13 @@ public class FileListViewModel extends ViewModel {
 
     public void selectFiles(Set<File> files, boolean selected) {
         Set<File> selectedFiles = mSelectedFilesData.getValue();
+        if (selectedFiles == files) {
+            if (!selected && !selectedFiles.isEmpty()) {
+                selectedFiles.clear();
+                mSelectedFilesData.setValue(selectedFiles);
+            }
+            return;
+        }
         boolean changed = false;
         for (File file : files) {
             changed |= selected ? selectedFiles.add(file) : selectedFiles.remove(file);
@@ -144,5 +157,17 @@ public class FileListViewModel extends ViewModel {
         }
         selectedFiles.clear();
         mSelectedFilesData.setValue(selectedFiles);
+    }
+
+    public LiveData<FilePasteMode> getPasteModeData() {
+        return mPasteModeData;
+    }
+
+    public FilePasteMode getPasteMode() {
+        return mPasteModeData.getValue();
+    }
+
+    public void setPasteMode(FilePasteMode pasteMode) {
+        mPasteModeData.setValue(pasteMode);
     }
 }
