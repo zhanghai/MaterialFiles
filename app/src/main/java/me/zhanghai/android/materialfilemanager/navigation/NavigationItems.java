@@ -144,6 +144,16 @@ public class NavigationItems {
             mIconRes = iconRes;
             mFreeSpace = JavaFile.getFreeSpace(path);
             mTotalSpace = JavaFile.getTotalSpace(path);
+
+            // Root directory may not be an actual partition on legacy Android versions (can be a
+            // ramdisk instead). On modern Android the system partition will be mounted as root
+            // instead so let's try with the system partition again.
+            // @see https://source.android.com/devices/bootloader/system-as-root
+            if (mTotalSpace == 0) {
+                String systemPath = Environment.getRootDirectory().getPath();
+                mFreeSpace = JavaFile.getFreeSpace(systemPath);
+                mTotalSpace = JavaFile.getTotalSpace(systemPath);
+            }
         }
 
         @DrawableRes
