@@ -72,6 +72,13 @@ public class LocalFile extends BaseFile {
         return new LocalFile(uriFromPath(parentPath));
     }
 
+    @NonNull
+    @Override
+    public LocalFile getChild(@NonNull String childName) {
+        String childPath = new java.io.File(getPath(), childName).getPath();
+        return new LocalFile(uriFromPath(childPath));
+    }
+
     @Override
     public boolean hasInformation() {
         return mStrategy.hasInformation();

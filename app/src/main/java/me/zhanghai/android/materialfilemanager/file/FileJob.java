@@ -7,8 +7,6 @@ package me.zhanghai.android.materialfilemanager.file;
 
 import android.app.Service;
 
-import java.util.concurrent.CancellationException;
-
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.ToastUtils;
@@ -19,7 +17,7 @@ public abstract class FileJob {
         try {
             run();
             // TODO: Toast
-        } catch (CancellationException e) {
+        } catch (InterruptedException e) {
             // TODO
             e.printStackTrace();
         } catch (FileSystemException e) {
@@ -28,5 +26,5 @@ public abstract class FileJob {
         }
     }
 
-    protected abstract void run() throws FileSystemException;
+    protected abstract void run() throws FileSystemException, InterruptedException;
 }

@@ -7,8 +7,6 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.content.Context;
 
-import me.zhanghai.android.materialfilemanager.R;
-
 public class FileSystemException extends Exception {
 
     private int mMessageRes;
@@ -19,6 +17,13 @@ public class FileSystemException extends Exception {
         mMessageRes = messageRes;
     }
 
+    public FileSystemException(Throwable cause) {
+        super(cause);
+    }
+
+    /**
+     * @deprecated This is ugly.
+     */
     public FileSystemException(int messageRes, Throwable cause) {
         super(cause);
 
@@ -26,12 +31,6 @@ public class FileSystemException extends Exception {
     }
 
     public String getMessage(Context context) {
-        return context.getString(mMessageRes);
-    }
-
-    public static void throwIfInterrupted() throws FileSystemException {
-        if (Thread.interrupted()) {
-            throw new FileSystemException(R.string.file_error_cancelled);
-        }
+        return mMessageRes != 0 ? context.getString(mMessageRes) : getCause().getMessage();
     }
 }

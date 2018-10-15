@@ -32,6 +32,9 @@ public interface File extends Comparable<File>, Parcelable {
     File getParent();
 
     @NonNull
+    File getChild(@NonNull String childName);
+
+    @NonNull
     default List<File> makeBreadcrumbPath() {
         List<File> breadcrumbPath = new ArrayList<>();
         File file = this;

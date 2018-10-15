@@ -467,6 +467,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_lgetxattr(JNIEnv *env, jc
         }
         const jbyte *javaValueBuffer = (const jbyte *) value;
         (*env)->SetByteArrayRegion(env, javaValue, 0, javaValueLength, javaValueBuffer);
+        break;
     }
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     (*env)->ReleaseStringUTFChars(env, javaName, name);
@@ -527,9 +528,7 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_llistxattr(JNIEnv *env, j
             (*env)->DeleteLocalRef(env, javaName);
             nameStart = nameEnd + 1;
         }
-        if (!javaNames) {
-            break;
-        }
+        break;
     }
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {

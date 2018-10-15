@@ -25,6 +25,7 @@ import me.zhanghai.android.materialfilemanager.jni.StructGroup;
 import me.zhanghai.android.materialfilemanager.jni.StructPasswd;
 import me.zhanghai.android.materialfilemanager.jni.StructStatCompat;
 import me.zhanghai.android.materialfilemanager.jni.StructTimespecCompat;
+import me.zhanghai.android.materialfilemanager.util.ExceptionUtils;
 import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 
 public class Syscall {
@@ -139,13 +140,20 @@ public class Syscall {
         return mode;
     }
 
+    public static void copy(String fromPath, String toPath, long notifyByteCount,
+                            LongConsumer listener) throws FileSystemException,
+            InterruptedException {
+        copy(fromPath, toPath, false, notifyByteCount, listener);
+    }
+
     /*
      * @see android.os.FileUtils#copy(java.io.FileDescriptor, java.io.FileDescriptor,
      *      android.os.FileUtils.ProgressListener, android.os.CancellationSignal, long)
      * @see https://github.com/gnome/glib/blob/master/gio/gfile.c g_file_copy()
      */
-    public static void copy(String fromPath, String toPath, boolean forMove, long notifyByteCount,
-                            LongConsumer listener) throws FileSystemException {
+    private static void copy(String fromPath, String toPath, boolean forMove, long notifyByteCount,
+                             LongConsumer listener) throws FileSystemException,
+            InterruptedException {
         StructStatCompat fromStat;
         try {
             fromStat = Linux.lstat(fromPath);
@@ -171,7 +179,7 @@ public class Syscall {
                                     }
                                     unnotifiedByteCount = 0;
                                 }
-                                FileSystemException.throwIfInterrupted();
+                                ExceptionUtils.throwIfInterrupted();
                             }
                         } finally {
                             if (unnotifiedByteCount > 0 && listener != null) {
@@ -251,7 +259,8 @@ public class Syscall {
     }
 
     public static void move(String fromPath, String toPath, long notifyByteCount,
-                            LongConsumer listener) throws FileSystemException {
+                            LongConsumer listener) throws FileSystemException,
+            InterruptedException {
         try {
             Os.rename(fromPath, toPath);
         } catch (ErrnoException e) {
@@ -260,10 +269,9 @@ public class Syscall {
         }
     }
 
-    public static void rename(String path, String newName) throws FileSystemException {
-        String newPath = new File(new File(path).getParent(), newName).getPath();
+    public static void rename(String fromPath, String toPath) throws FileSystemException {
         try {
-            Os.rename(path, newPath);
+            Os.rename(fromPath, toPath);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_rename_error, e);
         }

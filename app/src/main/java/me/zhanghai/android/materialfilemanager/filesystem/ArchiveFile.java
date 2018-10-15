@@ -76,10 +76,21 @@ public class ArchiveFile extends BaseFile {
         if (entryPathSegments.isEmpty()) {
             return mArchiveFile.getParent();
         }
-        Uri.Builder entryPathBuilder = Archive.pathBuilderForRoot();
-        entryPathSegments = entryPathSegments.subList(0, entryPathSegments.size() - 1);
-        Functional.forEach(entryPathSegments, entryPathBuilder::appendPath);
-        return new ArchiveFile(mArchiveFile, entryPathBuilder.build());
+        Uri.Builder parentEntryPathBuilder = Archive.pathBuilderForRoot();
+        List<String> parentEntryPathSegments = entryPathSegments.subList(0,
+                entryPathSegments.size() - 1);
+        Functional.forEach(parentEntryPathSegments, parentEntryPathBuilder::appendPath);
+        Uri parentEntryPath = parentEntryPathBuilder.build();
+        return new ArchiveFile(mArchiveFile, parentEntryPath);
+    }
+
+    @NonNull
+    @Override
+    public ArchiveFile getChild(@NonNull String childName) {
+        Uri childEntryPath = mEntryPath.buildUpon()
+                .appendPath(childName)
+                .build();
+        return new ArchiveFile(mArchiveFile, childEntryPath);
     }
 
     @NonNull

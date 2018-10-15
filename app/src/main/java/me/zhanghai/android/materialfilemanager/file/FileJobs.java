@@ -5,12 +5,14 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.filesystem.Syscall;
+import me.zhanghai.android.materialfilemanager.util.ExceptionUtils;
 
 public interface FileJobs {
 
@@ -25,8 +27,28 @@ public interface FileJobs {
         }
 
         @Override
-        public void run() throws FileSystemException {
-            // TODO
+        public void run() throws FileSystemException, InterruptedException {
+            for (File fromFile : mFromFiles) {
+                copy(fromFile, mToDirectory);
+                ExceptionUtils.throwIfInterrupted();
+            }
+        }
+
+        private static void copy(File fromFile, File toDirectory) throws FileSystemException,
+                InterruptedException {
+            // TODO: Handle into oneself or vice versa and name collision.
+            if (fromFile instanceof LocalFile && toDirectory instanceof LocalFile) {
+                LocalFile fromLocalFile = (LocalFile) fromFile;
+                LocalFile toLocalDirectory = (LocalFile) toDirectory;
+                String fromPath = fromLocalFile.getPath();
+                // TODO: Handle target FS name restriction.
+                String toPath = toLocalDirectory.getChild(fromLocalFile.getName()).getPath();
+                // TODO
+                Syscall.copy(fromPath, toPath, 1024 * 1024, null);
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
         }
     }
 
@@ -79,26 +101,27 @@ public interface FileJobs {
         }
 
         @Override
-        public void run() throws FileSystemException {
+        public void run() throws FileSystemException, InterruptedException {
             for (File file : mFiles) {
-                FileSystemException.throwIfInterrupted();
                 file.reloadInformation();
                 deleteRecursively(file);
+                ExceptionUtils.throwIfInterrupted();
             }
         }
 
-        private void deleteRecursively(File file) throws FileSystemException {
+        private static void deleteRecursively(File file) throws FileSystemException,
+                InterruptedException {
             if (file.isDirectoryDoNotFollowSymbolicLinks()) {
                 List<File> children = file.getChildren();
                 for (File child : children) {
-                    FileSystemException.throwIfInterrupted();
                     deleteRecursively(child);
+                    ExceptionUtils.throwIfInterrupted();
                 }
             }
             delete(file);
         }
 
-        private void delete(File file) throws FileSystemException {
+        private static void delete(File file) throws FileSystemException {
             if (file instanceof LocalFile) {
                 LocalFile localFile = (LocalFile) file;
                 Syscall.delete(localFile.getPath());
@@ -120,13 +143,52 @@ public interface FileJobs {
         }
 
         @Override
-        public void run() throws FileSystemException {
-            // TODO
+        public void run() throws FileSystemException, InterruptedException {
+            List<File> fromFilesToMove = new ArrayList<>();
+            for (File fromFile : mFromFiles) {
+                try {
+                    rename(fromFile, mToDirectory);
+                } catch (FileSystemException e) {
+                    fromFilesToMove.add(fromFile);
+                }
+                ExceptionUtils.throwIfInterrupted();
+            }
+            for (File fromFile : fromFilesToMove) {
+                move(fromFile, mToDirectory);
+                ExceptionUtils.throwIfInterrupted();
+            }
         }
 
-        private void moveWithRename(File fromFile, File toDirectory) {
+        private static void rename(File fromFile, File toDirectory) throws FileSystemException {
             // TODO: Handle into oneself or vice versa and name collision.
+            if (fromFile instanceof LocalFile && toDirectory instanceof LocalFile) {
+                LocalFile fromLocalFile = (LocalFile) fromFile;
+                LocalFile toLocalDirectory = (LocalFile) toDirectory;
+                String fromPath = fromLocalFile.getPath();
+                // TODO: Handle target FS name restriction.
+                String toPath = toLocalDirectory.getChild(fromLocalFile.getName()).getPath();
+                Syscall.rename(fromPath, toPath);
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
+        }
 
+        private static void move(File fromFile, File toDirectory) throws FileSystemException,
+                InterruptedException {
+            // TODO: Handle into oneself or vice versa and name collision.
+            if (fromFile instanceof LocalFile && toDirectory instanceof LocalFile) {
+                LocalFile fromLocalFile = (LocalFile) fromFile;
+                LocalFile toLocalDirectory = (LocalFile) toDirectory;
+                String fromPath = fromLocalFile.getPath();
+                // TODO: Handle target FS name restriction.
+                String toPath = toLocalDirectory.getChild(fromLocalFile.getName()).getPath();
+                // TODO
+                Syscall.move(fromPath, toPath, 1024 * 1024, null);
+            } else {
+                // TODO
+                throw new UnsupportedOperationException();
+            }
         }
     }
 
@@ -144,7 +206,8 @@ public interface FileJobs {
         public void run() throws FileSystemException {
             if (mFile instanceof LocalFile) {
                 LocalFile file = (LocalFile) mFile;
-                Syscall.rename(file.getPath(), mNewName);
+                String newPath = file.getParent().getChild(mNewName).getPath();
+                Syscall.rename(file.getPath(), newPath);
             } else {
                 // TODO
                 throw new UnsupportedOperationException();
