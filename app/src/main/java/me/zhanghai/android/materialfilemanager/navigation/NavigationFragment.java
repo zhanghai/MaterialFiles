@@ -108,7 +108,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     }
 
     private void onCurrentFileChanged(File file) {
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyCheckedChanged();
     }
 
     @NonNull

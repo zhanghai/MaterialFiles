@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
         RecyclerView.ViewHolder> {
 
+    private static final Object PAYLOAD_CHECKED_CHANGED = new Object();
+
     private NavigationItem.Listener mListener;
 
     private static final int VIEW_TYPE_ITEM = 0;
@@ -35,6 +38,10 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
     public NavigationListAdapter(NavigationItem.Listener listener) {
         mListener = listener;
         setHasStableIds(true);
+    }
+
+    public void notifyCheckedChanged() {
+        notifyItemRangeChanged(0, getItemCount(), PAYLOAD_CHECKED_CHANGED);
     }
 
     @Override
@@ -85,11 +92,20 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position,
+                                 @NonNull List<Object> payloads) {
         switch (getItemViewType(position)) {
             case VIEW_TYPE_ITEM: {
                 NavigationItem item = getItem(position);
                 ItemHolder itemHolder = (ItemHolder) holder;
                 itemHolder.itemLayout.setChecked(item.isChecked(mListener));
+                if (!payloads.isEmpty()) {
+                    return;
+                }
                 itemHolder.itemLayout.setOnClickListener(view -> item.onClick(mListener));
                 itemHolder.iconImage.setImageDrawable(item.getIcon(
                         itemHolder.iconImage.getContext()));
