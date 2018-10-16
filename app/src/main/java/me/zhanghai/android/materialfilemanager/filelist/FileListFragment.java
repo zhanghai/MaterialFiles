@@ -671,6 +671,11 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
+    public void navigateToRoot(@NonNull File file) {
+        mViewModel.resetNavigationTo(file);
+    }
+
+    @Override
     public void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer) {
         mViewModel.getFileData().observe(owner, observer);
     }

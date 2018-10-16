@@ -21,18 +21,15 @@ public class Trail {
     private int mIndex;
     private int mInitialIndex = -1;
 
-    public void navigateTo(Parcelable lastState, List<File> path) {
+    public void navigateTo(Parcelable lastState, List<File> trail) {
         if (mTrail.isEmpty()) {
-            mTrail.addAll(path);
-            mStates.addAll(Collections.nCopies(path.size(), null));
-            mIndex = path.size() - 1;
-            mInitialIndex = mIndex;
+            resetTo(trail);
             return;
         }
         mStates.set(mIndex, lastState);
         boolean isPrefix = true;
-        for (int i = 0; i < path.size(); ++i) {
-            File file = path.get(i);
+        for (int i = 0; i < trail.size(); ++i) {
+            File file = trail.get(i);
             if (i < mTrail.size()) {
                 File oldFile = mTrail.get(i);
                 mTrail.set(i, file);
@@ -45,15 +42,23 @@ public class Trail {
                 mStates.add(null);
             }
         }
-        if (mTrail.size() > path.size() && !isPrefix) {
-            mTrail.subList(path.size(), mTrail.size()).clear();
-            mStates.subList(path.size(), mStates.size()).clear();
+        if (mTrail.size() > trail.size() && !isPrefix) {
+            mTrail.subList(trail.size(), mTrail.size()).clear();
+            mStates.subList(trail.size(), mStates.size()).clear();
         }
-        mIndex = path.size() - 1;
+        mIndex = trail.size() - 1;
         mStates.set(mIndex, null);
         if (mIndex < mInitialIndex || !isPrefix) {
             mInitialIndex = -1;
         }
+    }
+
+    public void resetTo(List<File> trail) {
+        mTrail.clear();
+        mTrail.addAll(trail);
+        mStates.addAll(Collections.nCopies(trail.size(), null));
+        mIndex = trail.size() - 1;
+        mInitialIndex = mIndex;
     }
 
     public boolean navigateUp() {

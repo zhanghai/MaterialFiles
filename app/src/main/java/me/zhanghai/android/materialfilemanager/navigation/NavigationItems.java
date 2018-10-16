@@ -143,6 +143,12 @@ public class NavigationItems {
         }
 
         @Override
+        public void onClick(@NonNull Listener listener) {
+            listener.navigateToRoot(getFile());
+            listener.closeNavigationDrawer();
+        }
+
+        @Override
         public String getName(Context context) {
             return getTitle(context);
         }

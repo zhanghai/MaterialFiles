@@ -123,6 +123,11 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     }
 
     @Override
+    public void navigateToRoot(@NonNull File file) {
+        mFileListListener.navigateToRoot(file);
+    }
+
+    @Override
     public void onAddDocumentTree() {
         startActivityForResult(Documents.makeOpenTreeIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE);
     }
@@ -148,6 +153,8 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         File getCurrentFile();
 
         void navigateToFile(@NonNull File file);
+
+        void navigateToRoot(@NonNull File file);
 
         void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer);
     }

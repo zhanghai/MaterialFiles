@@ -48,6 +48,12 @@ public class FileListViewModel extends ViewModel {
         mFileData.setValue(mTrail.getCurrentFile());
     }
 
+    public void resetNavigationTo(File file) {
+        mTrail.resetTo(file.makeTrail());
+        Files.onTrailChanged(mTrail.getTrail());
+        mFileData.setValue(mTrail.getCurrentFile());
+    }
+
     public boolean navigateUp() {
         boolean changed = mTrail.navigateUp();
         if (changed) {
