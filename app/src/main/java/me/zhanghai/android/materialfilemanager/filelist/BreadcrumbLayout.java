@@ -123,10 +123,6 @@ public class BreadcrumbLayout extends HorizontalScrollView {
         mOnItemSelectedListener = onItemSelectedListener;
     }
 
-    public int getItemCount() {
-        return mItems.size();
-    }
-
     public void setItems(List<String> items, int selectedIndex) {
         if (mItems.equals(items) && mSelectedIndex == selectedIndex) {
             return;

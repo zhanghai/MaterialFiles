@@ -25,6 +25,7 @@ public class NavigationRootMapLiveData extends MediatorLiveData<Map<File, Naviga
     }
 
     public NavigationRootMapLiveData() {
+        // Initialize value before we have any active observer.
         loadValue();
         addSource(NavigationItemListLiveData.getInstance(), navigationItems -> loadValue());
     }

@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -37,7 +38,6 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -53,8 +53,6 @@ import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
-import me.zhanghai.android.materialfilemanager.navigation.NavigationRoot;
-import me.zhanghai.android.materialfilemanager.navigation.NavigationRootMapLiveData;
 import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
@@ -175,12 +173,11 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         });
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
-        mViewModel.getSortOptionsData().observe(this, this::onSortOptionsChanged);
-        mViewModel.getSelectedFilesData().observe(this, this::onSelectedFilesChanged);
-        mViewModel.getPasteModeData().observe(this, this::onPasteModeChanged);
-        mViewModel.getFileListData().observe(this, this::onFileListChanged);
-
-        NavigationRootMapLiveData.getInstance().observe(this, this::onNavigationRootMapChanged);
+        mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
+        mViewModel.getBreadcrumbLiveData().observe(this, this::onBreadcrumbDataChanged);
+        mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
+        mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
+        mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
 
         // TODO: Request storage permission.
     }
@@ -253,7 +250,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             mSpeedDialView.close();
             return true;
         }
-        return mViewModel.navigateUp();
+        return mViewModel.navigateUp(false);
     }
 
     private void onFileListChanged(FileListData fileListData) {
@@ -264,7 +261,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
                 mLastFile = file;
                 if (!isReload) {
                     mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
-                    updateBreadcrumbLayout();
                     ViewUtils.fadeIn(mProgress);
                     ViewUtils.fadeOut(mErrorView);
                     ViewUtils.fadeOut(mEmptyView);
@@ -274,7 +270,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             }
             case ERROR:
                 mToolbar.setSubtitle(R.string.file_list_subtitle_error);
-                updateBreadcrumbLayout();
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeIn(mErrorView);
@@ -289,7 +284,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             case SUCCESS: {
                 List<File> fileList = fileListData.fileList;
                 updateSubtitle(fileList);
-                updateBreadcrumbLayout();
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
@@ -328,26 +322,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             subtitle = getString(R.string.file_list_subtitle_empty);
         }
         mToolbar.setSubtitle(subtitle);
-    }
-
-    private void updateBreadcrumbLayout() {
-        List<File> trail = mViewModel.getTrail();
-        Map<File, NavigationRoot> navigationRootMap =
-                NavigationRootMapLiveData.getInstance().getValue();
-        List<String> items = new ArrayList<>();
-        int selectedIndex = mViewModel.getTrailIndex();
-        for (File file : trail) {
-            NavigationRoot navigationRoot = navigationRootMap.get(file);
-            int itemCount = items.size();
-            if (navigationRoot != null && selectedIndex >= itemCount) {
-                selectedIndex -= itemCount;
-                items.clear();
-                items.add(navigationRoot.getName(mBreadcrumbLayout.getContext()));
-            } else {
-                items.add(file.getName());
-            }
-        }
-        mBreadcrumbLayout.setItems(items, selectedIndex);
     }
 
     private void setSortBy(FileSortOptions.By by) {
@@ -423,14 +397,15 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         }
     }
 
-    private void onNavigationRootMapChanged(Map<File, NavigationRoot> navigationRootMap) {
-        updateBreadcrumbLayout();
+    private void onBreadcrumbDataChanged(BreadcrumbData breadcrumbData) {
+        Context context = mBreadcrumbLayout.getContext();
+        List<String> items = Functional.map(breadcrumbData.items, item -> item.apply(context));
+        mBreadcrumbLayout.setItems(items, breadcrumbData.selectedIndex);
     }
 
     private void onBreadcrumbItemSelected(int index) {
-        List<File> trail = mViewModel.getTrail();
-        int trailIndex = trail.size() - mBreadcrumbLayout.getItemCount() + index;
-        File file = trail.get(trailIndex);
+        BreadcrumbData breadcrumbData = mViewModel.getBreadcrumbData();
+        File file = breadcrumbData.files.get(index);
         navigateToFile(file);
     }
 
@@ -617,7 +592,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public boolean hasFileWithName(String name) {
-        FileListData fileListData = mViewModel.getFileListData().getValue();
+        FileListData fileListData = mViewModel.getFileListLiveData().getValue();
         if (fileListData == null || fileListData.state != FileListData.State.SUCCESS) {
             return false;
         }
@@ -661,7 +636,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @NonNull
     @Override
     public File getCurrentFile() {
-        return mViewModel.getFile();
+        return mViewModel.getCurrentFile();
     }
 
     @Override
@@ -672,11 +647,11 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     @Override
     public void navigateToRoot(@NonNull File file) {
-        mViewModel.resetNavigationTo(file);
+        mViewModel.resetTo(file);
     }
 
     @Override
     public void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer) {
-        mViewModel.getFileData().observe(owner, observer);
+        mViewModel.getCurrentFileLiveData().observe(owner, observer);
     }
 }

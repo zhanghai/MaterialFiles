@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
 import java.util.List;
@@ -16,9 +17,10 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class FileListLiveData extends LiveData<FileListData> {
 
-    private File mFile;
+    @NonNull
+    private final File mFile;
 
-    public FileListLiveData(File file) {
+    public FileListLiveData(@NonNull File file) {
         mFile = file;
         loadValue();
     }
