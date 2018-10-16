@@ -36,7 +36,7 @@ public class Trail {
             if (i < mTrail.size()) {
                 File oldFile = mTrail.get(i);
                 mTrail.set(i, file);
-                if (!Objects.equals(oldFile.getUri(), file.getUri())) {
+                if (!Objects.equals(oldFile, file)) {
                     mStates.set(i, null);
                     isPrefix = false;
                 }

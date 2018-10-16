@@ -35,15 +35,15 @@ public interface File extends Comparable<File>, Parcelable {
     File getChild(@NonNull String childName);
 
     @NonNull
-    default List<File> makeBreadcrumbPath() {
-        List<File> breadcrumbPath = new ArrayList<>();
+    default List<File> makeTrail() {
+        List<File> trail = new ArrayList<>();
         File file = this;
         do {
-            breadcrumbPath.add(file);
+            trail.add(file);
             file = file.getParent();
         } while (file != null);
-        Collections.reverse(breadcrumbPath);
-        return breadcrumbPath;
+        Collections.reverse(trail);
+        return trail;
     }
 
     @NonNull

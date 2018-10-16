@@ -62,7 +62,6 @@
     <string name="file_list_action_sort_directories_first">Folders first</string>
     <string name="file_list_action_refresh">Refresh</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
-    <string name="file_list_breadcrumb_name_root">Root</string>
     <string name="file_list_cab_select_title_format">%1$d selected</string>
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
@@ -110,7 +109,7 @@
 
     <string name="main_title">Files</string>
 
-    <string name="navigation_root_directory">@string/file_list_breadcrumb_name_root</string>
+    <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%s free of %s</string>
     <string name="navigation_add_document_tree">Add external storage…</string>
     <string name="navigation_settings">@string/settings_title</string>

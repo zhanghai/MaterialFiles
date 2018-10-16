@@ -20,11 +20,11 @@ public class FileListLiveData extends LiveData<FileListData> {
 
     public FileListLiveData(File file) {
         mFile = file;
-        loadData();
+        loadValue();
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void loadData() {
+    private void loadValue() {
         setValue(FileListData.ofLoading(mFile));
         new AsyncTask<Void, Void, FileListData>() {
             @Override
@@ -46,7 +46,7 @@ public class FileListLiveData extends LiveData<FileListData> {
 
     @Override
     protected void onActive() {
-        mFile.startObserving(this::loadData);
+        mFile.startObserving(this::loadValue);
     }
 
     @Override

@@ -39,11 +39,11 @@ public class FileListViewModel extends ViewModel {
         mPasteModeData.setValue(FilePasteMode.NONE);
         // TODO
         File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
-        navigateTo(null, file.makeBreadcrumbPath());
+        navigateTo(null, file);
     }
 
-    public void navigateTo(Parcelable lastState, List<File> path) {
-        mTrail.navigateTo(lastState, path);
+    public void navigateTo(Parcelable lastState, File file) {
+        mTrail.navigateTo(lastState, file.makeTrail());
         Files.onTrailChanged(mTrail.getTrail());
         mFileData.setValue(mTrail.getCurrentFile());
     }

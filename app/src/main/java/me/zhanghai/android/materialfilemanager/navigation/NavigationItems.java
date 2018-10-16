@@ -75,7 +75,7 @@ public class NavigationItems {
                 StorageManager.class);
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
         Functional.map(storageVolumes, StorageVolumeRootItem::new, rootItems);
-        rootItems.add(new AddDocumentTreeRootItem());
+        rootItems.add(new AddDocumentTreeItem());
         return rootItems;
     }
 
@@ -107,21 +107,26 @@ public class NavigationItems {
     private static abstract class FileItem extends NavigationItem {
 
         @NonNull
-        protected File mFile;
+        private File mFile;
 
         public FileItem(@NonNull File file) {
             mFile = file;
         }
 
+        @NonNull
+        public File getFile() {
+            return mFile;
+        }
+
         @Override
         public long getId() {
             // Items of different types may point to the same file.
-            return Objects.hash(getClass(), mFile.getUri());
+            return Objects.hash(getClass(), mFile);
         }
 
         @Override
         public boolean isChecked(@NonNull Listener listener) {
-            return Objects.equals(listener.getCurrentFile().getUri(), mFile.getUri());
+            return Objects.equals(listener.getCurrentFile(), mFile);
         }
 
         @Override
@@ -131,7 +136,19 @@ public class NavigationItems {
         }
     }
 
-    private static abstract class LocalRootItem extends FileItem {
+    private static abstract class RootItem extends FileItem implements NavigationRoot {
+
+        public RootItem(@NonNull File file) {
+            super(file);
+        }
+
+        @Override
+        public String getName(Context context) {
+            return getTitle(context);
+        }
+    }
+
+    private static abstract class LocalRootItem extends RootItem {
 
         @DrawableRes
         private int mIconRes;
@@ -207,7 +224,7 @@ public class NavigationItems {
         }
     }
 
-    private static class AddDocumentTreeRootItem extends NavigationItem {
+    private static class AddDocumentTreeItem extends NavigationItem {
 
         @Override
         public long getId() {
@@ -252,7 +269,7 @@ public class NavigationItems {
         @NonNull
         @Override
         public String getTitle(@NonNull Context context) {
-            return mFile.getName();
+            return getFile().getName();
         }
 
         @Override

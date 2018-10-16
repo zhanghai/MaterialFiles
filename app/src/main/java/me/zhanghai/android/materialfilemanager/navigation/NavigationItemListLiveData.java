@@ -21,18 +21,12 @@ public class NavigationItemListLiveData extends LiveData<List<NavigationItem>> {
     }
 
     public NavigationItemListLiveData() {
-        // TODO: Register change listener, call loadData() if hasActiveObservers() or setValue(null)
-        // otherwise.
+        // TODO: Call addSource() for changes (from another live data).
+        loadValue();
     }
 
-    @Override
-    protected void onActive() {
-        if (getValue() == null) {
-            loadData();
-        }
-    }
-
-    private void loadData() {
-        setValue(NavigationItems.getItems());
+    private void loadValue() {
+        List<NavigationItem> navigationItems = NavigationItems.getItems();
+        setValue(navigationItems);
     }
 }

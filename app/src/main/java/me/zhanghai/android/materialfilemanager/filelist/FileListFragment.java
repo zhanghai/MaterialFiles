@@ -8,10 +8,8 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -39,6 +37,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -54,6 +53,8 @@ import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
+import me.zhanghai.android.materialfilemanager.navigation.NavigationRoot;
+import me.zhanghai.android.materialfilemanager.navigation.NavigationRootMapLiveData;
 import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
@@ -100,7 +101,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private FileListViewModel mViewModel;
 
-    private Uri mLastUri;
+    private File mLastFile;
 
     public static FileListFragment newInstance() {
         //noinspection deprecation
@@ -179,6 +180,8 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mViewModel.getPasteModeData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListData().observe(this, this::onFileListChanged);
 
+        NavigationRootMapLiveData.getInstance().observe(this, this::onNavigationRootMapChanged);
+
         // TODO: Request storage permission.
     }
 
@@ -256,9 +259,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     private void onFileListChanged(FileListData fileListData) {
         switch (fileListData.state) {
             case LOADING: {
-                Uri uri = fileListData.file.getUri();
-                boolean isReload = Objects.equals(uri, mLastUri);
-                mLastUri = uri;
+                File file = fileListData.file;
+                boolean isReload = Objects.equals(file, mLastFile);
+                mLastFile = file;
                 if (!isReload) {
                     mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
                     updateBreadcrumbLayout();
@@ -329,17 +332,22 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
     private void updateBreadcrumbLayout() {
         List<File> trail = mViewModel.getTrail();
-        Context context = mBreadcrumbLayout.getContext();
-        mBreadcrumbLayout.setItems(Functional.map(trail, file -> getBreadcrumbName(file, context)),
-                mViewModel.getTrailIndex());
-    }
-
-    private String getBreadcrumbName(File file, Context context) {
-        String name = file.getName();
-        if (TextUtils.equals(name, "/")) {
-            return context.getString(R.string.file_list_breadcrumb_name_root);
+        Map<File, NavigationRoot> navigationRootMap =
+                NavigationRootMapLiveData.getInstance().getValue();
+        List<String> items = new ArrayList<>();
+        int selectedIndex = mViewModel.getTrailIndex();
+        for (File file : trail) {
+            NavigationRoot navigationRoot = navigationRootMap.get(file);
+            int itemCount = items.size();
+            if (navigationRoot != null && selectedIndex >= itemCount) {
+                selectedIndex -= itemCount;
+                items.clear();
+                items.add(navigationRoot.getName(mBreadcrumbLayout.getContext()));
+            } else {
+                items.add(file.getName());
+            }
         }
-        return name;
+        mBreadcrumbLayout.setItems(items, selectedIndex);
     }
 
     private void setSortBy(FileSortOptions.By by) {
@@ -415,8 +423,15 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         }
     }
 
+    private void onNavigationRootMapChanged(Map<File, NavigationRoot> navigationRootMap) {
+        updateBreadcrumbLayout();
+    }
+
     private void onBreadcrumbItemSelected(int index) {
-        navigateToFile(mViewModel.getTrail().get(index));
+        List<File> trail = mViewModel.getTrail();
+        int trailIndex = trail.size() - mBreadcrumbLayout.getItemCount() + index;
+        File file = trail.get(trailIndex);
+        navigateToFile(file);
     }
 
     @Override
@@ -652,7 +667,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public void navigateToFile(@NonNull File file) {
         Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.navigateTo(state, file.makeBreadcrumbPath());
+        mViewModel.navigateTo(state, file);
     }
 
     @Override
