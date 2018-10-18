@@ -234,6 +234,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             case R.id.action_sort_directories_first:
                 setSortDirectoriesFirst(!mSortDirectoriesFirstMenuItem.isChecked());
                 return true;
+            case R.id.action_navigate_up:
+                navigateUp();
+                return true;
             case R.id.action_refresh:
                 reloadFile();
                 return true;
@@ -381,6 +384,10 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mSortOrderAscendingMenuItem.setChecked(sortOptions.getOrder()
                 == FileSortOptions.Order.ASCENDING);
         mSortDirectoriesFirstMenuItem.setChecked(sortOptions.isDirectoriesFirst());
+    }
+
+    private void navigateUp() {
+        mViewModel.navigateUp(true);
     }
 
     private void reloadFile() {

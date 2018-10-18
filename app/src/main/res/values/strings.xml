@@ -60,6 +60,7 @@
     <string name="file_list_action_sort_by_last_modified">Last modified</string>
     <string name="file_list_action_sort_order_ascending">Ascending</string>
     <string name="file_list_action_sort_directories_first">Folders first</string>
+    <string name="file_list_action_navigate_up">Go up</string>
     <string name="file_list_action_refresh">Refresh</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
     <string name="file_list_cab_select_title_format">%1$d selected</string>
