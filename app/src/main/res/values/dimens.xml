@@ -8,11 +8,13 @@
 <resources>
     <dimen name="screen_edge_margin">16dp</dimen>
     <dimen name="screen_edge_margin_minus_4dp">12dp</dimen>
-    <dimen name="screen_edge_margin_minus_8dp">8dp</dimen>
     <dimen name="screen_edge_margin_minus_12dp">4dp</dimen>
+    <dimen name="screen_edge_margin_minus_12dp_at_least_8dp">8dp</dimen>
     <dimen name="screen_edge_margin_minus_16dp">0dp</dimen>
     <dimen name="content_start_margin">72dp</dimen>
     <dimen name="content_start_margin_minus_12dp">60dp</dimen>
+    <dimen name="content_start_from_screen_edge_margin_minus_36dp_considering_at_least_8dp">16dp</dimen>
+    <dimen name="content_start_from_screen_edge_margin_minus_44dp">12dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="dialog_padding_minus_4dp">20dp</dimen>
     <dimen name="navigation_header_height">172dp</dimen>
