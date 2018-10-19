@@ -109,8 +109,8 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
 
         mIsLayoutDirty = false;
         if (mScrollToSelectedItem) {
@@ -154,8 +154,10 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     private void inflateItemViews() {
-        for (int i = mItemsLayout.getChildCount() - 1, size = mItems.size(); i >= size; --i) {
-            mItemsLayout.removeViewAt(i);
+        // HACK: Remove/add views at the front so that ripple remains correct, as we are potentially
+        // collapsing/expanding breadcrumbs at the front.
+        for (int i = mItems.size(), count = mItemsLayout.getChildCount(); i < count; ++i) {
+            mItemsLayout.removeViewAt(0);
         }
         for (int i = mItemsLayout.getChildCount(), size = mItems.size(); i < size; ++i) {
             View itemView = ViewUtils.inflate(R.layout.breadcrumb_item, mItemsLayout);
@@ -163,7 +165,7 @@ public class BreadcrumbLayout extends HorizontalScrollView {
             holder.text.setTextColor(mItemColor);
             holder.arrowImage.setImageTintList(mItemColor);
             itemView.setTag(holder);
-            mItemsLayout.addView(itemView);
+            mItemsLayout.addView(itemView, 0);
         }
     }
 
