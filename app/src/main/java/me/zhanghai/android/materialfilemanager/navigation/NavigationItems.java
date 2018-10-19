@@ -39,7 +39,8 @@ import me.zhanghai.android.materialfilemanager.util.StorageVolumeCompat;
 
 public class NavigationItems {
 
-    private static final List<Pair<String, Integer>> DEFAULT_FAVORITE_DIRECTORIES =
+    // @see android.os.Environment#STANDARD_DIRECTORIES
+    private static final List<Pair<String, Integer>> STANDARD_DIRECTORIES =
             ListBuilder.<Pair<String, Integer>>newArrayList()
                     .add(new Pair<>(Environment.DIRECTORY_DCIM, R.drawable.camera_icon_white_24dp))
                     .add(new Pair<>(Environment.DIRECTORY_DOCUMENTS,
@@ -56,10 +57,10 @@ public class NavigationItems {
     public static List<NavigationItem> getItems() {
         List<NavigationItem> items = new ArrayList<>();
         items.addAll(getRootItems());
-        List<NavigationItem> favoriteItems = getFavoriteItems();
-        if (!favoriteItems.isEmpty()) {
+        List<NavigationItem> standardDirectoryItems = getStandardDirectoryItems();
+        if (!standardDirectoryItems.isEmpty()) {
             items.add(null);
-            items.addAll(favoriteItems);
+            items.addAll(standardDirectoryItems);
         }
         items.add(null);
         items.addAll(getMenuItems());
@@ -81,12 +82,12 @@ public class NavigationItems {
 
     @NonNull
     @Size(min = 0)
-    private static List<NavigationItem> getFavoriteItems() {
+    private static List<NavigationItem> getStandardDirectoryItems() {
         List<NavigationItem> favoriteItems = new ArrayList<>();
-        for (Pair<String, Integer> directory : DEFAULT_FAVORITE_DIRECTORIES) {
+        for (Pair<String, Integer> directory : STANDARD_DIRECTORIES) {
             String path = Environment.getExternalStoragePublicDirectory(directory.first).getPath();
             int iconRes = directory.second;
-            favoriteItems.add(new FavoriteItem(Files.ofLocalPath(path), iconRes));
+            favoriteItems.add(new StandardDirectoryItem(Files.ofLocalPath(path), iconRes));
         }
         // TODO: Persist and load favorites.
         return favoriteItems;
@@ -255,12 +256,12 @@ public class NavigationItems {
         }
     }
 
-    private static class FavoriteItem extends FileItem {
+    private static class StandardDirectoryItem extends FileItem {
 
         @DrawableRes
         private int mIconRes;
 
-        public FavoriteItem(@NonNull File file, @DrawableRes int iconRes) {
+        public StandardDirectoryItem(@NonNull File file, @DrawableRes int iconRes) {
             super(file);
 
             mIconRes = iconRes;
