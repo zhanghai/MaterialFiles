@@ -57,6 +57,7 @@ import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
+import me.zhanghai.android.materialfilemanager.util.ClipboardUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
@@ -240,6 +241,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             case R.id.action_refresh:
                 reloadFile();
                 return true;
+            case R.id.action_copy_path:
+                copyPath();
+                return true;
             case R.id.action_open_in_terminal:
                 openInTerminal();
                 return true;
@@ -393,6 +397,10 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     private void reloadFile() {
         mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.reload();
+    }
+
+    private void copyPath() {
+        copyPath(getCurrentFile());
     }
 
     private void openInTerminal() {
@@ -614,7 +622,23 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
-    public void onOpenFileProperties(File file) {
+    public void onCopyPath(File file) {
+        copyPath(file);
+    }
+
+    private void copyPath(File file) {
+        String path;
+        if (file instanceof LocalFile) {
+            LocalFile localFile = (LocalFile) file;
+            path = localFile.getPath();
+        } else {
+            path = file.getUri().toString();
+        }
+        ClipboardUtils.copyText(path, requireContext());
+    }
+
+    @Override
+    public void onOpenProperties(File file) {
         FilePropertiesDialogFragment.show(file, this);
     }
 

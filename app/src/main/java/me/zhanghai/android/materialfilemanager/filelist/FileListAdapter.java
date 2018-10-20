@@ -239,8 +239,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                 case R.id.action_rename:
                     mListener.onRenameFile(file);
                     return true;
+                case R.id.action_copy_path:
+                    mListener.onCopyPath(file);
+                    return true;
                 case R.id.action_properties:
-                    mListener.onOpenFileProperties(file);
+                    mListener.onOpenProperties(file);
                     return true;
                 default:
                     return false;
@@ -268,7 +271,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         void onCopyFile(File file);
         void onDeleteFile(File file);
         void onRenameFile(File file);
-        void onOpenFileProperties(File file);
+        void onCopyPath(File file);
+        void onOpenProperties(File file);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -13,6 +13,7 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
+    <string name="copied_to_clipboard_format">Copied to clipboard:\n%1$s</string>
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d byte</item>
@@ -62,6 +63,7 @@
     <string name="file_list_action_sort_directories_first">Folders first</string>
     <string name="file_list_action_navigate_up">Go up</string>
     <string name="file_list_action_refresh">Refresh</string>
+    <string name="file_list_action_copy_path">Copy path</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
     <string name="file_list_cab_select_title_format">%1$d selected</string>
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
@@ -83,6 +85,7 @@
     <string name="file_item_action_copy">Copy</string>
     <string name="file_item_action_delete">Delete</string>
     <string name="file_item_action_rename">Rename</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_item_action_properties">Properties</string>
 
     <string name="file_properties_title_format">%1$s Properties</string>
