@@ -12,6 +12,6 @@
         android:title="@string/file_list_breadcrumb_action_copy_path" />
 
     <item
-        android:id="@+id/action_open_in_new_window"
-        android:title="@string/file_list_breadcrumb_action_open_in_new_window" />
+        android:id="@+id/action_open_in_new_task"
+        android:title="@string/file_list_breadcrumb_action_open_in_new_task" />
 </menu>

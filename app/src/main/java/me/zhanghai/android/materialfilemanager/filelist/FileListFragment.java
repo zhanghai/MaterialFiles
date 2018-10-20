@@ -53,6 +53,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.main.MainActivity;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
@@ -154,7 +155,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 ViewUtils.setPaddingBottom(mContentLayout, contentLayoutInitialPaddingBottom
                         + mAppBarLayout.getTotalScrollRange() + verticalOffset));
         mBreadcrumbLayout.setListener(this);
-        mSwipeRefreshLayout.setOnRefreshListener(this::reloadFile);
+        mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
@@ -236,14 +237,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_sort_directories_first:
                 setSortDirectoriesFirst(!mSortDirectoriesFirstMenuItem.isChecked());
                 return true;
+            case R.id.action_new_task:
+                newTask();
+                return true;
             case R.id.action_navigate_up:
                 navigateUp();
                 return true;
             case R.id.action_refresh:
-                reloadFile();
+                refresh();
                 return true;
             case R.id.action_send:
-                sendFile();
+                send();
                 return true;
             case R.id.action_copy_path:
                 copyPath();
@@ -398,12 +402,16 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.navigateUp(true);
     }
 
-    private void reloadFile() {
+    private void newTask() {
+        openInNewTask(getCurrentFile());
+    }
+
+    private void refresh() {
         mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.reload();
     }
 
-    private void sendFile() {
+    private void send() {
         sendFile(getCurrentFile(), MimeTypes.DIRECTORY_MIME_TYPE);
     }
 
@@ -440,8 +448,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void openInNewWindow(@NonNull File file) {
-        // TODO
+    public void openInNewTask(@NonNull File file) {
+        Intent intent = MainActivity.makeIntent(file.getUri(), requireContext())
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+                .addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivity(intent);
     }
 
     @Override

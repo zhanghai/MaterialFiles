@@ -211,8 +211,8 @@ public class BreadcrumbLayout extends HorizontalScrollView {
                         mListener.copyPath(file);
                         return true;
                     }
-                    case R.id.action_open_in_new_window:
-                        mListener.openInNewWindow(file);
+                    case R.id.action_open_in_new_task:
+                        mListener.openInNewTask(file);
                         return true;
                     default:
                         return false;
@@ -224,7 +224,7 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     public interface Listener {
         void navigateToFile(@NonNull File file);
         void copyPath(@NonNull File file);
-        void openInNewWindow(@NonNull File file);
+        void openInNewTask(@NonNull File file);
     }
 
     static class ViewHolder {

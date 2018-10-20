@@ -5,7 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.main;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
@@ -13,6 +17,12 @@ import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 public class MainActivity extends AppCompatActivity {
 
     private MainFragment mMainFragment;
+
+    @NonNull
+    public static Intent makeIntent(@NonNull Uri uri, @NonNull Context context) {
+        return new Intent(context, MainActivity.class)
+                .setData(uri);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
+            // TODO: Pass Uri.
             mMainFragment = MainFragment.newInstance();
             FragmentUtils.add(mMainFragment, this, android.R.id.content);
         } else {
