@@ -167,16 +167,16 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         bindViewHolderAnimation(holder);
         holder.itemView.setOnClickListener(view -> {
             if (mSelectedFiles.isEmpty() || mPasteMode != FilePasteMode.NONE) {
-                mListener.onOpenFile(file);
+                mListener.openFile(file);
             } else {
-                mListener.onSelectFile(file, !mSelectedFiles.contains(file));
+                mListener.selectFile(file, !mSelectedFiles.contains(file));
             }
         });
         holder.itemLayout.setOnLongClickListener(view -> {
             if (mSelectedFiles.isEmpty() || mPasteMode != FilePasteMode.NONE) {
-                mListener.onSelectFile(file, !mSelectedFiles.contains(file));
+                mListener.selectFile(file, !mSelectedFiles.contains(file));
             } else {
-                mListener.onOpenFile(file);
+                mListener.openFile(file);
             }
             return true;
         });
@@ -194,7 +194,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                     .clear(holder.iconImage);
             holder.iconImage.setImageDrawable(icon);
         }
-        holder.iconImage.setOnClickListener(view -> mListener.onSelectFile(file,
+        holder.iconImage.setOnClickListener(view -> mListener.selectFile(file,
                 !mSelectedFiles.contains(file)));
         Integer badgeIconRes;
         if (file.isSymbolicLink()) {
@@ -225,28 +225,28 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_open_as:
-                    mListener.onOpenFileAs(file);
+                    mListener.openFileAs(file);
                     return true;
                 case R.id.action_cut:
-                    mListener.onCutFile(file);
+                    mListener.cutFile(file);
                     return true;
                 case R.id.action_copy:
-                    mListener.onCopyFile(file);
+                    mListener.copyFile(file);
                     return true;
                 case R.id.action_delete:
-                    mListener.onDeleteFile(file);
+                    mListener.confirmDeleteFile(file);
                     return true;
                 case R.id.action_rename:
-                    mListener.onRenameFile(file);
+                    mListener.showRenameFileDialog(file);
                     return true;
                 case R.id.action_send:
-                    mListener.onSendFile(file);
+                    mListener.sendFile(file);
                     return true;
                 case R.id.action_copy_path:
-                    mListener.onCopyPath(file);
+                    mListener.copyPath(file);
                     return true;
                 case R.id.action_properties:
-                    mListener.onOpenProperties(file);
+                    mListener.showPropertiesDialog(file);
                     return true;
                 default:
                     return false;
@@ -267,16 +267,16 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     }
 
     public interface Listener {
-        void onSelectFile(File file, boolean selected);
-        void onOpenFile(File file);
-        void onOpenFileAs(File file);
-        void onCutFile(File file);
-        void onCopyFile(File file);
-        void onDeleteFile(File file);
-        void onRenameFile(File file);
-        void onSendFile(File file);
-        void onCopyPath(File file);
-        void onOpenProperties(File file);
+        void selectFile(File file, boolean selected);
+        void openFile(File file);
+        void openFileAs(File file);
+        void cutFile(File file);
+        void copyFile(File file);
+        void confirmDeleteFile(File file);
+        void showRenameFileDialog(File file);
+        void sendFile(File file);
+        void copyPath(File file);
+        void showPropertiesDialog(File file);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

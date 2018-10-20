@@ -37,23 +37,23 @@ public class BreadcrumbLiveData extends MediatorLiveData<BreadcrumbData> {
         TrailData trailData = mTrailLiveData.getValue();
         List<File> trail = trailData.getTrail();
         List<File> files = new ArrayList<>();
-        List<Function<Context, String>> items = new ArrayList<>();
+        List<Function<Context, String>> names = new ArrayList<>();
         int selectedIndex = trailData.getCurrentIndex();
         for (File file : trail) {
             NavigationRoot navigationRoot = navigationRootMap.get(file);
-            int itemCount = items.size();
+            int itemCount = names.size();
             if (navigationRoot != null && selectedIndex >= itemCount) {
                 selectedIndex -= itemCount;
                 files.clear();
                 files.add(navigationRoot.getFile());
-                items.clear();
-                items.add(navigationRoot::getName);
+                names.clear();
+                names.add(navigationRoot::getName);
             } else {
                 files.add(file);
-                items.add(context -> file.getName());
+                names.add(context -> file.getName());
             }
         }
-        BreadcrumbData breadcrumbData = new BreadcrumbData(files, items, selectedIndex);
+        BreadcrumbData breadcrumbData = new BreadcrumbData(files, names, selectedIndex);
         setValue(breadcrumbData);
     }
 }

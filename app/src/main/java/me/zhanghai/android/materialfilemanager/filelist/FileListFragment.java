@@ -8,7 +8,6 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -63,8 +62,8 @@ import me.zhanghai.android.materialfilemanager.util.ClipboardUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
-public class FileListFragment extends Fragment implements FileListAdapter.Listener,
-        MaterialCab.Callback, ConfirmDeleteFilesDialogFragment.Listener,
+public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
+        FileListAdapter.Listener, MaterialCab.Callback, ConfirmDeleteFilesDialogFragment.Listener,
         RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
         CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
 
@@ -154,7 +153,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
                 ViewUtils.setPaddingBottom(mContentLayout, contentLayoutInitialPaddingBottom
                         + mAppBarLayout.getTotalScrollRange() + verticalOffset));
-        mBreadcrumbLayout.setOnItemSelectedListener(this::onBreadcrumbItemSelected);
+        mBreadcrumbLayout.setListener(this);
         mSwipeRefreshLayout.setOnRefreshListener(this::reloadFile);
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this);
@@ -163,10 +162,10 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mSpeedDialView.setOnActionSelectedListener(actionItem -> {
             switch (actionItem.getId()) {
                 case R.id.action_create_file:
-                    onCreateFile();
+                    showCreateFileDialog();
                     break;
                 case R.id.action_create_directory:
-                    onCreateDirectory();
+                    showCreateDirectoryDialog();
                     break;
             }
             // Returning false causes the speed dial to close without animation.
@@ -177,7 +176,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
         mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
-        mViewModel.getBreadcrumbLiveData().observe(this, this::onBreadcrumbDataChanged);
+        mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
@@ -422,20 +421,31 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         }
     }
 
-    private void onBreadcrumbDataChanged(BreadcrumbData breadcrumbData) {
-        Context context = mBreadcrumbLayout.getContext();
-        List<String> items = Functional.map(breadcrumbData.items, item -> item.apply(context));
-        mBreadcrumbLayout.setItems(items, breadcrumbData.selectedIndex);
-    }
-
-    private void onBreadcrumbItemSelected(int index) {
-        BreadcrumbData breadcrumbData = mViewModel.getBreadcrumbData();
-        File file = breadcrumbData.files.get(index);
-        navigateToFile(file);
+    @Override
+    public void navigateToFile(@NonNull File file) {
+        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
+        mViewModel.navigateTo(state, file);
     }
 
     @Override
-    public void onSelectFile(File file, boolean selected) {
+    public void copyPath(@NonNull File file) {
+        String path;
+        if (file instanceof LocalFile) {
+            LocalFile localFile = (LocalFile) file;
+            path = localFile.getPath();
+        } else {
+            path = file.getUri().toString();
+        }
+        ClipboardUtils.copyText(path, requireContext());
+    }
+
+    @Override
+    public void openInNewWindow(@NonNull File file) {
+        // TODO
+    }
+
+    @Override
+    public void selectFile(File file, boolean selected) {
         mViewModel.selectFile(file, selected);
     }
 
@@ -572,7 +582,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
-    public void onOpenFile(File file) {
+    public void openFile(File file) {
         if (file.isListable()) {
             navigateToFile(file.asListableFile());
             return;
@@ -589,27 +599,27 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
-    public void onOpenFileAs(File file) {
+    public void openFileAs(File file) {
 
     }
 
     @Override
-    public void onCutFile(File file) {
+    public void cutFile(File file) {
         cutFiles(Collections.singleton(file));
     }
 
     @Override
-    public void onCopyFile(File file) {
+    public void copyFile(File file) {
         copyFiles(Collections.singleton(file));
     }
 
     @Override
-    public void onDeleteFile(File file) {
+    public void confirmDeleteFile(File file) {
         confirmDeleteFiles(Collections.singleton(file));
     }
 
     @Override
-    public void onRenameFile(File file) {
+    public void showRenameFileDialog(File file) {
         RenameFileDialogFragment.show(file, this);
     }
 
@@ -630,7 +640,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
-    public void onSendFile(File file) {
+    public void sendFile(File file) {
         sendFile(file, file.getMimeType());
     }
 
@@ -646,27 +656,11 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     }
 
     @Override
-    public void onCopyPath(File file) {
-        copyPath(file);
-    }
-
-    private void copyPath(File file) {
-        String path;
-        if (file instanceof LocalFile) {
-            LocalFile localFile = (LocalFile) file;
-            path = localFile.getPath();
-        } else {
-            path = file.getUri().toString();
-        }
-        ClipboardUtils.copyText(path, requireContext());
-    }
-
-    @Override
-    public void onOpenProperties(File file) {
+    public void showPropertiesDialog(File file) {
         FilePropertiesDialogFragment.show(file, this);
     }
 
-    private void onCreateFile() {
+    private void showCreateFileDialog() {
         CreateFileDialogFragment.show(this);
     }
 
@@ -677,7 +671,7 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         FileJobService.createFile(file, requireContext());
     }
 
-    private void onCreateDirectory() {
+    private void showCreateDirectoryDialog() {
         CreateDirectoryDialogFragment.show(this);
     }
 
@@ -692,12 +686,6 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     @Override
     public File getCurrentFile() {
         return mViewModel.getCurrentFile();
-    }
-
-    @Override
-    public void navigateToFile(@NonNull File file) {
-        Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.navigateTo(state, file);
     }
 
     @Override

@@ -66,6 +66,8 @@
     <string name="file_list_action_send">Share</string>
     <string name="file_list_action_copy_path">Copy path</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_window">Open in new window</string>
     <string name="file_list_cab_select_title_format">%1$d selected</string>
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>

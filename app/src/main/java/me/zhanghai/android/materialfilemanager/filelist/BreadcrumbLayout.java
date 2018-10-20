@@ -7,22 +7,24 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.text.TextUtils;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.view.ContextThemeWrapper;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.functional.Functional;
+import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class BreadcrumbLayout extends HorizontalScrollView {
@@ -30,40 +32,47 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     @BindDimen(R.dimen.tab_layout_height)
     int mTabLayoutHeight;
 
+    @NonNull
     private ColorStateList mItemColor;
 
+    @NonNull
+    private Context mPopupContext;
+
+    @NonNull
     private LinearLayout mItemsLayout;
 
-    private OnItemSelectedListener mOnItemSelectedListener;
+    @Nullable
+    private Listener mListener;
 
-    private List<String> mItems = new ArrayList<>();
-    private int mSelectedIndex;
+    @NonNull
+    private BreadcrumbData mData;
 
     private boolean mIsLayoutDirty = true;
     private boolean mScrollToSelectedItem;
 
     private boolean mIsFirstScroll = true;
 
-    public BreadcrumbLayout(Context context) {
+    public BreadcrumbLayout(@NonNull Context context) {
         super(context);
 
         init();
     }
 
-    public BreadcrumbLayout(Context context, AttributeSet attrs) {
+    public BreadcrumbLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         init();
     }
 
-    public BreadcrumbLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BreadcrumbLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                            int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init();
     }
 
-    public BreadcrumbLayout(Context context, AttributeSet attrs, int defStyleAttr,
-                            int defStyleRes) {
+    public BreadcrumbLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                            int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
         init();
@@ -80,7 +89,9 @@ public class BreadcrumbLayout extends HorizontalScrollView {
                 ViewUtils.getColorFromAttrRes(android.R.attr.textColorPrimary, 0, context),
                 ViewUtils.getColorFromAttrRes(android.R.attr.textColorSecondary, 0, context)
         });
-        mItemsLayout = new LinearLayout(getContext());
+        int popupTheme = ViewUtils.getResIdFromAttrRes(R.attr.actionBarPopupTheme, 0, context);
+        mPopupContext = new ContextThemeWrapper(context, popupTheme);
+        mItemsLayout = new LinearLayout(context);
         mItemsLayout.setPaddingRelative(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
                 getPaddingBottom());
         setPaddingRelative(0, 0, 0, 0);
@@ -119,17 +130,15 @@ public class BreadcrumbLayout extends HorizontalScrollView {
         }
     }
 
-    public void setOnItemSelectedListener(OnItemSelectedListener onItemSelectedListener) {
-        mOnItemSelectedListener = onItemSelectedListener;
+    public void setListener(@NonNull Listener listener) {
+        mListener = listener;
     }
 
-    public void setItems(List<String> items, int selectedIndex) {
-        if (mItems.equals(items) && mSelectedIndex == selectedIndex) {
+    public void setData(@NonNull BreadcrumbData data) {
+        if (Objects.equals(mData, data)) {
             return;
         }
-        mItems.clear();
-        mItems.addAll(items);
-        mSelectedIndex = selectedIndex;
+        mData = data;
         inflateItemViews();
         bindItemViews();
         scrollToSelectedItem();
@@ -140,7 +149,7 @@ public class BreadcrumbLayout extends HorizontalScrollView {
             mScrollToSelectedItem = true;
             return;
         }
-        View selectedItemView = mItemsLayout.getChildAt(mSelectedIndex);
+        View selectedItemView = mItemsLayout.getChildAt(mData.selectedIndex);
         int itemsPaddingStart = mItemsLayout.getPaddingStart();
         int scrollX = getLayoutDirection() == LAYOUT_DIRECTION_LTR ?
                 selectedItemView.getLeft() - itemsPaddingStart
@@ -156,12 +165,18 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     private void inflateItemViews() {
         // HACK: Remove/add views at the front so that ripple remains correct, as we are potentially
         // collapsing/expanding breadcrumbs at the front.
-        for (int i = mItems.size(), count = mItemsLayout.getChildCount(); i < count; ++i) {
+        for (int i = mData.files.size(), count = mItemsLayout.getChildCount(); i < count; ++i) {
             mItemsLayout.removeViewAt(0);
         }
-        for (int i = mItemsLayout.getChildCount(), size = mItems.size(); i < size; ++i) {
+        for (int i = mItemsLayout.getChildCount(), size = mData.files.size(); i < size; ++i) {
             View itemView = ViewUtils.inflate(R.layout.breadcrumb_item, mItemsLayout);
             ViewHolder holder = new ViewHolder(itemView);
+            holder.menu = new PopupMenu(mPopupContext, holder.itemView);
+            holder.menu.inflate(R.menu.file_list_breadcrumb);
+            holder.itemView.setOnLongClickListener(view -> {
+                holder.menu.show();
+                return true;
+            });
             holder.text.setTextColor(mItemColor);
             holder.arrowImage.setImageTintList(mItemColor);
             itemView.setTag(holder);
@@ -170,31 +185,51 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     private void bindItemViews() {
-        for (int i = 0, size = mItems.size(), last = size - 1; i < size; ++i) {
-            String item = mItems.get(i);
+        for (int i = 0, size = mData.files.size(), last = size - 1; i < size; ++i) {
             ViewHolder holder = (ViewHolder) mItemsLayout.getChildAt(i).getTag();
-            holder.itemView.setActivated(i == mSelectedIndex);
+            holder.itemView.setActivated(i == mData.selectedIndex);
             int index = i;
+            File file = mData.files.get(i);
             holder.itemView.setOnClickListener(view -> {
-                if (mSelectedIndex == index) {
+                if (mData.selectedIndex == index) {
                     scrollToSelectedItem();
                     return;
                 }
-                if (mOnItemSelectedListener != null) {
-                    mOnItemSelectedListener.onItemSelected(index);
+                if (mListener != null) {
+                    mListener.navigateToFile(file);
                 }
             });
-            holder.text.setText(item);
+            String name = mData.names.get(i).apply(holder.text.getContext());
+            holder.text.setText(name);
             ViewUtils.setVisibleOrGone(holder.arrowImage, i != last);
+            holder.menu.setOnMenuItemClickListener(menuItem -> {
+                if (mListener == null) {
+                    return false;
+                }
+                switch (menuItem.getItemId()) {
+                    case R.id.action_copy_path: {
+                        mListener.copyPath(file);
+                        return true;
+                    }
+                    case R.id.action_open_in_new_window:
+                        mListener.openInNewWindow(file);
+                        return true;
+                    default:
+                        return false;
+                }
+            });
         }
     }
 
-    public interface OnItemSelectedListener {
-        void onItemSelected(int index);
+    public interface Listener {
+        void navigateToFile(@NonNull File file);
+        void copyPath(@NonNull File file);
+        void openInNewWindow(@NonNull File file);
     }
 
     static class ViewHolder {
 
+        @NonNull
         public View itemView;
 
         @BindView(R.id.text)
@@ -202,8 +237,12 @@ public class BreadcrumbLayout extends HorizontalScrollView {
         @BindView(R.id.arrow)
         public ImageView arrowImage;
 
-        public ViewHolder(View itemView) {
+        @NonNull
+        public PopupMenu menu;
+
+        public ViewHolder(@NonNull View itemView) {
             this.itemView = itemView;
+
             ButterKnife.bind(this, itemView);
         }
     }

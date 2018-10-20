@@ -7,8 +7,10 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.functional.compat.Function;
@@ -19,14 +21,33 @@ public class BreadcrumbData {
     public final List<File> files;
 
     @NonNull
-    public final List<Function<Context, String>> items;
+    public final List<Function<Context, String>> names;
 
     public final int selectedIndex;
 
-    public BreadcrumbData(@NonNull List<File> files, @NonNull List<Function<Context, String>> items,
+    public BreadcrumbData(@NonNull List<File> files, @NonNull List<Function<Context, String>> names,
                           int selectedIndex) {
         this.files = files;
-        this.items = items;
+        this.names = names;
         this.selectedIndex = selectedIndex;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        BreadcrumbData that = (BreadcrumbData) object;
+        return selectedIndex == that.selectedIndex
+                && Objects.equals(files, that.files)
+                && Objects.equals(names, that.names);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(files, names, selectedIndex);
     }
 }

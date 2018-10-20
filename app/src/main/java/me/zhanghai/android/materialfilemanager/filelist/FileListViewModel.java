@@ -101,10 +101,6 @@ public class FileListViewModel extends ViewModel {
         return mBreadcrumbLiveData;
     }
 
-    public BreadcrumbData getBreadcrumbData() {
-        return mBreadcrumbLiveData.getValue();
-    }
-
     public LiveData<Set<File>> getSelectedFilesLiveData() {
         return mSelectedFilesLiveData;
     }
