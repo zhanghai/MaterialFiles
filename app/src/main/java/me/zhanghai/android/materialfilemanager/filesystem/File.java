@@ -89,7 +89,7 @@ public interface File extends Comparable<File>, Parcelable {
     @NonNull
     default String getMimeType() {
         if (isDirectory()) {
-            return MimeTypes.getDirectoryMimeType();
+            return MimeTypes.DIRECTORY_MIME_TYPE;
         }
         return MimeTypes.getMimeType(getName());
     }

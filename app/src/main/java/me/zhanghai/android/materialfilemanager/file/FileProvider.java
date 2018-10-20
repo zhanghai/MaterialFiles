@@ -120,8 +120,7 @@ public class FileProvider extends ContentProvider {
         return ParcelFileDescriptor.open(file, modeBits);
     }
 
-    public static Uri getUriForFile(File file) {
-        String path = file.getAbsolutePath();
+    public static Uri getUriForPath(String path) {
         return new Uri.Builder()
                 .scheme("content")
                 .authority(BuildConfig.FILE_PROVIDIER_AUTHORITY)
@@ -129,8 +128,11 @@ public class FileProvider extends ContentProvider {
                 .build();
     }
 
-    public static File getFileForUri(Uri uri) {
-        String path = uri.getPath();
-        return new File(path);
+    public static String getPathForUri(Uri uri) {
+        return uri.getPath();
+    }
+
+    private static File getFileForUri(Uri uri) {
+        return new File(getPathForUri(uri));
     }
 }

@@ -13,6 +13,8 @@ import android.os.Build;
 
 import java.io.File;
 
+import me.zhanghai.android.materialfilemanager.file.MimeTypes;
+
 public class IntentUtils {
 
     private static final String MIME_TYPE_TEXT_PLAIN = "text/plain";
@@ -94,20 +96,23 @@ public class IntentUtils {
     }
 
     public static Intent makeSendImage(Uri uri, CharSequence text) {
-        return new Intent()
-                .setAction(Intent.ACTION_SEND)
+        return makeSendStream(uri, MIME_TYPE_IMAGE_ANY)
                 // For maximum compatibility.
                 .putExtra(Intent.EXTRA_TEXT, text)
                 .putExtra(Intent.EXTRA_TITLE, text)
                 .putExtra(Intent.EXTRA_SUBJECT, text)
                 // HACK: WeChat moments respects this extra only.
-                .putExtra("Kdescription", text)
-                .putExtra(Intent.EXTRA_STREAM, uri)
-                .setType(MIME_TYPE_IMAGE_ANY);
+                .putExtra("Kdescription", text);
     }
 
     public static Intent makeSendImage(Uri uri) {
         return makeSendImage(uri, null);
+    }
+
+    public static Intent makeSendStream(Uri stream, String type) {
+        return new Intent(Intent.ACTION_SEND)
+                .putExtra(Intent.EXTRA_STREAM, stream)
+                .setType(getIntentType(type));
     }
 
     public static Intent makeView(Uri uri) {
@@ -117,7 +122,12 @@ public class IntentUtils {
     public static Intent makeView(Uri uri, String type) {
         return new Intent(Intent.ACTION_VIEW)
                 // Calling setType() will clear data.
-                .setDataAndType(uri, type);
+                .setDataAndType(uri, getIntentType(type))
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    }
+
+    private static String getIntentType(String type) {
+        return MimeTypes.getIntentType(type);
     }
 
     public static Intent makeViewAppInMarket(String packageName) {

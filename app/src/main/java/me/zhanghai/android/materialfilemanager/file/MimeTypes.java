@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.file;
 
 import android.os.Build;
 import android.provider.DocumentsContract;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
@@ -18,9 +19,12 @@ import java.util.Set;
 import me.zhanghai.android.materialfilemanager.filesystem.PosixFileType;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
+import me.zhanghai.android.materialfilemanager.util.MapCompat;
 import me.zhanghai.android.materialfilemanager.util.SetBuilder;
 
 public class MimeTypes {
+
+    public static final String DIRECTORY_MIME_TYPE = DocumentsContract.Document.MIME_TYPE_DIR;
 
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/MimeUtils.java
@@ -118,13 +122,23 @@ public class MimeTypes {
     /** @see FileTypeNames#sPosixFileTypeToTypeNameResMap */
     private static final Map<PosixFileType, String> sPosixFileTypeToMimeTypeMap =
             MapBuilder.<PosixFileType, String>newHashMap()
-                    .put(PosixFileType.DIRECTORY, getDirectoryMimeType())
                     .put(PosixFileType.CHARACTER_DEVICE, "inode/chardevice")
                     .put(PosixFileType.BLOCK_DEVICE, "inode/blockdevice")
                     .put(PosixFileType.FIFO, "inode/fifo")
                     .put(PosixFileType.SYMBOLIC_LINK, "inode/symlink")
                     .put(PosixFileType.SOCKET, "inode/socket")
                     .buildUnmodifiable();
+
+    private static final Map<String, String> sMimeTypeToIntentTypeMap =
+            MapBuilder.<String, String>newHashMap()
+                    // Allows matching "text/*"
+                    .put("application/ecmascript", "text/ecmascript")
+                    .put("application/javascript", "text/javascript")
+                    .put("application/json", "text/json")
+                    .put("application/typescript", "text/typescript")
+                    // Allows matching generic
+                    .put("application/octet-stream", "*/*")
+                    .build();
 
     private static final Set<String> sSupportedArchiveMimeTypes = SetBuilder.<String>newHashSet()
             .add("application/vnd.android.package-archive")
@@ -157,13 +171,14 @@ public class MimeTypes {
         return "application/octet-stream";
     }
 
-    public static String getDirectoryMimeType() {
-        return DocumentsContract.Document.MIME_TYPE_DIR;
+    @Nullable
+    public static String getPosixMimeType(@NonNull PosixFileType type) {
+        return sPosixFileTypeToMimeTypeMap.get(type);
     }
 
-    @Nullable
-    public static String getPosixMimeType(PosixFileType type) {
-        return sPosixFileTypeToMimeTypeMap.get(type);
+    @NonNull
+    public static String getIntentType(String mimeType) {
+        return MapCompat.getOrDefault(sMimeTypeToIntentTypeMap, mimeType, mimeType);
     }
 
     public static int getIconRes(String mimeType) {

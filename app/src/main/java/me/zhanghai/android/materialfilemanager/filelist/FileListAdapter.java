@@ -239,6 +239,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
                 case R.id.action_rename:
                     mListener.onRenameFile(file);
                     return true;
+                case R.id.action_send:
+                    mListener.onSendFile(file);
+                    return true;
                 case R.id.action_copy_path:
                     mListener.onCopyPath(file);
                     return true;
@@ -271,6 +274,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         void onCopyFile(File file);
         void onDeleteFile(File file);
         void onRenameFile(File file);
+        void onSendFile(File file);
         void onCopyPath(File file);
         void onOpenProperties(File file);
     }

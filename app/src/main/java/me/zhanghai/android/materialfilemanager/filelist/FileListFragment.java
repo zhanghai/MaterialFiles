@@ -11,6 +11,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -46,6 +47,7 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.FileJobService;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
+import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.fileproperties.FilePropertiesDialogFragment;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
@@ -241,6 +243,9 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
             case R.id.action_refresh:
                 reloadFile();
                 return true;
+            case R.id.action_send:
+                sendFile();
+                return true;
             case R.id.action_copy_path:
                 copyPath();
                 return true;
@@ -399,16 +404,21 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         mViewModel.reload();
     }
 
+    private void sendFile() {
+        sendFile(getCurrentFile(), MimeTypes.DIRECTORY_MIME_TYPE);
+    }
+
     private void copyPath() {
         copyPath(getCurrentFile());
     }
 
     private void openInTerminal() {
-        // TODO
         File file = getCurrentFile();
         if (file instanceof LocalFile) {
             LocalFile localFile = (LocalFile) file;
             Terminal.open(localFile.getPath(), requireContext());
+        } else {
+            // TODO
         }
     }
 
@@ -569,10 +579,8 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
         }
         if (file instanceof LocalFile) {
             LocalFile localFile = (LocalFile) file;
-            java.io.File javaFile = localFile.makeJavaFile();
-            Intent intent = IntentUtils.makeView(FileProvider.getUriForFile(javaFile),
-                    file.getMimeType())
-                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
+            Intent intent = IntentUtils.makeView(fileUri, file.getMimeType())
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             AppUtils.startActivity(intent, requireContext());
         } else {
@@ -619,6 +627,22 @@ public class FileListFragment extends Fragment implements FileListAdapter.Listen
     public void renameFile(File file, String name) {
         // TODO
         FileJobService.rename(file, name, requireContext());
+    }
+
+    @Override
+    public void onSendFile(File file) {
+        sendFile(file, file.getMimeType());
+    }
+
+    private void sendFile(File file, String mimeType) {
+        if (file instanceof LocalFile) {
+            LocalFile localFile = (LocalFile) file;
+            Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
+            Intent intent = IntentUtils.makeSendStream(fileUri, mimeType);
+            AppUtils.startActivityWithChooser(intent, requireContext());
+        } else {
+            // TODO
+        }
     }
 
     @Override

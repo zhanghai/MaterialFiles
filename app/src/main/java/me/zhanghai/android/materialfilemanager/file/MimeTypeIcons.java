@@ -138,7 +138,7 @@ class MimeTypeIcons {
                     .put("text/x-vcard", Icons.CONTACT)
 
                     .put("inode/directory", Icons.DIRECTORY)
-                    .put(MimeTypes.getDirectoryMimeType(), Icons.DIRECTORY)
+                    .put(MimeTypes.DIRECTORY_MIME_TYPE, Icons.DIRECTORY)
 
                     .put("application/rtf", Icons.DOCUMENT)
                     .put("application/vnd.oasis.opendocument.text", Icons.DOCUMENT)
