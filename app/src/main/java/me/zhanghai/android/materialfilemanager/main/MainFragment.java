@@ -20,30 +20,45 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filelist.FileListFragment;
+import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
 public class MainFragment extends Fragment implements NavigationFragment.MainListener {
 
+    private static final String KEY_PREFIX = MainFragment.class.getName() + '.';
+
+    private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
 
+    @Nullable
+    private File mExtraFile;
+
+    @NonNull
     private NavigationFragment mNavigationFragment;
+    @NonNull
     private FileListFragment mFileListFragment;
 
-    public static MainFragment newInstance() {
+    public static MainFragment newInstance(@Nullable File file) {
         //noinspection deprecation
-        return new MainFragment();
+        MainFragment fragment = new MainFragment();
+        FragmentUtils.getArgumentsBuilder(fragment)
+                .putParcelable(EXTRA_FILE, file);
+        return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance()} instead.
+     * @deprecated Use {@link #newInstance(File)} instead.
      */
     public MainFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
 
         setHasOptionsMenu(true);
     }
@@ -61,8 +76,11 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
 
         ButterKnife.bind(this, view);
 
-        mNavigationFragment = FragmentUtils.findById(this, R.id.navigation_fragment);
-        mFileListFragment = FragmentUtils.findById(this, R.id.file_list_fragment);
+        // Add FileListFragment first so that NavigationFragment can observe its current file.
+        mFileListFragment = FileListFragment.newInstance(mExtraFile);
+        FragmentUtils.add(mFileListFragment, this, R.id.file_list_fragment);
+        mNavigationFragment = NavigationFragment.newInstance();
+        FragmentUtils.add(mNavigationFragment, this, R.id.navigation_fragment);
     }
 
     @Override
@@ -73,7 +91,7 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(Gravity.START);

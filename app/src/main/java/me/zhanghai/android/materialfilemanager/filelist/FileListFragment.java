@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -60,6 +61,7 @@ import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.ClipboardUtils;
+import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
@@ -67,6 +69,13 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         FileListAdapter.Listener, MaterialCab.Callback, ConfirmDeleteFilesDialogFragment.Listener,
         RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
         CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
+
+    private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
+
+    private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+
+    @Nullable
+    private File mExtraFile;
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -104,19 +113,24 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private File mLastFile;
 
-    public static FileListFragment newInstance() {
+    public static FileListFragment newInstance(@Nullable File file) {
         //noinspection deprecation
-        return new FileListFragment();
+        FileListFragment fragment = new FileListFragment();
+        FragmentUtils.getArgumentsBuilder(fragment)
+                .putParcelable(EXTRA_FILE, file);
+        return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance()} instead.
+     * @deprecated Use {@link #newInstance(File)} instead.
      */
     public FileListFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
 
         setHasOptionsMenu(true);
     }
@@ -176,6 +190,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         });
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
+        if (savedInstanceState == null) {
+            File file;
+            if (mExtraFile != null) {
+                file = mExtraFile;
+            } else {
+                // TODO: Allow configuration.
+                file = Files.ofLocalPath(
+                        Environment.getExternalStorageDirectory().getAbsolutePath());
+            }
+            mViewModel.resetTo(file);
+        }
         mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
@@ -449,7 +474,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void openInNewTask(@NonNull File file) {
-        Intent intent = MainActivity.makeIntent(file.getUri(), requireContext())
+        Intent intent = MainActivity.makeIntent(file, requireContext())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);

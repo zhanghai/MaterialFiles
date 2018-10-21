@@ -7,24 +7,20 @@
 
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/file_list_fragment"
-        android:name="me.zhanghai.android.materialfilemanager.filelist.FileListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout="@layout/file_list_fragment" />
+        android:layout_height="match_parent" />
 
-    <fragment
+    <me.zhanghai.android.materialfilemanager.main.PassWindowInsetsFrameLayout
         android:id="@+id/navigation_fragment"
-        android:name="me.zhanghai.android.materialfilemanager.navigation.NavigationFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        tools:layout="@layout/navigation_fragment" />
+        android:fitsSystemWindows="true" />
 </android.support.v4.widget.DrawerLayout>

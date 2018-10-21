@@ -9,7 +9,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
-import android.net.Uri;
 import android.os.Parcelable;
 
 import java.util.Collections;
@@ -41,9 +40,6 @@ public class FileListViewModel extends ViewModel {
         mPasteModeLiveData.setValue(FilePasteMode.NONE);
         // FIXME: Handle multi instances.
         mTrailLiveData.observeForever(trailData -> Files.onTrailChanged(trailData.getTrail()));
-        // TODO
-        File file = Files.ofUri(Uri.parse("file:///storage/emulated/0/Download"));
-        navigateTo(null, file);
     }
 
     public void navigateTo(Parcelable lastState, File file) {
