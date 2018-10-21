@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 import java.util.Map;
 import java.util.Objects;
 
@@ -17,7 +20,9 @@ public class MapCompat {
     private MapCompat() {}
 
     @SuppressWarnings("SuspiciousMethodCalls")
-    public static <K, V> V getOrDefault(Map<K, V> map, Object key, V defaultValue) {
+    @Nullable
+    public static <K, V> V getOrDefault(@NonNull Map<K, V> map, @Nullable K key,
+                                        @Nullable V defaultValue) {
         V value = map.get(key);
         if (value != null || map.containsKey(key)) {
             return value;
@@ -25,7 +30,9 @@ public class MapCompat {
         return defaultValue;
     }
 
-    public static <K, V> V putIfAbsent(Map<K, V> map, K key, V value) {
+    @Nullable
+    public static <K, V> V putIfAbsent(@NonNull Map<K, V> map, @Nullable K key,
+                                       @Nullable V value) {
         V oldValue = map.get(key);
         if (oldValue == null) {
             oldValue = map.put(key, value);
@@ -33,8 +40,10 @@ public class MapCompat {
         return oldValue;
     }
 
-    public static <K, V> V computeIfAbsent(Map<K, V> map, K key,
-                                           Function<? super K, ? extends V> mappingFunction) {
+    @Nullable
+    public static <K, V> V computeIfAbsent(
+            @NonNull Map<K, V> map, @Nullable K key,
+            @NonNull Function<? super K, ? extends V> mappingFunction) {
         Objects.requireNonNull(mappingFunction);
         V value = map.get(key);
         if (value == null) {
@@ -47,8 +56,10 @@ public class MapCompat {
         return value;
     }
 
+    @Nullable
     public static <K, V> V computeIfPresent(
-            Map<K, V> map, K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+            @NonNull Map<K, V> map, @Nullable K key,
+            @NonNull BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         V oldValue = map.get(key);
         if (oldValue != null) {
@@ -65,8 +76,10 @@ public class MapCompat {
         }
     }
 
+    @Nullable
     public static <K, V> V compute(
-            Map<K, V> map, K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+            @NonNull Map<K, V> map, @Nullable K key,
+            @NonNull BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         V oldValue = map.get(key);
         V newValue = remappingFunction.apply(key, oldValue);
@@ -81,8 +94,10 @@ public class MapCompat {
         }
     }
 
-    public static <K, V> V merge(Map<K, V> map, K key, V value,
-                                 BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+    @Nullable
+    public static <K, V> V merge(
+            @NonNull Map<K, V> map, @Nullable K key, @NonNull V value,
+            @NonNull BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         Objects.requireNonNull(value);
         V oldValue = map.get(key);

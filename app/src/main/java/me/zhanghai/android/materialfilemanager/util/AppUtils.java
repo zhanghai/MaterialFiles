@@ -16,6 +16,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
@@ -30,7 +32,7 @@ public class AppUtils {
     private AppUtils() {}
 
     @Nullable
-    public static Activity getActivityFromContext(Context context) {
+    public static Activity getActivityFromContext(@NonNull Context context) {
         if (context instanceof Activity) {
             return (Activity) context;
         } else if (context instanceof ContextWrapper) {
@@ -41,20 +43,26 @@ public class AppUtils {
         }
     }
 
+    @Nullable
     private static Field sActivityTaskDescriptionField;
+    private static boolean sActivityTaskDescriptionFieldInitialized;
 
-    public static ActivityManager.TaskDescription getTaskDescription(Activity activity) {
+    @Nullable
+    public static ActivityManager.TaskDescription getTaskDescription(@NonNull Activity activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return null;
         }
-        if (sActivityTaskDescriptionField == null) {
+        if (!sActivityTaskDescriptionFieldInitialized) {
             try {
                 sActivityTaskDescriptionField = Activity.class.getDeclaredField("mTaskDescription");
                 sActivityTaskDescriptionField.setAccessible(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
             }
+            sActivityTaskDescriptionFieldInitialized = true;
+        }
+        if (sActivityTaskDescriptionField == null) {
+            return null;
         }
         try {
             return (ActivityManager.TaskDescription) sActivityTaskDescriptionField.get(activity);
@@ -64,10 +72,12 @@ public class AppUtils {
         }
     }
 
+    @Nullable
     private static Method sTaskDescriptionSetLabelMethod;
+    private static boolean sTaskDescriptionSetLabelMethodInitialized;
 
     @SuppressLint("PrivateApi")
-    public static void setTaskDescriptionLabel(Activity activity, String label) {
+    public static void setTaskDescriptionLabel(@NonNull Activity activity, @Nullable String label) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
@@ -75,15 +85,18 @@ public class AppUtils {
         if (taskDescription == null) {
             return;
         }
-        if (sTaskDescriptionSetLabelMethod == null) {
+        if (!sTaskDescriptionSetLabelMethodInitialized) {
             try {
                 sTaskDescriptionSetLabelMethod = ActivityManager.TaskDescription.class
                         .getDeclaredMethod("setLabel", String.class);
                 sTaskDescriptionSetLabelMethod.setAccessible(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                return;
             }
+            sTaskDescriptionSetLabelMethodInitialized = true;
+        }
+        if (sTaskDescriptionSetLabelMethod == null) {
+            return;
         }
         try {
             sTaskDescriptionSetLabelMethod.invoke(taskDescription, label);
@@ -94,10 +107,13 @@ public class AppUtils {
         activity.setTaskDescription(taskDescription);
     }
 
+    @Nullable
     private static Method sTaskDescriptionSetPrimaryColorMethod;
+    private static boolean sTaskDescriptionSetPrimaryColorMethodInitialized;
 
     @SuppressLint("PrivateApi")
-    public static void setTaskDescriptionPrimaryColor(Activity activity, int primaryColor) {
+    public static void setTaskDescriptionPrimaryColor(@NonNull Activity activity,
+                                                      @ColorInt int primaryColor) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
@@ -105,15 +121,18 @@ public class AppUtils {
         if (taskDescription == null) {
             return;
         }
-        if (sTaskDescriptionSetPrimaryColorMethod == null) {
+        if (!sTaskDescriptionSetPrimaryColorMethodInitialized) {
             try {
                 sTaskDescriptionSetPrimaryColorMethod = ActivityManager.TaskDescription.class
                         .getDeclaredMethod("setPrimaryColor", int.class);
                 sTaskDescriptionSetPrimaryColorMethod.setAccessible(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                return;
             }
+            sTaskDescriptionSetPrimaryColorMethodInitialized = true;
+        }
+        if (sTaskDescriptionSetPrimaryColorMethod == null) {
+            return;
         }
         try {
             sTaskDescriptionSetPrimaryColorMethod.invoke(taskDescription, primaryColor);
@@ -124,12 +143,12 @@ public class AppUtils {
         activity.setTaskDescription(taskDescription);
     }
 
-    public static boolean isIntentHandled(Intent intent, Context context) {
+    public static boolean isIntentHandled(@NonNull Intent intent, @NonNull Context context) {
         return intent.resolveActivity(context.getPackageManager()) != null;
     }
 
-    // From http://developer.android.com/training/implementing-navigation/ancestral.html#NavigateUp .
-    public static void navigateUp(Activity activity, Bundle extras) {
+    // @see http://developer.android.com/training/implementing-navigation/ancestral.html#NavigateUp
+    public static void navigateUp(@NonNull Activity activity, @Nullable Bundle extras) {
         Intent upIntent = NavUtils.getParentActivityIntent(activity);
         if (upIntent != null) {
             if (extras != null) {
@@ -155,13 +174,14 @@ public class AppUtils {
         activity.finish();
     }
 
-    public static void navigateUp(Activity activity) {
+    public static void navigateUp(@NonNull Activity activity) {
         navigateUp(activity, null);
     }
 
+    @NonNull
     private static final Handler sMainHandler = new Handler(Looper.getMainLooper());
 
-    public static void runOnUiThread(Runnable runnable) {
+    public static void runOnUiThread(@NonNull Runnable runnable) {
         if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
             runnable.run();
         } else {
@@ -169,7 +189,7 @@ public class AppUtils {
         }
     }
 
-    public static boolean startActivity(Intent intent, Context context) {
+    public static boolean startActivity(@NonNull Intent intent, @NonNull Context context) {
         try {
             context.startActivity(intent);
             return true;
@@ -180,7 +200,8 @@ public class AppUtils {
         }
     }
 
-    public static boolean startActivityForResult(Intent intent, int requestCode, Activity activity) {
+    public static boolean startActivityForResult(@NonNull Intent intent, int requestCode,
+                                                 @NonNull Activity activity) {
         try {
             activity.startActivityForResult(intent, requestCode);
             return true;
@@ -191,12 +212,12 @@ public class AppUtils {
         }
     }
 
-    public static void startActivityWithChooser(Intent intent, Context context) {
+    public static void startActivityWithChooser(@NonNull Intent intent, @NonNull Context context) {
         context.startActivity(IntentUtils.withChooser(intent));
     }
 
-    public static void startActivityForResultWithChooser(Intent intent, int requestCode,
-                                                            Activity activity) {
+    public static void startActivityForResultWithChooser(@NonNull Intent intent, int requestCode,
+                                                         @NonNull Activity activity) {
         activity.startActivityForResult(IntentUtils.withChooser(intent), requestCode);
     }
 }

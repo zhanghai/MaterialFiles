@@ -8,6 +8,8 @@ package me.zhanghai.android.materialfilemanager.ui;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.Checkable;
 import android.widget.LinearLayout;
@@ -20,20 +22,21 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
 
     private boolean mChecked;
 
-    public CheckableLinearLayout(Context context) {
+    public CheckableLinearLayout(@NonNull Context context) {
         super(context);
     }
 
-    public CheckableLinearLayout(Context context, AttributeSet attrs) {
+    public CheckableLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CheckableLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CheckableLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                                 int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CheckableLinearLayout(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
+    public CheckableLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                                 int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -61,6 +64,7 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
         return drawableState;
     }
 
+    @NonNull
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -70,7 +74,7 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state) {
+    public void onRestoreInstanceState(@NonNull Parcelable state) {
         SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         setChecked(savedState.checked);
@@ -80,28 +84,32 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
 
         public boolean checked;
 
-        public SavedState(Parcelable superState) {
+        public SavedState(@NonNull Parcelable superState) {
             super(superState);
         }
 
 
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
+            @NonNull
+            @Override
+            public SavedState createFromParcel(@NonNull Parcel in) {
                 return new SavedState(in);
             }
+            @NonNull
+            @Override
             public SavedState[] newArray(int size) {
                 return new SavedState[size];
             }
         };
 
-        private SavedState(Parcel in) {
+        private SavedState(@NonNull Parcel in) {
             super(in);
 
             checked = in.readByte() != 0;
         }
 
         @Override
-        public void writeToParcel(Parcel out, int flags) {
+        public void writeToParcel(@NonNull Parcel out, int flags) {
             super.writeToParcel(out, flags);
 
             out.writeByte(checked ? (byte) 1 : (byte) 0);

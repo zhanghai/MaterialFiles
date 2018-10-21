@@ -5,13 +5,16 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
+import android.support.annotation.Nullable;
+
 public class Holder<T> {
 
+    @Nullable
     public T value;
 
     public Holder() {}
 
-    public Holder(T value) {
+    public Holder(@Nullable T value) {
         this.value = value;
     }
 }

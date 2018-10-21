@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.util;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
 import java.util.Collections;
@@ -17,26 +18,31 @@ import java.util.function.BiFunction;
 @SuppressWarnings("unused")
 public class MapBuilder<K, V, M extends Map<K, V>> {
 
+    @NonNull
     private M mMap;
 
-    private MapBuilder(M map) {
+    private MapBuilder(@NonNull M map) {
         mMap = map;
     }
 
+    @NonNull
     public static <K, V> MapBuilder<K, V, HashMap<K, V>> newHashMap() {
         return new MapBuilder<>(new HashMap<>());
     }
 
-    public static <K, V, M extends Map<K, V>> MapBuilder<K, V, M> buildUpon(M map) {
+    @NonNull
+    public static <K, V, M extends Map<K, V>> MapBuilder<K, V, M> buildUpon(@NonNull M map) {
         return new MapBuilder<>(map);
     }
 
+    @NonNull
     public M build() {
         M map = mMap;
         mMap = null;
         return map;
     }
 
+    @NonNull
     public Map<K, V> buildUnmodifiable() {
         Map<K, V> map = Collections.unmodifiableMap(mMap);
         mMap = null;
@@ -44,59 +50,72 @@ public class MapBuilder<K, V, M extends Map<K, V>> {
     }
 
 
-    public MapBuilder<K, V, M> put(K key, V value) {
+    @NonNull
+    public MapBuilder<K, V, M> put(@Nullable K key, @Nullable V value) {
         mMap.put(key, value);
         return this;
     }
 
-    public MapBuilder<K, V, M> remove(Object key) {
+    @NonNull
+    public MapBuilder<K, V, M> remove(@Nullable K key) {
         mMap.remove(key);
         return this;
     }
 
+    @NonNull
     public MapBuilder<K, V, M> putAll(@NonNull Map<? extends K, ? extends V> m) {
         mMap.putAll(m);
         return this;
     }
 
+    @NonNull
     public MapBuilder<K, V, M> clear() {
         mMap.clear();
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public MapBuilder<K, V, M> replaceAll(BiFunction<? super K, ? super V, ? extends V> function) {
+    public MapBuilder<K, V, M> replaceAll(
+            @NonNull BiFunction<? super K, ? super V, ? extends V> function) {
         mMap.replaceAll(function);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public MapBuilder<K, V, M> putIfAbsent(K key, V value) {
+    public MapBuilder<K, V, M> putIfAbsent(@Nullable K key, @Nullable V value) {
         mMap.putIfAbsent(key, value);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public MapBuilder<K, V, M> remove(Object key, Object value) {
+    public MapBuilder<K, V, M> remove(@Nullable K key, @Nullable V value) {
         mMap.remove(key, value);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public MapBuilder<K, V, M> replace(K key, V oldValue, V newValue) {
+    public MapBuilder<K, V, M> replace(@Nullable K key, @Nullable V oldValue,
+                                       @Nullable V newValue) {
         mMap.replace(key, oldValue, newValue);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public MapBuilder<K, V, M> replace(K key, V value) {
+    public MapBuilder<K, V, M> replace(@Nullable K key, @Nullable V value) {
         mMap.replace(key, value);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
     public MapBuilder<K, V, M> merge(
-            K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+            @Nullable K key, @NonNull V value,
+            @NonNull BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
         mMap.merge(key, value, remappingFunction);
         return this;
     }

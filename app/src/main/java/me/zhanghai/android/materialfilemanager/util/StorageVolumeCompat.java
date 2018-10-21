@@ -28,19 +28,16 @@ public class StorageVolumeCompat {
 
     @NonNull
     private static final Object sStorageVolumeGetPathMethodLock = new Object();
-    private static boolean sStorageVolumeGetPathMethodInitialized;
     @Nullable
     private static Method sStorageVolumeGetPathMethod;
 
     @NonNull
     private static final Object sStorageVolumeGetPathFileMethodLock = new Object();
-    private static boolean sStorageVolumeGetPathFileMethodInitialized;
     @Nullable
     private static Method sStorageVolumeGetPathFileMethod;
 
     @NonNull
     private static final Object sStorageVolumeGetDescriptionMethodLock = new Object();
-    private static boolean sStorageVolumeGetDescriptionMethodInitialized;
     @Nullable
     private static Method sStorageVolumeGetDescriptionMethod;
 
@@ -66,7 +63,7 @@ public class StorageVolumeCompat {
     @SuppressLint({"NewApi", "PrivateApi"})
     private static Method getStorageVolumeGetPathMethod() {
         synchronized (sStorageVolumeGetPathMethodLock) {
-            if (!sStorageVolumeGetPathMethodInitialized) {
+            if (sStorageVolumeGetPathMethod == null) {
                 try {
                     //noinspection JavaReflectionMemberAccess
                     sStorageVolumeGetPathMethod = StorageVolume.class.getDeclaredMethod("getPath");
@@ -74,7 +71,6 @@ public class StorageVolumeCompat {
                     throw new RuntimeException(e);
                 }
                 sStorageVolumeGetPathMethod.setAccessible(true);
-                sStorageVolumeGetPathMethodInitialized = true;
             }
             return sStorageVolumeGetPathMethod;
         }
@@ -105,7 +101,7 @@ public class StorageVolumeCompat {
     @SuppressLint({"NewApi", "PrivateApi"})
     private static Method getStorageVolumeGetPathFileMethod() {
         synchronized (sStorageVolumeGetPathFileMethodLock) {
-            if (!sStorageVolumeGetPathFileMethodInitialized) {
+            if (sStorageVolumeGetPathFileMethod == null) {
                 try {
                     //noinspection JavaReflectionMemberAccess
                     sStorageVolumeGetPathFileMethod = StorageVolume.class.getDeclaredMethod(
@@ -114,7 +110,6 @@ public class StorageVolumeCompat {
                     throw new RuntimeException(e);
                 }
                 sStorageVolumeGetPathFileMethod.setAccessible(true);
-                sStorageVolumeGetPathFileMethodInitialized = true;
             }
             return sStorageVolumeGetPathFileMethod;
         }
@@ -145,7 +140,7 @@ public class StorageVolumeCompat {
     @SuppressLint("NewApi")
     private static Method getStorageVolumeGetDescriptionMethod() {
         synchronized (sStorageVolumeGetDescriptionMethodLock) {
-            if (!sStorageVolumeGetDescriptionMethodInitialized) {
+            if (sStorageVolumeGetDescriptionMethod == null) {
                 try {
                     //noinspection JavaReflectionMemberAccess
                     sStorageVolumeGetDescriptionMethod = StorageVolume.class.getDeclaredMethod(
@@ -154,7 +149,6 @@ public class StorageVolumeCompat {
                     throw new RuntimeException(e);
                 }
                 sStorageVolumeGetDescriptionMethod.setAccessible(true);
-                sStorageVolumeGetDescriptionMethodInitialized = true;
             }
             return sStorageVolumeGetDescriptionMethod;
         }

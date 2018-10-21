@@ -26,7 +26,6 @@ public class StorageManagerCompat {
 
     @NonNull
     private static final Object sStorageManagerGetVolumeListMethodLock = new Object();
-    private static boolean sStorageManagerGetVolumeListMethodInitialized;
     @Nullable
     private static Method sStorageManagerGetVolumeListMethod;
 
@@ -58,7 +57,7 @@ public class StorageManagerCompat {
     @SuppressLint("PrivateApi")
     private static Method getStorageManagerGetVolumeListMethod() {
         synchronized (sStorageManagerGetVolumeListMethodLock) {
-            if (!sStorageManagerGetVolumeListMethodInitialized) {
+            if (sStorageManagerGetVolumeListMethod == null) {
                 try {
                     //noinspection JavaReflectionMemberAccess
                     sStorageManagerGetVolumeListMethod = StorageManager.class.getDeclaredMethod(
@@ -67,7 +66,6 @@ public class StorageManagerCompat {
                     throw new RuntimeException(e);
                 }
                 sStorageManagerGetVolumeListMethod.setAccessible(true);
-                sStorageManagerGetVolumeListMethodInitialized = true;
             }
             return sStorageManagerGetVolumeListMethod;
         }

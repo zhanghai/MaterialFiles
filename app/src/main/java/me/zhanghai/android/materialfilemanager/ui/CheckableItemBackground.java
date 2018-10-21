@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.NonNull;
 
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
@@ -22,7 +23,8 @@ public class CheckableItemBackground {
 
     private CheckableItemBackground() {}
 
-    public static StateListDrawable create(Context context) {
+    @NonNull
+    public static StateListDrawable create(@NonNull Context context) {
         StateListDrawable checkableItemBackground = new StateListDrawable();
         int controlHighlightColor = ViewUtils.getColorFromAttrRes(R.attr.colorControlHighlight, 0,
                 context);

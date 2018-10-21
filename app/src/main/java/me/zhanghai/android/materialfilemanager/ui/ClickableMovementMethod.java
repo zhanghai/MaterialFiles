@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.ui;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
@@ -20,8 +22,10 @@ import android.widget.TextView;
  */
 public class ClickableMovementMethod extends BaseMovementMethod {
 
+    @Nullable
     private static ClickableMovementMethod sInstance;
 
+    @NonNull
     public static ClickableMovementMethod getInstance() {
         if (sInstance == null) {
             sInstance = new ClickableMovementMethod();
@@ -35,7 +39,8 @@ public class ClickableMovementMethod extends BaseMovementMethod {
     }
 
     @Override
-    public boolean onTouchEvent(TextView widget, Spannable buffer, MotionEvent event) {
+    public boolean onTouchEvent(@NonNull TextView widget, @Nullable Spannable buffer,
+                                @NonNull MotionEvent event) {
 
         int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN) {
@@ -69,7 +74,7 @@ public class ClickableMovementMethod extends BaseMovementMethod {
     }
 
     @Override
-    public void initialize(TextView widget, Spannable text) {
+    public void initialize(@NonNull TextView widget, @NonNull Spannable text) {
         Selection.removeSelection(text);
     }
 }

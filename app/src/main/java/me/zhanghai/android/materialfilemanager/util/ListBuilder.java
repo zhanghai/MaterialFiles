@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.util;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 
 import java.util.ArrayList;
@@ -20,97 +21,115 @@ import java.util.function.UnaryOperator;
 @SuppressWarnings("unused")
 public class ListBuilder<E, L extends List<E>> {
 
+    @NonNull
     private L mList;
 
-    private ListBuilder(L list) {
+    private ListBuilder(@NonNull L list) {
         mList = list;
     }
 
+    @NonNull
     public static <E> ListBuilder<E, ArrayList<E>> newArrayList() {
         return new ListBuilder<>(new ArrayList<>());
     }
 
-    public static <E, L extends List<E>> ListBuilder<E, L> buildUpon(L List) {
+    @NonNull
+    public static <E, L extends List<E>> ListBuilder<E, L> buildUpon(@NonNull L List) {
         return new ListBuilder<>(List);
     }
 
+    @NonNull
     public L build() {
         L list = mList;
         mList = null;
         return list;
     }
 
-    public List<E> buildUnmodifiable() {
+    @NonNull
+     public List<E> buildUnmodifiable() {
         List<E> List = Collections.unmodifiableList(mList);
         mList = null;
         return List;
     }
 
 
-    public ListBuilder<E, L> add(E element) {
+    @NonNull
+    public ListBuilder<E, L> add(@Nullable E element) {
         mList.add(element);
         return this;
     }
 
-    public ListBuilder<E, L> remove(Object element) {
+    @NonNull
+    public ListBuilder<E, L> remove(@Nullable Object element) {
         mList.remove(element);
         return this;
     }
 
+    @NonNull
     public ListBuilder<E, L> addAll(@NonNull Collection<? extends E> collection) {
         mList.addAll(collection);
         return this;
     }
 
+    @NonNull
     public ListBuilder<E, L> addAll(int index, @NonNull Collection<? extends E> collection) {
         mList.addAll(index, collection);
         return this;
     }
 
+    @NonNull
     public ListBuilder<E, L> removeAll(@NonNull Collection<?> collection) {
         mList.removeAll(collection);
         return this;
     }
 
+    @NonNull
     public ListBuilder<E, L> retainAll(@NonNull Collection<?> collection) {
         mList.retainAll(collection);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public ListBuilder<E, L> replaceAll(UnaryOperator<E> operator) {
+    public ListBuilder<E, L> replaceAll(@NonNull UnaryOperator<E> operator) {
         mList.replaceAll(operator);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public ListBuilder<E, L> sort(Comparator<? super E> comparator) {
+    public ListBuilder<E, L> sort(@Nullable Comparator<? super E> comparator) {
         mList.sort(comparator);
         return this;
     }
 
+    @NonNull
     public ListBuilder<E, L> clear() {
         mList.clear();
         return this;
     }
 
-    public ListBuilder<E, L> set(int index, E element) {
+    @NonNull
+    public ListBuilder<E, L> set(int index, @Nullable E element) {
         mList.set(index, element);
         return this;
     }
 
-    public ListBuilder<E, L> add(int index, E element) {
+    @NonNull
+    public ListBuilder<E, L> add(int index, @Nullable E element) {
         mList.add(index, element);
         return this;
     }
 
+    @NonNull
     public ListBuilder<E, L> remove(int index) {
         mList.remove(index);
         return this;
     }
 
+    @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public ListBuilder<E, L> removeIf(Predicate<? super E> filter) {
+    public ListBuilder<E, L> removeIf(@NonNull Predicate<? super E> filter) {
         mList.removeIf(filter);
         return this;
     }

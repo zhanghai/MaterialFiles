@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+
 public class ObjectUtils {
 
     private ObjectUtils() {}
@@ -14,15 +17,18 @@ public class ObjectUtils {
     /**
      * @deprecated Should never be used.
      */
-    public static <T> T firstNonNull(T first) {
+    @Nullable
+    public static <T> T firstNonNull(@Nullable T first) {
         return first;
     }
 
-    public static <T> T firstNonNull(T first, T second) {
+    @Nullable
+    public static <T> T firstNonNull(@Nullable T first, @Nullable T second) {
         return first != null ? first : second;
     }
 
-    public static <T> T firstNonNull(T first, T second, T third) {
+    @Nullable
+    public static <T> T firstNonNull(@Nullable T first, @Nullable T second, @Nullable T third) {
         return first != null ? first
                 : second != null ? second
                 : third;
@@ -31,8 +37,9 @@ public class ObjectUtils {
     /**
      * @deprecated Do you really need this?
      */
+    @Nullable
     @SafeVarargs
-    public static <T> T firstNonNull(T... values) {
+    public static <T> T firstNonNull(@NonNull T... values) {
         for (T value : values) {
             if (value != null) {
                 return value;
@@ -41,7 +48,8 @@ public class ObjectUtils {
         return null;
     }
 
-    public static String toString(Object object) {
+    @Nullable
+    public static String toString(@Nullable Object object) {
         return object != null ? object.toString() : null;
     }
 }

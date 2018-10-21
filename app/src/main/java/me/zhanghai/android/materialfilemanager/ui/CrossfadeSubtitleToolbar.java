@@ -10,6 +10,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.widget.Toolbar;
@@ -23,23 +24,25 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class CrossfadeSubtitleToolbar extends Toolbar {
 
+    @NonNull
     private ObjectAnimator mSubtitleAnimator;
 
+    @Nullable
     private CharSequence mNextSubtitle;
 
-    public CrossfadeSubtitleToolbar(Context context) {
+    public CrossfadeSubtitleToolbar(@NonNull Context context) {
         super(context);
 
         init();
     }
 
-    public CrossfadeSubtitleToolbar(Context context, @Nullable AttributeSet attrs) {
+    public CrossfadeSubtitleToolbar(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         init();
     }
 
-    public CrossfadeSubtitleToolbar(Context context, @Nullable AttributeSet attrs,
+    public CrossfadeSubtitleToolbar(@NonNull Context context, @Nullable AttributeSet attrs,
                                     int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -55,6 +58,7 @@ public class CrossfadeSubtitleToolbar extends Toolbar {
         mSubtitleAnimator.addListener(listener);
     }
 
+    @Nullable
     @Override
     public CharSequence getSubtitle() {
         if (mNextSubtitle != null) {
@@ -64,7 +68,7 @@ public class CrossfadeSubtitleToolbar extends Toolbar {
     }
 
     @Override
-    public void setSubtitle(CharSequence subtitle) {
+    public void setSubtitle(@Nullable CharSequence subtitle) {
 
         if (TextUtils.equals(getSubtitle(), subtitle)) {
             return;
@@ -87,11 +91,15 @@ public class CrossfadeSubtitleToolbar extends Toolbar {
             return;
         }
         TextView subtitleTextView;
+        //noinspection TryWithIdenticalCatches
         try {
             Field subtitleTextViewField = Toolbar.class.getDeclaredField("mSubtitleTextView");
             subtitleTextViewField.setAccessible(true);
             subtitleTextView = (TextView) subtitleTextViewField.get(this);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+            return;
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
             return;
         }
@@ -110,7 +118,7 @@ public class CrossfadeSubtitleToolbar extends Toolbar {
         private boolean mTextUpdated;
 
         @Override
-        public void onAnimationUpdate(ValueAnimator animator) {
+        public void onAnimationUpdate(@NonNull ValueAnimator animator) {
             if (animator.getAnimatedFraction() < 0.5) {
                 mTextUpdated = false;
             } else {
@@ -119,7 +127,7 @@ public class CrossfadeSubtitleToolbar extends Toolbar {
         }
 
         @Override
-        public void onAnimationEnd(Animator animator) {
+        public void onAnimationEnd(@NonNull Animator animator) {
             ensureTextUpdated();
             if (mNextSubtitle != null) {
                 mTextUpdated = false;

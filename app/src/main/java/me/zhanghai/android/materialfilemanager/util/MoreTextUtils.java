@@ -78,18 +78,22 @@ public class MoreTextUtils {
         return text != null && text.endsWith(prefix);
     }
 
+    @Nullable
     public static CharSequence emptyToNull(@Nullable CharSequence text) {
         return text != null && text.length() == 0 ? null : text;
     }
 
+    @NonNull
     public static CharSequence nullToEmpty(@Nullable CharSequence text) {
         return text == null ? "" : text;
     }
 
+    @Nullable
     public static String emptyToNull(@Nullable String text) {
         return text != null && text.isEmpty() ? null : text;
     }
 
+    @NonNull
     public static String nullToEmpty(@Nullable String text) {
         return text == null ? "" : text;
     }

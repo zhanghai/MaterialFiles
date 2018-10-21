@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 /**
@@ -25,46 +26,53 @@ public class FileNameUtils {
 
     private FileNameUtils() {}
 
-    public static String getBaseName(String path) {
+    @NonNull
+    public static String getBaseName(@NonNull String path) {
         return removeExtension(getFileName(path));
     }
 
-    public static String getExtension(String path) {
+    @NonNull
+    public static String getExtension(@NonNull String path) {
         int index = indexOfExtensionSeparator(path);
         return index != -1 ? path.substring(index + 1) : "";
     }
 
-    public static String getFileName(String path) {
+    @NonNull
+    public static String getFileName(@NonNull String path) {
         int index = indexOfLastSeparator(path);
         return path.substring(index + 1);
     }
 
-    public static String getDirectory(String path) {
+    @NonNull
+    public static String getDirectory(@NonNull String path) {
         int index = indexOfLastSeparator(path);
         return index != -1 ? path.substring(0, index) : ".";
     }
 
-    public static String getDirectoryWithEndSeparator(String path) {
+    @NonNull
+    public static String getDirectoryWithEndSeparator(@NonNull String path) {
         // We assume the only separator is '/'.
         return getDirectory(path) + SEPARATOR;
     }
 
-    public static int indexOfExtensionSeparator(String path) {
+    public static int indexOfExtensionSeparator(@NonNull String path) {
         int lastSeparatorIndex = indexOfLastSeparator(path);
         int lastExtensionSeparatorIndex = path.lastIndexOf(EXTENSION_SEPARATOR);
         return lastSeparatorIndex > lastExtensionSeparatorIndex ? -1 : lastExtensionSeparatorIndex;
     }
 
-    public static int indexOfLastSeparator(String path) {
+    public static int indexOfLastSeparator(@NonNull String path) {
         return path.lastIndexOf(SEPARATOR);
     }
 
-    public static String removeExtension(String path) {
+    @NonNull
+    public static String removeExtension(@NonNull String path) {
         int index = indexOfExtensionSeparator(path);
         return index != -1 ? path.substring(0, index) : path;
     }
 
-    public static String replaceExtension(String path, String extension) {
+    @NonNull
+    public static String replaceExtension(@NonNull String path, @NonNull String extension) {
         path = removeExtension(path);
         if (!TextUtils.isEmpty(extension)) {
             path += EXTENSION_SEPARATOR + extension;
@@ -72,11 +80,12 @@ public class FileNameUtils {
         return path;
     }
 
-    public static boolean isValidFileName(String fileName) {
-        return !fileName.isEmpty() && fileName.indexOf('/') == -1 && fileName.indexOf('\0') == -1;
+    public static boolean isValidFileName(@NonNull String fileName) {
+        return !TextUtils.isEmpty(fileName) && fileName.indexOf('/') == -1
+                && fileName.indexOf('\0') == -1;
     }
 
-    public static boolean isValidPath(String path) {
-        return path.indexOf('\0') == -1;
+    public static boolean isValidPath(@NonNull String path) {
+        return !TextUtils.isEmpty(path) && path.indexOf('\0') == -1;
     }
 }

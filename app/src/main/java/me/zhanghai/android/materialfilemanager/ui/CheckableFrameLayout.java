@@ -8,6 +8,8 @@ package me.zhanghai.android.materialfilemanager.ui;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
@@ -20,20 +22,21 @@ public class CheckableFrameLayout extends FrameLayout implements Checkable {
 
     private boolean mChecked;
 
-    public CheckableFrameLayout(Context context) {
+    public CheckableFrameLayout(@NonNull Context context) {
         super(context);
     }
 
-    public CheckableFrameLayout(Context context, AttributeSet attrs) {
+    public CheckableFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CheckableFrameLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CheckableFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                                int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CheckableFrameLayout(Context context, AttributeSet attrs, int defStyleAttr,
-                                int defStyleRes) {
+    public CheckableFrameLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                                int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
@@ -61,6 +64,7 @@ public class CheckableFrameLayout extends FrameLayout implements Checkable {
         return drawableState;
     }
 
+    @NonNull
     @Override
     public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
@@ -70,7 +74,7 @@ public class CheckableFrameLayout extends FrameLayout implements Checkable {
     }
 
     @Override
-    public void onRestoreInstanceState(Parcelable state) {
+    public void onRestoreInstanceState(@NonNull Parcelable state) {
         SavedState savedState = (SavedState) state;
         super.onRestoreInstanceState(savedState.getSuperState());
         setChecked(savedState.checked);
@@ -80,28 +84,32 @@ public class CheckableFrameLayout extends FrameLayout implements Checkable {
 
         public boolean checked;
 
-        public SavedState(Parcelable superState) {
+        public SavedState(@NonNull Parcelable superState) {
             super(superState);
         }
 
 
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            public CheckableFrameLayout.SavedState createFromParcel(Parcel in) {
+            @NonNull
+            @Override
+            public CheckableFrameLayout.SavedState createFromParcel(@NonNull Parcel in) {
                 return new CheckableFrameLayout.SavedState(in);
             }
+            @NonNull
+            @Override
             public CheckableFrameLayout.SavedState[] newArray(int size) {
                 return new CheckableFrameLayout.SavedState[size];
             }
         };
 
-        private SavedState(Parcel in) {
+        private SavedState(@NonNull Parcel in) {
             super(in);
 
             checked = in.readByte() != 0;
         }
 
         @Override
-        public void writeToParcel(Parcel out, int flags) {
+        public void writeToParcel(@NonNull Parcel out, int flags) {
             super.writeToParcel(out, flags);
 
             out.writeByte(checked ? (byte) 1 : (byte) 0);

@@ -23,10 +23,14 @@ public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewH
     private boolean mShouldStartAnimation;
     private int mAnimationStartOffset;
 
-    private Handler mStopAnimationHandler = new Handler(Looper.getMainLooper());
+    @NonNull
+    private final Handler mStopAnimationHandler = new Handler(Looper.getMainLooper());
+    @NonNull
     private final Runnable mStopAnimationRunnable = this::stopAnimation;
 
+    @NonNull
     private RecyclerView mRecyclerView;
+    @NonNull
     private final RecyclerView.OnScrollListener mClearAnimationListener =
             new RecyclerView.OnScrollListener() {
                 @Override
@@ -63,7 +67,7 @@ public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewH
         super.clear();
     }
 
-    protected void bindViewHolderAnimation(VH holder) {
+    protected void bindViewHolderAnimation(@NonNull VH holder) {
         holder.itemView.clearAnimation();
         if (mShouldStartAnimation) {
             Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(),

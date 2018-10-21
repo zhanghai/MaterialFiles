@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import me.zhanghai.android.materialfilemanager.BuildConfig;
@@ -16,35 +17,36 @@ public class LogUtils {
 
     private LogUtils() {}
 
-    public static void d(String message) {
+    public static void d(@NonNull String message) {
         Log.d(TAG, buildMessage(message));
     }
 
-    public static void e(String message) {
+    public static void e(@NonNull String message) {
         Log.e(TAG, buildMessage(message));
     }
 
-    public static void i(String message) {
+    public static void i(@NonNull String message) {
         Log.i(TAG, buildMessage(message));
     }
 
-    public static void v(String message) {
+    public static void v(@NonNull String message) {
         Log.v(TAG, buildMessage(message));
     }
 
-    public static void w(String message) {
+    public static void w(@NonNull String message) {
         Log.w(TAG, buildMessage(message));
     }
 
-    public static void wtf(String message) {
+    public static void wtf(@NonNull String message) {
         Log.wtf(TAG, buildMessage(message));
     }
 
-    public static void println(String message) {
+    public static void println(@NonNull String message) {
         Log.println(Log.INFO, TAG, message);
     }
 
-    private static String buildMessage(String rawMessage) {
+    @NonNull
+    private static String buildMessage(@NonNull String rawMessage) {
         StackTraceElement caller = new Throwable().getStackTrace()[2];
         String fullClassName = caller.getClassName();
         String className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1);

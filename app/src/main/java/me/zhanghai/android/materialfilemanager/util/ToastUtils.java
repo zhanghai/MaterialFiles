@@ -6,32 +6,34 @@
 package me.zhanghai.android.materialfilemanager.util;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 public class ToastUtils {
 
     private ToastUtils() {}
 
-    public static void show(CharSequence text, int duration, Context context) {
+    public static void show(@NonNull CharSequence text, int duration, @NonNull Context context) {
         Toast.makeText(context, text, duration).show();
     }
-    public static void show(int resId, int duration, Context context) {
-        show(context.getText(resId), duration, context);
+    public static void show(@StringRes int textRes, int duration, @NonNull Context context) {
+        show(context.getText(textRes), duration, context);
     }
 
-    public static void show(CharSequence text, Context context) {
+    public static void show(@NonNull CharSequence text, @NonNull Context context) {
         show(text, Toast.LENGTH_SHORT, context);
     }
 
-    public static void show(int resId, Context context) {
-        show(context.getText(resId), context);
+    public static void show(@StringRes int textRes, @NonNull Context context) {
+        show(context.getText(textRes), context);
     }
 
-    public static void showLong(CharSequence text, Context context) {
+    public static void showLong(@NonNull CharSequence text, @NonNull Context context) {
         show(text, Toast.LENGTH_LONG, context);
     }
 
-    public static void showLong(int resId, Context context) {
-        showLong(context.getText(resId), context);
+    public static void showLong(@StringRes int textRes, @NonNull Context context) {
+        showLong(context.getText(textRes), context);
     }
 }

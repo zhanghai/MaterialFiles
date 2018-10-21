@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.ui;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -14,48 +16,51 @@ import java.util.List;
 public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH> {
 
-    private List<T> mList = new ArrayList<>();
+    @NonNull
+    private final List<T> mList = new ArrayList<>();
 
     public SimpleAdapter() {
         this(null);
     }
 
-    public SimpleAdapter(List<T> list) {
+    public SimpleAdapter(@Nullable List<T> list) {
         if (list != null) {
             mList.addAll(list);
         }
     }
 
+    @NonNull
     public List<T> getList() {
         return mList;
     }
 
-    public void addAll(Collection<? extends T> collection) {
+    public void addAll(@NonNull Collection<? extends T> collection) {
         int oldSize = mList.size();
         mList.addAll(collection);
         notifyItemRangeInserted(oldSize, collection.size());
     }
 
-    public void replace(Collection<? extends T> collection) {
+    public void replace(@NonNull Collection<? extends T> collection) {
         mList.clear();
         mList.addAll(collection);
         notifyDataSetChanged();
     }
 
-    public void add(int position, T item) {
+    public void add(int position, @Nullable T item) {
         mList.add(position, item);
         notifyItemInserted(position);
     }
 
-    public void add(T item) {
+    public void add(@Nullable T item) {
         add(mList.size(), item);
     }
 
-    public void set(int position, T item) {
+    public void set(int position, @Nullable T item) {
         mList.set(position, item);
         notifyItemChanged(position);
     }
 
+    @Nullable
     public T remove(int position) {
         T item = mList.remove(position);
         notifyItemRemoved(position);
@@ -85,6 +90,7 @@ public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
         }
     }
 
+    @Nullable
     public T removeById(long id) {
         int position = findPositionById(id);
         if (position != RecyclerView.NO_POSITION) {
@@ -94,6 +100,7 @@ public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
         }
     }
 
+    @Nullable
     public T getItem(int position) {
         return mList.get(position);
     }

@@ -5,17 +5,51 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
-import android.text.TextUtils;
+import android.os.Build;
+import android.support.annotation.NonNull;
 
 public class StringCompat {
 
     private StringCompat() {}
 
-    public static String join(CharSequence delimiter, CharSequence... elements) {
-        return TextUtils.join(delimiter, elements);
+    @NonNull
+    public static String join(@NonNull CharSequence delimiter, @NonNull CharSequence... elements) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return String.join(delimiter, elements);
+        } else {
+            // TextUtils.join() can throw NullPointerException, so we cannot use it.
+            StringBuilder builder = new StringBuilder();
+            boolean first = true;
+            for (CharSequence element : elements) {
+                if (first) {
+                    first = false;
+                } else {
+                    builder.append(delimiter);
+                }
+                builder.append(element);
+            }
+            return builder.toString();
+        }
     }
 
-    public static String join(CharSequence delimiter, Iterable<? extends CharSequence> elements) {
-        return TextUtils.join(delimiter, elements);
+    @NonNull
+    public static String join(@NonNull CharSequence delimiter,
+                              @NonNull Iterable<? extends CharSequence> elements) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return String.join(delimiter, elements);
+        } else {
+            // TextUtils.join() can throw NullPointerException, so we cannot use it.
+            StringBuilder builder = new StringBuilder();
+            boolean first = true;
+            for (CharSequence element : elements) {
+                if (first) {
+                    first = false;
+                } else {
+                    builder.append(delimiter);
+                }
+                builder.append(element);
+            }
+            return builder.toString();
+        }
     }
 }
