@@ -19,7 +19,6 @@ public class MapCompat {
 
     private MapCompat() {}
 
-    @SuppressWarnings("SuspiciousMethodCalls")
     @Nullable
     public static <K, V> V getOrDefault(@NonNull Map<K, V> map, @Nullable K key,
                                         @Nullable V defaultValue) {

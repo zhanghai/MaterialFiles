@@ -162,7 +162,7 @@ public class ArchiveFile extends BaseFile {
     public List<File> getChildren() throws FileSystemException {
         Map<Uri, List<Archive.Information>> tree;
         try {
-            tree = Archive.readTree(mArchiveFile.makeJavaFile());
+            tree = Archive.readTree(mArchiveFile.getPath());
         } catch (ArchiveException | IOException e) {
             throw new FileSystemException(R.string.file_list_error_archive, e);
         }

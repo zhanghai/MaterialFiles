@@ -42,17 +42,16 @@ public class Files {
     }
 
     public static void onTrailChanged(@NonNull List<File> path) {
-        Set<java.io.File> archiveJavaFiles = Functional.map(
+        Set<String> archiveJavaFiles = Functional.map(
                 Functional.filter(path, file -> file instanceof ArchiveFile),
-                file -> ((ArchiveFile) file).getArchiveFile().makeJavaFile(), new HashSet<>());
+                file -> ((ArchiveFile) file).getArchiveFile().getPath(), new HashSet<>());
         Archive.retainCache(archiveJavaFiles);
     }
 
     public static void invalidateCache(@NonNull File file) {
         if (file instanceof ArchiveFile) {
             ArchiveFile archiveFile = (ArchiveFile) file;
-            java.io.File archiveJavaFile = archiveFile.getArchiveFile().makeJavaFile();
-            Archive.invalidateCache(archiveJavaFile);
+            Archive.invalidateCache(archiveFile.getArchiveFile().getPath());
         }
     }
 }

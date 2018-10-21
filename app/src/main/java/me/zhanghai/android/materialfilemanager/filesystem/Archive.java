@@ -42,7 +42,7 @@ public class Archive {
     private static final ArchiveStreamFactory sArchiveStreamFactory = new ArchiveStreamFactory();
 
     @NonNull
-    private static final Map<File, Map<Uri, List<Information>>> sTreeCache =
+    private static final Map<String, Map<Uri, List<Information>>> sTreeCache =
             new ConcurrentHashMap<>();
 
     @NonNull
@@ -65,20 +65,20 @@ public class Archive {
 
     private Archive() {}
 
-    public static void retainCache(@NonNull Collection<File> files) {
-        sTreeCache.keySet().retainAll(files);
+    public static void retainCache(@NonNull Collection<String> archivePaths) {
+        sTreeCache.keySet().retainAll(archivePaths);
     }
 
-    public static void invalidateCache(@NonNull File file) {
-        sTreeCache.remove(file);
+    public static void invalidateCache(@NonNull String archivePath) {
+        sTreeCache.remove(archivePath);
     }
 
     @NonNull
-    public static Map<Uri, List<Information>> readTree(@NonNull File file) throws ArchiveException,
-            IOException {
-        Map<Uri, List<Information>> tree = sTreeCache.get(file);
+    public static Map<Uri, List<Information>> readTree(@NonNull String archivePath)
+            throws ArchiveException, IOException {
+        Map<Uri, List<Information>> tree = sTreeCache.get(archivePath);
         if (tree == null) {
-            List<ArchiveEntry> entries = readEntries(file);
+            List<ArchiveEntry> entries = readEntries(archivePath);
             List<Information> informations = Functional.map(entries, entry -> new Information(
                     makePath(entry), entry));
             tree = new HashMap<>();
@@ -109,22 +109,23 @@ public class Archive {
                     parentPath = path;
                 }
             }
-            sTreeCache.put(file, tree);
+            sTreeCache.put(archivePath, tree);
         }
         return tree;
     }
 
     @NonNull
-    private static List<ArchiveEntry> readEntries(@NonNull File file) throws ArchiveException,
-            IOException {
+    private static List<ArchiveEntry> readEntries(@NonNull String archivePath)
+            throws ArchiveException, IOException {
+        File archiveFile = new File(archivePath);
         String type;
-        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
+        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(archiveFile))) {
             type = ArchiveStreamFactory.detect(inputStream);
         }
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
         switch (type) {
             case ArchiveStreamFactory.ZIP: {
-                try (ZipFileCompat zipFile = new ZipFileCompat(file,
+                try (ZipFileCompat zipFile = new ZipFileCompat(archiveFile,
                         /* FIXME: Add setting */ "GB18030")) {
                     FunctionalIterator.forEachRemaining(zipFile.getEntries(),
                             (Consumer<ZipArchiveEntry>) entries::add);
@@ -132,14 +133,14 @@ public class Archive {
                 break;
             }
             case ArchiveStreamFactory.SEVEN_Z: {
-                try (SevenZFile sevenZFile = new SevenZFile(file)) {
+                try (SevenZFile sevenZFile = new SevenZFile(archiveFile)) {
                     Functional.forEach(sevenZFile.getEntries(),
                             (Consumer<SevenZArchiveEntry>) entries::add);
                 }
                 break;
             }
             default: {
-                try (FileInputStream fileInputStream = new FileInputStream(file)) {
+                try (FileInputStream fileInputStream = new FileInputStream(archiveFile)) {
                     try (ArchiveInputStream archiveInputStream =
                                  sArchiveStreamFactory.createArchiveInputStream(
                                          new BufferedInputStream(fileInputStream))) {

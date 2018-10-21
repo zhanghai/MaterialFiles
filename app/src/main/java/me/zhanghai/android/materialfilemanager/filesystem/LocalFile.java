@@ -61,16 +61,10 @@ public class LocalFile extends BaseFile {
         return uriToPath(mUri);
     }
 
-    // TODO: Remove this as all APIs take String instead of java.io.File.
-    @NonNull
-    public java.io.File makeJavaFile() {
-        return new java.io.File(getPath());
-    }
-
     @Nullable
     @Override
     public LocalFile getParent() {
-        String parentPath = makeJavaFile().getParent();
+        String parentPath = new java.io.File(getPath()).getParent();
         if (TextUtils.isEmpty(parentPath)) {
             return null;
         }
