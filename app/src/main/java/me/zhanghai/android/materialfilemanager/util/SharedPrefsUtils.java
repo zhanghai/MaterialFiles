@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.util;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 
 import java.util.Set;
 
@@ -81,7 +82,11 @@ public class SharedPrefsUtils {
     }
 
     public interface Entry<T> {
+
+        @NonNull
         String getKey();
+
+        @NonNull
         T getDefaultValue();
     }
 }

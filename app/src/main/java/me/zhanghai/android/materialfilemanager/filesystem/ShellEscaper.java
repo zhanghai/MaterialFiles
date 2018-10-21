@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.support.annotation.NonNull;
+
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.commons.text.translate.LookupTranslator;
@@ -46,7 +48,8 @@ public class ShellEscaper {
                     .buildUnmodifiable()
     );
 
-    public static String escape(String text) {
+    @NonNull
+    public static String escape(@NonNull String text) {
         return ESCAPER.translate(text);
     }
 }

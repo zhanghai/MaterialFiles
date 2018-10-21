@@ -38,18 +38,22 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
 
+    @NonNull
     private View mView;
 
+    @NonNull
     private TabFragmentPagerAdapter mTabAdapter;
 
-    private File mFile;
+    @NonNull
+    private File mExtraFile;
 
     /**
      * @deprecated Use {@link #newInstance(File)} instead.
      */
     public FilePropertiesDialogFragment() {}
 
-    public static FilePropertiesDialogFragment newInstance(File file) {
+    @NonNull
+    public static FilePropertiesDialogFragment newInstance(@NonNull File file) {
         //noinspection deprecation
         FilePropertiesDialogFragment fragment = new FilePropertiesDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -58,17 +62,17 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
     }
 
     @NonNull
     @Override
     @SuppressLint("InflateParams")
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String title = getString(R.string.file_properties_title_format, mFile.getName());
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        String title = getString(R.string.file_properties_title_format, mExtraFile.getName());
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
                 .setTitle(title);
         mView = ViewUtils.inflate(R.layout.file_properties_dialog, builder.getContext());
@@ -87,20 +91,20 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
         mTabAdapter = new TabFragmentPagerAdapter(this);
-        mTabAdapter.addTab(() -> FilePropertiesBasicTabFragment.newInstance(mFile), getString(
+        mTabAdapter.addTab(() -> FilePropertiesBasicTabFragment.newInstance(mExtraFile), getString(
                 R.string.file_properties_basic));
-        mTabAdapter.addTab(() -> FilePropertiesPermissionsTabFragment.newInstance(mFile), getString(
-                R.string.file_properties_permissions));
+        mTabAdapter.addTab(() -> FilePropertiesPermissionsTabFragment.newInstance(mExtraFile),
+                getString(R.string.file_properties_permissions));
         mViewPager.setOffscreenPageLimit(mTabAdapter.getCount() - 1);
         mViewPager.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    public static void show(File file, Fragment fragment) {
+    public static void show(@NonNull File file, @NonNull Fragment fragment) {
         FilePropertiesDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }

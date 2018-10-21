@@ -41,6 +41,7 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
     @NonNull
     private FileListFragment mFileListFragment;
 
+    @NonNull
     public static MainFragment newInstance(@Nullable File file) {
         //noinspection deprecation
         MainFragment fragment = new MainFragment();

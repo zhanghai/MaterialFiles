@@ -155,9 +155,8 @@ public class MimeTypes {
             .add("application/x-tar")
             .buildUnmodifiable();
 
-    private static final String SEVEN_Z_MIME_TYPE = "application/x-7z-compressed";
-
-    public static String getMimeType(String path) {
+    @NonNull
+    public static String getMimeType(@NonNull String path) {
         String extension = FileNameUtils.getExtension(path);
         extension = extension.toLowerCase(Locale.US);
         String mimeType = sExtensionToMimeTypeMap.get(extension);
@@ -177,30 +176,30 @@ public class MimeTypes {
     }
 
     @NonNull
-    public static String getIntentType(String mimeType) {
+    public static String getIntentType(@NonNull String mimeType) {
         return MapCompat.getOrDefault(sMimeTypeToIntentTypeMap, mimeType, mimeType);
     }
 
-    public static int getIconRes(String mimeType) {
+    public static int getIconRes(@NonNull String mimeType) {
         return MimeTypeIcons.get(mimeType);
     }
 
-    public static boolean supportsThumbnail(String mimeType) {
+    public static boolean supportsThumbnail(@NonNull String mimeType) {
         return isImage(mimeType) || isMedia(mimeType) || TextUtils.equals(mimeType,
                 "application/vnd.android.package-archive");
     }
 
-    public static boolean isSupportedArchive(String mimeType) {
+    public static boolean isSupportedArchive(@NonNull String mimeType) {
         return sSupportedArchiveMimeTypes.contains(mimeType)
                 || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                        && TextUtils.equals(mimeType, SEVEN_Z_MIME_TYPE));
+                        && TextUtils.equals(mimeType, "application/x-7z-compressed"));
     }
 
-    public static boolean isImage(String mimeType) {
+    public static boolean isImage(@NonNull String mimeType) {
         return getIconRes(mimeType) == MimeTypeIcons.Icons.IMAGE;
     }
 
-    public static boolean isMedia(String mimeType) {
+    public static boolean isMedia(@NonNull String mimeType) {
         int icon = getIconRes(mimeType);
         return icon == MimeTypeIcons.Icons.AUDIO || icon == MimeTypeIcons.Icons.VIDEO;
     }

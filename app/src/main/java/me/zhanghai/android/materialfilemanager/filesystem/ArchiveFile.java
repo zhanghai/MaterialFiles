@@ -27,44 +27,51 @@ public class ArchiveFile extends BaseFile {
 
     public static final String SCHEME = "archive";
 
-    private LocalFile mArchiveFile;
-    private Uri mEntryPath;
+    @NonNull
+    private final LocalFile mArchiveFile;
+    @NonNull
+    private final Uri mEntryPath;
+    @Nullable
     private Archive.Information mInformation;
 
-    public ArchiveFile(Uri uri) {
+    public ArchiveFile(@NonNull Uri uri) {
         super(uri);
 
         mArchiveFile = new LocalFile(Uri.parse(uri.getSchemeSpecificPart()));
         mEntryPath = Archive.pathFromString(uri.getFragment());
     }
 
-    public ArchiveFile(LocalFile archiveFile, Uri entryPath) {
+    public ArchiveFile(@NonNull LocalFile archiveFile, @NonNull Uri entryPath) {
         super(Uri.fromParts(SCHEME, archiveFile.getUri().toString(), entryPath.toString()));
 
         mArchiveFile = archiveFile;
         mEntryPath = entryPath;
     }
 
-    private ArchiveFile(Uri uri, Archive.Information information) {
+    private ArchiveFile(@NonNull Uri uri, @NonNull Archive.Information information) {
         this(uri);
 
         mInformation = information;
     }
 
-    private ArchiveFile(LocalFile archiveFile, Uri entryPath, Archive.Information information) {
+    private ArchiveFile(@NonNull LocalFile archiveFile, @NonNull Uri entryPath,
+                        @NonNull Archive.Information information) {
         this(archiveFile, entryPath);
 
         mInformation = information;
     }
 
+    @NonNull
     public LocalFile getArchiveFile() {
         return mArchiveFile;
     }
 
+    @NonNull
     public Uri getEntryPath() {
         return mEntryPath;
     }
 
+    @NonNull
     public String getEntryName() {
         return mInformation.entry.getName();
     }
@@ -125,6 +132,7 @@ public class ArchiveFile extends BaseFile {
         return false;
     }
 
+    @NonNull
     @Override
     public String getSymbolicLinkTarget() {
         // TODO: Read entry content of symbolic link beforehand.
@@ -143,11 +151,13 @@ public class ArchiveFile extends BaseFile {
         return mInformation.entry.getSize();
     }
 
+    @NonNull
     @Override
     public Instant getLastModificationTime() {
         return Instant.ofEpochMilli(mInformation.entry.getLastModifiedDate().getTime());
     }
 
+    @NonNull
     @Override
     public List<File> getChildren() throws FileSystemException {
         Map<Uri, List<Archive.Information>> tree;
@@ -163,7 +173,7 @@ public class ArchiveFile extends BaseFile {
 
 
     @Override
-    public boolean equalsIncludingInformation(Object object) {
+    public boolean equalsIncludingInformation(@Nullable Object object) {
         if (this == object) {
             return true;
         }
@@ -179,17 +189,19 @@ public class ArchiveFile extends BaseFile {
 
 
     public static final Creator<ArchiveFile> CREATOR = new Creator<ArchiveFile>() {
+        @NonNull
         @Override
-        public ArchiveFile createFromParcel(Parcel source) {
+        public ArchiveFile createFromParcel(@NonNull Parcel source) {
             return new ArchiveFile(source);
         }
+        @NonNull
         @Override
         public ArchiveFile[] newArray(int size) {
             return new ArchiveFile[size];
         }
     };
 
-    protected ArchiveFile(Parcel in) {
+    protected ArchiveFile(@NonNull Parcel in) {
         super(in);
 
         mArchiveFile = in.readParcelable(File.class.getClassLoader());
@@ -202,7 +214,7 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
         dest.writeParcelable(mArchiveFile, flags);

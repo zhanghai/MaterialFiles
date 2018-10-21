@@ -37,14 +37,17 @@ public class FileListData {
         this.exception = exception;
     }
 
+    @NonNull
     public static FileListData ofLoading(@NonNull File file) {
         return new FileListData(State.LOADING, file, null, null);
     }
 
+    @NonNull
     public static FileListData ofError(@NonNull File file, @NonNull Exception exception) {
         return new FileListData(State.ERROR, file, null, exception);
     }
 
+    @NonNull
     public static FileListData ofSuccess(@NonNull File file, @NonNull List<File> fileList) {
         return new FileListData(State.SUCCESS, file, fileList, null);
     }

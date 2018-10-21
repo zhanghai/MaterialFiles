@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.file;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.text.format.Time;
@@ -28,25 +29,29 @@ public class FormatUtils {
         return size <= 900;
     }
 
-    public static String formatHumanReadableSize(long size, Context context) {
+    @NonNull
+    public static String formatHumanReadableSize(long size, @NonNull Context context) {
         return Formatter.formatFileSize(context, size);
     }
 
-    public static String formatSizeInBytes(long size, Context context) {
+    @NonNull
+    public static String formatSizeInBytes(long size, @NonNull Context context) {
         // HACK
         int quantity = (int) size;
         return context.getResources().getQuantityString(R.plurals.size_in_bytes_format, quantity,
                 size);
     }
 
-    public static String formatShortTime(Instant instant, Context context) {
+    @NonNull
+    public static String formatShortTime(@NonNull Instant instant, @NonNull Context context) {
         return formatShortTime(instant.toEpochMilli(), context);
     }
 
     /*
      * @see com.android.documentsui.base.Shared#formatTime(Context, long)
      */
-    private static String formatShortTime(long time, Context context) {
+    @NonNull
+    private static String formatShortTime(long time, @NonNull Context context) {
         Time then = new Time();
         then.set(time);
         Time now = new Time();
@@ -63,7 +68,8 @@ public class FormatUtils {
         return DateUtils.formatDateTime(context, time, flags);
     }
 
-    public static String formatLongTime(Instant instant) {
+    @NonNull
+    public static String formatLongTime(@NonNull Instant instant) {
         return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                 .withZone(ZoneId.systemDefault())
                 .format(instant);

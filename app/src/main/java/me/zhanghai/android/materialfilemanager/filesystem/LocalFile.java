@@ -23,9 +23,11 @@ public class LocalFile extends BaseFile {
 
     public static final String SCHEME = "file";
 
+    @NonNull
     private LocalFileStrategy mStrategy;
 
-    static Uri uriFromPath(String path) {
+    @NonNull
+    static Uri uriFromPath(@NonNull String path) {
         return new Uri.Builder()
                 .scheme(SCHEME)
                 .authority("")
@@ -33,29 +35,34 @@ public class LocalFile extends BaseFile {
                 .build();
     }
 
-    static String uriToPath(Uri uri) {
+    @NonNull
+    static String uriToPath(@NonNull Uri uri) {
         return uri.getPath();
     }
 
-    static String joinPaths(String parent, String child) {
+    @NonNull
+    static String joinPaths(@NonNull String parent, @NonNull String child) {
         return new java.io.File(parent, child).getPath();
     }
 
-    LocalFile(Uri uri, LocalFileStrategy strategy) {
+    LocalFile(@NonNull Uri uri, @NonNull LocalFileStrategy strategy) {
         super(uri);
 
         mStrategy = strategy;
     }
 
-    public LocalFile(Uri uri) {
+    public LocalFile(@NonNull Uri uri) {
         // TODO: Better determination of strategy?
         this(uri, new LocalFileStrategies.SyscallStrategy());
     }
 
+    @NonNull
     public String getPath() {
         return uriToPath(mUri);
     }
 
+    // TODO: Remove this as all APIs take String instead of java.io.File.
+    @NonNull
     public java.io.File makeJavaFile() {
         return new java.io.File(getPath());
     }
@@ -107,11 +114,13 @@ public class LocalFile extends BaseFile {
         return mStrategy.isSymbolicLinkBroken();
     }
 
+    @NonNull
     @Override
     public String getSymbolicLinkTarget() {
         return mStrategy.getSymbolicLinkTarget();
     }
 
+    @NonNull
     public PosixFileType getType() {
         return mStrategy.getType();
     }
@@ -131,14 +140,17 @@ public class LocalFile extends BaseFile {
         return super.getMimeType();
     }
 
+    @NonNull
     public Set<PosixFileModeBit> getMode() {
         return mStrategy.getMode();
     }
 
+    @NonNull
     public PosixUser getOwner() {
         return mStrategy.getOwner();
     }
 
+    @NonNull
     public PosixGroup getGroup() {
         return mStrategy.getGroup();
     }
@@ -148,11 +160,13 @@ public class LocalFile extends BaseFile {
         return mStrategy.getSize();
     }
 
+    @NonNull
     @Override
     public Instant getLastModificationTime() {
         return mStrategy.getLastModificationTime();
     }
 
+    @NonNull
     @Override
     public List<File> getChildren() throws FileSystemException {
         try {
@@ -170,7 +184,7 @@ public class LocalFile extends BaseFile {
 
 
     @Override
-    public boolean equalsIncludingInformation(Object object) {
+    public boolean equalsIncludingInformation(@Nullable Object object) {
         if (this == object) {
             return true;
         }
@@ -184,17 +198,19 @@ public class LocalFile extends BaseFile {
 
 
     public static final Creator<LocalFile> CREATOR = new Creator<LocalFile>() {
+        @NonNull
         @Override
         public LocalFile createFromParcel(Parcel source) {
             return new LocalFile(source);
         }
+        @NonNull
         @Override
         public LocalFile[] newArray(int size) {
             return new LocalFile[size];
         }
     };
 
-    protected LocalFile(Parcel in) {
+    protected LocalFile(@NonNull Parcel in) {
         super(in);
 
         mStrategy = in.readParcelable(LocalFileStrategy.class.getClassLoader());
@@ -206,7 +222,7 @@ public class LocalFile extends BaseFile {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
         dest.writeParcelable(mStrategy, flags);

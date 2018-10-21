@@ -52,7 +52,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
 
     private static final Object PAYLOAD_SELECTED_CHANGED = new Object();
 
+    @NonNull
     private Comparator<File> mComparator;
+    @NonNull
     private final SortedList.Callback<File> mCallback = new SortedListAdapterCallback<File>(this) {
         @Override
         public int compare(File file1, File file2) {
@@ -69,27 +71,33 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         }
     };
 
-    private Set<File> mSelectedFiles = new HashSet<>();
-    private Map<File, Integer> mFilePositionMap = new HashMap<>();
+    @NonNull
+    private final Set<File> mSelectedFiles = new HashSet<>();
+    @NonNull
+    private final Map<File, Integer> mFilePositionMap = new HashMap<>();
 
+    @NonNull
     private FilePasteMode mPasteMode;
 
+    @NonNull
     private Fragment mFragment;
+    @NonNull
     private Listener mListener;
 
-    public FileListAdapter(Fragment fragment, Listener listener) {
+    public FileListAdapter(@NonNull Fragment fragment, @NonNull Listener listener) {
         init(File.class, mCallback);
+
         mFragment = fragment;
         mListener = listener;
     }
 
-    public void setComparator(Comparator<File> comparator) {
+    public void setComparator(@NonNull Comparator<File> comparator) {
         mComparator = comparator;
         refresh();
         rebuildFilePositionMap();
     }
 
-    public void replaceSelectedFiles(Set<File> selectedFiles) {
+    public void replaceSelectedFiles(@NonNull Set<File> selectedFiles) {
         Set<File> selectedChangedUris = new HashSet<>();
         for (Iterator<File> iterator = mSelectedFiles.iterator(); iterator.hasNext(); ) {
             File file = iterator.next();
@@ -120,7 +128,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     }
 
     @Override
-    public void replace(List<File> list) {
+    public void replace(@NonNull List<File> list) {
         super.replace(list);
 
         rebuildFilePositionMap();
@@ -134,7 +142,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         }
     }
 
-    public void setPasteMode(FilePasteMode pasteMode) {
+    public void setPasteMode(@NonNull FilePasteMode pasteMode) {
         mPasteMode = pasteMode;
     }
 
@@ -267,16 +275,16 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     }
 
     public interface Listener {
-        void selectFile(File file, boolean selected);
-        void openFile(File file);
-        void showOpenFileAsDialog(File file);
-        void cutFile(File file);
-        void copyFile(File file);
-        void confirmDeleteFile(File file);
-        void showRenameFileDialog(File file);
-        void sendFile(File file);
-        void copyPath(File file);
-        void showPropertiesDialog(File file);
+        void selectFile(@NonNull File file, boolean selected);
+        void openFile(@NonNull File file);
+        void showOpenFileAsDialog(@NonNull File file);
+        void cutFile(@NonNull File file);
+        void copyFile(@NonNull File file);
+        void confirmDeleteFile(@NonNull File file);
+        void showRenameFileDialog(@NonNull File file);
+        void sendFile(@NonNull File file);
+        void copyPath(@NonNull File file);
+        void showPropertiesDialog(@NonNull File file);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -294,9 +302,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         @BindView(R.id.menu)
         public ImageButton menuButton;
 
+        @NonNull
         public PopupMenu menu;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);

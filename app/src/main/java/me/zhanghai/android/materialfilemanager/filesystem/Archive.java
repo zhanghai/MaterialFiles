@@ -6,6 +6,8 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveException;
@@ -36,21 +38,26 @@ import me.zhanghai.android.materialfilemanager.util.MapCompat;
 
 public class Archive {
 
+    @NonNull
     private static final ArchiveStreamFactory sArchiveStreamFactory = new ArchiveStreamFactory();
 
+    @NonNull
     private static final Map<File, Map<Uri, List<Information>>> sTreeCache =
             new ConcurrentHashMap<>();
 
+    @NonNull
     public static Uri.Builder pathBuilderForRoot() {
         return new Uri.Builder()
                 .path("/");
     }
 
+    @NonNull
     public static Uri pathForRoot() {
         return pathBuilderForRoot().build();
     }
 
-    public static Uri pathFromString(String path) {
+    @NonNull
+    public static Uri pathFromString(@NonNull String path) {
         return new Uri.Builder()
                 .path(path)
                 .build();
@@ -58,16 +65,17 @@ public class Archive {
 
     private Archive() {}
 
-    public static void retainCache(Collection<File> files) {
+    public static void retainCache(@NonNull Collection<File> files) {
         sTreeCache.keySet().retainAll(files);
     }
 
-    public static void invalidateCache(File file) {
+    public static void invalidateCache(@NonNull File file) {
         sTreeCache.remove(file);
     }
 
-    public static Map<Uri, List<Information>> readTree(File file)
-            throws ArchiveException, IOException {
+    @NonNull
+    public static Map<Uri, List<Information>> readTree(@NonNull File file) throws ArchiveException,
+            IOException {
         Map<Uri, List<Information>> tree = sTreeCache.get(file);
         if (tree == null) {
             List<ArchiveEntry> entries = readEntries(file);
@@ -106,7 +114,9 @@ public class Archive {
         return tree;
     }
 
-    private static List<ArchiveEntry> readEntries(File file) throws ArchiveException, IOException {
+    @NonNull
+    private static List<ArchiveEntry> readEntries(@NonNull File file) throws ArchiveException,
+            IOException {
         String type;
         try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
             type = ArchiveStreamFactory.detect(inputStream);
@@ -114,7 +124,8 @@ public class Archive {
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
         switch (type) {
             case ArchiveStreamFactory.ZIP: {
-                try (ZipFileCompat zipFile = new ZipFileCompat(file, /*FIXME*/"GB18030")) {
+                try (ZipFileCompat zipFile = new ZipFileCompat(file,
+                        /* FIXME: Add setting */ "GB18030")) {
                     FunctionalIterator.forEachRemaining(zipFile.getEntries(),
                             (Consumer<ZipArchiveEntry>) entries::add);
                 }
@@ -146,7 +157,8 @@ public class Archive {
         return entries;
     }
 
-    private static Uri makePath(ArchiveEntry entry) {
+    @NonNull
+    private static Uri makePath(@NonNull ArchiveEntry entry) {
         String name = entry.getName();
         Uri.Builder pathBuilder = pathBuilderForRoot();
         int startIndex = 0;
@@ -167,7 +179,8 @@ public class Archive {
         return pathBuilder.build();
     }
 
-    private static Uri getParentPath(Uri path) {
+    @NonNull
+    private static Uri getParentPath(@NonNull Uri path) {
         Uri.Builder pathBuilder = pathBuilderForRoot();
         List<String> pathSegments = path.getPathSegments();
         for (int i = 0, count = pathSegments.size() - 1; i < count; ++i) {
@@ -179,16 +192,18 @@ public class Archive {
 
     public static class Information {
 
-        public Uri path;
-        public ArchiveEntry entry;
+        @NonNull
+        public final Uri path;
+        @NonNull
+        public final ArchiveEntry entry;
 
-        public Information(Uri path, ArchiveEntry entry) {
+        public Information(@NonNull Uri path, @NonNull ArchiveEntry entry) {
             this.path = path;
             this.entry = entry;
         }
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -208,15 +223,17 @@ public class Archive {
 
     private static class ArchiveDirectoryEntry implements ArchiveEntry {
 
+        @NonNull
         private String mName;
 
-        public ArchiveDirectoryEntry(String name) {
+        public ArchiveDirectoryEntry(@NonNull String name) {
             if (name.endsWith("/")) {
                 throw new IllegalArgumentException("Name should not end with a slash: " + name);
             }
             mName = name + "/";
         }
 
+        @NonNull
         @Override
         public String getName() {
             return mName;
@@ -232,13 +249,14 @@ public class Archive {
             return true;
         }
 
+        @NonNull
         @Override
         public Date getLastModifiedDate() {
             return new Date(-1);
         }
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }

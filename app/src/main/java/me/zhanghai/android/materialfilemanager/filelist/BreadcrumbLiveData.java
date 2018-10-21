@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MediatorLiveData;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,13 @@ import me.zhanghai.android.materialfilemanager.navigation.NavigationRootMapLiveD
 
 public class BreadcrumbLiveData extends MediatorLiveData<BreadcrumbData> {
 
+    @NonNull
     private LiveData<TrailData> mTrailLiveData;
+    @NonNull
     private NavigationRootMapLiveData mNavigationRootMapLiveData =
             NavigationRootMapLiveData.getInstance();
 
-    public BreadcrumbLiveData(LiveData<TrailData> trailLiveData) {
+    public BreadcrumbLiveData(@NonNull LiveData<TrailData> trailLiveData) {
 
         mTrailLiveData = trailLiveData;
 

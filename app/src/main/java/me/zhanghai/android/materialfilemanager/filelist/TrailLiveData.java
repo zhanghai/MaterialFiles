@@ -7,12 +7,13 @@ package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.arch.lifecycle.LiveData;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class TrailLiveData extends LiveData<TrailData> {
 
-    public void navigateTo(Parcelable lastState, File file) {
+    public void navigateTo(@NonNull Parcelable lastState, @NonNull File file) {
         TrailData oldTrailData = getValue();
         if (oldTrailData == null) {
             resetTo(file);
@@ -21,7 +22,7 @@ public class TrailLiveData extends LiveData<TrailData> {
         setValue(oldTrailData.navigateTo(lastState, file));
     }
 
-    public void resetTo(File file) {
+    public void resetTo(@NonNull File file) {
         setValue(TrailData.of(file));
     }
 

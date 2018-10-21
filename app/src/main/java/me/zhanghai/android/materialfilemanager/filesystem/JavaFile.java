@@ -8,6 +8,8 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.threeten.bp.Instant;
 
@@ -22,7 +24,8 @@ import me.zhanghai.android.materialfilemanager.R;
 
 public class JavaFile {
 
-    public static Information loadInformation(File file) throws FileSystemException {
+    @NonNull
+    public static Information loadInformation(@NonNull File file) throws FileSystemException {
         Information information = new Information();
         information.canRead = file.canRead();
         information.canWrite = file.canWrite();
@@ -41,7 +44,7 @@ public class JavaFile {
     }
 
     // @see https://github.com/apache/commons-io/commit/9d432121e1c60557da3e159252a88885944e5f00
-    public static boolean isSymbolicLink(File file) throws IOException {
+    public static boolean isSymbolicLink(@NonNull File file) throws IOException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return Files.isSymbolicLink(file.toPath());
         } else {
@@ -61,17 +64,18 @@ public class JavaFile {
         }
     }
 
-    public static long getFreeSpace(String path) {
+    public static long getFreeSpace(@NonNull String path) {
         File file = new File(path);
         return file.getFreeSpace();
     }
 
-    public static long getTotalSpace(String path) {
+    public static long getTotalSpace(@NonNull String path) {
         File file = new File(path);
         return file.getTotalSpace();
     }
 
-    public static List<String> getChildren(File directory) throws FileSystemException {
+    @NonNull
+    public static List<String> getChildren(@NonNull File directory) throws FileSystemException {
         String[] children = directory.list();
         if (children == null) {
             throw new FileSystemException(R.string.file_list_error_directory);
@@ -79,7 +83,8 @@ public class JavaFile {
         return Arrays.asList(children);
     }
 
-    public static List<File> getChildFiles(File directory) throws FileSystemException {
+    @NonNull
+    public static List<File> getChildFiles(@NonNull File directory) throws FileSystemException {
         File[] children = directory.listFiles();
         if (children == null) {
             throw new FileSystemException(R.string.file_list_error_directory);
@@ -87,14 +92,15 @@ public class JavaFile {
         return Arrays.asList(children);
     }
 
-    public static void delete(File file) throws FileSystemException {
+    public static void delete(@NonNull File file) throws FileSystemException {
         boolean result = file.delete();
         if (!result) {
             throw new FileSystemException(R.string.file_delete_error);
         }
     }
 
-    public static void rename(File file, String newName) throws FileSystemException {
+    public static void rename(@NonNull File file, @NonNull String newName)
+            throws FileSystemException {
         File newFile = new File(file.getParent(), newName);
         boolean result = file.renameTo(newFile);
         if (!result) {
@@ -102,7 +108,7 @@ public class JavaFile {
         }
     }
 
-    public static void createFile(File file) throws FileSystemException {
+    public static void createFile(@NonNull File file) throws FileSystemException {
         try {
             boolean result = file.createNewFile();
             if (!result) {
@@ -113,7 +119,7 @@ public class JavaFile {
         }
     }
 
-    public static void createDirectory(File file) throws FileSystemException {
+    public static void createDirectory(@NonNull File file) throws FileSystemException {
         boolean result = file.mkdir();
         if (!result) {
             throw new FileSystemException(R.string.file_create_directory_error);
@@ -128,12 +134,13 @@ public class JavaFile {
         public boolean isDirectory;
         public boolean isFile;
         public boolean isHidden;
+        @NonNull
         public Instant lastModified;
         public long length;
         public boolean isSymbolicLink;
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -160,10 +167,12 @@ public class JavaFile {
 
 
         public static final Creator<Information> CREATOR = new Creator<Information>() {
+            @NonNull
             @Override
-            public Information createFromParcel(Parcel source) {
+            public Information createFromParcel(@NonNull Parcel source) {
                 return new Information(source);
             }
+            @NonNull
             @Override
             public Information[] newArray(int size) {
                 return new Information[size];
@@ -172,7 +181,7 @@ public class JavaFile {
 
         public Information() {}
 
-        protected Information(Parcel in) {
+        protected Information(@NonNull Parcel in) {
             canRead = in.readByte() != 0;
             canWrite = in.readByte() != 0;
             exists = in.readByte() != 0;

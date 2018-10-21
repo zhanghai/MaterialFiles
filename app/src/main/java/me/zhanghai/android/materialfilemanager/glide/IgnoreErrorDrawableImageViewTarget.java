@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.glide;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
@@ -15,7 +16,7 @@ import com.bumptech.glide.request.target.DrawableImageViewTarget;
 // ignore the onLoadFailed callback.
 public class IgnoreErrorDrawableImageViewTarget extends DrawableImageViewTarget {
 
-    public IgnoreErrorDrawableImageViewTarget(ImageView view) {
+    public IgnoreErrorDrawableImageViewTarget(@NonNull ImageView view) {
         super(view);
     }
 

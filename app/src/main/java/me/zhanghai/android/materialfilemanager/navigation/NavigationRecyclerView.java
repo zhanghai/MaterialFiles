@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.navigation;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.v4.math.MathUtils;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -77,8 +78,9 @@ public class NavigationRecyclerView extends RecyclerView {
         super.onMeasure(widthSpec, heightSpec);
     }
 
+    @NonNull
     @Override
-    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+    public WindowInsets onApplyWindowInsets(@NonNull WindowInsets insets) {
         mInsetTop = insets.getSystemWindowInsetTop();
         setPadding(getPaddingLeft(), mVerticalPadding + mInsetTop, getPaddingRight(),
                 mVerticalPadding);

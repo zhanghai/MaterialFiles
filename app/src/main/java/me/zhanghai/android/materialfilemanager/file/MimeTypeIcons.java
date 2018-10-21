@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.Map;
@@ -226,7 +227,7 @@ class MimeTypeIcons {
 
     private MimeTypeIcons() {}
 
-    public static int get(String mimeType) {
+    public static int get(@NonNull String mimeType) {
         if (TextUtils.isEmpty(mimeType)) {
             return Icons.GENERIC;
         }

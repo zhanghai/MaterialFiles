@@ -26,7 +26,6 @@ import me.zhanghai.android.materialfilemanager.filesystem.PosixFileModeBit;
 import me.zhanghai.android.materialfilemanager.filesystem.PosixGroup;
 import me.zhanghai.android.materialfilemanager.filesystem.PosixUser;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
-import me.zhanghai.android.materialfilemanager.util.ObjectUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
 
@@ -41,14 +40,16 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     @BindView(R.id.mode)
     Button mModeButton;
 
-    private File mFile;
+    @NonNull
+    private File mExtraFile;
 
     /**
      * @deprecated Use {@link #newInstance(File)} instead.
      */
     public FilePropertiesPermissionsTabFragment() {}
 
-    public static FilePropertiesPermissionsTabFragment newInstance(File file) {
+    @NonNull
+    public static FilePropertiesPermissionsTabFragment newInstance(@NonNull File file) {
         //noinspection deprecation
         FilePropertiesPermissionsTabFragment fragment = new FilePropertiesPermissionsTabFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -57,16 +58,16 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.file_properties_permissions_tab_fragment, container,
                 false);
     }
@@ -79,11 +80,11 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mFile instanceof LocalFile) {
-            LocalFile file = (LocalFile) mFile;
+        if (mExtraFile instanceof LocalFile) {
+            LocalFile file = (LocalFile) mExtraFile;
             PosixUser owner = file.getOwner();
             String ownerString = owner.name != null ? getString(
                     R.string.file_properties_permissions_owner_format, owner.name, owner.id) 
@@ -101,7 +102,8 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
         }
     }
 
-    private static String getModeString(Set<PosixFileModeBit> mode) {
+    @NonNull
+    private static String getModeString(@NonNull Set<PosixFileModeBit> mode) {
         boolean hasSetUserIdBit = mode.contains(PosixFileModeBit.SET_USER_ID);
         boolean hasSetGroupIdBit = mode.contains(PosixFileModeBit.SET_GROUP_ID);
         boolean hasStickyBit = mode.contains(PosixFileModeBit.STICKY);
@@ -121,18 +123,18 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                 .toString();
     }
 
-    private static int getModeInt(Set<PosixFileModeBit> mode) {
+    private static int getModeInt(@NonNull Set<PosixFileModeBit> mode) {
         return (mode.contains(PosixFileModeBit.SET_USER_ID) ? OsConstants.S_ISUID : 0)
-                + (mode.contains(PosixFileModeBit.SET_GROUP_ID) ? OsConstants.S_ISGID : 0)
-                + (mode.contains(PosixFileModeBit.STICKY) ? OsConstants.S_ISVTX : 0)
-                + (mode.contains(PosixFileModeBit.OWNER_READ) ? OsConstants.S_IRUSR : 0)
-                + (mode.contains(PosixFileModeBit.OWNER_WRITE) ? OsConstants.S_IWUSR : 0)
-                + (mode.contains(PosixFileModeBit.OWNER_EXECUTE) ? OsConstants.S_IXUSR : 0)
-                + (mode.contains(PosixFileModeBit.GROUP_READ) ? OsConstants.S_IRGRP : 0)
-                + (mode.contains(PosixFileModeBit.GROUP_WRITE) ? OsConstants.S_IWGRP : 0)
-                + (mode.contains(PosixFileModeBit.GROUP_EXECUTE) ? OsConstants.S_IXGRP : 0)
-                + (mode.contains(PosixFileModeBit.OTHERS_READ) ? OsConstants.S_IROTH : 0)
-                + (mode.contains(PosixFileModeBit.OTHERS_WRITE) ? OsConstants.S_IWOTH : 0)
-                + (mode.contains(PosixFileModeBit.OTHERS_EXECUTE) ? OsConstants.S_IXOTH : 0);
+                | (mode.contains(PosixFileModeBit.SET_GROUP_ID) ? OsConstants.S_ISGID : 0)
+                | (mode.contains(PosixFileModeBit.STICKY) ? OsConstants.S_ISVTX : 0)
+                | (mode.contains(PosixFileModeBit.OWNER_READ) ? OsConstants.S_IRUSR : 0)
+                | (mode.contains(PosixFileModeBit.OWNER_WRITE) ? OsConstants.S_IWUSR : 0)
+                | (mode.contains(PosixFileModeBit.OWNER_EXECUTE) ? OsConstants.S_IXUSR : 0)
+                | (mode.contains(PosixFileModeBit.GROUP_READ) ? OsConstants.S_IRGRP : 0)
+                | (mode.contains(PosixFileModeBit.GROUP_WRITE) ? OsConstants.S_IWGRP : 0)
+                | (mode.contains(PosixFileModeBit.GROUP_EXECUTE) ? OsConstants.S_IXGRP : 0)
+                | (mode.contains(PosixFileModeBit.OTHERS_READ) ? OsConstants.S_IROTH : 0)
+                | (mode.contains(PosixFileModeBit.OTHERS_WRITE) ? OsConstants.S_IWOTH : 0)
+                | (mode.contains(PosixFileModeBit.OTHERS_EXECUTE) ? OsConstants.S_IXOTH : 0);
     }
 }

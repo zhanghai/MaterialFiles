@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
@@ -24,7 +25,9 @@ import me.zhanghai.android.materialfilemanager.util.Holder;
 
 public class ShellFs {
 
-    public static Syscall.Information loadInformation(String path) throws FileSystemException {
+    @NonNull
+    public static Syscall.Information loadInformation(@NonNull String path)
+            throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -f " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
         int exitCode = SuShell.run(command, outputHolder, null);
@@ -36,8 +39,9 @@ public class ShellFs {
         return information;
     }
 
-    public static List<Pair<String, Syscall.Information>> getChildrenAndInformation(String path)
-            throws FileSystemException {
+    @NonNull
+    public static List<Pair<String, Syscall.Information>> getChildrenAndInformation(
+            @NonNull String path) throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -d " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
         int exitCode = SuShell.run(command, outputHolder, null);
@@ -78,11 +82,14 @@ public class ShellFs {
         return children;
     }
 
+    @NonNull
     private static String getFsPath() {
         return AppApplication.getInstance().getApplicationInfo().nativeLibraryDir + "/libfs.so";
     }
 
-    private static Syscall.Information parseInformation(String output) throws FileSystemException {
+    @NonNull
+    private static Syscall.Information parseInformation(@NonNull String output)
+            throws FileSystemException {
         Syscall.Information information = new Syscall.Information();
         String[] fields = output.split("\0");
         if (fields.length < 7) {

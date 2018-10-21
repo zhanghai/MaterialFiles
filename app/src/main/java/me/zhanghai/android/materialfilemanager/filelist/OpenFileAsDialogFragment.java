@@ -6,7 +6,6 @@
 package me.zhanghai.android.materialfilemanager.filelist;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,9 +40,11 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
                     .add(new Pair<>(R.string.file_open_as_type_any, "*/*"))
                     .buildUnmodifiable();
 
+    @NonNull
     private File mExtraFile;
 
-    public static OpenFileAsDialogFragment newInstance(File file) {
+    @NonNull
+    public static OpenFileAsDialogFragment newInstance(@NonNull File file) {
         //noinspection deprecation
         OpenFileAsDialogFragment fragment = new OpenFileAsDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -51,7 +52,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
         return fragment;
     }
 
-    public static void show(File file, Fragment fragment) {
+    public static void show(@NonNull File file, @NonNull Fragment fragment) {
         OpenFileAsDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
@@ -70,7 +71,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         CharSequence[] items = Functional.map(FILE_TYPES, item -> getString(item.first))
                 .toArray(new CharSequence[0]);
         return new AlertDialog.Builder(requireContext(), getTheme())
@@ -81,11 +82,12 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
                 .create();
     }
 
+    @NonNull
     private Listener getListener() {
         return (Listener) getParentFragment();
     }
 
     public interface Listener {
-        void openFileAs(File file, String mimeType);
+        void openFileAs(@NonNull File file, @NonNull String mimeType);
     }
 }

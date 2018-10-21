@@ -5,18 +5,20 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import me.zhanghai.android.materialfilemanager.R;
 
 public class CreateFileDialogFragment extends FileNameDialogFragment {
 
+    @NonNull
     public static CreateFileDialogFragment newInstance() {
         //noinspection deprecation
         return new CreateFileDialogFragment();
     }
 
-    public static void show(Fragment fragment) {
+    public static void show(@NonNull Fragment fragment) {
         CreateFileDialogFragment.newInstance()
                 .show(fragment.getChildFragmentManager(), null);
     }
@@ -32,16 +34,17 @@ public class CreateFileDialogFragment extends FileNameDialogFragment {
     }
 
     @Override
-    protected void onOk(String name) {
+    protected void onOk(@NonNull String name) {
         getListener().createFile(name);
     }
 
+    @NonNull
     @Override
     protected Listener getListener() {
         return (Listener) getParentFragment();
     }
 
     public interface Listener extends FileNameDialogFragment.Listener {
-        void createFile(String name);
+        void createFile(@NonNull String name);
     }
 }

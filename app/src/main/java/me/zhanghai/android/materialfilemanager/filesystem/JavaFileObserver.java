@@ -19,23 +19,28 @@ public class JavaFileObserver extends FileObserver {
     private static final int MASK = ATTRIB | CLOSE_WRITE | MOVED_FROM | MOVED_TO | CREATE | DELETE
             | DELETE_SELF | MOVE_SELF;
 
-    private Runnable mOnChange;
+    @NonNull
+    private final Runnable mOnChange;
+
     private boolean mWatching;
 
     public JavaFileObserver(@NonNull String path, @NonNull Runnable onChange) {
         super(path, MASK);
+
         mOnChange = onChange;
     }
 
     @Override
     public void startWatching() {
         super.startWatching();
+
         mWatching = true;
     }
 
     @Override
     public void stopWatching() {
         mWatching = false;
+
         // This can call onEvent(), which should be a bug, so we work around it with mWatching.
         super.stopWatching();
     }

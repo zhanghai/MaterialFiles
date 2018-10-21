@@ -39,11 +39,12 @@ public class MediaEmbeddedPictureModelLoader<Model> implements ModelLoader<Model
     @Nullable
     @Override
     public LoadData<ByteBuffer> buildLoadData(@NonNull Model model, int width, int height,
-                                            @NonNull Options options) {
+                                              @NonNull Options options) {
         return new LoadData<>(new ObjectKey(model), new DataFetcher(getPath(model)));
     }
 
-    private String getPath(Model model) {
+    @NonNull
+    private String getPath(@NonNull Model model) {
         if (model instanceof String) {
             return (String) model;
         } else if (model instanceof File) {
@@ -55,12 +56,14 @@ public class MediaEmbeddedPictureModelLoader<Model> implements ModelLoader<Model
                 return uri.getPath();
             }
         }
-        return null;
+        throw new IllegalArgumentException("Unable to get path from model: " + model);
     }
 
-    private static class DataFetcher implements com.bumptech.glide.load.data.DataFetcher<ByteBuffer> {
+    private static class DataFetcher
+            implements com.bumptech.glide.load.data.DataFetcher<ByteBuffer> {
 
-        private String path;
+        @NonNull
+        private final String path;
 
         public DataFetcher(@NonNull String path) {
             this.path = path;

@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.file;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.Locale;
@@ -28,13 +29,15 @@ public class FileTypeNames {
 
     private FileTypeNames() {}
 
-    public static String getTypeName(String mimeType, String extension, Context context) {
+    @NonNull
+    public static String getTypeName(@NonNull String mimeType, @NonNull String extension,
+                                     @NonNull Context context) {
         int typeRes = getTypeNameRes(mimeType, !TextUtils.isEmpty(extension));
         extension = extension.toUpperCase(Locale.US);
         return context.getString(typeRes, extension);
     }
 
-    private static int getTypeNameRes(String mimeType, boolean hasExtension) {
+    private static int getTypeNameRes(@NonNull String mimeType, boolean hasExtension) {
         Integer posixTypeNameRes = sPosixFileTypeToTypeNameResMap.get(mimeType);
         if (posixTypeNameRes != null) {
             return posixTypeNameRes;
@@ -96,7 +99,8 @@ public class FileTypeNames {
         }
     }
 
-    public static String getBrokenSymbolicLinkTypeName(Context context) {
+    @NonNull
+    public static String getBrokenSymbolicLinkTypeName(@NonNull Context context) {
         return context.getString(R.string.file_type_name_posix_symbolic_link_broken);
     }
 }

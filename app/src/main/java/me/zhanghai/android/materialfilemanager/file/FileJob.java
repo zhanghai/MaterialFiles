@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.file;
 
 import android.app.Service;
+import android.support.annotation.NonNull;
 
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
@@ -13,7 +14,7 @@ import me.zhanghai.android.materialfilemanager.util.ToastUtils;
 
 public abstract class FileJob {
 
-    public void run(Service service) {
+    public void run(@NonNull Service service) {
         try {
             run();
             // TODO: Toast

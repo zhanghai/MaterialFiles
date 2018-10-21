@@ -29,9 +29,11 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
 
     private static final String EXTRA_FILES = KEY_PREFIX + "FILES";
 
+    @NonNull
     private Set<File> mExtraFiles;
 
-    private static ConfirmDeleteFilesDialogFragment newInstance(Set<File> files) {
+    @NonNull
+    private static ConfirmDeleteFilesDialogFragment newInstance(@NonNull Set<File> files) {
         //noinspection deprecation
         ConfirmDeleteFilesDialogFragment fragment = new ConfirmDeleteFilesDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -39,7 +41,7 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
         return fragment;
     }
 
-    public static void show(Set<File> files, Fragment fragment) {
+    public static void show(@NonNull Set<File> files, @NonNull Fragment fragment) {
         ConfirmDeleteFilesDialogFragment.newInstance(files)
                 .show(fragment.getChildFragmentManager(), null);
     }
@@ -58,7 +60,7 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         String message;
         if (mExtraFiles.size() == 1) {
             File file = CollectionUtils.first(mExtraFiles);
@@ -85,11 +87,12 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
                 .create();
     }
 
+    @NonNull
     private Listener getListener() {
         return (Listener) getParentFragment();
     }
 
     public interface Listener {
-        void deleteFiles(Set<File> files);
+        void deleteFiles(@NonNull Set<File> files);
     }
 }

@@ -23,9 +23,11 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
+    @NonNull
     private File mExtraFile;
 
-    public static RenameFileDialogFragment newInstance(File file) {
+    @NonNull
+    public static RenameFileDialogFragment newInstance(@NonNull File file) {
         //noinspection deprecation
         RenameFileDialogFragment fragment = new RenameFileDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -33,7 +35,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
         return fragment;
     }
 
-    public static void show(File file, Fragment fragment) {
+    public static void show(@NonNull File file, @NonNull Fragment fragment) {
         RenameFileDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
@@ -52,7 +54,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         if (savedInstanceState == null) {
             String name = mExtraFile.getName();
@@ -77,21 +79,22 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     }
 
     @Override
-    protected boolean isNameUnchanged(String name) {
+    protected boolean isNameUnchanged(@NonNull String name) {
         return TextUtils.equals(name, mExtraFile.getName());
     }
 
     @Override
-    protected void onOk(String name) {
+    protected void onOk(@NonNull String name) {
         getListener().renameFile(mExtraFile, name);
     }
 
+    @NonNull
     @Override
     protected Listener getListener() {
         return (Listener) getParentFragment();
     }
 
     public interface Listener extends FileNameDialogFragment.Listener {
-        void renameFile(File file, String name);
+        void renameFile(@NonNull File file, @NonNull String name);
     }
 }

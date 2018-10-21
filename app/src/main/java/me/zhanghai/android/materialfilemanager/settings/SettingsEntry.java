@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.settings;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
 import me.zhanghai.android.materialfilemanager.AppApplication;
@@ -12,14 +14,15 @@ import me.zhanghai.android.materialfilemanager.util.SharedPrefsUtils;
 
 public abstract class SettingsEntry<T> implements SharedPrefsUtils.Entry<T> {
 
-    private int mKeyResId;
-    private int mDefaultValueResId;
+    private final int mKeyResId;
+    private final int mDefaultValueResId;
 
     public SettingsEntry(@StringRes int keyResId, int defaultValueResId) {
         mKeyResId = keyResId;
         mDefaultValueResId = defaultValueResId;
     }
 
+    @NonNull
     @Override
     public String getKey() {
         return AppApplication.getInstance().getString(mKeyResId);
@@ -29,9 +32,10 @@ public abstract class SettingsEntry<T> implements SharedPrefsUtils.Entry<T> {
         return mDefaultValueResId;
     }
 
+    @Nullable
     public abstract T getValue();
 
-    public abstract void putValue(T value);
+    public abstract void putValue(@Nullable T value);
 
     public void remove() {
         SharedPrefsUtils.remove(this);

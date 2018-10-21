@@ -44,6 +44,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     @NonNull
     private FileListListener mFileListListener;
 
+    @NonNull
     public static NavigationFragment newInstance() {
         //noinspection deprecation
         return new NavigationFragment();
@@ -95,7 +96,10 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         switch (requestCode) {
             case REQUEST_CODE_OPEN_DOCUMENT_TREE:
                 if (resultCode == Activity.RESULT_OK) {
-                    addDocumentTree(data.getData());
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        addDocumentTree(uri);
+                    }
                 }
                 break;
             default:
@@ -103,11 +107,11 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         }
     }
 
-    private void onNavigationItemsChanged(List<NavigationItem> navigationItems) {
+    private void onNavigationItemsChanged(@NonNull List<NavigationItem> navigationItems) {
         mAdapter.replace(navigationItems);
     }
 
-    private void onCurrentFileChanged(File file) {
+    private void onCurrentFileChanged(@NonNull File file) {
         mAdapter.notifyCheckedChanged();
     }
 
@@ -132,7 +136,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         startActivityForResult(Documents.makeOpenTreeIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE);
     }
 
-    private void addDocumentTree(Uri uri) {
+    private void addDocumentTree(@NonNull Uri uri) {
         // TODO: Support DocumentsProvider and add to navigation roots.
         //Documents.takePersistableTreePermission(uri, requireContext());
     }

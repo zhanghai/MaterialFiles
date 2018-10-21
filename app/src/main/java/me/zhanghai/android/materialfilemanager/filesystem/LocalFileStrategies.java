@@ -7,6 +7,8 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
 import android.os.Parcel;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 import android.support.v4.util.Pair;
 
@@ -24,11 +26,12 @@ public interface LocalFileStrategies {
 
     class JavaFileStrategy implements LocalFileStrategy {
 
+        @Nullable
         private JavaFile.Information mInformation;
 
         public JavaFileStrategy() {}
 
-        public JavaFileStrategy(JavaFile.Information information) {
+        public JavaFileStrategy(@NonNull JavaFile.Information information) {
             mInformation = information;
         }
 
@@ -39,7 +42,7 @@ public interface LocalFileStrategies {
 
         @Override
         @WorkerThread
-        public void reloadInformation(LocalFile file) throws FileSystemException {
+        public void reloadInformation(@NonNull LocalFile file) throws FileSystemException {
             mInformation = JavaFile.loadInformation(file.makeJavaFile());
         }
 
@@ -56,6 +59,7 @@ public interface LocalFileStrategies {
             return !mInformation.exists;
         }
 
+        @NonNull
         @Override
         public String getSymbolicLinkTarget() {
             if (!isSymbolicLink()) {
@@ -64,22 +68,26 @@ public interface LocalFileStrategies {
             throw new UnsupportedOperationException();
         }
 
+        @NonNull
         @Override
         public PosixFileType getType() {
             // FIXME
             return mInformation.isDirectory ? PosixFileType.DIRECTORY : PosixFileType.REGULAR_FILE;
         }
 
+        @NonNull
         @Override
         public Set<PosixFileModeBit> getMode() {
             throw new UnsupportedOperationException();
         }
 
+        @NonNull
         @Override
         public PosixUser getOwner() {
             throw new UnsupportedOperationException();
         }
 
+        @NonNull
         @Override
         public PosixGroup getGroup() {
             throw new UnsupportedOperationException();
@@ -90,14 +98,16 @@ public interface LocalFileStrategies {
             return mInformation.length;
         }
 
+        @NonNull
         @Override
         public Instant getLastModificationTime() {
             return mInformation.lastModified;
         }
 
+        @NonNull
         @Override
         @WorkerThread
-        public List<File> getChildren(LocalFile file) throws FileSystemException {
+        public List<File> getChildren(@NonNull LocalFile file) throws FileSystemException {
             List<java.io.File> childJavaFiles = JavaFile.getChildFiles(file.makeJavaFile());
             List<JavaFile.Information> childInformations;
             try {
@@ -115,7 +125,7 @@ public interface LocalFileStrategies {
 
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -133,17 +143,19 @@ public interface LocalFileStrategies {
 
 
         public static final Creator<JavaFileStrategy> CREATOR = new Creator<JavaFileStrategy>() {
+            @NonNull
             @Override
-            public JavaFileStrategy createFromParcel(Parcel source) {
+            public JavaFileStrategy createFromParcel(@NonNull Parcel source) {
                 return new JavaFileStrategy(source);
             }
+            @NonNull
             @Override
             public JavaFileStrategy[] newArray(int size) {
                 return new JavaFileStrategy[size];
             }
         };
 
-        protected JavaFileStrategy(Parcel in) {
+        protected JavaFileStrategy(@NonNull Parcel in) {
             mInformation = in.readParcelable(JavaFile.Information.class.getClassLoader());
         }
 
@@ -153,18 +165,19 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeParcelable(mInformation, flags);
         }
     }
 
     class SyscallStrategy implements LocalFileStrategy {
 
+        @Nullable
         private Syscall.Information mInformation;
 
         public SyscallStrategy() {}
 
-        public SyscallStrategy(Syscall.Information information) {
+        public SyscallStrategy(@NonNull Syscall.Information information) {
             mInformation = information;
         }
 
@@ -175,7 +188,7 @@ public interface LocalFileStrategies {
 
         @Override
         @WorkerThread
-        public void reloadInformation(LocalFile file) throws FileSystemException {
+        public void reloadInformation(@NonNull LocalFile file) throws FileSystemException {
             mInformation = Syscall.loadInformation(file.getPath());
         }
 
@@ -192,6 +205,7 @@ public interface LocalFileStrategies {
             return !mInformation.isSymbolicLinkStat;
         }
 
+        @NonNull
         @Override
         public String getSymbolicLinkTarget() {
             if (!isSymbolicLink()) {
@@ -200,21 +214,25 @@ public interface LocalFileStrategies {
             return mInformation.symbolicLinkTarget;
         }
 
+        @NonNull
         @Override
         public PosixFileType getType() {
             return mInformation.type;
         }
 
+        @NonNull
         @Override
         public Set<PosixFileModeBit> getMode() {
             return mInformation.mode;
         }
 
+        @NonNull
         @Override
         public PosixUser getOwner() {
             return mInformation.owner;
         }
 
+        @NonNull
         @Override
         public PosixGroup getGroup() {
             return mInformation.group;
@@ -225,14 +243,16 @@ public interface LocalFileStrategies {
             return mInformation.size;
         }
 
+        @NonNull
         @Override
         public Instant getLastModificationTime() {
             return mInformation.lastModificationTime;
         }
 
+        @NonNull
         @Override
         @WorkerThread
-        public List<File> getChildren(LocalFile file) throws FileSystemException {
+        public List<File> getChildren(@NonNull LocalFile file) throws FileSystemException {
             String parentPath = file.getPath();
             List<String> childPaths = Functional.map(JavaFile.getChildren(file.makeJavaFile()),
                     childName -> LocalFile.joinPaths(parentPath, childName));
@@ -253,7 +273,7 @@ public interface LocalFileStrategies {
 
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -271,17 +291,19 @@ public interface LocalFileStrategies {
 
 
         public static final Creator<SyscallStrategy> CREATOR = new Creator<SyscallStrategy>() {
+            @NonNull
             @Override
-            public SyscallStrategy createFromParcel(Parcel source) {
+            public SyscallStrategy createFromParcel(@NonNull Parcel source) {
                 return new SyscallStrategy(source);
             }
+            @NonNull
             @Override
             public SyscallStrategy[] newArray(int size) {
                 return new SyscallStrategy[size];
             }
         };
 
-        protected SyscallStrategy(Parcel in) {
+        protected SyscallStrategy(@NonNull Parcel in) {
             mInformation = in.readParcelable(Syscall.Information.class.getClassLoader());
         }
 
@@ -291,18 +313,19 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeParcelable(mInformation, flags);
         }
     }
 
     class ShellStatStrategy implements LocalFileStrategy {
 
+        @Nullable
         private ShellStat.Information mInformation;
 
         public ShellStatStrategy() {}
 
-        public ShellStatStrategy(ShellStat.Information information) {
+        public ShellStatStrategy(@NonNull ShellStat.Information information) {
             mInformation = information;
         }
 
@@ -313,7 +336,7 @@ public interface LocalFileStrategies {
 
         @Override
         @WorkerThread
-        public void reloadInformation(LocalFile file) throws FileSystemException {
+        public void reloadInformation(@NonNull LocalFile file) throws FileSystemException {
             mInformation = ShellStat.loadInformation(file.getPath());
         }
 
@@ -330,6 +353,7 @@ public interface LocalFileStrategies {
             return mInformation.symbolicLinkStatLInformation != null;
         }
 
+        @NonNull
         @Override
         public String getSymbolicLinkTarget() {
             if (!isSymbolicLink()) {
@@ -338,26 +362,31 @@ public interface LocalFileStrategies {
             return mInformation.symbolicLinkTarget;
         }
 
+        @NonNull
         private ShellStat.Information getInformationFollowingSymbolicLinks() {
             return isSymbolicLink() && mInformation.symbolicLinkStatLInformation != null ?
                     mInformation.symbolicLinkStatLInformation : mInformation;
         }
 
+        @NonNull
         @Override
         public PosixFileType getType() {
             return getInformationFollowingSymbolicLinks().type;
         }
 
+        @NonNull
         @Override
         public Set<PosixFileModeBit> getMode() {
             return getInformationFollowingSymbolicLinks().mode;
         }
 
+        @NonNull
         @Override
         public PosixUser getOwner() {
             return getInformationFollowingSymbolicLinks().owner;
         }
 
+        @NonNull
         @Override
         public PosixGroup getGroup() {
             return getInformationFollowingSymbolicLinks().group;
@@ -368,14 +397,16 @@ public interface LocalFileStrategies {
             return getInformationFollowingSymbolicLinks().size;
         }
 
+        @NonNull
         @Override
         public Instant getLastModificationTime() {
             return getInformationFollowingSymbolicLinks().lastModificationTime;
         }
 
+        @NonNull
         @Override
         @WorkerThread
-        public List<File> getChildren(LocalFile file) throws FileSystemException {
+        public List<File> getChildren(@NonNull LocalFile file) throws FileSystemException {
             String parentPath = file.getPath();
             List<Pair<String, ShellStat.Information>> children =
                     ShellStat.getChildrenAndInformation(parentPath);
@@ -388,7 +419,7 @@ public interface LocalFileStrategies {
 
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -406,17 +437,19 @@ public interface LocalFileStrategies {
 
 
         public static final Creator<ShellStatStrategy> CREATOR = new Creator<ShellStatStrategy>() {
+            @NonNull
             @Override
-            public ShellStatStrategy createFromParcel(Parcel source) {
+            public ShellStatStrategy createFromParcel(@NonNull Parcel source) {
                 return new ShellStatStrategy(source);
             }
+            @NonNull
             @Override
             public ShellStatStrategy[] newArray(int size) {
                 return new ShellStatStrategy[size];
             }
         };
 
-        protected ShellStatStrategy(Parcel in) {
+        protected ShellStatStrategy(@NonNull Parcel in) {
             mInformation = in.readParcelable(ShellStat.Information.class.getClassLoader());
         }
 
@@ -426,18 +459,19 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeParcelable(mInformation, flags);
         }
     }
 
     class ShellFsStrategy implements LocalFileStrategy {
 
+        @Nullable
         private Syscall.Information mInformation;
 
         public ShellFsStrategy() {}
 
-        public ShellFsStrategy(Syscall.Information information) {
+        public ShellFsStrategy(@NonNull Syscall.Information information) {
             mInformation = information;
         }
 
@@ -448,7 +482,7 @@ public interface LocalFileStrategies {
 
         @Override
         @WorkerThread
-        public void reloadInformation(LocalFile file) throws FileSystemException {
+        public void reloadInformation(@NonNull LocalFile file) throws FileSystemException {
             mInformation = ShellFs.loadInformation(file.getPath());
         }
 
@@ -465,6 +499,7 @@ public interface LocalFileStrategies {
             return !mInformation.isSymbolicLinkStat;
         }
 
+        @NonNull
         @Override
         public String getSymbolicLinkTarget() {
             if (!isSymbolicLink()) {
@@ -473,21 +508,25 @@ public interface LocalFileStrategies {
             return mInformation.symbolicLinkTarget;
         }
 
+        @NonNull
         @Override
         public PosixFileType getType() {
             return mInformation.type;
         }
 
+        @NonNull
         @Override
         public Set<PosixFileModeBit> getMode() {
             return mInformation.mode;
         }
 
+        @NonNull
         @Override
         public PosixUser getOwner() {
             return mInformation.owner;
         }
 
+        @NonNull
         @Override
         public PosixGroup getGroup() {
             return mInformation.group;
@@ -498,14 +537,16 @@ public interface LocalFileStrategies {
             return mInformation.size;
         }
 
+        @NonNull
         @Override
         public Instant getLastModificationTime() {
             return mInformation.lastModificationTime;
         }
 
+        @NonNull
         @Override
         @WorkerThread
-        public List<File> getChildren(LocalFile file) throws FileSystemException {
+        public List<File> getChildren(@NonNull LocalFile file) throws FileSystemException {
             String parentPath = file.getPath();
             List<Pair<String, Syscall.Information>> children =
                     ShellFs.getChildrenAndInformation(parentPath);
@@ -518,7 +559,7 @@ public interface LocalFileStrategies {
 
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -536,17 +577,19 @@ public interface LocalFileStrategies {
 
 
         public static final Creator<ShellFsStrategy> CREATOR = new Creator<ShellFsStrategy>() {
+            @NonNull
             @Override
-            public ShellFsStrategy createFromParcel(Parcel source) {
+            public ShellFsStrategy createFromParcel(@NonNull Parcel source) {
                 return new ShellFsStrategy(source);
             }
+            @NonNull
             @Override
             public ShellFsStrategy[] newArray(int size) {
                 return new ShellFsStrategy[size];
             }
         };
 
-        protected ShellFsStrategy(Parcel in) {
+        protected ShellFsStrategy(@NonNull Parcel in) {
             mInformation = in.readParcelable(Syscall.Information.class.getClassLoader());
         }
 
@@ -556,7 +599,7 @@ public interface LocalFileStrategies {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeParcelable(mInformation, flags);
         }
     }

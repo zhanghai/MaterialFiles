@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 public class FileSystemException extends Exception {
 
@@ -17,20 +18,21 @@ public class FileSystemException extends Exception {
         mMessageRes = messageRes;
     }
 
-    public FileSystemException(Throwable cause) {
+    public FileSystemException(@NonNull Throwable cause) {
         super(cause);
     }
 
     /**
      * @deprecated This is ugly.
      */
-    public FileSystemException(int messageRes, Throwable cause) {
+    public FileSystemException(int messageRes, @NonNull Throwable cause) {
         super(cause);
 
         mMessageRes = messageRes;
     }
 
-    public String getMessage(Context context) {
+    @NonNull
+    public String getMessage(@NonNull Context context) {
         return mMessageRes != 0 ? context.getString(mMessageRes) : getCause().getMessage();
     }
 }

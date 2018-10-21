@@ -7,6 +7,8 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
@@ -30,7 +32,8 @@ import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 
 public class Syscall {
 
-    public static Information loadInformation(String path) throws FileSystemException {
+    @NonNull
+    public static Information loadInformation(@NonNull String path) throws FileSystemException {
         StructStatCompat stat;
         try {
             stat = Linux.lstat(path);
@@ -88,7 +91,8 @@ public class Syscall {
         return information;
     }
 
-    static PosixFileType parseType(int st_mode) {
+    @NonNull
+    static PosixFileType parseType(@NonNull int st_mode) {
         return OsConstants.S_ISDIR(st_mode) ? PosixFileType.DIRECTORY
                 : OsConstants.S_ISCHR(st_mode) ? PosixFileType.CHARACTER_DEVICE
                 : OsConstants.S_ISBLK(st_mode) ? PosixFileType.BLOCK_DEVICE
@@ -99,6 +103,7 @@ public class Syscall {
                 : PosixFileType.UNKNOWN;
     }
 
+    @NonNull
     static EnumSet<PosixFileModeBit> parseMode(int st_mode) {
         EnumSet<PosixFileModeBit> mode = EnumSet.noneOf(PosixFileModeBit.class);
         if ((st_mode & OsConstants.S_ISUID) != 0) {
@@ -140,8 +145,8 @@ public class Syscall {
         return mode;
     }
 
-    public static void copy(String fromPath, String toPath, long notifyByteCount,
-                            LongConsumer listener) throws FileSystemException,
+    public static void copy(@NonNull String fromPath, @NonNull String toPath, long notifyByteCount,
+                            @Nullable LongConsumer listener) throws FileSystemException,
             InterruptedException {
         copy(fromPath, toPath, false, notifyByteCount, listener);
     }
@@ -151,9 +156,9 @@ public class Syscall {
      *      android.os.FileUtils.ProgressListener, android.os.CancellationSignal, long)
      * @see https://github.com/gnome/glib/blob/master/gio/gfile.c g_file_copy()
      */
-    private static void copy(String fromPath, String toPath, boolean forMove, long notifyByteCount,
-                             LongConsumer listener) throws FileSystemException,
-            InterruptedException {
+    private static void copy(@NonNull String fromPath, @Nullable String toPath, boolean forMove,
+                             long notifyByteCount, @Nullable LongConsumer listener)
+            throws FileSystemException, InterruptedException {
         StructStatCompat fromStat;
         try {
             fromStat = Linux.lstat(fromPath);
@@ -250,7 +255,7 @@ public class Syscall {
         // TODO: SELinux?
     }
 
-    public static void delete(String path) throws FileSystemException {
+    public static void delete(@NonNull String path) throws FileSystemException {
         try {
             Os.remove(path);
         } catch (ErrnoException e) {
@@ -258,8 +263,8 @@ public class Syscall {
         }
     }
 
-    public static void move(String fromPath, String toPath, long notifyByteCount,
-                            LongConsumer listener) throws FileSystemException,
+    public static void move(@NonNull String fromPath, @NonNull String toPath, long notifyByteCount,
+                            @Nullable LongConsumer listener) throws FileSystemException,
             InterruptedException {
         try {
             Os.rename(fromPath, toPath);
@@ -269,7 +274,8 @@ public class Syscall {
         }
     }
 
-    public static void rename(String fromPath, String toPath) throws FileSystemException {
+    public static void rename(@NonNull String fromPath, @NonNull String toPath)
+            throws FileSystemException {
         try {
             Os.rename(fromPath, toPath);
         } catch (ErrnoException e) {
@@ -277,7 +283,7 @@ public class Syscall {
         }
     }
 
-    public static void createFile(String path) throws FileSystemException {
+    public static void createFile(@NonNull String path) throws FileSystemException {
         try {
             FileDescriptor fd = Os_creat(path, OsConstants.S_IRUSR | OsConstants.S_IWUSR
                     | OsConstants.S_IRGRP | OsConstants.S_IWGRP | OsConstants.S_IROTH
@@ -288,12 +294,12 @@ public class Syscall {
         }
     }
 
-    private static FileDescriptor Os_creat(String path, int mode) throws ErrnoException {
+    private static FileDescriptor Os_creat(@NonNull String path, int mode) throws ErrnoException {
         return Os.open(path, OsConstants.O_WRONLY | OsConstants.O_CREAT | OsConstants.O_TRUNC,
                 mode);
     }
 
-    public static void createDirectory(String path) throws FileSystemException {
+    public static void createDirectory(@NonNull String path) throws FileSystemException {
         try {
             Os.mkdir(path, OsConstants.S_IRWXU | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
         } catch (ErrnoException e) {
@@ -304,18 +310,24 @@ public class Syscall {
     public static class Information implements Parcelable {
 
         public boolean isSymbolicLinkStat;
+        @NonNull
         public PosixFileType type;
+        @NonNull
         public EnumSet<PosixFileModeBit> mode;
+        @NonNull
         public PosixUser owner;
+        @NonNull
         public PosixGroup group;
         public long size;
+        @NonNull
         public Instant lastModificationTime;
         public boolean isSymbolicLink;
+        @Nullable
         public String symbolicLinkTarget;
 
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -342,10 +354,12 @@ public class Syscall {
 
 
         public static final Creator<Information> CREATOR = new Creator<Information>() {
+            @NonNull
             @Override
-            public Information createFromParcel(Parcel source) {
+            public Information createFromParcel(@NonNull Parcel source) {
                 return new Information(source);
             }
+            @NonNull
             @Override
             public Information[] newArray(int size) {
                 return new Information[size];
@@ -354,7 +368,7 @@ public class Syscall {
 
         public Information() {}
 
-        protected Information(Parcel in) {
+        protected Information(@NonNull Parcel in) {
             isSymbolicLinkStat = in.readByte() != 0;
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
@@ -374,7 +388,7 @@ public class Syscall {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeByte(isSymbolicLinkStat ? (byte) 1 : (byte) 0);
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);

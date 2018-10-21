@@ -32,8 +32,9 @@ public class PassWindowInsetsFrameLayout extends FrameLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+    @NonNull
     @Override
-    public WindowInsets onApplyWindowInsets(WindowInsets insets) {
+    public WindowInsets onApplyWindowInsets(@NonNull WindowInsets insets) {
         return insets;
     }
 }

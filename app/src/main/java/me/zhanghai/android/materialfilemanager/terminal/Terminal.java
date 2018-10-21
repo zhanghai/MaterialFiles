@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 
@@ -16,11 +17,12 @@ public class Terminal {
 
     private Terminal() {}
 
-    public static boolean open(String path, Context context) {
+    public static boolean open(@NonNull String path, @NonNull Context context) {
         return AppUtils.startActivity(makeIntent(path), context);
     }
 
-    private static Intent makeIntent(String path) {
+    @NonNull
+    private static Intent makeIntent(@NonNull String path) {
         return new Intent()
                 .setComponent(new ComponentName("jackpal.androidterm",
                         "jackpal.androidterm.TermHere"))

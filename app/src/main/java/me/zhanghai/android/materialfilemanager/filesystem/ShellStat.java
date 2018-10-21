@@ -7,6 +7,8 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.util.Pair;
 
 import org.threeten.bp.Instant;
@@ -42,7 +44,8 @@ public class ShellStat {
                     .put('s', PosixFileType.SOCKET)
                     .buildUnmodifiable();
 
-    public static Information loadInformation(String path) throws FileSystemException {
+    @NonNull
+    public static Information loadInformation(@NonNull String path) throws FileSystemException {
         String command = "stat -c '%A/%h/%u/%U/%g/%G/%s/%X/%Y/%Z' " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
         int exitCode = SuShell.run(command, outputHolder, null);
@@ -55,7 +58,8 @@ public class ShellStat {
         return information;
     }
 
-    public static List<Pair<String, Information>> getChildrenAndInformation(String path)
+    @NonNull
+    public static List<Pair<String, Information>> getChildrenAndInformation(@NonNull String path)
             throws FileSystemException {
         // Normalize the path to prevent consecutive slashes.
         path = new java.io.File(path).getPath();
@@ -109,7 +113,8 @@ public class ShellStat {
         return children;
     }
 
-    private static void loadSymbolicLinkInformationIf(String path, Information information)
+    private static void loadSymbolicLinkInformationIf(@NonNull String path,
+                                                      @NonNull Information information)
             throws FileSystemException {
         if (information.type != PosixFileType.SYMBOLIC_LINK) {
             return;
@@ -136,7 +141,8 @@ public class ShellStat {
         }
     }
 
-    private static Information parseInformation(String output) throws FileSystemException {
+    @NonNull
+    private static Information parseInformation(@NonNull String output) throws FileSystemException {
         Information information = new Information();
         String[] fields = output.split("/");
         if (fields.length != 10) {
@@ -166,7 +172,8 @@ public class ShellStat {
     // @see https://android.googlesource.com/platform/external/toybox/+/master/lib/lib.c
     // mode_to_string()
     // @see https://github.com/coreutils/gnulib/blob/master/lib/filemode.c ftypelet()
-    private static PosixFileType parseType(String modeString) {
+    @NonNull
+    private static PosixFileType parseType(@NonNull String modeString) {
         char typeChar = modeString.charAt(0);
         // Tolerate non-standard file types.
         return MapCompat.getOrDefault(sModeTypeCharToTypeMap, typeChar, PosixFileType.UNKNOWN);
@@ -175,7 +182,8 @@ public class ShellStat {
     // @see https://android.googlesource.com/platform/external/toybox/+/master/lib/lib.c
     //      mode_to_string()
     // @see https://github.com/coreutils/gnulib/blob/master/lib/filemode.c strmode()
-    private static EnumSet<PosixFileModeBit> parseMode(String modeString)
+    @NonNull
+    private static EnumSet<PosixFileModeBit> parseMode(@NonNull String modeString)
             throws IllegalArgumentException {
         EnumSet<PosixFileModeBit> mode = EnumSet.noneOf(PosixFileModeBit.class);
         switch (modeString.charAt(1)) {
@@ -291,21 +299,30 @@ public class ShellStat {
 
     public static class Information implements Parcelable {
 
+        @NonNull
         public PosixFileType type;
+        @NonNull
         public EnumSet<PosixFileModeBit> mode;
         public long linkCount;
+        @NonNull
         public PosixUser owner;
+        @NonNull
         public PosixGroup group;
         public long size;
+        @NonNull
         public Instant lastAccessTime;
+        @NonNull
         public Instant lastModificationTime;
+        @NonNull
         public Instant lastStatusChangeTime;
+        @Nullable
         public String symbolicLinkTarget;
+        @Nullable
         public Information symbolicLinkStatLInformation;
 
 
         @Override
-        public boolean equals(Object object) {
+        public boolean equals(@Nullable Object object) {
             if (this == object) {
                 return true;
             }
@@ -336,10 +353,12 @@ public class ShellStat {
 
 
         public static final Creator<Information> CREATOR = new Creator<Information>() {
+            @NonNull
             @Override
-            public Information createFromParcel(Parcel source) {
+            public Information createFromParcel(@NonNull Parcel source) {
                 return new Information(source);
             }
+            @NonNull
             @Override
             public Information[] newArray(int size) {
                 return new Information[size];
@@ -348,7 +367,7 @@ public class ShellStat {
 
         public Information() {}
 
-        protected Information(Parcel in) {
+        protected Information(@NonNull Parcel in) {
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
             //noinspection unchecked
@@ -370,7 +389,7 @@ public class ShellStat {
         }
 
         @Override
-        public void writeToParcel(Parcel dest, int flags) {
+        public void writeToParcel(@NonNull Parcel dest, int flags) {
             dest.writeInt(type == null ? -1 : type.ordinal());
             dest.writeSerializable(mode);
             dest.writeLong(linkCount);

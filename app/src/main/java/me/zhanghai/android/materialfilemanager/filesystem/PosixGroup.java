@@ -7,6 +7,8 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Objects;
 
@@ -14,11 +16,11 @@ public class PosixGroup implements Parcelable {
 
     public int id;
 
+    @Nullable
     public String name;
 
-
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(@Nullable Object object) {
         if (this == object) {
             return true;
         }
@@ -37,10 +39,12 @@ public class PosixGroup implements Parcelable {
 
 
     public static final Creator<PosixGroup> CREATOR = new Creator<PosixGroup>() {
+        @NonNull
         @Override
-        public PosixGroup createFromParcel(Parcel source) {
+        public PosixGroup createFromParcel(@NonNull Parcel source) {
             return new PosixGroup(source);
         }
+        @NonNull
         @Override
         public PosixGroup[] newArray(int size) {
             return new PosixGroup[size];
@@ -49,7 +53,7 @@ public class PosixGroup implements Parcelable {
 
     public PosixGroup() {}
 
-    protected PosixGroup(Parcel in) {
+    protected PosixGroup(@NonNull Parcel in) {
         id = in.readInt();
         name = in.readString();
     }
@@ -60,7 +64,7 @@ public class PosixGroup implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
     }

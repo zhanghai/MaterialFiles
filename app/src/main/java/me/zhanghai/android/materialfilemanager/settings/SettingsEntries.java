@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.BoolRes;
 import android.support.annotation.IntegerRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
@@ -29,18 +31,20 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         @Override
         public String getDefaultValue() {
             return AppApplication.getInstance().getString(getDefaultValueResId());
         }
 
+        @Nullable
         @Override
         public String getValue() {
             return SharedPrefsUtils.getString(this);
         }
 
         @Override
-        public void putValue(String value) {
+        public void putValue(@Nullable String value) {
             SharedPrefsUtils.putString(this, value);
         }
     }
@@ -51,6 +55,7 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         @Override
         public Set<String> getDefaultValue() {
             Set<String> stringSet = new HashSet<>();
@@ -59,13 +64,14 @@ public interface SettingsEntries {
             return stringSet;
         }
 
+        @Nullable
         @Override
         public Set<String> getValue() {
             return SharedPrefsUtils.getStringSet(this);
         }
 
         @Override
-        public void putValue(Set<String> value) {
+        public void putValue(@Nullable Set<String> value) {
             SharedPrefsUtils.putStringSet(this, value);
         }
     }
@@ -76,18 +82,20 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         @Override
         public Integer getDefaultValue() {
             return AppApplication.getInstance().getResources().getInteger(getDefaultValueResId());
         }
 
+        @NonNull
         @Override
         public Integer getValue() {
             return SharedPrefsUtils.getInt(this);
         }
 
         @Override
-        public void putValue(Integer value) {
+        public void putValue(@NonNull Integer value) {
             SharedPrefsUtils.putInt(this, value);
         }
     }
@@ -98,19 +106,21 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         @Override
         public Long getDefaultValue() {
             return Long.valueOf(AppApplication.getInstance().getResources().getString(
                     getDefaultValueResId()));
         }
 
+        @NonNull
         @Override
         public Long getValue() {
             return SharedPrefsUtils.getLong(this);
         }
 
         @Override
-        public void putValue(Long value) {
+        public void putValue(@NonNull Long value) {
             SharedPrefsUtils.putLong(this, value);
         }
     }
@@ -121,19 +131,21 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         @Override
         public Float getDefaultValue() {
             return Float.valueOf(AppApplication.getInstance().getResources().getString(
                     getDefaultValueResId()));
         }
 
+        @NonNull
         @Override
         public Float getValue() {
             return SharedPrefsUtils.getFloat(this);
         }
 
         @Override
-        public void putValue(Float value) {
+        public void putValue(@NonNull Float value) {
             SharedPrefsUtils.putFloat(this, value);
         }
     }
@@ -144,18 +156,20 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         @Override
         public Boolean getDefaultValue() {
             return AppApplication.getInstance().getResources().getBoolean(getDefaultValueResId());
         }
 
+        @NonNull
         @Override
         public Boolean getValue() {
             return SharedPrefsUtils.getBoolean(this);
         }
 
         @Override
-        public void putValue(Boolean value) {
+        public void putValue(@NonNull Boolean value) {
             SharedPrefsUtils.putBoolean(this, value);
         }
     }
@@ -172,10 +186,12 @@ public interface SettingsEntries {
             mEnumValues = enumClass.getEnumConstants();
         }
 
+        @NonNull
         public E getDefaultEnumValue() {
             return mEnumValues[Integer.parseInt(getDefaultValue())];
         }
 
+        @NonNull
         public E getEnumValue() {
             int ordinal = Integer.parseInt(getValue());
             if (ordinal < 0 || ordinal >= mEnumValues.length) {
@@ -189,30 +205,33 @@ public interface SettingsEntries {
             return mEnumValues[ordinal];
         }
 
-        public void putEnumValue(E value) {
+        public void putEnumValue(@NonNull E value) {
             putValue(String.valueOf(value.ordinal()));
         }
     }
 
     class UriSettingsEntry extends StringSettingsEntry {
 
-        public UriSettingsEntry(@StringRes int keyResId, int defaultValueResId) {
+        public UriSettingsEntry(@StringRes int keyResId, @StringRes int defaultValueResId) {
             super(keyResId, defaultValueResId);
         }
 
+        @NonNull
         public Uri getDefaultUriValue() {
             return stringToUri(getDefaultValue());
         }
 
+        @Nullable
         public Uri getUriValue() {
             return stringToUri(getValue());
         }
 
-        private static Uri stringToUri(String string) {
+        @Nullable
+        private static Uri stringToUri(@Nullable String string) {
             return !TextUtils.isEmpty(string) ? Uri.parse(string) : null;
         }
 
-        public void putUriValue(Uri value) {
+        public void putUriValue(@Nullable Uri value) {
             putValue(value != null ? value.toString() : null);
         }
     }

@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.navigation;
 
 import android.arch.lifecycle.MediatorLiveData;
+import android.support.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class NavigationRootMapLiveData extends MediatorLiveData<Map<File, NavigationRoot>> {
 
+    @Nullable
     private static NavigationRootMapLiveData sInstance;
 
     public static NavigationRootMapLiveData getInstance() {

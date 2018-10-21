@@ -8,6 +8,7 @@ package me.zhanghai.android.materialfilemanager.filelist;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
@@ -33,7 +34,7 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
                 .setTitle(getTitleRes());
         View contentView = ViewUtils.inflate(R.layout.file_name_dialog, builder.getContext());
@@ -87,17 +88,18 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
         dismiss();
     }
 
-    protected boolean isNameUnchanged(String name) {
+    protected boolean isNameUnchanged(@NonNull String name) {
         return false;
     }
 
-    protected abstract void onOk(String name);
+    protected abstract void onOk(@NonNull String name);
 
+    @NonNull
     protected Listener getListener() {
         return (Listener) getParentFragment();
     }
 
     protected interface Listener {
-        boolean hasFileWithName(String name);
+        boolean hasFileWithName(@NonNull String name);
     }
 }

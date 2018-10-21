@@ -28,14 +28,15 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
         RecyclerView.ViewHolder> {
 
-    private static final Object PAYLOAD_CHECKED_CHANGED = new Object();
-
-    private NavigationItem.Listener mListener;
-
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_DIVIDER = 1;
 
-    public NavigationListAdapter(NavigationItem.Listener listener) {
+    private static final Object PAYLOAD_CHECKED_CHANGED = new Object();
+
+    @NonNull
+    private final NavigationItem.Listener mListener;
+
+    public NavigationListAdapter(@NonNull NavigationItem.Listener listener) {
         mListener = listener;
         setHasStableIds(true);
     }

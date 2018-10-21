@@ -5,6 +5,12 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
+import android.support.annotation.NonNull;
+import android.system.StructStat;
+
+/**
+ * @see StructStat
+ */
 public final class StructStatCompat {
 
     public final long st_dev; /*dev_t*/
@@ -17,8 +23,11 @@ public final class StructStatCompat {
     public final long st_size; /*off_t*/
     public final long st_blksize; /*blksize_t*/
     public final long st_blocks; /*blkcnt_t*/
+    @NonNull
     public final StructTimespecCompat st_atim;
+    @NonNull
     public final StructTimespecCompat st_mtim;
+    @NonNull
     public final StructTimespecCompat st_ctim;
     public final long st_atime; /*time_t*/
     public final long st_mtime; /*time_t*/
@@ -26,8 +35,9 @@ public final class StructStatCompat {
 
     public StructStatCompat(long st_dev, long st_ino, int st_mode, long st_nlink, int st_uid,
                             int st_gid, long st_rdev, long st_size, long st_blksize, long st_blocks,
-                            StructTimespecCompat st_atim, StructTimespecCompat st_mtim,
-                            StructTimespecCompat st_ctim) {
+                            @NonNull StructTimespecCompat st_atim,
+                            @NonNull StructTimespecCompat st_mtim,
+                            @NonNull StructTimespecCompat st_ctim) {
         this.st_dev = st_dev;
         this.st_ino = st_ino;
         this.st_mode = st_mode;

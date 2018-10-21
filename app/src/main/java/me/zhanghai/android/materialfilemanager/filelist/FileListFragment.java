@@ -99,21 +99,32 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @BindView(R.id.speed_dial)
     SpeedDialView mSpeedDialView;
 
+    @Nullable
     private MenuItem mSortByNameMenuItem;
+    @Nullable
     private MenuItem mSortByTypeMenuItem;
+    @Nullable
     private MenuItem mSortBySizeMenuItem;
+    @Nullable
     private MenuItem mSortByLastModifiedMenuItem;
+    @Nullable
     private MenuItem mSortOrderAscendingMenuItem;
+    @Nullable
     private MenuItem mSortDirectoriesFirstMenuItem;
 
+    @NonNull
     private SetMenuResourceMaterialCab mCab;
 
+    @NonNull
     private FileListAdapter mAdapter;
 
+    @NonNull
     private FileListViewModel mViewModel;
 
+    @Nullable
     private File mLastFile;
 
+    @NonNull
     public static FileListFragment newInstance(@Nullable File file) {
         //noinspection deprecation
         FileListFragment fragment = new FileListFragment();
@@ -219,7 +230,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.file_list, menu);
@@ -232,14 +243,14 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
         updateSortOptionsMenu();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
                 // TODO
@@ -294,7 +305,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         return mViewModel.navigateUp(false);
     }
 
-    private void onFileListChanged(FileListData fileListData) {
+    private void onFileListChanged(@NonNull FileListData fileListData) {
         switch (fileListData.state) {
             case LOADING: {
                 File file = fileListData.file;
@@ -341,7 +352,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
     }
 
-    private void updateSubtitle(List<File> files) {
+    private void updateSubtitle(@NonNull List<File> files) {
         int directoryCount = Functional.reduce(files, (count, file) -> file.isDirectory() ?
                 count + 1 : count, 0);
         int fileCount = files.size() - directoryCount;
@@ -365,7 +376,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mToolbar.setSubtitle(subtitle);
     }
 
-    private void setSortBy(FileSortOptions.By by) {
+    private void setSortBy(@NonNull FileSortOptions.By by) {
         FileSortOptions sortOptions = mViewModel.getSortOptions();
         if (sortOptions.getBy() == by) {
             return;
@@ -373,7 +384,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.setSortOptions(sortOptions.withBy(by));
     }
 
-    private void setSortOrder(FileSortOptions.Order order) {
+    private void setSortOrder(@NonNull FileSortOptions.Order order) {
         FileSortOptions sortOptions = mViewModel.getSortOptions();
         if (sortOptions.getOrder() == order) {
             return;
@@ -389,7 +400,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.setSortOptions(sortOptions.withDirectoriesFirst(directoriesFirst));
     }
 
-    private void onSortOptionsChanged(FileSortOptions sortOptions) {
+    private void onSortOptionsChanged(@NonNull FileSortOptions sortOptions) {
         mAdapter.setComparator(sortOptions.makeComparator());
         updateSortOptionsMenu();
     }
@@ -482,11 +493,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void selectFile(File file, boolean selected) {
+    public void selectFile(@NonNull File file, boolean selected) {
         mViewModel.selectFile(file, selected);
     }
 
-    private void onSelectedFilesChanged(Set<File> selectedFiles) {
+    private void onSelectedFilesChanged(@NonNull Set<File> selectedFiles) {
         mAdapter.replaceSelectedFiles(selectedFiles);
         updateCab();
     }
@@ -526,12 +537,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public boolean onCabCreated(MaterialCab cab, Menu menu) {
+    public boolean onCabCreated(@NonNull MaterialCab cab, @NonNull Menu menu) {
         return true;
     }
 
     @Override
-    public boolean onCabItemClicked(MenuItem item) {
+    public boolean onCabItemClicked(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_cut:
                 cutFiles(mViewModel.getSelectedFiles());
@@ -554,36 +565,36 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public boolean onCabFinished(MaterialCab cab) {
+    public boolean onCabFinished(@NonNull MaterialCab cab) {
         mViewModel.clearSelectedFiles();
         mViewModel.setPasteMode(FilePasteMode.NONE);
         return true;
     }
 
-    private void cutFiles(Set<File> files) {
+    private void cutFiles(@NonNull Set<File> files) {
         if (mViewModel.getPasteMode() == FilePasteMode.MOVE) {
             mViewModel.selectFiles(files, true);
         } else {
-            mViewModel.setSelectedFiles(files);
+            mViewModel.replaceSelectedFiles(files);
             mViewModel.setPasteMode(FilePasteMode.MOVE);
         }
     }
 
-    private void copyFiles(Set<File> files) {
+    private void copyFiles(@NonNull Set<File> files) {
         if (mViewModel.getPasteMode() == FilePasteMode.COPY) {
             mViewModel.selectFiles(files, true);
         } else {
-            mViewModel.setSelectedFiles(files);
+            mViewModel.replaceSelectedFiles(files);
             mViewModel.setPasteMode(FilePasteMode.COPY);
         }
     }
 
-    private void onPasteModeChanged(FilePasteMode pasteMode) {
+    private void onPasteModeChanged(@NonNull FilePasteMode pasteMode) {
         mAdapter.setPasteMode(pasteMode);
         updateCab();
     }
 
-    private void pasteFiles(Set<File> fromFiles, File toDirectory) {
+    private void pasteFiles(@NonNull Set<File> fromFiles, @NonNull File toDirectory) {
         switch (mViewModel.getPasteMode()) {
             case MOVE:
                 FileJobService.move(makeFileListForJob(fromFiles), toDirectory, requireContext());
@@ -598,17 +609,18 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.setPasteMode(FilePasteMode.NONE);
     }
 
-    private void confirmDeleteFiles(Set<File> files) {
+    private void confirmDeleteFiles(@NonNull Set<File> files) {
         ConfirmDeleteFilesDialogFragment.show(files, this);
     }
 
     @Override
-    public void deleteFiles(Set<File> files) {
+    public void deleteFiles(@NonNull Set<File> files) {
         mViewModel.selectFiles(files, false);
         FileJobService.delete(makeFileListForJob(files), requireContext());
     }
 
-    private List<File> makeFileListForJob(Set<File> files) {
+    @NonNull
+    private List<File> makeFileListForJob(@NonNull Set<File> files) {
         List<File> fileList = new ArrayList<>(files);
         Collections.sort(fileList);
         return fileList;
@@ -619,7 +631,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void openFile(File file) {
+    public void openFile(@NonNull File file) {
         if (file.isListable()) {
             navigateToFile(file.asListableFile());
             return;
@@ -628,12 +640,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void showOpenFileAsDialog(File file) {
+    public void showOpenFileAsDialog(@NonNull File file) {
         OpenFileAsDialogFragment.show(file, this);
     }
 
     @Override
-    public void openFileAs(File file, String mimeType) {
+    public void openFileAs(@NonNull File file, @NonNull String mimeType) {
         if (file instanceof LocalFile) {
             LocalFile localFile = (LocalFile) file;
             Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
@@ -646,27 +658,27 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void cutFile(File file) {
+    public void cutFile(@NonNull File file) {
         cutFiles(Collections.singleton(file));
     }
 
     @Override
-    public void copyFile(File file) {
+    public void copyFile(@NonNull File file) {
         copyFiles(Collections.singleton(file));
     }
 
     @Override
-    public void confirmDeleteFile(File file) {
+    public void confirmDeleteFile(@NonNull File file) {
         confirmDeleteFiles(Collections.singleton(file));
     }
 
     @Override
-    public void showRenameFileDialog(File file) {
+    public void showRenameFileDialog(@NonNull File file) {
         RenameFileDialogFragment.show(file, this);
     }
 
     @Override
-    public boolean hasFileWithName(String name) {
+    public boolean hasFileWithName(@NonNull String name) {
         FileListData fileListData = mViewModel.getFileListLiveData().getValue();
         if (fileListData == null || fileListData.state != FileListData.State.SUCCESS) {
             return false;
@@ -676,17 +688,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void renameFile(File file, String name) {
+    public void renameFile(@NonNull File file, @NonNull String name) {
         // TODO
         FileJobService.rename(file, name, requireContext());
     }
 
     @Override
-    public void sendFile(File file) {
+    public void sendFile(@NonNull File file) {
         sendFile(file, file.getMimeType());
     }
 
-    private void sendFile(File file, String mimeType) {
+    private void sendFile(@NonNull File file, @NonNull String mimeType) {
         if (file instanceof LocalFile) {
             LocalFile localFile = (LocalFile) file;
             Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
@@ -698,7 +710,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void showPropertiesDialog(File file) {
+    public void showPropertiesDialog(@NonNull File file) {
         FilePropertiesDialogFragment.show(file, this);
     }
 
@@ -707,7 +719,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void createFile(String name) {
+    public void createFile(@NonNull String name) {
         // TODO
         File file = Files.childOf(getCurrentFile(), name);
         FileJobService.createFile(file, requireContext());
@@ -718,7 +730,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void createDirectory(String name) {
+    public void createDirectory(@NonNull String name) {
         // TODO
         File file = Files.childOf(getCurrentFile(), name);
         FileJobService.createDirectory(file, requireContext());
@@ -736,7 +748,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer) {
+    public void observeCurrentFile(@NonNull LifecycleOwner owner,
+                                   @NonNull Observer<File> observer) {
         mViewModel.getCurrentFileLiveData().observe(owner, observer);
     }
 }

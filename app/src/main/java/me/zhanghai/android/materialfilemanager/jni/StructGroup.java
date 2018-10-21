@@ -5,14 +5,20 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
+import android.support.annotation.Nullable;
+
 public final class StructGroup {
 
+    @Nullable
     public final String gr_name;
+    @Nullable
     public final String gr_passwd;
     public final int gr_gid;
+    @Nullable
     public final String[] gr_mem;
 
-    public StructGroup(String gr_name, String gr_passwd, int gr_gid, String[] gr_mem) {
+    public StructGroup(@Nullable String gr_name, @Nullable String gr_passwd, int gr_gid,
+                       @Nullable String[] gr_mem) {
         this.gr_name = gr_name;
         this.gr_passwd = gr_passwd;
         this.gr_gid = gr_gid;

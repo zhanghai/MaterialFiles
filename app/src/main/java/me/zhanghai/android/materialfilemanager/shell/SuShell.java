@@ -7,6 +7,8 @@ package me.zhanghai.android.materialfilemanager.shell;
 
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import eu.chainfire.libsuperuser.Debug;
@@ -16,7 +18,9 @@ import me.zhanghai.android.materialfilemanager.util.StringCompat;
 
 public class SuShell {
 
+    @Nullable
     private static HandlerThread sHandlerThread;
+    @Nullable
     private static Shell sShell;
     private static int sShellReferenceCount;
 
@@ -46,7 +50,8 @@ public class SuShell {
     }
 
     @WorkerThread
-    public static int run(String command, Holder<String> stdout, Holder<String> stderr) {
+    public static int run(@NonNull String command, @Nullable Holder<String> stdout,
+                          @Nullable Holder<String> stderr) {
         Holder<Integer> exitCodeHolder = new Holder<>();
         sShell.addCommand(command, 0, (commandCode, exitCode, stdoutLines, stderrLines) -> {
             if (stdout != null) {

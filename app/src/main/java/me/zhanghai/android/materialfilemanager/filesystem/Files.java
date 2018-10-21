@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -17,7 +18,8 @@ public class Files {
 
     private Files() {}
 
-    public static File ofUri(Uri uri) {
+    @NonNull
+    public static File ofUri(@NonNull Uri uri) {
         switch (uri.getScheme()) {
             case LocalFile.SCHEME:
                 return new LocalFile(uri);
@@ -28,23 +30,25 @@ public class Files {
         }
     }
 
-    public static File ofLocalPath(String path) {
+    @NonNull
+    public static File ofLocalPath(@NonNull String path) {
         return new LocalFile(LocalFile.uriFromPath(path));
     }
 
-    public static File childOf(File file, String name) {
+    @NonNull
+    public static File childOf(@NonNull File file, @NonNull String name) {
         Uri uri = file.getUri().buildUpon().appendPath(name).build();
         return ofUri(uri);
     }
 
-    public static void onTrailChanged(List<File> path) {
+    public static void onTrailChanged(@NonNull List<File> path) {
         Set<java.io.File> archiveJavaFiles = Functional.map(
                 Functional.filter(path, file -> file instanceof ArchiveFile),
                 file -> ((ArchiveFile) file).getArchiveFile().makeJavaFile(), new HashSet<>());
         Archive.retainCache(archiveJavaFiles);
     }
 
-    public static void invalidateCache(File file) {
+    public static void invalidateCache(@NonNull File file) {
         if (file instanceof ArchiveFile) {
             ArchiveFile archiveFile = (ArchiveFile) file;
             java.io.File archiveJavaFile = archiveFile.getArchiveFile().makeJavaFile();

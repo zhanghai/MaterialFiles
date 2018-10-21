@@ -51,6 +51,7 @@ public class FileProvider extends ContentProvider {
         }
     }
 
+    @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
                         @Nullable String[] selectionArgs, @Nullable String sortOrder) {
@@ -85,12 +86,14 @@ public class FileProvider extends ContentProvider {
         return cursor;
     }
 
+    @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
         File file = getFileForUri(uri);
         return MimeTypes.getMimeType(file.getPath());
     }
 
+    @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         throw new UnsupportedOperationException("No external inserts");
@@ -111,6 +114,7 @@ public class FileProvider extends ContentProvider {
         return file.delete() ? 1 : 0;
     }
 
+    @Nullable
     @Override
     public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode)
             throws FileNotFoundException {
@@ -120,7 +124,8 @@ public class FileProvider extends ContentProvider {
         return ParcelFileDescriptor.open(file, modeBits);
     }
 
-    public static Uri getUriForPath(String path) {
+    @Nullable
+    public static Uri getUriForPath(@NonNull String path) {
         return new Uri.Builder()
                 .scheme("content")
                 .authority(BuildConfig.FILE_PROVIDIER_AUTHORITY)
@@ -128,11 +133,13 @@ public class FileProvider extends ContentProvider {
                 .build();
     }
 
-    public static String getPathForUri(Uri uri) {
+    @NonNull
+    public static String getPathForUri(@NonNull Uri uri) {
         return uri.getPath();
     }
 
-    private static File getFileForUri(Uri uri) {
+    @NonNull
+    private static File getFileForUri(@NonNull Uri uri) {
         return new File(getPathForUri(uri));
     }
 }

@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
@@ -22,26 +23,33 @@ import java.util.zip.ZipException;
 
 public class ZipFileCompat implements Closeable {
 
-    private ZipFile mZipFile;
-    private java.util.zip.ZipFile mJavaZipFile;
+    @NonNull
+    private final ZipFile mZipFile;
+    @NonNull
+    private final java.util.zip.ZipFile mJavaZipFile;
 
-    public ZipFileCompat(File file, String encoding) throws IOException {
+    public ZipFileCompat(@NonNull File file, @NonNull String encoding) throws IOException {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             mZipFile = new ZipFile(file, encoding);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            // The same charset logic as Apache Commons Compress.
-            Charset charset;
-            try {
-                charset = Charset.forName(encoding);
-            } catch (UnsupportedCharsetException e) {
-                charset = Charset.defaultCharset();
-            }
-            mJavaZipFile = new java.util.zip.ZipFile(file, charset);
+            mJavaZipFile = null;
         } else {
-            mJavaZipFile = new java.util.zip.ZipFile(file);
+            mZipFile = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                // The same charset logic as Apache Commons Compress.
+                Charset charset;
+                try {
+                    charset = Charset.forName(encoding);
+                } catch (UnsupportedCharsetException e) {
+                    charset = Charset.defaultCharset();
+                }
+                mJavaZipFile = new java.util.zip.ZipFile(file, charset);
+            } else {
+                mJavaZipFile = new java.util.zip.ZipFile(file);
+            }
         }
     }
 
+    @NonNull
     public Iterator<ZipArchiveEntry> getEntries() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Enumeration<ZipArchiveEntry> entries = mZipFile.getEntries();
@@ -86,7 +94,7 @@ public class ZipFileCompat implements Closeable {
 
     private static class BadExtraZipArchiveEntry extends ZipArchiveEntry {
 
-        public BadExtraZipArchiveEntry(ZipEntry entry) {
+        public BadExtraZipArchiveEntry(@NonNull ZipEntry entry) {
             setName(entry.getName());
             setExtra();
             setMethod(entry.getMethod());

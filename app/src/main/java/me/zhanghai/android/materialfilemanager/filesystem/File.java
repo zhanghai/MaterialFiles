@@ -55,6 +55,7 @@ public interface File extends Comparable<File>, Parcelable {
         return CollectionUtils.last(segments);
     }
 
+    @NonNull
     default String getExtension() {
         if (isDirectory()) {
             return "";
@@ -78,6 +79,7 @@ public interface File extends Comparable<File>, Parcelable {
 
     boolean isSymbolicLinkBroken();
 
+    @NonNull
     String getSymbolicLinkTarget();
 
     boolean isDirectory();
@@ -111,18 +113,21 @@ public interface File extends Comparable<File>, Parcelable {
         return isDirectory() || isSupportedArchive();
     }
 
+    @NonNull
     default File asListableFile() {
-        if (!(this instanceof ArchiveFile) && isSupportedArchive()) {
-            // FIXME
-            return new ArchiveFile((LocalFile) this, Archive.pathForRoot());
+        if (this instanceof LocalFile && isSupportedArchive()) {
+            LocalFile file = (LocalFile) this;
+            return new ArchiveFile(file, Archive.pathForRoot());
         }
         return this;
     }
 
     long getSize();
 
+    @NonNull
     Instant getLastModificationTime();
 
+    @NonNull
     @WorkerThread
     List<File> getChildren() throws FileSystemException;
 
@@ -131,7 +136,7 @@ public interface File extends Comparable<File>, Parcelable {
         return getUri().compareTo(that.getUri());
     }
 
-    default boolean equalsAsFile(Object object) {
+    default boolean equalsAsFile(@Nullable Object object) {
         if (this == object) {
             return true;
         }
@@ -146,5 +151,5 @@ public interface File extends Comparable<File>, Parcelable {
         return getUri().hashCode();
     }
 
-    boolean equalsIncludingInformation(Object object);
+    boolean equalsIncludingInformation(@Nullable Object object);
 }

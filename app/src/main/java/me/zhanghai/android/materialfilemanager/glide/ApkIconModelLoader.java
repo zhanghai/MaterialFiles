@@ -28,9 +28,10 @@ import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 
 public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
 
-    private Context context;
+    @NonNull
+    private final Context context;
 
-    public ApkIconModelLoader(Context context) {
+    public ApkIconModelLoader(@NonNull Context context) {
         this.context = context.getApplicationContext();
     }
 
@@ -48,11 +49,11 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
     @Override
     public LoadData<Drawable> buildLoadData(@NonNull Model model, int width, int height,
                                             @NonNull Options options) {
-        return new LoadData<>(new ObjectKey(model), new DataFetcher(getPath(model),
-                context));
+        return new LoadData<>(new ObjectKey(model), new DataFetcher(getPath(model), context));
     }
 
-    private String getPath(Model model) {
+    @NonNull
+    private String getPath(@NonNull Model model) {
         if (model instanceof String) {
             return (String) model;
         } else if (model instanceof File) {
@@ -64,13 +65,15 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
                 return uri.getPath();
             }
         }
-        return null;
+        throw new IllegalArgumentException("Unable to get path from model: " + model);
     }
 
     private static class DataFetcher implements com.bumptech.glide.load.data.DataFetcher<Drawable> {
 
-        private String path;
-        private Context context;
+        @NonNull
+        private final String path;
+        @NonNull
+        private final Context context;
 
         public DataFetcher(@NonNull String path, @NonNull Context context) {
             this.path = path;
@@ -119,9 +122,10 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
 
     public static class Factory<Model> implements ModelLoaderFactory<Model, Drawable> {
 
-        private Context context;
+        @NonNull
+        private final Context context;
 
-        public Factory(Context context) {
+        public Factory(@NonNull Context context) {
             this.context = context.getApplicationContext();
         }
 

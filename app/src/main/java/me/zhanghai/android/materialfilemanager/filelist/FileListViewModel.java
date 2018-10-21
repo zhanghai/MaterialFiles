@@ -10,6 +10,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,15 +24,23 @@ import me.zhanghai.android.materialfilemanager.settings.Settings;
 
 public class FileListViewModel extends ViewModel {
 
-    private TrailLiveData mTrailLiveData = new TrailLiveData();
-    private LiveData<File> mCurrentFileLiveData = Transformations.map(mTrailLiveData,
+    @NonNull
+    private final TrailLiveData mTrailLiveData = new TrailLiveData();
+    @NonNull
+    private final LiveData<File> mCurrentFileLiveData = Transformations.map(mTrailLiveData,
             TrailData::getCurrentFile);
-    private LiveData<FileListData> mFileListLiveData = Transformations.switchMap(
+    @NonNull
+    private final LiveData<FileListData> mFileListLiveData = Transformations.switchMap(
             mCurrentFileLiveData, FileListLiveData::new);
-    private MutableLiveData<FileSortOptions> mSortOptionsLiveData = new MutableLiveData<>();
-    private LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(mTrailLiveData);
-    private MutableLiveData<Set<File>> mSelectedFilesLiveData = new MutableLiveData<>();
-    private MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<FileSortOptions> mSortOptionsLiveData = new MutableLiveData<>();
+    @NonNull
+    private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
+            mTrailLiveData);
+    @NonNull
+    private final MutableLiveData<Set<File>> mSelectedFilesLiveData = new MutableLiveData<>();
+    @NonNull
+    private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>();
 
     public FileListViewModel() {
         mSortOptionsLiveData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
@@ -42,11 +52,11 @@ public class FileListViewModel extends ViewModel {
         mTrailLiveData.observeForever(trailData -> Files.onTrailChanged(trailData.getTrail()));
     }
 
-    public void navigateTo(Parcelable lastState, File file) {
+    public void navigateTo(@NonNull Parcelable lastState, @NonNull File file) {
         mTrailLiveData.navigateTo(lastState, file);
     }
 
-    public void resetTo(File file) {
+    public void resetTo(@NonNull File file) {
         mTrailLiveData.resetTo(file);
     }
 
@@ -57,6 +67,7 @@ public class FileListViewModel extends ViewModel {
         return mTrailLiveData.navigateUp();
     }
 
+    @Nullable
     public Parcelable getPendingState() {
         return mTrailLiveData.getValue().getPendingState();
     }
@@ -66,50 +77,58 @@ public class FileListViewModel extends ViewModel {
         mTrailLiveData.reload();
     }
 
+    @NonNull
     public LiveData<File> getCurrentFileLiveData() {
         return mCurrentFileLiveData;
     }
 
+    @NonNull
     public File getCurrentFile() {
         return mCurrentFileLiveData.getValue();
     }
 
+    @NonNull
     public LiveData<FileListData> getFileListLiveData() {
         return mFileListLiveData;
     }
 
+    @NonNull
     public LiveData<FileSortOptions> getSortOptionsLiveData() {
         return mSortOptionsLiveData;
     }
 
+    @NonNull
     public FileSortOptions getSortOptions() {
         return mSortOptionsLiveData.getValue();
     }
 
-    public void setSortOptions(FileSortOptions sortOptions) {
+    public void setSortOptions(@NonNull FileSortOptions sortOptions) {
         Settings.FILE_LIST_SORT_BY.putEnumValue(sortOptions.getBy());
         Settings.FILE_LIST_SORT_ORDER.putEnumValue(sortOptions.getOrder());
         Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.putValue(sortOptions.isDirectoriesFirst());
         mSortOptionsLiveData.setValue(sortOptions);
     }
 
+    @NonNull
     public LiveData<BreadcrumbData> getBreadcrumbLiveData() {
         return mBreadcrumbLiveData;
     }
 
+    @NonNull
     public LiveData<Set<File>> getSelectedFilesLiveData() {
         return mSelectedFilesLiveData;
     }
 
+    @NonNull
     public Set<File> getSelectedFiles() {
         return mSelectedFilesLiveData.getValue();
     }
 
-    public void selectFile(File file, boolean selected) {
+    public void selectFile(@NonNull File file, boolean selected) {
         selectFiles(Collections.singleton(file), selected);
     }
 
-    public void selectFiles(Set<File> files, boolean selected) {
+    public void selectFiles(@NonNull Set<File> files, boolean selected) {
         Set<File> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles == files) {
             if (!selected && !selectedFiles.isEmpty()) {
@@ -135,7 +154,7 @@ public class FileListViewModel extends ViewModel {
         selectFiles(new HashSet<>(fileList), true);
     }
 
-    public void setSelectedFiles(Set<File> files) {
+    public void replaceSelectedFiles(@NonNull Set<File> files) {
         Set<File> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles.equals(files)) {
             return;
@@ -154,15 +173,17 @@ public class FileListViewModel extends ViewModel {
         mSelectedFilesLiveData.setValue(selectedFiles);
     }
 
+    @NonNull
     public LiveData<FilePasteMode> getPasteModeLiveData() {
         return mPasteModeLiveData;
     }
 
+    @NonNull
     public FilePasteMode getPasteMode() {
         return mPasteModeLiveData.getValue();
     }
 
-    public void setPasteMode(FilePasteMode pasteMode) {
+    public void setPasteMode(@NonNull FilePasteMode pasteMode) {
         mPasteModeLiveData.setValue(pasteMode);
     }
 }

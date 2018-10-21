@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.navigation;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.support.annotation.NonNull;
 
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
@@ -20,7 +21,8 @@ public class NavigationItemColor {
 
     private NavigationItemColor() {}
 
-    public static ColorStateList create(ColorStateList color, Context context) {
+    @NonNull
+    public static ColorStateList create(@NonNull ColorStateList color, @NonNull Context context) {
         int primaryColor = ViewUtils.getColorFromAttrRes(R.attr.colorPrimary, 0, context);
         int defaultColor = color.getDefaultColor();
         int disabledColor = color.getColorForState(DISABLED_STATE_SET, defaultColor);

@@ -108,7 +108,7 @@ public class NavigationItems {
     private static abstract class FileItem extends NavigationItem {
 
         @NonNull
-        private File mFile;
+        private final File mFile;
 
         public FileItem(@NonNull File file) {
             mFile = file;
@@ -149,8 +149,9 @@ public class NavigationItems {
             listener.closeNavigationDrawer();
         }
 
+        @NonNull
         @Override
-        public String getName(Context context) {
+        public String getName(@NonNull Context context) {
             return getTitle(context);
         }
     }
@@ -158,22 +159,23 @@ public class NavigationItems {
     private static abstract class LocalRootItem extends RootItem {
 
         @DrawableRes
-        private int mIconRes;
-        private long mFreeSpace;
-        private long mTotalSpace;
+        private final int mIconRes;
+        private final long mFreeSpace;
+        private final long mTotalSpace;
 
         public LocalRootItem(@NonNull String path, @DrawableRes int iconRes) {
             super(Files.ofLocalPath(path));
 
             mIconRes = iconRes;
-            mFreeSpace = JavaFile.getFreeSpace(path);
-            mTotalSpace = JavaFile.getTotalSpace(path);
-
-            // Root directory may not be an actual partition on legacy Android versions (can be a
-            // ramdisk instead). On modern Android the system partition will be mounted as root
-            // instead so let's try with the system partition again.
-            // @see https://source.android.com/devices/bootloader/system-as-root
-            if (mTotalSpace == 0) {
+            long totalSpace = JavaFile.getTotalSpace(path);
+            if (totalSpace != 0) {
+                mFreeSpace = JavaFile.getFreeSpace(path);
+                mTotalSpace = totalSpace;
+            } else {
+                // Root directory may not be an actual partition on legacy Android versions (can be
+                // a ramdisk instead). On modern Android the system partition will be mounted as
+                // root instead so let's try with the system partition again.
+                // @see https://source.android.com/devices/bootloader/system-as-root
                 String systemPath = Environment.getRootDirectory().getPath();
                 mFreeSpace = JavaFile.getFreeSpace(systemPath);
                 mTotalSpace = JavaFile.getTotalSpace(systemPath);
@@ -211,7 +213,8 @@ public class NavigationItems {
 
     private static class StorageVolumeRootItem extends LocalRootItem {
 
-        private StorageVolume mStorageVolume;
+        @NonNull
+        private final StorageVolume mStorageVolume;
 
         public StorageVolumeRootItem(@NonNull StorageVolume storageVolume) {
             super(StorageVolumeCompat.getPath(storageVolume), R.drawable.sd_card_icon_white_24dp);
@@ -259,7 +262,7 @@ public class NavigationItems {
     private static class StandardDirectoryItem extends FileItem {
 
         @DrawableRes
-        private int mIconRes;
+        private final int mIconRes;
 
         public StandardDirectoryItem(@NonNull File file, @DrawableRes int iconRes) {
             super(file);
@@ -288,9 +291,9 @@ public class NavigationItems {
     private abstract static class MenuItem extends NavigationItem {
 
         @DrawableRes
-        private int mIconRes;
+        private final int mIconRes;
         @StringRes
-        private int mTitleRes;
+        private final int mTitleRes;
 
         public MenuItem(@DrawableRes int iconRes, @StringRes int titleRes) {
             mIconRes = iconRes;
@@ -313,7 +316,7 @@ public class NavigationItems {
     private static class ActivityMenuItem extends MenuItem {
 
         @NonNull
-        private Intent mIntent;
+        private final Intent mIntent;
 
         public ActivityMenuItem(@DrawableRes int iconRes, @StringRes int titleRes,
                                 @NonNull Intent intent) {

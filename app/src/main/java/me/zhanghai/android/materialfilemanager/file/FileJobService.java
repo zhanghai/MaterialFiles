@@ -9,6 +9,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,15 +23,19 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class FileJobService extends Service {
 
+    @Nullable
     private static FileJobService sInstance;
 
-    private static List<FileJob> sPendingJobs = new ArrayList<>();
+    @NonNull
+    private static final List<FileJob> sPendingJobs = new ArrayList<>();
 
-    private List<FileJob> mRunningJobs = Collections.synchronizedList(new ArrayList<>());
+    @NonNull
+    private final List<FileJob> mRunningJobs = Collections.synchronizedList(new ArrayList<>());
 
-    private ExecutorService mExecutorService = Executors.newCachedThreadPool();
+    @NonNull
+    private final ExecutorService mExecutorService = Executors.newCachedThreadPool();
 
-    private static void startJob(FileJob job, Context context) {
+    private static void startJob(@NonNull FileJob job, @NonNull Context context) {
         if (sInstance != null) {
             sInstance.startJob(job);
         } else {
@@ -38,27 +44,29 @@ public class FileJobService extends Service {
         }
     }
 
-    public static void copy(List<File> fromFiles, File toDirectory, Context context) {
+    public static void copy(@NonNull List<File> fromFiles, @NonNull File toDirectory,
+                            @NonNull Context context) {
         startJob(new FileJobs.Copy(fromFiles, toDirectory), context);
     }
 
-    public static void createFile(File file, Context context) {
+    public static void createFile(@NonNull File file, @NonNull Context context) {
         startJob(new FileJobs.CreateFile(file), context);
     }
 
-    public static void createDirectory(File file, Context context) {
+    public static void createDirectory(@NonNull File file, @NonNull Context context) {
         startJob(new FileJobs.CreateDirectory(file), context);
     }
 
-    public static void delete(List<File> files, Context context) {
+    public static void delete(@NonNull List<File> files, @NonNull Context context) {
         startJob(new FileJobs.Delete(files), context);
     }
 
-    public static void move(List<File> fromFiles, File toDirectory, Context context) {
+    public static void move(@NonNull List<File> fromFiles, @NonNull File toDirectory,
+                            @NonNull Context context) {
         startJob(new FileJobs.Move(fromFiles, toDirectory), context);
     }
 
-    public static void rename(File file, String name, Context context) {
+    public static void rename(@NonNull File file, @NonNull String name, @NonNull Context context) {
         startJob(new FileJobs.Rename(file, name), context);
     }
 
@@ -76,7 +84,7 @@ public class FileJobService extends Service {
         }
     }
 
-    private void startJob(FileJob job) {
+    private void startJob(@NonNull FileJob job) {
         mRunningJobs.add(job);
         mExecutorService.submit(() -> {
             job.run(this);
@@ -84,13 +92,14 @@ public class FileJobService extends Service {
         });
     }
 
+    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(@NonNull Intent intent) {
         return null;
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         return START_STICKY;
     }
 

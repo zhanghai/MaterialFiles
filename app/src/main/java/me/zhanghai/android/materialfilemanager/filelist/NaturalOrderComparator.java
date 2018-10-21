@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.support.annotation.NonNull;
+
 import java.util.Comparator;
 
 public class NaturalOrderComparator implements Comparator<String> {
@@ -12,7 +14,7 @@ public class NaturalOrderComparator implements Comparator<String> {
     private static final int DIGIT_RADIX = 10;
 
     @Override
-    public int compare(String string1, String string2) {
+    public int compare(@NonNull String string1, @NonNull String string2) {
         int start1 = 0;
         int start2 = 0;
         int leadingZeroCompareResult = 0;

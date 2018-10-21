@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,12 @@ public interface FileJobs {
 
     class Copy extends FileJob {
 
-        private List<File> mFromFiles;
-        private File mToDirectory;
+        @NonNull
+        private final List<File> mFromFiles;
+        @NonNull
+        private final File mToDirectory;
 
-        public Copy(List<File> fromFiles, File toDirectory) {
+        public Copy(@NonNull List<File> fromFiles, @NonNull File toDirectory) {
             mFromFiles = fromFiles;
             mToDirectory = toDirectory;
         }
@@ -34,8 +38,8 @@ public interface FileJobs {
             }
         }
 
-        private static void copy(File fromFile, File toDirectory) throws FileSystemException,
-                InterruptedException {
+        private static void copy(@NonNull File fromFile, @NonNull File toDirectory)
+                throws FileSystemException, InterruptedException {
             // TODO: Handle into oneself or vice versa and name collision.
             if (fromFile instanceof LocalFile && toDirectory instanceof LocalFile) {
                 LocalFile fromLocalFile = (LocalFile) fromFile;
@@ -54,9 +58,10 @@ public interface FileJobs {
 
     class CreateDirectory extends FileJob {
 
-        private File mFile;
+        @NonNull
+        private final File mFile;
 
-        public CreateDirectory(File file) {
+        public CreateDirectory(@NonNull File file) {
             mFile = file;
         }
 
@@ -74,9 +79,10 @@ public interface FileJobs {
 
     class CreateFile extends FileJob {
 
-        private File mFile;
+        @NonNull
+        private final File mFile;
 
-        public CreateFile(File file) {
+        public CreateFile(@NonNull File file) {
             mFile = file;
         }
 
@@ -94,9 +100,10 @@ public interface FileJobs {
 
     class Delete extends FileJob {
 
-        private List<File> mFiles;
+        @NonNull
+        private final List<File> mFiles;
 
-        public Delete(List<File> files) {
+        public Delete(@NonNull List<File> files) {
             mFiles = files;
         }
 
@@ -109,7 +116,7 @@ public interface FileJobs {
             }
         }
 
-        private static void deleteRecursively(File file) throws FileSystemException,
+        private static void deleteRecursively(@NonNull File file) throws FileSystemException,
                 InterruptedException {
             if (file.isDirectoryDoNotFollowSymbolicLinks()) {
                 List<File> children = file.getChildren();
@@ -121,7 +128,7 @@ public interface FileJobs {
             delete(file);
         }
 
-        private static void delete(File file) throws FileSystemException {
+        private static void delete(@NonNull File file) throws FileSystemException {
             if (file instanceof LocalFile) {
                 LocalFile localFile = (LocalFile) file;
                 Syscall.delete(localFile.getPath());
@@ -134,10 +141,12 @@ public interface FileJobs {
 
     class Move extends FileJob {
 
-        private List<File> mFromFiles;
-        private File mToDirectory;
+        @NonNull
+        private final List<File> mFromFiles;
+        @NonNull
+        private final File mToDirectory;
 
-        public Move(List<File> fromFiles, File toDirectory) {
+        public Move(@NonNull List<File> fromFiles, @NonNull File toDirectory) {
             mFromFiles = fromFiles;
             mToDirectory = toDirectory;
         }
@@ -159,7 +168,8 @@ public interface FileJobs {
             }
         }
 
-        private static void rename(File fromFile, File toDirectory) throws FileSystemException {
+        private static void rename(@NonNull File fromFile, @NonNull File toDirectory)
+                throws FileSystemException {
             // TODO: Handle into oneself or vice versa and name collision.
             if (fromFile instanceof LocalFile && toDirectory instanceof LocalFile) {
                 LocalFile fromLocalFile = (LocalFile) fromFile;
@@ -174,8 +184,8 @@ public interface FileJobs {
             }
         }
 
-        private static void move(File fromFile, File toDirectory) throws FileSystemException,
-                InterruptedException {
+        private static void move(@NonNull File fromFile, @NonNull File toDirectory)
+                throws FileSystemException, InterruptedException {
             // TODO: Handle into oneself or vice versa and name collision.
             if (fromFile instanceof LocalFile && toDirectory instanceof LocalFile) {
                 LocalFile fromLocalFile = (LocalFile) fromFile;
@@ -194,10 +204,12 @@ public interface FileJobs {
 
     class Rename extends FileJob {
 
-        private File mFile;
-        private String mNewName;
+        @NonNull
+        private final File mFile;
+        @NonNull
+        private final String mNewName;
 
-        public Rename(File file, String newName) {
+        public Rename(@NonNull File file, @NonNull String newName) {
             mFile = file;
             mNewName = newName;
         }

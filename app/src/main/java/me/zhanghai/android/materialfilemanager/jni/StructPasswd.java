@@ -5,17 +5,23 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
+import android.support.annotation.Nullable;
+
 public final class StructPasswd {
 
+    @Nullable
     public final String pw_name;
     public final int pw_uid;
     public final int pw_gid;
+    @Nullable
     public final String pw_gecos;
+    @Nullable
     public final String pw_dir;
+    @Nullable
     public final String pw_shell;
 
-    public StructPasswd(String pw_name, int pw_uid, int pw_gid, String pw_gecos, String pw_dir,
-                        String pw_shell) {
+    public StructPasswd(@Nullable String pw_name, int pw_uid, int pw_gid, @Nullable String pw_gecos,
+                        @Nullable String pw_dir, @Nullable String pw_shell) {
         this.pw_name = pw_name;
         this.pw_uid = pw_uid;
         this.pw_gid = pw_gid;
