@@ -9,16 +9,22 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
+import me.zhanghai.android.materialfilemanager.filesystem.JavaFileObserver;
+import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 
 public class FileListLiveData extends LiveData<FileListData> {
 
     @NonNull
     private final File mFile;
+
+    @Nullable
+    private JavaFileObserver mFileObserver;
 
     public FileListLiveData(@NonNull File file) {
         mFile = file;
@@ -48,11 +54,18 @@ public class FileListLiveData extends LiveData<FileListData> {
 
     @Override
     protected void onActive() {
-        mFile.startObserving(this::loadValue);
+        if (mFile instanceof LocalFile) {
+            LocalFile file = (LocalFile) mFile;
+            mFileObserver = new JavaFileObserver(file.getPath(), this::loadValue);
+            mFileObserver.startWatching();
+        }
     }
 
     @Override
     protected void onInactive() {
-        mFile.stopObserving();
+        if (mFileObserver != null) {
+            mFileObserver.stopWatching();
+            mFileObserver = null;
+        }
     }
 }

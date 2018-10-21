@@ -25,8 +25,6 @@ public class LocalFile extends BaseFile {
 
     private LocalFileStrategy mStrategy;
 
-    private transient JavaFileObserver mObserver;
-
     static Uri uriFromPath(String path) {
         return new Uri.Builder()
                 .scheme(SCHEME)
@@ -167,28 +165,6 @@ public class LocalFile extends BaseFile {
             e.printStackTrace();
             mStrategy = new LocalFileStrategies.ShellFsStrategy();
             return getChildren();
-        }
-    }
-
-    @Override
-    public void startObserving(Runnable observer) {
-        if (mObserver != null) {
-            throw new IllegalStateException("Already observing");
-        }
-        mObserver = new JavaFileObserver(mUri.getPath(), observer);
-        mObserver.startWatching();
-    }
-
-    @Override
-    public boolean isObserving() {
-        return mObserver != null;
-    }
-
-    @Override
-    public void stopObserving() {
-        if (mObserver != null) {
-            mObserver.stopWatching();
-            mObserver = null;
         }
     }
 

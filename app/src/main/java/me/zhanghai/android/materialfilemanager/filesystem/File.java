@@ -126,14 +126,6 @@ public interface File extends Comparable<File>, Parcelable {
     @WorkerThread
     List<File> getChildren() throws FileSystemException;
 
-    default void startObserving(Runnable observer) {}
-
-    default boolean isObserving() {
-        return false;
-    }
-
-    default void stopObserving() {}
-
     @Override
     default int compareTo(@NonNull File that) {
         return getUri().compareTo(that.getUri());
