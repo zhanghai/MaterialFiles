@@ -77,11 +77,16 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
 
         ButterKnife.bind(this, view);
 
-        // Add FileListFragment first so that NavigationFragment can observe its current file.
-        mFileListFragment = FileListFragment.newInstance(mExtraFile);
-        FragmentUtils.add(mFileListFragment, this, R.id.file_list_fragment);
-        mNavigationFragment = NavigationFragment.newInstance();
-        FragmentUtils.add(mNavigationFragment, this, R.id.navigation_fragment);
+        if (savedInstanceState == null) {
+            mNavigationFragment = NavigationFragment.newInstance();
+            mFileListFragment = FileListFragment.newInstance(mExtraFile);
+            // Add FileListFragment first so that NavigationFragment can observe its current file.
+            FragmentUtils.add(mFileListFragment, this, R.id.file_list_fragment);
+            FragmentUtils.add(mNavigationFragment, this, R.id.navigation_fragment);
+        } else {
+            mFileListFragment = FragmentUtils.findById(this, R.id.file_list_fragment);
+            mNavigationFragment = FragmentUtils.findById(this, R.id.navigation_fragment);
+        }
     }
 
     @Override
