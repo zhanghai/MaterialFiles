@@ -225,7 +225,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_open_as:
-                    mListener.openFileAs(file);
+                    mListener.showOpenFileAsDialog(file);
                     return true;
                 case R.id.action_cut:
                     mListener.cutFile(file);
@@ -269,7 +269,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     public interface Listener {
         void selectFile(File file, boolean selected);
         void openFile(File file);
-        void openFileAs(File file);
+        void showOpenFileAsDialog(File file);
         void cutFile(File file);
         void copyFile(File file);
         void confirmDeleteFile(File file);

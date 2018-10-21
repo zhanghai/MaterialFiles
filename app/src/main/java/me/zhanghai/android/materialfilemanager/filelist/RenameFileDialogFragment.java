@@ -23,7 +23,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
-    private File mFile;
+    private File mExtraFile;
 
     public static RenameFileDialogFragment newInstance(File file) {
         //noinspection deprecation
@@ -47,7 +47,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
     }
 
     @NonNull
@@ -55,10 +55,10 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         if (savedInstanceState == null) {
-            String name = mFile.getName();
+            String name = mExtraFile.getName();
             mNameEdit.setText(name);
             int selectionEnd;
-            if (mFile.isDirectory()) {
+            if (mExtraFile.isDirectory()) {
                 selectionEnd = name.length();
             } else {
                 selectionEnd = FileNameUtils.indexOfExtensionSeparator(name);
@@ -78,12 +78,12 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
 
     @Override
     protected boolean isNameUnchanged(String name) {
-        return TextUtils.equals(name, mFile.getName());
+        return TextUtils.equals(name, mExtraFile.getName());
     }
 
     @Override
     protected void onOk(String name) {
-        getListener().renameFile(mFile, name);
+        getListener().renameFile(mExtraFile, name);
     }
 
     @Override

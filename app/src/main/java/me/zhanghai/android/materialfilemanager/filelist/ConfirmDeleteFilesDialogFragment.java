@@ -29,7 +29,7 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
 
     private static final String EXTRA_FILES = KEY_PREFIX + "FILES";
 
-    private Set<File> mFiles;
+    private Set<File> mExtraFiles;
 
     private static ConfirmDeleteFilesDialogFragment newInstance(Set<File> files) {
         //noinspection deprecation
@@ -53,34 +53,34 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mFiles = new HashSet<>(getArguments().getParcelableArrayList(EXTRA_FILES));
+        mExtraFiles = new HashSet<>(getArguments().getParcelableArrayList(EXTRA_FILES));
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         String message;
-        if (mFiles.size() == 1) {
-            File file = CollectionUtils.first(mFiles);
+        if (mExtraFiles.size() == 1) {
+            File file = CollectionUtils.first(mExtraFiles);
             int messageRes = file.isDirectoryDoNotFollowSymbolicLinks() ?
                     R.string.file_delete_message_directory_format
                     : R.string.file_delete_message_file_format;
             message = getString(messageRes, file.getName());
         } else {
-            boolean allDirectories = Functional.every(mFiles,
+            boolean allDirectories = Functional.every(mExtraFiles,
                     File::isDirectoryDoNotFollowSymbolicLinks);
-            boolean allFiles = Functional.every(mFiles, file ->
+            boolean allFiles = Functional.every(mExtraFiles, file ->
                     !file.isDirectoryDoNotFollowSymbolicLinks());
             int messageRes = allDirectories ?
                     R.string.file_delete_message_multiple_directories_format
                     : allFiles ? R.string.file_delete_message_multiple_files_format
                     : R.string.file_delete_message_multiple_mixed_format;
-            message = getString(messageRes, mFiles.size());
+            message = getString(messageRes, mExtraFiles.size());
         }
         return new AlertDialog.Builder(requireContext(), getTheme())
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> getListener()
-                        .deleteFiles(mFiles))
+                        .deleteFiles(mExtraFiles))
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }

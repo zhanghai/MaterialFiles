@@ -66,9 +66,10 @@ import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
-        FileListAdapter.Listener, MaterialCab.Callback, ConfirmDeleteFilesDialogFragment.Listener,
-        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
-        CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
+        FileListAdapter.Listener, MaterialCab.Callback, OpenFileAsDialogFragment.Listener,
+        ConfirmDeleteFilesDialogFragment.Listener, RenameFileDialogFragment.Listener,
+        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
+        NavigationFragment.FileListListener {
 
     private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
 
@@ -623,20 +624,25 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             navigateToFile(file.asListableFile());
             return;
         }
+        openFileAs(file, file.getMimeType());
+    }
+
+    @Override
+    public void showOpenFileAsDialog(File file) {
+        OpenFileAsDialogFragment.show(file, this);
+    }
+
+    @Override
+    public void openFileAs(File file, String mimeType) {
         if (file instanceof LocalFile) {
             LocalFile localFile = (LocalFile) file;
             Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
-            Intent intent = IntentUtils.makeView(fileUri, file.getMimeType())
+            Intent intent = IntentUtils.makeView(fileUri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             AppUtils.startActivity(intent, requireContext());
         } else {
             // TODO
         }
-    }
-
-    @Override
-    public void openFileAs(File file) {
-
     }
 
     @Override

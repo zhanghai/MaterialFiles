@@ -23,6 +23,13 @@
     <string name="file_error_information">Unable to read file information</string>
     <string name="file_error_cancelled">Operation cancelled</string>
     <string name="file_delete_error">Unable to delete file</string>
+    <string name="file_open_as_title_format">Open %1$s As</string>
+    <string name="file_open_as_type_text">Text</string>
+    <string name="file_open_as_type_image">Image</string>
+    <string name="file_open_as_type_audio">Audio</string>
+    <string name="file_open_as_type_video">Video</string>
+    <string name="file_open_as_type_directory">Folder</string>
+    <string name="file_open_as_type_any">Other</string>
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>
