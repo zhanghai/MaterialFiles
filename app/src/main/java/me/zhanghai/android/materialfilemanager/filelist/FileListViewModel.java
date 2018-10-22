@@ -20,7 +20,6 @@ import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
-import me.zhanghai.android.materialfilemanager.settings.Settings;
 
 public class FileListViewModel extends ViewModel {
 
@@ -33,8 +32,6 @@ public class FileListViewModel extends ViewModel {
     private final LiveData<FileListData> mFileListLiveData = Transformations.switchMap(
             mCurrentFileLiveData, FileListLiveData::new);
     @NonNull
-    private final MutableLiveData<FileSortOptions> mSortOptionsLiveData = new MutableLiveData<>();
-    @NonNull
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
             mTrailLiveData);
     @NonNull
@@ -43,9 +40,6 @@ public class FileListViewModel extends ViewModel {
     private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>();
 
     public FileListViewModel() {
-        mSortOptionsLiveData.setValue(new FileSortOptions(Settings.FILE_LIST_SORT_BY.getEnumValue(),
-                Settings.FILE_LIST_SORT_ORDER.getEnumValue(),
-                Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue()));
         mSelectedFilesLiveData.setValue(new HashSet<>());
         mPasteModeLiveData.setValue(FilePasteMode.NONE);
         // FIXME: Handle multi instances.
@@ -99,23 +93,6 @@ public class FileListViewModel extends ViewModel {
     @NonNull
     public FileListData getFileListData() {
         return mFileListLiveData.getValue();
-    }
-
-    @NonNull
-    public LiveData<FileSortOptions> getSortOptionsLiveData() {
-        return mSortOptionsLiveData;
-    }
-
-    @NonNull
-    public FileSortOptions getSortOptions() {
-        return mSortOptionsLiveData.getValue();
-    }
-
-    public void setSortOptions(@NonNull FileSortOptions sortOptions) {
-        Settings.FILE_LIST_SORT_BY.putEnumValue(sortOptions.getBy());
-        Settings.FILE_LIST_SORT_ORDER.putEnumValue(sortOptions.getOrder());
-        Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.putValue(sortOptions.isDirectoriesFirst());
-        mSortOptionsLiveData.setValue(sortOptions);
     }
 
     @NonNull

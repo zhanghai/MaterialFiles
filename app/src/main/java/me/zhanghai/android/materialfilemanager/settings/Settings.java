@@ -9,7 +9,7 @@ import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filelist.FileSortOptions;
 import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.*;
 
-public interface Settings {
+interface Settings {
 
     BooleanSettingsEntry FILE_LIST_SHOW_HIDDEN_FILES = new BooleanSettingsEntry(
             R.string.pref_key_file_list_show_hidden_files,

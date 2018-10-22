@@ -228,7 +228,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             mViewModel.resetTo(file);
         }
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
-        mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
+        FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
@@ -425,27 +425,15 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void setSortBy(@NonNull FileSortOptions.By by) {
-        FileSortOptions sortOptions = mViewModel.getSortOptions();
-        if (sortOptions.getBy() == by) {
-            return;
-        }
-        mViewModel.setSortOptions(sortOptions.withBy(by));
+        FileSortOptionsLiveData.getInstance().putBy(by);
     }
 
     private void setSortOrder(@NonNull FileSortOptions.Order order) {
-        FileSortOptions sortOptions = mViewModel.getSortOptions();
-        if (sortOptions.getOrder() == order) {
-            return;
-        }
-        mViewModel.setSortOptions(sortOptions.withOrder(order));
+        FileSortOptionsLiveData.getInstance().putOrder(order);
     }
 
     private void setSortDirectoriesFirst(boolean directoriesFirst) {
-        FileSortOptions sortOptions = mViewModel.getSortOptions();
-        if (sortOptions.isDirectoriesFirst() == directoriesFirst) {
-            return;
-        }
-        mViewModel.setSortOptions(sortOptions.withDirectoriesFirst(directoriesFirst));
+        FileSortOptionsLiveData.getInstance().putDirectoriesFirst(directoriesFirst);
     }
 
     private void onSortOptionsChanged(@NonNull FileSortOptions sortOptions) {
@@ -460,7 +448,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return;
         }
         MenuItem checkedSortByMenuItem;
-        FileSortOptions sortOptions = mViewModel.getSortOptions();
+        FileSortOptions sortOptions = FileSortOptionsLiveData.getInstance().getValue();
         switch (sortOptions.getBy()) {
             case NAME:
                 checkedSortByMenuItem = mSortByNameMenuItem;

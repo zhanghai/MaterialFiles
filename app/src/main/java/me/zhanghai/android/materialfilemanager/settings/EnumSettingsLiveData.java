@@ -8,18 +8,17 @@ package me.zhanghai.android.materialfilemanager.settings;
 import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import me.zhanghai.android.materialfilemanager.util.SharedPrefsUtils;
 
-public class SettingsLiveData<T> extends LiveData<T>
+public class EnumSettingsLiveData<E extends Enum<E>> extends LiveData<E>
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @NonNull
-    private final SettingsEntry<T> mEntry;
+    private final SettingsEntries.EnumSettingsEntry<E> mEntry;
 
-    public SettingsLiveData(@NonNull SettingsEntry<T> entry) {
+    public EnumSettingsLiveData(@NonNull SettingsEntries.EnumSettingsEntry<E> entry) {
         mEntry = entry;
 
         loadValue();
@@ -35,10 +34,10 @@ public class SettingsLiveData<T> extends LiveData<T>
     }
 
     private void loadValue() {
-        setValue(mEntry.getValue());
+        setValue(mEntry.getEnumValue());
     }
 
-    public void putValue(@Nullable T value) {
-        mEntry.putValue(value);
+    public void putValue(@NonNull E value) {
+        mEntry.putEnumValue(value);
     }
 }
