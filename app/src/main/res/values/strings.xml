@@ -14,11 +14,15 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
     <string name="copied_to_clipboard_format">Copied to clipboard:\n%1$s</string>
+    <string name="open_settings">Open settings</string>
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d byte</item>
         <item quantity="other">%1$,d bytes</item>
     </plurals>
+
+    <string name="storage_permission_request_message">App needs permission to access files. Please click \"ALLOW\" in the upcoming system dialog.</string>
+    <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the \"Storage\" permission in system settings.</string>
 
     <string name="file_error_information">Unable to read file information</string>
     <string name="file_error_cancelled">Operation cancelled</string>

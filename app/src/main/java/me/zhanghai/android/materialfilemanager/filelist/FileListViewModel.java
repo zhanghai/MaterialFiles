@@ -52,6 +52,10 @@ public class FileListViewModel extends ViewModel {
         mTrailLiveData.observeForever(trailData -> Files.onTrailChanged(trailData.getTrail()));
     }
 
+    public boolean hasTrail() {
+        return mTrailLiveData.getValue() != null;
+    }
+
     public void navigateTo(@NonNull Parcelable lastState, @NonNull File file) {
         mTrailLiveData.navigateTo(lastState, file);
     }

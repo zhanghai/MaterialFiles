@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
+import android.Manifest;
 import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -44,6 +45,9 @@ import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied;
+import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
+import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.file.FileJobService;
 import me.zhanghai.android.materialfilemanager.file.FileProvider;
@@ -64,6 +68,7 @@ import me.zhanghai.android.materialfilemanager.util.ClipboardUtils;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
+import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
         FileListAdapter.Listener, MaterialCab.Callback, OpenFileAsDialogFragment.Listener,
@@ -74,6 +79,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+
+    private static final String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
 
     @Nullable
     private File mExtraFile;
@@ -202,7 +213,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         });
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
-        if (savedInstanceState == null) {
+        if (!mViewModel.hasTrail()) {
             File file;
             if (mExtraFile != null) {
                 file = mExtraFile;
@@ -219,7 +230,34 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
 
-        // TODO: Request storage permission.
+        if (!EffortlessPermissions.hasPermissions(this, PERMISSIONS_STORAGE)) {
+            EffortlessPermissions.requestPermissions(this,
+                    R.string.storage_permission_request_message, REQUEST_CODE_STORAGE_PERMISSION,
+                    PERMISSIONS_STORAGE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        EffortlessPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults,
+                this);
+    }
+
+    @AfterPermissionGranted(REQUEST_CODE_STORAGE_PERMISSION)
+    private void onStoragePermissionGranted() {
+        mViewModel.reload();
+    }
+
+    @AfterPermissionDenied(REQUEST_CODE_STORAGE_PERMISSION)
+    private void onStoragePermissionDenied() {
+        if (EffortlessPermissions.somePermissionPermanentlyDenied(this, PERMISSIONS_STORAGE)) {
+            OpenAppDetailsDialogFragment.show(
+                    R.string.storage_permission_permanently_denied_message,
+                    R.string.open_settings, this);
+        }
     }
 
     @Override
