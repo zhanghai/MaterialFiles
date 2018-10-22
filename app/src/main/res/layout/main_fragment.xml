@@ -12,10 +12,11 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true">
 
-    <FrameLayout
+    <me.zhanghai.android.materialfilemanager.main.PassWindowInsetsFrameLayout
         android:id="@+id/file_list_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true" />
 
     <me.zhanghai.android.materialfilemanager.main.PassWindowInsetsFrameLayout
         android:id="@+id/navigation_fragment"
