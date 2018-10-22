@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.materialfilemanager.main;
+package me.zhanghai.android.materialfilemanager.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

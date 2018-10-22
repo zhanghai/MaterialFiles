@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.materialfilemanager.filelist;
+package me.zhanghai.android.materialfilemanager.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

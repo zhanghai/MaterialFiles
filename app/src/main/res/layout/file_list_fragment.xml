@@ -105,7 +105,7 @@
         </me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout>
     </FrameLayout>
 
-    <me.zhanghai.android.materialfilemanager.filelist.StatusBarBackgroundView
+    <me.zhanghai.android.materialfilemanager.ui.StatusBarBackgroundView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -16,6 +16,7 @@ import me.zhanghai.android.materialfilemanager.functional.ComparatorCompat;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.MoreComparator;
 import me.zhanghai.android.materialfilemanager.functional.compat.Predicate;
+import me.zhanghai.android.materialfilemanager.util.NaturalOrderComparator;
 
 public class FileSortOptions {
 
