@@ -64,6 +64,10 @@ public interface File extends Comparable<File>, Parcelable {
         }
     }
 
+    default boolean isHidden() {
+        return false;
+    }
+
     boolean hasInformation();
 
     default void loadInformation() throws FileSystemException {

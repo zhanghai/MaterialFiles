@@ -97,6 +97,11 @@ public class FileListViewModel extends ViewModel {
     }
 
     @NonNull
+    public FileListData getFileListData() {
+        return mFileListLiveData.getValue();
+    }
+
+    @NonNull
     public LiveData<FileSortOptions> getSortOptionsLiveData() {
         return mSortOptionsLiveData;
     }

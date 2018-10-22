@@ -11,6 +11,10 @@ import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.*;
 
 public interface Settings {
 
+    BooleanSettingsEntry FILE_LIST_SHOW_HIDDEN_FILES = new BooleanSettingsEntry(
+            R.string.pref_key_file_list_show_hidden_files,
+            R.bool.pref_default_value_file_list_show_hidden_files);
+
     EnumSettingsEntry<FileSortOptions.By> FILE_LIST_SORT_BY = new EnumSettingsEntry<>(
             R.string.pref_key_file_list_sort_by, R.string.pref_default_value_file_list_sort_by,
             FileSortOptions.By.class);

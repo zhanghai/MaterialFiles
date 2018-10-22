@@ -60,6 +60,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.main.MainActivity;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
+import me.zhanghai.android.materialfilemanager.settings.SettingsLiveDatas;
 import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
@@ -122,6 +123,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private MenuItem mSortOrderAscendingMenuItem;
     @Nullable
     private MenuItem mSortDirectoriesFirstMenuItem;
+    @Nullable
+    private MenuItem mShowHiddenFilesMenuItem;
 
     @NonNull
     private SetMenuResourceMaterialCab mCab;
@@ -224,11 +227,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
             mViewModel.resetTo(file);
         }
-        mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
+        mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
+        SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
 
         if (!EffortlessPermissions.hasPermissions(this, PERMISSIONS_STORAGE)) {
             EffortlessPermissions.requestPermissions(this,
@@ -278,6 +282,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mSortByLastModifiedMenuItem = menu.findItem(R.id.action_sort_by_last_modified);
         mSortOrderAscendingMenuItem = menu.findItem(R.id.action_sort_order_ascending);
         mSortDirectoriesFirstMenuItem = menu.findItem(R.id.action_sort_directories_first);
+        mShowHiddenFilesMenuItem = menu.findItem(R.id.action_show_hidden_files);
     }
 
     @Override
@@ -285,6 +290,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         super.onPrepareOptionsMenu(menu);
 
         updateSortOptionsMenu();
+        updateShowHiddenFilesMenu();
     }
 
     @Override
@@ -320,6 +326,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 return true;
             case R.id.action_refresh:
                 refresh();
+                return true;
+            case R.id.action_show_hidden_files:
+                setShowHiddenFiles(!mShowHiddenFilesMenuItem.isChecked());
                 return true;
             case R.id.action_send:
                 send();
@@ -370,6 +379,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     mErrorView.setText(fileListData.exception.toString());
                 }
                 ViewUtils.fadeOut(mEmptyView);
+                mAdapter.clear();
                 break;
             case SUCCESS: {
                 List<File> fileList = fileListData.fileList;
@@ -378,7 +388,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
                 ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
-                mAdapter.replace(fileList);
+                updateAdapterFileList();
                 Parcelable state = mViewModel.getPendingState();
                 if (state != null) {
                     mRecyclerView.getLayoutManager().onRestoreInstanceState(state);
@@ -484,6 +494,35 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private void refresh() {
         mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.reload();
+    }
+
+    private void setShowHiddenFiles(boolean showHiddenFiles) {
+        SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.putValue(showHiddenFiles);
+    }
+
+    private void onShowHiddenFilesChanged(boolean showHiddenFiles) {
+        updateAdapterFileList();
+        updateShowHiddenFilesMenu();
+    }
+
+    private void updateAdapterFileList() {
+        FileListData fileListData = mViewModel.getFileListData();
+        if (fileListData.fileList == null) {
+            return;
+        }
+        List<File> fileList = fileListData.fileList;
+        if (!SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.getValue()) {
+            fileList = Functional.filter(fileList, file -> !file.isHidden());
+        }
+        mAdapter.replace(fileList);
+    }
+
+    private void updateShowHiddenFilesMenu() {
+        if (mShowHiddenFilesMenuItem == null) {
+            return;
+        }
+        boolean showHiddenFiles = SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.getValue();
+        mShowHiddenFilesMenuItem.setChecked(showHiddenFiles);
     }
 
     private void send() {

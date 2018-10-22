@@ -23,6 +23,8 @@ public class LocalFile extends BaseFile {
 
     public static final String SCHEME = "file";
 
+    private static final String HIDDEN_FILE_PREFIX = ".";
+
     @NonNull
     private LocalFileStrategy mStrategy;
 
@@ -76,6 +78,11 @@ public class LocalFile extends BaseFile {
     public LocalFile getChild(@NonNull String childName) {
         String childPath = new java.io.File(getPath(), childName).getPath();
         return new LocalFile(uriFromPath(childPath));
+    }
+
+    @Override
+    public boolean isHidden() {
+        return getName().startsWith(HIDDEN_FILE_PREFIX);
     }
 
     @Override

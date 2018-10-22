@@ -6,6 +6,8 @@
   -->
 
 <resources>
+    <string name="pref_key_file_list_show_hidden_files">key_file_list_show_hidden_files</string>
+    <bool name="pref_default_value_file_list_show_hidden_files">false</bool>
     <string name="pref_key_file_list_sort_by">key_file_list_sort_by</string>
     <string name="pref_default_value_file_list_sort_by">0</string>
     <string name="pref_key_file_list_sort_order">key_file_list_sort_order</string>
