@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<notices>
+
+    <notice>
+        <name>Material CAB</name>
+        <url>https://github.com/afollestad/material-cab</url>
+        <copyright>Copyright 2016 Aidan Follestad</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>Stetho</name>
+        <url>https://github.com/facebook/stetho</url>
+        <copyright>Copyright 2015 Facebook Inc.</copyright>
+        <license>BSD 3-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>Glide</name>
+        <url>https://github.com/bumptech/glide</url>
+        <copyright>Copyright 2014 Google, Inc.</copyright>
+        <license>BSD 2-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>ButterKnife</name>
+        <url>https://github.com/JakeWharton/butterknife</url>
+        <copyright>Copyright 2013 Jake Wharton</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>ThreeTenABP</name>
+        <url>https://github.com/JakeWharton/ThreeTenABP</url>
+        <copyright>Copyright 2015 Jake Wharton</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>Floating Action Button Speed Dial</name>
+        <url>https://github.com/leinardi/FloatingActionButtonSpeedDial</url>
+        <copyright>Copyright 2018 Roberto Leinardi</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>RecyclerView FastScroll</name>
+        <url>https://github.com/timusus/RecyclerView-FastScroll</url>
+        <copyright>Copyright 2016 Tim Malseed</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>libsuperuser</name>
+        <url>https://github.com/Chainfire/libsuperuser</url>
+        <copyright>Copyright 2012 Jorrit "Chainfire" Jongma</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>EffortlessPermissions</name>
+        <url>https://github.com/DreaminginCodeZH/EffortlessPermissions</url>
+        <copyright>Copyright 2017 Zhang Hai</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>MaterialEditText</name>
+        <url>https://github.com/DreaminginCodeZH/MaterialEditText</url>
+        <copyright>Copyright 2015 Zhang Hai</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>Apache Commons Compress</name>
+        <url>https://commons.apache.org/proper/commons-compress/</url>
+        <copyright>Copyright 2002 The Apache Software Foundation</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>Apache Commons Text</name>
+        <url>https://commons.apache.org/proper/commons-text/</url>
+        <copyright>Copyright 2014 The Apache Software Foundation</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>EventBus</name>
+        <url>https://github.com/greenrobot/EventBus</url>
+        <copyright>Copyright 2012 greenrobot</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+</notices>
