@@ -165,7 +165,7 @@ public class AppUtils {
             } else {
                 // This activity is part of this app's task, so simply
                 // navigate up to the logical parent activity.
-                // According to http://stackoverflow.com/a/14792752/2420519
+                // According to http://stackoverflow.com/a/14792752
                 //NavUtils.navigateUpTo(activity, upIntent);
                 upIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 activity.startActivity(upIntent);

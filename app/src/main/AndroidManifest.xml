@@ -37,6 +37,7 @@
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/settings_title"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
@@ -50,6 +51,7 @@
         <activity
             android:name=".about.AboutActivity"
             android:label="@string/about_title"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
