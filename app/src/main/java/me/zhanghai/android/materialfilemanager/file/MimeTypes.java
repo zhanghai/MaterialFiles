@@ -189,6 +189,10 @@ public class MimeTypes {
                 "application/vnd.android.package-archive");
     }
 
+    public static boolean isApk(@NonNull String mimeType) {
+        return TextUtils.equals(mimeType, "application/vnd.android.package-archive");
+    }
+
     public static boolean isSupportedArchive(@NonNull String mimeType) {
         return sSupportedArchiveMimeTypes.contains(mimeType)
                 || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O

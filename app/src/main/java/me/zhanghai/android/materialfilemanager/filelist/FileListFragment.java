@@ -72,10 +72,10 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
-        FileListAdapter.Listener, MaterialCab.Callback, OpenFileAsDialogFragment.Listener,
-        ConfirmDeleteFilesDialogFragment.Listener, RenameFileDialogFragment.Listener,
-        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-        NavigationFragment.FileListListener {
+        FileListAdapter.Listener, MaterialCab.Callback, OpenApkFileDialogFragment.Listener,
+        OpenFileAsDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
+        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
+        CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
 
     private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
 
@@ -697,11 +697,28 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void openFile(@NonNull File file) {
-        if (file.isListable()) {
-            navigateToFile(file.asListableFile());
+        String mimeType = file.getMimeType();
+        if (MimeTypes.isApk(mimeType)) {
+            OpenApkFileDialogFragment.show(file, this);
             return;
         }
+        if (file.isListable()) {
+            file = file.asListableFile();
+            navigateToFile(file);
+            return;
+        }
+        openFileAs(file, mimeType);
+    }
+
+    @Override
+    public void installApk(@NonNull File file) {
         openFileAs(file, file.getMimeType());
+    }
+
+    @Override
+    public void viewApk(@NonNull File file) {
+        file = file.asListableFile();
+        navigateToFile(file);
     }
 
     @Override

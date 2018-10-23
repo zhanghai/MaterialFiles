@@ -9,7 +9,9 @@
 
     <string name="app_name">MaterialFileManager</string>
 
+    <string name="install">Install</string>
     <string name="search">Search</string>
+    <string name="view">View</string>
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
@@ -27,6 +29,7 @@
     <string name="file_error_information">Unable to read file information</string>
     <string name="file_error_cancelled">Operation cancelled</string>
     <string name="file_delete_error">Unable to delete file</string>
+    <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
     <string name="file_open_as_title_format">Open %1$s As</string>
     <string name="file_open_as_type_text">Text</string>
     <string name="file_open_as_type_image">Image</string>
