@@ -22,6 +22,9 @@ public interface SettingsLiveDatas {
     SettingsLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new SettingsLiveData<>(
             Settings.FILE_LIST_SORT_DIRECTORIES_FIRST);
 
+    SettingsLiveData<String> ZIP_FILE_NAME_ENCODING = new SettingsLiveData<>(
+            Settings.ZIP_FILE_NAME_ENCODING);
+
     EnumSettingsLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsLiveData<>(
             Settings.OPEN_APK_DEFAULT_ACTION);
 }

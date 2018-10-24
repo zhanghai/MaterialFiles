@@ -9,6 +9,13 @@
 
     <PreferenceCategory android:title="@string/settings_behavior_title">
 
+        <me.zhanghai.android.materialfilemanager.settings.CharsetPreference
+            android:key="@string/pref_key_zip_file_name_encoding"
+            android:title="@string/settings_zip_file_name_encoding_title"
+            android:defaultValue="@string/pref_default_value_zip_file_name_encoding"
+            android:summary="@string/settings_zip_file_name_encoding_summary"
+            android:visibility="@integer/config_zip_file_name_encoding_preference_visibility" />
+
         <com.takisoft.fix.support.v7.preference.SimpleMenuPreference
             android:key="@string/pref_key_open_apk_default_action"
             android:title="@string/settings_open_apk_default_action_title"

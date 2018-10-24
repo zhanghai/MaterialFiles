@@ -34,6 +34,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalIterator;
 import me.zhanghai.android.materialfilemanager.functional.compat.Consumer;
+import me.zhanghai.android.materialfilemanager.settings.SettingsLiveDatas;
 import me.zhanghai.android.materialfilemanager.util.MapCompat;
 
 public class Archive {
@@ -125,8 +126,8 @@ public class Archive {
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
         switch (type) {
             case ArchiveStreamFactory.ZIP: {
-                try (ZipFileCompat zipFile = new ZipFileCompat(archiveFile,
-                        /* FIXME: Add setting */ "GB18030")) {
+                String encoding = SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
+                try (ZipFileCompat zipFile = new ZipFileCompat(archiveFile, encoding)) {
                     FunctionalIterator.forEachRemaining(zipFile.getEntries(),
                             (Consumer<ZipArchiveEntry>) entries::add);
                 }

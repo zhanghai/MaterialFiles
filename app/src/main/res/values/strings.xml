@@ -142,6 +142,8 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_behavior_title">Behavior</string>
+    <string name="settings_zip_file_name_encoding_title">ZIP archive file name encoding</string>
+    <string name="settings_zip_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">Open Android package</string>
     <string name="settings_open_apk_default_action_summary">%1$s</string>
     <string-array name="settings_open_apk_default_action_entries">

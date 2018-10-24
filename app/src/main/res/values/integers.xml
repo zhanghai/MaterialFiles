@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <integer name="visibility_visible">0</integer>
+    <integer name="visibility_invisible">1</integer>
+    <integer name="visibility_gone">2</integer>
+</resources>
