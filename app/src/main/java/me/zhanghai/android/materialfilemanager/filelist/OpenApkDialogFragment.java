@@ -17,9 +17,9 @@ import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
 
-public class OpenApkFileDialogFragment extends AppCompatDialogFragment {
+public class OpenApkDialogFragment extends AppCompatDialogFragment {
 
-    private static final String KEY_PREFIX = OpenApkFileDialogFragment.class.getName() + '.';
+    private static final String KEY_PREFIX = OpenApkDialogFragment.class.getName() + '.';
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
@@ -27,23 +27,23 @@ public class OpenApkFileDialogFragment extends AppCompatDialogFragment {
     private File mExtraFile;
 
     @NonNull
-    private static OpenApkFileDialogFragment newInstance(@NonNull File file) {
+    private static OpenApkDialogFragment newInstance(@NonNull File file) {
         //noinspection deprecation
-        OpenApkFileDialogFragment fragment = new OpenApkFileDialogFragment();
+        OpenApkDialogFragment fragment = new OpenApkDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
                 .putParcelable(EXTRA_FILE, file);
         return fragment;
     }
 
     public static void show(@NonNull File file, @NonNull Fragment fragment) {
-        OpenApkFileDialogFragment.newInstance(file)
+        OpenApkDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
      * @deprecated Use {@link #newInstance(File)} instead.
      */
-    public OpenApkFileDialogFragment() {}
+    public OpenApkDialogFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

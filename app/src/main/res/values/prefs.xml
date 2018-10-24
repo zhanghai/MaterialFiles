@@ -14,4 +14,11 @@
     <string name="pref_default_value_file_list_sort_order">0</string>
     <string name="pref_key_file_list_sort_directories_first">key_file_list_sort_directories_first</string>
     <bool name="pref_default_value_file_list_sort_directories_first">true</bool>
+    <string name="pref_key_open_apk_default_action">key_open_apk_default_action</string>
+    <string name="pref_default_value_open_apk_default_action">2</string>
+    <string-array name="pref_entry_values_open_apk_default_action">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

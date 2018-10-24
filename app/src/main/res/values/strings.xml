@@ -141,6 +141,14 @@
     <string name="navigation_about">@string/about_title</string>
 
     <string name="settings_title">Settings</string>
+    <string name="settings_behavior_title">Behavior</string>
+    <string name="settings_open_apk_default_action_title">Open Android package</string>
+    <string name="settings_open_apk_default_action_summary">%1$s</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Install</item>
+        <item>View contents</item>
+        <item>Ask what to do</item>
+    </string-array>
 
     <string name="about_title">About</string>
     <string name="about_licenses_title">Licenses</string>

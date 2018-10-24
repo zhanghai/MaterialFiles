@@ -72,7 +72,7 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
-        FileListAdapter.Listener, MaterialCab.Callback, OpenApkFileDialogFragment.Listener,
+        FileListAdapter.Listener, MaterialCab.Callback, OpenApkDialogFragment.Listener,
         OpenFileAsDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
         RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
         CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
@@ -699,7 +699,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void openFile(@NonNull File file) {
         String mimeType = file.getMimeType();
         if (MimeTypes.isApk(mimeType)) {
-            OpenApkFileDialogFragment.show(file, this);
+            openApk(file);
             return;
         }
         if (file.isListable()) {
@@ -708,6 +708,22 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return;
         }
         openFileAs(file, mimeType);
+    }
+
+    private void openApk(@NonNull File file) {
+        switch (SettingsLiveDatas.OPEN_APK_DEFAULT_ACTION.getValue()) {
+            case INSTALL:
+                installApk(file);
+                break;
+            case VIEW:
+                viewApk(file);
+                break;
+            case ASK:
+                OpenApkDialogFragment.show(file, this);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     @Override

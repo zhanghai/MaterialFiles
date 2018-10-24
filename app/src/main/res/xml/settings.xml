@@ -6,5 +6,15 @@
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- TODO -->
+
+    <PreferenceCategory android:title="@string/settings_behavior_title">
+
+        <com.takisoft.fix.support.v7.preference.SimpleMenuPreference
+            android:key="@string/pref_key_open_apk_default_action"
+            android:title="@string/settings_open_apk_default_action_title"
+            android:defaultValue="@string/pref_default_value_open_apk_default_action"
+            android:entries="@array/settings_open_apk_default_action_entries"
+            android:entryValues="@array/pref_entry_values_open_apk_default_action"
+            android:summary="@string/settings_open_apk_default_action_summary" />
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -6,6 +6,7 @@
 package me.zhanghai.android.materialfilemanager.settings;
 
 import me.zhanghai.android.materialfilemanager.filelist.FileSortOptions;
+import me.zhanghai.android.materialfilemanager.filelist.OpenApkDefaultAction;
 
 public interface SettingsLiveDatas {
 
@@ -20,4 +21,7 @@ public interface SettingsLiveDatas {
 
     SettingsLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new SettingsLiveData<>(
             Settings.FILE_LIST_SORT_DIRECTORIES_FIRST);
+
+    EnumSettingsLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsLiveData<>(
+            Settings.OPEN_APK_DEFAULT_ACTION);
 }

@@ -7,6 +7,7 @@ package me.zhanghai.android.materialfilemanager.settings;
 
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filelist.FileSortOptions;
+import me.zhanghai.android.materialfilemanager.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.*;
 
 interface Settings {
@@ -26,4 +27,8 @@ interface Settings {
     BooleanSettingsEntry FILE_LIST_SORT_DIRECTORIES_FIRST = new BooleanSettingsEntry(
             R.string.pref_key_file_list_sort_directories_first,
             R.bool.pref_default_value_file_list_sort_directories_first);
+
+    EnumSettingsEntry<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsEntry<>(
+            R.string.pref_key_open_apk_default_action,
+            R.string.pref_default_value_open_apk_default_action, OpenApkDefaultAction.class);
 }
