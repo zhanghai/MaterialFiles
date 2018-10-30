@@ -14,6 +14,14 @@
     <string name="pref_default_value_file_list_sort_order">0</string>
     <string name="pref_key_file_list_sort_directories_first">key_file_list_sort_directories_first</string>
     <bool name="pref_default_value_file_list_sort_directories_first">true</bool>
+    <string name="pref_key_night_mode">key_night_mode</string>
+    <string name="pref_default_value_night_mode">1</string>
+    <string-array name="pref_entry_values_night_mode">
+        <!--<item>0</item>-->
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
     <string name="pref_key_zip_file_name_encoding">key_zip_file_name_encoding</string>
     <string name="pref_default_value_zip_file_name_encoding">UTF-8</string>
     <string name="pref_key_open_apk_default_action">key_open_apk_default_action</string>

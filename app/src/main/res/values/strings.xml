@@ -141,6 +141,15 @@
     <string name="navigation_about">@string/about_title</string>
 
     <string name="settings_title">Settings</string>
+    <string name="settings_interface_title">Interface</string>
+    <string name="settings_night_mode_title">Night mode</string>
+    <string name="settings_night_mode_summary">%1$s</string>
+    <string-array name="settings_night_mode_entries">
+        <!--<item>Follow system</item>-->
+        <item>Off</item>
+        <item>On</item>
+        <item>Auto</item>
+    </string-array>
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_zip_file_name_encoding_title">ZIP archive file name encoding</string>
     <string name="settings_zip_file_name_encoding_summary">%1$s</string>

@@ -7,10 +7,11 @@ package me.zhanghai.android.materialfilemanager;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
+
+import me.zhanghai.android.materialfilemanager.util.NightModeHelper;
 
 public class AppApplication extends Application {
 
@@ -30,11 +31,10 @@ public class AppApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        // TODO
-        //NightModeHelper.setup(this);
-
         AndroidThreeTen.init(this);
         //FabricUtils.init(this);
         Stetho.initializeWithDefaults(this);
+
+        NightModeHelper.setup(this);
     }
 }
