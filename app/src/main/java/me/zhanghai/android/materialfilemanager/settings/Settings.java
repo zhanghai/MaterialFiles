@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.settings;
 
-import android.support.v7.app.AppCompatDelegate;
-
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filelist.FileSortOptions;
 import me.zhanghai.android.materialfilemanager.filelist.OpenApkDefaultAction;
@@ -29,26 +27,6 @@ interface Settings {
     BooleanSettingsEntry FILE_LIST_SORT_DIRECTORIES_FIRST = new BooleanSettingsEntry(
             R.string.pref_key_file_list_sort_directories_first,
             R.bool.pref_default_value_file_list_sort_directories_first);
-
-    enum NightMode {
-
-        // Disabled because AppCompatDelegate delegates night mode change to the non-existent system
-        // implementation.
-        FOLLOW_SYSTEM(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
-        OFF(AppCompatDelegate.MODE_NIGHT_NO),
-        ON(AppCompatDelegate.MODE_NIGHT_YES),
-        AUTO(AppCompatDelegate.MODE_NIGHT_AUTO);
-
-        private int value;
-
-        NightMode(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
 
     EnumSettingsEntry<NightMode> NIGHT_MODE = new EnumSettingsEntry<>(R.string.pref_key_night_mode,
             R.string.pref_default_value_night_mode, NightMode.class);

@@ -22,7 +22,7 @@ public interface SettingsLiveDatas {
     SettingsLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new SettingsLiveData<>(
             Settings.FILE_LIST_SORT_DIRECTORIES_FIRST);
 
-    EnumSettingsLiveData<Settings.NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
+    EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
             Settings.NIGHT_MODE);
 
     SettingsLiveData<String> ZIP_FILE_NAME_ENCODING = new SettingsLiveData<>(

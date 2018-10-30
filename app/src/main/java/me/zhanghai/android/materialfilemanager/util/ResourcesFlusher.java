@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.ArrayMap;
 import android.util.LongSparseArray;
@@ -27,16 +28,22 @@ public class ResourcesFlusher {
 
     private ResourcesFlusher() {}
 
+    @Nullable
     private static Field sDrawableCacheField;
     private static boolean sDrawableCacheFieldInitialized;
+    @Nullable
     private static Class sThemedResourceCacheClass;
     private static boolean sThemedResourceCacheClassInitialized;
+    @Nullable
     private static Field sThemedResourceCacheMThemedEntriesField;
     private static boolean sThemedResourceCacheMThemedEntriesFieldInitialized;
+    @Nullable
     private static Field sThemedResourceCacheMUnthemedEntriesField;
     private static boolean sThemedResourceCacheMUnthemedEntriesFieldInitialized;
+    @Nullable
     private static Field sThemedResourceCacheMNullThemedEntriesField;
     private static boolean sThemedResourceCacheMNullThemedEntriesFieldInitialized;
+    @Nullable
     private static Field sResourcesImplField;
     private static boolean sResourcesImplFieldInitialized;
 
@@ -53,6 +60,7 @@ public class ResourcesFlusher {
         }
     }
 
+    @MainThread
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private static void flushLollipop(@NonNull Resources resources) {
 
@@ -83,6 +91,7 @@ public class ResourcesFlusher {
         drawableCache.clear();
     }
 
+    @MainThread
     @RequiresApi(Build.VERSION_CODES.M)
     private static void flushMarshmallow(@NonNull Resources resources) {
 
@@ -113,6 +122,7 @@ public class ResourcesFlusher {
         flushThemedResourceCache(drawableCache);
     }
 
+    @MainThread
     @RequiresApi(Build.VERSION_CODES.N)
     private static void flushNougat(@NonNull Resources resources) {
 
@@ -166,6 +176,7 @@ public class ResourcesFlusher {
         flushThemedResourceCache(drawableCache);
     }
 
+    @MainThread
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("PrivateApi")
     private static void flushThemedResourceCache(@NonNull Object themedResourceCache) {
