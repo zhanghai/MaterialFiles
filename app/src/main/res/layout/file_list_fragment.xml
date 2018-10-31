@@ -86,7 +86,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:visibility="gone" />
 
-        <me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout
+        <android.support.v4.widget.ThemedSwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -102,7 +102,7 @@
                 app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
                 app:fastScrollThumbColor="?colorAccent"
                 tools:listitem="@layout/file_item" />
-        </me.zhanghai.android.materialfilemanager.ui.ColorAccentSwipeRefreshLayout>
+        </android.support.v4.widget.ThemedSwipeRefreshLayout>
     </FrameLayout>
 
     <me.zhanghai.android.materialfilemanager.ui.StatusBarBackgroundView
