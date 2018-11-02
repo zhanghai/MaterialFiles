@@ -86,22 +86,37 @@ public class LocalFileSystem {
 
     public static class Information implements Parcelable {
 
-        public boolean isSymbolicLinkStat;
+        public final boolean isSymbolicLinkStat;
         @NonNull
-        public PosixFileType type;
+        public final PosixFileType type;
         @NonNull
-        public EnumSet<PosixFileModeBit> mode;
+        public final EnumSet<PosixFileModeBit> mode;
         @NonNull
-        public PosixUser owner;
+        public final PosixUser owner;
         @NonNull
-        public PosixGroup group;
-        public long size;
+        public final PosixGroup group;
+        public final long size;
         @NonNull
-        public Instant lastModificationTime;
-        public boolean isSymbolicLink;
+        public final Instant lastModificationTime;
+        public final boolean isSymbolicLink;
         @Nullable
-        public String symbolicLinkTarget;
+        public final String symbolicLinkTarget;
 
+        public Information(boolean isSymbolicLinkStat, @NonNull PosixFileType type,
+                           @NonNull EnumSet<PosixFileModeBit> mode, @NonNull PosixUser owner,
+                           @NonNull PosixGroup group, long size,
+                           @NonNull Instant lastModificationTime, boolean isSymbolicLink,
+                           @Nullable String symbolicLinkTarget) {
+            this.isSymbolicLinkStat = isSymbolicLinkStat;
+            this.type = type;
+            this.mode = mode;
+            this.owner = owner;
+            this.group = group;
+            this.size = size;
+            this.lastModificationTime = lastModificationTime;
+            this.isSymbolicLink = isSymbolicLink;
+            this.symbolicLinkTarget = symbolicLinkTarget;
+        }
 
         @Override
         public boolean equals(@Nullable Object object) {
@@ -129,7 +144,6 @@ public class LocalFileSystem {
                     lastModificationTime, isSymbolicLink, symbolicLinkTarget);
         }
 
-
         public static final Creator<Information> CREATOR = new Creator<Information>() {
             @NonNull
             @Override
@@ -142,8 +156,6 @@ public class LocalFileSystem {
                 return new Information[size];
             }
         };
-
-        public Information() {}
 
         protected Information(@NonNull Parcel in) {
             isSymbolicLinkStat = in.readByte() != 0;

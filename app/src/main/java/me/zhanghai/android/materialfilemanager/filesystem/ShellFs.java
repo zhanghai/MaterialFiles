@@ -13,6 +13,7 @@ import org.threeten.bp.Instant;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 
 import me.zhanghai.android.materialfilemanager.AppApplication;
@@ -90,34 +91,34 @@ public class ShellFs {
     @NonNull
     private static LocalFileSystem.Information parseInformation(@NonNull String output)
             throws FileSystemException {
-        LocalFileSystem.Information information = new LocalFileSystem.Information();
         String[] fields = output.split("\0");
         if (fields.length < 7) {
             throw new FileSystemException(R.string.file_error_information);
         }
         try {
-            information.isSymbolicLinkStat = Integer.parseInt(fields[0]) == 1;
-            int mode = Integer.parseInt(fields[1]);
-            information.type = Syscall.parseType(mode);
-            information.mode = Syscall.parseMode(mode);
-            information.owner = new PosixUser();
-            information.owner.id = Integer.parseInt(fields[2]);
-            information.group = new PosixGroup();
-            information.group.id = Integer.parseInt(fields[3]);
-            information.size = Long.parseLong(fields[4]);
-            information.lastModificationTime = Instant.ofEpochSecond(Long.parseLong(fields[5]),
+            boolean isSymbolicLinkStat = Integer.parseInt(fields[0]) == 1;
+            int typeAndMode = Integer.parseInt(fields[1]);
+            PosixFileType type = Syscall.parseType(typeAndMode);
+            EnumSet<PosixFileModeBit> mode = Syscall.parseMode(typeAndMode);
+            PosixUser owner = new PosixUser();
+            owner.id = Integer.parseInt(fields[2]);
+            PosixGroup group = new PosixGroup();
+            group.id = Integer.parseInt(fields[3]);
+            long size = Long.parseLong(fields[4]);
+            Instant lastModificationTime = Instant.ofEpochSecond(Long.parseLong(fields[5]),
                     Long.parseLong(fields[6]));
             int index = 7;
             if (index >= fields.length) {
                 throw new IllegalArgumentException();
             }
-            information.isSymbolicLink = Integer.parseInt(fields[index]) == 1;
+            boolean isSymbolicLink = Integer.parseInt(fields[index]) == 1;
             ++index;
-            if (information.isSymbolicLink) {
+            String symbolicLinkTarget = null;
+            if (isSymbolicLink) {
                 if (index >= fields.length) {
                     throw new IllegalArgumentException();
                 }
-                information.symbolicLinkTarget = fields[index];
+                symbolicLinkTarget = fields[index];
                 ++index;
             }
             if (index >= fields.length) {
@@ -129,7 +130,7 @@ public class ShellFs {
                 if (index >= fields.length) {
                     throw new IllegalArgumentException();
                 }
-                information.owner.name = fields[index];
+                owner.name = fields[index];
                 ++index;
             }
             if (index >= fields.length) {
@@ -141,15 +142,16 @@ public class ShellFs {
                 if (index >= fields.length) {
                     throw new IllegalArgumentException();
                 }
-                information.group.name = fields[index];
+                group.name = fields[index];
                 ++index;
             }
             if (index != fields.length) {
                 throw new IllegalArgumentException();
             }
+            return new LocalFileSystem.Information(isSymbolicLinkStat, type, mode, owner, group,
+                    size, lastModificationTime, isSymbolicLink, symbolicLinkTarget);
         } catch (IllegalArgumentException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
-        return information;
     }
 }

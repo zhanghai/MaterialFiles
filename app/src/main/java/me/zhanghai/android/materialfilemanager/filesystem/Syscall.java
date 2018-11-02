@@ -42,11 +42,12 @@ public class Syscall {
         if (stat == null) {
             throw new FileSystemException(R.string.file_error_information);
         }
-        LocalFileSystem.Information information = new LocalFileSystem.Information();
+        String symbolicLinkTarget = null;
+        boolean isSymbolicLinkStat = false;
         boolean isSymbolicLink = OsConstants.S_ISLNK(stat.st_mode);
         if (isSymbolicLink) {
             try {
-                information.symbolicLinkTarget = Os.readlink(path);
+                symbolicLinkTarget = Os.readlink(path);
             } catch (ErrnoException e) {
                 throw new FileSystemException(R.string.file_error_information, e);
             }
@@ -54,40 +55,41 @@ public class Syscall {
                 StructStatCompat symbolicLinkStat = Linux.stat(path);
                 if (symbolicLinkStat != null) {
                     stat = symbolicLinkStat;
-                    information.isSymbolicLinkStat = true;
+                    isSymbolicLinkStat = true;
                 }
             } catch (ErrnoException e) {
                 e.printStackTrace();
             }
         }
-        information.type = parseType(stat.st_mode);
-        information.mode = parseMode(stat.st_mode);
-        information.owner = new PosixUser();
-        information.owner.id = stat.st_uid;
-        information.group = new PosixGroup();
-        information.group.id = stat.st_gid;
-        information.size = stat.st_size;
-        information.lastModificationTime = Instant.ofEpochSecond(stat.st_mtim.tv_sec,
+        PosixFileType type = parseType(stat.st_mode);
+        EnumSet<PosixFileModeBit> mode = parseMode(stat.st_mode);
+        PosixUser owner = new PosixUser();
+        owner.id = stat.st_uid;
+        PosixGroup group = new PosixGroup();
+        group.id = stat.st_gid;
+        long size = stat.st_size;
+        Instant lastModificationTime = Instant.ofEpochSecond(stat.st_mtim.tv_sec,
                 stat.st_mtim.tv_nsec);
         try {
-            StructPasswd passwd = Linux.getpwuid(information.owner.id);
+            StructPasswd passwd = Linux.getpwuid(owner.id);
             if (passwd != null) {
-                information.owner.name = passwd.pw_name;
+                owner.name = passwd.pw_name;
             }
         } catch (ErrnoException e) {
             // It's valid to have a file with a non-existent owner.
             e.printStackTrace();
         }
         try {
-            StructGroup group = Linux.getgrgid(information.group.id);
-            if (group != null) {
-                information.group.name = group.gr_name;
+            StructGroup structGroup = Linux.getgrgid(group.id);
+            if (structGroup != null) {
+                group.name = structGroup.gr_name;
             }
         } catch (ErrnoException e) {
             // It's valid to have a file with a non-existent group.
             e.printStackTrace();
         }
-        return information;
+        return new LocalFileSystem.Information(isSymbolicLinkStat, type, mode, owner, group, size,
+                lastModificationTime, isSymbolicLink, symbolicLinkTarget);
     }
 
     @NonNull
