@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.system.ErrnoException;
@@ -15,12 +13,10 @@ import android.system.OsConstants;
 
 import org.threeten.bp.Instant;
 
-import java.io.File;
 import java.io.FileDescriptor;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.compat.LongConsumer;
@@ -35,7 +31,8 @@ import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 public class Syscall {
 
     @NonNull
-    public static Information getInformation(@NonNull String path) throws FileSystemException {
+    public static LocalFileSystem.Information getInformation(@NonNull String path)
+            throws FileSystemException {
         StructStatCompat stat;
         try {
             stat = Linux.lstat(path);
@@ -45,7 +42,7 @@ public class Syscall {
         if (stat == null) {
             throw new FileSystemException(R.string.file_error_information);
         }
-        Information information = new Information();
+        LocalFileSystem.Information information = new LocalFileSystem.Information();
         boolean isSymbolicLink = OsConstants.S_ISLNK(stat.st_mode);
         if (isSymbolicLink) {
             try {
@@ -319,97 +316,4 @@ public class Syscall {
         }
     }
 
-    public static class Information implements Parcelable {
-
-        public boolean isSymbolicLinkStat;
-        @NonNull
-        public PosixFileType type;
-        @NonNull
-        public EnumSet<PosixFileModeBit> mode;
-        @NonNull
-        public PosixUser owner;
-        @NonNull
-        public PosixGroup group;
-        public long size;
-        @NonNull
-        public Instant lastModificationTime;
-        public boolean isSymbolicLink;
-        @Nullable
-        public String symbolicLinkTarget;
-
-
-        @Override
-        public boolean equals(@Nullable Object object) {
-            if (this == object) {
-                return true;
-            }
-            if (object == null || getClass() != object.getClass()) {
-                return false;
-            }
-            Information that = (Information) object;
-            return isSymbolicLinkStat == that.isSymbolicLinkStat
-                    && size == that.size
-                    && isSymbolicLink == that.isSymbolicLink
-                    && type == that.type
-                    && Objects.equals(mode, that.mode)
-                    && Objects.equals(owner, that.owner)
-                    && Objects.equals(group, that.group)
-                    && Objects.equals(lastModificationTime, that.lastModificationTime)
-                    && Objects.equals(symbolicLinkTarget, that.symbolicLinkTarget);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(isSymbolicLinkStat, type, mode, owner, group, size,
-                    lastModificationTime, isSymbolicLink, symbolicLinkTarget);
-        }
-
-
-        public static final Creator<Information> CREATOR = new Creator<Information>() {
-            @NonNull
-            @Override
-            public Information createFromParcel(@NonNull Parcel source) {
-                return new Information(source);
-            }
-            @NonNull
-            @Override
-            public Information[] newArray(int size) {
-                return new Information[size];
-            }
-        };
-
-        public Information() {}
-
-        protected Information(@NonNull Parcel in) {
-            isSymbolicLinkStat = in.readByte() != 0;
-            int tmpType = in.readInt();
-            type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
-            //noinspection unchecked
-            mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
-            owner = in.readParcelable(PosixUser.class.getClassLoader());
-            group = in.readParcelable(PosixGroup.class.getClassLoader());
-            size = in.readLong();
-            lastModificationTime = (Instant) in.readSerializable();
-            isSymbolicLink = in.readByte() != 0;
-            symbolicLinkTarget = in.readString();
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(@NonNull Parcel dest, int flags) {
-            dest.writeByte(isSymbolicLinkStat ? (byte) 1 : (byte) 0);
-            dest.writeInt(type == null ? -1 : type.ordinal());
-            dest.writeSerializable(mode);
-            dest.writeParcelable(owner, flags);
-            dest.writeParcelable(group, flags);
-            dest.writeLong(size);
-            dest.writeSerializable(lastModificationTime);
-            dest.writeByte(isSymbolicLink ? (byte) 1 : (byte) 0);
-            dest.writeString(symbolicLinkTarget);
-        }
-    }
 }

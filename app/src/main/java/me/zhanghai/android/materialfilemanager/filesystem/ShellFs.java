@@ -26,7 +26,7 @@ import me.zhanghai.android.materialfilemanager.util.Holder;
 public class ShellFs {
 
     @NonNull
-    public static Syscall.Information getInformation(@NonNull String path)
+    public static LocalFileSystem.Information getInformation(@NonNull String path)
             throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -f " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
@@ -35,12 +35,12 @@ public class ShellFs {
             throw new FileSystemException(R.string.file_error_information);
         }
         String output = outputHolder.value;
-        Syscall.Information information = parseInformation(output);
+        LocalFileSystem.Information information = parseInformation(output);
         return information;
     }
 
     @NonNull
-    public static List<Pair<String, Syscall.Information>> getChildrenAndInformation(
+    public static List<Pair<String, LocalFileSystem.Information>> getChildrenAndInformation(
             @NonNull String path) throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -d " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();
@@ -53,10 +53,10 @@ public class ShellFs {
             return Collections.emptyList();
         }
         List<String> childOutputs = Arrays.asList(output.split("\0\0\0\n\0\0\0"));
-        List<Pair<String, Syscall.Information>> children;
+        List<Pair<String, LocalFileSystem.Information>> children;
         try {
-            children = Functional.map(childOutputs,
-                    (ThrowingFunction<String, Pair<String, Syscall.Information>>) childStat -> {
+            children = Functional.map(childOutputs, (ThrowingFunction<String, Pair<String,
+                    LocalFileSystem.Information>>) childStat -> {
                         String[] childNameAndFile = childStat.split("\0", 2);
                         String childName;
                         String childFile;
@@ -72,8 +72,8 @@ public class ShellFs {
                             default:
                                 throw new FileSystemException(R.string.file_error_information);
                         }
-                        Syscall.Information childInformation = !TextUtils.isEmpty(childFile) ?
-                                parseInformation(childFile) : null;
+                        LocalFileSystem.Information childInformation = !TextUtils.isEmpty(
+                                childFile) ? parseInformation(childFile) : null;
                         return new Pair<>(childName, childInformation);
                     });
         } catch (FunctionalException e) {
@@ -88,9 +88,9 @@ public class ShellFs {
     }
 
     @NonNull
-    private static Syscall.Information parseInformation(@NonNull String output)
+    private static LocalFileSystem.Information parseInformation(@NonNull String output)
             throws FileSystemException {
-        Syscall.Information information = new Syscall.Information();
+        LocalFileSystem.Information information = new LocalFileSystem.Information();
         String[] fields = output.split("\0");
         if (fields.length < 7) {
             throw new FileSystemException(R.string.file_error_information);

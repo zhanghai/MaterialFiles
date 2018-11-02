@@ -29,7 +29,7 @@ public class LocalFile extends BaseFile {
     private static final String HIDDEN_FILE_PREFIX = ".";
 
     @Nullable
-    private Syscall.Information mInformation;
+    private LocalFileSystem.Information mInformation;
 
     @NonNull
     static Uri uriFromPath(@NonNull String path) {
@@ -55,7 +55,7 @@ public class LocalFile extends BaseFile {
         super(uri);
     }
 
-    LocalFile(@NonNull Uri uri, @NonNull Syscall.Information information) {
+    LocalFile(@NonNull Uri uri, @NonNull LocalFileSystem.Information information) {
         super(uri);
 
         mInformation = information;
@@ -172,7 +172,8 @@ public class LocalFile extends BaseFile {
     @WorkerThread
     public List<File> getChildren() throws FileSystemException {
         String path = getPath();
-        List<Pair<String, Syscall.Information>> children = LocalFileSystem.getChildren(path);
+        List<Pair<String, LocalFileSystem.Information>> children = LocalFileSystem.getChildren(
+                path);
         return Functional.map(children, child -> {
             Uri childUri = LocalFile.uriFromPath(LocalFile.joinPaths(path, child.first));
             return new LocalFile(childUri, child.second);
@@ -210,7 +211,7 @@ public class LocalFile extends BaseFile {
     protected LocalFile(@NonNull Parcel in) {
         super(in);
 
-        mInformation = in.readParcelable(Syscall.Information.class.getClassLoader());
+        mInformation = in.readParcelable(LocalFileSystem.Information.class.getClassLoader());
     }
 
     @Override
