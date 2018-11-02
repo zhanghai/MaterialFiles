@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import me.zhanghai.android.materialfilemanager.functional.Functional;
@@ -95,16 +97,18 @@ public class Archive {
                     MapCompat.computeIfAbsent(tree, information.path, _1 -> new ArrayList<>());
                 }
             }
-            for (Map.Entry<Uri, Boolean> mapEntry : directoryInformationExists.entrySet()) {
+            Set<Uri> directoryPaths = new HashSet<>(directoryInformationExists.keySet());
+            for (Uri directoryPath : directoryPaths) {
                 Uri.Builder builder = pathBuilderForRoot();
                 Uri parentPath = builder.build();
-                for (String pathSegment : mapEntry.getKey().getPathSegments()) {
+                for (String pathSegment : directoryPath.getPathSegments()) {
                     builder.appendPath(pathSegment);
                     Uri path = builder.build();
                     if (!MapCompat.getOrDefault(directoryInformationExists, path, false)) {
                         ArchiveEntry entry = new ArchiveDirectoryEntry(path.getPath());
                         Information information = new Information(path, entry);
                         tree.get(parentPath).add(information);
+                        directoryInformationExists.put(path, true);
                     }
                     MapCompat.computeIfAbsent(tree, path, _1 -> new ArrayList<>());
                     parentPath = path;
