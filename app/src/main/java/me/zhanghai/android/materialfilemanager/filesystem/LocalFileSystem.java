@@ -23,7 +23,8 @@ public class LocalFileSystem {
 
     @NonNull
     @WorkerThread
-    public static Syscall.Information getInformation(String path) throws FileSystemException {
+    public static Syscall.Information getInformation(@NonNull String path)
+            throws FileSystemException {
         return getWithSyscallOrShellFs(path, Syscall::getInformation, ShellFs::getInformation);
     }
 
@@ -45,12 +46,11 @@ public class LocalFileSystem {
             throw new FileSystemException(new NullPointerException(
                     "Syscall.getChildren() returned null"));
         }
-        List<String> childPaths = Functional.map(childNames, childName -> LocalFile.joinPaths(path,
-                childName));
         List<Syscall.Information> childInformations;
         try {
-            childInformations = Functional.map(childPaths, (ThrowingFunction<String,
-                    Syscall.Information>) Syscall::getInformation);
+            childInformations = Functional.map(childNames, (ThrowingFunction<String,
+                    Syscall.Information>) childName -> Syscall.getInformation(LocalFile.joinPaths(
+                    path, childName)));
         } catch (FunctionalException e) {
             throw e.getCauseAs(FileSystemException.class);
         }
@@ -58,8 +58,10 @@ public class LocalFileSystem {
                 childInformations.get(index)));
     }
 
-    private static <T> T getWithSyscallOrShellFs(String path, GetValueFromPath<T> getWithSyscall,
-                                                 GetValueFromPath<T> getWithShellFs)
+    @NonNull
+    private static <T> T getWithSyscallOrShellFs(@NonNull String path,
+                                                 @NonNull GetValueFromPath<T> getWithSyscall,
+                                                 @NonNull GetValueFromPath<T> getWithShellFs)
             throws FileSystemException {
         try {
             return getWithSyscall.get(path);
@@ -76,6 +78,7 @@ public class LocalFileSystem {
     }
 
     private interface GetValueFromPath<T> {
-        T get(String path) throws FileSystemException;
+        @NonNull
+        T get(@NonNull String path) throws FileSystemException;
     }
 }
