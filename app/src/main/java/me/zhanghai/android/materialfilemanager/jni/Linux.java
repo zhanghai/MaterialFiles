@@ -39,6 +39,9 @@ public class Linux {
             throws ErrnoException;
 
     @Nullable
+    public static native String[] listdir(@NonNull String path) throws ErrnoException;
+
+    @Nullable
     public static native String[] llistxattr(@NonNull String path) throws ErrnoException;
 
     public static native void lsetxattr(@NonNull String path, @NonNull String name,

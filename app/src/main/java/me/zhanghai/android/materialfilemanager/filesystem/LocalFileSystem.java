@@ -42,7 +42,12 @@ public class LocalFileSystem {
             throws FileSystemException {
         // FIXME: Should throw ErrnoException if cannot get children, or else we don't know when to
         // try with ShellFs.
-        List<String> childNames = JavaFile.getChildren(path);
+        List<String> childNames = Syscall.getChildren(path);
+        if (childNames == null) {
+            // TODO: Correct way of throwing?
+            throw new FileSystemException(new NullPointerException(
+                    "Syscall.getChildren() returned null"));
+        }
         List<String> childPaths = Functional.map(childNames, childName -> LocalFile.joinPaths(path,
                 childName));
         List<Syscall.Information> childInformations;

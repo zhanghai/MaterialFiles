@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <dirent.h>
 #include <fcntl.h>
 #include <grp.h>
 #include <pwd.h>
@@ -39,6 +40,12 @@
         _rc = (exp); \
     } while (_rc == EINTR); \
     _rc; })
+
+#define TEMP_FAILURE_RETRY_V(exp) ({ \
+    errno = 0; \
+    do { \
+        (exp); \
+    } while (errno == EINTR); })
 
 static jclass findClass(JNIEnv *env, const char *name) {
     jclass localClass = (*env)->FindClass(env, name);
@@ -476,6 +483,103 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_lgetxattr(JNIEnv *env, jc
         return NULL;
     }
     return javaValue;
+}
+
+JNIEXPORT jobjectArray JNICALL
+Java_me_zhanghai_android_materialfilemanager_jni_Linux_listdir(JNIEnv *env, jclass clazz,
+                                                               jstring javaPath) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    jbyteArray javaNames = NULL;
+    char *errnoFunctionName = NULL;
+    while (true) {
+        errno = 0;
+        DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
+        if (errno) {
+            errnoFunctionName = "opendir";
+            break;
+        }
+        // TODO: Use a growing array?
+        size_t size = 0;
+        struct dirent64 *dirent;
+        while (true) {
+            errno = 0;
+            dirent = TEMP_FAILURE_RETRY(readdir64(dir));
+            if (errno) {
+                errnoFunctionName = "readdir64";
+                break;
+            }
+            if (!dirent) {
+                break;
+            }
+            char *name = dirent->d_name;
+            if (!strcmp(name, ".") || !strcmp(name, "..")) {
+                continue;
+            }
+            ++size;
+        }
+        if (errno) {
+            break;
+        }
+        errno = 0;
+        TEMP_FAILURE_RETRY_V(rewinddir(dir));
+        if (errno) {
+            errnoFunctionName = "rewinddir";
+            break;
+        }
+        jsize javaNamesLength = (jsize) size;
+        javaNames = (*env)->NewObjectArray(env, javaNamesLength, getStringClass(env), NULL);
+        if (!javaNames) {
+            break;
+        }
+        jsize javaNameIndex = 0;
+        bool hasJniError = false;
+        bool hasTooManyNames = false;
+        while (true) {
+            errno = 0;
+            dirent = TEMP_FAILURE_RETRY(readdir64(dir));
+            if (errno) {
+                errnoFunctionName = "readdir64";
+                break;
+            }
+            if (!dirent) {
+                break;
+            }
+            char *name = dirent->d_name;
+            if (!strcmp(name, ".") || !strcmp(name, "..")) {
+                continue;
+            }
+            if (javaNameIndex >= javaNamesLength) {
+                hasTooManyNames = true;
+                break;
+            }
+            jstring javaName = (*env)->NewStringUTF(env, name);
+            if (!javaName) {
+                hasJniError = true;
+                break;
+            }
+            (*env)->SetObjectArrayElement(env, javaNames, javaNameIndex, javaName);
+            (*env)->DeleteLocalRef(env, javaName);
+            ++javaNameIndex;
+        }
+        if (errno || hasJniError) {
+            (*env)->DeleteLocalRef(env, javaNames);
+            javaNames = NULL;
+            break;
+        }
+        if (javaNameIndex < javaNamesLength || hasTooManyNames) {
+            // Directory entries changed since our last calls to readdir64(), try again.
+            (*env)->DeleteLocalRef(env, javaNames);
+            javaNames = NULL;
+            continue;
+        }
+        break;
+    }
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    if (errno) {
+        throwErrnoException(env, errnoFunctionName);
+        return NULL;
+    }
+    return javaNames;
 }
 
 JNIEXPORT jobjectArray JNICALL

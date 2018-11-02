@@ -17,7 +17,9 @@ import org.threeten.bp.Instant;
 
 import java.io.File;
 import java.io.FileDescriptor;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Objects;
 
 import me.zhanghai.android.materialfilemanager.R;
@@ -255,34 +257,6 @@ public class Syscall {
         // TODO: SELinux?
     }
 
-    public static void delete(@NonNull String path) throws FileSystemException {
-        try {
-            Os.remove(path);
-        } catch (ErrnoException e) {
-            throw new FileSystemException(R.string.file_delete_error, e);
-        }
-    }
-
-    public static void move(@NonNull String fromPath, @NonNull String toPath, long notifyByteCount,
-                            @Nullable LongConsumer listener) throws FileSystemException,
-            InterruptedException {
-        try {
-            Os.rename(fromPath, toPath);
-        } catch (ErrnoException e) {
-            copy(fromPath, toPath, true, notifyByteCount, listener);
-            delete(fromPath);
-        }
-    }
-
-    public static void rename(@NonNull String fromPath, @NonNull String toPath)
-            throws FileSystemException {
-        try {
-            Os.rename(fromPath, toPath);
-        } catch (ErrnoException e) {
-            throw new FileSystemException(R.string.file_rename_error, e);
-        }
-    }
-
     public static void createFile(@NonNull String path) throws FileSystemException {
         try {
             FileDescriptor fd = Os_creat(path, OsConstants.S_IRUSR | OsConstants.S_IWUSR
@@ -304,6 +278,44 @@ public class Syscall {
             Os.mkdir(path, OsConstants.S_IRWXU | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_create_directory_error, e);
+        }
+    }
+
+    public static void delete(@NonNull String path) throws FileSystemException {
+        try {
+            Os.remove(path);
+        } catch (ErrnoException e) {
+            throw new FileSystemException(R.string.file_delete_error, e);
+        }
+    }
+
+    public static List<String> getChildren(@NonNull String path) throws FileSystemException {
+        String[] children;
+        try {
+            children = Linux.listdir(path);
+        } catch (ErrnoException e) {
+            throw new FileSystemException(e);
+        }
+        return children != null ? Arrays.asList(children) : null;
+    }
+
+    public static void move(@NonNull String fromPath, @NonNull String toPath, long notifyByteCount,
+                            @Nullable LongConsumer listener) throws FileSystemException,
+            InterruptedException {
+        try {
+            Os.rename(fromPath, toPath);
+        } catch (ErrnoException e) {
+            copy(fromPath, toPath, true, notifyByteCount, listener);
+            delete(fromPath);
+        }
+    }
+
+    public static void rename(@NonNull String fromPath, @NonNull String toPath)
+            throws FileSystemException {
+        try {
+            Os.rename(fromPath, toPath);
+        } catch (ErrnoException e) {
+            throw new FileSystemException(R.string.file_rename_error, e);
         }
     }
 
