@@ -38,10 +38,7 @@ public class LocalFileSystem {
     @NonNull
     @WorkerThread
     private static List<Pair<String, Syscall.Information>> getChildrenWithSyscall(
-            @NonNull String path)
-            throws FileSystemException {
-        // FIXME: Should throw ErrnoException if cannot get children, or else we don't know when to
-        // try with ShellFs.
+            @NonNull String path) throws FileSystemException {
         List<String> childNames = Syscall.getChildren(path);
         if (childNames == null) {
             // TODO: Correct way of throwing?

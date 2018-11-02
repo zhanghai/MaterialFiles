@@ -47,6 +47,20 @@
         (exp); \
     } while (errno == EINTR); })
 
+static jobjectArray newResizedObjectArray(JNIEnv *env, jobjectArray array, jclass elementClass,
+                                          jsize length, jsize newLength) {
+    jobjectArray newArray = (*env)->NewObjectArray(env, newLength, elementClass, NULL);
+    if (!newArray) {
+        return NULL;
+    }
+    for (jsize i = 0; i < length; ++i) {
+        jobject element = (*env)->GetObjectArrayElement(env, array, i);
+        (*env)->SetObjectArrayElement(env, newArray, i, element);
+        (*env)->DeleteLocalRef(env, element);
+    }
+    return newArray;
+}
+
 static jclass findClass(JNIEnv *env, const char *name) {
     jclass localClass = (*env)->FindClass(env, name);
     jclass result = (*env)->NewGlobalRef(env, localClass);
@@ -485,98 +499,87 @@ Java_me_zhanghai_android_materialfilemanager_jni_Linux_lgetxattr(JNIEnv *env, jc
     return javaValue;
 }
 
+/// @see https://android.googlesource.com/platform/libcore/+/master/ojluni/src/main/native/UnixFileSystem_md.c
 JNIEXPORT jobjectArray JNICALL
 Java_me_zhanghai_android_materialfilemanager_jni_Linux_listdir(JNIEnv *env, jclass clazz,
                                                                jstring javaPath) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
-    jbyteArray javaNames = NULL;
-    char *errnoFunctionName = NULL;
-    while (true) {
-        errno = 0;
-        DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
-        if (errno) {
-            errnoFunctionName = "opendir";
-            break;
-        }
-        // TODO: Use a growing array?
-        size_t size = 0;
-        struct dirent64 *dirent;
-        while (true) {
-            errno = 0;
-            dirent = TEMP_FAILURE_RETRY(readdir64(dir));
-            if (errno) {
-                errnoFunctionName = "readdir64";
-                break;
-            }
-            if (!dirent) {
-                break;
-            }
-            char *name = dirent->d_name;
-            if (!strcmp(name, ".") || !strcmp(name, "..")) {
-                continue;
-            }
-            ++size;
-        }
-        if (errno) {
-            break;
-        }
-        errno = 0;
-        TEMP_FAILURE_RETRY_V(rewinddir(dir));
-        if (errno) {
-            errnoFunctionName = "rewinddir";
-            break;
-        }
-        jsize javaNamesLength = (jsize) size;
-        javaNames = (*env)->NewObjectArray(env, javaNamesLength, getStringClass(env), NULL);
-        if (!javaNames) {
-            break;
-        }
-        jsize javaNameIndex = 0;
-        bool hasJniError = false;
-        bool hasTooManyNames = false;
-        while (true) {
-            errno = 0;
-            dirent = TEMP_FAILURE_RETRY(readdir64(dir));
-            if (errno) {
-                errnoFunctionName = "readdir64";
-                break;
-            }
-            if (!dirent) {
-                break;
-            }
-            char *name = dirent->d_name;
-            if (!strcmp(name, ".") || !strcmp(name, "..")) {
-                continue;
-            }
-            if (javaNameIndex >= javaNamesLength) {
-                hasTooManyNames = true;
-                break;
-            }
-            jstring javaName = (*env)->NewStringUTF(env, name);
-            if (!javaName) {
-                hasJniError = true;
-                break;
-            }
-            (*env)->SetObjectArrayElement(env, javaNames, javaNameIndex, javaName);
-            (*env)->DeleteLocalRef(env, javaName);
-            ++javaNameIndex;
-        }
-        if (errno || hasJniError) {
-            (*env)->DeleteLocalRef(env, javaNames);
-            javaNames = NULL;
-            break;
-        }
-        if (javaNameIndex < javaNamesLength || hasTooManyNames) {
-            // Directory entries changed since our last calls to readdir64(), try again.
-            (*env)->DeleteLocalRef(env, javaNames);
-            javaNames = NULL;
-            continue;
-        }
-        break;
-    }
+    errno = 0;
+    DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
-        throwErrnoException(env, errnoFunctionName);
+        throwErrnoException(env, "opendir");
+        return NULL;
+    }
+    jsize javaNamesLength = 0;
+    jsize javaNamesMaxLength = 16;
+    jobjectArray javaNames = (*env)->NewObjectArray(env, javaNamesMaxLength, getStringClass(env),
+            NULL);
+    if (!javaNames) {
+        int oldErrno = errno;
+        errno = 0;
+        TEMP_FAILURE_RETRY_V(closedir(dir));
+        errno = oldErrno;
+        return NULL;
+    }
+    while (true) {
+        errno = 0;
+        struct dirent64 *dirent = TEMP_FAILURE_RETRY(readdir64(dir));
+        if (errno) {
+            int oldErrno = errno;
+            errno = 0;
+            TEMP_FAILURE_RETRY_V(closedir(dir));
+            errno = oldErrno;
+            (*env)->DeleteLocalRef(env, javaNames);
+            throwErrnoException(env, "readdir64");
+            return NULL;
+        }
+        if (!dirent) {
+            break;
+        }
+        char *name = dirent->d_name;
+        if (!strcmp(name, ".") || !strcmp(name, "..")) {
+            continue;
+        }
+        if (javaNamesLength == javaNamesMaxLength) {
+            jobjectArray oldJavaNames = javaNames;
+            javaNamesMaxLength *= 2;
+            javaNames = newResizedObjectArray(env, oldJavaNames, getStringClass(env),
+                                              javaNamesLength, javaNamesMaxLength);
+            (*env)->DeleteLocalRef(env, oldJavaNames);
+            if (!javaNames) {
+                int oldErrno = errno;
+                errno = 0;
+                TEMP_FAILURE_RETRY_V(closedir(dir));
+                errno = oldErrno;
+                return NULL;
+            }
+        }
+        jstring javaName = (*env)->NewStringUTF(env, name);
+        if (!javaName) {
+            int oldErrno = errno;
+            errno = 0;
+            TEMP_FAILURE_RETRY_V(closedir(dir));
+            errno = oldErrno;
+            (*env)->DeleteLocalRef(env, javaNames);
+            return NULL;
+        }
+        (*env)->SetObjectArrayElement(env, javaNames, javaNamesLength, javaName);
+        (*env)->DeleteLocalRef(env, javaName);
+        ++javaNamesLength;
+    }
+    errno = 0;
+    TEMP_FAILURE_RETRY_V(closedir(dir));
+    if (errno) {
+        (*env)->DeleteLocalRef(env, javaNames);
+        throwErrnoException(env, "closedir");
+        return NULL;
+    }
+    jobjectArray oldJavaNames = javaNames;
+    javaNames = newResizedObjectArray(env, oldJavaNames, getStringClass(env), javaNamesLength,
+                                      javaNamesLength);
+    (*env)->DeleteLocalRef(env, oldJavaNames);
+    if (!javaNames) {
         return NULL;
     }
     return javaNames;
@@ -586,7 +589,7 @@ JNIEXPORT jobjectArray JNICALL
 Java_me_zhanghai_android_materialfilemanager_jni_Linux_llistxattr(JNIEnv *env, jclass clazz,
                                                                   jstring javaPath) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
-    jbyteArray javaNames = NULL;
+    jobjectArray javaNames = NULL;
     while (true) {
         errno = 0;
         size_t size = (size_t) TEMP_FAILURE_RETRY(llistxattr(path, NULL, 0));
