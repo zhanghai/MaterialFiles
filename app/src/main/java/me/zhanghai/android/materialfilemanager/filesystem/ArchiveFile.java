@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
 import org.apache.commons.compress.archivers.ArchiveException;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -116,6 +117,7 @@ public class ArchiveFile extends BaseFile {
     }
 
     @Override
+    @WorkerThread
     public void reloadInformation() {
 
     }
@@ -159,6 +161,7 @@ public class ArchiveFile extends BaseFile {
 
     @NonNull
     @Override
+    @WorkerThread
     public List<File> getChildren() throws FileSystemException {
         Map<Uri, List<Archive.Information>> tree;
         try {

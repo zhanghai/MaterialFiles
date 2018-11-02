@@ -26,7 +26,7 @@ import me.zhanghai.android.materialfilemanager.util.Holder;
 public class ShellFs {
 
     @NonNull
-    public static Syscall.Information loadInformation(@NonNull String path)
+    public static Syscall.Information getInformation(@NonNull String path)
             throws FileSystemException {
         String command = ShellEscaper.escape(getFsPath()) + " -f " + ShellEscaper.escape(path);
         Holder<String> outputHolder = new Holder<>();

@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
 import org.threeten.bp.Instant;
@@ -18,6 +20,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
+import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class LocalFile extends BaseFile {
 
@@ -25,8 +28,8 @@ public class LocalFile extends BaseFile {
 
     private static final String HIDDEN_FILE_PREFIX = ".";
 
-    @NonNull
-    private LocalFileStrategy mStrategy;
+    @Nullable
+    private Syscall.Information mInformation;
 
     @NonNull
     static Uri uriFromPath(@NonNull String path) {
@@ -47,15 +50,15 @@ public class LocalFile extends BaseFile {
         return new java.io.File(parent, child).getPath();
     }
 
-    LocalFile(@NonNull Uri uri, @NonNull LocalFileStrategy strategy) {
-        super(uri);
-
-        mStrategy = strategy;
-    }
-
     public LocalFile(@NonNull Uri uri) {
         // TODO: Better determination of strategy?
-        this(uri, new LocalFileStrategies.SyscallStrategy());
+        super(uri);
+    }
+
+    LocalFile(@NonNull Uri uri, @NonNull Syscall.Information information) {
+        super(uri);
+
+        mInformation = information;
     }
 
     @NonNull
@@ -87,43 +90,40 @@ public class LocalFile extends BaseFile {
 
     @Override
     public boolean hasInformation() {
-        return mStrategy.hasInformation();
+        return mInformation != null;
     }
 
     @Override
+    @WorkerThread
     public void reloadInformation() throws FileSystemException {
-        try {
-            mStrategy.reloadInformation(this);
-        } catch (FileSystemException e) {
-            // TODO: Better determination of strategy beforehand?
-            if (mStrategy instanceof LocalFileStrategies.ShellFsStrategy) {
-                throw e;
-            }
-            e.printStackTrace();
-            mStrategy = new LocalFileStrategies.ShellFsStrategy();
-            reloadInformation();
-        }
+        mInformation = LocalFileSystem.getInformation(getPath());
     }
 
     @Override
     public boolean isSymbolicLink() {
-        return mStrategy.isSymbolicLink();
+        return mInformation.isSymbolicLink;
     }
 
     @Override
     public boolean isSymbolicLinkBroken() {
-        return mStrategy.isSymbolicLinkBroken();
+        if (!isSymbolicLink()) {
+            throw new IllegalStateException("Not a symbolic link");
+        }
+        return !mInformation.isSymbolicLinkStat;
     }
 
     @NonNull
     @Override
     public String getSymbolicLinkTarget() {
-        return mStrategy.getSymbolicLinkTarget();
+        if (!isSymbolicLink()) {
+            throw new IllegalStateException("Not a symbolic link");
+        }
+        return mInformation.symbolicLinkTarget;
     }
 
     @NonNull
     public PosixFileType getType() {
-        return mStrategy.getType();
+        return mInformation.type;
     }
 
     @Override
@@ -143,44 +143,40 @@ public class LocalFile extends BaseFile {
 
     @NonNull
     public Set<PosixFileModeBit> getMode() {
-        return mStrategy.getMode();
+        return mInformation.mode;
     }
 
     @NonNull
     public PosixUser getOwner() {
-        return mStrategy.getOwner();
+        return mInformation.owner;
     }
 
     @NonNull
     public PosixGroup getGroup() {
-        return mStrategy.getGroup();
+        return mInformation.group;
     }
 
     @Override
     public long getSize() {
-        return mStrategy.getSize();
+        return mInformation.size;
     }
 
     @NonNull
     @Override
     public Instant getLastModificationTime() {
-        return mStrategy.getLastModificationTime();
+        return mInformation.lastModificationTime;
     }
 
     @NonNull
     @Override
+    @WorkerThread
     public List<File> getChildren() throws FileSystemException {
-        try {
-            return mStrategy.getChildren(this);
-        } catch (FileSystemException e) {
-            // TODO: Better determination of strategy beforehand?
-            if (mStrategy instanceof LocalFileStrategies.ShellFsStrategy) {
-                throw e;
-            }
-            e.printStackTrace();
-            mStrategy = new LocalFileStrategies.ShellFsStrategy();
-            return getChildren();
-        }
+        String path = getPath();
+        List<Pair<String, Syscall.Information>> children = LocalFileSystem.getChildren(path);
+        return Functional.map(children, child -> {
+            Uri childUri = LocalFile.uriFromPath(LocalFile.joinPaths(path, child.first));
+            return new LocalFile(childUri, child.second);
+        });
     }
 
 
@@ -194,7 +190,7 @@ public class LocalFile extends BaseFile {
         }
         LocalFile that = (LocalFile) object;
         return Objects.equals(mUri, that.mUri)
-                && Objects.equals(mStrategy, that.mStrategy);
+                && Objects.equals(mInformation, that.mInformation);
     }
 
 
@@ -214,7 +210,7 @@ public class LocalFile extends BaseFile {
     protected LocalFile(@NonNull Parcel in) {
         super(in);
 
-        mStrategy = in.readParcelable(LocalFileStrategy.class.getClassLoader());
+        mInformation = in.readParcelable(Syscall.Information.class.getClassLoader());
     }
 
     @Override
@@ -226,6 +222,6 @@ public class LocalFile extends BaseFile {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
-        dest.writeParcelable(mStrategy, flags);
+        dest.writeParcelable(mInformation, flags);
     }
 }

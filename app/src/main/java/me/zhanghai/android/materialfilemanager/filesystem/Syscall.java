@@ -33,7 +33,7 @@ import me.zhanghai.android.materialfilemanager.util.MoreTextUtils;
 public class Syscall {
 
     @NonNull
-    public static Information loadInformation(@NonNull String path) throws FileSystemException {
+    public static Information getInformation(@NonNull String path) throws FileSystemException {
         StructStatCompat stat;
         try {
             stat = Linux.lstat(path);
