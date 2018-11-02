@@ -49,7 +49,6 @@ public class FileListLiveData extends LiveData<FileListData> {
             protected void onPostExecute(FileListData fileListData) {
                 setValue(fileListData);
             }
-        // FIXME: Actually not good as we only have one SU shell; But good for loading archives.
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 

@@ -22,7 +22,7 @@ public class SuShell {
     private static HandlerThread sHandlerThread;
     @Nullable
     private static Shell sShell;
-    private static int sShellReferenceCount;
+    private static final Object sLock = new Object();
 
     static {
         if (BuildConfig.DEBUG) {
@@ -32,13 +32,14 @@ public class SuShell {
 
     private SuShell() {}
 
-    public static boolean isOpen() {
+    private static boolean isOpenLocked() {
         return sHandlerThread != null && sShell != null;
     }
 
-    public static void open() {
-        if (isOpen()) {
-            throw new IllegalStateException("SuShell is already open");
+    @WorkerThread
+    private static void ensureOpenLocked() {
+        if (isOpenLocked()) {
+            return;
         }
         sHandlerThread = new HandlerThread("SuShellHandler");
         sHandlerThread.start();
@@ -49,9 +50,8 @@ public class SuShell {
                 .open();
     }
 
-    @WorkerThread
-    public static int run(@NonNull String command, @Nullable Holder<String> stdout,
-                          @Nullable Holder<String> stderr) {
+    private static int runLocked(@NonNull String command, @Nullable Holder<String> stdout,
+                                 @Nullable Holder<String> stderr) {
         Holder<Integer> exitCodeHolder = new Holder<>();
         sShell.addCommand(command, 0, (commandCode, exitCode, stdoutLines, stderrLines) -> {
             if (stdout != null) {
@@ -66,27 +66,25 @@ public class SuShell {
         return exitCodeHolder.value;
     }
 
-    public static void close() {
-        if (!isOpen()) {
+    @WorkerThread
+    public static int run(@NonNull String command, @Nullable Holder<String> stdout,
+                          @Nullable Holder<String> stderr) {
+        synchronized (sLock) {
+            ensureOpenLocked();
+            return runLocked(command, stdout, stderr);
+        }
+    }
+
+    // Actually, we can just leave the shell open while app is running. When app is killed, stdin
+    // for the shell will be closed so the shell will exit automatically.
+    @WorkerThread
+    private static void ensureClosedLocked() {
+        if (!isOpenLocked()) {
             return;
         }
         sShell.close();
         sShell = null;
         sHandlerThread.quitSafely();
         sHandlerThread = null;
-    }
-
-    public static void acquire() {
-        if (sShellReferenceCount == 0) {
-            open();
-        }
-        ++sShellReferenceCount;
-    }
-
-    public static void release() {
-        --sShellReferenceCount;
-        if (sShellReferenceCount == 0) {
-            close();
-        }
     }
 }

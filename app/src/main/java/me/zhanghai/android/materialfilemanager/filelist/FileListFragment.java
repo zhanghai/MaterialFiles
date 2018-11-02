@@ -61,7 +61,6 @@ import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.main.MainActivity;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.settings.SettingsLiveDatas;
-import me.zhanghai.android.materialfilemanager.shell.SuShellHelperFragment;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
 import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
@@ -178,8 +177,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        SuShellHelperFragment.attachToActivity(this);
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
