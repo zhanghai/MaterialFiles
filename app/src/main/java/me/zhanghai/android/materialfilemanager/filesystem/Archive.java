@@ -109,8 +109,8 @@ public class Archive {
                         Information information = new Information(path, entry);
                         tree.get(parentPath).add(information);
                         directoryInformationExists.put(path, true);
+                        MapCompat.computeIfAbsent(tree, path, _1 -> new ArrayList<>());
                     }
-                    MapCompat.computeIfAbsent(tree, path, _1 -> new ArrayList<>());
                     parentPath = path;
                 }
             }
