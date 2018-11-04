@@ -99,7 +99,6 @@
                 android:clipToPadding="false"
                 app:fastScrollEnableThumbInactiveColor="false"
                 app:fastScrollPopupBgColor="?colorAccent"
-                app:fastScrollPopupTextColor="?android:textColorPrimaryInverse"
                 app:fastScrollThumbColor="?colorAccent"
                 tools:listitem="@layout/file_item" />
         </android.support.v4.widget.ThemedSwipeRefreshLayout>
