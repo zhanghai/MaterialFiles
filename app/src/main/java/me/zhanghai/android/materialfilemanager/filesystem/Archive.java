@@ -6,6 +6,8 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -16,6 +18,7 @@ import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.threeten.bp.Instant;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -82,8 +85,7 @@ public class Archive {
         Map<Uri, List<Information>> tree = sTreeCache.get(archivePath);
         if (tree == null) {
             List<ArchiveEntry> entries = readEntries(archivePath);
-            List<Information> informations = Functional.map(entries, entry -> new Information(
-                    makePath(entry), entry));
+            List<Information> informations = Functional.map(entries, Archive::makeInformation);
             tree = new HashMap<>();
             tree.put(pathForRoot(), new ArrayList<>());
             Map<Uri, Boolean> directoryInformationExists = new HashMap<>();
@@ -106,7 +108,7 @@ public class Archive {
                     Uri path = builder.build();
                     if (!MapCompat.getOrDefault(directoryInformationExists, path, false)) {
                         ArchiveEntry entry = new ArchiveDirectoryEntry(path.getPath());
-                        Information information = new Information(path, entry);
+                        Information information = makeInformation(entry);
                         tree.get(parentPath).add(information);
                         directoryInformationExists.put(path, true);
                         MapCompat.computeIfAbsent(tree, path, _1 -> new ArrayList<>());
@@ -117,6 +119,18 @@ public class Archive {
             sTreeCache.put(archivePath, tree);
         }
         return tree;
+    }
+
+    private static Information makeInformation(@NonNull ArchiveEntry entry) {
+        Uri path = makePath(entry);
+        String name = entry.getName();
+        boolean isDirectory = entry.isDirectory();
+        boolean isSymbolicLink = entry instanceof ZipArchiveEntry
+                && ((ZipArchiveEntry) entry).isUnixSymlink();
+        long size = entry.getSize();
+        Instant lastModificationTime = Instant.ofEpochMilli(entry.getLastModifiedDate().getTime());
+        return new Information(path, name, isDirectory, isSymbolicLink, size, lastModificationTime,
+                entry);
     }
 
     @NonNull
@@ -196,20 +210,35 @@ public class Archive {
         return pathBuilder.build();
     }
 
-    public static class Information {
+    public static class Information implements Parcelable {
 
         @NonNull
         public final Uri path;
         @NonNull
-        public final ArchiveEntry entry;
+        public final String name;
+        public final boolean isDirectory;
+        public final boolean isSymbolicLink;
+        public final long size;
+        @NonNull
+        public final Instant lastModificationTime;
+        @Nullable
+        public transient final ArchiveEntry entry;
 
-        public Information(@NonNull Uri path, @NonNull ArchiveEntry entry) {
+        public Information(@NonNull Uri path, @NonNull String name, boolean isDirectory,
+                           boolean isSymbolicLink, long size, @NonNull Instant lastModificationTime,
+                           @NonNull ArchiveEntry entry) {
             this.path = path;
+            this.name = name;
+            this.isDirectory = isDirectory;
+            this.isSymbolicLink = isSymbolicLink;
+            this.size = size;
+            this.lastModificationTime = lastModificationTime;
             this.entry = entry;
         }
 
+
         @Override
-        public boolean equals(@Nullable Object object) {
+        public boolean equals(Object object) {
             if (this == object) {
                 return true;
             }
@@ -217,13 +246,55 @@ public class Archive {
                 return false;
             }
             Information that = (Information) object;
-            return Objects.equals(path, that.path)
+            return isDirectory == that.isDirectory
+                    && isSymbolicLink == that.isSymbolicLink
+                    && size == that.size
+                    && Objects.equals(path, that.path)
+                    && Objects.equals(name, that.name)
+                    && Objects.equals(lastModificationTime, that.lastModificationTime)
                     && Objects.equals(entry, that.entry);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(path, entry);
+            return Objects.hash(path, name, isDirectory, isSymbolicLink, size, lastModificationTime,
+                    entry);
+        }
+
+        public static final Creator<Information> CREATOR = new Creator<Information>() {
+            @Override
+            public Information createFromParcel(Parcel source) {
+                return new Information(source);
+            }
+            @Override
+            public Information[] newArray(int size) {
+                return new Information[size];
+            }
+        };
+
+        protected Information(Parcel in) {
+            path = in.readParcelable(Uri.class.getClassLoader());
+            name = in.readString();
+            isDirectory = in.readByte() != 0;
+            isSymbolicLink = in.readByte() != 0;
+            size = in.readLong();
+            lastModificationTime = (Instant) in.readSerializable();
+            entry = null;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeParcelable(path, flags);
+            dest.writeString(name);
+            dest.writeByte(isDirectory ? (byte) 1 : (byte) 0);
+            dest.writeByte(isSymbolicLink ? (byte) 1 : (byte) 0);
+            dest.writeLong(size);
+            dest.writeSerializable(lastModificationTime);
         }
     }
 

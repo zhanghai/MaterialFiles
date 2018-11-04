@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
 import org.apache.commons.compress.archivers.ArchiveException;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.threeten.bp.Instant;
 
 import java.io.IOException;
@@ -74,7 +73,7 @@ public class ArchiveFile extends BaseFile {
 
     @NonNull
     public String getEntryName() {
-        return mInformation.entry.getName();
+        return mInformation.name;
     }
 
     @Nullable
@@ -124,9 +123,7 @@ public class ArchiveFile extends BaseFile {
 
     @Override
     public boolean isSymbolicLink() {
-        // FIXME: Move this to information.
-        return (mInformation.entry instanceof ZipArchiveEntry)
-                && ((ZipArchiveEntry) mInformation.entry).isUnixSymlink();
+        return mInformation.isSymbolicLink;
     }
 
     @Override
@@ -145,18 +142,18 @@ public class ArchiveFile extends BaseFile {
 
     @Override
     public boolean isDirectory() {
-        return mInformation.entry.isDirectory();
+        return mInformation.isDirectory;
     }
 
     @Override
     public long getSize() {
-        return mInformation.entry.getSize();
+        return mInformation.size;
     }
 
     @NonNull
     @Override
     public Instant getLastModificationTime() {
-        return Instant.ofEpochMilli(mInformation.entry.getLastModifiedDate().getTime());
+        return mInformation.lastModificationTime;
     }
 
     @NonNull
