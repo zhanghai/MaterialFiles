@@ -37,17 +37,22 @@ public class SuShell {
     }
 
     @WorkerThread
-    private static void ensureOpenLocked() {
+    private static int ensureOpenLocked() {
         if (isOpenLocked()) {
-            return;
+            return Shell.OnCommandResultListener.SHELL_RUNNING;
         }
         sHandlerThread = new HandlerThread("SuShellHandler");
         sHandlerThread.start();
         Handler handler = new Handler(sHandlerThread.getLooper());
+        Holder<Integer> exitCodeHolder = new Holder<>();
         sShell = new Shell.Builder()
                 .useSU()
                 .setHandler(handler)
-                .open();
+                .open((commandCode, exitCode, stdout, stderr) -> {
+                    exitCodeHolder.value = exitCode;
+                });
+        sShell.waitForIdle();
+        return exitCodeHolder.value;
     }
 
     private static int runLocked(@NonNull String command, @Nullable Holder<String> stdout,
@@ -70,7 +75,11 @@ public class SuShell {
     public static int run(@NonNull String command, @Nullable Holder<String> stdout,
                           @Nullable Holder<String> stderr) {
         synchronized (sLock) {
-            ensureOpenLocked();
+            int exitCode = ensureOpenLocked();
+            if (exitCode != Shell.OnCommandResultListener.SHELL_RUNNING) {
+                ensureClosedLocked();
+                return exitCode;
+            }
             return runLocked(command, stdout, stderr);
         }
     }
