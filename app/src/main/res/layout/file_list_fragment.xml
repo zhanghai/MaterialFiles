@@ -114,7 +114,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true" />
 
-    <com.leinardi.android.speeddial.SpeedDialView
+    <me.zhanghai.android.materialfilemanager.ui.ThemedSpeedDialView
         android:id="@+id/speed_dial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
