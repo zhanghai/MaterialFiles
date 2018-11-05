@@ -16,11 +16,11 @@ import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.ui.CheckableItemBackground;
 import me.zhanghai.android.materialfilemanager.ui.CheckableLinearLayout;
 import me.zhanghai.android.materialfilemanager.ui.SimpleAdapter;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
@@ -72,9 +72,8 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
             case VIEW_TYPE_ITEM: {
                 ItemHolder holder = new ItemHolder(ViewUtils.inflate(R.layout.navigation_item,
                         parent));
-                Context context = holder.itemView.getContext();
-                Drawable navigationItemBackground = CheckableItemBackground.create(context);
-                holder.itemLayout.setBackground(navigationItemBackground);
+                holder.itemLayout.setBackground(AppCompatResources.getDrawable(
+                        holder.itemLayout.getContext(), R.drawable.navigation_item_background));
                 holder.iconImage.setImageTintList(NavigationItemColor.create(
                         holder.iconImage.getImageTintList(), holder.iconImage.getContext()));
                 holder.titleText.setTextColor(NavigationItemColor.create(

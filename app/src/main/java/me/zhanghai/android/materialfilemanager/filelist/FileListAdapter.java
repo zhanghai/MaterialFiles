@@ -43,7 +43,6 @@ import me.zhanghai.android.materialfilemanager.glide.GlideApp;
 import me.zhanghai.android.materialfilemanager.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.materialfilemanager.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.materialfilemanager.ui.CheckableFrameLayout;
-import me.zhanghai.android.materialfilemanager.ui.CheckableItemBackground;
 import me.zhanghai.android.materialfilemanager.util.StringCompat;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
@@ -150,8 +149,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         ViewHolder holder = new ViewHolder(ViewUtils.inflate(R.layout.file_item, parent));
-        holder.itemLayout.setBackground(CheckableItemBackground.create(
-                holder.itemLayout.getContext()));
+        holder.itemLayout.setBackground(AppCompatResources.getDrawable(
+                holder.itemLayout.getContext(), R.drawable.checkable_item_background));
         holder.menu = new PopupMenu(holder.menuButton.getContext(), holder.menuButton);
         holder.menu.inflate(R.menu.file_item);
         holder.menuButton.setOnClickListener(view -> holder.menu.show());
