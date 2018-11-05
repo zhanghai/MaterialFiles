@@ -174,7 +174,7 @@
             white-space: pre-wrap;
         }
         a, a:link, a:visited, a:hover, a:focus, a:active {
-            color: #4caf50;
+            color: #e91e63;
         }
     </string>
     <string name="about_licenses_html_style_dark" translatable="false">
@@ -190,7 +190,7 @@
             white-space: pre-wrap;
         }
         a, a:link, a:visited, a:hover, a:focus, a:active {
-            color: #4caf50;
+            color: #e91e63;
         }
     </string>
 </resources>

@@ -29,9 +29,55 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/list_padding_vertical"
+            android:paddingBottom="@dimen/list_padding_vertical">
 
-            <!-- TODO -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/card_margin_horizontal"
+                android:layout_marginEnd="@dimen/card_margin_horizontal"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardPreventCornerOverlap="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/list_padding_vertical"
+                    android:paddingBottom="@dimen/list_padding_vertical">
+
+                    <LinearLayout
+                        android:id="@+id/licenses"
+                        android:layout_width="match_parent"
+                        android:layout_height="?listPreferredItemHeightSmall"
+                        android:paddingStart="?android:listPreferredItemPaddingStart"
+                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                        android:background="?selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size"
+                            android:duplicateParentState="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/text_file_icon_24dp"
+                            android:tint="?android:textColorSecondary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/about_licenses_title"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

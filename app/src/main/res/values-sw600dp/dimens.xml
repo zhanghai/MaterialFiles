@@ -15,4 +15,6 @@
     <dimen name="content_start_margin_minus_12dp">68dp</dimen>
     <dimen name="content_start_from_screen_edge_margin_minus_36dp_considering_at_least_8dp">20dp</dimen>
     <dimen name="navigation_header_height">192dp</dimen>
+    <dimen name="card_margin_horizontal">@dimen/screen_edge_margin</dimen>
+    <dimen name="card_corner_radius">2dp</dimen>
 </resources>

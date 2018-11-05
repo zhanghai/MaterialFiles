@@ -19,11 +19,14 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
+import me.zhanghai.android.materialfilemanager.ui.LicensesDialogFragment;
 
 public class AboutFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.licenses)
+    ViewGroup mLicensesLayout;
 
     @NonNull
     public static AboutFragment newInstance() {
@@ -63,6 +66,8 @@ public class AboutFragment extends Fragment {
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
+
+        mLicensesLayout.setOnClickListener(view -> LicensesDialogFragment.show(this));
     }
 
     @Override
