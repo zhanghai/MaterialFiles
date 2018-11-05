@@ -6,7 +6,9 @@
 package me.zhanghai.android.materialfilemanager.ui;
 
 import android.content.Context;
+import android.os.Parcelable;
 import android.support.annotation.MenuRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
@@ -17,10 +19,14 @@ import android.view.View;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
 import com.leinardi.android.speeddial.SpeedDialView;
 
+import java.util.ArrayList;
+
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 
 public class ThemedSpeedDialView extends SpeedDialView {
+
+    private boolean mSavingInstanceState;
 
     public ThemedSpeedDialView(Context context) {
         super(context);
@@ -34,13 +40,7 @@ public class ThemedSpeedDialView extends SpeedDialView {
         super(context, attrs, defStyleAttr);
     }
 
-    /**
-     * Inflate a menu resource into this SpeedDialView. Any existing Action item will be removed.
-     * <p class="note">Using the Menu resource it is possible to specify only the ID, the icon and the label of the
-     * Action item. No color customization is available.</p>
-     *
-     * @param menuRes Menu resource to inflate
-     */
+    @Override
     public void inflate(@MenuRes int menuRes) {
         clearActionItems();
         Context context = getContext();
@@ -61,5 +61,25 @@ public class ThemedSpeedDialView extends SpeedDialView {
                     .create();
             addActionItem(actionItem);
         }
+    }
+
+    // HACK: Don't save the action items so that they don't overwrite our new themed items when
+    // restoring saved state.
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        mSavingInstanceState = true;
+        Parcelable savedState = super.onSaveInstanceState();
+        mSavingInstanceState = false;
+        return savedState;
+    }
+
+    @NonNull
+    @Override
+    public ArrayList<SpeedDialActionItem> getActionItems() {
+        if (mSavingInstanceState) {
+            return new ArrayList<>();
+        }
+        return super.getActionItems();
     }
 }
