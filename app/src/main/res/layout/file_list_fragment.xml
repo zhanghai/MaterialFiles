@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -86,7 +86,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:visibility="gone" />
 
-        <android.support.v4.widget.ThemedSwipeRefreshLayout
+        <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -101,7 +101,7 @@
                 app:fastScrollPopupBgColor="?colorAccent"
                 app:fastScrollThumbColor="?colorAccent"
                 tools:listitem="@layout/file_item" />
-        </android.support.v4.widget.ThemedSwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
     </FrameLayout>
 
     <me.zhanghai.android.materialfilemanager.ui.StatusBarBackgroundView
@@ -123,4 +123,4 @@
         app:sdMainFabAnimationRotateAngle="135"
         app:sdMainFabClosedSrc="@drawable/add_icon_white_24dp"
         app:sdOverlayLayout="@id/speed_dial_overlay" />
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

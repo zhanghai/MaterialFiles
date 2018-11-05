@@ -7,8 +7,6 @@ package me.zhanghai.android.materialfilemanager.file;
 
 import android.os.Build;
 import android.provider.DocumentsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -16,6 +14,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.filesystem.PosixFileType;
 import me.zhanghai.android.materialfilemanager.util.FileNameUtils;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;

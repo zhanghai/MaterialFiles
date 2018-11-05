@@ -5,7 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 public final class StructGroup {
 

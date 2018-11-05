@@ -5,9 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.support.annotation.NonNull;
-
 import java.io.File;
+
+import androidx.annotation.NonNull;
 
 public class JavaFile {
 

@@ -7,10 +7,6 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
-import android.support.v4.util.Pair;
 import android.system.ErrnoException;
 import android.system.OsConstants;
 
@@ -20,6 +16,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import androidx.core.util.Pair;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
 import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;

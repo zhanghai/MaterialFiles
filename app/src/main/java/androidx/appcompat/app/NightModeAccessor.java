@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package android.support.v7.app;
+package androidx.appcompat.app;
 
 public class NightModeAccessor {
 

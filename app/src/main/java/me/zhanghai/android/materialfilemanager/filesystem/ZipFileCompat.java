@@ -6,7 +6,6 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
 
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipFile;
@@ -20,6 +19,8 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
+
+import androidx.annotation.NonNull;
 
 public class ZipFileCompat implements Closeable {
 

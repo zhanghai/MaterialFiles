@@ -5,11 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.file;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.Map;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 

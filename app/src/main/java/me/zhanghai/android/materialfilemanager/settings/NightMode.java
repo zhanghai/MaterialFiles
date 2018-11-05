@@ -5,7 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.settings;
 
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 
 public enum NightMode {
 

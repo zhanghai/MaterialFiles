@@ -5,9 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
-import android.support.annotation.NonNull;
-
 import java.util.Comparator;
+
+import androidx.annotation.NonNull;
 
 public class NaturalOrderComparator implements Comparator<String> {
 

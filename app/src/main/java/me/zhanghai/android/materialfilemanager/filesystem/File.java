@@ -8,9 +8,6 @@ package me.zhanghai.android.materialfilemanager.filesystem;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
 
 import org.threeten.bp.Instant;
 
@@ -18,6 +15,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import me.zhanghai.android.materialfilemanager.file.FileTypeNames;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 import me.zhanghai.android.materialfilemanager.util.CollectionUtils;

@@ -5,10 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
-import android.arch.lifecycle.MediatorLiveData;
-
 import javax.annotation.Nullable;
 
+import androidx.lifecycle.MediatorLiveData;
 import me.zhanghai.android.materialfilemanager.settings.SettingsLiveDatas;
 
 public class FileSortOptionsLiveData extends MediatorLiveData<FileSortOptions> {

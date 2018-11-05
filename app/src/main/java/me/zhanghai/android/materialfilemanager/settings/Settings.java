@@ -8,7 +8,9 @@ package me.zhanghai.android.materialfilemanager.settings;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.filelist.FileSortOptions;
 import me.zhanghai.android.materialfilemanager.filelist.OpenApkDefaultAction;
-import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.*;
+import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.BooleanSettingsEntry;
+import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.EnumSettingsEntry;
+import me.zhanghai.android.materialfilemanager.settings.SettingsEntries.StringSettingsEntry;
 
 interface Settings {
 

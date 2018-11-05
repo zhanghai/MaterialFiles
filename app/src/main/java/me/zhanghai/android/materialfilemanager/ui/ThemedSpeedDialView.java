@@ -7,10 +7,6 @@ package me.zhanghai.android.materialfilemanager.ui;
 
 import android.content.Context;
 import android.os.Parcelable;
-import android.support.annotation.MenuRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.PopupMenu;
 import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +17,10 @@ import com.leinardi.android.speeddial.SpeedDialView;
 
 import java.util.ArrayList;
 
+import androidx.annotation.MenuRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.PopupMenu;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 

@@ -6,14 +6,14 @@
 package me.zhanghai.android.materialfilemanager.settings;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.preference.ListPreference;
 import android.util.AttributeSet;
 
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.preference.ListPreference;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.compat.Function;
 

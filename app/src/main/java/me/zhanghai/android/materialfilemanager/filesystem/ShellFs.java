@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
 
 import org.threeten.bp.Instant;
@@ -16,6 +14,8 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.util.Pair;
 import me.zhanghai.android.materialfilemanager.AppApplication;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.Functional;

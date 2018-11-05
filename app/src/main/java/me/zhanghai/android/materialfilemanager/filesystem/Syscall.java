@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.OsConstants;
@@ -18,6 +16,8 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.functional.compat.LongConsumer;
 import me.zhanghai.android.materialfilemanager.jni.Linux;

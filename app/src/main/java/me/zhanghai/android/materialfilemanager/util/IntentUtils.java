@@ -12,14 +12,14 @@ import android.os.Build;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.IntentCompat;
 
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.IntentCompat;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 
 public class IntentUtils {

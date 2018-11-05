@@ -7,10 +7,10 @@ package me.zhanghai.android.materialfilemanager.shell;
 
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.WorkerThread;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
 import eu.chainfire.libsuperuser.Debug;
 import me.zhanghai.android.materialfilemanager.BuildConfig;
 import me.zhanghai.android.materialfilemanager.util.Holder;

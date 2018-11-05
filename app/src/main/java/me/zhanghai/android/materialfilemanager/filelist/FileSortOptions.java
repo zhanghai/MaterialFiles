@@ -5,12 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
-import android.support.annotation.NonNull;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.functional.ComparatorCompat;
 import me.zhanghai.android.materialfilemanager.functional.Functional;

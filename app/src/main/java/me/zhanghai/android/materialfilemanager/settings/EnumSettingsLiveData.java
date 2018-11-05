@@ -5,11 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.settings;
 
-import android.arch.lifecycle.LiveData;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import me.zhanghai.android.materialfilemanager.util.SharedPrefsUtils;
 
 public class EnumSettingsLiveData<E extends Enum<E>> extends LiveData<E>

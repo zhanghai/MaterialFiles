@@ -5,8 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
-import android.support.annotation.NonNull;
 import android.system.StructStat;
+
+import androidx.annotation.NonNull;
 
 /**
  * @see StructStat

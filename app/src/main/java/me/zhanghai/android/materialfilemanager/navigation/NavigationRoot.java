@@ -6,8 +6,8 @@
 package me.zhanghai.android.materialfilemanager.navigation;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public interface NavigationRoot {

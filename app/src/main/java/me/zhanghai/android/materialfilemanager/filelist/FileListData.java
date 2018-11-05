@@ -5,11 +5,10 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class FileListData {

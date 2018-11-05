@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.materialfilemanager.functional.compat;
 
-import java.util.Objects;
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * Represents an operation upon two operands of the same type, producing a result

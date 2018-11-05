@@ -6,7 +6,8 @@
 package me.zhanghai.android.materialfilemanager.util;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
 
 public class StringCompat {
 

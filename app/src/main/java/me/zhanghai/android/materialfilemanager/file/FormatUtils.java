@@ -6,7 +6,6 @@
 package me.zhanghai.android.materialfilemanager.file;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.text.format.Time;
@@ -16,6 +15,7 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.R;
 
 public class FormatUtils {

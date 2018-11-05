@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.ui;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.NoCopySpan;
 import android.text.Selection;
@@ -18,6 +16,9 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * @see LinkMovementMethod

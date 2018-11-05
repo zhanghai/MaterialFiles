@@ -7,8 +7,6 @@ package me.zhanghai.android.materialfilemanager.glide;
 
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Priority;
@@ -22,6 +20,8 @@ import com.bumptech.glide.signature.ObjectKey;
 import java.io.File;
 import java.nio.ByteBuffer;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.file.MimeTypes;
 
 public class MediaEmbeddedPictureModelLoader<Model> implements ModelLoader<Model, ByteBuffer> {

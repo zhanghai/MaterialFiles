@@ -6,9 +6,6 @@
 package me.zhanghai.android.materialfilemanager.util;
 
 import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +14,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 @SuppressWarnings("unused")
 public class ListBuilder<E, L extends List<E>> {

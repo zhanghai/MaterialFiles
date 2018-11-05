@@ -5,10 +5,10 @@
 
 package me.zhanghai.android.materialfilemanager.filelist;
 
-import android.arch.lifecycle.LiveData;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public class TrailLiveData extends LiveData<TrailData> {

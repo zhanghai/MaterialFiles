@@ -5,8 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
 
 /**
  * This class assumes the only separator to be '/'.

@@ -6,11 +6,11 @@
 package me.zhanghai.android.materialfilemanager;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
 
 import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.util.NightModeHelper;
 
 public class AppApplication extends Application {

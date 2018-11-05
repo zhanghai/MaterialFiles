@@ -5,12 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
-import android.support.annotation.NonNull;
-
 import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.commons.text.translate.LookupTranslator;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.util.MapBuilder;
 
 public class ShellEscaper {

@@ -6,10 +6,10 @@
 package me.zhanghai.android.materialfilemanager.settings;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 
 import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
 
+import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.NightModeHelper;
 

@@ -11,16 +11,17 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.BundleCompat;
 import android.util.Size;
 import android.util.SizeF;
 import android.util.SparseArray;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.BundleCompat;
 
 @SuppressWarnings("unused")
 public class BundleBuilder {

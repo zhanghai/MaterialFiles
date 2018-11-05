@@ -5,9 +5,9 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.BuildConfig;
 
 public class LogUtils {

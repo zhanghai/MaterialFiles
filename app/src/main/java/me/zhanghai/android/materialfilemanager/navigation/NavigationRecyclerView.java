@@ -8,12 +8,12 @@ package me.zhanghai.android.materialfilemanager.navigation;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.v4.math.MathUtils;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.WindowInsets;
 
+import androidx.annotation.NonNull;
+import androidx.core.math.MathUtils;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
 import butterknife.BindDrawable;
 import butterknife.ButterKnife;

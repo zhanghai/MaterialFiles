@@ -7,8 +7,8 @@ package me.zhanghai.android.materialfilemanager.navigation;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.support.annotation.NonNull;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 

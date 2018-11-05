@@ -5,13 +5,14 @@
 
 package me.zhanghai.android.materialfilemanager.jni;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.Size;
 import android.system.ErrnoException;
 import android.system.Int64Ref;
 
 import java.io.FileDescriptor;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.Size;
 
 public class Linux {
 

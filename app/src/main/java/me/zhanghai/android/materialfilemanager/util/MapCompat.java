@@ -5,12 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.util;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import java.util.Map;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.functional.compat.BiFunction;
 import me.zhanghai.android.materialfilemanager.functional.compat.Function;
 

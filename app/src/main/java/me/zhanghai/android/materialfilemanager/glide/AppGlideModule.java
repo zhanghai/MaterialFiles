@@ -8,7 +8,6 @@ package me.zhanghai.android.materialfilemanager.glide;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
@@ -16,6 +15,8 @@ import com.bumptech.glide.annotation.GlideModule;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+
+import androidx.annotation.NonNull;
 
 @GlideModule
 public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {

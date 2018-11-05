@@ -5,12 +5,11 @@
 
 package me.zhanghai.android.materialfilemanager.functional;
 
-import android.support.annotation.CheckResult;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import androidx.annotation.CheckResult;
 import me.zhanghai.android.materialfilemanager.functional.compat.BiConsumer;
 import me.zhanghai.android.materialfilemanager.functional.compat.BiFunction;
 import me.zhanghai.android.materialfilemanager.functional.compat.BiPredicate;

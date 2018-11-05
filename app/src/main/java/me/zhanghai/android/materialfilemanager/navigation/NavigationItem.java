@@ -8,12 +8,12 @@ package me.zhanghai.android.materialfilemanager.navigation;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v7.content.res.AppCompatResources;
 
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.content.res.AppCompatResources;
 import me.zhanghai.android.materialfilemanager.filesystem.File;
 
 public abstract class NavigationItem {

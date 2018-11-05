@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.materialfilemanager.ui;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.text.Selection;
 import android.text.Spannable;
@@ -15,6 +13,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.MotionEvent;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * A movement method that traverses links in the text buffer and fires clicks. Unlike

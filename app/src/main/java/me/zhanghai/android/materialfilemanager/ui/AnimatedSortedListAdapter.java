@@ -7,12 +7,12 @@ package me.zhanghai.android.materialfilemanager.ui;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import me.zhanghai.android.materialfilemanager.R;
 
 public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewHolder>

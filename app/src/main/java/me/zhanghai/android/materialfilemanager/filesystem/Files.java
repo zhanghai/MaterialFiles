@@ -6,12 +6,12 @@
 package me.zhanghai.android.materialfilemanager.filesystem;
 
 import android.net.Uri;
-import android.support.annotation.NonNull;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 
 public class Files {
