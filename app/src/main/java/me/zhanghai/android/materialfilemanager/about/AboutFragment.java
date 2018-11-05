@@ -29,12 +29,21 @@ public class AboutFragment extends Fragment {
     private static final Uri GITHUB_URI = Uri.parse(
             "https://github.com/DreaminginCodeZH/MaterialFileManager");
 
+    private static final Uri AUTHOR_GITHUB_URI = Uri.parse("https://github.com/DreaminginCodeZH");
+
+    private static final Uri AUTHOR_GOOGLE_PLUS_URI = Uri.parse(
+            "https://plus.google.com/105148560373589648355");
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.github)
     ViewGroup mGitHubLayout;
     @BindView(R.id.licenses)
     ViewGroup mLicensesLayout;
+    @BindView(R.id.author_github)
+    ViewGroup mAuthorGitHubLayout;
+    @BindView(R.id.author_google_plus)
+    ViewGroup mAuthorGooglePlusLayout;
 
     @NonNull
     public static AboutFragment newInstance() {
@@ -78,6 +87,10 @@ public class AboutFragment extends Fragment {
         mGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 GITHUB_URI), this));
         mLicensesLayout.setOnClickListener(view -> LicensesDialogFragment.show(this));
+        mAuthorGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
+                AUTHOR_GITHUB_URI), this));
+        mAuthorGooglePlusLayout.setOnClickListener(view -> AppUtils.startActivity(
+                IntentUtils.makeView(AUTHOR_GOOGLE_PLUS_URI), this));
     }
 
     @Override

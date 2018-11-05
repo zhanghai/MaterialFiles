@@ -162,6 +162,7 @@
     </string-array>
 
     <string name="about_title">About</string>
+    <string name="about_version_title">Version</string>
     <string name="about_github_title">View on GitHub</string>
     <string name="about_licenses_title">Licenses</string>
     <string name="about_licenses_html_style_light" translatable="false">
@@ -194,4 +195,8 @@
             color: #e91e63;
         }
     </string>
+    <string name="about_author_title">Author</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Follow on GitHub</string>
+    <string name="about_author_google_plus_title">Add to Google+ circles</string>
 </resources>
