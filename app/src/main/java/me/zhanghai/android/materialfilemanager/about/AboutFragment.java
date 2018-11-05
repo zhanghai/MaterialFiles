@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.about;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,11 +21,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialfilemanager.R;
 import me.zhanghai.android.materialfilemanager.ui.LicensesDialogFragment;
+import me.zhanghai.android.materialfilemanager.util.AppUtils;
+import me.zhanghai.android.materialfilemanager.util.IntentUtils;
 
 public class AboutFragment extends Fragment {
 
+    private static final Uri GITHUB_URI = Uri.parse(
+            "https://github.com/DreaminginCodeZH/MaterialFileManager");
+
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.github)
+    ViewGroup mGitHubLayout;
     @BindView(R.id.licenses)
     ViewGroup mLicensesLayout;
 
@@ -67,6 +75,8 @@ public class AboutFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
+        mGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
+                GITHUB_URI), this));
         mLicensesLayout.setOnClickListener(view -> LicensesDialogFragment.show(this));
     }
 

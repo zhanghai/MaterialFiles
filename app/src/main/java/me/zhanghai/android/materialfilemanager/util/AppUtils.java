@@ -19,6 +19,7 @@ import android.os.Looper;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 
@@ -200,6 +201,17 @@ public class AppUtils {
         }
     }
 
+    public static boolean startActivity(@NonNull Intent intent, @NonNull Fragment fragment) {
+        try {
+            fragment.startActivity(intent);
+            return true;
+        } catch (ActivityNotFoundException | IllegalArgumentException e) {
+            e.printStackTrace();
+            ToastUtils.show(R.string.activity_not_found, fragment.requireContext());
+            return false;
+        }
+    }
+
     public static boolean startActivityForResult(@NonNull Intent intent, int requestCode,
                                                  @NonNull Activity activity) {
         try {
@@ -212,12 +224,28 @@ public class AppUtils {
         }
     }
 
+    public static boolean startActivityForResult(@NonNull Intent intent, int requestCode,
+                                                 @NonNull Fragment fragment) {
+        try {
+            fragment.startActivityForResult(intent, requestCode);
+            return true;
+        } catch (ActivityNotFoundException | IllegalArgumentException e) {
+            e.printStackTrace();
+            ToastUtils.show(R.string.activity_not_found, fragment.requireContext());
+            return false;
+        }
+    }
+
     public static void startActivityWithChooser(@NonNull Intent intent, @NonNull Context context) {
         context.startActivity(IntentUtils.withChooser(intent));
     }
 
+    public static void startActivityWithChooser(@NonNull Intent intent, @NonNull Fragment fragment) {
+        fragment.startActivity(IntentUtils.withChooser(intent));
+    }
+
     public static void startActivityForResultWithChooser(@NonNull Intent intent, int requestCode,
-                                                         @NonNull Activity activity) {
-        activity.startActivityForResult(IntentUtils.withChooser(intent), requestCode);
+                                                         @NonNull Fragment fragment) {
+        fragment.startActivityForResult(IntentUtils.withChooser(intent), requestCode);
     }
 }

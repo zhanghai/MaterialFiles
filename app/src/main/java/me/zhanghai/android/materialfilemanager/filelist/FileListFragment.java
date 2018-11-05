@@ -746,7 +746,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
             Intent intent = IntentUtils.makeView(fileUri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            AppUtils.startActivity(intent, requireContext());
+            AppUtils.startActivity(intent, this);
         } else {
             // TODO
         }
@@ -798,7 +798,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             LocalFile localFile = (LocalFile) file;
             Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
             Intent intent = IntentUtils.makeSendStream(fileUri, mimeType);
-            AppUtils.startActivityWithChooser(intent, requireContext());
+            AppUtils.startActivityWithChooser(intent, this);
         } else {
             // TODO
         }

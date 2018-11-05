@@ -162,6 +162,7 @@
     </string-array>
 
     <string name="about_title">About</string>
+    <string name="about_github_title">View on GitHub</string>
     <string name="about_licenses_title">Licenses</string>
     <string name="about_licenses_html_style_light" translatable="false">
         body {
