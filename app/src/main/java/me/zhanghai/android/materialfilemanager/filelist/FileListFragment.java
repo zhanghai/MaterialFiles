@@ -56,6 +56,7 @@ import me.zhanghai.android.materialfilemanager.filesystem.File;
 import me.zhanghai.android.materialfilemanager.filesystem.FileSystemException;
 import me.zhanghai.android.materialfilemanager.filesystem.Files;
 import me.zhanghai.android.materialfilemanager.filesystem.LocalFile;
+import me.zhanghai.android.materialfilemanager.filesystem.LocalFileSystem;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.main.MainActivity;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
@@ -78,10 +79,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
-
-    private static final String[] PERMISSIONS_STORAGE = {
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
 
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
 
@@ -231,10 +228,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
         SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
 
-        if (!EffortlessPermissions.hasPermissions(this, PERMISSIONS_STORAGE)) {
+        if (!EffortlessPermissions.hasPermissions(this, LocalFileSystem.PERMISSIONS_STORAGE)) {
             EffortlessPermissions.requestPermissions(this,
                     R.string.storage_permission_request_message, REQUEST_CODE_STORAGE_PERMISSION,
-                    PERMISSIONS_STORAGE);
+                    LocalFileSystem.PERMISSIONS_STORAGE);
         }
     }
 
@@ -254,7 +251,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @AfterPermissionDenied(REQUEST_CODE_STORAGE_PERMISSION)
     private void onStoragePermissionDenied() {
-        if (EffortlessPermissions.somePermissionPermanentlyDenied(this, PERMISSIONS_STORAGE)) {
+        if (EffortlessPermissions.somePermissionPermanentlyDenied(this,
+                LocalFileSystem.PERMISSIONS_STORAGE)) {
             OpenAppDetailsDialogFragment.show(
                     R.string.storage_permission_permanently_denied_message,
                     R.string.open_settings, this);

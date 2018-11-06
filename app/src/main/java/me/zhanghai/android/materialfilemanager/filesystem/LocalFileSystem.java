@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.materialfilemanager.filesystem;
 
+import android.Manifest;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.system.ErrnoException;
@@ -20,11 +21,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.core.util.Pair;
+import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
+import me.zhanghai.android.materialfilemanager.AppApplication;
 import me.zhanghai.android.materialfilemanager.functional.Functional;
 import me.zhanghai.android.materialfilemanager.functional.FunctionalException;
 import me.zhanghai.android.materialfilemanager.functional.throwing.ThrowingFunction;
 
 public class LocalFileSystem {
+
+    public static final String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     private LocalFileSystem() {}
 
@@ -77,7 +84,10 @@ public class LocalFileSystem {
             if (cause instanceof ErrnoException) {
                 ErrnoException errnoException = (ErrnoException) cause;
                 if (errnoException.errno == OsConstants.EACCES) {
-                    return getWithShellFs.get(path);
+                    if (EffortlessPermissions.hasPermissions(AppApplication.getInstance(),
+                            PERMISSIONS_STORAGE)) {
+                        return getWithShellFs.get(path);
+                    }
                 }
             }
             throw e;
