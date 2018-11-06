@@ -62,7 +62,7 @@
                             android:layout_width="@dimen/large_icon_size"
                             android:layout_height="@dimen/large_icon_size"
                             android:scaleType="centerCrop"
-                            android:src="@mipmap/ic_launcher" />
+                            android:src="@mipmap/launcher_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
