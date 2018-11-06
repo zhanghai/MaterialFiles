@@ -8,13 +8,6 @@
 <notices>
 
     <notice>
-        <name>Material CAB</name>
-        <url>https://github.com/afollestad/material-cab</url>
-        <copyright>Copyright 2016 Aidan Follestad</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
         <name>Stetho</name>
         <url>https://github.com/facebook/stetho</url>
         <copyright>Copyright 2015 Facebook Inc.</copyright>

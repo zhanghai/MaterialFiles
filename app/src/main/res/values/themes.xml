@@ -12,8 +12,6 @@
         <item name="colorAccent">@color/color_accent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="mcab_close_drawable">@drawable/close_icon_white_24dp</item>
-        <item name="mcab_popup_theme">?actionBarPopupTheme</item>
     </style>
     <style name="AppTheme.TransparentStatusBar">
         <item name="android:statusBarColor">@android:color/transparent</item>

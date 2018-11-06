@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.afollestad.materialcab.MaterialCab;
 import com.google.android.material.appbar.AppBarLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 
@@ -62,7 +61,7 @@ import me.zhanghai.android.materialfilemanager.main.MainActivity;
 import me.zhanghai.android.materialfilemanager.navigation.NavigationFragment;
 import me.zhanghai.android.materialfilemanager.settings.SettingsLiveDatas;
 import me.zhanghai.android.materialfilemanager.terminal.Terminal;
-import me.zhanghai.android.materialfilemanager.ui.SetMenuResourceMaterialCab;
+import me.zhanghai.android.materialfilemanager.ui.ToolbarActionMode;
 import me.zhanghai.android.materialfilemanager.util.AppUtils;
 import me.zhanghai.android.materialfilemanager.util.ClipboardUtils;
 import me.zhanghai.android.materialfilemanager.util.FragmentUtils;
@@ -71,7 +70,7 @@ import me.zhanghai.android.materialfilemanager.util.ViewUtils;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
-        FileListAdapter.Listener, MaterialCab.Callback, OpenApkDialogFragment.Listener,
+        FileListAdapter.Listener, ToolbarActionMode.Callback, OpenApkDialogFragment.Listener,
         OpenFileAsDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
         RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
         CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
@@ -93,6 +92,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.action_mode_toolbar)
+    Toolbar mActionModeToolbar;
     @BindView(R.id.breadcrumb)
     BreadcrumbLayout mBreadcrumbLayout;
     @BindView(R.id.content)
@@ -126,7 +127,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private MenuItem mShowHiddenFilesMenuItem;
 
     @NonNull
-    private SetMenuResourceMaterialCab mCab;
+    private ToolbarActionMode mToolbarActionMode;
 
     @NonNull
     private FileListAdapter mAdapter;
@@ -181,10 +182,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
-        if (savedInstanceState == null) {
-            mCab = new SetMenuResourceMaterialCab(activity, R.id.cab_stub);
-        } else {
-            mCab = SetMenuResourceMaterialCab.restoreState(savedInstanceState, activity, this);
+        mToolbarActionMode = new ToolbarActionMode(mActionModeToolbar);
+        if (savedInstanceState != null) {
+            mToolbarActionMode.restoreInstanceState(savedInstanceState, this);
         }
 
         int contentLayoutInitialPaddingBottom = mContentLayout.getPaddingBottom();
@@ -265,7 +265,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        mCab.saveState(outState);
+        mToolbarActionMode.saveInstanceState(outState);
     }
 
     @Override
@@ -567,8 +567,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private void updateCab() {
         Set<File> selectedFiles = mViewModel.getSelectedFiles();
         if (selectedFiles.isEmpty()) {
-            if (mCab.isActive()) {
-                mCab.finish();
+            if (mToolbarActionMode.isActive()) {
+                mToolbarActionMode.finish();
             }
             return;
         }
@@ -591,20 +591,19 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             default:
                 throw new IllegalStateException();
         }
-        mCab.setTitle(getString(titleRes, selectedFiles.size()));
-        mCab.setMenuResource(menuRes);
-        if (!mCab.isActive()) {
-            mCab.start(this);
+        mToolbarActionMode.setTitle(getString(titleRes, selectedFiles.size()));
+        mToolbarActionMode.setMenuResource(menuRes);
+        if (!mToolbarActionMode.isActive()) {
+            mToolbarActionMode.start(this);
         }
     }
 
     @Override
-    public boolean onCabCreated(@NonNull MaterialCab cab, @NonNull Menu menu) {
-        return true;
-    }
+    public void onToolbarActionModeStarted(@NonNull ToolbarActionMode toolbarActionMode) {}
 
     @Override
-    public boolean onCabItemClicked(@NonNull MenuItem item) {
+    public boolean onToolbarActionModeItemClicked(@NonNull ToolbarActionMode toolbarActionMode,
+                                                  @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_cut:
                 cutFiles(mViewModel.getSelectedFiles());
@@ -627,10 +626,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public boolean onCabFinished(@NonNull MaterialCab cab) {
+    public void onToolbarActionModeFinished(@NonNull ToolbarActionMode toolbarActionMode) {
         mViewModel.clearSelectedFiles();
         mViewModel.setPasteMode(FilePasteMode.NONE);
-        return true;
     }
 
     private void cutFiles(@NonNull Set<File> files) {

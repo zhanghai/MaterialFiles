@@ -32,10 +32,14 @@
                 app:popupTheme="?actionBarPopupTheme"
                 app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
 
-            <ViewStub
-                android:id="@+id/cab_stub"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/action_mode_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize" />
+                android:layout_height="?actionBarSize"
+                android:background="?colorPrimary"
+                android:visibility="gone"
+                app:navigationIcon="@drawable/close_icon_white_24dp"
+                app:popupTheme="?actionBarPopupTheme" />
         </FrameLayout>
 
         <me.zhanghai.android.materialfilemanager.filelist.BreadcrumbLayout
