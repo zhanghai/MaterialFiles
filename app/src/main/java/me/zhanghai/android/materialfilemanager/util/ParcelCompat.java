@@ -8,6 +8,9 @@ package me.zhanghai.android.materialfilemanager.util;
 import android.os.Parcel;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 public class ParcelCompat {
 
     private ParcelCompat() {}
@@ -15,28 +18,28 @@ public class ParcelCompat {
     /**
      * @see androidx.core.os.ParcelCompat#readBoolean(Parcel)
      */
-    public static boolean readBoolean(Parcel in) {
+    public static boolean readBoolean(@NonNull Parcel in) {
         return androidx.core.os.ParcelCompat.readBoolean(in);
     }
 
     /**
      * @see androidx.core.os.ParcelCompat#writeBoolean(Parcel, boolean)
      */
-    public static void writeBoolean(Parcel out, boolean value) {
+    public static void writeBoolean(@NonNull Parcel out, boolean value) {
         androidx.core.os.ParcelCompat.writeBoolean(out, value);
     }
 
     /*
      * @see android.os.Parcel#readCharSequence()
      */
-    public static CharSequence readCharSequence(Parcel in) {
+    public static CharSequence readCharSequence(@NonNull Parcel in) {
         return TextUtils.CHAR_SEQUENCE_CREATOR.createFromParcel(in);
     }
 
     /*
      * @see android.os.Parcel#writeCharSequence(CharSequence)
      */
-    public static void writeCharSequence(Parcel out, CharSequence value) {
+    public static void writeCharSequence(@NonNull Parcel out, @Nullable CharSequence value) {
         TextUtils.writeToParcel(value, out, 0);
     }
 }
