@@ -597,7 +597,7 @@ Java_me_zhanghai_android_files_jni_Linux_llistxattr(JNIEnv *env, jclass clazz, j
         }
         jsize javaNamesLength = 0;
         for (char *nameStart = names, *namesEnd = names + size; ; ) {
-            char *nameEnd = memchr(nameStart, NULL, namesEnd - nameStart);
+            char *nameEnd = memchr(nameStart, '\0', namesEnd - nameStart);
             if (!nameEnd) {
                 break;
             }
@@ -610,7 +610,7 @@ Java_me_zhanghai_android_files_jni_Linux_llistxattr(JNIEnv *env, jclass clazz, j
         }
         jsize nameIndex = 0;
         for (char *nameStart = names, *namesEnd = names + size; ; ++nameIndex) {
-            char *nameEnd = memchr(nameStart, NULL, namesEnd - nameStart);
+            char *nameEnd = memchr(nameStart, '\0', namesEnd - nameStart);
             if (!nameEnd) {
                 break;
             }
