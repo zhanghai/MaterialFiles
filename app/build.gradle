@@ -5,6 +5,8 @@
 
 apply plugin: 'com.android.application'
 
+apply from: '../signing.gradle'
+
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
@@ -24,8 +26,10 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     externalNativeBuild {

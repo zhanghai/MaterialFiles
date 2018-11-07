@@ -1,0 +1,12 @@
+android {
+    signingConfigs {
+        release {
+            Properties signingProperties = new Properties()
+            signingProperties.load(rootProject.file('signing.properties').newDataInputStream())
+            storeFile rootProject.file(signingProperties.get('storeFile'))
+            storePassword signingProperties.get('storePassword') ?: System.getenv('STORE_PASSWORD') ?: System.console()?.readLine('\nStore password: ')
+            keyAlias signingProperties.get('keyAlias')
+            keyPassword signingProperties.get('keyPassword') ?: System.getenv('KEY_PASSWORD') ?: System.console()?.readLine('\nKey password: ')
+        }
+    }
+}
