@@ -5,8 +5,7 @@
 
 package me.zhanghai.android.files.filelist;
 
-import javax.annotation.Nullable;
-
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MediatorLiveData;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
