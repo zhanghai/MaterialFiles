@@ -20,6 +20,9 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+# App
+-keep class me.zhanghai.android.files.jni.** { *; }
+
 # Apache Commons Compress
 -dontwarn org.apache.commons.compress.compressors.**
 -dontwarn org.apache.commons.compress.archivers.**
