@@ -1,12 +1,28 @@
 android {
     signingConfigs {
         release {
-            Properties signingProperties = new Properties()
+
+            def signingProperties = new Properties()
             signingProperties.load(rootProject.file('signing.properties').newDataInputStream())
+
+            def getPassword = { String propertyName, String environmentName, String prompt ->
+                def getPasswordWithDialog = { ->
+                    System.setProperty('java.awt.headless', 'false')
+                    try {
+                        return javax.swing.JOptionPane.showInputDialog(prompt)
+                    } catch (java.awt.HeadlessException ignored) {
+                        return null
+                    }
+                }
+                return signingProperties.get(propertyName) ?: System.getenv(environmentName) ?:
+                        System.console() != null ? System.console().readLine('\n' + prompt + ': ')
+                                : getPasswordWithDialog()
+            }
+
             storeFile rootProject.file(signingProperties.get('storeFile'))
-            storePassword signingProperties.get('storePassword') ?: System.getenv('STORE_PASSWORD') ?: System.console()?.readLine('\nStore password: ')
+            storePassword getPassword('storePassword', 'STORE_PASSWORD', 'Store password')
             keyAlias signingProperties.get('keyAlias')
-            keyPassword signingProperties.get('keyPassword') ?: System.getenv('KEY_PASSWORD') ?: System.console()?.readLine('\nKey password: ')
+            keyPassword getPassword('keyPassword', 'KEY_PASSWORD', 'Key password')
         }
     }
 }
