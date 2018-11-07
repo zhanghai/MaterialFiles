@@ -5,10 +5,8 @@
 
 package me.zhanghai.android.files.linux;
 
-import android.system.StructTimespec;
-
 /**
- * @see StructTimespec
+ * @see android.system.StructTimespec
  */
 public final class StructTimespecCompat {
 

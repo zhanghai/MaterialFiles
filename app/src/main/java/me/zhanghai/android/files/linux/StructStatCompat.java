@@ -5,12 +5,10 @@
 
 package me.zhanghai.android.files.linux;
 
-import android.system.StructStat;
-
 import androidx.annotation.NonNull;
 
 /**
- * @see StructStat
+ * @see android.system.StructStat
  */
 public final class StructStatCompat {
 
