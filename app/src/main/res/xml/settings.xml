@@ -20,7 +20,7 @@
 
     <PreferenceCategory android:title="@string/settings_behavior_title">
 
-        <me.zhanghai.android.materialfilemanager.settings.CharsetPreference
+        <me.zhanghai.android.files.settings.CharsetPreference
             android:key="@string/pref_key_zip_file_name_encoding"
             android:title="@string/settings_zip_file_name_encoding_title"
             android:defaultValue="@string/pref_default_value_zip_file_name_encoding"

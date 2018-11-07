@@ -8,13 +8,13 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="me.zhanghai.android.materialfilemanager">
+    package="me.zhanghai.android.files">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".AppApplication"
+        android:name="me.zhanghai.android.files.AppApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/launcher_icon"
@@ -25,7 +25,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="me.zhanghai.android.files.main.MainActivity"
             android:label="@string/main_title"
             android:theme="@style/AppTheme.TransparentStatusBar">
             <intent-filter>
@@ -35,7 +35,7 @@
         </activity>
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name="me.zhanghai.android.files.settings.SettingsActivity"
             android:label="@string/settings_title"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
@@ -45,23 +45,23 @@
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="me.zhanghai.android.files.main.MainActivity" />
         </activity>
 
         <activity
-            android:name=".about.AboutActivity"
+            android:name="me.zhanghai.android.files.about.AboutActivity"
             android:label="@string/about_title"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main.MainActivity" />
+                android:value="me.zhanghai.android.files.main.MainActivity" />
         </activity>
 
-        <service android:name=".file.FileJobService" />
+        <service android:name="me.zhanghai.android.files.file.FileJobService" />
 
         <provider
-            android:name=".file.FileProvider"
+            android:name="me.zhanghai.android.files.file.FileProvider"
             android:authorities="@string/file_provider_authority"
             android:exported="false"
             android:grantUriPermissions="true" />

@@ -7,7 +7,7 @@
 
 <resources>
 
-    <string name="app_name">MaterialFileManager</string>
+    <string name="app_name">Material Files</string>
 
     <string name="close">Close</string>
     <string name="install">Install</string>

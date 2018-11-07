@@ -32,7 +32,7 @@
             app:tabPaddingEnd="?dialogPreferredPadding" />
     </FrameLayout>
 
-    <me.zhanghai.android.materialfilemanager.fileproperties.FirstPageWrapContentViewPager
+    <me.zhanghai.android.files.fileproperties.FirstPageWrapContentViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"

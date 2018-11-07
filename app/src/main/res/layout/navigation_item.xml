@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.materialfilemanager.ui.CheckableLinearLayout
+<me.zhanghai.android.files.ui.CheckableLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item"
     android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:maxLines="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <me.zhanghai.android.materialfilemanager.ui.AutoGoneTextView
+        <me.zhanghai.android.files.ui.AutoGoneTextView
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -52,4 +52,4 @@
             android:textColor="?android:textColorSecondary"
             android:textSize="10sp" />
     </LinearLayout>
-</me.zhanghai.android.materialfilemanager.ui.CheckableLinearLayout>
+</me.zhanghai.android.files.ui.CheckableLinearLayout>

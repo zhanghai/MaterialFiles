@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/settings"
-        android:name="me.zhanghai.android.materialfilemanager.settings.SettingsFragment"
+        android:name="me.zhanghai.android.files.settings.SettingsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

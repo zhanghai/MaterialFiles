@@ -11,8 +11,8 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.materialfilemanager.R;
-import me.zhanghai.android.materialfilemanager.util.ViewUtils;
+import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.util.ViewUtils;
 
 public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
 
