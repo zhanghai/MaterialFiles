@@ -21,7 +21,7 @@
 #-renamesourcefileattribute SourceFile
 
 # App
--keep class me.zhanghai.android.files.jni.** { *; }
+-keep class me.zhanghai.android.files.linux.** { *; }
 
 # Apache Commons Compress
 -dontwarn org.apache.commons.compress.compressors.**

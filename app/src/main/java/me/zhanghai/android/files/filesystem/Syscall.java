@@ -20,11 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.compat.LongConsumer;
-import me.zhanghai.android.files.jni.Linux;
-import me.zhanghai.android.files.jni.StructGroup;
-import me.zhanghai.android.files.jni.StructPasswd;
-import me.zhanghai.android.files.jni.StructStatCompat;
-import me.zhanghai.android.files.jni.StructTimespecCompat;
+import me.zhanghai.android.files.linux.Linux;
+import me.zhanghai.android.files.linux.StructGroup;
+import me.zhanghai.android.files.linux.StructPasswd;
+import me.zhanghai.android.files.linux.StructStatCompat;
+import me.zhanghai.android.files.linux.StructTimespecCompat;
 import me.zhanghai.android.files.util.ExceptionUtils;
 import me.zhanghai.android.files.util.MoreTextUtils;
 

@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.jni;
+package me.zhanghai.android.files.linux;
 
 import android.system.ErrnoException;
 import android.system.Int64Ref;
