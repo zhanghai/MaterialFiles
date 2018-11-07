@@ -7,7 +7,7 @@ package me.zhanghai.android.materialfilemanager.settings;
 
 import android.os.Bundle;
 
-import com.takisoft.fix.support.v7.preference.PreferenceFragmentCompat;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import androidx.annotation.Nullable;
 import me.zhanghai.android.materialfilemanager.R;
@@ -19,9 +19,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> {
-            NightModeHelper.updateNightMode(requireActivity());
-        });
+        SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> NightModeHelper.updateNightMode(
+                requireActivity()));
     }
 
     @Override

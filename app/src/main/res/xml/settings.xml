@@ -9,7 +9,7 @@
 
     <PreferenceCategory android:title="@string/settings_interface_title">
 
-        <com.takisoft.fix.support.v7.preference.SimpleMenuPreference
+        <com.takisoft.preferencex.SimpleMenuPreference
             android:key="@string/pref_key_night_mode"
             android:title="@string/settings_night_mode_title"
             android:defaultValue="@string/pref_default_value_night_mode"
@@ -27,7 +27,7 @@
             android:summary="@string/settings_zip_file_name_encoding_summary"
             android:visibility="@integer/config_zip_file_name_encoding_preference_visibility" />
 
-        <com.takisoft.fix.support.v7.preference.SimpleMenuPreference
+        <com.takisoft.preferencex.SimpleMenuPreference
             android:key="@string/pref_key_open_apk_default_action"
             android:title="@string/settings_open_apk_default_action_title"
             android:defaultValue="@string/pref_default_value_open_apk_default_action"
