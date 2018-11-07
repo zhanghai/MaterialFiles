@@ -27,7 +27,7 @@ import me.zhanghai.android.files.util.IntentUtils;
 public class AboutFragment extends Fragment {
 
     private static final Uri GITHUB_URI = Uri.parse(
-            "https://github.com/DreaminginCodeZH/MaterialFileManager");
+            "https://github.com/DreaminginCodeZH/MaterialFiles");
 
     private static final Uri AUTHOR_GITHUB_URI = Uri.parse("https://github.com/DreaminginCodeZH");
 
