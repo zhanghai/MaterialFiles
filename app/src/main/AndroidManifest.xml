@@ -29,8 +29,15 @@
             android:label="@string/main_title"
             android:theme="@style/AppTheme.TransparentStatusBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.document/directory" />
+                <data android:mimeType="inode/directory" />
+                <data android:mimeType="resource/folder" />
             </intent-filter>
         </activity>
 

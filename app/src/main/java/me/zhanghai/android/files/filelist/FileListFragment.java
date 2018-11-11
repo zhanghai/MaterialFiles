@@ -741,6 +741,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
             Intent intent = IntentUtils.makeView(fileUri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            MainActivity.putFileExtra(intent, file);
             AppUtils.startActivity(intent, this);
         } else {
             // TODO
