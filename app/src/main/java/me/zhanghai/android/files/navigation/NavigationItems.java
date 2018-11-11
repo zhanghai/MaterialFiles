@@ -42,6 +42,7 @@ public class NavigationItems {
     // @see android.os.Environment#STANDARD_DIRECTORIES
     private static final List<Pair<String, Integer>> STANDARD_DIRECTORIES =
             ListBuilder.<Pair<String, Integer>>newArrayList()
+                    .add(new Pair<>(Environment.DIRECTORY_ALARMS, R.drawable.alarm_icon_white_24dp))
                     .add(new Pair<>(Environment.DIRECTORY_DCIM, R.drawable.camera_icon_white_24dp))
                     .add(new Pair<>(Environment.DIRECTORY_DOCUMENTS,
                             R.drawable.document_icon_white_24dp))
@@ -49,8 +50,16 @@ public class NavigationItems {
                             R.drawable.download_icon_white_24dp))
                     .add(new Pair<>(Environment.DIRECTORY_MOVIES, R.drawable.video_icon_white_24dp))
                     .add(new Pair<>(Environment.DIRECTORY_MUSIC, R.drawable.audio_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_NOTIFICATIONS,
+                            R.drawable.notification_icon_white_24dp))
                     .add(new Pair<>(Environment.DIRECTORY_PICTURES,
                             R.drawable.image_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_PODCASTS,
+                            R.drawable.podcast_icon_white_24dp))
+                    .add(new Pair<>(Environment.DIRECTORY_RINGTONES,
+                            R.drawable.ringtone_icon_white_24dp))
+                    .add(new Pair<>("tencent/QQfile_recv", R.drawable.qq_icon_white_24dp))
+                    .add(new Pair<>("tencent/MicroMsg/Download", R.drawable.wechat_icon_white_24dp))
                     .buildUnmodifiable();
 
     @NonNull
