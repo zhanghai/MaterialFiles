@@ -6,11 +6,14 @@
 package me.zhanghai.android.files.settings;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import androidx.annotation.ArrayRes;
@@ -20,6 +23,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.util.IoUtils;
 import me.zhanghai.android.files.util.LogUtils;
 import me.zhanghai.android.files.util.SharedPrefsUtils;
 
@@ -216,7 +221,7 @@ public interface SettingsEntries {
             super(keyResId, defaultValueResId);
         }
 
-        @NonNull
+        @Nullable
         public Uri getDefaultUriValue() {
             return stringToUri(getDefaultValue());
         }
@@ -226,13 +231,128 @@ public interface SettingsEntries {
             return stringToUri(getValue());
         }
 
+        public void putUriValue(@Nullable Uri value) {
+            putValue(uriToString(value));
+        }
+
         @Nullable
         private static Uri stringToUri(@Nullable String string) {
             return !TextUtils.isEmpty(string) ? Uri.parse(string) : null;
         }
 
-        public void putUriValue(@Nullable Uri value) {
-            putValue(value != null ? value.toString() : null);
+        @Nullable
+        private static String uriToString(@Nullable Uri uri) {
+            return uri != null ? uri.toString() : null;
+        }
+    }
+
+    abstract class ParcelableSettingsEntry<T extends Parcelable> extends StringSettingsEntry {
+
+        @Nullable
+        private final ClassLoader mClassLoader;
+
+        public ParcelableSettingsEntry(@StringRes int keyResId, @NonNull Class<T> valueClass) {
+            super(keyResId, R.string.pref_default_value_empty_string);
+
+            mClassLoader = valueClass.getClassLoader();
+        }
+
+        @Nullable
+        public T getParcelableValue() {
+            return base64ToParcelable(getValue(), mClassLoader);
+        }
+
+        public void putParcelableValue(@Nullable T value) {
+            putValue(parcelableToBase64(value));
+        }
+
+        @Nullable
+        private static <T extends Parcelable> T base64ToParcelable(
+                @Nullable String base64, @Nullable ClassLoader classLoader) {
+            if (TextUtils.isEmpty(base64)) {
+                return null;
+            }
+            byte[] bytes= IoUtils.base64ToByteArray(base64);
+            Parcel parcel = Parcel.obtain();
+            try {
+                parcel.unmarshall(bytes, 0, bytes.length);
+                parcel.setDataPosition(0);
+                return parcel.readParcelable(classLoader);
+            } finally {
+                parcel.recycle();
+            }
+        }
+
+        @Nullable
+        private static <T extends Parcelable> String parcelableToBase64(
+                @Nullable T parcelable) {
+            if (parcelable == null) {
+                return null;
+            }
+            Parcel parcel = Parcel.obtain();
+            byte[] bytes;
+            try {
+                parcel.writeParcelable(parcelable, 0);
+                bytes = parcel.marshall();
+            } finally {
+                parcel.recycle();
+            }
+            return IoUtils.byteArrayToBase64(bytes);
+        }
+    }
+
+    abstract class TypedListSettingsEntry<T extends Parcelable> extends StringSettingsEntry {
+
+        @NonNull
+        private final Parcelable.Creator<T> mCreator;
+
+        public TypedListSettingsEntry(@StringRes int keyResId,
+                                      @NonNull Parcelable.Creator<T> creator) {
+            super(keyResId, R.string.pref_default_value_empty_string);
+
+            mCreator = creator;
+        }
+
+        @Nullable
+        public List<T> getTypedListValue() {
+            return base64ToTypedList(getValue(), mCreator);
+        }
+
+        public void putTypedListValue(@Nullable List<T> value) {
+            putValue(typedListToBase64(value));
+        }
+
+        @Nullable
+        private static <T extends Parcelable> List<T> base64ToTypedList(
+                @Nullable String base64, @NonNull Parcelable.Creator<T> creator) {
+            if (TextUtils.isEmpty(base64)) {
+                return null;
+            }
+            byte[] bytes= IoUtils.base64ToByteArray(base64);
+            Parcel parcel = Parcel.obtain();
+            try {
+                parcel.unmarshall(bytes, 0, bytes.length);
+                parcel.setDataPosition(0);
+                return parcel.createTypedArrayList(creator);
+            } finally {
+                parcel.recycle();
+            }
+        }
+
+        @Nullable
+        private static <T extends Parcelable> String typedListToBase64(@Nullable List<T> list) {
+            if (list == null) {
+                return null;
+            }
+            Parcel parcel = Parcel.obtain();
+            byte[] bytes;
+            try {
+                parcel.writeTypedList(list);
+                bytes = parcel.marshall();
+            } finally {
+                parcel.recycle();
+            }
+            return IoUtils.byteArrayToBase64(bytes);
         }
     }
 }

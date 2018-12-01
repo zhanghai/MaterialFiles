@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
-import android.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +32,7 @@ import me.zhanghai.android.files.filesystem.Files;
 import me.zhanghai.android.files.filesystem.JavaFile;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.settings.SettingsActivity;
+import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.util.ListBuilder;
 import me.zhanghai.android.files.util.StorageManagerCompat;
 import me.zhanghai.android.files.util.StorageVolumeCompat;
@@ -40,26 +40,34 @@ import me.zhanghai.android.files.util.StorageVolumeCompat;
 public class NavigationItems {
 
     // @see android.os.Environment#STANDARD_DIRECTORIES
-    private static final List<Pair<String, Integer>> STANDARD_DIRECTORIES =
-            ListBuilder.<Pair<String, Integer>>newArrayList()
-                    .add(new Pair<>(Environment.DIRECTORY_ALARMS, R.drawable.alarm_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_DCIM, R.drawable.camera_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_DOCUMENTS,
-                            R.drawable.document_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_DOWNLOADS,
-                            R.drawable.download_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_MOVIES, R.drawable.video_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_MUSIC, R.drawable.audio_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_NOTIFICATIONS,
-                            R.drawable.notification_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_PICTURES,
-                            R.drawable.image_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_PODCASTS,
-                            R.drawable.podcast_icon_white_24dp))
-                    .add(new Pair<>(Environment.DIRECTORY_RINGTONES,
-                            R.drawable.ringtone_icon_white_24dp))
-                    .add(new Pair<>("tencent/QQfile_recv", R.drawable.qq_icon_white_24dp))
-                    .add(new Pair<>("tencent/MicroMsg/Download", R.drawable.wechat_icon_white_24dp))
+    public static final List<StandardDirectory> DEFAULT_STANDARD_DIRECTORIES =
+            ListBuilder.<StandardDirectory>newArrayList()
+                    .add(new StandardDirectory(R.drawable.alarm_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_ALARMS, false))
+                    .add(new StandardDirectory(R.drawable.camera_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_DCIM, true))
+                    .add(new StandardDirectory(R.drawable.document_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_DOCUMENTS, false))
+                    .add(new StandardDirectory(R.drawable.download_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_DOWNLOADS, true))
+                    .add(new StandardDirectory(R.drawable.video_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_MOVIES, true))
+                    .add(new StandardDirectory(R.drawable.audio_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_MUSIC, true))
+                    .add(new StandardDirectory(R.drawable.notification_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_NOTIFICATIONS, false))
+                    .add(new StandardDirectory(R.drawable.image_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_PICTURES, true))
+                    .add(new StandardDirectory(R.drawable.podcast_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_PODCASTS, false))
+                    .add(new StandardDirectory(R.drawable.ringtone_icon_white_24dp, 0, null,
+                            Environment.DIRECTORY_RINGTONES, false))
+                    .add(new StandardDirectory(R.drawable.qq_icon_white_24dp,
+                            R.string.navigation_standard_directory_qq, null, "tencent/QQfile_recv",
+                            false))
+                    .add(new StandardDirectory(R.drawable.wechat_icon_white_24dp,
+                            R.string.navigation_standard_directory_wechat, null,
+                            "tencent/MicroMsg/Download", false))
                     .buildUnmodifiable();
 
     @NonNull
@@ -92,14 +100,28 @@ public class NavigationItems {
     @NonNull
     @Size(min = 0)
     private static List<NavigationItem> getStandardDirectoryItems() {
-        List<NavigationItem> favoriteItems = new ArrayList<>();
-        for (Pair<String, Integer> directory : STANDARD_DIRECTORIES) {
-            String path = Environment.getExternalStoragePublicDirectory(directory.first).getPath();
-            int iconRes = directory.second;
-            favoriteItems.add(new StandardDirectoryItem(Files.ofLocalPath(path), iconRes));
+        return Functional.map(Functional.filter(SettingsLiveDatas.STANDARD_DIRECTORIES.getValue(),
+                StandardDirectory::isEnabled), StandardDirectoryItem::new);
+    }
+
+    @NonNull
+    public static List<StandardDirectory> getDefaultStandardDirectories() {
+        List<StandardDirectory> standardDirectories = new ArrayList<>(DEFAULT_STANDARD_DIRECTORIES);
+        // HACK: Enable QQ and WeChat standard directories based on whether the directories exist.
+        int standardDirectoryCount = standardDirectories.size();
+        List<StandardDirectory> qqAndWeChatStandardDirectories = standardDirectories.subList(
+                standardDirectoryCount - 2, standardDirectoryCount);
+        for (StandardDirectory standardDirectory : qqAndWeChatStandardDirectories) {
+            String path = getExternalStorageDirectory(standardDirectory.getRelativePath());
+            boolean isDirectory = JavaFile.isDirectory(path);
+            standardDirectory.setEnabled(isDirectory);
         }
-        // TODO: Persist and load favorites.
-        return favoriteItems;
+        return standardDirectories;
+    }
+
+    @NonNull
+    public static String getExternalStorageDirectory(@NonNull String relativePath) {
+        return Environment.getExternalStoragePublicDirectory(relativePath).getPath();
     }
 
     @NonNull
@@ -270,24 +292,36 @@ public class NavigationItems {
 
     private static class StandardDirectoryItem extends FileItem {
 
-        @DrawableRes
-        private final int mIconRes;
+        private final StandardDirectory mStandardDirectory;
 
-        public StandardDirectoryItem(@NonNull File file, @DrawableRes int iconRes) {
-            super(file);
+        public StandardDirectoryItem(@NonNull StandardDirectory standardDirectory) {
+            super(Files.ofLocalPath(getExternalStorageDirectory(
+                    standardDirectory.getRelativePath())));
 
-            mIconRes = iconRes;
+            if (!standardDirectory.isEnabled()) {
+                throw new IllegalArgumentException("StandardDirectory should be enabled");
+            }
+
+            mStandardDirectory = standardDirectory;
         }
 
         @DrawableRes
         @Override
         public int getIconRes() {
-            return mIconRes;
+            return mStandardDirectory.getIconRes();
         }
 
         @NonNull
         @Override
         public String getTitle(@NonNull Context context) {
+            String title = mStandardDirectory.getTitle();
+            if (title != null) {
+                return title;
+            }
+            int titleRes = mStandardDirectory.getTitleRes();
+            if (titleRes != 0) {
+                return context.getString(titleRes);
+            }
             return getFile().getName();
         }
 

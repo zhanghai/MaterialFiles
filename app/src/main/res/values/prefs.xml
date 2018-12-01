@@ -6,6 +6,10 @@
   -->
 
 <resources>
+
+    <string name="pref_default_value_empty_string" />
+
+    <string name="pref_key_standard_directories">key_standard_directories</string>
     <string name="pref_key_file_list_show_hidden_files">key_file_list_show_hidden_files</string>
     <bool name="pref_default_value_file_list_show_hidden_files">false</bool>
     <string name="pref_key_file_list_sort_by">key_file_list_sort_by</string>

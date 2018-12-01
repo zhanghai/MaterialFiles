@@ -11,6 +11,11 @@ import androidx.annotation.NonNull;
 
 public class JavaFile {
 
+    public static boolean isDirectory(@NonNull String path) {
+        File file = new File(path);
+        return file.isDirectory();
+    }
+
     public static long getFreeSpace(@NonNull String path) {
         File file = new File(path);
         return file.getFreeSpace();

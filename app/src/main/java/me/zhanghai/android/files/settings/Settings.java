@@ -40,4 +40,7 @@ interface Settings {
     EnumSettingsEntry<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsEntry<>(
             R.string.pref_key_open_apk_default_action,
             R.string.pref_default_value_open_apk_default_action, OpenApkDefaultAction.class);
+
+    StandardDirectoriesSettingsEntry STANDARD_DIRECTORIES = new StandardDirectoriesSettingsEntry(
+            R.string.pref_key_standard_directories);
 }

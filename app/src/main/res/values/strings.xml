@@ -137,6 +137,8 @@
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%s free of %s</string>
     <string name="navigation_add_document_tree">Add external storage…</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
 
