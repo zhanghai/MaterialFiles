@@ -69,11 +69,11 @@ public class SettingsActivityFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 // This recreates MainActivity but we cannot have singleTop as launch mode along
                 // with document launch mode.
+                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                activity.finish();
+                requireActivity().finish();
                 return true;
             }
             default:

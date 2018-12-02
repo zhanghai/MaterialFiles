@@ -100,6 +100,10 @@ public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewH
 
     private void resetAnimation() {
         clearAnimation();
-        mShouldStartAnimation = true;
+        mShouldStartAnimation = isAnimationEnabled();
+    }
+
+    protected boolean isAnimationEnabled() {
+        return true;
     }
 }

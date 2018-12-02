@@ -23,6 +23,9 @@ public interface SettingsLiveDatas {
     SettingsLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new SettingsLiveData<>(
             Settings.FILE_LIST_SORT_DIRECTORIES_FIRST);
 
+    SettingsLiveData<Boolean> FILE_LIST_ANIMATION = new SettingsLiveData<>(
+            Settings.FILE_LIST_ANIMATION);
+
     EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
             Settings.NIGHT_MODE);
 

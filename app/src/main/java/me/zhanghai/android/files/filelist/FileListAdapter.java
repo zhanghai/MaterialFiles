@@ -41,6 +41,7 @@ import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
+import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.files.ui.CheckableFrameLayout;
 import me.zhanghai.android.files.util.StringCompat;
@@ -271,6 +272,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
 
         }
         return name.substring(0, 1).toUpperCase();
+    }
+
+    @Override
+    protected boolean isAnimationEnabled() {
+        return SettingsLiveDatas.FILE_LIST_ANIMATION.getValue();
     }
 
     public interface Listener {

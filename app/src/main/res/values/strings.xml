@@ -144,6 +144,7 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>
+    <string name="settings_file_list_animation_title">File list animation</string>
     <string name="settings_night_mode_title">Night mode</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
