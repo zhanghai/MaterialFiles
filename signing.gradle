@@ -6,17 +6,8 @@ android {
             signingProperties.load(rootProject.file('signing.properties').newDataInputStream())
 
             def getPassword = { String propertyName, String environmentName, String prompt ->
-                def getPasswordWithDialog = { ->
-                    System.setProperty('java.awt.headless', 'false')
-                    try {
-                        return javax.swing.JOptionPane.showInputDialog(prompt)
-                    } catch (java.awt.HeadlessException ignored) {
-                        return null
-                    }
-                }
                 return signingProperties.get(propertyName) ?: System.getenv(environmentName) ?:
-                        System.console() != null ? System.console().readLine('\n' + prompt + ': ')
-                                : getPasswordWithDialog()
+                        System.console()?.readLine('\n' + prompt + ': ')
             }
 
             storeFile rootProject.file(signingProperties.get('storeFile'))
