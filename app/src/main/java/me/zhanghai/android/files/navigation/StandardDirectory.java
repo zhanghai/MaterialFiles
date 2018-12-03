@@ -5,13 +5,16 @@
 
 package me.zhanghai.android.files.navigation;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import me.zhanghai.android.files.filesystem.Files;
 
 public class StandardDirectory implements Parcelable {
 
@@ -44,14 +47,15 @@ public class StandardDirectory implements Parcelable {
         return mIconRes;
     }
 
-    @StringRes
-    public int getTitleRes() {
-        return mTitleRes;
-    }
-
-    @Nullable
-    public String getTitle() {
-        return mTitle;
+    @NonNull
+    public String getTitle(@NonNull Context context) {
+        if (!TextUtils.isEmpty(mTitle)) {
+            return mTitle;
+        }
+        if (mTitleRes != 0) {
+            return context.getString(mTitleRes);
+        }
+        return Files.ofLocalPath(mRelativePath).getName();
     }
 
     public void setTitle(@Nullable String title) {

@@ -56,6 +56,16 @@
         </activity>
 
         <activity
+            android:name="me.zhanghai.android.files.settings.StandardDirectoriesActivity"
+            android:label="@string/settings_standard_directories_title"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.zhanghai.android.files.settings.SettingsActivity" />
+        </activity>
+
+        <activity
             android:name="me.zhanghai.android.files.about.AboutActivity"
             android:label="@string/about_title"
             android:launchMode="singleTop"

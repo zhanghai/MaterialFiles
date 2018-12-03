@@ -314,15 +314,7 @@ public class NavigationItems {
         @NonNull
         @Override
         public String getTitle(@NonNull Context context) {
-            String title = mStandardDirectory.getTitle();
-            if (title != null) {
-                return title;
-            }
-            int titleRes = mStandardDirectory.getTitleRes();
-            if (titleRes != 0) {
-                return context.getString(titleRes);
-            }
-            return getFile().getName();
+            return mStandardDirectory.getTitle(context);
         }
 
         @Override

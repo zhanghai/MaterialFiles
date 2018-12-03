@@ -245,6 +245,11 @@ public class AppUtils {
     }
 
     public static void startActivityForResultWithChooser(@NonNull Intent intent, int requestCode,
+                                                         @NonNull Activity activity) {
+        activity.startActivityForResult(IntentUtils.withChooser(intent), requestCode);
+    }
+
+    public static void startActivityForResultWithChooser(@NonNull Intent intent, int requestCode,
                                                          @NonNull Fragment fragment) {
         fragment.startActivityForResult(IntentUtils.withChooser(intent), requestCode);
     }

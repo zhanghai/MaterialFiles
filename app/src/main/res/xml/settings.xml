@@ -25,6 +25,11 @@
 
     <PreferenceCategory android:title="@string/settings_behavior_title">
 
+        <me.zhanghai.android.files.settings.StandardDirectoriesPreference
+            android:key="@string/pref_key_standard_directories"
+            android:title="@string/settings_standard_directories_title"
+            android:summary="@string/settings_standard_directories_summary_empty" />
+
         <me.zhanghai.android.files.settings.CharsetPreference
             android:key="@string/pref_key_zip_file_name_encoding"
             android:title="@string/settings_zip_file_name_encoding_title"
