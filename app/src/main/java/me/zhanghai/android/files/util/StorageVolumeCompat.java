@@ -11,12 +11,11 @@ import android.os.Build;
 import android.os.storage.StorageVolume;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import me.zhanghai.android.files.reflected.ReflectedMethod;
 
 /**
  * @see StorageVolume
@@ -28,19 +27,20 @@ import androidx.annotation.RequiresApi;
 public class StorageVolumeCompat {
 
     @NonNull
-    private static final Object sStorageVolumeGetPathMethodLock = new Object();
-    @Nullable
-    private static Method sStorageVolumeGetPathMethod;
+    @SuppressLint("NewApi")
+    private static final ReflectedMethod sGetPathMethod = new ReflectedMethod(StorageVolume.class,
+            "getPath");
 
     @NonNull
-    private static final Object sStorageVolumeGetPathFileMethodLock = new Object();
-    @Nullable
-    private static Method sStorageVolumeGetPathFileMethod;
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    @SuppressLint("NewApi")
+    private static final ReflectedMethod sGetPathFileMethod = new ReflectedMethod(
+            StorageVolume.class, "getPathFile");
 
     @NonNull
-    private static final Object sStorageVolumeGetDescriptionMethodLock = new Object();
-    @Nullable
-    private static Method sStorageVolumeGetDescriptionMethod;
+    @SuppressLint("NewApi")
+    private static final ReflectedMethod sGetDescriptionMethod = new ReflectedMethod(
+            StorageVolume.class, "getDescription");
 
     private StorageVolumeCompat() {}
 
@@ -48,71 +48,20 @@ public class StorageVolumeCompat {
      * @see StorageVolume#getPath()
      */
     @NonNull
-    @SuppressLint({"NewApi", "PrivateApi"})
     public static String getPath(@NonNull StorageVolume storageVolume) {
-        //noinspection TryWithIdenticalCatches
-        try {
-            return (String) getStorageVolumeGetPathMethod().invoke(storageVolume);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @NonNull
-    @SuppressLint({"NewApi", "PrivateApi"})
-    private static Method getStorageVolumeGetPathMethod() {
-        synchronized (sStorageVolumeGetPathMethodLock) {
-            if (sStorageVolumeGetPathMethod == null) {
-                try {
-                    //noinspection JavaReflectionMemberAccess
-                    sStorageVolumeGetPathMethod = StorageVolume.class.getDeclaredMethod("getPath");
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                }
-                sStorageVolumeGetPathMethod.setAccessible(true);
-            }
-            return sStorageVolumeGetPathMethod;
-        }
+        return sGetPathMethod.invoke(storageVolume);
     }
 
     /*
      * @see StorageVolume#getPathFile()
      */
     @NonNull
-    @SuppressLint({"NewApi", "PrivateApi"})
     public static File getPathFile(@NonNull StorageVolume storageVolume) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            //noinspection TryWithIdenticalCatches
-            try {
-                return (File) getStorageVolumeGetPathFileMethod().invoke(storageVolume);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
+            return sGetPathFileMethod.invoke(storageVolume);
         } else {
             String path = getPath(storageVolume);
             return new File(path);
-        }
-    }
-
-    @NonNull
-    @SuppressLint({"NewApi", "PrivateApi"})
-    private static Method getStorageVolumeGetPathFileMethod() {
-        synchronized (sStorageVolumeGetPathFileMethodLock) {
-            if (sStorageVolumeGetPathFileMethod == null) {
-                try {
-                    //noinspection JavaReflectionMemberAccess
-                    sStorageVolumeGetPathFileMethod = StorageVolume.class.getDeclaredMethod(
-                            "getPathFile");
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                }
-                sStorageVolumeGetPathFileMethod.setAccessible(true);
-            }
-            return sStorageVolumeGetPathFileMethod;
         }
     }
 
@@ -126,32 +75,7 @@ public class StorageVolumeCompat {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             return storageVolume.getDescription(context);
         } else {
-            //noinspection TryWithIdenticalCatches
-            try {
-                return (String) getStorageVolumeGetDescriptionMethod().invoke(storageVolume);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    @NonNull
-    @SuppressLint("NewApi")
-    private static Method getStorageVolumeGetDescriptionMethod() {
-        synchronized (sStorageVolumeGetDescriptionMethodLock) {
-            if (sStorageVolumeGetDescriptionMethod == null) {
-                try {
-                    //noinspection JavaReflectionMemberAccess
-                    sStorageVolumeGetDescriptionMethod = StorageVolume.class.getDeclaredMethod(
-                            "getDescription");
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                }
-                sStorageVolumeGetDescriptionMethod.setAccessible(true);
-            }
-            return sStorageVolumeGetDescriptionMethod;
+            return sGetDescriptionMethod.invoke(storageVolume);
         }
     }
 
