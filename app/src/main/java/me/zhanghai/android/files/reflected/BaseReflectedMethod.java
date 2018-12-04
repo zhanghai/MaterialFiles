@@ -49,7 +49,7 @@ abstract class BaseReflectedMethod {
     protected abstract Class<?> getOwnerClass();
 
     @NonNull
-    public Method get() {
+    public Method get() throws ReflectedException {
         synchronized (mMethodLock) {
             if (mMethod == null) {
                 Class<?> ownerClass = getOwnerClass();
@@ -77,7 +77,8 @@ abstract class BaseReflectedMethod {
         return parameterTypes;
     }
 
-    public <T> T invoke(@Nullable Object object, @NonNull Object... arguments) {
+    public <T> T invoke(@Nullable Object object, @NonNull Object... arguments)
+            throws ReflectedException {
         return ReflectedAccessor.invoke(get(), object, arguments);
     }
 }

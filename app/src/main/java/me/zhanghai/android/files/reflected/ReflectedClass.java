@@ -23,7 +23,7 @@ public class ReflectedClass {
     }
 
     @NonNull
-    public Class get() {
+    public Class get() throws ReflectedException {
         synchronized (mClassLock) {
             if (mClass == null) {
                 mClass = ReflectedAccessor.getClass(mClassName);
