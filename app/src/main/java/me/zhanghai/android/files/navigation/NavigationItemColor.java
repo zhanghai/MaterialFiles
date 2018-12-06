@@ -23,7 +23,11 @@ public class NavigationItemColor {
 
     @NonNull
     public static ColorStateList create(@NonNull ColorStateList color, @NonNull Context context) {
-        int primaryColor = ViewUtils.getColorFromAttrRes(R.attr.colorPrimary, 0, context);
+        // The primary color doesn't have enough contrast against the window background color in a
+        // dark theme.
+        int checkedColorAttr = ViewUtils.isLightTheme(context) ? R.attr.colorPrimary
+                : android.R.attr.textColorPrimary;
+        int checkedColor = ViewUtils.getColorFromAttrRes(checkedColorAttr, 0, context);
         int defaultColor = color.getDefaultColor();
         int disabledColor = color.getColorForState(DISABLED_STATE_SET, defaultColor);
         return new ColorStateList(new int[][] {
@@ -32,7 +36,7 @@ public class NavigationItemColor {
                 EMPTY_STATE_SET
         }, new int[] {
                 disabledColor,
-                primaryColor,
+                checkedColor,
                 defaultColor
         });
     }
