@@ -31,8 +31,27 @@ public interface File extends Comparable<File>, Parcelable {
     @Nullable
     File getParent();
 
+    default boolean isAncestorOfOrEqualTo(File file) {
+        while (file != null) {
+            if (equals(file)) {
+                return true;
+            }
+            file = file.getParent();
+        }
+        return false;
+    }
+
     @NonNull
     File getChild(@NonNull String childName);
+
+    @Nullable
+    default File getSibling(@NonNull String siblingName) {
+        File parent = getParent();
+        if (parent == null) {
+            return null;
+        }
+        return parent.getChild(siblingName);
+    }
 
     @NonNull
     default List<File> makeTrail() {

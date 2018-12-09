@@ -39,9 +39,6 @@ public class Syscall {
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
-        if (stat == null) {
-            throw new FileSystemException(R.string.file_error_information);
-        }
         String symbolicLinkTarget = null;
         boolean isSymbolicLinkStat = false;
         boolean isSymbolicLink = OsConstants.S_ISLNK(stat.st_mode);
@@ -52,11 +49,8 @@ public class Syscall {
                 throw new FileSystemException(R.string.file_error_information, e);
             }
             try {
-                StructStatCompat symbolicLinkStat = Linux.stat(path);
-                if (symbolicLinkStat != null) {
-                    stat = symbolicLinkStat;
-                    isSymbolicLinkStat = true;
-                }
+                stat = Linux.stat(path);
+                isSymbolicLinkStat = true;
             } catch (ErrnoException e) {
                 e.printStackTrace();
             }
@@ -146,30 +140,28 @@ public class Syscall {
         return mode;
     }
 
-    public static void copy(@NonNull String fromPath, @NonNull String toPath, long notifyByteCount,
-                            @Nullable LongConsumer listener) throws FileSystemException,
-            InterruptedException {
-        copy(fromPath, toPath, false, notifyByteCount, listener);
+    public static void copy(@NonNull String fromPath, @NonNull String toPath, boolean overwrite,
+                            long notifyByteCount, @Nullable LongConsumer listener)
+            throws FileSystemException, InterruptedException {
+        copy(fromPath, toPath, false, overwrite, notifyByteCount, listener);
     }
 
     /*
      * @see android.os.FileUtils#copy(java.io.FileDescriptor, java.io.FileDescriptor,
      *      android.os.FileUtils.ProgressListener, android.os.CancellationSignal, long)
-     * @see https://github.com/gnome/glib/blob/master/gio/gfile.c g_file_copy()
+     * @see https://github.com/gnome/glib/blob/master/gio/gfile.c file_copy_fallback()
      */
-    private static void copy(@NonNull String fromPath, @Nullable String toPath, boolean forMove,
-                             long notifyByteCount, @Nullable LongConsumer listener)
-            throws FileSystemException, InterruptedException {
+    private static void copy(@NonNull String fromPath, @NonNull String toPath, boolean forMove,
+                             boolean overwrite, long notifyByteCount,
+                             @Nullable LongConsumer listener) throws FileSystemException,
+            InterruptedException {
         StructStatCompat fromStat;
         try {
             fromStat = Linux.lstat(fromPath);
-            if (fromStat == null) {
-                throw new FileSystemException(R.string.file_copy_error);
-            }
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
                 FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
                 try {
-                    FileDescriptor toFd = Os_creat(toPath, fromStat.st_mode);
+                    FileDescriptor toFd = createFile(toPath, overwrite, fromStat.st_mode);
                     try {
                         long copiedByteCount = 0;
                         long unnotifiedByteCount = 0;
@@ -199,10 +191,42 @@ public class Syscall {
                     Os.close(fromFd);
                 }
             } else if (OsConstants.S_ISDIR(fromStat.st_mode)) {
-                Os.mkdir(toPath, fromStat.st_mode);
+                try {
+                    Os.mkdir(toPath, fromStat.st_mode);
+                } catch (ErrnoException e) {
+                    if (overwrite && e.errno == OsConstants.EEXIST) {
+                        try {
+                            StructStatCompat toStat = Linux.lstat(toPath);
+                            if (!OsConstants.S_ISDIR(toStat.st_mode)) {
+                                Os.remove(toPath);
+                                Os.mkdir(toPath, fromStat.st_mode);
+                            }
+                        } catch (ErrnoException e2) {
+                            e2.addSuppressed(e);
+                            throw e2;
+                        }
+                    }
+                }
             } else if (OsConstants.S_ISLNK(fromStat.st_mode)) {
                 String target = Os.readlink(fromPath);
-                Os.symlink(target, toPath);
+                try {
+                    Os.symlink(target, toPath);
+                } catch (ErrnoException e) {
+                    if (overwrite && e.errno == OsConstants.EEXIST) {
+                        try {
+                            StructStatCompat toStat = Linux.lstat(toPath);
+                            if (OsConstants.S_ISDIR(toStat.st_mode)) {
+                                throw new ErrnoException("symlink", OsConstants.EISDIR);
+                            }
+                            Os.remove(toPath);
+                            Os.symlink(target, toPath);
+                        } catch (ErrnoException e2) {
+                            e2.addSuppressed(e);
+                            throw e2;
+                        }
+                    }
+                    throw e;
+                }
             } else {
                 throw new FileSystemException(R.string.file_copy_error_special_file);
             }
@@ -239,16 +263,12 @@ public class Syscall {
         try {
             // TODO: Allow u+rw temporarily if we are to copy xattrs.
             String[] xattrNames = Linux.llistxattr(fromPath);
-            if (xattrNames != null) {
-                for (String xattrName : xattrNames) {
-                    if (!(forMove || MoreTextUtils.startsWith(xattrName, "user."))) {
-                        continue;
-                    }
-                    byte[] xattrValue = Linux.lgetxattr(fromPath, xattrName);
-                    if (xattrValue != null) {
-                        Linux.lsetxattr(fromPath, xattrName, xattrValue, 0);
-                    }
+            for (String xattrName : xattrNames) {
+                if (!(forMove || MoreTextUtils.startsWith(xattrName, "user."))) {
+                    continue;
                 }
+                byte[] xattrValue = Linux.lgetxattr(fromPath, xattrName);
+                Linux.lsetxattr(fromPath, xattrName, xattrValue, 0);
             }
         } catch (ErrnoException e) {
             e.printStackTrace();
@@ -258,7 +278,7 @@ public class Syscall {
 
     public static void createFile(@NonNull String path) throws FileSystemException {
         try {
-            FileDescriptor fd = Os_creat(path, OsConstants.S_IRUSR | OsConstants.S_IWUSR
+            FileDescriptor fd = createFile(path, false, OsConstants.S_IRUSR | OsConstants.S_IWUSR
                     | OsConstants.S_IRGRP | OsConstants.S_IWGRP | OsConstants.S_IROTH
                     | OsConstants.S_IWOTH);
             Os.close(fd);
@@ -267,9 +287,13 @@ public class Syscall {
         }
     }
 
-    private static FileDescriptor Os_creat(@NonNull String path, int mode) throws ErrnoException {
-        return Os.open(path, OsConstants.O_WRONLY | OsConstants.O_CREAT | OsConstants.O_TRUNC,
-                mode);
+    private static FileDescriptor createFile(@NonNull String path, boolean overwrite, int mode)
+            throws ErrnoException {
+        int flags = OsConstants.O_WRONLY | OsConstants.O_CREAT | OsConstants.O_TRUNC;
+        if (!overwrite) {
+            flags |= OsConstants.O_EXCL;
+        }
+        return Os.open(path, flags, mode);
     }
 
     public static void createDirectory(@NonNull String path) throws FileSystemException {
@@ -295,16 +319,16 @@ public class Syscall {
         } catch (ErrnoException e) {
             throw new FileSystemException(e);
         }
-        return children != null ? Arrays.asList(children) : null;
+        return Arrays.asList(children);
     }
 
-    public static void move(@NonNull String fromPath, @NonNull String toPath, long notifyByteCount,
-                            @Nullable LongConsumer listener) throws FileSystemException,
-            InterruptedException {
+    public static void move(@NonNull String fromPath, @NonNull String toPath, boolean overwrite,
+                            long notifyByteCount, @Nullable LongConsumer listener)
+            throws FileSystemException, InterruptedException {
         try {
-            Os.rename(fromPath, toPath);
+            rename(fromPath, toPath, overwrite);
         } catch (ErrnoException e) {
-            copy(fromPath, toPath, true, notifyByteCount, listener);
+            copy(fromPath, toPath, true, overwrite, notifyByteCount, listener);
             delete(fromPath);
         }
     }
@@ -312,10 +336,24 @@ public class Syscall {
     public static void rename(@NonNull String fromPath, @NonNull String toPath)
             throws FileSystemException {
         try {
-            Os.rename(fromPath, toPath);
+            rename(fromPath, toPath, false);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_rename_error, e);
         }
     }
 
+    private static void rename(@NonNull String fromPath, @NonNull String toPath, boolean overwrite)
+            throws ErrnoException {
+        if (!overwrite) {
+            try {
+                Linux.lstat(toPath);
+                throw new ErrnoException("rename", OsConstants.EEXIST);
+            } catch (ErrnoException e) {
+                if (e.errno != OsConstants.ENOENT) {
+                    throw e;
+                }
+            }
+        }
+        Os.rename(fromPath, toPath);
+    }
 }
