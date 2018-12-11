@@ -90,12 +90,13 @@ static jmethodID findMethod(JNIEnv *env, jclass clazz, const char *name, const c
     return method;
 }
 
-static jclass getErrnoExceptionClass(JNIEnv *env) {
-    static jclass errnoExceptionClass = NULL;
-    if (!errnoExceptionClass) {
-        errnoExceptionClass = findClass(env, "android/system/ErrnoException");
+static jclass getSyscallExceptionClass(JNIEnv *env) {
+    static jclass syscallExceptionClass = NULL;
+    if (!syscallExceptionClass) {
+        syscallExceptionClass = findClass(env,
+                "me/zhanghai/android/files/provider/linux/syscall/SyscallException");
     }
-    return errnoExceptionClass;
+    return syscallExceptionClass;
 }
 
 static jclass getFileDescriptorClass(JNIEnv *env) {
@@ -215,19 +216,19 @@ static void throwException(JNIEnv *env, jclass exceptionClass, jmethodID constru
     (*env)->DeleteLocalRef(env, detailMessage);
 }
 
-static void throwErrnoException(JNIEnv* env, const char* functionName) {
+static void throwSyscallException(JNIEnv* env, const char* functionName) {
     int error = errno;
     static jmethodID constructor3 = NULL;
     if (!constructor3) {
-        constructor3 = findMethod(env, getErrnoExceptionClass(env), "<init>",
+        constructor3 = findMethod(env, getSyscallExceptionClass(env), "<init>",
                                   "(Ljava/lang/String;ILjava/lang/Throwable;)V");
     }
     static jmethodID constructor2 = NULL;
     if (!constructor2) {
-        constructor2 = findMethod(env, getErrnoExceptionClass(env), "<init>",
+        constructor2 = findMethod(env, getSyscallExceptionClass(env), "<init>",
                                   "(Ljava/lang/String;I)V");
     }
-    throwException(env, getErrnoExceptionClass(env), constructor3, constructor2, functionName,
+    throwException(env, getSyscallExceptionClass(env), constructor3, constructor2, functionName,
                    error);
 }
 
@@ -298,7 +299,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     struct group *result;
     errno = TEMP_FAILURE_RETRY_R(getgrgid_r(gid, &group, buffer, bufferSize, &result));
     if (errno) {
-        throwErrnoException(env, "getgrgid_r");
+        throwSyscallException(env, "getgrgid_r");
         return NULL;
     }
     if (!result) {
@@ -310,7 +311,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     errno = 0;
     struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
     if (errno) {
-        throwErrnoException(env, "getgrgid");
+        throwSyscallException(env, "getgrgid");
         return NULL;
     }
     if (!result) {
@@ -336,7 +337,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
-        throwErrnoException(env, "getgrnam_r");
+        throwSyscallException(env, "getgrnam_r");
         return NULL;
     }
     if (!result) {
@@ -349,7 +350,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
-        throwErrnoException(env, "getgrnam");
+        throwSyscallException(env, "getgrnam");
         return NULL;
     }
     if (!result) {
@@ -426,7 +427,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
     errno = TEMP_FAILURE_RETRY_R(getpwnam_r(name, &passwd, buffer, bufferSize, &result));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
-        throwErrnoException(env, "getpwnam_r");
+        throwSyscallException(env, "getpwnam_r");
         return NULL;
     }
     if (!result) {
@@ -449,7 +450,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwuid(
     struct passwd *result;
     errno = TEMP_FAILURE_RETRY_R(getpwuid_r(uid, &passwd, buffer, bufferSize, &result));
     if (errno) {
-        throwErrnoException(env, "getpwnam_r");
+        throwSyscallException(env, "getpwnam_r");
         return NULL;
     }
     if (!result) {
@@ -492,7 +493,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
-        throwErrnoException(env, "lgetxattr");
+        throwSyscallException(env, "lgetxattr");
         return NULL;
     }
     return javaValue;
@@ -507,7 +508,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_listdir(
     DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
-        throwErrnoException(env, "opendir");
+        throwSyscallException(env, "opendir");
         return NULL;
     }
     jsize javaNamesLength = 0;
@@ -530,7 +531,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_listdir(
             TEMP_FAILURE_RETRY_V(closedir(dir));
             errno = oldErrno;
             (*env)->DeleteLocalRef(env, javaNames);
-            throwErrnoException(env, "readdir64");
+            throwSyscallException(env, "readdir64");
             return NULL;
         }
         if (!dirent) {
@@ -571,7 +572,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_listdir(
     TEMP_FAILURE_RETRY_V(closedir(dir));
     if (errno) {
         (*env)->DeleteLocalRef(env, javaNames);
-        throwErrnoException(env, "closedir");
+        throwSyscallException(env, "closedir");
         return NULL;
     }
     jobjectArray oldJavaNames = javaNames;
@@ -638,7 +639,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
     }
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
-        throwErrnoException(env, "llistxattr");
+        throwSyscallException(env, "llistxattr");
         return NULL;
     }
     return javaNames;
@@ -659,7 +660,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lsetxattr(
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     (*env)->ReleaseByteArrayElements(env, javaValue, value, JNI_ABORT);
     if (errno) {
-        throwErrnoException(env, "lsetxattr");
+        throwSyscallException(env, "lsetxattr");
     }
 }
 
@@ -715,7 +716,7 @@ static jobject doStat(JNIEnv *env, jstring javaPath, bool isLstat) {
     TEMP_FAILURE_RETRY((isLstat ? lstat64 : stat64)(path, &stat));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
-        throwErrnoException(env, isLstat ? "lstat64" : "stat64");
+        throwSyscallException(env, isLstat ? "lstat64" : "stat64");
         return NULL;
     }
     return makeStructStat(env, &stat);
@@ -748,7 +749,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
     TEMP_FAILURE_RETRY(utimensat(AT_FDCWD, path, times, AT_SYMLINK_NOFOLLOW));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
-        throwErrnoException(env, "utimensat");
+        throwSyscallException(env, "utimensat");
     }
 }
 
@@ -770,7 +771,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
     errno = 0;
     jlong result = TEMP_FAILURE_RETRY(sendfile64(outFd, inFd, offsetPointer, count));
     if (errno) {
-        throwErrnoException(env, "sendfile64");
+        throwSyscallException(env, "sendfile64");
         return result;
     }
     if (javaOffset) {

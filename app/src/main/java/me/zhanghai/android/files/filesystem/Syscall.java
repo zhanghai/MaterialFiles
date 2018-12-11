@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.filesystem;
 
-import android.system.ErrnoException;
-import android.system.Os;
 import android.system.OsConstants;
 
 import org.threeten.bp.Instant;
@@ -20,11 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.compat.LongConsumer;
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
 import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;
 import me.zhanghai.android.files.provider.linux.syscall.StructStatCompat;
 import me.zhanghai.android.files.provider.linux.syscall.StructTimespecCompat;
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
+import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.util.ExceptionUtils;
 import me.zhanghai.android.files.util.MoreTextUtils;
 
@@ -36,7 +36,7 @@ public class Syscall {
         StructStatCompat stat;
         try {
             stat = Syscalls.lstat(path);
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
         String symbolicLinkTarget = null;
@@ -44,14 +44,14 @@ public class Syscall {
         boolean isSymbolicLink = OsConstants.S_ISLNK(stat.st_mode);
         if (isSymbolicLink) {
             try {
-                symbolicLinkTarget = Os.readlink(path);
-            } catch (ErrnoException e) {
+                symbolicLinkTarget = Syscalls.readlink(path);
+            } catch (SyscallException e) {
                 throw new FileSystemException(R.string.file_error_information, e);
             }
             try {
                 stat = Syscalls.stat(path);
                 isSymbolicLinkStat = true;
-            } catch (ErrnoException e) {
+            } catch (SyscallException e) {
                 e.printStackTrace();
             }
         }
@@ -69,7 +69,7 @@ public class Syscall {
             if (passwd != null) {
                 owner.name = passwd.pw_name;
             }
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             // It's valid to have a file with a non-existent owner.
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class Syscall {
             if (structGroup != null) {
                 group.name = structGroup.gr_name;
             }
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             // It's valid to have a file with a non-existent group.
             e.printStackTrace();
         }
@@ -159,7 +159,7 @@ public class Syscall {
         try {
             fromStat = Syscalls.lstat(fromPath);
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
-                FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
+                FileDescriptor fromFd = Syscalls.open(fromPath, OsConstants.O_RDONLY, 0);
                 try {
                     FileDescriptor toFd = createFile(toPath, overwrite, fromStat.st_mode);
                     try {
@@ -185,42 +185,42 @@ public class Syscall {
                             }
                         }
                     } finally {
-                        Os.close(toFd);
+                        Syscalls.close(toFd);
                     }
                 } finally {
-                    Os.close(fromFd);
+                    Syscalls.close(fromFd);
                 }
             } else if (OsConstants.S_ISDIR(fromStat.st_mode)) {
                 try {
-                    Os.mkdir(toPath, fromStat.st_mode);
-                } catch (ErrnoException e) {
-                    if (overwrite && e.errno == OsConstants.EEXIST) {
+                    Syscalls.mkdir(toPath, fromStat.st_mode);
+                } catch (SyscallException e) {
+                    if (overwrite && e.getErrno() == OsConstants.EEXIST) {
                         try {
                             StructStatCompat toStat = Syscalls.lstat(toPath);
                             if (!OsConstants.S_ISDIR(toStat.st_mode)) {
-                                Os.remove(toPath);
-                                Os.mkdir(toPath, fromStat.st_mode);
+                                Syscalls.remove(toPath);
+                                Syscalls.mkdir(toPath, fromStat.st_mode);
                             }
-                        } catch (ErrnoException e2) {
+                        } catch (SyscallException e2) {
                             e2.addSuppressed(e);
                             throw e2;
                         }
                     }
                 }
             } else if (OsConstants.S_ISLNK(fromStat.st_mode)) {
-                String target = Os.readlink(fromPath);
+                String target = Syscalls.readlink(fromPath);
                 try {
-                    Os.symlink(target, toPath);
-                } catch (ErrnoException e) {
-                    if (overwrite && e.errno == OsConstants.EEXIST) {
+                    Syscalls.symlink(target, toPath);
+                } catch (SyscallException e) {
+                    if (overwrite && e.getErrno() == OsConstants.EEXIST) {
                         try {
                             StructStatCompat toStat = Syscalls.lstat(toPath);
                             if (OsConstants.S_ISDIR(toStat.st_mode)) {
-                                throw new ErrnoException("symlink", OsConstants.EISDIR);
+                                throw new SyscallException("symlink", OsConstants.EISDIR);
                             }
-                            Os.remove(toPath);
-                            Os.symlink(target, toPath);
-                        } catch (ErrnoException e2) {
+                            Syscalls.remove(toPath);
+                            Syscalls.symlink(target, toPath);
+                        } catch (SyscallException e2) {
                             e2.addSuppressed(e);
                             throw e2;
                         }
@@ -230,7 +230,7 @@ public class Syscall {
             } else {
                 throw new FileSystemException(R.string.file_copy_error_special_file);
             }
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             throw new FileSystemException(R.string.file_copy_error, e);
         }
         // We don't take error when copying attribute fatal, so errors will only be logged from now
@@ -239,25 +239,25 @@ public class Syscall {
         // setuid work properly.
         try {
             if (forMove) {
-                Os.lchown(toPath, fromStat.st_uid, fromStat.st_gid);
+                Syscalls.lchown(toPath, fromStat.st_uid, fromStat.st_gid);
             }
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             e.printStackTrace();
         }
         try {
             if (!OsConstants.S_ISLNK(fromStat.st_mode)) {
-                Os.chmod(toPath, fromStat.st_mode);
+                Syscalls.chmod(toPath, fromStat.st_mode);
             }
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             e.printStackTrace();
         }
         try {
             StructTimespecCompat[] times = {
-                    forMove ? fromStat.st_atim : new StructTimespecCompat(0, Syscalls.UTIME_OMIT),
+                    forMove ? fromStat.st_atim : new StructTimespecCompat(0, Constants.UTIME_OMIT),
                     fromStat.st_mtim
             };
             Syscalls.lutimens(toPath, times);
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             e.printStackTrace();
         }
         try {
@@ -270,7 +270,7 @@ public class Syscall {
                 byte[] xattrValue = Syscalls.lgetxattr(fromPath, xattrName);
                 Syscalls.lsetxattr(fromPath, xattrName, xattrValue, 0);
             }
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             e.printStackTrace();
         }
         // TODO: SELinux?
@@ -281,33 +281,33 @@ public class Syscall {
             FileDescriptor fd = createFile(path, false, OsConstants.S_IRUSR | OsConstants.S_IWUSR
                     | OsConstants.S_IRGRP | OsConstants.S_IWGRP | OsConstants.S_IROTH
                     | OsConstants.S_IWOTH);
-            Os.close(fd);
-        } catch (ErrnoException e) {
+            Syscalls.close(fd);
+        } catch (SyscallException e) {
             throw new FileSystemException(R.string.file_create_file_error, e);
         }
     }
 
     private static FileDescriptor createFile(@NonNull String path, boolean overwrite, int mode)
-            throws ErrnoException {
+            throws SyscallException {
         int flags = OsConstants.O_WRONLY | OsConstants.O_CREAT | OsConstants.O_TRUNC;
         if (!overwrite) {
             flags |= OsConstants.O_EXCL;
         }
-        return Os.open(path, flags, mode);
+        return Syscalls.open(path, flags, mode);
     }
 
     public static void createDirectory(@NonNull String path) throws FileSystemException {
         try {
-            Os.mkdir(path, OsConstants.S_IRWXU | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
-        } catch (ErrnoException e) {
+            Syscalls.mkdir(path, OsConstants.S_IRWXU | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
+        } catch (SyscallException e) {
             throw new FileSystemException(R.string.file_create_directory_error, e);
         }
     }
 
     public static void delete(@NonNull String path) throws FileSystemException {
         try {
-            Os.remove(path);
-        } catch (ErrnoException e) {
+            Syscalls.remove(path);
+        } catch (SyscallException e) {
             throw new FileSystemException(R.string.file_delete_error, e);
         }
     }
@@ -316,7 +316,7 @@ public class Syscall {
         String[] children;
         try {
             children = Syscalls.listdir(path);
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             throw new FileSystemException(e);
         }
         return Arrays.asList(children);
@@ -327,7 +327,7 @@ public class Syscall {
             throws FileSystemException, InterruptedException {
         try {
             rename(fromPath, toPath, overwrite);
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             copy(fromPath, toPath, true, overwrite, notifyByteCount, listener);
             delete(fromPath);
         }
@@ -337,23 +337,23 @@ public class Syscall {
             throws FileSystemException {
         try {
             rename(fromPath, toPath, false);
-        } catch (ErrnoException e) {
+        } catch (SyscallException e) {
             throw new FileSystemException(R.string.file_rename_error, e);
         }
     }
 
     private static void rename(@NonNull String fromPath, @NonNull String toPath, boolean overwrite)
-            throws ErrnoException {
+            throws SyscallException {
         if (!overwrite) {
             try {
                 Syscalls.lstat(toPath);
-                throw new ErrnoException("rename", OsConstants.EEXIST);
-            } catch (ErrnoException e) {
-                if (e.errno != OsConstants.ENOENT) {
+                throw new SyscallException("rename", OsConstants.EEXIST);
+            } catch (SyscallException e) {
+                if (e.getErrno() != OsConstants.ENOENT) {
                     throw e;
                 }
             }
         }
-        Os.rename(fromPath, toPath);
+        Syscalls.rename(fromPath, toPath);
     }
 }
