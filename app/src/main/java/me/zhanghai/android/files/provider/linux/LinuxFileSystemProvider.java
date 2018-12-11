@@ -108,17 +108,32 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     }
 
     @Override
-    public void createDirectory(@NonNull Path dir, @NonNull FileAttribute<?>... attrs)
+    public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        Objects.requireNonNull(dir);
-        Objects.requireNonNull(attrs);
-
+        Objects.requireNonNull(directory);
+        Objects.requireNonNull(attributes);
+        String path = directory.toString();
+        int mode = fileAttributesToMode(attributes, OsConstants.S_IRWXU | OsConstants.S_IRWXG
+                | OsConstants.S_IRWXO);
         try {
-            // FIXME: Use attrs
-            Syscalls.mkdir(dir.toString(), OsConstants.S_IRWXU | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
+            Syscalls.mkdir(path, mode);
         } catch (SyscallException e) {
-            e.rethrowAsFileSystemException(dir.toString(), null);
+            e.rethrowAsFileSystemException(directory.toString(), null);
         }
+    }
+
+    private int fileAttributesToMode(@NonNull FileAttribute<?>[] attributes, int defaultMode) {
+        LinuxFileModeAttribute linuxFileModeAttribute = null;
+        for (FileAttribute<?> attribute : attributes) {
+            if (!(attribute instanceof LinuxFileModeAttribute)) {
+                throw new UnsupportedOperationException();
+            }
+            linuxFileModeAttribute = (LinuxFileModeAttribute) attribute;
+        }
+        if (linuxFileModeAttribute == null) {
+            return defaultMode;
+        }
+        return LinuxFileMode.toInt(linuxFileModeAttribute.value());
     }
 
     @Override
