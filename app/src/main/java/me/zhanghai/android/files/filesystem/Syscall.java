@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.compat.LongConsumer;
+import me.zhanghai.android.files.provider.linux.LinuxFileMode;
+import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
 import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;
@@ -56,7 +58,7 @@ public class Syscall {
             }
         }
         PosixFileType type = parseType(stat.st_mode);
-        EnumSet<PosixFileModeBit> mode = parseMode(stat.st_mode);
+        EnumSet<LinuxFileModeBit> mode = LinuxFileMode.fromInt(stat.st_mode);
         PosixUser owner = new PosixUser();
         owner.id = stat.st_uid;
         PosixGroup group = new PosixGroup();
@@ -96,48 +98,6 @@ public class Syscall {
                 : OsConstants.S_ISLNK(st_mode) ? PosixFileType.SYMBOLIC_LINK
                 : OsConstants.S_ISSOCK(st_mode) ? PosixFileType.SOCKET
                 : PosixFileType.UNKNOWN;
-    }
-
-    @NonNull
-    static EnumSet<PosixFileModeBit> parseMode(int st_mode) {
-        EnumSet<PosixFileModeBit> mode = EnumSet.noneOf(PosixFileModeBit.class);
-        if ((st_mode & OsConstants.S_ISUID) != 0) {
-            mode.add(PosixFileModeBit.SET_USER_ID);
-        }
-        if ((st_mode & OsConstants.S_ISGID) != 0) {
-            mode.add(PosixFileModeBit.SET_GROUP_ID);
-        }
-        if ((st_mode & OsConstants.S_ISVTX) != 0) {
-            mode.add(PosixFileModeBit.STICKY);
-        }
-        if ((st_mode & OsConstants.S_IRUSR) != 0) {
-            mode.add(PosixFileModeBit.OWNER_READ);
-        }
-        if ((st_mode & OsConstants.S_IWUSR) != 0) {
-            mode.add(PosixFileModeBit.OWNER_WRITE);
-        }
-        if ((st_mode & OsConstants.S_IXUSR) != 0) {
-            mode.add(PosixFileModeBit.OWNER_EXECUTE);
-        }
-        if ((st_mode & OsConstants.S_IRGRP) != 0) {
-            mode.add(PosixFileModeBit.GROUP_READ);
-        }
-        if ((st_mode & OsConstants.S_IWGRP) != 0) {
-            mode.add(PosixFileModeBit.GROUP_WRITE);
-        }
-        if ((st_mode & OsConstants.S_IXGRP) != 0) {
-            mode.add(PosixFileModeBit.GROUP_EXECUTE);
-        }
-        if ((st_mode & OsConstants.S_IROTH) != 0) {
-            mode.add(PosixFileModeBit.OTHERS_READ);
-        }
-        if ((st_mode & OsConstants.S_IWOTH) != 0) {
-            mode.add(PosixFileModeBit.OTHERS_WRITE);
-        }
-        if ((st_mode & OsConstants.S_IXOTH) != 0) {
-            mode.add(PosixFileModeBit.OTHERS_EXECUTE);
-        }
-        return mode;
     }
 
     public static void copy(@NonNull String fromPath, @NonNull String toPath, boolean overwrite,

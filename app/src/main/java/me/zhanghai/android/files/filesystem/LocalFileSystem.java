@@ -26,6 +26,7 @@ import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.FunctionalException;
 import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
+import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
 
 public class LocalFileSystem {
 
@@ -100,7 +101,7 @@ public class LocalFileSystem {
         @NonNull
         public final PosixFileType type;
         @NonNull
-        public final EnumSet<PosixFileModeBit> mode;
+        public final EnumSet<LinuxFileModeBit> mode;
         @NonNull
         public final PosixUser owner;
         @NonNull
@@ -113,7 +114,7 @@ public class LocalFileSystem {
         public final String symbolicLinkTarget;
 
         public Information(boolean isSymbolicLinkStat, @NonNull PosixFileType type,
-                           @NonNull EnumSet<PosixFileModeBit> mode, @NonNull PosixUser owner,
+                           @NonNull EnumSet<LinuxFileModeBit> mode, @NonNull PosixUser owner,
                            @NonNull PosixGroup group, long size,
                            @NonNull Instant lastModificationTime, boolean isSymbolicLink,
                            @Nullable String symbolicLinkTarget) {
@@ -172,7 +173,7 @@ public class LocalFileSystem {
             int tmpType = in.readInt();
             type = tmpType == -1 ? null : PosixFileType.values()[tmpType];
             //noinspection unchecked
-            mode = (EnumSet<PosixFileModeBit>) in.readSerializable();
+            mode = (EnumSet<LinuxFileModeBit>) in.readSerializable();
             owner = in.readParcelable(PosixUser.class.getClassLoader());
             group = in.readParcelable(PosixGroup.class.getClassLoader());
             size = in.readLong();

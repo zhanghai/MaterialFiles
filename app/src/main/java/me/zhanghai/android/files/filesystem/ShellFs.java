@@ -21,6 +21,8 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.FunctionalException;
 import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
+import me.zhanghai.android.files.provider.linux.LinuxFileMode;
+import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
 import me.zhanghai.android.files.shell.SuShell;
 import me.zhanghai.android.files.util.Holder;
 
@@ -99,7 +101,7 @@ public class ShellFs {
             boolean isSymbolicLinkStat = Integer.parseInt(fields[0]) == 1;
             int typeAndMode = Integer.parseInt(fields[1]);
             PosixFileType type = Syscall.parseType(typeAndMode);
-            EnumSet<PosixFileModeBit> mode = Syscall.parseMode(typeAndMode);
+            EnumSet<LinuxFileModeBit> mode = LinuxFileMode.fromInt(typeAndMode);
             PosixUser owner = new PosixUser();
             owner.id = Integer.parseInt(fields[2]);
             PosixGroup group = new PosixGroup();

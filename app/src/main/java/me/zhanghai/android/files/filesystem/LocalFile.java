@@ -21,6 +21,7 @@ import androidx.annotation.WorkerThread;
 import androidx.core.util.Pair;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.functional.Functional;
+import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
 
 public class LocalFile extends BaseFile {
 
@@ -142,7 +143,7 @@ public class LocalFile extends BaseFile {
     }
 
     @NonNull
-    public Set<PosixFileModeBit> getMode() {
+    public Set<LinuxFileModeBit> getMode() {
         return mInformation.mode;
     }
 

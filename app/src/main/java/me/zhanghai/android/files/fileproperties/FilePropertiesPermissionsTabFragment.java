@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.fileproperties;
 
 import android.os.Bundle;
-import android.system.OsConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +21,10 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.filesystem.LocalFile;
-import me.zhanghai.android.files.filesystem.PosixFileModeBit;
 import me.zhanghai.android.files.filesystem.PosixGroup;
 import me.zhanghai.android.files.filesystem.PosixUser;
+import me.zhanghai.android.files.provider.linux.LinuxFileMode;
+import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
@@ -95,46 +95,10 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                     R.string.file_properties_permissions_group_format, group.name, group.id)
                     : String.valueOf(group.id);
             mGroupButton.setText(groupString);
-            Set<PosixFileModeBit> mode = file.getMode();
+            Set<LinuxFileModeBit> mode = file.getMode();
             String modeString = getString(R.string.file_properties_permissions_mode_format,
-                    getModeString(file.getMode()), getModeInt(mode));
+                    LinuxFileMode.toString(file.getMode()), LinuxFileMode.toInt(mode));
             mModeButton.setText(modeString);
         }
-    }
-
-    @NonNull
-    private static String getModeString(@NonNull Set<PosixFileModeBit> mode) {
-        boolean hasSetUserIdBit = mode.contains(PosixFileModeBit.SET_USER_ID);
-        boolean hasSetGroupIdBit = mode.contains(PosixFileModeBit.SET_GROUP_ID);
-        boolean hasStickyBit = mode.contains(PosixFileModeBit.STICKY);
-        return new StringBuilder()
-                .append(mode.contains(PosixFileModeBit.OWNER_READ) ? 'r' : '-')
-                .append(mode.contains(PosixFileModeBit.OWNER_WRITE) ? 'w' : '-')
-                .append(mode.contains(PosixFileModeBit.OWNER_EXECUTE) ? hasSetUserIdBit ? 's' : 'x'
-                        : hasSetUserIdBit ? 'S' : '-')
-                .append(mode.contains(PosixFileModeBit.GROUP_READ) ? 'r' : '-')
-                .append(mode.contains(PosixFileModeBit.GROUP_WRITE) ? 'w' : '-')
-                .append(mode.contains(PosixFileModeBit.GROUP_EXECUTE) ? hasSetGroupIdBit ? 's' : 'x'
-                        : hasSetGroupIdBit ? 'S' : '-')
-                .append(mode.contains(PosixFileModeBit.OTHERS_READ) ? 'r' : '-')
-                .append(mode.contains(PosixFileModeBit.OTHERS_WRITE) ? 'w' : '-')
-                .append(mode.contains(PosixFileModeBit.OTHERS_EXECUTE) ? hasStickyBit ? 't' : 'x'
-                        : hasStickyBit ? 'T' : '-')
-                .toString();
-    }
-
-    private static int getModeInt(@NonNull Set<PosixFileModeBit> mode) {
-        return (mode.contains(PosixFileModeBit.SET_USER_ID) ? OsConstants.S_ISUID : 0)
-                | (mode.contains(PosixFileModeBit.SET_GROUP_ID) ? OsConstants.S_ISGID : 0)
-                | (mode.contains(PosixFileModeBit.STICKY) ? OsConstants.S_ISVTX : 0)
-                | (mode.contains(PosixFileModeBit.OWNER_READ) ? OsConstants.S_IRUSR : 0)
-                | (mode.contains(PosixFileModeBit.OWNER_WRITE) ? OsConstants.S_IWUSR : 0)
-                | (mode.contains(PosixFileModeBit.OWNER_EXECUTE) ? OsConstants.S_IXUSR : 0)
-                | (mode.contains(PosixFileModeBit.GROUP_READ) ? OsConstants.S_IRGRP : 0)
-                | (mode.contains(PosixFileModeBit.GROUP_WRITE) ? OsConstants.S_IWGRP : 0)
-                | (mode.contains(PosixFileModeBit.GROUP_EXECUTE) ? OsConstants.S_IXGRP : 0)
-                | (mode.contains(PosixFileModeBit.OTHERS_READ) ? OsConstants.S_IROTH : 0)
-                | (mode.contains(PosixFileModeBit.OTHERS_WRITE) ? OsConstants.S_IWOTH : 0)
-                | (mode.contains(PosixFileModeBit.OTHERS_EXECUTE) ? OsConstants.S_IXOTH : 0);
     }
 }

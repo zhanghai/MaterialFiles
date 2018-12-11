@@ -3,9 +3,9 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.filesystem;
+package me.zhanghai.android.files.provider.linux;
 
-public enum PosixFileModeBit {
+public enum LinuxFileModeBit {
     SET_USER_ID,
     SET_GROUP_ID,
     STICKY,
