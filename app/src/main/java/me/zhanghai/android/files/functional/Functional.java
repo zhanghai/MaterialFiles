@@ -7,9 +7,7 @@ package me.zhanghai.android.files.functional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import androidx.annotation.CheckResult;
 import me.zhanghai.android.files.functional.compat.BiConsumer;
@@ -192,39 +190,21 @@ public class Functional {
     }
 
     public static <T> T reduceRight(List<T> iterable, BiFunction<T, T, T> function) {
-        return FunctionalIterator.reduceRemaining(new ReverseIterator<>(iterable), function);
+        return FunctionalIterator.reduceRemaining(new FunctionalIterator.ReverseIterator<>(
+                iterable), function);
     }
 
     public static <T> T reduceRight(List<T> list, TriFunction<T, T, Integer, T> function) {
-        return FunctionalIterator.reduceRemaining(new ReverseIterator<>(list),
+        return FunctionalIterator.reduceRemaining(new FunctionalIterator.ReverseIterator<>(list),
                 (previousValue, t, index, iterator) -> function.apply(previousValue, t,
                         list.size() - 1 - index));
     }
 
     public static <I extends List<T>, T> T reduceRight(I list,
                                                        QuadFunction<T, T, Integer, I, T> function) {
-        return FunctionalIterator.reduceRemaining(new ReverseIterator<>(list),
+        return FunctionalIterator.reduceRemaining(new FunctionalIterator.ReverseIterator<>(list),
                 (previousValue, t, index, iterator) -> function.apply(previousValue, t,
                         list.size() - 1 - index, list));
-    }
-
-    private static class ReverseIterator<T> implements Iterator<T> {
-
-        private ListIterator<T> mListIterator;
-
-        public ReverseIterator(List<T> list) {
-            mListIterator = list.listIterator(list.size());
-        }
-
-        @Override
-        public boolean hasNext() {
-            return mListIterator.hasPrevious();
-        }
-
-        @Override
-        public T next() {
-            return mListIterator.previous();
-        }
     }
 
     public static <T> boolean some(Iterable<T> iterable, Predicate<T> predicate) {

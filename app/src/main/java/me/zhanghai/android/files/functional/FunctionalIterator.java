@@ -8,6 +8,8 @@ package me.zhanghai.android.files.functional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import androidx.annotation.CheckResult;
 import me.zhanghai.android.files.functional.compat.BiConsumer;
@@ -360,5 +362,24 @@ public class FunctionalIterator {
             ++index;
         }
         return false;
+    }
+
+    public static class ReverseIterator<T> implements Iterator<T> {
+
+        private ListIterator<T> mListIterator;
+
+        public ReverseIterator(List<T> list) {
+            mListIterator = list.listIterator(list.size());
+        }
+
+        @Override
+        public boolean hasNext() {
+            return mListIterator.hasPrevious();
+        }
+
+        @Override
+        public T next() {
+            return mListIterator.previous();
+        }
     }
 }

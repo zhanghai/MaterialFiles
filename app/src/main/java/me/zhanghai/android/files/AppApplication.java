@@ -11,6 +11,7 @@ import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.NonNull;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.NightModeHelper;
 
 public class AppApplication extends Application {
@@ -34,6 +35,8 @@ public class AppApplication extends Application {
         AndroidThreeTen.init(this);
         //FabricUtils.init(this);
         Stetho.initializeWithDefaults(this);
+
+        LinuxFileSystemProvider.installAsDefault();
 
         NightModeHelper.setup(this);
     }
