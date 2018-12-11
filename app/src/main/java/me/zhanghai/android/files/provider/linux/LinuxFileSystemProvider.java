@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.system.OsConstants;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
@@ -26,6 +28,8 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
+import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 public class LinuxFileSystemProvider extends FileSystemProvider {
 
@@ -108,8 +112,13 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
             throws IOException {
         Objects.requireNonNull(dir);
         Objects.requireNonNull(attrs);
-        // TODO
-        throw new UnsupportedOperationException();
+
+        try {
+            // FIXME: Use attrs
+            Syscalls.mkdir(dir.toString(), OsConstants.S_IRWXU | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
+        } catch (SyscallException e) {
+            e.rethrowAsFileSystemException(dir.toString(), null);
+        }
     }
 
     @Override
