@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.linux;
+package me.zhanghai.android.files.provider.linux.syscall;
 
 import androidx.annotation.NonNull;
 

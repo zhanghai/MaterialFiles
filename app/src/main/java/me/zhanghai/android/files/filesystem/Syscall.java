@@ -20,11 +20,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.compat.LongConsumer;
-import me.zhanghai.android.files.linux.Linux;
-import me.zhanghai.android.files.linux.StructGroup;
-import me.zhanghai.android.files.linux.StructPasswd;
-import me.zhanghai.android.files.linux.StructStatCompat;
-import me.zhanghai.android.files.linux.StructTimespecCompat;
+import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
+import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;
+import me.zhanghai.android.files.provider.linux.syscall.StructStatCompat;
+import me.zhanghai.android.files.provider.linux.syscall.StructTimespecCompat;
 import me.zhanghai.android.files.util.ExceptionUtils;
 import me.zhanghai.android.files.util.MoreTextUtils;
 
@@ -35,7 +35,7 @@ public class Syscall {
             throws FileSystemException {
         StructStatCompat stat;
         try {
-            stat = Linux.lstat(path);
+            stat = Syscalls.lstat(path);
         } catch (ErrnoException e) {
             throw new FileSystemException(R.string.file_error_information, e);
         }
@@ -49,7 +49,7 @@ public class Syscall {
                 throw new FileSystemException(R.string.file_error_information, e);
             }
             try {
-                stat = Linux.stat(path);
+                stat = Syscalls.stat(path);
                 isSymbolicLinkStat = true;
             } catch (ErrnoException e) {
                 e.printStackTrace();
@@ -65,7 +65,7 @@ public class Syscall {
         Instant lastModificationTime = Instant.ofEpochSecond(stat.st_mtim.tv_sec,
                 stat.st_mtim.tv_nsec);
         try {
-            StructPasswd passwd = Linux.getpwuid(owner.id);
+            StructPasswd passwd = Syscalls.getpwuid(owner.id);
             if (passwd != null) {
                 owner.name = passwd.pw_name;
             }
@@ -74,7 +74,7 @@ public class Syscall {
             e.printStackTrace();
         }
         try {
-            StructGroup structGroup = Linux.getgrgid(group.id);
+            StructGroup structGroup = Syscalls.getgrgid(group.id);
             if (structGroup != null) {
                 group.name = structGroup.gr_name;
             }
@@ -157,7 +157,7 @@ public class Syscall {
             InterruptedException {
         StructStatCompat fromStat;
         try {
-            fromStat = Linux.lstat(fromPath);
+            fromStat = Syscalls.lstat(fromPath);
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
                 FileDescriptor fromFd = Os.open(fromPath, OsConstants.O_RDONLY, 0);
                 try {
@@ -167,7 +167,7 @@ public class Syscall {
                         long unnotifiedByteCount = 0;
                         try {
                             long sentByteCount;
-                            while ((sentByteCount = Linux.sendfile(toFd, fromFd, null,
+                            while ((sentByteCount = Syscalls.sendfile(toFd, fromFd, null,
                                     notifyByteCount)) != 0) {
                                 copiedByteCount += sentByteCount;
                                 unnotifiedByteCount += sentByteCount;
@@ -196,7 +196,7 @@ public class Syscall {
                 } catch (ErrnoException e) {
                     if (overwrite && e.errno == OsConstants.EEXIST) {
                         try {
-                            StructStatCompat toStat = Linux.lstat(toPath);
+                            StructStatCompat toStat = Syscalls.lstat(toPath);
                             if (!OsConstants.S_ISDIR(toStat.st_mode)) {
                                 Os.remove(toPath);
                                 Os.mkdir(toPath, fromStat.st_mode);
@@ -214,7 +214,7 @@ public class Syscall {
                 } catch (ErrnoException e) {
                     if (overwrite && e.errno == OsConstants.EEXIST) {
                         try {
-                            StructStatCompat toStat = Linux.lstat(toPath);
+                            StructStatCompat toStat = Syscalls.lstat(toPath);
                             if (OsConstants.S_ISDIR(toStat.st_mode)) {
                                 throw new ErrnoException("symlink", OsConstants.EISDIR);
                             }
@@ -253,22 +253,22 @@ public class Syscall {
         }
         try {
             StructTimespecCompat[] times = {
-                    forMove ? fromStat.st_atim : new StructTimespecCompat(0, Linux.UTIME_OMIT),
+                    forMove ? fromStat.st_atim : new StructTimespecCompat(0, Syscalls.UTIME_OMIT),
                     fromStat.st_mtim
             };
-            Linux.lutimens(toPath, times);
+            Syscalls.lutimens(toPath, times);
         } catch (ErrnoException e) {
             e.printStackTrace();
         }
         try {
             // TODO: Allow u+rw temporarily if we are to copy xattrs.
-            String[] xattrNames = Linux.llistxattr(fromPath);
+            String[] xattrNames = Syscalls.llistxattr(fromPath);
             for (String xattrName : xattrNames) {
                 if (!(forMove || MoreTextUtils.startsWith(xattrName, "user."))) {
                     continue;
                 }
-                byte[] xattrValue = Linux.lgetxattr(fromPath, xattrName);
-                Linux.lsetxattr(fromPath, xattrName, xattrValue, 0);
+                byte[] xattrValue = Syscalls.lgetxattr(fromPath, xattrName);
+                Syscalls.lsetxattr(fromPath, xattrName, xattrValue, 0);
             }
         } catch (ErrnoException e) {
             e.printStackTrace();
@@ -315,7 +315,7 @@ public class Syscall {
     public static List<String> getChildren(@NonNull String path) throws FileSystemException {
         String[] children;
         try {
-            children = Linux.listdir(path);
+            children = Syscalls.listdir(path);
         } catch (ErrnoException e) {
             throw new FileSystemException(e);
         }
@@ -346,7 +346,7 @@ public class Syscall {
             throws ErrnoException {
         if (!overwrite) {
             try {
-                Linux.lstat(toPath);
+                Syscalls.lstat(toPath);
                 throw new ErrnoException("rename", OsConstants.EEXIST);
             } catch (ErrnoException e) {
                 if (e.errno != OsConstants.ENOENT) {

@@ -142,7 +142,8 @@ static jclass getStringClass(JNIEnv *env) {
 static jclass getStructGroupClass(JNIEnv *env) {
     static jclass structGroupClass = NULL;
     if (!structGroupClass) {
-        structGroupClass = findClass(env, "me/zhanghai/android/files/linux/StructGroup");
+        structGroupClass = findClass(env,
+                "me/zhanghai/android/files/provider/linux/syscall/StructGroup");
     }
     return structGroupClass;
 }
@@ -150,7 +151,8 @@ static jclass getStructGroupClass(JNIEnv *env) {
 static jclass getStructPasswdClass(JNIEnv *env) {
     static jclass structPasswdClass = NULL;
     if (!structPasswdClass) {
-        structPasswdClass = findClass(env, "me/zhanghai/android/files/linux/StructPasswd");
+        structPasswdClass = findClass(env,
+                "me/zhanghai/android/files/provider/linux/syscall/StructPasswd");
     }
     return structPasswdClass;
 }
@@ -158,7 +160,8 @@ static jclass getStructPasswdClass(JNIEnv *env) {
 static jclass getStructStatClass(JNIEnv *env) {
     static jclass structStatClass = NULL;
     if (!structStatClass) {
-        structStatClass = findClass(env, "me/zhanghai/android/files/linux/StructStatCompat");
+        structStatClass = findClass(env,
+                "me/zhanghai/android/files/provider/linux/syscall/StructStatCompat");
     }
     return structStatClass;
 }
@@ -167,7 +170,7 @@ static jclass getStructTimespecClass(JNIEnv *env) {
     static jclass structTimespecClass = NULL;
     if (!structTimespecClass) {
         structTimespecClass = findClass(env,
-                                        "me/zhanghai/android/files/linux/StructTimespecCompat");
+                "me/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat");
     }
     return structTimespecClass;
 }
@@ -281,7 +284,8 @@ static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
 }
 
 JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_files_linux_Linux_getgrgid(JNIEnv *env, jclass clazz, jint javaGid) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
+        JNIEnv *env, jclass clazz, jint javaGid) {
 #if __ANDROID_API__ >= 24
     gid_t gid = (gid_t) javaGid;
     size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
@@ -317,7 +321,8 @@ Java_me_zhanghai_android_files_linux_Linux_getgrgid(JNIEnv *env, jclass clazz, j
 }
 
 JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_files_linux_Linux_getgrnam(JNIEnv *env, jclass clazz, jstring javaName) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
+        JNIEnv *env, jclass clazz, jstring javaName) {
 #if __ANDROID_API__ >= 24
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
     size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
@@ -407,7 +412,8 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
 }
 
 JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_files_linux_Linux_getpwnam(JNIEnv *env, jclass clazz, jstring javaName) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
+        JNIEnv *env, jclass clazz, jstring javaName) {
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
     size_t bufferSize = (size_t) sysconf(_SC_GETPW_R_SIZE_MAX);
     if (bufferSize == -1) {
@@ -430,7 +436,8 @@ Java_me_zhanghai_android_files_linux_Linux_getpwnam(JNIEnv *env, jclass clazz, j
 }
 
 JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_files_linux_Linux_getpwuid(JNIEnv *env, jclass clazz, jint javaUid) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwuid(
+        JNIEnv *env, jclass clazz, jint javaUid) {
     uid_t uid = (uid_t) javaUid;
     size_t bufferSize = (size_t) sysconf(_SC_GETPW_R_SIZE_MAX);
     if (bufferSize == -1) {
@@ -452,8 +459,8 @@ Java_me_zhanghai_android_files_linux_Linux_getpwuid(JNIEnv *env, jclass clazz, j
 }
 
 JNIEXPORT jbyteArray JNICALL
-Java_me_zhanghai_android_files_linux_Linux_lgetxattr(JNIEnv *env, jclass clazz, jstring javaPath,
-                                                     jstring javaName) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
+        JNIEnv *env, jclass clazz, jstring javaPath, jstring javaName) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
     jbyteArray javaValue = NULL;
@@ -493,7 +500,8 @@ Java_me_zhanghai_android_files_linux_Linux_lgetxattr(JNIEnv *env, jclass clazz, 
 
 /// @see https://android.googlesource.com/platform/libcore/+/master/ojluni/src/main/native/UnixFileSystem_md.c
 JNIEXPORT jobjectArray JNICALL
-Java_me_zhanghai_android_files_linux_Linux_listdir(JNIEnv *env, jclass clazz, jstring javaPath) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_listdir(
+        JNIEnv *env, jclass clazz, jstring javaPath) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     errno = 0;
     DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
@@ -577,7 +585,8 @@ Java_me_zhanghai_android_files_linux_Linux_listdir(JNIEnv *env, jclass clazz, js
 }
 
 JNIEXPORT jobjectArray JNICALL
-Java_me_zhanghai_android_files_linux_Linux_llistxattr(JNIEnv *env, jclass clazz, jstring javaPath) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
+        JNIEnv *env, jclass clazz, jstring javaPath) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     jobjectArray javaNames = NULL;
     while (true) {
@@ -636,9 +645,9 @@ Java_me_zhanghai_android_files_linux_Linux_llistxattr(JNIEnv *env, jclass clazz,
 }
 
 JNIEXPORT void JNICALL
-Java_me_zhanghai_android_files_linux_Linux_lsetxattr(JNIEnv *env, jclass clazz, jstring javaPath,
-                                                     jstring javaName, jbyteArray javaValue,
-                                                     jint javaFlags) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lsetxattr(
+        JNIEnv *env, jclass clazz, jstring javaPath, jstring javaName, jbyteArray javaValue,
+        jint javaFlags) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
     jbyte *value = (*env)->GetByteArrayElements(env, javaValue, NULL);
@@ -668,9 +677,9 @@ static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructStatClass(env), "<init>", "(JJIJIIJJJJ"
-                "Lme/zhanghai/android/files/linux/StructTimespecCompat;"
-                "Lme/zhanghai/android/files/linux/StructTimespecCompat;"
-                "Lme/zhanghai/android/files/linux/StructTimespecCompat;)V");
+                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat;"
+                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat;"
+                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat;)V");
     }
     jlong st_dev = stat->st_dev;
     jlong st_ino = stat->st_ino;
@@ -713,7 +722,8 @@ static jobject doStat(JNIEnv *env, jstring javaPath, bool isLstat) {
 }
 
 JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_files_linux_Linux_lstat(JNIEnv *env, jclass clazz, jstring javaPath) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lstat(
+        JNIEnv *env, jclass clazz, jstring javaPath) {
     return doStat(env, javaPath, true);
 }
 
@@ -723,8 +733,8 @@ static void readStructTimespec(JNIEnv *env, jobject javaTime, struct timespec *t
 }
 
 JNIEXPORT void JNICALL
-Java_me_zhanghai_android_files_linux_Linux_lutimens(JNIEnv *env, jclass clazz, jstring javaPath,
-                                                    jobjectArray javaTimes) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
+        JNIEnv *env, jclass clazz, jstring javaPath, jobjectArray javaTimes) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     size_t timesSize = (size_t) (*env)->GetArrayLength(env, javaTimes);
     struct timespec times[timesSize];
@@ -743,9 +753,9 @@ Java_me_zhanghai_android_files_linux_Linux_lutimens(JNIEnv *env, jclass clazz, j
 }
 
 JNIEXPORT jlong JNICALL
-Java_me_zhanghai_android_files_linux_Linux_sendfile(JNIEnv* env, jclass clazz, jobject javaOutFd,
-                                                    jobject javaInFd, jobject javaOffset,
-                                                    jlong javaCount) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
+        JNIEnv* env, jclass clazz, jobject javaOutFd, jobject javaInFd, jobject javaOffset,
+        jlong javaCount) {
     int outFd = javaOutFd ? (*env)->GetIntField(env, javaOutFd, getFileDescriptorDescriptorField(
             env)) : -1;
     int inFd = javaInFd ? (*env)->GetIntField(env, javaInFd, getFileDescriptorDescriptorField(env))
@@ -770,6 +780,7 @@ Java_me_zhanghai_android_files_linux_Linux_sendfile(JNIEnv* env, jclass clazz, j
 }
 
 JNIEXPORT jobject JNICALL
-Java_me_zhanghai_android_files_linux_Linux_stat(JNIEnv *env, jclass clazz, jstring javaPath) {
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_stat(
+        JNIEnv *env, jclass clazz, jstring javaPath) {
     return doStat(env, javaPath, false);
 }

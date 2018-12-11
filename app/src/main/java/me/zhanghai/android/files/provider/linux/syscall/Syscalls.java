@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.linux;
+package me.zhanghai.android.files.provider.linux.syscall;
 
 import android.system.ErrnoException;
 import android.system.Int64Ref;
@@ -14,13 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 
-public class Linux {
+public class Syscalls {
 
     public static final long UTIME_NOW = (1L << 30) - 1L;
     public static final long UTIME_OMIT = (1L << 30) - 2L;
 
     static {
-        System.loadLibrary("linux");
+        System.loadLibrary("syscalls");
     }
 
     @Nullable
