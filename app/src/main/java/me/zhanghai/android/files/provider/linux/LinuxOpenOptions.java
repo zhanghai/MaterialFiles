@@ -19,8 +19,10 @@ class LinuxOpenOptions {
         int flags;
         if (options.hasRead() && options.hasWrite()) {
             flags = OsConstants.O_RDWR;
+        } else if (options.hasWrite()) {
+            flags = OsConstants.O_WRONLY;
         } else {
-            flags = options.hasWrite() ? OsConstants.O_WRONLY : OsConstants.O_RDONLY;
+            flags = OsConstants.O_RDONLY;
         }
         if (options.hasTruncateExisting()) {
             flags |= OsConstants.O_TRUNC;

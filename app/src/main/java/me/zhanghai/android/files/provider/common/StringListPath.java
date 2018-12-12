@@ -180,10 +180,7 @@ public abstract class StringListPath extends AbstractPath {
     @Override
     public Path resolve(@NonNull Path other) {
         Objects.requireNonNull(other);
-        if (other.getClass() != getClass()) {
-            throw new ProviderMismatchException();
-        }
-        StringListPath otherPath = (StringListPath) other;
+        StringListPath otherPath = toStringListPath(other);
         if (otherPath.mAbsolute) {
             return other;
         }
@@ -199,10 +196,7 @@ public abstract class StringListPath extends AbstractPath {
     @Override
     public Path relativize(@NonNull Path other) {
         Objects.requireNonNull(other);
-        if (other.getClass() != getClass()) {
-            throw new ProviderMismatchException();
-        }
-        StringListPath otherPath = (StringListPath) other;
+        StringListPath otherPath = toStringListPath(other);
         if (otherPath.mAbsolute != mAbsolute) {
             throw new IllegalArgumentException("The other path must be as absolute as this path");
         }
@@ -297,11 +291,16 @@ public abstract class StringListPath extends AbstractPath {
     @Override
     public int compareTo(@NonNull Path other) {
         Objects.requireNonNull(other);
-        if (other.getClass() != getClass()) {
-            throw new ProviderMismatchException();
-        }
-        StringListPath otherPath = (StringListPath) other;
+        StringListPath otherPath = toStringListPath(other);
         return toString().compareTo(otherPath.toString());
+    }
+
+    @NonNull
+    private StringListPath toStringListPath(@NonNull Path path) {
+        if (path.getClass() != getClass()) {
+            throw new ProviderMismatchException(path.toString());
+        }
+        return (StringListPath) path;
     }
 
     protected boolean isEmpty() {

@@ -5,11 +5,12 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.system.OsConstants;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -17,6 +18,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import java8.nio.channels.FileChannel;
 import java8.nio.channels.SeekableByteChannel;
+import java8.nio.file.AccessDeniedException;
 import java8.nio.file.AccessMode;
 import java8.nio.file.CopyOption;
 import java8.nio.file.DirectoryStream;
@@ -26,10 +28,12 @@ import java8.nio.file.FileSystemAlreadyExistsException;
 import java8.nio.file.LinkOption;
 import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
+import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -37,6 +41,8 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 public class LinuxFileSystemProvider extends FileSystemProvider {
 
     private static final String SCHEME = "file";
+
+    private static final String HIDDEN_FILE_NAME_PREFIX = ".";
 
     @NonNull
     private final LinuxFileSystem mFileSystem = new LinuxFileSystem(this);
@@ -94,6 +100,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(file);
         Objects.requireNonNull(options);
         Objects.requireNonNull(attributes);
+        requireLinuxPath(file);
         String path = file.toString();
         OpenOptions openOptions = OpenOptions.fromSet(options);
         int flags = LinuxOpenOptions.toFlags(openOptions);
@@ -105,7 +112,15 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         } catch (SyscallException e) {
             throw e.toFileSystemException(path);
         }
-        return LinuxFileChannels.open(fd, flags);
+        FileChannel fileChannel = LinuxFileChannels.open(fd, flags);
+        if (openOptions.hasDeleteOnClose()) {
+            try {
+                Syscalls.remove(path);
+            } catch (SyscallException e) {
+                e.printStackTrace();
+            }
+        }
+        return fileChannel;
     }
 
     @NonNull
@@ -123,10 +138,12 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @NonNull
     @Override
     public DirectoryStream<Path> newDirectoryStream(
-            @NonNull Path dir, @NonNull DirectoryStream.Filter<? super Path> filter)
+            @NonNull Path directory, @NonNull DirectoryStream.Filter<? super Path> filter)
             throws IOException {
-        Objects.requireNonNull(dir);
+        Objects.requireNonNull(directory);
         Objects.requireNonNull(filter);
+        requireLinuxPath(directory);
+        String path = directory.toString();
         // TODO
         throw new UnsupportedOperationException();
     }
@@ -136,6 +153,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
             throws IOException {
         Objects.requireNonNull(directory);
         Objects.requireNonNull(attributes);
+        requireLinuxPath(directory);
         String path = directory.toString();
         int mode = LinuxFileMode.toInt(LinuxFileAttributes.toMode(attributes,
                 LinuxFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
@@ -152,31 +170,60 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(link);
         Objects.requireNonNull(target);
         Objects.requireNonNull(attrs);
-        // TODO
-        throw new UnsupportedOperationException();
+        if (attrs.length > 0) {
+            throw new UnsupportedOperationException(Arrays.toString(attrs));
+        }
+        requireLinuxPath(target);
+        String targetString = target.toString();
+        requireLinuxPath(link);
+        String linkPath = link.toString();
+        try {
+            Syscalls.symlink(targetString, linkPath);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(linkPath, targetString);
+        }
     }
 
     @Override
     public void createLink(@NonNull Path link, @NonNull Path existing) throws IOException {
         Objects.requireNonNull(link);
         Objects.requireNonNull(existing);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(existing);
+        String oldPath = existing.toString();
+        requireLinuxPath(link);
+        String newPath = link.toString();
+        try {
+            Syscalls.link(oldPath, newPath);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(newPath, oldPath);
+        }
     }
 
     @Override
     public void delete(@NonNull Path path) throws IOException {
         Objects.requireNonNull(path);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(path);
+        String pathString = path.toString();
+        try {
+            Syscalls.remove(pathString);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(pathString);
+        }
     }
 
     @NonNull
     @Override
     public Path readSymbolicLink(@NonNull Path link) throws IOException {
         Objects.requireNonNull(link);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(link);
+        String path = link.toString();
+        String target;
+        try {
+            target = Syscalls.readlink(path);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(path);
+        }
+        return mFileSystem.getPath(target);
     }
 
     @Override
@@ -207,10 +254,11 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     }
 
     @Override
-    public boolean isHidden(@NonNull Path path) throws IOException {
+    public boolean isHidden(@NonNull Path path) {
         Objects.requireNonNull(path);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(path);
+        String fileName = path.getFileName().toString();
+        return fileName.startsWith(HIDDEN_FILE_NAME_PREFIX);
     }
 
     @NonNull
@@ -225,8 +273,34 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     public void checkAccess(@NonNull Path path, @NonNull AccessMode... modes) throws IOException {
         Objects.requireNonNull(path);
         Objects.requireNonNull(modes);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(path);
+        String pathString = path.toString();
+        AccessModes accessModes = AccessModes.fromArray(modes);
+        int mode;
+        if (!(accessModes.hasRead() || accessModes.hasWrite() || accessModes.hasExecute())) {
+            mode = OsConstants.F_OK;
+        } else {
+            mode = 0;
+            if (accessModes.hasRead()) {
+                mode |= OsConstants.R_OK;
+            }
+            if (accessModes.hasWrite()) {
+                mode |= OsConstants.W_OK;
+            }
+            if (accessModes.hasExecute()) {
+                mode |= OsConstants.X_OK;
+            }
+        }
+        boolean accessible;
+        try {
+            // TODO: Should use euidaccess() but that's unavailable on Android.
+            accessible = Syscalls.access(pathString, mode);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(pathString);
+        }
+        if (!accessible) {
+            throw new AccessDeniedException(pathString);
+        }
     }
 
     @NonNull
@@ -274,5 +348,11 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(options);
         // TODO
         throw new UnsupportedOperationException();
+    }
+
+    private static void requireLinuxPath(@NonNull Path path) {
+        if (!(path instanceof LinuxPath)) {
+            throw new ProviderMismatchException(path.toString());
+        }
     }
 }

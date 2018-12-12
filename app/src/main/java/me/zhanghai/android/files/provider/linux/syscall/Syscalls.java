@@ -21,6 +21,14 @@ public class Syscalls {
         System.loadLibrary("syscalls");
     }
 
+    public static boolean access(@NonNull String path, int mode) throws SyscallException {
+        try {
+            return Os.access(path, mode);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
     public static void chmod(@NonNull String path, int mode) throws SyscallException {
         try {
             Os.chmod(path, mode);
@@ -60,6 +68,15 @@ public class Syscalls {
     @NonNull
     public static native byte[] lgetxattr(@NonNull String path, @NonNull String name)
             throws SyscallException;
+
+    public static void link(@NonNull String oldPath, @NonNull String newPath)
+            throws SyscallException {
+        try {
+            Os.link(oldPath, newPath);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
 
     @NonNull
     public static native String[] listdir(@NonNull String path) throws SyscallException;
@@ -135,10 +152,10 @@ public class Syscalls {
         return Os.strerror(errno);
     }
 
-    public static void symlink(@NonNull String oldPath, @NonNull String newPath)
+    public static void symlink(@NonNull String target, @NonNull String linkPath)
             throws SyscallException {
         try {
-            Os.symlink(oldPath, newPath);
+            Os.symlink(target, linkPath);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }

@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.common;
 import java.util.Objects;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import java8.nio.file.LinkOption;
 import java8.nio.file.OpenOption;
 import java8.nio.file.StandardOpenOption;
@@ -40,7 +41,8 @@ public class OpenOptions {
         mNoFollowLinks = noFollowLinks;
     }
 
-    public static OpenOptions fromSet(Set<? extends OpenOption> options) {
+    @NonNull
+    public static OpenOptions fromSet(@NonNull Set<? extends OpenOption> options) {
         boolean read= false;
         boolean write= false;
         boolean append= false;
@@ -90,7 +92,7 @@ public class OpenOptions {
                         dsync = true;
                         break;
                     default:
-                        throw new UnsupportedOperationException(standardOpenOption.name());
+                        throw new UnsupportedOperationException(standardOpenOption.toString());
                 }
             } else if (option == LinkOption.NOFOLLOW_LINKS) {
                 noFollowLinks = true;
