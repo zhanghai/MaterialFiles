@@ -8,8 +8,6 @@ package me.zhanghai.android.files.provider.linux.syscall;
 import android.system.ErrnoException;
 import android.system.OsConstants;
 
-import java.util.Objects;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.AccessDeniedException;
@@ -19,7 +17,6 @@ import java8.nio.file.FileSystemException;
 import java8.nio.file.FileSystemLoopException;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.NotDirectoryException;
-import java8.nio.file.ReadOnlyFileSystemException;
 import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedField;
 import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
@@ -62,15 +59,22 @@ public class SyscallException extends Exception {
         return functionName + ": " + Syscalls.strerror(errno);
     }
 
-    public void rethrowAsFileSystemException(@Nullable String file, @Nullable String other)
-            throws FileSystemException {
-        FileSystemException fileSystemException = toFileSystemException(file, other);
+    @NonNull
+    public FileSystemException toFileSystemException(@Nullable String file,
+                                                     @Nullable String other) {
+        FileSystemException fileSystemException = toFileSystemExceptionWithoutCause(file, other);
         fileSystemException.initCause(this);
-        throw fileSystemException;
+        return fileSystemException;
     }
 
-    private FileSystemException toFileSystemException(@Nullable String file,
-                                                      @Nullable String other) {
+    @NonNull
+    public FileSystemException toFileSystemException(@Nullable String file) {
+        return toFileSystemException(file, null);
+    }
+
+    @NonNull
+    private FileSystemException toFileSystemExceptionWithoutCause(@Nullable String file,
+                                                                  @Nullable String other) {
         if (mErrno == OsConstants.EACCES) {
             return new AccessDeniedException(file, other, getMessage());
         } else if (mErrno == OsConstants.EEXIST) {

@@ -15,6 +15,13 @@ import androidx.annotation.NonNull;
 
 public class LinuxFileMode {
 
+    static final Set<LinuxFileModeBit> DEFAULT_MODE_CREATE_FILE = fromInt(OsConstants.S_IRUSR
+            | OsConstants.S_IWUSR | OsConstants.S_IRGRP | OsConstants.S_IWGRP | OsConstants.S_IROTH
+            | OsConstants.S_IWOTH);
+
+    static final Set<LinuxFileModeBit> DEFAULT_MODE_CREATE_DIRECTORY = fromInt(OsConstants.S_IRWXU
+            | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
+
     private LinuxFileMode() {}
 
     @NonNull

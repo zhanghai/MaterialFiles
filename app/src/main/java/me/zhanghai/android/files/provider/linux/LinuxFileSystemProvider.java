@@ -5,15 +5,17 @@
 
 package me.zhanghai.android.files.provider.linux;
 
-import android.system.OsConstants;
-
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+import java8.nio.channels.FileChannel;
 import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.AccessMode;
 import java8.nio.file.CopyOption;
@@ -28,6 +30,7 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
@@ -85,15 +88,36 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @NonNull
     @Override
-    public SeekableByteChannel newByteChannel(@NonNull Path path,
-                                              @NonNull Set<? extends OpenOption> options,
-                                              @NonNull FileAttribute<?>... attrs)
-            throws IOException {
-        Objects.requireNonNull(path);
+    public FileChannel newFileChannel(@NonNull Path file,
+                                      @NonNull Set<? extends OpenOption> options,
+                                      @NonNull FileAttribute<?>... attributes) throws IOException {
+        Objects.requireNonNull(file);
         Objects.requireNonNull(options);
-        Objects.requireNonNull(attrs);
-        // TODO
-        throw new UnsupportedOperationException();
+        Objects.requireNonNull(attributes);
+        String path = file.toString();
+        OpenOptions openOptions = OpenOptions.fromSet(options);
+        int flags = LinuxOpenOptions.toFlags(openOptions);
+        int mode = LinuxFileMode.toInt(LinuxFileAttributes.toMode(attributes,
+                LinuxFileMode.DEFAULT_MODE_CREATE_FILE));
+        FileDescriptor fd;
+        try {
+            fd = Syscalls.open(path, flags, mode);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(path);
+        }
+        return LinuxFileChannels.open(fd, flags);
+    }
+
+    @NonNull
+    @Override
+    public SeekableByteChannel newByteChannel(@NonNull Path file,
+                                              @NonNull Set<? extends OpenOption> options,
+                                              @NonNull FileAttribute<?>... attributes)
+            throws IOException {
+        Objects.requireNonNull(file);
+        Objects.requireNonNull(options);
+        Objects.requireNonNull(attributes);
+        return newFileChannel(file, options, attributes);
     }
 
     @NonNull
@@ -113,32 +137,44 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(directory);
         Objects.requireNonNull(attributes);
         String path = directory.toString();
-        int mode = fileAttributesToMode(attributes, OsConstants.S_IRWXU | OsConstants.S_IRWXG
-                | OsConstants.S_IRWXO);
+        int mode = LinuxFileMode.toInt(LinuxFileAttributes.toMode(attributes,
+                LinuxFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
         try {
             Syscalls.mkdir(path, mode);
         } catch (SyscallException e) {
-            e.rethrowAsFileSystemException(directory.toString(), null);
+            throw e.toFileSystemException(path);
         }
     }
 
-    private int fileAttributesToMode(@NonNull FileAttribute<?>[] attributes, int defaultMode) {
-        LinuxFileModeAttribute linuxFileModeAttribute = null;
-        for (FileAttribute<?> attribute : attributes) {
-            if (!(attribute instanceof LinuxFileModeAttribute)) {
-                throw new UnsupportedOperationException();
-            }
-            linuxFileModeAttribute = (LinuxFileModeAttribute) attribute;
-        }
-        if (linuxFileModeAttribute == null) {
-            return defaultMode;
-        }
-        return LinuxFileMode.toInt(linuxFileModeAttribute.value());
+    @Override
+    public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
+                                   @NonNull FileAttribute<?>... attrs) throws IOException {
+        Objects.requireNonNull(link);
+        Objects.requireNonNull(target);
+        Objects.requireNonNull(attrs);
+        // TODO
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void createLink(@NonNull Path link, @NonNull Path existing) throws IOException {
+        Objects.requireNonNull(link);
+        Objects.requireNonNull(existing);
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void delete(@NonNull Path path) throws IOException {
         Objects.requireNonNull(path);
+        // TODO
+        throw new UnsupportedOperationException();
+    }
+
+    @NonNull
+    @Override
+    public Path readSymbolicLink(@NonNull Path link) throws IOException {
+        Objects.requireNonNull(link);
         // TODO
         throw new UnsupportedOperationException();
     }

@@ -13,6 +13,8 @@ import java8.nio.file.attribute.FileAttribute;
 
 public class LinuxFileModeAttribute implements FileAttribute<Set<LinuxFileModeBit>> {
 
+    public static final String NAME = "linux:mode";
+
     @NonNull
     private final Set<LinuxFileModeBit> mMode;
 
@@ -23,7 +25,7 @@ public class LinuxFileModeAttribute implements FileAttribute<Set<LinuxFileModeBi
     @NonNull
     @Override
     public String name() {
-        return "linux:mode";
+        return NAME;
     }
 
     @NonNull
