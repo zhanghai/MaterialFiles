@@ -12,6 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+import java8.nio.file.attribute.FileAttribute;
 
 public class LinuxFileMode {
 
@@ -23,6 +24,32 @@ public class LinuxFileMode {
             | OsConstants.S_IRWXG | OsConstants.S_IRWXO);
 
     private LinuxFileMode() {}
+
+    @NonNull
+    static Set<LinuxFileModeBit> fromAttributes(@NonNull FileAttribute<?>[] attributes,
+                                                @NonNull Set<LinuxFileModeBit> defaultMode) {
+        Set<LinuxFileModeBit> mode = null;
+        for (FileAttribute<?> attribute : attributes) {
+            Objects.requireNonNull(attribute);
+            if (!Objects.equals(attribute.name(), LinuxFileModeAttribute.NAME)) {
+                throw new UnsupportedOperationException(attribute.name());
+            }
+            Object value = attribute.value();
+            Objects.requireNonNull(value);
+            if (!(value instanceof Set)) {
+                throw new UnsupportedOperationException(value.toString());
+            }
+            //noinspection unchecked
+            mode = (Set<LinuxFileModeBit>) value;
+            for (Object modeBit : mode) {
+                Objects.requireNonNull(modeBit);
+                if (!(modeBit instanceof LinuxFileModeBit)) {
+                    throw new UnsupportedOperationException(modeBit.toString());
+                }
+            }
+        }
+        return mode != null ? mode : defaultMode;
+    }
 
     @NonNull
     public static EnumSet<LinuxFileModeBit> fromInt(int modeInt) {
@@ -64,6 +91,12 @@ public class LinuxFileMode {
             mode.add(LinuxFileModeBit.OTHERS_EXECUTE);
         }
         return mode;
+    }
+
+    @NonNull
+    public static FileAttribute<Set<LinuxFileModeBit>> toAttributes(
+            @NonNull Set<LinuxFileModeBit> mode) {
+        return new LinuxFileModeAttribute(mode);
     }
 
     public static int toInt(@NonNull Set<LinuxFileModeBit> mode) {

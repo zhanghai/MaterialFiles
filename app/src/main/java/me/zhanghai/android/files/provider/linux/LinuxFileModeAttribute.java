@@ -11,7 +11,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileAttribute;
 
-public class LinuxFileModeAttribute implements FileAttribute<Set<LinuxFileModeBit>> {
+class LinuxFileModeAttribute implements FileAttribute<Set<LinuxFileModeBit>> {
 
     public static final String NAME = "linux:mode";
 

@@ -104,7 +104,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         String path = file.toString();
         OpenOptions openOptions = OpenOptions.fromSet(options);
         int flags = LinuxOpenOptions.toFlags(openOptions);
-        int mode = LinuxFileMode.toInt(LinuxFileAttributes.toMode(attributes,
+        int mode = LinuxFileMode.toInt(LinuxFileMode.fromAttributes(attributes,
                 LinuxFileMode.DEFAULT_MODE_CREATE_FILE));
         FileDescriptor fd;
         try {
@@ -155,7 +155,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(attributes);
         requireLinuxPath(directory);
         String path = directory.toString();
-        int mode = LinuxFileMode.toInt(LinuxFileAttributes.toMode(attributes,
+        int mode = LinuxFileMode.toInt(LinuxFileMode.fromAttributes(attributes,
                 LinuxFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
         try {
             Syscalls.mkdir(path, mode);
