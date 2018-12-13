@@ -24,11 +24,11 @@ class LinuxOpenOptions {
         } else {
             flags = OsConstants.O_RDONLY;
         }
-        if (options.hasTruncateExisting()) {
-            flags |= OsConstants.O_TRUNC;
-        }
         if (options.hasAppend()) {
             flags |= OsConstants.O_APPEND;
+        }
+        if (options.hasTruncateExisting()) {
+            flags |= OsConstants.O_TRUNC;
         }
         if (options.hasCreateNew()) {
             flags |= OsConstants.O_CREAT | OsConstants.O_EXCL;

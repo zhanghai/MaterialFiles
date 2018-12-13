@@ -8,12 +8,12 @@ package me.zhanghai.android.files.provider.linux.syscall;
 /**
  * @see android.system.StructTimespec
  */
-public final class StructTimespecCompat {
+public final class StructTimespec {
 
     public final long tv_sec; /*time_t*/
     public final long tv_nsec;
 
-    public StructTimespecCompat(long tv_sec, long tv_nsec) {
+    public StructTimespec(long tv_sec, long tv_nsec) {
         this.tv_sec = tv_sec;
         this.tv_nsec = tv_nsec;
     }

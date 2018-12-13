@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 /**
  * @see android.system.StructStat
  */
-public final class StructStatCompat {
+public final class StructStat {
 
     public final long st_dev; /*dev_t*/
     public final long st_ino; /*ino_t*/
@@ -23,20 +23,19 @@ public final class StructStatCompat {
     public final long st_blksize; /*blksize_t*/
     public final long st_blocks; /*blkcnt_t*/
     @NonNull
-    public final StructTimespecCompat st_atim;
+    public final StructTimespec st_atim;
     @NonNull
-    public final StructTimespecCompat st_mtim;
+    public final StructTimespec st_mtim;
     @NonNull
-    public final StructTimespecCompat st_ctim;
+    public final StructTimespec st_ctim;
     public final long st_atime; /*time_t*/
     public final long st_mtime; /*time_t*/
     public final long st_ctime; /*time_t*/
 
-    public StructStatCompat(long st_dev, long st_ino, int st_mode, long st_nlink, int st_uid,
-                            int st_gid, long st_rdev, long st_size, long st_blksize, long st_blocks,
-                            @NonNull StructTimespecCompat st_atim,
-                            @NonNull StructTimespecCompat st_mtim,
-                            @NonNull StructTimespecCompat st_ctim) {
+    public StructStat(long st_dev, long st_ino, int st_mode, long st_nlink, int st_uid, int st_gid,
+                      long st_rdev, long st_size, long st_blksize, long st_blocks,
+                      @NonNull StructTimespec st_atim, @NonNull StructTimespec st_mtim,
+                      @NonNull StructTimespec st_ctim) {
         this.st_dev = st_dev;
         this.st_ino = st_ino;
         this.st_mode = st_mode;

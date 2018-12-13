@@ -162,7 +162,7 @@ static jclass getStructStatClass(JNIEnv *env) {
     static jclass structStatClass = NULL;
     if (!structStatClass) {
         structStatClass = findClass(env,
-                "me/zhanghai/android/files/provider/linux/syscall/StructStatCompat");
+                "me/zhanghai/android/files/provider/linux/syscall/StructStat");
     }
     return structStatClass;
 }
@@ -171,7 +171,7 @@ static jclass getStructTimespecClass(JNIEnv *env) {
     static jclass structTimespecClass = NULL;
     if (!structTimespecClass) {
         structTimespecClass = findClass(env,
-                "me/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat");
+                "me/zhanghai/android/files/provider/linux/syscall/StructTimespec");
     }
     return structTimespecClass;
 }
@@ -678,9 +678,9 @@ static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructStatClass(env), "<init>", "(JJIJIIJJJJ"
-                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat;"
-                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat;"
-                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespecCompat;)V");
+                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;"
+                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;"
+                "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;)V");
     }
     jlong st_dev = stat->st_dev;
     jlong st_ino = stat->st_ino;

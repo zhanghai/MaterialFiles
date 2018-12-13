@@ -34,6 +34,7 @@ import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
+import me.zhanghai.android.files.provider.common.CopyOptions;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -232,16 +233,26 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(source);
         Objects.requireNonNull(target);
         Objects.requireNonNull(options);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(source);
+        String sourceString = source.toString();
+        requireLinuxPath(target);
+        String targetString = target.toString();
+        CopyOptions copyOptions = CopyOptions.fromArray(options);
+        LinuxCopyMoveFiles.copy(sourceString, targetString, copyOptions);
     }
 
     @Override
-    public void move(Path source, Path target, CopyOption... options) throws IOException {
+    public void move(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
+            throws IOException {
         Objects.requireNonNull(source);
         Objects.requireNonNull(target);
         Objects.requireNonNull(options);
-        // TODO
+        requireLinuxPath(source);
+        String sourceString = source.toString();
+        requireLinuxPath(target);
+        String targetString = target.toString();
+        CopyOptions copyOptions = CopyOptions.fromArray(options);
+        LinuxCopyMoveFiles.move(sourceString, targetString, copyOptions);
         throw new UnsupportedOperationException();
     }
 
@@ -335,7 +346,6 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(path);
         Objects.requireNonNull(attributes);
         Objects.requireNonNull(options);
-        // TODO
         throw new UnsupportedOperationException();
     }
 
@@ -346,7 +356,6 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(attribute);
         Objects.requireNonNull(value);
         Objects.requireNonNull(options);
-        // TODO
         throw new UnsupportedOperationException();
     }
 

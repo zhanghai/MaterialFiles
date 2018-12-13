@@ -23,8 +23,8 @@ import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
 import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;
-import me.zhanghai.android.files.provider.linux.syscall.StructStatCompat;
-import me.zhanghai.android.files.provider.linux.syscall.StructTimespecCompat;
+import me.zhanghai.android.files.provider.linux.syscall.StructStat;
+import me.zhanghai.android.files.provider.linux.syscall.StructTimespec;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.util.ExceptionUtils;
@@ -35,7 +35,7 @@ public class Syscall {
     @NonNull
     public static LocalFileSystem.Information getInformation(@NonNull String path)
             throws FileSystemException {
-        StructStatCompat stat;
+        StructStat stat;
         try {
             stat = Syscalls.lstat(path);
         } catch (SyscallException e) {
@@ -115,7 +115,7 @@ public class Syscall {
                              boolean overwrite, long notifyByteCount,
                              @Nullable LongConsumer listener) throws FileSystemException,
             InterruptedException {
-        StructStatCompat fromStat;
+        StructStat fromStat;
         try {
             fromStat = Syscalls.lstat(fromPath);
             if (OsConstants.S_ISREG(fromStat.st_mode)) {
@@ -156,7 +156,7 @@ public class Syscall {
                 } catch (SyscallException e) {
                     if (overwrite && e.getErrno() == OsConstants.EEXIST) {
                         try {
-                            StructStatCompat toStat = Syscalls.lstat(toPath);
+                            StructStat toStat = Syscalls.lstat(toPath);
                             if (!OsConstants.S_ISDIR(toStat.st_mode)) {
                                 Syscalls.remove(toPath);
                                 Syscalls.mkdir(toPath, fromStat.st_mode);
@@ -174,7 +174,7 @@ public class Syscall {
                 } catch (SyscallException e) {
                     if (overwrite && e.getErrno() == OsConstants.EEXIST) {
                         try {
-                            StructStatCompat toStat = Syscalls.lstat(toPath);
+                            StructStat toStat = Syscalls.lstat(toPath);
                             if (OsConstants.S_ISDIR(toStat.st_mode)) {
                                 throw new SyscallException("symlink", OsConstants.EISDIR);
                             }
@@ -212,8 +212,8 @@ public class Syscall {
             e.printStackTrace();
         }
         try {
-            StructTimespecCompat[] times = {
-                    forMove ? fromStat.st_atim : new StructTimespecCompat(0, Constants.UTIME_OMIT),
+            StructTimespec[] times = {
+                    forMove ? fromStat.st_atim : new StructTimespec(0, Constants.UTIME_OMIT),
                     fromStat.st_mtim
             };
             Syscalls.lutimens(toPath, times);

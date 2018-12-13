@@ -88,12 +88,10 @@ public class Syscalls {
                                         @NonNull byte[] value, int flags) throws SyscallException;
 
     @NonNull
-    public static native StructStatCompat lstat(@NonNull String path) throws SyscallException;
+    public static native StructStat lstat(@NonNull String path) throws SyscallException;
 
-    //public static native void lutimens(@NonNull String path,
-    //                                   @NonNull @Size(2) StructTimespec[] times)
     public static native void lutimens(@NonNull String path,
-                                       @NonNull @Size(2) StructTimespecCompat[] times)
+                                       @NonNull @Size(2) StructTimespec[] times)
             throws SyscallException;
 
     public static void mkdir(@NonNull String path, int mode) throws SyscallException {
@@ -145,7 +143,7 @@ public class Syscalls {
             throws SyscallException;
 
     @NonNull
-    public static native StructStatCompat stat(@NonNull String path) throws SyscallException;
+    public static native StructStat stat(@NonNull String path) throws SyscallException;
 
     @NonNull
     public static String strerror(int errno) {
