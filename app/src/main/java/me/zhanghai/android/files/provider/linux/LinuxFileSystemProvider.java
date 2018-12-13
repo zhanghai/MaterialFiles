@@ -36,6 +36,7 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.CopyOptions;
 import me.zhanghai.android.files.provider.common.OpenOptions;
+import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
@@ -260,8 +261,23 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     public boolean isSameFile(@NonNull Path path, @NonNull Path path2) throws IOException {
         Objects.requireNonNull(path);
         Objects.requireNonNull(path2);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(path);
+        String pathString = path.toString();
+        requireLinuxPath(path2);
+        String path2String = path2.toString();
+        StructStat pathStat;
+        try {
+            pathStat = Syscalls.lstat(pathString);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(pathString);
+        }
+        StructStat path2Stat;
+        try {
+            path2Stat = Syscalls.lstat(path2String);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(path2String);
+        }
+        return pathStat.st_ino == path2Stat.st_ino;
     }
 
     @Override
