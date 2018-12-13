@@ -58,9 +58,9 @@ class LinuxCopyMoveFiles {
             try {
                 Syscalls.remove(target);
             } catch (SyscallException e2) {
-                e.addSuppressed(e2);
+                e.addSuppressed(e2.toFileSystemException(target));
             }
-            throw e.toFileSystemException(source, target);
+            throw e.toFileSystemException(source);
         }
     }
 
@@ -70,85 +70,117 @@ class LinuxCopyMoveFiles {
         try {
             sourceStat = copyOptions.hasNoFollowLinks() ? Syscalls.lstat(source) : Syscalls.stat(
                     source);
-            if (OsConstants.S_ISREG(sourceStat.st_mode)) {
-                FileDescriptor sourceFd = Syscalls.open(source, OsConstants.O_RDONLY, 0);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(source);
+        }
+        if (OsConstants.S_ISREG(sourceStat.st_mode)) {
+            FileDescriptor sourceFd;
+            try {
+                sourceFd = Syscalls.open(source, OsConstants.O_RDONLY, 0);
+            } catch (SyscallException e) {
+                throw e.toFileSystemException(source);
+            }
+            try {
+                int targetFlags = OsConstants.O_WRONLY | OsConstants.O_TRUNC
+                        | OsConstants.O_CREAT;
+                if (!copyOptions.hasReplaceExisting()) {
+                    targetFlags |= OsConstants.O_EXCL;
+                }
+                FileDescriptor targetFd;
                 try {
-                    int targetFlags = OsConstants.O_WRONLY | OsConstants.O_TRUNC
-                            | OsConstants.O_CREAT;
-                    if (!copyOptions.hasReplaceExisting()) {
-                        targetFlags |= OsConstants.O_EXCL;
-                    }
-                    FileDescriptor targetFd = Syscalls.open(target, targetFlags,
+                    targetFd = Syscalls.open(target, targetFlags,
                             sourceStat.st_mode);
-                    try {
-                        long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
-                        long lastProgressMillis = System.currentTimeMillis();
-                        long copiedByteCount = 0;
-                        long sentByteCount;
-                        while ((sentByteCount = Syscalls.sendfile(targetFd, sourceFd, null,
-                                SEND_FILE_COUNT)) != 0) {
-                            copiedByteCount += sentByteCount;
-                            throwIfInterrupted();
-                            long currentTimeMillis = System.currentTimeMillis();
-                            if (copyOptions.hasProgressListener() && lastProgressMillis
-                                    + progressIntervalMillis < currentTimeMillis) {
-                                copyOptions.getProgressListener().accept(copiedByteCount);
-                                progressIntervalMillis = currentTimeMillis;
-                            }
+                } catch (SyscallException e) {
+                    throw e.toFileSystemException(target);
+                }
+                try {
+                    long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
+                    long lastProgressMillis = System.currentTimeMillis();
+                    long copiedByteCount = 0;
+                    long sentByteCount;
+                    while (true) {
+                        try {
+                            sentByteCount = Syscalls.sendfile(targetFd, sourceFd, null,
+                                    SEND_FILE_COUNT);
+                        } catch (SyscallException e) {
+                            throw e.toFileSystemException(source, target);
                         }
-                        if (copyOptions.hasProgressListener()) {
+                        if (sentByteCount == 0) {
+                            break;
+                        }
+                        copiedByteCount += sentByteCount;
+                        throwIfInterrupted();
+                        long currentTimeMillis = System.currentTimeMillis();
+                        if (copyOptions.hasProgressListener() && lastProgressMillis
+                                + progressIntervalMillis < currentTimeMillis) {
                             copyOptions.getProgressListener().accept(copiedByteCount);
+                            progressIntervalMillis = currentTimeMillis;
                         }
-                    } finally {
-                        Syscalls.close(targetFd);
+                    }
+                    if (copyOptions.hasProgressListener()) {
+                        copyOptions.getProgressListener().accept(copiedByteCount);
                     }
                 } finally {
+                    try {
+                        Syscalls.close(targetFd);
+                    } catch (SyscallException e) {
+                        throw e.toFileSystemException(target);
+                    }
+                }
+            } finally {
+                try {
                     Syscalls.close(sourceFd);
-                }
-            } else if (OsConstants.S_ISDIR(sourceStat.st_mode)) {
-                try {
-                    Syscalls.mkdir(target, sourceStat.st_mode);
                 } catch (SyscallException e) {
-                    if (copyOptions.hasReplaceExisting() && e.getErrno() == OsConstants.EEXIST) {
-                        try {
-                            StructStat toStat = Syscalls.lstat(target);
-                            if (!OsConstants.S_ISDIR(toStat.st_mode)) {
-                                Syscalls.remove(target);
-                                Syscalls.mkdir(target, sourceStat.st_mode);
-                            }
-                        } catch (SyscallException e2) {
-                            e2.addSuppressed(e);
-                            throw e2;
-                        }
-                    }
+                    throw e.toFileSystemException(source);
                 }
-                if (copyOptions.hasProgressListener()) {
-                    copyOptions.getProgressListener().accept(sourceStat.st_size);
-                }
-            } else if (OsConstants.S_ISLNK(sourceStat.st_mode)) {
-                String sourceTarget = Syscalls.readlink(source);
-                try {
-                    Syscalls.symlink(sourceTarget, target);
-                } catch (SyscallException e) {
-                    if (copyOptions.hasReplaceExisting() && e.getErrno() == OsConstants.EEXIST) {
-                        try {
-                            Syscalls.remove(target);
-                            Syscalls.symlink(sourceTarget, target);
-                        } catch (SyscallException e2) {
-                            e2.addSuppressed(e);
-                            throw e2;
-                        }
-                    }
-                    throw e;
-                }
-                if (copyOptions.hasProgressListener()) {
-                    copyOptions.getProgressListener().accept(sourceStat.st_size);
-                }
-            } else {
-                throw new FileSystemException(source, target, "st_mode " + sourceStat.st_mode);
             }
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(source, target);
+        } else if (OsConstants.S_ISDIR(sourceStat.st_mode)) {
+            try {
+                Syscalls.mkdir(target, sourceStat.st_mode);
+            } catch (SyscallException e) {
+                if (copyOptions.hasReplaceExisting() && e.getErrno() == OsConstants.EEXIST) {
+                    try {
+                        StructStat toStat = Syscalls.lstat(target);
+                        if (!OsConstants.S_ISDIR(toStat.st_mode)) {
+                            Syscalls.remove(target);
+                            Syscalls.mkdir(target, sourceStat.st_mode);
+                        }
+                    } catch (SyscallException e2) {
+                        e2.addSuppressed(e.toFileSystemException(target));
+                        throw e2.toFileSystemException(target);
+                    }
+                }
+                throw e.toFileSystemException(target);
+            }
+            if (copyOptions.hasProgressListener()) {
+                copyOptions.getProgressListener().accept(sourceStat.st_size);
+            }
+        } else if (OsConstants.S_ISLNK(sourceStat.st_mode)) {
+            String sourceTarget;
+            try {
+                sourceTarget = Syscalls.readlink(source);
+            } catch (SyscallException e) {
+                throw e.toFileSystemException(source);
+            }
+            try {
+                Syscalls.symlink(sourceTarget, target);
+            } catch (SyscallException e) {
+                if (copyOptions.hasReplaceExisting() && e.getErrno() == OsConstants.EEXIST) {
+                    try {
+                        Syscalls.remove(target);
+                        Syscalls.symlink(sourceTarget, target);
+                    } catch (SyscallException e2) {
+                        e2.addSuppressed(e.toFileSystemException(target));
+                        throw e2.toFileSystemException(target);
+                    }
+                }
+                throw e.toFileSystemException(target);
+            }
+            if (copyOptions.hasProgressListener()) {
+                copyOptions.getProgressListener().accept(sourceStat.st_size);
+            }
+        } else {
+            throw new FileSystemException(source, null, "st_mode " + sourceStat.st_mode);
         }
         // We don't take error when copying attribute fatal, so errors will only be logged from now
         // on.
