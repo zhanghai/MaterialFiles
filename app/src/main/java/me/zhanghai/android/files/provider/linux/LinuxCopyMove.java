@@ -22,11 +22,11 @@ import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.util.MoreTextUtils;
 
-class LinuxCopyMoveFiles {
+class LinuxCopyMove {
 
     private static final int SEND_FILE_COUNT = 8192;
 
-    private LinuxCopyMoveFiles() {}
+    private LinuxCopyMove() {}
 
     public static void copy(@NonNull String source, @NonNull String target,
                             @NonNull CopyOptions copyOptions) throws IOException {

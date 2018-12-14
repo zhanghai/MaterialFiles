@@ -239,7 +239,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         requireLinuxPath(target);
         String targetString = target.toString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
-        LinuxCopyMoveFiles.copy(sourceString, targetString, copyOptions);
+        LinuxCopyMove.copy(sourceString, targetString, copyOptions);
     }
 
     @Override
@@ -253,7 +253,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         requireLinuxPath(target);
         String targetString = target.toString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
-        LinuxCopyMoveFiles.move(sourceString, targetString, copyOptions);
+        LinuxCopyMove.move(sourceString, targetString, copyOptions);
         throw new UnsupportedOperationException();
     }
 
