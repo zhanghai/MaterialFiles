@@ -146,8 +146,13 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(filter);
         requireLinuxPath(directory);
         String path = directory.toString();
-        // TODO
-        throw new UnsupportedOperationException();
+        long dir;
+        try {
+            dir = Syscalls.opendir(path);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(path);
+        }
+        return new LinuxDirectoryStream(directory, dir);
     }
 
     @Override

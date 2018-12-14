@@ -45,6 +45,8 @@ public class Syscalls {
         }
     }
 
+    public static native void closedir(long dir) throws SyscallException;
+
     @Nullable
     public static native StructGroup getgrgid(int gid) throws SyscallException;
 
@@ -111,6 +113,11 @@ public class Syscalls {
             throw new SyscallException(e);
         }
     }
+
+    public static native long opendir(@NonNull String path) throws SyscallException;
+
+    @Nullable
+    public static native StructDirent readdir(long dir) throws SyscallException;
 
     @NonNull
     public static String readlink(@NonNull String path) throws SyscallException {

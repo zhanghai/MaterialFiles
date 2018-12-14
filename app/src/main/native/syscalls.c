@@ -140,6 +140,15 @@ static jclass getStringClass(JNIEnv *env) {
     return stringClass;
 }
 
+static jclass getStructDirentClass(JNIEnv *env) {
+    static jclass structStatClass = NULL;
+    if (!structStatClass) {
+        structStatClass = findClass(env,
+                "me/zhanghai/android/files/provider/linux/syscall/StructDirent");
+    }
+    return structStatClass;
+}
+
 static jclass getStructGroupClass(JNIEnv *env) {
     static jclass structGroupClass = NULL;
     if (!structGroupClass) {
@@ -230,6 +239,17 @@ static void throwSyscallException(JNIEnv* env, const char* functionName) {
     }
     throwException(env, getSyscallExceptionClass(env), constructor3, constructor2, functionName,
                    error);
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_closedir(
+        JNIEnv *env, jclass clazz, jlong javaDir) {
+    DIR *dir = (DIR *) javaDir;
+    errno = 0;
+    closedir(dir);
+    if (errno) {
+        throwSyscallException(env, "closedir");
+    }
 }
 
 static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
@@ -751,6 +771,59 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
     if (errno) {
         throwSyscallException(env, "utimensat");
     }
+}
+
+JNIEXPORT jlong JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
+        JNIEnv *env, jclass clazz, jstring javaPath) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    errno = 0;
+    DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    if (errno) {
+        throwSyscallException(env, "opendir");
+        return NULL;
+    }
+    return (jlong) dir;
+}
+
+static jobject makeStructDirent(JNIEnv* env, const struct dirent64 *dirent) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getStructDirentClass(env), "<init>",
+                                 "(JJIILjava/lang/String;)V");
+    }
+    jlong d_ino = dirent->d_ino;
+    jlong d_off = dirent->d_off;
+    jint d_reclen = dirent->d_reclen;
+    jint d_type = dirent->d_type;
+    jstring d_name;
+    if (dirent->d_name) {
+        d_name = (*env)->NewStringUTF(env, dirent->d_name);
+        if (!d_name) {
+            return NULL;
+        }
+    } else {
+        d_name = NULL;
+    }
+    return (*env)->NewObject(env, getStructDirentClass(env), constructor, d_ino, d_off, d_reclen,
+                             d_type, d_name);
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readdir(
+        JNIEnv *env, jclass clazz, jlong javaDir) {
+    DIR *dir = (DIR *) javaDir;
+    errno = 0;
+    struct dirent64 *dirent = TEMP_FAILURE_RETRY(readdir64(dir));
+    if (errno) {
+        throwSyscallException(env, "readdir64");
+        return NULL;
+    }
+    if (!dirent) {
+        return NULL;
+    }
+    return makeStructDirent(env, dirent);
 }
 
 JNIEXPORT jlong JNICALL
