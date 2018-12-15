@@ -28,8 +28,8 @@ public class LinuxFileAttributes implements PosixFileAttributes {
     @NonNull
     private final LinuxGroup mGroup;
 
-    public LinuxFileAttributes(@NonNull StructStat stat, @NonNull LinuxUser owner,
-                               @NonNull LinuxGroup group) {
+    LinuxFileAttributes(@NonNull StructStat stat, @NonNull LinuxUser owner,
+                        @NonNull LinuxGroup group) {
         mStat = stat;
         mOwner = owner;
         mGroup = group;

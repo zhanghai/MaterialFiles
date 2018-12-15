@@ -59,7 +59,7 @@ class LinuxFileSystem extends FileSystem {
     @NonNull
     private final LinuxFileSystemProvider mProvider;
 
-    LinuxFileSystem(@NonNull LinuxFileSystemProvider provider) {
+    public LinuxFileSystem(@NonNull LinuxFileSystemProvider provider) {
         mProvider = provider;
     }
 
@@ -150,6 +150,7 @@ class LinuxFileSystem extends FileSystem {
     @NonNull
     @Override
     public WatchService newWatchService() throws IOException {
+        // TODO
         throw new UnsupportedOperationException();
     }
 }

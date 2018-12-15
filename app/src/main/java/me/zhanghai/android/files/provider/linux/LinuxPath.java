@@ -25,7 +25,7 @@ class LinuxPath extends StringListPath {
     @NonNull
     private final LinuxFileSystem mFileSystem;
 
-    LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull String path) {
+    public LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull String path) {
         super(LinuxFileSystem.SEPARATOR, path);
 
         mFileSystem = fileSystem;

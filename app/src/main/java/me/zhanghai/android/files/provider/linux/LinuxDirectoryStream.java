@@ -19,7 +19,7 @@ import me.zhanghai.android.files.provider.linux.syscall.StructDirent;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
-public class LinuxDirectoryStream implements DirectoryStream<Path> {
+class LinuxDirectoryStream implements DirectoryStream<Path> {
 
     @NonNull
     private final Path mDirectory;

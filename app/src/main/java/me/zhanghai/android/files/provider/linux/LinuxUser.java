@@ -21,7 +21,7 @@ public class LinuxUser implements Parcelable, UserPrincipal {
     @Nullable
     private final String mName;
 
-    public LinuxUser(int id, @Nullable String name) {
+    LinuxUser(int id, @Nullable String name) {
         mId = id;
         mName = name;
     }

@@ -51,6 +51,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @NonNull
     private final LinuxFileSystem mFileSystem = new LinuxFileSystem(this);
 
+    private LinuxFileSystemProvider() {}
+
     public static void installAsDefault() {
         FileSystemProvider.installDefaultProvider(new LinuxFileSystemProvider());
     }

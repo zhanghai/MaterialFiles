@@ -21,7 +21,7 @@ public class LinuxGroup implements Parcelable, GroupPrincipal {
     @Nullable
     private final String mName;
 
-    public LinuxGroup(int id, @Nullable String name) {
+    LinuxGroup(int id, @Nullable String name) {
         mId = id;
         mName = name;
     }
