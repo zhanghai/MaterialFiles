@@ -26,13 +26,13 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 public class LinuxFileAttributeView implements PosixFileAttributeView {
 
-    static final String NAME = "linux";
+    private static final String NAME = "linux";
 
     @NonNull
     private final String mPath;
     private final boolean mNoFollowLinks;
 
-    public LinuxFileAttributeView(@NonNull String path, boolean noFollowLinks) {
+    LinuxFileAttributeView(@NonNull String path, boolean noFollowLinks) {
         mPath = path;
         mNoFollowLinks = noFollowLinks;
     }

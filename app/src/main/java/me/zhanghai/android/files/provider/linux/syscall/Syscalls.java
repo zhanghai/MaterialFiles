@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.linux.syscall;
 import android.system.ErrnoException;
 import android.system.Int64Ref;
 import android.system.Os;
+import android.system.StructStatVfs;
 
 import java.io.FileDescriptor;
 
@@ -159,6 +160,15 @@ public class Syscalls {
 
     @NonNull
     public static native StructStat stat(@NonNull String path) throws SyscallException;
+
+    @NonNull
+    public static StructStatVfs statvfs(@NonNull String path) throws SyscallException {
+        try {
+            return Os.statvfs(path);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
 
     @NonNull
     public static String strerror(int errno) {

@@ -282,9 +282,9 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @NonNull
     @Override
     public FileStore getFileStore(@NonNull Path path) throws IOException {
-        Objects.requireNonNull(path);
-        // TODO
-        throw new UnsupportedOperationException();
+        requireLinuxPath(path);
+        String pathString = path.toString();
+        return new LinuxFileStore(pathString);
     }
 
     @Override
@@ -328,7 +328,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         requireLinuxPath(path);
         Objects.requireNonNull(type);
         Objects.requireNonNull(options);
-        if (!type.isAssignableFrom(LinuxFileAttributeView.class)) {
+        if (!supportsFileAttributeView(type)) {
             return null;
         }
         //noinspection unchecked
@@ -351,6 +351,10 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         return (A) getFileAttributeView(path, options).readAttributes();
     }
 
+    static boolean supportsFileAttributeView(@NonNull Class<? extends FileAttributeView> type) {
+        return type.isAssignableFrom(LinuxFileAttributeView.class);
+    }
+
     private LinuxFileAttributeView getFileAttributeView(@NonNull Path path,
                                                         @NonNull LinkOption... options) {
         String pathString = path.toString();
@@ -361,7 +365,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @NonNull
     @Override
     public Map<String, Object> readAttributes(@NonNull Path path, @NonNull String attributes,
-                                              @NonNull LinkOption... options) throws IOException {
+                                              @NonNull LinkOption... options) {
         Objects.requireNonNull(path);
         Objects.requireNonNull(attributes);
         Objects.requireNonNull(options);
@@ -370,7 +374,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public void setAttribute(@NonNull Path path, @NonNull String attribute, @NonNull Object value,
-                             @NonNull LinkOption... options) throws IOException {
+                             @NonNull LinkOption... options) {
         Objects.requireNonNull(path);
         Objects.requireNonNull(attribute);
         Objects.requireNonNull(value);
