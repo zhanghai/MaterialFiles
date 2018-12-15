@@ -5,73 +5,101 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.system.OsConstants;
+
+import org.threeten.bp.Instant;
+
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileTime;
 import java8.nio.file.attribute.GroupPrincipal;
 import java8.nio.file.attribute.PosixFileAttributes;
 import java8.nio.file.attribute.PosixFilePermission;
 import java8.nio.file.attribute.UserPrincipal;
+import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 
 public class LinuxFileAttributes implements PosixFileAttributes {
 
+    @NonNull
+    private final StructStat mStat;
+    @NonNull
+    private final LinuxUser mOwner;
+    @NonNull
+    private final LinuxGroup mGroup;
+
+    public LinuxFileAttributes(@NonNull StructStat stat, @NonNull LinuxUser owner,
+                               @NonNull LinuxGroup group) {
+        mStat = stat;
+        mOwner = owner;
+        mGroup = group;
+    }
+
+    @NonNull
     @Override
     public FileTime lastModifiedTime() {
-        return null;
+        return FileTime.from(Instant.ofEpochSecond(mStat.st_mtim.tv_sec, mStat.st_mtim.tv_nsec));
     }
 
+    @NonNull
     @Override
     public FileTime lastAccessTime() {
-        return null;
+        return FileTime.from(Instant.ofEpochSecond(mStat.st_atim.tv_sec, mStat.st_atim.tv_nsec));
     }
 
+    @NonNull
     @Override
     public FileTime creationTime() {
-        return null;
+        return lastModifiedTime();
     }
 
     @Override
     public boolean isRegularFile() {
-        return false;
+        return OsConstants.S_ISREG(mStat.st_mode);
     }
 
     @Override
     public boolean isDirectory() {
-        return false;
+        return OsConstants.S_ISDIR(mStat.st_mode);
     }
 
     @Override
     public boolean isSymbolicLink() {
-        return false;
+        return OsConstants.S_ISLNK(mStat.st_mode);
     }
 
     @Override
     public boolean isOther() {
-        return false;
+        return !isRegularFile() && !isDirectory() && !isSymbolicLink();
     }
 
     @Override
     public long size() {
-        return 0;
+        return mStat.st_size;
     }
 
     @Override
     public Object fileKey() {
-        return null;
+        return new LinuxFileKey(mStat.st_dev, mStat.st_ino);
     }
 
     @Override
     public UserPrincipal owner() {
-        return null;
+        return mOwner;
     }
 
     @Override
     public GroupPrincipal group() {
-        return null;
+        return mGroup;
     }
 
     @Override
     public Set<PosixFilePermission> permissions() {
-        return null;
+        return LinuxFileMode.toPermissions(mode());
+    }
+
+    @NonNull
+    public Set<LinuxFileModeBit> mode() {
+        return LinuxFileMode.fromInt(mStat.st_mode);
     }
 }

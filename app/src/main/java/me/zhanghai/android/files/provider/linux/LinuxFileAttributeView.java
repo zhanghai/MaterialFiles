@@ -19,6 +19,7 @@ import java8.nio.file.attribute.PosixFileAttributeView;
 import java8.nio.file.attribute.PosixFilePermission;
 import java8.nio.file.attribute.UserPrincipal;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
+import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.StructTimespec;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -29,7 +30,6 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
 
     @NonNull
     private final String mPath;
-
     private final boolean mNoFollowLinks;
 
     public LinuxFileAttributeView(@NonNull String path, boolean noFollowLinks) {
@@ -46,8 +46,29 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
     @NonNull
     @Override
     public LinuxFileAttributes readAttributes() throws IOException {
-        // TODO
-        return null;
+        StructStat stat;
+        try {
+            if (mNoFollowLinks) {
+                stat = Syscalls.lstat(mPath);
+            } else {
+                stat = Syscalls.stat(mPath);
+            }
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(mPath);
+        }
+        LinuxUser owner;
+        try {
+            owner = LinuxUserPrincipalLookupService.getUserById(stat.st_uid);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(mPath);
+        }
+        LinuxGroup group;
+        try {
+            group = LinuxUserPrincipalLookupService.getGroupById(stat.st_gid);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(mPath);
+        }
+        return new LinuxFileAttributes(stat, owner, group);
     }
 
     @Override

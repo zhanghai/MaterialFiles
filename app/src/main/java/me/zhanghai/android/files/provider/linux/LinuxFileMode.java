@@ -157,6 +157,46 @@ public class LinuxFileMode {
     }
 
     @NonNull
+    public static EnumSet<PosixFilePermission> toPermissions(
+            @NonNull Set<LinuxFileModeBit> mode) {
+        EnumSet<PosixFilePermission> permissions = EnumSet.noneOf(PosixFilePermission.class);
+        for (LinuxFileModeBit modeBit : mode) {
+            switch (modeBit) {
+                case OWNER_READ:
+                    permissions.add(PosixFilePermission.OWNER_READ);
+                    break;
+                case OWNER_WRITE:
+                    permissions.add(PosixFilePermission.OWNER_WRITE);
+                    break;
+                case OWNER_EXECUTE:
+                    permissions.add(PosixFilePermission.OWNER_EXECUTE);
+                    break;
+                case GROUP_READ:
+                    permissions.add(PosixFilePermission.GROUP_READ);
+                    break;
+                case GROUP_WRITE:
+                    permissions.add(PosixFilePermission.GROUP_WRITE);
+                    break;
+                case GROUP_EXECUTE:
+                    permissions.add(PosixFilePermission.GROUP_EXECUTE);
+                    break;
+                case OTHERS_READ:
+                    permissions.add(PosixFilePermission.OTHERS_READ);
+                    break;
+                case OTHERS_WRITE:
+                    permissions.add(PosixFilePermission.OTHERS_WRITE);
+                    break;
+                case OTHERS_EXECUTE:
+                    permissions.add(PosixFilePermission.OTHERS_EXECUTE);
+                    break;
+                default:
+                    throw new UnsupportedOperationException(modeBit.toString());
+            }
+        }
+        return permissions;
+    }
+
+    @NonNull
     public static String toString(@NonNull Set<LinuxFileModeBit> mode) {
         Objects.requireNonNull(mode);
         boolean hasSetUserIdBit = mode.contains(LinuxFileModeBit.SET_USER_ID);

@@ -269,7 +269,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         } catch (SyscallException e) {
             throw e.toFileSystemException(path2String);
         }
-        return pathStat.st_ino == path2Stat.st_ino;
+        return pathStat.st_dev == path2Stat.st_dev && pathStat.st_ino == path2Stat.st_ino;
     }
 
     @Override
