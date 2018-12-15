@@ -37,6 +37,14 @@ public class Syscalls {
         }
     }
 
+    public static void chown(@NonNull String path, int uid, int gid) throws SyscallException {
+        try {
+            Os.chown(path, uid, gid);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
     public static void close(@NonNull FileDescriptor fd) throws SyscallException {
         try {
             Os.close(fd);
@@ -165,4 +173,8 @@ public class Syscalls {
             throw new SyscallException(e);
         }
     }
+
+    public static native void utimens(@NonNull String path,
+                                      @NonNull @Size(2) StructTimespec[] times)
+            throws SyscallException;
 }

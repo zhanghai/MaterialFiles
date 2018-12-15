@@ -13,6 +13,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileAttribute;
+import java8.nio.file.attribute.PosixFilePermission;
 
 public class LinuxFileMode {
 
@@ -89,6 +90,46 @@ public class LinuxFileMode {
         }
         if ((modeInt & OsConstants.S_IXOTH) != 0) {
             mode.add(LinuxFileModeBit.OTHERS_EXECUTE);
+        }
+        return mode;
+    }
+
+    @NonNull
+    public static EnumSet<LinuxFileModeBit> fromPermissions(
+            @NonNull Set<PosixFilePermission> permissions) {
+        EnumSet<LinuxFileModeBit> mode = EnumSet.noneOf(LinuxFileModeBit.class);
+        for (PosixFilePermission permission : permissions) {
+            switch (permission) {
+                case OWNER_READ:
+                    mode.add(LinuxFileModeBit.OWNER_READ);
+                    break;
+                case OWNER_WRITE:
+                    mode.add(LinuxFileModeBit.OWNER_WRITE);
+                    break;
+                case OWNER_EXECUTE:
+                    mode.add(LinuxFileModeBit.OWNER_EXECUTE);
+                    break;
+                case GROUP_READ:
+                    mode.add(LinuxFileModeBit.GROUP_READ);
+                    break;
+                case GROUP_WRITE:
+                    mode.add(LinuxFileModeBit.GROUP_WRITE);
+                    break;
+                case GROUP_EXECUTE:
+                    mode.add(LinuxFileModeBit.GROUP_EXECUTE);
+                    break;
+                case OTHERS_READ:
+                    mode.add(LinuxFileModeBit.OTHERS_READ);
+                    break;
+                case OTHERS_WRITE:
+                    mode.add(LinuxFileModeBit.OTHERS_WRITE);
+                    break;
+                case OTHERS_EXECUTE:
+                    mode.add(LinuxFileModeBit.OTHERS_EXECUTE);
+                    break;
+                default:
+                    throw new UnsupportedOperationException(permission.toString());
+            }
         }
         return mode;
     }

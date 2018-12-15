@@ -754,8 +754,7 @@ static void readStructTimespec(JNIEnv *env, jobject javaTime, struct timespec *t
 }
 
 JNIEXPORT void JNICALL
-Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
-        JNIEnv *env, jclass clazz, jstring javaPath, jobjectArray javaTimes) {
+doUtimens(JNIEnv *env, jstring javaPath, jobjectArray javaTimes, bool isLutimens) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     size_t timesSize = (size_t) (*env)->GetArrayLength(env, javaTimes);
     struct timespec times[timesSize];
@@ -766,11 +765,17 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
         (*env)->DeleteLocalRef(env, javaTime);
     }
     errno = 0;
-    TEMP_FAILURE_RETRY(utimensat(AT_FDCWD, path, times, AT_SYMLINK_NOFOLLOW));
+    TEMP_FAILURE_RETRY(utimensat(AT_FDCWD, path, times, isLutimens ? AT_SYMLINK_NOFOLLOW : 0));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
         throwSyscallException(env, "utimensat");
     }
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
+        JNIEnv *env, jclass clazz, jstring javaPath, jobjectArray javaTimes) {
+    doUtimens(env, javaPath, javaTimes, true);
 }
 
 JNIEXPORT jlong JNICALL
@@ -857,4 +862,10 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_stat(
         JNIEnv *env, jclass clazz, jstring javaPath) {
     return doStat(env, javaPath, false);
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_utimens(
+        JNIEnv *env, jclass clazz, jstring javaPath, jobjectArray javaTimes) {
+    doUtimens(env, javaPath, javaTimes, false);
 }

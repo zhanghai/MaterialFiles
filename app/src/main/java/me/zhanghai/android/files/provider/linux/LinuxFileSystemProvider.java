@@ -16,6 +16,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java8.nio.channels.FileChannel;
 import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.AccessDeniedException;
@@ -35,6 +36,7 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.CopyOptions;
+import me.zhanghai.android.files.provider.common.LinkOptions;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
@@ -99,10 +101,9 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     public FileChannel newFileChannel(@NonNull Path file,
                                       @NonNull Set<? extends OpenOption> options,
                                       @NonNull FileAttribute<?>... attributes) throws IOException {
-        Objects.requireNonNull(file);
+        requireLinuxPath(file);
         Objects.requireNonNull(options);
         Objects.requireNonNull(attributes);
-        requireLinuxPath(file);
         String path = file.toString();
         OpenOptions openOptions = OpenOptions.fromSet(options);
         int flags = LinuxOpenOptions.toFlags(openOptions);
@@ -142,9 +143,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     public DirectoryStream<Path> newDirectoryStream(
             @NonNull Path directory, @NonNull DirectoryStream.Filter<? super Path> filter)
             throws IOException {
-        Objects.requireNonNull(directory);
-        Objects.requireNonNull(filter);
         requireLinuxPath(directory);
+        Objects.requireNonNull(filter);
         String path = directory.toString();
         long dir;
         try {
@@ -158,9 +158,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        Objects.requireNonNull(directory);
-        Objects.requireNonNull(attributes);
         requireLinuxPath(directory);
+        Objects.requireNonNull(attributes);
         String path = directory.toString();
         int mode = LinuxFileMode.toInt(LinuxFileMode.fromAttributes(attributes,
                 LinuxFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
@@ -174,15 +173,13 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
                                    @NonNull FileAttribute<?>... attrs) throws IOException {
-        Objects.requireNonNull(link);
-        Objects.requireNonNull(target);
+        requireLinuxPath(link);
+        requireLinuxPath(target);
         Objects.requireNonNull(attrs);
         if (attrs.length > 0) {
             throw new UnsupportedOperationException(Arrays.toString(attrs));
         }
-        requireLinuxPath(target);
         String targetString = target.toString();
-        requireLinuxPath(link);
         String linkPath = link.toString();
         try {
             Syscalls.symlink(targetString, linkPath);
@@ -193,11 +190,9 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public void createLink(@NonNull Path link, @NonNull Path existing) throws IOException {
-        Objects.requireNonNull(link);
-        Objects.requireNonNull(existing);
+        requireLinuxPath(link);
         requireLinuxPath(existing);
         String oldPath = existing.toString();
-        requireLinuxPath(link);
         String newPath = link.toString();
         try {
             Syscalls.link(oldPath, newPath);
@@ -208,7 +203,6 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public void delete(@NonNull Path path) throws IOException {
-        Objects.requireNonNull(path);
         requireLinuxPath(path);
         String pathString = path.toString();
         try {
@@ -221,7 +215,6 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @NonNull
     @Override
     public Path readSymbolicLink(@NonNull Path link) throws IOException {
-        Objects.requireNonNull(link);
         requireLinuxPath(link);
         String path = link.toString();
         String target;
@@ -236,12 +229,10 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public void copy(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
             throws IOException {
-        Objects.requireNonNull(source);
-        Objects.requireNonNull(target);
-        Objects.requireNonNull(options);
         requireLinuxPath(source);
-        String sourceString = source.toString();
         requireLinuxPath(target);
+        Objects.requireNonNull(options);
+        String sourceString = source.toString();
         String targetString = target.toString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
         LinuxCopyMove.copy(sourceString, targetString, copyOptions);
@@ -250,12 +241,10 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public void move(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
             throws IOException {
-        Objects.requireNonNull(source);
-        Objects.requireNonNull(target);
-        Objects.requireNonNull(options);
         requireLinuxPath(source);
-        String sourceString = source.toString();
         requireLinuxPath(target);
+        Objects.requireNonNull(options);
+        String sourceString = source.toString();
         String targetString = target.toString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
         LinuxCopyMove.move(sourceString, targetString, copyOptions);
@@ -264,11 +253,9 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public boolean isSameFile(@NonNull Path path, @NonNull Path path2) throws IOException {
-        Objects.requireNonNull(path);
-        Objects.requireNonNull(path2);
         requireLinuxPath(path);
-        String pathString = path.toString();
         requireLinuxPath(path2);
+        String pathString = path.toString();
         String path2String = path2.toString();
         StructStat pathStat;
         try {
@@ -287,7 +274,6 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public boolean isHidden(@NonNull Path path) {
-        Objects.requireNonNull(path);
         requireLinuxPath(path);
         String fileName = path.getFileName().toString();
         return fileName.startsWith(HIDDEN_FILE_NAME_PREFIX);
@@ -303,9 +289,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public void checkAccess(@NonNull Path path, @NonNull AccessMode... modes) throws IOException {
-        Objects.requireNonNull(path);
-        Objects.requireNonNull(modes);
         requireLinuxPath(path);
+        Objects.requireNonNull(modes);
         String pathString = path.toString();
         AccessModes accessModes = AccessModes.fromArray(modes);
         int mode;
@@ -335,16 +320,19 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         }
     }
 
-    @NonNull
+    @Nullable
     @Override
     public <V extends FileAttributeView> V getFileAttributeView(@NonNull Path path,
                                                                 @NonNull Class<V> type,
                                                                 @NonNull LinkOption... options) {
-        Objects.requireNonNull(path);
+        requireLinuxPath(path);
         Objects.requireNonNull(type);
         Objects.requireNonNull(options);
-        // TODO
-        throw new UnsupportedOperationException();
+        if (!type.isAssignableFrom(LinuxFileAttributeView.class)) {
+            return null;
+        }
+        //noinspection unchecked
+        return (V) getFileAttributeView(path, options);
     }
 
     @NonNull
@@ -356,8 +344,18 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(path);
         Objects.requireNonNull(type);
         Objects.requireNonNull(options);
-        // TODO
-        throw new UnsupportedOperationException();
+        if (!type.isAssignableFrom(LinuxFileAttributes.class)) {
+            throw new UnsupportedOperationException(type.toString());
+        }
+        //noinspection unchecked
+        return (A) getFileAttributeView(path, options).readAttributes();
+    }
+
+    private LinuxFileAttributeView getFileAttributeView(@NonNull Path path,
+                                                        @NonNull LinkOption... options) {
+        String pathString = path.toString();
+        boolean noFollowLinks = LinkOptions.hasNoFollowLinks(options);
+        return new LinuxFileAttributeView(pathString, noFollowLinks);
     }
 
     @NonNull
@@ -381,6 +379,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     }
 
     private static void requireLinuxPath(@NonNull Path path) {
+        Objects.requireNonNull(path);
         if (!(path instanceof LinuxPath)) {
             throw new ProviderMismatchException(path.toString());
         }
