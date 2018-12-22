@@ -78,21 +78,25 @@ public class LinuxFileAttributes implements PosixFileAttributes {
         return mStat.st_size;
     }
 
+    @NonNull
     @Override
     public Object fileKey() {
         return new LinuxFileKey(mStat.st_dev, mStat.st_ino);
     }
 
+    @NonNull
     @Override
     public UserPrincipal owner() {
         return mOwner;
     }
 
+    @NonNull
     @Override
     public GroupPrincipal group() {
         return mGroup;
     }
 
+    @NonNull
     @Override
     public Set<PosixFilePermission> permissions() {
         return LinuxFileMode.toPermissions(mode());

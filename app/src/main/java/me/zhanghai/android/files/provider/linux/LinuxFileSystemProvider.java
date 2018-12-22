@@ -26,7 +26,10 @@ import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileStore;
 import java8.nio.file.FileSystem;
 import java8.nio.file.FileSystemAlreadyExistsException;
+import java8.nio.file.FileSystemException;
+import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
+import java8.nio.file.NotLinkException;
 import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
@@ -154,7 +157,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         } catch (SyscallException e) {
             throw e.toFileSystemException(path);
         }
-        return new LinuxDirectoryStream(directory, dir);
+        return new LinuxDirectoryStream(directory, dir, filter);
     }
 
     @Override
@@ -223,6 +226,11 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         try {
             target = Syscalls.readlink(path);
         } catch (SyscallException e) {
+            if (e.getErrno() == OsConstants.EINVAL) {
+                FileSystemException exception = new NotLinkException(path);
+                exception.initCause(e);
+                throw exception;
+            }
             throw e.toFileSystemException(path);
         }
         return mFileSystem.getPath(target);

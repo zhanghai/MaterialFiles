@@ -26,6 +26,9 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
 
     private final long mDir;
 
+    @NonNull
+    private final Filter<? super Path> mFilter;
+
     @Nullable
     private LinuxDirectoryIterator mIterator;
 
@@ -34,9 +37,11 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
     @NonNull
     private final Object mLock = new Object();
 
-    public LinuxDirectoryStream(@NonNull Path directory, long dir) {
+    public LinuxDirectoryStream(@NonNull Path directory, long dir,
+                                @NonNull Filter<? super Path> filter) {
         mDirectory = directory;
         mDir = dir;
+        mFilter = filter;
     }
 
     @Override
@@ -81,18 +86,14 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
                 if (mEndOfStream) {
                     return false;
                 }
-                StructDirent dirent = getNextDirentLocked();
-                mEndOfStream = dirent == null;
-                if (mEndOfStream) {
-                    return false;
-                }
-                mNextPath = mDirectory.resolve(dirent.d_name);
-                return true;
+                mNextPath = getNextPathLocked();
+                mEndOfStream = mNextPath == null;
+                return !mEndOfStream;
             }
         }
 
         @Nullable
-        private StructDirent getNextDirentLocked() {
+        private Path getNextPathLocked() {
             while (true) {
                 StructDirent dirent;
                 try {
@@ -108,7 +109,17 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
                 if (Objects.equals(name, ".") || Objects.equals(name, "..")) {
                     continue;
                 }
-                return dirent;
+                Path path = mDirectory.resolve(dirent.d_name);
+                boolean accepted;
+                try {
+                    accepted = mFilter.accept(path);
+                } catch (IOException e) {
+                    throw new DirectoryIteratorException(e);
+                }
+                if (!accepted) {
+                    continue;
+                }
+                return path;
             }
         }
 
