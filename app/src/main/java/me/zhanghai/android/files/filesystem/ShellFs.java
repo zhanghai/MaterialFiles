@@ -23,6 +23,7 @@ import me.zhanghai.android.files.functional.FunctionalException;
 import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.shell.SuShell;
 import me.zhanghai.android.files.util.Holder;
 

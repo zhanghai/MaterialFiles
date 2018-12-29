@@ -38,6 +38,8 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.functional.IterableCompat;
 import me.zhanghai.android.files.functional.IteratorCompat;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
+import me.zhanghai.android.files.provider.common.PosixFileType;
+import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.util.EnumerationCompat;
 import me.zhanghai.android.files.util.IoUtils;
@@ -235,20 +237,6 @@ public class ArchiveReader {
         }
     }
 
-    public static boolean isSymbolicLink(@NonNull ArchiveEntry entry) {
-        if (entry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) entry;
-            return dumpEntry.getType() == DumpArchiveEntry.TYPE.LINK;
-        } else if (entry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) entry;
-            return tarEntry.isSymbolicLink();
-        } else if (entry instanceof ZipArchiveEntry) {
-            ZipArchiveEntry zipEntry = (ZipArchiveEntry) entry;
-            return zipEntry.isUnixSymlink();
-        }
-        return false;
-    }
-
     @NonNull
     public static String readSymbolicLink(@NonNull Path file, @NonNull ArchiveEntry entry)
             throws IOException {
@@ -263,6 +251,10 @@ public class ArchiveReader {
                 return IoUtils.inputStreamToString(inputStream, StandardCharsets.UTF_8);
             }
         }
+    }
+
+    private static boolean isSymbolicLink(@NonNull ArchiveEntry entry) {
+        return PosixFileTypes.fromArchiveEntry(entry) == PosixFileType.SYMBOLIC_LINK;
     }
 
     private static class DirectoryArchiveEntry implements ArchiveEntry {

@@ -22,6 +22,8 @@ import java8.nio.file.attribute.PosixFilePermission;
 import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileType;
+import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
@@ -99,26 +101,24 @@ public class ArchiveFileAttributes implements PosixFileAttributes {
         return (long) (atimeSeconds * 1000);
     }
 
+    @NonNull
+    public PosixFileType type() {
+        return PosixFileTypes.fromArchiveEntry(mEntry);
+    }
+
     @Override
     public boolean isRegularFile() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return dumpEntry.isFile();
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            return tarEntry.isFile();
-        }
-        return !mEntry.isDirectory();
+        return type() == PosixFileType.REGULAR_FILE;
     }
 
     @Override
     public boolean isDirectory() {
-        return mEntry.isDirectory();
+        return type() == PosixFileType.DIRECTORY;
     }
 
     @Override
     public boolean isSymbolicLink() {
-        return ArchiveReader.isSymbolicLink(mEntry);
+        return type() == PosixFileType.SYMBOLIC_LINK;
     }
 
     @Override

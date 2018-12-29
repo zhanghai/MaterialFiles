@@ -20,6 +20,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.compat.LongConsumer;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
 import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;

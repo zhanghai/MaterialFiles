@@ -22,6 +22,7 @@ import androidx.core.util.Pair;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileType;
 
 public class LocalFile extends BaseFile {
 

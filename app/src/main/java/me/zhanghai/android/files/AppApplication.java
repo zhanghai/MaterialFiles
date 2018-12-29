@@ -12,6 +12,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.NightModeHelper;
 
@@ -39,6 +40,7 @@ public class AppApplication extends Application {
 
         LinuxFileSystemProvider.installAsDefault();
         ArchiveFileSystemProvider.install();
+        AndroidFileTypeDetector.install();
 
         NightModeHelper.setup(this);
     }

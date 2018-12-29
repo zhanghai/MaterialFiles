@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.provider.linux;
 
-import android.system.OsConstants;
-
 import org.threeten.bp.Instant;
 
 import java.util.Set;
@@ -17,6 +15,8 @@ import java8.nio.file.attribute.PosixFileAttributes;
 import java8.nio.file.attribute.PosixFilePermission;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileType;
+import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
@@ -55,19 +55,24 @@ public class LinuxFileAttributes implements PosixFileAttributes {
         return lastModifiedTime();
     }
 
+    @NonNull
+    public PosixFileType type() {
+        return PosixFileTypes.fromMode(mStat.st_mode);
+    }
+
     @Override
     public boolean isRegularFile() {
-        return OsConstants.S_ISREG(mStat.st_mode);
+        return type() == PosixFileType.REGULAR_FILE;
     }
 
     @Override
     public boolean isDirectory() {
-        return OsConstants.S_ISDIR(mStat.st_mode);
+        return type() == PosixFileType.DIRECTORY;
     }
 
     @Override
     public boolean isSymbolicLink() {
-        return OsConstants.S_ISLNK(mStat.st_mode);
+        return type() == PosixFileType.SYMBOLIC_LINK;
     }
 
     @Override
@@ -99,13 +104,13 @@ public class LinuxFileAttributes implements PosixFileAttributes {
     }
 
     @NonNull
-    @Override
-    public Set<PosixFilePermission> permissions() {
-        return PosixFileMode.toPermissions(mode());
+    public Set<PosixFileModeBit> mode() {
+        return PosixFileMode.fromInt(mStat.st_mode);
     }
 
     @NonNull
-    public Set<PosixFileModeBit> mode() {
-        return PosixFileMode.fromInt(mStat.st_mode);
+    @Override
+    public Set<PosixFilePermission> permissions() {
+        return PosixFileMode.toPermissions(mode());
     }
 }

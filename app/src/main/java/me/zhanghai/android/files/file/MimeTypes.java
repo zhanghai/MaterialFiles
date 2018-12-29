@@ -16,7 +16,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.filesystem.PosixFileType;
+import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.util.FileNameUtils;
 import me.zhanghai.android.files.util.MapBuilder;
 import me.zhanghai.android.files.util.MapCompat;

@@ -27,6 +27,7 @@ import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.FunctionalException;
 import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileType;
 
 public class LocalFileSystem {
 
