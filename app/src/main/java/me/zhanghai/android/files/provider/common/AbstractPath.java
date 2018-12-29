@@ -34,10 +34,14 @@ public abstract class AbstractPath implements Path {
     @Override
     public Path getParent() {
         int nameCount = getNameCount();
-        if (nameCount == 0) {
-            return null;
+        switch (nameCount) {
+            case 0:
+                return null;
+            case 1:
+                return getRoot();
+            default:
+                return subpath(0, nameCount - 1);
         }
-        return subpath(0, nameCount - 1);
     }
 
     @Override
@@ -78,12 +82,6 @@ public abstract class AbstractPath implements Path {
     @Override
     public final Iterator<Path> iterator() {
         return new NameIterator();
-    }
-
-    @NonNull
-    @Override
-    public final File toFile() {
-        return new File(toString());
     }
 
     @NonNull

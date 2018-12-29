@@ -13,10 +13,12 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileTime;
-import java8.nio.file.attribute.GroupPrincipal;
 import java8.nio.file.attribute.PosixFileAttributes;
 import java8.nio.file.attribute.PosixFilePermission;
-import java8.nio.file.attribute.UserPrincipal;
+import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 
 public class LinuxFileAttributes implements PosixFileAttributes {
@@ -24,12 +26,12 @@ public class LinuxFileAttributes implements PosixFileAttributes {
     @NonNull
     private final StructStat mStat;
     @NonNull
-    private final LinuxUser mOwner;
+    private final PosixUser mOwner;
     @NonNull
-    private final LinuxGroup mGroup;
+    private final PosixGroup mGroup;
 
-    LinuxFileAttributes(@NonNull StructStat stat, @NonNull LinuxUser owner,
-                        @NonNull LinuxGroup group) {
+    LinuxFileAttributes(@NonNull StructStat stat, @NonNull PosixUser owner,
+                        @NonNull PosixGroup group) {
         mStat = stat;
         mOwner = owner;
         mGroup = group;
@@ -86,24 +88,24 @@ public class LinuxFileAttributes implements PosixFileAttributes {
 
     @NonNull
     @Override
-    public UserPrincipal owner() {
+    public PosixUser owner() {
         return mOwner;
     }
 
     @NonNull
     @Override
-    public GroupPrincipal group() {
+    public PosixGroup group() {
         return mGroup;
     }
 
     @NonNull
     @Override
     public Set<PosixFilePermission> permissions() {
-        return LinuxFileMode.toPermissions(mode());
+        return PosixFileMode.toPermissions(mode());
     }
 
     @NonNull
-    public Set<LinuxFileModeBit> mode() {
-        return LinuxFileMode.fromInt(mStat.st_mode);
+    public Set<PosixFileModeBit> mode() {
+        return PosixFileMode.fromInt(mStat.st_mode);
     }
 }

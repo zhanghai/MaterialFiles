@@ -18,8 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.compat.LongConsumer;
-import me.zhanghai.android.files.provider.linux.LinuxFileMode;
-import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
 import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;
@@ -58,7 +58,7 @@ public class Syscall {
             }
         }
         PosixFileType type = parseType(stat.st_mode);
-        EnumSet<LinuxFileModeBit> mode = LinuxFileMode.fromInt(stat.st_mode);
+        EnumSet<PosixFileModeBit> mode = PosixFileMode.fromInt(stat.st_mode);
         PosixUser owner = new PosixUser();
         owner.id = stat.st_uid;
         PosixGroup group = new PosixGroup();

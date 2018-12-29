@@ -194,10 +194,7 @@ public class FunctionalIterator {
     }
 
     public static <T> void forEachRemaining(Iterator<T> iterator, Consumer<T> consumer) {
-        while (iterator.hasNext()) {
-            T t = iterator.next();
-            consumer.accept(t);
-        }
+        IteratorCompat.forEachRemaining(iterator, consumer);
     }
 
     public static <T> void forEachRemaining(Iterator<T> iterator, BiConsumer<T, Integer> consumer) {

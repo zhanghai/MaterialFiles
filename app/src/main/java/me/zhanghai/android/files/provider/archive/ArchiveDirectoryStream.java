@@ -3,44 +3,38 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.linux;
+package me.zhanghai.android.files.provider.archive;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.provider.linux.syscall.StructDirent;
-import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
-class LinuxDirectoryStream implements DirectoryStream<Path> {
+class ArchiveDirectoryStream implements DirectoryStream<Path> {
 
     @NonNull
-    private final Path mDirectory;
-
-    private final long mDir;
+    private final List<Path> mChildren;
 
     @NonNull
     private final Filter<? super Path> mFilter;
 
     @Nullable
-    private LinuxDirectoryIterator mIterator;
+    private ArchiveDirectoryIterator mIterator;
 
     private boolean mClosed;
 
     @NonNull
     private final Object mLock = new Object();
 
-    public LinuxDirectoryStream(@NonNull Path directory, long dir,
-                                @NonNull Filter<? super Path> filter) {
-        mDirectory = directory;
-        mDir = dir;
+    public ArchiveDirectoryStream(@NonNull List<Path> children,
+                                  @NonNull Filter<? super Path> filter) {
+        mChildren = children;
         mFilter = filter;
     }
 
@@ -53,29 +47,31 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
             if (mIterator != null) {
                 throw new IllegalStateException("The iterator has already been returned");
             }
-            mIterator = new LinuxDirectoryIterator();
+            mIterator = new ArchiveDirectoryIterator();
             return mIterator;
         }
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         synchronized (mLock) {
-            try {
-                Syscalls.closedir(mDir);
-            } catch (SyscallException e) {
-                throw e.toFileSystemException(mDirectory.toString());
-            }
             mClosed = true;
         }
     }
 
-    private class LinuxDirectoryIterator implements Iterator<Path> {
+    private class ArchiveDirectoryIterator implements Iterator<Path> {
+
+        @NonNull
+        private final Iterator<Path> mIterator;
 
         @Nullable
         private Path mNextPath;
 
         private boolean mEndOfStream;
+
+        public ArchiveDirectoryIterator() {
+            mIterator = mChildren.iterator();
+        }
 
         @Override
         public boolean hasNext() {
@@ -98,21 +94,10 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
                 if (mClosed) {
                     return null;
                 }
-                StructDirent dirent;
-                try {
-                    dirent = Syscalls.readdir(mDir);
-                } catch (SyscallException e) {
-                    throw new DirectoryIteratorException(e.toFileSystemException(
-                            mDirectory.toString()));
-                }
-                if (dirent == null) {
+                if (!mIterator.hasNext()) {
                     return null;
                 }
-                String name = dirent.d_name;
-                if (Objects.equals(name, ".") || Objects.equals(name, "..")) {
-                    continue;
-                }
-                Path path = mDirectory.resolve(dirent.d_name);
+                Path path = mIterator.next();
                 boolean accepted;
                 try {
                     accepted = mFilter.accept(path);

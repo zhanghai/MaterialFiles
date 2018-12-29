@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.linux;
 import android.system.OsConstants;
 
 import androidx.annotation.NonNull;
+import java8.nio.file.StandardOpenOption;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 
@@ -16,6 +17,9 @@ class LinuxOpenOptions {
     private LinuxOpenOptions() {}
 
     public static int toFlags(@NonNull OpenOptions options) {
+        if (options.hasSparse()) {
+            throw new UnsupportedOperationException(StandardOpenOption.SPARSE.toString());
+        }
         int flags;
         if (options.hasRead() && options.hasWrite()) {
             flags = OsConstants.O_RDWR;

@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.common;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -22,13 +24,14 @@ public class OpenOptions {
     private final boolean mCreate;
     private final boolean mCreateNew;
     private final boolean mDeleteOnClose;
+    private final boolean mSparse;
     private final boolean mSync;
     private final boolean mDsync;
     private final boolean mNoFollowLinks;
 
     private OpenOptions(boolean read, boolean write, boolean append, boolean truncateExisting,
-                        boolean create, boolean createNew, boolean deleteOnClose, boolean sync,
-                        boolean dsync, boolean noFollowLinks) {
+                        boolean create, boolean createNew, boolean deleteOnClose, boolean sparse,
+                        boolean sync, boolean dsync, boolean noFollowLinks) {
         mRead = read;
         mWrite = write;
         mAppend = append;
@@ -36,23 +39,30 @@ public class OpenOptions {
         mCreate = create;
         mCreateNew = createNew;
         mDeleteOnClose = deleteOnClose;
+        mSparse = sparse;
         mSync = sync;
         mDsync = dsync;
         mNoFollowLinks = noFollowLinks;
     }
 
     @NonNull
+    public static OpenOptions fromArray(@NonNull OpenOption[] options) {
+        return fromSet(new HashSet<>(Arrays.asList(options)));
+    }
+
+    @NonNull
     public static OpenOptions fromSet(@NonNull Set<? extends OpenOption> options) {
-        boolean read= false;
-        boolean write= false;
-        boolean append= false;
-        boolean truncateExisting= false;
-        boolean create= false;
-        boolean createNew= false;
-        boolean deleteOnClose= false;
-        boolean sync= false;
-        boolean dsync= false;
-        boolean noFollowLinks= false;
+        boolean read = false;
+        boolean write = false;
+        boolean append = false;
+        boolean truncateExisting = false;
+        boolean create = false;
+        boolean createNew = false;
+        boolean deleteOnClose = false;
+        boolean sparse = false;
+        boolean sync = false;
+        boolean dsync = false;
+        boolean noFollowLinks = false;
         for (OpenOption option : options) {
             Objects.requireNonNull(option);
             if (!(option instanceof OpenOption)) {
@@ -82,9 +92,9 @@ public class OpenOptions {
                     case DELETE_ON_CLOSE:
                         deleteOnClose = true;
                         break;
-                    // Unsupported
-                    //case SPARSE:
-                    //    break;
+                    case SPARSE:
+                        sparse = true;
+                        break;
                     case SYNC:
                         sync = true;
                         break;
@@ -101,7 +111,7 @@ public class OpenOptions {
             }
         }
         return new OpenOptions(read, write, append, truncateExisting, create, createNew,
-                deleteOnClose, sync, dsync, noFollowLinks);
+                deleteOnClose, sparse, sync, dsync, noFollowLinks);
     }
 
     public boolean hasRead() {
@@ -130,6 +140,10 @@ public class OpenOptions {
 
     public boolean hasDeleteOnClose() {
         return mDeleteOnClose;
+    }
+
+    public boolean hasSparse() {
+        return mSparse;
     }
 
     public boolean hasSync() {

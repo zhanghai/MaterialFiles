@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.linux;
+package me.zhanghai.android.files.provider.archive;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,20 +20,20 @@ import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 import me.zhanghai.android.files.provider.common.StringListPath;
 
-class LinuxPath extends StringListPath {
+class ArchivePath extends StringListPath {
 
     @NonNull
-    private final LinuxFileSystem mFileSystem;
+    private final ArchiveFileSystem mFileSystem;
 
-    public LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull String path) {
-        super(LinuxFileSystem.SEPARATOR, path);
+    public ArchivePath(@NonNull ArchiveFileSystem fileSystem, @NonNull String path) {
+        super(ArchiveFileSystem.SEPARATOR, path);
 
         mFileSystem = fileSystem;
     }
 
-    private LinuxPath(@NonNull LinuxFileSystem fileSystem, boolean absolute,
-                      @NonNull List<String> names) {
-        super(LinuxFileSystem.SEPARATOR, absolute, names);
+    private ArchivePath(@NonNull ArchiveFileSystem fileSystem, boolean absolute,
+                        @NonNull List<String> names) {
+        super(ArchiveFileSystem.SEPARATOR, absolute, names);
 
         mFileSystem = fileSystem;
     }
@@ -41,14 +41,26 @@ class LinuxPath extends StringListPath {
     @Override
     protected boolean isPathAbsolute(@NonNull String path) {
         Objects.requireNonNull(path);
-        return !path.isEmpty() && path.charAt(0) == LinuxFileSystem.SEPARATOR;
+        return !path.isEmpty() && path.charAt(0) == ArchiveFileSystem.SEPARATOR;
     }
 
     @NonNull
     @Override
     protected Path createPath(boolean absolute, @NonNull List<String> names) {
         Objects.requireNonNull(names);
-        return new LinuxPath(mFileSystem, absolute, names);
+        return new ArchivePath(mFileSystem, absolute, names);
+    }
+
+    @Nullable
+    @Override
+    protected String getUriSchemeSpecificPart() {
+        return mFileSystem.getArchiveFile().toUri().toString();
+    }
+
+    @Nullable
+    @Override
+    protected String getUriFragment() {
+        return super.getUriSchemeSpecificPart();
     }
 
     @NonNull
@@ -83,17 +95,16 @@ class LinuxPath extends StringListPath {
     @NonNull
     @Override
     public final File toFile() {
-        return new File(toString());
+        throw new UnsupportedOperationException();
     }
 
     @NonNull
     @Override
     public WatchKey register(@NonNull WatchService watcher, @NonNull WatchEvent.Kind<?>[] events,
-                             @NonNull WatchEvent.Modifier... modifiers) throws IOException {
+                             @NonNull WatchEvent.Modifier... modifiers) {
         Objects.requireNonNull(watcher);
         Objects.requireNonNull(events);
         Objects.requireNonNull(modifiers);
-        // TODO
         throw new UnsupportedOperationException();
     }
 }

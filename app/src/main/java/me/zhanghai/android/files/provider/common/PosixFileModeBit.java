@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.linux;
+package me.zhanghai.android.files.provider.common;
 
-public enum LinuxFileModeBit {
+public enum PosixFileModeBit {
     SET_USER_ID,
     SET_GROUP_ID,
     STICKY,

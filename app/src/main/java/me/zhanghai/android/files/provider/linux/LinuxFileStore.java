@@ -81,7 +81,7 @@ public class LinuxFileStore extends FileStore {
     @Override
     public boolean supportsFileAttributeView(@NonNull String name) {
         Objects.requireNonNull(name);
-        throw new UnsupportedOperationException();
+        return LinuxFileAttributeView.SUPPORTED_NAMES.contains(name);
     }
 
     @Nullable

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.filesystem;
+package me.zhanghai.android.files.provider.archive.reader;
 
 import android.os.Build;
 
@@ -13,14 +13,15 @@ import org.apache.commons.compress.archivers.zip.ZipFile;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ZipFileCompat implements Closeable {
 
@@ -51,30 +52,19 @@ public class ZipFileCompat implements Closeable {
     }
 
     @NonNull
-    public Iterator<ZipArchiveEntry> getEntries() {
+    public Enumeration<ZipArchiveEntry> getEntries() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            Enumeration<ZipArchiveEntry> entries = mZipFile.getEntries();
-            return new Iterator<ZipArchiveEntry>() {
-                @Override
-                public boolean hasNext() {
-                    return entries.hasMoreElements();
-                }
-                @NonNull
-                @Override
-                public ZipArchiveEntry next() {
-                    return entries.nextElement();
-                }
-            };
+            return mZipFile.getEntries();
         } else {
             Enumeration<? extends ZipEntry> entries = mJavaZipFile.entries();
-            return new Iterator<ZipArchiveEntry>() {
+            return new Enumeration<ZipArchiveEntry>() {
                 @Override
-                public boolean hasNext() {
+                public boolean hasMoreElements() {
                     return entries.hasMoreElements();
                 }
                 @NonNull
                 @Override
-                public ZipArchiveEntry next() {
+                public ZipArchiveEntry nextElement() {
                     ZipEntry entry = entries.nextElement();
                     try {
                         return new ZipArchiveEntry(entry);
@@ -84,6 +74,15 @@ public class ZipFileCompat implements Closeable {
                     }
                 }
             };
+        }
+    }
+
+    @Nullable
+    public InputStream getInputStream(@NonNull ZipArchiveEntry entry) throws IOException {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return mZipFile.getInputStream(entry);
+        } else {
+            return mJavaZipFile.getInputStream(entry);
         }
     }
 
@@ -98,21 +97,24 @@ public class ZipFileCompat implements Closeable {
     private static class UnparseableExtraZipArchiveEntry extends ZipArchiveEntry {
 
         public UnparseableExtraZipArchiveEntry(@NonNull ZipEntry entry) {
-            setName(entry.getName());
-            setExtra();
-            setMethod(entry.getMethod());
+            super(entry.getName());
+
             setTime(entry.getTime());
+            setExtra();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setLastModifiedTime(entry.getLastModifiedTime());
                 setLastAccessTime(entry.getLastAccessTime());
                 setCreationTime(entry.getCreationTime());
+            }
+            long crc = entry.getCrc();
+            if (crc >= 0 && crc <= 0xFFFFFFFFL) {
+                setCrc(entry.getCrc());
             }
             long size = entry.getSize();
             if (size >= 0) {
                 setSize(size);
             }
             setCompressedSize(entry.getCompressedSize());
-            setCrc(entry.getCrc());
             setMethod(entry.getMethod());
             setComment(entry.getComment());
         }

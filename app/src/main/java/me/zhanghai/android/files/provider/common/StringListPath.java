@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.common;
 
-import java.io.IOError;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -227,11 +226,12 @@ public abstract class StringListPath extends AbstractPath {
 
     @NonNull
     @Override
-    public URI toUri() throws IOError {
+    public URI toUri() {
         String scheme = getFileSystem().provider().getScheme();
-        String path = toAbsolutePath().toString();
+        String path = getUriSchemeSpecificPart();
+        String fragment = getUriFragment();
         try {
-            return new URI(scheme, null, path, null);
+            return new URI(scheme, path, fragment);
         } catch (URISyntaxException e) {
             throw new AssertionError(e);
         }
@@ -239,7 +239,7 @@ public abstract class StringListPath extends AbstractPath {
 
     @NonNull
     @Override
-    public Path toAbsolutePath() throws IOError {
+    public Path toAbsolutePath() {
         if (mAbsolute) {
             return this;
         } else {
@@ -280,12 +280,13 @@ public abstract class StringListPath extends AbstractPath {
         StringListPath that = (StringListPath) object;
         return mSeparator == that.mSeparator
                 && mAbsolute == that.mAbsolute
-                && Objects.equals(mNames, that.mNames);
+                && Objects.equals(mNames, that.mNames)
+                && Objects.equals(getFileSystem(), that.getFileSystem());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mSeparator, mAbsolute, mNames);
+        return Objects.hash(mSeparator, mAbsolute, mNames, getFileSystem());
     }
 
     @Override
@@ -317,6 +318,16 @@ public abstract class StringListPath extends AbstractPath {
         return createPath(false, Collections.singletonList(""));
     }
 
+    @Nullable
+    protected String getUriSchemeSpecificPart() {
+        return toAbsolutePath().toString();
+    }
+
+    @Nullable
+    protected String getUriFragment() {
+        return null;
+    }
+
     @NonNull
-    protected abstract Path getDefaultDirectory() throws IOError;
+    protected abstract Path getDefaultDirectory();
 }

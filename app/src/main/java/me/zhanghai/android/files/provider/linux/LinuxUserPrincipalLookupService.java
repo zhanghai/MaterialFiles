@@ -11,6 +11,8 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.attribute.UserPrincipalNotFoundException;
+import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.linux.syscall.StructGroup;
 import me.zhanghai.android.files.provider.linux.syscall.StructPasswd;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
@@ -34,7 +36,7 @@ public class LinuxUserPrincipalLookupService extends UserPrincipalLookupService 
 
     @NonNull
     @Override
-    public LinuxUser lookupPrincipalByName(@NonNull String name) throws IOException {
+    public PosixUser lookupPrincipalByName(@NonNull String name) throws IOException {
         Objects.requireNonNull(name);
         StructPasswd passwd;
         try {
@@ -45,11 +47,11 @@ public class LinuxUserPrincipalLookupService extends UserPrincipalLookupService 
         if (passwd == null) {
             throw new UserPrincipalNotFoundException(name);
         }
-        return new LinuxUser(passwd.pw_uid, passwd.pw_name);
+        return new PosixUser(passwd.pw_uid, passwd.pw_name);
     }
 
     @NonNull
-    public LinuxUser lookupPrincipalById(int id) throws IOException {
+    public PosixUser lookupPrincipalById(int id) throws IOException {
         try {
             return getUserById(id);
         } catch (SyscallException e) {
@@ -59,7 +61,7 @@ public class LinuxUserPrincipalLookupService extends UserPrincipalLookupService 
 
     @NonNull
     @Override
-    public LinuxGroup lookupPrincipalByGroupName(@NonNull String group) throws IOException {
+    public PosixGroup lookupPrincipalByGroupName(@NonNull String group) throws IOException {
         Objects.requireNonNull(group);
         StructGroup groupStruct;
         try {
@@ -70,11 +72,11 @@ public class LinuxUserPrincipalLookupService extends UserPrincipalLookupService 
         if (groupStruct == null) {
             throw new UserPrincipalNotFoundException(group);
         }
-        return new LinuxGroup(groupStruct.gr_gid, groupStruct.gr_name);
+        return new PosixGroup(groupStruct.gr_gid, groupStruct.gr_name);
     }
 
     @NonNull
-    public LinuxGroup lookupPrincipalByGroupId(int groupId) throws IOException {
+    public PosixGroup lookupPrincipalByGroupId(int groupId) throws IOException {
         try {
             return getGroupById(groupId);
         } catch (SyscallException e) {
@@ -83,14 +85,14 @@ public class LinuxUserPrincipalLookupService extends UserPrincipalLookupService 
     }
 
     @NonNull
-    static LinuxUser getUserById(int uid) throws SyscallException {
+    static PosixUser getUserById(int uid) throws SyscallException {
         StructPasswd passwd = Syscalls.getpwuid(uid);
-        return new LinuxUser(uid, passwd != null ? passwd.pw_name : null);
+        return new PosixUser(uid, passwd != null ? passwd.pw_name : null);
     }
 
     @NonNull
-    static LinuxGroup getGroupById(int gid) throws SyscallException {
+    static PosixGroup getGroupById(int gid) throws SyscallException {
         StructGroup group = Syscalls.getgrgid(gid);
-        return new LinuxGroup(gid, group != null ? group.gr_name : null);
+        return new PosixGroup(gid, group != null ? group.gr_name : null);
     }
 }

@@ -25,13 +25,6 @@ class LinuxFileSystem extends FileSystem {
 
     private static final String SEPARATOR_STRING = Character.toString(SEPARATOR);
 
-    private static final Set<String> SUPPORTED_FILE_ATTRIBUTE_VIEWS =
-            SetBuilder.<String>newHashSet()
-                    .add("basic")
-                    // TODO
-                    //.add()
-                    .buildUnmodifiable();
-
     @NonNull
     private final LinuxPath mRootDirectory = new LinuxPath(this, "/");
     {
@@ -116,7 +109,7 @@ class LinuxFileSystem extends FileSystem {
     @NonNull
     @Override
     public Set<String> supportedFileAttributeViews() {
-        return SUPPORTED_FILE_ATTRIBUTE_VIEWS;
+        return LinuxFileAttributeView.SUPPORTED_NAMES;
     }
 
     @NonNull

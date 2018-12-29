@@ -27,7 +27,6 @@ import java8.nio.file.FileStore;
 import java8.nio.file.FileSystem;
 import java8.nio.file.FileSystemAlreadyExistsException;
 import java8.nio.file.FileSystemException;
-import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.NotLinkException;
 import java8.nio.file.OpenOption;
@@ -40,7 +39,9 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.CopyOptions;
 import me.zhanghai.android.files.provider.common.LinkOptions;
+import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.OpenOptions;
+import me.zhanghai.android.files.provider.common.StringPath;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -112,8 +113,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         String path = file.toString();
         OpenOptions openOptions = OpenOptions.fromSet(options);
         int flags = LinuxOpenOptions.toFlags(openOptions);
-        int mode = LinuxFileMode.toInt(LinuxFileMode.fromAttributes(attributes,
-                LinuxFileMode.DEFAULT_MODE_CREATE_FILE));
+        int mode = PosixFileMode.toInt(PosixFileMode.fromAttributes(attributes,
+                PosixFileMode.DEFAULT_MODE_CREATE_FILE));
         FileDescriptor fd;
         try {
             fd = Syscalls.open(path, flags, mode);
@@ -137,7 +138,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
                                               @NonNull Set<? extends OpenOption> options,
                                               @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        Objects.requireNonNull(file);
+        requireLinuxPath(file);
         Objects.requireNonNull(options);
         Objects.requireNonNull(attributes);
         return newFileChannel(file, options, attributes);
@@ -166,8 +167,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         requireLinuxPath(directory);
         Objects.requireNonNull(attributes);
         String path = directory.toString();
-        int mode = LinuxFileMode.toInt(LinuxFileMode.fromAttributes(attributes,
-                LinuxFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
+        int mode = PosixFileMode.toInt(PosixFileMode.fromAttributes(attributes,
+                PosixFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
         try {
             Syscalls.mkdir(path, mode);
         } catch (SyscallException e) {
@@ -233,7 +234,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
             }
             throw e.toFileSystemException(path);
         }
-        return mFileSystem.getPath(target);
+        return new StringPath(target);
     }
 
     @Override
@@ -264,7 +265,13 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public boolean isSameFile(@NonNull Path path, @NonNull Path path2) throws IOException {
         requireLinuxPath(path);
-        requireLinuxPath(path2);
+        Objects.requireNonNull(path2);
+        if (Objects.equals(path, path2)) {
+            return true;
+        }
+        if (!(path instanceof LinuxPath)) {
+            return false;
+        }
         String pathString = path.toString();
         String path2String = path2.toString();
         StructStat pathStat;
@@ -291,7 +298,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     @NonNull
     @Override
-    public FileStore getFileStore(@NonNull Path path) throws IOException {
+    public FileStore getFileStore(@NonNull Path path) {
         requireLinuxPath(path);
         String pathString = path.toString();
         return new LinuxFileStore(pathString);
@@ -351,7 +358,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
                                                             @NonNull Class<A> type,
                                                             @NonNull LinkOption... options)
             throws IOException {
-        Objects.requireNonNull(path);
+        requireLinuxPath(path);
         Objects.requireNonNull(type);
         Objects.requireNonNull(options);
         if (!type.isAssignableFrom(LinuxFileAttributes.class)) {
@@ -365,8 +372,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         return type.isAssignableFrom(LinuxFileAttributeView.class);
     }
 
-    private LinuxFileAttributeView getFileAttributeView(@NonNull Path path,
-                                                        @NonNull LinkOption... options) {
+    private static LinuxFileAttributeView getFileAttributeView(@NonNull Path path,
+                                                               @NonNull LinkOption... options) {
         String pathString = path.toString();
         boolean noFollowLinks = LinkOptions.hasNoFollowLinks(options);
         return new LinuxFileAttributeView(pathString, noFollowLinks);
@@ -376,7 +383,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public Map<String, Object> readAttributes(@NonNull Path path, @NonNull String attributes,
                                               @NonNull LinkOption... options) {
-        Objects.requireNonNull(path);
+        requireLinuxPath(path);
         Objects.requireNonNull(attributes);
         Objects.requireNonNull(options);
         throw new UnsupportedOperationException();
@@ -385,7 +392,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public void setAttribute(@NonNull Path path, @NonNull String attribute, @NonNull Object value,
                              @NonNull LinkOption... options) {
-        Objects.requireNonNull(path);
+        requireLinuxPath(path);
         Objects.requireNonNull(attribute);
         Objects.requireNonNull(value);
         Objects.requireNonNull(options);

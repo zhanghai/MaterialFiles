@@ -23,8 +23,8 @@ import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.filesystem.LocalFile;
 import me.zhanghai.android.files.filesystem.PosixGroup;
 import me.zhanghai.android.files.filesystem.PosixUser;
-import me.zhanghai.android.files.provider.linux.LinuxFileMode;
-import me.zhanghai.android.files.provider.linux.LinuxFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
@@ -95,9 +95,9 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                     R.string.file_properties_permissions_group_format, group.name, group.id)
                     : String.valueOf(group.id);
             mGroupButton.setText(groupString);
-            Set<LinuxFileModeBit> mode = file.getMode();
+            Set<PosixFileModeBit> mode = file.getMode();
             String modeString = getString(R.string.file_properties_permissions_mode_format,
-                    LinuxFileMode.toString(file.getMode()), LinuxFileMode.toInt(mode));
+                    PosixFileMode.toString(file.getMode()), PosixFileMode.toInt(mode));
             mModeButton.setText(modeString);
         }
     }

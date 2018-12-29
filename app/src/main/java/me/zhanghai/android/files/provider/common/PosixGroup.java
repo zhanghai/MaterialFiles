@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.linux;
+package me.zhanghai.android.files.provider.common;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -12,16 +12,16 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import java8.nio.file.attribute.UserPrincipal;
+import java8.nio.file.attribute.GroupPrincipal;
 
-public class LinuxUser implements Parcelable, UserPrincipal {
+public class PosixGroup implements Parcelable, GroupPrincipal {
 
     private final int mId;
 
     @Nullable
     private final String mName;
 
-    LinuxUser(int id, @Nullable String name) {
+    public PosixGroup(int id, @Nullable String name) {
         mId = id;
         mName = name;
     }
@@ -36,6 +36,7 @@ public class LinuxUser implements Parcelable, UserPrincipal {
         return mName;
     }
 
+
     @Override
     public boolean equals(@Nullable Object object) {
         if (this == object) {
@@ -44,9 +45,9 @@ public class LinuxUser implements Parcelable, UserPrincipal {
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        LinuxUser posixUser = (LinuxUser) object;
-        return mId == posixUser.mId
-                && Objects.equals(mName, posixUser.mName);
+        PosixGroup posixGroup = (PosixGroup) object;
+        return mId == posixGroup.mId
+                && Objects.equals(mName, posixGroup.mName);
     }
 
     @Override
@@ -55,20 +56,20 @@ public class LinuxUser implements Parcelable, UserPrincipal {
     }
 
 
-    public static final Creator<LinuxUser> CREATOR = new Creator<LinuxUser>() {
+    public static final Creator<PosixGroup> CREATOR = new Creator<PosixGroup>() {
         @NonNull
         @Override
-        public LinuxUser createFromParcel(@NonNull Parcel source) {
-            return new LinuxUser(source);
+        public PosixGroup createFromParcel(@NonNull Parcel source) {
+            return new PosixGroup(source);
         }
         @NonNull
         @Override
-        public LinuxUser[] newArray(int size) {
-            return new LinuxUser[size];
+        public PosixGroup[] newArray(int size) {
+            return new PosixGroup[size];
         }
     };
 
-    protected LinuxUser(@NonNull Parcel in) {
+    protected PosixGroup(@NonNull Parcel in) {
         mId = in.readInt();
         mName = in.readString();
     }

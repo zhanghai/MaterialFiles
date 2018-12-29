@@ -17,6 +17,7 @@ import java8.nio.file.FileSystemException;
 import java8.nio.file.FileSystemLoopException;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.NotDirectoryException;
+import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedField;
 import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
@@ -79,6 +80,8 @@ public class SyscallException extends Exception {
             return new AccessDeniedException(file, other, getMessage());
         } else if (mErrno == OsConstants.EEXIST) {
             return new FileAlreadyExistsException(file, other, getMessage());
+        } else if (mErrno == OsConstants.EISDIR) {
+            return new IsDirectoryException(file, other, getMessage());
         } else if (mErrno == OsConstants.ELOOP) {
             return new FileSystemLoopException(file);
         } else if (mErrno == OsConstants.ENOTDIR) {

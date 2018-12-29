@@ -8,6 +8,9 @@ package me.zhanghai.android.files.provider.linux;
 import org.threeten.bp.Instant;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,6 +21,10 @@ import java8.nio.file.attribute.GroupPrincipal;
 import java8.nio.file.attribute.PosixFileAttributeView;
 import java8.nio.file.attribute.PosixFilePermission;
 import java8.nio.file.attribute.UserPrincipal;
+import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.StructTimespec;
@@ -27,6 +34,9 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 public class LinuxFileAttributeView implements PosixFileAttributeView {
 
     private static final String NAME = "linux";
+
+    static final Set<String> SUPPORTED_NAMES = Collections.unmodifiableSet(new HashSet<>(
+            Arrays.asList("basic", "posix", NAME)));
 
     @NonNull
     private final String mPath;
@@ -56,13 +66,13 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
         } catch (SyscallException e) {
             throw e.toFileSystemException(mPath);
         }
-        LinuxUser owner;
+        PosixUser owner;
         try {
             owner = LinuxUserPrincipalLookupService.getUserById(stat.st_uid);
         } catch (SyscallException e) {
             throw e.toFileSystemException(mPath);
         }
-        LinuxGroup group;
+        PosixGroup group;
         try {
             group = LinuxUserPrincipalLookupService.getGroupById(stat.st_gid);
         } catch (SyscallException e) {
@@ -113,11 +123,11 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
     @Override
     public void setOwner(@NonNull UserPrincipal owner) throws IOException {
         Objects.requireNonNull(owner);
-        if (!(owner instanceof LinuxUser)) {
+        if (!(owner instanceof PosixUser)) {
             throw new UnsupportedOperationException(owner.toString());
         }
-        LinuxUser linuxOwner = (LinuxUser) owner;
-        int uid = linuxOwner.getId();
+        PosixUser posixOwner = (PosixUser) owner;
+        int uid = posixOwner.getId();
         try {
             if (mNoFollowLinks) {
                 Syscalls.lchown(mPath, uid, -1);
@@ -132,11 +142,11 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
     @Override
     public void setGroup(@NonNull GroupPrincipal group) throws IOException {
         Objects.requireNonNull(group);
-        if (!(group instanceof LinuxGroup)) {
+        if (!(group instanceof PosixGroup)) {
             throw new UnsupportedOperationException(group.toString());
         }
-        LinuxGroup linuxGroup = (LinuxGroup) group;
-        int gid = linuxGroup.getId();
+        PosixGroup posixGroup = (PosixGroup) group;
+        int gid = posixGroup.getId();
         try {
             if (mNoFollowLinks) {
                 Syscalls.lchown(mPath, -1, gid);
@@ -151,15 +161,15 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
     @Override
     public void setPermissions(@NonNull Set<PosixFilePermission> permissions) throws IOException {
         Objects.requireNonNull(permissions);
-        setMode(LinuxFileMode.fromPermissions(permissions));
+        setMode(PosixFileMode.fromPermissions(permissions));
     }
 
-    public void setMode(@NonNull Set<LinuxFileModeBit> mode) throws IOException {
+    public void setMode(@NonNull Set<PosixFileModeBit> mode) throws IOException {
         Objects.requireNonNull(mode);
         if (mNoFollowLinks) {
             throw new UnsupportedOperationException("Cannot set mode for symbolic links");
         }
-        int modeInt = LinuxFileMode.toInt(mode);
+        int modeInt = PosixFileMode.toInt(mode);
         try {
             Syscalls.chmod(mPath, modeInt);
         } catch (SyscallException e) {
