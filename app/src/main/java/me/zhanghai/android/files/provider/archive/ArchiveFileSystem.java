@@ -29,7 +29,6 @@ import java8.nio.file.WatchService;
 import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
-import me.zhanghai.android.files.util.SetBuilder;
 
 class ArchiveFileSystem extends FileSystem {
 

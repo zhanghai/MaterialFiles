@@ -8,10 +8,8 @@ package me.zhanghai.android.files.provider.common;
 import java.io.File;
 import java.net.URI;
 import java.util.Iterator;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import java8.nio.file.FileSystem;
 import java8.nio.file.LinkOption;
 import java8.nio.file.Path;

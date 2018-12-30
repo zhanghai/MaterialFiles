@@ -17,7 +17,6 @@ import java8.nio.file.Path;
 import java8.nio.file.PathMatcher;
 import java8.nio.file.WatchService;
 import java8.nio.file.spi.FileSystemProvider;
-import me.zhanghai.android.files.util.SetBuilder;
 
 class LinuxFileSystem extends FileSystem {
 

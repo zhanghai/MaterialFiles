@@ -19,7 +19,6 @@ import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileTime;
 import java8.nio.file.attribute.PosixFileAttributes;
 import java8.nio.file.attribute.PosixFilePermission;
-import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixFileType;
