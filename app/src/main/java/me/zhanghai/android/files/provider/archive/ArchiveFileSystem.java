@@ -56,18 +56,18 @@ class ArchiveFileSystem extends FileSystem {
     @NonNull
     private final Object mLock = new Object();
 
-    private boolean mOpen;
+    private boolean mClosed;
+
+    private boolean mReopenRequested = true;
 
     private Map<Path, ArchiveEntry> mEntries;
 
     private Map<Path, List<Path>> mTree;
 
-    public ArchiveFileSystem(@NonNull ArchiveFileSystemProvider provider, @NonNull Path archiveFile)
-            throws IOException {
+    public ArchiveFileSystem(@NonNull ArchiveFileSystemProvider provider,
+                             @NonNull Path archiveFile) {
         mProvider = provider;
         mArchiveFile = archiveFile;
-
-        open();
     }
 
     @NonNull
@@ -140,33 +140,35 @@ class ArchiveFileSystem extends FileSystem {
         }
     }
 
-    private void ensureOpenLocked() {
-        if (!mOpen) {
-            throw new ClosedFileSystemException();
+    void requestReopen() {
+        synchronized (mLock) {
+            mReopenRequested = true;
         }
     }
 
-    private void open() throws IOException {
-        synchronized (mLock) {
-            if (mOpen) {
-                throw new IllegalStateException();
-            }
+    private void ensureOpenLocked() throws IOException {
+        if (mReopenRequested) {
             Pair<Map<Path, ArchiveEntry>, Map<Path, List<Path>>> entriesAndTree =
                     ArchiveReader.readEntries(mArchiveFile, mRootDirectory);
             mEntries = entriesAndTree.first;
             mTree = entriesAndTree.second;
-            mOpen = true;
+            mClosed = false;
+            mReopenRequested = false;
+        }
+        if (mClosed) {
+            throw new ClosedFileSystemException();
         }
     }
 
     @Override
     public void close() {
         synchronized (mLock) {
-            if (!mOpen) {
+            mReopenRequested = false;
+            if (mClosed) {
                 return;
             }
             mProvider.removeFileSystem(this);
-            mOpen = false;
+            mClosed = true;
             mEntries = null;
             mTree = null;
         }
@@ -175,7 +177,7 @@ class ArchiveFileSystem extends FileSystem {
     @Override
     public boolean isOpen() {
         synchronized (mLock) {
-            return mOpen;
+            return !mClosed;
         }
     }
 

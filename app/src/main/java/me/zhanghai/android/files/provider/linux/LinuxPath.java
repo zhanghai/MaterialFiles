@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.os.Parcel;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -95,5 +97,33 @@ class LinuxPath extends StringListPath {
         Objects.requireNonNull(modifiers);
         // TODO
         throw new UnsupportedOperationException();
+    }
+
+
+    public static final Creator<LinuxPath> CREATOR = new Creator<LinuxPath>() {
+        @Override
+        public LinuxPath createFromParcel(Parcel source) {
+            return new LinuxPath(source);
+        }
+        @Override
+        public LinuxPath[] newArray(int size) {
+            return new LinuxPath[size];
+        }
+    };
+
+    protected LinuxPath(Parcel in) {
+        super(in);
+
+        mFileSystem = LinuxFileSystemProvider.getFileSystem();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
     }
 }

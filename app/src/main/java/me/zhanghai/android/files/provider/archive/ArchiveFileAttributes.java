@@ -5,191 +5,201 @@
 
 package me.zhanghai.android.files.provider.archive;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.dump.DumpArchiveEntry;
-import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.threeten.bp.Instant;
 
+import java.util.EnumSet;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
 import java8.nio.file.attribute.PosixFileAttributes;
 import java8.nio.file.attribute.PosixFilePermission;
-import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixFileType;
-import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
-public class ArchiveFileAttributes implements PosixFileAttributes {
+public class ArchiveFileAttributes implements Parcelable, PosixFileAttributes {
 
     @NonNull
-    private final ArchiveEntry mEntry;
-
-    ArchiveFileAttributes(@NonNull ArchiveEntry entry) {
-        mEntry = entry;
-    }
-
+    private final FileTime mLastModifiedTime;
     @NonNull
-    @Override
-    public FileTime lastModifiedTime() {
-        return FileTime.from(Instant.ofEpochMilli(mEntry.getLastModifiedDate().getTime()));
-    }
-
+    private final FileTime mLastAccessTime;
     @NonNull
-    @Override
-    public FileTime lastAccessTime() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return FileTime.from(Instant.ofEpochMilli(dumpEntry.getAccessTime().getTime()));
-        } else if (mEntry instanceof SevenZArchiveEntry) {
-            SevenZArchiveEntry sevenZEntry = (SevenZArchiveEntry) mEntry;
-            if (sevenZEntry.getHasAccessDate()) {
-                return FileTime.from(Instant.ofEpochMilli(sevenZEntry.getAccessDate().getTime()));
-            }
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            Long atimeMillis = getTarEntryTimeMillis(tarEntry, "atime");
-            if (atimeMillis != null) {
-                return FileTime.from(Instant.ofEpochMilli(atimeMillis));
-            }
-        }
-        return lastModifiedTime();
-    }
-
+    private final FileTime mCreationTime;
     @NonNull
-    @Override
-    public FileTime creationTime() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return FileTime.from(Instant.ofEpochMilli(dumpEntry.getCreationTime().getTime()));
-        } else if (mEntry instanceof SevenZArchiveEntry) {
-            SevenZArchiveEntry sevenZEntry = (SevenZArchiveEntry) mEntry;
-            if (sevenZEntry.getHasCreationDate()) {
-                return FileTime.from(Instant.ofEpochMilli(sevenZEntry.getCreationDate().getTime()));
-            }
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            Long ctimeMillis = getTarEntryTimeMillis(tarEntry, "ctime");
-            if (ctimeMillis != null) {
-                return FileTime.from(Instant.ofEpochMilli(ctimeMillis));
-            }
-        }
-        return lastModifiedTime();
-    }
-
+    private final PosixFileType mType;
+    private final boolean mIsRegularFile;
+    private final boolean mIsDirectory;
+    private final boolean mIsSymbolicLink;
+    private final boolean mIsOther;
+    private final long mSize;
+    @NonNull
+    private final ArchiveFileKey mFileKey;
     @Nullable
-    private static Long getTarEntryTimeMillis(@NonNull TarArchiveEntry entry,
-                                              @NonNull String name) {
-        String atime = entry.getExtraPaxHeader(name);
-        if (atime == null) {
-            return null;
-        }
-        double atimeSeconds;
-        try {
-            atimeSeconds = Double.parseDouble(atime);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return (long) (atimeSeconds * 1000);
+    private final PosixUser mOwner;
+    @Nullable
+    private final PosixGroup mGroup;
+    @Nullable
+    private final EnumSet<PosixFilePermission> mPermissions;
+    @Nullable
+    private final EnumSet<PosixFileModeBit> mMode;
+
+    ArchiveFileAttributes(@NonNull Path archiveFile, @NonNull ArchiveEntry entry) {
+        ArchiveFileAttributesImpl attributes = new ArchiveFileAttributesImpl(archiveFile, entry);
+        mLastModifiedTime = attributes.lastModifiedTime();
+        mLastAccessTime = attributes.lastAccessTime();
+        mCreationTime = attributes.creationTime();
+        mType = attributes.type();
+        mIsRegularFile = attributes.isRegularFile();
+        mIsDirectory = attributes.isDirectory();
+        mIsSymbolicLink = attributes.isSymbolicLink();
+        mIsOther = attributes.isOther();
+        mSize = attributes.size();
+        mFileKey = attributes.fileKey();
+        mOwner = attributes.owner();
+        mGroup = attributes.group();
+        mPermissions = attributes.permissions();
+        mMode = attributes.mode();
+    }
+
+    @Override
+    @NonNull
+    public FileTime lastModifiedTime() {
+        return mLastModifiedTime;
+    }
+
+    @Override
+    @NonNull
+    public FileTime lastAccessTime() {
+        return mLastAccessTime;
+    }
+
+    @Override
+    @NonNull
+    public FileTime creationTime() {
+        return mCreationTime;
     }
 
     @NonNull
     public PosixFileType type() {
-        return PosixFileTypes.fromArchiveEntry(mEntry);
+        return mType;
     }
 
     @Override
     public boolean isRegularFile() {
-        return type() == PosixFileType.REGULAR_FILE;
+        return mIsRegularFile;
     }
 
     @Override
     public boolean isDirectory() {
-        return type() == PosixFileType.DIRECTORY;
+        return mIsDirectory;
     }
 
     @Override
     public boolean isSymbolicLink() {
-        return type() == PosixFileType.SYMBOLIC_LINK;
+        return mIsSymbolicLink;
     }
 
     @Override
     public boolean isOther() {
-        return !isRegularFile() && !isDirectory() && !isSymbolicLink();
+        return mIsOther;
     }
 
     @Override
     public long size() {
-        return mEntry.getSize();
+        return mSize;
     }
 
+    @Override
     @NonNull
-    @Override
     public Object fileKey() {
-        return mEntry;
+        return mFileKey;
     }
 
-    @Nullable
     @Override
+    @Nullable
     public PosixUser owner() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixUser(dumpEntry.getUserId(), null);
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixUser(tarEntry.getUserId(), tarEntry.getUserName());
-        }
-        return null;
+        return mOwner;
     }
 
-    @Nullable
     @Override
+    @Nullable
     public PosixGroup group() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixGroup(dumpEntry.getGroupId(), null);
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixGroup(tarEntry.getGroupId(), tarEntry.getGroupName());
-        }
-        return null;
+        return mGroup;
     }
 
-    @Nullable
     @Override
+    @Nullable
     public Set<PosixFilePermission> permissions() {
-        Set<PosixFileModeBit> mode = mode();
-        if (mode == null) {
-            return null;
-        }
-        return PosixFileMode.toPermissions(mode);
+        return mPermissions;
     }
 
     @Nullable
     public Set<PosixFileModeBit> mode() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return PosixFileMode.fromInt(dumpEntry.getMode());
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            return PosixFileMode.fromInt(tarEntry.getMode());
-        } else if (mEntry instanceof ZipArchiveEntry) {
-            ZipArchiveEntry zipEntry = (ZipArchiveEntry) mEntry;
-            if (zipEntry.getPlatform() == ZipArchiveEntry.PLATFORM_UNIX) {
-                return PosixFileMode.fromInt(zipEntry.getUnixMode());
-            }
-        }
-        return null;
+        return mMode;
+    }
+
+
+    public static final Creator<ArchiveFileAttributes> CREATOR =
+            new Creator<ArchiveFileAttributes>() {
+                @Override
+                public ArchiveFileAttributes createFromParcel(Parcel source) {
+                    return new ArchiveFileAttributes(source);
+                }
+
+                @Override
+                public ArchiveFileAttributes[] newArray(int size) {
+                    return new ArchiveFileAttributes[size];
+                }
+            };
+
+    protected ArchiveFileAttributes(Parcel in) {
+        mLastModifiedTime = FileTime.from((Instant) in.readSerializable());
+        mLastAccessTime = FileTime.from((Instant) in.readSerializable());
+        mCreationTime = FileTime.from((Instant) in.readSerializable());
+        int tmpMType = in.readInt();
+        mType = tmpMType == -1 ? null : PosixFileType.values()[tmpMType];
+        mIsRegularFile = in.readByte() != 0;
+        mIsDirectory = in.readByte() != 0;
+        mIsSymbolicLink = in.readByte() != 0;
+        mIsOther = in.readByte() != 0;
+        mSize = in.readLong();
+        mFileKey = in.readParcelable(ArchiveFileKey.class.getClassLoader());
+        mOwner = in.readParcelable(PosixUser.class.getClassLoader());
+        mGroup = in.readParcelable(PosixGroup.class.getClassLoader());
+        //noinspection unchecked
+        mPermissions = (EnumSet<PosixFilePermission>) in.readSerializable();
+        //noinspection unchecked
+        mMode = (EnumSet<PosixFileModeBit>) in.readSerializable();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeSerializable(mLastModifiedTime.toInstant());
+        dest.writeSerializable(mLastAccessTime.toInstant());
+        dest.writeSerializable(mCreationTime.toInstant());
+        dest.writeInt(mType == null ? -1 : mType.ordinal());
+        dest.writeByte(mIsRegularFile ? (byte) 1 : (byte) 0);
+        dest.writeByte(mIsDirectory ? (byte) 1 : (byte) 0);
+        dest.writeByte(mIsSymbolicLink ? (byte) 1 : (byte) 0);
+        dest.writeByte(mIsOther ? (byte) 1 : (byte) 0);
+        dest.writeLong(mSize);
+        dest.writeParcelable(mFileKey, flags);
+        dest.writeParcelable(mOwner, flags);
+        dest.writeParcelable(mGroup, flags);
+        dest.writeSerializable(mPermissions);
+        dest.writeSerializable(mMode);
     }
 }

@@ -52,13 +52,32 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
 
     private static final String HIDDEN_FILE_NAME_PREFIX = ".";
 
+    private static LinuxFileSystemProvider sInstance;
+    private static final Object sInstanceLock = new Object();
+
     @NonNull
     private final LinuxFileSystem mFileSystem = new LinuxFileSystem(this);
 
     private LinuxFileSystemProvider() {}
 
     public static void installAsDefault() {
-        FileSystemProvider.installDefaultProvider(new LinuxFileSystemProvider());
+        synchronized (sInstanceLock) {
+            if (sInstance != null) {
+                throw new IllegalStateException();
+            }
+            sInstance = new LinuxFileSystemProvider();
+            FileSystemProvider.installDefaultProvider(sInstance);
+        }
+    }
+
+    @NonNull
+    static LinuxFileSystem getFileSystem() {
+        return sInstance.mFileSystem;
+    }
+
+    public static boolean isLinuxPath(@NonNull Path path) {
+        Objects.requireNonNull(path);
+        return path instanceof LinuxPath;
     }
 
     @NonNull

@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.provider.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import me.zhanghai.android.files.util.CollectionUtils;
 
-public abstract class StringListPath extends AbstractPath {
+public abstract class StringListPath extends AbstractPath implements Parcelable {
 
     private final char mSeparator;
 
@@ -270,7 +273,7 @@ public abstract class StringListPath extends AbstractPath {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
         if (this == object) {
             return true;
         }
@@ -330,4 +333,23 @@ public abstract class StringListPath extends AbstractPath {
 
     @NonNull
     protected abstract Path getDefaultDirectory();
+
+
+    protected StringListPath(Parcel in) {
+        mSeparator = (char) in.readInt();
+        mAbsolute = in.readByte() != 0;
+        mNames = Collections.unmodifiableList(in.createStringArrayList());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mSeparator);
+        dest.writeByte(mAbsolute ? (byte) 1 : (byte) 0);
+        dest.writeStringList(mNames);
+    }
 }

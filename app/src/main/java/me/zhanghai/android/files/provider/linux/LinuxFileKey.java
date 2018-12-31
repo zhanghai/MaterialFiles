@@ -20,7 +20,7 @@ class LinuxFileKey {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
         if (this == object) {
             return true;
         }
@@ -35,13 +35,5 @@ class LinuxFileKey {
     @Override
     public int hashCode() {
         return Objects.hash(mDeviceId, mInodeNumber);
-    }
-
-    @Override
-    public String toString() {
-        return "LinuxFileKey{"
-                + "mDeviceId=" + mDeviceId
-                + ", mInodeNumber=" + mInodeNumber
-                + '}';
     }
 }

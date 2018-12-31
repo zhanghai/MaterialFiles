@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.provider.archive;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -106,5 +109,36 @@ class ArchivePath extends StringListPath {
         Objects.requireNonNull(events);
         Objects.requireNonNull(modifiers);
         throw new UnsupportedOperationException();
+    }
+
+
+    public static final Creator<ArchivePath> CREATOR = new Creator<ArchivePath>() {
+        @Override
+        public ArchivePath createFromParcel(Parcel source) {
+            return new ArchivePath(source);
+        }
+        @Override
+        public ArchivePath[] newArray(int size) {
+            return new ArchivePath[size];
+        }
+    };
+
+    protected ArchivePath(Parcel in) {
+        super(in);
+
+        Path archiveFile = in.readParcelable(Path.class.getClassLoader());
+        mFileSystem = ArchiveFileSystemProvider.getOrNewFileSystem(archiveFile);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+
+        dest.writeParcelable((Parcelable) mFileSystem.getArchiveFile(), flags);
     }
 }

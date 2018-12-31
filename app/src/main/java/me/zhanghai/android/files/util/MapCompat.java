@@ -38,19 +38,6 @@ public class MapCompat {
         return oldValue;
     }
 
-    public static boolean remove(@NonNull Map<?, ?> map, @Nullable Object key,
-                                 @Nullable Object value) {
-        Object currentValue = map.get(key);
-        if (!Objects.equals(currentValue, value)) {
-            return false;
-        }
-        if (currentValue == null && !map.containsKey(key)) {
-            return false;
-        }
-        map.remove(key);
-        return true;
-    }
-
     @Nullable
     public static <K, V> V computeIfAbsent(
             @NonNull Map<K, V> map, @Nullable K key,

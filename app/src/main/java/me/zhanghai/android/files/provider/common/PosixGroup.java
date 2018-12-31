@@ -38,7 +38,7 @@ public class PosixGroup implements Parcelable, GroupPrincipal {
 
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
         if (this == object) {
             return true;
         }

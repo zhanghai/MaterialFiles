@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.threeten.bp.Instant;
 
 import java.util.Set;
@@ -21,7 +24,7 @@ import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 
-public class LinuxFileAttributes implements PosixFileAttributes {
+public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
 
     @NonNull
     private final StructStat mStat;
@@ -112,5 +115,36 @@ public class LinuxFileAttributes implements PosixFileAttributes {
     @Override
     public Set<PosixFilePermission> permissions() {
         return PosixFileMode.toPermissions(mode());
+    }
+
+
+    public static final Parcelable.Creator<LinuxFileAttributes> CREATOR =
+            new Parcelable.Creator<LinuxFileAttributes>() {
+                @Override
+                public LinuxFileAttributes createFromParcel(Parcel source) {
+                    return new LinuxFileAttributes(source);
+                }
+                @Override
+                public LinuxFileAttributes[] newArray(int size) {
+                    return new LinuxFileAttributes[size];
+                }
+            };
+
+    protected LinuxFileAttributes(Parcel in) {
+        mStat = in.readParcelable(StructStat.class.getClassLoader());
+        mOwner = in.readParcelable(PosixUser.class.getClassLoader());
+        mGroup = in.readParcelable(PosixGroup.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mStat, flags);
+        dest.writeParcelable(mOwner, flags);
+        dest.writeParcelable(mGroup, flags);
     }
 }

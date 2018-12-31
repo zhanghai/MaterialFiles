@@ -291,7 +291,7 @@ public class ArchiveReader {
         }
 
         @Override
-        public boolean equals(@Nullable Object object) {
+        public boolean equals(Object object) {
             if (this == object) {
                 return true;
             }

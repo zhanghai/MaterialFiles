@@ -52,7 +52,7 @@ public class ArchiveFileAttributeView implements PosixFileAttributeView {
     @Override
     public ArchiveFileAttributes readAttributes() throws IOException {
         ArchiveEntry entry = mFileSystem.getEntry(mPath);
-        return new ArchiveFileAttributes(entry);
+        return new ArchiveFileAttributes(mFileSystem.getArchiveFile(), entry);
     }
 
     @Override
