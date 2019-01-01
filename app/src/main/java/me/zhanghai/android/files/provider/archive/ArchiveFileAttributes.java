@@ -28,6 +28,8 @@ import me.zhanghai.android.files.provider.common.PosixUser;
 public class ArchiveFileAttributes implements Parcelable, PosixFileAttributes {
 
     @NonNull
+    private final String mEntryName;
+    @NonNull
     private final FileTime mLastModifiedTime;
     @NonNull
     private final FileTime mLastAccessTime;
@@ -53,6 +55,7 @@ public class ArchiveFileAttributes implements Parcelable, PosixFileAttributes {
 
     ArchiveFileAttributes(@NonNull Path archiveFile, @NonNull ArchiveEntry entry) {
         ArchiveFileAttributesImpl attributes = new ArchiveFileAttributesImpl(archiveFile, entry);
+        mEntryName = attributes.getEntryName();
         mLastModifiedTime = attributes.lastModifiedTime();
         mLastAccessTime = attributes.lastAccessTime();
         mCreationTime = attributes.creationTime();
@@ -67,6 +70,11 @@ public class ArchiveFileAttributes implements Parcelable, PosixFileAttributes {
         mGroup = attributes.group();
         mPermissions = attributes.permissions();
         mMode = attributes.mode();
+    }
+
+    @NonNull
+    public String getEntryName() {
+        return mEntryName;
     }
 
     @Override
@@ -161,6 +169,7 @@ public class ArchiveFileAttributes implements Parcelable, PosixFileAttributes {
             };
 
     protected ArchiveFileAttributes(Parcel in) {
+        mEntryName = in.readString();
         mLastModifiedTime = FileTime.from((Instant) in.readSerializable());
         mLastAccessTime = FileTime.from((Instant) in.readSerializable());
         mCreationTime = FileTime.from((Instant) in.readSerializable());
@@ -187,6 +196,7 @@ public class ArchiveFileAttributes implements Parcelable, PosixFileAttributes {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mEntryName);
         dest.writeSerializable(mLastModifiedTime.toInstant());
         dest.writeSerializable(mLastAccessTime.toInstant());
         dest.writeSerializable(mCreationTime.toInstant());

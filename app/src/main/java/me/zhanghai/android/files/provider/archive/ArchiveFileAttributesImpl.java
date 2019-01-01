@@ -41,6 +41,11 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
     }
 
     @NonNull
+    public String getEntryName() {
+        return mEntry.getName();
+    }
+
+    @NonNull
     @Override
     public FileTime lastModifiedTime() {
         return FileTime.from(Instant.ofEpochMilli(mEntry.getLastModifiedDate().getTime()));
