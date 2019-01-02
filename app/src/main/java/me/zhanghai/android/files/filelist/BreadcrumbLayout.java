@@ -23,8 +23,8 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class BreadcrumbLayout extends HorizontalScrollView {
@@ -165,10 +165,10 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     private void inflateItemViews() {
         // HACK: Remove/add views at the front so that ripple remains correct, as we are potentially
         // collapsing/expanding breadcrumbs at the front.
-        for (int i = mData.files.size(), count = mItemsLayout.getChildCount(); i < count; ++i) {
+        for (int i = mData.paths.size(), count = mItemsLayout.getChildCount(); i < count; ++i) {
             mItemsLayout.removeViewAt(0);
         }
-        for (int i = mItemsLayout.getChildCount(), size = mData.files.size(); i < size; ++i) {
+        for (int i = mItemsLayout.getChildCount(), size = mData.paths.size(); i < size; ++i) {
             View itemView = ViewUtils.inflate(R.layout.breadcrumb_item, mItemsLayout);
             ViewHolder holder = new ViewHolder(itemView);
             holder.menu = new PopupMenu(mPopupContext, holder.itemView);
@@ -185,18 +185,18 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     private void bindItemViews() {
-        for (int i = 0, size = mData.files.size(), last = size - 1; i < size; ++i) {
+        for (int i = 0, size = mData.paths.size(), last = size - 1; i < size; ++i) {
             ViewHolder holder = (ViewHolder) mItemsLayout.getChildAt(i).getTag();
             holder.itemView.setActivated(i == mData.selectedIndex);
             int index = i;
-            File file = mData.files.get(i);
+            Path path = mData.paths.get(i);
             holder.itemView.setOnClickListener(view -> {
                 if (mData.selectedIndex == index) {
                     scrollToSelectedItem();
                     return;
                 }
                 if (mListener != null) {
-                    mListener.navigateToFile(file);
+                    mListener.navigateTo(path);
                 }
             });
             String name = mData.names.get(i).apply(holder.text.getContext());
@@ -208,11 +208,11 @@ public class BreadcrumbLayout extends HorizontalScrollView {
                 }
                 switch (menuItem.getItemId()) {
                     case R.id.action_copy_path: {
-                        mListener.copyPath(file);
+                        mListener.copyPath(path);
                         return true;
                     }
                     case R.id.action_open_in_new_task:
-                        mListener.openInNewTask(file);
+                        mListener.openInNewTask(path);
                         return true;
                     default:
                         return false;
@@ -222,9 +222,9 @@ public class BreadcrumbLayout extends HorizontalScrollView {
     }
 
     public interface Listener {
-        void navigateToFile(@NonNull File file);
-        void copyPath(@NonNull File file);
-        void openInNewTask(@NonNull File file);
+        void navigateTo(@NonNull Path path);
+        void copyPath(@NonNull Path path);
+        void openInNewTask(@NonNull Path path);
     }
 
     static class ViewHolder {

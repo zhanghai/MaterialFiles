@@ -25,9 +25,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filesystem.Documents;
-import me.zhanghai.android.files.filesystem.File;
 
 public class NavigationFragment extends Fragment implements NavigationItem.Listener {
 
@@ -88,7 +88,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         mRecyclerView.setAdapter(mAdapter);
 
         NavigationItemListLiveData.getInstance().observe(this, this::onNavigationItemsChanged);
-        mFileListListener.observeCurrentFile(this, this::onCurrentFileChanged);
+        mFileListListener.observeCurrentPath(this, this::onCurrentPathChanged);
     }
 
     @Override
@@ -111,24 +111,24 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         mAdapter.replace(navigationItems);
     }
 
-    private void onCurrentFileChanged(@NonNull File file) {
+    private void onCurrentPathChanged(@NonNull Path path) {
         mAdapter.notifyCheckedChanged();
     }
 
     @NonNull
     @Override
-    public File getCurrentFile() {
-        return mFileListListener.getCurrentFile();
+    public Path getCurrentPath() {
+        return mFileListListener.getCurrentPath();
     }
 
     @Override
-    public void navigateToFile(@NonNull File file) {
-        mFileListListener.navigateToFile(file);
+    public void navigateTo(@NonNull Path path) {
+        mFileListListener.navigateTo(path);
     }
 
     @Override
-    public void navigateToRoot(@NonNull File file) {
-        mFileListListener.navigateToRoot(file);
+    public void navigateToRoot(@NonNull Path path) {
+        mFileListListener.navigateToRoot(path);
     }
 
     @Override
@@ -154,12 +154,12 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     public interface FileListListener {
 
         @NonNull
-        File getCurrentFile();
+        Path getCurrentPath();
 
-        void navigateToFile(@NonNull File file);
+        void navigateTo(@NonNull Path path);
 
-        void navigateToRoot(@NonNull File file);
+        void navigateToRoot(@NonNull Path path);
 
-        void observeCurrentFile(@NonNull LifecycleOwner owner, @NonNull Observer<File> observer);
+        void observeCurrentPath(@NonNull LifecycleOwner owner, @NonNull Observer<Path> observer);
     }
 }

@@ -18,18 +18,20 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.File;
-import me.zhanghai.android.files.filesystem.LocalFile;
-import me.zhanghai.android.files.filesystem.PosixGroup;
-import me.zhanghai.android.files.filesystem.PosixUser;
+import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixUser;
+import me.zhanghai.android.files.provider.linux.LinuxFileAttributes;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
 
-    private static final String KEY_PREFIX = FilePropertiesPermissionsTabFragment.class.getName() + '.';
+    private static final String KEY_PREFIX = FilePropertiesPermissionsTabFragment.class.getName()
+            + '.';
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
@@ -41,15 +43,15 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     Button mModeButton;
 
     @NonNull
-    private File mExtraFile;
+    private FileItem mExtraFile;
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(FileItem)} instead.
      */
     public FilePropertiesPermissionsTabFragment() {}
 
     @NonNull
-    public static FilePropertiesPermissionsTabFragment newInstance(@NonNull File file) {
+    public static FilePropertiesPermissionsTabFragment newInstance(@NonNull FileItem file) {
         //noinspection deprecation
         FilePropertiesPermissionsTabFragment fragment = new FilePropertiesPermissionsTabFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -83,22 +85,24 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mExtraFile instanceof LocalFile) {
-            LocalFile file = (LocalFile) mExtraFile;
-            PosixUser owner = file.getOwner();
-            String ownerString = owner.name != null ? getString(
-                    R.string.file_properties_permissions_owner_format, owner.name, owner.id) 
-                    : String.valueOf(owner.id);
+        BasicFileAttributes attributes = mExtraFile.getAttributes();
+        if (attributes instanceof LinuxFileAttributes) {
+            LinuxFileAttributes linuxAttributes = (LinuxFileAttributes) attributes;
+            PosixUser owner = linuxAttributes.owner();
+            String ownerString = owner.getName() != null ? getString(
+                    R.string.file_properties_permissions_owner_format, owner.getName(),
+                    owner.getId()) : String.valueOf(owner.getId());
             mOwnerButton.setText(ownerString);
-            PosixGroup group = file.getGroup();
-            String groupString = group.name != null ? getString(
-                    R.string.file_properties_permissions_group_format, group.name, group.id)
-                    : String.valueOf(group.id);
+            PosixGroup group = linuxAttributes.group();
+            String groupString = group.getName() != null ? getString(
+                    R.string.file_properties_permissions_group_format, group.getName(),
+                    group.getId()) : String.valueOf(group.getId());
             mGroupButton.setText(groupString);
-            Set<PosixFileModeBit> mode = file.getMode();
+            Set<PosixFileModeBit> mode = linuxAttributes.mode();
             String modeString = getString(R.string.file_properties_permissions_mode_format,
-                    PosixFileMode.toString(file.getMode()), PosixFileMode.toInt(mode));
+                    PosixFileMode.toString(mode), PosixFileMode.toInt(mode));
             mModeButton.setText(modeString);
         }
+        // TODO: ArchiveFileAttributes
     }
 }

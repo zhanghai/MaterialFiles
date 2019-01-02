@@ -14,7 +14,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import me.zhanghai.android.files.filesystem.Files;
+import java8.nio.file.Paths;
 
 public class StandardDirectory implements Parcelable {
 
@@ -55,7 +55,7 @@ public class StandardDirectory implements Parcelable {
         if (mTitleRes != 0) {
             return context.getString(mTitleRes);
         }
-        return Files.ofLocalPath(mRelativePath).getName();
+        return Paths.get(mRelativePath).getFileName().toString();
     }
 
     public void setTitle(@Nullable String title) {

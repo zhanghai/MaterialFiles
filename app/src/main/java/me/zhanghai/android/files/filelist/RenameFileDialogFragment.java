@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.util.FileNameUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 
@@ -24,10 +23,10 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
     @NonNull
-    private File mExtraFile;
+    private FileItem mExtraFile;
 
     @NonNull
-    public static RenameFileDialogFragment newInstance(@NonNull File file) {
+    public static RenameFileDialogFragment newInstance(@NonNull FileItem file) {
         //noinspection deprecation
         RenameFileDialogFragment fragment = new RenameFileDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -35,13 +34,13 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
         return fragment;
     }
 
-    public static void show(@NonNull File file, @NonNull Fragment fragment) {
+    public static void show(@NonNull FileItem file, @NonNull Fragment fragment) {
         RenameFileDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(FileItem)} instead.
      */
     public RenameFileDialogFragment() {}
 
@@ -57,10 +56,10 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         if (savedInstanceState == null) {
-            String name = mExtraFile.getName();
+            String name = FileUtils.getName(mExtraFile);
             mNameEdit.setText(name);
             int selectionEnd;
-            if (mExtraFile.isDirectory()) {
+            if (mExtraFile.getAttributes().isDirectory()) {
                 selectionEnd = name.length();
             } else {
                 selectionEnd = FileNameUtils.indexOfExtensionSeparator(name);
@@ -80,7 +79,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
 
     @Override
     protected boolean isNameUnchanged(@NonNull String name) {
-        return TextUtils.equals(name, mExtraFile.getName());
+        return TextUtils.equals(name, FileUtils.getName(mExtraFile));
     }
 
     @Override
@@ -95,6 +94,6 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     }
 
     public interface Listener extends FileNameDialogFragment.Listener {
-        void renameFile(@NonNull File file, @NonNull String name);
+        void renameFile(@NonNull FileItem file, @NonNull String newName);
     }
 }

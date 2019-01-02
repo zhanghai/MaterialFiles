@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.filelist;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -24,7 +25,6 @@ import android.widget.TextView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -43,6 +43,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Path;
+import java8.nio.file.Paths;
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
 import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment;
@@ -51,14 +53,10 @@ import me.zhanghai.android.files.file.FileJobService;
 import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
-import me.zhanghai.android.files.filesystem.File;
-import me.zhanghai.android.files.filesystem.FileSystemException;
-import me.zhanghai.android.files.filesystem.Files;
-import me.zhanghai.android.files.filesystem.LocalFile;
-import me.zhanghai.android.files.filesystem.LocalFileSystem;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.main.MainActivity;
 import me.zhanghai.android.files.navigation.NavigationFragment;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
@@ -77,12 +75,16 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
 
-    private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
 
-    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
+    private static final int REQUEST_CODE_STORAGE_PERMISSIONS = 1;
+
+    private static final String[] STORAGE_PERMISSIONS = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Nullable
-    private File mExtraFile;
+    private Path mExtraPath;
 
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -132,19 +134,19 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private FileListViewModel mViewModel;
 
     @Nullable
-    private File mLastFile;
+    private Path mLastFile;
 
     @NonNull
-    public static FileListFragment newInstance(@Nullable File file) {
+    public static FileListFragment newInstance(@Nullable Path path) {
         //noinspection deprecation
         FileListFragment fragment = new FileListFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_FILE, file);
+                .putParcelable(EXTRA_PATH, (Parcelable) path);
         return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(Path)} instead.
      */
     public FileListFragment() {}
 
@@ -152,7 +154,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
 
         setHasOptionsMenu(true);
     }
@@ -210,15 +212,14 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
         if (!mViewModel.hasTrail()) {
-            File file;
-            if (mExtraFile != null) {
-                file = mExtraFile;
+            Path path;
+            if (mExtraPath != null) {
+                path = mExtraPath;
             } else {
                 // TODO: Allow configuration.
-                file = Files.ofLocalPath(
-                        Environment.getExternalStorageDirectory().getAbsolutePath());
+                path = Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath());
             }
-            mViewModel.resetTo(file);
+            mViewModel.resetTo(path);
         }
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
         FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
@@ -227,10 +228,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
         SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
 
-        if (!EffortlessPermissions.hasPermissions(this, LocalFileSystem.PERMISSIONS_STORAGE)) {
+        if (!EffortlessPermissions.hasPermissions(this, STORAGE_PERMISSIONS)) {
             EffortlessPermissions.requestPermissions(this,
-                    R.string.storage_permission_request_message, REQUEST_CODE_STORAGE_PERMISSION,
-                    LocalFileSystem.PERMISSIONS_STORAGE);
+                    R.string.storage_permission_request_message, REQUEST_CODE_STORAGE_PERMISSIONS,
+                    STORAGE_PERMISSIONS);
         }
     }
 
@@ -243,15 +244,15 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 this);
     }
 
-    @AfterPermissionGranted(REQUEST_CODE_STORAGE_PERMISSION)
+    @AfterPermissionGranted(REQUEST_CODE_STORAGE_PERMISSIONS)
     private void onStoragePermissionGranted() {
         mViewModel.reload();
     }
 
-    @AfterPermissionDenied(REQUEST_CODE_STORAGE_PERMISSION)
+    @AfterPermissionDenied(REQUEST_CODE_STORAGE_PERMISSIONS)
     private void onStoragePermissionDenied() {
         if (EffortlessPermissions.somePermissionPermanentlyDenied(this,
-                LocalFileSystem.PERMISSIONS_STORAGE)) {
+                STORAGE_PERMISSIONS)) {
             OpenAppDetailsDialogFragment.show(
                     R.string.storage_permission_permanently_denied_message,
                     R.string.open_settings, this);
@@ -349,9 +350,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private void onFileListChanged(@NonNull FileListData fileListData) {
         switch (fileListData.state) {
             case LOADING: {
-                File file = fileListData.file;
-                boolean isReload = Objects.equals(file, mLastFile);
-                mLastFile = file;
+                Path path = fileListData.path;
+                boolean isReload = Objects.equals(path, mLastFile);
+                mLastFile = path;
                 if (!isReload) {
                     mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
                     ViewUtils.fadeIn(mProgress);
@@ -366,17 +367,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeIn(mErrorView);
-                if (fileListData.exception instanceof FileSystemException) {
-                    FileSystemException exception = (FileSystemException) fileListData.exception;
-                    mErrorView.setText(exception.getMessage(mErrorView.getContext()));
-                } else {
-                    mErrorView.setText(fileListData.exception.toString());
-                }
+                mErrorView.setText(fileListData.exception.toString());
                 ViewUtils.fadeOut(mEmptyView);
                 mAdapter.clear();
                 break;
             case SUCCESS: {
-                List<File> fileList = fileListData.fileList;
+                List<FileItem> fileList = fileListData.fileList;
                 updateSubtitle(fileList);
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
@@ -394,9 +390,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
     }
 
-    private void updateSubtitle(@NonNull List<File> files) {
-        int directoryCount = Functional.reduce(files, (count, file) -> file.isDirectory() ?
-                count + 1 : count, 0);
+    private void updateSubtitle(@NonNull List<FileItem> files) {
+        int directoryCount = Functional.reduce(files, (count, file) ->
+                file.getAttributes().isDirectory() ? count + 1 : count, 0);
         int fileCount = files.size() - directoryCount;
         Resources resources = requireContext().getResources();
         String directoryCountText = directoryCount > 0 ? resources.getQuantityString(
@@ -470,7 +466,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void newTask() {
-        openInNewTask(getCurrentFile());
+        openInNewTask(getCurrentPath());
     }
 
     private void refresh() {
@@ -492,11 +488,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         if (fileListData.fileList == null) {
             return;
         }
-        List<File> fileList = fileListData.fileList;
+        List<FileItem> files = fileListData.fileList;
         if (!SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.getValue()) {
-            fileList = Functional.filter(fileList, file -> !file.isHidden());
+            files = Functional.filter(files, file -> !file.isHidden());
         }
-        mAdapter.replace(fileList);
+        mAdapter.replace(files);
     }
 
     private void updateShowHiddenFilesMenu() {
@@ -508,61 +504,59 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void send() {
-        sendFile(getCurrentFile(), MimeTypes.DIRECTORY_MIME_TYPE);
+        sendFile(getCurrentPath(), MimeTypes.DIRECTORY_MIME_TYPE);
     }
 
     private void copyPath() {
-        copyPath(getCurrentFile());
+        copyPath(getCurrentPath());
     }
 
     private void openInTerminal() {
-        File file = getCurrentFile();
-        if (file instanceof LocalFile) {
-            LocalFile localFile = (LocalFile) file;
-            Terminal.open(localFile.getPath(), requireContext());
+        Path path = getCurrentPath();
+        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+            Terminal.open(path.toString(), requireContext());
         } else {
             // TODO
         }
     }
 
     @Override
-    public void navigateToFile(@NonNull File file) {
+    public void navigateTo(@NonNull Path path) {
         Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
-        mViewModel.navigateTo(state, file);
+        mViewModel.navigateTo(state, path);
     }
 
     @Override
-    public void copyPath(@NonNull File file) {
-        String path;
-        if (file instanceof LocalFile) {
-            LocalFile localFile = (LocalFile) file;
-            path = localFile.getPath();
+    public void copyPath(@NonNull Path path) {
+        String pathString;
+        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+            pathString = path.toString();
         } else {
-            path = file.getUri().toString();
+            pathString = path.toUri().toString();
         }
-        ClipboardUtils.copyText(path, requireContext());
+        ClipboardUtils.copyText(pathString, requireContext());
     }
 
     @Override
-    public void openInNewTask(@NonNull File file) {
-        Intent intent = MainActivity.makeIntent(file, requireContext())
+    public void openInNewTask(@NonNull Path path) {
+        Intent intent = MainActivity.makeIntent(path, requireContext())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);
     }
 
     @Override
-    public void selectFile(@NonNull File file, boolean selected) {
+    public void selectFile(@NonNull FileItem file, boolean selected) {
         mViewModel.selectFile(file, selected);
     }
 
-    private void onSelectedFilesChanged(@NonNull Set<File> selectedFiles) {
-        mAdapter.replaceSelectedFiles(selectedFiles);
+    private void onSelectedFilesChanged(@NonNull Set<FileItem> files) {
+        mAdapter.replaceSelectedFiles(files);
         updateCab();
     }
 
     private void updateCab() {
-        Set<File> selectedFiles = mViewModel.getSelectedFiles();
+        Set<FileItem> selectedFiles = mViewModel.getSelectedFiles();
         if (selectedFiles.isEmpty()) {
             if (mToolbarActionMode.isActive()) {
                 mToolbarActionMode.finish();
@@ -615,7 +609,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 selectAllFiles();
                 return true;
             case R.id.action_paste:
-                pasteFiles(mViewModel.getSelectedFiles(), getCurrentFile());
+                pasteFiles(mViewModel.getSelectedFiles(), getCurrentPath());
                 return true;
             default:
                 return false;
@@ -628,7 +622,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.setPasteMode(FilePasteMode.NONE);
     }
 
-    private void cutFiles(@NonNull Set<File> files) {
+    private void cutFiles(@NonNull Set<FileItem> files) {
         if (mViewModel.getPasteMode() == FilePasteMode.MOVE) {
             mViewModel.selectFiles(files, true);
         } else {
@@ -637,7 +631,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
     }
 
-    private void copyFiles(@NonNull Set<File> files) {
+    private void copyFiles(@NonNull Set<FileItem> files) {
         if (mViewModel.getPasteMode() == FilePasteMode.COPY) {
             mViewModel.selectFiles(files, true);
         } else {
@@ -651,36 +645,36 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         updateCab();
     }
 
-    private void pasteFiles(@NonNull Set<File> fromFiles, @NonNull File toDirectory) {
+    private void pasteFiles(@NonNull Set<FileItem> sources, @NonNull Path targetDirectory) {
         switch (mViewModel.getPasteMode()) {
             case MOVE:
-                FileJobService.move(makeFileListForJob(fromFiles), toDirectory, requireContext());
+                FileJobService.move(makePathListForJob(sources), targetDirectory, requireContext());
                 break;
             case COPY:
-                FileJobService.copy(makeFileListForJob(fromFiles), toDirectory, requireContext());
+                FileJobService.copy(makePathListForJob(sources), targetDirectory, requireContext());
                 break;
             default:
                 throw new IllegalStateException();
         }
-        mViewModel.selectFiles(fromFiles, false);
+        mViewModel.selectFiles(sources, false);
         mViewModel.setPasteMode(FilePasteMode.NONE);
     }
 
-    private void confirmDeleteFiles(@NonNull Set<File> files) {
+    private void confirmDeleteFiles(@NonNull Set<FileItem> files) {
         ConfirmDeleteFilesDialogFragment.show(files, this);
     }
 
     @Override
-    public void deleteFiles(@NonNull Set<File> files) {
+    public void deleteFiles(@NonNull Set<FileItem> files) {
         mViewModel.selectFiles(files, false);
-        FileJobService.delete(makeFileListForJob(files), requireContext());
+        FileJobService.delete(makePathListForJob(files), requireContext());
     }
 
     @NonNull
-    private List<File> makeFileListForJob(@NonNull Set<File> files) {
-        List<File> fileList = new ArrayList<>(files);
-        Collections.sort(fileList);
-        return fileList;
+    private List<Path> makePathListForJob(@NonNull Set<FileItem> files) {
+        List<Path> pathList = Functional.map(files, FileItem::getPath);
+        Collections.sort(pathList);
+        return pathList;
     }
 
     private void selectAllFiles() {
@@ -688,21 +682,20 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void openFile(@NonNull File file) {
+    public void openFile(@NonNull FileItem file) {
         String mimeType = file.getMimeType();
         if (MimeTypes.isApk(mimeType)) {
             openApk(file);
             return;
         }
-        if (file.isListable()) {
-            file = file.asListableFile();
-            navigateToFile(file);
+        if (FileUtils.isListable(file)) {
+            navigateTo(FileUtils.toListablePath(file));
             return;
         }
         openFileAs(file, mimeType);
     }
 
-    private void openApk(@NonNull File file) {
+    private void openApk(@NonNull FileItem file) {
         switch (SettingsLiveDatas.OPEN_APK_DEFAULT_ACTION.getValue()) {
             case INSTALL:
                 installApk(file);
@@ -719,29 +712,28 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void installApk(@NonNull File file) {
+    public void installApk(@NonNull FileItem file) {
         openFileAs(file, file.getMimeType());
     }
 
     @Override
-    public void viewApk(@NonNull File file) {
-        file = file.asListableFile();
-        navigateToFile(file);
+    public void viewApk(@NonNull FileItem file) {
+        navigateTo(FileUtils.toListablePath(file));
     }
 
     @Override
-    public void showOpenFileAsDialog(@NonNull File file) {
+    public void showOpenFileAsDialog(@NonNull FileItem file) {
         OpenFileAsDialogFragment.show(file, this);
     }
 
     @Override
-    public void openFileAs(@NonNull File file, @NonNull String mimeType) {
-        if (file instanceof LocalFile) {
-            LocalFile localFile = (LocalFile) file;
-            Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
-            Intent intent = IntentUtils.makeView(fileUri, mimeType)
+    public void openFileAs(@NonNull FileItem file, @NonNull String mimeType) {
+        Path path = file.getPath();
+        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+            Uri uri = FileProvider.getUriForPath(path.toFile().getPath());
+            Intent intent = IntentUtils.makeView(uri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            MainActivity.putFileExtra(intent, file);
+            MainActivity.putFileExtra(intent, path);
             AppUtils.startActivity(intent, this);
         } else {
             // TODO
@@ -749,22 +741,22 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void cutFile(@NonNull File file) {
+    public void cutFile(@NonNull FileItem file) {
         cutFiles(Collections.singleton(file));
     }
 
     @Override
-    public void copyFile(@NonNull File file) {
+    public void copyFile(@NonNull FileItem file) {
         copyFiles(Collections.singleton(file));
     }
 
     @Override
-    public void confirmDeleteFile(@NonNull File file) {
+    public void confirmDeleteFile(@NonNull FileItem file) {
         confirmDeleteFiles(Collections.singleton(file));
     }
 
     @Override
-    public void showRenameFileDialog(@NonNull File file) {
+    public void showRenameFileDialog(@NonNull FileItem file) {
         RenameFileDialogFragment.show(file, this);
     }
 
@@ -774,26 +766,24 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         if (fileListData == null || fileListData.state != FileListData.State.SUCCESS) {
             return false;
         }
-        return Functional.some(fileListData.fileList, file -> TextUtils.equals(file.getName(),
-                name));
+        return Functional.some(fileListData.fileList, path -> TextUtils.equals(
+                FileUtils.getName(path), name));
     }
 
     @Override
-    public void renameFile(@NonNull File file, @NonNull String name) {
-        // TODO
-        FileJobService.rename(file, name, requireContext());
+    public void renameFile(@NonNull FileItem file, @NonNull String newName) {
+        FileJobService.rename(file.getPath(), newName, requireContext());
     }
 
     @Override
-    public void sendFile(@NonNull File file) {
-        sendFile(file, file.getMimeType());
+    public void sendFile(@NonNull FileItem file) {
+        sendFile(file.getPath(), file.getMimeType());
     }
 
-    private void sendFile(@NonNull File file, @NonNull String mimeType) {
-        if (file instanceof LocalFile) {
-            LocalFile localFile = (LocalFile) file;
-            Uri fileUri = FileProvider.getUriForPath(localFile.getPath());
-            Intent intent = IntentUtils.makeSendStream(fileUri, mimeType);
+    private void sendFile(@NonNull Path path, @NonNull String mimeType) {
+        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+            Uri uri = FileProvider.getUriForPath(path.toFile().getPath());
+            Intent intent = IntentUtils.makeSendStream(uri, mimeType);
             AppUtils.startActivityWithChooser(intent, this);
         } else {
             // TODO
@@ -801,7 +791,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void showPropertiesDialog(@NonNull File file) {
+    public void copyPath(@NonNull FileItem file) {
+        copyPath(file.getPath());
+    }
+
+    @Override
+    public void showPropertiesDialog(@NonNull FileItem file) {
         FilePropertiesDialogFragment.show(file, this);
     }
 
@@ -812,8 +807,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void createFile(@NonNull String name) {
         // TODO
-        File file = Files.childOf(getCurrentFile(), name);
-        FileJobService.createFile(file, requireContext());
+        Path path = getCurrentPath().resolve(name);
+        FileJobService.createFile(path, requireContext());
     }
 
     private void showCreateDirectoryDialog() {
@@ -823,24 +818,24 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void createDirectory(@NonNull String name) {
         // TODO
-        File file = Files.childOf(getCurrentFile(), name);
-        FileJobService.createDirectory(file, requireContext());
+        Path path = getCurrentPath().resolve(name);
+        FileJobService.createDirectory(path, requireContext());
     }
 
     @NonNull
     @Override
-    public File getCurrentFile() {
-        return mViewModel.getCurrentFile();
+    public Path getCurrentPath() {
+        return mViewModel.getCurrentPath();
     }
 
     @Override
-    public void navigateToRoot(@NonNull File file) {
-        mViewModel.resetTo(file);
+    public void navigateToRoot(@NonNull Path path) {
+        mViewModel.resetTo(path);
     }
 
     @Override
-    public void observeCurrentFile(@NonNull LifecycleOwner owner,
-                                   @NonNull Observer<File> observer) {
-        mViewModel.getCurrentFileLiveData().observe(owner, observer);
+    public void observeCurrentPath(@NonNull LifecycleOwner owner,
+                                   @NonNull Observer<Path> observer) {
+        mViewModel.getCurrentPathLiveData().observe(owner, observer);
     }
 }

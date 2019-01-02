@@ -43,7 +43,6 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         mSortedList.clear();
     }
 
-    @Nullable
     protected T getItem(int position) {
         return mSortedList.get(position);
     }

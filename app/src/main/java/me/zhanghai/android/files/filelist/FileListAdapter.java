@@ -35,10 +35,10 @@ import androidx.recyclerview.widget.SortedList;
 import androidx.recyclerview.widget.SortedListAdapterCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
@@ -47,34 +47,34 @@ import me.zhanghai.android.files.ui.CheckableFrameLayout;
 import me.zhanghai.android.files.util.StringCompat;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAdapter.ViewHolder>
+public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileListAdapter.ViewHolder>
         implements FastScrollRecyclerView.SectionedAdapter {
 
     private static final Object PAYLOAD_SELECTED_CHANGED = new Object();
 
     @NonNull
-    private Comparator<File> mComparator;
+    private Comparator<FileItem> mComparator;
     @NonNull
-    private final SortedList.Callback<File> mCallback = new SortedListAdapterCallback<File>(this) {
-        @Override
-        public int compare(File file1, File file2) {
-            return mComparator.compare(file1, file2);
-        }
-        @Override
-        public boolean areItemsTheSame(File oldItem, File newItem) {
-            return Objects.equals(oldItem, newItem);
-        }
-        @Override
-        public boolean areContentsTheSame(File oldItem, File newItem) {
-            return oldItem == newItem || oldItem != null && oldItem.equalsIncludingInformation(
-                    newItem);
-        }
-    };
+    private final SortedList.Callback<FileItem> mCallback =
+            new SortedListAdapterCallback<FileItem>(this) {
+                @Override
+                public int compare(FileItem file1, FileItem file2) {
+                    return mComparator.compare(file1, file2);
+                }
+                @Override
+                public boolean areItemsTheSame(FileItem oldItem, FileItem newItem) {
+                    return Objects.equals(oldItem, newItem);
+                }
+                @Override
+                public boolean areContentsTheSame(FileItem oldItem, FileItem newItem) {
+                    return FileItem.contentEquals(oldItem, newItem);
+                }
+            };
 
     @NonNull
-    private final Set<File> mSelectedFiles = new HashSet<>();
+    private final Set<FileItem> mSelectedFiles = new HashSet<>();
     @NonNull
-    private final Map<File, Integer> mFilePositionMap = new HashMap<>();
+    private final Map<FileItem, Integer> mFilePositionMap = new HashMap<>();
 
     @NonNull
     private FilePasteMode mPasteMode;
@@ -85,34 +85,34 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     private Listener mListener;
 
     public FileListAdapter(@NonNull Fragment fragment, @NonNull Listener listener) {
-        init(File.class, mCallback);
+        init(FileItem.class, mCallback);
 
         mFragment = fragment;
         mListener = listener;
     }
 
-    public void setComparator(@NonNull Comparator<File> comparator) {
+    public void setComparator(@NonNull Comparator<FileItem> comparator) {
         mComparator = comparator;
         refresh();
         rebuildFilePositionMap();
     }
 
-    public void replaceSelectedFiles(@NonNull Set<File> selectedFiles) {
-        Set<File> selectedChangedUris = new HashSet<>();
-        for (Iterator<File> iterator = mSelectedFiles.iterator(); iterator.hasNext(); ) {
-            File file = iterator.next();
-            if (!selectedFiles.contains(file)) {
+    public void replaceSelectedFiles(@NonNull Set<FileItem> files) {
+        Set<FileItem> changedFiles = new HashSet<>();
+        for (Iterator<FileItem> iterator = mSelectedFiles.iterator(); iterator.hasNext(); ) {
+            FileItem file = iterator.next();
+            if (!files.contains(file)) {
                 iterator.remove();
-                selectedChangedUris.add(file);
+                changedFiles.add(file);
             }
         }
-        for (File file : selectedFiles) {
+        for (FileItem file : files) {
             if (!mSelectedFiles.contains(file)) {
                 mSelectedFiles.add(file);
-                selectedChangedUris.add(file);
+                changedFiles.add(file);
             }
         }
-        for (File file : selectedChangedUris) {
+        for (FileItem file : changedFiles) {
             Integer position = mFilePositionMap.get(file);
             if (position != null) {
                 notifyItemChanged(position, PAYLOAD_SELECTED_CHANGED);
@@ -128,7 +128,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     }
 
     @Override
-    public void replace(@NonNull List<File> list) {
+    public void replace(@NonNull List<FileItem> list) {
         super.replace(list);
 
         rebuildFilePositionMap();
@@ -137,7 +137,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     private void rebuildFilePositionMap() {
         mFilePositionMap.clear();
         for (int i = 0, count = getItemCount(); i < count; ++i) {
-            File file = getItem(i);
+            FileItem file = getItem(i);
             mFilePositionMap.put(file, i);
         }
     }
@@ -167,7 +167,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position,
                                  @NonNull List<Object> payloads) {
-        File file = getItem(position);
+        FileItem file = getItem(position);
         holder.itemLayout.setChecked(mSelectedFiles.contains(file));
         if (!payloads.isEmpty()) {
             return;
@@ -191,10 +191,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         String mimeType = file.getMimeType();
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 MimeTypes.getIconRes(mimeType));
+        BasicFileAttributes attributes = file.getAttributes();
         if (MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
-                    .load(file.getUri())
-                    .signature(new ObjectKey(file.getLastModificationTime()))
+                    .load(file.getPath())
+                    .signature(new ObjectKey(attributes.lastModifiedTime()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));
         } else {
@@ -205,7 +206,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         holder.iconImage.setOnClickListener(view -> mListener.selectFile(file,
                 !mSelectedFiles.contains(file)));
         Integer badgeIconRes;
-        if (file.isSymbolicLink()) {
+        if (file.getAttributesNoFollowLinks().isSymbolicLink()) {
             badgeIconRes = file.isSymbolicLinkBroken() ? R.drawable.error_badge_icon_18dp
                     : R.drawable.symbolic_link_badge_icon_18dp;
         } else {
@@ -216,17 +217,17 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
         if (hasBadge) {
             holder.badgeImage.setImageResource(badgeIconRes);
         }
-        holder.nameText.setText(file.getName());
+        holder.nameText.setText(FileUtils.getName(file));
         String description;
-        if (file.isDirectory()) {
+        if (file.getAttributes().isDirectory()) {
             description = null;
         } else {
             Context context = holder.descriptionText.getContext();
             String descriptionSeparator = context.getString(
                     R.string.file_item_description_separator);
             String lastModificationTime = FormatUtils.formatShortTime(
-                    file.getLastModificationTime(), context);
-            String size = FormatUtils.formatHumanReadableSize(file.getSize(), context);
+                    attributes.lastModifiedTime().toInstant(), context);
+            String size = FormatUtils.formatHumanReadableSize(attributes.size(), context);
             description = StringCompat.join(descriptionSeparator, lastModificationTime, size);
         }
         holder.descriptionText.setText(description);
@@ -265,11 +266,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     @NonNull
     @Override
     public String getSectionName(int position) {
-        File file = getItem(position);
-        String name = file.getName();
+        FileItem file = getItem(position);
+        String name = FileUtils.getName(file);
         if (TextUtils.isEmpty(name)) {
             return "";
-
         }
         return name.substring(0, 1).toUpperCase();
     }
@@ -280,16 +280,16 @@ public class FileListAdapter extends AnimatedSortedListAdapter<File, FileListAda
     }
 
     public interface Listener {
-        void selectFile(@NonNull File file, boolean selected);
-        void openFile(@NonNull File file);
-        void showOpenFileAsDialog(@NonNull File file);
-        void cutFile(@NonNull File file);
-        void copyFile(@NonNull File file);
-        void confirmDeleteFile(@NonNull File file);
-        void showRenameFileDialog(@NonNull File file);
-        void sendFile(@NonNull File file);
-        void copyPath(@NonNull File file);
-        void showPropertiesDialog(@NonNull File file);
+        void selectFile(@NonNull FileItem file, boolean selected);
+        void openFile(@NonNull FileItem file);
+        void showOpenFileAsDialog(@NonNull FileItem file);
+        void cutFile(@NonNull FileItem file);
+        void copyFile(@NonNull FileItem file);
+        void confirmDeleteFile(@NonNull FileItem file);
+        void showRenameFileDialog(@NonNull FileItem file);
+        void sendFile(@NonNull FileItem file);
+        void copyPath(@NonNull FileItem file);
+        void showPropertiesDialog(@NonNull FileItem file);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

@@ -9,21 +9,21 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 
 public class TrailLiveData extends LiveData<TrailData> {
 
-    public void navigateTo(@NonNull Parcelable lastState, @NonNull File file) {
+    public void navigateTo(@NonNull Parcelable lastState, @NonNull Path path) {
         TrailData oldTrailData = getValue();
         if (oldTrailData == null) {
-            resetTo(file);
+            resetTo(path);
             return;
         }
-        setValue(oldTrailData.navigateTo(lastState, file));
+        setValue(oldTrailData.navigateTo(lastState, path));
     }
 
-    public void resetTo(@NonNull File file) {
-        setValue(TrailData.of(file));
+    public void resetTo(@NonNull Path path) {
+        setValue(TrailData.of(path));
     }
 
     public boolean navigateUp() {

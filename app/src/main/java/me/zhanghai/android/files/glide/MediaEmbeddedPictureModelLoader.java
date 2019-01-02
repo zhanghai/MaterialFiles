@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.glide;
 
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Priority;
@@ -22,7 +21,9 @@ import java.nio.ByteBuffer;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.file.MimeTypes;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class MediaEmbeddedPictureModelLoader<Model> implements ModelLoader<Model, ByteBuffer> {
 
@@ -50,10 +51,10 @@ public class MediaEmbeddedPictureModelLoader<Model> implements ModelLoader<Model
         } else if (model instanceof File) {
             File file = (File) model;
             return file.getPath();
-        } else if (model instanceof Uri) {
-            Uri uri = (Uri) model;
-            if (TextUtils.equals(uri.getScheme(), "file")) {
-                return uri.getPath();
+        } else if (model instanceof Path) {
+            Path path = (Path) model;
+            if (LinuxFileSystemProvider.isLinuxPath(path)) {
+                return path.toFile().getPath();
             }
         }
         throw new IllegalArgumentException("Unable to get path from model: " + model);

@@ -8,12 +8,12 @@ package me.zhanghai.android.files.navigation;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 
 public interface NavigationRoot {
 
     @NonNull
-    File getFile();
+    Path getPath();
 
     @NonNull
     String getName(@NonNull Context context);

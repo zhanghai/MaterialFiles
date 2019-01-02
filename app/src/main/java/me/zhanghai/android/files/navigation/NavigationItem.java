@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.content.res.AppCompatResources;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 
 public abstract class NavigationItem {
 
@@ -50,11 +50,11 @@ public abstract class NavigationItem {
     interface Listener {
 
         @NonNull
-        File getCurrentFile();
+        Path getCurrentPath();
 
-        void navigateToFile(@NonNull File file);
+        void navigateTo(@NonNull Path path);
 
-        void navigateToRoot(@NonNull File file);
+        void navigateToRoot(@NonNull Path path);
 
         void onAddDocumentTree();
 

@@ -7,8 +7,10 @@ package me.zhanghai.android.files.file;
 
 import android.app.Service;
 
+import java.io.IOException;
+import java.io.InterruptedIOException;
+
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.filesystem.FileSystemException;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.ToastUtils;
 
@@ -18,14 +20,14 @@ public abstract class FileJob {
         try {
             run();
             // TODO: Toast
-        } catch (InterruptedException e) {
+        } catch (InterruptedIOException e) {
             // TODO
             e.printStackTrace();
-        } catch (FileSystemException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            AppUtils.runOnUiThread(() -> ToastUtils.show(e.getMessage(service), service));
+            AppUtils.runOnUiThread(() -> ToastUtils.show(e.getMessage(), service));
         }
     }
 
-    protected abstract void run() throws FileSystemException, InterruptedException;
+    protected abstract void run() throws IOException;
 }

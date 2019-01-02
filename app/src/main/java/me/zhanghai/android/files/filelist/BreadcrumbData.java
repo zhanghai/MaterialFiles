@@ -12,22 +12,22 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.functional.compat.Function;
 
 public class BreadcrumbData {
 
     @NonNull
-    public final List<File> files;
+    public final List<Path> paths;
 
     @NonNull
     public final List<Function<Context, String>> names;
 
     public final int selectedIndex;
 
-    public BreadcrumbData(@NonNull List<File> files, @NonNull List<Function<Context, String>> names,
+    public BreadcrumbData(@NonNull List<Path> paths, @NonNull List<Function<Context, String>> names,
                           int selectedIndex) {
-        this.files = files;
+        this.paths = paths;
         this.names = names;
         this.selectedIndex = selectedIndex;
     }
@@ -42,12 +42,12 @@ public class BreadcrumbData {
         }
         BreadcrumbData that = (BreadcrumbData) object;
         return selectedIndex == that.selectedIndex
-                && Objects.equals(files, that.files)
+                && Objects.equals(paths, that.paths)
                 && Objects.equals(names, that.names);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(files, names, selectedIndex);
+        return Objects.hash(paths, names, selectedIndex);
     }
 }

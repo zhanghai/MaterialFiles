@@ -23,7 +23,8 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.File;
+import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -32,7 +33,7 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
 
     private static final String KEY_PREFIX = FilePropertiesDialogFragment.class.getName() + '.';
 
-    private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+    private static final String EXTRA_FILE = KEY_PREFIX + "FileItem";
 
     @BindView(R.id.tab)
     TabLayout mTabLayout;
@@ -46,19 +47,19 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     private TabFragmentPagerAdapter mTabAdapter;
 
     @NonNull
-    private File mExtraFile;
+    private FileItem mExtraFile;
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(FileItem)} instead.
      */
     public FilePropertiesDialogFragment() {}
 
     @NonNull
-    public static FilePropertiesDialogFragment newInstance(@NonNull File file) {
+    public static FilePropertiesDialogFragment newInstance(@NonNull FileItem fileItem) {
         //noinspection deprecation
         FilePropertiesDialogFragment fragment = new FilePropertiesDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_FILE, file);
+                .putParcelable(EXTRA_FILE, fileItem);
         return fragment;
     }
 
@@ -73,7 +74,8 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     @Override
     @SuppressLint("InflateParams")
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        String title = getString(R.string.file_properties_title_format, mExtraFile.getName());
+        String title = getString(R.string.file_properties_title_format, FileUtils.getName(
+                mExtraFile));
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
                 .setTitle(title);
         mView = ViewUtils.inflate(R.layout.file_properties_dialog, builder.getContext());
@@ -105,8 +107,8 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    public static void show(@NonNull File file, @NonNull Fragment fragment) {
-        FilePropertiesDialogFragment.newInstance(file)
+    public static void show(@NonNull FileItem fileItem, @NonNull Fragment fragment) {
+        FilePropertiesDialogFragment.newInstance(fileItem)
                 .show(fragment.getChildFragmentManager(), null);
     }
 }

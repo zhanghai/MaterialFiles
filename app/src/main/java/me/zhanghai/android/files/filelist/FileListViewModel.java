@@ -18,44 +18,42 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
-import me.zhanghai.android.files.filesystem.File;
-import me.zhanghai.android.files.filesystem.Files;
+import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 
 public class FileListViewModel extends ViewModel {
 
     @NonNull
     private final TrailLiveData mTrailLiveData = new TrailLiveData();
     @NonNull
-    private final LiveData<File> mCurrentFileLiveData = Transformations.map(mTrailLiveData,
-            TrailData::getCurrentFile);
+    private final LiveData<Path> mCurrentPathLiveData = Transformations.map(mTrailLiveData,
+            TrailData::getCurrentPath);
     @NonNull
     private final LiveData<FileListData> mFileListLiveData = Transformations.switchMap(
-            mCurrentFileLiveData, FileListLiveData::new);
+            mCurrentPathLiveData, FileListLiveData::new);
     @NonNull
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
             mTrailLiveData);
     @NonNull
-    private final MutableLiveData<Set<File>> mSelectedFilesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Set<FileItem>> mSelectedFilesLiveData = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>();
 
     public FileListViewModel() {
         mSelectedFilesLiveData.setValue(new HashSet<>());
         mPasteModeLiveData.setValue(FilePasteMode.NONE);
-        // FIXME: Handle multi instances.
-        mTrailLiveData.observeForever(trailData -> Files.onTrailChanged(trailData.getTrail()));
     }
 
     public boolean hasTrail() {
         return mTrailLiveData.getValue() != null;
     }
 
-    public void navigateTo(@NonNull Parcelable lastState, @NonNull File file) {
-        mTrailLiveData.navigateTo(lastState, file);
+    public void navigateTo(@NonNull Parcelable lastState, @NonNull Path path) {
+        mTrailLiveData.navigateTo(lastState, path);
     }
 
-    public void resetTo(@NonNull File file) {
-        mTrailLiveData.resetTo(file);
+    public void resetTo(@NonNull Path path) {
+        mTrailLiveData.resetTo(path);
     }
 
     public boolean navigateUp(boolean overrideBreadcrumb) {
@@ -71,18 +69,21 @@ public class FileListViewModel extends ViewModel {
     }
 
     public void reload() {
-        Files.invalidateCache(mTrailLiveData.getValue().getCurrentFile());
+        Path path = mTrailLiveData.getValue().getCurrentPath();
+        if (ArchiveFileSystemProvider.isArchivePath(path)) {
+            ArchiveFileSystemProvider.requestReopenFileSystem(path);
+        }
         mTrailLiveData.reload();
     }
 
     @NonNull
-    public LiveData<File> getCurrentFileLiveData() {
-        return mCurrentFileLiveData;
+    public LiveData<Path> getCurrentPathLiveData() {
+        return mCurrentPathLiveData;
     }
 
     @NonNull
-    public File getCurrentFile() {
-        return mCurrentFileLiveData.getValue();
+    public Path getCurrentPath() {
+        return mCurrentPathLiveData.getValue();
     }
 
     @NonNull
@@ -101,21 +102,21 @@ public class FileListViewModel extends ViewModel {
     }
 
     @NonNull
-    public LiveData<Set<File>> getSelectedFilesLiveData() {
+    public LiveData<Set<FileItem>> getSelectedFilesLiveData() {
         return mSelectedFilesLiveData;
     }
 
     @NonNull
-    public Set<File> getSelectedFiles() {
+    public Set<FileItem> getSelectedFiles() {
         return mSelectedFilesLiveData.getValue();
     }
 
-    public void selectFile(@NonNull File file, boolean selected) {
+    public void selectFile(@NonNull FileItem file, boolean selected) {
         selectFiles(Collections.singleton(file), selected);
     }
 
-    public void selectFiles(@NonNull Set<File> files, boolean selected) {
-        Set<File> selectedFiles = mSelectedFilesLiveData.getValue();
+    public void selectFiles(@NonNull Set<FileItem> files, boolean selected) {
+        Set<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles == files) {
             if (!selected && !selectedFiles.isEmpty()) {
                 selectedFiles.clear();
@@ -124,7 +125,7 @@ public class FileListViewModel extends ViewModel {
             return;
         }
         boolean changed = false;
-        for (File file : files) {
+        for (FileItem file : files) {
             changed |= selected ? selectedFiles.add(file) : selectedFiles.remove(file);
         }
         if (changed) {
@@ -133,15 +134,15 @@ public class FileListViewModel extends ViewModel {
     }
 
     public void selectAllFiles() {
-        List<File> fileList = mFileListLiveData.getValue().fileList;
-        if (fileList == null) {
+        List<FileItem> files = mFileListLiveData.getValue().fileList;
+        if (files == null) {
             return;
         }
-        selectFiles(new HashSet<>(fileList), true);
+        selectFiles(new HashSet<>(files), true);
     }
 
-    public void replaceSelectedFiles(@NonNull Set<File> files) {
-        Set<File> selectedFiles = mSelectedFilesLiveData.getValue();
+    public void replaceSelectedFiles(@NonNull Set<FileItem> files) {
+        Set<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles.equals(files)) {
             return;
         }
@@ -151,7 +152,7 @@ public class FileListViewModel extends ViewModel {
     }
 
     public void clearSelectedFiles() {
-        Set<File> selectedFiles = mSelectedFilesLiveData.getValue();
+        Set<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles.isEmpty()) {
             return;
         }

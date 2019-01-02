@@ -5,18 +5,22 @@
 
 package me.zhanghai.android.files.file;
 
-import android.system.ErrnoException;
-import android.system.OsConstants;
-
+import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.filesystem.File;
-import me.zhanghai.android.files.filesystem.FileSystemException;
-import me.zhanghai.android.files.filesystem.LocalFile;
-import me.zhanghai.android.files.filesystem.Syscall;
-import me.zhanghai.android.files.util.ExceptionUtils;
+import androidx.annotation.Nullable;
+import java8.nio.file.CopyOption;
+import java8.nio.file.FileAlreadyExistsException;
+import java8.nio.file.FileVisitResult;
+import java8.nio.file.Files;
+import java8.nio.file.Path;
+import java8.nio.file.SimpleFileVisitor;
+import java8.nio.file.StandardCopyOption;
+import java8.nio.file.attribute.BasicFileAttributes;
+import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 
 public class FileJobs {
 
@@ -24,127 +28,119 @@ public class FileJobs {
 
     private abstract static class Base extends FileJob {
 
-        protected static void copy(@NonNull File fromFile, @NonNull File toDirectory)
-                throws FileSystemException, InterruptedException {
-            copyOrMove(fromFile, toDirectory, true);
+        protected static void copy(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            copyOrMove(source, target, true, false);
         }
 
         // @see https://github.com/GNOME/nautilus/blob/master/src/nautilus-file-operations.c
         //      copy_move_file
-        private static void copyOrMove(@NonNull File fromFile, @NonNull File toDirectory,
-                                       boolean copy) throws FileSystemException,
-                InterruptedException {
-            if (fromFile.isAncestorOfOrEqualTo(toDirectory)) {
+        private static void copyOrMove(@NonNull Path source, @NonNull Path target, boolean copy,
+                                       boolean copyAttributes) throws IOException {
+            Path targetParent = target.getParent();
+            if (targetParent != null && targetParent.startsWith(source)) {
                 // Don't allow copy/move into the source itself.
                 // TODO: Prompt skip, skip-all or abort.
-                throw new FileSystemException(new IllegalArgumentException(
+                throw new IOException(new IllegalArgumentException(
                         "Cannot copy/move a folder into itself"));
             }
-            File toFile = toDirectory.getChild(fromFile.getName());
-            if (toFile.isAncestorOfOrEqualTo(fromFile)) {
+            if (source.startsWith(target)) {
                 // Don't allow copy/move over the source itself or its ancestors.
                 // TODO: Prompt skip, skip-all or abort.
-                throw new FileSystemException(new IllegalArgumentException(
-                        "Cannot copy/move over a file over itself"));
+                throw new IOException(new IllegalArgumentException(
+                        "Cannot copy/move over a path over itself"));
             }
-            boolean overwrite = false;
-            if (fromFile instanceof LocalFile && toFile instanceof LocalFile) {
-                LocalFile fromLocalFile = (LocalFile) fromFile;
-                LocalFile toLocalFile = (LocalFile) toFile;
-                String fromPath = fromLocalFile.getPath();
-                String toPath = toLocalFile.getPath();
-                boolean retry;
-                do {
-                    retry = false;
-                    try {
-                        if (copy) {
-                            Syscall.copy(fromPath, toPath, overwrite, 1024 * 1024, null);
-                        } else {
-                            Syscall.move(fromPath, toPath, overwrite, 1024 * 1024, null);
-                        }
-                    } catch (FileSystemException e) {
-                        Throwable cause = e.getCause();
-                        if (cause instanceof ErrnoException) {
-                            ErrnoException errnoException = (ErrnoException) cause;
-                            if (!overwrite && errnoException.errno == OsConstants.EEXIST) {
-                                // TODO: Prompt overwrite, skip, skip-all or abort, or merge.
-                                if (false) {
-                                    overwrite = true;
-                                    retry = true;
-                                    continue;
-                                }
-                            }
-                            if (errnoException.errno == OsConstants.EINVAL) {
-                                // TODO: Prompt invalid name.
-                                if (false) {
-                                    retry = true;
-                                    continue;
-                                }
-                            }
-                        }
-                        throw e;
+            boolean replaceExisting = false;
+            boolean retry;
+            do {
+                retry = false;
+                List<CopyOption> optionList = new ArrayList<>();
+                if (copyAttributes) {
+                    optionList.add(StandardCopyOption.COPY_ATTRIBUTES);
+                }
+                if (replaceExisting) {
+                    optionList.add(StandardCopyOption.REPLACE_EXISTING);
+                }
+                CopyOption[] options = optionList.toArray(new CopyOption[0]);
+                try {
+                    if (copy) {
+                        Files.copy(source, target, options);
+                    } else {
+                        Files.move(source, target, options);
                     }
-                } while (retry);
-            } else {
-                // TODO
-                throw new UnsupportedOperationException();
-            }
+                } catch (FileAlreadyExistsException e) {
+                    // TODO: Prompt overwrite, skip, skip-all, abort, or merge.
+                    if (false) {
+                        replaceExisting = true;
+                        retry = true;
+                        continue;
+                    }
+                    throw e;
+                } catch (InvalidFileNameException e) {
+                    // TODO: Prompt invalid name.
+                    if (false) {
+                        retry = true;
+                        continue;
+                    }
+                    throw e;
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    // TODO: Prompt skip, skip-all or abort.
+                    if (false) {
+                        retry = true;
+                        continue;
+                    }
+                    throw e;
+                }
+            } while (retry);
         }
 
-        protected void createDirectory(@NonNull File file) throws FileSystemException {
-            if (file instanceof LocalFile) {
-                LocalFile localFile = (LocalFile) file;
-                String path = localFile.getPath();
-                Syscall.createDirectory(path);
-            } else {
-                // TODO
-                throw new UnsupportedOperationException();
-            }
+        protected static void copyWithAttributes(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            copyOrMove(source, target, true, true);
         }
 
-        protected void createFile(@NonNull File file) throws FileSystemException {
-            if (file instanceof LocalFile) {
-                LocalFile localFile = (LocalFile) file;
-                String path = localFile.getPath();
-                Syscall.createFile(path);
-            } else {
-                // TODO
-                throw new UnsupportedOperationException();
-            }
+        protected void createDirectory(@NonNull Path path) throws IOException {
+            Files.createDirectory(path);
         }
 
-        protected static void delete(@NonNull File file) throws FileSystemException {
-            if (file instanceof LocalFile) {
-                LocalFile localFile = (LocalFile) file;
-                Syscall.delete(localFile.getPath());
-            } else {
-                // TODO
-                throw new UnsupportedOperationException();
-            }
+        protected void createFile(@NonNull Path path) throws IOException {
+            Files.createFile(path);
         }
 
-        protected static void move(@NonNull File fromFile, @NonNull File toDirectory)
-                throws FileSystemException, InterruptedException {
-            copyOrMove(fromFile, toDirectory, false);
+        protected static void delete(@NonNull Path path) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    Files.delete(path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    // TODO: Prompt skip, skip-all or abort.
+                    if (false) {
+                        retry = true;
+                        continue;
+                    }
+                    throw e;
+                }
+            } while (retry);
         }
 
-        protected static void moveByRename(@NonNull File fromFile, @NonNull File toDirectory)
-                throws FileSystemException {
-            File toFile = toDirectory.getChild(fromFile.getName());
-            rename(fromFile, toFile);
+        protected static void moveAtomically(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            Files.move(source, target, StandardCopyOption.ATOMIC_MOVE);
         }
 
-        protected static void rename(@NonNull File fromFile, @NonNull File toFile)
-                throws FileSystemException {
-            if (fromFile instanceof LocalFile && toFile instanceof LocalFile) {
-                LocalFile fromLocalFile = (LocalFile) fromFile;
-                LocalFile toLocalFile = (LocalFile) toFile;
-                String fromPath = fromLocalFile.getPath();
-                String toPath = toLocalFile.getPath();
-                Syscall.rename(fromPath, toPath);
-            } else {
-                // TODO
-                throw new UnsupportedOperationException();
+        protected static void moveByCopy(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            copyOrMove(source, target, false, true);
+        }
+
+        protected static void throwIfInterrupted() throws InterruptedIOException {
+            if (Thread.interrupted()) {
+                throw new InterruptedIOException();
             }
         }
     }
@@ -152,173 +148,255 @@ public class FileJobs {
     public static class Copy extends Base {
 
         @NonNull
-        private final List<File> mFromFiles;
+        private final List<Path> mSources;
         @NonNull
-        private final File mToDirectory;
+        private final Path mTargetDirectory;
 
-        public Copy(@NonNull List<File> fromFiles, @NonNull File toDirectory) {
-            mFromFiles = fromFiles;
-            mToDirectory = toDirectory;
+        public Copy(@NonNull List<Path> sources, @NonNull Path targetDirectory) {
+            mSources = sources;
+            mTargetDirectory = targetDirectory;
         }
 
         @Override
-        public void run() throws FileSystemException, InterruptedException {
-            for (File fromFile : mFromFiles) {
-                fromFile.reloadInformation();
-                copyRecursively(fromFile, mToDirectory);
-                ExceptionUtils.throwIfInterrupted();
+        public void run() throws IOException {
+            for (Path source : mSources) {
+                Path target = mTargetDirectory.resolve(source.getFileName());
+                copyRecursively(source, target);
+                throwIfInterrupted();
             }
         }
 
-        private static void copyRecursively(@NonNull File fromFile, @NonNull File toDirectory)
-                throws FileSystemException, InterruptedException {
-            copy(fromFile, toDirectory);
-            ExceptionUtils.throwIfInterrupted();
-            if (fromFile.isDirectoryDoNotFollowSymbolicLinks()) {
-                List<File> children = fromFile.getChildren();
-                ExceptionUtils.throwIfInterrupted();
-                for (File child : children) {
-                    copyRecursively(child, toDirectory);
-                    ExceptionUtils.throwIfInterrupted();
+        private static void copyRecursively(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    Path directoryInTarget = target.resolve(source.relativize(directory));
+                    copy(directory, directoryInTarget);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
                 }
-            }
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    Path fileInTarget = target.resolve(source.relativize(file));
+                    copy(file, fileInTarget);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+            });
         }
     }
 
     public static class CreateDirectory extends Base {
 
         @NonNull
-        private final File mFile;
+        private final Path mPath;
 
-        public CreateDirectory(@NonNull File file) {
-            mFile = file;
+        public CreateDirectory(@NonNull Path path) {
+            mPath = path;
         }
 
         @Override
-        public void run() throws FileSystemException {
-            createDirectory(mFile);
+        public void run() throws IOException {
+            createDirectory(mPath);
         }
     }
 
     public static class CreateFile extends Base {
 
         @NonNull
-        private final File mFile;
+        private final Path mPath;
 
-        public CreateFile(@NonNull File file) {
-            mFile = file;
+        public CreateFile(@NonNull Path path) {
+            mPath = path;
         }
 
         @Override
-        public void run() throws FileSystemException {
-            createFile(mFile);
+        public void run() throws IOException {
+            createFile(mPath);
         }
     }
 
     public static class Delete extends Base {
 
         @NonNull
-        private final List<File> mFiles;
+        private final List<Path> mPaths;
 
-        public Delete(@NonNull List<File> files) {
-            mFiles = files;
+        public Delete(@NonNull List<Path> paths) {
+            mPaths = paths;
         }
 
         @Override
-        public void run() throws FileSystemException, InterruptedException {
-            for (File file : mFiles) {
-                file.reloadInformation();
-                ExceptionUtils.throwIfInterrupted();
-                deleteRecursively(file);
-                ExceptionUtils.throwIfInterrupted();
+        public void run() throws IOException {
+            for (Path path : mPaths) {
+                deleteRecursively(path);
+                throwIfInterrupted();
             }
         }
 
-        private static void deleteRecursively(@NonNull File file) throws FileSystemException,
-                InterruptedException {
-            if (file.isDirectoryDoNotFollowSymbolicLinks()) {
-                List<File> children = file.getChildren();
-                ExceptionUtils.throwIfInterrupted();
-                for (File child : children) {
-                    deleteRecursively(child);
-                    ExceptionUtils.throwIfInterrupted();
+        private static void deleteRecursively(@NonNull Path path) throws IOException {
+            Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    delete(file);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
                 }
-            }
-            delete(file);
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @NonNull
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    delete(directory);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         }
     }
 
     public static class Move extends Base {
 
         @NonNull
-        private final List<File> mFromFiles;
+        private final List<Path> mSources;
         @NonNull
-        private final File mToDirectory;
+        private final Path mTargetDirectory;
 
-        public Move(@NonNull List<File> fromFiles, @NonNull File toDirectory) {
-            mFromFiles = fromFiles;
-            mToDirectory = toDirectory;
+        public Move(@NonNull List<Path> sources, @NonNull Path targetDirectory) {
+            mSources = sources;
+            mTargetDirectory = targetDirectory;
         }
 
         @Override
-        public void run() throws FileSystemException, InterruptedException {
-            List<File> fromFilesToMove = new ArrayList<>();
-            for (File fromFile : mFromFiles) {
+        public void run() throws IOException {
+            List<Path> sourcesToMove = new ArrayList<>();
+            for (Path source : mSources) {
+                Path target = mTargetDirectory.resolve(source.getFileName());
                 try {
-                    moveByRename(fromFile, mToDirectory);
-                } catch (FileSystemException e) {
-                    fromFilesToMove.add(fromFile);
+                    moveAtomically(source, target);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    sourcesToMove.add(source);
                 }
-                ExceptionUtils.throwIfInterrupted();
+                throwIfInterrupted();
             }
-            for (File fromFile : fromFilesToMove) {
-                fromFile.reloadInformation();
-                moveRecursively(fromFile, mToDirectory);
-                ExceptionUtils.throwIfInterrupted();
+            for (Path source : sourcesToMove) {
+                Path target = mTargetDirectory.resolve(source.getFileName());
+                moveRecursively(source, target);
+                throwIfInterrupted();
             }
         }
 
-        private static void moveRecursively(@NonNull File fromFile, @NonNull File toDirectory)
-                throws FileSystemException, InterruptedException {
-            if (fromFile.isDirectoryDoNotFollowSymbolicLinks()) {
-                try {
-                    moveByRename(fromFile, toDirectory);
-                    return;
-                } catch (FileSystemException e) {
-                    // Ignored
+        private static void moveRecursively(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    Path directoryInTarget = target.resolve(source.relativize(directory));
+                    try {
+                        moveAtomically(directory, directoryInTarget);
+                        throwIfInterrupted();
+                        return FileVisitResult.SKIP_SUBTREE;
+                    } catch (InterruptedIOException e) {
+                        throw e;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    copyWithAttributes(directory, directoryInTarget);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
                 }
-                ExceptionUtils.throwIfInterrupted();
-                copy(fromFile, toDirectory);
-                ExceptionUtils.throwIfInterrupted();
-                List<File> children = fromFile.getChildren();
-                ExceptionUtils.throwIfInterrupted();
-                for (File child : children) {
-                    moveRecursively(child, toDirectory);
-                    ExceptionUtils.throwIfInterrupted();
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    Path fileInTarget = target.resolve(source.relativize(file));
+                    try {
+                        moveAtomically(file, fileInTarget);
+                        throwIfInterrupted();
+                        return FileVisitResult.CONTINUE;
+                    } catch (InterruptedIOException e) {
+                        throw e;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    moveByCopy(file, fileInTarget);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
                 }
-                delete(fromFile);
-            } else {
-                move(fromFile, toDirectory);
-            }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    delete(directory);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         }
     }
 
     public static class Rename extends Base {
 
         @NonNull
-        private final File mFile;
+        private final Path mPath;
         @NonNull
         private final String mNewName;
 
-        public Rename(@NonNull File file, @NonNull String newName) {
-            mFile = file;
+        public Rename(@NonNull Path path, @NonNull String newName) {
+            mPath = path;
             mNewName = newName;
         }
 
         @Override
-        public void run() throws FileSystemException {
-            File newFile = mFile.getSibling(mNewName);
-            rename(mFile, newFile);
+        public void run() throws IOException {
+            Path newPath = mPath.resolveSibling(mNewName);
+            moveAtomically(mPath, newPath);
         }
     }
 }

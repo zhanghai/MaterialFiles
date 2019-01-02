@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.MimeTypes;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ListBuilder;
@@ -41,10 +40,10 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
                     .buildUnmodifiable();
 
     @NonNull
-    private File mExtraFile;
+    private FileItem mExtraFile;
 
     @NonNull
-    public static OpenFileAsDialogFragment newInstance(@NonNull File file) {
+    public static OpenFileAsDialogFragment newInstance(@NonNull FileItem file) {
         //noinspection deprecation
         OpenFileAsDialogFragment fragment = new OpenFileAsDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -52,13 +51,13 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
         return fragment;
     }
 
-    public static void show(@NonNull File file, @NonNull Fragment fragment) {
+    public static void show(@NonNull FileItem file, @NonNull Fragment fragment) {
         OpenFileAsDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(FileItem)} instead.
      */
     public OpenFileAsDialogFragment() {}
 
@@ -75,10 +74,10 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
         CharSequence[] items = Functional.map(FILE_TYPES, item -> getString(item.first))
                 .toArray(new CharSequence[0]);
         return new AlertDialog.Builder(requireContext(), getTheme())
-                .setTitle(getString(R.string.file_open_as_title_format, mExtraFile.getName()))
-                .setItems(items, (dialog, which) -> {
-                    getListener().openFileAs(mExtraFile, FILE_TYPES.get(which).second);
-                })
+                .setTitle(getString(R.string.file_open_as_title_format,
+                        mExtraFile.getPath().getFileName().toString()))
+                .setItems(items, (dialog, which) -> getListener().openFileAs(mExtraFile,
+                        FILE_TYPES.get(which).second))
                 .create();
     }
 
@@ -88,6 +87,6 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
     }
 
     public interface Listener {
-        void openFileAs(@NonNull File file, @NonNull String mimeType);
+        void openFileAs(@NonNull FileItem file, @NonNull String mimeType);
     }
 }

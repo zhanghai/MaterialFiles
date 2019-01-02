@@ -24,8 +24,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
-import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.Files;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.navigation.StandardDirectory;
 import me.zhanghai.android.files.util.ViewUtils;

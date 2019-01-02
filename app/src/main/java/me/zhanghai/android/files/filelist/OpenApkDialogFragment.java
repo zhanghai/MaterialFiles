@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class OpenApkDialogFragment extends AppCompatDialogFragment {
@@ -24,10 +23,10 @@ public class OpenApkDialogFragment extends AppCompatDialogFragment {
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
     @NonNull
-    private File mExtraFile;
+    private FileItem mExtraFile;
 
     @NonNull
-    private static OpenApkDialogFragment newInstance(@NonNull File file) {
+    private static OpenApkDialogFragment newInstance(@NonNull FileItem file) {
         //noinspection deprecation
         OpenApkDialogFragment fragment = new OpenApkDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -35,13 +34,13 @@ public class OpenApkDialogFragment extends AppCompatDialogFragment {
         return fragment;
     }
 
-    public static void show(@NonNull File file, @NonNull Fragment fragment) {
+    public static void show(@NonNull FileItem file, @NonNull Fragment fragment) {
         OpenApkDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(FileItem)} instead.
      */
     public OpenApkDialogFragment() {}
 
@@ -73,7 +72,7 @@ public class OpenApkDialogFragment extends AppCompatDialogFragment {
     }
 
     public interface Listener {
-        void installApk(@NonNull File file);
-        void viewApk(@NonNull File file);
+        void installApk(@NonNull FileItem file);
+        void viewApk(@NonNull FileItem file);
     }
 }

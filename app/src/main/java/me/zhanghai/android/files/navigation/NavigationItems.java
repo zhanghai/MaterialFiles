@@ -23,12 +23,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.Size;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
+import java8.nio.file.Path;
+import java8.nio.file.Paths;
 import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.about.AboutActivity;
 import me.zhanghai.android.files.file.FormatUtils;
-import me.zhanghai.android.files.filesystem.File;
-import me.zhanghai.android.files.filesystem.Files;
 import me.zhanghai.android.files.filesystem.JavaFile;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.settings.SettingsActivity;
@@ -139,44 +139,44 @@ public class NavigationItems {
     private static abstract class FileItem extends NavigationItem {
 
         @NonNull
-        private final File mFile;
+        private final Path mPath;
 
-        public FileItem(@NonNull File file) {
-            mFile = file;
+        public FileItem(@NonNull Path path) {
+            mPath = path;
         }
 
         @NonNull
-        public File getFile() {
-            return mFile;
+        public Path getPath() {
+            return mPath;
         }
 
         @Override
         public long getId() {
             // Items of different types may point to the same file.
-            return Objects.hash(getClass(), mFile);
+            return Objects.hash(getClass(), mPath);
         }
 
         @Override
         public boolean isChecked(@NonNull Listener listener) {
-            return Objects.equals(listener.getCurrentFile(), mFile);
+            return Objects.equals(listener.getCurrentPath(), mPath);
         }
 
         @Override
         public void onClick(@NonNull Listener listener) {
-            listener.navigateToFile(mFile);
+            listener.navigateTo(mPath);
             listener.closeNavigationDrawer();
         }
     }
 
     private static abstract class RootItem extends FileItem implements NavigationRoot {
 
-        public RootItem(@NonNull File file) {
-            super(file);
+        public RootItem(@NonNull Path path) {
+            super(path);
         }
 
         @Override
         public void onClick(@NonNull Listener listener) {
-            listener.navigateToRoot(getFile());
+            listener.navigateToRoot(getPath());
             listener.closeNavigationDrawer();
         }
 
@@ -195,7 +195,7 @@ public class NavigationItems {
         private final long mTotalSpace;
 
         public LocalRootItem(@NonNull String path, @DrawableRes int iconRes) {
-            super(Files.ofLocalPath(path));
+            super(Paths.get(path));
 
             mIconRes = iconRes;
             long totalSpace = JavaFile.getTotalSpace(path);
@@ -295,8 +295,7 @@ public class NavigationItems {
         private final StandardDirectory mStandardDirectory;
 
         public StandardDirectoryItem(@NonNull StandardDirectory standardDirectory) {
-            super(Files.ofLocalPath(getExternalStorageDirectory(
-                    standardDirectory.getRelativePath())));
+            super(Paths.get(getExternalStorageDirectory(standardDirectory.getRelativePath())));
 
             if (!standardDirectory.isEnabled()) {
                 throw new IllegalArgumentException("StandardDirectory should be enabled");

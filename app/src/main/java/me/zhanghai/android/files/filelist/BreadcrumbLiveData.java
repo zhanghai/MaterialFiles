@@ -14,7 +14,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.functional.compat.Function;
 import me.zhanghai.android.files.navigation.NavigationRoot;
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData;
@@ -36,27 +36,27 @@ public class BreadcrumbLiveData extends MediatorLiveData<BreadcrumbData> {
     }
 
     private void loadValue() {
-        Map<File, NavigationRoot> navigationRootMap = mNavigationRootMapLiveData.getValue();
+        Map<Path, NavigationRoot> navigationRootMap = mNavigationRootMapLiveData.getValue();
         TrailData trailData = mTrailLiveData.getValue();
-        List<File> trail = trailData.getTrail();
-        List<File> files = new ArrayList<>();
+        List<Path> trail = trailData.getTrail();
+        List<Path> paths = new ArrayList<>();
         List<Function<Context, String>> names = new ArrayList<>();
         int selectedIndex = trailData.getCurrentIndex();
-        for (File file : trail) {
-            NavigationRoot navigationRoot = navigationRootMap.get(file);
+        for (Path path : trail) {
+            NavigationRoot navigationRoot = navigationRootMap.get(path);
             int itemCount = names.size();
             if (navigationRoot != null && selectedIndex >= itemCount) {
                 selectedIndex -= itemCount;
-                files.clear();
-                files.add(navigationRoot.getFile());
+                paths.clear();
+                paths.add(navigationRoot.getPath());
                 names.clear();
                 names.add(navigationRoot::getName);
             } else {
-                files.add(file);
-                names.add(context -> file.getName());
+                paths.add(path);
+                names.add(context -> FileUtils.getName(path));
             }
         }
-        BreadcrumbData breadcrumbData = new BreadcrumbData(files, names, selectedIndex);
+        BreadcrumbData breadcrumbData = new BreadcrumbData(paths, names, selectedIndex);
         setValue(breadcrumbData);
     }
 }

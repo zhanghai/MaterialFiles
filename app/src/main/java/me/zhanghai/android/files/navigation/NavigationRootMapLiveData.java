@@ -12,9 +12,9 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MediatorLiveData;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 
-public class NavigationRootMapLiveData extends MediatorLiveData<Map<File, NavigationRoot>> {
+public class NavigationRootMapLiveData extends MediatorLiveData<Map<Path, NavigationRoot>> {
 
     @Nullable
     private static NavigationRootMapLiveData sInstance;
@@ -35,11 +35,11 @@ public class NavigationRootMapLiveData extends MediatorLiveData<Map<File, Naviga
 
     private void loadValue() {
         List<NavigationItem> navigationItems = NavigationItemListLiveData.getInstance().getValue();
-        Map<File, NavigationRoot> fileItemMap = new HashMap<>();
+        Map<Path, NavigationRoot> fileItemMap = new HashMap<>();
         for (NavigationItem navigationItem : navigationItems) {
             if (navigationItem instanceof NavigationRoot) {
                 NavigationRoot navigationRoot = (NavigationRoot) navigationItem;
-                fileItemMap.put(navigationRoot.getFile(), navigationRoot);
+                fileItemMap.put(navigationRoot.getPath(), navigationRoot);
             }
         }
         setValue(fileItemMap);

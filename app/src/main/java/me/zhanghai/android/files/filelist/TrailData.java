@@ -14,17 +14,18 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 
 public class TrailData {
 
     @NonNull
-    private final List<File> mTrail;
+    private final List<Path> mTrail;
     @NonNull
     private final List<Parcelable> mStates;
     private final int mCurrentIndex;
 
-    private TrailData(@NonNull List<File> trail, @NonNull List<Parcelable> states,
+    private TrailData(@NonNull List<Path> trail, @NonNull List<Parcelable> states,
                       int currentIndex) {
         mTrail = trail;
         mStates = states;
@@ -32,16 +33,16 @@ public class TrailData {
     }
 
     @NonNull
-    public static TrailData of(@NonNull File file) {
-        List<File> trail = file.makeTrail();
+    public static TrailData of(@NonNull Path path) {
+        List<Path> trail = makeTrail(path);
         List<Parcelable> states = new ArrayList<>(Collections.nCopies(trail.size(), null));
         int index = trail.size() - 1;
         return new TrailData(trail, states, index);
     }
 
     @NonNull
-    public TrailData navigateTo(@NonNull Parcelable lastState, @NonNull File file) {
-        List<File> newTrail = file.makeTrail();
+    public TrailData navigateTo(@NonNull Parcelable lastState, @NonNull Path path) {
+        List<Path> newTrail = makeTrail(path);
         List<Parcelable> newStates = new ArrayList<>();
         int newIndex = newTrail.size() - 1;
         boolean isPrefix = true;
@@ -76,7 +77,7 @@ public class TrailData {
     }
 
     @NonNull
-    public List<File> getTrail() {
+    public List<Path> getTrail() {
         return mTrail;
     }
 
@@ -90,7 +91,26 @@ public class TrailData {
     }
 
     @NonNull
-    public File getCurrentFile() {
+    public Path getCurrentPath() {
         return mTrail.get(mCurrentIndex);
+    }
+
+    @NonNull
+    private static List<Path> makeTrail(@NonNull Path path) {
+        List<Path> trail = new ArrayList<>();
+        Path archiveFile = ArchiveFileSystemProvider.isArchivePath(path) ?
+                ArchiveFileSystemProvider.getArchiveFile(path) : null;
+        do {
+            trail.add(path);
+            path = path.getParent();
+        } while (path != null);
+        Collections.reverse(trail);
+        if (archiveFile != null) {
+            Path archiveFileParent = archiveFile.getParent();
+            if (archiveFileParent != null) {
+                trail.addAll(0, makeTrail(archiveFileParent));
+            }
+        }
+        return trail;
     }
 }

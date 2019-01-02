@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.main;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,9 +19,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileListFragment;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.navigation.NavigationFragment;
 import me.zhanghai.android.files.util.FragmentUtils;
 
@@ -28,13 +29,13 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
 
     private static final String KEY_PREFIX = MainFragment.class.getName() + '.';
 
-    private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
 
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
 
     @Nullable
-    private File mExtraFile;
+    private Path mExtraPath;
 
     @NonNull
     private NavigationFragment mNavigationFragment;
@@ -42,16 +43,16 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
     private FileListFragment mFileListFragment;
 
     @NonNull
-    public static MainFragment newInstance(@Nullable File file) {
+    public static MainFragment newInstance(@Nullable Path path) {
         //noinspection deprecation
         MainFragment fragment = new MainFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_FILE, file);
+                .putParcelable(EXTRA_PATH, (Parcelable) path);
         return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance(File)} instead.
+     * @deprecated Use {@link #newInstance(Path)} instead.
      */
     public MainFragment() {}
 
@@ -59,7 +60,7 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
 
         setHasOptionsMenu(true);
     }
@@ -79,7 +80,7 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
 
         if (savedInstanceState == null) {
             mNavigationFragment = NavigationFragment.newInstance();
-            mFileListFragment = FileListFragment.newInstance(mExtraFile);
+            mFileListFragment = FileListFragment.newInstance(mExtraPath);
             // Add FileListFragment first so that NavigationFragment can observe its current file.
             FragmentUtils.add(mFileListFragment, this, R.id.file_list_fragment);
             FragmentUtils.add(mNavigationFragment, this, R.id.navigation_fragment);

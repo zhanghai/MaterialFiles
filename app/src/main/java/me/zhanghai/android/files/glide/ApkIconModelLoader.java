@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.text.TextUtils;
 
 import com.bumptech.glide.Priority;
@@ -24,7 +23,9 @@ import java.io.File;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.file.MimeTypes;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
 
@@ -59,10 +60,10 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
         } else if (model instanceof File) {
             File file = (File) model;
             return file.getPath();
-        } else if (model instanceof Uri) {
-            Uri uri = (Uri) model;
-            if (TextUtils.equals(uri.getScheme(), "file")) {
-                return uri.getPath();
+        } else if (model instanceof Path) {
+            Path path = (Path) model;
+            if (LinuxFileSystemProvider.isLinuxPath(path)) {
+                return path.toFile().getPath();
             }
         }
         throw new IllegalArgumentException("Unable to get path from model: " + model);

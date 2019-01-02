@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.File;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
@@ -30,10 +29,10 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     private static final String EXTRA_FILES = KEY_PREFIX + "FILES";
 
     @NonNull
-    private Set<File> mExtraFiles;
+    private Set<FileItem> mExtraFiles;
 
     @NonNull
-    private static ConfirmDeleteFilesDialogFragment newInstance(@NonNull Set<File> files) {
+    private static ConfirmDeleteFilesDialogFragment newInstance(@NonNull Set<FileItem> files) {
         //noinspection deprecation
         ConfirmDeleteFilesDialogFragment fragment = new ConfirmDeleteFilesDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -41,7 +40,7 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
         return fragment;
     }
 
-    public static void show(@NonNull Set<File> files, @NonNull Fragment fragment) {
+    public static void show(@NonNull Set<FileItem> files, @NonNull Fragment fragment) {
         ConfirmDeleteFilesDialogFragment.newInstance(files)
                 .show(fragment.getChildFragmentManager(), null);
     }
@@ -63,16 +62,16 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         String message;
         if (mExtraFiles.size() == 1) {
-            File file = CollectionUtils.first(mExtraFiles);
-            int messageRes = file.isDirectoryDoNotFollowSymbolicLinks() ?
+            FileItem file = CollectionUtils.first(mExtraFiles);
+            int messageRes = file.getAttributesNoFollowLinks().isDirectory() ?
                     R.string.file_delete_message_directory_format
                     : R.string.file_delete_message_file_format;
-            message = getString(messageRes, file.getName());
+            message = getString(messageRes, FileUtils.getName(file));
         } else {
-            boolean allDirectories = Functional.every(mExtraFiles,
-                    File::isDirectoryDoNotFollowSymbolicLinks);
+            boolean allDirectories = Functional.every(mExtraFiles, file ->
+                    file.getAttributesNoFollowLinks().isDirectory());
             boolean allFiles = Functional.every(mExtraFiles, file ->
-                    !file.isDirectoryDoNotFollowSymbolicLinks());
+                    !file.getAttributesNoFollowLinks().isDirectory());
             int messageRes = allDirectories ?
                     R.string.file_delete_message_multiple_directories_format
                     : allFiles ? R.string.file_delete_message_multiple_files_format
@@ -93,6 +92,6 @@ public class ConfirmDeleteFilesDialogFragment extends AppCompatDialogFragment {
     }
 
     public interface Listener {
-        void deleteFiles(@NonNull Set<File> files);
+        void deleteFiles(@NonNull Set<FileItem> files);
     }
 }

@@ -19,7 +19,7 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.filesystem.File;
+import java8.nio.file.Path;
 
 public class FileJobService extends Service {
 
@@ -44,30 +44,31 @@ public class FileJobService extends Service {
         }
     }
 
-    public static void copy(@NonNull List<File> fromFiles, @NonNull File toDirectory,
+    public static void copy(@NonNull List<Path> sources, @NonNull Path targetDirectory,
                             @NonNull Context context) {
-        startJob(new FileJobs.Copy(fromFiles, toDirectory), context);
+        startJob(new FileJobs.Copy(sources, targetDirectory), context);
     }
 
-    public static void createFile(@NonNull File file, @NonNull Context context) {
-        startJob(new FileJobs.CreateFile(file), context);
+    public static void createFile(@NonNull Path path, @NonNull Context context) {
+        startJob(new FileJobs.CreateFile(path), context);
     }
 
-    public static void createDirectory(@NonNull File file, @NonNull Context context) {
-        startJob(new FileJobs.CreateDirectory(file), context);
+    public static void createDirectory(@NonNull Path path, @NonNull Context context) {
+        startJob(new FileJobs.CreateDirectory(path), context);
     }
 
-    public static void delete(@NonNull List<File> files, @NonNull Context context) {
-        startJob(new FileJobs.Delete(files), context);
+    public static void delete(@NonNull List<Path> paths, @NonNull Context context) {
+        startJob(new FileJobs.Delete(paths), context);
     }
 
-    public static void move(@NonNull List<File> fromFiles, @NonNull File toDirectory,
+    public static void move(@NonNull List<Path> sources, @NonNull Path targetDirectory,
                             @NonNull Context context) {
-        startJob(new FileJobs.Move(fromFiles, toDirectory), context);
+        startJob(new FileJobs.Move(sources, targetDirectory), context);
     }
 
-    public static void rename(@NonNull File file, @NonNull String name, @NonNull Context context) {
-        startJob(new FileJobs.Rename(file, name), context);
+    public static void rename(@NonNull Path path, @NonNull String newName,
+                              @NonNull Context context) {
+        startJob(new FileJobs.Rename(path, newName), context);
     }
 
     @Override
