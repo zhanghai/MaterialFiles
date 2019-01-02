@@ -7,7 +7,6 @@ package me.zhanghai.android.files.glide;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
@@ -17,6 +16,7 @@ import java.io.File;
 import java.nio.ByteBuffer;
 
 import androidx.annotation.NonNull;
+import java8.nio.file.Path;
 
 @GlideModule
 public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
@@ -33,10 +33,10 @@ public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
                 new MediaEmbeddedPictureModelLoader.Factory<>());
         registry.prepend(File.class, ByteBuffer.class,
                 new MediaEmbeddedPictureModelLoader.Factory<>());
-        registry.prepend(Uri.class, ByteBuffer.class,
+        registry.prepend(Path.class, ByteBuffer.class,
                 new MediaEmbeddedPictureModelLoader.Factory<>());
         registry.prepend(String.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
         registry.prepend(File.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
-        registry.prepend(Uri.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
+        registry.prepend(Path.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
     }
 }
