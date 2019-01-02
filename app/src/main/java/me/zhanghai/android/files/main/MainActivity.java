@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import java.net.URI;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_PREFIX = MainActivity.class.getName() + '.';
 
-    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
+    private static final String EXTRA_PATH_URI = KEY_PREFIX + "PATH_URI";
 
     @Nullable
     private Path mExtraPath;
@@ -41,18 +42,20 @@ public class MainActivity extends AppCompatActivity {
     @NonNull
     public static Intent makeIntent(@NonNull Path path, @NonNull Context context) {
         return makeIntent(context)
-                .putExtra(EXTRA_PATH, (Parcelable) path);
+                .putExtra(EXTRA_PATH_URI, path.toUri());
     }
 
-    public static void putFileExtra(@NonNull Intent intent, @NonNull Path path) {
-        intent.putExtra(EXTRA_PATH, (Parcelable) path);
+    public static void putPathExtra(@NonNull Intent intent, @NonNull Path path) {
+        // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
+        intent.putExtra(EXTRA_PATH_URI, path.toUri());
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraPath = getIntent().getParcelableExtra(EXTRA_PATH);
+        URI extraPathUri = (URI) getIntent().getSerializableExtra(EXTRA_PATH_URI);
+        mExtraPath = extraPathUri != null ? Paths.get(extraPathUri) : null;
 
         // Calls ensureSubDecor().
         findViewById(android.R.id.content);
