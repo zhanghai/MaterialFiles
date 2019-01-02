@@ -35,12 +35,14 @@ import androidx.recyclerview.widget.SortedList;
 import androidx.recyclerview.widget.SortedListAdapterCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.files.ui.CheckableFrameLayout;
@@ -192,9 +194,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 MimeTypes.getIconRes(mimeType));
         BasicFileAttributes attributes = file.getAttributes();
-        if (MimeTypes.supportsThumbnail(mimeType)) {
+        Path path = file.getPath();
+        if (LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
-                    .load(file.getPath())
+                    .load(path.toFile())
                     .signature(new ObjectKey(attributes.lastModifiedTime()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));
