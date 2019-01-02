@@ -255,9 +255,8 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     public String toString() {
         StringBuilder pathBuilder = new StringBuilder();
         if (mAbsolute) {
-            String root = getRoot().toString();
-            if (root.length() == 1 && root.charAt(0) == mSeparator) {
-                pathBuilder.append(root);
+            if (getRoot().getNameCount() == 0) {
+                pathBuilder.append(mSeparator);
             }
         }
         boolean first = true;

@@ -39,7 +39,7 @@ public abstract class AbstractPath implements Path {
             case 1:
                 return getRoot();
             default:
-                return subpath(0, nameCount - 1);
+                return getRoot().resolve(subpath(0, nameCount - 1));
         }
     }
 
