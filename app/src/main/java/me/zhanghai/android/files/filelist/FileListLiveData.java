@@ -94,7 +94,7 @@ public class FileListLiveData extends LiveData<FileListData> {
     @Override
     protected void onActive() {
         if (LinuxFileSystemProvider.isLinuxPath(mPath)) {
-            mFileObserver = new JavaFileObserver(mPath.toString(), this::loadValue);
+            mFileObserver = new JavaFileObserver(mPath.toFile().getPath(), this::loadValue);
             mFileObserver.startWatching();
         }
     }

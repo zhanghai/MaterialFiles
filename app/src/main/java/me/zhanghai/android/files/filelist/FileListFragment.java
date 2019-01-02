@@ -514,7 +514,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private void openInTerminal() {
         Path path = getCurrentPath();
         if (LinuxFileSystemProvider.isLinuxPath(path)) {
-            Terminal.open(path.toString(), requireContext());
+            Terminal.open(path.toFile().getPath(), requireContext());
         } else {
             // TODO
         }
@@ -530,7 +530,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void copyPath(@NonNull Path path) {
         String pathString;
         if (LinuxFileSystemProvider.isLinuxPath(path)) {
-            pathString = path.toString();
+            pathString = path.toFile().getPath();
         } else {
             pathString = path.toUri().toString();
         }
