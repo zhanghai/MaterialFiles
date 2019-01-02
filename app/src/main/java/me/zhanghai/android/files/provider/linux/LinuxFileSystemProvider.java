@@ -138,6 +138,9 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         try {
             fd = Syscalls.open(path, flags, mode);
         } catch (SyscallException e) {
+            if ((flags & OsConstants.O_CREAT) != 0) {
+                e.maybeThrowInvalidFileNameException(path, null);
+            }
             throw e.toFileSystemException(path);
         }
         FileChannel fileChannel = LinuxFileChannels.open(fd, flags);
@@ -191,6 +194,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         try {
             Syscalls.mkdir(path, mode);
         } catch (SyscallException e) {
+            e.maybeThrowInvalidFileNameException(path, null);
             throw e.toFileSystemException(path);
         }
     }
@@ -209,6 +213,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         try {
             Syscalls.symlink(targetString, linkPath);
         } catch (SyscallException e) {
+            e.maybeThrowInvalidFileNameException(linkPath, null);
             throw e.toFileSystemException(linkPath, targetString);
         }
     }
@@ -222,6 +227,7 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         try {
             Syscalls.link(oldPath, newPath);
         } catch (SyscallException e) {
+            e.maybeThrowInvalidFileNameException(newPath, null);
             throw e.toFileSystemException(newPath, oldPath);
         }
     }

@@ -42,9 +42,11 @@ class LinuxCopyMove {
             Syscalls.rename(source, target);
         } catch (SyscallException e) {
             if (copyOptions.hasAtomicMove()) {
+                e.maybeThrowAtomicMoveNotSupportedException(source, target);
+                e.maybeThrowInvalidFileNameException(source, target);
                 throw e.toFileSystemException(source, target);
             }
-            // Ignored
+            // Ignored.
         }
         if (!copyOptions.hasCopyAttributes()) {
             copyOptions = new CopyOptions(copyOptions.hasReplaceExisting(), true,
@@ -91,6 +93,7 @@ class LinuxCopyMove {
                     targetFd = Syscalls.open(target, targetFlags,
                             sourceStat.st_mode);
                 } catch (SyscallException e) {
+                    e.maybeThrowInvalidFileNameException(source, target);
                     throw e.toFileSystemException(target);
                 }
                 try {
@@ -150,6 +153,7 @@ class LinuxCopyMove {
                         throw e2.toFileSystemException(target);
                     }
                 }
+                e.maybeThrowInvalidFileNameException(source, target);
                 throw e.toFileSystemException(target);
             }
             if (copyOptions.hasProgressListener()) {
@@ -174,6 +178,7 @@ class LinuxCopyMove {
                         throw e2.toFileSystemException(target);
                     }
                 }
+                e.maybeThrowInvalidFileNameException(source, target);
                 throw e.toFileSystemException(target);
             }
             if (copyOptions.hasProgressListener()) {

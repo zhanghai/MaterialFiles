@@ -11,12 +11,14 @@ import android.system.OsConstants;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.AccessDeniedException;
+import java8.nio.file.AtomicMoveNotSupportedException;
 import java8.nio.file.DirectoryNotEmptyException;
 import java8.nio.file.FileAlreadyExistsException;
 import java8.nio.file.FileSystemException;
 import java8.nio.file.FileSystemLoopException;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.NotDirectoryException;
+import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedField;
@@ -58,6 +60,28 @@ public class SyscallException extends Exception {
     @NonNull
     private static String perror(int errno, @NonNull String functionName) {
         return functionName + ": " + Syscalls.strerror(errno);
+    }
+
+    public void maybeThrowAtomicMoveNotSupportedException(@Nullable String file,
+                                                          @Nullable String other)
+            throws AtomicMoveNotSupportedException {
+        if (mErrno == OsConstants.EXDEV) {
+            AtomicMoveNotSupportedException exception = new AtomicMoveNotSupportedException(file,
+                    other, getMessage());
+            exception.initCause(this);
+            throw exception;
+        }
+    }
+
+    public void maybeThrowInvalidFileNameException(@Nullable String file,
+                                                   @Nullable String other)
+            throws InvalidFileNameException {
+        if (mErrno == OsConstants.EINVAL) {
+            InvalidFileNameException exception = new InvalidFileNameException(file, other,
+                    getMessage());
+            exception.initCause(this);
+            throw exception;
+        }
     }
 
     @NonNull
