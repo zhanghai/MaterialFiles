@@ -344,6 +344,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             mSpeedDialView.close();
             return true;
         }
+        if (mToolbarActionMode.isActive()) {
+            mToolbarActionMode.finish();
+            return true;
+        }
         return mViewModel.navigateUp(false);
     }
 
