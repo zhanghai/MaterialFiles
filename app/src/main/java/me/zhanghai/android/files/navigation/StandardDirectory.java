@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import java8.nio.file.Paths;
+import me.zhanghai.android.files.AppApplication;
 
 public class StandardDirectory implements Parcelable {
 
@@ -89,8 +90,8 @@ public class StandardDirectory implements Parcelable {
             };
 
     protected StandardDirectory(Parcel in) {
-        mIconRes = in.readInt();
-        mTitleRes = in.readInt();
+        mIconRes = readResourceId(in);
+        mTitleRes = readResourceId(in);
         mTitle = in.readString();
         mRelativePath = in.readString();
         mEnabled = in.readByte() != 0;
@@ -103,10 +104,28 @@ public class StandardDirectory implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mIconRes);
-        dest.writeInt(mTitleRes);
+        writeResourceId(dest, mIconRes);
+        writeResourceId(dest, mTitleRes);
         dest.writeString(mTitle);
         dest.writeString(mRelativePath);
         dest.writeByte(mEnabled ? (byte) 1 : (byte) 0);
+    }
+
+    private int readResourceId(@NonNull Parcel in) {
+        String resourceName = in.readString();
+        if (resourceName == null) {
+            return 0;
+        }
+        return AppApplication.getInstance().getResources().getIdentifier(resourceName, null, null);
+    }
+
+    private void writeResourceId(@NonNull Parcel dest, int resourceId) {
+        if (resourceId == 0) {
+            dest.writeString(null);
+            return;
+        }
+        String resourceName = AppApplication.getInstance().getResources().getResourceName(
+                resourceId);
+        dest.writeString(resourceName);
     }
 }
