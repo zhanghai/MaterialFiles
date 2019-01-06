@@ -284,7 +284,6 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         String targetString = target.toString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
         LinuxCopyMove.move(sourceString, targetString, copyOptions);
-        throw new UnsupportedOperationException();
     }
 
     @Override
