@@ -90,9 +90,6 @@ public class Syscalls {
     }
 
     @NonNull
-    public static native String[] listdir(@NonNull String path) throws SyscallException;
-
-    @NonNull
     public static native String[] llistxattr(@NonNull String path) throws SyscallException;
 
     public static native void lsetxattr(@NonNull String path, @NonNull String name,
