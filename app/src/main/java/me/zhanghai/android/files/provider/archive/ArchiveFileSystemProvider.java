@@ -46,7 +46,7 @@ import me.zhanghai.android.files.provider.common.StringPath;
 
 public class ArchiveFileSystemProvider extends FileSystemProvider {
 
-    private static final String SCHEME = "file";
+    private static final String SCHEME = "archive";
 
     private static ArchiveFileSystemProvider sInstance;
     private static final Object sInstanceLock = new Object();
