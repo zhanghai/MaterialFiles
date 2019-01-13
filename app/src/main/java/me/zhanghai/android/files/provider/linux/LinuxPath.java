@@ -114,7 +114,7 @@ class LinuxPath extends StringListPath {
     protected LinuxPath(Parcel in) {
         super(in);
 
-        mFileSystem = LinuxFileSystemProvider.getFileSystem();
+        mFileSystem = in.readParcelable(LinuxFileSystem.class.getClassLoader());
     }
 
     @Override
@@ -125,5 +125,7 @@ class LinuxPath extends StringListPath {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+
+        dest.writeParcelable(mFileSystem, flags);
     }
 }

@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.archive;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Pair;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -30,7 +32,7 @@ import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
 
-class ArchiveFileSystem extends FileSystem {
+class ArchiveFileSystem extends FileSystem implements Parcelable {
 
     static final char SEPARATOR = '/';
 
@@ -260,5 +262,28 @@ class ArchiveFileSystem extends FileSystem {
     @Override
     public int hashCode() {
         return Objects.hash(mArchiveFile);
+    }
+
+
+    public static final Creator<ArchiveFileSystem> CREATOR = new Creator<ArchiveFileSystem>() {
+        @Override
+        public ArchiveFileSystem createFromParcel(Parcel source) {
+            Path archiveFile = source.readParcelable(Path.class.getClassLoader());
+            return ArchiveFileSystemProvider.getOrNewFileSystem(archiveFile);
+        }
+        @Override
+        public ArchiveFileSystem[] newArray(int size) {
+            return new ArchiveFileSystem[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable((Parcelable) mArchiveFile, flags);
     }
 }

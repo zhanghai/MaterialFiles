@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Objects;
@@ -18,7 +21,7 @@ import java8.nio.file.PathMatcher;
 import java8.nio.file.WatchService;
 import java8.nio.file.spi.FileSystemProvider;
 
-class LinuxFileSystem extends FileSystem {
+class LinuxFileSystem extends FileSystem implements Parcelable {
 
     static final char SEPARATOR = '/';
 
@@ -145,4 +148,24 @@ class LinuxFileSystem extends FileSystem {
         // TODO
         throw new UnsupportedOperationException();
     }
+
+
+    public static final Creator<LinuxFileSystem> CREATOR = new Creator<LinuxFileSystem>() {
+        @Override
+        public LinuxFileSystem createFromParcel(Parcel source) {
+            return LinuxFileSystemProvider.getFileSystem();
+        }
+        @Override
+        public LinuxFileSystem[] newArray(int size) {
+            return new LinuxFileSystem[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {}
 }

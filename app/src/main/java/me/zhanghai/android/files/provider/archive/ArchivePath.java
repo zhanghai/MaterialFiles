@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.archive;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.io.File;
 import java.io.IOException;
@@ -126,8 +125,7 @@ class ArchivePath extends StringListPath {
     protected ArchivePath(Parcel in) {
         super(in);
 
-        Path archiveFile = in.readParcelable(Path.class.getClassLoader());
-        mFileSystem = ArchiveFileSystemProvider.getOrNewFileSystem(archiveFile);
+        mFileSystem = in.readParcelable(ArchiveFileSystem.class.getClassLoader());
     }
 
     @Override
@@ -139,6 +137,6 @@ class ArchivePath extends StringListPath {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
-        dest.writeParcelable((Parcelable) mFileSystem.getArchiveFile(), flags);
+        dest.writeParcelable(mFileSystem, flags);
     }
 }
