@@ -5,11 +5,12 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Objects;
 
-import androidx.annotation.Nullable;
-
-class LinuxFileKey {
+class LinuxFileKey implements Parcelable {
 
     private final long mDeviceId;
     private final long mInodeNumber;
@@ -35,5 +36,33 @@ class LinuxFileKey {
     @Override
     public int hashCode() {
         return Objects.hash(mDeviceId, mInodeNumber);
+    }
+
+
+    public static final Creator<LinuxFileKey> CREATOR = new Creator<LinuxFileKey>() {
+        @Override
+        public LinuxFileKey createFromParcel(Parcel source) {
+            return new LinuxFileKey(source);
+        }
+        @Override
+        public LinuxFileKey[] newArray(int size) {
+            return new LinuxFileKey[size];
+        }
+    };
+
+    protected LinuxFileKey(Parcel in) {
+        mDeviceId = in.readLong();
+        mInodeNumber = in.readLong();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(mDeviceId);
+        dest.writeLong(mInodeNumber);
     }
 }
