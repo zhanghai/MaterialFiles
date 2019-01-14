@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.archive;
+package me.zhanghai.android.files.provider.common;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -16,25 +16,25 @@ import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Path;
 
-class ArchiveDirectoryStream implements DirectoryStream<Path> {
+public class PathListDirectoryStream implements DirectoryStream<Path> {
 
     @NonNull
-    private final List<Path> mChildren;
+    private final List<Path> mPaths;
 
     @NonNull
     private final Filter<? super Path> mFilter;
 
     @Nullable
-    private ArchiveDirectoryIterator mIterator;
+    private PathIterator mIterator;
 
     private boolean mClosed;
 
     @NonNull
     private final Object mLock = new Object();
 
-    public ArchiveDirectoryStream(@NonNull List<Path> children,
-                                  @NonNull Filter<? super Path> filter) {
-        mChildren = children;
+    public PathListDirectoryStream(@NonNull List<Path> paths,
+                                   @NonNull Filter<? super Path> filter) {
+        mPaths = paths;
         mFilter = filter;
     }
 
@@ -47,7 +47,7 @@ class ArchiveDirectoryStream implements DirectoryStream<Path> {
             if (mIterator != null) {
                 throw new IllegalStateException("The iterator has already been returned");
             }
-            mIterator = new ArchiveDirectoryIterator();
+            mIterator = new PathIterator();
             return mIterator;
         }
     }
@@ -59,7 +59,7 @@ class ArchiveDirectoryStream implements DirectoryStream<Path> {
         }
     }
 
-    private class ArchiveDirectoryIterator implements Iterator<Path> {
+    private class PathIterator implements Iterator<Path> {
 
         @NonNull
         private final Iterator<Path> mIterator;
@@ -69,8 +69,8 @@ class ArchiveDirectoryStream implements DirectoryStream<Path> {
 
         private boolean mEndOfStream;
 
-        public ArchiveDirectoryIterator() {
-            mIterator = mChildren.iterator();
+        public PathIterator() {
+            mIterator = mPaths.iterator();
         }
 
         @Override
