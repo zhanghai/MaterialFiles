@@ -30,7 +30,7 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
     private final Filter<? super Path> mFilter;
 
     @Nullable
-    private LinuxDirectoryIterator mIterator;
+    private PathIterator mIterator;
 
     private boolean mClosed;
 
@@ -53,7 +53,7 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
             if (mIterator != null) {
                 throw new IllegalStateException("The iterator has already been returned");
             }
-            mIterator = new LinuxDirectoryIterator();
+            mIterator = new PathIterator();
             return mIterator;
         }
     }
@@ -70,7 +70,7 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
         }
     }
 
-    private class LinuxDirectoryIterator implements Iterator<Path> {
+    private class PathIterator implements Iterator<Path> {
 
         @Nullable
         private Path mNextPath;

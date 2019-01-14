@@ -96,6 +96,7 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         return sInstance.getOrNewFileSystemInternal(archiveFile);
     }
 
+    @NonNull
     private ArchiveFileSystem getOrNewFileSystemInternal(@NonNull Path archiveFile) {
         ArchiveFileSystem fileSystem;
         synchronized (mFileSystemsLock) {
@@ -385,6 +386,10 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         return (V) getFileAttributeView(path);
     }
 
+    static boolean supportsFileAttributeView(@NonNull Class<? extends FileAttributeView> type) {
+        return type.isAssignableFrom(ArchiveFileAttributeView.class);
+    }
+
     @NonNull
     @Override
     public <A extends BasicFileAttributes> A readAttributes(@NonNull Path path,
@@ -399,10 +404,6 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         }
         //noinspection unchecked
         return (A) getFileAttributeView(path).readAttributes();
-    }
-
-    static boolean supportsFileAttributeView(@NonNull Class<? extends FileAttributeView> type) {
-        return type.isAssignableFrom(ArchiveFileAttributeView.class);
     }
 
     private static ArchiveFileAttributeView getFileAttributeView(@NonNull Path path) {
