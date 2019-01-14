@@ -122,7 +122,7 @@ class ArchiveFileSystem extends FileSystem implements Parcelable {
     }
 
     @NonNull
-    List<Path> getChildren(@NonNull Path directory) throws IOException {
+    List<Path> getDirectoryChildren(@NonNull Path directory) throws IOException {
         synchronized (mLock) {
             ensureOpenLocked();
             ArchiveEntry entry = getEntryLocked(directory);

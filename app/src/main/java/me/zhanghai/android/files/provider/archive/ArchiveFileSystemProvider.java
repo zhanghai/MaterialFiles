@@ -267,7 +267,7 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         requireArchivePath(directory);
         Objects.requireNonNull(filter);
         ArchiveFileSystem fileSystem = (ArchiveFileSystem) directory.getFileSystem();
-        List<Path> children = fileSystem.getChildren(directory);
+        List<Path> children = fileSystem.getDirectoryChildren(directory);
         return new PathListDirectoryStream(children, filter);
     }
 
