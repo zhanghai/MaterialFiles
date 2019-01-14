@@ -18,10 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
-import java8.nio.file.attribute.GroupPrincipal;
-import java8.nio.file.attribute.PosixFileAttributeView;
-import java8.nio.file.attribute.PosixFilePermission;
-import java8.nio.file.attribute.UserPrincipal;
+import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixUser;
 
 public class ArchiveFileAttributeView implements PosixFileAttributeView {
 
@@ -61,27 +61,21 @@ public class ArchiveFileAttributeView implements PosixFileAttributeView {
         throw new UnsupportedOperationException();
     }
 
-    @NonNull
     @Override
-    public UserPrincipal getOwner() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setOwner(@NonNull UserPrincipal owner) {
+    public void setOwner(@NonNull PosixUser owner) {
         Objects.requireNonNull(owner);
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setGroup(@NonNull GroupPrincipal group) {
+    public void setGroup(@NonNull PosixGroup group) {
         Objects.requireNonNull(group);
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void setPermissions(@NonNull Set<PosixFilePermission> permissions) {
-        Objects.requireNonNull(permissions);
+    public void setMode(@NonNull Set<PosixFileModeBit> mode) {
+        Objects.requireNonNull(mode);
         throw new UnsupportedOperationException();
     }
 }

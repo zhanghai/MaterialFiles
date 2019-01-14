@@ -14,8 +14,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileTime;
-import java8.nio.file.attribute.PosixFileAttributes;
-import java8.nio.file.attribute.PosixFilePermission;
+import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixFileType;
@@ -64,26 +63,6 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
     }
 
     @Override
-    public boolean isRegularFile() {
-        return type() == PosixFileType.REGULAR_FILE;
-    }
-
-    @Override
-    public boolean isDirectory() {
-        return type() == PosixFileType.DIRECTORY;
-    }
-
-    @Override
-    public boolean isSymbolicLink() {
-        return type() == PosixFileType.SYMBOLIC_LINK;
-    }
-
-    @Override
-    public boolean isOther() {
-        return !isRegularFile() && !isDirectory() && !isSymbolicLink();
-    }
-
-    @Override
     public long size() {
         return mStat.st_size;
     }
@@ -109,12 +88,6 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
     @NonNull
     public Set<PosixFileModeBit> mode() {
         return PosixFileMode.fromInt(mStat.st_mode);
-    }
-
-    @NonNull
-    @Override
-    public Set<PosixFilePermission> permissions() {
-        return PosixFileMode.toPermissions(mode());
     }
 
 

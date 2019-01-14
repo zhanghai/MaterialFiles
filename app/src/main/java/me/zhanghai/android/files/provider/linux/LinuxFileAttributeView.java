@@ -17,10 +17,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileTime;
-import java8.nio.file.attribute.GroupPrincipal;
-import java8.nio.file.attribute.PosixFileAttributeView;
-import java8.nio.file.attribute.PosixFilePermission;
-import java8.nio.file.attribute.UserPrincipal;
+import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixGroup;
@@ -114,20 +111,10 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
         return new StructTimespec(instant.getEpochSecond(), instant.getNano());
     }
 
-    @NonNull
     @Override
-    public UserPrincipal getOwner() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setOwner(@NonNull UserPrincipal owner) throws IOException {
+    public void setOwner(@NonNull PosixUser owner) throws IOException {
         Objects.requireNonNull(owner);
-        if (!(owner instanceof PosixUser)) {
-            throw new UnsupportedOperationException(owner.toString());
-        }
-        PosixUser posixOwner = (PosixUser) owner;
-        int uid = posixOwner.getId();
+        int uid = owner.getId();
         try {
             if (mNoFollowLinks) {
                 Syscalls.lchown(mPath, uid, -1);
@@ -140,13 +127,9 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
     }
 
     @Override
-    public void setGroup(@NonNull GroupPrincipal group) throws IOException {
+    public void setGroup(@NonNull PosixGroup group) throws IOException {
         Objects.requireNonNull(group);
-        if (!(group instanceof PosixGroup)) {
-            throw new UnsupportedOperationException(group.toString());
-        }
-        PosixGroup posixGroup = (PosixGroup) group;
-        int gid = posixGroup.getId();
+        int gid = group.getId();
         try {
             if (mNoFollowLinks) {
                 Syscalls.lchown(mPath, -1, gid);
@@ -156,12 +139,6 @@ public class LinuxFileAttributeView implements PosixFileAttributeView {
         } catch (SyscallException e) {
             throw e.toFileSystemException(mPath);
         }
-    }
-
-    @Override
-    public void setPermissions(@NonNull Set<PosixFilePermission> permissions) throws IOException {
-        Objects.requireNonNull(permissions);
-        setMode(PosixFileMode.fromPermissions(permissions));
     }
 
     public void setMode(@NonNull Set<PosixFileModeBit> mode) throws IOException {
