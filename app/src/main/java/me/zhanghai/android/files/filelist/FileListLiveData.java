@@ -15,14 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
+import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.filesystem.JavaFileObserver;
+import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.FunctionalIterator;
 import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
@@ -50,9 +51,12 @@ public class FileListLiveData extends LiveData<FileListData> {
                 try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(mPath)) {
                     List<FileItem> fileList;
                     try {
-                        fileList = FunctionalIterator.mapRemaining(directoryStream.iterator(),
+                        fileList = Functional.map(directoryStream,
                                 (ThrowingFunction<Path, FileItem>) FileListLiveData::loadFileItem);
                     } catch (FunctionalException e) {
+                        if (e.getCause() instanceof DirectoryIteratorException) {
+                            throw e.getCauseAs(DirectoryIteratorException.class).getCause();
+                        }
                         throw e.getCauseAs(IOException.class);
                     }
                     return FileListData.ofSuccess(mPath, fileList);
