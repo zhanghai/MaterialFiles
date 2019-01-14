@@ -7,11 +7,9 @@ package me.zhanghai.android.files.provider.archive;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -27,8 +25,6 @@ import java8.nio.file.CopyOption;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileStore;
 import java8.nio.file.FileSystem;
-import java8.nio.file.FileSystemAlreadyExistsException;
-import java8.nio.file.FileSystemNotFoundException;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.OpenOption;
@@ -41,6 +37,7 @@ import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
+import me.zhanghai.android.files.provider.common.FileSystemCache;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
 import me.zhanghai.android.files.provider.common.StringPath;
@@ -53,9 +50,7 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
     private static final Object sInstanceLock = new Object();
 
     @NonNull
-    private final Map<Path, WeakReference<ArchiveFileSystem>> mFileSystems = new HashMap<>();
-    @NonNull
-    private final Object mFileSystemsLock = new Object();
+    private final FileSystemCache<Path, ArchiveFileSystem> mFileSystems = new FileSystemCache<>();
 
     private ArchiveFileSystemProvider() {}
 
@@ -94,25 +89,8 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
 
     @NonNull
     static ArchiveFileSystem getOrNewFileSystem(@NonNull Path archiveFile) {
-        return sInstance.getOrNewFileSystemInternal(archiveFile);
-    }
-
-    @NonNull
-    private ArchiveFileSystem getOrNewFileSystemInternal(@NonNull Path archiveFile) {
-        ArchiveFileSystem fileSystem;
-        synchronized (mFileSystemsLock) {
-            WeakReference<ArchiveFileSystem> fileSystemReference = sInstance.mFileSystems.get(
-                    archiveFile);
-            if (fileSystemReference != null) {
-                fileSystem = fileSystemReference.get();
-                if (fileSystem != null) {
-                    return fileSystem;
-                }
-            }
-            fileSystem = newFileSystem(archiveFile);
-            mFileSystems.put(archiveFile, new WeakReference<>(fileSystem));
-        }
-        return fileSystem;
+        return sInstance.mFileSystems.getOrNew(archiveFile, () -> sInstance.newFileSystem(
+                archiveFile));
     }
 
     @NonNull
@@ -128,19 +106,7 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         requireSameScheme(uri);
         Objects.requireNonNull(env);
         Path archiveFile = getArchiveFileFromUri(uri);
-        ArchiveFileSystem fileSystem;
-        synchronized (mFileSystemsLock) {
-            WeakReference<ArchiveFileSystem> fileSystemReference = mFileSystems.get(archiveFile);
-            if (fileSystemReference != null) {
-                fileSystem = fileSystemReference.get();
-                if (fileSystem != null) {
-                    throw new FileSystemAlreadyExistsException();
-                }
-            }
-            fileSystem = newFileSystem(archiveFile);
-            mFileSystems.put(archiveFile, new WeakReference<>(fileSystem));
-        }
-        return fileSystem;
+        return mFileSystems.new_(archiveFile, () -> newFileSystem(archiveFile));
     }
 
     @NonNull
@@ -149,20 +115,7 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(uri);
         requireSameScheme(uri);
         Path archiveFile = getArchiveFileFromUri(uri);
-        ArchiveFileSystem fileSystem = null;
-        synchronized (mFileSystemsLock) {
-            WeakReference<ArchiveFileSystem> fileSystemReference = mFileSystems.get(archiveFile);
-            if (fileSystemReference != null) {
-                fileSystem = fileSystemReference.get();
-                if (fileSystem == null) {
-                    mFileSystems.remove(archiveFile);
-                }
-            }
-        }
-        if (fileSystem == null) {
-            throw new FileSystemNotFoundException();
-        }
-        return fileSystem;
+        return mFileSystems.get(archiveFile);
     }
 
     @NonNull
@@ -177,17 +130,7 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
     }
 
     void removeFileSystem(@NonNull ArchiveFileSystem fileSystem) {
-        synchronized (mFileSystemsLock) {
-            Path archiveFile = fileSystem.getArchiveFile();
-            WeakReference<ArchiveFileSystem> fileSystemReference = mFileSystems.get(archiveFile);
-            if (fileSystemReference == null) {
-                return;
-            }
-            ArchiveFileSystem currentFileSystem = fileSystemReference.get();
-            if (currentFileSystem == null || currentFileSystem == fileSystem) {
-                mFileSystems.remove(archiveFile);
-            }
-        }
+        mFileSystems.remove(fileSystem.getArchiveFile(), fileSystem);
     }
 
     @NonNull
