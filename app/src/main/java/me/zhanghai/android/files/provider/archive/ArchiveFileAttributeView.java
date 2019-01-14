@@ -25,7 +25,7 @@ import me.zhanghai.android.files.provider.common.PosixUser;
 
 public class ArchiveFileAttributeView implements PosixFileAttributeView {
 
-    private static final String NAME = "archive";
+    private static final String NAME = ArchiveFileSystemProvider.SCHEME;
 
     static final Set<String> SUPPORTED_NAMES = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList("basic", "posix", NAME)));

@@ -30,7 +30,7 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 public class LinuxFileAttributeView implements PosixFileAttributeView {
 
-    private static final String NAME = "linux";
+    private static final String NAME = LinuxFileSystemProvider.SCHEME;
 
     static final Set<String> SUPPORTED_NAMES = Collections.unmodifiableSet(new HashSet<>(
             Arrays.asList("basic", "posix", NAME)));

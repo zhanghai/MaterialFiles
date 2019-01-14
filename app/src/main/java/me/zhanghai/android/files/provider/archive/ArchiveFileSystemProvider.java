@@ -42,11 +42,12 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.OpenOptions;
+import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
 import me.zhanghai.android.files.provider.common.StringPath;
 
 public class ArchiveFileSystemProvider extends FileSystemProvider {
 
-    private static final String SCHEME = "archive";
+    static final String SCHEME = "archive";
 
     private static ArchiveFileSystemProvider sInstance;
     private static final Object sInstanceLock = new Object();

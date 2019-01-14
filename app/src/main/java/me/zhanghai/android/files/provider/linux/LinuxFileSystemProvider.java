@@ -48,7 +48,7 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 public class LinuxFileSystemProvider extends FileSystemProvider {
 
-    private static final String SCHEME = "file";
+    static final String SCHEME = "file";
 
     private static final String HIDDEN_FILE_NAME_PREFIX = ".";
 
