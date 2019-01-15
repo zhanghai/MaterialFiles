@@ -10,7 +10,7 @@ import android.os.Parcelable;
 
 import org.threeten.bp.Instant;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileTime;
@@ -86,7 +86,7 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
     }
 
     @NonNull
-    public EnumSet<PosixFileModeBit> mode() {
+    public Set<PosixFileModeBit> mode() {
         return PosixFileMode.fromInt(mStat.st_mode);
     }
 

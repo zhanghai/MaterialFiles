@@ -12,7 +12,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.threeten.bp.Instant;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -155,7 +155,7 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
     }
 
     @Nullable
-    public EnumSet<PosixFileModeBit> mode() {
+    public Set<PosixFileModeBit> mode() {
         if (mEntry instanceof DumpArchiveEntry) {
             DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
             return PosixFileMode.fromInt(dumpEntry.getMode());

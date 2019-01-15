@@ -7,7 +7,7 @@ package me.zhanghai.android.files.provider.common;
 
 import android.os.Parcelable;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,12 +51,12 @@ public interface PosixFileAttributes extends java8.nio.file.attribute.PosixFileA
     PosixGroup group();
 
     @Nullable
-    EnumSet<PosixFileModeBit> mode();
+    Set<PosixFileModeBit> mode();
 
     @Nullable
     @Override
-    default EnumSet<PosixFilePermission> permissions() {
-        EnumSet<PosixFileModeBit> mode = mode();
+    default Set<PosixFilePermission> permissions() {
+        Set<PosixFileModeBit> mode = mode();
         return mode != null ? PosixFileMode.toPermissions(mode) : null;
     }
 }

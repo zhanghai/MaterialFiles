@@ -8,7 +8,7 @@ package me.zhanghai.android.files.provider.common;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.EnumSet;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,7 +32,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
     @Nullable
     private final PosixGroup mGroup;
     @Nullable
-    private final EnumSet<PosixFileModeBit> mMode;
+    private final Set<PosixFileModeBit> mMode;
 
     public ParcelablePosixFileAttributes(@NonNull PosixFileAttributes attributes) {
         mLastModifiedTime = attributes.lastModifiedTime();
@@ -93,7 +93,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
     }
 
     @Nullable
-    public EnumSet<PosixFileModeBit> mode() {
+    public Set<PosixFileModeBit> mode() {
         return mMode;
     }
 
@@ -104,7 +104,6 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
                 public ParcelablePosixFileAttributes createFromParcel(Parcel source) {
                     return new ParcelablePosixFileAttributes(source);
                 }
-
                 @Override
                 public ParcelablePosixFileAttributes[] newArray(int size) {
                     return new ParcelablePosixFileAttributes[size];
@@ -124,8 +123,8 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
         mFileKey = in.readParcelable(getClass().getClassLoader());
         mOwner = in.readParcelable(PosixUser.class.getClassLoader());
         mGroup = in.readParcelable(PosixGroup.class.getClassLoader());
-        //noinspection unchecked
-        mMode = (EnumSet<PosixFileModeBit>) in.readSerializable();
+        mMode = ((ParcelablePosixFileMode) in.readParcelable(
+                ParcelablePosixFileMode.class.getClassLoader())).get();
     }
 
     @Override
@@ -143,6 +142,6 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
         dest.writeParcelable(mFileKey, flags);
         dest.writeParcelable(mOwner, flags);
         dest.writeParcelable(mGroup, flags);
-        dest.writeSerializable(mMode);
+        dest.writeParcelable(new ParcelablePosixFileMode(mMode), flags);
     }
 }
