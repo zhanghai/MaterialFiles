@@ -76,15 +76,15 @@ public class ArchiveFileSystemProvider extends FileSystemProvider {
         return fileSystem.getArchiveFile();
     }
 
+    public static void refresh(@NonNull Path path) {
+        requireArchivePath(path);
+        ArchiveFileSystem fileSystem = (ArchiveFileSystem) path.getFileSystem();
+        fileSystem.refresh();
+    }
+
     @NonNull
     public static Path getRootPathForArchiveFile(@NonNull Path archiveFile) {
         return getOrNewFileSystem(archiveFile).getRootDirectory();
-    }
-
-    public static void requestReopenFileSystem(@NonNull Path path) {
-        requireArchivePath(path);
-        ArchiveFileSystem fileSystem = (ArchiveFileSystem) path.getFileSystem();
-        fileSystem.requestReopen();
     }
 
     @NonNull

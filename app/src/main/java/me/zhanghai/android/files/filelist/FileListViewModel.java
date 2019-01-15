@@ -71,7 +71,7 @@ public class FileListViewModel extends ViewModel {
     public void reload() {
         Path path = mTrailLiveData.getValue().getCurrentPath();
         if (ArchiveFileSystemProvider.isArchivePath(path)) {
-            ArchiveFileSystemProvider.requestReopenFileSystem(path);
+            ArchiveFileSystemProvider.refresh(path);
         }
         mTrailLiveData.reload();
     }

@@ -58,9 +58,9 @@ class ArchiveFileSystem extends FileSystem implements Parcelable {
     @NonNull
     private final Object mLock = new Object();
 
-    private boolean mClosed;
+    private boolean mOpen = true;
 
-    private boolean mReopenRequested = true;
+    private boolean mNeedRefresh = true;
 
     private Map<Path, ArchiveEntry> mEntries;
 
@@ -96,7 +96,7 @@ class ArchiveFileSystem extends FileSystem implements Parcelable {
     @NonNull
     ArchiveEntry getEntry(@NonNull Path path) throws IOException {
         synchronized (mLock) {
-            ensureOpenLocked();
+            ensureEntriesLocked();
             return getEntryLocked(path);
         }
     }
@@ -115,7 +115,7 @@ class ArchiveFileSystem extends FileSystem implements Parcelable {
     @NonNull
     InputStream newInputStream(@NonNull Path file) throws IOException {
         synchronized (mLock) {
-            ensureOpenLocked();
+            ensureEntriesLocked();
             ArchiveEntry entry = getEntryLocked(file);
             return ArchiveReader.newInputStream(mArchiveFile, entry);
         }
@@ -124,7 +124,7 @@ class ArchiveFileSystem extends FileSystem implements Parcelable {
     @NonNull
     List<Path> getDirectoryChildren(@NonNull Path directory) throws IOException {
         synchronized (mLock) {
-            ensureOpenLocked();
+            ensureEntriesLocked();
             ArchiveEntry entry = getEntryLocked(directory);
             if (!entry.isDirectory()) {
                 throw new NotDirectoryException(directory.toString());
@@ -136,50 +136,52 @@ class ArchiveFileSystem extends FileSystem implements Parcelable {
     @NonNull
     String readSymbolicLink(@NonNull Path link) throws IOException {
         synchronized (mLock) {
-            ensureOpenLocked();
+            ensureEntriesLocked();
             ArchiveEntry entry = getEntryLocked(link);
             return ArchiveReader.readSymbolicLink(link, entry);
         }
     }
 
-    void requestReopen() {
+    void refresh() {
         synchronized (mLock) {
-            mReopenRequested = true;
+            if (!mOpen) {
+                throw new ClosedFileSystemException();
+            }
+            mNeedRefresh = true;
         }
     }
 
-    private void ensureOpenLocked() throws IOException {
-        if (mReopenRequested) {
+    private void ensureEntriesLocked() throws IOException {
+        if (!mOpen) {
+            throw new ClosedFileSystemException();
+        }
+        if (mNeedRefresh) {
             Pair<Map<Path, ArchiveEntry>, Map<Path, List<Path>>> entriesAndTree =
                     ArchiveReader.readEntries(mArchiveFile, mRootDirectory);
             mEntries = entriesAndTree.first;
             mTree = entriesAndTree.second;
-            mClosed = false;
-            mReopenRequested = false;
-        }
-        if (mClosed) {
-            throw new ClosedFileSystemException();
+            mNeedRefresh = false;
         }
     }
 
     @Override
     public void close() {
         synchronized (mLock) {
-            mReopenRequested = false;
-            if (mClosed) {
+            if (!mOpen) {
                 return;
             }
             mProvider.removeFileSystem(this);
-            mClosed = true;
+            mNeedRefresh = false;
             mEntries = null;
             mTree = null;
+            mOpen = false;
         }
     }
 
     @Override
     public boolean isOpen() {
         synchronized (mLock) {
-            return !mClosed;
+            return mOpen;
         }
     }
 
