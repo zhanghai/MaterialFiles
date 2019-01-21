@@ -27,7 +27,7 @@ class RemoteArchivePath extends StringListPath {
     @NonNull
     private final RemoteArchiveFileSystem mFileSystem;
 
-    public RemoteArchivePath(@NonNull RemoteArchiveFileSystem fileSystem, @NonNull String path) {
+    RemoteArchivePath(@NonNull RemoteArchiveFileSystem fileSystem, @NonNull String path) {
         super(RemoteArchiveFileSystem.SEPARATOR, path);
 
         mFileSystem = fileSystem;

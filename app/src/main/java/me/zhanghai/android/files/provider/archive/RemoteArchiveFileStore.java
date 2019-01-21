@@ -16,7 +16,7 @@ import me.zhanghai.android.files.provider.remote.RemoteFileStore;
 
 public class RemoteArchiveFileStore extends RemoteFileStore {
 
-    public RemoteArchiveFileStore(@NonNull FileStore fileStore) {
+    RemoteArchiveFileStore(@NonNull FileStore fileStore) {
         super(fileStore);
     }
 

@@ -39,8 +39,8 @@ class RemoteArchiveFileSystem extends RemoteFileSystem implements Parcelable {
     @NonNull
     private final Path mArchiveFile;
 
-    public RemoteArchiveFileSystem(@NonNull RemoteArchiveFileSystemProvider provider,
-                                   @NonNull Path archiveFile) {
+    RemoteArchiveFileSystem(@NonNull RemoteArchiveFileSystemProvider provider,
+                            @NonNull Path archiveFile) {
         super(provider);
 
         mArchiveFile = archiveFile;

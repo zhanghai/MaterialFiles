@@ -30,7 +30,7 @@ public class RemoteArchiveFileAttributeView
     @NonNull
     private final Path mPath;
 
-    public RemoteArchiveFileAttributeView(@NonNull Path path) {
+    RemoteArchiveFileAttributeView(@NonNull Path path) {
         mPath = path;
     }
 
