@@ -16,8 +16,10 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.attribute.FileStoreAttributeView;
 import me.zhanghai.android.files.file.MimeTypes;
+import me.zhanghai.android.files.provider.remote.RemotableFileStore;
+import me.zhanghai.android.files.provider.remote.RemoteFileStore;
 
-public class ArchiveFileStore extends FileStore {
+public class ArchiveFileStore extends FileStore implements RemotableFileStore {
 
     @NonNull
     private final Path mArchiveFile;
@@ -26,11 +28,13 @@ public class ArchiveFileStore extends FileStore {
         mArchiveFile = archiveFile;
     }
 
+    @NonNull
     @Override
     public String name() {
         return mArchiveFile.toString();
     }
 
+    @NonNull
     @Override
     public String type() {
         return MimeTypes.getMimeType(mArchiveFile.toString());
@@ -80,5 +84,12 @@ public class ArchiveFileStore extends FileStore {
     public Object getAttribute(@NonNull String attribute) {
         Objects.requireNonNull(attribute);
         throw new UnsupportedOperationException();
+    }
+
+
+    @NonNull
+    @Override
+    public RemoteFileStore toRemote() {
+        return new RemoteArchiveFileStore(this);
     }
 }

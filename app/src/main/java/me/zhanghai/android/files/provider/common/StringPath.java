@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.provider.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.File;
 import java.net.URI;
 import java.util.Iterator;
@@ -17,7 +20,7 @@ import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 
-public class StringPath implements Path {
+public class StringPath implements Parcelable, Path {
 
     @NonNull
     private final String mString;
@@ -162,5 +165,31 @@ public class StringPath implements Path {
     @Override
     public int compareTo(Path other) {
         throw new UnsupportedOperationException();
+    }
+
+
+    public static final Creator<StringPath> CREATOR = new Creator<StringPath>() {
+        @Override
+        public StringPath createFromParcel(Parcel source) {
+            return new StringPath(source);
+        }
+        @Override
+        public StringPath[] newArray(int size) {
+            return new StringPath[size];
+        }
+    };
+
+    protected StringPath(Parcel in) {
+        mString = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mString);
     }
 }

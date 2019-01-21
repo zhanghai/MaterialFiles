@@ -27,12 +27,14 @@ public class LinuxFileStore extends FileStore {
         mPath = path;
     }
 
+    @NonNull
     @Override
     public String name() {
         // TODO: Use getmntent_r.
         throw new UnsupportedOperationException();
     }
 
+    @NonNull
     @Override
     public String type() {
         // TODO: Use getmntent_r.
