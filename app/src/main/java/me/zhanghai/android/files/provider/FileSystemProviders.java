@@ -9,6 +9,7 @@ import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.archive.RemoteArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.provider.linux.RemoteLinuxFileSystemProvider;
 import me.zhanghai.android.files.provider.remote.RemoteFileService;
 import me.zhanghai.android.files.provider.remote.AndroidRootFileService;
 
@@ -21,6 +22,7 @@ public class FileSystemProviders {
         ArchiveFileSystemProvider.install();
         AndroidFileTypeDetector.install();
 
+        RemoteLinuxFileSystemProvider.install();
         RemoteArchiveFileSystemProvider.install();
         RemoteFileService.use(new AndroidRootFileService());
     }

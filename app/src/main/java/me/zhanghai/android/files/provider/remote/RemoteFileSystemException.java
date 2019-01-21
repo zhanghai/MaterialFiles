@@ -7,11 +7,21 @@ package me.zhanghai.android.files.provider.remote;
 
 import java.io.IOException;
 
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class RemoteFileSystemException extends IOException {
 
-    public RemoteFileSystemException(@NonNull Exception cause) {
+    public RemoteFileSystemException() {}
+
+    public RemoteFileSystemException(@Nullable String message) {
+        super(message);
+    }
+
+    public RemoteFileSystemException(@Nullable String message, @Nullable Throwable cause) {
+        super(message, cause);
+    }
+
+    public RemoteFileSystemException(@Nullable Throwable cause) {
         super(cause);
     }
 }

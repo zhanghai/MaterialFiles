@@ -17,8 +17,10 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.attribute.FileStoreAttributeView;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.android.files.provider.remote.RemotableFileStore;
+import me.zhanghai.android.files.provider.remote.RemoteFileStore;
 
-public class LinuxFileStore extends FileStore {
+public class LinuxFileStore extends FileStore implements RemotableFileStore {
 
     @NonNull
     private final String mPath;
@@ -31,20 +33,20 @@ public class LinuxFileStore extends FileStore {
     @Override
     public String name() {
         // TODO: Use getmntent_r.
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @NonNull
     @Override
     public String type() {
         // TODO: Use getmntent_r.
-        throw new UnsupportedOperationException();
+        return null;
     }
 
     @Override
     public boolean isReadOnly() {
         // TODO: Use getmntent_r.
-        throw new UnsupportedOperationException();
+        return false;
     }
 
     @Override
@@ -98,5 +100,12 @@ public class LinuxFileStore extends FileStore {
     public Object getAttribute(@NonNull String attribute) {
         Objects.requireNonNull(attribute);
         throw new UnsupportedOperationException();
+    }
+
+
+    @NonNull
+    @Override
+    public RemoteFileStore toRemote() {
+        return new RemoteLinuxFileStore(this);
     }
 }

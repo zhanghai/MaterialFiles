@@ -18,8 +18,17 @@ import androidx.annotation.Size;
 
 public class Syscalls {
 
+    private static final String LIBRARY_NAME = "syscalls";
+
     static {
-        System.loadLibrary("syscalls");
+        if (Os.getuid() != 0) {
+            System.loadLibrary(LIBRARY_NAME);
+        }
+    }
+
+    @NonNull
+    public static String getLibraryName() {
+        return LIBRARY_NAME;
     }
 
     public static boolean access(@NonNull String path, int mode) throws SyscallException {

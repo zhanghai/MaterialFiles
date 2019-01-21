@@ -19,6 +19,7 @@ import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.provider.FileSystemProviders;
+import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.util.LogUtils;
 
 public class AndroidRootFileService implements RemoteFileService.Implementation {
@@ -34,6 +35,11 @@ public class AndroidRootFileService implements RemoteFileService.Implementation 
     private Shell.Interactive mShell;
 
     public static void main(@NonNull String[] args) {
+
+        LogUtils.i("Loading native libraries");
+        for (String libraryPath : args) {
+            System.load(libraryPath);
+        }
         RootJava.restoreOriginalLdLibraryPath();
 
         LogUtils.i("Installing file system providers");
@@ -79,8 +85,9 @@ public class AndroidRootFileService implements RemoteFileService.Implementation 
                 @Override
                 public void onDisconnect(@NonNull IRemoteFileService ipc) {}
             };
-            mShell.addCommand(RootJava.getLaunchScript(context, getClass(), null, null, null,
-                    BuildConfig.APPLICATION_ID + ":root"));
+            String syscallsLibraryPath = getLibraryPath(Syscalls.getLibraryName(), context);
+            mShell.addCommand(RootJava.getLaunchScript(context, getClass(), null, null,
+                    new String[] { syscallsLibraryPath }, BuildConfig.APPLICATION_ID + ":root"));
             try {
                 latch.await(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
@@ -88,5 +95,15 @@ public class AndroidRootFileService implements RemoteFileService.Implementation 
             }
             return remoteFileServiceHolder[0];
         }
+    }
+
+    @NonNull
+    private static String getLibraryPath(@NonNull String libraryName, @NonNull Context context)
+            throws RemoteFileSystemException {
+        String libraryPath = RootJava.getLibraryPath(context, libraryName);
+        if (libraryPath == null) {
+            throw new RemoteFileSystemException("Cannot get path for library: " + libraryName);
+        }
+        return libraryPath;
     }
 }
