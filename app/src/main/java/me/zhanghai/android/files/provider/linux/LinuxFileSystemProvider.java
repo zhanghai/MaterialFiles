@@ -70,14 +70,14 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
         }
     }
 
-    @NonNull
-    static LinuxFileSystem getFileSystem() {
-        return sInstance.mFileSystem;
-    }
-
     public static boolean isLinuxPath(@NonNull Path path) {
         Objects.requireNonNull(path);
         return path instanceof LinuxPath;
+    }
+
+    @NonNull
+    static LinuxFileSystem getFileSystem() {
+        return sInstance.mFileSystem;
     }
 
     @NonNull
@@ -90,8 +90,8 @@ public class LinuxFileSystemProvider extends FileSystemProvider {
     @Override
     public FileSystem newFileSystem(@NonNull URI uri, @NonNull Map<String, ?> env) {
         Objects.requireNonNull(uri);
-        Objects.requireNonNull(env);
         requireSameScheme(uri);
+        Objects.requireNonNull(env);
         throw new FileSystemAlreadyExistsException();
     }
 
