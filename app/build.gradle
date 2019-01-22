@@ -59,8 +59,8 @@ dependencies {
     //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-    implementation 'com.jakewharton:butterknife:9.0.0-rc3'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0-rc3'
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1'
     implementation "com.leinardi.android:speed-dial:1.0.2"
     // If https://github.com/timusus/RecyclerView-FastScroll/pull/96 is merged and released, remove
@@ -68,7 +68,7 @@ dependencies {
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
     implementation 'com.takisoft.preferencex:preferencex:1.0.0'
     implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0'
-    implementation 'de.psdev.licensesdialog:licensesdialog:1.9.0'
+    implementation 'de.psdev.licensesdialog:licensesdialog:2.0.0'
     implementation 'eu.chainfire:librootjava:1.2.0'
     implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     implementation 'me.zhanghai.android.effortlesspermissions:library:1.1.0'
