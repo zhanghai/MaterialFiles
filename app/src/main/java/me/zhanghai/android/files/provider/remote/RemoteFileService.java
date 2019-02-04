@@ -53,7 +53,7 @@ public class RemoteFileService {
     @NonNull
     public IRemoteFileSystem getRemoteFileSystemInterface(@NonNull FileSystem fileSystem)
             throws RemoteFileSystemException {
-        ParcelableFileSystem parcelableFileSystem = new ParcelableFileSystem(fileSystem);
+        ParcelableObject parcelableFileSystem = new ParcelableObject(fileSystem);
         IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
         IRemoteFileSystem remoteFileSystemInterface;
         try {
@@ -68,8 +68,7 @@ public class RemoteFileService {
     @NonNull
     public IRemotePosixFileAttributeView getRemotePosixFileAttributeViewInterface(
             @NonNull PosixFileAttributeView attributeView) throws RemoteFileSystemException {
-        ParcelableFileAttributeView parcelableAttributeView = new ParcelableFileAttributeView(
-                attributeView);
+        ParcelableObject parcelableAttributeView = new ParcelableObject(attributeView);
         IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
         IRemotePosixFileAttributeView remoteAttributeViewInterface;
         try {
@@ -83,7 +82,7 @@ public class RemoteFileService {
 
     public void refreshArchiveFileSystem(@NonNull FileSystem fileSystem)
             throws RemoteFileSystemException {
-        ParcelableFileSystem parcelableFileSystem = new ParcelableFileSystem(fileSystem);
+        ParcelableObject parcelableFileSystem = new ParcelableObject(fileSystem);
         IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
         try {
             remoteInterface.refreshArchiveFileSystem(parcelableFileSystem);

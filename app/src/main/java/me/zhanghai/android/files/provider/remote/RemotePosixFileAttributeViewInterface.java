@@ -29,7 +29,7 @@ public class RemotePosixFileAttributeViewInterface extends IRemotePosixFileAttri
 
     @NonNull
     @Override
-    public ParcelableFileAttributes readAttributes(@NonNull ParcelableIoException ioException) {
+    public ParcelableObject readAttributes(@NonNull ParcelableIoException ioException) {
         PosixFileAttributes attributes;
         try {
             attributes = mAttributeView.readAttributes();
@@ -37,7 +37,7 @@ public class RemotePosixFileAttributeViewInterface extends IRemotePosixFileAttri
             ioException.set(e);
             return null;
         }
-        return new ParcelableFileAttributes(attributes);
+        return new ParcelableObject(attributes);
     }
 
     @Override

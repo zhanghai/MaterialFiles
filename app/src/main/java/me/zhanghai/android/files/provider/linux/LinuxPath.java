@@ -21,11 +21,14 @@ import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 import me.zhanghai.android.files.provider.common.StringListPath;
+import me.zhanghai.android.files.provider.root.RootablePath;
 
-class LinuxPath extends StringListPath {
+class LinuxPath extends StringListPath implements RootablePath {
 
     @NonNull
     private final LinuxFileSystem mFileSystem;
+
+    private volatile boolean mUseRoot;
 
     public LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull String path) {
         super(LinuxFileSystem.SEPARATOR, path);
@@ -99,6 +102,21 @@ class LinuxPath extends StringListPath {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean canUseRoot() {
+        return true;
+    }
+
+    @Override
+    public boolean shouldUseRoot() {
+        return mUseRoot;
+    }
+
+    @Override
+    public void setUseRoot() {
+        mUseRoot = true;
+    }
+
 
     public static final Creator<LinuxPath> CREATOR = new Creator<LinuxPath>() {
         @Override
@@ -115,6 +133,7 @@ class LinuxPath extends StringListPath {
         super(in);
 
         mFileSystem = in.readParcelable(LinuxFileSystem.class.getClassLoader());
+        mUseRoot = in.readByte() != 0;
     }
 
     @Override
@@ -127,5 +146,6 @@ class LinuxPath extends StringListPath {
         super.writeToParcel(dest, flags);
 
         dest.writeParcelable(mFileSystem, flags);
+        dest.writeByte(mUseRoot ? (byte) 1 : (byte) 0);
     }
 }

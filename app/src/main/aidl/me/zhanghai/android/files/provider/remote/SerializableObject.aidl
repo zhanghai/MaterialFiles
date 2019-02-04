@@ -1,3 +1,3 @@
 package me.zhanghai.android.files.provider.remote;
 
-parcelable ParcelableRemoteFileStore;
+parcelable SerializableObject;

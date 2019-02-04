@@ -20,7 +20,7 @@ class ArchiveFileKey implements Parcelable {
     @NonNull
     private final String mEntryName;
 
-    public ArchiveFileKey(@NonNull Path archiveFile, @NonNull String entryName) {
+    ArchiveFileKey(@NonNull Path archiveFile, @NonNull String entryName) {
         mArchiveFile = archiveFile;
         mEntryName = entryName;
     }

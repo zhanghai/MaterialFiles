@@ -26,6 +26,12 @@ public class RemoteInterfaceHolder<I extends IInterface> {
         mGetter = getter;
     }
 
+    public boolean has() {
+        synchronized (mRemoteInterfaceLock) {
+            return mRemoteInterface != null;
+        }
+    }
+
     public I get() throws RemoteFileSystemException {
         synchronized (mRemoteInterfaceLock) {
             if (mRemoteInterface == null) {

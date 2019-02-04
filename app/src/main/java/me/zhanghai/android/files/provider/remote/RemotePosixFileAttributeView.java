@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.remote;
 
-import android.os.Parcelable;
 import android.os.RemoteException;
 
 import java.io.IOException;
@@ -23,19 +22,27 @@ import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
 public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttributes>
-        implements PosixFileAttributeView, Parcelable {
+        implements PosixFileAttributeView {
 
     @NonNull
-    private RemoteInterfaceHolder<IRemotePosixFileAttributeView> mRemoteInterface =
-            new RemoteInterfaceHolder<>(() -> RemoteFileService.getInstance()
-                    .getRemotePosixFileAttributeViewInterface(this));
+    private final PosixFileAttributeView mAttributeView;
+
+    @NonNull
+    private final RemoteInterfaceHolder<IRemotePosixFileAttributeView> mRemoteInterface;
+
+    public RemotePosixFileAttributeView(@NonNull PosixFileAttributeView attributeView) {
+        mAttributeView = attributeView;
+
+        mRemoteInterface = new RemoteInterfaceHolder<>(() -> RemoteFileService.getInstance()
+                .getRemotePosixFileAttributeViewInterface(mAttributeView));
+    }
 
     @NonNull
     @Override
     public FA readAttributes() throws IOException {
         ParcelableIoException ioException = new ParcelableIoException();
         IRemotePosixFileAttributeView remoteInterface = mRemoteInterface.get();
-        ParcelableFileAttributes parcelableAttributes;
+        ParcelableObject parcelableAttributes;
         try {
             parcelableAttributes = remoteInterface.readAttributes(ioException);
         } catch (RemoteException e) {
@@ -97,7 +104,4 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         }
         ioException.throwIfNonNull();
     }
-
-    @NonNull
-    public abstract PosixFileAttributeView toLocal();
 }

@@ -5,77 +5,53 @@
 
 package me.zhanghai.android.files.provider.archive;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import java8.nio.file.Path;
-import java8.nio.file.attribute.FileTime;
-import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
-import me.zhanghai.android.files.provider.common.PosixFileModeBit;
-import me.zhanghai.android.files.provider.common.PosixGroup;
-import me.zhanghai.android.files.provider.common.PosixUser;
+import me.zhanghai.android.files.provider.root.RootablePosixFileAttributeView;
 
-public class ArchiveFileAttributeView implements PosixFileAttributeView {
+public class ArchiveFileAttributeView extends RootablePosixFileAttributeView {
 
-    private static final String NAME = ArchiveFileSystemProvider.SCHEME;
-
-    static final Set<String> SUPPORTED_NAMES = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("basic", "posix", NAME)));
+    static final Set<String> SUPPORTED_NAMES = LocalArchiveFileAttributeView.SUPPORTED_NAMES;
 
     @NonNull
     private final Path mPath;
 
-    @NonNull
-    private final ArchiveFileSystem mFileSystem;
-
     ArchiveFileAttributeView(@NonNull Path path) {
+        super(path, attributeView -> new LocalArchiveFileAttributeView(path),
+                attributeView -> new RootArchiveFileAttributeView(attributeView, path));
+
         mPath = path;
-
-        mFileSystem = (ArchiveFileSystem) mPath.getFileSystem();
     }
 
-    @NonNull
-    @Override
-    public String name() {
-        return NAME;
-    }
 
-    @NonNull
-    @Override
-    public ArchiveFileAttributes readAttributes() throws IOException {
-        ArchiveEntry entry = mFileSystem.getEntry(mPath);
-        return new ArchiveFileAttributes(mFileSystem.getArchiveFile(), entry);
-    }
+    public static final Creator<ArchiveFileAttributeView> CREATOR =
+            new Creator<ArchiveFileAttributeView>() {
+                @Override
+                public ArchiveFileAttributeView createFromParcel(Parcel source) {
+                    return new ArchiveFileAttributeView(source);
+                }
+                @Override
+                public ArchiveFileAttributeView[] newArray(int size) {
+                    return new ArchiveFileAttributeView[size];
+                }
+            };
 
-    @Override
-    public void setTimes(@Nullable FileTime lastModifiedTime, @Nullable FileTime lastAccessTime,
-                         @Nullable FileTime createTime) {
-        throw new UnsupportedOperationException();
+    protected ArchiveFileAttributeView(Parcel in) {
+        this((Path) in.readParcelable(Path.class.getClassLoader()));
     }
 
     @Override
-    public void setOwner(@NonNull PosixUser owner) {
-        Objects.requireNonNull(owner);
-        throw new UnsupportedOperationException();
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public void setGroup(@NonNull PosixGroup group) {
-        Objects.requireNonNull(group);
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setMode(@NonNull Set<PosixFileModeBit> mode) {
-        Objects.requireNonNull(mode);
-        throw new UnsupportedOperationException();
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable((Parcelable) mPath, flags);
     }
 }

@@ -4,12 +4,12 @@ import me.zhanghai.android.files.provider.common.ParcelableFileTime;
 import me.zhanghai.android.files.provider.common.ParcelablePosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
-import me.zhanghai.android.files.provider.remote.ParcelableFileAttributes;
 import me.zhanghai.android.files.provider.remote.ParcelableIoException;
+import me.zhanghai.android.files.provider.remote.ParcelableObject;
 
 interface IRemotePosixFileAttributeView {
 
-    ParcelableFileAttributes readAttributes(out ParcelableIoException ioException);
+    ParcelableObject readAttributes(out ParcelableIoException ioException);
 
     void setTimes(in ParcelableFileTime parcelableLastModifiedTime,
             in ParcelableFileTime parcelableLastAccessTime,

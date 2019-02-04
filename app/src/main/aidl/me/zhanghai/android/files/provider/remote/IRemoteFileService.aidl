@@ -3,17 +3,16 @@ package me.zhanghai.android.files.provider.remote;
 import me.zhanghai.android.files.provider.remote.IRemoteFileSystem;
 import me.zhanghai.android.files.provider.remote.IRemoteFileSystemProvider;
 import me.zhanghai.android.files.provider.remote.IRemotePosixFileAttributeView;
-import me.zhanghai.android.files.provider.remote.ParcelableFileAttributeView;
-import me.zhanghai.android.files.provider.remote.ParcelableFileSystem;
+import me.zhanghai.android.files.provider.remote.ParcelableObject;
 
 interface IRemoteFileService {
 
-    IRemoteFileSystemProvider getRemoteFileSystemProviderInterface(String remoteScheme);
+    IRemoteFileSystemProvider getRemoteFileSystemProviderInterface(String scheme);
 
-    IRemoteFileSystem getRemoteFileSystemInterface(in ParcelableFileSystem remoteFileSystem);
+    IRemoteFileSystem getRemoteFileSystemInterface(in ParcelableObject parcelableFileSystem);
 
     IRemotePosixFileAttributeView getRemotePosixFileAttributeViewInterface(
-            in ParcelableFileAttributeView remoteAttributeView);
+            in ParcelableObject parcelableAttributeView);
 
-    void refreshArchiveFileSystem(in ParcelableFileSystem remoteFileSystem);
+    void refreshArchiveFileSystem(in ParcelableObject parcelableFileSystem);
 }

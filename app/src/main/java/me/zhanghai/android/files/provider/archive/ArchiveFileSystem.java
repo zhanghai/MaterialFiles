@@ -7,263 +7,88 @@ package me.zhanghai.android.files.provider.archive;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Pair;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
-import java8.nio.file.ClosedFileSystemException;
-import java8.nio.file.FileStore;
-import java8.nio.file.FileSystem;
-import java8.nio.file.NoSuchFileException;
-import java8.nio.file.NotDirectoryException;
 import java8.nio.file.Path;
-import java8.nio.file.PathMatcher;
-import java8.nio.file.WatchService;
-import java8.nio.file.attribute.UserPrincipalLookupService;
-import java8.nio.file.spi.FileSystemProvider;
-import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
+import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
+import me.zhanghai.android.files.provider.root.RootableFileSystem;
 
-class ArchiveFileSystem extends FileSystem implements Parcelable {
+class ArchiveFileSystem extends RootableFileSystem implements Parcelable {
 
-    static final char SEPARATOR = '/';
-
-    private static final String SEPARATOR_STRING = Character.toString(SEPARATOR);
-
-    @NonNull
-    private final ArchivePath mRootDirectory = new ArchivePath(this, "/");
-    {
-        if (!mRootDirectory.isAbsolute()) {
-            throw new AssertionError("Root directory must be absolute");
-        }
-        if (mRootDirectory.getNameCount() != 0) {
-            throw new AssertionError("Root directory must contain no names");
-        }
-    }
-
-    @NonNull
-    private final ArchiveFileSystemProvider mProvider;
+    static final char SEPARATOR = LocalArchiveFileSystem.SEPARATOR;
 
     @NonNull
     private final Path mArchiveFile;
 
-    @NonNull
-    private final Object mLock = new Object();
+    ArchiveFileSystem(@NonNull ArchiveFileSystemProvider provider, @NonNull Path archiveFile) {
+        super(fileSystem -> new LocalArchiveFileSystem((ArchiveFileSystem) fileSystem, provider,
+                archiveFile), RootArchiveFileSystem::new);
 
-    private boolean mOpen = true;
-
-    private boolean mNeedRefresh = true;
-
-    private Map<Path, ArchiveEntry> mEntries;
-
-    private Map<Path, List<Path>> mTree;
-
-    public ArchiveFileSystem(@NonNull ArchiveFileSystemProvider provider,
-                             @NonNull Path archiveFile) {
-        mProvider = provider;
         mArchiveFile = archiveFile;
     }
 
     @NonNull
+    @Override
+    @SuppressWarnings("unchecked")
+    protected LocalArchiveFileSystem getLocalFileSystem() {
+        return super.getLocalFileSystem();
+    }
+
+    @NonNull
+    @Override
+    @SuppressWarnings("unchecked")
+    protected RootArchiveFileSystem getRootFileSystem() {
+        return super.getRootFileSystem();
+    }
+
+    @NonNull
     Path getRootDirectory() {
-        return mRootDirectory;
+        return getLocalFileSystem().getRootDirectory();
     }
 
     @NonNull
     Path getDefaultDirectory() {
-        return mRootDirectory;
-    }
-
-    @NonNull
-    @Override
-    public FileSystemProvider provider() {
-        return mProvider;
+        return getLocalFileSystem().getDefaultDirectory();
     }
 
     @NonNull
     Path getArchiveFile() {
-        return mArchiveFile;
+        return getLocalFileSystem().getArchiveFile();
     }
 
     @NonNull
-    ArchiveEntry getEntry(@NonNull Path path) throws IOException {
-        synchronized (mLock) {
-            ensureEntriesLocked();
-            return getEntryLocked(path);
-        }
+    ArchiveEntry getEntryAsLocal(@NonNull Path path) throws IOException {
+        return getLocalFileSystem().getEntry(path);
     }
 
     @NonNull
-    private ArchiveEntry getEntryLocked(@NonNull Path path) throws IOException {
-        synchronized (mLock) {
-            ArchiveEntry entry = mEntries.get(path);
-            if (entry == null) {
-                throw new NoSuchFileException(path.toString());
-            }
-            return entry;
-        }
+    InputStream newInputStreamAsLocal(@NonNull Path file) throws IOException {
+        return getLocalFileSystem().newInputStream(file);
     }
 
     @NonNull
-    InputStream newInputStream(@NonNull Path file) throws IOException {
-        synchronized (mLock) {
-            ensureEntriesLocked();
-            ArchiveEntry entry = getEntryLocked(file);
-            return ArchiveReader.newInputStream(mArchiveFile, entry);
-        }
+    List<Path> getDirectoryChildrenAsLocal(@NonNull Path directory) throws IOException {
+        return getLocalFileSystem().getDirectoryChildren(directory);
     }
 
     @NonNull
-    List<Path> getDirectoryChildren(@NonNull Path directory) throws IOException {
-        synchronized (mLock) {
-            ensureEntriesLocked();
-            ArchiveEntry entry = getEntryLocked(directory);
-            if (!entry.isDirectory()) {
-                throw new NotDirectoryException(directory.toString());
-            }
-            return mTree.get(directory);
-        }
-    }
-
-    @NonNull
-    String readSymbolicLink(@NonNull Path link) throws IOException {
-        synchronized (mLock) {
-            ensureEntriesLocked();
-            ArchiveEntry entry = getEntryLocked(link);
-            return ArchiveReader.readSymbolicLink(link, entry);
-        }
+    String readSymbolicLinkAsLocal(@NonNull Path link) throws IOException {
+        return getLocalFileSystem().readSymbolicLink(link);
     }
 
     void refresh() {
-        synchronized (mLock) {
-            if (!mOpen) {
-                throw new ClosedFileSystemException();
-            }
-            mNeedRefresh = true;
-        }
+        getLocalFileSystem().refresh();
+        getRootFileSystem().refresh();
     }
 
-    private void ensureEntriesLocked() throws IOException {
-        if (!mOpen) {
-            throw new ClosedFileSystemException();
-        }
-        if (mNeedRefresh) {
-            Pair<Map<Path, ArchiveEntry>, Map<Path, List<Path>>> entriesAndTree =
-                    ArchiveReader.readEntries(mArchiveFile, mRootDirectory);
-            mEntries = entriesAndTree.first;
-            mTree = entriesAndTree.second;
-            mNeedRefresh = false;
-        }
-    }
-
-    @Override
-    public void close() {
-        synchronized (mLock) {
-            if (!mOpen) {
-                return;
-            }
-            mProvider.removeFileSystem(this);
-            mNeedRefresh = false;
-            mEntries = null;
-            mTree = null;
-            mOpen = false;
-        }
-    }
-
-    @Override
-    public boolean isOpen() {
-        synchronized (mLock) {
-            return mOpen;
-        }
-    }
-
-    @Override
-    public boolean isReadOnly() {
-        return true;
-    }
-
-    @NonNull
-    @Override
-    public String getSeparator() {
-        return SEPARATOR_STRING;
-    }
-
-    @NonNull
-    @Override
-    public Iterable<Path> getRootDirectories() {
-        return Collections.singletonList(mRootDirectory);
-    }
-
-    @NonNull
-    @Override
-    public Iterable<FileStore> getFileStores() {
-        // TODO
-        throw new UnsupportedOperationException();
-    }
-
-    @NonNull
-    @Override
-    public Set<String> supportedFileAttributeViews() {
-        return ArchiveFileAttributeView.SUPPORTED_NAMES;
-    }
-
-    @NonNull
-    @Override
-    public Path getPath(@NonNull String first, @NonNull String... more) {
-        Objects.requireNonNull(first);
-        Objects.requireNonNull(more);
-        StringBuilder pathBuilder = new StringBuilder(first);
-        for (String name : more) {
-            pathBuilder
-                    .append(SEPARATOR)
-                    .append(name);
-        }
-        String path = pathBuilder.toString();
-        return new ArchivePath(this, path);
-    }
-
-    @NonNull
-    @Override
-    public PathMatcher getPathMatcher(String syntaxAndPattern) {
-        Objects.requireNonNull(syntaxAndPattern);
-        throw new UnsupportedOperationException();
-    }
-
-    @NonNull
-    @Override
-    public UserPrincipalLookupService getUserPrincipalLookupService() {
-        throw new UnsupportedOperationException();
-    }
-
-    @NonNull
-    @Override
-    public WatchService newWatchService() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        ArchiveFileSystem that = (ArchiveFileSystem) object;
-        return Objects.equals(mArchiveFile, that.mArchiveFile);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mArchiveFile);
+    void doRefreshIfNeededAsRoot() throws RemoteFileSystemException {
+        getRootFileSystem().doRefreshIfNeeded();
     }
 
 

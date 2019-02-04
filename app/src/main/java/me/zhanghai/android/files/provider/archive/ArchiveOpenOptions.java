@@ -13,7 +13,7 @@ class ArchiveOpenOptions {
 
     private ArchiveOpenOptions() {}
 
-    public static void check(@NonNull OpenOptions options) {
+    static void check(@NonNull OpenOptions options) {
         if (options.hasWrite()) {
             throw new UnsupportedOperationException(StandardOpenOption.WRITE.toString());
         } else if (options.hasAppend()) {

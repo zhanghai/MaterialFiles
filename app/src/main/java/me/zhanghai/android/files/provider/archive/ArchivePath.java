@@ -21,13 +21,14 @@ import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 import me.zhanghai.android.files.provider.common.StringListPath;
+import me.zhanghai.android.files.provider.root.RootablePath;
 
-class ArchivePath extends StringListPath {
+class ArchivePath extends StringListPath implements RootablePath {
 
     @NonNull
     private final ArchiveFileSystem mFileSystem;
 
-    public ArchivePath(@NonNull ArchiveFileSystem fileSystem, @NonNull String path) {
+    ArchivePath(@NonNull ArchiveFileSystem fileSystem, @NonNull String path) {
         super(ArchiveFileSystem.SEPARATOR, path);
 
         mFileSystem = fileSystem;
@@ -110,6 +111,31 @@ class ArchivePath extends StringListPath {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean canUseRoot() {
+        Path archiveFile = mFileSystem.getArchiveFile();
+        return archiveFile instanceof RootablePath;
+    }
+
+    @Override
+    public boolean shouldUseRoot() {
+        Path archiveFile = mFileSystem.getArchiveFile();
+        if (!(archiveFile instanceof RootablePath)) {
+            return false;
+        }
+        RootablePath rootablePath = (RootablePath) archiveFile;
+        return rootablePath.shouldUseRoot();
+    }
+
+    @Override
+    public void setUseRoot() {
+        Path archiveFile = mFileSystem.getArchiveFile();
+        if (!(archiveFile instanceof RootablePath)) {
+            throw new UnsupportedOperationException();
+        }
+        RootablePath rootablePath = (RootablePath) archiveFile;
+        rootablePath.setUseRoot();
+    }
 
     public static final Creator<ArchivePath> CREATOR = new Creator<ArchivePath>() {
         @Override

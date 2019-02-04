@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
@@ -27,24 +26,24 @@ public class ParcelableDirectoryStream implements Parcelable {
 
     private transient boolean mGetCalled;
 
-    private ParcelableDirectoryStream(@Nullable List<Path> paths) {
-        mPaths = paths;
+    public ParcelableDirectoryStream(@Nullable DirectoryStream<Path> directoryStream)
+            throws IOException {
+        mPaths = getPaths(directoryStream);
     }
 
-    @NonNull
-    public static ParcelableDirectoryStream createForRemote(
-            @Nullable DirectoryStream<Path> directoryStream) throws IOException {
+    @Nullable
+    private static List<Path> getPaths(@Nullable DirectoryStream<Path> directoryStream)
+            throws IOException {
         if (directoryStream == null) {
-            return new ParcelableDirectoryStream((List<Path>) null);
+            return null;
         }
         List<Path> paths = new ArrayList<>();
         try {
-            IterableCompat.forEach(directoryStream, path -> paths.add(RemoteUtils.toRemotePath(
-                    path)));
+            IterableCompat.forEach(directoryStream, paths::add);
         } catch (DirectoryIteratorException e) {
             throw e.getCause();
         }
-        return new ParcelableDirectoryStream(paths);
+        return paths;
     }
 
     @Nullable

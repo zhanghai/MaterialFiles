@@ -27,24 +27,26 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     @Override
     public ParcelableDirectoryStream newDirectoryStream(
-            @NonNull ParcelablePath remoteDirectory,
-            @NonNull ParcelableDirectoryStreamFilter parcelableFilter,
+            @NonNull ParcelableObject parcelableDirectory,
+            @NonNull ParcelableObject parcelableFilter,
             @NonNull ParcelableIoException ioException) {
-        Path directory = RemoteUtils.toLocalPath(remoteDirectory.get());
+        Path directory = parcelableDirectory.get();
         DirectoryStream.Filter<? super Path> filter = parcelableFilter.get();
+        ParcelableDirectoryStream parcelableDirectoryStream;
         try (DirectoryStream<Path> directoryStream = mProvider.newDirectoryStream(directory,
                 filter)) {
-            return ParcelableDirectoryStream.createForRemote(directoryStream);
+            parcelableDirectoryStream = new ParcelableDirectoryStream(directoryStream);
         } catch (IOException e) {
             ioException.set(e);
             return null;
         }
+        return parcelableDirectoryStream;
     }
 
     @Override
-    public ParcelablePath readSymbolicLink(@NonNull ParcelablePath remoteLink,
+    public ParcelableObject readSymbolicLink(@NonNull ParcelableObject parcelableLink,
                                            @NonNull ParcelableIoException ioException) {
-        Path link = RemoteUtils.toLocalPath(remoteLink.get());
+        Path link = parcelableLink.get();
         Path target;
         try {
             target = mProvider.readSymbolicLink(link);
@@ -52,15 +54,15 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             ioException.set(e);
             return null;
         }
-        return new ParcelablePath(target);
+        return new ParcelableObject(target);
     }
 
     @Override
-    public boolean isSameFile(@NonNull ParcelablePath remotePath,
-                              @NonNull ParcelablePath remotePath2,
+    public boolean isSameFile(@NonNull ParcelableObject parcelablePath,
+                              @NonNull ParcelableObject parcelablePath2,
                               @NonNull ParcelableIoException ioException) {
-        Path path = RemoteUtils.toLocalPath(remotePath.get());
-        Path path2 = RemoteUtils.toLocalPath(remotePath2.get());
+        Path path = parcelablePath.get();
+        Path path2 = parcelablePath2.get();
         try {
             return mProvider.isSameFile(path, path2);
         } catch (IOException e) {
@@ -70,9 +72,9 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
     }
 
     @Override
-    public boolean isHidden(@NonNull ParcelablePath remotePath,
+    public boolean isHidden(@NonNull ParcelableObject parcelablePath,
                             @NonNull ParcelableIoException ioException) {
-        Path path = RemoteUtils.toLocalPath(remotePath.get());
+        Path path = parcelablePath.get();
         try {
             return mProvider.isHidden(path);
         } catch (IOException e) {
@@ -83,9 +85,9 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     @NonNull
     @Override
-    public ParcelableRemoteFileStore getFileStore(@NonNull ParcelablePath remotePath,
-                                                  @NonNull ParcelableIoException ioException) {
-        Path path = RemoteUtils.toLocalPath(remotePath.get());
+    public ParcelableObject getFileStore(@NonNull ParcelableObject parcelablePath,
+                                         @NonNull ParcelableIoException ioException) {
+        Path path = parcelablePath.get();
         FileStore fileStore;
         try {
             fileStore = mProvider.getFileStore(path);
@@ -93,15 +95,14 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             ioException.set(e);
             return null;
         }
-        RemoteFileStore remoteFileStore = ((RemotableFileStore) fileStore).toRemote();
-        return new ParcelableRemoteFileStore(remoteFileStore);
+        return new ParcelableObject(fileStore);
     }
 
     @Override
-    public void checkAccess(@NonNull ParcelablePath remotePath,
+    public void checkAccess(@NonNull ParcelableObject parcelablePath,
                             @NonNull ParcelableAccessModes parcelableModes,
                             @NonNull ParcelableIoException ioException) {
-        Path path = RemoteUtils.toLocalPath(remotePath.get());
+        Path path = parcelablePath.get();
         AccessMode[] modes = parcelableModes.get();
         try {
             mProvider.checkAccess(path, modes);
@@ -112,12 +113,12 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     @NonNull
     @Override
-    public ParcelableFileAttributes readAttributes(@NonNull ParcelablePath remotePath,
-                                                   @NonNull ParcelableClass parcelableType,
-                                                   @NonNull ParcelableLinkOptions parcelableOptions,
-                                                   @NonNull ParcelableIoException ioException) {
-        Path path = RemoteUtils.toLocalPath(remotePath.get());
-        Class<? extends BasicFileAttributes> type = parcelableType.get();
+    public ParcelableObject readAttributes(@NonNull ParcelableObject parcelablePath,
+                                           @NonNull SerializableObject serializableType,
+                                           @NonNull ParcelableLinkOptions parcelableOptions,
+                                           @NonNull ParcelableIoException ioException) {
+        Path path = parcelablePath.get();
+        Class<? extends BasicFileAttributes> type = serializableType.get();
         LinkOption[] options = parcelableOptions.get();
         BasicFileAttributes attributes;
         try {
@@ -126,6 +127,6 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             ioException.set(e);
             return null;
         }
-        return new ParcelableFileAttributes(attributes);
+        return new ParcelableObject(attributes);
     }
 }

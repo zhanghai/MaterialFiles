@@ -5,68 +5,49 @@
 
 package me.zhanghai.android.files.provider.remote;
 
-import android.os.Parcelable;
 import android.os.RemoteException;
 
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.FileSystem;
-import java8.nio.file.WatchService;
-import java8.nio.file.spi.FileSystemProvider;
 
-public abstract class RemoteFileSystem extends FileSystem implements Parcelable {
+public abstract class RemoteFileSystem extends FileSystem {
 
     @NonNull
-    private final RemoteFileSystemProvider mProvider;
+    private final FileSystem mFileSystem;
 
-    private boolean mClosed;
     @NonNull
-    private final Object mCloseLock = new Object();
+    private final RemoteInterfaceHolder<IRemoteFileSystem> mRemoteInterface;
 
-    private RemoteInterfaceHolder<IRemoteFileSystem> mRemoteInterface = new RemoteInterfaceHolder<>(
-            () -> RemoteFileService.getInstance().getRemoteFileSystemInterface(this));
-
-    public RemoteFileSystem(@NonNull RemoteFileSystemProvider provider) {
-        mProvider = provider;
+    public RemoteFileSystem(@NonNull FileSystem fileSystem) {
+        mFileSystem = fileSystem;
+        mRemoteInterface = new RemoteInterfaceHolder<>(() -> RemoteFileService.getInstance()
+                .getRemoteFileSystemInterface(mFileSystem));
     }
 
     @NonNull
-    @Override
-    public FileSystemProvider provider() {
-        return mProvider;
+    protected FileSystem getFileSystem() {
+        return mFileSystem;
     }
 
     @Override
     public void close() throws IOException {
-        synchronized (mCloseLock) {
-            if (mClosed) {
-                return;
-            }
-            ParcelableIoException ioException = new ParcelableIoException();
-            IRemoteFileSystem remoteInterface = mRemoteInterface.get();
-            try {
-                remoteInterface.close(ioException);
-            } catch (RemoteException e) {
-                throw new RemoteFileSystemException(e);
-            }
-            ioException.throwIfNonNull();
-            mProvider.removeFileSystem(this);
-            mClosed = true;
+        if (!mRemoteInterface.has()) {
+            return;
         }
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemoteFileSystem remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.close(ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNonNull();
     }
 
-    @Override
-    public boolean isOpen() {
-        synchronized (mCloseLock) {
-            return !mClosed;
-        }
-    }
-
-    @NonNull
-    @Override
-    public WatchService newWatchService() throws IOException {
-        throw new UnsupportedOperationException();
+    protected boolean hasRemoteInterface() {
+        return mRemoteInterface.has();
     }
 
     public void ensureRemoteInterface() throws RemoteFileSystemException {

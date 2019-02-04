@@ -5,152 +5,57 @@
 
 package me.zhanghai.android.files.provider.linux;
 
-import org.threeten.bp.Instant;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import java8.nio.file.attribute.FileTime;
-import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
-import me.zhanghai.android.files.provider.common.PosixFileMode;
-import me.zhanghai.android.files.provider.common.PosixFileModeBit;
-import me.zhanghai.android.files.provider.common.PosixGroup;
-import me.zhanghai.android.files.provider.common.PosixUser;
-import me.zhanghai.android.files.provider.linux.syscall.Constants;
-import me.zhanghai.android.files.provider.linux.syscall.StructStat;
-import me.zhanghai.android.files.provider.linux.syscall.StructTimespec;
-import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.root.RootPosixFileAttributeView;
+import me.zhanghai.android.files.provider.root.RootablePosixFileAttributeView;
 
-public class LinuxFileAttributeView implements PosixFileAttributeView {
+public class LinuxFileAttributeView extends RootablePosixFileAttributeView {
 
-    private static final String NAME = LinuxFileSystemProvider.SCHEME;
-
-    static final Set<String> SUPPORTED_NAMES = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("basic", "posix", NAME)));
+    static final Set<String> SUPPORTED_NAMES = LocalLinuxFileAttributeView.SUPPORTED_NAMES;
 
     @NonNull
-    private final String mPath;
+    private final Path mPath;
     private final boolean mNoFollowLinks;
 
-    LinuxFileAttributeView(@NonNull String path, boolean noFollowLinks) {
+    LinuxFileAttributeView(@NonNull Path path, boolean noFollowLinks) {
+        super(path, attributeView -> new LocalLinuxFileAttributeView(path.toString(),
+                noFollowLinks), RootPosixFileAttributeView::new);
+
         mPath = path;
         mNoFollowLinks = noFollowLinks;
     }
 
-    @NonNull
-    @Override
-    public String name() {
-        return NAME;
-    }
 
-    @NonNull
-    @Override
-    public LinuxFileAttributes readAttributes() throws IOException {
-        StructStat stat;
-        try {
-            if (mNoFollowLinks) {
-                stat = Syscalls.lstat(mPath);
-            } else {
-                stat = Syscalls.stat(mPath);
-            }
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
-        PosixUser owner;
-        try {
-            owner = LinuxUserPrincipalLookupService.getUserById(stat.st_uid);
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
-        PosixGroup group;
-        try {
-            group = LinuxUserPrincipalLookupService.getGroupById(stat.st_gid);
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
-        return new LinuxFileAttributes(stat, owner, group);
+    public static final Creator<LinuxFileAttributeView> CREATOR =
+            new Creator<LinuxFileAttributeView>() {
+                @Override
+                public LinuxFileAttributeView createFromParcel(Parcel source) {
+                    return new LinuxFileAttributeView(source);
+                }
+                @Override
+                public LinuxFileAttributeView[] newArray(int size) {
+                    return new LinuxFileAttributeView[size];
+                }
+            };
+
+    protected LinuxFileAttributeView(Parcel in) {
+        this(in.readParcelable(Path.class.getClassLoader()), in.readByte() != 0);
     }
 
     @Override
-    public void setTimes(@Nullable FileTime lastModifiedTime, @Nullable FileTime lastAccessTime,
-                         @Nullable FileTime createTime) throws IOException {
-        if (createTime != null) {
-            throw new UnsupportedOperationException("createTime");
-        }
-        if (lastAccessTime == null && lastModifiedTime == null) {
-            return;
-        }
-        StructTimespec[] times = {
-                fileTimeToTimespec(lastAccessTime),
-                fileTimeToTimespec(lastModifiedTime)
-        };
-        try {
-            if (mNoFollowLinks) {
-                Syscalls.lutimens(mPath, times);
-            } else {
-                Syscalls.utimens(mPath, times);
-            }
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
-    }
-
-    @NonNull
-    private static StructTimespec fileTimeToTimespec(@Nullable FileTime fileTime) {
-        if (fileTime == null) {
-            return new StructTimespec(0, Constants.UTIME_OMIT);
-        }
-        Instant instant = fileTime.toInstant();
-        return new StructTimespec(instant.getEpochSecond(), instant.getNano());
+    public int describeContents() {
+        return 0;
     }
 
     @Override
-    public void setOwner(@NonNull PosixUser owner) throws IOException {
-        Objects.requireNonNull(owner);
-        int uid = owner.getId();
-        try {
-            if (mNoFollowLinks) {
-                Syscalls.lchown(mPath, uid, -1);
-            } else {
-                Syscalls.chown(mPath, uid, -1);
-            }
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
-    }
-
-    @Override
-    public void setGroup(@NonNull PosixGroup group) throws IOException {
-        Objects.requireNonNull(group);
-        int gid = group.getId();
-        try {
-            if (mNoFollowLinks) {
-                Syscalls.lchown(mPath, -1, gid);
-            } else {
-                Syscalls.chown(mPath, -1, gid);
-            }
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
-    }
-
-    public void setMode(@NonNull Set<PosixFileModeBit> mode) throws IOException {
-        Objects.requireNonNull(mode);
-        if (mNoFollowLinks) {
-            throw new UnsupportedOperationException("Cannot set mode for symbolic links");
-        }
-        int modeInt = PosixFileMode.toInt(mode);
-        try {
-            Syscalls.chmod(mPath, modeInt);
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
-        }
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable((Parcelable) mPath, flags);
+        dest.writeByte(mNoFollowLinks ? (byte) 1 : (byte) 0);
     }
 }

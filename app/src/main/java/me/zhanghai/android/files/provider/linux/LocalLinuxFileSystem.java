@@ -5,52 +5,58 @@
 
 package me.zhanghai.android.files.provider.linux;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.FileStore;
+import java8.nio.file.FileSystem;
 import java8.nio.file.Path;
 import java8.nio.file.PathMatcher;
-import java8.nio.file.attribute.UserPrincipalLookupService;
-import me.zhanghai.android.files.provider.remote.RemoteFileSystem;
+import java8.nio.file.WatchService;
+import java8.nio.file.spi.FileSystemProvider;
 
-class RemoteLinuxFileSystem extends RemoteFileSystem implements Parcelable {
+class LocalLinuxFileSystem extends FileSystem {
 
-    static final char SEPARATOR = LinuxFileSystem.SEPARATOR;
+    static final char SEPARATOR = '/';
 
     private static final String SEPARATOR_STRING = Character.toString(SEPARATOR);
 
     @NonNull
-    private final RemoteLinuxPath mRootDirectory = new RemoteLinuxPath(this, "/");
-    {
+    private final LinuxPath mRootDirectory;
+
+    @NonNull
+    private final LinuxPath mDefaultDirectory;
+
+    @NonNull
+    private final LinuxFileSystem mFileSystem;
+
+    @NonNull
+    private final LinuxFileSystemProvider mProvider;
+
+    public LocalLinuxFileSystem(@NonNull LinuxFileSystem fileSystem,
+                                @NonNull LinuxFileSystemProvider provider) {
+        mFileSystem = fileSystem;
+        mProvider = provider;
+
+        mRootDirectory = new LinuxPath(mFileSystem, "/");
         if (!mRootDirectory.isAbsolute()) {
             throw new AssertionError("Root directory must be absolute");
         }
         if (mRootDirectory.getNameCount() != 0) {
             throw new AssertionError("Root directory must contain no names");
         }
-    }
 
-    @NonNull
-    private final RemoteLinuxPath mDefaultDirectory;
-    {
         String userDir = System.getenv("user.dir");
         if (userDir == null) {
             userDir = "/";
         }
-        mDefaultDirectory = new RemoteLinuxPath(this, userDir);
+        mDefaultDirectory = new LinuxPath(mFileSystem, userDir);
         if (!mDefaultDirectory.isAbsolute()) {
             throw new AssertionError("Default directory must be absolute");
         }
-    }
-
-    RemoteLinuxFileSystem(@NonNull RemoteLinuxFileSystemProvider provider) {
-        super(provider);
     }
 
     @NonNull
@@ -61,6 +67,12 @@ class RemoteLinuxFileSystem extends RemoteFileSystem implements Parcelable {
     @NonNull
     Path getDefaultDirectory() {
         return mDefaultDirectory;
+    }
+
+    @NonNull
+    @Override
+    public FileSystemProvider provider() {
+        return mProvider;
     }
 
     @Override
@@ -100,7 +112,7 @@ class RemoteLinuxFileSystem extends RemoteFileSystem implements Parcelable {
     @NonNull
     @Override
     public Set<String> supportedFileAttributeViews() {
-        return RemoteLinuxFileAttributeView.SUPPORTED_NAMES;
+        return LinuxFileAttributeView.SUPPORTED_NAMES;
     }
 
     @NonNull
@@ -115,40 +127,26 @@ class RemoteLinuxFileSystem extends RemoteFileSystem implements Parcelable {
                     .append(name);
         }
         String path = pathBuilder.toString();
-        return new RemoteLinuxPath(this, path);
+        return new LinuxPath(mFileSystem, path);
     }
 
     @NonNull
     @Override
-    public PathMatcher getPathMatcher(String syntaxAndPattern) {
+    public PathMatcher getPathMatcher(@NonNull String syntaxAndPattern) {
         Objects.requireNonNull(syntaxAndPattern);
         throw new UnsupportedOperationException();
     }
 
     @NonNull
     @Override
-    public UserPrincipalLookupService getUserPrincipalLookupService() {
+    public LinuxUserPrincipalLookupService getUserPrincipalLookupService() {
+        return LinuxUserPrincipalLookupService.getInstance();
+    }
+
+    @NonNull
+    @Override
+    public WatchService newWatchService() throws IOException {
+        // TODO
         throw new UnsupportedOperationException();
     }
-
-
-    public static final Creator<RemoteLinuxFileSystem> CREATOR =
-            new Creator<RemoteLinuxFileSystem>() {
-                @Override
-                public RemoteLinuxFileSystem createFromParcel(Parcel source) {
-                    return RemoteLinuxFileSystemProvider.getFileSystem();
-                }
-                @Override
-                public RemoteLinuxFileSystem[] newArray(int size) {
-                    return new RemoteLinuxFileSystem[size];
-                }
-            };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {}
 }

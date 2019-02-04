@@ -10,12 +10,9 @@ import android.os.Parcelable;
 import android.os.RemoteException;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import java8.nio.file.FileStore;
-import java8.nio.file.attribute.FileStoreAttributeView;
+import me.zhanghai.android.files.provider.common.FileStore;
 
 public abstract class RemoteFileStore extends FileStore implements Parcelable {
 
@@ -90,20 +87,6 @@ public abstract class RemoteFileStore extends FileStore implements Parcelable {
         }
         ioException.throwIfNonNull();
         return unallocatedSpace;
-    }
-
-    @Nullable
-    @Override
-    public <V extends FileStoreAttributeView> V getFileStoreAttributeView(@NonNull Class<V> type) {
-        Objects.requireNonNull(type);
-        return null;
-    }
-
-    @Nullable
-    @Override
-    public Object getAttribute(@NonNull String attribute) throws IOException {
-        Objects.requireNonNull(attribute);
-        throw new UnsupportedOperationException();
     }
 
 

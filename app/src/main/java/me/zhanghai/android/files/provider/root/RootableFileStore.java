@@ -1,0 +1,74 @@
+/*
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * All Rights Reserved.
+ */
+
+package me.zhanghai.android.files.provider.root;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.IOException;
+
+import androidx.annotation.NonNull;
+import me.zhanghai.android.files.provider.common.FileStore;
+
+public abstract class RootableFileStore extends FileStore implements Parcelable {
+
+    @NonNull
+    private final FileStore mFileStore;
+
+    public RootableFileStore(@NonNull FileStore fileStore) {
+        mFileStore = fileStore;
+    }
+
+    @NonNull
+    @Override
+    public String name() {
+        return mFileStore.name();
+    }
+
+    @NonNull
+    @Override
+    public String type() {
+        return mFileStore.type();
+    }
+
+    @Override
+    public boolean isReadOnly() {
+        return mFileStore.isReadOnly();
+    }
+
+    @Override
+    public long getTotalSpace() throws IOException {
+        return mFileStore.getTotalSpace();
+    }
+
+    @Override
+    public long getUsableSpace() throws IOException {
+        return mFileStore.getUsableSpace();
+    }
+
+    @Override
+    public long getUnallocatedSpace() throws IOException {
+        return mFileStore.getUnallocatedSpace();
+    }
+
+
+    protected RootableFileStore(Parcel in) {
+        RootUtils.requireRunningAsNonRoot();
+        mFileStore = in.readParcelable(FileStore.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        RootUtils.requireRunningAsRoot();
+        FileStore fileStore = new RootFileStore(mFileStore);
+        dest.writeParcelable((Parcelable) fileStore, flags);
+    }
+}
