@@ -5,11 +5,13 @@
 
 package androidx.appcompat.app;
 
+import androidx.annotation.NonNull;
+
 public class NightModeAccessor {
 
     private NightModeAccessor() {}
 
-    public static int mapNightMode(AppCompatDelegate delegate, int mode) {
+    public static int mapNightMode(@NonNull AppCompatDelegate delegate, int mode) {
         return ((AppCompatDelegateImpl) delegate).mapNightMode(mode);
     }
 }
