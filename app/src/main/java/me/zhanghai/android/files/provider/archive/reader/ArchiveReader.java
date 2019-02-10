@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.archive.reader;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Pair;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -29,16 +31,21 @@ import java.util.Map;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
+import eu.chainfire.librootjava.RootJava;
 import java8.nio.charset.StandardCharsets;
+import java8.nio.file.AccessMode;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.NotLinkException;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.BuildConfig;
+import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.functional.IterableCompat;
 import me.zhanghai.android.files.functional.IteratorCompat;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.common.PosixFileTypes;
+import me.zhanghai.android.files.provider.root.RootUtils;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.util.EnumerationCompat;
 import me.zhanghai.android.files.util.IoUtils;
@@ -100,6 +107,7 @@ public class ArchiveReader {
                 throw new ArchiveException(e);
             }
         } catch (FileNotFoundException e) {
+            file.getFileSystem().provider().checkAccess(file, AccessMode.READ);
             NoSuchFileException noSuchFileException = new NoSuchFileException(file.toString());
             noSuchFileException.initCause(e);
             throw noSuchFileException;
@@ -107,7 +115,7 @@ public class ArchiveReader {
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
         switch (type) {
             case ArchiveStreamFactory.ZIP: {
-                String encoding = SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
+                String encoding = getZipFileNameEncoding();
                 try (ZipFileCompat zipFile = new ZipFileCompat(ioFile, encoding)) {
                     IteratorCompat.forEachRemaining(EnumerationCompat.asIterator(
                             zipFile.getEntries()), entries::add);
@@ -141,6 +149,26 @@ public class ArchiveReader {
             }
         }
         return entries;
+    }
+
+    @NonNull
+    private static String getZipFileNameEncoding() {
+        if (RootUtils.isRunningAsRoot()) {
+            try {
+                Context context = RootJava.getPackageContext(BuildConfig.APPLICATION_ID);
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+                        context);
+                String key = context.getString(R.string.pref_key_zip_file_name_encoding);
+                String defaultValue = context.getString(
+                        R.string.pref_default_value_zip_file_name_encoding);
+                return sharedPreferences.getString(key, defaultValue);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return StandardCharsets.UTF_8.name();
+            }
+        } else {
+            return SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
+        }
     }
 
     @NonNull

@@ -6,12 +6,12 @@
 package me.zhanghai.android.files.util;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
 import me.zhanghai.android.files.AppApplication;
 
 public class SharedPrefsUtils {
