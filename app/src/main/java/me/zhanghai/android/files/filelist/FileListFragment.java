@@ -367,6 +367,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 break;
             }
             case ERROR:
+                fileListData.exception.printStackTrace();
                 mToolbar.setSubtitle(R.string.file_list_subtitle_error);
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);

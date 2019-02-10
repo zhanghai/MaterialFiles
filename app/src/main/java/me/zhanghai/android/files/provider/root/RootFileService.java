@@ -9,12 +9,14 @@ import android.content.Context;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import androidx.annotation.NonNull;
 import eu.chainfire.librootjava.Debugger;
 import eu.chainfire.librootjava.RootIPC;
 import eu.chainfire.librootjava.RootIPCReceiver;
 import eu.chainfire.librootjava.RootJava;
+import eu.chainfire.libsuperuser.Debug;
 import eu.chainfire.libsuperuser.Shell;
 import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.BuildConfig;
@@ -39,6 +41,11 @@ public class RootFileService extends RemoteFileService {
 
     private Shell.Interactive mShell;
 
+    static {
+        Debug.setDebug(BuildConfig.DEBUG);
+        Debugger.setEnabled(BuildConfig.DEBUG);
+    }
+
     public RootFileService() {
         super(new RemoteInterfaceHolder<>(() -> getInstance().launchRemoteInterface()));
     }
@@ -51,39 +58,87 @@ public class RootFileService extends RemoteFileService {
     @NonNull
     private IRemoteFileService launchRemoteInterface() throws RemoteFileSystemException {
         synchronized (mLock) {
+            Shell.Interactive shell = getSuShellLocked();
             Context context = AppApplication.getInstance();
-            if (mShell != null && !mShell.isRunning()) {
-                mShell.close();
-                mShell = null;
-            }
-            if (mShell == null) {
-                mShell = new Shell.Builder()
-                        .useSU()
-                        .open();
-            }
             RootJava.cleanupCache(context);
-            Debugger.setEnabled(BuildConfig.DEBUG);
             CountDownLatch latch = new CountDownLatch(1);
-            IRemoteFileService[] remoteFileServiceHolder = new IRemoteFileService[1];
-            new RootIPCReceiver<IRemoteFileService>(context, 0) {
+            IRemoteFileService[] remoteInterfaceHolder = new IRemoteFileService[1];
+            RootIPCReceiver ipcReceiver = new RootIPCReceiver<IRemoteFileService>(context, 0) {
+                @NonNull
+                private final Object mReleaseLock = new Object();
+                private boolean mInRelease;
                 @Override
                 public void onConnect(@NonNull IRemoteFileService ipc) {
-                    remoteFileServiceHolder[0] = ipc;
+                    remoteInterfaceHolder[0] = ipc;
                     latch.countDown();
                 }
                 @Override
-                public void onDisconnect(@NonNull IRemoteFileService ipc) {}
+                public void onDisconnect(@NonNull IRemoteFileService ipc) {
+                    release();
+                }
+                @Override
+                public void release() {
+                    synchronized (mReleaseLock) {
+                        if (mInRelease) {
+                            return;
+                        }
+                        mInRelease = true;
+                        super.release();
+                        mInRelease = false;
+                    }
+                }
             };
-            String syscallsLibraryPath = getLibraryPath(Syscalls.getLibraryName(), context);
-            mShell.addCommand(RootJava.getLaunchScript(context, getClass(), null, null,
-                    new String[] { syscallsLibraryPath }, BuildConfig.APPLICATION_ID + ":root"));
             try {
-                latch.await(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS);
-            } catch (InterruptedException e) {
-                throw new RemoteFileSystemException(e);
+                String syscallsLibraryPath = getLibraryPath(Syscalls.getLibraryName(), context);
+                shell.addCommand(RootJava.getLaunchScript(context, getClass(), null, null,
+                        new String[] { syscallsLibraryPath },
+                        BuildConfig.APPLICATION_ID + ":root"));
+                try {
+                    if (!latch.await(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
+                        throw new RemoteFileSystemException(new TimeoutException(
+                                "Timeout while connecting to root process"));
+                    }
+                } catch (InterruptedException e) {
+                    throw new RemoteFileSystemException(e);
+                }
+                return remoteInterfaceHolder[0];
+            } catch (Exception e) {
+                ipcReceiver.release();
+                throw e;
             }
-            return remoteFileServiceHolder[0];
         }
+    }
+
+    @NonNull
+    private Shell.Interactive getSuShellLocked() throws RemoteFileSystemException {
+        if (mShell != null) {
+            if (mShell.isRunning()) {
+                if (!mShell.isIdle()) {
+                    mShell.waitForIdle();
+                }
+                return mShell;
+            } else {
+                mShell.close();
+                mShell = null;
+            }
+        }
+        mShell = launchSuShell();
+        return mShell;
+    }
+
+    @NonNull
+    private static Shell.Interactive launchSuShell() throws RemoteFileSystemException {
+        int[] exitCodeHolder = new int[1];
+        Shell.Interactive shell = new Shell.Builder()
+                .useSU()
+                .open((commandCode, exitCode, output) -> exitCodeHolder[0] = exitCode);
+        shell.waitForIdle();
+        int exitCode = exitCodeHolder[0];
+        if (exitCode != Shell.OnCommandResultListener.SHELL_RUNNING) {
+            shell.close();
+            throw new RemoteFileSystemException("Cannot launch su shell, exit code: " + exitCode);
+        }
+        return shell;
     }
 
     @NonNull
