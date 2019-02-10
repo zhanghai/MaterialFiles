@@ -17,11 +17,13 @@ import java8.nio.file.WatchService;
 import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystem;
+import me.zhanghai.android.files.provider.remote.RemoteInterfaceHolder;
 
 public class RootFileSystem extends RemoteFileSystem {
 
     public RootFileSystem(@NonNull FileSystem fileSystem) {
-        super(fileSystem);
+        super(new RemoteInterfaceHolder<>(() -> RootFileService.getInstance()
+                .getRemoteFileSystemInterface(fileSystem)));
     }
 
     @NonNull

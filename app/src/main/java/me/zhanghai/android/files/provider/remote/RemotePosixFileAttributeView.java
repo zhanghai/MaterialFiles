@@ -25,16 +25,11 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         implements PosixFileAttributeView {
 
     @NonNull
-    private final PosixFileAttributeView mAttributeView;
-
-    @NonNull
     private final RemoteInterfaceHolder<IRemotePosixFileAttributeView> mRemoteInterface;
 
-    public RemotePosixFileAttributeView(@NonNull PosixFileAttributeView attributeView) {
-        mAttributeView = attributeView;
-
-        mRemoteInterface = new RemoteInterfaceHolder<>(() -> RemoteFileService.getInstance()
-                .getRemotePosixFileAttributeViewInterface(mAttributeView));
+    public RemotePosixFileAttributeView(
+            @NonNull RemoteInterfaceHolder<IRemotePosixFileAttributeView> remoteInterface) {
+        mRemoteInterface = remoteInterface;
     }
 
     @NonNull

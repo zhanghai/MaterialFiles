@@ -11,8 +11,6 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
-import me.zhanghai.android.files.provider.remote.AndroidRootFileService;
-import me.zhanghai.android.files.provider.remote.RemoteFileService;
 
 public class FileSystemProviders {
 
@@ -21,7 +19,6 @@ public class FileSystemProviders {
     public static void install() {
         LinuxFileSystemProvider.installAsDefault();
         ArchiveFileSystemProvider.install();
-        RemoteFileService.use(new AndroidRootFileService());
         AndroidFileTypeDetector.install();
     }
 

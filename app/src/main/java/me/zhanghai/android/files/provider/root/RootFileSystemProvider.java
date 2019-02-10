@@ -17,11 +17,13 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttributeView;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemProvider;
+import me.zhanghai.android.files.provider.remote.RemoteInterfaceHolder;
 
 public class RootFileSystemProvider extends RemoteFileSystemProvider {
 
     public RootFileSystemProvider(@NonNull String scheme) {
-        super(scheme);
+        super(new RemoteInterfaceHolder<>(() -> RootFileService.getInstance()
+                .getRemoteFileSystemProviderInterface(scheme)));
     }
 
     @NonNull
@@ -40,11 +42,6 @@ public class RootFileSystemProvider extends RemoteFileSystemProvider {
     @NonNull
     @Override
     public FileSystem getFileSystem(@NonNull URI uri) {
-        throw new AssertionError();
-    }
-
-    @Override
-    protected void removeFileSystem(@NonNull FileSystem fileSystem) {
         throw new AssertionError();
     }
 

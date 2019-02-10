@@ -21,7 +21,6 @@ import java8.nio.file.AccessMode;
 import java8.nio.file.CopyOption;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileStore;
-import java8.nio.file.FileSystem;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.OpenOption;
@@ -34,12 +33,10 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
 
     private final RemoteInterfaceHolder<IRemoteFileSystemProvider> mRemoteInterface;
 
-    public RemoteFileSystemProvider(@NonNull String scheme) {
-        mRemoteInterface = new RemoteInterfaceHolder<>(() -> RemoteFileService.getInstance()
-                .getRemoteFileSystemProviderInterface(scheme));
+    public RemoteFileSystemProvider(
+            @NonNull RemoteInterfaceHolder<IRemoteFileSystemProvider> remoteInterface) {
+        mRemoteInterface = remoteInterface;
     }
-
-    protected abstract void removeFileSystem(@NonNull FileSystem fileSystem);
 
     @NonNull
     @Override

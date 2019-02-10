@@ -15,20 +15,10 @@ import java8.nio.file.FileSystem;
 public abstract class RemoteFileSystem extends FileSystem {
 
     @NonNull
-    private final FileSystem mFileSystem;
-
-    @NonNull
     private final RemoteInterfaceHolder<IRemoteFileSystem> mRemoteInterface;
 
-    public RemoteFileSystem(@NonNull FileSystem fileSystem) {
-        mFileSystem = fileSystem;
-        mRemoteInterface = new RemoteInterfaceHolder<>(() -> RemoteFileService.getInstance()
-                .getRemoteFileSystemInterface(mFileSystem));
-    }
-
-    @NonNull
-    protected FileSystem getFileSystem() {
-        return mFileSystem;
+    public RemoteFileSystem(@NonNull RemoteInterfaceHolder<IRemoteFileSystem> remoteInterface) {
+        mRemoteInterface = remoteInterface;
     }
 
     @Override

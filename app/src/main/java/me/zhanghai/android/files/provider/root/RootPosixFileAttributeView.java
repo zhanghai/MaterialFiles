@@ -8,13 +8,15 @@ package me.zhanghai.android.files.provider.root;
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
+import me.zhanghai.android.files.provider.remote.RemoteInterfaceHolder;
 import me.zhanghai.android.files.provider.remote.RemotePosixFileAttributeView;
 
 public class RootPosixFileAttributeView<FA extends PosixFileAttributes>
         extends RemotePosixFileAttributeView<FA> {
 
     public RootPosixFileAttributeView(@NonNull PosixFileAttributeView attributeView) {
-        super(attributeView);
+        super(new RemoteInterfaceHolder<>(() -> RootFileService.getInstance()
+                .getRemotePosixFileAttributeViewInterface(attributeView)));
     }
 
     @Override

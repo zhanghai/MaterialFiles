@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.remote;
+package me.zhanghai.android.files.provider.root;
 
 import android.content.Context;
 
@@ -20,43 +20,32 @@ import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.android.files.provider.remote.IRemoteFileService;
+import me.zhanghai.android.files.provider.remote.RemoteFileService;
+import me.zhanghai.android.files.provider.remote.RemoteFileServiceInterface;
+import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
+import me.zhanghai.android.files.provider.remote.RemoteInterfaceHolder;
 import me.zhanghai.android.files.util.LogUtils;
 
-public class AndroidRootFileService implements RemoteFileService.Implementation {
+public class RootFileService extends RemoteFileService {
+
+    @NonNull
+    private static final RootFileService sInstance = new RootFileService();
 
     private static final int TIMEOUT_MILLIS = 10 * 1000;
-
-    private final RemoteInterfaceHolder<IRemoteFileService> mRemoteInterface =
-            new RemoteInterfaceHolder<>(this::launchRemoteInterface);
 
     @NonNull
     private final Object mLock = new Object();
 
     private Shell.Interactive mShell;
 
-    public static void main(@NonNull String[] args) {
-
-        LogUtils.i("Loading native libraries");
-        for (String libraryPath : args) {
-            System.load(libraryPath);
-        }
-        RootJava.restoreOriginalLdLibraryPath();
-
-        LogUtils.i("Installing file system providers");
-        FileSystemProviders.install();
-
-        LogUtils.i("Sending Binder");
-        RemoteFileServiceInterface remoteInterface = new RemoteFileServiceInterface();
-        try {
-            new RootIPC(BuildConfig.APPLICATION_ID, remoteInterface, 0, TIMEOUT_MILLIS, true);
-        } catch (RootIPC.TimeoutException e) {
-            e.printStackTrace();
-        }
+    public RootFileService() {
+        super(new RemoteInterfaceHolder<>(() -> getInstance().launchRemoteInterface()));
     }
 
     @NonNull
-    public IRemoteFileService getRemoteInterface() throws RemoteFileSystemException {
-        return mRemoteInterface.get();
+    public static RootFileService getInstance() {
+        return sInstance;
     }
 
     @NonNull
@@ -105,5 +94,25 @@ public class AndroidRootFileService implements RemoteFileService.Implementation 
             throw new RemoteFileSystemException("Cannot get path for library: " + libraryName);
         }
         return libraryPath;
+    }
+
+    public static void main(@NonNull String[] args) {
+
+        LogUtils.i("Loading native libraries");
+        for (String libraryPath : args) {
+            System.load(libraryPath);
+        }
+        RootJava.restoreOriginalLdLibraryPath();
+
+        LogUtils.i("Installing file system providers");
+        FileSystemProviders.install();
+
+        LogUtils.i("Sending Binder");
+        RemoteFileServiceInterface remoteInterface = new RemoteFileServiceInterface();
+        try {
+            new RootIPC(BuildConfig.APPLICATION_ID, remoteInterface, 0, TIMEOUT_MILLIS, true);
+        } catch (RootIPC.TimeoutException e) {
+            e.printStackTrace();
+        }
     }
 }

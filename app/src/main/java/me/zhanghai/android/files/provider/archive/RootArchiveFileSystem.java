@@ -7,11 +7,13 @@ package me.zhanghai.android.files.provider.archive;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.FileSystem;
-import me.zhanghai.android.files.provider.remote.RemoteFileService;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
+import me.zhanghai.android.files.provider.root.RootFileService;
 import me.zhanghai.android.files.provider.root.RootFileSystem;
 
 class RootArchiveFileSystem extends RootFileSystem {
+
+    private final FileSystem mFileSystem;
 
     private boolean mNeedRefresh;
     @NonNull
@@ -19,6 +21,8 @@ class RootArchiveFileSystem extends RootFileSystem {
 
     RootArchiveFileSystem(@NonNull FileSystem fileSystem) {
         super(fileSystem);
+
+        mFileSystem = fileSystem;
     }
 
     public void refresh() {
@@ -33,7 +37,7 @@ class RootArchiveFileSystem extends RootFileSystem {
         synchronized (mNeedRefreshLock) {
             if (mNeedRefresh) {
                 if (hasRemoteInterface()) {
-                    RemoteFileService.getInstance().refreshArchiveFileSystem(getFileSystem());
+                    RootFileService.getInstance().refreshArchiveFileSystem(mFileSystem);
                 }
                 mNeedRefresh = false;
             }

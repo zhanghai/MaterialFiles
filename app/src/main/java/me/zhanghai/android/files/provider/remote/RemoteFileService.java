@@ -7,39 +7,23 @@ package me.zhanghai.android.files.provider.remote;
 
 import android.os.RemoteException;
 
-import java.util.Objects;
-
 import androidx.annotation.NonNull;
 import java8.nio.file.FileSystem;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 
-public class RemoteFileService {
+public abstract class RemoteFileService {
 
     @NonNull
-    private static final RemoteFileService sInstance = new RemoteFileService();
+    private final RemoteInterfaceHolder<IRemoteFileService> mRemoteInterface;
 
-    private Implementation mImplementation;
-    @NonNull
-    private final Object mImplementationLock = new Object();
-
-    private RemoteFileService() {}
-
-    @NonNull
-    public static RemoteFileService getInstance() {
-        return sInstance;
-    }
-
-    public static void use(@NonNull Implementation implementation) {
-        Objects.requireNonNull(implementation);
-        synchronized (sInstance.mImplementationLock) {
-            sInstance.mImplementation = implementation;
-        }
+    public RemoteFileService(@NonNull RemoteInterfaceHolder<IRemoteFileService> remoteInterface) {
+        mRemoteInterface = remoteInterface;
     }
 
     @NonNull
     public IRemoteFileSystemProvider getRemoteFileSystemProviderInterface(
             @NonNull String remoteScheme) throws RemoteFileSystemException {
-        IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
+        IRemoteFileService remoteInterface = mRemoteInterface.get();
         IRemoteFileSystemProvider remoteProviderInterface;
         try {
             remoteProviderInterface = remoteInterface.getRemoteFileSystemProviderInterface(
@@ -54,7 +38,7 @@ public class RemoteFileService {
     public IRemoteFileSystem getRemoteFileSystemInterface(@NonNull FileSystem fileSystem)
             throws RemoteFileSystemException {
         ParcelableObject parcelableFileSystem = new ParcelableObject(fileSystem);
-        IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
+        IRemoteFileService remoteInterface = mRemoteInterface.get();
         IRemoteFileSystem remoteFileSystemInterface;
         try {
             remoteFileSystemInterface = remoteInterface.getRemoteFileSystemInterface(
@@ -69,7 +53,7 @@ public class RemoteFileService {
     public IRemotePosixFileAttributeView getRemotePosixFileAttributeViewInterface(
             @NonNull PosixFileAttributeView attributeView) throws RemoteFileSystemException {
         ParcelableObject parcelableAttributeView = new ParcelableObject(attributeView);
-        IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
+        IRemoteFileService remoteInterface = mRemoteInterface.get();
         IRemotePosixFileAttributeView remoteAttributeViewInterface;
         try {
             remoteAttributeViewInterface = remoteInterface.getRemotePosixFileAttributeViewInterface(
@@ -83,17 +67,11 @@ public class RemoteFileService {
     public void refreshArchiveFileSystem(@NonNull FileSystem fileSystem)
             throws RemoteFileSystemException {
         ParcelableObject parcelableFileSystem = new ParcelableObject(fileSystem);
-        IRemoteFileService remoteInterface = mImplementation.getRemoteInterface();
+        IRemoteFileService remoteInterface = mRemoteInterface.get();
         try {
             remoteInterface.refreshArchiveFileSystem(parcelableFileSystem);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-    }
-
-    public interface Implementation {
-
-        @NonNull
-        IRemoteFileService getRemoteInterface() throws RemoteFileSystemException;
     }
 }
