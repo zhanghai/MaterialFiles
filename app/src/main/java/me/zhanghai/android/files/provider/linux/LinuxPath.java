@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.Manifest;
 import android.os.Parcel;
 
 import java.io.File;
@@ -20,6 +21,8 @@ import java8.nio.file.Path;
 import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
+import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
+import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.provider.common.StringListPath;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
@@ -104,7 +107,8 @@ class LinuxPath extends StringListPath implements RootablePath {
 
     @Override
     public boolean canUseRoot() {
-        return true;
+        return EffortlessPermissions.hasPermissions(AppApplication.getInstance(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
     @Override

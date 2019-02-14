@@ -13,7 +13,6 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import java8.nio.file.AccessDeniedException;
 import java8.nio.file.Path;
-import java9.util.function.Supplier;
 
 public class RootUtils {
 
@@ -33,10 +32,6 @@ public class RootUtils {
         if (sRunningAsRoot) {
             throw new IllegalArgumentException("Must be running as non-root");
         }
-    }
-
-    public static <T> T newIfRunningAsNonRoot(Supplier<T> newObject) {
-        return !sRunningAsRoot ? newObject.get() : null;
     }
 
     public static <T> void acceptRootable(@NonNull Path path, @NonNull T localObject,
