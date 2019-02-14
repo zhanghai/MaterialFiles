@@ -27,9 +27,6 @@
     <string name="storage_permission_request_message">App needs permission to access files. Please click \"ALLOW\" in the upcoming system dialog.</string>
     <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the \"Storage\" permission in system settings.</string>
 
-    <string name="file_error_information">Unable to read file information</string>
-    <string name="file_error_cancelled">Operation cancelled</string>
-    <string name="file_delete_error">Unable to delete file</string>
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
     <string name="file_open_as_title_format">Open %1$s as</string>
     <string name="file_open_as_type_text">Text</string>
@@ -42,20 +39,13 @@
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>
     <string name="file_rename_title">Rename</string>
-    <string name="file_rename_error">Unable to rename file</string>
     <string name="file_delete_message_file_format">Delete \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Delete folder \"%1$s\" and its contents?</string>
     <string name="file_delete_message_multiple_files_format">Delete %1$d files?</string>
     <string name="file_delete_message_multiple_directories_format">Delete %1$d folders and their contents?</string>
     <string name="file_delete_message_multiple_mixed_format">Delete %1$d items?</string>
-    <string name="file_copy_error">Unable to copy file</string>
-    <string name="file_copy_error_special_file">Unable to copy special file</string>
-    <string name="file_move_error">Unable to move file</string>
     <string name="file_create_file_title">New file</string>
-    <string name="file_create_file_error_already_exists">A file with this name already exists</string>
-    <string name="file_create_file_error">Unable to create file</string>
     <string name="file_create_directory_title">New folder</string>
-    <string name="file_create_directory_error">Unable to create folder</string>
 
     <string name="file_list_subtitle_loading">Loading…</string>
     <string name="file_list_subtitle_error">Error</string>
@@ -93,8 +83,6 @@
     <string name="file_list_cab_paste_move_title_format">Moving %1$d</string>
     <string name="file_list_cab_paste_copy_title_format">Copying %1$d</string>
     <string name="file_list_cab_paste_action_paste">Paste</string>
-    <string name="file_list_error_directory">Unable to open folder</string>
-    <string name="file_list_error_archive">Unable to open archive</string>
     <string name="file_list_empty">No files</string>
     <string name="file_list_action_create_file">File</string>
     <string name="file_list_action_create_directory">Folder</string>
