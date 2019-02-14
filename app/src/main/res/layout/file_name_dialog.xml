@@ -17,5 +17,7 @@
         android:id="@id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text" />
+        android:inputType="text">
+        <requestFocus />
+    </me.zhanghai.android.materialedittext.MaterialEditText>
 </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
