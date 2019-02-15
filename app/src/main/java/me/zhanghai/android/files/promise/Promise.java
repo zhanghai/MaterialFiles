@@ -346,10 +346,8 @@ public class Promise<T> {
     }
 
     public T await() throws ExecutionException, InterruptedException {
+        mLatch.await();
         synchronized (mLock) {
-            if (mStatus == Status.PENDING) {
-                mLatch.await();
-            }
             switch (mStatus) {
                 case FULFILLED:
                     return mValue;
@@ -363,12 +361,10 @@ public class Promise<T> {
 
     public T await(long timeout, @NonNull TimeUnit unit) throws ExecutionException,
             InterruptedException, TimeoutException {
+        if (!mLatch.await(timeout, unit)) {
+            throw new TimeoutException();
+        }
         synchronized (mLock) {
-            if (mStatus == Status.PENDING) {
-                if (!mLatch.await(timeout, unit)) {
-                    throw new TimeoutException();
-                }
-            }
             switch (mStatus) {
                 case FULFILLED:
                     return mValue;
