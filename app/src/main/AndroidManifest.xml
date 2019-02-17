@@ -79,6 +79,10 @@
             android:name=".filejob.FileJobActionDialogActivity"
             android:theme="@style/AppTheme.Translucent" />
 
+        <activity
+            android:name=".filejob.FileJobConflictDialogActivity"
+            android:theme="@style/AppTheme.Translucent" />
+
         <service android:name="me.zhanghai.android.files.filejob.FileJobService" />
 
         <provider

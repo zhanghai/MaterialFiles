@@ -18,14 +18,11 @@ import androidx.lifecycle.LiveData;
 import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Files;
-import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
-import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.filesystem.JavaFileObserver;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.FunctionalException;
 import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
-import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class FileListLiveData extends LiveData<FileListData> {
@@ -52,7 +49,7 @@ public class FileListLiveData extends LiveData<FileListData> {
                     List<FileItem> fileList;
                     try {
                         fileList = Functional.map(directoryStream,
-                                (ThrowingFunction<Path, FileItem>) FileListLiveData::loadFileItem);
+                                (ThrowingFunction<Path, FileItem>) FileItem::load);
                     } catch (FunctionalException e) {
                         if (e.getCause() instanceof DirectoryIteratorException) {
                             throw e.getCauseAs(DirectoryIteratorException.class).getCause();
@@ -69,30 +66,6 @@ public class FileListLiveData extends LiveData<FileListData> {
                 setValue(fileListData);
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    @NonNull
-    @WorkerThread
-    private static FileItem loadFileItem(@NonNull Path path) throws IOException {
-        BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class,
-                LinkOption.NOFOLLOW_LINKS);
-        boolean hidden = Files.isHidden(path);
-        if (!attributes.isSymbolicLink()) {
-            String mimeType = AndroidFileTypeDetector.getMimeType(path, attributes);
-            return new FileItem(path, attributes, null, null, hidden, mimeType);
-        }
-        String symbolicLinkTarget = Files.readSymbolicLink(path).toString();
-        BasicFileAttributes symbolicLinkTargetAttributes;
-        try {
-            symbolicLinkTargetAttributes = Files.readAttributes(path, BasicFileAttributes.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            symbolicLinkTargetAttributes = null;
-        }
-        String mimeType = AndroidFileTypeDetector.getMimeType(path,
-                symbolicLinkTargetAttributes != null ? symbolicLinkTargetAttributes : attributes);
-        return new FileItem(path, attributes, symbolicLinkTarget, symbolicLinkTargetAttributes,
-                hidden, mimeType);
     }
 
     @Override

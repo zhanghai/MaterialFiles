@@ -8,12 +8,17 @@ package me.zhanghai.android.files.filelist;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.IOException;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.WorkerThread;
+import java8.nio.file.Files;
+import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
+import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 
 public class FileItem implements Parcelable {
 
@@ -39,6 +44,30 @@ public class FileItem implements Parcelable {
         mSymbolicLinkTargetAttributes = symbolicLinkTargetAttributes;
         mHidden = hidden;
         mMimeType = mimeType;
+    }
+
+    @NonNull
+    @WorkerThread
+    public static FileItem load(@NonNull Path path) throws IOException {
+        BasicFileAttributes attributes = Files.readAttributes(path, BasicFileAttributes.class,
+                LinkOption.NOFOLLOW_LINKS);
+        boolean hidden = Files.isHidden(path);
+        if (!attributes.isSymbolicLink()) {
+            String mimeType = AndroidFileTypeDetector.getMimeType(path, attributes);
+            return new FileItem(path, attributes, null, null, hidden, mimeType);
+        }
+        String symbolicLinkTarget = Files.readSymbolicLink(path).toString();
+        BasicFileAttributes symbolicLinkTargetAttributes;
+        try {
+            symbolicLinkTargetAttributes = Files.readAttributes(path, BasicFileAttributes.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            symbolicLinkTargetAttributes = null;
+        }
+        String mimeType = AndroidFileTypeDetector.getMimeType(path,
+                symbolicLinkTargetAttributes != null ? symbolicLinkTargetAttributes : attributes);
+        return new FileItem(path, attributes, symbolicLinkTarget, symbolicLinkTargetAttributes,
+                hidden, mimeType);
     }
 
     @NonNull

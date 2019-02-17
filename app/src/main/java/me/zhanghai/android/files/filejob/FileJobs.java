@@ -25,6 +25,7 @@ import java8.nio.file.SimpleFileVisitor;
 import java8.nio.file.StandardCopyOption;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.promise.Promise;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 
@@ -56,12 +57,12 @@ public class FileJobs {
                         null);
                 switch (result.getAction()) {
                     case POSITIVE:
+                    case CANCELED:
                         if (result.isAll()) {
                             // TODO: Turn on all.
                         }
                         return;
                     case NEGATIVE:
-                    case CANCELED:
                         throw new InterruptedIOException();
                     default:
                         throw new AssertionError(result.getAction());
@@ -80,12 +81,12 @@ public class FileJobs {
                         null);
                 switch (result.getAction()) {
                     case POSITIVE:
+                    case CANCELED:
                         if (result.isAll()) {
                             // TODO: Turn on all.
                         }
                         return;
                     case NEGATIVE:
-                    case CANCELED:
                         throw new InterruptedIOException();
                     default:
                         throw new AssertionError(result.getAction());
@@ -110,13 +111,35 @@ public class FileJobs {
                         Files.move(source, target, options);
                     }
                 } catch (FileAlreadyExistsException e) {
-                    // TODO: Prompt overwrite, skip, skip-all, abort, or merge.
-                    if (false) {
-                        replaceExisting = true;
-                        retry = true;
-                        continue;
+                    FileItem sourceFile = FileItem.load(source);
+                    FileItem targetFile = FileItem.load(target);
+                    if (!sourceFile.getAttributesNoFollowLinks().isDirectory()
+                            && targetFile.getAttributesNoFollowLinks().isDirectory()) {
+                        // TODO: Don't allow replace directory with file.
+                        throw e;
+                    } else {
+                        ConflictResult result = showConflictDialog(sourceFile, targetFile, copy);
+                        switch (result.getAction()) {
+                            case REPLACE_OR_MERGE:
+                                if (result.isAll()) {
+                                    // TODO: Turn on all.
+                                }
+                                replaceExisting = true;
+                                retry = true;
+                                continue;
+                            case SKIP:
+                            case CANCELED:
+                                if (result.isAll()) {
+                                    // TODO: Turn on all.
+                                }
+                                // TODO: Skip subtree.
+                                return;
+                            case CANCEL:
+                                throw new InterruptedIOException();
+                            default:
+                                throw new AssertionError(result.getAction());
+                        }
                     }
-                    throw e;
                 } catch (InvalidFileNameException e) {
                     // TODO: Prompt invalid name.
                     if (false) {
@@ -162,7 +185,8 @@ public class FileJobs {
                     Service service = getService();
                     ActionResult result = showActionDialog(
                             service.getString(R.string.file_job_delete_error_title),
-                            service.getString(R.string.file_job_delete_error_message_format, path),
+                            service.getString(R.string.file_job_delete_error_message_format,
+                                    path.getFileName()),
                             true,
                             service.getString(R.string.file_job_action_retry),
                             service.getString(R.string.file_job_action_skip),
@@ -223,6 +247,70 @@ public class FileJobs {
                 InterruptedIOException exception = new InterruptedIOException();
                 exception.initCause(e);
                 throw exception;
+            }
+        }
+
+        protected ConflictResult showConflictDialog(@NonNull FileItem sourceFile,
+                                                    @NonNull FileItem targetFile, boolean copy)
+                throws IOException {
+            Service service = getService();
+            try {
+                return new Promise<ConflictResult>(settler ->
+                        service.startActivity(FileJobConflictDialogActivity.makeIntent(sourceFile,
+                                targetFile, copy, (action, all) -> settler.resolve(
+                                        new ConflictResult(action, all)), service)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)))
+                        .await();
+            } catch (ExecutionException e) {
+                throw new FileJobUiException(e);
+            } catch (InterruptedException e) {
+                InterruptedIOException exception = new InterruptedIOException();
+                exception.initCause(e);
+                throw exception;
+            }
+        }
+
+        private static class ActionResult {
+
+            @NonNull
+            private final FileJobActionDialogFragment.Action mAction;
+            private final boolean mAll;
+
+            public ActionResult(@NonNull FileJobActionDialogFragment.Action action,
+                                boolean all) {
+                mAction = action;
+                mAll = all;
+            }
+
+            @NonNull
+            public FileJobActionDialogFragment.Action getAction() {
+                return mAction;
+            }
+
+            public boolean isAll() {
+                return mAll;
+            }
+        }
+
+        private static class ConflictResult {
+
+            @NonNull
+            private final FileJobConflictDialogFragment.Action mAction;
+            private final boolean mAll;
+
+            public ConflictResult(@NonNull FileJobConflictDialogFragment.Action action,
+                                boolean all) {
+                mAction = action;
+                mAll = all;
+            }
+
+            @NonNull
+            public FileJobConflictDialogFragment.Action getAction() {
+                return mAction;
+            }
+
+            public boolean isAll() {
+                return mAll;
             }
         }
     }
@@ -479,28 +567,6 @@ public class FileJobs {
         public void run() throws IOException {
             Path newPath = mPath.resolveSibling(mNewName);
             moveAtomically(mPath, newPath);
-        }
-    }
-
-    private static class ActionResult {
-
-        @NonNull
-        private final FileJobActionDialogFragment.Action mAction;
-        private final boolean mAll;
-
-        public ActionResult(@NonNull FileJobActionDialogFragment.Action action,
-                            boolean all) {
-            mAction = action;
-            mAll = all;
-        }
-
-        @NonNull
-        public FileJobActionDialogFragment.Action getAction() {
-            return mAction;
-        }
-
-        public boolean isAll() {
-            return mAll;
         }
     }
 }

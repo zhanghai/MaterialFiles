@@ -34,9 +34,18 @@
     <string name="file_job_cannot_move_over_itself_title">Cannot move a file over itself</string>
     <string name="file_job_cannot_copy_move_over_itself_message">The source file would be overwritten by the destination.</string>
     <string name="file_job_delete_error_title">Error while deleting</string>
-    <string name="file_job_delete_error_message_format">There was an error deleting the file “%1$s”.</string>
+    <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.</string>
+    <string name="file_job_copy_error_title">Error while copying</string>
+    <string name="file_job_replace_title_format">Replace file “%1$s”?</string>
+    <string name="file_job_replace_message_format">Another file with the same name already exists in “%1$s”.\nReplacing it will overwrite its content.</string>
+    <string name="file_job_merge_title_format">Merge folder “%1$s”?</string>
+    <string name="file_job_merge_copy_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being copied.</string>
+    <string name="file_job_merge_move_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being moved.</string>
+    <string name="file_job_conflict_target_name">Original file</string>
+    <string name="file_job_conflict_source_name">Replace with</string>
+    <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
     <string name="file_job_action_all">Apply this action to all files</string>
-    <string name="file_job_action_overwrite">Overwrite</string>
+    <string name="file_job_action_replace">Replace</string>
     <string name="file_job_action_retry">Retry</string>
     <string name="file_job_action_skip">Skip</string>
 
