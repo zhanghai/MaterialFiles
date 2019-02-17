@@ -1,14 +1,18 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.file;
+package me.zhanghai.android.files.filejob;
+
+import android.app.Service;
+import android.content.Intent;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +24,8 @@ import java8.nio.file.Path;
 import java8.nio.file.SimpleFileVisitor;
 import java8.nio.file.StandardCopyOption;
 import java8.nio.file.attribute.BasicFileAttributes;
+import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.promise.Promise;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 
 public class FileJobs {
@@ -28,27 +34,62 @@ public class FileJobs {
 
     private abstract static class Base extends FileJob {
 
-        protected static void copy(@NonNull Path source, @NonNull Path target)
-                throws IOException {
+        protected void copy(@NonNull Path source, @NonNull Path target) throws IOException {
             copyOrMove(source, target, true, false);
         }
 
         // @see https://github.com/GNOME/nautilus/blob/master/src/nautilus-file-operations.c
         //      copy_move_file
-        private static void copyOrMove(@NonNull Path source, @NonNull Path target, boolean copy,
-                                       boolean copyAttributes) throws IOException {
+        private void copyOrMove(@NonNull Path source, @NonNull Path target, boolean copy,
+                                boolean copyAttributes) throws IOException {
             Path targetParent = target.getParent();
             if (targetParent != null && targetParent.startsWith(source)) {
                 // Don't allow copy/move into the source itself.
-                // TODO: Prompt skip, skip-all or abort.
-                throw new IOException(new IllegalArgumentException(
-                        "Cannot copy/move a folder into itself"));
+                Service service = getService();
+                ActionResult result = showActionDialog(
+                        service.getString(copy ? R.string.file_job_cannot_copy_into_itself_title
+                                : R.string.file_job_cannot_move_into_itself_title),
+                        service.getString(R.string.file_job_cannot_copy_move_into_itself_message),
+                        true,
+                        service.getString(R.string.file_job_action_skip),
+                        service.getString(android.R.string.cancel),
+                        null);
+                switch (result.getAction()) {
+                    case POSITIVE:
+                        if (result.isAll()) {
+                            // TODO: Turn on all.
+                        }
+                        return;
+                    case NEGATIVE:
+                    case CANCELED:
+                        throw new InterruptedIOException();
+                    default:
+                        throw new AssertionError(result.getAction());
+                }
             }
             if (source.startsWith(target)) {
                 // Don't allow copy/move over the source itself or its ancestors.
-                // TODO: Prompt skip, skip-all or abort.
-                throw new IOException(new IllegalArgumentException(
-                        "Cannot copy/move over a path over itself"));
+                Service service = getService();
+                ActionResult result = showActionDialog(
+                        service.getString(copy ? R.string.file_job_cannot_copy_over_itself_title
+                                : R.string.file_job_cannot_move_over_itself_title),
+                        service.getString(R.string.file_job_cannot_copy_move_over_itself_message),
+                        true,
+                        service.getString(R.string.file_job_action_skip),
+                        service.getString(android.R.string.cancel),
+                        null);
+                switch (result.getAction()) {
+                    case POSITIVE:
+                        if (result.isAll()) {
+                            // TODO: Turn on all.
+                        }
+                        return;
+                    case NEGATIVE:
+                    case CANCELED:
+                        throw new InterruptedIOException();
+                    default:
+                        throw new AssertionError(result.getAction());
+                }
             }
             boolean replaceExisting = false;
             boolean retry;
@@ -96,7 +137,7 @@ public class FileJobs {
             } while (retry);
         }
 
-        protected static void copyWithAttributes(@NonNull Path source, @NonNull Path target)
+        protected void copyWithAttributes(@NonNull Path source, @NonNull Path target)
                 throws IOException {
             copyOrMove(source, target, true, true);
         }
@@ -109,7 +150,7 @@ public class FileJobs {
             Files.createFile(path);
         }
 
-        protected static void delete(@NonNull Path path) throws IOException {
+        protected void delete(@NonNull Path path) throws IOException {
             boolean retry;
             do {
                 retry = false;
@@ -118,29 +159,70 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
-                    // TODO: Prompt skip, skip-all or abort.
-                    if (false) {
-                        retry = true;
-                        continue;
+                    Service service = getService();
+                    ActionResult result = showActionDialog(
+                            service.getString(R.string.file_job_delete_error_title),
+                            service.getString(R.string.file_job_delete_error_message_format, path),
+                            true,
+                            service.getString(R.string.file_job_action_retry),
+                            service.getString(R.string.file_job_action_skip),
+                            service.getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                        case CANCELED:
+                            if (result.isAll()) {
+                                // TODO: Turn on all.
+                            }
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
                     }
-                    throw e;
                 }
             } while (retry);
         }
 
-        protected static void moveAtomically(@NonNull Path source, @NonNull Path target)
+        protected void moveAtomically(@NonNull Path source, @NonNull Path target)
                 throws IOException {
             Files.move(source, target, StandardCopyOption.ATOMIC_MOVE);
         }
 
-        protected static void moveByCopy(@NonNull Path source, @NonNull Path target)
-                throws IOException {
+        protected void moveByCopy(@NonNull Path source, @NonNull Path target) throws IOException {
             copyOrMove(source, target, false, true);
         }
 
-        protected static void throwIfInterrupted() throws InterruptedIOException {
+        protected void throwIfInterrupted() throws InterruptedIOException {
             if (Thread.interrupted()) {
                 throw new InterruptedIOException();
+            }
+        }
+
+        protected ActionResult showActionDialog(@NonNull CharSequence title,
+                                                @NonNull CharSequence message,
+                                                boolean showAll,
+                                                @Nullable CharSequence positiveButtonText,
+                                                @Nullable CharSequence negativeButtonText,
+                                                @Nullable CharSequence neutralButtonText)
+                throws IOException {
+            Service service = getService();
+            try {
+                return new Promise<ActionResult>(settler ->
+                        service.startActivity(FileJobActionDialogActivity.makeIntent(title, message,
+                                showAll, positiveButtonText, negativeButtonText, neutralButtonText,
+                                (action, all) -> settler.resolve(new ActionResult(action, all)),
+                                service)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)))
+                        .await();
+            } catch (ExecutionException e) {
+                throw new FileJobUiException(e);
+            } catch (InterruptedException e) {
+                InterruptedIOException exception = new InterruptedIOException();
+                exception.initCause(e);
+                throw exception;
             }
         }
     }
@@ -166,7 +248,7 @@ public class FileJobs {
             }
         }
 
-        private static void copyRecursively(@NonNull Path source, @NonNull Path target)
+        private void copyRecursively(@NonNull Path source, @NonNull Path target)
                 throws IOException {
             Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
                 @NonNull
@@ -248,7 +330,7 @@ public class FileJobs {
             }
         }
 
-        private static void deleteRecursively(@NonNull Path path) throws IOException {
+        private void deleteRecursively(@NonNull Path path) throws IOException {
             Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
@@ -317,7 +399,7 @@ public class FileJobs {
             }
         }
 
-        private static void moveRecursively(@NonNull Path source, @NonNull Path target)
+        private void moveRecursively(@NonNull Path source, @NonNull Path target)
                 throws IOException {
             Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
                 @NonNull
@@ -397,6 +479,28 @@ public class FileJobs {
         public void run() throws IOException {
             Path newPath = mPath.resolveSibling(mNewName);
             moveAtomically(mPath, newPath);
+        }
+    }
+
+    private static class ActionResult {
+
+        @NonNull
+        private final FileJobActionDialogFragment.Action mAction;
+        private final boolean mAll;
+
+        public ActionResult(@NonNull FileJobActionDialogFragment.Action action,
+                            boolean all) {
+            mAction = action;
+            mAll = all;
+        }
+
+        @NonNull
+        public FileJobActionDialogFragment.Action getAction() {
+            return mAction;
+        }
+
+        public boolean isAll() {
+            return mAll;
         }
     }
 }

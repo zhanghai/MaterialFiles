@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.file;
+package me.zhanghai.android.files.filejob;
 
 import android.app.Service;
 import android.content.Context;

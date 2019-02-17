@@ -27,6 +27,19 @@
     <string name="storage_permission_request_message">App needs permission to access files. Please click \"ALLOW\" in the upcoming system dialog.</string>
     <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the \"Storage\" permission in system settings.</string>
 
+    <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
+    <string name="file_job_cannot_move_into_itself_title">Cannot move a folder into itself</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">The destination folder is inside the source folder.</string>
+    <string name="file_job_cannot_copy_over_itself_title">Cannot copy a file over itself</string>
+    <string name="file_job_cannot_move_over_itself_title">Cannot move a file over itself</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">The source file would be overwritten by the destination.</string>
+    <string name="file_job_delete_error_title">Error while deleting</string>
+    <string name="file_job_delete_error_message_format">There was an error deleting the file “%1$s”.</string>
+    <string name="file_job_action_all">Apply this action to all files</string>
+    <string name="file_job_action_overwrite">Overwrite</string>
+    <string name="file_job_action_retry">Retry</string>
+    <string name="file_job_action_skip">Skip</string>
+
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
     <string name="file_open_as_title_format">Open %1$s as</string>
     <string name="file_open_as_type_text">Text</string>

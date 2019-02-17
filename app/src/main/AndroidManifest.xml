@@ -75,7 +75,11 @@
                 android:value="me.zhanghai.android.files.main.MainActivity" />
         </activity>
 
-        <service android:name="me.zhanghai.android.files.file.FileJobService" />
+        <activity
+            android:name=".filejob.FileJobActionDialogActivity"
+            android:theme="@style/AppTheme.Translucent" />
+
+        <service android:name="me.zhanghai.android.files.filejob.FileJobService" />
 
         <provider
             android:name="me.zhanghai.android.files.file.FileProvider"

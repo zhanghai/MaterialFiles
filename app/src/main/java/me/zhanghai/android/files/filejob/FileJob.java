@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.file;
+package me.zhanghai.android.files.filejob;
 
 import android.app.Service;
 
@@ -16,7 +16,10 @@ import me.zhanghai.android.files.util.ToastUtils;
 
 public abstract class FileJob {
 
+    private Service mService;
+
     public void run(@NonNull Service service) {
+        mService = service;
         try {
             run();
             // TODO: Toast
@@ -26,8 +29,14 @@ public abstract class FileJob {
         } catch (IOException e) {
             e.printStackTrace();
             AppUtils.runOnUiThread(() -> ToastUtils.show(e.getMessage(), service));
+        } finally {
+            mService = null;
         }
     }
 
     protected abstract void run() throws IOException;
+
+    protected Service getService() {
+        return mService;
+    }
 }

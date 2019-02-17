@@ -427,10 +427,22 @@ public class ViewUtils {
     }
 
     @NonNull
+    public static View inflateWithTheme(int resource, @NonNull Context context,
+                                        @StyleRes int themeRes) {
+        if (themeRes != 0) {
+            context = new ContextThemeWrapper(context, themeRes);
+        }
+        return inflate(resource, null, false, context);
+    }
+
+    @NonNull
     public static View inflateWithTheme(int resource, @NonNull ViewGroup parent,
                                         @StyleRes int themeRes) {
-        return inflate(resource, parent, false, new ContextThemeWrapper(parent.getContext(),
-                themeRes));
+        Context context = parent.getContext();
+        if (themeRes != 0) {
+            context = new ContextThemeWrapper(context, themeRes);
+        }
+        return inflate(resource, parent, false, context);
     }
 
     @NonNull
