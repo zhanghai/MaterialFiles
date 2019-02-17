@@ -146,7 +146,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
             mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
 
-        return new AlertDialog.Builder(context, theme)
+        AlertDialog dialog = new AlertDialog.Builder(context, theme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(R.string.file_job_action_replace, this::onDialogButtonClick)
@@ -154,6 +154,8 @@ public class FileJobConflictDialogFragment extends DialogFragment {
                 .setNeutralButton(android.R.string.cancel, this::onDialogButtonClick)
                 .setView(view)
                 .create();
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 
     /**

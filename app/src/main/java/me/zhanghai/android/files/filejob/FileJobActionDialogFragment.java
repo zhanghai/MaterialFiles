@@ -128,7 +128,9 @@ public class FileJobActionDialogFragment extends DialogFragment {
             }
             builder.setView(view);
         }
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 
     private void onDialogButtonClick(@NonNull DialogInterface dialog, int which) {
