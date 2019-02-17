@@ -40,6 +40,7 @@ class LinuxCopyMove {
                             @NonNull CopyOptions copyOptions) throws IOException {
         try {
             Syscalls.rename(source, target);
+            return;
         } catch (SyscallException e) {
             if (copyOptions.hasAtomicMove()) {
                 e.maybeThrowAtomicMoveNotSupportedException(source, target);
