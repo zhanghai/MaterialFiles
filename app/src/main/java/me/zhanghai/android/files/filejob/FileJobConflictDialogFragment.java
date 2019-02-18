@@ -142,6 +142,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
         ButterKnife.bind(this, view);
         bindFileItem(mTargetFile, mTargetIconImage, mTargetBadgeImage, mTargetDescriptionText);
         bindFileItem(mSourceFile, mSourceIconImage, mSourceBadgeImage, mSourceDescriptionText);
+        // TODO: Support renaming.
         if (savedInstanceState != null) {
             mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
