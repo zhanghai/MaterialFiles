@@ -150,12 +150,33 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
-                    // TODO: Prompt skip, skip-all or abort.
-                    if (false) {
-                        retry = true;
-                        continue;
+                    Service service = getService();
+                    ActionResult result = showActionDialog(
+                            service.getString(copy ? R.string.file_job_copy_error_title_format
+                                    : R.string.file_job_move_error_title_format,
+                                    source.getFileName()),
+                            service.getString(copy ? R.string.file_job_copy_error_message_format
+                                    : R.string.file_job_move_error_message_format,
+                                    targetParent.getFileName(), e.getLocalizedMessage()),
+                            true,
+                            service.getString(R.string.file_job_action_retry),
+                            service.getString(R.string.file_job_action_skip),
+                            service.getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                        case CANCELED:
+                            if (result.isAll()) {
+                                // TODO: Turn on all.
+                            }
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
                     }
-                    throw e;
                 }
             } while (retry);
         }
@@ -186,7 +207,7 @@ public class FileJobs {
                     ActionResult result = showActionDialog(
                             service.getString(R.string.file_job_delete_error_title),
                             service.getString(R.string.file_job_delete_error_message_format,
-                                    path.getFileName()),
+                                    path.getFileName(), e.getLocalizedMessage()),
                             true,
                             service.getString(R.string.file_job_action_retry),
                             service.getString(R.string.file_job_action_skip),
