@@ -127,6 +127,10 @@ public class FileJobs {
                                 replaceExisting = true;
                                 retry = true;
                                 continue;
+                            case RENAME:
+                                target = target.resolveSibling(result.getName());
+                                retry = true;
+                                continue;
                             case SKIP:
                             case CANCELED:
                                 if (result.isAll()) {
@@ -278,8 +282,8 @@ public class FileJobs {
             try {
                 return new Promise<ConflictResult>(settler ->
                         service.startActivity(FileJobConflictDialogActivity.makeIntent(sourceFile,
-                                targetFile, copy, (action, all) -> settler.resolve(
-                                        new ConflictResult(action, all)), service)
+                                targetFile, copy, (action, name, all) -> settler.resolve(
+                                        new ConflictResult(action, name, all)), service)
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)))
                         .await();
             } catch (ExecutionException e) {
@@ -317,17 +321,25 @@ public class FileJobs {
 
             @NonNull
             private final FileJobConflictDialogFragment.Action mAction;
+            @Nullable
+            private final String mName;
             private final boolean mAll;
 
             public ConflictResult(@NonNull FileJobConflictDialogFragment.Action action,
-                                boolean all) {
+                                  @Nullable String name, boolean all) {
                 mAction = action;
+                mName = name;
                 mAll = all;
             }
 
             @NonNull
             public FileJobConflictDialogFragment.Action getAction() {
                 return mAction;
+            }
+
+            @Nullable
+            public String getName() {
+                return mName;
             }
 
             public boolean isAll() {

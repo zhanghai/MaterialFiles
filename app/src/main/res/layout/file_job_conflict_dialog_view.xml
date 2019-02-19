@@ -24,7 +24,7 @@
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"
             android:layout_marginStart="-4dp"
-            android:layout_marginEnd="@dimen/content_start_from_screen_edge_margin_minus_44dp"
+            android:layout_marginEnd="12dp"
             android:clipToPadding="false"
             android:padding="@dimen/touch_target_large_icon_padding">
 
@@ -84,7 +84,7 @@
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"
             android:layout_marginStart="-4dp"
-            android:layout_marginEnd="@dimen/content_start_from_screen_edge_margin_minus_44dp"
+            android:layout_marginEnd="12dp"
             android:padding="@dimen/touch_target_large_icon_padding"
             android:clipToPadding="false">
 
@@ -127,6 +127,76 @@
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?android:textColorSecondary" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-4dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/show_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dense_single_line_list_item_height"
+            android:paddingStart="?dialogPreferredPadding"
+            android:paddingEnd="?dialogPreferredPadding"
+            android:background="?selectableItemBackground"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/show_name_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-3dp"
+                android:src="@drawable/arrow_end_icon_white_24dp"
+                android:tint="?android:textColorSecondary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="@string/file_job_conflict_show_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-4dp"
+            android:layout_marginBottom="-4dp"
+            android:paddingStart="?dialogPreferredPadding"
+            android:paddingEnd="?dialogPreferredPadding"
+            android:clipToPadding="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <me.zhanghai.android.materialedittext.MaterialEditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="-4dp"
+                android:hint="@string/file_job_conflict_name_hint"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/reset_name"
+                android:layout_width="wrap_content"
+                android:minWidth="64dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-12dp"
+                android:text="@string/file_job_conflict_reset_name"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored" />
         </LinearLayout>
     </LinearLayout>
 

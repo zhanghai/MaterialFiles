@@ -40,6 +40,9 @@
     <string name="file_job_merge_move_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being moved.</string>
     <string name="file_job_conflict_target_name">Original file</string>
     <string name="file_job_conflict_source_name">Replace with</string>
+    <string name="file_job_conflict_show_name">Select a new name for the destination</string>
+    <string name="file_job_conflict_name_hint">New name</string>
+    <string name="file_job_conflict_reset_name">Reset</string>
     <string name="file_job_copy_error_title_format">Error while copying “%1$s”</string>
     <string name="file_job_copy_error_message_format">There was an error copying the file into “%1$s”.\n%2$s</string>
     <string name="file_job_move_error_title_format">Error while moving “%1$s”</string>
@@ -48,6 +51,7 @@
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
     <string name="file_job_action_all">Apply this action to all files</string>
+    <string name="file_job_action_rename">Rename</string>
     <string name="file_job_action_replace">Replace</string>
     <string name="file_job_action_retry">Retry</string>
     <string name="file_job_action_skip">Skip</string>

@@ -12,10 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +53,9 @@ public class FileJobActionDialogFragment extends DialogFragment {
     private CharSequence mNeutralButtonText;
     @Nullable
     private RemoteCallback mListener;
+
+    @Nullable
+    private View mView;
 
     @BindView(R.id.all)
     CheckBox mAllCheck;
@@ -111,24 +116,25 @@ public class FileJobActionDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
         Context context = requireContext();
         int theme = getTheme();
-        AlertDialog.Builder builder = new AlertDialog.Builder(context, theme)
+        if (mShowAll) {
+            mView = ViewUtils.inflateWithTheme(R.layout.file_job_action_dialog_view, context,
+                    theme);
+            ButterKnife.bind(this, mView);
+            if (savedInstanceState != null) {
+                mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
+            }
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(context, theme)
                 .setTitle(mTitle)
                 .setMessage(mMessage)
                 .setPositiveButton(mPositiveButtonText, this::onDialogButtonClick)
                 .setNegativeButton(mNegativeButtonText, this::onDialogButtonClick)
-                .setNeutralButton(mNeutralButtonText, this::onDialogButtonClick);
-        if (mShowAll) {
-            View view = ViewUtils.inflateWithTheme(R.layout.file_job_action_dialog_view, context,
-                    theme);
-            ButterKnife.bind(this, view);
-            if (savedInstanceState != null) {
-                mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
-            }
-            builder.setView(view);
-        }
-        AlertDialog dialog = builder.create();
+                .setNeutralButton(mNeutralButtonText, this::onDialogButtonClick)
+                .create();
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
     }
@@ -156,7 +162,13 @@ public class FileJobActionDialogFragment extends DialogFragment {
     public void onStart() {
         super.onStart();
 
-        requireDialog().findViewById(R.id.customPanel).setMinimumHeight(0);
+        if (mView != null) {
+            AlertDialog dialog = (AlertDialog) requireDialog();
+            NestedScrollView scrollView = dialog.findViewById(R.id.scrollView);
+            LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
+            linearLayout.addView(mView);
+            mView = null;
+        }
     }
 
     @Override

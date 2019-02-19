@@ -11,9 +11,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.signature.ObjectKey;
@@ -24,7 +32,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.DialogFragment;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
@@ -38,6 +48,7 @@ import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.BundleBuilder;
+import me.zhanghai.android.files.util.ImeUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.StringCompat;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -61,6 +72,9 @@ public class FileJobConflictDialogFragment extends DialogFragment {
     @Nullable
     private RemoteCallback mListener;
 
+    @Nullable
+    private View mView;
+
     @BindView(R.id.target_icon)
     ImageView mTargetIconImage;
     @BindView(R.id.target_badge)
@@ -73,6 +87,16 @@ public class FileJobConflictDialogFragment extends DialogFragment {
     ImageView mSourceBadgeImage;
     @BindView(R.id.source_description)
     TextView mSourceDescriptionText;
+    @BindView(R.id.show_name_layout)
+    ViewGroup mShowNameLayout;
+    @BindView(R.id.show_name_arrow)
+    ImageView mShowNameArrowImage;
+    @BindView(R.id.name_layout)
+    ViewGroup mNameLayout;
+    @BindView(R.id.name)
+    EditText mNameEdit;
+    @BindView(R.id.reset_name)
+    Button mResetNameButton;
     @BindView(R.id.all)
     CheckBox mAllCheck;
 
@@ -120,6 +144,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+
         Context context = requireContext();
         int theme = getTheme();
         boolean sourceIsDirectory = mSourceFile.getAttributesNoFollowLinks().isDirectory();
@@ -134,15 +159,51 @@ public class FileJobConflictDialogFragment extends DialogFragment {
             titleRes = R.string.file_job_replace_title_format;
             messageRes = R.string.file_job_replace_message_format;
         }
-        String title = context.getString(titleRes, mTargetFile.getPath().getFileName());
+        String targetFileName = mTargetFile.getPath().getFileName().toString();
+        String title = context.getString(titleRes, targetFileName);
         String message = context.getString(messageRes,
                 mTargetFile.getPath().getParent().getFileName());
-        View view = ViewUtils.inflateWithTheme(R.layout.file_job_conflict_dialog_view, context,
-                theme);
-        ButterKnife.bind(this, view);
+
+        mView = ViewUtils.inflateWithTheme(R.layout.file_job_conflict_dialog_view, context, theme);
+        ButterKnife.bind(this, mView);
         bindFileItem(mTargetFile, mTargetIconImage, mTargetBadgeImage, mTargetDescriptionText);
         bindFileItem(mSourceFile, mSourceIconImage, mSourceBadgeImage, mSourceDescriptionText);
-        // TODO: Support renaming.
+        mShowNameLayout.setOnClickListener(view2 -> {
+            boolean visible = !ViewUtils.isVisible(mNameLayout);
+            mShowNameArrowImage.animate()
+                    .rotation(visible ? 90 : 0)
+                    .setDuration(ViewUtils.getShortAnimTime(mShowNameArrowImage))
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .start();
+            ViewUtils.setVisibleOrGone(mNameLayout, visible);
+            if (visible) {
+                mNameEdit.requestFocus();
+                ImeUtils.showIme(mNameEdit);
+            }
+        });
+        mNameEdit.setText(targetFileName);
+        mNameEdit.setSelection(0, targetFileName.length());
+        mNameEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                boolean hasNewName = hasNewName();
+                mAllCheck.setEnabled(!hasNewName);
+                if (hasNewName) {
+                    mAllCheck.setChecked(false);
+                }
+                Button positiveButton = requireDialog().findViewById(android.R.id.button1);
+                positiveButton.setText(hasNewName ? R.string.file_job_action_rename
+                        : R.string.file_job_action_replace);
+            }
+        });
+        mResetNameButton.setOnClickListener(view -> {
+            mNameEdit.setText(targetFileName);
+            mNameEdit.setSelection(0, targetFileName.length());
+        });
         if (savedInstanceState != null) {
             mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
@@ -153,7 +214,6 @@ public class FileJobConflictDialogFragment extends DialogFragment {
                 .setPositiveButton(R.string.file_job_action_replace, this::onDialogButtonClick)
                 .setNegativeButton(R.string.file_job_action_skip, this::onDialogButtonClick)
                 .setNeutralButton(android.R.string.cancel, this::onDialogButtonClick)
-                .setView(view)
                 .create();
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
@@ -205,51 +265,82 @@ public class FileJobConflictDialogFragment extends DialogFragment {
 
     private void onDialogButtonClick(@NonNull DialogInterface dialog, int which) {
         Action action;
+        String name;
+        boolean all;
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
-                action = Action.REPLACE_OR_MERGE;
+                if (hasNewName()) {
+                    action = Action.RENAME;
+                    name = mNameEdit.getText().toString();
+                    all = false;
+                } else {
+                    action = Action.REPLACE_OR_MERGE;
+                    name = null;
+                    all = mAllCheck.isChecked();
+                }
                 break;
             case DialogInterface.BUTTON_NEGATIVE:
                 action = Action.SKIP;
+                name = null;
+                all = mAllCheck.isChecked();
                 break;
             case DialogInterface.BUTTON_NEUTRAL:
                 action = Action.CANCEL;
+                name = null;
+                all = false;
                 break;
             default:
                 throw new IllegalArgumentException(Integer.toString(which));
         }
-        sendResult(action, mAllCheck.isChecked());
+        sendResult(action, name, all);
         requireActivity().finish();
+    }
+
+    private boolean hasNewName() {
+        String name = mNameEdit.getText().toString();
+        if (name.isEmpty()) {
+            return false;
+        }
+        String fileName = mTargetFile.getPath().getFileName().toString();
+        return !TextUtils.equals(name, fileName);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        requireDialog().findViewById(R.id.customPanel).setMinimumHeight(0);
+        if (mView != null) {
+            AlertDialog dialog = (AlertDialog) requireDialog();
+            NestedScrollView scrollView = dialog.findViewById(R.id.scrollView);
+            LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
+            linearLayout.addView(mView);
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+            mView = null;
+        }
     }
 
     @Override
     public void onCancel(@NonNull DialogInterface dialog) {
         super.onCancel(dialog);
 
-        sendResult(Action.CANCELED, false);
+        sendResult(Action.CANCELED, null, false);
         requireActivity().finish();
     }
 
     public void onFinish() {
-        sendResult(Action.CANCELED, false);
+        sendResult(Action.CANCELED, null, false);
     }
 
-    private void sendResult(@NonNull Action action, boolean all) {
+    private void sendResult(@NonNull Action action, @Nullable String name, boolean all) {
         if (mListener != null) {
-            ListenerAdapter.sendResult(mListener, action, all);
+            ListenerAdapter.sendResult(mListener, action, name, all);
             mListener = null;
         }
     }
 
     public enum Action {
         REPLACE_OR_MERGE,
+        RENAME,
         SKIP,
         CANCEL,
         CANCELED
@@ -257,7 +348,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
 
     public interface Listener {
 
-        void onAction(@NonNull Action action, boolean all);
+        void onAction(@NonNull Action action, @Nullable String name, boolean all);
     }
 
     private static class ListenerAdapter implements RemoteCallback.Listener {
@@ -265,6 +356,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
         private static final String KEY_PREFIX = Listener.class.getName() + '.';
 
         private static final String RESULT_ACTION = KEY_PREFIX + "ACTION";
+        private static final String RESULT_NAME = KEY_PREFIX + "NAME";
         private static final String RESULT_ALL = KEY_PREFIX + "ALL";
 
         @NonNull
@@ -275,9 +367,10 @@ public class FileJobConflictDialogFragment extends DialogFragment {
         }
 
         public static void sendResult(@NonNull RemoteCallback listener, @NonNull Action action,
-                                      boolean all) {
+                                      @Nullable String name, boolean all) {
             listener.sendResult(new BundleBuilder()
                     .putSerializable(RESULT_ACTION, action)
+                    .putString(RESULT_NAME, name)
                     .putBoolean(RESULT_ALL, all)
                     .build());
         }
@@ -285,8 +378,9 @@ public class FileJobConflictDialogFragment extends DialogFragment {
         @Override
         public void onResult(Bundle result) {
             Action action = (Action) result.getSerializable(RESULT_ACTION);
+            String name = result.getString(RESULT_NAME);
             boolean all = result.getBoolean(RESULT_ALL);
-            mListener.onAction(action, all);
+            mListener.onAction(action, name, all);
         }
     }
 }
