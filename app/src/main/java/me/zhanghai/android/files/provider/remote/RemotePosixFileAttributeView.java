@@ -99,4 +99,26 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         }
         ioException.throwIfNonNull();
     }
+
+    public void setSeLinuxContext(@NonNull String context) throws IOException {
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemotePosixFileAttributeView remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.setSeLinuxContext(context, ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNonNull();
+    }
+
+    public void restoreSeLinuxContext() throws IOException {
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemotePosixFileAttributeView remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.restoreSeLinuxContext(ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNonNull();
+    }
 }

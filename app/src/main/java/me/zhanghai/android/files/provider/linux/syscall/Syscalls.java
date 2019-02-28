@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.linux.syscall;
 import android.system.ErrnoException;
 import android.system.Int64Ref;
 import android.system.Os;
+import android.system.OsConstants;
 import android.system.StructStatVfs;
 
 import java.io.FileDescriptor;
@@ -15,6 +16,9 @@ import java.io.FileDescriptor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
+import me.zhanghai.android.files.reflected.ReflectedAccessor;
+import me.zhanghai.android.files.util.SELinuxCompat;
+import me.zhanghai.android.libselinux.SeLinux;
 
 public class Syscalls {
 
@@ -25,6 +29,8 @@ public class Syscalls {
             System.loadLibrary(LIBRARY_NAME);
         }
     }
+
+    private Syscalls() {}
 
     @NonNull
     public static String getLibraryName() {
@@ -65,6 +71,17 @@ public class Syscalls {
 
     public static native void closedir(long dir) throws SyscallException;
 
+    private static native int errno();
+
+    @NonNull
+    public static String getfilecon(@NonNull String path) throws SyscallException {
+        try {
+            return SeLinux.getfilecon(path);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
     @Nullable
     public static native StructGroup getgrgid(int gid) throws SyscallException;
 
@@ -77,9 +94,31 @@ public class Syscalls {
     @Nullable
     public static native StructPasswd getpwuid(int uid) throws SyscallException;
 
+    public static boolean is_selinux_enabled() {
+        return SeLinux.is_selinux_enabled();
+    }
+
     public static void lchown(@NonNull String path, int uid, int gid) throws SyscallException {
         try {
             Os.lchown(path, uid, gid);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
+    @NonNull
+    public static String lgetfilecon(@NonNull String path) throws SyscallException {
+        try {
+            return SeLinux.lgetfilecon(path);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
+    public static void lsetfilecon(@NonNull String path, @NonNull String context)
+            throws SyscallException {
+        try {
+            SeLinux.lsetfilecon(path, context);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -143,6 +182,9 @@ public class Syscalls {
         }
     }
 
+    @NonNull
+    public static native String realpath(@NonNull String path) throws SyscallException;
+
     public static void remove(@NonNull String path) throws SyscallException {
         try {
             Os.remove(path);
@@ -160,9 +202,43 @@ public class Syscalls {
         }
     }
 
+    public static boolean security_getenforce() throws SyscallException {
+        try {
+            return SeLinux.security_getenforce();
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
+    static {
+        ReflectedAccessor.allowRestrictedHiddenApiAccess();
+    }
+
+    public static void selinux_android_restorecon(@NonNull String path, int flags)
+            throws SyscallException {
+        boolean successful = SELinuxCompat.native_restorecon(path, flags);
+        if (!successful) {
+            int errno = errno();
+            if (errno == 0) {
+                // Just set some generic error.
+                errno = OsConstants.EIO;
+            }
+            throw new SyscallException("selinux_android_restorecon", errno);
+        }
+    }
+
     public static native long sendfile(@NonNull FileDescriptor outFd, @NonNull FileDescriptor inFd,
                                        @Nullable Int64Ref offset, long count)
             throws SyscallException;
+
+    public static void setfilecon(@NonNull String path, @NonNull String context)
+            throws SyscallException {
+        try {
+            SeLinux.setfilecon(path, context);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
 
     @NonNull
     public static native StructStat stat(@NonNull String path) throws SyscallException;

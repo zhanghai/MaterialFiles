@@ -83,4 +83,23 @@ public class RemotePosixFileAttributeViewInterface extends IRemotePosixFileAttri
             ioException.set(e);
         }
     }
+
+    @Override
+    public void setSeLinuxContext(@NonNull String context,
+                                  @NonNull ParcelableIoException ioException) {
+        try {
+            mAttributeView.setSeLinuxContext(context);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
+    }
+
+    @Override
+    public void restoreSeLinuxContext(@NonNull ParcelableIoException ioException) {
+        try {
+            mAttributeView.restoreSeLinuxContext();
+        } catch (IOException e) {
+            ioException.set(e);
+        }
+    }
 }

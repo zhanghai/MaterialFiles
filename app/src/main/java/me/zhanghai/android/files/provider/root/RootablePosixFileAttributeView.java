@@ -85,6 +85,16 @@ public abstract class RootablePosixFileAttributeView implements PosixFileAttribu
         acceptRootable(mPath, attributeView -> attributeView.setMode(mode));
     }
 
+    @Override
+    public void setSeLinuxContext(@NonNull String context) throws IOException {
+        acceptRootable(mPath, attributeView -> attributeView.setSeLinuxContext(context));
+    }
+
+    @Override
+    public void restoreSeLinuxContext() throws IOException {
+        acceptRootable(mPath, PosixFileAttributeView::restoreSeLinuxContext);
+    }
+
     private void acceptRootable(@NonNull Path path,
                                 RootUtils.Consumer<PosixFileAttributeView> consumer)
             throws IOException {

@@ -23,7 +23,7 @@
 #define ALOGW(...) __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__)
 #define ALOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
-#define LOG_TAG "Linux"
+#define LOG_TAG "syscalls"
 
 #undef TEMP_FAILURE_RETRY
 #define TEMP_FAILURE_RETRY(exp) ({ \
@@ -66,7 +66,7 @@ static jclass findClass(JNIEnv *env, const char *name) {
     jclass result = (*env)->NewGlobalRef(env, localClass);
     (*env)->DeleteLocalRef(env, localClass);
     if (!result) {
-        ALOGE("failed to find class '%s'", name);
+        ALOGE("Failed to find class '%s'", name);
         abort();
     }
     return result;
@@ -75,7 +75,7 @@ static jclass findClass(JNIEnv *env, const char *name) {
 static jfieldID findField(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
     jfieldID field = (*env)->GetFieldID(env, clazz, name, signature);
     if (!field) {
-        ALOGE("failed to find field '%s' '%s'", name, signature);
+        ALOGE("Failed to find field '%s' '%s'", name, signature);
         abort();
     }
     return field;
@@ -84,7 +84,7 @@ static jfieldID findField(JNIEnv *env, jclass clazz, const char *name, const cha
 static jmethodID findMethod(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
     jmethodID method = (*env)->GetMethodID(env, clazz, name, signature);
     if (!method) {
-        ALOGE("failed to find method '%s' '%s'", name, signature);
+        ALOGE("Failed to find method '%s' '%s'", name, signature);
         abort();
     }
     return method;
@@ -245,11 +245,16 @@ JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_closedir(
         JNIEnv *env, jclass clazz, jlong javaDir) {
     DIR *dir = (DIR *) javaDir;
-    errno = 0;
-    closedir(dir);
+    TEMP_FAILURE_RETRY(closedir(dir));
     if (errno) {
         throwSyscallException(env, "closedir");
     }
+}
+
+JNIEXPORT jint JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
+        JNIEnv *env, jclass clazz) {
+    return errno;
 }
 
 static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
@@ -328,7 +333,6 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     return makeStructGroup(env, result);
 #else
     gid_t gid = (gid_t) javaGid;
-    errno = 0;
     struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
     if (errno) {
         throwSyscallException(env, "getgrgid");
@@ -366,7 +370,6 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     return makeStructGroup(env, result);
 #else
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
-    errno = 0;
     struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
     (*env)->ReleaseStringUTFChars(env, javaName, name);
     if (errno) {
@@ -486,13 +489,11 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
     const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
     jbyteArray javaValue = NULL;
     while (true) {
-        errno = 0;
         size_t size = (size_t) TEMP_FAILURE_RETRY(lgetxattr(path, name, NULL, 0));
         if (errno) {
             break;
         }
         char value[size];
-        errno = 0;
         TEMP_FAILURE_RETRY(lgetxattr(path, name, value, size));
         if (errno) {
             if (errno == ERANGE) {
@@ -525,13 +526,11 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     jobjectArray javaNames = NULL;
     while (true) {
-        errno = 0;
         size_t size = (size_t) TEMP_FAILURE_RETRY(llistxattr(path, NULL, 0));
         if (errno) {
             break;
         }
         char names[size];
-        errno = 0;
         TEMP_FAILURE_RETRY(llistxattr(path, names, size));
         if (errno) {
             if (errno == ERANGE) {
@@ -588,7 +587,6 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lsetxattr(
     jbyte *value = (*env)->GetByteArrayElements(env, javaValue, NULL);
     size_t size = (size_t) (*env)->GetArrayLength(env, javaValue);
     int flags = javaFlags;
-    errno = 0;
     TEMP_FAILURE_RETRY(lsetxattr(path, name, value, size, flags));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     (*env)->ReleaseStringUTFChars(env, javaName, name);
@@ -646,7 +644,6 @@ static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
 static jobject doStat(JNIEnv *env, jstring javaPath, bool isLstat) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
     struct stat64 stat;
-    errno = 0;
     TEMP_FAILURE_RETRY((isLstat ? lstat64 : stat64)(path, &stat));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
@@ -678,7 +675,6 @@ doUtimens(JNIEnv *env, jstring javaPath, jobjectArray javaTimes, bool isLutimens
         readStructTimespec(env, javaTime, &times[i]);
         (*env)->DeleteLocalRef(env, javaTime);
     }
-    errno = 0;
     TEMP_FAILURE_RETRY(utimensat(AT_FDCWD, path, times, isLutimens ? AT_SYMLINK_NOFOLLOW : 0));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
@@ -696,7 +692,6 @@ JNIEXPORT jlong JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
         JNIEnv *env, jclass clazz, jstring javaPath) {
     const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
-    errno = 0;
     DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
@@ -733,7 +728,6 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readdir(
         JNIEnv *env, jclass clazz, jlong javaDir) {
     DIR *dir = (DIR *) javaDir;
-    errno = 0;
     struct dirent64 *dirent = TEMP_FAILURE_RETRY(readdir64(dir));
     if (errno) {
         throwSyscallException(env, "readdir64");
@@ -745,14 +739,26 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readdir(
     return makeStructDirent(env, dirent);
 }
 
+JNIEXPORT jstring JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_realpath(
+        JNIEnv *env, jclass clazz, jstring javaPath) {
+    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+    char resolvedPath[PATH_MAX];
+    TEMP_FAILURE_RETRY(realpath(path, resolvedPath));
+    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    if (errno) {
+        throwSyscallException(env, "realpath");
+        return NULL;
+    }
+    return (*env)->NewStringUTF(env, resolvedPath);
+}
+
 JNIEXPORT jlong JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
         JNIEnv* env, jclass clazz, jobject javaOutFd, jobject javaInFd, jobject javaOffset,
         jlong javaCount) {
-    int outFd = javaOutFd ? (*env)->GetIntField(env, javaOutFd, getFileDescriptorDescriptorField(
-            env)) : -1;
-    int inFd = javaInFd ? (*env)->GetIntField(env, javaInFd, getFileDescriptorDescriptorField(env))
-                        : -1;
+    int outFd = (*env)->GetIntField(env, javaOutFd, getFileDescriptorDescriptorField(env));
+    int inFd = (*env)->GetIntField(env, javaInFd, getFileDescriptorDescriptorField(env));
     off64_t offset = 0;
     off64_t* offsetPointer = NULL;
     if (javaOffset) {
@@ -760,7 +766,6 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
         offsetPointer = &offset;
     }
     size_t count = (size_t) javaCount;
-    errno = 0;
     jlong result = TEMP_FAILURE_RETRY(sendfile64(outFd, inFd, offsetPointer, count));
     if (errno) {
         throwSyscallException(env, "sendfile64");

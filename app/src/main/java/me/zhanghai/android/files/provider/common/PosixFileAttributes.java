@@ -59,4 +59,7 @@ public interface PosixFileAttributes extends java8.nio.file.attribute.PosixFileA
         Set<PosixFileModeBit> mode = mode();
         return mode != null ? PosixFileMode.toPermissions(mode) : null;
     }
+
+    @Nullable
+    String getSeLinuxContext();
 }

@@ -72,6 +72,7 @@ dependencies {
     implementation 'eu.chainfire:librootjava:1.2.0'
     implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'
     implementation 'me.zhanghai.android.effortlesspermissions:library:1.1.0'
+    implementation 'me.zhanghai.android.libselinux:library:1.0.0'
     implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
     implementation 'me.zhanghai.android.retrofile:library:1.1.0'
     implementation 'org.apache.commons:commons-compress:1.17'

@@ -72,6 +72,10 @@ public class SELinuxCompat {
             String.class);
 
     @NonNull
+    private static final ReflectedClassMethod sNativeRestoreconMethod = new ReflectedClassMethod(
+            sSELinuxClass, "native_restorecon", String.class, int.class);
+
+    @NonNull
     private static final ReflectedClassMethod sRestoreconStringMethod = new ReflectedClassMethod(
             sSELinuxClass, "restorecon", String.class);
 
@@ -162,6 +166,12 @@ public class SELinuxCompat {
     public static boolean checkSELinuxAccess(@NonNull String scon, @NonNull String tcon,
                                              @NonNull String tclass, @NonNull String perm) {
         return sCheckSELinuxAccessMethod.invoke(null, scon, tcon, tclass, perm);
+    }
+
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    @RestrictedHiddenApi
+    public static boolean native_restorecon(String pathname, int flags) {
+        return sNativeRestoreconMethod.invoke(null, pathname, flags);
     }
 
     /*

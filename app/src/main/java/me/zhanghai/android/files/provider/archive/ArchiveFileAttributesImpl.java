@@ -170,4 +170,10 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
         }
         return null;
     }
+
+    @Nullable
+    @Override
+    public String getSeLinuxContext() {
+        return null;
+    }
 }

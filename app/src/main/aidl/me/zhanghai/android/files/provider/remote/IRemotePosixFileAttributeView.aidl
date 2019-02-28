@@ -20,4 +20,8 @@ interface IRemotePosixFileAttributeView {
     void setGroup(in PosixGroup group, out ParcelableIoException ioException);
 
     void setMode(in ParcelablePosixFileMode parcelableMode, out ParcelableIoException ioException);
+
+    void setSeLinuxContext(in String context, out ParcelableIoException ioException);
+
+    void restoreSeLinuxContext(out ParcelableIoException ioException);
 }

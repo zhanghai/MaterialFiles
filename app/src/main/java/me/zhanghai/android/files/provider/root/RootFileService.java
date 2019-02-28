@@ -28,6 +28,7 @@ import me.zhanghai.android.files.provider.remote.RemoteFileServiceInterface;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
 import me.zhanghai.android.files.provider.remote.RemoteInterfaceHolder;
 import me.zhanghai.android.files.util.LogUtils;
+import me.zhanghai.android.libselinux.SeLinux;
 
 public class RootFileService extends RemoteFileService {
 
@@ -89,10 +90,12 @@ public class RootFileService extends RemoteFileService {
                 }
             };
             try {
-                String syscallsLibraryPath = getLibraryPath(Syscalls.getLibraryName(), context);
+                String[] libraryPaths = {
+                        getLibraryPath(Syscalls.getLibraryName(), context),
+                        getLibraryPath(SeLinux.getLibraryName(), context)
+                };
                 shell.addCommand(RootJava.getLaunchScript(context, getClass(), null, null,
-                        new String[] { syscallsLibraryPath },
-                        BuildConfig.APPLICATION_ID + ":root"));
+                        libraryPaths, BuildConfig.APPLICATION_ID + ":root"));
                 try {
                     if (!latch.await(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)) {
                         throw new RemoteFileSystemException(new TimeoutException(

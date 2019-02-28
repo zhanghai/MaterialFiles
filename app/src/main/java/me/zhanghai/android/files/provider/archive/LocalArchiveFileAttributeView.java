@@ -74,4 +74,15 @@ public class LocalArchiveFileAttributeView implements PosixFileAttributeView {
         Objects.requireNonNull(mode);
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void setSeLinuxContext(@NonNull String context) {
+        Objects.requireNonNull(context);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void restoreSeLinuxContext() {
+        throw new UnsupportedOperationException();
+    }
 }
