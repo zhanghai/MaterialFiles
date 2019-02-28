@@ -173,7 +173,7 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
 
     @Nullable
     @Override
-    public String getSeLinuxContext() {
+    public String seLinuxContext() {
         return null;
     }
 }

@@ -70,6 +70,23 @@
                 android:layout_marginEnd="-19dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                 style="?spinnerStyle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/file_properties_permissions_selinux_context"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+            <Button
+                android:id="@+id/selinux_context"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-9dp"
+                android:layout_marginEnd="-19dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="?spinnerStyle" />
         </LinearLayout>
     </ScrollView>
 

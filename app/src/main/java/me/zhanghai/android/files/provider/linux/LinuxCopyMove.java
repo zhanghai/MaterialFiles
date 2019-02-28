@@ -206,6 +206,7 @@ class LinuxCopyMove {
         } catch (SyscallException e) {
             e.printStackTrace();
         }
+        // TODO: Change modified time last?
         try {
             StructTimespec[] times = {
                     copyOptions.hasCopyAttributes() ? sourceStat.st_atim : new StructTimespec(0,

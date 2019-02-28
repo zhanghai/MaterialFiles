@@ -41,6 +41,8 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
     Button mGroupButton;
     @BindView(R.id.mode)
     Button mModeButton;
+    @BindView(R.id.selinux_context)
+    Button mSeLinuxContextButton;
 
     @NonNull
     private FileItem mExtraFile;
@@ -102,6 +104,8 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
             String modeString = getString(R.string.file_properties_permissions_mode_format,
                     PosixFileMode.toString(mode), PosixFileMode.toInt(mode));
             mModeButton.setText(modeString);
+            String seLinuxContext = linuxAttributes.seLinuxContext();
+            mSeLinuxContextButton.setText(seLinuxContext);
         }
         // TODO: ArchiveFileAttributes
     }

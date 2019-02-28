@@ -61,5 +61,5 @@ public interface PosixFileAttributes extends java8.nio.file.attribute.PosixFileA
     }
 
     @Nullable
-    String getSeLinuxContext();
+    String seLinuxContext();
 }

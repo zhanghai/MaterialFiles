@@ -96,7 +96,7 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
 
     @Nullable
     @Override
-    public String getSeLinuxContext() {
+    public String seLinuxContext() {
         return mSeLinuxContext;
     }
 

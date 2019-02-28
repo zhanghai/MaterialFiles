@@ -46,7 +46,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
         mOwner = attributes.owner();
         mGroup = attributes.group();
         mMode = attributes.mode();
-        mSeLinuxContext = attributes.getSeLinuxContext();
+        mSeLinuxContext = attributes.seLinuxContext();
     }
 
     @Override
@@ -102,7 +102,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
 
     @Nullable
     @Override
-    public String getSeLinuxContext() {
+    public String seLinuxContext() {
         return mSeLinuxContext;
     }
 
