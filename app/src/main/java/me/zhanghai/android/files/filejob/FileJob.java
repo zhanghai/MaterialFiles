@@ -26,7 +26,7 @@ public abstract class FileJob {
         } catch (InterruptedIOException e) {
             // TODO
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             AppUtils.runOnUiThread(() -> ToastUtils.show(e.getMessage(), service));
         } finally {
