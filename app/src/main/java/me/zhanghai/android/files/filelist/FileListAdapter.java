@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -274,7 +275,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         if (TextUtils.isEmpty(name)) {
             return "";
         }
-        return name.substring(0, 1).toUpperCase();
+        return name.substring(0, 1).toUpperCase(Locale.getDefault());
     }
 
     @Override

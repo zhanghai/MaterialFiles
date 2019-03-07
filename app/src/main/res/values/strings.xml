@@ -153,7 +153,7 @@
     <string name="main_title">Files</string>
 
     <string name="navigation_root_directory">Root</string>
-    <string name="navigation_root_subtitle_format">%s free of %s</string>
+    <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_document_tree">Add external storage…</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
