@@ -6,11 +6,12 @@
 package me.zhanghai.android.files.provider.common;
 
 import androidx.annotation.NonNull;
+import java8.nio.file.CopyOption;
 import java9.util.function.LongConsumer;
 
-public class ProgressCopyOption {
+public class ProgressCopyOption implements CopyOption {
 
-    public static final int DEFAULT_INTERVAL_MILLIS = 200;
+    public static final int DEFAULT_INTERVAL_MILLIS = 500;
 
     @NonNull
     private final LongConsumer mListener;

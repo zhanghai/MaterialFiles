@@ -35,6 +35,8 @@ public class FileJobService extends Service {
     @NonNull
     private final ExecutorService mExecutorService = Executors.newCachedThreadPool();
 
+    private FileJobNotificationManager mNotificationManager;
+
     private static void startJob(@NonNull FileJob job, @NonNull Context context) {
         if (sInstance != null) {
             sInstance.startJob(job);
@@ -74,6 +76,8 @@ public class FileJobService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mNotificationManager = new FileJobNotificationManager(this);
 
         sInstance = this;
 
@@ -123,5 +127,9 @@ public class FileJobService extends Service {
                 iterator.remove();
             }
         }
+    }
+
+    public FileJobNotificationManager getNotificationManager() {
+        return mNotificationManager;
     }
 }

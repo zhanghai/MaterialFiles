@@ -27,6 +27,41 @@
     <string name="storage_permission_request_message">App needs permission to access files. Please click \"ALLOW\" in the upcoming system dialog.</string>
     <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the \"Storage\" permission in system settings.</string>
 
+    <string name="notification_channel_file_job_name">File operations</string>
+    <string name="notification_channel_file_job_description">Display and control file operations</string>
+    <string name="notification_channel_file_job_dialog_name">File operation dialogs</string>
+    <string name="notification_channel_file_job_dialog_description">Open file operation dialogs</string>
+
+    <plurals name="file_job_copy_scan_notification_title">
+        <item quantity="one">Preparing to copy %1$d file (%2$s)</item>
+        <item quantity="other">Preparing to copy %1$d files (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one">Copying \"%1$s\" to \"%2$s\"</string>
+    <plurals name="file_job_copy_notification_title_multiple">
+        <item quantity="one">Copying %1$d file to \"%2$s\"</item>
+        <item quantity="other">Copying %1$d files to \"%2$s\"</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title">
+        <item quantity="one">Preparing to move %1$d file (%2$s)</item>
+        <item quantity="other">Preparing to move %1$d files (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one">Moving \"%1$s\" to \"%2$s\"</string>
+    <plurals name="file_job_move_notification_title_multiple">
+        <item quantity="one">Moving %1$d file to \"%2$s\"</item>
+        <item quantity="other">Moving %1$d files to \"%2$s\"</item>
+    </plurals>
+    <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_copy_move_notification_text_multiple">%1$d / %2$d</string>
+    <plurals name="file_job_delete_scan_notification_title">
+        <item quantity="one">Preparing to delete %1$d file</item>
+        <item quantity="other">Preparing to delete %1$d files</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one">Deleting \"%1$s\"</string>
+    <plurals name="file_job_delete_notification_title_multiple">
+        <item quantity="one">Deleting %1$d file</item>
+        <item quantity="other">Deleting %1$d files</item>
+    </plurals>
+    <string name="file_job_delete_notification_text_multiple">%1$d / %2$d</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
     <string name="file_job_cannot_move_into_itself_title">Cannot move a folder into itself</string>
     <string name="file_job_cannot_copy_move_into_itself_message">The destination folder is inside the source folder.</string>

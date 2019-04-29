@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.filejob;
 
-import android.app.Service;
-
 import java.io.IOException;
 import java.io.InterruptedIOException;
 
@@ -16,9 +14,9 @@ import me.zhanghai.android.files.util.ToastUtils;
 
 public abstract class FileJob {
 
-    private Service mService;
+    private FileJobService mService;
 
-    public void run(@NonNull Service service) {
+    public void run(@NonNull FileJobService service) {
         mService = service;
         try {
             run();
@@ -36,7 +34,7 @@ public abstract class FileJob {
 
     protected abstract void run() throws IOException;
 
-    protected Service getService() {
+    protected FileJobService getService() {
         return mService;
     }
 }

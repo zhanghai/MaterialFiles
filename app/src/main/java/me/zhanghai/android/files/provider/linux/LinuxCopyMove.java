@@ -100,29 +100,29 @@ class LinuxCopyMove {
                 try {
                     long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
                     long lastProgressMillis = System.currentTimeMillis();
-                    long copiedByteCount = 0;
-                    long sentByteCount;
+                    long copiedSize = 0;
+                    long sentSize;
                     while (true) {
                         try {
-                            sentByteCount = Syscalls.sendfile(targetFd, sourceFd, null,
-                                    SEND_FILE_COUNT);
+                            sentSize = Syscalls.sendfile(targetFd, sourceFd, null, SEND_FILE_COUNT);
                         } catch (SyscallException e) {
                             throw e.toFileSystemException(source, target);
                         }
-                        if (sentByteCount == 0) {
+                        if (sentSize == 0) {
                             break;
                         }
-                        copiedByteCount += sentByteCount;
+                        copiedSize += sentSize;
                         throwIfInterrupted();
                         long currentTimeMillis = System.currentTimeMillis();
-                        if (copyOptions.hasProgressListener() && lastProgressMillis
-                                + progressIntervalMillis < currentTimeMillis) {
-                            copyOptions.getProgressListener().accept(copiedByteCount);
-                            progressIntervalMillis = currentTimeMillis;
+                        if (copyOptions.hasProgressListener() && currentTimeMillis >=
+                                lastProgressMillis + progressIntervalMillis) {
+                            copyOptions.getProgressListener().accept(copiedSize);
+                            lastProgressMillis = currentTimeMillis;
+                            copiedSize = 0;
                         }
                     }
                     if (copyOptions.hasProgressListener()) {
-                        copyOptions.getProgressListener().accept(copiedByteCount);
+                        copyOptions.getProgressListener().accept(copiedSize);
                     }
                 } finally {
                     try {
