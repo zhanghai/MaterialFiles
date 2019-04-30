@@ -92,7 +92,7 @@
     <string name="file_job_action_skip">Skip</string>
 
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
-    <string name="file_open_as_title_format">Open %1$s as</string>
+    <string name="file_open_as_title_format">Open “%1$s” as</string>
     <string name="file_open_as_type_text">Text</string>
     <string name="file_open_as_type_image">Image</string>
     <string name="file_open_as_type_audio">Audio</string>
@@ -161,7 +161,7 @@
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_item_action_properties">Properties</string>
 
-    <string name="file_properties_title_format">%1$s properties</string>
+    <string name="file_properties_title_format">“%1$s” properties</string>
     <string name="file_properties_basic">Basic</string>
     <string name="file_properties_basic_name">Name</string>
     <string name="file_properties_basic_type">Type</string>
