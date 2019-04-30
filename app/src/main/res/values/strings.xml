@@ -33,35 +33,35 @@
     <string name="notification_channel_file_job_dialog_description">Open file operation dialogs</string>
 
     <plurals name="file_job_copy_scan_notification_title">
-        <item quantity="one">Preparing to copy %1$d file (%2$s)</item>
-        <item quantity="other">Preparing to copy %1$d files (%2$s)</item>
+        <item quantity="one">Preparing to copy %1$,d file (%2$s)</item>
+        <item quantity="other">Preparing to copy %1$,d files (%2$s)</item>
     </plurals>
     <string name="file_job_copy_notification_title_one">Copying \"%1$s\" to \"%2$s\"</string>
     <plurals name="file_job_copy_notification_title_multiple">
-        <item quantity="one">Copying %1$d file to \"%2$s\"</item>
-        <item quantity="other">Copying %1$d files to \"%2$s\"</item>
+        <item quantity="one">Copying %1$,d file to \"%2$s\"</item>
+        <item quantity="other">Copying %1$,d files to \"%2$s\"</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title">
-        <item quantity="one">Preparing to move %1$d file (%2$s)</item>
-        <item quantity="other">Preparing to move %1$d files (%2$s)</item>
+        <item quantity="one">Preparing to move %1$,d file (%2$s)</item>
+        <item quantity="other">Preparing to move %1$,d files (%2$s)</item>
     </plurals>
     <string name="file_job_move_notification_title_one">Moving \"%1$s\" to \"%2$s\"</string>
     <plurals name="file_job_move_notification_title_multiple">
-        <item quantity="one">Moving %1$d file to \"%2$s\"</item>
-        <item quantity="other">Moving %1$d files to \"%2$s\"</item>
+        <item quantity="one">Moving %1$,d file to \"%2$s\"</item>
+        <item quantity="other">Moving %1$,d files to \"%2$s\"</item>
     </plurals>
     <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_copy_move_notification_text_multiple">%1$d / %2$d</string>
+    <string name="file_job_copy_move_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
-        <item quantity="one">Preparing to delete %1$d file</item>
-        <item quantity="other">Preparing to delete %1$d files</item>
+        <item quantity="one">Preparing to delete %1$,d file</item>
+        <item quantity="other">Preparing to delete %1$,d files</item>
     </plurals>
     <string name="file_job_delete_notification_title_one">Deleting \"%1$s\"</string>
     <plurals name="file_job_delete_notification_title_multiple">
-        <item quantity="one">Deleting %1$d file</item>
-        <item quantity="other">Deleting %1$d files</item>
+        <item quantity="one">Deleting %1$,d file</item>
+        <item quantity="other">Deleting %1$,d files</item>
     </plurals>
-    <string name="file_job_delete_notification_text_multiple">%1$d / %2$d</string>
+    <string name="file_job_delete_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
     <string name="file_job_cannot_move_into_itself_title">Cannot move a folder into itself</string>
     <string name="file_job_cannot_copy_move_into_itself_message">The destination folder is inside the source folder.</string>
@@ -105,9 +105,9 @@
     <string name="file_rename_title">Rename</string>
     <string name="file_delete_message_file_format">Delete \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Delete folder \"%1$s\" and its contents?</string>
-    <string name="file_delete_message_multiple_files_format">Delete %1$d files?</string>
-    <string name="file_delete_message_multiple_directories_format">Delete %1$d folders and their contents?</string>
-    <string name="file_delete_message_multiple_mixed_format">Delete %1$d items?</string>
+    <string name="file_delete_message_multiple_files_format">Delete %1$,d files?</string>
+    <string name="file_delete_message_multiple_directories_format">Delete %1$,d folders and their contents?</string>
+    <string name="file_delete_message_multiple_mixed_format">Delete %1$,d items?</string>
     <string name="file_create_file_title">New file</string>
     <string name="file_create_directory_title">New folder</string>
 
@@ -115,12 +115,12 @@
     <string name="file_list_subtitle_error">Error</string>
     <string name="file_list_subtitle_empty">Empty</string>
     <plurals name="file_list_subtitle_directory_count_format">
-        <item quantity="one">%1$d folder</item>
-        <item quantity="other">%1$d folders</item>
+        <item quantity="one">%1$,d folder</item>
+        <item quantity="other">%1$,d folders</item>
     </plurals>
     <plurals name="file_list_subtitle_file_count_format">
-        <item quantity="one">%1$d file</item>
-        <item quantity="other">%1$d files</item>
+        <item quantity="one">%1$,d file</item>
+        <item quantity="other">%1$,d files</item>
     </plurals>
     <string name="file_list_subtitle_separator">", "</string>
     <string name="file_list_action_sort">Sort</string>
@@ -139,13 +139,13 @@
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Open in new window</string>
-    <string name="file_list_cab_select_title_format">%1$d selected</string>
+    <string name="file_list_cab_select_title_format">%1$,d selected</string>
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
     <string name="file_list_cab_select_action_select_all">Select all</string>
-    <string name="file_list_cab_paste_move_title_format">Moving %1$d</string>
-    <string name="file_list_cab_paste_copy_title_format">Copying %1$d</string>
+    <string name="file_list_cab_paste_move_title_format">Moving %1$,d</string>
+    <string name="file_list_cab_paste_copy_title_format">Copying %1$,d</string>
     <string name="file_list_cab_paste_action_paste">Paste</string>
     <string name="file_list_empty">No files</string>
     <string name="file_list_action_create_file">File</string>
