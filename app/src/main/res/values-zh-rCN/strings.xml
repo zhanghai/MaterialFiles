@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">质感文件</string>
+
+    <string name="close">关闭</string>
+    <string name="install">安装</string>
+    <string name="search">搜索</string>
+    <string name="view">查看</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">未找到可处理此操作的应用</string>
+    <string name="copied_to_clipboard_format">已复制到剪贴板\n%1$s</string>
+    <string name="open_settings">打开设置</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="other">%1$,d 字节</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">应用需要访问文件的权限。请在接下来的系统对话框中点击“允许”。</string>
+    <string name="storage_permission_permanently_denied_message">应用需要访问文件的权限。请在设置中授予“存储空间”权限</string>
+
+    <string name="notification_channel_file_job_name">文件操作</string>
+    <string name="notification_channel_file_job_description">显示和控制文件操作</string>
+    <string name="notification_channel_file_job_dialog_name">文件操作对话框</string>
+    <string name="notification_channel_file_job_dialog_description">打开文件操作对话框</string>
+
+    <plurals name="file_job_copy_scan_notification_title">
+        <item quantity="other">正在准备复制 %1$,d 个文件（%2$s）</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one">正在将“%1$s”复制到“%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple">
+        <item quantity="other">正在将 %1$,d 个文件复制到“%2$s”</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title">
+        <item quantity="other">正在准备移动 %1$,d 个文件（%2$s）</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one">正在将“%1$s”移动到“%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple">
+        <item quantity="other">正在将 %1$,d 个文件移动到“%2$s”</item>
+    </plurals>
+    <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_copy_move_notification_text_multiple">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title">
+        <item quantity="other">正在准备删除 %1$,d 个文件</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one">正在删除“%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple">
+        <item quantity="other">正在删除 %1$,d 个文件</item>
+    </plurals>
+    <string name="file_job_delete_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_cannot_copy_into_itself_title">无法将文件夹复制到自身</string>
+    <string name="file_job_cannot_move_into_itself_title">无法将文件夹移动到自身</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">目标文件夹位于来源文件夹内。</string>
+    <string name="file_job_cannot_copy_over_itself_title">无法将文件夹复制到自身</string>
+    <string name="file_job_cannot_move_over_itself_title">无法将文件夹移动到自身</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">来源文件将被目标覆盖。</string>
+    <string name="file_job_replace_title_format">替换文件“%1$s”？</string>
+    <string name="file_job_replace_message_format">在“%1$s”中存在相同名称的另一个文件。\n替换将覆盖它的内容。</string>
+    <string name="file_job_merge_title_format">合并文件夹“%1$s”？</string>
+    <string name="file_job_merge_copy_message_format">文件中有文件与正在被复制的文件冲突时，合并将在替换前请求确认。</string>
+    <string name="file_job_merge_move_message_format">文件中有文件与正在被移动的文件冲突时，合并将在替换前请求确认。</string>
+    <string name="file_job_conflict_target_name">原始文件</string>
+    <string name="file_job_conflict_source_name">替换为</string>
+    <string name="file_job_conflict_show_name">为目标选择新的名称</string>
+    <string name="file_job_conflict_name_hint">新名称</string>
+    <string name="file_job_conflict_reset_name">重置</string>
+    <string name="file_job_copy_error_title_format">复制“%1$s”时发生错误</string>
+    <string name="file_job_copy_error_message_format">将文件复制到“%1$s”时发生错误。\n%2$s</string>
+    <string name="file_job_move_error_title_format">移动“%1$s”时发生错误</string>
+    <string name="file_job_move_error_message_format">将文件移动到“%1$s”时发生错误。\n%2$s</string>
+    <string name="file_job_delete_error_title">删除时发生错误</string>
+    <string name="file_job_delete_error_message_format">在删除“%1$s”时发生错误。\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">在获取“%1$s”的信息时发生错误。</string>
+    <string name="file_job_action_all">应用此操作到所有文件</string>
+    <string name="file_job_action_rename">重命名</string>
+    <string name="file_job_action_replace">替换</string>
+    <string name="file_job_action_retry">重试</string>
+    <string name="file_job_action_skip">跳过</string>
+
+    <string name="file_open_apk_message">这个文件是一个 Android 安装包。您想要安装它，还是查看它的内容？</string>
+    <string name="file_open_as_title_format">将“%1$s”打开为</string>
+    <string name="file_open_as_type_text">文本</string>
+    <string name="file_open_as_type_image">图片</string>
+    <string name="file_open_as_type_audio">音频</string>
+    <string name="file_open_as_type_video">视频</string>
+    <string name="file_open_as_type_directory">文件夹</string>
+    <string name="file_open_as_type_any">其他</string>
+    <string name="file_name_error_empty">文件名不能为空</string>
+    <string name="file_name_error_invalid">文件名无效</string>
+    <string name="file_name_error_already_exists">已存在同名的文件</string>
+    <string name="file_rename_title">重命名</string>
+    <string name="file_delete_message_file_format">删除“%1$s”?</string>
+    <string name="file_delete_message_directory_format">删除文件夹“%1$s”和它的内容？</string>
+    <string name="file_delete_message_multiple_files_format">删除 %1$,d 个文件？</string>
+    <string name="file_delete_message_multiple_directories_format">删除 %1$,d 个文件夹和它们的内容？</string>
+    <string name="file_delete_message_multiple_mixed_format">删除 %1$,d 个文件和文件夹?</string>
+    <string name="file_create_file_title">新建文件</string>
+    <string name="file_create_directory_title">新建文件夹</string>
+
+    <string name="file_list_subtitle_loading">正在加载…</string>
+    <string name="file_list_subtitle_error">错误</string>
+    <string name="file_list_subtitle_empty">空</string>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="other">%1$,d 个文件夹</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="other">%1$,d 个文件</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">，</string>
+    <string name="file_list_action_sort">排序</string>
+    <string name="file_list_action_sort_by_name">名称</string>
+    <string name="file_list_action_sort_by_type">类型</string>
+    <string name="file_list_action_sort_by_size">大小</string>
+    <string name="file_list_action_sort_by_last_modified">最后修改</string>
+    <string name="file_list_action_sort_order_ascending">升序</string>
+    <string name="file_list_action_sort_directories_first">文件夹优先</string>
+    <string name="file_list_action_new_task">新建窗口</string>
+    <string name="file_list_action_navigate_up">向上</string>
+    <string name="file_list_action_refresh">刷新</string>
+    <string name="file_list_action_show_hidden_files">显示隐藏文件</string>
+    <string name="file_list_action_send">分享</string>
+    <string name="file_list_action_copy_path">复制路径</string>
+    <string name="file_list_action_open_in_terminal">在终端中打开</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中打开</string>
+    <string name="file_list_cab_select_title_format">已选择 %1$,d</string>
+    <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
+    <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
+    <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
+    <string name="file_list_cab_select_action_select_all">全选</string>
+    <string name="file_list_cab_paste_move_title_format">移动 %1$,d</string>
+    <string name="file_list_cab_paste_copy_title_format">复制 %1$,d</string>
+    <string name="file_list_cab_paste_action_paste">粘贴</string>
+    <string name="file_list_empty">无文件</string>
+    <string name="file_list_action_create_file">文件</string>
+    <string name="file_list_action_create_directory">文件夹</string>
+
+    <string name="file_item_description_separator">"    "</string>
+    <string name="file_item_action_open_as">打开为</string>
+    <string name="file_item_action_cut">剪切</string>
+    <string name="file_item_action_copy">复制</string>
+    <string name="file_item_action_delete">删除</string>
+    <string name="file_item_action_rename">重命名</string>
+    <string name="file_item_action_send">@string/file_list_action_send</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_properties">属性</string>
+
+    <string name="file_properties_title_format">“%1$s”属性</string>
+    <string name="file_properties_basic">基本</string>
+    <string name="file_properties_basic_name">名称</string>
+    <string name="file_properties_basic_type">类型</string>
+    <string name="file_properties_basic_type_format">%1$s（%2$s）</string>
+    <string name="file_properties_basic_type_symbolic_link_format">到 %1$s 的链接（%2$s）</string>
+    <string name="file_properties_basic_symbolic_link_target">链接目标</string>
+    <string name="file_properties_basic_size">大小</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s（%2$s）</string>
+    <string name="file_properties_basic_contents">内容</string>
+    <string name="file_properties_basic_last_modification_time">最后修改</string>
+    <string name="file_properties_basic_parent_directory">父文件夹</string>
+    <string name="file_properties_basic_archive_file">档案文件</string>
+    <string name="file_properties_basic_archive_entry">档案条目</string>
+    <string name="file_properties_basic_free_space">可用空间</string>
+    <string name="file_properties_permissions">权限</string>
+    <string name="file_properties_permissions_owner">所有者</string>
+    <string name="file_properties_permissions_owner_format">%1$s（%2$d）</string>
+    <string name="file_properties_permissions_group">组</string>
+    <string name="file_properties_permissions_group_format">%1$s（%2$d）</string>
+    <string name="file_properties_permissions_mode">模式</string>
+    <string name="file_properties_permissions_mode_format">%1$s（%2$04o）</string>
+    <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
+
+    <string name="main_title">文件</string>
+
+    <string name="navigation_root_directory">根目录</string>
+    <string name="navigation_root_subtitle_format">共 %2$s，剩余 %1$s</string>
+    <string name="navigation_add_document_tree">添加外部存储…</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_wechat">微信</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_interface_title">界面</string>
+    <string name="settings_file_list_animation_title">文件列表动画</string>
+    <string name="settings_night_mode_title">夜间模式</string>
+    <string name="settings_night_mode_summary">%1$s</string>
+    <string-array name="settings_night_mode_entries">
+        <!--<item>Follow system</item>-->
+        <item>关闭</item>
+        <item>开启</item>
+        <item>自动</item>
+    </string-array>
+    <string name="settings_behavior_title">行为</string>
+    <string name="settings_zip_file_name_encoding_title">ZIP 档案文件名编码</string>
+    <string name="settings_zip_file_name_encoding_summary">%1$s</string>
+    <string name="settings_open_apk_default_action_title">打开 Android 安装包</string>
+    <string name="settings_open_apk_default_action_summary">%1$s</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>安装</item>
+        <item>查看内容</item>
+        <item>询问操作</item>
+    </string-array>
+    <string name="settings_standard_directories_title">标准文件夹</string>
+    <string name="settings_standard_directories_summary_empty">未启用标准文件夹</string>
+
+    <string name="about_title">关于</string>
+    <string name="about_version_title">版本</string>
+    <string name="about_github_title">在 GitHub 上查看</string>
+    <string name="about_licenses_title">许可证</string>
+    <string name="about_licenses_html_style_light" translatable="false">
+        body {
+            font-family: sans-serif;
+            overflow-wrap: break-word;
+        }
+        pre {
+            background: #eeeeee;
+            padding: 1em;
+            white-space: pre-wrap;
+        }
+        a, a:link, a:visited, a:hover, a:focus, a:active {
+            color: #e91e63;
+        }
+    </string>
+    <string name="about_licenses_html_style_dark" translatable="false">
+        body {
+            background: #424242;
+            color: white;
+            font-family: sans-serif;
+            overflow-wrap: break-word;
+        }
+        pre {
+            background: #303030;
+            padding: 1em;
+            white-space: pre-wrap;
+        }
+        a, a:link, a:visited, a:hover, a:focus, a:active {
+            color: #e91e63;
+        }
+    </string>
+    <string name="about_author_title">作者</string>
+    <string name="about_author_name_title">张海</string>
+    <string name="about_author_github_title">在 GitHub 上关注</string>
+    <string name="about_author_google_plus_title">添加到 Google+ 圈子</string>
+</resources>
