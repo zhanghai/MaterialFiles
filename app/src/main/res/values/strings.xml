@@ -24,8 +24,8 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">App needs permission to access files. Please click \"ALLOW\" in the upcoming system dialog.</string>
-    <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the \"Storage\" permission in system settings.</string>
+    <string name="storage_permission_request_message">App needs permission to access files. Please click “ALLOW” in the upcoming system dialog.</string>
+    <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the “Storage” permission in system settings.</string>
 
     <string name="notification_channel_file_job_name">File operations</string>
     <string name="notification_channel_file_job_description">Display and control file operations</string>
@@ -36,19 +36,19 @@
         <item quantity="one">Preparing to copy %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to copy %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Copying \"%1$s\" to \"%2$s\"</string>
+    <string name="file_job_copy_notification_title_one">Copying “%1$s” to “%2$s”</string>
     <plurals name="file_job_copy_notification_title_multiple">
-        <item quantity="one">Copying %1$,d file to \"%2$s\"</item>
-        <item quantity="other">Copying %1$,d files to \"%2$s\"</item>
+        <item quantity="one">Copying %1$,d file to “%2$s”</item>
+        <item quantity="other">Copying %1$,d files to “%2$s”</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title">
         <item quantity="one">Preparing to move %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to move %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Moving \"%1$s\" to \"%2$s\"</string>
+    <string name="file_job_move_notification_title_one">Moving “%1$s” to “%2$s”</string>
     <plurals name="file_job_move_notification_title_multiple">
-        <item quantity="one">Moving %1$,d file to \"%2$s\"</item>
-        <item quantity="other">Moving %1$,d files to \"%2$s\"</item>
+        <item quantity="one">Moving %1$,d file to “%2$s”</item>
+        <item quantity="other">Moving %1$,d files to “%2$s”</item>
     </plurals>
     <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
     <string name="file_job_copy_move_notification_text_multiple">%1$,d / %2$,d</string>
@@ -56,7 +56,7 @@
         <item quantity="one">Preparing to delete %1$,d file</item>
         <item quantity="other">Preparing to delete %1$,d files</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Deleting \"%1$s\"</string>
+    <string name="file_job_delete_notification_title_one">Deleting “%1$s”</string>
     <plurals name="file_job_delete_notification_title_multiple">
         <item quantity="one">Deleting %1$,d file</item>
         <item quantity="other">Deleting %1$,d files</item>
@@ -103,8 +103,8 @@
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>
     <string name="file_rename_title">Rename</string>
-    <string name="file_delete_message_file_format">Delete \"%1$s\"?</string>
-    <string name="file_delete_message_directory_format">Delete folder \"%1$s\" and its contents?</string>
+    <string name="file_delete_message_file_format">Delete “%1$s”?</string>
+    <string name="file_delete_message_directory_format">Delete folder “%1$s” and its contents?</string>
     <string name="file_delete_message_multiple_files_format">Delete %1$,d files?</string>
     <string name="file_delete_message_multiple_directories_format">Delete %1$,d folders and their contents?</string>
     <string name="file_delete_message_multiple_mixed_format">Delete %1$,d items?</string>
