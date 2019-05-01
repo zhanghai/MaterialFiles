@@ -429,7 +429,6 @@ public class FileJobs {
                     .setContentText(text)
                     .setSubText(subText)
                     .setContentInfo(info)
-                    .setShowWhen(false)
                     .setProgress(max, progress, indeterminate)
                     .setOngoing(true)
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
