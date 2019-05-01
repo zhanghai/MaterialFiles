@@ -191,6 +191,8 @@ public class FileJobs {
                     } else {
                         Files.move(source, target, options);
                     }
+                    transferInfo.incrementTransferredFileCount();
+                    postCopyMoveNotification(transferInfo, source, targetParent, forCopy);
                 } catch (FileAlreadyExistsException e) {
                     FileItem sourceFile = FileItem.load(source);
                     FileItem targetFile = FileItem.load(target);
@@ -293,8 +295,10 @@ public class FileJobs {
                 title = getQuantityString(copy ? R.plurals.file_job_copy_notification_title_multiple
                                 : R.plurals.file_job_move_notification_title_multiple, fileCount,
                         fileCount, targetParent.getFileName());
+                int currentFileIndex = Math.min(transferInfo.getTransferredFileCount() + 1,
+                        fileCount);
                 text = getString(R.string.file_job_copy_move_notification_text_multiple,
-                        transferInfo.getTransferredFileCount(), fileCount);
+                        currentFileIndex, fileCount);
             }
             int max;
             int progress;
@@ -387,8 +391,9 @@ public class FileJobs {
                 title = getQuantityString(R.plurals.file_job_delete_notification_title_multiple,
                         fileCount, fileCount);
                 int transferredFileCount = transferInfo.getTransferredFileCount();
+                int currentFileIndex = Math.min(transferredFileCount + 1, fileCount);
                 text = getString(R.string.file_job_delete_notification_text_multiple,
-                        transferredFileCount, fileCount);
+                        currentFileIndex, fileCount);
                 max = fileCount;
                 progress = transferredFileCount;
                 indeterminate = false;
@@ -664,8 +669,7 @@ public class FileJobs {
                                                          @NonNull BasicFileAttributes attributes)
                         throws IOException {
                     Path directoryInTarget = target.resolve(source.relativize(directory));
-                    copy(directory, directoryInTarget, transferInfo
-                    );
+                    copy(directory, directoryInTarget, transferInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -675,8 +679,7 @@ public class FileJobs {
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
                     Path fileInTarget = target.resolve(source.relativize(file));
-                    copy(file, fileInTarget, transferInfo
-                    );
+                    copy(file, fileInTarget, transferInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
