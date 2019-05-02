@@ -164,8 +164,8 @@
     <string name="file_properties_basic_contents">内容</string>
     <string name="file_properties_basic_last_modification_time">最后修改</string>
     <string name="file_properties_basic_parent_directory">父文件夹</string>
-    <string name="file_properties_basic_archive_file">档案文件</string>
-    <string name="file_properties_basic_archive_entry">档案条目</string>
+    <string name="file_properties_basic_archive_file">归档文件</string>
+    <string name="file_properties_basic_archive_entry">归档条目</string>
     <string name="file_properties_basic_free_space">可用空间</string>
     <string name="file_properties_permissions">权限</string>
     <string name="file_properties_permissions_owner">所有者</string>
@@ -198,7 +198,7 @@
         <item>自动</item>
     </string-array>
     <string name="settings_behavior_title">行为</string>
-    <string name="settings_zip_file_name_encoding_title">ZIP 档案文件名编码</string>
+    <string name="settings_zip_file_name_encoding_title">ZIP 归档文件名编码</string>
     <string name="settings_zip_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">打开 Android 安装包</string>
     <string name="settings_open_apk_default_action_summary">%1$s</string>
