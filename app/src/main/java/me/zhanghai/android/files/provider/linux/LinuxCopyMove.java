@@ -38,7 +38,25 @@ class LinuxCopyMove {
 
     public static void move(@NonNull String source, @NonNull String target,
                             @NonNull CopyOptions copyOptions) throws IOException {
+        boolean targetExists;
         try {
+            if (copyOptions.hasNoFollowLinks()) {
+                Syscalls.lstat(target);
+            } else {
+                Syscalls.stat(target);
+            }
+            targetExists = true;
+        } catch (SyscallException e) {
+            if (e.getErrno() == OsConstants.ENOENT) {
+                targetExists = false;
+            } else {
+                throw e.toFileSystemException(target);
+            }
+        }
+        try {
+            if (targetExists && !copyOptions.hasReplaceExisting()) {
+                throw new SyscallException("rename", OsConstants.EEXIST);
+            }
             Syscalls.rename(source, target);
             return;
         } catch (SyscallException e) {
