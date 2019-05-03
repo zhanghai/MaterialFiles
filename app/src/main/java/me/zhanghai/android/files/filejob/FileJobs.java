@@ -174,6 +174,7 @@ public class FileJobs {
             do {
                 retry = false;
                 List<CopyOption> optionList = new ArrayList<>();
+                optionList.add(LinkOption.NOFOLLOW_LINKS);
                 if (copyAttributes) {
                     optionList.add(StandardCopyOption.COPY_ATTRIBUTES);
                 }
@@ -403,7 +404,7 @@ public class FileJobs {
 
         protected void moveAtomically(@NonNull Path source, @NonNull Path target)
                 throws IOException {
-            Files.move(source, target, StandardCopyOption.ATOMIC_MOVE);
+            Files.move(source, target, LinkOption.NOFOLLOW_LINKS, StandardCopyOption.ATOMIC_MOVE);
         }
 
         protected void moveByCopy(@NonNull Path source, @NonNull Path target,
