@@ -27,9 +27,9 @@ import me.zhanghai.android.files.util.IntentUtils;
 public class AboutFragment extends Fragment {
 
     private static final Uri GITHUB_URI = Uri.parse(
-            "https://github.com/DreaminginCodeZH/MaterialFiles");
+            "https://github.com/zhanghai/MaterialFiles");
 
-    private static final Uri AUTHOR_GITHUB_URI = Uri.parse("https://github.com/DreaminginCodeZH");
+    private static final Uri AUTHOR_GITHUB_URI = Uri.parse("https://github.com/zhanghai");
 
     private static final Uri AUTHOR_GOOGLE_PLUS_URI = Uri.parse(
             "https://plus.google.com/105148560373589648355");
