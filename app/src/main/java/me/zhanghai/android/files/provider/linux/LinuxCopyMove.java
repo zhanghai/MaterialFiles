@@ -115,6 +115,7 @@ class LinuxCopyMove {
                     e.maybeThrowInvalidFileNameException(source, target);
                     throw e.toFileSystemException(target);
                 }
+                boolean successful = false;
                 try {
                     long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
                     long lastProgressMillis = System.currentTimeMillis();
@@ -142,11 +143,20 @@ class LinuxCopyMove {
                     if (copyOptions.hasProgressListener()) {
                         copyOptions.getProgressListener().accept(copiedSize);
                     }
+                    successful = true;
                 } finally {
                     try {
                         Syscalls.close(targetFd);
                     } catch (SyscallException e) {
                         throw e.toFileSystemException(target);
+                    } finally {
+                        if (!successful) {
+                            try {
+                                Syscalls.remove(target);
+                            } catch (SyscallException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
             } finally {

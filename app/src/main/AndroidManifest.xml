@@ -91,5 +91,7 @@
             android:authorities="@string/file_provider_authority"
             android:exported="false"
             android:grantUriPermissions="true" />
+
+        <receiver android:name=".filejob.FileJobReceiver" />
     </application>
 </manifest>

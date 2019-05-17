@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.filejob;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -14,7 +15,6 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
@@ -44,8 +44,6 @@ public class FileJobs {
     private FileJobs() {}
 
     private abstract static class Base extends FileJob {
-
-        private int mNotificationId = new Random().nextInt();
 
         @NonNull
         protected ScanInfo scan(@NonNull List<Path> sources, @PluralsRes int notificationTitleRes)
@@ -98,7 +96,7 @@ public class FileJobs {
             String size = FormatUtils.formatHumanReadableSize(scanInfo.getSize(), getService());
             int fileCount = scanInfo.getFileCount();
             String title = getQuantityString(titleRes, fileCount, fileCount, size);
-            postNotification(title, null, null, null, 0, 0, true);
+            postNotification(title, null, null, null, 0, 0, true, true);
         }
 
         protected void copy(@NonNull Path source, @NonNull Path target,
@@ -316,7 +314,7 @@ public class FileJobs {
                 max = (int) maxLong;
                 progress = (int) progressLong;
             }
-            postNotification(title, text, null, null, max, progress, false);
+            postNotification(title, text, null, null, max, progress, false, true);
         }
 
         protected void createDirectory(@NonNull Path path) throws IOException {
@@ -399,7 +397,7 @@ public class FileJobs {
                 progress = transferredFileCount;
                 indeterminate = false;
             }
-            postNotification(title, text, null, null, max, progress, indeterminate);
+            postNotification(title, text, null, null, max, progress, indeterminate, true);
         }
 
         protected void moveAtomically(@NonNull Path source, @NonNull Path target)
@@ -420,9 +418,10 @@ public class FileJobs {
 
         protected void postNotification(@NonNull CharSequence title, @Nullable CharSequence text,
                                         @Nullable CharSequence subText, @Nullable CharSequence info,
-                                        int max, int progress, boolean indeterminate) {
+                                        int max, int progress, boolean indeterminate,
+                                        boolean showCancel) {
             Context context = getService();
-            Notification notification = new NotificationCompat.Builder(context,
+            NotificationCompat.Builder bulider = new NotificationCompat.Builder(context,
                     FileJobNotificationManager.CHANNEL_ID)
                     .setColor(ContextCompat.getColor(context, R.color.color_primary))
                     .setSmallIcon(R.drawable.notification_icon)
@@ -432,15 +431,25 @@ public class FileJobs {
                     .setContentInfo(info)
                     .setProgress(max, progress, indeterminate)
                     .setOngoing(true)
-                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                     // TODO
-                    //.setContentIntent()
-                    .build();
-            getService().getNotificationManager().notify(mNotificationId, notification);
+                    //.setContentIntent();
+            int id = getId();
+            if (showCancel) {
+                Intent intent = new Intent(context, FileJobReceiver.class)
+                        .setAction(FileJobReceiver.ACTION_CANCEL)
+                        .putExtra(FileJobReceiver.EXTRA_JOB_ID, id);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id + 1, intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT);
+                bulider.addAction(R.drawable.close_icon_white_24dp, getString(
+                        android.R.string.cancel), pendingIntent);
+            }
+            Notification notification = bulider.build();
+            getService().getNotificationManager().notify(id, notification);
         }
 
         protected void cancelNotification() {
-            getService().getNotificationManager().cancel(mNotificationId);
+            getService().getNotificationManager().cancel(getId());
         }
 
         @NonNull

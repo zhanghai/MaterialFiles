@@ -16,7 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
@@ -73,6 +75,13 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Rename(path, newName), context);
     }
 
+    @MainThread
+    public static void cancelRunningJob(int jobId) {
+        if (sInstance != null) {
+            sInstance.cancelJob(jobId);
+        }
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -91,10 +100,11 @@ public class FileJobService extends Service {
 
     private void startJob(@NonNull FileJob job) {
         mRunningJobs.add(job);
-        mExecutorService.submit(() -> {
+        Future<?> future = mExecutorService.submit(() -> {
             job.run(this);
             mRunningJobs.remove(job);
         });
+        job.setFuture(future);
     }
 
     @Nullable
@@ -106,6 +116,20 @@ public class FileJobService extends Service {
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         return START_STICKY;
+    }
+
+    private void cancelJob(int jobId) {
+        synchronized (mRunningJobs) {
+            Iterator<FileJob> iterator = mRunningJobs.iterator();
+            while (iterator.hasNext()) {
+                FileJob job = iterator.next();
+                if (job.getId() == jobId) {
+                    job.cancel();
+                    iterator.remove();
+                    return;
+                }
+            }
+        }
     }
 
     @Override
@@ -123,7 +147,7 @@ public class FileJobService extends Service {
             Iterator<FileJob> iterator = mRunningJobs.iterator();
             while (iterator.hasNext()) {
                 FileJob job = iterator.next();
-                // TODO: Stop the job.
+                job.cancel();
                 iterator.remove();
             }
         }
