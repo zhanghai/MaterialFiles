@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "728501351509",
+    "firebase_url": "https://zhanghai-materialfiles.firebaseio.com",
+    "project_id": "zhanghai-materialfiles",
+    "storage_bucket": "zhanghai-materialfiles.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728501351509:android:007cb5eb181702a9",
+        "android_client_info": {
+          "package_name": "me.zhanghai.android.files"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728501351509-3ul5c5u8jpd9q9gi4e7537bd31r5nkr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUcQAOKRcCjsA-e5-cZHbt4HQQFDP4wA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728501351509-3ul5c5u8jpd9q9gi4e7537bd31r5nkr5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
