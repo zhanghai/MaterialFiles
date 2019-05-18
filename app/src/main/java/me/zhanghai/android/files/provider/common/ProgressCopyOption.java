@@ -11,7 +11,7 @@ import java9.util.function.LongConsumer;
 
 public class ProgressCopyOption implements CopyOption {
 
-    public static final int DEFAULT_INTERVAL_MILLIS = 500;
+    public static final int DEFAULT_INTERVAL_MILLIS = 200;
 
     @NonNull
     private final LongConsumer mListener;

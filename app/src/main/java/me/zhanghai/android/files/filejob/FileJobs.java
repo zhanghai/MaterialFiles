@@ -45,6 +45,8 @@ public class FileJobs {
 
     private abstract static class Base extends FileJob {
 
+        private static final long NOTIFICATION_INTERVAL_MILLIS = 500;
+
         @NonNull
         protected ScanInfo scan(@NonNull List<Path> sources, @PluralsRes int notificationTitleRes)
                 throws IOException {
@@ -87,12 +89,13 @@ public class FileJobs {
                               @PluralsRes int notificationTitleRes) {
             scanInfo.incrementFileCount();
             scanInfo.addToSize(attributes.size());
-            if (scanInfo.getFileCount() % 100 == 0) {
-                postScanNotification(scanInfo, notificationTitleRes);
-            }
+            postScanNotification(scanInfo, notificationTitleRes);
         }
 
         private void postScanNotification(@NonNull ScanInfo scanInfo, @PluralsRes int titleRes) {
+            if (!scanInfo.shouldPostNotification()) {
+                return;
+            }
             String size = FormatUtils.formatHumanReadableSize(scanInfo.getSize(), getService());
             int fileCount = scanInfo.getFileCount();
             String title = getQuantityString(titleRes, fileCount, fileCount, size);
@@ -185,6 +188,7 @@ public class FileJobs {
                 }));
                 CopyOption[] options = optionList.toArray(new CopyOption[0]);
                 try {
+                    postCopyMoveNotification(transferInfo, source, targetParent, forCopy);
                     if (useCopy) {
                         Files.copy(source, target, options);
                     } else {
@@ -220,7 +224,8 @@ public class FileJobs {
                                 // Fall through!
                             case CANCELED:
                                 transferInfo.skipFile(source);
-                                postCopyMoveNotification(transferInfo, source, targetParent, forCopy);
+                                postCopyMoveNotification(transferInfo, source, targetParent,
+                                        forCopy);
                                 // TODO: Skip subtree.
                                 return;
                             case CANCEL:
@@ -275,6 +280,9 @@ public class FileJobs {
         private void postCopyMoveNotification(@NonNull TransferInfo transferInfo,
                                               @NonNull Path currentSource,
                                               @NonNull Path targetParent, boolean copy) {
+            if (!transferInfo.shouldPostNotification()) {
+                return;
+            }
             String title;
             String text;
             int fileCount = transferInfo.getFileCount();
@@ -373,6 +381,9 @@ public class FileJobs {
 
         private void postDeleteNotification(@NonNull TransferInfo transferInfo,
                                             @NonNull Path currentPath) {
+            if (!transferInfo.shouldPostNotification()) {
+                return;
+            }
             String title;
             String text;
             int max;
@@ -520,6 +531,7 @@ public class FileJobs {
 
             private int mFileCount;
             private long mSize;
+            private long mLastNotificationTimeMillis;
 
             public int getFileCount() {
                 return mFileCount;
@@ -536,6 +548,17 @@ public class FileJobs {
             public void addToSize(long size) {
                 mSize += size;
             }
+
+            public boolean shouldPostNotification() {
+                long currentTimeMillis = System.currentTimeMillis();
+                if (mFileCount % 100 == 0 || mLastNotificationTimeMillis
+                        + NOTIFICATION_INTERVAL_MILLIS < currentTimeMillis) {
+                    mLastNotificationTimeMillis = currentTimeMillis;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         }
 
         protected static class TransferInfo {
@@ -544,6 +567,7 @@ public class FileJobs {
             private int mTransferredFileCount;
             private long mSize;
             private long mTransferredSize;
+            private long mLastNotificationTimeMillis;
 
             public TransferInfo(@NonNull ScanInfo scanInfo) {
                 mFileCount = scanInfo.getFileCount();
@@ -586,6 +610,17 @@ public class FileJobs {
 
             public void addToTransferredSize(long size) {
                 mTransferredSize += size;
+            }
+
+            public boolean shouldPostNotification() {
+                long currentTimeMillis = System.currentTimeMillis();
+                if (mLastNotificationTimeMillis + NOTIFICATION_INTERVAL_MILLIS
+                        < currentTimeMillis) {
+                    mLastNotificationTimeMillis = currentTimeMillis;
+                    return true;
+                } else {
+                    return false;
+                }
             }
         }
 

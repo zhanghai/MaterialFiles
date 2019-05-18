@@ -10,10 +10,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.Service;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,8 +22,6 @@ public class FileJobNotificationManager {
 
     public static final String CHANNEL_ID = Notifications.Channels.FILE_JOB.ID;
 
-    private static final long NOTIFY_INTERVAL_MILLIS = 500;
-
     @NonNull
     private final Service mService;
 
@@ -36,16 +30,6 @@ public class FileJobNotificationManager {
 
     @NonNull
     private final Object mLock = new Object();
-
-    @NonNull
-    private final Map<Integer, Long> mNextNotifyTime = new HashMap<>();
-    @NonNull
-    private final Handler mHandler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(@NonNull Message message) {
-            notifyInternal(message.what, (Notification) message.obj);
-        }
-    };
 
     private boolean mChannelCreated;
 
@@ -78,23 +62,6 @@ public class FileJobNotificationManager {
 
     public void notify(int id, @NonNull Notification notification) {
         synchronized (mLock) {
-            mHandler.removeMessages(id);
-            Long time = mNextNotifyTime.get(id);
-            long uptime = SystemClock.uptimeMillis();
-            if (time == null) {
-                // Add some delay for the first time, so that notification doesn't pop up and
-                // disappear immediately.
-                time = uptime + NOTIFY_INTERVAL_MILLIS;
-            } else if (time < uptime) {
-                time = Math.max(uptime, time + NOTIFY_INTERVAL_MILLIS);
-            }
-            mHandler.sendMessageAtTime(mHandler.obtainMessage(id, notification), time);
-            mNextNotifyTime.put(id, time);
-        }
-    }
-
-    private void notifyInternal(int id, @NonNull Notification notification) {
-        synchronized (mLock) {
             ensureChannelLocked();
             if (mNotifications.isEmpty()) {
                 mService.startForeground(id, notification);
@@ -113,8 +80,6 @@ public class FileJobNotificationManager {
 
     public void cancel(int id) {
         synchronized (mLock) {
-            mHandler.removeMessages(id);
-            mNextNotifyTime.remove(id);
             if (!mNotifications.containsKey(id)) {
                 return;
             }
