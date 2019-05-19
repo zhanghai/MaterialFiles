@@ -62,20 +62,20 @@ dependencies {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.0.0"
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.0'
     implementation 'com.google.android.material:material:1.1.0-alpha06'
     implementation 'com.google.firebase:firebase-core:16.0.9'
-    debugImplementation 'com.facebook.stetho:stetho:1.5.0'
+    debugImplementation 'com.facebook.stetho:stetho:1.5.1'
     // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
     //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.2'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
     implementation "com.leinardi.android:speed-dial:1.0.2"
     // If https://github.com/timusus/RecyclerView-FastScroll/pull/96 is merged and released, remove
     // the related dontwarn from proguard-rules.pro.
@@ -89,8 +89,8 @@ dependencies {
     implementation 'me.zhanghai.android.libselinux:library:1.0.0'
     implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
     implementation 'me.zhanghai.android.retrofile:library:1.1.0'
-    implementation 'org.apache.commons:commons-compress:1.17'
-    implementation 'org.apache.commons:commons-text:1.3'
+    implementation 'org.apache.commons:commons-compress:1.18'
+    implementation 'org.apache.commons:commons-text:1.6'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
