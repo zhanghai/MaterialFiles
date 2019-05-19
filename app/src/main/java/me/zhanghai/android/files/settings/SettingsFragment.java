@@ -19,8 +19,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> NightModeHelper.updateNightMode(
-                requireActivity()));
+        SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode ->
+                NightModeHelper.syncDefaultNightMode());
     }
 
     @Override

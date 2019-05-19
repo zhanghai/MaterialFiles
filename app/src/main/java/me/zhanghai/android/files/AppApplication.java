@@ -38,6 +38,6 @@ public class AppApplication extends Application {
 
         FileSystemProviders.install();
 
-        NightModeHelper.setup(this);
+        NightModeHelper.syncDefaultNightMode();
     }
 }
