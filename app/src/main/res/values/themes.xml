@@ -7,20 +7,26 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Base.V21.AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="Base.AppTheme" parent="Base.V21.AppTheme" />
+    <style name="AppTheme" parent="Base.AppTheme" />
 
-    <style name="AppTheme.TransparentStatusBar">
+    <style name="Base.V21.AppTheme.TransparentStatusBar" parent="Base.AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+    <style name="Base.AppTheme.TransparentStatusBar" parent="Base.V21.AppTheme.TransparentStatusBar" />
+    <style name="AppTheme.TransparentStatusBar" parent="Base.AppTheme.TransparentStatusBar" />
 
-    <style name="AppTheme.Translucent" parent="AppTheme.TransparentStatusBar">
+    <style name="Base.V21.AppTheme.Translucent" parent="Base.AppTheme">
         <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -28,4 +34,6 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="Base.AppTheme.Translucent" parent="Base.V21.AppTheme.Translucent" />
+    <style name="AppTheme.Translucent" parent="Base.AppTheme.Translucent" />
 </resources>

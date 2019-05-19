@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <style name="Base.V27.AppTheme" parent="Base.V21.AppTheme">
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:navigationBarDividerColor">?colorControlHighlight</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+    <style name="Base.AppTheme" parent="Base.V27.AppTheme" />
+</resources>
