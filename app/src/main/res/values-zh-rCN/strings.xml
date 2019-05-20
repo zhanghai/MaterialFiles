@@ -192,10 +192,11 @@
     <string name="settings_night_mode_title">夜间模式</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
-        <!--<item>Follow system</item>-->
+        <item>跟随系统</item>
         <item>关闭</item>
         <item>开启</item>
-        <item>自动</item>
+        <item>基于时间</item>
+        <item>基于省电模式</item>
     </string-array>
     <string name="settings_behavior_title">行为</string>
     <string name="settings_zip_file_name_encoding_title">ZIP 归档文件名编码</string>

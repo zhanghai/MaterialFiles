@@ -9,12 +9,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public enum NightMode {
 
-    // Disabled because AppCompatDelegate delegates night mode change to the non-existent system
-    // implementation.
     FOLLOW_SYSTEM(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
     OFF(AppCompatDelegate.MODE_NIGHT_NO),
     ON(AppCompatDelegate.MODE_NIGHT_YES),
-    AUTO(AppCompatDelegate.MODE_NIGHT_AUTO);
+    AUTO_TIME(AppCompatDelegate.MODE_NIGHT_AUTO_TIME),
+    AUTO_BATTERY(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
 
     private int value;
 

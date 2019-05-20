@@ -21,12 +21,13 @@
     <string name="pref_key_file_list_animation">key_file_list_animation</string>
     <bool name="pref_default_value_file_list_animation">true</bool>
     <string name="pref_key_night_mode">key_night_mode</string>
-    <string name="pref_default_value_night_mode">1</string>
+    <string name="pref_default_value_night_mode">0</string>
     <string-array name="pref_entry_values_night_mode">
-        <!--<item>0</item>-->
+        <item>0</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>
+        <item>4</item>
     </string-array>
     <string name="pref_key_standard_directories">key_standard_directories</string>
     <string name="pref_key_zip_file_name_encoding">key_zip_file_name_encoding</string>
