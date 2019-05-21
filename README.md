@@ -1,5 +1,7 @@
 # Material Files (Beta)
 
+[本文中文版](README_zh-CN.md)
+
 An open source Material Design file manager, for Android 5.0+.
 
 ## Preview
