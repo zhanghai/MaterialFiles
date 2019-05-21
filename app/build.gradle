@@ -66,6 +66,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha01'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.0'
+    implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.0'
     implementation 'com.google.android.material:material:1.1.0-alpha06'
     implementation 'com.google.firebase:firebase-core:16.0.9'
     debugImplementation 'com.facebook.stetho:stetho:1.5.1'

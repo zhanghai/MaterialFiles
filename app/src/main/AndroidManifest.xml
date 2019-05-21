@@ -94,5 +94,9 @@
             android:grantUriPermissions="true" />
 
         <receiver android:name=".filejob.FileJobReceiver" />
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
     </application>
 </manifest>

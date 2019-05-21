@@ -11,6 +11,7 @@ import com.facebook.stetho.Stetho;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.NonNull;
+import me.zhanghai.android.files.firebase.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.util.NightModeHelper;
 
@@ -33,7 +34,7 @@ public class AppApplication extends Application {
         super.onCreate();
 
         AndroidThreeTen.init(this);
-        //FabricUtils.init(this);
+        CrashlyticsUtils.init(this);
         Stetho.initializeWithDefaults(this);
 
         FileSystemProviders.install();
