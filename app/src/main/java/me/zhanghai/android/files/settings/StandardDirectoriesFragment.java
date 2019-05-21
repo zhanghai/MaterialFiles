@@ -25,6 +25,7 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
 import me.zhanghai.android.files.functional.Functional;
+import me.zhanghai.android.files.navigation.NavigationItems;
 import me.zhanghai.android.files.navigation.StandardDirectory;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -76,6 +77,8 @@ public class StandardDirectoriesFragment extends PreferenceFragmentCompat
             DrawableCompat.setTint(icon, secondaryTextColor);
             preference.setIcon(icon);
             preference.setTitle(standardDirectory.getTitle(context));
+            preference.setSummary(NavigationItems.getExternalStorageDirectory(
+                    standardDirectory.getRelativePath()));
             preference.setChecked(standardDirectory.isEnabled());
             preferenceScreen.addPreference(preference);
         }

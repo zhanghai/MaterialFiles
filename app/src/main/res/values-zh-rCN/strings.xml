@@ -181,6 +181,16 @@
     <string name="navigation_root_directory">根目录</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩余 %1$s</string>
     <string name="navigation_add_document_tree">添加外部存储…</string>
+    <string name="navigation_standard_directory_alarms">闹钟</string>
+    <string name="navigation_standard_directory_dcim">相片</string>
+    <string name="navigation_standard_directory_documents">文档</string>
+    <string name="navigation_standard_directory_downloads">下载</string>
+    <string name="navigation_standard_directory_movies">电影</string>
+    <string name="navigation_standard_directory_music">音乐</string>
+    <string name="navigation_standard_directory_notifications">通知</string>
+    <string name="navigation_standard_directory_pictures">图片</string>
+    <string name="navigation_standard_directory_podcasts">播客</string>
+    <string name="navigation_standard_directory_ringtones">铃声</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_wechat">微信</string>
     <string name="navigation_settings">@string/settings_title</string>

@@ -42,31 +42,41 @@ public class NavigationItems {
     // @see android.os.Environment#STANDARD_DIRECTORIES
     public static final List<StandardDirectory> DEFAULT_STANDARD_DIRECTORIES =
             ListBuilder.<StandardDirectory>newArrayList()
-                    .add(new StandardDirectory(R.drawable.alarm_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.alarm_icon_white_24dp,
+                            R.string.navigation_standard_directory_alarms,
                             Environment.DIRECTORY_ALARMS, false))
-                    .add(new StandardDirectory(R.drawable.camera_icon_white_24dp, 0, null,
-                            Environment.DIRECTORY_DCIM, true))
-                    .add(new StandardDirectory(R.drawable.document_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.camera_icon_white_24dp,
+                            R.string.navigation_standard_directory_dcim, Environment.DIRECTORY_DCIM,
+                            true))
+                    .add(new StandardDirectory(R.drawable.document_icon_white_24dp,
+                            R.string.navigation_standard_directory_documents,
                             Environment.DIRECTORY_DOCUMENTS, false))
-                    .add(new StandardDirectory(R.drawable.download_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.download_icon_white_24dp,
+                            R.string.navigation_standard_directory_downloads,
                             Environment.DIRECTORY_DOWNLOADS, true))
-                    .add(new StandardDirectory(R.drawable.video_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.video_icon_white_24dp,
+                            R.string.navigation_standard_directory_movies,
                             Environment.DIRECTORY_MOVIES, true))
-                    .add(new StandardDirectory(R.drawable.audio_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.audio_icon_white_24dp,
+                            R.string.navigation_standard_directory_music,
                             Environment.DIRECTORY_MUSIC, true))
-                    .add(new StandardDirectory(R.drawable.notification_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.notification_icon_white_24dp,
+                            R.string.navigation_standard_directory_notifications,
                             Environment.DIRECTORY_NOTIFICATIONS, false))
-                    .add(new StandardDirectory(R.drawable.image_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.image_icon_white_24dp,
+                            R.string.navigation_standard_directory_pictures,
                             Environment.DIRECTORY_PICTURES, true))
-                    .add(new StandardDirectory(R.drawable.podcast_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.podcast_icon_white_24dp,
+                            R.string.navigation_standard_directory_podcasts,
                             Environment.DIRECTORY_PODCASTS, false))
-                    .add(new StandardDirectory(R.drawable.ringtone_icon_white_24dp, 0, null,
+                    .add(new StandardDirectory(R.drawable.ringtone_icon_white_24dp,
+                            R.string.navigation_standard_directory_ringtones,
                             Environment.DIRECTORY_RINGTONES, false))
                     .add(new StandardDirectory(R.drawable.qq_icon_white_24dp,
-                            R.string.navigation_standard_directory_qq, null, "tencent/QQfile_recv",
+                            R.string.navigation_standard_directory_qq, "tencent/QQfile_recv",
                             false))
                     .add(new StandardDirectory(R.drawable.wechat_icon_white_24dp,
-                            R.string.navigation_standard_directory_wechat, null,
+                            R.string.navigation_standard_directory_wechat,
                             "tencent/MicroMsg/Download", false))
                     .buildUnmodifiable();
 

@@ -190,6 +190,16 @@
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_document_tree">Add external storage…</string>
+    <string name="navigation_standard_directory_alarms">Alarms</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Documents</string>
+    <string name="navigation_standard_directory_downloads">Downloads</string>
+    <string name="navigation_standard_directory_movies">Movies</string>
+    <string name="navigation_standard_directory_music">Music</string>
+    <string name="navigation_standard_directory_notifications">Notifications</string>
+    <string name="navigation_standard_directory_pictures">Pictures</string>
+    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_ringtones">Ringtones</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
     <string name="navigation_settings">@string/settings_title</string>
