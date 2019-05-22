@@ -322,6 +322,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_refresh:
                 refresh();
                 return true;
+            case R.id.action_select_all:
+                selectAllFiles();
+                return true;
             case R.id.action_show_hidden_files:
                 setShowHiddenFiles(!mShowHiddenFilesMenuItem.isChecked());
                 return true;

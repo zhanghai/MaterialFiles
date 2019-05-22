@@ -68,6 +68,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_select_all"
+        android:orderInCategory="100"
+        android:title="@string/file_list_action_select_all"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_show_hidden_files"
         android:orderInCategory="100"
         android:title="@string/file_list_action_show_hidden_files"

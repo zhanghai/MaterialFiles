@@ -124,6 +124,7 @@
     <string name="file_list_action_new_task">新建窗口</string>
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_refresh">刷新</string>
+    <string name="file_list_action_select_all">全选</string>
     <string name="file_list_action_show_hidden_files">显示隐藏文件</string>
     <string name="file_list_action_send">分享</string>
     <string name="file_list_action_copy_path">复制路径</string>
@@ -134,7 +135,7 @@
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
-    <string name="file_list_cab_select_action_select_all">全选</string>
+    <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">移动 %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">复制 %1$,d</string>
     <string name="file_list_cab_paste_action_paste">粘贴</string>

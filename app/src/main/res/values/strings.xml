@@ -133,6 +133,7 @@
     <string name="file_list_action_new_task">New window</string>
     <string name="file_list_action_navigate_up">Go up</string>
     <string name="file_list_action_refresh">Refresh</string>
+    <string name="file_list_action_select_all">Select all</string>
     <string name="file_list_action_show_hidden_files">Show hidden files</string>
     <string name="file_list_action_send">Share</string>
     <string name="file_list_action_copy_path">Copy path</string>
@@ -143,7 +144,7 @@
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
-    <string name="file_list_cab_select_action_select_all">Select all</string>
+    <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">Copying %1$,d</string>
     <string name="file_list_cab_paste_action_paste">Paste</string>
