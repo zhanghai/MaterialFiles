@@ -10,7 +10,7 @@
 ## 特性
 
 - 开源：轻量、简洁并且安全。
-- Material Design：仿照 [Cabinet](https://github.com/aminb/cabinet)，同样带有夜间模式。
+- Material Design：仿照 [Cabinet](https://github.com/aminb/cabinet)，并且注重细节。
 - 面包屑导航栏：点击导航栏所显示路径中的任一文件夹即可快速访问。
 - Linux 友好：类似 [Nautilus](https://wiki.gnome.org/action/show/Apps/Files)，支持符号链接、文件权限和 SELinux 上下文。
 - 健壮性：使用 Linux 系统调用实现，而不是另一个 [`ls` 解析器](https://news.ycombinator.com/item?id=7994720)。

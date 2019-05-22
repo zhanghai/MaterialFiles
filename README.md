@@ -12,7 +12,7 @@ An open source Material Design file manager, for Android 5.0+.
 ## Features
 
 - Open source: Lightweight, clean and secure.
-- Material Design: Like the good old [Cabinet](https://github.com/aminb/cabinet), also with dark mode.
+- Material Design: Like the good old [Cabinet](https://github.com/aminb/cabinet), with attention into details.
 - Breadcrumbs: Navigate in the filesystem with ease.
 - Linux-aware: Like [Nautilus](https://wiki.gnome.org/action/show/Apps/Files), knows symbolic links, file permissions and SELinux context.
 - Robust: Uses Linux system calls under the hood, not yet another [`ls` parser](https://news.ycombinator.com/item?id=7994720).
