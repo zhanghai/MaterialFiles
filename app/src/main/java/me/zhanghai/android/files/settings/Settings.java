@@ -11,6 +11,7 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.settings.SettingsEntries.BooleanSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.EnumSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.StringSettingsEntry;
+import me.zhanghai.android.files.settings.SettingsEntries.TypedListSettingsEntry;
 
 interface Settings {
 
@@ -36,8 +37,9 @@ interface Settings {
     EnumSettingsEntry<NightMode> NIGHT_MODE = new EnumSettingsEntry<>(R.string.pref_key_night_mode,
             R.string.pref_default_value_night_mode, NightMode.class);
 
-    StandardDirectorySettingsEntry STANDARD_DIRECTORY_SETTINGS = new StandardDirectorySettingsEntry(
-            R.string.pref_key_standard_directories);
+    TypedListSettingsEntry<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
+            new TypedListSettingsEntry<>(R.string.pref_key_standard_directories,
+                    StandardDirectorySettings.CREATOR);
 
     StringSettingsEntry ZIP_FILE_NAME_ENCODING = new StringSettingsEntry(
             R.string.pref_key_zip_file_name_encoding,

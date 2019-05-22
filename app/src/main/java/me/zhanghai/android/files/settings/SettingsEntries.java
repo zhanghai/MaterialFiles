@@ -246,7 +246,7 @@ public interface SettingsEntries {
         }
     }
 
-    abstract class ParcelableSettingsEntry<T extends Parcelable> extends StringSettingsEntry {
+    class ParcelableSettingsEntry<T extends Parcelable> extends StringSettingsEntry {
 
         @Nullable
         private final ClassLoader mClassLoader;
@@ -301,7 +301,7 @@ public interface SettingsEntries {
         }
     }
 
-    abstract class TypedListSettingsEntry<T extends Parcelable> extends StringSettingsEntry {
+    class TypedListSettingsEntry<T extends Parcelable> extends StringSettingsEntry {
 
         @NonNull
         private final Parcelable.Creator<T> mCreator;
