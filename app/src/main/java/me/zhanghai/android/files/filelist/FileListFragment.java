@@ -593,6 +593,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mToolbarActionMode.setTitle(getString(titleRes, selectedFiles.size()));
         mToolbarActionMode.setMenuResource(menuRes);
         if (!mToolbarActionMode.isActive()) {
+            mAppBarLayout.setExpanded(true);
             mToolbarActionMode.start(this);
         }
     }
