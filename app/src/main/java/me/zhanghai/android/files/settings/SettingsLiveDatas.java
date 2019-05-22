@@ -7,7 +7,6 @@ package me.zhanghai.android.files.settings;
 
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
-import me.zhanghai.android.files.navigation.StandardDirectory;
 
 public interface SettingsLiveDatas {
 
@@ -35,6 +34,6 @@ public interface SettingsLiveDatas {
     EnumSettingsLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsLiveData<>(
             Settings.OPEN_APK_DEFAULT_ACTION);
 
-    TypedListSettingsLiveData<StandardDirectory> STANDARD_DIRECTORIES =
-            new TypedListSettingsLiveData<>(Settings.STANDARD_DIRECTORIES);
+    TypedListSettingsLiveData<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
+            new TypedListSettingsLiveData<>(Settings.STANDARD_DIRECTORY_SETTINGS);
 }

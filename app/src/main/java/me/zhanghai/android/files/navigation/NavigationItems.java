@@ -14,7 +14,9 @@ import android.os.storage.StorageVolume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import androidx.annotation.DrawableRes;
@@ -33,6 +35,7 @@ import me.zhanghai.android.files.filesystem.JavaFile;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.settings.SettingsActivity;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.StandardDirectorySettings;
 import me.zhanghai.android.files.util.ListBuilder;
 import me.zhanghai.android.files.util.StorageManagerCompat;
 import me.zhanghai.android.files.util.StorageVolumeCompat;
@@ -110,23 +113,50 @@ public class NavigationItems {
     @NonNull
     @Size(min = 0)
     private static List<NavigationItem> getStandardDirectoryItems() {
-        return Functional.map(Functional.filter(SettingsLiveDatas.STANDARD_DIRECTORIES.getValue(),
-                StandardDirectory::isEnabled), StandardDirectoryItem::new);
+        return Functional.map(Functional.filter(
+                StandardDirectoriesLiveData.getInstance().getValue(), StandardDirectory::isEnabled),
+                StandardDirectoryItem::new);
     }
 
     @NonNull
-    public static List<StandardDirectory> getDefaultStandardDirectories() {
-        List<StandardDirectory> standardDirectories = new ArrayList<>(DEFAULT_STANDARD_DIRECTORIES);
-        // HACK: Enable QQ and WeChat standard directories based on whether the directories exist.
-        int standardDirectoryCount = standardDirectories.size();
-        List<StandardDirectory> qqAndWeChatStandardDirectories = standardDirectories.subList(
-                standardDirectoryCount - 2, standardDirectoryCount);
-        for (StandardDirectory standardDirectory : qqAndWeChatStandardDirectories) {
-            String path = getExternalStorageDirectory(standardDirectory.getRelativePath());
-            boolean isDirectory = JavaFile.isDirectory(path);
-            standardDirectory.setEnabled(isDirectory);
+    public static List<StandardDirectory> getStandardDirectories() {
+        List<StandardDirectory> standardDirectories = new ArrayList<>();
+        Map<String, StandardDirectory> defaultStandardDirectories = new LinkedHashMap<>();
+        for (StandardDirectory standardDirectory : getDefaultStandardDirectories()) {
+            defaultStandardDirectories.put(standardDirectory.getId(), standardDirectory);
         }
+        List<StandardDirectorySettings> settingsList =
+                SettingsLiveDatas.STANDARD_DIRECTORY_SETTINGS.getValue();
+        if (settingsList != null) {
+            for (StandardDirectorySettings settings : settingsList) {
+                StandardDirectory standardDirectory = defaultStandardDirectories.remove(
+                        settings.getId());
+                if (standardDirectory != null) {
+                    standardDirectories.add(standardDirectory.withSettings(settings));
+                }
+            }
+        }
+        standardDirectories.addAll(defaultStandardDirectories.values());
         return standardDirectories;
+    }
+
+    @NonNull
+    private static List<StandardDirectory> getDefaultStandardDirectories() {
+        // HACK: Enable QQ and WeChat standard directories based on whether the directory exists.
+        return Functional.map(DEFAULT_STANDARD_DIRECTORIES, standardDirectory -> {
+            switch (standardDirectory.getIconRes()) {
+                case R.drawable.qq_icon_white_24dp:
+                case R.drawable.wechat_icon_white_24dp: {
+                    String path = getExternalStorageDirectory(standardDirectory.getRelativePath());
+                    if (JavaFile.isDirectory(path)) {
+                        return standardDirectory.withSettings(standardDirectory.toSettings()
+                                .withEnabled(true));
+                    }
+                    break;
+                }
+            }
+            return standardDirectory;
+        });
     }
 
     @NonNull

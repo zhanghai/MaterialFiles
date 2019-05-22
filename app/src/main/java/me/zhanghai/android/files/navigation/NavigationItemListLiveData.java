@@ -9,9 +9,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
 public class NavigationItemListLiveData extends MediatorLiveData<List<NavigationItem>> {
 
@@ -26,10 +24,10 @@ public class NavigationItemListLiveData extends MediatorLiveData<List<Navigation
         return sInstance;
     }
 
-    public NavigationItemListLiveData() {
+    private NavigationItemListLiveData() {
         // Initialize value before we have any active observer.
         loadValue();
-        addSource(SettingsLiveDatas.STANDARD_DIRECTORIES, standardDirectories -> loadValue());
+        addSource(StandardDirectoriesLiveData.getInstance(), standardDirectories -> loadValue());
     }
 
     private void loadValue() {

@@ -36,7 +36,7 @@ interface Settings {
     EnumSettingsEntry<NightMode> NIGHT_MODE = new EnumSettingsEntry<>(R.string.pref_key_night_mode,
             R.string.pref_default_value_night_mode, NightMode.class);
 
-    StandardDirectoriesSettingsEntry STANDARD_DIRECTORIES = new StandardDirectoriesSettingsEntry(
+    StandardDirectorySettingsEntry STANDARD_DIRECTORY_SETTINGS = new StandardDirectorySettingsEntry(
             R.string.pref_key_standard_directories);
 
     StringSettingsEntry ZIP_FILE_NAME_ENCODING = new StringSettingsEntry(

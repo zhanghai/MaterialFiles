@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 import me.zhanghai.android.files.functional.Functional;
+import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData;
 import me.zhanghai.android.files.navigation.StandardDirectory;
 import me.zhanghai.android.files.util.ListFormatterCompat;
 
@@ -66,17 +67,18 @@ public class StandardDirectoriesPreference extends Preference {
     public void onAttached() {
         super.onAttached();
 
-        SettingsLiveDatas.STANDARD_DIRECTORIES.observeForever(mObserver);
+        StandardDirectoriesLiveData.getInstance().observeForever(mObserver);
     }
 
     @Override
     public void onDetached() {
         super.onDetached();
 
-        SettingsLiveDatas.STANDARD_DIRECTORIES.removeObserver(mObserver);
+        StandardDirectoriesLiveData.getInstance().removeObserver(mObserver);
     }
 
-    private void onStandardDirectoriesChanged(List<StandardDirectory> standardDirectories) {
+    private void onStandardDirectoriesChanged(
+            @NonNull List<StandardDirectory> standardDirectories) {
         Context context = getContext();
         List<String> titles = Functional.map(Functional.filter(standardDirectories,
                 StandardDirectory::isEnabled), standardDirectory -> standardDirectory.getTitle(
