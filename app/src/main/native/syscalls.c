@@ -696,7 +696,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
     (*env)->ReleaseStringUTFChars(env, javaPath, path);
     if (errno) {
         throwSyscallException(env, "opendir");
-        return NULL;
+        return (jlong) NULL;
     }
     return (jlong) dir;
 }
@@ -712,13 +712,9 @@ static jobject makeStructDirent(JNIEnv* env, const struct dirent64 *dirent) {
     jint d_reclen = dirent->d_reclen;
     jint d_type = dirent->d_type;
     jstring d_name;
-    if (dirent->d_name) {
-        d_name = (*env)->NewStringUTF(env, dirent->d_name);
-        if (!d_name) {
-            return NULL;
-        }
-    } else {
-        d_name = NULL;
+    d_name = (*env)->NewStringUTF(env, dirent->d_name);
+    if (!d_name) {
+        return NULL;
     }
     return (*env)->NewObject(env, getStructDirentClass(env), constructor, d_ino, d_off, d_reclen,
                              d_type, d_name);
