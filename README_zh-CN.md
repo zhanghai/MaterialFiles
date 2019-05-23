@@ -34,7 +34,7 @@
 
 我有时会使用文件管理器来查看或修改需要 root 权限的文件，但是心里对于授予 root 权限给闭源应用还是有些不安。毕竟 root 权限意味着对设备的完全访问权限，而这台设备每天跟随着我并且存储着我的个人信息，这样的话闭源应用实际上做了哪些事情就完全是仅仅取决于它们的良心了。
 
-因为我想要一个实现正确的文件管理器。
+因为想要一个实现正确的文件管理器。
 
 我在开始编写这个项目的代码之前参考了已有的开源应用，主要是已经停止更新的 [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) 的[源代码](https://github.com/aminb/cabinet)和 [Amaze File Manager](https://play.google.com/store/apps/details?id=com.amaze.filemanager) 的[源代码](https://github.com/TeamAmaze/AmazeFileManager)。
 
