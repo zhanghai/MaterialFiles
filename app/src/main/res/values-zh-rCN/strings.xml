@@ -256,6 +256,7 @@
             color: #e91e63;
         }
     </string>
+    <string name="about_privacy_policy_title">隐私权政策</string>
     <string name="about_author_title">作者</string>
     <string name="about_author_name_title">张海</string>
     <string name="about_author_github_title">在 GitHub 上关注</string>

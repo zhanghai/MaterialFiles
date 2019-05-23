@@ -29,6 +29,9 @@ public class AboutFragment extends Fragment {
     private static final Uri GITHUB_URI = Uri.parse(
             "https://github.com/zhanghai/MaterialFiles");
 
+    private static final Uri PRIVACY_POLICY_URI = Uri.parse(
+            "https://github.com/zhanghai/MaterialFiles/blob/master/PRIVACY.md");
+
     private static final Uri AUTHOR_GITHUB_URI = Uri.parse("https://github.com/zhanghai");
 
     private static final Uri AUTHOR_GOOGLE_PLUS_URI = Uri.parse(
@@ -40,6 +43,8 @@ public class AboutFragment extends Fragment {
     ViewGroup mGitHubLayout;
     @BindView(R.id.licenses)
     ViewGroup mLicensesLayout;
+    @BindView(R.id.privacy_policy)
+    ViewGroup mPrivacyPolicyLayout;
     @BindView(R.id.author_github)
     ViewGroup mAuthorGitHubLayout;
     @BindView(R.id.author_google_plus)
@@ -87,6 +92,8 @@ public class AboutFragment extends Fragment {
         mGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 GITHUB_URI), this));
         mLicensesLayout.setOnClickListener(view -> LicensesDialogFragment.show(this));
+        mPrivacyPolicyLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
+                PRIVACY_POLICY_URI), this));
         mAuthorGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 AUTHOR_GITHUB_URI), this));
         mAuthorGooglePlusLayout.setOnClickListener(view -> AppUtils.startActivity(

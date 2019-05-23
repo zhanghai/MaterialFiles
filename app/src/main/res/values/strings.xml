@@ -265,6 +265,7 @@
             color: #e91e63;
         }
     </string>
+    <string name="about_privacy_policy_title">Privacy policy</string>
     <string name="about_author_title">Author</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">Follow on GitHub</string>
