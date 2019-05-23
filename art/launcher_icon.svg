@@ -16,7 +16,7 @@
    version="1.1"
    id="svg8"
    sodipodi:docname="launcher_icon.svg"
-   inkscape:version="0.92.2 2405546, 2018-03-11">
+   inkscape:version="0.92.4 5da689c313, 2019-01-14">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,10 +25,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="48.782387"
-     inkscape:cy="43.717412"
+     inkscape:cx="37.14949"
+     inkscape:cy="58.620894"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g898"
      showgrid="false"
      units="px"
      inkscape:pagecheckerboard="false"
@@ -118,7 +118,7 @@
        width="2"
        height="2">
       <feFlood
-         flood-opacity="0.2"
+         flood-opacity="0.20000000000000001"
          flood-color="rgb(0,0,0)"
          result="flood"
          id="feFlood909" />
@@ -130,20 +130,68 @@
          id="feComposite911" />
       <feGaussianBlur
          in="composite1"
-         stdDeviation="2"
+         stdDeviation="1"
          result="blur"
          id="feGaussianBlur913" />
       <feOffset
          dx="0"
-         dy="2"
+         dy="0"
          result="offset"
-         id="feOffset915" />
+         id="feOffset915"
+         stdDeviation="1" />
       <feComposite
          in="SourceGraphic"
          in2="offset"
          operator="over"
          result="composite2"
-         id="feComposite917" />
+         id="feComposite917"
+         dy="1" />
+    </filter>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath849">
+      <path
+         sodipodi:nodetypes="csccssssscc"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.09999967"
+         id="path851"
+         d="m 149.8,366.19997 h -12.6 c -2.31,0 -4.2,1.89 -4.2,4.2 v 27.6 c 0,2.31 1.89,4.2 4.2,4.2 h 33.6 c 2.31,0 4.2,-1.89 4.2,-4.2 v -23.4 c 0,-2.31 -1.89,-4.2 -4.2,-4.2 H 154 Z"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <filter
+       height="2"
+       width="2"
+       y="-0.5"
+       x="-0.5"
+       id="filter849"
+       inkscape:label="Drop Shadow"
+       style="color-interpolation-filters:sRGB;">
+      <feFlood
+         id="feFlood839"
+         result="flood"
+         flood-color="rgb(0,0,0)"
+         flood-opacity="0.2" />
+      <feComposite
+         id="feComposite841"
+         result="composite1"
+         operator="in"
+         in2="SourceGraphic"
+         in="flood" />
+      <feGaussianBlur
+         id="feGaussianBlur843"
+         result="blur"
+         stdDeviation="2"
+         in="composite1" />
+      <feOffset
+         id="feOffset845"
+         result="offset"
+         dy="2"
+         dx="0" />
+      <feComposite
+         id="feComposite847"
+         result="composite2"
+         operator="over"
+         in2="offset"
+         in="SourceGraphic" />
     </filter>
   </defs>
   <metadata
@@ -192,8 +240,16 @@
          inkscape:connector-curvature="0"
          d="M 49.8,366.19997 H 37.2 c -2.31,0 -4.2,1.89 -4.2,4.2 v 27.6 c 0,2.31 1.89,4.2 4.2,4.2 h 33.6 c 2.31,0 4.2,-1.89 4.2,-4.2 v -23.4 c 0,-2.31 -1.89,-4.2 -4.2,-4.2 H 54 Z"
          id="path2"
-         style="fill:#f5f5f5;fill-opacity:1;stroke:none;stroke-width:2.09999967;filter:url(#filter919)"
+         style="fill:#f5f5f5;fill-opacity:1;stroke:none;stroke-width:2.09999967;filter:url(#filter849)"
          sodipodi:nodetypes="csccssssscc" />
+      <path
+         sodipodi:nodetypes="cccsssscc"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.09999967;filter:url(#filter919)"
+         id="path836"
+         d="m 137.2,375.59997 c -2.31,0 -4.2,1.89 -4.2,4.2 v 18.2 c 0,2.31 1.89,4.2 4.2,4.2 h 33.6 c 2.31,0 4.2,-1.89 4.2,-4.2 v -18.2 c 0,-2.31 -1.89,-4.2 -4.2,-4.2 z"
+         inkscape:connector-curvature="0"
+         clip-path="url(#clipPath849)"
+         transform="translate(-100)" />
       <rect
          style="opacity:1;fill:url(#radialGradient876);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.77952766;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect868"
