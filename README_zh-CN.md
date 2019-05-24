@@ -2,7 +2,7 @@
 
 一个开源的 Material Design 文件管理器，适用于 Android 5.0+。
 
-下载：[Google Play Beta](https://play.google.com/store/apps/details?id=me.zhanghai.android.files)（正在发布）、[APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.1/app-release.apk)
+下载：[Google Play Beta](https://play.google.com/store/apps/details?id=me.zhanghai.android.files)、[APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.1/app-release.apk)
 
 ## 预览
 
