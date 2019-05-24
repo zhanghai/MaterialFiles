@@ -4,6 +4,8 @@
 
 An open source Material Design file manager, for Android 5.0+.
 
+Download: [Google Play Beta](https://play.google.com/store/apps/details?id=me.zhanghai.android.files) (Publishing), [APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.1/app-release.apk)
+
 ## Preview
 
 <p><img src="screenshots/main.png" width="32%" /> <img src="screenshots/drawer.png" width="32%" /> <img src="screenshots/properties-basic.png" width="32%" />
