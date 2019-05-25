@@ -93,13 +93,33 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
     @Override
     public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        throw new UnsupportedOperationException();
+        ParcelableObject parcelableDirectory = new ParcelableObject(directory);
+        ParcelableFileAttributes parcelableAttributes = new ParcelableFileAttributes(attributes);
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.createDirectory(parcelableDirectory, parcelableAttributes, ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNotNull();
     }
 
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
-                                   @NonNull FileAttribute<?>... attrs) throws IOException {
-        throw new UnsupportedOperationException();
+                                   @NonNull FileAttribute<?>... attributes) throws IOException {
+        ParcelableObject parcelableLink = new ParcelableObject(link);
+        ParcelableObject parcelableTarget = new ParcelableObject(target);
+        ParcelableFileAttributes parcelableAttributes = new ParcelableFileAttributes(attributes);
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.createSymbolicLink(parcelableLink, parcelableTarget,
+                    parcelableAttributes, ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNotNull();
     }
 
     @Override

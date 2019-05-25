@@ -14,6 +14,7 @@ import java8.nio.file.FileStore;
 import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
+import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
 
 public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider.Stub {
@@ -41,6 +42,34 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             return null;
         }
         return parcelableDirectoryStream;
+    }
+
+    @Override
+    public void createDirectory(@NonNull ParcelableObject parcelableDirectory,
+                                @NonNull ParcelableFileAttributes parcelableAttributes,
+                                @NonNull ParcelableIoException ioException) {
+        Path directory = parcelableDirectory.get();
+        FileAttribute<?>[] attributes = parcelableAttributes.get();
+        try {
+            mProvider.createDirectory(directory, attributes);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
+    }
+
+    @Override
+    public void createSymbolicLink(@NonNull ParcelableObject parcelableLink,
+                                   @NonNull ParcelableObject parcelableTarget,
+                                   @NonNull ParcelableFileAttributes parcelableAttributes,
+                                   @NonNull ParcelableIoException ioException) {
+        Path link = parcelableLink.get();
+        Path target = parcelableTarget.get();
+        FileAttribute<?>[] attributes = parcelableAttributes.get();
+        try {
+            mProvider.createSymbolicLink(link, target, attributes);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
     }
 
     @Override

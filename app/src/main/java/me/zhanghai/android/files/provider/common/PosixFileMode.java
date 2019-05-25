@@ -135,7 +135,7 @@ public class PosixFileMode {
     }
 
     @NonNull
-    public static FileAttribute<Set<PosixFileModeBit>> toAttributes(
+    public static FileAttribute<Set<PosixFileModeBit>> toAttribute(
             @NonNull Set<PosixFileModeBit> mode) {
         return new PosixFileModeAttribute(mode);
     }

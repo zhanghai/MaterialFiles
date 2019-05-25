@@ -195,12 +195,12 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
 
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
-                                   @NonNull FileAttribute<?>... attrs) throws IOException {
+                                   @NonNull FileAttribute<?>... attributes) throws IOException {
         requireLinuxPath(link);
         requireLinuxPath(target);
-        Objects.requireNonNull(attrs);
-        if (attrs.length > 0) {
-            throw new UnsupportedOperationException(Arrays.toString(attrs));
+        Objects.requireNonNull(attributes);
+        if (attributes.length > 0) {
+            throw new UnsupportedOperationException(Arrays.toString(attributes));
         }
         String targetString = target.toString();
         String linkPath = link.toString();

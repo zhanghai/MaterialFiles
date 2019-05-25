@@ -1,6 +1,7 @@
 package me.zhanghai.android.files.provider.remote;
 
 import me.zhanghai.android.files.provider.remote.ParcelableDirectoryStream;
+import me.zhanghai.android.files.provider.remote.ParcelableFileAttributes;
 import me.zhanghai.android.files.provider.remote.ParcelableIoException;
 import me.zhanghai.android.files.provider.remote.ParcelableObject;
 import me.zhanghai.android.files.provider.remote.ParcelableSerializable;
@@ -9,6 +10,14 @@ interface IRemoteFileSystemProvider {
 
     ParcelableDirectoryStream newDirectoryStream(in ParcelableObject parcelableDirectory,
             in ParcelableObject parcelableFilter, out ParcelableIoException ioException);
+
+    void createDirectory(in ParcelableObject parcelableDirectory,
+            in ParcelableFileAttributes parcelableAttributes,
+            out ParcelableIoException ioException);
+
+    void createSymbolicLink(in ParcelableObject parcelableLink,
+            in ParcelableObject parcelableTarget, in ParcelableFileAttributes parcelableAttributes,
+            out ParcelableIoException ioException);
 
     void createLink(in ParcelableObject parcelableLink, in ParcelableObject parcelableExisting,
             out ParcelableIoException ioException);
