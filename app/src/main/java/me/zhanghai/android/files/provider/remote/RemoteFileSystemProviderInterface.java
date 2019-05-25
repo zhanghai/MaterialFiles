@@ -69,7 +69,7 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     @Override
     public ParcelableObject readSymbolicLink(@NonNull ParcelableObject parcelableLink,
-                                           @NonNull ParcelableIoException ioException) {
+                                             @NonNull ParcelableIoException ioException) {
         Path link = parcelableLink.get();
         Path target;
         try {
@@ -124,10 +124,10 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     @Override
     public void checkAccess(@NonNull ParcelableObject parcelablePath,
-                            @NonNull ParcelableAccessModes parcelableModes,
+                            @NonNull SerializableObject serializableModes,
                             @NonNull ParcelableIoException ioException) {
         Path path = parcelablePath.get();
-        AccessMode[] modes = parcelableModes.get();
+        AccessMode[] modes = serializableModes.get();
         try {
             mProvider.checkAccess(path, modes);
         } catch (IOException e) {
@@ -139,11 +139,11 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
     @Override
     public ParcelableObject readAttributes(@NonNull ParcelableObject parcelablePath,
                                            @NonNull SerializableObject serializableType,
-                                           @NonNull ParcelableLinkOptions parcelableOptions,
+                                           @NonNull SerializableObject serializableOptions,
                                            @NonNull ParcelableIoException ioException) {
         Path path = parcelablePath.get();
         Class<? extends BasicFileAttributes> type = serializableType.get();
-        LinkOption[] options = parcelableOptions.get();
+        LinkOption[] options = serializableOptions.get();
         BasicFileAttributes attributes;
         try {
             attributes = mProvider.readAttributes(path, type, options);

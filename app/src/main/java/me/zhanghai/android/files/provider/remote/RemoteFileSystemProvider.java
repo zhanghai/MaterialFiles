@@ -207,11 +207,11 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
     @Override
     public void checkAccess(@NonNull Path path, @NonNull AccessMode... modes) throws IOException {
         ParcelableObject parcelablePath = new ParcelableObject(path);
-        ParcelableAccessModes parcelableModes = new ParcelableAccessModes(modes);
+        SerializableObject serializableModes = new SerializableObject(modes);
         ParcelableIoException ioException = new ParcelableIoException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
         try {
-            remoteInterface.checkAccess(parcelablePath, parcelableModes, ioException);
+            remoteInterface.checkAccess(parcelablePath, serializableModes, ioException);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
@@ -226,13 +226,13 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
             throws IOException {
         ParcelableObject parcelablePath = new ParcelableObject(path);
         SerializableObject serializableType = new SerializableObject(type);
-        ParcelableLinkOptions parcelableOptions = new ParcelableLinkOptions(options);
+        SerializableObject serializableOptions = new SerializableObject(options);
         ParcelableIoException ioException = new ParcelableIoException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
         ParcelableObject parcelableAttributes;
         try {
             parcelableAttributes = remoteInterface.readAttributes(parcelablePath, serializableType,
-                    parcelableOptions, ioException);
+                    serializableOptions, ioException);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
