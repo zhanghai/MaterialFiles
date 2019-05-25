@@ -168,13 +168,35 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
     @Override
     public void copy(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
             throws IOException {
-        throw new UnsupportedOperationException();
+        ParcelableObject parcelableSource = new ParcelableObject(source);
+        ParcelableObject parcelableTarget = new ParcelableObject(target);
+        ParcelableCopyOptions parcelableOptions = new ParcelableCopyOptions(options);
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.copy(parcelableSource, parcelableTarget, parcelableOptions,
+                    ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNotNull();
     }
 
     @Override
     public void move(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
             throws IOException  {
-        throw new UnsupportedOperationException();
+        ParcelableObject parcelableSource = new ParcelableObject(source);
+        ParcelableObject parcelableTarget = new ParcelableObject(target);
+        ParcelableCopyOptions parcelableOptions = new ParcelableCopyOptions(options);
+        ParcelableIoException ioException = new ParcelableIoException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        try {
+            remoteInterface.move(parcelableSource, parcelableTarget, parcelableOptions,
+                    ioException);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        ioException.throwIfNotNull();
     }
 
     @Override

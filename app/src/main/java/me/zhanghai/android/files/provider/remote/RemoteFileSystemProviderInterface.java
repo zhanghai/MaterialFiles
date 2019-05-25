@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.AccessMode;
+import java8.nio.file.CopyOption;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileStore;
 import java8.nio.file.LinkOption;
@@ -108,6 +109,36 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             return null;
         }
         return new ParcelableObject(target);
+    }
+
+    @Override
+    public void copy(@NonNull ParcelableObject parcelableSource,
+                     @NonNull ParcelableObject parcelableTarget,
+                     @NonNull ParcelableCopyOptions parcelableOptions,
+                     @NonNull ParcelableIoException ioException) {
+        Path source = parcelableSource.get();
+        Path target = parcelableTarget.get();
+        CopyOption[] options = parcelableOptions.get();
+        try {
+            mProvider.copy(source, target, options);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
+    }
+
+    @Override
+    public void move(@NonNull ParcelableObject parcelableSource,
+                     @NonNull ParcelableObject parcelableTarget,
+                     @NonNull ParcelableCopyOptions parcelableOptions,
+                     @NonNull ParcelableIoException ioException) {
+        Path source = parcelableSource.get();
+        Path target = parcelableTarget.get();
+        CopyOption[] options = parcelableOptions.get();
+        try {
+            mProvider.move(source, target, options);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
     }
 
     @Override
