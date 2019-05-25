@@ -50,6 +50,13 @@
     </notice>
 
     <notice>
+        <name>librootjava</name>
+        <url>https://github.com/Chainfire/librootjava</url>
+        <copyright>Copyright 2018 Jorrit "Chainfire" Jongma</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>libsuperuser</name>
         <url>https://github.com/Chainfire/libsuperuser</url>
         <copyright>Copyright 2012 Jorrit "Chainfire" Jongma</copyright>
@@ -59,14 +66,21 @@
     <notice>
         <name>EffortlessPermissions</name>
         <url>https://github.com/zhanghai/EffortlessPermissions</url>
-        <copyright>Copyright 2017 Zhang Hai</copyright>
+        <copyright>Copyright 2017 Hai Zhang</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>libselinux-android</name>
+        <url>https://github.com/zhanghai/libselinux-android</url>
+        <copyright>Copyright 2019 Hai Zhang</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 
     <notice>
         <name>MaterialEditText</name>
         <url>https://github.com/zhanghai/MaterialEditText</url>
-        <copyright>Copyright 2015 Zhang Hai</copyright>
+        <copyright>Copyright 2015 Hai Zhang</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 
