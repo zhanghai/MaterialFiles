@@ -60,7 +60,7 @@ public final class RemoteCallback implements Parcelable {
         }
     };
 
-    private RemoteCallback(@NonNull Parcel parcel) {
+    private RemoteCallback(Parcel parcel) {
         mListener = null;
         mRemoteListener = IRemoteCallback.Stub.asInterface(parcel.readStrongBinder());
     }
