@@ -20,10 +20,11 @@ public class ParcelableObject implements Parcelable {
     }
 
     @Nullable
-    public <T> T get() {
+    public <T extends Parcelable> T get() {
         //noinspection unchecked
         return (T) mObject;
     }
+
 
     public static final Creator<ParcelableObject> CREATOR =
             new Creator<ParcelableObject>() {

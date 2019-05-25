@@ -207,11 +207,11 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
     @Override
     public void checkAccess(@NonNull Path path, @NonNull AccessMode... modes) throws IOException {
         ParcelableObject parcelablePath = new ParcelableObject(path);
-        SerializableObject serializableModes = new SerializableObject(modes);
+        ParcelableSerializable parcelableModes = new ParcelableSerializable(modes);
         ParcelableIoException ioException = new ParcelableIoException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
         try {
-            remoteInterface.checkAccess(parcelablePath, serializableModes, ioException);
+            remoteInterface.checkAccess(parcelablePath, parcelableModes, ioException);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
@@ -225,14 +225,14 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
                                                             @NonNull LinkOption... options)
             throws IOException {
         ParcelableObject parcelablePath = new ParcelableObject(path);
-        SerializableObject serializableType = new SerializableObject(type);
-        SerializableObject serializableOptions = new SerializableObject(options);
+        ParcelableSerializable parcelableType = new ParcelableSerializable(type);
+        ParcelableSerializable parcelableOptions = new ParcelableSerializable(options);
         ParcelableIoException ioException = new ParcelableIoException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
         ParcelableObject parcelableAttributes;
         try {
-            parcelableAttributes = remoteInterface.readAttributes(parcelablePath, serializableType,
-                    serializableOptions, ioException);
+            parcelableAttributes = remoteInterface.readAttributes(parcelablePath, parcelableType,
+                    parcelableOptions, ioException);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }

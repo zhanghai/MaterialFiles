@@ -124,10 +124,10 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     @Override
     public void checkAccess(@NonNull ParcelableObject parcelablePath,
-                            @NonNull SerializableObject serializableModes,
+                            @NonNull ParcelableSerializable parcelableModes,
                             @NonNull ParcelableIoException ioException) {
         Path path = parcelablePath.get();
-        AccessMode[] modes = serializableModes.get();
+        AccessMode[] modes = parcelableModes.get();
         try {
             mProvider.checkAccess(path, modes);
         } catch (IOException e) {
@@ -138,12 +138,12 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
     @NonNull
     @Override
     public ParcelableObject readAttributes(@NonNull ParcelableObject parcelablePath,
-                                           @NonNull SerializableObject serializableType,
-                                           @NonNull SerializableObject serializableOptions,
+                                           @NonNull ParcelableSerializable parcelableType,
+                                           @NonNull ParcelableSerializable parcelableOptions,
                                            @NonNull ParcelableIoException ioException) {
         Path path = parcelablePath.get();
-        Class<? extends BasicFileAttributes> type = serializableType.get();
-        LinkOption[] options = serializableOptions.get();
+        Class<? extends BasicFileAttributes> type = parcelableType.get();
+        LinkOption[] options = parcelableOptions.get();
         BasicFileAttributes attributes;
         try {
             attributes = mProvider.readAttributes(path, type, options);
