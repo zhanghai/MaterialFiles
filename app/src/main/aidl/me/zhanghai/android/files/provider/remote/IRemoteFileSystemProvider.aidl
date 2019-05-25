@@ -12,6 +12,11 @@ interface IRemoteFileSystemProvider {
     ParcelableDirectoryStream newDirectoryStream(in ParcelableObject parcelableDirectory,
             in ParcelableObject parcelableFilter, out ParcelableIoException ioException);
 
+    void createLink(in ParcelableObject parcelableLink, in ParcelableObject parcelableExisting,
+            out ParcelableIoException ioException);
+
+    void delete(in ParcelableObject parcelablePath, out ParcelableIoException ioException);
+
     ParcelableObject readSymbolicLink(in ParcelableObject parcelableLink,
             out ParcelableIoException ioException);
 

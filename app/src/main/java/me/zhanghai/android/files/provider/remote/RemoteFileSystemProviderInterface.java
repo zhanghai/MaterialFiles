@@ -44,6 +44,30 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
     }
 
     @Override
+    public void createLink(@NonNull ParcelableObject parcelableLink,
+                           @NonNull ParcelableObject parcelableExisting,
+                           @NonNull ParcelableIoException ioException) {
+        Path link = parcelableLink.get();
+        Path existing = parcelableExisting.get();
+        try {
+            mProvider.createLink(link, existing);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
+    }
+
+    @Override
+    public void delete(@NonNull ParcelableObject parcelablePath,
+                       @NonNull ParcelableIoException ioException) {
+        Path path = parcelablePath.get();
+        try {
+            mProvider.delete(path);
+        } catch (IOException e) {
+            ioException.set(e);
+        }
+    }
+
+    @Override
     public ParcelableObject readSymbolicLink(@NonNull ParcelableObject parcelableLink,
                                            @NonNull ParcelableIoException ioException) {
         Path link = parcelableLink.get();
