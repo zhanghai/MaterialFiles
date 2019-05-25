@@ -59,7 +59,7 @@ public abstract class RemoteFileStore extends FileStore implements Parcelable {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return totalSpace;
     }
 
@@ -72,7 +72,7 @@ public abstract class RemoteFileStore extends FileStore implements Parcelable {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return usableSpace;
     }
 
@@ -85,7 +85,7 @@ public abstract class RemoteFileStore extends FileStore implements Parcelable {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return unallocatedSpace;
     }
 

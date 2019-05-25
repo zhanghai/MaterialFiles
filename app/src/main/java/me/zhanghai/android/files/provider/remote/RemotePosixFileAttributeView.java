@@ -43,7 +43,7 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return parcelableAttributes.get();
     }
 
@@ -61,7 +61,7 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     @Override
@@ -73,7 +73,7 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     @Override
@@ -85,7 +85,7 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     public void setMode(@NonNull Set<PosixFileModeBit> mode) throws IOException {
@@ -97,7 +97,7 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     public void setSeLinuxContext(@NonNull String context) throws IOException {
@@ -108,7 +108,7 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     public void restoreSeLinuxContext() throws IOException {
@@ -119,6 +119,6 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 }

@@ -86,7 +86,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return parcelableDirectoryStream.get();
     }
 
@@ -124,7 +124,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return parcelableTarget.get();
     }
 
@@ -152,7 +152,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return isSameFile;
     }
 
@@ -167,7 +167,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return isHidden;
     }
 
@@ -183,7 +183,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return parcelableFileStore.get();
     }
 
@@ -198,7 +198,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     @NonNull
@@ -219,7 +219,7 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
         return parcelableAttributes.get();
     }
 

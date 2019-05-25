@@ -27,7 +27,7 @@ public class ParcelableIoException implements Parcelable {
         mIoException = ioException;
     }
 
-    public void throwIfNonNull() throws IOException {
+    public void throwIfNotNull() throws IOException {
         if (mIoException != null) {
             throw mIoException;
         }

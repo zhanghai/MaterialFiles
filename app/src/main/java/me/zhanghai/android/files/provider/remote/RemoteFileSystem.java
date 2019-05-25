@@ -33,7 +33,7 @@ public abstract class RemoteFileSystem extends FileSystem {
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNonNull();
+        ioException.throwIfNotNull();
     }
 
     protected boolean hasRemoteInterface() {
