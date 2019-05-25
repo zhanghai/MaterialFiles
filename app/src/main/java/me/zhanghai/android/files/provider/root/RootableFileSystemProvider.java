@@ -83,17 +83,17 @@ public class RootableFileSystemProvider extends FileSystemProvider {
     @Override
     public FileChannel newFileChannel(@NonNull Path path,
                                       @NonNull Set<? extends OpenOption> options,
-                                      @NonNull FileAttribute<?>... attrs) throws IOException {
-        return applyRootable(path, provider -> provider.newFileChannel(path, options, attrs));
+                                      @NonNull FileAttribute<?>... attributes) throws IOException {
+        return applyRootable(path, provider -> provider.newFileChannel(path, options, attributes));
     }
 
     @NonNull
     @Override
     public SeekableByteChannel newByteChannel(@NonNull Path path,
                                               @NonNull Set<? extends OpenOption> options,
-                                              @NonNull FileAttribute<?>... attrs)
+                                              @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        return applyRootable(path, provider -> provider.newByteChannel(path, options, attrs));
+        return applyRootable(path, provider -> provider.newByteChannel(path, options, attributes));
     }
 
     @NonNull
@@ -105,15 +105,16 @@ public class RootableFileSystemProvider extends FileSystemProvider {
     }
 
     @Override
-    public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attrs)
+    public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        acceptRootable(directory, provider -> provider.createDirectory(directory, attrs));
+        acceptRootable(directory, provider -> provider.createDirectory(directory, attributes));
     }
 
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
-                                   @NonNull FileAttribute<?>... attrs) throws IOException {
-        acceptRootable(link, target, provider -> provider.createSymbolicLink(link, target, attrs));
+                                   @NonNull FileAttribute<?>... attributes) throws IOException {
+        acceptRootable(link, target, provider -> provider.createSymbolicLink(link, target,
+                attributes));
     }
 
     @Override

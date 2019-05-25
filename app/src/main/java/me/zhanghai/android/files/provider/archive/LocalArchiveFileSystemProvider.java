@@ -215,10 +215,10 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
 
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
-                                   @NonNull FileAttribute<?>... attrs) {
+                                   @NonNull FileAttribute<?>... attributes) {
         requireArchivePath(link);
         requireArchivePath(target);
-        Objects.requireNonNull(attrs);
+        Objects.requireNonNull(attributes);
         throw new ReadOnlyFileSystemException();
     }
 
