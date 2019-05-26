@@ -6,6 +6,7 @@ import me.zhanghai.android.files.provider.remote.ParcelableFileAttributes;
 import me.zhanghai.android.files.provider.remote.ParcelableIoException;
 import me.zhanghai.android.files.provider.remote.ParcelableObject;
 import me.zhanghai.android.files.provider.remote.ParcelableSerializable;
+import me.zhanghai.android.files.util.RemoteCallback;
 
 interface IRemoteFileSystemProvider {
 
@@ -28,11 +29,11 @@ interface IRemoteFileSystemProvider {
     ParcelableObject readSymbolicLink(in ParcelableObject parcelableLink,
             out ParcelableIoException ioException);
 
-    void copy(in ParcelableObject parcelableSource, in ParcelableObject parcelableTarget,
-            in ParcelableCopyOptions parcelableOptions, out ParcelableIoException ioException);
+    RemoteCallback copy(in ParcelableObject parcelableSource, in ParcelableObject parcelableTarget,
+            in ParcelableCopyOptions parcelableOptions, in RemoteCallback callback);
 
-    void move(in ParcelableObject parcelableSource, in ParcelableObject parcelableTarget,
-            in ParcelableCopyOptions parcelableOptions, out ParcelableIoException ioException);
+    RemoteCallback move(in ParcelableObject parcelableSource, in ParcelableObject parcelableTarget,
+            in ParcelableCopyOptions parcelableOptions, in RemoteCallback callback);
 
     boolean isSameFile(in ParcelableObject parcelablePath, in ParcelableObject parcelablePath2,
             out ParcelableIoException ioException);

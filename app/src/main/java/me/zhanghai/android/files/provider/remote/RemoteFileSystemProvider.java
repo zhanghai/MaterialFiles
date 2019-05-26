@@ -11,8 +11,10 @@ import android.os.RemoteException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
 import java8.nio.channels.FileChannel;
@@ -28,6 +30,8 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.promise.Promise;
+import me.zhanghai.android.files.util.RemoteCallback;
 
 public abstract class RemoteFileSystemProvider extends FileSystemProvider {
 
@@ -171,15 +175,35 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         ParcelableObject parcelableSource = new ParcelableObject(source);
         ParcelableObject parcelableTarget = new ParcelableObject(target);
         ParcelableCopyOptions parcelableOptions = new ParcelableCopyOptions(options);
-        ParcelableIoException ioException = new ParcelableIoException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        RemoteCallback[] interruptible = new RemoteCallback[1];
+        Promise<Void> promise = new Promise<>(settler -> {
+            RemoteCallback callback = new RemoteCallback(result -> {
+                if (result == null) {
+                    settler.resolve(null);
+                } else {
+                    IOException exception = (IOException) result.getSerializable(
+                            RemoteFileSystemProviderInterface.KEY_IO_EXCEPTION);
+                    settler.reject(exception);
+                }
+            });
+            try {
+                interruptible[0] = remoteInterface.copy(parcelableSource, parcelableTarget,
+                        parcelableOptions, callback);
+            } catch (RemoteException e) {
+                throw new RemoteFileSystemException(e);
+            }
+        });
         try {
-            remoteInterface.copy(parcelableSource, parcelableTarget, parcelableOptions,
-                    ioException);
-        } catch (RemoteException e) {
-            throw new RemoteFileSystemException(e);
+            promise.await();
+        } catch (ExecutionException e) {
+            throw (IOException) e.getCause();
+        } catch (InterruptedException e) {
+            interruptible[0].sendResult(null);
+            InterruptedIOException exception = new InterruptedIOException();
+            exception.initCause(e);
+            throw exception;
         }
-        ioException.throwIfNotNull();
     }
 
     @Override
@@ -188,15 +212,35 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         ParcelableObject parcelableSource = new ParcelableObject(source);
         ParcelableObject parcelableTarget = new ParcelableObject(target);
         ParcelableCopyOptions parcelableOptions = new ParcelableCopyOptions(options);
-        ParcelableIoException ioException = new ParcelableIoException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        RemoteCallback[] interruptible = new RemoteCallback[1];
+        Promise<Void> promise = new Promise<>(settler -> {
+            RemoteCallback callback = new RemoteCallback(result -> {
+                if (result == null) {
+                    settler.resolve(null);
+                } else {
+                    IOException exception = (IOException) result.getSerializable(
+                            RemoteFileSystemProviderInterface.KEY_IO_EXCEPTION);
+                    settler.reject(exception);
+                }
+            });
+            try {
+                interruptible[0] = remoteInterface.move(parcelableSource, parcelableTarget,
+                        parcelableOptions, callback);
+            } catch (RemoteException e) {
+                throw new RemoteFileSystemException(e);
+            }
+        });
         try {
-            remoteInterface.move(parcelableSource, parcelableTarget, parcelableOptions,
-                    ioException);
-        } catch (RemoteException e) {
-            throw new RemoteFileSystemException(e);
+            promise.await();
+        } catch (ExecutionException e) {
+            throw (IOException) e.getCause();
+        } catch (InterruptedException e) {
+            interruptible[0].sendResult(null);
+            InterruptedIOException exception = new InterruptedIOException();
+            exception.initCause(e);
+            throw exception;
         }
-        ioException.throwIfNotNull();
     }
 
     @Override

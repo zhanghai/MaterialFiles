@@ -6,6 +6,9 @@
 package me.zhanghai.android.files.provider.remote;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.AccessMode;
@@ -17,11 +20,21 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.util.BundleBuilder;
+import me.zhanghai.android.files.util.RemoteCallback;
 
 public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider.Stub {
 
+    private static final String KEY_PREFIX = RemoteFileSystemProviderInterface.class.getName()
+            + '.';
+
+    static final String KEY_IO_EXCEPTION = KEY_PREFIX + "IO_EXCEPTION";
+
     @NonNull
     private final FileSystemProvider mProvider;
+
+    @NonNull
+    private final ExecutorService mExecutorService = Executors.newCachedThreadPool();
 
     public RemoteFileSystemProviderInterface(@NonNull FileSystemProvider provider) {
         mProvider = provider;
@@ -111,34 +124,50 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
         return new ParcelableObject(target);
     }
 
+    @NonNull
     @Override
-    public void copy(@NonNull ParcelableObject parcelableSource,
-                     @NonNull ParcelableObject parcelableTarget,
-                     @NonNull ParcelableCopyOptions parcelableOptions,
-                     @NonNull ParcelableIoException ioException) {
+    public RemoteCallback copy(@NonNull ParcelableObject parcelableSource,
+                               @NonNull ParcelableObject parcelableTarget,
+                               @NonNull ParcelableCopyOptions parcelableOptions,
+                               @NonNull RemoteCallback callback) {
         Path source = parcelableSource.get();
         Path target = parcelableTarget.get();
         CopyOption[] options = parcelableOptions.get();
-        try {
-            mProvider.copy(source, target, options);
-        } catch (IOException e) {
-            ioException.set(e);
-        }
+        Future<Void> future = mExecutorService.submit(() -> {
+            try {
+                mProvider.copy(source, target, options);
+                callback.sendResult(null);
+            } catch (IOException e) {
+                callback.sendResult(new BundleBuilder()
+                        .putSerializable(KEY_IO_EXCEPTION, e)
+                        .build());
+            }
+            return null;
+        });
+        return new RemoteCallback(result -> future.cancel(true));
     }
 
+    @NonNull
     @Override
-    public void move(@NonNull ParcelableObject parcelableSource,
-                     @NonNull ParcelableObject parcelableTarget,
-                     @NonNull ParcelableCopyOptions parcelableOptions,
-                     @NonNull ParcelableIoException ioException) {
+    public RemoteCallback move(@NonNull ParcelableObject parcelableSource,
+                               @NonNull ParcelableObject parcelableTarget,
+                               @NonNull ParcelableCopyOptions parcelableOptions,
+                               @NonNull RemoteCallback callback) {
         Path source = parcelableSource.get();
         Path target = parcelableTarget.get();
         CopyOption[] options = parcelableOptions.get();
-        try {
-            mProvider.move(source, target, options);
-        } catch (IOException e) {
-            ioException.set(e);
-        }
+        Future<Void> future = mExecutorService.submit(() -> {
+            try {
+                mProvider.move(source, target, options);
+                callback.sendResult(null);
+            } catch (IOException e) {
+                callback.sendResult(new BundleBuilder()
+                        .putSerializable(KEY_IO_EXCEPTION, e)
+                        .build());
+            }
+            return null;
+        });
+        return new RemoteCallback(result -> future.cancel(true));
     }
 
     @Override
