@@ -1,12 +1,12 @@
 package me.zhanghai.android.files.provider.remote;
 
-import me.zhanghai.android.files.provider.remote.ParcelableIoException;
+import me.zhanghai.android.files.provider.remote.ParcelableException;
 
 interface IRemoteFileStore {
 
-    long getTotalSpace(out ParcelableIoException ioException);
+    long getTotalSpace(out ParcelableException exception);
 
-    long getUsableSpace(out ParcelableIoException ioException);
+    long getUsableSpace(out ParcelableException exception);
 
-    long getUnallocatedSpace(out ParcelableIoException ioException);
+    long getUnallocatedSpace(out ParcelableException exception);
 }

@@ -26,14 +26,14 @@ public abstract class RemoteFileSystem extends FileSystem {
         if (!mRemoteInterface.has()) {
             return;
         }
-        ParcelableIoException ioException = new ParcelableIoException();
+        ParcelableException exception = new ParcelableException();
         IRemoteFileSystem remoteInterface = mRemoteInterface.get();
         try {
-            remoteInterface.close(ioException);
+            remoteInterface.close(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNotNull();
+        exception.throwIfNotNull();
     }
 
     protected boolean hasRemoteInterface() {

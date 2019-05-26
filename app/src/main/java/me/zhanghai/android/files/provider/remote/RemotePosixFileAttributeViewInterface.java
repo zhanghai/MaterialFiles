@@ -29,12 +29,12 @@ public class RemotePosixFileAttributeViewInterface extends IRemotePosixFileAttri
 
     @NonNull
     @Override
-    public ParcelableObject readAttributes(@NonNull ParcelableIoException ioException) {
+    public ParcelableObject readAttributes(@NonNull ParcelableException exception) {
         PosixFileAttributes attributes;
         try {
             attributes = mAttributeView.readAttributes();
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
             return null;
         }
         return new ParcelableObject(attributes);
@@ -44,62 +44,62 @@ public class RemotePosixFileAttributeViewInterface extends IRemotePosixFileAttri
     public void setTimes(@NonNull ParcelableFileTime parcelableLastModifiedTime,
                          @NonNull ParcelableFileTime parcelableLastAccessTime,
                          @NonNull ParcelableFileTime parcelableCreateTime,
-                         @NonNull ParcelableIoException ioException) {
+                         @NonNull ParcelableException exception) {
         FileTime lastModifiedTime = parcelableLastModifiedTime.get();
         FileTime lastAccessTime = parcelableLastAccessTime.get();
         FileTime createTime = parcelableCreateTime.get();
         try {
             mAttributeView.setTimes(lastModifiedTime, lastAccessTime, createTime);
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 
     @Override
-    public void setOwner(@NonNull PosixUser owner, @NonNull ParcelableIoException ioException) {
+    public void setOwner(@NonNull PosixUser owner, @NonNull ParcelableException exception) {
         try {
             mAttributeView.setOwner(owner);
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 
     @Override
-    public void setGroup(@NonNull PosixGroup group, @NonNull ParcelableIoException ioException) {
+    public void setGroup(@NonNull PosixGroup group, @NonNull ParcelableException exception) {
         try {
             mAttributeView.setGroup(group);
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 
     @Override
     public void setMode(@NonNull ParcelablePosixFileMode parcelableMode,
-                        @NonNull ParcelableIoException ioException) {
+                        @NonNull ParcelableException exception) {
         Set<PosixFileModeBit> mode = parcelableMode.get();
         try {
             mAttributeView.setMode(mode);
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 
     @Override
     public void setSeLinuxContext(@NonNull String context,
-                                  @NonNull ParcelableIoException ioException) {
+                                  @NonNull ParcelableException exception) {
         try {
             mAttributeView.setSeLinuxContext(context);
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 
     @Override
-    public void restoreSeLinuxContext(@NonNull ParcelableIoException ioException) {
+    public void restoreSeLinuxContext(@NonNull ParcelableException exception) {
         try {
             mAttributeView.restoreSeLinuxContext();
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 }

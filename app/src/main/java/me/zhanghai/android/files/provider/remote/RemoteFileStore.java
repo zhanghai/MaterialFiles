@@ -52,40 +52,40 @@ public abstract class RemoteFileStore extends FileStore implements Parcelable {
 
     @Override
     public long getTotalSpace() throws IOException {
-        ParcelableIoException ioException = new ParcelableIoException();
+        ParcelableException exception = new ParcelableException();
         long totalSpace;
         try {
-            totalSpace = mRemoteInterface.getTotalSpace(ioException);
+            totalSpace = mRemoteInterface.getTotalSpace(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNotNull();
+        exception.throwIfNotNull();
         return totalSpace;
     }
 
     @Override
     public long getUsableSpace() throws IOException {
-        ParcelableIoException ioException = new ParcelableIoException();
+        ParcelableException exception = new ParcelableException();
         long usableSpace;
         try {
-            usableSpace = mRemoteInterface.getUsableSpace(ioException);
+            usableSpace = mRemoteInterface.getUsableSpace(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNotNull();
+        exception.throwIfNotNull();
         return usableSpace;
     }
 
     @Override
     public long getUnallocatedSpace() throws IOException {
-        ParcelableIoException ioException = new ParcelableIoException();
+        ParcelableException exception = new ParcelableException();
         long unallocatedSpace;
         try {
-            unallocatedSpace = mRemoteInterface.getUnallocatedSpace(ioException);
+            unallocatedSpace = mRemoteInterface.getUnallocatedSpace(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
-        ioException.throwIfNotNull();
+        exception.throwIfNotNull();
         return unallocatedSpace;
     }
 

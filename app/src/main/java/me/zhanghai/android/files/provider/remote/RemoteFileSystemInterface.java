@@ -20,11 +20,11 @@ public class RemoteFileSystemInterface extends IRemoteFileSystem.Stub {
     }
 
     @Override
-    public void close(@NonNull ParcelableIoException ioException) {
+    public void close(@NonNull ParcelableException exception) {
         try {
             mFileSystem.close();
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
         }
     }
 }

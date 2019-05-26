@@ -20,36 +20,36 @@ public class RemoteFileStoreInterface extends IRemoteFileStore.Stub {
     }
 
     @Override
-    public long getTotalSpace(@NonNull ParcelableIoException ioException) {
+    public long getTotalSpace(@NonNull ParcelableException exception) {
         long totalSpace;
         try {
             totalSpace = mFileStore.getTotalSpace();
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
             return 0;
         }
         return totalSpace;
     }
 
     @Override
-    public long getUsableSpace(@NonNull ParcelableIoException ioException) {
+    public long getUsableSpace(@NonNull ParcelableException exception) {
         long usableSpace;
         try {
             usableSpace = mFileStore.getUsableSpace();
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
             return 0;
         }
         return usableSpace;
     }
 
     @Override
-    public long getUnallocatedSpace(@NonNull ParcelableIoException ioException) {
+    public long getUnallocatedSpace(@NonNull ParcelableException exception) {
         long unallocatedSpace;
         try {
             unallocatedSpace = mFileStore.getUnallocatedSpace();
-        } catch (IOException e) {
-            ioException.set(e);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
             return 0;
         }
         return unallocatedSpace;

@@ -4,24 +4,24 @@ import me.zhanghai.android.files.provider.common.ParcelableFileTime;
 import me.zhanghai.android.files.provider.common.ParcelablePosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
-import me.zhanghai.android.files.provider.remote.ParcelableIoException;
+import me.zhanghai.android.files.provider.remote.ParcelableException;
 import me.zhanghai.android.files.provider.remote.ParcelableObject;
 
 interface IRemotePosixFileAttributeView {
 
-    ParcelableObject readAttributes(out ParcelableIoException ioException);
+    ParcelableObject readAttributes(out ParcelableException exception);
 
     void setTimes(in ParcelableFileTime parcelableLastModifiedTime,
             in ParcelableFileTime parcelableLastAccessTime,
-            in ParcelableFileTime parcelableCreateTime, out ParcelableIoException ioException);
+            in ParcelableFileTime parcelableCreateTime, out ParcelableException exception);
 
-    void setOwner(in PosixUser owner, out ParcelableIoException ioException);
+    void setOwner(in PosixUser owner, out ParcelableException exception);
 
-    void setGroup(in PosixGroup group, out ParcelableIoException ioException);
+    void setGroup(in PosixGroup group, out ParcelableException exception);
 
-    void setMode(in ParcelablePosixFileMode parcelableMode, out ParcelableIoException ioException);
+    void setMode(in ParcelablePosixFileMode parcelableMode, out ParcelableException exception);
 
-    void setSeLinuxContext(in String context, out ParcelableIoException ioException);
+    void setSeLinuxContext(in String context, out ParcelableException exception);
 
-    void restoreSeLinuxContext(out ParcelableIoException ioException);
+    void restoreSeLinuxContext(out ParcelableException exception);
 }

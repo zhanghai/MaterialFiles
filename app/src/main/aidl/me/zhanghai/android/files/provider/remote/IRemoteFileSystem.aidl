@@ -1,8 +1,8 @@
 package me.zhanghai.android.files.provider.remote;
 
-import me.zhanghai.android.files.provider.remote.ParcelableIoException;
+import me.zhanghai.android.files.provider.remote.ParcelableException;
 
 interface IRemoteFileSystem {
 
-    void close(out ParcelableIoException ioException);
+    void close(out ParcelableException exception);
 }
