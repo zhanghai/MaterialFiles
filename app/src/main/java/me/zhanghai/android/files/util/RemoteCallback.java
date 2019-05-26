@@ -15,10 +15,6 @@ import androidx.annotation.Nullable;
 
 public final class RemoteCallback implements Parcelable {
 
-    public interface Listener {
-        void onResult(Bundle result);
-    }
-
     @Nullable
     private final Listener mListener;
     @Nullable
@@ -39,6 +35,10 @@ public final class RemoteCallback implements Parcelable {
         } else {
             mListener.onResult(result);
         }
+    }
+
+    public interface Listener {
+        void onResult(Bundle result);
     }
 
     private class Stub extends IRemoteCallback.Stub {

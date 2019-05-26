@@ -16,11 +16,11 @@ import me.zhanghai.android.files.util.RemoteCallback;
 
 public class ProgressCopyOption implements CopyOption, Parcelable {
 
-    public static final int DEFAULT_INTERVAL_MILLIS = 200;
-
     private static final String KEY_PREFIX = ProgressCopyOption.class.getName() + '.';
 
     private static final String KEY_COPIED_SIZE = KEY_PREFIX + "COPIED_SIZE";
+
+    private static final int DEFAULT_INTERVAL_MILLIS = 200;
 
     @NonNull
     private final LongConsumer mListener;
@@ -59,8 +59,9 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
 
     protected ProgressCopyOption(Parcel in) {
         RemoteCallback remoteCallback = in.readParcelable(RemoteCallback.class.getClassLoader());
-        mListener = copiedSize -> remoteCallback.sendResult(new BundleBuilder().putLong(
-                KEY_COPIED_SIZE, copiedSize).build());
+        mListener = copiedSize -> remoteCallback.sendResult(new BundleBuilder()
+                .putLong(KEY_COPIED_SIZE, copiedSize)
+                .build());
         mIntervalMillis = in.readInt();
     }
 

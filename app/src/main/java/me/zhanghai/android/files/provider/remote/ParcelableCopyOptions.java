@@ -56,7 +56,7 @@ public class ParcelableCopyOptions implements Parcelable {
                     mCopyOptions[i] = (CopyOption) in.readSerializable();
                     break;
                 default:
-                    throw new UnsupportedOperationException("type " + type);
+                    throw new AssertionError("type " + type);
             }
         }
     }
