@@ -56,15 +56,7 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
         RemoteSeekableByteChannel remoteChannel;
         try {
             SeekableByteChannel channel = mProvider.newByteChannel(file, options, attributes);
-            boolean successful = false;
-            try {
-                remoteChannel = new RemoteSeekableByteChannel(channel);
-                successful = true;
-            } finally {
-                if (!successful) {
-                    channel.close();
-                }
-            }
+            remoteChannel = new RemoteSeekableByteChannel(channel);
         } catch (IOException | RuntimeException e) {
             exception.set(e);
             return null;

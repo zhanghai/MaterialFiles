@@ -4,9 +4,9 @@ import me.zhanghai.android.files.provider.remote.ParcelableException;
 
 interface IRemoteSeekableByteChannel {
 
-    int read(int remaining, out ParcelableException exception);
+    int read(out byte[] destination, out ParcelableException exception);
 
-    int write(int remaining, out ParcelableException exception);
+    int write(in byte[] source, out ParcelableException exception);
 
     long position(out ParcelableException exception);
 
