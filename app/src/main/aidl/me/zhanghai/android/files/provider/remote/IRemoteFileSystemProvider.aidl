@@ -6,10 +6,15 @@ import me.zhanghai.android.files.provider.remote.ParcelableException;
 import me.zhanghai.android.files.provider.remote.ParcelableFileAttributes;
 import me.zhanghai.android.files.provider.remote.ParcelableObject;
 import me.zhanghai.android.files.provider.remote.ParcelableSerializable;
+import me.zhanghai.android.files.provider.remote.RemoteInputStream;
 import me.zhanghai.android.files.provider.remote.RemoteSeekableByteChannel;
 import me.zhanghai.android.files.util.RemoteCallback;
 
 interface IRemoteFileSystemProvider {
+
+    RemoteInputStream newInputStream(in ParcelableObject parcelableFile,
+                                     in ParcelableSerializable parcelableOptions,
+                                     out ParcelableException exception);
 
     RemoteSeekableByteChannel newByteChannel(in ParcelableObject parcelableFile,
                                              in ParcelableSerializable parcelableOptions,

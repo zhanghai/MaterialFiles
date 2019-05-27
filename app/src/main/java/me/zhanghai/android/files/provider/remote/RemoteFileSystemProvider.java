@@ -48,7 +48,19 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
     @Override
     public InputStream newInputStream(@NonNull Path file, @NonNull OpenOption... options)
             throws IOException {
-        throw new UnsupportedOperationException();
+        ParcelableObject parcelableFile = new ParcelableObject(file);
+        ParcelableSerializable parcelableOptions = new ParcelableSerializable(options);
+        ParcelableException exception = new ParcelableException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        RemoteInputStream remoteInputStream;
+        try {
+            remoteInputStream = remoteInterface.newInputStream(parcelableFile, parcelableOptions,
+                    exception);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        exception.throwIfNotNull();
+        return remoteInputStream;
     }
 
     @NonNull

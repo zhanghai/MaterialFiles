@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.remote;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -41,6 +42,24 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     public RemoteFileSystemProviderInterface(@NonNull FileSystemProvider provider) {
         mProvider = provider;
+    }
+
+    @NonNull
+    @Override
+    public RemoteInputStream newInputStream(@NonNull ParcelableObject parcelableFile,
+                                            @NonNull ParcelableSerializable parcelableOptions,
+                                            @NonNull ParcelableException exception) {
+        Path file = parcelableFile.get();
+        OpenOption[] options = parcelableOptions.get();
+        RemoteInputStream remoteInputStream;
+        try {
+            InputStream inputStream = mProvider.newInputStream(file, options);
+            remoteInputStream = new RemoteInputStream(inputStream);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
+            return null;
+        }
+        return remoteInputStream;
     }
 
     @NonNull
