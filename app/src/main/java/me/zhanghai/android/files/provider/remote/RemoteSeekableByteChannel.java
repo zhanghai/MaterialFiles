@@ -43,7 +43,9 @@ public class RemoteSeekableByteChannel implements SeekableByteChannel, Parcelabl
                 throw new RemoteFileSystemException(e);
             }
             exception.throwIfNotNull();
-            destination.put(destinationBytes, 0, size);
+            if (size > 0) {
+                destination.put(destinationBytes, 0, size);
+            }
             return size;
         } else {
             return mLocalChannel.read(destination);
