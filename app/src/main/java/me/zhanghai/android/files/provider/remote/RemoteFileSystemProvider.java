@@ -12,6 +12,8 @@ import android.os.RemoteException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -63,7 +65,22 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
                                               @NonNull Set<? extends OpenOption> options,
                                               @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        throw new UnsupportedOperationException();
+        ParcelableObject parcelableFile = new ParcelableObject(file);
+        Serializable serializableOptions = options instanceof Serializable ? (Serializable) options
+                : new HashSet<>(options);
+        ParcelableSerializable parcelableOptions = new ParcelableSerializable(serializableOptions);
+        ParcelableFileAttributes parcelableAttributes = new ParcelableFileAttributes(attributes);
+        ParcelableException exception = new ParcelableException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        RemoteSeekableByteChannel remoteChannel;
+        try {
+            remoteChannel = remoteInterface.newByteChannel(parcelableFile, parcelableOptions,
+                    parcelableAttributes, exception);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        exception.throwIfNotNull();
+        return remoteChannel;
     }
 
     @NonNull

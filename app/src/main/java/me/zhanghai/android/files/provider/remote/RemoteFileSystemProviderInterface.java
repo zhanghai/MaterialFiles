@@ -6,16 +6,19 @@
 package me.zhanghai.android.files.provider.remote;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import androidx.annotation.NonNull;
+import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.AccessMode;
 import java8.nio.file.CopyOption;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileStore;
 import java8.nio.file.LinkOption;
+import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
@@ -38,6 +41,35 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
 
     public RemoteFileSystemProviderInterface(@NonNull FileSystemProvider provider) {
         mProvider = provider;
+    }
+
+    @NonNull
+    @Override
+    public RemoteSeekableByteChannel newByteChannel(
+            @NonNull ParcelableObject parcelableFile,
+            @NonNull ParcelableSerializable parcelableOptions,
+            @NonNull ParcelableFileAttributes parcelableAttributes,
+            @NonNull ParcelableException exception) {
+        Path file = parcelableFile.get();
+        Set<? extends OpenOption> options = parcelableOptions.get();
+        FileAttribute<?>[] attributes = parcelableAttributes.get();
+        RemoteSeekableByteChannel remoteChannel;
+        try {
+            SeekableByteChannel channel = mProvider.newByteChannel(file, options, attributes);
+            boolean successful = false;
+            try {
+                remoteChannel = new RemoteSeekableByteChannel(channel);
+                successful = true;
+            } finally {
+                if (!successful) {
+                    channel.close();
+                }
+            }
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
+            return null;
+        }
+        return remoteChannel;
     }
 
     @Override

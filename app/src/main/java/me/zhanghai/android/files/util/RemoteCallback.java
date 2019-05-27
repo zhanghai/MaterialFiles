@@ -16,12 +16,12 @@ import androidx.annotation.Nullable;
 public final class RemoteCallback implements Parcelable {
 
     @Nullable
-    private final Listener mListener;
+    private final Listener mLocalListener;
     @Nullable
     private final IRemoteCallback mRemoteListener;
 
     public RemoteCallback(@NonNull Listener listener) {
-        mListener = listener;
+        mLocalListener = listener;
         mRemoteListener = null;
     }
 
@@ -33,7 +33,7 @@ public final class RemoteCallback implements Parcelable {
                 e.printStackTrace();
             }
         } else {
-            mListener.onResult(result);
+            mLocalListener.onResult(result);
         }
     }
 
@@ -52,17 +52,17 @@ public final class RemoteCallback implements Parcelable {
 
     public static final Creator<RemoteCallback> CREATOR
             = new Creator<RemoteCallback>() {
-        public RemoteCallback createFromParcel(Parcel parcel) {
-            return new RemoteCallback(parcel);
+        public RemoteCallback createFromParcel(Parcel source) {
+            return new RemoteCallback(source);
         }
         public RemoteCallback[] newArray(int size) {
             return new RemoteCallback[size];
         }
     };
 
-    private RemoteCallback(Parcel parcel) {
-        mListener = null;
-        mRemoteListener = IRemoteCallback.Stub.asInterface(parcel.readStrongBinder());
+    private RemoteCallback(Parcel in) {
+        mLocalListener = null;
+        mRemoteListener = IRemoteCallback.Stub.asInterface(in.readStrongBinder());
     }
 
     @Override
@@ -71,7 +71,7 @@ public final class RemoteCallback implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int flags) {
-        parcel.writeStrongBinder(new Stub().asBinder());
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStrongBinder(new Stub().asBinder());
     }
 }
