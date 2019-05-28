@@ -17,51 +17,51 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.FileSystem;
 import java8.nio.file.LinkOption;
-import java8.nio.file.Path;
 import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
 import me.zhanghai.android.files.AppApplication;
-import me.zhanghai.android.files.provider.common.StringListPath;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
-class LinuxPath extends StringListPath implements RootablePath {
+class LinuxPath extends ByteStringListPath implements RootablePath {
 
     @NonNull
     private final LinuxFileSystem mFileSystem;
 
     private volatile boolean mUseRoot;
 
-    public LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull String path) {
+    public LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull ByteString path) {
         super(LinuxFileSystem.SEPARATOR, path);
 
         mFileSystem = fileSystem;
     }
 
     private LinuxPath(@NonNull LinuxFileSystem fileSystem, boolean absolute,
-                      @NonNull List<String> names) {
+                      @NonNull List<ByteString> names) {
         super(LinuxFileSystem.SEPARATOR, absolute, names);
 
         mFileSystem = fileSystem;
     }
 
     @Override
-    protected boolean isPathAbsolute(@NonNull String path) {
+    protected boolean isPathAbsolute(@NonNull ByteString path) {
         Objects.requireNonNull(path);
-        return !path.isEmpty() && path.charAt(0) == LinuxFileSystem.SEPARATOR;
+        return !path.isEmpty() && path.byteAt(0) == LinuxFileSystem.SEPARATOR;
     }
 
     @NonNull
     @Override
-    protected Path createPath(boolean absolute, @NonNull List<String> names) {
+    protected LinuxPath createPath(boolean absolute, @NonNull List<ByteString> names) {
         Objects.requireNonNull(names);
         return new LinuxPath(mFileSystem, absolute, names);
     }
 
     @NonNull
     @Override
-    protected Path getDefaultDirectory() {
+    protected LinuxPath getDefaultDirectory() {
         return mFileSystem.getDefaultDirectory();
     }
 
@@ -73,7 +73,7 @@ class LinuxPath extends StringListPath implements RootablePath {
 
     @Nullable
     @Override
-    public Path getRoot() {
+    public LinuxPath getRoot() {
         if (!isAbsolute()) {
             return null;
         }
@@ -82,7 +82,7 @@ class LinuxPath extends StringListPath implements RootablePath {
 
     @NonNull
     @Override
-    public Path toRealPath(@NonNull LinkOption... options) throws IOException {
+    public LinuxPath toRealPath(@NonNull LinkOption... options) throws IOException {
         Objects.requireNonNull(options);
         // TODO
         throw new UnsupportedOperationException();

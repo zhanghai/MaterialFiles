@@ -17,12 +17,15 @@ import java8.nio.file.Path;
 import java8.nio.file.PathMatcher;
 import java8.nio.file.WatchService;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 
 class LocalLinuxFileSystem extends FileSystem {
 
-    static final char SEPARATOR = '/';
+    static final byte SEPARATOR = '/';
 
-    private static final String SEPARATOR_STRING = Character.toString(SEPARATOR);
+    private static final ByteString SEPARATOR_BYTE_STRING = ByteString.ofByte(SEPARATOR);
+    private static final String SEPARATOR_STRING = Character.toString((char) SEPARATOR);
 
     @NonNull
     private final LinuxPath mRootDirectory;
@@ -41,7 +44,7 @@ class LocalLinuxFileSystem extends FileSystem {
         mFileSystem = fileSystem;
         mProvider = provider;
 
-        mRootDirectory = new LinuxPath(mFileSystem, "/");
+        mRootDirectory = new LinuxPath(mFileSystem, SEPARATOR_BYTE_STRING);
         if (!mRootDirectory.isAbsolute()) {
             throw new AssertionError("Root directory must be absolute");
         }
@@ -51,21 +54,21 @@ class LocalLinuxFileSystem extends FileSystem {
 
         String userDir = System.getenv("user.dir");
         if (userDir == null) {
-            userDir = "/";
+            userDir = SEPARATOR_STRING;
         }
-        mDefaultDirectory = new LinuxPath(mFileSystem, userDir);
+        mDefaultDirectory = new LinuxPath(mFileSystem, ByteString.fromString(userDir));
         if (!mDefaultDirectory.isAbsolute()) {
             throw new AssertionError("Default directory must be absolute");
         }
     }
 
     @NonNull
-    Path getRootDirectory() {
+    LinuxPath getRootDirectory() {
         return mRootDirectory;
     }
 
     @NonNull
-    Path getDefaultDirectory() {
+    LinuxPath getDefaultDirectory() {
         return mDefaultDirectory;
     }
 
@@ -120,13 +123,13 @@ class LocalLinuxFileSystem extends FileSystem {
     public Path getPath(@NonNull String first, @NonNull String... more) {
         Objects.requireNonNull(first);
         Objects.requireNonNull(more);
-        StringBuilder pathBuilder = new StringBuilder(first);
+        ByteStringBuilder pathBuilder = new ByteStringBuilder(ByteString.fromString(first));
         for (String name : more) {
             pathBuilder
                     .append(SEPARATOR)
-                    .append(name);
+                    .append(ByteString.fromString(name));
         }
-        String path = pathBuilder.toString();
+        ByteString path = pathBuilder.toByteString();
         return new LinuxPath(mFileSystem, path);
     }
 

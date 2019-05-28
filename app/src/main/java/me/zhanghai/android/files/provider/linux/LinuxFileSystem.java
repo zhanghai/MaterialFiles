@@ -8,13 +8,12 @@ package me.zhanghai.android.files.provider.linux;
 import android.os.Parcel;
 
 import androidx.annotation.NonNull;
-import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.root.RootFileSystem;
 import me.zhanghai.android.files.provider.root.RootableFileSystem;
 
 class LinuxFileSystem extends RootableFileSystem {
 
-    static final char SEPARATOR = LocalLinuxFileSystem.SEPARATOR;
+    static final byte SEPARATOR = LocalLinuxFileSystem.SEPARATOR;
 
     public LinuxFileSystem(@NonNull LinuxFileSystemProvider provider) {
         super(fileSystem -> new LocalLinuxFileSystem((LinuxFileSystem) fileSystem, provider),
@@ -29,12 +28,12 @@ class LinuxFileSystem extends RootableFileSystem {
     }
 
     @NonNull
-    Path getRootDirectory() {
+    LinuxPath getRootDirectory() {
         return getLocalFileSystem().getRootDirectory();
     }
 
     @NonNull
-    Path getDefaultDirectory() {
+    LinuxPath getDefaultDirectory() {
         return getLocalFileSystem().getDefaultDirectory();
     }
 
