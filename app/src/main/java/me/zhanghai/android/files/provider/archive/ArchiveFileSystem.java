@@ -21,7 +21,7 @@ import me.zhanghai.android.files.provider.root.RootableFileSystem;
 
 class ArchiveFileSystem extends RootableFileSystem implements Parcelable {
 
-    static final char SEPARATOR = LocalArchiveFileSystem.SEPARATOR;
+    static final byte SEPARATOR = LocalArchiveFileSystem.SEPARATOR;
 
     @NonNull
     private final Path mArchiveFile;
@@ -48,12 +48,12 @@ class ArchiveFileSystem extends RootableFileSystem implements Parcelable {
     }
 
     @NonNull
-    Path getRootDirectory() {
+    ArchivePath getRootDirectory() {
         return getLocalFileSystem().getRootDirectory();
     }
 
     @NonNull
-    Path getDefaultDirectory() {
+    ArchivePath getDefaultDirectory() {
         return getLocalFileSystem().getDefaultDirectory();
     }
 

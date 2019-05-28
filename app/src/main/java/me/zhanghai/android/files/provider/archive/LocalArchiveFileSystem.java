@@ -29,12 +29,15 @@ import java8.nio.file.WatchService;
 import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 
 class LocalArchiveFileSystem extends FileSystem {
 
-    static final char SEPARATOR = '/';
+    static final byte SEPARATOR = '/';
 
-    private static final String SEPARATOR_STRING = Character.toString(SEPARATOR);
+    private static final ByteString SEPARATOR_BYTE_STRING = ByteString.ofByte(SEPARATOR);
+    private static final String SEPARATOR_STRING = Character.toString((char) SEPARATOR);
 
     @NonNull
     private final ArchivePath mRootDirectory;
@@ -65,7 +68,7 @@ class LocalArchiveFileSystem extends FileSystem {
         mProvider = provider;
         mArchiveFile = archiveFile;
 
-        mRootDirectory = new ArchivePath(mFileSystem, "/");
+        mRootDirectory = new ArchivePath(mFileSystem, SEPARATOR_BYTE_STRING);
         if (!mRootDirectory.isAbsolute()) {
             throw new AssertionError("Root directory must be absolute");
         }
@@ -75,12 +78,12 @@ class LocalArchiveFileSystem extends FileSystem {
     }
 
     @NonNull
-    Path getRootDirectory() {
+    ArchivePath getRootDirectory() {
         return mRootDirectory;
     }
 
     @NonNull
-    Path getDefaultDirectory() {
+    ArchivePath getDefaultDirectory() {
         return mRootDirectory;
     }
 
@@ -222,13 +225,13 @@ class LocalArchiveFileSystem extends FileSystem {
     public Path getPath(@NonNull String first, @NonNull String... more) {
         Objects.requireNonNull(first);
         Objects.requireNonNull(more);
-        StringBuilder pathBuilder = new StringBuilder(first);
+        ByteStringBuilder pathBuilder = new ByteStringBuilder(ByteString.fromString(first));
         for (String name : more) {
             pathBuilder
                     .append(SEPARATOR)
-                    .append(name);
+                    .append(ByteString.fromString(name));
         }
-        String path = pathBuilder.toString();
+        ByteString path = pathBuilder.toByteString();
         return new ArchivePath(mFileSystem, path);
     }
 
