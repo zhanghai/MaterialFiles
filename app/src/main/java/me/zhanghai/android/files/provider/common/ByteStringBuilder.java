@@ -15,12 +15,18 @@ public class ByteStringBuilder {
     private byte[] mBytes;
     private int mLength;
 
+    public ByteStringBuilder(int capacity) {
+        mBytes = new byte[capacity];
+    }
+
     public ByteStringBuilder() {
         this(16);
     }
 
-    public ByteStringBuilder(int capacity) {
-        mBytes = new byte[capacity];
+    public ByteStringBuilder(@NonNull ByteString byteString) {
+        this(byteString.length() + 16);
+
+        append(byteString);
     }
 
     public byte byteAt(int index) {
@@ -72,6 +78,9 @@ public class ByteStringBuilder {
         return new ByteString(mBytes, 0, mLength);
     }
 
+    /**
+     * @deprecated Use {@link #toByteString()} instead.
+     */
     @NonNull
     @Override
     public String toString() {

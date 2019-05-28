@@ -37,8 +37,9 @@ public class ByteStringUriUtils {
             builder.append('#')
                     .append(encodeFragment(fragment));
         }
+        String uriString = builder.toString();
         try {
-            return new URI(builder.toString());
+            return new URI(uriString);
         } catch (URISyntaxException e) {
             throw new AssertionError(e);
         }

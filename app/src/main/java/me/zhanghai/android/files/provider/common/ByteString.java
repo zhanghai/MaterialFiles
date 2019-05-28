@@ -15,8 +15,15 @@ import androidx.annotation.NonNull;
 
 public class ByteString implements Comparable<ByteString>, Parcelable {
 
+    public static final ByteString EMPTY = new ByteString(new byte[0], false);
+
     @NonNull
     private final byte[] mBytes;
+
+    private ByteString(@NonNull byte[] ownedBytes, boolean unused) {
+        Objects.requireNonNull(ownedBytes);
+        mBytes = ownedBytes;
+    }
 
     public ByteString(@NonNull byte[] bytes) {
         Objects.requireNonNull(bytes);
@@ -26,6 +33,17 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
     public ByteString(@NonNull byte[] bytes, int start, int end) {
         Objects.requireNonNull(bytes);
         mBytes = Arrays.copyOfRange(bytes, start, end);
+    }
+
+    @NonNull
+    public static ByteString ofByte(byte b) {
+        return new ByteString(new byte[] { b }, false);
+    }
+
+    @NonNull
+    public static ByteString fromString(@NonNull String string) {
+        Objects.requireNonNull(string);
+        return new ByteString(string.getBytes(), false);
     }
 
     @NonNull

@@ -23,8 +23,8 @@ import me.zhanghai.android.files.util.CollectionUtils;
 
 public abstract class ByteStringListPath extends AbstractPath implements Parcelable {
 
-    private static final ByteString NAME_EMPTY = new ByteString(new byte[0]);
-    private static final ByteString NAME_DOT = new ByteString(new byte[] { '.' });
+    private static final ByteString NAME_EMPTY = ByteString.EMPTY;
+    private static final ByteString NAME_DOT = ByteString.ofByte((byte) '.');
     private static final ByteString NAME_DOT_DOT = new ByteString(new byte[] { '.', '.' });
 
     private final byte mSeparator;
