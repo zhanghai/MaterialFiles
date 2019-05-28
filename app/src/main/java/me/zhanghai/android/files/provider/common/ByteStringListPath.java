@@ -9,7 +9,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -105,7 +104,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     @Override
-    public final Path getName(int index) {
+    public final ByteStringListPath getName(int index) {
         if (index < 0 || index >= mNames.size()) {
             throw new IllegalArgumentException();
         }
@@ -114,7 +113,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     @Override
-    public Path subpath(int beginIndex, int endIndex) {
+    public ByteStringListPath subpath(int beginIndex, int endIndex) {
         int namesSize = mNames.size();
         if (!(beginIndex >= 0 && beginIndex < endIndex && endIndex <= namesSize)) {
             throw new IllegalArgumentException();
@@ -151,7 +150,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     @Override
-    public Path normalize() {
+    public ByteStringListPath normalize() {
         List<ByteString> normalizedNames = new ArrayList<>();
         for (ByteString name : mNames) {
             if (Objects.equals(name, NAME_DOT)) {
@@ -183,11 +182,11 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     @Override
-    public Path resolve(@NonNull Path other) {
+    public ByteStringListPath resolve(@NonNull Path other) {
         Objects.requireNonNull(other);
         ByteStringListPath otherPath = toByteStringListPath(other);
         if (otherPath.mAbsolute) {
-            return other;
+            return otherPath;
         }
         if (otherPath.isEmpty()) {
             return this;
@@ -199,7 +198,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     @Override
-    public Path relativize(@NonNull Path other) {
+    public ByteStringListPath relativize(@NonNull Path other) {
         Objects.requireNonNull(other);
         ByteStringListPath otherPath = toByteStringListPath(other);
         if (otherPath.mAbsolute != mAbsolute) {
@@ -234,18 +233,12 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @Override
     public URI toUri() {
         String scheme = getFileSystem().provider().getScheme();
-        String path = getUriSchemeSpecificPart();
-        String fragment = getUriFragment();
-        try {
-            return new URI(scheme, path, fragment);
-        } catch (URISyntaxException e) {
-            throw new AssertionError(e);
-        }
+        return ByteStringUriUtils.createUri(scheme, getUriSchemeSpecificPart(), getUriFragment());
     }
 
     @NonNull
     @Override
-    public Path toAbsolutePath() {
+    public ByteStringListPath toAbsolutePath() {
         if (mAbsolute) {
             return this;
         } else {
@@ -273,6 +266,9 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         return pathBuilder.toByteString();
     }
 
+    /**
+     * @deprecated Use {@link #toByteString()} instead.
+     */
     @NonNull
     @Override
     public String toString() {
@@ -336,25 +332,26 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     protected abstract boolean isPathAbsolute(@NonNull ByteString path);
 
     @NonNull
-    protected abstract Path createPath(boolean absolute, @NonNull List<ByteString> names);
+    protected abstract ByteStringListPath createPath(boolean absolute,
+                                                     @NonNull List<ByteString> names);
 
     @NonNull
-    private Path createEmptyPath() {
+    private ByteStringListPath createEmptyPath() {
         return createPath(false, Collections.singletonList(NAME_EMPTY));
     }
 
     @Nullable
-    protected String getUriSchemeSpecificPart() {
-        return toAbsolutePath().toString();
+    protected ByteString getUriSchemeSpecificPart() {
+        return toAbsolutePath().toByteString();
     }
 
     @Nullable
-    protected String getUriFragment() {
+    protected ByteString getUriFragment() {
         return null;
     }
 
     @NonNull
-    protected abstract Path getDefaultDirectory();
+    protected abstract ByteStringListPath getDefaultDirectory();
 
 
     protected ByteStringListPath(Parcel in) {

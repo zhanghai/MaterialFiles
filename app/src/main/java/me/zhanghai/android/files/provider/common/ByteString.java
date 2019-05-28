@@ -48,6 +48,43 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         return mBytes.length == 0;
     }
 
+    public int indexOf(byte b) {
+        return indexOf(b, 0);
+    }
+
+    public int indexOf(byte b, int fromIndex) {
+        if (fromIndex < 0) {
+            fromIndex = 0;
+        }
+        for (int i = fromIndex; i < mBytes.length; ++i) {
+            if (mBytes[i] == b) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(byte b) {
+        return lastIndexOf(b, mBytes.length - 1);
+    }
+
+    public int lastIndexOf(byte b, int fromIndex) {
+        if (fromIndex >= mBytes.length) {
+            fromIndex = mBytes.length - 1;
+        }
+        for (int i = fromIndex; i >= 0; --i) {
+            if (mBytes[i] == b) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    @NonNull
+    public ByteString substring(int start) {
+        return substring(start, mBytes.length);
+    }
+
     @NonNull
     public ByteString substring(int start, int end) {
         if (!(start >= 0 && start <= end && end <= mBytes.length)) {
