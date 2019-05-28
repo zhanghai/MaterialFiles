@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
@@ -22,38 +22,39 @@ import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import me.zhanghai.android.files.util.CollectionUtils;
 
-/**
- * @deprecated Use {@link ByteStringListPath} instead.
- */
-public abstract class StringListPath extends AbstractPath implements Parcelable {
+public abstract class ByteStringListPath extends AbstractPath implements Parcelable {
 
-    private final char mSeparator;
+    private static final ByteString NAME_EMPTY = new ByteString(new byte[0]);
+    private static final ByteString NAME_DOT = new ByteString(new byte[] { '.' });
+    private static final ByteString NAME_DOT_DOT = new ByteString(new byte[] { '.', '.' });
+
+    private final byte mSeparator;
 
     private final boolean mAbsolute;
 
     @NonNull
-    private final List<String> mNames;
+    private final List<ByteString> mNames;
 
-    public StringListPath(char separator, @NonNull String path) {
+    public ByteStringListPath(byte separator, @NonNull ByteString path) {
         Objects.requireNonNull(path);
         if (separator == '\0') {
             throw new IllegalArgumentException("Separator cannot be a nul character");
         }
         mSeparator = separator;
         requireNoNulCharacter(path);
-        List<String> names = new ArrayList<>();
+        List<ByteString> names = new ArrayList<>();
         if (path.isEmpty()) {
-            names.add("");
+            names.add(NAME_EMPTY);
         } else {
             for (int start = 0, end, length = path.length(); start < length; ) {
-                while (start < length && path.charAt(start) == mSeparator) {
+                while (start < length && path.byteAt(start) == mSeparator) {
                     ++start;
                 }
                 if (start == length) {
                     break;
                 }
                 end = start + 1;
-                while (end < length && path.charAt(end) != mSeparator) {
+                while (end < length && path.byteAt(end) != mSeparator) {
                     ++end;
                 }
                 names.add(path.substring(start, end));
@@ -65,15 +66,17 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
         requireNameIfNonAbsolute();
     }
 
-    private static void requireNoNulCharacter(@NonNull String input) {
+    private static void requireNoNulCharacter(@NonNull ByteString input) {
         for (int i = 0, length = input.length(); i < length; ++i) {
-            if (input.charAt(i) == '\0') {
-                throw new InvalidPathException(input, "Path cannot contain nul character", i);
+            if (input.byteAt(i) == '\0') {
+                throw new InvalidPathException(input.toString(),
+                        "Path cannot contain nul character", i);
             }
         }
     }
 
-    protected StringListPath(char separator, boolean absolute, @NonNull List<String> names) {
+    protected ByteStringListPath(byte separator, boolean absolute,
+                                 @NonNull List<ByteString> names) {
         mSeparator = separator;
         mAbsolute = absolute;
         mNames = Collections.unmodifiableList(names);
@@ -86,7 +89,7 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
         }
     }
 
-    protected final char getSeparator() {
+    protected final byte getSeparator() {
         return mSeparator;
     }
 
@@ -113,11 +116,10 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     @Override
     public Path subpath(int beginIndex, int endIndex) {
         int namesSize = mNames.size();
-        if (beginIndex < 0 || beginIndex >= namesSize || endIndex <= beginIndex
-                || endIndex > namesSize) {
+        if (!(beginIndex >= 0 && beginIndex < endIndex && endIndex <= namesSize)) {
             throw new IllegalArgumentException();
         }
-        List<String> subNames = new ArrayList<>(mNames.subList(beginIndex, endIndex));
+        List<ByteString> subNames = new ArrayList<>(mNames.subList(beginIndex, endIndex));
         return createPath(false, subNames);
     }
 
@@ -130,7 +132,7 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
         if (other.getClass() != getClass()) {
             return false;
         }
-        StringListPath otherPath = (StringListPath) other;
+        ByteStringListPath otherPath = (ByteStringListPath) other;
         return CollectionUtils.startsWith(mNames, otherPath.mNames);
     }
 
@@ -143,36 +145,34 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
         if (other.getClass() != getClass()) {
             return false;
         }
-        StringListPath otherPath = (StringListPath) other;
+        ByteStringListPath otherPath = (ByteStringListPath) other;
         return CollectionUtils.endsWith(mNames, otherPath.mNames);
     }
 
     @NonNull
     @Override
     public Path normalize() {
-        List<String> normalizedNames = new ArrayList<>();
-        for (String name : mNames) {
-            switch (name) {
-                case ".":
-                    break;
-                case "..": {
-                    int normalizedNamesSize = normalizedNames.size();
-                    if (normalizedNamesSize == 0) {
-                        if (!mAbsolute) {
-                            normalizedNames.add(name);
-                        }
-                    } else {
-                        int normalizedNamesLastIndex = normalizedNamesSize - 1;
-                        if (Objects.equals(normalizedNames.get(normalizedNamesLastIndex), "..")) {
-                            normalizedNames.add(name);
-                        } else {
-                            normalizedNames.remove(normalizedNamesLastIndex);
-                        }
+        List<ByteString> normalizedNames = new ArrayList<>();
+        for (ByteString name : mNames) {
+            if (Objects.equals(name, NAME_DOT)) {
+                // Ignored.
+            } else if (Objects.equals(name, NAME_DOT_DOT)) {
+                int normalizedNamesSize = normalizedNames.size();
+                if (normalizedNamesSize == 0) {
+                    if (!mAbsolute) {
+                        normalizedNames.add(name);
                     }
-                    break;
+                } else {
+                    int normalizedNamesLastIndex = normalizedNamesSize - 1;
+                    if (Objects.equals(normalizedNames.get(normalizedNamesLastIndex),
+                            NAME_DOT_DOT)) {
+                        normalizedNames.add(name);
+                    } else {
+                        normalizedNames.remove(normalizedNamesLastIndex);
+                    }
                 }
-                default:
-                    normalizedNames.add(name);
+            } else {
+                normalizedNames.add(name);
             }
         }
         if (!mAbsolute && normalizedNames.isEmpty()) {
@@ -185,14 +185,14 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     @Override
     public Path resolve(@NonNull Path other) {
         Objects.requireNonNull(other);
-        StringListPath otherPath = toStringListPath(other);
+        ByteStringListPath otherPath = toByteStringListPath(other);
         if (otherPath.mAbsolute) {
             return other;
         }
         if (otherPath.isEmpty()) {
             return this;
         }
-        List<String> resolvedNames = new ArrayList<>(CollectionUtils.union(mNames,
+        List<ByteString> resolvedNames = new ArrayList<>(CollectionUtils.union(mNames,
                 otherPath.mNames));
         return createPath(mAbsolute, resolvedNames);
     }
@@ -201,7 +201,7 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     @Override
     public Path relativize(@NonNull Path other) {
         Objects.requireNonNull(other);
-        StringListPath otherPath = toStringListPath(other);
+        ByteStringListPath otherPath = toByteStringListPath(other);
         if (otherPath.mAbsolute != mAbsolute) {
             throw new IllegalArgumentException("The other path must be as absolute as this path");
         }
@@ -219,10 +219,10 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
                 otherPath.mNames.get(commonNamesSize))) {
             ++commonNamesSize;
         }
-        List<String> relativeNames = new ArrayList<>();
+        List<ByteString> relativeNames = new ArrayList<>();
         int dotDotCount = namesSize - commonNamesSize;
         if (dotDotCount > 0) {
-            relativeNames.addAll(Collections.nCopies(dotDotCount, ".."));
+            relativeNames.addAll(Collections.nCopies(dotDotCount, NAME_DOT_DOT));
         }
         if (commonNamesSize < otherNamesSize) {
             relativeNames.addAll(otherPath.mNames.subList(commonNamesSize, otherNamesSize));
@@ -254,22 +254,42 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     }
 
     @NonNull
-    @Override
-    public String toString() {
-        StringBuilder pathBuilder = new StringBuilder();
+    public ByteString toByteString() {
+        ByteStringBuilder pathBuilder = new ByteStringBuilder();
         if (mAbsolute) {
             if (getRoot().getNameCount() == 0) {
                 pathBuilder.append(mSeparator);
             }
         }
         boolean first = true;
-        for (String name : mNames) {
+        for (ByteString name : mNames) {
             if (first) {
                 first = false;
             } else {
                 pathBuilder.append(mSeparator);
             }
             pathBuilder.append(name);
+        }
+        return pathBuilder.toByteString();
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        StringBuilder pathBuilder = new StringBuilder();
+        if (mAbsolute) {
+            if (getRoot().getNameCount() == 0) {
+                pathBuilder.append((char) mSeparator);
+            }
+        }
+        boolean first = true;
+        for (ByteString name : mNames) {
+            if (first) {
+                first = false;
+            } else {
+                pathBuilder.append((char) mSeparator);
+            }
+            pathBuilder.append(name.toString());
         }
         return pathBuilder.toString();
     }
@@ -282,7 +302,7 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        StringListPath that = (StringListPath) object;
+        ByteStringListPath that = (ByteStringListPath) object;
         return mSeparator == that.mSeparator
                 && mAbsolute == that.mAbsolute
                 && Objects.equals(mNames, that.mNames)
@@ -297,30 +317,30 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     @Override
     public int compareTo(@NonNull Path other) {
         Objects.requireNonNull(other);
-        StringListPath otherPath = toStringListPath(other);
-        return toString().compareTo(otherPath.toString());
+        ByteStringListPath otherPath = toByteStringListPath(other);
+        return toByteString().compareTo(otherPath.toByteString());
     }
 
     @NonNull
-    private StringListPath toStringListPath(@NonNull Path path) {
+    private ByteStringListPath toByteStringListPath(@NonNull Path path) {
         if (path.getClass() != getClass()) {
             throw new ProviderMismatchException(path.toString());
         }
-        return (StringListPath) path;
+        return (ByteStringListPath) path;
     }
 
     protected boolean isEmpty() {
-        return !mAbsolute && mNames.size() == 1 && Objects.equals(mNames.get(0), "");
+        return !mAbsolute && mNames.size() == 1 && Objects.equals(mNames.get(0), NAME_EMPTY);
     }
 
-    protected abstract boolean isPathAbsolute(@NonNull String path);
+    protected abstract boolean isPathAbsolute(@NonNull ByteString path);
 
     @NonNull
-    protected abstract Path createPath(boolean absolute, @NonNull List<String> names);
+    protected abstract Path createPath(boolean absolute, @NonNull List<ByteString> names);
 
     @NonNull
     private Path createEmptyPath() {
-        return createPath(false, Collections.singletonList(""));
+        return createPath(false, Collections.singletonList(NAME_EMPTY));
     }
 
     @Nullable
@@ -337,10 +357,10 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
     protected abstract Path getDefaultDirectory();
 
 
-    protected StringListPath(Parcel in) {
-        mSeparator = (char) in.readInt();
+    protected ByteStringListPath(Parcel in) {
+        mSeparator = in.readByte();
         mAbsolute = in.readByte() != 0;
-        mNames = Collections.unmodifiableList(in.createStringArrayList());
+        mNames = Collections.unmodifiableList(in.createTypedArrayList(ByteString.CREATOR));
     }
 
     @Override
@@ -350,8 +370,8 @@ public abstract class StringListPath extends AbstractPath implements Parcelable 
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(mSeparator);
+        dest.writeByte(mSeparator);
         dest.writeByte(mAbsolute ? (byte) 1 : (byte) 0);
-        dest.writeStringList(mNames);
+        dest.writeTypedList(mNames);
     }
 }
