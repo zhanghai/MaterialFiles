@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class ByteString implements Comparable<ByteString>, Parcelable {
 
@@ -19,6 +20,9 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
 
     @NonNull
     private final byte[] mBytes;
+
+    @Nullable
+    private String mStringCache;
 
     private ByteString(@NonNull byte[] ownedBytes, boolean unused) {
         Objects.requireNonNull(ownedBytes);
@@ -46,6 +50,11 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         return new ByteString(string.getBytes(), false);
     }
 
+    @Nullable
+    public static ByteString fromStringOrNull(@Nullable String string) {
+        return string != null ? fromString(string) : null;
+    }
+
     @NonNull
     public byte[] getOwnedBytes() {
         return mBytes;
@@ -64,6 +73,30 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
 
     public boolean isEmpty() {
         return mBytes.length == 0;
+    }
+
+    public boolean startsWith(@NonNull ByteString prefix, int startIndex) {
+        Objects.requireNonNull(prefix);
+        int prefixLength = prefix.length();
+        if (startIndex < 0 || startIndex > mBytes.length - prefixLength) {
+            return false;
+        }
+        byte[] prefixBytes = prefix.mBytes;
+        for (int i = startIndex, j = 0; j < prefixLength; ++i, ++j) {
+            if (mBytes[i] != prefixBytes[j]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean startsWith(@NonNull ByteString prefix) {
+        return startsWith(prefix, 0);
+    }
+
+    public boolean endsWith(@NonNull ByteString suffix) {
+        Objects.requireNonNull(suffix);
+        return startsWith(suffix, mBytes.length - suffix.mBytes.length);
     }
 
     public int indexOf(byte b) {
@@ -111,14 +144,18 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         if (start == 0 && end == mBytes.length) {
             return this;
         }
-        return new ByteString(Arrays.copyOfRange(mBytes, start, end));
+        return new ByteString(mBytes, start, end);
     }
 
     @NonNull
     @Override
     public String toString() {
-        // This uses replacement char instead of throwing exception.
-        return new String(mBytes);
+        // We are okay with the potential race condition here.
+        if (mStringCache == null) {
+            // This uses replacement char instead of throwing exception.
+            mStringCache = new String(mBytes);
+        }
+        return mStringCache;
     }
 
     @Override

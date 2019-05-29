@@ -19,9 +19,9 @@ public class PosixUser implements Parcelable, UserPrincipal {
     private final int mId;
 
     @Nullable
-    private final String mName;
+    private final ByteString mName;
 
-    public PosixUser(int id, @Nullable String name) {
+    public PosixUser(int id, @Nullable ByteString name) {
         mId = id;
         mName = name;
     }
@@ -33,6 +33,11 @@ public class PosixUser implements Parcelable, UserPrincipal {
     @Nullable
     @Override
     public String getName() {
+        return mName != null ? mName.toString() : null;
+    }
+
+    @Nullable
+    public ByteString getNameByteString() {
         return mName;
     }
 
@@ -70,7 +75,7 @@ public class PosixUser implements Parcelable, UserPrincipal {
 
     protected PosixUser(@NonNull Parcel in) {
         mId = in.readInt();
-        mName = in.readString();
+        mName = in.readParcelable(ByteString.class.getClassLoader());
     }
 
     @Override
@@ -81,6 +86,6 @@ public class PosixUser implements Parcelable, UserPrincipal {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mId);
-        dest.writeString(mName);
+        dest.writeParcelable(mName, flags);
     }
 }

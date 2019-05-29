@@ -37,11 +37,13 @@ import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringPath;
+import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
 import me.zhanghai.android.files.provider.common.LinkOptions;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
-import me.zhanghai.android.files.provider.common.StringPath;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -50,7 +52,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
 
     static final String SCHEME = "file";
 
-    private static final String HIDDEN_FILE_NAME_PREFIX = ".";
+    private static final ByteString HIDDEN_FILE_NAME_PREFIX = ByteString.fromString(".");
 
     @NonNull
     private final LinuxFileSystemProvider mProvider;
@@ -102,7 +104,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
     public Path getPath(@NonNull URI uri) {
         Objects.requireNonNull(uri);
         requireSameScheme(uri);
-        String path = uri.getPath();
+        ByteString path = ByteStringUriUtils.getDecodedPath(uri);
         if (path == null) {
             throw new IllegalArgumentException("URI must have a path");
         }
@@ -120,27 +122,27 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
     public FileChannel newFileChannel(@NonNull Path file,
                                       @NonNull Set<? extends OpenOption> options,
                                       @NonNull FileAttribute<?>... attributes) throws IOException {
-        requireLinuxPath(file);
+        LinuxPath linuxFile = requireLinuxPath(file);
         Objects.requireNonNull(options);
         Objects.requireNonNull(attributes);
-        String path = file.toString();
+        ByteString fileBytes = linuxFile.toByteString();
         OpenOptions openOptions = OpenOptions.fromSet(options);
         int flags = LinuxOpenOptions.toFlags(openOptions);
         int mode = PosixFileMode.toInt(PosixFileMode.fromAttributes(attributes,
                 PosixFileMode.DEFAULT_MODE_CREATE_FILE));
         FileDescriptor fd;
         try {
-            fd = Syscalls.open(path, flags, mode);
+            fd = Syscalls.open(fileBytes, flags, mode);
         } catch (SyscallException e) {
             if ((flags & OsConstants.O_CREAT) != 0) {
-                e.maybeThrowInvalidFileNameException(path, null);
+                e.maybeThrowInvalidFileNameException(fileBytes.toString(), null);
             }
-            throw e.toFileSystemException(path);
+            throw e.toFileSystemException(fileBytes.toString());
         }
         FileChannel fileChannel = LinuxFileChannels.open(fd, flags);
         if (openOptions.hasDeleteOnClose()) {
             try {
-                Syscalls.remove(path);
+                Syscalls.remove(fileBytes);
             } catch (SyscallException e) {
                 e.printStackTrace();
             }
@@ -165,168 +167,174 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
     public DirectoryStream<Path> newDirectoryStream(
             @NonNull Path directory, @NonNull DirectoryStream.Filter<? super Path> filter)
             throws IOException {
-        requireLinuxPath(directory);
+        LinuxPath linuxDirectory = requireLinuxPath(directory);
         Objects.requireNonNull(filter);
-        String path = directory.toString();
+        ByteString directoryBytes = linuxDirectory.toByteString();
         long dir;
         try {
-            dir = Syscalls.opendir(path);
+            dir = Syscalls.opendir(directoryBytes);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(path);
+            throw e.toFileSystemException(directoryBytes.toString());
         }
-        return new LinuxDirectoryStream(directory, dir, filter);
+        return new LinuxDirectoryStream(linuxDirectory, dir, filter);
     }
 
     @Override
     public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes)
             throws IOException {
-        requireLinuxPath(directory);
+        LinuxPath linuxDirectory = requireLinuxPath(directory);
         Objects.requireNonNull(attributes);
-        String path = directory.toString();
+        ByteString directoryBytes = linuxDirectory.toByteString();
         int mode = PosixFileMode.toInt(PosixFileMode.fromAttributes(attributes,
                 PosixFileMode.DEFAULT_MODE_CREATE_DIRECTORY));
         try {
-            Syscalls.mkdir(path, mode);
+            Syscalls.mkdir(directoryBytes, mode);
         } catch (SyscallException e) {
-            e.maybeThrowInvalidFileNameException(path, null);
-            throw e.toFileSystemException(path);
+            e.maybeThrowInvalidFileNameException(directoryBytes.toString(), null);
+            throw e.toFileSystemException(directoryBytes.toString());
         }
     }
 
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
                                    @NonNull FileAttribute<?>... attributes) throws IOException {
-        requireLinuxPath(link);
-        requireLinuxPath(target);
+        LinuxPath linuxLink = requireLinuxPath(link);
+        LinuxPath linuxTarget = requireLinuxPath(target);
         Objects.requireNonNull(attributes);
         if (attributes.length > 0) {
             throw new UnsupportedOperationException(Arrays.toString(attributes));
         }
-        String targetString = target.toString();
-        String linkPath = link.toString();
+        ByteString targetBytes = linuxTarget.toByteString();
+        ByteString linkBytes = linuxLink.toByteString();
         try {
-            Syscalls.symlink(targetString, linkPath);
+            Syscalls.symlink(targetBytes, linkBytes);
         } catch (SyscallException e) {
-            e.maybeThrowInvalidFileNameException(linkPath, null);
-            throw e.toFileSystemException(linkPath, targetString);
+            e.maybeThrowInvalidFileNameException(linkBytes.toString(), null);
+            throw e.toFileSystemException(linkBytes.toString(), targetBytes.toString());
         }
     }
 
     @Override
     public void createLink(@NonNull Path link, @NonNull Path existing) throws IOException {
-        requireLinuxPath(link);
-        requireLinuxPath(existing);
-        String oldPath = existing.toString();
-        String newPath = link.toString();
+        LinuxPath linuxLink = requireLinuxPath(link);
+        LinuxPath linuxExisting = requireLinuxPath(existing);
+        ByteString oldPathBytes = linuxExisting.toByteString();
+        ByteString newPathBytes = linuxLink.toByteString();
         try {
-            Syscalls.link(oldPath, newPath);
+            Syscalls.link(oldPathBytes, newPathBytes);
         } catch (SyscallException e) {
-            e.maybeThrowInvalidFileNameException(newPath, null);
-            throw e.toFileSystemException(newPath, oldPath);
+            e.maybeThrowInvalidFileNameException(newPathBytes.toString(), null);
+            throw e.toFileSystemException(newPathBytes.toString(), oldPathBytes.toString());
         }
     }
 
     @Override
     public void delete(@NonNull Path path) throws IOException {
-        requireLinuxPath(path);
-        String pathString = path.toString();
+        LinuxPath linuxPath = requireLinuxPath(path);
+        ByteString pathBytes = linuxPath.toByteString();
         try {
-            Syscalls.remove(pathString);
+            Syscalls.remove(pathBytes);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(pathString);
+            throw e.toFileSystemException(pathBytes.toString());
         }
     }
 
     @NonNull
     @Override
     public Path readSymbolicLink(@NonNull Path link) throws IOException {
-        requireLinuxPath(link);
-        String path = link.toString();
-        String target;
+        LinuxPath linuxLink = requireLinuxPath(link);
+        ByteString linkBytes = linuxLink.toByteString();
+        ByteString targetBytes;
         try {
-            target = Syscalls.readlink(path);
+            targetBytes = Syscalls.readlink(linkBytes);
         } catch (SyscallException e) {
             if (e.getErrno() == OsConstants.EINVAL) {
-                FileSystemException exception = new NotLinkException(path);
+                FileSystemException exception = new NotLinkException(linkBytes.toString());
                 exception.initCause(e);
                 throw exception;
             }
-            throw e.toFileSystemException(path);
+            throw e.toFileSystemException(linkBytes.toString());
         }
-        return new StringPath(target);
+        return new ByteStringPath(targetBytes);
     }
 
     @Override
     public void copy(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
             throws IOException {
-        requireLinuxPath(source);
-        requireLinuxPath(target);
+        LinuxPath linuxSource = requireLinuxPath(source);
+        LinuxPath linuxTarget = requireLinuxPath(target);
         Objects.requireNonNull(options);
-        String sourceString = source.toString();
-        String targetString = target.toString();
+        ByteString sourceBytes = linuxSource.toByteString();
+        ByteString targetBytes = linuxTarget.toByteString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
-        LinuxCopyMove.copy(sourceString, targetString, copyOptions);
+        LinuxCopyMove.copy(sourceBytes, targetBytes, copyOptions);
     }
 
     @Override
     public void move(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
             throws IOException {
-        requireLinuxPath(source);
-        requireLinuxPath(target);
+        LinuxPath linuxSource = requireLinuxPath(source);
+        LinuxPath linuxTarget = requireLinuxPath(target);
         Objects.requireNonNull(options);
-        String sourceString = source.toString();
-        String targetString = target.toString();
+        ByteString sourceBytes = linuxSource.toByteString();
+        ByteString targetBytes = linuxTarget.toByteString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
-        LinuxCopyMove.move(sourceString, targetString, copyOptions);
+        LinuxCopyMove.move(sourceBytes, targetBytes, copyOptions);
     }
 
     @Override
     public boolean isSameFile(@NonNull Path path, @NonNull Path path2) throws IOException {
-        requireLinuxPath(path);
+        LinuxPath linuxPath = requireLinuxPath(path);
         Objects.requireNonNull(path2);
-        if (Objects.equals(path, path2)) {
+        if (Objects.equals(linuxPath, path2)) {
             return true;
         }
-        if (!(path instanceof LinuxPath)) {
+        if (!(path2 instanceof LinuxPath)) {
             return false;
         }
-        String pathString = path.toString();
-        String path2String = path2.toString();
+        LinuxPath linuxPath2 = requireLinuxPath(path2);
+        ByteString pathBytes = linuxPath.toByteString();
+        ByteString path2Bytes = linuxPath2.toByteString();
         StructStat pathStat;
         try {
-            pathStat = Syscalls.lstat(pathString);
+            pathStat = Syscalls.lstat(pathBytes);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(pathString);
+            throw e.toFileSystemException(pathBytes.toString());
         }
         StructStat path2Stat;
         try {
-            path2Stat = Syscalls.lstat(path2String);
+            path2Stat = Syscalls.lstat(path2Bytes);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(path2String);
+            throw e.toFileSystemException(path2Bytes.toString());
         }
         return pathStat.st_dev == path2Stat.st_dev && pathStat.st_ino == path2Stat.st_ino;
     }
 
     @Override
     public boolean isHidden(@NonNull Path path) {
-        requireLinuxPath(path);
-        String fileName = path.getFileName().toString();
-        return fileName.startsWith(HIDDEN_FILE_NAME_PREFIX);
+        LinuxPath linuxPath = requireLinuxPath(path);
+        Path fileName = linuxPath.getFileName();
+        if (fileName == null) {
+            return false;
+        }
+        LinuxPath linuxFileName = requireLinuxPath(fileName);
+        ByteString fileNameBytes = linuxFileName.toByteString();
+        return fileNameBytes.startsWith(HIDDEN_FILE_NAME_PREFIX);
     }
 
     @NonNull
     @Override
     public FileStore getFileStore(@NonNull Path path) {
-        requireLinuxPath(path);
-        String pathString = path.toString();
-        return new LinuxFileStore(pathString);
+        LinuxPath linuxPath = requireLinuxPath(path);
+        ByteString pathBytes = linuxPath.toByteString();
+        return new LinuxFileStore(pathBytes);
     }
 
     @Override
     public void checkAccess(@NonNull Path path, @NonNull AccessMode... modes) throws IOException {
-        requireLinuxPath(path);
+        LinuxPath linuxPath = requireLinuxPath(path);
         Objects.requireNonNull(modes);
-        String pathString = path.toString();
+        ByteString pathBytes = linuxPath.toByteString();
         AccessModes accessModes = AccessModes.fromArray(modes);
         int mode;
         if (!(accessModes.hasRead() || accessModes.hasWrite() || accessModes.hasExecute())) {
@@ -346,12 +354,12 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
         boolean accessible;
         try {
             // TODO: Should use euidaccess() but that's unavailable on Android.
-            accessible = Syscalls.access(pathString, mode);
+            accessible = Syscalls.access(pathBytes, mode);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(pathString);
+            throw e.toFileSystemException(pathBytes.toString());
         }
         if (!accessible) {
-            throw new AccessDeniedException(pathString);
+            throw new AccessDeniedException(pathBytes.toString());
         }
     }
 
@@ -392,8 +400,9 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
 
     private static LinuxFileAttributeView getFileAttributeView(@NonNull Path path,
                                                                @NonNull LinkOption... options) {
+        LinuxPath linuxPath = requireLinuxPath(path);
         boolean noFollowLinks = LinkOptions.hasNoFollowLinks(options);
-        return new LinuxFileAttributeView(path, noFollowLinks);
+        return new LinuxFileAttributeView(linuxPath, noFollowLinks);
     }
 
     @NonNull
@@ -416,10 +425,12 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
         throw new UnsupportedOperationException();
     }
 
-    private static void requireLinuxPath(@NonNull Path path) {
+    @NonNull
+    private static LinuxPath requireLinuxPath(@NonNull Path path) {
         Objects.requireNonNull(path);
         if (!(path instanceof LinuxPath)) {
             throw new ProviderMismatchException(path.toString());
         }
+        return (LinuxPath) path;
     }
 }

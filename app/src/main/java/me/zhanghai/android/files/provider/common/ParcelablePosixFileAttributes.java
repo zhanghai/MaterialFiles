@@ -34,7 +34,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
     @Nullable
     private final Set<PosixFileModeBit> mMode;
     @Nullable
-    private final String mSeLinuxContext;
+    private final ByteString mSeLinuxContext;
 
     public ParcelablePosixFileAttributes(@NonNull PosixFileAttributes attributes) {
         mLastModifiedTime = attributes.lastModifiedTime();
@@ -102,7 +102,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
 
     @Nullable
     @Override
-    public String seLinuxContext() {
+    public ByteString seLinuxContext() {
         return mSeLinuxContext;
     }
 
@@ -133,7 +133,7 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
         mGroup = in.readParcelable(PosixGroup.class.getClassLoader());
         mMode = ((ParcelablePosixFileMode) in.readParcelable(
                 ParcelablePosixFileMode.class.getClassLoader())).get();
-        mSeLinuxContext = in.readString();
+        mSeLinuxContext = in.readParcelable(ByteString.class.getClassLoader());
     }
 
     @Override
@@ -152,6 +152,6 @@ public class ParcelablePosixFileAttributes implements Parcelable, PosixFileAttri
         dest.writeParcelable(mOwner, flags);
         dest.writeParcelable(mGroup, flags);
         dest.writeParcelable(new ParcelablePosixFileMode(mMode), flags);
-        dest.writeString(mSeLinuxContext);
+        dest.writeParcelable(mSeLinuxContext, flags);
     }
 }

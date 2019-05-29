@@ -17,6 +17,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
@@ -36,10 +37,10 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
             Arrays.asList("basic", "posix", NAME)));
 
     @NonNull
-    private final String mPath;
+    private final ByteString mPath;
     private final boolean mNoFollowLinks;
 
-    LocalLinuxFileAttributeView(@NonNull String path, boolean noFollowLinks) {
+    LocalLinuxFileAttributeView(@NonNull ByteString path, boolean noFollowLinks) {
         mPath = path;
         mNoFollowLinks = noFollowLinks;
     }
@@ -61,21 +62,21 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 stat = Syscalls.stat(mPath);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
         PosixUser owner;
         try {
             owner = LinuxUserPrincipalLookupService.getUserById(stat.st_uid);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
         PosixGroup group;
         try {
             group = LinuxUserPrincipalLookupService.getGroupById(stat.st_gid);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
-        String seLinuxContext;
+        ByteString seLinuxContext;
         try {
             if (mNoFollowLinks) {
                 seLinuxContext = Syscalls.lgetfilecon(mPath);
@@ -83,7 +84,7 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 seLinuxContext = Syscalls.getfilecon(mPath);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
         return new LinuxFileAttributes(stat, owner, group, seLinuxContext);
     }
@@ -108,7 +109,7 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 Syscalls.utimens(mPath, times);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
     }
 
@@ -132,7 +133,7 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 Syscalls.chown(mPath, uid, -1);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
     }
 
@@ -147,7 +148,7 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 Syscalls.chown(mPath, -1, gid);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
     }
 
@@ -160,7 +161,7 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
         try {
             Syscalls.chmod(mPath, modeInt);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
     }
 
@@ -174,26 +175,26 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 Syscalls.setfilecon(mPath, context);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
     }
 
     @Override
     public void restoreSeLinuxContext() throws IOException {
-        String path;
+        ByteString path;
         if (mNoFollowLinks) {
             path = mPath;
         } else {
             try {
                 path = Syscalls.realpath(mPath);
             } catch (SyscallException e) {
-                throw e.toFileSystemException(mPath);
+                throw e.toFileSystemException(mPath.toString());
             }
         }
         try {
             Syscalls.selinux_android_restorecon(path, 0);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(path);
+            throw e.toFileSystemException(path.toString());
         }
     }
 }

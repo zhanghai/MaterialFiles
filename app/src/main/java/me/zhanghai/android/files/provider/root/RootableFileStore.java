@@ -57,7 +57,7 @@ public abstract class RootableFileStore extends FileStore implements Parcelable 
 
     protected RootableFileStore(Parcel in) {
         RootUtils.requireRunningAsNonRoot();
-        mFileStore = in.readParcelable(FileStore.class.getClassLoader());
+        mFileStore = in.readParcelable(RootFileStore.class.getClassLoader());
     }
 
     @Override
@@ -68,7 +68,7 @@ public abstract class RootableFileStore extends FileStore implements Parcelable 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         RootUtils.requireRunningAsRoot();
-        FileStore fileStore = new RootFileStore(mFileStore);
-        dest.writeParcelable((Parcelable) fileStore, flags);
+        RootFileStore fileStore = new RootFileStore(mFileStore);
+        dest.writeParcelable(fileStore, flags);
     }
 }

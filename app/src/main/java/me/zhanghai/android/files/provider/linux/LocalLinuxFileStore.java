@@ -12,6 +12,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileAttributeView;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.FileStore;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -19,9 +20,9 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 class LocalLinuxFileStore extends FileStore {
 
     @NonNull
-    private final String mPath;
+    private final ByteString mPath;
 
-    public LocalLinuxFileStore(@NonNull String path) {
+    public LocalLinuxFileStore(@NonNull ByteString path) {
         mPath = path;
     }
 
@@ -68,7 +69,7 @@ class LocalLinuxFileStore extends FileStore {
         try {
             return Syscalls.statvfs(mPath);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath);
+            throw e.toFileSystemException(mPath.toString());
         }
     }
 

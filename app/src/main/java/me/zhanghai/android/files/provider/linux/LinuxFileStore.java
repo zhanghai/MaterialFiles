@@ -9,11 +9,12 @@ import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileAttributeView;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.root.RootableFileStore;
 
 class LinuxFileStore extends RootableFileStore {
 
-    public LinuxFileStore(@NonNull String path) {
+    public LinuxFileStore(@NonNull ByteString path) {
         super(new LocalLinuxFileStore(path));
     }
 

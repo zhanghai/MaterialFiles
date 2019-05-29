@@ -49,7 +49,7 @@ public class ObjectUtils {
     }
 
     @Nullable
-    public static String toString(@Nullable Object object) {
+    public static String toStringOrNull(@Nullable Object object) {
         return object != null ? object.toString() : null;
     }
 }

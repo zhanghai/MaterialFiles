@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.linux;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import java.util.Set;
 
@@ -20,11 +19,11 @@ public class LinuxFileAttributeView extends RootablePosixFileAttributeView {
     static final Set<String> SUPPORTED_NAMES = LocalLinuxFileAttributeView.SUPPORTED_NAMES;
 
     @NonNull
-    private final Path mPath;
+    private final LinuxPath mPath;
     private final boolean mNoFollowLinks;
 
-    LinuxFileAttributeView(@NonNull Path path, boolean noFollowLinks) {
-        super(path, attributeView -> new LocalLinuxFileAttributeView(path.toString(),
+    LinuxFileAttributeView(@NonNull LinuxPath path, boolean noFollowLinks) {
+        super(path, attributeView -> new LocalLinuxFileAttributeView(path.toByteString(),
                 noFollowLinks), RootPosixFileAttributeView::new);
 
         mPath = path;
@@ -55,7 +54,7 @@ public class LinuxFileAttributeView extends RootablePosixFileAttributeView {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable((Parcelable) mPath, flags);
+        dest.writeParcelable(mPath, flags);
         dest.writeByte(mNoFollowLinks ? (byte) 1 : (byte) 0);
     }
 }

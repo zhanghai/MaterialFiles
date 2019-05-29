@@ -16,6 +16,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
 import me.zhanghai.android.files.provider.root.RootableFileSystem;
 
@@ -89,6 +90,11 @@ class ArchiveFileSystem extends RootableFileSystem implements Parcelable {
 
     void doRefreshIfNeededAsRoot() throws RemoteFileSystemException {
         getRootFileSystem().doRefreshIfNeeded();
+    }
+
+    @NonNull
+    Path getPath(@NonNull ByteString path) {
+        return getLocalFileSystem().getPath(path);
     }
 
 

@@ -6,19 +6,20 @@
 package me.zhanghai.android.files.provider.linux.syscall;
 
 import androidx.annotation.Nullable;
+import me.zhanghai.android.files.provider.common.ByteString;
 
 public final class StructGroup {
 
     @Nullable
-    public final String gr_name;
+    public final ByteString gr_name;
     @Nullable
-    public final String gr_passwd;
+    public final ByteString gr_passwd;
     public final int gr_gid;
     @Nullable
-    public final String[] gr_mem;
+    public final ByteString[] gr_mem;
 
-    public StructGroup(@Nullable String gr_name, @Nullable String gr_passwd, int gr_gid,
-                       @Nullable String[] gr_mem) {
+    public StructGroup(@Nullable ByteString gr_name, @Nullable ByteString gr_passwd, int gr_gid,
+                       @Nullable ByteString[] gr_mem) {
         this.gr_name = gr_name;
         this.gr_passwd = gr_passwd;
         this.gr_gid = gr_gid;

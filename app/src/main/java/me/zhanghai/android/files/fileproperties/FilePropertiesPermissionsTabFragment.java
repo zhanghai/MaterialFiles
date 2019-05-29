@@ -27,6 +27,7 @@ import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.linux.LinuxFileAttributes;
 import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.android.files.util.ObjectUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
 
@@ -104,7 +105,7 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
             String modeString = getString(R.string.file_properties_permissions_mode_format,
                     PosixFileMode.toString(mode), PosixFileMode.toInt(mode));
             mModeButton.setText(modeString);
-            String seLinuxContext = linuxAttributes.seLinuxContext();
+            String seLinuxContext = ObjectUtils.toStringOrNull(linuxAttributes.seLinuxContext());
             mSeLinuxContextButton.setText(seLinuxContext);
         }
         // TODO: ArchiveFileAttributes

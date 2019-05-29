@@ -15,6 +15,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
@@ -33,10 +34,10 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
     @NonNull
     private final PosixGroup mGroup;
     @Nullable
-    private final String mSeLinuxContext;
+    private final ByteString mSeLinuxContext;
 
     LinuxFileAttributes(@NonNull StructStat stat, @NonNull PosixUser owner,
-                        @NonNull PosixGroup group, @Nullable String seLinuxContext) {
+                        @NonNull PosixGroup group, @Nullable ByteString seLinuxContext) {
         mStat = stat;
         mOwner = owner;
         mGroup = group;
@@ -96,7 +97,7 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
 
     @Nullable
     @Override
-    public String seLinuxContext() {
+    public ByteString seLinuxContext() {
         return mSeLinuxContext;
     }
 
@@ -116,7 +117,7 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
         mStat = in.readParcelable(StructStat.class.getClassLoader());
         mOwner = in.readParcelable(PosixUser.class.getClassLoader());
         mGroup = in.readParcelable(PosixGroup.class.getClassLoader());
-        mSeLinuxContext = in.readString();
+        mSeLinuxContext = in.readParcelable(ByteString.class.getClassLoader());
     }
 
     @Override
@@ -129,6 +130,6 @@ public class LinuxFileAttributes implements Parcelable, PosixFileAttributes {
         dest.writeParcelable(mStat, flags);
         dest.writeParcelable(mOwner, flags);
         dest.writeParcelable(mGroup, flags);
-        dest.writeString(mSeLinuxContext);
+        dest.writeParcelable(mSeLinuxContext, flags);
     }
 }

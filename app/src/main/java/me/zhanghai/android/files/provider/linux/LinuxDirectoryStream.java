@@ -15,14 +15,18 @@ import androidx.annotation.Nullable;
 import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.linux.syscall.StructDirent;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 class LinuxDirectoryStream implements DirectoryStream<Path> {
 
+    private static final ByteString BYTE_STRING_DOT = ByteString.fromString(".");
+    private static final ByteString BYTE_STRING_DOT_DOT = ByteString.fromString("..");
+
     @NonNull
-    private final Path mDirectory;
+    private final LinuxPath mDirectory;
 
     private final long mDir;
 
@@ -37,7 +41,7 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
     @NonNull
     private final Object mLock = new Object();
 
-    public LinuxDirectoryStream(@NonNull Path directory, long dir,
+    public LinuxDirectoryStream(@NonNull LinuxPath directory, long dir,
                                 @NonNull Filter<? super Path> filter) {
         mDirectory = directory;
         mDir = dir;
@@ -108,8 +112,9 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
                 if (dirent == null) {
                     return null;
                 }
-                String name = dirent.d_name;
-                if (Objects.equals(name, ".") || Objects.equals(name, "..")) {
+                ByteString name = dirent.d_name;
+                if (Objects.equals(name, BYTE_STRING_DOT) || Objects.equals(name,
+                        BYTE_STRING_DOT_DOT)) {
                     continue;
                 }
                 Path path = mDirectory.resolve(dirent.d_name);

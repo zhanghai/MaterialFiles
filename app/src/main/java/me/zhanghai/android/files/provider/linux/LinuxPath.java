@@ -29,7 +29,7 @@ import me.zhanghai.android.files.provider.root.RootablePath;
 
 class LinuxPath extends ByteStringListPath implements RootablePath {
 
-    private static final ByteString TWO_SLASHES = new ByteString(new byte[] { '/', '/' });
+    private static final ByteString BYTE_STRING_TWO_SLASHES = ByteString.fromString("//");
 
     @NonNull
     private final LinuxFileSystem mFileSystem;
@@ -55,6 +55,12 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
         return !path.isEmpty() && path.byteAt(0) == LinuxFileSystem.SEPARATOR;
     }
 
+    @Override
+    protected LinuxPath createPath(@NonNull ByteString path) {
+        Objects.requireNonNull(path);
+        return new LinuxPath(mFileSystem, path);
+    }
+
     @NonNull
     @Override
     protected LinuxPath createPath(boolean absolute, @NonNull List<ByteString> names) {
@@ -65,7 +71,7 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
     @Nullable
     @Override
     protected ByteString getUriSchemeSpecificPart() {
-        return new ByteStringBuilder(TWO_SLASHES)
+        return new ByteStringBuilder(BYTE_STRING_TWO_SLASHES)
                 .append(super.getUriSchemeSpecificPart())
                 .toByteString();
     }

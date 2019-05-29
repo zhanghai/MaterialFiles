@@ -16,6 +16,7 @@ import java.io.FileDescriptor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.Size;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.util.SELinuxCompat;
 import me.zhanghai.android.libselinux.SeLinux;
@@ -37,25 +38,28 @@ public class Syscalls {
         return LIBRARY_NAME;
     }
 
-    public static boolean access(@NonNull String path, int mode) throws SyscallException {
+    public static boolean access(@NonNull ByteString path, int mode) throws SyscallException {
         try {
-            return Os.access(path, mode);
+            // TODO
+            return Os.access(path.toString(), mode);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
-    public static void chmod(@NonNull String path, int mode) throws SyscallException {
+    public static void chmod(@NonNull ByteString path, int mode) throws SyscallException {
         try {
-            Os.chmod(path, mode);
+            // TODO
+            Os.chmod(path.toString(), mode);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
-    public static void chown(@NonNull String path, int uid, int gid) throws SyscallException {
+    public static void chown(@NonNull ByteString path, int uid, int gid) throws SyscallException {
         try {
-            Os.chown(path, uid, gid);
+            // TODO
+            Os.chown(path.toString(), uid, gid);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -74,9 +78,10 @@ public class Syscalls {
     private static native int errno();
 
     @NonNull
-    public static String getfilecon(@NonNull String path) throws SyscallException {
+    public static ByteString getfilecon(@NonNull ByteString path) throws SyscallException {
         try {
-            return SeLinux.getfilecon(path);
+            // TODO
+            return ByteString.fromString(SeLinux.getfilecon(path.toString()));
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -86,10 +91,10 @@ public class Syscalls {
     public static native StructGroup getgrgid(int gid) throws SyscallException;
 
     @Nullable
-    public static native StructGroup getgrnam(@NonNull String name) throws SyscallException;
+    public static native StructGroup getgrnam(@NonNull ByteString name) throws SyscallException;
 
     @Nullable
-    public static native StructPasswd getpwnam(@NonNull String name) throws SyscallException;
+    public static native StructPasswd getpwnam(@NonNull ByteString name) throws SyscallException;
 
     @Nullable
     public static native StructPasswd getpwuid(int uid) throws SyscallException;
@@ -98,105 +103,114 @@ public class Syscalls {
         return SeLinux.is_selinux_enabled();
     }
 
-    public static void lchown(@NonNull String path, int uid, int gid) throws SyscallException {
+    public static void lchown(@NonNull ByteString path, int uid, int gid) throws SyscallException {
         try {
-            Os.lchown(path, uid, gid);
+            // TODO
+            Os.lchown(path.toString(), uid, gid);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
     @NonNull
-    public static String lgetfilecon(@NonNull String path) throws SyscallException {
+    public static ByteString lgetfilecon(@NonNull ByteString path) throws SyscallException {
         try {
-            return SeLinux.lgetfilecon(path);
+            // TODO
+            return ByteString.fromString(SeLinux.lgetfilecon(path.toString()));
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
-    public static void lsetfilecon(@NonNull String path, @NonNull String context)
+    public static void lsetfilecon(@NonNull ByteString path, @NonNull String context)
             throws SyscallException {
         try {
-            SeLinux.lsetfilecon(path, context);
+            // TODO
+            SeLinux.lsetfilecon(path.toString(), context);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
     @NonNull
-    public static native byte[] lgetxattr(@NonNull String path, @NonNull String name)
+    public static native byte[] lgetxattr(@NonNull ByteString path, @NonNull ByteString name)
             throws SyscallException;
 
-    public static void link(@NonNull String oldPath, @NonNull String newPath)
+    public static void link(@NonNull ByteString oldPath, @NonNull ByteString newPath)
             throws SyscallException {
         try {
-            Os.link(oldPath, newPath);
+            // TODO
+            Os.link(oldPath.toString(), newPath.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
     @NonNull
-    public static native String[] llistxattr(@NonNull String path) throws SyscallException;
+    public static native ByteString[] llistxattr(@NonNull ByteString path) throws SyscallException;
 
-    public static native void lsetxattr(@NonNull String path, @NonNull String name,
+    public static native void lsetxattr(@NonNull ByteString path, @NonNull ByteString name,
                                         @NonNull byte[] value, int flags) throws SyscallException;
 
     @NonNull
-    public static native StructStat lstat(@NonNull String path) throws SyscallException;
+    public static native StructStat lstat(@NonNull ByteString path) throws SyscallException;
 
-    public static native void lutimens(@NonNull String path,
+    public static native void lutimens(@NonNull ByteString path,
                                        @NonNull @Size(2) StructTimespec[] times)
             throws SyscallException;
 
-    public static void mkdir(@NonNull String path, int mode) throws SyscallException {
+    public static void mkdir(@NonNull ByteString path, int mode) throws SyscallException {
         try {
-            Os.mkdir(path, mode);
+            // TODO
+            Os.mkdir(path.toString(), mode);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
     @NonNull
-    public static FileDescriptor open(@NonNull String path, int flags, int mode)
+    public static FileDescriptor open(@NonNull ByteString path, int flags, int mode)
             throws SyscallException {
         try {
-            return Os.open(path, flags, mode);
+            // TODO
+            return Os.open(path.toString(), flags, mode);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
-    public static native long opendir(@NonNull String path) throws SyscallException;
+    public static native long opendir(@NonNull ByteString path) throws SyscallException;
 
     @Nullable
     public static native StructDirent readdir(long dir) throws SyscallException;
 
     @NonNull
-    public static String readlink(@NonNull String path) throws SyscallException {
+    public static ByteString readlink(@NonNull ByteString path) throws SyscallException {
         try {
-            return Os.readlink(path);
+            // TODO
+            return ByteString.fromString(Os.readlink(path.toString()));
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
     @NonNull
-    public static native String realpath(@NonNull String path) throws SyscallException;
+    public static native ByteString realpath(@NonNull ByteString path) throws SyscallException;
 
-    public static void remove(@NonNull String path) throws SyscallException {
+    public static void remove(@NonNull ByteString path) throws SyscallException {
         try {
-            Os.remove(path);
+            // TODO
+            Os.remove(path.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
-    public static void rename(@NonNull String oldPath, @NonNull String newPath)
+    public static void rename(@NonNull ByteString oldPath, @NonNull ByteString newPath)
             throws SyscallException {
         try {
-            Os.rename(oldPath, newPath);
+            // TODO
+            Os.rename(oldPath.toString(), newPath.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -214,9 +228,10 @@ public class Syscalls {
         ReflectedAccessor.allowRestrictedHiddenApiAccess();
     }
 
-    public static void selinux_android_restorecon(@NonNull String path, int flags)
+    public static void selinux_android_restorecon(@NonNull ByteString path, int flags)
             throws SyscallException {
-        boolean successful = SELinuxCompat.native_restorecon(path, flags);
+        // TODO
+        boolean successful = SELinuxCompat.native_restorecon(path.toString(), flags);
         if (!successful) {
             int errno = errno();
             if (errno == 0) {
@@ -231,22 +246,24 @@ public class Syscalls {
                                        @Nullable Int64Ref offset, long count)
             throws SyscallException;
 
-    public static void setfilecon(@NonNull String path, @NonNull String context)
+    public static void setfilecon(@NonNull ByteString path, @NonNull String context)
             throws SyscallException {
         try {
-            SeLinux.setfilecon(path, context);
+            // TODO
+            SeLinux.setfilecon(path.toString(), context);
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
     @NonNull
-    public static native StructStat stat(@NonNull String path) throws SyscallException;
+    public static native StructStat stat(@NonNull ByteString path) throws SyscallException;
 
     @NonNull
-    public static StructStatVfs statvfs(@NonNull String path) throws SyscallException {
+    public static StructStatVfs statvfs(@NonNull ByteString path) throws SyscallException {
         try {
-            return Os.statvfs(path);
+            // TODO
+            return Os.statvfs(path.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -257,16 +274,17 @@ public class Syscalls {
         return Os.strerror(errno);
     }
 
-    public static void symlink(@NonNull String target, @NonNull String linkPath)
+    public static void symlink(@NonNull ByteString target, @NonNull ByteString linkPath)
             throws SyscallException {
         try {
-            Os.symlink(target, linkPath);
+            // TODO
+            Os.symlink(target.toString(), linkPath.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
     }
 
-    public static native void utimens(@NonNull String path,
+    public static native void utimens(@NonNull ByteString path,
                                       @NonNull @Size(2) StructTimespec[] times)
             throws SyscallException;
 }

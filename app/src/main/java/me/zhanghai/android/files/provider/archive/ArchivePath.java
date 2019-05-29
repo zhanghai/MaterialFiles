@@ -48,6 +48,12 @@ class ArchivePath extends ByteStringListPath implements RootablePath {
         return !path.isEmpty() && path.byteAt(0) == ArchiveFileSystem.SEPARATOR;
     }
 
+    @Override
+    protected ArchivePath createPath(@NonNull ByteString path) {
+        Objects.requireNonNull(path);
+        return new ArchivePath(mFileSystem, path);
+    }
+
     @NonNull
     @Override
     protected ArchivePath createPath(boolean absolute, @NonNull List<ByteString> names) {

@@ -97,14 +97,24 @@ public class ByteStringUriUtils {
         }
     }
 
-    @NonNull
+    @Nullable
     public static ByteString getDecodedSchemeSpecificPart(@NonNull URI uri) {
-        return decode(uri.getRawSchemeSpecificPart());
+        return decodeOrNull(uri.getRawSchemeSpecificPart());
     }
 
-    @NonNull
+    @Nullable
+    public static ByteString getDecodedPath(@NonNull URI uri) {
+        return decodeOrNull(uri.getRawPath());
+    }
+
+    @Nullable
     public static ByteString getDecodedFragment(@NonNull URI uri) {
-        return decode(uri.getRawFragment());
+        return decodeOrNull(uri.getRawFragment());
+    }
+
+    @Nullable
+    private static ByteString decodeOrNull(@Nullable String encoded) {
+        return encoded != null ? decode(encoded) : null;
     }
 
     @NonNull

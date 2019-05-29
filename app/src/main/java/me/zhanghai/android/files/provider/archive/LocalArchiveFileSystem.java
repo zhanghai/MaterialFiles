@@ -227,9 +227,25 @@ class LocalArchiveFileSystem extends FileSystem {
         Objects.requireNonNull(more);
         ByteStringBuilder pathBuilder = new ByteStringBuilder(ByteString.fromString(first));
         for (String name : more) {
+            Objects.requireNonNull(name);
             pathBuilder
                     .append(SEPARATOR)
                     .append(ByteString.fromString(name));
+        }
+        ByteString path = pathBuilder.toByteString();
+        return new ArchivePath(mFileSystem, path);
+    }
+
+    @NonNull
+    Path getPath(@NonNull ByteString first, @NonNull ByteString... more) {
+        Objects.requireNonNull(first);
+        Objects.requireNonNull(more);
+        ByteStringBuilder pathBuilder = new ByteStringBuilder(first);
+        for (ByteString name : more) {
+            Objects.requireNonNull(name);
+            pathBuilder
+                    .append(SEPARATOR)
+                    .append(name);
         }
         ByteString path = pathBuilder.toByteString();
         return new ArchivePath(mFileSystem, path);

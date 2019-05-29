@@ -23,9 +23,8 @@ import me.zhanghai.android.files.util.CollectionUtils;
 
 public abstract class ByteStringListPath extends AbstractPath implements Parcelable {
 
-    private static final ByteString NAME_EMPTY = ByteString.EMPTY;
-    private static final ByteString NAME_DOT = ByteString.ofByte((byte) '.');
-    private static final ByteString NAME_DOT_DOT = new ByteString(new byte[] { '.', '.' });
+    private static final ByteString BYTE_STRING_DOT = ByteString.fromString(".");
+    private static final ByteString BYTE_STRING_DOT_DOT = ByteString.fromString("..");
 
     private final byte mSeparator;
 
@@ -43,7 +42,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         requireNoNulCharacter(path);
         List<ByteString> names = new ArrayList<>();
         if (path.isEmpty()) {
-            names.add(NAME_EMPTY);
+            names.add(ByteString.EMPTY);
         } else {
             for (int start = 0, end, length = path.length(); start < length; ) {
                 while (start < length && path.byteAt(start) == mSeparator) {
@@ -135,6 +134,11 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         return CollectionUtils.startsWith(mNames, otherPath.mNames);
     }
 
+    public boolean startsWith(@NonNull ByteString other) {
+        Objects.requireNonNull(other);
+        return startsWith(createPath(other));
+    }
+
     @Override
     public boolean endsWith(@NonNull Path other) {
         Objects.requireNonNull(other);
@@ -148,14 +152,19 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         return CollectionUtils.endsWith(mNames, otherPath.mNames);
     }
 
+    public boolean endsWith(@NonNull ByteString other) {
+        Objects.requireNonNull(other);
+        return endsWith(createPath(other));
+    }
+
     @NonNull
     @Override
     public ByteStringListPath normalize() {
         List<ByteString> normalizedNames = new ArrayList<>();
         for (ByteString name : mNames) {
-            if (Objects.equals(name, NAME_DOT)) {
+            if (Objects.equals(name, BYTE_STRING_DOT)) {
                 // Ignored.
-            } else if (Objects.equals(name, NAME_DOT_DOT)) {
+            } else if (Objects.equals(name, BYTE_STRING_DOT_DOT)) {
                 int normalizedNamesSize = normalizedNames.size();
                 if (normalizedNamesSize == 0) {
                     if (!mAbsolute) {
@@ -164,7 +173,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
                 } else {
                     int normalizedNamesLastIndex = normalizedNamesSize - 1;
                     if (Objects.equals(normalizedNames.get(normalizedNamesLastIndex),
-                            NAME_DOT_DOT)) {
+                            BYTE_STRING_DOT_DOT)) {
                         normalizedNames.add(name);
                     } else {
                         normalizedNames.remove(normalizedNamesLastIndex);
@@ -197,6 +206,18 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     }
 
     @NonNull
+    public ByteStringListPath resolve(@NonNull ByteString other) {
+        Objects.requireNonNull(other);
+        return resolve(createPath(other));
+    }
+
+    @NonNull
+    public ByteStringListPath resolveSibling(@NonNull ByteString other) {
+        Objects.requireNonNull(other);
+        return (ByteStringListPath) resolveSibling(createPath(other));
+    }
+
+    @NonNull
     @Override
     public ByteStringListPath relativize(@NonNull Path other) {
         Objects.requireNonNull(other);
@@ -221,7 +242,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         List<ByteString> relativeNames = new ArrayList<>();
         int dotDotCount = namesSize - commonNamesSize;
         if (dotDotCount > 0) {
-            relativeNames.addAll(Collections.nCopies(dotDotCount, NAME_DOT_DOT));
+            relativeNames.addAll(Collections.nCopies(dotDotCount, BYTE_STRING_DOT_DOT));
         }
         if (commonNamesSize < otherNamesSize) {
             relativeNames.addAll(otherPath.mNames.subList(commonNamesSize, otherNamesSize));
@@ -326,10 +347,12 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     }
 
     protected boolean isEmpty() {
-        return !mAbsolute && mNames.size() == 1 && Objects.equals(mNames.get(0), NAME_EMPTY);
+        return !mAbsolute && mNames.size() == 1 && Objects.equals(mNames.get(0), ByteString.EMPTY);
     }
 
     protected abstract boolean isPathAbsolute(@NonNull ByteString path);
+
+    protected abstract ByteStringListPath createPath(@NonNull ByteString path);
 
     @NonNull
     protected abstract ByteStringListPath createPath(boolean absolute,
@@ -337,7 +360,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     private ByteStringListPath createEmptyPath() {
-        return createPath(false, Collections.singletonList(NAME_EMPTY));
+        return createPath(false, Collections.singletonList(ByteString.EMPTY));
     }
 
     @Nullable

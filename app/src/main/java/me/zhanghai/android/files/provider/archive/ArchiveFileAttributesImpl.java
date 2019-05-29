@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
@@ -134,7 +135,8 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
         } else if (mEntry instanceof TarArchiveEntry) {
             TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
             //noinspection deprecation
-            return new PosixUser(tarEntry.getUserId(), tarEntry.getUserName());
+            return new PosixUser(tarEntry.getUserId(), ByteString.fromStringOrNull(
+                    tarEntry.getUserName()));
         }
         return null;
     }
@@ -149,7 +151,8 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
         } else if (mEntry instanceof TarArchiveEntry) {
             TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
             //noinspection deprecation
-            return new PosixGroup(tarEntry.getGroupId(), tarEntry.getGroupName());
+            return new PosixGroup(tarEntry.getGroupId(), ByteString.fromStringOrNull(
+                    tarEntry.getGroupName()));
         }
         return null;
     }
@@ -173,7 +176,7 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
 
     @Nullable
     @Override
-    public String seLinuxContext() {
+    public ByteString seLinuxContext() {
         return null;
     }
 }

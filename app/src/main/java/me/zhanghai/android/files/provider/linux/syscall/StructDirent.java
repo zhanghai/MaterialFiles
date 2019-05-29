@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.linux.syscall;
 
 import androidx.annotation.NonNull;
+import me.zhanghai.android.files.provider.common.ByteString;
 
 public class StructDirent {
 
@@ -14,9 +15,10 @@ public class StructDirent {
     public final int d_reclen; /*unsigned short*/
     public final int d_type; /*unsigned char*/
     @NonNull
-    public final String d_name;
+    public final ByteString d_name;
 
-    public StructDirent(long d_ino, long d_off, int d_reclen, int d_type, @NonNull String d_name) {
+    public StructDirent(long d_ino, long d_off, int d_reclen, int d_type,
+                        @NonNull ByteString d_name) {
         this.d_ino = d_ino;
         this.d_off = d_off;
         this.d_reclen = d_reclen;

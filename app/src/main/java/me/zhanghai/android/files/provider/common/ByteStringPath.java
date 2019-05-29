@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
@@ -21,22 +21,27 @@ import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
-/**
- * @deprecated Use {@link ByteStringPath} instead.
- */
-public class StringPath implements Parcelable, Path, RootablePath {
+public class ByteStringPath implements Parcelable, Path, RootablePath {
 
     @NonNull
-    private final String mString;
+    private final ByteString mByteString;
 
-    public StringPath(@NonNull String string) {
-        mString = string;
+    public ByteStringPath(@NonNull ByteString byteString) {
+        mByteString = byteString;
     }
 
     @NonNull
+    public ByteString toByteString() {
+        return mByteString;
+    }
+
+    /**
+     * @deprecated Use {@link #toByteString()} instead.
+     */
+    @NonNull
     @Override
     public String toString() {
-        return mString;
+        return mByteString.toString();
     }
 
 
@@ -187,19 +192,19 @@ public class StringPath implements Parcelable, Path, RootablePath {
     }
 
 
-    public static final Creator<StringPath> CREATOR = new Creator<StringPath>() {
+    public static final Creator<ByteStringPath> CREATOR = new Creator<ByteStringPath>() {
         @Override
-        public StringPath createFromParcel(Parcel source) {
-            return new StringPath(source);
+        public ByteStringPath createFromParcel(Parcel source) {
+            return new ByteStringPath(source);
         }
         @Override
-        public StringPath[] newArray(int size) {
-            return new StringPath[size];
+        public ByteStringPath[] newArray(int size) {
+            return new ByteStringPath[size];
         }
     };
 
-    protected StringPath(Parcel in) {
-        mString = in.readString();
+    protected ByteStringPath(Parcel in) {
+        mByteString = in.readParcelable(ByteString.class.getClassLoader());
     }
 
     @Override
@@ -209,6 +214,6 @@ public class StringPath implements Parcelable, Path, RootablePath {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mString);
+        dest.writeParcelable(mByteString, flags);
     }
 }

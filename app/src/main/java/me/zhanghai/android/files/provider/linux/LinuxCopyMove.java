@@ -14,21 +14,23 @@ import java.io.InterruptedIOException;
 import androidx.annotation.NonNull;
 import java8.nio.file.FileSystemException;
 import java8.nio.file.StandardCopyOption;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.CopyOptions;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.StructTimespec;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
-import me.zhanghai.android.files.util.MoreTextUtils;
 
 class LinuxCopyMove {
 
     private static final int SEND_FILE_COUNT = 8192;
 
+    private static final ByteString XATTR_NAME_PREFIX_USER = ByteString.fromString("user.");
+
     private LinuxCopyMove() {}
 
-    public static void copy(@NonNull String source, @NonNull String target,
+    public static void copy(@NonNull ByteString source, @NonNull ByteString target,
                             @NonNull CopyOptions copyOptions) throws IOException {
         if (copyOptions.hasAtomicMove()) {
             throw new UnsupportedOperationException(StandardCopyOption.ATOMIC_MOVE.toString());
@@ -36,7 +38,7 @@ class LinuxCopyMove {
         copyInternal(source, target, copyOptions);
     }
 
-    public static void move(@NonNull String source, @NonNull String target,
+    public static void move(@NonNull ByteString source, @NonNull ByteString target,
                             @NonNull CopyOptions copyOptions) throws IOException {
         boolean targetExists;
         try {
@@ -50,7 +52,7 @@ class LinuxCopyMove {
             if (e.getErrno() == OsConstants.ENOENT) {
                 targetExists = false;
             } else {
-                throw e.toFileSystemException(target);
+                throw e.toFileSystemException(target.toString());
             }
         }
         try {
@@ -61,9 +63,9 @@ class LinuxCopyMove {
             return;
         } catch (SyscallException e) {
             if (copyOptions.hasAtomicMove()) {
-                e.maybeThrowAtomicMoveNotSupportedException(source, target);
-                e.maybeThrowInvalidFileNameException(source, target);
-                throw e.toFileSystemException(source, target);
+                e.maybeThrowAtomicMoveNotSupportedException(source.toString(), target.toString());
+                e.maybeThrowInvalidFileNameException(source.toString(), target.toString());
+                throw e.toFileSystemException(source.toString(), target.toString());
             }
             // Ignored.
         }
@@ -79,27 +81,27 @@ class LinuxCopyMove {
             try {
                 Syscalls.remove(target);
             } catch (SyscallException e2) {
-                e.addSuppressed(e2.toFileSystemException(target));
+                e.addSuppressed(e2.toFileSystemException(target.toString()));
             }
-            throw e.toFileSystemException(source);
+            throw e.toFileSystemException(source.toString());
         }
     }
 
-    private static void copyInternal(@NonNull String source, @NonNull String target,
+    private static void copyInternal(@NonNull ByteString source, @NonNull ByteString target,
                                      @NonNull CopyOptions copyOptions) throws IOException {
         StructStat sourceStat;
         try {
             sourceStat = copyOptions.hasNoFollowLinks() ? Syscalls.lstat(source) : Syscalls.stat(
                     source);
         } catch (SyscallException e) {
-            throw e.toFileSystemException(source);
+            throw e.toFileSystemException(source.toString());
         }
         if (OsConstants.S_ISREG(sourceStat.st_mode)) {
             FileDescriptor sourceFd;
             try {
                 sourceFd = Syscalls.open(source, OsConstants.O_RDONLY, 0);
             } catch (SyscallException e) {
-                throw e.toFileSystemException(source);
+                throw e.toFileSystemException(source.toString());
             }
             try {
                 int targetFlags = OsConstants.O_WRONLY | OsConstants.O_TRUNC
@@ -112,8 +114,8 @@ class LinuxCopyMove {
                     targetFd = Syscalls.open(target, targetFlags,
                             sourceStat.st_mode);
                 } catch (SyscallException e) {
-                    e.maybeThrowInvalidFileNameException(source, target);
-                    throw e.toFileSystemException(target);
+                    e.maybeThrowInvalidFileNameException(source.toString(), target.toString());
+                    throw e.toFileSystemException(target.toString());
                 }
                 boolean successful = false;
                 try {
@@ -125,7 +127,7 @@ class LinuxCopyMove {
                         try {
                             sentSize = Syscalls.sendfile(targetFd, sourceFd, null, SEND_FILE_COUNT);
                         } catch (SyscallException e) {
-                            throw e.toFileSystemException(source, target);
+                            throw e.toFileSystemException(source.toString(), target.toString());
                         }
                         if (sentSize == 0) {
                             break;
@@ -148,7 +150,7 @@ class LinuxCopyMove {
                     try {
                         Syscalls.close(targetFd);
                     } catch (SyscallException e) {
-                        throw e.toFileSystemException(target);
+                        throw e.toFileSystemException(target.toString());
                     } finally {
                         if (!successful) {
                             try {
@@ -163,7 +165,7 @@ class LinuxCopyMove {
                 try {
                     Syscalls.close(sourceFd);
                 } catch (SyscallException e) {
-                    throw e.toFileSystemException(source);
+                    throw e.toFileSystemException(source.toString());
                 }
             }
         } else if (OsConstants.S_ISDIR(sourceStat.st_mode)) {
@@ -178,22 +180,22 @@ class LinuxCopyMove {
                             Syscalls.mkdir(target, sourceStat.st_mode);
                         }
                     } catch (SyscallException e2) {
-                        e2.addSuppressed(e.toFileSystemException(target));
-                        throw e2.toFileSystemException(target);
+                        e2.addSuppressed(e.toFileSystemException(target.toString()));
+                        throw e2.toFileSystemException(target.toString());
                     }
                 }
-                e.maybeThrowInvalidFileNameException(source, target);
-                throw e.toFileSystemException(target);
+                e.maybeThrowInvalidFileNameException(source.toString(), target.toString());
+                throw e.toFileSystemException(target.toString());
             }
             if (copyOptions.hasProgressListener()) {
                 copyOptions.getProgressListener().accept(sourceStat.st_size);
             }
         } else if (OsConstants.S_ISLNK(sourceStat.st_mode)) {
-            String sourceTarget;
+            ByteString sourceTarget;
             try {
                 sourceTarget = Syscalls.readlink(source);
             } catch (SyscallException e) {
-                throw e.toFileSystemException(source);
+                throw e.toFileSystemException(source.toString());
             }
             try {
                 Syscalls.symlink(sourceTarget, target);
@@ -203,18 +205,18 @@ class LinuxCopyMove {
                         Syscalls.remove(target);
                         Syscalls.symlink(sourceTarget, target);
                     } catch (SyscallException e2) {
-                        e2.addSuppressed(e.toFileSystemException(target));
-                        throw e2.toFileSystemException(target);
+                        e2.addSuppressed(e.toFileSystemException(target.toString()));
+                        throw e2.toFileSystemException(target.toString());
                     }
                 }
-                e.maybeThrowInvalidFileNameException(source, target);
-                throw e.toFileSystemException(target);
+                e.maybeThrowInvalidFileNameException(source.toString(), target.toString());
+                throw e.toFileSystemException(target.toString());
             }
             if (copyOptions.hasProgressListener()) {
                 copyOptions.getProgressListener().accept(sourceStat.st_size);
             }
         } else {
-            throw new FileSystemException(source, null, "st_mode " + sourceStat.st_mode);
+            throw new FileSystemException(source.toString(), null, "st_mode " + sourceStat.st_mode);
         }
         // We don't take error when copying attribute fatal, so errors will only be logged from now
         // on.
@@ -247,10 +249,10 @@ class LinuxCopyMove {
         }
         try {
             // TODO: Allow u+rw temporarily if we are to copy xattrs.
-            String[] xattrNames = Syscalls.llistxattr(source);
-            for (String xattrName : xattrNames) {
-                if (!(copyOptions.hasCopyAttributes() || MoreTextUtils.startsWith(xattrName,
-                        "user."))) {
+            ByteString[] xattrNames = Syscalls.llistxattr(source);
+            for (ByteString xattrName : xattrNames) {
+                if (!(copyOptions.hasCopyAttributes() || xattrName.startsWith(
+                        XATTR_NAME_PREFIX_USER))) {
                     continue;
                 }
                 byte[] xattrValue = Syscalls.lgetxattr(target, xattrName);

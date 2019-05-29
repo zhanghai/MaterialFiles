@@ -37,6 +37,8 @@ import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.FileSystemCache;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
@@ -101,7 +103,7 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
 
     @NonNull
     @Override
-    public FileSystem getFileSystem(@NonNull URI uri) {
+    public ArchiveFileSystem getFileSystem(@NonNull URI uri) {
         Objects.requireNonNull(uri);
         requireSameScheme(uri);
         Path archiveFile = getArchiveFileFromUri(uri);
@@ -110,9 +112,13 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
 
     @NonNull
     private static Path getArchiveFileFromUri(@NonNull URI uri) {
+        ByteString schemeSpecificPart = ByteStringUriUtils.getDecodedSchemeSpecificPart(uri);
+        if (schemeSpecificPart == null) {
+            throw new IllegalArgumentException("URI must have a scheme specific part");
+        }
         URI archiveUri;
         try {
-            archiveUri = new URI(uri.getSchemeSpecificPart());
+            archiveUri = new URI(schemeSpecificPart.toString());
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
@@ -128,7 +134,11 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
     public Path getPath(@NonNull URI uri) {
         Objects.requireNonNull(uri);
         requireSameScheme(uri);
-        return getFileSystem(uri).getPath(uri.getFragment());
+        ByteString fragment = ByteStringUriUtils.getDecodedFragment(uri);
+        if (fragment == null) {
+            throw new IllegalArgumentException("URI must have a fragment");
+        }
+        return getFileSystem(uri).getPath(fragment);
     }
 
     private static void requireSameScheme(@NonNull URI uri) {
@@ -267,7 +277,7 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
         if (Objects.equals(path, path2)) {
             return true;
         }
-        if (!(path instanceof ArchivePath)) {
+        if (!(path2 instanceof ArchivePath)) {
             return false;
         }
         ArchiveFileSystem fileSystem = (ArchiveFileSystem) path.getFileSystem();

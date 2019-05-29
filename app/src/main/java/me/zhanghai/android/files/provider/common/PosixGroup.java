@@ -19,9 +19,9 @@ public class PosixGroup implements Parcelable, GroupPrincipal {
     private final int mId;
 
     @Nullable
-    private final String mName;
+    private final ByteString mName;
 
-    public PosixGroup(int id, @Nullable String name) {
+    public PosixGroup(int id, @Nullable ByteString name) {
         mId = id;
         mName = name;
     }
@@ -33,6 +33,11 @@ public class PosixGroup implements Parcelable, GroupPrincipal {
     @Nullable
     @Override
     public String getName() {
+        return mName != null ? mName.toString() : null;
+    }
+
+    @Nullable
+    public ByteString getNameByteString() {
         return mName;
     }
 
@@ -71,7 +76,7 @@ public class PosixGroup implements Parcelable, GroupPrincipal {
 
     protected PosixGroup(@NonNull Parcel in) {
         mId = in.readInt();
-        mName = in.readString();
+        mName = in.readParcelable(ByteString.class.getClassLoader());
     }
 
     @Override
@@ -82,6 +87,6 @@ public class PosixGroup implements Parcelable, GroupPrincipal {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(mId);
-        dest.writeString(mName);
+        dest.writeParcelable(mName, flags);
     }
 }

@@ -99,6 +99,22 @@ static jclass getSyscallExceptionClass(JNIEnv *env) {
     return syscallExceptionClass;
 }
 
+static jclass getByteStringClass(JNIEnv *env) {
+    static jclass byteStringClass = NULL;
+    if (!byteStringClass) {
+        byteStringClass = findClass(env, "me/zhanghai/android/files/provider/common/ByteString");
+    }
+    return byteStringClass;
+}
+
+static jfieldID getByteStringBytesField(JNIEnv *env) {
+    static jclass byteStringBytesField = NULL;
+    if (!byteStringBytesField) {
+        byteStringBytesField = findField(env, getByteStringClass(env), "mBytes", "[B");
+    }
+    return byteStringBytesField;
+}
+
 static jclass getFileDescriptorClass(JNIEnv *env) {
     static jclass fileDescriptorClass = NULL;
     if (!fileDescriptorClass) {
@@ -257,24 +273,57 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
     return errno;
 }
 
-static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
+static jobject newByteString(JNIEnv *env, const void *bytes, size_t length) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getByteStringClass(env), "<init>", "([B)V");
+    }
+    jsize javaLength = (jsize) length;
+    jbyteArray javaBytes = (*env)->NewByteArray(env, javaLength);
+    if (!javaBytes) {
+        return NULL;
+    }
+    (*env)->SetByteArrayRegion(env, javaBytes, 0, javaLength, bytes);
+    return (*env)->NewObject(env, getByteStringClass(env), constructor, javaBytes);
+}
+
+static jobject newByteStringFromString(JNIEnv *env, const char *string) {
+    return newByteString(env, string, strlen(string));
+}
+
+static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
+    jbyteArray javaBytes = (*env)->GetObjectField(env, javaByteString, getByteStringBytesField(
+            env));
+    const void *bytes = (*env)->GetByteArrayElements(env, javaBytes, NULL);
+    jsize javaLength = (*env)->GetArrayLength(env, javaBytes);
+    size_t length = (size_t) javaLength;
+    char *string = malloc(length + 1);
+    memcpy(string, bytes, length);
+    (*env)->ReleaseByteArrayElements(env, javaBytes, bytes, JNI_ABORT);
+    string[length] = '\0';
+    return string;
+}
+
+static jobject newStructGroup(JNIEnv *env, const struct group *group) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructGroupClass(env), "<init>",
-                                 "(Ljava/lang/String;Ljava/lang/String;I[Ljava/lang/String;)V");
+                                 "(Lme/zhanghai/android/files/provider/common/ByteString;"
+                                 "Lme/zhanghai/android/files/provider/common/ByteString;I"
+                                 "[Lme/zhanghai/android/files/provider/common/ByteString;)V");
     }
-    jstring gr_name;
+    jobject gr_name;
     if (group->gr_name) {
-        gr_name = (*env)->NewStringUTF(env, group->gr_name);
+        gr_name = newByteStringFromString(env, group->gr_name);
         if (!gr_name) {
             return NULL;
         }
     } else {
         gr_name = NULL;
     }
-    jstring gr_passwd;
+    jobject gr_passwd;
     if (group->gr_passwd) {
-        gr_passwd = (*env)->NewStringUTF(env, group->gr_passwd);
+        gr_passwd = newByteStringFromString(env, group->gr_passwd);
         if (!gr_passwd) {
             return NULL;
         }
@@ -288,14 +337,14 @@ static jobject makeStructGroup(JNIEnv* env, const struct group *group) {
         for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
             ++gr_memLength;
         };
-        gr_mem = (*env)->NewObjectArray(env, gr_memLength, getStringClass(env), NULL);
+        gr_mem = (*env)->NewObjectArray(env, gr_memLength, getByteStringClass(env), NULL);
         if (!gr_mem) {
             return NULL;
         }
         jsize gr_memIndex = 0;
         for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator,
                 ++gr_memIndex) {
-            jstring gr_memElement = (*env)->NewStringUTF(env, *gr_memIterator);
+            jobject gr_memElement = newByteStringFromString(env, *gr_memIterator);
             if (!gr_memElement) {
                 return NULL;
             }
@@ -330,7 +379,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     if (!result) {
         return NULL;
     }
-    return makeStructGroup(env, result);
+    return newStructGroup(env, result);
 #else
     gid_t gid = (gid_t) javaGid;
     struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
@@ -341,15 +390,15 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     if (!result) {
         return NULL;
     }
-    return makeStructGroup(env, result);
+    return newStructGroup(env, result);
 #endif
 }
 
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
-        JNIEnv *env, jclass clazz, jstring javaName) {
+        JNIEnv *env, jclass clazz, jobject javaName) {
 #if __ANDROID_API__ >= 24
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    const char *name = getByteStringBytes(env, javaName);
     size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
     if (bufferSize == -1) {
         // See `man 3 getpwnam`
@@ -359,7 +408,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     struct group group;
     struct group *result;
     errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    free(name);
     if (errno) {
         throwSyscallException(env, "getgrnam_r");
         return NULL;
@@ -367,11 +416,11 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     if (!result) {
         return NULL;
     }
-    return makeStructGroup(env, result);
+    return newStructGroup(env, result);
 #else
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    char *name = mallocStringFromByteString(env, javaName);
     struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    free(name);
     if (errno) {
         throwSyscallException(env, "getgrnam");
         return NULL;
@@ -379,19 +428,22 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     if (!result) {
         return NULL;
     }
-    return makeStructGroup(env, result);
+    return newStructGroup(env, result);
 #endif
 }
 
-static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
+static jobject newStructPasswd(JNIEnv *env, const struct passwd *passwd) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructPasswdClass(env), "<init>",
-                "(Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+                "(Lme/zhanghai/android/files/provider/common/ByteString;II"
+                "Lme/zhanghai/android/files/provider/common/ByteString;"
+                "Lme/zhanghai/android/files/provider/common/ByteString;"
+                "Lme/zhanghai/android/files/provider/common/ByteString;)V");
     }
-    jstring pw_name;
+    jobject pw_name;
     if (passwd->pw_name) {
-        pw_name = (*env)->NewStringUTF(env, passwd->pw_name);
+        pw_name = newByteStringFromString(env, passwd->pw_name);
         if (!pw_name) {
             return NULL;
         }
@@ -401,9 +453,9 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
     jint pw_uid = passwd->pw_uid;
     jint pw_gid = passwd->pw_gid;
 #ifdef __LP64__
-    jstring pw_gecos;
+    jobject pw_gecos;
     if (passwd->pw_gecos) {
-        pw_gecos = (*env)->NewStringUTF(env, passwd->pw_gecos);
+        pw_gecos = newByteStringFromString(env, passwd->pw_gecos);
         if (!pw_gecos) {
             return NULL;
         }
@@ -411,20 +463,20 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
         pw_gecos = NULL;
     }
 #else
-    jstring pw_gecos = NULL;
+    jobject pw_gecos = NULL;
 #endif
-    jstring pw_dir;
+    jobject pw_dir;
     if (passwd->pw_dir) {
-        pw_dir = (*env)->NewStringUTF(env, passwd->pw_dir);
+        pw_dir = newByteStringFromString(env, passwd->pw_dir);
         if (!pw_dir) {
             return NULL;
         }
     } else {
         pw_dir = NULL;
     }
-    jstring pw_shell;
+    jobject pw_shell;
     if (passwd->pw_shell) {
-        pw_shell = (*env)->NewStringUTF(env, passwd->pw_shell);
+        pw_shell = newByteStringFromString(env, passwd->pw_shell);
         if (!pw_shell) {
             return NULL;
         }
@@ -437,8 +489,8 @@ static jobject makeStructPasswd(JNIEnv* env, const struct passwd *passwd) {
 
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
-        JNIEnv *env, jclass clazz, jstring javaName) {
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+        JNIEnv *env, jclass clazz, jobject javaName) {
+    char *name = mallocStringFromByteString(env, javaName);
     size_t bufferSize = (size_t) sysconf(_SC_GETPW_R_SIZE_MAX);
     if (bufferSize == -1) {
         // See `man 3 getpwnam`
@@ -448,7 +500,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
     struct passwd passwd;
     struct passwd *result;
     errno = TEMP_FAILURE_RETRY_R(getpwnam_r(name, &passwd, buffer, bufferSize, &result));
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    free(name);
     if (errno) {
         throwSyscallException(env, "getpwnam_r");
         return NULL;
@@ -456,7 +508,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
     if (!result) {
         return NULL;
     }
-    return makeStructPasswd(env, result);
+    return newStructPasswd(env, result);
 }
 
 JNIEXPORT jobject JNICALL
@@ -479,14 +531,14 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwuid(
     if (!result) {
         return NULL;
     }
-    return makeStructPasswd(env, result);
+    return newStructPasswd(env, result);
 }
 
 JNIEXPORT jbyteArray JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
-        JNIEnv *env, jclass clazz, jstring javaPath, jstring javaName) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+        JNIEnv *env, jclass clazz, jobject javaPath, jobject javaName) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    char *name = mallocStringFromByteString(env, javaName);
     jbyteArray javaValue = NULL;
     while (true) {
         size_t size = (size_t) TEMP_FAILURE_RETRY(lgetxattr(path, name, NULL, 0));
@@ -511,8 +563,8 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
         (*env)->SetByteArrayRegion(env, javaValue, 0, javaValueLength, javaValueBuffer);
         break;
     }
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    free(path);
+    free(name);
     if (errno) {
         throwSyscallException(env, "lgetxattr");
         return NULL;
@@ -522,8 +574,8 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
 
 JNIEXPORT jobjectArray JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
-        JNIEnv *env, jclass clazz, jstring javaPath) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+        JNIEnv *env, jclass clazz, jobject javaPath) {
+    char *path = mallocStringFromByteString(env, javaPath);
     jobjectArray javaNames = NULL;
     while (true) {
         size_t size = (size_t) TEMP_FAILURE_RETRY(llistxattr(path, NULL, 0));
@@ -548,7 +600,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
             ++javaNamesLength;
             nameStart = nameEnd + 1;
         }
-        javaNames = (*env)->NewObjectArray(env, javaNamesLength, getStringClass(env), NULL);
+        javaNames = (*env)->NewObjectArray(env, javaNamesLength, getByteStringClass(env), NULL);
         if (!javaNames) {
             break;
         }
@@ -558,7 +610,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
             if (!nameEnd) {
                 break;
             }
-            jstring javaName = (*env)->NewStringUTF(env, nameStart);
+            jobject javaName = newByteStringFromString(env, nameStart);
             if (!javaName) {
                 (*env)->DeleteLocalRef(env, javaNames);
                 javaNames = NULL;
@@ -570,7 +622,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
         }
         break;
     }
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    free(path);
     if (errno) {
         throwSyscallException(env, "llistxattr");
         return NULL;
@@ -580,23 +632,23 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
 
 JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lsetxattr(
-        JNIEnv *env, jclass clazz, jstring javaPath, jstring javaName, jbyteArray javaValue,
+        JNIEnv *env, jclass clazz, jobject javaPath, jobject javaName, jbyteArray javaValue,
         jint javaFlags) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
-    const char *name = (*env)->GetStringUTFChars(env, javaName, NULL);
+    char *path = mallocStringFromByteString(env, javaPath);
+    char *name = mallocStringFromByteString(env, javaName);
     jbyte *value = (*env)->GetByteArrayElements(env, javaValue, NULL);
     size_t size = (size_t) (*env)->GetArrayLength(env, javaValue);
     int flags = javaFlags;
     TEMP_FAILURE_RETRY(lsetxattr(path, name, value, size, flags));
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
-    (*env)->ReleaseStringUTFChars(env, javaName, name);
+    free(path);
+    free(name);
     (*env)->ReleaseByteArrayElements(env, javaValue, value, JNI_ABORT);
     if (errno) {
         throwSyscallException(env, "lsetxattr");
     }
 }
 
-static jobject makeStructTimespec(JNIEnv* env, const struct timespec *timespec) {
+static jobject newStructTimespec(JNIEnv *env, const struct timespec *timespec) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructTimespecClass(env), "<init>", "(JJ)V");
@@ -606,7 +658,7 @@ static jobject makeStructTimespec(JNIEnv* env, const struct timespec *timespec) 
     return (*env)->NewObject(env, getStructTimespecClass(env), constructor, tv_sec, tv_nsec);
 }
 
-static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
+static jobject newStructStat(JNIEnv *env, const struct stat64 *stat) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructStatClass(env), "<init>", "(JJIJIIJJJJ"
@@ -624,15 +676,15 @@ static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
     jlong st_size = stat->st_size;
     jlong st_blksize = stat->st_blksize;
     jlong st_blocks = stat->st_blocks;
-    jobject st_atim = makeStructTimespec(env, &stat->st_atim);
+    jobject st_atim = newStructTimespec(env, &stat->st_atim);
     if (!st_atim) {
         return NULL;
     }
-    jobject st_mtim = makeStructTimespec(env, &stat->st_mtim);
+    jobject st_mtim = newStructTimespec(env, &stat->st_mtim);
     if (!st_mtim) {
         return NULL;
     }
-    jobject st_ctim = makeStructTimespec(env, &stat->st_ctim);
+    jobject st_ctim = newStructTimespec(env, &stat->st_ctim);
     if (!st_ctim) {
         return NULL;
     }
@@ -641,21 +693,21 @@ static jobject makeStructStat(JNIEnv* env, const struct stat64 *stat) {
                              st_atim, st_mtim, st_ctim);
 }
 
-static jobject doStat(JNIEnv *env, jstring javaPath, bool isLstat) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+static jobject doStat(JNIEnv *env, jobject javaPath, bool isLstat) {
+    char *path = mallocStringFromByteString(env, javaPath);
     struct stat64 stat;
     TEMP_FAILURE_RETRY((isLstat ? lstat64 : stat64)(path, &stat));
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    free(path);
     if (errno) {
         throwSyscallException(env, isLstat ? "lstat64" : "stat64");
         return NULL;
     }
-    return makeStructStat(env, &stat);
+    return newStructStat(env, &stat);
 }
 
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lstat(
-        JNIEnv *env, jclass clazz, jstring javaPath) {
+        JNIEnv *env, jclass clazz, jobject javaPath) {
     return doStat(env, javaPath, true);
 }
 
@@ -665,8 +717,8 @@ static void readStructTimespec(JNIEnv *env, jobject javaTime, struct timespec *t
 }
 
 JNIEXPORT void JNICALL
-doUtimens(JNIEnv *env, jstring javaPath, jobjectArray javaTimes, bool isLutimens) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+doUtimens(JNIEnv *env, jobject javaPath, jobjectArray javaTimes, bool isLutimens) {
+    char *path = mallocStringFromByteString(env, javaPath);
     size_t timesSize = (size_t) (*env)->GetArrayLength(env, javaTimes);
     struct timespec times[timesSize];
     for (size_t i = 0; i < timesSize; ++i) {
@@ -676,7 +728,7 @@ doUtimens(JNIEnv *env, jstring javaPath, jobjectArray javaTimes, bool isLutimens
         (*env)->DeleteLocalRef(env, javaTime);
     }
     TEMP_FAILURE_RETRY(utimensat(AT_FDCWD, path, times, isLutimens ? AT_SYMLINK_NOFOLLOW : 0));
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    free(path);
     if (errno) {
         throwSyscallException(env, "utimensat");
     }
@@ -684,16 +736,16 @@ doUtimens(JNIEnv *env, jstring javaPath, jobjectArray javaTimes, bool isLutimens
 
 JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
-        JNIEnv *env, jclass clazz, jstring javaPath, jobjectArray javaTimes) {
+        JNIEnv *env, jclass clazz, jobject javaPath, jobjectArray javaTimes) {
     doUtimens(env, javaPath, javaTimes, true);
 }
 
 JNIEXPORT jlong JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
-        JNIEnv *env, jclass clazz, jstring javaPath) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+        JNIEnv *env, jclass clazz, jobject javaPath) {
+    char *path = mallocStringFromByteString(env, javaPath);
     DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    free(path);
     if (errno) {
         throwSyscallException(env, "opendir");
         return (jlong) NULL;
@@ -701,18 +753,17 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
     return (jlong) dir;
 }
 
-static jobject makeStructDirent(JNIEnv* env, const struct dirent64 *dirent) {
+static jobject newStructDirent(JNIEnv *env, const struct dirent64 *dirent) {
     static jmethodID constructor = NULL;
     if (!constructor) {
         constructor = findMethod(env, getStructDirentClass(env), "<init>",
-                                 "(JJIILjava/lang/String;)V");
+                                 "(JJIILme/zhanghai/android/files/provider/common/ByteString;)V");
     }
     jlong d_ino = dirent->d_ino;
     jlong d_off = dirent->d_off;
     jint d_reclen = dirent->d_reclen;
     jint d_type = dirent->d_type;
-    jstring d_name;
-    d_name = (*env)->NewStringUTF(env, dirent->d_name);
+    jobject d_name = newByteStringFromString(env, dirent->d_name);
     if (!d_name) {
         return NULL;
     }
@@ -732,21 +783,21 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readdir(
     if (!dirent) {
         return NULL;
     }
-    return makeStructDirent(env, dirent);
+    return newStructDirent(env, dirent);
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_realpath(
-        JNIEnv *env, jclass clazz, jstring javaPath) {
-    const char *path = (*env)->GetStringUTFChars(env, javaPath, NULL);
+        JNIEnv *env, jclass clazz, jobject javaPath) {
+    char *path = mallocStringFromByteString(env, javaPath);
     char resolvedPath[PATH_MAX];
     TEMP_FAILURE_RETRY(realpath(path, resolvedPath));
-    (*env)->ReleaseStringUTFChars(env, javaPath, path);
+    free(path);
     if (errno) {
         throwSyscallException(env, "realpath");
         return NULL;
     }
-    return (*env)->NewStringUTF(env, resolvedPath);
+    return newByteStringFromString(env, resolvedPath);
 }
 
 JNIEXPORT jlong JNICALL
@@ -775,12 +826,12 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
 
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_stat(
-        JNIEnv *env, jclass clazz, jstring javaPath) {
+        JNIEnv *env, jclass clazz, jobject javaPath) {
     return doStat(env, javaPath, false);
 }
 
 JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_utimens(
-        JNIEnv *env, jclass clazz, jstring javaPath, jobjectArray javaTimes) {
+        JNIEnv *env, jclass clazz, jobject javaPath, jobjectArray javaTimes) {
     doUtimens(env, javaPath, javaTimes, false);
 }
