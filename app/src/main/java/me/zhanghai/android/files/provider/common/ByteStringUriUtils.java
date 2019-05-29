@@ -19,6 +19,7 @@ public class ByteStringUriUtils {
     private static final String CHARSET_UNRESERVED = CHARSET_ALPHA + CHARSET_DIGIT + "-._~";
     private static final String CHARSET_SUB_DELIMS = "!$&'()*+,;=";
     private static final String CHARSET_PCHAR = CHARSET_UNRESERVED + CHARSET_SUB_DELIMS + ":@";
+    private static final String CHARSET_PATH = CHARSET_PCHAR + "/";
     private static final String CHARSET_FRAGMENT = CHARSET_PCHAR + "/?";
 
     @NonNull
@@ -58,9 +59,9 @@ public class ByteStringUriUtils {
             }
             int ipLiteralEnd = ipLiteralLastCharacterIndex + 1;
             return decoded.substring(0, ipLiteralEnd).toString()
-                    + encode(decoded.substring(ipLiteralEnd), CHARSET_PCHAR);
+                    + encode(decoded.substring(ipLiteralEnd), CHARSET_PATH);
         } else {
-            return encode(decoded, CHARSET_PCHAR);
+            return encode(decoded, CHARSET_PATH);
         }
     }
 
