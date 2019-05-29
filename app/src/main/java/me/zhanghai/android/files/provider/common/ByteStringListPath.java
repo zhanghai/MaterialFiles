@@ -33,6 +33,9 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @NonNull
     private final List<ByteString> mNames;
 
+    @Nullable
+    private ByteString mByteStringCache;
+
     public ByteStringListPath(byte separator, @NonNull ByteString path) {
         Objects.requireNonNull(path);
         if (separator == '\0') {
@@ -269,22 +272,26 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     public ByteString toByteString() {
-        ByteStringBuilder pathBuilder = new ByteStringBuilder();
-        if (mAbsolute) {
-            if (getRoot().getNameCount() == 0) {
-                pathBuilder.append(mSeparator);
+        // We are okay with the potential race condition here.
+        if (mByteStringCache == null) {
+            ByteStringBuilder builder = new ByteStringBuilder();
+            if (mAbsolute) {
+                if (getRoot().getNameCount() == 0) {
+                    builder.append(mSeparator);
+                }
             }
-        }
-        boolean first = true;
-        for (ByteString name : mNames) {
-            if (first) {
-                first = false;
-            } else {
-                pathBuilder.append(mSeparator);
+            boolean first = true;
+            for (ByteString name : mNames) {
+                if (first) {
+                    first = false;
+                } else {
+                    builder.append(mSeparator);
+                }
+                builder.append(name);
             }
-            pathBuilder.append(name);
+            mByteStringCache = builder.toByteString();
         }
-        return pathBuilder.toByteString();
+        return mByteStringCache;
     }
 
     /**
@@ -293,22 +300,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @NonNull
     @Override
     public String toString() {
-        StringBuilder pathBuilder = new StringBuilder();
-        if (mAbsolute) {
-            if (getRoot().getNameCount() == 0) {
-                pathBuilder.append((char) mSeparator);
-            }
-        }
-        boolean first = true;
-        for (ByteString name : mNames) {
-            if (first) {
-                first = false;
-            } else {
-                pathBuilder.append((char) mSeparator);
-            }
-            pathBuilder.append(name.toString());
-        }
-        return pathBuilder.toString();
+        return toByteString().toString();
     }
 
     @Override
