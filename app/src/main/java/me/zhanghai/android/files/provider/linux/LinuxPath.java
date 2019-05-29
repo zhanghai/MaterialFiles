@@ -23,10 +23,13 @@ import java8.nio.file.WatchService;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
 import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
 class LinuxPath extends ByteStringListPath implements RootablePath {
+
+    private static final ByteString TWO_SLASHES = new ByteString(new byte[] { '/', '/' });
 
     @NonNull
     private final LinuxFileSystem mFileSystem;
@@ -57,6 +60,14 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
     protected LinuxPath createPath(boolean absolute, @NonNull List<ByteString> names) {
         Objects.requireNonNull(names);
         return new LinuxPath(mFileSystem, absolute, names);
+    }
+
+    @Nullable
+    @Override
+    protected ByteString getUriSchemeSpecificPart() {
+        return new ByteStringBuilder(TWO_SLASHES)
+                .append(super.getUriSchemeSpecificPart())
+                .toByteString();
     }
 
     @NonNull
