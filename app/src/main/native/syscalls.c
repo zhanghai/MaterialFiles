@@ -276,7 +276,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
 static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
     jbyteArray javaBytes = (*env)->GetObjectField(env, javaByteString, getByteStringBytesField(
             env));
-    const void *bytes = (*env)->GetByteArrayElements(env, javaBytes, NULL);
+    void *bytes = (*env)->GetByteArrayElements(env, javaBytes, NULL);
     jsize javaLength = (*env)->GetArrayLength(env, javaBytes);
     size_t length = (size_t) javaLength;
     char *string = malloc(length + 1);
