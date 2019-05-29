@@ -57,7 +57,9 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
     @NonNull
     public static ByteString fromString(@NonNull String string) {
         Objects.requireNonNull(string);
-        return ofOwnableBytes(string.getBytes());
+        ByteString byteString = ofOwnableBytes(string.getBytes());
+        byteString.mStringCache = string;
+        return byteString;
     }
 
     @Nullable
