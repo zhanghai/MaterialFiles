@@ -225,13 +225,13 @@ static void throwException(JNIEnv *env, jclass exceptionClass, jmethodID constru
         (*env)->ExceptionClear(env);
     }
     jstring detailMessage = (*env)->NewStringUTF(env, functionName);
-    if (detailMessage == NULL) {
+    if (!detailMessage) {
         // Not really much we can do here. We're probably dead in the water,
         // but let's try to stumble on...
         (*env)->ExceptionClear(env);
     }
     jobject exception;
-    if (cause != NULL) {
+    if (cause) {
         exception = (*env)->NewObject(env, exceptionClass, constructor3, detailMessage, error,
                                       cause);
     } else {
