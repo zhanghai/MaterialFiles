@@ -80,8 +80,7 @@ public class Syscalls {
     @NonNull
     public static ByteString getfilecon(@NonNull ByteString path) throws SyscallException {
         try {
-            // TODO
-            return ByteString.fromString(SeLinux.getfilecon(path.toString()));
+            return ByteString.ofOwnableBytes(SeLinux.getfilecon(path.getOwnedBytes()));
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -115,8 +114,7 @@ public class Syscalls {
     @NonNull
     public static ByteString lgetfilecon(@NonNull ByteString path) throws SyscallException {
         try {
-            // TODO
-            return ByteString.fromString(SeLinux.lgetfilecon(path.toString()));
+            return ByteString.ofOwnableBytes(SeLinux.lgetfilecon(path.getOwnedBytes()));
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -125,8 +123,7 @@ public class Syscalls {
     public static void lsetfilecon(@NonNull ByteString path, @NonNull ByteString context)
             throws SyscallException {
         try {
-            // TODO
-            SeLinux.lsetfilecon(path.toString(), context.toString());
+            SeLinux.lsetfilecon(path.getOwnedBytes(), context.getOwnedBytes());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -230,7 +227,7 @@ public class Syscalls {
 
     public static void selinux_android_restorecon(@NonNull ByteString path, int flags)
             throws SyscallException {
-        // TODO
+        // FIXME: Platform SELinux class cannot accept byte array, so we have to use a string.
         boolean successful = SELinuxCompat.native_restorecon(path.toString(), flags);
         if (!successful) {
             int errno = errno();
@@ -249,8 +246,7 @@ public class Syscalls {
     public static void setfilecon(@NonNull ByteString path, @NonNull ByteString context)
             throws SyscallException {
         try {
-            // TODO
-            SeLinux.setfilecon(path.toString(), context.toString());
+            SeLinux.setfilecon(path.getOwnedBytes(), context.getOwnedBytes());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
