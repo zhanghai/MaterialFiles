@@ -166,7 +166,7 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
     }
 
     @Override
-    public void setSeLinuxContext(@NonNull String context) throws IOException {
+    public void setSeLinuxContext(@NonNull ByteString context) throws IOException {
         Objects.requireNonNull(context);
         try {
             if (mNoFollowLinks) {

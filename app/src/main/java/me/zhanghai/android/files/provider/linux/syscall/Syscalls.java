@@ -122,11 +122,11 @@ public class Syscalls {
         }
     }
 
-    public static void lsetfilecon(@NonNull ByteString path, @NonNull String context)
+    public static void lsetfilecon(@NonNull ByteString path, @NonNull ByteString context)
             throws SyscallException {
         try {
             // TODO
-            SeLinux.lsetfilecon(path.toString(), context);
+            SeLinux.lsetfilecon(path.toString(), context.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }
@@ -246,11 +246,11 @@ public class Syscalls {
                                        @Nullable Int64Ref offset, long count)
             throws SyscallException;
 
-    public static void setfilecon(@NonNull ByteString path, @NonNull String context)
+    public static void setfilecon(@NonNull ByteString path, @NonNull ByteString context)
             throws SyscallException {
         try {
             // TODO
-            SeLinux.setfilecon(path.toString(), context);
+            SeLinux.setfilecon(path.toString(), context.toString());
         } catch (ErrnoException e) {
             throw new SyscallException(e);
         }

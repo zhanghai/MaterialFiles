@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
 import java9.util.function.Function;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
@@ -86,7 +87,7 @@ public abstract class RootablePosixFileAttributeView implements PosixFileAttribu
     }
 
     @Override
-    public void setSeLinuxContext(@NonNull String context) throws IOException {
+    public void setSeLinuxContext(@NonNull ByteString context) throws IOException {
         acceptRootable(mPath, attributeView -> attributeView.setSeLinuxContext(context));
     }
 

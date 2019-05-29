@@ -13,6 +13,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ParcelableFileTime;
 import me.zhanghai.android.files.provider.common.ParcelablePosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
@@ -100,11 +101,12 @@ public abstract class RemotePosixFileAttributeView<FA extends PosixFileAttribute
         exception.throwIfNotNull();
     }
 
-    public void setSeLinuxContext(@NonNull String context) throws IOException {
+    public void setSeLinuxContext(@NonNull ByteString context) throws IOException {
+        ParcelableObject parcelableContext = new ParcelableObject(context);
         ParcelableException exception = new ParcelableException();
         IRemotePosixFileAttributeView remoteInterface = mRemoteInterface.get();
         try {
-            remoteInterface.setSeLinuxContext(context, exception);
+            remoteInterface.setSeLinuxContext(parcelableContext, exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }

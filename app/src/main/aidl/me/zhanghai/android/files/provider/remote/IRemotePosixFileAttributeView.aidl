@@ -21,7 +21,8 @@ interface IRemotePosixFileAttributeView {
 
     void setMode(in ParcelablePosixFileMode parcelableMode, out ParcelableException exception);
 
-    void setSeLinuxContext(in String context, out ParcelableException exception);
+    void setSeLinuxContext(in ParcelableObject parcelableContext,
+            out ParcelableException exception);
 
     void restoreSeLinuxContext(out ParcelableException exception);
 }

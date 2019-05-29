@@ -59,7 +59,7 @@ public interface PosixFileAttributeView extends java8.nio.file.attribute.PosixFi
 
     void setMode(@NonNull Set<PosixFileModeBit> mode) throws IOException;
 
-    void setSeLinuxContext(@NonNull String context) throws IOException;
+    void setSeLinuxContext(@NonNull ByteString context) throws IOException;
 
     void restoreSeLinuxContext() throws IOException;
 }

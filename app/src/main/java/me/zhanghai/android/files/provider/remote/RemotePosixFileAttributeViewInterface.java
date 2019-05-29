@@ -10,6 +10,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ParcelableFileTime;
 import me.zhanghai.android.files.provider.common.ParcelablePosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
@@ -85,8 +86,9 @@ public class RemotePosixFileAttributeViewInterface extends IRemotePosixFileAttri
     }
 
     @Override
-    public void setSeLinuxContext(@NonNull String context,
+    public void setSeLinuxContext(@NonNull ParcelableObject parcelableContext,
                                   @NonNull ParcelableException exception) {
+        ByteString context = parcelableContext.get();
         try {
             mAttributeView.setSeLinuxContext(context);
         } catch (IOException | RuntimeException e) {

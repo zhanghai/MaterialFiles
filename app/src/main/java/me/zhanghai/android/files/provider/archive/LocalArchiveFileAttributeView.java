@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixGroup;
@@ -76,7 +77,7 @@ public class LocalArchiveFileAttributeView implements PosixFileAttributeView {
     }
 
     @Override
-    public void setSeLinuxContext(@NonNull String context) {
+    public void setSeLinuxContext(@NonNull ByteString context) {
         Objects.requireNonNull(context);
         throw new UnsupportedOperationException();
     }
