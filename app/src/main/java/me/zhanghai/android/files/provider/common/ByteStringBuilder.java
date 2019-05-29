@@ -69,6 +69,9 @@ public class ByteStringBuilder {
         int capacity = mBytes.length;
         if (minimumCapacity > capacity) {
             int newCapacity = (capacity << 1) + 2;
+            if (newCapacity < minimumCapacity) {
+                newCapacity = minimumCapacity;
+            }
             mBytes = Arrays.copyOf(mBytes, newCapacity);
         }
     }
