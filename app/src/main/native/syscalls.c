@@ -273,6 +273,19 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
     return errno;
 }
 
+static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
+    jbyteArray javaBytes = (*env)->GetObjectField(env, javaByteString, getByteStringBytesField(
+            env));
+    const void *bytes = (*env)->GetByteArrayElements(env, javaBytes, NULL);
+    jsize javaLength = (*env)->GetArrayLength(env, javaBytes);
+    size_t length = (size_t) javaLength;
+    char *string = malloc(length + 1);
+    memcpy(string, bytes, length);
+    (*env)->ReleaseByteArrayElements(env, javaBytes, bytes, JNI_ABORT);
+    string[length] = '\0';
+    return string;
+}
+
 static jobject newByteString(JNIEnv *env, const void *bytes, size_t length) {
     static jmethodID constructor = NULL;
     if (!constructor) {
@@ -289,19 +302,6 @@ static jobject newByteString(JNIEnv *env, const void *bytes, size_t length) {
 
 static jobject newByteStringFromString(JNIEnv *env, const char *string) {
     return newByteString(env, string, strlen(string));
-}
-
-static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
-    jbyteArray javaBytes = (*env)->GetObjectField(env, javaByteString, getByteStringBytesField(
-            env));
-    const void *bytes = (*env)->GetByteArrayElements(env, javaBytes, NULL);
-    jsize javaLength = (*env)->GetArrayLength(env, javaBytes);
-    size_t length = (size_t) javaLength;
-    char *string = malloc(length + 1);
-    memcpy(string, bytes, length);
-    (*env)->ReleaseByteArrayElements(env, javaBytes, bytes, JNI_ABORT);
-    string[length] = '\0';
-    return string;
 }
 
 static jobject newStructGroup(JNIEnv *env, const struct group *group) {
