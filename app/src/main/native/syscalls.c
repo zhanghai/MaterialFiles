@@ -9,6 +9,7 @@
 #include <pwd.h>
 #include <sys/sendfile.h>
 #include <sys/stat.h>
+#include <sys/statvfs.h>
 #include <sys/types.h>
 #include <sys/xattr.h>
 #include <unistd.h>
@@ -192,6 +193,14 @@ static jclass getStructStatClass(JNIEnv *env) {
     return structStatClass;
 }
 
+static jclass getStructStatVfsClass(JNIEnv *env) {
+    static jclass structStatVfsClass = NULL;
+    if (!structStatVfsClass) {
+        structStatVfsClass = findClass(env, "android/system/StructStatVfs");
+    }
+    return structStatVfsClass;
+}
+
 static jclass getStructTimespecClass(JNIEnv *env) {
     static jclass structTimespecClass = NULL;
     if (!structTimespecClass) {
@@ -302,6 +311,46 @@ static jobject newByteString(JNIEnv *env, const void *bytes, size_t length) {
 
 static jobject newByteStringFromString(JNIEnv *env, const char *string) {
     return newByteString(env, string, strlen(string));
+}
+
+JNIEXPORT jboolean JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_access(
+        JNIEnv *env, jclass clazz, jobject javaPath, jint javaMode) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    int mode = javaMode;
+    int result = TEMP_FAILURE_RETRY(access(path, mode));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "access");
+        return NULL;
+    }
+    bool accessible = result == 0;
+    return (jboolean) accessible;
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_chmod(
+        JNIEnv *env, jclass clazz, jobject javaPath, jint javaMode) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    mode_t mode = (mode_t) javaMode;
+    TEMP_FAILURE_RETRY_V(chmod(path, mode));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "chmod");
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_chown(
+        JNIEnv *env, jclass clazz, jobject javaPath, jint javaUid, jint javaGid) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    uid_t uid = (uid_t) javaUid;
+    gid_t gid = (gid_t) javaGid;
+    TEMP_FAILURE_RETRY_V(chown(path, uid, gid));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "chown");
+    }
 }
 
 static jobject newStructGroup(JNIEnv *env, const struct group *group) {
@@ -534,6 +583,19 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwuid(
     return newStructPasswd(env, result);
 }
 
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lchown(
+        JNIEnv *env, jclass clazz, jobject javaPath, jint javaUid, jint javaGid) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    uid_t uid = (uid_t) javaUid;
+    gid_t gid = (gid_t) javaGid;
+    TEMP_FAILURE_RETRY_V(lchown(path, uid, gid));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "lchown");
+    }
+}
+
 JNIEXPORT jbyteArray JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
         JNIEnv *env, jclass clazz, jobject javaPath, jobject javaName) {
@@ -570,6 +632,19 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
         return NULL;
     }
     return javaValue;
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_link(
+        JNIEnv *env, jclass clazz, jobject javaOldPath, jobject javaNewPath) {
+    char *oldPath = mallocStringFromByteString(env, javaOldPath);
+    char *newPath = mallocStringFromByteString(env, javaNewPath);
+    TEMP_FAILURE_RETRY_V(link(oldPath, newPath));
+    free(oldPath);
+    free(newPath);
+    if (errno) {
+        throwSyscallException(env, "link");
+    }
 }
 
 JNIEXPORT jobjectArray JNICALL
@@ -740,6 +815,46 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lutimens(
     doUtimens(env, javaPath, javaTimes, true);
 }
 
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_mkdir(
+        JNIEnv *env, jclass clazz, jobject javaPath, jint javaMode) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    mode_t mode = (mode_t) javaMode;
+    TEMP_FAILURE_RETRY_V(mkdir(path, mode));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "mkdir");
+    }
+}
+
+static jobject newFileDescriptor(JNIEnv *env, int fd) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getFileDescriptorClass(env), "<init>", "()V");
+    }
+    jobject javaFileDescriptor = (*env)->NewObject(env, getFileDescriptorClass(env), constructor);
+    if (!javaFileDescriptor) {
+        return NULL;
+    }
+    (*env)->SetIntField(env, javaFileDescriptor, getFileDescriptorDescriptorField(env), fd);
+    return javaFileDescriptor;
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_open(
+        JNIEnv *env, jclass clazz, jobject javaPath, jint javaFlags, jint javaMode) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    int flags = javaFlags;
+    mode_t mode = (mode_t) javaMode;
+    int fd = TEMP_FAILURE_RETRY(open(path, flags, mode));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "open");
+        return NULL;
+    }
+    return newFileDescriptor(env, fd);
+}
+
 JNIEXPORT jlong JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
         JNIEnv *env, jclass clazz, jobject javaPath) {
@@ -787,6 +902,33 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readdir(
 }
 
 JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readlink(
+        JNIEnv *env, jclass clazz, jobject javaPath) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    size_t maxSize = PATH_MAX;
+    jobject javaTarget = NULL;
+    while (true) {
+        char target[maxSize];
+        size_t size = (size_t) TEMP_FAILURE_RETRY(readlink(path, target, maxSize));
+        if (errno) {
+            break;
+        }
+        if (size >= maxSize) {
+            maxSize *= 2;
+            continue;
+        }
+        javaTarget = newByteString(env, target, size);
+        break;
+    }
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "readlink");
+        return NULL;
+    }
+    return javaTarget;
+}
+
+JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_realpath(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     char *path = mallocStringFromByteString(env, javaPath);
@@ -798,6 +940,30 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_realpath(
         return NULL;
     }
     return newByteStringFromString(env, resolvedPath);
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_remove(
+        JNIEnv *env, jclass clazz, jobject javaPath) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    TEMP_FAILURE_RETRY_V(remove(path));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "remove");
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_rename(
+        JNIEnv *env, jclass clazz, jobject javaOldPath, jobject javaNewPath) {
+    char *oldPath = mallocStringFromByteString(env, javaOldPath);
+    char *newPath = mallocStringFromByteString(env, javaNewPath);
+    TEMP_FAILURE_RETRY_V(rename(oldPath, newPath));
+    free(oldPath);
+    free(newPath);
+    if (errno) {
+        throwSyscallException(env, "rename");
+    }
 }
 
 JNIEXPORT jlong JNICALL
@@ -828,6 +994,54 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_stat(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     return doStat(env, javaPath, false);
+}
+
+static jobject newStructStatVfs(JNIEnv *env, const struct statvfs64 *statvfs) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getStructStatVfsClass(env), "<init>", "(JJJJJJJJJJJ)V");
+    }
+    jlong f_bsize = statvfs->f_bsize;
+    jlong f_frsize = statvfs->f_frsize;
+    jlong f_blocks = statvfs->f_blocks;
+    jlong f_bfree = statvfs->f_bfree;
+    jlong f_bavail = statvfs->f_bavail;
+    jlong f_files = statvfs->f_files;
+    jlong f_ffree = statvfs->f_ffree;
+    jlong f_favail = statvfs->f_favail;
+    jlong f_fsid = statvfs->f_fsid;
+    jlong f_flag = statvfs->f_flag;
+    jlong f_namemax = statvfs->f_namemax;
+    return (*env)->NewObject(env, getStructStatVfsClass(env), constructor, f_bsize, f_frsize,
+                             f_blocks, f_bfree, f_bavail, f_files, f_ffree, f_favail, f_fsid,
+                             f_flag, f_namemax);
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_statvfs(
+        JNIEnv *env, jclass clazz, jobject javaPath) {
+    char *path = mallocStringFromByteString(env, javaPath);
+    struct statvfs64 statvfs;
+    TEMP_FAILURE_RETRY(statvfs64(path, &statvfs));
+    free(path);
+    if (errno) {
+        throwSyscallException(env, "statvfs64");
+        return NULL;
+    }
+    return newStructStatVfs(env, &statvfs);
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_symlink(
+        JNIEnv *env, jclass clazz, jobject javaTarget, jobject javaLinkPath) {
+    char *target = mallocStringFromByteString(env, javaTarget);
+    char *linkPath = mallocStringFromByteString(env, javaLinkPath);
+    TEMP_FAILURE_RETRY_V(symlink(target, linkPath));
+    free(target);
+    free(linkPath);
+    if (errno) {
+        throwSyscallException(env, "symlink");
+    }
 }
 
 JNIEXPORT void JNICALL
