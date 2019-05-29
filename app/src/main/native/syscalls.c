@@ -398,7 +398,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
         JNIEnv *env, jclass clazz, jobject javaName) {
 #if __ANDROID_API__ >= 24
-    const char *name = getByteStringBytes(env, javaName);
+    char *name = mallocStringFromByteString(env, javaName);
     size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
     if (bufferSize == -1) {
         // See `man 3 getpwnam`
