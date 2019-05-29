@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 public class ByteString implements Comparable<ByteString>, Parcelable {
 
-    public static final ByteString EMPTY = new ByteString(new byte[0], false);
+    public static final ByteString EMPTY = ofOwnableBytes(new byte[0]);
 
     @NonNull
     private final byte[] mBytes;
@@ -29,25 +29,35 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         mBytes = ownedBytes;
     }
 
-    public ByteString(@NonNull byte[] bytes) {
+    private ByteString(@NonNull byte[] bytes) {
         Objects.requireNonNull(bytes);
         mBytes = bytes.clone();
     }
 
-    public ByteString(@NonNull byte[] bytes, int start, int end) {
+    @NonNull
+    public static ByteString ofByte(byte b) {
+        return ofOwnableBytes(new byte[] { b });
+    }
+
+    public static ByteString ofBytes(@NonNull byte[] bytes) {
+        return new ByteString(bytes);
+    }
+
+    public static ByteString ofBytes(@NonNull byte[] bytes, int start, int end) {
         Objects.requireNonNull(bytes);
-        mBytes = Arrays.copyOfRange(bytes, start, end);
+        return ofOwnableBytes(Arrays.copyOfRange(bytes, start, end));
     }
 
     @NonNull
-    public static ByteString ofByte(byte b) {
-        return new ByteString(new byte[] { b }, false);
+    public static ByteString ofOwnableBytes(@NonNull byte[] bytes) {
+        Objects.requireNonNull(bytes);
+        return new ByteString(bytes, false);
     }
 
     @NonNull
     public static ByteString fromString(@NonNull String string) {
         Objects.requireNonNull(string);
-        return new ByteString(string.getBytes(), false);
+        return ofOwnableBytes(string.getBytes());
     }
 
     @Nullable
@@ -144,7 +154,7 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         if (start == 0 && end == mBytes.length) {
             return this;
         }
-        return new ByteString(mBytes, start, end);
+        return ofBytes(mBytes, start, end);
     }
 
     @NonNull

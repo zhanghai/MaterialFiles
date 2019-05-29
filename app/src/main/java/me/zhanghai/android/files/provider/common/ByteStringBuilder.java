@@ -78,7 +78,7 @@ public class ByteStringBuilder {
 
     @NonNull
     public ByteString toByteString() {
-        return new ByteString(mBytes, 0, mLength);
+        return ByteString.ofBytes(mBytes, 0, mLength);
     }
 
     /**
