@@ -24,6 +24,7 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
     @Nullable
     private String mStringCache;
 
+    // This constructor is also used by JNI.
     private ByteString(@NonNull byte[] ownedBytes, boolean unused) {
         Objects.requireNonNull(ownedBytes);
         mBytes = ownedBytes;
