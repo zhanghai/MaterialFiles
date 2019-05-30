@@ -291,6 +291,7 @@ static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
     char *string = malloc(length + 1);
     memcpy(string, bytes, length);
     (*env)->ReleaseByteArrayElements(env, javaBytes, bytes, JNI_ABORT);
+    (*env)->DeleteLocalRef(env, javaBytes);
     string[length] = '\0';
     return string;
 }
