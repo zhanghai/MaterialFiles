@@ -938,9 +938,11 @@ JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_remove(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     char *path = mallocStringFromByteString(env, javaPath);
-    TEMP_FAILURE_RETRY_V(remove(path));
+    int result = TEMP_FAILURE_RETRY(remove(path));
     free(path);
-    if (errno) {
+    // This is a libc function and doesn't clear errno properly.
+    //if (errno) {
+    if (result) {
         throwSyscallException(env, "remove");
     }
 }
