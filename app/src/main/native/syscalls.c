@@ -233,7 +233,9 @@ static void throwException(JNIEnv *env, jclass exceptionClass, jmethodID constru
         exception = (*env)->NewObject(env, exceptionClass, constructor2, detailMessage, error);
     }
     (*env)->Throw(env, exception);
-    (*env)->DeleteLocalRef(env, detailMessage);
+    if (detailMessage) {
+        (*env)->DeleteLocalRef(env, detailMessage);
+    }
 }
 
 static void throwSyscallException(JNIEnv* env, const char* functionName) {
