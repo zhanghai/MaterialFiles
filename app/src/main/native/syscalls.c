@@ -48,20 +48,6 @@
         (exp); \
     } while (errno == EINTR); })
 
-static jobjectArray newResizedObjectArray(JNIEnv *env, jobjectArray array, jclass elementClass,
-                                          jsize length, jsize newLength) {
-    jobjectArray newArray = (*env)->NewObjectArray(env, newLength, elementClass, NULL);
-    if (!newArray) {
-        return NULL;
-    }
-    for (jsize i = 0; i < length; ++i) {
-        jobject element = (*env)->GetObjectArrayElement(env, array, i);
-        (*env)->SetObjectArrayElement(env, newArray, i, element);
-        (*env)->DeleteLocalRef(env, element);
-    }
-    return newArray;
-}
-
 static jclass findClass(JNIEnv *env, const char *name) {
     jclass localClass = (*env)->FindClass(env, name);
     jclass result = (*env)->NewGlobalRef(env, localClass);
