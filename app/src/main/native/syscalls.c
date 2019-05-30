@@ -325,7 +325,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_chmod(
         JNIEnv *env, jclass clazz, jobject javaPath, jint javaMode) {
     char *path = mallocStringFromByteString(env, javaPath);
     mode_t mode = (mode_t) javaMode;
-    TEMP_FAILURE_RETRY_V(chmod(path, mode));
+    TEMP_FAILURE_RETRY(chmod(path, mode));
     free(path);
     if (errno) {
         throwSyscallException(env, "chmod");
@@ -338,7 +338,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_chown(
     char *path = mallocStringFromByteString(env, javaPath);
     uid_t uid = (uid_t) javaUid;
     gid_t gid = (gid_t) javaGid;
-    TEMP_FAILURE_RETRY_V(chown(path, uid, gid));
+    TEMP_FAILURE_RETRY(chown(path, uid, gid));
     free(path);
     if (errno) {
         throwSyscallException(env, "chown");
@@ -581,7 +581,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lchown(
     char *path = mallocStringFromByteString(env, javaPath);
     uid_t uid = (uid_t) javaUid;
     gid_t gid = (gid_t) javaGid;
-    TEMP_FAILURE_RETRY_V(lchown(path, uid, gid));
+    TEMP_FAILURE_RETRY(lchown(path, uid, gid));
     free(path);
     if (errno) {
         throwSyscallException(env, "lchown");
@@ -631,7 +631,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_link(
         JNIEnv *env, jclass clazz, jobject javaOldPath, jobject javaNewPath) {
     char *oldPath = mallocStringFromByteString(env, javaOldPath);
     char *newPath = mallocStringFromByteString(env, javaNewPath);
-    TEMP_FAILURE_RETRY_V(link(oldPath, newPath));
+    TEMP_FAILURE_RETRY(link(oldPath, newPath));
     free(oldPath);
     free(newPath);
     if (errno) {
@@ -812,7 +812,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_mkdir(
         JNIEnv *env, jclass clazz, jobject javaPath, jint javaMode) {
     char *path = mallocStringFromByteString(env, javaPath);
     mode_t mode = (mode_t) javaMode;
-    TEMP_FAILURE_RETRY_V(mkdir(path, mode));
+    TEMP_FAILURE_RETRY(mkdir(path, mode));
     free(path);
     if (errno) {
         throwSyscallException(env, "mkdir");
@@ -952,7 +952,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_rename(
         JNIEnv *env, jclass clazz, jobject javaOldPath, jobject javaNewPath) {
     char *oldPath = mallocStringFromByteString(env, javaOldPath);
     char *newPath = mallocStringFromByteString(env, javaNewPath);
-    TEMP_FAILURE_RETRY_V(rename(oldPath, newPath));
+    TEMP_FAILURE_RETRY(rename(oldPath, newPath));
     free(oldPath);
     free(newPath);
     if (errno) {
@@ -1030,7 +1030,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_symlink(
         JNIEnv *env, jclass clazz, jobject javaTarget, jobject javaLinkPath) {
     char *target = mallocStringFromByteString(env, javaTarget);
     char *linkPath = mallocStringFromByteString(env, javaLinkPath);
-    TEMP_FAILURE_RETRY_V(symlink(target, linkPath));
+    TEMP_FAILURE_RETRY(symlink(target, linkPath));
     free(target);
     free(linkPath);
     if (errno) {
