@@ -314,7 +314,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_access(
     free(path);
     if (errno) {
         throwSyscallException(env, "access");
-        return NULL;
+        return JNI_FALSE;
     }
     bool accessible = result == 0;
     return (jboolean) accessible;
