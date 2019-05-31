@@ -47,8 +47,8 @@ class LocalLinuxWatchService extends AbstractWatchService {
     }
 
     @NonNull
-    LinuxWatchKey register(@NonNull LinuxPath path, @NonNull WatchEvent.Kind<?>[] kinds,
-                           @NonNull WatchEvent.Modifier... modifiers) throws IOException {
+    LocalLinuxWatchKey register(@NonNull LinuxPath path, @NonNull WatchEvent.Kind<?>[] kinds,
+                                @NonNull WatchEvent.Modifier... modifiers) throws IOException {
         Objects.requireNonNull(path);
         Objects.requireNonNull(kinds);
         Objects.requireNonNull(modifiers);
@@ -72,7 +72,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
         return mPoller.register(path, kindSet);
     }
 
-    void cancel(@NonNull LinuxWatchKey key) {
+    void cancel(@NonNull LocalLinuxWatchKey key) {
         mPoller.cancel(key);
     }
 
@@ -95,7 +95,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
         private final FileDescriptor[] mSocketFds;
 
         @NonNull
-        private final Map<Integer, LinuxWatchKey> mKeys = new HashMap<>();
+        private final Map<Integer, LocalLinuxWatchKey> mKeys = new HashMap<>();
 
         private final byte[] mInotifyBuffer = new byte[4096];
 
@@ -127,7 +127,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
         }
 
         @NonNull
-        LinuxWatchKey register(@NonNull LinuxPath path, @NonNull Set<WatchEvent.Kind<?>> kinds)
+        LocalLinuxWatchKey register(@NonNull LinuxPath path, @NonNull Set<WatchEvent.Kind<?>> kinds)
                 throws IOException {
             return awaitPromise(new Promise<>(settler -> post(settler, () -> {
                 try {
@@ -151,7 +151,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
                         settler.reject(e.toFileSystemException(pathBytes.toString()));
                         return;
                     }
-                    LinuxWatchKey key = new LinuxWatchKey(mWatchService, path, wd);
+                    LocalLinuxWatchKey key = new LocalLinuxWatchKey(mWatchService, path, wd);
                     mKeys.put(wd, key);
                     settler.resolve(key);
                 } catch (RuntimeException e) {
@@ -160,7 +160,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
             })));
         }
 
-        void cancel(@NonNull LinuxWatchKey key) {
+        void cancel(@NonNull LocalLinuxWatchKey key) {
             try {
                 new Promise<Void>(settler -> post(settler, () -> {
                     if (key.isValid()) {
@@ -186,7 +186,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
         public void close() throws IOException {
             awaitPromise(new Promise<>(settler -> post(settler, () -> {
                 try {
-                    for (LinuxWatchKey key : mKeys.values()) {
+                    for (LocalLinuxWatchKey key : mKeys.values()) {
                         int wd = key.getWatchDescriptor();
                         try {
                             Syscalls.inotify_rm_watch(mInotifyFd, wd);
@@ -296,12 +296,12 @@ class LocalLinuxWatchService extends AbstractWatchService {
                             for (StructInotifyEvent event : events) {
                                 if ((event.mask & Constants.IN_Q_OVERFLOW)
                                         == Constants.IN_Q_OVERFLOW) {
-                                    for (LinuxWatchKey key : mKeys.values()) {
+                                    for (LocalLinuxWatchKey key : mKeys.values()) {
                                         key.addEvent(StandardWatchEventKinds.OVERFLOW, null);
                                     }
                                     break;
                                 }
-                                LinuxWatchKey key = mKeys.get(event.wd);
+                                LocalLinuxWatchKey key = mKeys.get(event.wd);
                                 if ((event.mask & Constants.IN_IGNORED) == Constants.IN_IGNORED) {
                                     key.setInvalid();
                                     key.signal();

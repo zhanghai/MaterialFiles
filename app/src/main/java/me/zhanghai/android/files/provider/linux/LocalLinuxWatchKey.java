@@ -8,13 +8,14 @@ package me.zhanghai.android.files.provider.linux;
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.provider.common.AbstractWatchKey;
 
-class LinuxWatchKey extends AbstractWatchKey {
+class LocalLinuxWatchKey extends AbstractWatchKey {
 
     private final int mWd;
 
     private volatile boolean mValid = true;
 
-    LinuxWatchKey(@NonNull LocalLinuxWatchService watchService, @NonNull LinuxPath path, int wd) {
+    LocalLinuxWatchKey(@NonNull LocalLinuxWatchService watchService, @NonNull LinuxPath path,
+                       int wd) {
         super(watchService, path);
 
         mWd = wd;
