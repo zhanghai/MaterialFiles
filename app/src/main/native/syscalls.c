@@ -254,22 +254,6 @@ static void throwSyscallException(JNIEnv* env, const char* functionName) {
                    error);
 }
 
-JNIEXPORT void JNICALL
-Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_closedir(
-        JNIEnv *env, jclass clazz, jlong javaDir) {
-    DIR *dir = (DIR *) javaDir;
-    TEMP_FAILURE_RETRY(closedir(dir));
-    if (errno) {
-        throwSyscallException(env, "closedir");
-    }
-}
-
-JNIEXPORT jint JNICALL
-Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
-        JNIEnv *env, jclass clazz) {
-    return errno;
-}
-
 static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
     jbyteArray javaBytes = (*env)->GetObjectField(env, javaByteString, getByteStringBytesField(
             env));
@@ -343,6 +327,22 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_chown(
     if (errno) {
         throwSyscallException(env, "chown");
     }
+}
+
+JNIEXPORT void JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_closedir(
+        JNIEnv *env, jclass clazz, jlong javaDir) {
+    DIR *dir = (DIR *) javaDir;
+    TEMP_FAILURE_RETRY(closedir(dir));
+    if (errno) {
+        throwSyscallException(env, "closedir");
+    }
+}
+
+JNIEXPORT jint JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
+        JNIEnv *env, jclass clazz) {
+    return errno;
 }
 
 static jobject newStructGroup(JNIEnv *env, const struct group *group) {
