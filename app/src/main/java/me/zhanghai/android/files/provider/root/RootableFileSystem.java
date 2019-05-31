@@ -82,11 +82,13 @@ public abstract class RootableFileSystem extends FileSystem implements Parcelabl
         return mLocalFileSystem.getSeparator();
     }
 
+    @NonNull
     @Override
     public Iterable<Path> getRootDirectories() {
         return mLocalFileSystem.getRootDirectories();
     }
 
+    @NonNull
     @Override
     public Iterable<FileStore> getFileStores() {
         return mLocalFileSystem.getFileStores();
@@ -110,14 +112,17 @@ public abstract class RootableFileSystem extends FileSystem implements Parcelabl
         return mLocalFileSystem.getPathMatcher(syntaxAndPattern);
     }
 
+    @NonNull
     @Override
     public UserPrincipalLookupService getUserPrincipalLookupService() {
         return mLocalFileSystem.getUserPrincipalLookupService();
     }
 
+    @NonNull
     @Override
     public WatchService newWatchService() throws IOException {
-        throw new UnsupportedOperationException();
+        // We don't have RemoteWatchService for now, and I doubt we'll need one.
+        return mLocalFileSystem.newWatchService();
     }
 
     @Override

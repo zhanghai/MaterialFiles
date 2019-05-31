@@ -47,29 +47,29 @@ class LocalLinuxWatchService extends AbstractWatchService {
     }
 
     @NonNull
-    LinuxWatchKey register(@NonNull LinuxPath path, @NonNull WatchEvent.Kind<?>[] events,
+    LinuxWatchKey register(@NonNull LinuxPath path, @NonNull WatchEvent.Kind<?>[] kinds,
                            @NonNull WatchEvent.Modifier... modifiers) throws IOException {
         Objects.requireNonNull(path);
-        Objects.requireNonNull(events);
+        Objects.requireNonNull(kinds);
         Objects.requireNonNull(modifiers);
-        Set<WatchEvent.Kind<?>> eventSet = new HashSet<>();
-        for (WatchEvent.Kind<?> event : events) {
-            Objects.requireNonNull(event);
-            if (event == StandardWatchEventKinds.ENTRY_CREATE
-                    || event == StandardWatchEventKinds.ENTRY_DELETE
-                    || event == StandardWatchEventKinds.ENTRY_MODIFY) {
-                eventSet.add(event);
-            } else if (event == StandardWatchEventKinds.OVERFLOW) {
+        Set<WatchEvent.Kind<?>> kindSet = new HashSet<>();
+        for (WatchEvent.Kind<?> kind : kinds) {
+            Objects.requireNonNull(kind);
+            if (kind == StandardWatchEventKinds.ENTRY_CREATE
+                    || kind == StandardWatchEventKinds.ENTRY_DELETE
+                    || kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+                kindSet.add(kind);
+            } else if (kind == StandardWatchEventKinds.OVERFLOW) {
                 // Ignored.
             } else {
-                throw new UnsupportedOperationException(event.name());
+                throw new UnsupportedOperationException(kind.name());
             }
         }
         for (WatchEvent.Modifier modifier : modifiers) {
             Objects.requireNonNull(modifier);
             throw new UnsupportedOperationException(modifier.name());
         }
-        return mPoller.register(path, eventSet);
+        return mPoller.register(path, kindSet);
     }
 
     void cancel(@NonNull LinuxWatchKey key) {
@@ -127,7 +127,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
         }
 
         @NonNull
-        LinuxWatchKey register(@NonNull LinuxPath path, @NonNull Set<WatchEvent.Kind<?>> events)
+        LinuxWatchKey register(@NonNull LinuxPath path, @NonNull Set<WatchEvent.Kind<?>> kinds)
                 throws IOException {
             return awaitPromise(new Promise<>(settler -> post(settler, () -> {
                 try {
@@ -143,7 +143,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
                         settler.reject(new NotDirectoryException(pathBytes.toString()));
                         return;
                     }
-                    int mask = eventsToMask(events);
+                    int mask = eventKindsToMask(kinds);
                     int wd;
                     try {
                         wd = Syscalls.inotify_add_watch(mInotifyFd, pathBytes, mask);
@@ -331,14 +331,14 @@ class LocalLinuxWatchService extends AbstractWatchService {
             return structPollfd;
         }
 
-        private static int eventsToMask(@NonNull Set<WatchEvent.Kind<?>> events) {
+        private static int eventKindsToMask(@NonNull Set<WatchEvent.Kind<?>> kinds) {
             int mask = 0;
-            for (WatchEvent.Kind<?> event: events) {
-                if (event == StandardWatchEventKinds.ENTRY_CREATE) {
+            for (WatchEvent.Kind<?> kind: kinds) {
+                if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
                     mask |= Constants.IN_CREATE | Constants.IN_MOVED_TO;
-                } else if (event == StandardWatchEventKinds.ENTRY_DELETE) {
+                } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
                     mask |= Constants.IN_DELETE | Constants.IN_MOVED_FROM;
-                } else if (event == StandardWatchEventKinds.ENTRY_MODIFY) {
+                } else if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
                     mask |= Constants.IN_MODIFY | Constants.IN_ATTRIB;
                 }
             }

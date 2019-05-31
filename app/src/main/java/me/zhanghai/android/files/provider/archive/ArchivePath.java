@@ -111,7 +111,7 @@ class ArchivePath extends ByteStringListPath implements RootablePath {
     @NonNull
     @Override
     public WatchKey register(@NonNull WatchService watcher, @NonNull WatchEvent.Kind<?>[] events,
-                             @NonNull WatchEvent.Modifier... modifiers) {
+                             @NonNull WatchEvent.Modifier... modifiers) throws IOException {
         Objects.requireNonNull(watcher);
         Objects.requireNonNull(events);
         Objects.requireNonNull(modifiers);
