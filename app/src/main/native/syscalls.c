@@ -289,6 +289,23 @@ static jobject newByteStringFromString(JNIEnv *env, const char *string) {
     return newByteString(env, string, strlen(string));
 }
 
+static int getFdFromFileDescriptor(JNIEnv *env, jobject javaFileDescriptor) {
+    return (*env)->GetIntField(env, javaFileDescriptor, getFileDescriptorDescriptorField(env));
+}
+
+static jobject newFileDescriptor(JNIEnv *env, int fd) {
+    static jmethodID constructor = NULL;
+    if (!constructor) {
+        constructor = findMethod(env, getFileDescriptorClass(env), "<init>", "()V");
+    }
+    jobject javaFileDescriptor = (*env)->NewObject(env, getFileDescriptorClass(env), constructor);
+    if (!javaFileDescriptor) {
+        return NULL;
+    }
+    (*env)->SetIntField(env, javaFileDescriptor, getFileDescriptorDescriptorField(env), fd);
+    return javaFileDescriptor;
+}
+
 JNIEXPORT jboolean JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_access(
         JNIEnv *env, jclass clazz, jobject javaPath, jint javaMode) {
@@ -819,19 +836,6 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_mkdir(
     }
 }
 
-static jobject newFileDescriptor(JNIEnv *env, int fd) {
-    static jmethodID constructor = NULL;
-    if (!constructor) {
-        constructor = findMethod(env, getFileDescriptorClass(env), "<init>", "()V");
-    }
-    jobject javaFileDescriptor = (*env)->NewObject(env, getFileDescriptorClass(env), constructor);
-    if (!javaFileDescriptor) {
-        return NULL;
-    }
-    (*env)->SetIntField(env, javaFileDescriptor, getFileDescriptorDescriptorField(env), fd);
-    return javaFileDescriptor;
-}
-
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_open(
         JNIEnv *env, jclass clazz, jobject javaPath, jint javaFlags, jint javaMode) {
@@ -964,8 +968,8 @@ JNIEXPORT jlong JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
         JNIEnv* env, jclass clazz, jobject javaOutFd, jobject javaInFd, jobject javaOffset,
         jlong javaCount) {
-    int outFd = (*env)->GetIntField(env, javaOutFd, getFileDescriptorDescriptorField(env));
-    int inFd = (*env)->GetIntField(env, javaInFd, getFileDescriptorDescriptorField(env));
+    int outFd = getFdFromFileDescriptor(env, javaOutFd);
+    int inFd = getFdFromFileDescriptor(env, javaInFd);
     off64_t offset = 0;
     off64_t* offsetPointer = NULL;
     if (javaOffset) {
