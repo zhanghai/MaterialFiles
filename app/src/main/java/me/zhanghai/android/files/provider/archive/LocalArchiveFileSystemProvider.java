@@ -38,11 +38,11 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringPath;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.FileSystemCache;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
-import me.zhanghai.android.files.provider.common.StringPath;
 
 class LocalArchiveFileSystemProvider extends FileSystemProvider {
 
@@ -251,7 +251,7 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
         requireArchivePath(link);
         ArchiveFileSystem fileSystem = (ArchiveFileSystem) link.getFileSystem();
         String target = fileSystem.readSymbolicLinkAsLocal(link);
-        return new StringPath(target);
+        return new ByteStringPath(ByteString.fromString(target));
     }
 
     @Override
