@@ -165,7 +165,6 @@ class LocalLinuxFileSystem extends FileSystem {
     @NonNull
     @Override
     public WatchService newWatchService() throws IOException {
-        // TODO
-        throw new UnsupportedOperationException();
+        return new LocalLinuxWatchService();
     }
 }

@@ -8,7 +8,7 @@ package me.zhanghai.android.files.provider.linux.syscall;
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.provider.common.ByteString;
 
-public class StructDirent {
+public final class StructDirent {
 
     public final long d_ino; /*ino_t*/
     public final long d_off; /*off64_t*/

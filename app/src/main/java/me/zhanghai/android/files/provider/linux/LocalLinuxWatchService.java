@@ -1,0 +1,364 @@
+/*
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * All Rights Reserved.
+ */
+
+package me.zhanghai.android.files.provider.linux;
+
+import android.system.OsConstants;
+import android.system.StructPollfd;
+
+import java.io.Closeable;
+import java.io.FileDescriptor;
+import java.io.IOException;
+import java.io.InterruptedIOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
+
+import androidx.annotation.NonNull;
+import java8.nio.file.ClosedWatchServiceException;
+import java8.nio.file.NotDirectoryException;
+import java8.nio.file.Path;
+import java8.nio.file.StandardWatchEventKinds;
+import java8.nio.file.WatchEvent;
+import me.zhanghai.android.files.promise.Promise;
+import me.zhanghai.android.files.promise.Settler;
+import me.zhanghai.android.files.provider.common.AbstractWatchService;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.linux.syscall.Constants;
+import me.zhanghai.android.files.provider.linux.syscall.StructInotifyEvent;
+import me.zhanghai.android.files.provider.linux.syscall.StructStat;
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
+import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+
+class LocalLinuxWatchService extends AbstractWatchService {
+
+    @NonNull
+    private final Poller mPoller;
+
+    LocalLinuxWatchService() throws IOException {
+        mPoller = new Poller(this);
+    }
+
+    @NonNull
+    LinuxWatchKey register(@NonNull LinuxPath path, @NonNull WatchEvent.Kind<?>[] events,
+                           @NonNull WatchEvent.Modifier... modifiers) throws IOException {
+        Objects.requireNonNull(path);
+        Objects.requireNonNull(events);
+        Objects.requireNonNull(modifiers);
+        Set<WatchEvent.Kind<?>> eventSet = new HashSet<>();
+        for (WatchEvent.Kind<?> event : events) {
+            Objects.requireNonNull(event);
+            if (event == StandardWatchEventKinds.ENTRY_CREATE
+                    || event == StandardWatchEventKinds.ENTRY_DELETE
+                    || event == StandardWatchEventKinds.ENTRY_MODIFY) {
+                eventSet.add(event);
+            } else if (event == StandardWatchEventKinds.OVERFLOW) {
+                // Ignored.
+            } else {
+                throw new UnsupportedOperationException(event.name());
+            }
+        }
+        for (WatchEvent.Modifier modifier : modifiers) {
+            Objects.requireNonNull(modifier);
+            throw new UnsupportedOperationException(modifier.name());
+        }
+        return mPoller.register(path, eventSet);
+    }
+
+    void cancel(@NonNull LinuxWatchKey key) {
+        mPoller.cancel(key);
+    }
+
+    @Override
+    protected void onClose() throws IOException {
+        mPoller.close();
+    }
+
+    private static class Poller extends Thread implements Closeable {
+
+        private static final byte[] ONE_BYTE = new byte[1];
+
+        @NonNull
+        private LocalLinuxWatchService mWatchService;
+
+        @NonNull
+        private final FileDescriptor mInotifyFd;
+
+        @NonNull
+        private final FileDescriptor[] mSocketFds;
+
+        @NonNull
+        private final Map<Integer, LinuxWatchKey> mKeys = new HashMap<>();
+
+        private final byte[] mInotifyBuffer = new byte[4096];
+
+        @NonNull
+        private final Queue<Runnable> mRunnables = new LinkedList<>();
+
+        private boolean mClosed;
+
+        @NonNull
+        private final Object mLock = new Object();
+
+        Poller(@NonNull LocalLinuxWatchService watchService) throws IOException {
+
+            mWatchService = watchService;
+
+            setDaemon(true);
+
+            try {
+                mInotifyFd = Syscalls.inotify_init1(OsConstants.O_NONBLOCK);
+                mSocketFds = Syscalls.socketpair(OsConstants.AF_UNIX, OsConstants.SOCK_STREAM, 0);
+                int flags = Syscalls.fcntl(mSocketFds[0], OsConstants.F_GETFL);
+                if ((flags & OsConstants.O_NONBLOCK) != OsConstants.O_NONBLOCK) {
+                    Syscalls.fcntl(mSocketFds[0], OsConstants.F_SETFL, flags
+                            | OsConstants.O_NONBLOCK);
+                }
+            } catch (SyscallException e) {
+                throw e.toFileSystemException(null);
+            }
+        }
+
+        @NonNull
+        LinuxWatchKey register(@NonNull LinuxPath path, @NonNull Set<WatchEvent.Kind<?>> events)
+                throws IOException {
+            return awaitPromise(new Promise<>(settler -> post(settler, () -> {
+                try {
+                    ByteString pathBytes = path.toByteString();
+                    StructStat structStat;
+                    try {
+                        structStat = Syscalls.stat(pathBytes);
+                    } catch (SyscallException e) {
+                        settler.reject(e.toFileSystemException(pathBytes.toString()));
+                        return;
+                    }
+                    if (!OsConstants.S_ISDIR(structStat.st_mode)) {
+                        settler.reject(new NotDirectoryException(pathBytes.toString()));
+                        return;
+                    }
+                    int mask = eventsToMask(events);
+                    int wd;
+                    try {
+                        wd = Syscalls.inotify_add_watch(mInotifyFd, pathBytes, mask);
+                    } catch (SyscallException e) {
+                        settler.reject(e.toFileSystemException(pathBytes.toString()));
+                        return;
+                    }
+                    LinuxWatchKey key = new LinuxWatchKey(mWatchService, path, wd);
+                    mKeys.put(wd, key);
+                    settler.resolve(key);
+                } catch (RuntimeException e) {
+                    settler.reject(e);
+                }
+            })));
+        }
+
+        void cancel(@NonNull LinuxWatchKey key) {
+            try {
+                new Promise<Void>(settler -> post(settler, () -> {
+                    if (key.isValid()) {
+                        int wd = key.getWatchDescriptor();
+                        try {
+                            Syscalls.inotify_rm_watch(mInotifyFd, wd);
+                        } catch (SyscallException e) {
+                            // Ignored.
+                            e.toFileSystemException(key.watchable().toString()).printStackTrace();
+                        }
+                        key.setInvalid();
+                        mKeys.remove(wd);
+                    }
+                    settler.resolve(null);
+                })).await();
+            } catch (ExecutionException | InterruptedException e) {
+                // Ignored.
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void close() throws IOException {
+            awaitPromise(new Promise<>(settler -> post(settler, () -> {
+                try {
+                    for (LinuxWatchKey key : mKeys.values()) {
+                        int wd = key.getWatchDescriptor();
+                        try {
+                            Syscalls.inotify_rm_watch(mInotifyFd, wd);
+                        } catch (SyscallException e) {
+                            settler.reject(e.toFileSystemException(key.watchable().toString()));
+                            return;
+                        }
+                        key.setInvalid();
+                    }
+                    mKeys.clear();
+                    try {
+                        Syscalls.close(mInotifyFd);
+                    } catch (SyscallException e) {
+                        settler.reject(e.toFileSystemException(null));
+                        return;
+                    }
+                    mClosed = true;
+                    settler.resolve(null);
+                } catch (RuntimeException e) {
+                    settler.reject(e);
+                }
+            })));
+        }
+
+        private void post(@NonNull Settler<?> settler, @NonNull Runnable runnable) {
+            synchronized (mLock) {
+                mRunnables.offer(() -> {
+                    if (mClosed) {
+                        settler.reject(new ClosedWatchServiceException());
+                        return;
+                    }
+                    runnable.run();
+                });
+            }
+            try {
+                Syscalls.write(mSocketFds[1], ONE_BYTE);
+            } catch (InterruptedIOException e) {
+                settler.reject(e);
+            } catch (SyscallException e) {
+                settler.reject(e.toFileSystemException(null));
+            }
+        }
+
+        private <T> T awaitPromise(@NonNull Promise<T> promise) throws IOException {
+            try {
+                return promise.await();
+            } catch (ExecutionException e) {
+                Throwable cause = e.getCause();
+                if (cause instanceof IOException) {
+                    throw (IOException) cause;
+                } else if (cause instanceof RuntimeException) {
+                    throw (RuntimeException) cause;
+                } else {
+                    throw new AssertionError(cause);
+                }
+            } catch (InterruptedException e) {
+                InterruptedIOException exception = new InterruptedIOException();
+                exception.initCause(e);
+                throw exception;
+            }
+        }
+
+        @Override
+        public void run() {
+            StructPollfd[] fds = new StructPollfd[] {
+                    createStructPollFd(mInotifyFd),
+                    createStructPollFd(mSocketFds[0])
+            };
+            try {
+                while (true) {
+                    fds[0].revents = 0;
+                    fds[1].revents = 0;
+                    Syscalls.poll(fds, -1);
+                    if ((fds[0].revents & OsConstants.POLLIN) == OsConstants.POLLIN) {
+                        int size = 0;
+                        try {
+                            size = Syscalls.read(mInotifyFd, ONE_BYTE);
+                        } catch (SyscallException e) {
+                            if (e.getErrno() != OsConstants.EAGAIN) {
+                                throw e;
+                            }
+                        }
+                        if (size > 0) {
+                            synchronized (mLock) {
+                                Runnable runnable;
+                                while ((runnable = mRunnables.poll()) != null) {
+                                    runnable.run();
+                                }
+                            }
+                            if (mClosed) {
+                                break;
+                            }
+                        }
+                    }
+                    if ((fds[1].revents & OsConstants.POLLIN) == OsConstants.POLLIN) {
+                        int size = 0;
+                        try {
+                            size = Syscalls.read(mInotifyFd, mInotifyBuffer);
+                        } catch (SyscallException e) {
+                            if (e.getErrno() != OsConstants.EAGAIN) {
+                                throw e;
+                            }
+                        }
+                        if (size > 0) {
+                            StructInotifyEvent[] events;
+                            events = Syscalls.inotify_get_events(mInotifyBuffer, 0, size);
+                            for (StructInotifyEvent event : events) {
+                                if ((event.mask & Constants.IN_Q_OVERFLOW)
+                                        == Constants.IN_Q_OVERFLOW) {
+                                    for (LinuxWatchKey key : mKeys.values()) {
+                                        key.addEvent(StandardWatchEventKinds.OVERFLOW, null);
+                                    }
+                                    break;
+                                }
+                                LinuxWatchKey key = mKeys.get(event.wd);
+                                if ((event.mask & Constants.IN_IGNORED) == Constants.IN_IGNORED) {
+                                    key.setInvalid();
+                                    key.signal();
+                                    mKeys.remove(event.wd);
+                                } else if (event.name == null) {
+                                    // Event for directory itself, ignored.
+                                } else {
+                                    WatchEvent.Kind<Path> kind = maskToEventKind(event.mask);
+                                    LinuxFileSystem fileSystem = key.watchable().getFileSystem();
+                                    Path name = fileSystem.getPath(event.name);
+                                    key.addEvent(kind, name);
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (InterruptedIOException | SyscallException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @NonNull
+        private static StructPollfd createStructPollFd(@NonNull FileDescriptor fd) {
+            StructPollfd structPollfd = new StructPollfd();
+            structPollfd.fd = fd;
+            structPollfd.events = (short) OsConstants.POLLIN;
+            return structPollfd;
+        }
+
+        private static int eventsToMask(@NonNull Set<WatchEvent.Kind<?>> events) {
+            int mask = 0;
+            for (WatchEvent.Kind<?> event: events) {
+                if (event == StandardWatchEventKinds.ENTRY_CREATE) {
+                    mask |= Constants.IN_CREATE | Constants.IN_MOVED_TO;
+                } else if (event == StandardWatchEventKinds.ENTRY_DELETE) {
+                    mask |= Constants.IN_DELETE | Constants.IN_MOVED_FROM;
+                } else if (event == StandardWatchEventKinds.ENTRY_MODIFY) {
+                    mask |= Constants.IN_MODIFY | Constants.IN_ATTRIB;
+                }
+            }
+            return mask;
+        }
+
+        @NonNull
+        private static WatchEvent.Kind<Path> maskToEventKind(int mask) {
+            if ((mask & Constants.IN_CREATE) == Constants.IN_CREATE
+                    || (mask & Constants.IN_MOVED_TO) == Constants.IN_MOVED_TO) {
+                return StandardWatchEventKinds.ENTRY_CREATE;
+            } else if ((mask & Constants.IN_DELETE) == Constants.IN_DELETE
+                    || (mask & Constants.IN_MOVED_FROM) == Constants.IN_MOVED_FROM) {
+                return StandardWatchEventKinds.ENTRY_DELETE;
+            } else if ((mask & Constants.IN_MODIFY) == Constants.IN_MODIFY
+                    || (mask & Constants.IN_ATTRIB) == Constants.IN_ATTRIB) {
+                return StandardWatchEventKinds.ENTRY_MODIFY;
+            } else {
+                throw new AssertionError(mask);
+            }
+        }
+    }
+}

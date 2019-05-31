@@ -22,12 +22,10 @@ public class CollectionUtils {
 
     private CollectionUtils() {}
 
-    @Nullable
     public static <E> E first(@NonNull List<? extends E> list) {
         return list.get(0);
     }
 
-    @Nullable
     public static <E> E last(@NonNull List<? extends E> list) {
         return list.get(list.size() - 1);
     }
@@ -47,7 +45,6 @@ public class CollectionUtils {
         return index >= 0 && index < list.size() ? list.get(index) : null;
     }
 
-    @Nullable
     public static <E> E first(@NonNull Collection<? extends E> collection) {
         return collection.iterator().next();
     }
@@ -66,7 +63,6 @@ public class CollectionUtils {
         list.add(item);
     }
 
-    @Nullable
     public static <E> E pop(@NonNull List<? extends E> list) {
         return list.remove(list.size() - 1);
     }

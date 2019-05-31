@@ -15,7 +15,6 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import java8.nio.file.FileSystem;
 import java8.nio.file.LinkOption;
 import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
@@ -84,7 +83,7 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
 
     @NonNull
     @Override
-    public FileSystem getFileSystem() {
+    public LinuxFileSystem getFileSystem() {
         return mFileSystem;
     }
 

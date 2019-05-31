@@ -5,13 +5,16 @@
 
 package me.zhanghai.android.files.provider.linux.syscall;
 
+import android.os.Build;
 import android.system.ErrnoException;
 import android.system.Int64Ref;
 import android.system.Os;
 import android.system.OsConstants;
+import android.system.StructPollfd;
 import android.system.StructStatVfs;
 
 import java.io.FileDescriptor;
+import java.io.InterruptedIOException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,6 +60,21 @@ public class Syscalls {
 
     private static native int errno();
 
+    public static int fcntl(@NonNull FileDescriptor fd, int cmd) throws SyscallException {
+        return fcntl_void(fd, cmd);
+    }
+
+    public static int fcntl(@NonNull FileDescriptor fd, int cmd, int arg)
+            throws SyscallException {
+        return fcntl_int(fd, cmd, arg);
+    }
+
+    private static native int fcntl_int(@NonNull FileDescriptor fd, int cmd, int arg)
+            throws SyscallException;
+
+    private static native int fcntl_void(@NonNull FileDescriptor fd, int cmd)
+            throws SyscallException;
+
     @NonNull
     public static ByteString getfilecon(@NonNull ByteString path) throws SyscallException {
         try {
@@ -77,6 +95,20 @@ public class Syscalls {
 
     @Nullable
     public static native StructPasswd getpwuid(int uid) throws SyscallException;
+
+    public static native int inotify_add_watch(@NonNull FileDescriptor fd, @NonNull ByteString path,
+                                               int mask) throws SyscallException;
+
+    @NonNull
+    public static native FileDescriptor inotify_init1(int flags) throws SyscallException;
+
+    @NonNull
+    public static native StructInotifyEvent[] inotify_get_events(@NonNull byte[] buffer, int offset,
+                                                                 int length)
+            throws SyscallException;
+
+    public static native void inotify_rm_watch(@NonNull FileDescriptor fd, int wd)
+            throws SyscallException;
 
     public static boolean is_selinux_enabled() {
         return SeLinux.is_selinux_enabled();
@@ -130,6 +162,51 @@ public class Syscalls {
             throws SyscallException;
 
     public static native long opendir(@NonNull ByteString path) throws SyscallException;
+
+    public static int poll(@NonNull StructPollfd[] fds, int timeout) throws SyscallException {
+        try {
+            return Os_poll(fds, timeout);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
+
+    private static int Os_poll(@NonNull StructPollfd[] fds, int timeout) throws ErrnoException {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M && timeout >= 0) {
+            long timeoutTime = System.currentTimeMillis() + timeout;
+            while (true) {
+                try {
+                    return Os.poll(fds, timeout);
+                } catch (ErrnoException e) {
+                    if (e.errno == OsConstants.EINTR) {
+                        long newTimeout = timeoutTime - System.currentTimeMillis();
+                        if (newTimeout <= 0) {
+                            return 0;
+                        }
+                        timeout = (int) newTimeout;
+                        continue;
+                    }
+                    throw e;
+                }
+            }
+        } else {
+            return Os.poll(fds, timeout);
+        }
+    }
+
+    public static int read(@NonNull FileDescriptor fd, @NonNull byte[] buffer)
+            throws InterruptedIOException, SyscallException {
+        return read(fd, buffer, 0, buffer.length);
+    }
+
+    public static int read(@NonNull FileDescriptor fd, @NonNull byte[] buffer, int offset,
+                           int length) throws InterruptedIOException, SyscallException {
+        try {
+            return Os.read(fd, buffer, offset, length);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
 
     @Nullable
     public static native StructDirent readdir(long dir) throws SyscallException;
@@ -185,6 +262,19 @@ public class Syscalls {
     }
 
     @NonNull
+    @Size(2)
+    public static FileDescriptor[] socketpair(int domain, int type, int protocol)
+            throws SyscallException {
+        FileDescriptor[] fds = new FileDescriptor[2];
+        try {
+            Os.socketpair(domain, type, protocol, fds[0], fds[1]);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+        return fds;
+    }
+
+    @NonNull
     public static native StructStat stat(@NonNull ByteString path) throws SyscallException;
 
     @NonNull
@@ -201,4 +291,18 @@ public class Syscalls {
     public static native void utimens(@NonNull ByteString path,
                                       @NonNull @Size(2) StructTimespec[] times)
             throws SyscallException;
+
+    public static int write(@NonNull FileDescriptor fd, @NonNull byte[] buffer)
+            throws InterruptedIOException, SyscallException {
+        return write(fd, buffer, 0, buffer.length);
+    }
+
+    public static int write(@NonNull FileDescriptor fd, @NonNull byte[] buffer, int offset,
+                            int length) throws InterruptedIOException, SyscallException {
+        try {
+            return Os.write(fd, buffer, offset, length);
+        } catch (ErrnoException e) {
+            throw new SyscallException(e);
+        }
+    }
 }
