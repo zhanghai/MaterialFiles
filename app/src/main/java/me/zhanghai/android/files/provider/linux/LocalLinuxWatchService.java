@@ -90,10 +90,10 @@ class LocalLinuxWatchService extends AbstractWatchService {
         private LocalLinuxWatchService mWatchService;
 
         @NonNull
-        private final FileDescriptor mInotifyFd;
+        private final FileDescriptor[] mSocketFds;
 
         @NonNull
-        private final FileDescriptor[] mSocketFds;
+        private final FileDescriptor mInotifyFd;
 
         @NonNull
         private final Map<Integer, LocalLinuxWatchKey> mKeys = new HashMap<>();
@@ -115,13 +115,13 @@ class LocalLinuxWatchService extends AbstractWatchService {
             setDaemon(true);
 
             try {
-                mInotifyFd = Syscalls.inotify_init1(OsConstants.O_NONBLOCK);
                 mSocketFds = Syscalls.socketpair(OsConstants.AF_UNIX, OsConstants.SOCK_STREAM, 0);
                 int flags = Syscalls.fcntl(mSocketFds[0], OsConstants.F_GETFL);
                 if ((flags & OsConstants.O_NONBLOCK) != OsConstants.O_NONBLOCK) {
                     Syscalls.fcntl(mSocketFds[0], OsConstants.F_SETFL, flags
                             | OsConstants.O_NONBLOCK);
                 }
+                mInotifyFd = Syscalls.inotify_init1(OsConstants.O_NONBLOCK);
             } catch (SyscallException e) {
                 throw e.toFileSystemException(null);
             }
@@ -253,8 +253,8 @@ class LocalLinuxWatchService extends AbstractWatchService {
         @Override
         public void run() {
             StructPollfd[] fds = new StructPollfd[] {
-                    createStructPollFd(mInotifyFd),
-                    createStructPollFd(mSocketFds[0])
+                    createStructPollFd(mSocketFds[0]),
+                    createStructPollFd(mInotifyFd)
             };
             try {
                 while (true) {
@@ -264,7 +264,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
                     if ((fds[0].revents & OsConstants.POLLIN) == OsConstants.POLLIN) {
                         int size = 0;
                         try {
-                            size = Syscalls.read(mInotifyFd, ONE_BYTE);
+                            size = Syscalls.read(mSocketFds[0], ONE_BYTE);
                         } catch (SyscallException e) {
                             if (e.getErrno() != OsConstants.EAGAIN) {
                                 throw e;
