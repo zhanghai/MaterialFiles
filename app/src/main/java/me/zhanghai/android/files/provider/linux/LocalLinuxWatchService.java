@@ -136,7 +136,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
         @NonNull
         LocalLinuxWatchKey register(@NonNull LinuxPath path, @NonNull Set<WatchEvent.Kind<?>> kinds)
                 throws IOException {
-            return awaitPromise(new Promise<>(settler -> post(settler, () -> {
+            return awaitPromise(new Promise<>(settler -> post(true, settler, () -> {
                 try {
                     ByteString pathBytes = path.toByteString();
                     StructStat structStat;
@@ -169,7 +169,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
 
         void cancel(@NonNull LocalLinuxWatchKey key) {
             try {
-                new Promise<Void>(settler -> post(settler, () -> {
+                new Promise<Void>(settler -> post(true, settler, () -> {
                     if (key.isValid()) {
                         int wd = key.getWatchDescriptor();
                         try {
@@ -191,7 +191,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
 
         @Override
         public void close() throws IOException {
-            awaitPromise(new Promise<>(settler -> post(settler, () -> {
+            awaitPromise(new Promise<>(settler -> post(false, settler, () -> {
                 try {
                     for (LocalLinuxWatchKey key : mKeys.values()) {
                         int wd = key.getWatchDescriptor();
@@ -220,11 +220,14 @@ class LocalLinuxWatchService extends AbstractWatchService {
             })));
         }
 
-        private void post(@NonNull Settler<?> settler, @NonNull Runnable runnable) {
+        private void post(boolean ensureOpen, @NonNull Settler<?> settler,
+                          @NonNull Runnable runnable) {
             synchronized (mLock) {
                 mRunnables.offer(() -> {
                     if (mClosed) {
-                        settler.reject(new ClosedWatchServiceException());
+                        if (ensureOpen) {
+                            settler.reject(new ClosedWatchServiceException());
+                        }
                         return;
                     }
                     runnable.run();

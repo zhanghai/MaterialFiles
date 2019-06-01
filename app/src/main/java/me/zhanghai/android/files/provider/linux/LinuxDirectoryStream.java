@@ -65,6 +65,9 @@ class LinuxDirectoryStream implements DirectoryStream<Path> {
     @Override
     public void close() throws IOException {
         synchronized (mLock) {
+            if (mClosed) {
+                return;
+            }
             try {
                 Syscalls.closedir(mDir);
             } catch (SyscallException e) {
