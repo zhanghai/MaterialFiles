@@ -14,7 +14,6 @@ import java.util.List;
 
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import java8.nio.file.DirectoryIteratorException;
@@ -30,36 +29,16 @@ public class FileListLiveData extends LiveData<FileListData> implements Closeabl
     @NonNull
     private final Path mPath;
 
-    @Nullable
-    private DirectoryObserver mObserver;
+    @NonNull
+    private final DirectoryObserver mObserver;
 
     private volatile boolean mChangedWhileInactive;
-
-    private boolean mClosed;
-
-    @NonNull
-    private final Object mLock = new Object();
 
     @SuppressLint("StaticFieldLeak")
     public FileListLiveData(@NonNull Path path) {
         mPath = path;
         loadValue();
-        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
-            DirectoryObserver observer;
-            try {
-                observer = new DirectoryObserver(path, FileListLiveData.this::onChangeObserved);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-            synchronized (mLock) {
-                if (mClosed) {
-                    observer.close();
-                    return;
-                }
-                mObserver = observer;
-            }
-        });
+        mObserver = new DirectoryObserver(path, this::onChangeObserved);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -111,17 +90,6 @@ public class FileListLiveData extends LiveData<FileListData> implements Closeabl
 
     @Override
     public void close() {
-        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
-            synchronized (mLock) {
-                if (mClosed) {
-                    return;
-                }
-                if (mObserver != null) {
-                    mObserver.close();
-                    mObserver = null;
-                }
-                mClosed = true;
-            }
-        });
+        mObserver.close();
     }
 }
