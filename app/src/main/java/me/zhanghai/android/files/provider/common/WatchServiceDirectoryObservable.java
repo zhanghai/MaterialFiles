@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.ClosedWatchServiceException;
@@ -24,6 +25,9 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
 
     @NonNull
     private final Set<Runnable> mObservers = new HashSet<>();
+
+    @NonNull
+    private static final AtomicInteger sPollerId = new AtomicInteger();
 
     @NonNull
     private final Poller mPoller;
@@ -86,6 +90,7 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
     private class Poller extends Thread {
 
         Poller() {
+            setName("WatchServiceDirectoryObservable.Poller-" + sPollerId.getAndIncrement());
             setDaemon(true);
         }
 

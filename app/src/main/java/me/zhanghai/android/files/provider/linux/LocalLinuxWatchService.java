@@ -20,6 +20,7 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.ClosedWatchServiceException;
@@ -87,6 +88,9 @@ class LocalLinuxWatchService extends AbstractWatchService {
         private static final byte[] ONE_BYTE = new byte[1];
 
         @NonNull
+        private static final AtomicInteger sId = new AtomicInteger();
+
+        @NonNull
         private LocalLinuxWatchService mWatchService;
 
         @NonNull
@@ -112,6 +116,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
 
             mWatchService = watchService;
 
+            setName("LocalLinuxWatchService.Poller-" + sId.getAndIncrement());
             setDaemon(true);
 
             try {
