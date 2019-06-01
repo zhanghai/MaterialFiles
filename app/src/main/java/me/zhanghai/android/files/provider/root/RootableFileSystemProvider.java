@@ -200,7 +200,8 @@ public class RootableFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory) throws IOException {
+    public DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
+            throws IOException {
         if (!(mLocalProvider instanceof DirectoryObservableProvider)) {
             throw new UnsupportedOperationException();
         }
@@ -209,7 +210,8 @@ public class RootableFileSystemProvider extends FileSystemProvider
             // expansive on Linux (having to create the WatchService first before registering a
             // WatchKey). So we check the access beforehand.
             provider.checkAccess(directory, AccessMode.READ, AccessMode.EXECUTE);
-            return ((DirectoryObservableProvider) provider).observeDirectory(directory);
+            return ((DirectoryObservableProvider) provider).observeDirectory(directory,
+                    intervalMillis);
         });
     }
 

@@ -373,14 +373,15 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory) throws IOException {
+    public DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
+            throws IOException {
         ParcelableObject parcelableDirectory = new ParcelableObject(directory);
         ParcelableException exception = new ParcelableException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
         RemoteDirectoryObservable remoteDirectoryObservable;
         try {
             remoteDirectoryObservable = remoteInterface.observeDirectory(parcelableDirectory,
-                    exception);
+                    intervalMillis, exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }

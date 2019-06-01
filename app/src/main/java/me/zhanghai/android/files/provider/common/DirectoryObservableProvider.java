@@ -13,5 +13,6 @@ import java8.nio.file.Path;
 public interface DirectoryObservableProvider {
 
     @NonNull
-    DirectoryObservable observeDirectory(@NonNull Path directory) throws IOException;
+    DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
+            throws IOException;
 }

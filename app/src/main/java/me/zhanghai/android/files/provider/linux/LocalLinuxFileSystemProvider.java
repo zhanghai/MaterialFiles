@@ -431,8 +431,9 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory) throws IOException {
-        return new WatchServiceDirectoryObservable(directory);
+    public DirectoryObservable observeDirectory(@NonNull Path directory,
+                                                long intervalMillis) throws IOException {
+        return new WatchServiceDirectoryObservable(directory, intervalMillis);
     }
 
     @NonNull

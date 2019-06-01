@@ -5,31 +5,39 @@
 
 package me.zhanghai.android.files.provider.common;
 
+import android.os.Handler;
+import android.os.HandlerThread;
+
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java8.nio.file.ClosedWatchServiceException;
 import java8.nio.file.Path;
 import java8.nio.file.StandardWatchEventKinds;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
+import me.zhanghai.android.files.util.ThrottledRunnable;
 
 public class WatchServiceDirectoryObservable implements DirectoryObservable {
 
-    @NonNull
+    private final long mIntervalMillis;
+
     private final WatchService mWatchService;
 
     @NonNull
-    private final Set<Runnable> mObservers = new HashSet<>();
+    private final Map<Object, ThrottledRunnable> mObservers = new HashMap<>();
+
+    @NonNull
+    private static final AtomicInteger sNotifierId = new AtomicInteger();
+    private final Notifier mNotifier;
 
     @NonNull
     private static final AtomicInteger sPollerId = new AtomicInteger();
-
-    @NonNull
     private final Poller mPoller;
 
     private boolean mClosed;
@@ -37,18 +45,22 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
     @NonNull
     private final Object mLock = new Object();
 
-    public WatchServiceDirectoryObservable(@NonNull Path path) throws IOException {
-        mWatchService = path.getFileSystem().newWatchService();
+    public WatchServiceDirectoryObservable(@NonNull Path path, long intervalMillis)
+            throws IOException {
+        mIntervalMillis = intervalMillis;
         boolean successful = false;
         try {
+            mWatchService = path.getFileSystem().newWatchService();
             path.register(mWatchService, StandardWatchEventKinds.ENTRY_CREATE,
                     StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+            mNotifier = new Notifier();
+            mNotifier.start();
             mPoller = new Poller();
             mPoller.start();
             successful = true;
         } finally {
             if (!successful) {
-                mWatchService.close();
+                close();
             }
         }
     }
@@ -58,7 +70,8 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
         Objects.requireNonNull(observer);
         synchronized (mLock) {
             ensureOpenLocked();
-            mObservers.add(observer);
+            mObservers.put(observer, new ThrottledRunnable(observer, mIntervalMillis,
+                    mNotifier.getHandler()));
         }
     }
 
@@ -67,7 +80,10 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
         Objects.requireNonNull(observer);
         synchronized (mLock) {
             ensureOpenLocked();
-            mObservers.remove(observer);
+            ThrottledRunnable throttledObserver = mObservers.remove(observer);
+            if (throttledObserver != null) {
+                throttledObserver.cancel();
+            }
         }
     }
 
@@ -80,10 +96,48 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
     @Override
     public void close() throws IOException {
         synchronized (mLock) {
-            mPoller.interrupt();
+            if (mClosed) {
+                return;
+            }
+            if (mPoller != null) {
+                mPoller.interrupt();
+            }
+            if (mNotifier != null) {
+                mNotifier.quit();
+            }
+            for (ThrottledRunnable observer : mObservers.values()) {
+                observer.cancel();
+            }
             mObservers.clear();
-            mWatchService.close();
+            if (mWatchService != null) {
+                mWatchService.close();
+            }
             mClosed = true;
+        }
+    }
+
+    private class Notifier extends HandlerThread {
+
+        @Nullable
+        private Handler mHandler;
+
+        @NonNull
+        private final Object mLock = new Object();
+
+        Notifier() {
+            super("WatchServiceDirectoryObservable.Notifier-" + sNotifierId.getAndIncrement());
+
+            setDaemon(true);
+        }
+
+        @NonNull
+        Handler getHandler() {
+            synchronized (mLock) {
+                if (mHandler == null) {
+                    mHandler = new Handler(getLooper());
+                }
+                return mHandler;
+            }
         }
     }
 
@@ -106,7 +160,7 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
                 boolean changed = !key.pollEvents().isEmpty();
                 if (changed) {
                     synchronized (mLock) {
-                        for (Runnable observer : mObservers) {
+                        for (ThrottledRunnable observer : mObservers.values()) {
                             observer.run();
                         }
                     }

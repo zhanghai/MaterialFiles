@@ -19,10 +19,11 @@ public interface DirectoryObservable extends Closeable {
     void removeObserver(@NonNull Runnable observer);
 
     @NonNull
-    static DirectoryObservable observeDirectory(@NonNull Path path) throws IOException {
+    static DirectoryObservable observeDirectory(@NonNull Path path, long intervalMillis)
+            throws IOException {
         Objects.requireNonNull(path);
         DirectoryObservableProvider provider = (DirectoryObservableProvider)
                 path.getFileSystem().provider();
-        return provider.observeDirectory(path);
+        return provider.observeDirectory(path, intervalMillis);
     }
 }

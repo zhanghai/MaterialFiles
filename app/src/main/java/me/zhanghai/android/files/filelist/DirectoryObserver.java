@@ -5,16 +5,12 @@
 
 package me.zhanghai.android.files.filelist;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import java.io.Closeable;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
-import me.zhanghai.android.files.util.ThrottledRunnable;
 
 public class DirectoryObserver implements Closeable {
 
@@ -29,14 +25,14 @@ public class DirectoryObserver implements Closeable {
     private final Object mLock = new Object();
 
     public DirectoryObserver(@NonNull Path path, @NonNull Runnable onChange) throws IOException {
-        mDirectoryObservable = DirectoryObservable.observeDirectory(path);
-        mDirectoryObservable.addObserver(new ThrottledRunnable(() -> {
+        mDirectoryObservable = DirectoryObservable.observeDirectory(path, THROTTLE_INTERVAL_MILLIS);
+        mDirectoryObservable.addObserver(() -> {
             synchronized (mLock) {
                 if (!mClosed) {
                     onChange.run();
                 }
             }
-        }, THROTTLE_INTERVAL_MILLIS, new Handler(Looper.getMainLooper())));
+        });
     }
 
     @Override

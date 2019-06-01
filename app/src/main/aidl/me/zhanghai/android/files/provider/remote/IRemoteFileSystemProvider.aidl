@@ -63,5 +63,5 @@ interface IRemoteFileSystemProvider {
             out ParcelableException exception);
 
     RemoteDirectoryObservable observeDirectory(in ParcelableObject parcelableDirectory,
-            out ParcelableException exception);
+            long intervalMillis, out ParcelableException exception);
 }
