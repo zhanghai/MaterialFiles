@@ -121,7 +121,7 @@ public abstract class RootableFileSystem extends FileSystem implements Parcelabl
     @NonNull
     @Override
     public WatchService newWatchService() throws IOException {
-        // We don't have RemoteWatchService for now, and I doubt we'll need one.
+        // We don't have RemoteWatchService for now, and I doubt we can have one.
         return mLocalFileSystem.newWatchService();
     }
 
