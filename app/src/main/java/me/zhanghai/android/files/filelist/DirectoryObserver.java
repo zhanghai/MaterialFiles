@@ -5,10 +5,15 @@
 
 package me.zhanghai.android.files.filelist;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import java.io.Closeable;
 import java.io.IOException;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
+import androidx.annotation.WorkerThread;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
 
@@ -24,30 +29,33 @@ public class DirectoryObserver implements Closeable {
     @NonNull
     private final Object mLock = new Object();
 
-    public DirectoryObserver(@NonNull Path path, @NonNull Runnable onChange) throws IOException {
+    public DirectoryObserver(@NonNull Path path, @MainThread @NonNull Runnable onChange)
+            throws IOException {
         mDirectoryObservable = DirectoryObservable.observeDirectory(path, THROTTLE_INTERVAL_MILLIS);
-        mDirectoryObservable.addObserver(() -> {
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        mDirectoryObservable.addObserver(() -> mainHandler.post(() -> {
             synchronized (mLock) {
                 if (!mClosed) {
                     onChange.run();
                 }
             }
-        });
+        }));
     }
 
     @Override
+    @WorkerThread
     public void close() {
         synchronized (mLock) {
             if (mClosed) {
                 return;
             }
-            try {
-                mDirectoryObservable.close();
-            } catch (IOException e) {
-                // Ignored.
-                e.printStackTrace();
-            }
             mClosed = true;
+        }
+        try {
+            mDirectoryObservable.close();
+        } catch (IOException e) {
+            // Ignored.
+            e.printStackTrace();
         }
     }
 }
