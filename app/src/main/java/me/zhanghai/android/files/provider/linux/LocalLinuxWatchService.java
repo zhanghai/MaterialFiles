@@ -205,9 +205,11 @@ class LocalLinuxWatchService extends AbstractWatchService {
                     mKeys.clear();
                     try {
                         Syscalls.close(mInotifyFd);
+                        Syscalls.close(mSocketFds[1]);
+                        Syscalls.close(mSocketFds[0]);
                     } catch (SyscallException e) {
-                        settler.reject(e.toFileSystemException(null));
-                        return;
+                        // Ignored.
+                        e.printStackTrace();
                     }
                     mClosed = true;
                     settler.resolve(null);
