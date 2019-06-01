@@ -658,8 +658,9 @@ static jobject newStructInotifyEvent(JNIEnv *env, const struct inotify_event *ev
     jint mask = event->mask;
     jint cookie = event->cookie;
     jobject name;
-    if (event->name) {
-        name = newByteStringFromString(env, event->name);
+    size_t nameLength = strlen(event->name);
+    if (nameLength) {
+        name = newByteString(env, event->name, nameLength);
         if (!name) {
             return NULL;
         }
