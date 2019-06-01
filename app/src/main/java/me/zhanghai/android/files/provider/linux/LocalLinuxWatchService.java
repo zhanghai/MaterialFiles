@@ -44,6 +44,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
 
     LocalLinuxWatchService() throws IOException {
         mPoller = new Poller(this);
+        mPoller.start();
     }
 
     @NonNull
