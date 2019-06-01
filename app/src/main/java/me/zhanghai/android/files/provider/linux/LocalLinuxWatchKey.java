@@ -12,7 +12,7 @@ class LocalLinuxWatchKey extends AbstractWatchKey {
 
     private final int mWd;
 
-    private volatile boolean mValid = true;
+    private boolean mValid = true;
 
     LocalLinuxWatchKey(@NonNull LocalLinuxWatchService watchService, @NonNull LinuxPath path,
                        int wd) {
@@ -27,17 +27,23 @@ class LocalLinuxWatchKey extends AbstractWatchKey {
 
     @Override
     public boolean isValid() {
-        return mValid;
+        synchronized (mLock) {
+            return mValid;
+        }
     }
 
     void setInvalid() {
-        mValid = false;
+        synchronized (mLock) {
+            mValid = false;
+        }
     }
 
     @Override
     public void cancel() {
-        if (mValid) {
-            getWatcherService().cancel(this);
+        synchronized (mLock) {
+            if (mValid) {
+                getWatchService().cancel(this);
+            }
         }
     }
 
@@ -49,7 +55,7 @@ class LocalLinuxWatchKey extends AbstractWatchKey {
 
     @NonNull
     @Override
-    protected LocalLinuxWatchService getWatcherService() {
-        return (LocalLinuxWatchService) super.getWatcherService();
+    protected LocalLinuxWatchService getWatchService() {
+        return (LocalLinuxWatchService) super.getWatchService();
     }
 }

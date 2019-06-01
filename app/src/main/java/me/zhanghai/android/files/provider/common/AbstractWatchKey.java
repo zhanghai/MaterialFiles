@@ -49,19 +49,15 @@ public abstract class AbstractWatchKey implements WatchKey {
                     return;
                 }
             }
-            if (mEvents.size() >= MAX_PENDING_EVENTS) {
-                addOverflowEvent();
+            if (kind == StandardWatchEventKinds.OVERFLOW || mEvents.size() >= MAX_PENDING_EVENTS) {
+                mEvents.clear();
+                mEvents.add(new Event<>(StandardWatchEventKinds.OVERFLOW, null));
+                signal();
                 return;
             }
             mEvents.add(new Event<>(kind, context));
             signal();
         }
-    }
-
-    public void addOverflowEvent() {
-        mEvents.clear();
-        mEvents.add(new Event<>(StandardWatchEventKinds.OVERFLOW, null));
-        signal();
     }
 
     public void signal() {
@@ -106,7 +102,7 @@ public abstract class AbstractWatchKey implements WatchKey {
     }
 
     @NonNull
-    protected AbstractWatchService getWatcherService() {
+    protected AbstractWatchService getWatchService() {
         return mWatchService;
     }
 

@@ -38,7 +38,7 @@ public abstract class AbstractWatchService implements WatchService {
     @Nullable
     @Override
     public WatchKey poll() {
-        checkClosed();
+        ensureOpen();
         return checkClosedKey(mQueue.poll());
     }
 
@@ -46,14 +46,14 @@ public abstract class AbstractWatchService implements WatchService {
     @Override
     public WatchKey poll(long timeout, @NonNull TimeUnit unit) throws InterruptedException {
         Objects.requireNonNull(unit);
-        checkClosed();
+        ensureOpen();
         return checkClosedKey(mQueue.poll(timeout, unit));
     }
 
     @NonNull
     @Override
     public WatchKey take() throws InterruptedException {
-        checkClosed();
+        ensureOpen();
         return checkClosedKey(mQueue.take());
     }
 
@@ -62,11 +62,11 @@ public abstract class AbstractWatchService implements WatchService {
             // There may be other threads still waiting for a key.
             mQueue.offer(key);
         }
-        checkClosed();
+        ensureOpen();
         return key;
     }
 
-    private void checkClosed() {
+    private void ensureOpen() {
         if (mClosed) {
             throw new ClosedWatchServiceException();
         }
