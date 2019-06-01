@@ -7,6 +7,7 @@ package me.zhanghai.android.files.filelist;
 
 import android.os.Parcelable;
 
+import java.io.Closeable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -15,12 +16,12 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
-import me.zhanghai.android.files.util.MoreTransformations;
 
 public class FileListViewModel extends ViewModel {
 
@@ -30,8 +31,8 @@ public class FileListViewModel extends ViewModel {
     private final LiveData<Path> mCurrentPathLiveData = Transformations.map(mTrailLiveData,
             TrailData::getCurrentPath);
     @NonNull
-    private final LiveData<FileListData> mFileListLiveData = MoreTransformations.switchMapCloseable(
-            mCurrentPathLiveData, FileListLiveData::new);
+    private final FileListSwitchMapLiveData mFileListLiveData = new FileListSwitchMapLiveData(
+            mCurrentPathLiveData);
     @NonNull
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
             mTrailLiveData);
@@ -173,5 +174,41 @@ public class FileListViewModel extends ViewModel {
 
     public void setPasteMode(@NonNull FilePasteMode pasteMode) {
         mPasteModeLiveData.setValue(pasteMode);
+    }
+
+    @Override
+    protected void onCleared() {
+        mFileListLiveData.close();
+    }
+
+    private static class FileListSwitchMapLiveData extends MediatorLiveData<FileListData>
+            implements Closeable {
+
+        @Nullable
+        private FileListLiveData mLiveData;
+
+        public FileListSwitchMapLiveData(@NonNull LiveData<Path> source) {
+            addSource(source, path -> {
+                FileListLiveData newLiveData = new FileListLiveData(path);
+                if (mLiveData == newLiveData) {
+                    return;
+                }
+                if (mLiveData != null) {
+                    removeSource(mLiveData);
+                    mLiveData.close();
+                }
+                mLiveData = newLiveData;
+                addSource(mLiveData, FileListSwitchMapLiveData.this::setValue);
+            });
+        }
+
+        @Override
+        public void close() {
+            if (mLiveData != null) {
+                removeSource(mLiveData);
+                mLiveData.close();
+                mLiveData = null;
+            }
+        }
     }
 }
