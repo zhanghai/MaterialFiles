@@ -38,6 +38,7 @@ public class AppApplication extends Application {
         Stetho.initializeWithDefaults(this);
 
         FileSystemProviders.install();
+        FileSystemProviders.setOverflowWatchEvents(true);
 
         NightModeHelper.syncDefaultNightMode();
     }

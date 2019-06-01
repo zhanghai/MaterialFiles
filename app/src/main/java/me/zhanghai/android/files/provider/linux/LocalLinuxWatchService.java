@@ -30,6 +30,7 @@ import java8.nio.file.StandardWatchEventKinds;
 import java8.nio.file.WatchEvent;
 import me.zhanghai.android.files.promise.Promise;
 import me.zhanghai.android.files.promise.Settler;
+import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.provider.common.AbstractWatchService;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
@@ -299,6 +300,12 @@ class LocalLinuxWatchService extends AbstractWatchService {
                             }
                         }
                         if (size > 0) {
+                            if (FileSystemProviders.shouldOverflowWatchEvents()) {
+                                for (LocalLinuxWatchKey key : mKeys.values()) {
+                                    key.addEvent(StandardWatchEventKinds.OVERFLOW, null);
+                                }
+                                continue;
+                            }
                             StructInotifyEvent[] events;
                             events = Syscalls.inotify_get_events(mInotifyBuffer, 0, size);
                             for (StructInotifyEvent event : events) {

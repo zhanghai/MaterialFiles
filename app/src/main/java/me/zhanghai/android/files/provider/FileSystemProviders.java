@@ -14,12 +14,29 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class FileSystemProviders {
 
+    private static volatile boolean sOverflowWatchEvents;
+
     private FileSystemProviders() {}
 
     public static void install() {
         LinuxFileSystemProvider.installAsDefault();
         ArchiveFileSystemProvider.install();
         AndroidFileTypeDetector.install();
+    }
+
+    public static boolean shouldOverflowWatchEvents() {
+        return sOverflowWatchEvents;
+    }
+
+    /**
+     * If set, WatchService implementations will skip processing any event data and simply send an
+     * overflow event to all the registered keys upon successful read from the inotify fd. This can
+     * help reducing the JNI and GC overhead when large amount of inotify events are generated.
+     * Simply sending an overflow event to all the keys is okay because we use only one key per
+     * service for WatchServiceDirectoryObservable.
+     */
+    public static void setOverflowWatchEvents(boolean overflowWatchEvents) {
+        sOverflowWatchEvents = overflowWatchEvents;
     }
 
     @NonNull
