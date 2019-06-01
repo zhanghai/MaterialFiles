@@ -20,6 +20,7 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.util.MoreTransformations;
 
 public class FileListViewModel extends ViewModel {
 
@@ -29,7 +30,7 @@ public class FileListViewModel extends ViewModel {
     private final LiveData<Path> mCurrentPathLiveData = Transformations.map(mTrailLiveData,
             TrailData::getCurrentPath);
     @NonNull
-    private final LiveData<FileListData> mFileListLiveData = Transformations.switchMap(
+    private final LiveData<FileListData> mFileListLiveData = MoreTransformations.switchMapCloseable(
             mCurrentPathLiveData, FileListLiveData::new);
     @NonNull
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
