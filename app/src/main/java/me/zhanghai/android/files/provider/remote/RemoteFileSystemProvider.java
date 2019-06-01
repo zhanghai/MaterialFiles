@@ -33,9 +33,12 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.promise.Promise;
+import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.util.RemoteCallback;
 
-public abstract class RemoteFileSystemProvider extends FileSystemProvider {
+public abstract class RemoteFileSystemProvider extends FileSystemProvider
+        implements DirectoryObservableProvider {
 
     private final RemoteInterfaceHolder<IRemoteFileSystemProvider> mRemoteInterface;
 
@@ -368,6 +371,23 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider {
         throw new UnsupportedOperationException();
     }
 
+    @NonNull
+    @Override
+    public DirectoryObservable observeDirectory(@NonNull Path directory) throws IOException {
+        ParcelableObject parcelableDirectory = new ParcelableObject(directory);
+        ParcelableException exception = new ParcelableException();
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        RemoteDirectoryObservable remoteDirectoryObservable;
+        try {
+            remoteDirectoryObservable = remoteInterface.observeDirectory(parcelableDirectory,
+                    exception);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        exception.throwIfNotNull();
+        remoteDirectoryObservable.initForRemote();
+        return remoteDirectoryObservable;
+    }
 
     private static class ParcelableAcceptAllDirectoryStreamFilter
             implements DirectoryStream.Filter<Path>, Parcelable {

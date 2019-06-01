@@ -41,14 +41,18 @@ import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringPath;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
+import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.provider.common.LinkOptions;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.WatchServiceDirectoryObservable;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
-class LocalLinuxFileSystemProvider extends FileSystemProvider {
+class LocalLinuxFileSystemProvider extends FileSystemProvider
+        implements DirectoryObservableProvider {
 
     static final String SCHEME = "file";
 
@@ -423,6 +427,12 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(value);
         Objects.requireNonNull(options);
         throw new UnsupportedOperationException();
+    }
+
+    @NonNull
+    @Override
+    public DirectoryObservable observeDirectory(@NonNull Path directory) throws IOException {
+        return new WatchServiceDirectoryObservable(directory);
     }
 
     @NonNull

@@ -24,6 +24,8 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
 
@@ -284,5 +286,22 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             return null;
         }
         return new ParcelableObject(attributes);
+    }
+
+    @NonNull
+    @Override
+    public RemoteDirectoryObservable observeDirectory(@NonNull ParcelableObject parcelableDirectory,
+                                                      @NonNull ParcelableException exception) {
+        Path directory = parcelableDirectory.get();
+        RemoteDirectoryObservable remoteDirectoryObservable;
+        try {
+            DirectoryObservable directoryObservable =
+                    ((DirectoryObservableProvider) mProvider).observeDirectory(directory);
+            remoteDirectoryObservable = new RemoteDirectoryObservable(directoryObservable);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
+            return null;
+        }
+        return remoteDirectoryObservable;
     }
 }
