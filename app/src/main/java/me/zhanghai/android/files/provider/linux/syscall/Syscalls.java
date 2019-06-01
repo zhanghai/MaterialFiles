@@ -265,7 +265,7 @@ public class Syscalls {
     @Size(2)
     public static FileDescriptor[] socketpair(int domain, int type, int protocol)
             throws SyscallException {
-        FileDescriptor[] fds = new FileDescriptor[2];
+        FileDescriptor[] fds = new FileDescriptor[] { new FileDescriptor(), new FileDescriptor() };
         try {
             Os.socketpair(domain, type, protocol, fds[0], fds[1]);
         } catch (ErrnoException e) {
