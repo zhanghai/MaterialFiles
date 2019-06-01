@@ -270,4 +270,5 @@
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">Follow on GitHub</string>
     <string name="about_author_google_plus_title">Add to Google+ circles</string>
+    <string name="about_author_twitter_title">Follow on Twitter</string>
 </resources>

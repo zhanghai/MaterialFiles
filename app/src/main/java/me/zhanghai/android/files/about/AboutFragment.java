@@ -32,10 +32,14 @@ public class AboutFragment extends Fragment {
     private static final Uri PRIVACY_POLICY_URI = Uri.parse(
             "https://github.com/zhanghai/MaterialFiles/blob/master/PRIVACY.md");
 
+    private static final Uri AUTHOR_RESUME_URI = Uri.parse("https://resume.zhanghai.me/");
+
     private static final Uri AUTHOR_GITHUB_URI = Uri.parse("https://github.com/zhanghai");
 
     private static final Uri AUTHOR_GOOGLE_PLUS_URI = Uri.parse(
             "https://plus.google.com/100015937320889992498");
+
+    private static final Uri AUTHOR_TWITTER_URI = Uri.parse("https://twitter.com/zhanghai95");
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -45,10 +49,14 @@ public class AboutFragment extends Fragment {
     ViewGroup mLicensesLayout;
     @BindView(R.id.privacy_policy)
     ViewGroup mPrivacyPolicyLayout;
+    @BindView(R.id.author_name)
+    ViewGroup mAuthorNameLayout;
     @BindView(R.id.author_github)
     ViewGroup mAuthorGitHubLayout;
     @BindView(R.id.author_google_plus)
     ViewGroup mAuthorGooglePlusLayout;
+    @BindView(R.id.author_twitter)
+    ViewGroup mAuthorTwitterLayout;
 
     @NonNull
     public static AboutFragment newInstance() {
@@ -94,10 +102,14 @@ public class AboutFragment extends Fragment {
         mLicensesLayout.setOnClickListener(view -> LicensesDialogFragment.show(this));
         mPrivacyPolicyLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 PRIVACY_POLICY_URI), this));
+        mAuthorNameLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
+                AUTHOR_RESUME_URI), this));
         mAuthorGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 AUTHOR_GITHUB_URI), this));
         mAuthorGooglePlusLayout.setOnClickListener(view -> AppUtils.startActivity(
                 IntentUtils.makeView(AUTHOR_GOOGLE_PLUS_URI), this));
+        mAuthorTwitterLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
+                AUTHOR_TWITTER_URI), this));
     }
 
     @Override
