@@ -99,10 +99,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     ViewGroup mContentLayout;
     @BindView(R.id.progress)
     ProgressBar mProgress;
-    @BindView(R.id.empty)
-    View mEmptyView;
     @BindView(R.id.error)
     TextView mErrorView;
+    @BindView(R.id.empty)
+    View mEmptyView;
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.recycler)
