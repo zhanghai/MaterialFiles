@@ -47,12 +47,17 @@
             android:visibility="gone" />
 
         <!-- TODO: Use a WebView for large amount of text. -->
-        <EditText
-            android:id="@+id/text"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical" />
+            android:fillViewport="true">
+
+            <EditText
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="textMultiLine" />
+        </ScrollView>
     </FrameLayout>
 </LinearLayout>
