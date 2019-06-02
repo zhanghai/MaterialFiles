@@ -79,6 +79,7 @@
     <string name="file_job_delete_error_message_format">在删除“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在获取“%1$s”的信息时发生错误。</string>
     <string name="file_job_action_all">应用此操作到所有文件</string>
+    <string name="file_job_action_merge">合并</string>
     <string name="file_job_action_rename">重命名</string>
     <string name="file_job_action_replace">替换</string>
     <string name="file_job_action_retry">重试</string>

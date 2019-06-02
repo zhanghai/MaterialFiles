@@ -86,6 +86,7 @@
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
     <string name="file_job_action_all">Apply this action to all files</string>
+    <string name="file_job_action_merge">Merge</string>
     <string name="file_job_action_rename">Rename</string>
     <string name="file_job_action_replace">Replace</string>
     <string name="file_job_action_retry">Retry</string>
