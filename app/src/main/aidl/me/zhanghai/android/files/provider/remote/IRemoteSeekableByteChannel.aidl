@@ -16,5 +16,7 @@ interface IRemoteSeekableByteChannel {
 
     void truncate(long size, out ParcelableException exception);
 
+    void force(boolean metaData, out ParcelableException exception);
+
     void close(out ParcelableException exception);
 }

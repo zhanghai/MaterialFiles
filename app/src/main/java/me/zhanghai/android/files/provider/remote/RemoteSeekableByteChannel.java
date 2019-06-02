@@ -15,8 +15,10 @@ import java.nio.ByteBuffer;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.channels.SeekableByteChannel;
+import me.zhanghai.android.files.provider.common.ForceableChannel;
 
-public class RemoteSeekableByteChannel implements SeekableByteChannel, Parcelable {
+public class RemoteSeekableByteChannel implements ForceableChannel, SeekableByteChannel,
+        Parcelable {
 
     @Nullable
     private final SeekableByteChannel mLocalChannel;
@@ -143,6 +145,21 @@ public class RemoteSeekableByteChannel implements SeekableByteChannel, Parcelabl
     }
 
     @Override
+    public void force(boolean metaData) throws IOException {
+        if (mRemoteChannel != null) {
+            ParcelableException exception = new ParcelableException();
+            try {
+                mRemoteChannel.force(metaData, exception);
+            } catch (RemoteException e) {
+                throw new RemoteFileSystemException(e);
+            }
+            exception.throwIfNotNull();
+        } else {
+            ForceableChannel.force(mLocalChannel, metaData);
+        }
+    }
+
+    @Override
     public boolean isOpen() {
         if (mRemoteChannel != null) {
             return !mRemoteClosed;
@@ -239,6 +256,15 @@ public class RemoteSeekableByteChannel implements SeekableByteChannel, Parcelabl
         public void truncate(long size, @NonNull ParcelableException exception) {
             try {
                 mChannel.truncate(size);
+            } catch (IOException | RuntimeException e) {
+                exception.set(e);
+            }
+        }
+
+        @Override
+        public void force(boolean metaData, @NonNull ParcelableException exception) {
+            try {
+                ForceableChannel.force(mChannel, metaData);
             } catch (IOException | RuntimeException e) {
                 exception.set(e);
             }
