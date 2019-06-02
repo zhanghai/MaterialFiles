@@ -40,6 +40,9 @@ public class DirectoryObserver implements Closeable {
                 try {
                     mDirectoryObservable = DirectoryObservable.observeDirectory(path,
                             THROTTLE_INTERVAL_MILLIS);
+                } catch (UnsupportedOperationException e) {
+                    // Ignored.
+                    return;
                 } catch (IOException e) {
                     // Ignored.
                     e.printStackTrace();
