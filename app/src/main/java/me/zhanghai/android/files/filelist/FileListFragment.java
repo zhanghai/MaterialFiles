@@ -63,6 +63,7 @@ import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.ClipboardUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -742,7 +743,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             Uri uri = FileProvider.getUriForPath(path.toFile().getPath());
             Intent intent = IntentUtils.makeView(uri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            MainActivity.putPathExtra(intent, path);
+            IntentPathUtils.putExtraPath(intent, path);
             AppUtils.startActivity(intent, this);
         } else {
             // TODO
