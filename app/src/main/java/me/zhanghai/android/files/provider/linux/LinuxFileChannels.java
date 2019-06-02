@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.os.Build;
+import android.system.OsConstants;
+
 import java.io.Closeable;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -15,7 +18,6 @@ import java8.nio.channels.FileChannels;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.reflected.ReflectedAccessor;
-import me.zhanghai.android.files.reflected.ReflectedClass;
 import me.zhanghai.android.files.reflected.ReflectedClassMethod;
 import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 
@@ -56,8 +58,13 @@ class LinuxFileChannels {
 
         @RestrictedHiddenApi
         private static final ReflectedClassMethod sNewFileChannelMethod = new ReflectedClassMethod(
-                new ReflectedClass("java.nio.NioUtils"), "newFileChannel", Closeable.class,
-                FileDescriptor.class, int.class);
+                "java.nio.NioUtils", "newFileChannel", Closeable.class, FileDescriptor.class,
+                int.class);
+
+        @RestrictedHiddenApi
+        private static final ReflectedClassMethod sFileChannelImplOpen = new ReflectedClassMethod(
+                "sun.nio.ch.FileChannelImpl", "open", FileDescriptor.class, String.class,
+                boolean.class, boolean.class, boolean.class, Object.class);
 
         private NioUtilsCompat() {}
 
@@ -65,7 +72,17 @@ class LinuxFileChannels {
         public static java.nio.channels.FileChannel newFileChannel(@NonNull Closeable ioObject,
                                                                    @NonNull FileDescriptor fd,
                                                                    int mode) {
-            return sNewFileChannelMethod.invoke(null, ioObject, fd, mode);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                return sNewFileChannelMethod.invoke(null, ioObject, fd, mode);
+            } else {
+                // They broke O_RDONLY by assuming it's non-zero since N, but in fact it is zero.
+                // https://android.googlesource.com/platform/libcore/+/nougat-release/luni/src/main/java/java/nio/NioUtils.java#63
+                boolean readable = (mode & OsConstants.O_ACCMODE) != OsConstants.O_WRONLY;
+                boolean writable = (mode & OsConstants.O_ACCMODE) != OsConstants.O_RDONLY;
+                boolean append = (mode & OsConstants.O_APPEND) == OsConstants.O_APPEND;
+                return sFileChannelImplOpen.invoke(null, fd, null, readable, writable, append,
+                        ioObject);
+            }
         }
     }
 }
