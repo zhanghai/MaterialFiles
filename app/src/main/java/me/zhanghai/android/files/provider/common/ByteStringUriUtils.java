@@ -121,7 +121,7 @@ public class ByteStringUriUtils {
     private static ByteString decode(@NonNull String encoded) {
         ByteStringBuilder builder = new ByteStringBuilder();
         int length = encoded.length();
-        for (int i = 0; i < length; ++i) {
+        for (int i = 0; i < length; ) {
             byte b = getAsciiCharacterAt(encoded, i);
             switch (b) {
                 case '%':
