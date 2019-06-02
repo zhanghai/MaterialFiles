@@ -85,6 +85,25 @@
             android:name="me.zhanghai.android.files.filejob.FileJobConflictDialogActivity"
             android:theme="@style/AppTheme.Translucent" />
 
+        <activity
+            android:name="me.zhanghai.android.files.viewer.TextEditorActivity"
+            android:label="@string/text_editor_title"
+            android:theme="@style/AppTheme">
+            <!-- TODO: Support viewing content URIs. -->
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/ecmascript" />
+                <data android:mimeType="application/javascript" />
+                <data android:mimeType="application/json" />
+                <data android:mimeType="application/typescript" />
+                <data android:mimeType="application/x-sh" />
+                <data android:mimeType="application/x-shellscript" />
+                <data android:mimeType="application/xml" />
+                <data android:mimeType="text/*" />
+            </intent-filter>
+        </activity>
+
         <service android:name="me.zhanghai.android.files.filejob.FileJobService" />
 
         <provider

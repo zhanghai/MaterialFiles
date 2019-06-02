@@ -207,6 +207,8 @@
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
 
+    <string name="text_editor_title">Text editor</string>
+
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>
     <string name="settings_file_list_animation_title">File list animation</string>

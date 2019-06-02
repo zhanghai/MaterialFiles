@@ -198,6 +198,8 @@
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
 
+    <string name="text_editor_title">文本编辑器</string>
+
     <string name="settings_title">设置</string>
     <string name="settings_interface_title">界面</string>
     <string name="settings_file_list_animation_title">文件列表动画</string>
