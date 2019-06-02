@@ -277,7 +277,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
                     name = mNameEdit.getText().toString();
                     all = false;
                 } else {
-                    action = Action.REPLACE_OR_MERGE;
+                    action = Action.MERGE_OR_REPLACE;
                     name = null;
                     all = mAllCheck.isChecked();
                 }
@@ -342,7 +342,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
     }
 
     public enum Action {
-        REPLACE_OR_MERGE,
+        MERGE_OR_REPLACE,
         RENAME,
         SKIP,
         CANCEL,
