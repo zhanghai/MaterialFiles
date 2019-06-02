@@ -7,6 +7,7 @@ package me.zhanghai.android.files.reflected;
 
 import android.os.Build;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -46,6 +47,19 @@ public class ReflectedAccessor {
     }
 
     @NonNull
+    public static <T> Constructor<T> getAccessibleConstructor(@NonNull Class<T> ownerClass,
+                                                              @NonNull Class<?>... parameterTypes)
+            throws ReflectedException {
+        try {
+            Constructor<T> constructor = ownerClass.getDeclaredConstructor(parameterTypes);
+            constructor.setAccessible(true);
+            return constructor;
+        } catch (NoSuchMethodException e) {
+            throw new ReflectedException(e);
+        }
+    }
+
+    @NonNull
     public static Field getAccessibleField(@NonNull Class<?> ownerClass, @NonNull String fieldName)
             throws ReflectedException {
         try {
@@ -67,6 +81,20 @@ public class ReflectedAccessor {
             method.setAccessible(true);
             return method;
         } catch (NoSuchMethodException e) {
+            throw new ReflectedException(e);
+        }
+    }
+
+    public static <T> T newInstance(@NonNull Constructor<T> constructor,
+                                    @NonNull Object... arguments) throws ReflectedException {
+        //noinspection TryWithIdenticalCatches
+        try {
+            return constructor.newInstance(arguments);
+        } catch (IllegalAccessException e) {
+            throw new ReflectedException(e);
+        } catch (InstantiationException e) {
+            throw new ReflectedException(e);
+        } catch (InvocationTargetException e) {
             throw new ReflectedException(e);
         }
     }

@@ -28,7 +28,7 @@ abstract class BaseReflectedMethod {
     }
 
     @NonNull
-    private static Object[] checkParameterTypes(@NonNull Object[] parameterTypes) {
+    static Object[] checkParameterTypes(@NonNull Object[] parameterTypes) {
         Object[] newParameterTypes = new Object[parameterTypes.length];
         for (int i = 0, count = parameterTypes.length; i < count; ++i) {
             Object parameterType = parameterTypes[i];
@@ -63,9 +63,14 @@ abstract class BaseReflectedMethod {
 
     @NonNull
     private Class<?>[] getParameterTypes() {
-        Class<?>[] parameterTypes = new Class<?>[mParameterTypes.length];
-        for (int i = 0, count = mParameterTypes.length; i < count; ++i) {
-            Object parameterType = mParameterTypes[i];
+        return getParameterTypes(mParameterTypes);
+    }
+
+    @NonNull
+    static Class<?>[] getParameterTypes(@NonNull Object[] reflectedParameterTypes) {
+        Class<?>[] parameterTypes = new Class<?>[reflectedParameterTypes.length];
+        for (int i = 0, count = reflectedParameterTypes.length; i < count; ++i) {
+            Object parameterType = reflectedParameterTypes[i];
             if (parameterType instanceof Class<?>) {
                 parameterTypes[i] = (Class<?>) parameterType;
             } else if (parameterType instanceof ReflectedClass) {
