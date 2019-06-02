@@ -18,6 +18,10 @@ public class ReflectedClassField extends BaseReflectedField {
         mOwnerClass = ownerClass;
     }
 
+    public ReflectedClassField(@NonNull String ownerClassName, @NonNull String fieldName) {
+        this(new ReflectedClass(ownerClassName), fieldName);
+    }
+
     @NonNull
     @Override
     protected Class<?> getOwnerClass() {

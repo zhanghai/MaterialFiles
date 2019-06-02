@@ -19,6 +19,11 @@ public class ReflectedClassConstructor extends BaseReflectedConstructor {
         mOwnerClass = ownerClass;
     }
 
+    public ReflectedClassConstructor(@NonNull String ownerClassName,
+                                     @NonNull Object... parameterTypes) {
+        this(new ReflectedClass(ownerClassName), parameterTypes);
+    }
+
     @NonNull
     @Override
     protected Class<?> getOwnerClass() {

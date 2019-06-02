@@ -19,6 +19,11 @@ public class ReflectedClassMethod extends BaseReflectedMethod {
         mOwnerClass = ownerClass;
     }
 
+    public ReflectedClassMethod(@NonNull String ownerClassName, @NonNull String methodName,
+                                @NonNull Object... parameterTypes) {
+        this(new ReflectedClass(ownerClassName), methodName, parameterTypes);
+    }
+
     @NonNull
     @Override
     protected Class<?> getOwnerClass() {
