@@ -78,11 +78,11 @@
         </activity>
 
         <activity
-            android:name=".filejob.FileJobActionDialogActivity"
+            android:name="me.zhanghai.android.files.filejob.FileJobActionDialogActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <activity
-            android:name=".filejob.FileJobConflictDialogActivity"
+            android:name="me.zhanghai.android.files.filejob.FileJobConflictDialogActivity"
             android:theme="@style/AppTheme.Translucent" />
 
         <service android:name="me.zhanghai.android.files.filejob.FileJobService" />
@@ -93,7 +93,7 @@
             android:exported="false"
             android:grantUriPermissions="true" />
 
-        <receiver android:name=".filejob.FileJobReceiver" />
+        <receiver android:name="me.zhanghai.android.files.filejob.FileJobReceiver" />
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
