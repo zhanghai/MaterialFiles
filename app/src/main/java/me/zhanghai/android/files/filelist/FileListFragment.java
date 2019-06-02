@@ -740,7 +740,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void openFileAs(@NonNull FileItem file, @NonNull String mimeType) {
         Path path = file.getPath();
         if (LinuxFileSystemProvider.isLinuxPath(path)) {
-            Uri uri = FileProvider.getUriForPath(path.toFile().getPath());
+            Uri uri = FileProvider.getUriForPath(path);
             Intent intent = IntentUtils.makeView(uri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             IntentPathUtils.putExtraPath(intent, path);
@@ -792,7 +792,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void sendFile(@NonNull Path path, @NonNull String mimeType) {
         if (LinuxFileSystemProvider.isLinuxPath(path)) {
-            Uri uri = FileProvider.getUriForPath(path.toFile().getPath());
+            Uri uri = FileProvider.getUriForPath(path);
             Intent intent = IntentUtils.makeSendStream(uri, mimeType);
             AppUtils.startActivityWithChooser(intent, this);
         } else {

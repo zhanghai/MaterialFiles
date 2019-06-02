@@ -19,11 +19,17 @@ import android.text.TextUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.file.Files;
+import java8.nio.file.Path;
+import java8.nio.file.Paths;
 import me.zhanghai.android.files.BuildConfig;
 
 public class FileProvider extends ContentProvider {
@@ -56,7 +62,7 @@ public class FileProvider extends ContentProvider {
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection,
                         @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         // ContentProvider has already checked granted permissions
-        File file = getFileForUri(uri);
+        Path path = getPathForUri(uri);
         if (projection == null) {
             projection = COLUMNS;
         }
@@ -69,16 +75,32 @@ public class FileProvider extends ContentProvider {
             switch (column) {
                 case OpenableColumns.DISPLAY_NAME:
                     columns.add(column);
-                    values.add(file.getName());
+                    values.add(path.getFileName().toString());
                     break;
-                case OpenableColumns.SIZE:
+                case OpenableColumns.SIZE: {
+                    long size;
+                    try {
+                        size = Files.size(path);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        size = 0;
+                    }
                     columns.add(column);
-                    values.add(file.length());
+                    values.add(size);
                     break;
-                case MediaStore.MediaColumns.DATA:
+                }
+                case MediaStore.MediaColumns.DATA: {
+                    File file;
+                    try {
+                        file = path.toFile();
+                    } catch (UnsupportedOperationException e) {
+                        continue;
+                    }
+                    String absolutePath = file.getAbsolutePath();
                     columns.add(column);
-                    values.add(file.getAbsolutePath());
+                    values.add(absolutePath);
                     break;
+                }
             }
         }
         MatrixCursor cursor = new MatrixCursor(columns.toArray(new String[columns.size()]), 1);
@@ -89,8 +111,8 @@ public class FileProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        File file = getFileForUri(uri);
-        return MimeTypes.getMimeType(file.getPath());
+        Path path = getPathForUri(uri);
+        return MimeTypes.getMimeType(path.toString());
     }
 
     @Nullable
@@ -108,10 +130,7 @@ public class FileProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection,
                       @Nullable String[] selectionArgs) {
-        // ContentProvider has already checked granted permissions
-        File file = getFileForUri(uri);
-        // TODO: Directory?
-        return file.delete() ? 1 : 0;
+        throw new UnsupportedOperationException("No external deletes");
     }
 
     @Nullable
@@ -119,27 +138,30 @@ public class FileProvider extends ContentProvider {
     public ParcelFileDescriptor openFile(@NonNull Uri uri, @NonNull String mode)
             throws FileNotFoundException {
         // ContentProvider has already checked granted permissions
-        File file = getFileForUri(uri);
+        Path path = getPathForUri(uri);
+        // May throw UnsupportedOperationException.
+        File file = path.toFile();
         int modeBits = ParcelFileDescriptor.parseMode(mode);
         return ParcelFileDescriptor.open(file, modeBits);
     }
 
     @Nullable
-    public static Uri getUriForPath(@NonNull String path) {
+    public static Uri getUriForPath(@NonNull Path path) {
         return new Uri.Builder()
                 .scheme("content")
                 .authority(BuildConfig.FILE_PROVIDIER_AUTHORITY)
-                .path(path)
+                .opaquePart(path.toUri().toString())
                 .build();
     }
 
     @NonNull
-    public static String getPathForUri(@NonNull Uri uri) {
-        return uri.getPath();
-    }
-
-    @NonNull
-    private static File getFileForUri(@NonNull Uri uri) {
-        return new File(getPathForUri(uri));
+    public static Path getPathForUri(@NonNull Uri uri) {
+        URI pathUri;
+        try {
+            pathUri = new URI(uri.getSchemeSpecificPart());
+        } catch (URISyntaxException e) {
+            throw new IllegalArgumentException(e);
+        }
+        return Paths.get(pathUri);
     }
 }
