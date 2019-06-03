@@ -8,12 +8,15 @@ package me.zhanghai.android.files.viewer;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
+import java.io.InputStream;
+
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import java8.nio.file.Files;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.util.IoUtils;
 
 public class FileContentLiveData extends LiveData<FileContentData> {
 
@@ -33,8 +36,18 @@ public class FileContentLiveData extends LiveData<FileContentData> {
             @Override
             @WorkerThread
             protected FileContentData doInBackground(Void... parameters) {
+                // TODO: Just use Files.readAllBytes(), if all our providers support
+                //  newByteChannel()?
                 try {
-                    byte[] content = Files.readAllBytes(mPath);
+                    long sizeLong = Files.size(mPath);
+                    if (sizeLong > Integer.MAX_VALUE) {
+                        throw new OutOfMemoryError("size " + sizeLong);
+                    }
+                    int size = (int) sizeLong;
+                    byte[] content;
+                    try (InputStream inputStream = Files.newInputStream(mPath)) {
+                        content = IoUtils.inputStreamToByteArray(inputStream, size);
+                    }
                     return FileContentData.ofSuccess(mPath, content);
                 } catch (Exception e) {
                     return FileContentData.ofError(mPath, e);

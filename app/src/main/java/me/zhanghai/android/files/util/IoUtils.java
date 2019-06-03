@@ -10,8 +10,10 @@ import android.util.Base64;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +22,44 @@ public class IoUtils {
     private static final int BUFFER_SIZE = 4 * 1024;
 
     private IoUtils() {}
+
+    @NonNull
+    public static byte[] inputStreamToByteArray(@NonNull InputStream inputStream,
+                                                int initialCapacity) throws IOException {
+        byte[] bytes = new byte[initialCapacity];
+        int size = 0;
+        while (true) {
+            int readSize;
+            while ((readSize = inputStream.read(bytes, size, bytes.length - size)) > 0) {
+                size += readSize;
+            }
+            if (readSize == -1) {
+                break;
+            }
+            int nextByte = inputStream.read();
+            if (nextByte == -1) {
+                break;
+            }
+            int newCapacity = Math.max(bytes.length << 1, BUFFER_SIZE);
+            bytes = Arrays.copyOf(bytes, newCapacity);
+            bytes[size] = (byte) nextByte;
+            ++size;
+        }
+        return bytes.length == size ? bytes : Arrays.copyOf(bytes, size);
+    }
+
+    public static long inputStreamToOutputStream(@NonNull InputStream inputStream,
+                                                 @NonNull OutputStream outputStream)
+            throws IOException {
+        long count = 0;
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int length;
+        while ((length = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, length);
+            count += length;
+        }
+        return count;
+    }
 
     @NonNull
     public static String inputStreamToString(@NonNull InputStream inputStream,
