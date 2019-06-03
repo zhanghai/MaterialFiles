@@ -150,7 +150,7 @@ public class FileProvider extends ContentProvider {
         return new Uri.Builder()
                 .scheme("content")
                 .authority(BuildConfig.FILE_PROVIDIER_AUTHORITY)
-                .opaquePart(path.toUri().toString())
+                .path(path.toUri().toString())
                 .build();
     }
 
@@ -158,7 +158,7 @@ public class FileProvider extends ContentProvider {
     public static Path getPathForUri(@NonNull Uri uri) {
         URI pathUri;
         try {
-            pathUri = new URI(uri.getSchemeSpecificPart());
+            pathUri = new URI(uri.getPath());
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
