@@ -147,18 +147,24 @@ public class FileProvider extends ContentProvider {
 
     @Nullable
     public static Uri getUriForPath(@NonNull Path path) {
+        String uriPath = Uri.encode(path.toUri().toString());
         return new Uri.Builder()
                 .scheme("content")
                 .authority(BuildConfig.FILE_PROVIDIER_AUTHORITY)
-                .path(path.toUri().toString())
+                .path(uriPath)
                 .build();
     }
 
     @NonNull
     public static Path getPathForUri(@NonNull Uri uri) {
+        String uriPath = Uri.decode(uri.getPath());
+        // Strip the prepended slash. A slash is always prepended because our Uri path starts with
+        // our URI scheme, which can never start with a slash; but our Uri has an authority so its
+        // path must start with a slash.
+        uriPath = uriPath.substring(1);
         URI pathUri;
         try {
-            pathUri = new URI(uri.getPath());
+            pathUri = new URI(uriPath);
         } catch (URISyntaxException e) {
             throw new IllegalArgumentException(e);
         }
