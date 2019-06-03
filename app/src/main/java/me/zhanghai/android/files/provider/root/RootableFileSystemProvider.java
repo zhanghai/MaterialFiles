@@ -6,6 +6,8 @@
 package me.zhanghai.android.files.provider.root;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.Map;
 import java.util.Set;
@@ -80,6 +82,16 @@ public class RootableFileSystemProvider extends FileSystemProvider
     @Override
     public Path getPath(@NonNull URI uri) {
         return mLocalProvider.getPath(uri);
+    }
+
+    @Override
+    public InputStream newInputStream(Path path, OpenOption... options) throws IOException {
+        return applyRootable(path, provider -> provider.newInputStream(path, options));
+    }
+
+    @Override
+    public OutputStream newOutputStream(Path path, OpenOption... options) throws IOException {
+        return applyRootable(path, provider -> provider.newOutputStream(path, options));
     }
 
     @NonNull
