@@ -12,9 +12,15 @@ import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.ParcelFileDescriptor;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.system.ErrnoException;
+import android.system.OsConstants;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -22,15 +28,35 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import java8.nio.channels.SeekableByteChannel;
+import java8.nio.file.AccessDeniedException;
+import java8.nio.file.FileSystemException;
+import java8.nio.file.FileSystemLoopException;
+import java8.nio.file.FileSystems;
 import java8.nio.file.Files;
+import java8.nio.file.NoSuchFileException;
+import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.Paths;
+import java8.nio.file.StandardOpenOption;
 import me.zhanghai.android.files.BuildConfig;
+import me.zhanghai.android.files.functional.Functional;
+import me.zhanghai.android.files.provider.common.ForceableChannel;
+import me.zhanghai.android.files.provider.common.InvalidFileNameException;
+import me.zhanghai.android.files.provider.common.IsDirectoryException;
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
+import me.zhanghai.android.files.util.ProxyFileDescriptorCallbackCompat;
+import me.zhanghai.android.files.util.StorageManagerCompat;
+import me.zhanghai.android.files.util.StorageVolumeCompat;
 
 public class FileProvider extends ContentProvider {
 
@@ -40,9 +66,22 @@ public class FileProvider extends ContentProvider {
             MediaStore.MediaColumns.DATA
     };
 
+    private HandlerThread mCallbackThread;
+    private Handler mCallbackHandler;
+
     @Override
     public boolean onCreate() {
+        mCallbackThread = new HandlerThread("FileProvider.CallbackThread");
+        mCallbackThread.start();
+        mCallbackHandler = new Handler(mCallbackThread.getLooper());
         return true;
+    }
+
+    @Override
+    public void shutdown() {
+        mCallbackHandler = null;
+        mCallbackThread.quitSafely();
+        mCallbackThread = null;
     }
 
     @Override
@@ -139,10 +178,80 @@ public class FileProvider extends ContentProvider {
             throws FileNotFoundException {
         // ContentProvider has already checked granted permissions
         Path path = getPathForUri(uri);
-        // May throw UnsupportedOperationException.
-        File file = path.toFile();
         int modeBits = ParcelFileDescriptor.parseMode(mode);
-        return ParcelFileDescriptor.open(file, modeBits);
+        if (isInsideStorageVolume(path)) {
+            return ParcelFileDescriptor.open(path.toFile(), modeBits);
+        }
+        // Allowing other apps to write to files that require root access is dangerous.
+        // TODO: Relax this restriction for other cases?
+        if (modeBits != ParcelFileDescriptor.MODE_READ_ONLY) {
+            throw toFileNotFoundException(new AccessDeniedException(mode));
+        }
+        Set<OpenOption> options = modeToOpenOptions(modeBits);
+        SeekableByteChannel channel;
+        try {
+            channel = Files.newByteChannel(path, options);
+        } catch (IOException e) {
+            throw toFileNotFoundException(e);
+        }
+        StorageManager storageManager = ContextCompat.getSystemService(getContext(),
+                StorageManager.class);
+        try {
+            return StorageManagerCompat.openProxyFileDescriptor(storageManager, modeBits,
+                    new ChannelCallback(channel), mCallbackHandler);
+        } catch (IOException e) {
+            throw toFileNotFoundException(e);
+        }
+    }
+
+    private boolean isInsideStorageVolume(@NonNull Path path) {
+        if (path.getFileSystem() != FileSystems.getDefault()) {
+            return false;
+        }
+        StorageManager storageManager = ContextCompat.getSystemService(getContext(),
+                StorageManager.class);
+        List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
+        return Functional.some(storageVolumes, storageVolume ->
+                path.startsWith(Paths.get(StorageVolumeCompat.getPath(storageVolume))));
+    }
+
+    @NonNull
+    private static Set<OpenOption> modeToOpenOptions(int mode) {
+        // May be "r" for read-only access, "rw" for read and write access, or "rwt" for read and
+        // write access that truncates any existing file.
+        if ((mode & ParcelFileDescriptor.MODE_APPEND) == ParcelFileDescriptor.MODE_APPEND) {
+            throw new IllegalArgumentException("mode " + mode);
+        }
+        Set<OpenOption> options = new HashSet<>();
+        if ((mode & ParcelFileDescriptor.MODE_READ_ONLY) == ParcelFileDescriptor.MODE_READ_ONLY
+                || (mode & ParcelFileDescriptor.MODE_READ_WRITE)
+                == ParcelFileDescriptor.MODE_READ_WRITE) {
+            options.add(StandardOpenOption.READ);
+        }
+        if ((mode & ParcelFileDescriptor.MODE_WRITE_ONLY) == ParcelFileDescriptor.MODE_WRITE_ONLY
+                || (mode & ParcelFileDescriptor.MODE_READ_WRITE)
+                == ParcelFileDescriptor.MODE_READ_WRITE) {
+            options.add(StandardOpenOption.WRITE);
+        }
+        if ((mode & ParcelFileDescriptor.MODE_CREATE) == ParcelFileDescriptor.MODE_CREATE) {
+            options.add(StandardOpenOption.CREATE);
+        }
+        if ((mode & ParcelFileDescriptor.MODE_TRUNCATE) == ParcelFileDescriptor.MODE_TRUNCATE) {
+            options.add(StandardOpenOption.TRUNCATE_EXISTING);
+        }
+        return options;
+    }
+
+    @NonNull
+    private static FileNotFoundException toFileNotFoundException(@NonNull IOException exception) {
+        if (exception instanceof FileNotFoundException) {
+            return (FileNotFoundException) exception;
+        } else {
+            FileNotFoundException fileNotFoundException = new FileNotFoundException(
+                    exception.getMessage());
+            fileNotFoundException.initCause(exception);
+            return fileNotFoundException;
+        }
     }
 
     @Nullable
@@ -169,5 +278,128 @@ public class FileProvider extends ContentProvider {
             throw new IllegalArgumentException(e);
         }
         return Paths.get(pathUri);
+    }
+
+    private static class ChannelCallback extends ProxyFileDescriptorCallbackCompat {
+
+        @NonNull
+        private final SeekableByteChannel mChannel;
+
+        private long mOffset;
+
+        private boolean mReleased;
+
+        ChannelCallback(@NonNull SeekableByteChannel channel) {
+            mChannel = channel;
+        }
+
+        @Override
+        public long onGetSize() throws ErrnoException {
+            ensureNotReleased();
+            try {
+                return mChannel.size();
+            } catch (IOException e) {
+                throw toErrnoException(e);
+            }
+        }
+
+        @Override
+        public int onRead(long offset, int size, byte[] data) throws ErrnoException {
+            ensureNotReleased();
+            if (mOffset != offset) {
+                try {
+                    mChannel.position(offset);
+                } catch (IOException e) {
+                    throw toErrnoException(e);
+                }
+                mOffset = offset;
+            }
+            try {
+                ByteBuffer buffer = ByteBuffer.wrap(data, 0, size);
+                int readSize = mChannel.read(buffer);
+                mOffset += readSize;
+                return readSize;
+            } catch (IOException e) {
+                throw toErrnoException(e);
+            }
+        }
+
+        @Override
+        public int onWrite(long offset, int size, byte[] data) throws ErrnoException {
+            ensureNotReleased();
+            if (mOffset != offset) {
+                try {
+                    mChannel.position(offset);
+                } catch (IOException e) {
+                    throw toErrnoException(e);
+                }
+                mOffset = offset;
+            }
+            try {
+                ByteBuffer buffer = ByteBuffer.wrap(data, 0, size);
+                int wroteSize = mChannel.write(buffer);
+                mOffset += wroteSize;
+                return wroteSize;
+            } catch (IOException e) {
+                throw toErrnoException(e);
+            }
+        }
+
+        @Override
+        public void onFsync() throws ErrnoException {
+            ensureNotReleased();
+            if (ForceableChannel.isForceable(mChannel)) {
+                try {
+                    ForceableChannel.force(mChannel, true);
+                } catch (IOException e) {
+                    throw toErrnoException(e);
+                }
+            }
+        }
+
+        private void ensureNotReleased() throws ErrnoException {
+            if (mReleased) {
+                throw new ErrnoException(null, OsConstants.EBADF);
+            }
+        }
+
+        @NonNull
+        private static ErrnoException toErrnoException(@NonNull IOException exception) {
+            if (exception instanceof FileSystemException
+                    && exception.getCause() instanceof SyscallException) {
+                SyscallException syscallException = (SyscallException) exception.getCause();
+                return new ErrnoException(syscallException.getFunctionName(),
+                        syscallException.getErrno(), exception);
+            } else {
+                int errno;
+                if (exception instanceof AccessDeniedException) {
+                    errno = OsConstants.EPERM;
+                } else if (exception instanceof FileSystemLoopException) {
+                    errno = OsConstants.ELOOP;
+                } else if (exception instanceof InvalidFileNameException) {
+                    errno = OsConstants.EINVAL;
+                } else if (exception instanceof IsDirectoryException) {
+                    errno = OsConstants.EISDIR;
+                } else if (exception instanceof NoSuchFileException) {
+                    errno = OsConstants.ENOENT;
+                } else {
+                    errno = OsConstants.EIO;
+                }
+                return new ErrnoException(exception.getMessage(), errno, exception);
+            }
+        }
+
+        @Override
+        public void onRelease() {
+            if (mReleased) {
+                return;
+            }
+            try {
+                mChannel.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mReleased = true;
+        }
     }
 }
