@@ -49,14 +49,14 @@ import java8.nio.file.Path;
 import java8.nio.file.Paths;
 import java8.nio.file.StandardOpenOption;
 import me.zhanghai.android.files.BuildConfig;
+import me.zhanghai.android.files.compat.ProxyFileDescriptorCallbackCompat;
+import me.zhanghai.android.files.compat.StorageManagerCompat;
+import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.provider.common.ForceableChannel;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
-import me.zhanghai.android.files.util.ProxyFileDescriptorCallbackCompat;
-import me.zhanghai.android.files.util.StorageManagerCompat;
-import me.zhanghai.android.files.util.StorageVolumeCompat;
 
 public class FileProvider extends ContentProvider {
 

@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.StringCompat;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filelist.FileItem;
@@ -50,7 +51,6 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.ImeUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
-import me.zhanghai.android.files.util.StringCompat;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class FileJobConflictDialogFragment extends DialogFragment {

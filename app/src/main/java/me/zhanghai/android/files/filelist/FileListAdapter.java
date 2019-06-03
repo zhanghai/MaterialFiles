@@ -39,6 +39,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.StringCompat;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.glide.GlideApp;
@@ -47,7 +48,6 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.files.ui.CheckableFrameLayout;
-import me.zhanghai.android.files.util.StringCompat;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileListAdapter.ViewHolder>

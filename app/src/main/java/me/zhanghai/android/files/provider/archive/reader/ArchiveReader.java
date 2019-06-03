@@ -40,6 +40,8 @@ import java8.nio.file.NotLinkException;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.EnumerationCompat;
+import me.zhanghai.android.files.compat.MapCompat;
 import me.zhanghai.android.files.functional.IterableCompat;
 import me.zhanghai.android.files.functional.IteratorCompat;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
@@ -47,9 +49,7 @@ import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.provider.root.RootUtils;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
-import me.zhanghai.android.files.util.EnumerationCompat;
 import me.zhanghai.android.files.util.IoUtils;
-import me.zhanghai.android.files.util.MapCompat;
 
 public class ArchiveReader {
 

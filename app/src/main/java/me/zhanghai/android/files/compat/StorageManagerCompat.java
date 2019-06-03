@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.util;
+package me.zhanghai.android.files.compat;
 
 import android.os.Build;
 import android.os.Handler;

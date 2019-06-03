@@ -20,10 +20,10 @@ import androidx.annotation.StyleRes;
 import androidx.lifecycle.Observer;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
+import me.zhanghai.android.files.compat.ListFormatterCompat;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData;
 import me.zhanghai.android.files.navigation.StandardDirectory;
-import me.zhanghai.android.files.util.ListFormatterCompat;
 
 public class StandardDirectoriesPreference extends Preference {
 
