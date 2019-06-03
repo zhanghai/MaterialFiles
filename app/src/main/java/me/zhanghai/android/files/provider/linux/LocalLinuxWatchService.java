@@ -114,10 +114,10 @@ class LocalLinuxWatchService extends AbstractWatchService {
         private final Object mLock = new Object();
 
         Poller(@NonNull LocalLinuxWatchService watchService) throws IOException {
+            super("LocalLinuxWatchService.Poller-" + sId.getAndIncrement());
 
             mWatchService = watchService;
 
-            setName("LocalLinuxWatchService.Poller-" + sId.getAndIncrement());
             setDaemon(true);
 
             try {

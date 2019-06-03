@@ -144,7 +144,8 @@ public class WatchServiceDirectoryObservable implements DirectoryObservable {
     private class Poller extends Thread {
 
         Poller() {
-            setName("WatchServiceDirectoryObservable.Poller-" + sPollerId.getAndIncrement());
+            super("WatchServiceDirectoryObservable.Poller-" + sPollerId.getAndIncrement());
+
             setDaemon(true);
         }
 
