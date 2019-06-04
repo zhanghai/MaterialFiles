@@ -90,7 +90,7 @@ dependencies {
     implementation 'me.zhanghai.android.libselinux:library:2.0.0'
     implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
     implementation 'me.zhanghai.android.retrofile:library:1.1.0'
-    implementation 'me.zhanghai.java.reflected:library:1.0.0'
+    implementation 'me.zhanghai.java.reflected:library:1.0.1'
     implementation 'org.apache.commons:commons-compress:1.18'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
