@@ -35,16 +35,16 @@ public class SELinuxCompat {
             "android.os.SELinux");
 
     @NonNull
-    private static final ReflectedClassMethod<?> sIsSELinuxEnabledMethod = new ReflectedClassMethod<>(
-            sSELinuxClass, "isSELinuxEnabled");
+    private static final ReflectedClassMethod<?> sIsSELinuxEnabledMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "isSELinuxEnabled");
 
     @NonNull
-    private static final ReflectedClassMethod<?> sIsSELinuxEnforcedMethod = new ReflectedClassMethod<>(
-            sSELinuxClass, "isSELinuxEnforced");
+    private static final ReflectedClassMethod<?> sIsSELinuxEnforcedMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "isSELinuxEnforced");
 
     @NonNull
-    private static final ReflectedClassMethod<?> sSetFSCreateContextMethod = new ReflectedClassMethod<>(
-            sSELinuxClass, "setFSCreateContext", String.class);
+    private static final ReflectedClassMethod<?> sSetFSCreateContextMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "setFSCreateContext", String.class);
 
     @NonNull
     private static final ReflectedClassMethod<?> sSetFileContextMethod = new ReflectedClassMethod<>(
