@@ -7,20 +7,33 @@ package me.zhanghai.android.files.reflected;
 
 import androidx.annotation.NonNull;
 
-public class ReflectedConstructor extends BaseReflectedConstructor {
+import java.lang.reflect.Constructor;
 
-    @NonNull
-    private final Class<?> mOwnerClass;
+public class ReflectedConstructor<T> extends ReflectedExecutable<T, Constructor<T>> {
 
-    public ReflectedConstructor(@NonNull Class<?> ownerClass, @NonNull Object... parameterTypes) {
-        super(parameterTypes);
+    public ReflectedConstructor(@NonNull Class<T> declaringClass,
+                                @NonNull Object... parameterTypes) {
+        super(declaringClass, parameterTypes);
+    }
 
-        mOwnerClass = ownerClass;
+    public ReflectedConstructor(@NonNull ReflectedClass<T> declaringClass,
+                                @NonNull Object... parameterTypes) {
+        super(declaringClass, parameterTypes);
+    }
+
+    public ReflectedConstructor(@NonNull String declaringClassName,
+                                @NonNull Object... parameterTypes) {
+        super(declaringClassName, parameterTypes);
     }
 
     @NonNull
     @Override
-    protected Class<?> getOwnerClass() {
-        return mOwnerClass;
+    protected Constructor<T> onGet() throws ReflectedException {
+        return ReflectedAccessor.getAccessibleConstructor(getDeclaringClass(), getParameterTypes());
+    }
+
+    @NonNull
+    public T newInstance(@NonNull Object... arguments) throws ReflectedException {
+        return ReflectedAccessor.newInstance(get(), arguments);
     }
 }

@@ -5,23 +5,47 @@
 
 package me.zhanghai.android.files.reflected;
 
-import androidx.annotation.NonNull;
+import java.lang.reflect.Method;
+import java.util.Objects;
 
-public class ReflectedMethod<T> extends BaseReflectedMethod<T> {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+public class ReflectedMethod<T> extends ReflectedExecutable<T, Method> {
 
     @NonNull
-    private final Class<T> mOwnerClass;
+    private final String mMethodName;
 
-    public ReflectedMethod(@NonNull Class<T> ownerClass, @NonNull String methodName,
+    public ReflectedMethod(@NonNull Class<T> declaringClass, @NonNull String methodName,
                            @NonNull Object... parameterTypes) {
-        super(methodName, parameterTypes);
+        super(declaringClass, parameterTypes);
 
-        mOwnerClass = ownerClass;
+        mMethodName = Objects.requireNonNull(methodName);
+    }
+
+    public ReflectedMethod(@NonNull ReflectedClass<T> declaringClass, @NonNull String methodName,
+                           @NonNull Object... parameterTypes) {
+        super(declaringClass, parameterTypes);
+
+        mMethodName = Objects.requireNonNull(methodName);
+    }
+
+    public ReflectedMethod(@NonNull String declaringClassName, @NonNull String methodName,
+                           @NonNull Object... parameterTypes) {
+        super(declaringClassName, parameterTypes);
+
+        mMethodName = Objects.requireNonNull(methodName);
     }
 
     @NonNull
     @Override
-    protected Class<T> getOwnerClass() {
-        return mOwnerClass;
+    protected Method onGet() throws ReflectedException {
+        return ReflectedAccessor.getAccessibleMethod(getDeclaringClass(), mMethodName,
+                getParameterTypes());
+    }
+
+    public <R> R invoke(@Nullable T object, @NonNull Object... arguments)
+            throws ReflectedException {
+        return ReflectedAccessor.invoke(get(), object, arguments);
     }
 }

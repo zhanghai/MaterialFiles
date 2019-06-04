@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.reflected;
 
-import android.os.Build;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
@@ -26,7 +24,7 @@ public class ReflectedException extends RuntimeException {
         super(cause);
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
+    @RequiresApi(/* Build.VERSION_CODES.N */ 24)
     public ReflectedException(@Nullable String message, @Nullable Throwable cause,
                               boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);

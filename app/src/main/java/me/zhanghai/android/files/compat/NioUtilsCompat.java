@@ -12,7 +12,7 @@ import java.io.Closeable;
 import java.io.FileDescriptor;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.reflected.ReflectedClassMethod;
+import me.zhanghai.android.files.reflected.ReflectedMethod;
 
 public class NioUtilsCompat {
 
@@ -21,12 +21,12 @@ public class NioUtilsCompat {
     }
 
     @RestrictedHiddenApi
-    private static final ReflectedClassMethod<?> sNewFileChannelMethod = new ReflectedClassMethod<>(
+    private static final ReflectedMethod<?> sNewFileChannelMethod = new ReflectedMethod<>(
             "java.nio.NioUtils", "newFileChannel", Closeable.class, FileDescriptor.class,
             int.class);
 
     @RestrictedHiddenApi
-    private static final ReflectedClassMethod<?> sFileChannelImplOpen = new ReflectedClassMethod<>(
+    private static final ReflectedMethod<?> sFileChannelImplOpen = new ReflectedMethod<>(
             "sun.nio.ch.FileChannelImpl", "open", FileDescriptor.class, String.class,
             boolean.class, boolean.class, boolean.class, Object.class);
 

@@ -6,29 +6,21 @@
 package me.zhanghai.android.files.reflected;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-public class ReflectedClass<T> {
+import java.util.Objects;
+
+public class ReflectedClass<T> extends ReflectedObject<Class<T>> {
 
     @NonNull
     private final String mClassName;
 
-    @Nullable
-    private Class<T> mClass;
-    @NonNull
-    private final Object mClassLock = new Object();
-
     public ReflectedClass(@NonNull String className) {
-        mClassName = className;
+        mClassName = Objects.requireNonNull(className);
     }
 
     @NonNull
-    public Class<T> get() throws ReflectedException {
-        synchronized (mClassLock) {
-            if (mClass == null) {
-                mClass = ReflectedAccessor.getClass(mClassName);
-            }
-            return mClass;
-        }
+    @Override
+    protected Class<T> onGet() throws ReflectedException {
+        return ReflectedAccessor.getClass(mClassName);
     }
 }
