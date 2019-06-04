@@ -21,6 +21,11 @@ public class IoUtils {
 
     private static final int BUFFER_SIZE = 4 * 1024;
 
+    /*
+     * @see java.util.ArrayList#MAX_ARRAY_SIZE
+     */
+    private static final int MAX_BUFFER_SIZE = Integer.MAX_VALUE - 8;
+
     private IoUtils() {}
 
     @NonNull
@@ -40,7 +45,14 @@ public class IoUtils {
             if (nextByte == -1) {
                 break;
             }
-            int newCapacity = Math.max(bytes.length << 1, BUFFER_SIZE);
+            if (bytes.length == MAX_BUFFER_SIZE) {
+                throw new OutOfMemoryError();
+            }
+            int newCapacity = bytes.length << 1;
+            if (newCapacity < 0 || newCapacity > MAX_BUFFER_SIZE) {
+                newCapacity = MAX_BUFFER_SIZE;
+            }
+            newCapacity = Math.max(newCapacity, BUFFER_SIZE);
             bytes = Arrays.copyOf(bytes, newCapacity);
             bytes[size] = (byte) nextByte;
             ++size;
