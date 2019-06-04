@@ -15,7 +15,7 @@ import java.io.File;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import me.zhanghai.android.files.reflected.ReflectedMethod;
+import me.zhanghai.java.reflected.ReflectedMethod;
 
 /**
  * @see StorageVolume

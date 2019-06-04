@@ -13,8 +13,8 @@ import java.io.FileDescriptor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import me.zhanghai.android.files.reflected.ReflectedClass;
-import me.zhanghai.android.files.reflected.ReflectedMethod;
+import me.zhanghai.java.reflected.ReflectedClass;
+import me.zhanghai.java.reflected.ReflectedMethod;
 
 /*
  * @see android.os.SELinux

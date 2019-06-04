@@ -12,7 +12,7 @@ import java.io.Closeable;
 import java.io.FileDescriptor;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.reflected.ReflectedMethod;
+import me.zhanghai.java.reflected.ReflectedMethod;
 
 public class NioUtilsCompat {
 

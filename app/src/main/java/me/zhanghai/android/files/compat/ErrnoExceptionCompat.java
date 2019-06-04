@@ -8,7 +8,7 @@ package me.zhanghai.android.files.compat;
 import android.system.ErrnoException;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.reflected.ReflectedField;
+import me.zhanghai.java.reflected.ReflectedField;
 
 public class ErrnoExceptionCompat {
 

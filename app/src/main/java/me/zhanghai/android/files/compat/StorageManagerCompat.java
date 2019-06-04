@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.promise.Promise;
-import me.zhanghai.android.files.reflected.ReflectedMethod;
+import me.zhanghai.java.reflected.ReflectedMethod;
 
 /**
  * @see StorageManager

@@ -85,6 +85,13 @@
     </notice>
 
     <notice>
+        <name>Reflected</name>
+        <url>https://github.com/zhanghai/Reflected</url>
+        <copyright>Copyright 2018 Hai Zhang</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>Apache Commons Compress</name>
         <url>https://commons.apache.org/proper/commons-compress/</url>
         <copyright>Copyright 2002 The Apache Software Foundation</copyright>

@@ -8,8 +8,8 @@ package me.zhanghai.android.files.compat;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.reflected.ReflectedAccessor;
-import me.zhanghai.android.files.reflected.ReflectedField;
+import me.zhanghai.java.reflected.ReflectedAccessor;
+import me.zhanghai.java.reflected.ReflectedField;
 
 public class RestrictedHiddenApiAccess {
 
