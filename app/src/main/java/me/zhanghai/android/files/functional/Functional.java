@@ -21,7 +21,6 @@ import me.zhanghai.android.files.functional.extension.TriConsumer;
 import me.zhanghai.android.files.functional.extension.TriFunction;
 import me.zhanghai.android.files.functional.extension.TriPredicate;
 
-@SuppressWarnings("unused")
 public class Functional {
 
     private Functional() {}
@@ -47,8 +46,7 @@ public class Functional {
     }
 
     @CheckResult
-    public static <T, J extends Collection<? super T>> ArrayList<T> filter(Iterable<T> iterable,
-                                                                           Predicate<T> predicate) {
+    public static <T> ArrayList<T> filter(Iterable<T> iterable, Predicate<T> predicate) {
         return FunctionalIterator.filterRemaining(iterable.iterator(), predicate);
     }
 
@@ -59,8 +57,7 @@ public class Functional {
     }
 
     @CheckResult
-    public static <T, J extends Collection<? super T>> ArrayList<T> filter(
-            Iterable<T> iterable, BiPredicate<T, Integer> predicate) {
+    public static <T> ArrayList<T> filter(Iterable<T> iterable, BiPredicate<T, Integer> predicate) {
         return FunctionalIterator.filterRemaining(iterable.iterator(), predicate);
     }
 
@@ -71,7 +68,7 @@ public class Functional {
     }
 
     @CheckResult
-    public static <I extends Iterable<T>, T, J extends Collection<? super T>> ArrayList<T> filter(
+    public static <I extends Iterable<T>, T> ArrayList<T> filter(
             I iterable, TriPredicate<T, Integer, I> predicate) {
         return FunctionalIterator.filterRemaining(iterable.iterator(), (t, index, iterator) ->
                 predicate.test(t, index, iterable));
@@ -126,8 +123,7 @@ public class Functional {
     }
 
     @CheckResult
-    public static <T, U, J extends Collection<? super U>> ArrayList<U> map(
-            Iterable<T> iterable, Function<T, U> function) {
+    public static <T, U> ArrayList<U> map(Iterable<T> iterable, Function<T, U> function) {
         return FunctionalIterator.mapRemaining(iterable.iterator(), function);
     }
 
@@ -138,8 +134,8 @@ public class Functional {
     }
 
     @CheckResult
-    public static <T, U, J extends Collection<? super U>> ArrayList<U> map(
-            Iterable<T> iterable, BiFunction<T, Integer, U> function) {
+    public static <T, U> ArrayList<U> map(Iterable<T> iterable,
+                                          BiFunction<T, Integer, U> function) {
         return FunctionalIterator.mapRemaining(iterable.iterator(), function);
     }
 
@@ -150,7 +146,7 @@ public class Functional {
     }
 
     @CheckResult
-    public static <I extends Iterable<T>, T, U, J extends Collection<? super U>> ArrayList<U> map(
+    public static <I extends Iterable<T>, T, U> ArrayList<U> map(
             I iterable, TriFunction<T, Integer, I, U> function) {
         return FunctionalIterator.mapRemaining(iterable.iterator(), (t, index, iterator) ->
                 function.apply(t, index, iterable));

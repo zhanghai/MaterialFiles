@@ -15,7 +15,6 @@ import me.zhanghai.android.files.functional.compat.ToDoubleFunction;
 import me.zhanghai.android.files.functional.compat.ToIntFunction;
 import me.zhanghai.android.files.functional.compat.ToLongFunction;
 
-@SuppressWarnings("unused")
 public class ComparatorCompat {
 
     private ComparatorCompat() {}

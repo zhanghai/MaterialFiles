@@ -23,7 +23,6 @@ import me.zhanghai.android.files.functional.extension.TriConsumer;
 import me.zhanghai.android.files.functional.extension.TriFunction;
 import me.zhanghai.android.files.functional.extension.TriPredicate;
 
-@SuppressWarnings("unused")
 public class FunctionalIterator {
 
     private FunctionalIterator() {}
@@ -77,8 +76,7 @@ public class FunctionalIterator {
     }
 
     @CheckResult
-    public static <T, J extends Collection<? super T>> ArrayList<T> filterRemaining(
-            Iterator<T> iterator, Predicate<T> predicate) {
+    public static <T> ArrayList<T> filterRemaining(Iterator<T> iterator, Predicate<T> predicate) {
         return filterRemaining(iterator, predicate, new ArrayList<>());
     }
 
@@ -96,8 +94,8 @@ public class FunctionalIterator {
     }
 
     @CheckResult
-    public static <T, J extends Collection<? super T>> ArrayList<T> filterRemaining(
-            Iterator<T> iterator, BiPredicate<T, Integer> predicate) {
+    public static <T> ArrayList<T> filterRemaining(Iterator<T> iterator,
+                                                   BiPredicate<T, Integer> predicate) {
         return filterRemaining(iterator, predicate, new ArrayList<>());
     }
 
@@ -115,8 +113,8 @@ public class FunctionalIterator {
     }
 
     @CheckResult
-    public static <I extends Iterator<T>, T, J extends Collection<? super T>> ArrayList<T>
-    filterRemaining(I iterator, TriPredicate<T, Integer, I> predicate) {
+    public static <I extends Iterator<T>, T> ArrayList<T> filterRemaining(
+            I iterator, TriPredicate<T, Integer, I> predicate) {
         return filterRemaining(iterator, predicate, new ArrayList<>());
     }
 
@@ -227,8 +225,7 @@ public class FunctionalIterator {
     }
 
     @CheckResult
-    public static <T, U, J extends Collection<? super U>> ArrayList<U> mapRemaining(
-            Iterator<T> iterator, Function<T, U> function) {
+    public static <T, U> ArrayList<U> mapRemaining(Iterator<T> iterator, Function<T, U> function) {
         return mapRemaining(iterator, function, new ArrayList<>());
     }
 
@@ -244,8 +241,8 @@ public class FunctionalIterator {
     }
 
     @CheckResult
-    public static <T, U, J extends Collection<? super U>> ArrayList<U> mapRemaining(
-            Iterator<T> iterator, BiFunction<T, Integer, U> function) {
+    public static <T, U> ArrayList<U> mapRemaining(Iterator<T> iterator,
+                                                   BiFunction<T, Integer, U> function) {
         return mapRemaining(iterator, function, new ArrayList<>());
     }
 
@@ -261,8 +258,8 @@ public class FunctionalIterator {
     }
 
     @CheckResult
-    public static <I extends Iterator<T>, T, U, J extends Collection<? super U>> ArrayList<U>
-    mapRemaining(I iterator, TriFunction<T, Integer, I, U> function) {
+    public static <I extends Iterator<T>, T, U> ArrayList<U> mapRemaining(
+            I iterator, TriFunction<T, Integer, I, U> function) {
         return mapRemaining(iterator, function, new ArrayList<>());
     }
 
