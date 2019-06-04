@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-abstract class BaseReflectedField {
+abstract class BaseReflectedField<T> {
 
     @NonNull
     private final String mFieldName;
@@ -25,7 +25,7 @@ abstract class BaseReflectedField {
     }
 
     @NonNull
-    protected abstract Class<?> getOwnerClass();
+    protected abstract Class<T> getOwnerClass();
 
     @NonNull
     public Field get() throws ReflectedException {
@@ -38,75 +38,75 @@ abstract class BaseReflectedField {
         }
     }
 
-    public <T> T getObject(@Nullable Object object) throws ReflectedException {
+    public <R> R getObject(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getObject(get(), object);
     }
 
-    public boolean getBoolean(@Nullable Object object) throws ReflectedException {
+    public boolean getBoolean(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getBoolean(get(), object);
     }
 
-    public byte getByte(@Nullable Object object) throws ReflectedException {
+    public byte getByte(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getByte(get(), object);
     }
 
-    public char getChar(@Nullable Object object) throws ReflectedException {
+    public char getChar(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getChar(get(), object);
     }
 
-    public short getShort(@Nullable Object object) throws ReflectedException {
+    public short getShort(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getShort(get(), object);
     }
 
-    public int getInt(@Nullable Object object) throws ReflectedException {
+    public int getInt(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getInt(get(), object);
     }
 
-    public long getLong(@Nullable Object object) throws ReflectedException {
+    public long getLong(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getLong(get(), object);
     }
 
-    public float getFloat(@Nullable Object object) throws ReflectedException {
+    public float getFloat(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getFloat(get(), object);
     }
 
-    public double getDouble(@Nullable Object object) throws ReflectedException {
+    public double getDouble(@Nullable T object) throws ReflectedException {
         return ReflectedAccessor.getDouble(get(), object);
     }
 
-    public void setObject(@Nullable Object object, Object value) throws ReflectedException {
+    public void setObject(@Nullable T object, Object value) throws ReflectedException {
         ReflectedAccessor.setObject(get(), object, value);
     }
 
-    public void setBoolean(@Nullable Object object, boolean value) throws ReflectedException {
+    public void setBoolean(@Nullable T object, boolean value) throws ReflectedException {
         ReflectedAccessor.setBoolean(get(), object, value);
     }
 
-    public void setByte(@Nullable Object object, byte value) throws ReflectedException {
+    public void setByte(@Nullable T object, byte value) throws ReflectedException {
         ReflectedAccessor.setByte(get(), object, value);
     }
 
-    public void setChar(@Nullable Object object, char value) throws ReflectedException {
+    public void setChar(@Nullable T object, char value) throws ReflectedException {
         ReflectedAccessor.setChar(get(), object, value);
     }
 
-    public void setShort(@Nullable Object object, short value) throws ReflectedException {
+    public void setShort(@Nullable T object, short value) throws ReflectedException {
         ReflectedAccessor.setShort(get(), object, value);
     }
 
-    public void setInt(@Nullable Object object, int value) throws ReflectedException {
+    public void setInt(@Nullable T object, int value) throws ReflectedException {
         ReflectedAccessor.setInt(get(), object, value);
     }
 
-    public void setLong(@Nullable Object object, long value) throws ReflectedException {
+    public void setLong(@Nullable T object, long value) throws ReflectedException {
         ReflectedAccessor.setLong(get(), object, value);
     }
 
-    public void setFloat(@Nullable Object object, float value) throws ReflectedException {
+    public void setFloat(@Nullable T object, float value) throws ReflectedException {
         ReflectedAccessor.setFloat(get(), object, value);
     }
 
-    public void setDouble(@Nullable Object object, double value) throws ReflectedException {
+    public void setDouble(@Nullable T object, double value) throws ReflectedException {
         ReflectedAccessor.setDouble(get(), object, value);
     }
 }

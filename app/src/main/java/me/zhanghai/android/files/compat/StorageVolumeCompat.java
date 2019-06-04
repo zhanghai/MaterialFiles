@@ -28,19 +28,19 @@ public class StorageVolumeCompat {
 
     @NonNull
     @SuppressLint("NewApi")
-    private static final ReflectedMethod sGetPathMethod = new ReflectedMethod(StorageVolume.class,
-            "getPath");
+    private static final ReflectedMethod<StorageVolume> sGetPathMethod = new ReflectedMethod<>(
+            StorageVolume.class, "getPath");
 
     @NonNull
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @SuppressLint("NewApi")
-    private static final ReflectedMethod sGetPathFileMethod = new ReflectedMethod(
+    private static final ReflectedMethod<StorageVolume> sGetPathFileMethod = new ReflectedMethod<>(
             StorageVolume.class, "getPathFile");
 
     @NonNull
     @SuppressLint("NewApi")
-    private static final ReflectedMethod sGetDescriptionMethod = new ReflectedMethod(
-            StorageVolume.class, "getDescription");
+    private static final ReflectedMethod<StorageVolume> sGetDescriptionMethod =
+            new ReflectedMethod<>(StorageVolume.class, "getDescription");
 
     private StorageVolumeCompat() {}
 

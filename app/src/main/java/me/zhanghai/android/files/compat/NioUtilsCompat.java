@@ -23,12 +23,12 @@ public class NioUtilsCompat {
     }
 
     @RestrictedHiddenApi
-    private static final ReflectedClassMethod sNewFileChannelMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sNewFileChannelMethod = new ReflectedClassMethod<>(
             "java.nio.NioUtils", "newFileChannel", Closeable.class, FileDescriptor.class,
             int.class);
 
     @RestrictedHiddenApi
-    private static final ReflectedClassMethod sFileChannelImplOpen = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sFileChannelImplOpen = new ReflectedClassMethod<>(
             "sun.nio.ch.FileChannelImpl", "open", FileDescriptor.class, String.class,
             boolean.class, boolean.class, boolean.class, Object.class);
 

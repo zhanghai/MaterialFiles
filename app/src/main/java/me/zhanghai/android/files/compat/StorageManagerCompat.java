@@ -29,8 +29,8 @@ import me.zhanghai.android.files.reflected.ReflectedMethod;
 public class StorageManagerCompat {
 
     @NonNull
-    private static final ReflectedMethod sGetVolumeListMethod = new ReflectedMethod(
-            StorageManager.class, "getVolumeList");
+    private static final ReflectedMethod<StorageManager> sGetVolumeListMethod =
+            new ReflectedMethod<>(StorageManager.class, "getVolumeList");
 
     private StorageManagerCompat() {}
 

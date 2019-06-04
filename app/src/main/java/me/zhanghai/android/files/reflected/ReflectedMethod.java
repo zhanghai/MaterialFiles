@@ -7,12 +7,12 @@ package me.zhanghai.android.files.reflected;
 
 import androidx.annotation.NonNull;
 
-public class ReflectedMethod extends BaseReflectedMethod {
+public class ReflectedMethod<T> extends BaseReflectedMethod<T> {
 
     @NonNull
-    private final Class<?> mOwnerClass;
+    private final Class<T> mOwnerClass;
 
-    public ReflectedMethod(@NonNull Class<?> ownerClass, @NonNull String methodName,
+    public ReflectedMethod(@NonNull Class<T> ownerClass, @NonNull String methodName,
                            @NonNull Object... parameterTypes) {
         super(methodName, parameterTypes);
 
@@ -21,7 +21,7 @@ public class ReflectedMethod extends BaseReflectedMethod {
 
     @NonNull
     @Override
-    protected Class<?> getOwnerClass() {
+    protected Class<T> getOwnerClass() {
         return mOwnerClass;
     }
 }

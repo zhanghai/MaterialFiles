@@ -13,6 +13,7 @@ import java.io.FileDescriptor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedClass;
 import me.zhanghai.android.files.reflected.ReflectedClassMethod;
 import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
@@ -27,65 +28,70 @@ import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class SELinuxCompat {
 
-    @NonNull
-    private static final ReflectedClass sSELinuxClass = new ReflectedClass("android.os.SELinux");
+    static {
+        ReflectedAccessor.allowRestrictedHiddenApiAccess();
+    }
 
     @NonNull
-    private static final ReflectedClassMethod sIsSELinuxEnabledMethod = new ReflectedClassMethod(
+    private static final ReflectedClass<?> sSELinuxClass = new ReflectedClass<>(
+            "android.os.SELinux");
+
+    @NonNull
+    private static final ReflectedClassMethod<?> sIsSELinuxEnabledMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "isSELinuxEnabled");
 
     @NonNull
-    private static final ReflectedClassMethod sIsSELinuxEnforcedMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sIsSELinuxEnforcedMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "isSELinuxEnforced");
 
     @NonNull
-    private static final ReflectedClassMethod sSetFSCreateContextMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sSetFSCreateContextMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "setFSCreateContext", String.class);
 
     @NonNull
-    private static final ReflectedClassMethod sSetFileContextMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sSetFileContextMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "setFileContext", String.class, String.class);
 
     @NonNull
-    private static final ReflectedClassMethod sGetFileContextStringMethod =
-            new ReflectedClassMethod(sSELinuxClass, "getFileContext", String.class);
+    private static final ReflectedClassMethod<?> sGetFileContextStringMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "getFileContext", String.class);
 
     @NonNull
-    private static final ReflectedClassMethod sGetPeerContextMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sGetPeerContextMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "getPeerContext", FileDescriptor.class);
 
     @NonNull
-    private static final ReflectedClassMethod sGetFileContextFileDescriptorMethod =
-            new ReflectedClassMethod(sSELinuxClass, "getFileContext", FileDescriptor.class);
+    private static final ReflectedClassMethod<?> sGetFileContextFileDescriptorMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "getFileContext", FileDescriptor.class);
 
     @NonNull
-    private static final ReflectedClassMethod sGetContextMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sGetContextMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "getContext");
 
     @NonNull
-    private static final ReflectedClassMethod sGetPidContextMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sGetPidContextMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "getPidContext", int.class);
 
     @NonNull
-    private static final ReflectedClassMethod sCheckSELinuxAccessMethod = new ReflectedClassMethod(
-            sSELinuxClass, "checkSELinuxAccess", String.class, String.class, String.class,
-            String.class);
+    private static final ReflectedClassMethod<?> sCheckSELinuxAccessMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "checkSELinuxAccess", String.class,
+                    String.class, String.class, String.class);
 
     @NonNull
-    private static final ReflectedClassMethod sNativeRestoreconMethod = new ReflectedClassMethod(
-            sSELinuxClass, "native_restorecon", String.class, int.class);
+    private static final ReflectedClassMethod<?> sNativeRestoreconMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "native_restorecon", String.class, int.class);
 
     @NonNull
-    private static final ReflectedClassMethod sRestoreconStringMethod = new ReflectedClassMethod(
-            sSELinuxClass, "restorecon", String.class);
+    private static final ReflectedClassMethod<?> sRestoreconStringMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "restorecon", String.class);
 
     @NonNull
-    private static final ReflectedClassMethod sRestoreconFileMethod = new ReflectedClassMethod(
+    private static final ReflectedClassMethod<?> sRestoreconFileMethod = new ReflectedClassMethod<>(
             sSELinuxClass, "restorecon", File.class);
 
     @NonNull
-    private static final ReflectedClassMethod sRestoreconRecursiveMethod = new ReflectedClassMethod(
-            sSELinuxClass, "restoreconRecursive", File.class);
+    private static final ReflectedClassMethod<?> sRestoreconRecursiveMethod =
+            new ReflectedClassMethod<>(sSELinuxClass, "restoreconRecursive", File.class);
 
     /*
      * @see android.os.SELinux#isSELinuxEnabled()

@@ -10,10 +10,7 @@ import java.lang.reflect.Constructor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-abstract class BaseReflectedConstructor<T> {
-
-    @NonNull
-    private final Object[] mParameterTypes;
+abstract class BaseReflectedConstructor<T> extends BaseReflectedExecutable<T> {
 
     @Nullable
     private Constructor<T> mConstructor;
@@ -21,11 +18,8 @@ abstract class BaseReflectedConstructor<T> {
     private final Object mConstructorLock = new Object();
 
     public BaseReflectedConstructor(@NonNull Object... parameterTypes) {
-        mParameterTypes = BaseReflectedMethod.checkParameterTypes(parameterTypes);
+        super(parameterTypes);
     }
-
-    @NonNull
-    protected abstract Class<T> getOwnerClass();
 
     @NonNull
     public Constructor<T> get() throws ReflectedException {
@@ -41,10 +35,6 @@ abstract class BaseReflectedConstructor<T> {
     }
 
     @NonNull
-    private Class<?>[] getParameterTypes() {
-        return BaseReflectedMethod.getParameterTypes(mParameterTypes);
-    }
-
     public T newInstance(@NonNull Object... arguments) throws ReflectedException {
         return ReflectedAccessor.newInstance(get(), arguments);
     }

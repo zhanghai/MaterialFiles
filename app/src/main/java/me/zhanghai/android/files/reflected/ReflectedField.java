@@ -7,12 +7,12 @@ package me.zhanghai.android.files.reflected;
 
 import androidx.annotation.NonNull;
 
-public class ReflectedField extends BaseReflectedField {
+public class ReflectedField<T> extends BaseReflectedField<T> {
 
     @NonNull
-    private final Class<?> mOwnerClass;
+    private final Class<T> mOwnerClass;
 
-    public ReflectedField(@NonNull Class<?> ownerClass, @NonNull String fieldName) {
+    public ReflectedField(@NonNull Class<T> ownerClass, @NonNull String fieldName) {
         super(fieldName);
 
         mOwnerClass = ownerClass;
@@ -20,7 +20,7 @@ public class ReflectedField extends BaseReflectedField {
 
     @NonNull
     @Override
-    protected Class<?> getOwnerClass() {
+    protected Class<T> getOwnerClass() {
         return mOwnerClass;
     }
 }

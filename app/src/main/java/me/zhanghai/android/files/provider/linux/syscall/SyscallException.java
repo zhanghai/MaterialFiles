@@ -126,8 +126,8 @@ public class SyscallException extends Exception {
         }
 
         @RestrictedHiddenApi
-        private static final ReflectedField sFunctionNameField = new ReflectedField(
-                ErrnoException.class, "functionName");
+        private static final ReflectedField<ErrnoException> sFunctionNameField =
+                new ReflectedField<>(ErrnoException.class, "functionName");
 
         private ErrnoExceptionCompat() {}
 

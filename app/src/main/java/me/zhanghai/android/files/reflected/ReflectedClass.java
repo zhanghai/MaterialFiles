@@ -8,13 +8,13 @@ package me.zhanghai.android.files.reflected;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class ReflectedClass {
+public class ReflectedClass<T> {
 
     @NonNull
     private final String mClassName;
 
     @Nullable
-    private Class<?> mClass;
+    private Class<T> mClass;
     @NonNull
     private final Object mClassLock = new Object();
 
@@ -23,10 +23,11 @@ public class ReflectedClass {
     }
 
     @NonNull
-    public Class get() throws ReflectedException {
+    public Class<T> get() throws ReflectedException {
         synchronized (mClassLock) {
             if (mClass == null) {
-                mClass = ReflectedAccessor.getClass(mClassName);
+                //noinspection unchecked
+                mClass = (Class<T>) ReflectedAccessor.getClass(mClassName);
             }
             return mClass;
         }

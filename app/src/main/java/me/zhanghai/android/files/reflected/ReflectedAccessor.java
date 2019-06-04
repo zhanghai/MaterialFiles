@@ -85,6 +85,7 @@ public class ReflectedAccessor {
         }
     }
 
+    @NonNull
     public static <T> T newInstance(@NonNull Constructor<T> constructor,
                                     @NonNull Object... arguments) throws ReflectedException {
         //noinspection TryWithIdenticalCatches
