@@ -17,7 +17,7 @@ abstract class BaseReflectedConstructor<T> extends BaseReflectedExecutable<T> {
     @NonNull
     private final Object mConstructorLock = new Object();
 
-    public BaseReflectedConstructor(@NonNull Object... parameterTypes) {
+    BaseReflectedConstructor(@NonNull Object... parameterTypes) {
         super(parameterTypes);
     }
 

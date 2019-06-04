@@ -20,7 +20,7 @@ abstract class BaseReflectedField<T> {
     @NonNull
     private final Object mFieldLock = new Object();
 
-    public BaseReflectedField(@NonNull String fieldName) {
+    BaseReflectedField(@NonNull String fieldName) {
         mFieldName = fieldName;
     }
 

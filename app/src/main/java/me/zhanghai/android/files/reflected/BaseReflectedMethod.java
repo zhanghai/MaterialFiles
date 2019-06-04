@@ -20,7 +20,7 @@ abstract class BaseReflectedMethod<T> extends BaseReflectedExecutable<T> {
     @NonNull
     private final Object mMethodLock = new Object();
 
-    public BaseReflectedMethod(@NonNull String methodName, @NonNull Object... parameterTypes) {
+    BaseReflectedMethod(@NonNull String methodName, @NonNull Object... parameterTypes) {
         super(parameterTypes);
 
         mMethodName = methodName;

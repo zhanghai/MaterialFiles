@@ -12,7 +12,7 @@ abstract class BaseReflectedExecutable<T> {
     @NonNull
     private final Object[] mParameterTypes;
 
-    public BaseReflectedExecutable(@NonNull Object... parameterTypes) {
+    BaseReflectedExecutable(@NonNull Object... parameterTypes) {
         mParameterTypes = checkParameterTypes(parameterTypes);
     }
 
