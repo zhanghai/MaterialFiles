@@ -13,8 +13,6 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.provider.Settings;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.File;
 
 import androidx.annotation.NonNull;
