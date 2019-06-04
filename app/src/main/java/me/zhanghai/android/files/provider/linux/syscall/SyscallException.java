@@ -18,11 +18,9 @@ import java8.nio.file.FileSystemException;
 import java8.nio.file.FileSystemLoopException;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.NotDirectoryException;
+import me.zhanghai.android.files.compat.ErrnoExceptionCompat;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
-import me.zhanghai.android.files.reflected.ReflectedAccessor;
-import me.zhanghai.android.files.reflected.ReflectedField;
-import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 
 public class SyscallException extends Exception {
 
@@ -31,8 +29,7 @@ public class SyscallException extends Exception {
 
     private final int mErrno;
 
-    public SyscallException(@NonNull String functionName, int errno,
-                            @Nullable Throwable cause) {
+    public SyscallException(@NonNull String functionName, int errno, @Nullable Throwable cause) {
         super(perror(errno, functionName), cause);
 
         mFunctionName = functionName;
@@ -116,24 +113,6 @@ public class SyscallException extends Exception {
             return new NoSuchFileException(file, other, getMessage());
         } else {
             return new FileSystemException(file, other, getMessage());
-        }
-    }
-
-    private static class ErrnoExceptionCompat {
-
-        static {
-            ReflectedAccessor.allowRestrictedHiddenApiAccess();
-        }
-
-        @RestrictedHiddenApi
-        private static final ReflectedField<ErrnoException> sFunctionNameField =
-                new ReflectedField<>(ErrnoException.class, "functionName");
-
-        private ErrnoExceptionCompat() {}
-
-        @NonNull
-        public static String getFunctionName(@NonNull ErrnoException errnoException) {
-            return sFunctionNameField.getObject(errnoException);
         }
     }
 }
