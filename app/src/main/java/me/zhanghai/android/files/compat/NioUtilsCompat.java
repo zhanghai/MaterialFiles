@@ -12,14 +12,12 @@ import java.io.Closeable;
 import java.io.FileDescriptor;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedClassMethod;
-import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 
 public class NioUtilsCompat {
 
     static {
-        ReflectedAccessor.allowRestrictedHiddenApiAccess();
+        RestrictedHiddenApiAccess.allow();
     }
 
     @RestrictedHiddenApi

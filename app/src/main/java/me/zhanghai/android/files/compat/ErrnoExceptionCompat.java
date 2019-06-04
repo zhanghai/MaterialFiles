@@ -8,14 +8,12 @@ package me.zhanghai.android.files.compat;
 import android.system.ErrnoException;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedField;
-import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 
 public class ErrnoExceptionCompat {
 
     static {
-        ReflectedAccessor.allowRestrictedHiddenApiAccess();
+        RestrictedHiddenApiAccess.allow();
     }
 
     @RestrictedHiddenApi

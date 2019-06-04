@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.reflected;
 
-import android.os.Build;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -16,26 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class ReflectedAccessor {
-
-    @NonNull
-    private static final ReflectedField<Class> sClassClassLoaderField = new ReflectedField<>(
-            Class.class, "classLoader");
-
-    private static boolean sRestrictedHiddenApiAccessAllowed;
-    @NonNull
-    private static final Object sRestrictedHiddenApiAccessAllowedLock = new Object();
-
-    public static void allowRestrictedHiddenApiAccess() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-            return;
-        }
-        synchronized (sRestrictedHiddenApiAccessAllowedLock) {
-            if (!sRestrictedHiddenApiAccessAllowed) {
-                sClassClassLoaderField.setObject(ReflectedAccessor.class, null);
-                sRestrictedHiddenApiAccessAllowed = true;
-            }
-        }
-    }
 
     @NonNull
     public static <T> Class<T> getClass(@NonNull String className) throws ReflectedException {

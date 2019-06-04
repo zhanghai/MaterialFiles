@@ -13,10 +13,8 @@ import java.io.FileDescriptor;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import me.zhanghai.android.files.reflected.ReflectedAccessor;
 import me.zhanghai.android.files.reflected.ReflectedClass;
 import me.zhanghai.android.files.reflected.ReflectedClassMethod;
-import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 
 /*
  * @see android.os.SELinux
@@ -29,7 +27,7 @@ import me.zhanghai.android.files.reflected.RestrictedHiddenApi;
 public class SELinuxCompat {
 
     static {
-        ReflectedAccessor.allowRestrictedHiddenApiAccess();
+        RestrictedHiddenApiAccess.allow();
     }
 
     @NonNull
