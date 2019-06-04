@@ -17,19 +17,18 @@ public class RestrictedHiddenApiAccess {
     private static final ReflectedField<Class> sClassClassLoaderField = new ReflectedField<>(
             Class.class, "classLoader");
 
+    private static boolean sAllowed;
     @NonNull
-    private static final Object sRestrictedHiddenApiAccessAllowedLock = new Object();
-
-    private static boolean sRestrictedHiddenApiAccessAllowed;
+    private static final Object sAllowedLock = new Object();
 
     public static void allow() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             return;
         }
-        synchronized (sRestrictedHiddenApiAccessAllowedLock) {
-            if (!sRestrictedHiddenApiAccessAllowed) {
+        synchronized (sAllowedLock) {
+            if (!sAllowed) {
                 sClassClassLoaderField.setObject(ReflectedAccessor.class, null);
-                sRestrictedHiddenApiAccessAllowed = true;
+                sAllowed = true;
             }
         }
     }
