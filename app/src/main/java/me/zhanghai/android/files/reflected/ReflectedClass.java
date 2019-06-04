@@ -26,8 +26,7 @@ public class ReflectedClass<T> {
     public Class<T> get() throws ReflectedException {
         synchronized (mClassLock) {
             if (mClass == null) {
-                //noinspection unchecked
-                mClass = (Class<T>) ReflectedAccessor.getClass(mClassName);
+                mClass = ReflectedAccessor.getClass(mClassName);
             }
             return mClass;
         }

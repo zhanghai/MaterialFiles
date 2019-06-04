@@ -18,8 +18,8 @@ import androidx.annotation.Nullable;
 public class ReflectedAccessor {
 
     @NonNull
-    private static final ReflectedField sClassClassLoaderField = new ReflectedField(Class.class,
-            "classLoader");
+    private static final ReflectedField<Class> sClassClassLoaderField = new ReflectedField<>(
+            Class.class, "classLoader");
 
     private static boolean sRestrictedHiddenApiAccessAllowed;
     @NonNull
@@ -38,9 +38,10 @@ public class ReflectedAccessor {
     }
 
     @NonNull
-    public static Class<?> getClass(@NonNull String className) throws ReflectedException {
+    public static <T> Class<T> getClass(@NonNull String className) throws ReflectedException {
         try {
-            return Class.forName(className);
+            //noinspection unchecked
+            return (Class<T>) Class.forName(className);
         } catch (ClassNotFoundException e) {
             throw new ReflectedException(e);
         }
