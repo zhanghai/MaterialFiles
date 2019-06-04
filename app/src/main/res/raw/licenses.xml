@@ -92,13 +92,6 @@
     </notice>
 
     <notice>
-        <name>Apache Commons Text</name>
-        <url>https://commons.apache.org/proper/commons-text/</url>
-        <copyright>Copyright 2014 The Apache Software Foundation</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
         <name>EventBus</name>
         <url>https://github.com/greenrobot/EventBus</url>
         <copyright>Copyright 2012 greenrobot</copyright>
