@@ -1,6 +1,3 @@
-*.iml
-.DS_Store
-/.externalNativeBuild/
 /.gradle/
 /.idea/
 /build/
@@ -8,3 +5,5 @@
 /local.properties
 /signing.jks
 /signing.properties
+.DS_Store
+*.iml
