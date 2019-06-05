@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.promise.Promise;
+import me.zhanghai.java.promise.Promise;
 import me.zhanghai.java.reflected.ReflectedMethod;
 
 /**

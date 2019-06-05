@@ -32,10 +32,10 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
-import me.zhanghai.android.files.promise.Promise;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
 import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.util.RemoteCallback;
+import me.zhanghai.java.promise.Promise;
 
 public abstract class RemoteFileSystemProvider extends FileSystemProvider
         implements DirectoryObservableProvider {

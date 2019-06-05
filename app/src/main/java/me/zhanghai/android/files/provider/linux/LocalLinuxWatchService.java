@@ -28,8 +28,6 @@ import java8.nio.file.NotDirectoryException;
 import java8.nio.file.Path;
 import java8.nio.file.StandardWatchEventKinds;
 import java8.nio.file.WatchEvent;
-import me.zhanghai.android.files.promise.Promise;
-import me.zhanghai.android.files.promise.Settler;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.provider.common.AbstractWatchService;
 import me.zhanghai.android.files.provider.common.ByteString;
@@ -38,6 +36,8 @@ import me.zhanghai.android.files.provider.linux.syscall.StructInotifyEvent;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.java.promise.Promise;
+import me.zhanghai.java.promise.Settler;
 
 class LocalLinuxWatchService extends AbstractWatchService {
 

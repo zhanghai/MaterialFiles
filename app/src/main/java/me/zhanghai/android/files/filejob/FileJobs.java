@@ -35,9 +35,9 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
-import me.zhanghai.android.files.promise.Promise;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
+import me.zhanghai.java.promise.Promise;
 
 public class FileJobs {
 
