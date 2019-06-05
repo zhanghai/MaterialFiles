@@ -85,10 +85,31 @@
     </notice>
 
     <notice>
+        <name>AndroidRetroFile</name>
+        <url>https://github.com/zhanghai/AndroidRetroFile</url>
+        <copyright>Copyright 2018 Hai Zhang</copyright>
+        <license>GNU General Public License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>Promise</name>
+        <url>https://github.com/zhanghai/Promise</url>
+        <copyright>Copyright 2019 Hai Zhang</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>Reflected</name>
         <url>https://github.com/zhanghai/Reflected</url>
         <copyright>Copyright 2018 Hai Zhang</copyright>
         <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>android-retrostreams</name>
+        <url>https://github.com/retrostreams/android-retrostreams</url>
+        <copyright>Copyright 1994 Oracle and/or its affiliates</copyright>
+        <license>GNU General Public License 2.0</license>
     </notice>
 
     <notice>
