@@ -25,7 +25,8 @@
 package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Comparator;
-import java.util.Objects;
+
+import java9.util.Objects;
 
 /**
  * Represents an operation upon two operands of the same type, producing a result

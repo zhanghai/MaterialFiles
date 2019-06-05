@@ -5,8 +5,7 @@
 
 package me.zhanghai.android.files.functional.throwing;
 
-import java.util.Objects;
-
+import java9.util.Objects;
 import me.zhanghai.android.files.functional.FunctionalException;
 import me.zhanghai.android.files.functional.extension.QuadConsumer;
 

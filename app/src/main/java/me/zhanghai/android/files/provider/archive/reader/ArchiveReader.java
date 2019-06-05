@@ -38,12 +38,12 @@ import java8.nio.file.AccessMode;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.NotLinkException;
 import java8.nio.file.Path;
+import java9.lang.Iterables;
+import java9.util.Iterators;
 import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.EnumerationCompat;
 import me.zhanghai.android.files.compat.MapCompat;
-import me.zhanghai.android.files.functional.IterableCompat;
-import me.zhanghai.android.files.functional.IteratorCompat;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.common.PosixFileTypes;
@@ -117,14 +117,14 @@ public class ArchiveReader {
             case ArchiveStreamFactory.ZIP: {
                 String encoding = getZipFileNameEncoding();
                 try (ZipFileCompat zipFile = new ZipFileCompat(ioFile, encoding)) {
-                    IteratorCompat.forEachRemaining(EnumerationCompat.asIterator(
-                            zipFile.getEntries()), entries::add);
+                    Iterators.forEachRemaining(EnumerationCompat.asIterator(zipFile.getEntries()),
+                            entries::add);
                 }
                 break;
             }
             case ArchiveStreamFactory.SEVEN_Z: {
                 try (SevenZFile sevenZFile = new SevenZFile(ioFile)) {
-                    IterableCompat.forEach(sevenZFile.getEntries(), entries::add);
+                    Iterables.forEach(sevenZFile.getEntries(), entries::add);
                 }
                 break;
             }

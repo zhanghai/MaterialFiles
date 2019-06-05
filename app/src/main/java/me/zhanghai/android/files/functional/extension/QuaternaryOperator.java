@@ -6,7 +6,8 @@
 package me.zhanghai.android.files.functional.extension;
 
 import java.util.Comparator;
-import java.util.Objects;
+
+import java9.util.Objects;
 
 @FunctionalInterface
 public interface QuaternaryOperator<T> extends QuadFunction<T, T, T, T, T> {

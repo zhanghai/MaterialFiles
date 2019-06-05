@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.functional.IterableCompat;
+import java9.lang.Iterables;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
 
 public class ParcelableDirectoryStream implements Parcelable {
@@ -39,7 +39,7 @@ public class ParcelableDirectoryStream implements Parcelable {
         }
         List<Path> paths = new ArrayList<>();
         try {
-            IterableCompat.forEach(directoryStream, paths::add);
+            Iterables.forEach(directoryStream, paths::add);
         } catch (DirectoryIteratorException e) {
             throw e.getCause();
         }

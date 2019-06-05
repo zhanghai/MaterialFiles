@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import androidx.annotation.CheckResult;
+import java9.util.Iterators;
 import java9.util.function.BiConsumer;
 import java9.util.function.BiFunction;
 import java9.util.function.BiPredicate;
@@ -192,7 +193,7 @@ public class FunctionalIterator {
     }
 
     public static <T> void forEachRemaining(Iterator<T> iterator, Consumer<T> consumer) {
-        IteratorCompat.forEachRemaining(iterator, consumer);
+        Iterators.forEachRemaining(iterator, consumer);
     }
 
     public static <T> void forEachRemaining(Iterator<T> iterator, BiConsumer<T, Integer> consumer) {

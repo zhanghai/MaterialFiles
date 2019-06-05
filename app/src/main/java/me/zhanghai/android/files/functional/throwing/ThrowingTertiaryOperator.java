@@ -6,7 +6,8 @@
 package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Comparator;
-import java.util.Objects;
+
+import java9.util.Objects;
 
 @FunctionalInterface
 public interface ThrowingTertiaryOperator<T> extends ThrowingTriFunction<T, T, T, T> {

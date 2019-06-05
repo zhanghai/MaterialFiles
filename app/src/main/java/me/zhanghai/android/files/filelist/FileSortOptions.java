@@ -10,8 +10,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import java9.util.Comparators;
 import java9.util.function.Predicate;
-import me.zhanghai.android.files.functional.ComparatorCompat;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.MoreComparator;
 import me.zhanghai.android.files.util.NaturalOrderComparator;
@@ -79,22 +79,22 @@ public class FileSortOptions {
     public Comparator<FileItem> makeComparator() {
         Comparator<String> namePrefixComparator = MoreComparator.comparingBoolean(name ->
                 Functional.some(NAME_UNIMPORTANT_PREFIXES, (Predicate<String>) name::startsWith));
-        Comparator<FileItem> comparator = ComparatorCompat.comparing(FileUtils::getName,
-                ComparatorCompat.thenComparing(namePrefixComparator, new NaturalOrderComparator()));
+        Comparator<FileItem> comparator = Comparators.comparing(FileUtils::getName,
+                Comparators.thenComparing(namePrefixComparator, new NaturalOrderComparator()));
         switch (mBy) {
             case NAME:
                 // Nothing to do.
                 break;
             case TYPE:
-                comparator = ComparatorCompat.thenComparing(ComparatorCompat.comparing(
+                comparator = Comparators.thenComparing(Comparators.comparing(
                         FileUtils::getExtension, String::compareToIgnoreCase), comparator);
                 break;
             case SIZE:
-                comparator = ComparatorCompat.thenComparing(ComparatorCompat.comparing(file ->
+                comparator = Comparators.thenComparing(Comparators.comparing(file ->
                         file.getAttributes().size()), comparator);
                 break;
             case LAST_MODIFIED:
-                comparator = ComparatorCompat.thenComparing(ComparatorCompat.comparing(file ->
+                comparator = Comparators.thenComparing(Comparators.comparing(file ->
                         file.getAttributes().lastModifiedTime()), comparator);
                 break;
             default:
@@ -104,15 +104,15 @@ public class FileSortOptions {
             case ASCENDING:
                 break;
             case DESCENDING:
-                comparator = ComparatorCompat.reversed(comparator);
+                comparator = Comparators.reversed(comparator);
                 break;
             default:
                 throw new IllegalStateException();
         }
         if (mDirectoriesFirst) {
-            Comparator<FileItem> isDirectoryComparator = ComparatorCompat.reversed(
+            Comparator<FileItem> isDirectoryComparator = Comparators.reversed(
                     MoreComparator.comparingBoolean(file -> file.getAttributes().isDirectory()));
-            comparator = ComparatorCompat.thenComparing(isDirectoryComparator, comparator);
+            comparator = Comparators.thenComparing(isDirectoryComparator, comparator);
         }
         return comparator;
     }

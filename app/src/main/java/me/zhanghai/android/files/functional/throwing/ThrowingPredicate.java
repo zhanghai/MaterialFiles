@@ -24,11 +24,9 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
-import java.util.Objects;
-
+import java9.util.Objects;
 import java9.util.function.Predicate;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.ObjectsCompat;
 
 /**
  * Represents a predicate (boolean-valued function) of one argument.
@@ -132,7 +130,7 @@ public interface ThrowingPredicate<T> extends Predicate<T> {
      */
     static <T> ThrowingPredicate<T> isEqual(Object targetRef) {
         return (null == targetRef)
-                ? ObjectsCompat::isNull
+                ? Objects::isNull
                 : object -> targetRef.equals(object);
     }
 }

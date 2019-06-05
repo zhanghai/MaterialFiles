@@ -5,8 +5,7 @@
 
 package me.zhanghai.android.files.functional.extension;
 
-import java.util.Objects;
-
+import java9.util.Objects;
 import java9.util.function.Function;
 
 @FunctionalInterface
