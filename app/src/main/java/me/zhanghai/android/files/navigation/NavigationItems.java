@@ -34,11 +34,11 @@ import me.zhanghai.android.files.compat.StorageManagerCompat;
 import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filesystem.JavaFile;
-import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.settings.SettingsActivity;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.settings.StandardDirectorySettings;
 import me.zhanghai.android.files.util.ListBuilder;
+import me.zhanghai.java.functional.Functional;
 
 public class NavigationItems {
 

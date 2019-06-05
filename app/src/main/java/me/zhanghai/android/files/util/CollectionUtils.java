@@ -15,8 +15,8 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.ObjectsCompat;
-import me.zhanghai.android.files.functional.Functional;
-import me.zhanghai.android.files.functional.FunctionalIterator;
+import me.zhanghai.java.functional.Functional;
+import me.zhanghai.java.functional.FunctionalIterator;
 
 public class CollectionUtils {
 

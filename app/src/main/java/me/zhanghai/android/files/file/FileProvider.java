@@ -52,11 +52,11 @@ import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.compat.ProxyFileDescriptorCallbackCompat;
 import me.zhanghai.android.files.compat.StorageManagerCompat;
 import me.zhanghai.android.files.compat.StorageVolumeCompat;
-import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.provider.common.ForceableChannel;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
+import me.zhanghai.java.functional.Functional;
 
 public class FileProvider extends ContentProvider {
 

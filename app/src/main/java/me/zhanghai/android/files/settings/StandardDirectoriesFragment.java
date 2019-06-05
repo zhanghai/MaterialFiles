@@ -24,11 +24,11 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SwitchPreferenceCompat;
-import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.navigation.NavigationItems;
 import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData;
 import me.zhanghai.android.files.navigation.StandardDirectory;
 import me.zhanghai.android.files.util.ViewUtils;
+import me.zhanghai.java.functional.Functional;
 
 public class StandardDirectoriesFragment extends PreferenceFragmentCompat
         implements Preference.OnPreferenceClickListener {

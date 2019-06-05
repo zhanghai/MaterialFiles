@@ -53,7 +53,6 @@ import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
-import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.main.MainActivity;
 import me.zhanghai.android.files.navigation.NavigationFragment;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
@@ -66,6 +65,7 @@ import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
+import me.zhanghai.java.functional.Functional;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,

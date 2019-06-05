@@ -20,9 +20,9 @@ import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Files;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.functional.Functional;
-import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.throwing.ThrowingFunction;
+import me.zhanghai.java.functional.Functional;
+import me.zhanghai.java.functional.FunctionalException;
+import me.zhanghai.java.functional.throwing.ThrowingFunction;
 
 public class FileListLiveData extends LiveData<FileListData> implements Closeable {
 

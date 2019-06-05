@@ -23,8 +23,6 @@
 # App
 -keep class me.zhanghai.android.files.provider.common.ByteString { *; }
 -keep class me.zhanghai.android.files.provider.linux.syscall.** { *; }
-# R8 removes default method inside interface even if actually used.
--keepclassmembers class me.zhanghai.android.files.functional.** { *; }
 
 # Apache Commons Compress
 -dontwarn org.apache.commons.compress.compressors.**

@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.functional.Functional;
+import me.zhanghai.java.functional.Functional;
 
 public class ListFormatterCompat {
 

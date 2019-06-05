@@ -21,9 +21,9 @@ import androidx.lifecycle.Observer;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 import me.zhanghai.android.files.compat.ListFormatterCompat;
-import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData;
 import me.zhanghai.android.files.navigation.StandardDirectory;
+import me.zhanghai.java.functional.Functional;
 
 public class StandardDirectoriesPreference extends Preference {
 

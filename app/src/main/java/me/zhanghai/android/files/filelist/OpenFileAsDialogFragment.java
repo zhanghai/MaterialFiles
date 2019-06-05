@@ -18,9 +18,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.MimeTypes;
-import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ListBuilder;
+import me.zhanghai.java.functional.Functional;
 
 public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
 

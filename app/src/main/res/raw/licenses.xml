@@ -92,6 +92,13 @@
     </notice>
 
     <notice>
+        <name>Functional</name>
+        <url>https://github.com/zhanghai/Functional</url>
+        <copyright>Copyright 2018 Hai Zhang</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>Promise</name>
         <url>https://github.com/zhanghai/Promise</url>
         <copyright>Copyright 2019 Hai Zhang</copyright>
