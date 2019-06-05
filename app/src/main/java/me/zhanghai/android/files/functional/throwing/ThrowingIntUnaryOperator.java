@@ -26,8 +26,8 @@ package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Objects;
 
+import java9.util.function.IntUnaryOperator;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.IntUnaryOperator;
 
 /**
  * Represents an operation on a single {@code int}-valued operand that produces

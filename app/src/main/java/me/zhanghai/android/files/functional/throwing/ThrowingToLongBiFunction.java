@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.ToLongBiFunction;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.ToLongBiFunction;
 
 /**
  * Represents a function that accepts two arguments and produces a long-valued

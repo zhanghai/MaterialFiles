@@ -25,8 +25,8 @@
 package me.zhanghai.android.files.functional.throwing;
 
 
+import java9.util.function.BooleanSupplier;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.BooleanSupplier;
 
 /**
  * Represents a supplier of {@code boolean}-valued results.  This is the

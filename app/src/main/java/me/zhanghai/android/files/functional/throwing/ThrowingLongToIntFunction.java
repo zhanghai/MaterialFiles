@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.LongToIntFunction;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.LongToIntFunction;
 
 /**
  * Represents a function that accepts a long-valued argument and produces an

@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.IntSupplier;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.IntSupplier;
 
 /**
  * Represents a supplier of {@code int}-valued results.  This is the

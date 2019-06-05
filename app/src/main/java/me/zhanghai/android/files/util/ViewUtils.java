@@ -45,8 +45,8 @@ import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+import java9.util.function.BooleanSupplier;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.functional.compat.BooleanSupplier;
 import me.zhanghai.android.files.ui.ClickableMovementMethod;
 import me.zhanghai.android.files.ui.LinkArrowKeyMovementMethod;
 

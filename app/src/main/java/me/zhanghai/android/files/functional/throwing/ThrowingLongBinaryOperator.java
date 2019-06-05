@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.LongBinaryOperator;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.LongBinaryOperator;
 
 /**
  * Represents an operation upon two {@code long}-valued operands and producing a

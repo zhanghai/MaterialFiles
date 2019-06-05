@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.ObjIntConsumer;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.ObjIntConsumer;
 
 /**
  * Represents an operation that accepts an object-valued and a

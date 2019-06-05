@@ -13,7 +13,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.functional.compat.Function;
+import java9.util.function.Function;
 
 public class BreadcrumbData {
 

@@ -7,7 +7,7 @@ package me.zhanghai.android.files.functional;
 
 import java.util.Objects;
 
-import me.zhanghai.android.files.functional.compat.Consumer;
+import java9.util.function.Consumer;
 
 public class IterableCompat {
 

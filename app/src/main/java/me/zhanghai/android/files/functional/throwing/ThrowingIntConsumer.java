@@ -26,8 +26,8 @@ package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Objects;
 
+import java9.util.function.IntConsumer;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.IntConsumer;
 
 /**
  * Represents an operation that accepts a single {@code int}-valued argument and

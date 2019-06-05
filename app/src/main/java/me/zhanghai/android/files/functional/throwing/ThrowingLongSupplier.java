@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.LongSupplier;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.LongSupplier;
 
 /**
  * Represents a supplier of {@code long}-valued results.  This is the

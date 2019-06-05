@@ -26,8 +26,8 @@ package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Objects;
 
+import java9.util.function.BiPredicate;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.BiPredicate;
 
 /**
  * Represents a predicate (boolean-valued function) of two arguments.  This is

@@ -26,8 +26,8 @@ package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Objects;
 
+import java9.util.function.Function;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.Function;
 
 /**
  * Represents a function that accepts one argument and produces a result.

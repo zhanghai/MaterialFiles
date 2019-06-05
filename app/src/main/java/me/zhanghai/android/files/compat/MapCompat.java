@@ -10,8 +10,8 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.functional.compat.BiFunction;
-import me.zhanghai.android.files.functional.compat.Function;
+import java9.util.function.BiFunction;
+import java9.util.function.Function;
 
 @SuppressWarnings("unused")
 public class MapCompat {

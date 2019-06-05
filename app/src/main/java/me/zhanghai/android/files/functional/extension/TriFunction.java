@@ -7,7 +7,7 @@ package me.zhanghai.android.files.functional.extension;
 
 import java.util.Objects;
 
-import me.zhanghai.android.files.functional.compat.Function;
+import java9.util.function.Function;
 
 @FunctionalInterface
 public interface TriFunction<T, U, V, R> {

@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.IntToDoubleFunction;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.IntToDoubleFunction;
 
 /**
  * Represents a function that accepts an int-valued argument and produces a

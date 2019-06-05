@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.IntBinaryOperator;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.IntBinaryOperator;
 
 /**
  * Represents an operation upon two {@code int}-valued operands and producing an

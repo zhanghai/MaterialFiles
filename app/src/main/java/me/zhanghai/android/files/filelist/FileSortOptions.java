@@ -10,10 +10,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import java9.util.function.Predicate;
 import me.zhanghai.android.files.functional.ComparatorCompat;
 import me.zhanghai.android.files.functional.Functional;
 import me.zhanghai.android.files.functional.MoreComparator;
-import me.zhanghai.android.files.functional.compat.Predicate;
 import me.zhanghai.android.files.util.NaturalOrderComparator;
 
 public class FileSortOptions {

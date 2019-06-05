@@ -10,12 +10,12 @@ import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.CheckResult;
-import me.zhanghai.android.files.functional.compat.BiConsumer;
-import me.zhanghai.android.files.functional.compat.BiFunction;
-import me.zhanghai.android.files.functional.compat.BiPredicate;
-import me.zhanghai.android.files.functional.compat.Consumer;
-import me.zhanghai.android.files.functional.compat.Function;
-import me.zhanghai.android.files.functional.compat.Predicate;
+import java9.util.function.BiConsumer;
+import java9.util.function.BiFunction;
+import java9.util.function.BiPredicate;
+import java9.util.function.Consumer;
+import java9.util.function.Function;
+import java9.util.function.Predicate;
 import me.zhanghai.android.files.functional.extension.QuadFunction;
 import me.zhanghai.android.files.functional.extension.TriConsumer;
 import me.zhanghai.android.files.functional.extension.TriFunction;

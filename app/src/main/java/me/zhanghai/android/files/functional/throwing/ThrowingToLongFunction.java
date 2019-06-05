@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.ToLongFunction;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.ToLongFunction;
 
 /**
  * Represents a function that produces a long-valued result.  This is the

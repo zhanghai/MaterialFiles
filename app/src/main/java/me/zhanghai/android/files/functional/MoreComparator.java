@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-import me.zhanghai.android.files.functional.compat.Predicate;
+import java9.util.function.Predicate;
 
 public class MoreComparator {
 

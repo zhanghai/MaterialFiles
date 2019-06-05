@@ -10,10 +10,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Objects;
 
-import me.zhanghai.android.files.functional.compat.Function;
-import me.zhanghai.android.files.functional.compat.ToDoubleFunction;
-import me.zhanghai.android.files.functional.compat.ToIntFunction;
-import me.zhanghai.android.files.functional.compat.ToLongFunction;
+import java9.util.function.Function;
+import java9.util.function.ToDoubleFunction;
+import java9.util.function.ToIntFunction;
+import java9.util.function.ToLongFunction;
 
 public class ComparatorCompat {
 

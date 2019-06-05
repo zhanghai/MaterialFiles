@@ -26,8 +26,8 @@ package me.zhanghai.android.files.functional.throwing;
 
 import java.util.Objects;
 
+import java9.util.function.LongUnaryOperator;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.LongUnaryOperator;
 
 /**
  * Represents an operation on a single {@code long}-valued operand that produces

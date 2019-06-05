@@ -24,8 +24,8 @@
  */
 package me.zhanghai.android.files.functional.throwing;
 
+import java9.util.function.DoubleSupplier;
 import me.zhanghai.android.files.functional.FunctionalException;
-import me.zhanghai.android.files.functional.compat.DoubleSupplier;
 
 /**
  * Represents a supplier of {@code double}-valued results.  This is the

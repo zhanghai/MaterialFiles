@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.functional.compat.Function;
+import java9.util.function.Function;
 import me.zhanghai.android.files.navigation.NavigationRoot;
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData;
 
