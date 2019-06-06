@@ -139,7 +139,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
             fd = Syscalls.open(fileBytes, flags, mode);
         } catch (SyscallException e) {
             if ((flags & OsConstants.O_CREAT) != 0) {
-                e.maybeThrowInvalidFileNameException(fileBytes.toString(), null);
+                e.maybeThrowInvalidFileNameException(fileBytes.toString());
             }
             throw e.toFileSystemException(fileBytes.toString());
         }
@@ -194,7 +194,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
         try {
             Syscalls.mkdir(directoryBytes, mode);
         } catch (SyscallException e) {
-            e.maybeThrowInvalidFileNameException(directoryBytes.toString(), null);
+            e.maybeThrowInvalidFileNameException(directoryBytes.toString());
             throw e.toFileSystemException(directoryBytes.toString());
         }
     }
@@ -213,7 +213,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
         try {
             Syscalls.symlink(targetBytes, linkBytes);
         } catch (SyscallException e) {
-            e.maybeThrowInvalidFileNameException(linkBytes.toString(), null);
+            e.maybeThrowInvalidFileNameException(linkBytes.toString());
             throw e.toFileSystemException(linkBytes.toString(), targetBytes.toString());
         }
     }
@@ -227,7 +227,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
         try {
             Syscalls.link(oldPathBytes, newPathBytes);
         } catch (SyscallException e) {
-            e.maybeThrowInvalidFileNameException(newPathBytes.toString(), null);
+            e.maybeThrowInvalidFileNameException(newPathBytes.toString());
             throw e.toFileSystemException(newPathBytes.toString(), oldPathBytes.toString());
         }
     }

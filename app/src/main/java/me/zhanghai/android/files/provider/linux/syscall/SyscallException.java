@@ -70,11 +70,10 @@ public class SyscallException extends Exception {
         }
     }
 
-    public void maybeThrowInvalidFileNameException(@Nullable String file,
-                                                   @Nullable String other)
+    public void maybeThrowInvalidFileNameException(@Nullable String file)
             throws InvalidFileNameException {
         if (mErrno == OsConstants.EINVAL) {
-            InvalidFileNameException exception = new InvalidFileNameException(file, other,
+            InvalidFileNameException exception = new InvalidFileNameException(file, null,
                     getMessage());
             exception.initCause(this);
             throw exception;
