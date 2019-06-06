@@ -7,6 +7,8 @@ package me.zhanghai.android.files.provider.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
+import java.io.OutputStream;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.AtomicMoveNotSupportedException;
@@ -17,10 +19,13 @@ import java8.nio.file.LinkOption;
 import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.StandardCopyOption;
+import java8.nio.file.StandardOpenOption;
 import java8.nio.file.attribute.BasicFileAttributeView;
 import java8.nio.file.attribute.BasicFileAttributes;
 
 class ForeignCopyMove {
+
+    private static final int BUFFER_SIZE = 8192;
 
     private ForeignCopyMove() {}
 
@@ -42,19 +47,62 @@ class ForeignCopyMove {
             throw new FileAlreadyExistsException(source.toString(), target.toString(), null);
         }
         if (sourceAttributes.isRegularFile()) {
+            if (copyOptions.hasReplaceExisting()) {
+                Files.deleteIfExists(target);
+            }
             OpenOption[] openOptions = copyOptions.hasNoFollowLinks() ?
                     new OpenOption[] { LinkOption.NOFOLLOW_LINKS } : new OpenOption[0];
             try (InputStream inputStream = Files.newInputStream(source, openOptions)) {
-                CopyOption[] inputStreamCopyOptions = copyOptions.hasReplaceExisting() ?
-                        new CopyOption[] { StandardCopyOption.REPLACE_EXISTING }
-                        : new CopyOption[0];
-                Files.copy(inputStream, target, inputStreamCopyOptions);
+                OutputStream outputStream = Files.newOutputStream(target,
+                        StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
+                boolean successful = false;
+                try {
+                    byte[] buffer = new byte[BUFFER_SIZE];
+                    long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
+                    long lastProgressMillis = System.currentTimeMillis();
+                    long copiedSize = 0;
+                    while (true) {
+                        int readSize = inputStream.read(buffer);
+                        if (readSize == -1) {
+                            break;
+                        }
+                        outputStream.write(buffer, 0, readSize);
+                        copiedSize += readSize;
+                        throwIfInterrupted();
+                        long currentTimeMillis = System.currentTimeMillis();
+                        if (copyOptions.hasProgressListener() && currentTimeMillis >=
+                                lastProgressMillis + progressIntervalMillis) {
+                            copyOptions.getProgressListener().accept(copiedSize);
+                            lastProgressMillis = currentTimeMillis;
+                            copiedSize = 0;
+                        }
+                    }
+                    if (copyOptions.hasProgressListener()) {
+                        copyOptions.getProgressListener().accept(copiedSize);
+                    }
+                    successful = true;
+                } finally {
+                    try {
+                        outputStream.close();
+                    } finally {
+                        if (!successful) {
+                            try {
+                                Files.delete(target);
+                            } catch (IOException | UnsupportedOperationException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
             }
         } else if (sourceAttributes.isDirectory()) {
             if (copyOptions.hasReplaceExisting()) {
                 Files.deleteIfExists(target);
             }
             Files.createDirectory(target);
+            if (copyOptions.hasProgressListener()) {
+                copyOptions.getProgressListener().accept(sourceAttributes.size());
+            }
         } else if (sourceAttributes.isSymbolicLink()) {
             Path sourceTarget = Files.readSymbolicLink(source);
             try {
@@ -67,10 +115,15 @@ class ForeignCopyMove {
                 Files.deleteIfExists(target);
                 Files.createSymbolicLink(target, sourceTarget);
             }
+            if (copyOptions.hasProgressListener()) {
+                copyOptions.getProgressListener().accept(sourceAttributes.size());
+            }
         } else {
             throw new AssertionError();
         }
         if (copyOptions.hasCopyAttributes()) {
+            // We don't take error when copying attribute fatal, so errors will only be logged from
+            // now on.
             BasicFileAttributeView targetAttributeView = Files.getFileAttributeView(target,
                     BasicFileAttributeView.class);
             try {
@@ -79,6 +132,12 @@ class ForeignCopyMove {
             } catch (IOException | UnsupportedOperationException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static void throwIfInterrupted() throws InterruptedIOException {
+        if (Thread.interrupted()) {
+            throw new InterruptedIOException();
         }
     }
 
