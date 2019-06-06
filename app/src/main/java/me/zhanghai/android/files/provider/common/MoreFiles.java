@@ -25,8 +25,7 @@ public class MoreFiles {
     public static void copy(@NonNull Path source, @NonNull Path target,
                             @NonNull CopyOption... options) throws IOException {
         FileSystemProvider sourceProvider = provider(source);
-        FileSystemProvider targetProvider = provider(target);
-        if (sourceProvider == targetProvider) {
+        if (sourceProvider == provider(target)) {
             sourceProvider.copy(source, target, options);
         } else {
             ForeignCopyMove.copy(source, target, options);
@@ -37,8 +36,7 @@ public class MoreFiles {
     public static void move(@NonNull Path source, @NonNull Path target,
                             @NonNull CopyOption... options) throws IOException {
         FileSystemProvider sourceProvider = provider(source);
-        FileSystemProvider targetProvider = provider(target);
-        if (sourceProvider == targetProvider) {
+        if (sourceProvider == provider(target)) {
             sourceProvider.move(source, target, options);
         } else {
             ForeignCopyMove.move(source, target, options);
@@ -72,6 +70,9 @@ public class MoreFiles {
     public static Path resolve(@NonNull Path path, @NonNull Path other) {
         ByteStringListPath byteStringPath = requireByteStringListPath(path);
         ByteStringListPath otherPath = requireByteStringListPath(other);
+        if (provider(byteStringPath) == provider(otherPath)) {
+            return byteStringPath.resolve(otherPath);
+        }
         if (otherPath.isAbsolute()) {
             return otherPath;
         }
