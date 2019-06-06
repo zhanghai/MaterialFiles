@@ -68,8 +68,8 @@ class LinuxCopyMove {
                     long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
                     long lastProgressMillis = System.currentTimeMillis();
                     long copiedSize = 0;
-                    long sentSize;
                     while (true) {
+                        long sentSize;
                         try {
                             sentSize = Syscalls.sendfile(targetFd, sourceFd, null, SEND_FILE_COUNT);
                         } catch (SyscallException e) {
