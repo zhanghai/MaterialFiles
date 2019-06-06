@@ -11,6 +11,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import java8.nio.file.CopyOption;
 import java8.nio.file.Path;
+import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.spi.FileSystemProvider;
 
 public class MoreFiles {
@@ -43,5 +44,31 @@ public class MoreFiles {
     public static FileSystemProvider provider(@NonNull Path path) {
         Objects.requireNonNull(path);
         return path.getFileSystem().provider();
+    }
+
+    @NonNull
+    public static Path resolve(@NonNull Path path, @NonNull Path other) {
+        ByteStringListPath byteStringPath = requireByteStringListPath(path);
+        ByteStringListPath otherPath = requireByteStringListPath(other);
+        if (otherPath.isAbsolute()) {
+            return otherPath;
+        }
+        if (otherPath.isEmpty()) {
+            return byteStringPath;
+        }
+        ByteStringListPath result = byteStringPath;
+        for (int i = 0, count = otherPath.getNameCount(); i < count; ++i) {
+            ByteString name = otherPath.getName(i).toByteString();
+            result = result.resolve(name);
+        }
+        return result;
+    }
+
+    @NonNull
+    private static ByteStringListPath requireByteStringListPath(@NonNull Path path) {
+        if (!(path instanceof ByteStringListPath)) {
+            throw new ProviderMismatchException(path.toString());
+        }
+        return (ByteStringListPath) path;
     }
 }

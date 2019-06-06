@@ -758,7 +758,7 @@ public class FileJobs {
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             try {
                 for (Path source : mSources) {
-                    Path target = mTargetDirectory.resolve(source.getFileName());
+                    Path target = MoreFiles.resolve(mTargetDirectory, source.getFileName());
                     copyRecursively(source, target, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                 }
@@ -776,7 +776,8 @@ public class FileJobs {
                 public FileVisitResult preVisitDirectory(@NonNull Path directory,
                                                          @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    Path directoryInTarget = target.resolve(source.relativize(directory));
+                    Path directoryInTarget = MoreFiles.resolve(target, source.relativize(
+                            directory));
                     copy(directory, directoryInTarget, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
@@ -786,7 +787,7 @@ public class FileJobs {
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    Path fileInTarget = target.resolve(source.relativize(file));
+                    Path fileInTarget = MoreFiles.resolve(target, source.relativize(file));
                     copy(file, fileInTarget, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
@@ -911,7 +912,7 @@ public class FileJobs {
         public void run() throws IOException {
             List<Path> sourcesToMove = new ArrayList<>();
             for (Path source : mSources) {
-                Path target = mTargetDirectory.resolve(source.getFileName());
+                Path target = MoreFiles.resolve(mTargetDirectory, source.getFileName());
                 try {
                     moveAtomically(source, target);
                 } catch (InterruptedIOException e) {
@@ -927,7 +928,7 @@ public class FileJobs {
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             try {
                 for (Path source : sourcesToMove) {
-                    Path target = mTargetDirectory.resolve(source.getFileName());
+                    Path target = MoreFiles.resolve(mTargetDirectory, source.getFileName());
                     moveRecursively(source, target, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                 }
@@ -945,7 +946,8 @@ public class FileJobs {
                 public FileVisitResult preVisitDirectory(@NonNull Path directory,
                                                          @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    Path directoryInTarget = target.resolve(source.relativize(directory));
+                    Path directoryInTarget = MoreFiles.resolve(target, source.relativize(
+                            directory));
                     try {
                         moveAtomically(directory, directoryInTarget);
                         throwIfInterrupted();
@@ -964,7 +966,7 @@ public class FileJobs {
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    Path fileInTarget = target.resolve(source.relativize(file));
+                    Path fileInTarget = MoreFiles.resolve(target, source.relativize(file));
                     try {
                         moveAtomically(file, fileInTarget);
                         throwIfInterrupted();
