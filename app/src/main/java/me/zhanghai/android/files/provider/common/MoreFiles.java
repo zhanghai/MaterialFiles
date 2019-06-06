@@ -6,18 +6,22 @@
 package me.zhanghai.android.files.provider.common;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.CopyOption;
+import java8.nio.file.Files;
 import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.spi.FileSystemProvider;
+import me.zhanghai.android.files.util.IoUtils;
 
 public class MoreFiles {
 
     private MoreFiles() {}
 
+    // Can handle ProgressCopyOption.
     public static void copy(@NonNull Path source, @NonNull Path target,
                             @NonNull CopyOption... options) throws IOException {
         FileSystemProvider sourceProvider = provider(source);
@@ -29,6 +33,7 @@ public class MoreFiles {
         }
     }
 
+    // Can handle ProgressCopyOption.
     public static void move(@NonNull Path source, @NonNull Path target,
                             @NonNull CopyOption... options) throws IOException {
         FileSystemProvider sourceProvider = provider(source);
@@ -46,6 +51,23 @@ public class MoreFiles {
         return path.getFileSystem().provider();
     }
 
+    // TODO: Just use Files.readAllBytes(), if all our providers support
+    //  newByteChannel()?
+    // Uses newInputStream() instead of newByteChannel().
+    @NonNull
+    public static byte[] readAllBytes(@NonNull Path path) throws IOException {
+        Objects.requireNonNull(path);
+        long sizeLong = Files.size(path);
+        if (sizeLong > Integer.MAX_VALUE) {
+            throw new OutOfMemoryError("size " + sizeLong);
+        }
+        int size = (int) sizeLong;
+        try (InputStream inputStream = Files.newInputStream(path)) {
+            return IoUtils.inputStreamToByteArray(inputStream, size);
+        }
+    }
+
+    // Can resolve path in a foreign provider.
     @NonNull
     public static Path resolve(@NonNull Path path, @NonNull Path other) {
         ByteStringListPath byteStringPath = requireByteStringListPath(path);
