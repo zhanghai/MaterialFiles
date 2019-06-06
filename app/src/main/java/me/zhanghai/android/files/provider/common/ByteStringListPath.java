@@ -196,7 +196,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @Override
     public ByteStringListPath resolve(@NonNull Path other) {
         Objects.requireNonNull(other);
-        ByteStringListPath otherPath = toByteStringListPath(other);
+        ByteStringListPath otherPath = requireByteStringListPath(other);
         if (otherPath.mAbsolute) {
             return otherPath;
         }
@@ -224,7 +224,7 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @Override
     public ByteStringListPath relativize(@NonNull Path other) {
         Objects.requireNonNull(other);
-        ByteStringListPath otherPath = toByteStringListPath(other);
+        ByteStringListPath otherPath = requireByteStringListPath(other);
         if (otherPath.mAbsolute != mAbsolute) {
             throw new IllegalArgumentException("The other path must be as absolute as this path");
         }
@@ -326,12 +326,12 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @Override
     public int compareTo(@NonNull Path other) {
         Objects.requireNonNull(other);
-        ByteStringListPath otherPath = toByteStringListPath(other);
+        ByteStringListPath otherPath = requireByteStringListPath(other);
         return toByteString().compareTo(otherPath.toByteString());
     }
 
     @NonNull
-    private ByteStringListPath toByteStringListPath(@NonNull Path path) {
+    private ByteStringListPath requireByteStringListPath(@NonNull Path path) {
         if (path.getClass() != getClass()) {
             throw new ProviderMismatchException(path.toString());
         }
