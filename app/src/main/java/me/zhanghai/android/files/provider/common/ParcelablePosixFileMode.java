@@ -51,6 +51,8 @@ public class ParcelablePosixFileMode implements Parcelable {
         Serializable serializable;
         if (mPosixFileMode instanceof Serializable) {
             serializable = (Serializable) mPosixFileMode;
+        } else if (mPosixFileMode == null) {
+            serializable = null;
         } else {
             EnumSet<PosixFileModeBit> posixFileMode = EnumSet.noneOf(PosixFileModeBit.class);
             posixFileMode.addAll(mPosixFileMode);
