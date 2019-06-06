@@ -36,6 +36,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
+import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
 import me.zhanghai.java.promise.Promise;
 
@@ -203,9 +204,9 @@ public class FileJobs {
                 try {
                     postCopyMoveNotification(transferInfo, source, targetParent, forCopy);
                     if (useCopy) {
-                        Files.copy(source, target, options);
+                        MoreFiles.copy(source, target, options);
                     } else {
-                        Files.move(source, target, options);
+                        MoreFiles.move(source, target, options);
                     }
                     transferInfo.incrementTransferredFileCount();
                     postCopyMoveNotification(transferInfo, source, targetParent, forCopy);
@@ -461,7 +462,8 @@ public class FileJobs {
 
         protected void moveAtomically(@NonNull Path source, @NonNull Path target)
                 throws IOException {
-            Files.move(source, target, LinkOption.NOFOLLOW_LINKS, StandardCopyOption.ATOMIC_MOVE);
+            MoreFiles.move(source, target, LinkOption.NOFOLLOW_LINKS,
+                    StandardCopyOption.ATOMIC_MOVE);
         }
 
         protected void moveByCopy(@NonNull Path source, @NonNull Path target,

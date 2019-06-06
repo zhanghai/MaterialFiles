@@ -45,6 +45,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.EnumerationCompat;
 import me.zhanghai.android.files.compat.MapCompat;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
+import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.provider.root.RootUtils;
@@ -107,7 +108,7 @@ public class ArchiveReader {
                 throw new ArchiveException(e);
             }
         } catch (FileNotFoundException e) {
-            file.getFileSystem().provider().checkAccess(file, AccessMode.READ);
+            MoreFiles.provider(file).checkAccess(file, AccessMode.READ);
             NoSuchFileException noSuchFileException = new NoSuchFileException(file.toString());
             noSuchFileException.initCause(e);
             throw noSuchFileException;

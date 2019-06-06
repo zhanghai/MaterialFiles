@@ -22,8 +22,8 @@ public interface DirectoryObservable extends Closeable {
     static DirectoryObservable observeDirectory(@NonNull Path path, long intervalMillis)
             throws IOException {
         Objects.requireNonNull(path);
-        DirectoryObservableProvider provider = (DirectoryObservableProvider)
-                path.getFileSystem().provider();
+        DirectoryObservableProvider provider = (DirectoryObservableProvider) MoreFiles.provider(
+                path);
         return provider.observeDirectory(path, intervalMillis);
     }
 }

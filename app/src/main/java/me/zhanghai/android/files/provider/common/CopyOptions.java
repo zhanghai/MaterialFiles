@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.common;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -101,5 +103,26 @@ public class CopyOptions {
 
     public int getProgressIntervalMillis() {
         return mProgressIntervalMillis;
+    }
+
+    @NonNull
+    public CopyOption[] toArray() {
+        List<CopyOption> options = new ArrayList<>();
+        if (mReplaceExisting) {
+            options.add(StandardCopyOption.REPLACE_EXISTING);
+        }
+        if (mCopyAttributes) {
+            options.add(StandardCopyOption.COPY_ATTRIBUTES);
+        }
+        if (mAtomicMove) {
+            options.add(StandardCopyOption.ATOMIC_MOVE);
+        }
+        if (mNoFollowLinks) {
+            options.add(LinkOption.NOFOLLOW_LINKS);
+        }
+        if (mProgressListener != null) {
+            options.add(new ProgressCopyOption(mProgressListener, mProgressIntervalMillis));
+        }
+        return options.toArray(new CopyOption[0]);
     }
 }
