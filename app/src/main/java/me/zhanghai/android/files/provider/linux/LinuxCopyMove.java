@@ -35,60 +35,6 @@ class LinuxCopyMove {
         if (copyOptions.hasAtomicMove()) {
             throw new UnsupportedOperationException(StandardCopyOption.ATOMIC_MOVE.toString());
         }
-        copyInternal(source, target, copyOptions);
-    }
-
-    public static void move(@NonNull ByteString source, @NonNull ByteString target,
-                            @NonNull CopyOptions copyOptions) throws IOException {
-        boolean targetExists;
-        try {
-            if (copyOptions.hasNoFollowLinks()) {
-                Syscalls.lstat(target);
-            } else {
-                Syscalls.stat(target);
-            }
-            targetExists = true;
-        } catch (SyscallException e) {
-            if (e.getErrno() == OsConstants.ENOENT) {
-                targetExists = false;
-            } else {
-                throw e.toFileSystemException(target.toString());
-            }
-        }
-        try {
-            if (targetExists && !copyOptions.hasReplaceExisting()) {
-                throw new SyscallException("rename", OsConstants.EEXIST);
-            }
-            Syscalls.rename(source, target);
-            return;
-        } catch (SyscallException e) {
-            if (copyOptions.hasAtomicMove()) {
-                e.maybeThrowAtomicMoveNotSupportedException(source.toString(), target.toString());
-                e.maybeThrowInvalidFileNameException(source.toString(), target.toString());
-                throw e.toFileSystemException(source.toString(), target.toString());
-            }
-            // Ignored.
-        }
-        if (!copyOptions.hasCopyAttributes()) {
-            copyOptions = new CopyOptions(copyOptions.hasReplaceExisting(), true,
-                    copyOptions.hasAtomicMove(), copyOptions.hasNoFollowLinks(),
-                    copyOptions.getProgressListener(), copyOptions.getProgressIntervalMillis());
-        }
-        copyInternal(source, target, copyOptions);
-        try {
-            Syscalls.remove(source);
-        } catch (SyscallException e) {
-            try {
-                Syscalls.remove(target);
-            } catch (SyscallException e2) {
-                e.addSuppressed(e2.toFileSystemException(target.toString()));
-            }
-            throw e.toFileSystemException(source.toString());
-        }
-    }
-
-    private static void copyInternal(@NonNull ByteString source, @NonNull ByteString target,
-                                     @NonNull CopyOptions copyOptions) throws IOException {
         StructStat sourceStat;
         try {
             sourceStat = copyOptions.hasNoFollowLinks() ? Syscalls.lstat(source) : Syscalls.stat(
@@ -266,6 +212,53 @@ class LinuxCopyMove {
     private static void throwIfInterrupted() throws InterruptedIOException {
         if (Thread.interrupted()) {
             throw new InterruptedIOException();
+        }
+    }
+
+    public static void move(@NonNull ByteString source, @NonNull ByteString target,
+                            @NonNull CopyOptions copyOptions) throws IOException {
+        boolean targetExists;
+        try {
+            Syscalls.lstat(target);
+            targetExists = true;
+        } catch (SyscallException e) {
+            if (e.getErrno() == OsConstants.ENOENT) {
+                targetExists = false;
+            } else {
+                throw e.toFileSystemException(target.toString());
+            }
+        }
+        try {
+            if (targetExists && !copyOptions.hasReplaceExisting()) {
+                throw new SyscallException("rename", OsConstants.EEXIST);
+            }
+            Syscalls.rename(source, target);
+            return;
+        } catch (SyscallException e) {
+            if (copyOptions.hasAtomicMove()) {
+                e.maybeThrowAtomicMoveNotSupportedException(source.toString(), target.toString());
+                e.maybeThrowInvalidFileNameException(source.toString(), target.toString());
+                throw e.toFileSystemException(source.toString(), target.toString());
+            }
+            // Ignored.
+        }
+        if (copyOptions.hasAtomicMove()) {
+            throw new AssertionError();
+        }
+        if (!copyOptions.hasCopyAttributes() || !copyOptions.hasNoFollowLinks()) {
+            copyOptions = new CopyOptions(copyOptions.hasReplaceExisting(), true, false, true,
+                    copyOptions.getProgressListener(), copyOptions.getProgressIntervalMillis());
+        }
+        copy(source, target, copyOptions);
+        try {
+            Syscalls.remove(source);
+        } catch (SyscallException e) {
+            try {
+                Syscalls.remove(target);
+            } catch (SyscallException e2) {
+                e.addSuppressed(e2.toFileSystemException(target.toString()));
+            }
+            throw e.toFileSystemException(source.toString());
         }
     }
 }
