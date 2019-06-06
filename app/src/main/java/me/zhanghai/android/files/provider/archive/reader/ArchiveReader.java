@@ -66,11 +66,17 @@ public class ArchiveReader {
         List<ArchiveEntry> rawEntries = readEntries(file);
         for (ArchiveEntry entry : rawEntries) {
             Path path = rootPath.resolve(entry.getName());
-            // Normalize the absolute path to prevent path traversal attack.
+            // Normalize an absolute path to prevent path traversal attack.
             if (!path.isAbsolute()) {
                 throw new AssertionError("Path must be absolute: " + path.toString());
             }
-            path = path.normalize();
+            if (path.getNameCount() > 0) {
+                path = path.normalize();
+                if (path.getNameCount() == 0) {
+                    // Don't allow a path to become the root path only after normalization.
+                    continue;
+                }
+            }
             MapCompat.putIfAbsent(entries, path, entry);
         }
         if (!entries.containsKey(rootPath)) {
