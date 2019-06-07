@@ -23,11 +23,11 @@ public class FileJobConflictDialogActivity extends AppCompatActivity {
 
     @NonNull
     public static Intent makeIntent(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
-                                    boolean copy,
+                                    @NonNull FileJobs.Base.CopyMoveType type,
                                     @NonNull FileJobConflictDialogFragment.Listener listener,
                                     @NonNull Context context) {
         Intent intent = new Intent(context, FileJobConflictDialogActivity.class);
-        FileJobConflictDialogFragment.putArguments(intent, sourceFile, targetFile, copy, listener);
+        FileJobConflictDialogFragment.putArguments(intent, sourceFile, targetFile, type, listener);
         return intent;
     }
 

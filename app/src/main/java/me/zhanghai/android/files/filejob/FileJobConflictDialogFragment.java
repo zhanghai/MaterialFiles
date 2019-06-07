@@ -59,7 +59,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
 
     private static final String EXTRA_SOURCE_FILE = KEY_PREFIX + "SOURCE_FILE";
     private static final String EXTRA_TARGET_FILE = KEY_PREFIX + "TARGET_FILE";
-    private static final String EXTRA_COPY = KEY_PREFIX + "COPY";
+    private static final String EXTRA_TYPE = KEY_PREFIX + "TYPE";
     private static final String EXTRA_LISTENER = KEY_PREFIX + "LISTENER";
 
     private static final String STATE_ALL_CHECKED = KEY_PREFIX + "ALL_CHECKED";
@@ -68,7 +68,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
     private FileItem mSourceFile;
     @NonNull
     private FileItem mTargetFile;
-    private boolean mCopy;
+    private FileJobs.Base.CopyMoveType mType;
     @Nullable
     private RemoteCallback mListener;
 
@@ -101,12 +101,13 @@ public class FileJobConflictDialogFragment extends DialogFragment {
     CheckBox mAllCheck;
 
     public static void putArguments(@NonNull Intent intent, @NonNull FileItem sourceFile,
-                                    @NonNull FileItem targetFile, boolean copy,
+                                    @NonNull FileItem targetFile,
+                                    @NonNull FileJobs.Base.CopyMoveType type,
                                     @NonNull Listener listener) {
         intent
                 .putExtra(EXTRA_SOURCE_FILE, sourceFile)
                 .putExtra(EXTRA_TARGET_FILE, targetFile)
-                .putExtra(EXTRA_COPY, copy)
+                .putExtra(EXTRA_TYPE, type)
                 .putExtra(EXTRA_LISTENER, new RemoteCallback(new ListenerAdapter(listener)));
     }
 
@@ -130,7 +131,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
         Bundle arguments = getArguments();
         mSourceFile = arguments.getParcelable(EXTRA_SOURCE_FILE);
         mTargetFile = arguments.getParcelable(EXTRA_TARGET_FILE);
-        mCopy = arguments.getBoolean(EXTRA_COPY);
+        mType = (FileJobs.Base.CopyMoveType) arguments.getSerializable(EXTRA_TYPE);
         mListener = arguments.getParcelable(EXTRA_LISTENER);
     }
 
@@ -154,8 +155,9 @@ public class FileJobConflictDialogFragment extends DialogFragment {
         int positiveButtonRes;
         if (sourceIsDirectory && targetIsDirectory) {
             titleRes = R.string.file_job_merge_title_format;
-            messageRes = mCopy ? R.string.file_job_merge_copy_message_format
-                    : R.string.file_job_merge_move_message_format;
+            messageRes = mType.getResource(R.string.file_job_merge_copy_message_format,
+                    R.string.file_job_merge_extract_message_format,
+                    R.string.file_job_merge_move_message_format);
             positiveButtonRes = R.string.file_job_action_merge;
         } else {
             titleRes = R.string.file_job_replace_title_format;

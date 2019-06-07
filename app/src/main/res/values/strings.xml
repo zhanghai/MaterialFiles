@@ -72,15 +72,18 @@
     </plurals>
     <string name="file_job_delete_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
+    <string name="file_job_cannot_extract_into_itself_title">Cannot extract a folder into itself</string>
     <string name="file_job_cannot_move_into_itself_title">Cannot move a folder into itself</string>
     <string name="file_job_cannot_copy_move_into_itself_message">The destination folder is inside the source folder.</string>
     <string name="file_job_cannot_copy_over_itself_title">Cannot copy a file over itself</string>
+    <string name="file_job_cannot_extract_over_itself_title">Cannot extract a file over itself</string>
     <string name="file_job_cannot_move_over_itself_title">Cannot move a file over itself</string>
     <string name="file_job_cannot_copy_move_over_itself_message">The source file would be overwritten by the destination.</string>
     <string name="file_job_replace_title_format">Replace file “%1$s”?</string>
     <string name="file_job_replace_message_format">Another file with the same name already exists in “%1$s”.\nReplacing it will overwrite its content.</string>
     <string name="file_job_merge_title_format">Merge folder “%1$s”?</string>
     <string name="file_job_merge_copy_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being copied.</string>
+    <string name="file_job_merge_extract_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being extracted.</string>
     <string name="file_job_merge_move_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being moved.</string>
     <string name="file_job_conflict_target_name">Original file</string>
     <string name="file_job_conflict_source_name">Replace with</string>
@@ -89,6 +92,8 @@
     <string name="file_job_conflict_reset_name">Reset</string>
     <string name="file_job_copy_error_title_format">Error while copying “%1$s”</string>
     <string name="file_job_copy_error_message_format">There was an error copying the file into “%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Error while extracting “%1$s”</string>
+    <string name="file_job_extract_error_message_format">There was an error extracting the file into “%1$s”.\n%2$s</string>
     <string name="file_job_move_error_title_format">Error while moving “%1$s”</string>
     <string name="file_job_move_error_message_format">There was an error moving the file into “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Error while deleting</string>
