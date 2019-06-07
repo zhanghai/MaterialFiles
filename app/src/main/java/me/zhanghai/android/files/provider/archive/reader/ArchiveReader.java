@@ -16,6 +16,8 @@ import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.compressors.CompressorException;
+import org.apache.commons.compress.compressors.CompressorStreamFactory;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -54,6 +56,9 @@ import me.zhanghai.android.files.util.IoUtils;
 
 public class ArchiveReader {
 
+    @NonNull
+    private static final CompressorStreamFactory sCompressorStreamFactory =
+            new CompressorStreamFactory();
     @NonNull
     private static final ArchiveStreamFactory sArchiveStreamFactory = new ArchiveStreamFactory();
 
@@ -110,12 +115,23 @@ public class ArchiveReader {
     @NonNull
     private static List<ArchiveEntry> readEntries(@NonNull Path file) throws IOException {
         File ioFile = file.toFile();
-        String type;
-        try (FileInputStream fileInputStream = new FileInputStream(ioFile);
-             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
+        String compressorType;
+        String archiveType;
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(
+                ioFile))) {
             try {
-                type = ArchiveStreamFactory.detect(bufferedInputStream);
+                compressorType = CompressorStreamFactory.detect(bufferedInputStream);
+            } catch (CompressorException e) {
+                // Ignored.
+                compressorType = null;
+            }
+            try (BufferedInputStream bufferedCompressorInputStream = compressorType != null ?
+                    new BufferedInputStream(sCompressorStreamFactory.createCompressorInputStream(
+                            compressorType, bufferedInputStream)) : bufferedInputStream) {
+                archiveType = ArchiveStreamFactory.detect(bufferedCompressorInputStream);
             } catch (org.apache.commons.compress.archivers.ArchiveException e) {
+                throw new ArchiveException(e);
+            } catch (CompressorException e) {
                 throw new ArchiveException(e);
             }
         } catch (FileNotFoundException e) {
@@ -125,42 +141,43 @@ public class ArchiveReader {
             throw noSuchFileException;
         }
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
-        switch (type) {
-            case ArchiveStreamFactory.ZIP: {
+        if (compressorType == null) {
+            if (ArchiveStreamFactory.ZIP.equals(archiveType)) {
                 String encoding = getZipFileNameEncoding();
                 try (ZipFileCompat zipFile = new ZipFileCompat(ioFile, encoding)) {
                     Iterators.forEachRemaining(EnumerationCompat.asIterator(zipFile.getEntries()),
                             entries::add);
+                    return entries;
                 }
-                break;
-            }
-            case ArchiveStreamFactory.SEVEN_Z: {
+            } else if (ArchiveStreamFactory.SEVEN_Z.equals(archiveType)) {
                 try (SevenZFile sevenZFile = new SevenZFile(ioFile)) {
                     Iterables.forEach(sevenZFile.getEntries(), entries::add);
-                }
-                break;
-            }
-            default: {
-                try (FileInputStream fileInputStream = new FileInputStream(ioFile);
-                     BufferedInputStream bufferedInputStream = new BufferedInputStream(
-                             fileInputStream);
-                     ArchiveInputStream archiveInputStream =
-                             sArchiveStreamFactory.createArchiveInputStream(bufferedInputStream)) {
-                    ArchiveEntry entry;
-                    while ((entry = archiveInputStream.getNextEntry()) != null) {
-                        entries.add(entry);
-                    }
-                } catch (FileNotFoundException e) {
-                    NoSuchFileException noSuchFileException = new NoSuchFileException(
-                            file.toString());
-                    noSuchFileException.initCause(e);
-                    throw noSuchFileException;
-                } catch (org.apache.commons.compress.archivers.ArchiveException e) {
-                    throw new ArchiveException(e);
+                    return entries;
                 }
             }
         }
-        return entries;
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(
+                ioFile));
+             InputStream compressorInputStream = compressorType != null ?
+                     sCompressorStreamFactory.createCompressorInputStream(compressorType,
+                             bufferedInputStream) : bufferedInputStream;
+             ArchiveInputStream archiveInputStream = sArchiveStreamFactory.createArchiveInputStream(
+                     archiveType, compressorInputStream)) {
+            ArchiveEntry entry;
+            while ((entry = archiveInputStream.getNextEntry()) != null) {
+                entries.add(entry);
+            }
+            return entries;
+        } catch (FileNotFoundException e) {
+            NoSuchFileException noSuchFileException = new NoSuchFileException(
+                    file.toString());
+            noSuchFileException.initCause(e);
+            throw noSuchFileException;
+        } catch (org.apache.commons.compress.archivers.ArchiveException e) {
+            throw new ArchiveException(e);
+        } catch (CompressorException e) {
+            throw new ArchiveException(e);
+        }
     }
 
     @NonNull
@@ -190,87 +207,120 @@ public class ArchiveReader {
             throw new IsDirectoryException(file.toString());
         }
         File ioFile = file.toFile();
-        if (entry instanceof ZipArchiveEntry) {
-            ZipArchiveEntry zipEntry = (ZipArchiveEntry) entry;
-            String encoding = SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
-            boolean successful = false;
-            ZipFileCompat zipFile = null;
-            InputStream zipEntryInputStream = null;
+        String compressorType;
+        String archiveType;
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(
+                ioFile))) {
             try {
-                zipFile = new ZipFileCompat(ioFile, encoding);
-                zipEntryInputStream = zipFile.getInputStream(zipEntry);
-                if (zipEntryInputStream == null) {
-                    throw new NoSuchFileException(file.toString());
-                }
-                InputStream inputStream = new ZipFileEntryInputStream(zipFile, zipEntryInputStream);
-                successful = true;
-                return inputStream;
-            } finally {
-                if (!successful) {
-                    if (zipEntryInputStream != null) {
-                        zipEntryInputStream.close();
-                    }
-                    if (zipFile != null) {
-                        zipFile.close();
-                    }
-                }
+                compressorType = CompressorStreamFactory.detect(bufferedInputStream);
+            } catch (CompressorException e) {
+                // Ignored.
+                compressorType = null;
             }
-        } else if (entry instanceof SevenZArchiveEntry) {
-            boolean successful = false;
-            SevenZFile sevenZFile = null;
-            try {
-                sevenZFile = new SevenZFile(ioFile);
-                SevenZArchiveEntry currentEntry;
-                while ((currentEntry = sevenZFile.getNextEntry()) != null) {
-                    if (!Objects.equals(currentEntry.getName(), entry.getName())) {
-                        continue;
-                    }
-                    InputStream inputStream = new SevenZArchiveEntryInputStream(sevenZFile,
-                            currentEntry);
-                    successful = true;
-                    return inputStream;
-                }
-                throw new NoSuchFileException(file.toString());
-            } finally {
-                if (!successful && sevenZFile != null) {
-                    sevenZFile.close();
-                }
-            }
-        } else {
-            boolean successful = false;
-            FileInputStream fileInputStream = null;
-            BufferedInputStream bufferedInputStream = null;
-            ArchiveInputStream archiveInputStream = null;
-            try {
-                fileInputStream = new FileInputStream(ioFile);
-                bufferedInputStream = new BufferedInputStream(fileInputStream);
-                archiveInputStream = sArchiveStreamFactory.createArchiveInputStream(
-                        bufferedInputStream);
-                ArchiveEntry currentEntry;
-                while ((currentEntry = archiveInputStream.getNextEntry()) != null) {
-                    if (!Objects.equals(currentEntry.getName(), entry.getName())) {
-                        continue;
-                    }
-                    successful = true;
-                    return archiveInputStream;
-                }
-                throw new NoSuchFileException(file.toString());
-            } catch (FileNotFoundException e) {
-                NoSuchFileException noSuchFileException = new NoSuchFileException(
-                        file.toString());
-                noSuchFileException.initCause(e);
-                throw noSuchFileException;
+            try (BufferedInputStream bufferedCompressorInputStream = compressorType != null ?
+                    new BufferedInputStream(sCompressorStreamFactory.createCompressorInputStream(
+                            compressorType, bufferedInputStream)) : bufferedInputStream) {
+                archiveType = ArchiveStreamFactory.detect(bufferedCompressorInputStream);
             } catch (org.apache.commons.compress.archivers.ArchiveException e) {
                 throw new ArchiveException(e);
-            } finally {
-                if (!successful) {
-                    if (archiveInputStream != null) {
-                        archiveInputStream.close();
-                    } else if (bufferedInputStream != null) {
-                        bufferedInputStream.close();
-                    } else if (fileInputStream != null) {
-                        fileInputStream.close();
+            } catch (CompressorException e) {
+                throw new ArchiveException(e);
+            }
+        } catch (FileNotFoundException e) {
+            MoreFiles.provider(file).checkAccess(file, AccessMode.READ);
+            NoSuchFileException noSuchFileException = new NoSuchFileException(file.toString());
+            noSuchFileException.initCause(e);
+            throw noSuchFileException;
+        }
+        if (compressorType == null) {
+            if (entry instanceof ZipArchiveEntry) {
+                ZipArchiveEntry zipEntry = (ZipArchiveEntry) entry;
+                String encoding = SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
+                boolean successful = false;
+                ZipFileCompat zipFile = null;
+                InputStream zipEntryInputStream = null;
+                try {
+                    zipFile = new ZipFileCompat(ioFile, encoding);
+                    zipEntryInputStream = zipFile.getInputStream(zipEntry);
+                    if (zipEntryInputStream == null) {
+                        throw new NoSuchFileException(file.toString());
                     }
+                    InputStream inputStream = new ZipFileEntryInputStream(zipFile,
+                            zipEntryInputStream);
+                    successful = true;
+                    return inputStream;
+                } finally {
+                    if (!successful) {
+                        if (zipEntryInputStream != null) {
+                            zipEntryInputStream.close();
+                        }
+                        if (zipFile != null) {
+                            zipFile.close();
+                        }
+                    }
+                }
+            } else if (entry instanceof SevenZArchiveEntry) {
+                boolean successful = false;
+                SevenZFile sevenZFile = null;
+                try {
+                    sevenZFile = new SevenZFile(ioFile);
+                    SevenZArchiveEntry currentEntry;
+                    while ((currentEntry = sevenZFile.getNextEntry()) != null) {
+                        if (!Objects.equals(currentEntry.getName(), entry.getName())) {
+                            continue;
+                        }
+                        InputStream inputStream = new SevenZArchiveEntryInputStream(sevenZFile,
+                                currentEntry);
+                        successful = true;
+                        return inputStream;
+                    }
+                    throw new NoSuchFileException(file.toString());
+                } finally {
+                    if (!successful && sevenZFile != null) {
+                        sevenZFile.close();
+                    }
+                }
+            }
+        }
+        boolean successful = false;
+        BufferedInputStream bufferedInputStream = null;
+        InputStream compressorInputStream = null;
+        ArchiveInputStream archiveInputStream = null;
+        try {
+            bufferedInputStream = new BufferedInputStream(new FileInputStream(ioFile));
+            compressorInputStream = compressorType != null ?
+                    sCompressorStreamFactory.createCompressorInputStream(compressorType,
+                            bufferedInputStream) : bufferedInputStream;
+            archiveInputStream = sArchiveStreamFactory.createArchiveInputStream(archiveType,
+                    compressorInputStream);
+            ArchiveEntry currentEntry;
+            while ((currentEntry = archiveInputStream.getNextEntry()) != null) {
+                if (!Objects.equals(currentEntry.getName(), entry.getName())) {
+                    continue;
+                }
+                successful = true;
+                return archiveInputStream;
+            }
+            throw new NoSuchFileException(file.toString());
+        } catch (FileNotFoundException e) {
+            NoSuchFileException noSuchFileException = new NoSuchFileException(
+                    file.toString());
+            noSuchFileException.initCause(e);
+            throw noSuchFileException;
+        } catch (org.apache.commons.compress.archivers.ArchiveException e) {
+            throw new ArchiveException(e);
+        } catch (CompressorException e) {
+            throw new ArchiveException(e);
+        } finally {
+            if (!successful) {
+                if (archiveInputStream != null) {
+                    archiveInputStream.close();
+                }
+                if (compressorInputStream != null) {
+                    compressorInputStream.close();
+                }
+                if (bufferedInputStream != null) {
+                    bufferedInputStream.close();
                 }
             }
         }
