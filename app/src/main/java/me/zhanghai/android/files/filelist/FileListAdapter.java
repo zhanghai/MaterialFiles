@@ -8,6 +8,7 @@ package me.zhanghai.android.files.filelist;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -235,6 +236,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
             description = StringCompat.join(descriptionSeparator, lastModificationTime, size);
         }
         holder.descriptionText.setText(description);
+        Menu menu = holder.menu.getMenu();
+        boolean isReadOnly = path.getFileSystem().isReadOnly();
+        menu.findItem(R.id.action_cut).setVisible(!isReadOnly);
+        menu.findItem(R.id.action_delete).setVisible(!isReadOnly);
+        menu.findItem(R.id.action_rename).setVisible(!isReadOnly);
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_open_as:

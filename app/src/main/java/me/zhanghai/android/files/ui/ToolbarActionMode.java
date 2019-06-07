@@ -70,6 +70,11 @@ public class ToolbarActionMode {
         }
     }
 
+    @NonNull
+    public Menu getMenu() {
+        return mToolbar.getMenu();
+    }
+
     public boolean isActive() {
         return mActive;
     }

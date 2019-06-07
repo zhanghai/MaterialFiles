@@ -222,6 +222,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
             mViewModel.resetTo(path);
         }
+        mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
         FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
@@ -353,6 +354,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return true;
         }
         return mViewModel.navigateUp(false);
+    }
+
+    private void onCurrentPathChanged(@NonNull Path path) {
+        updateCab();
     }
 
     private void onFileListChanged(@NonNull FileListData fileListData) {
@@ -593,6 +598,24 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
         mToolbarActionMode.setTitle(getString(titleRes, selectedFiles.size()));
         mToolbarActionMode.setMenuResource(menuRes);
+        Menu menu = mToolbarActionMode.getMenu();
+        switch (pasteMode) {
+            case NONE: {
+                boolean hasReadOnly = Functional.some(selectedFiles, file ->
+                        file.getPath().getFileSystem().isReadOnly());
+                menu.findItem(R.id.action_cut).setVisible(!hasReadOnly);
+                menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
+                break;
+            }
+            case MOVE:
+            case COPY: {
+                boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
+                menu.findItem(R.id.action_paste).setEnabled(!isReadOnly);
+                break;
+            }
+            default:
+                throw new IllegalStateException();
+        }
         if (!mToolbarActionMode.isActive()) {
             mAppBarLayout.setExpanded(true);
             mToolbarActionMode.start(this);
