@@ -41,6 +41,15 @@
         <item quantity="one">Copying %1$,d file to “%2$s”</item>
         <item quantity="other">Copying %1$,d files to “%2$s”</item>
     </plurals>
+    <plurals name="file_job_extract_scan_notification_title">
+        <item quantity="one">Preparing to extract %1$,d file (%2$s)</item>
+        <item quantity="other">Preparing to extract %1$,d files (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one">Extracting “%1$s” to “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple">
+        <item quantity="one">Extracting %1$,d file to “%2$s”</item>
+        <item quantity="other">Extracting %1$,d files to “%2$s”</item>
+    </plurals>
     <plurals name="file_job_move_scan_notification_title">
         <item quantity="one">Preparing to move %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to move %1$,d files (%2$s)</item>

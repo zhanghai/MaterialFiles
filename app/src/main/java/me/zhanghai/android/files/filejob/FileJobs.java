@@ -35,9 +35,11 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
+import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.promise.Promise;
 
 public class FileJobs {
@@ -331,7 +333,10 @@ public class FileJobs {
             long size = transferInfo.getSize();
             long transferredSize = transferInfo.getTransferredSize();
             if (fileCount == 1) {
-                title = getString(copy ? R.string.file_job_copy_notification_title_one
+                title = getString(copy ?
+                                transferInfo.isExtract() ?
+                                        R.string.file_job_extract_notification_title_one
+                                        : R.string.file_job_copy_notification_title_one
                                 : R.string.file_job_move_notification_title_one,
                         currentSource.getFileName(), targetParent.getFileName());
                 Context context = getService();
@@ -341,7 +346,10 @@ public class FileJobs {
                 text = getString(R.string.file_job_copy_move_notification_text_one,
                         transferredSizeString, sizeString);
             } else {
-                title = getQuantityString(copy ? R.plurals.file_job_copy_notification_title_multiple
+                title = getQuantityString(copy ?
+                                transferInfo.isExtract() ?
+                                        R.plurals.file_job_extract_notification_title_multiple
+                                        : R.plurals.file_job_copy_notification_title_multiple
                                 : R.plurals.file_job_move_notification_title_multiple, fileCount,
                         fileCount, targetParent.getFileName());
                 int currentFileIndex = Math.min(transferInfo.getTransferredFileCount() + 1,
@@ -618,11 +626,17 @@ public class FileJobs {
             private int mTransferredFileCount;
             private long mSize;
             private long mTransferredSize;
+            private final boolean mIsExtract;
             private long mLastNotificationTimeMillis;
 
-            public TransferInfo(@NonNull ScanInfo scanInfo) {
+            public TransferInfo(@NonNull ScanInfo scanInfo, boolean isExtract) {
                 mFileCount = scanInfo.getFileCount();
                 mSize = scanInfo.getSize();
+                mIsExtract = isExtract;
+            }
+
+            public TransferInfo(@NonNull ScanInfo scanInfo) {
+                this(scanInfo, false);
             }
 
             public int getFileCount() {
@@ -661,6 +675,10 @@ public class FileJobs {
 
             public void addToTransferredSize(long size) {
                 mTransferredSize += size;
+            }
+
+            public boolean isExtract() {
+                return mIsExtract;
             }
 
             public boolean shouldPostNotification() {
@@ -753,8 +771,12 @@ public class FileJobs {
 
         @Override
         public void run() throws IOException {
-            ScanInfo scanInfo = scan(mSources, R.plurals.file_job_copy_scan_notification_title);
-            TransferInfo transferInfo = new TransferInfo(scanInfo);
+            boolean isExtract = Functional.every(mSources,
+                    ArchiveFileSystemProvider::isArchivePath);
+            ScanInfo scanInfo = scan(mSources, isExtract ?
+                    R.plurals.file_job_extract_scan_notification_title
+                    : R.plurals.file_job_copy_scan_notification_title);
+            TransferInfo transferInfo = new TransferInfo(scanInfo, isExtract);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             try {
                 for (Path source : mSources) {
