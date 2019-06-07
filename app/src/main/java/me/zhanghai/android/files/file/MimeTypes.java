@@ -58,8 +58,8 @@ public class MimeTypes {
                     .put("arw", "image/x-sony-arw")
                     .put("ogv", "video/ogg")
                     // Fixes
-                    .put("application/x-gzip", "tgz") // Was "application/x-gtar"
-                    .put("application/x-compress", "taz") // Was "application/x-gtar"
+                    .put("tgz", "application/x-gzip") // Was "application/x-gtar"
+                    .put("taz", "application/x-compress") // Was "application/x-gtar"
                     .put("csv", "text/csv") // Was "text/comma-separated-values"
                     // Addition
                     .put("gz", "application/gzip")
