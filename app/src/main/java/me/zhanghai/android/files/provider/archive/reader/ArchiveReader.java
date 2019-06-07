@@ -140,10 +140,10 @@ public class ArchiveReader {
             noSuchFileException.initCause(e);
             throw noSuchFileException;
         }
+        String encoding = getArchiveFileNameEncoding();
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
         if (compressorType == null) {
             if (ArchiveStreamFactory.ZIP.equals(archiveType)) {
-                String encoding = getZipFileNameEncoding();
                 try (ZipFileCompat zipFile = new ZipFileCompat(ioFile, encoding)) {
                     Iterators.forEachRemaining(EnumerationCompat.asIterator(zipFile.getEntries()),
                             entries::add);
@@ -162,7 +162,7 @@ public class ArchiveReader {
                      sCompressorStreamFactory.createCompressorInputStream(compressorType,
                              bufferedInputStream) : bufferedInputStream;
              ArchiveInputStream archiveInputStream = sArchiveStreamFactory.createArchiveInputStream(
-                     archiveType, compressorInputStream)) {
+                     archiveType, compressorInputStream, encoding)) {
             ArchiveEntry entry;
             while ((entry = archiveInputStream.getNextEntry()) != null) {
                 entries.add(entry);
@@ -181,22 +181,22 @@ public class ArchiveReader {
     }
 
     @NonNull
-    private static String getZipFileNameEncoding() {
+    private static String getArchiveFileNameEncoding() {
         if (RootUtils.isRunningAsRoot()) {
             try {
                 Context context = RootJava.getPackageContext(BuildConfig.APPLICATION_ID);
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(
                         context);
-                String key = context.getString(R.string.pref_key_zip_file_name_encoding);
+                String key = context.getString(R.string.pref_key_archive_file_name_encoding);
                 String defaultValue = context.getString(
-                        R.string.pref_default_value_zip_file_name_encoding);
+                        R.string.pref_default_value_archive_file_name_encoding);
                 return sharedPreferences.getString(key, defaultValue);
             } catch (Exception e) {
                 e.printStackTrace();
                 return StandardCharsets.UTF_8.name();
             }
         } else {
-            return SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
+            return SettingsLiveDatas.ARCHIVE_FILE_NAME_ENCODING.getValue();
         }
     }
 
@@ -232,10 +232,10 @@ public class ArchiveReader {
             noSuchFileException.initCause(e);
             throw noSuchFileException;
         }
+        String encoding = getArchiveFileNameEncoding();
         if (compressorType == null) {
             if (entry instanceof ZipArchiveEntry) {
                 ZipArchiveEntry zipEntry = (ZipArchiveEntry) entry;
-                String encoding = SettingsLiveDatas.ZIP_FILE_NAME_ENCODING.getValue();
                 boolean successful = false;
                 ZipFileCompat zipFile = null;
                 InputStream zipEntryInputStream = null;
@@ -292,7 +292,7 @@ public class ArchiveReader {
                     sCompressorStreamFactory.createCompressorInputStream(compressorType,
                             bufferedInputStream) : bufferedInputStream;
             archiveInputStream = sArchiveStreamFactory.createArchiveInputStream(archiveType,
-                    compressorInputStream);
+                    compressorInputStream, encoding);
             ArchiveEntry currentEntry;
             while ((currentEntry = archiveInputStream.getNextEntry()) != null) {
                 if (!Objects.equals(currentEntry.getName(), entry.getName())) {

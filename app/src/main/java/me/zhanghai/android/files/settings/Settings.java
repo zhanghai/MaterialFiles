@@ -41,9 +41,9 @@ interface Settings {
             new TypedListSettingsEntry<>(R.string.pref_key_standard_directories,
                     StandardDirectorySettings.CREATOR);
 
-    StringSettingsEntry ZIP_FILE_NAME_ENCODING = new StringSettingsEntry(
-            R.string.pref_key_zip_file_name_encoding,
-            R.string.pref_default_value_zip_file_name_encoding);
+    StringSettingsEntry ARCHIVE_FILE_NAME_ENCODING = new StringSettingsEntry(
+            R.string.pref_key_archive_file_name_encoding,
+            R.string.pref_default_value_archive_file_name_encoding);
 
     EnumSettingsEntry<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsEntry<>(
             R.string.pref_key_open_apk_default_action,

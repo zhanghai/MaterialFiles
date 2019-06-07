@@ -229,8 +229,8 @@
         <item>基于省电模式</item>
     </string-array>
     <string name="settings_behavior_title">行为</string>
-    <string name="settings_zip_file_name_encoding_title">ZIP 归档文件名编码</string>
-    <string name="settings_zip_file_name_encoding_summary">%1$s</string>
+    <string name="settings_archive_file_name_encoding_title">归档文件名编码</string>
+    <string name="settings_archive_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">打开 Android 安装包</string>
     <string name="settings_open_apk_default_action_summary">%1$s</string>
     <string-array name="settings_open_apk_default_action_entries">
