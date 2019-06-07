@@ -144,11 +144,14 @@
     <string name="file_list_cab_select_title_format">%1$,d selected</string>
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
+    <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
     <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">Copying %1$,d</string>
+    <string name="file_list_cab_paste_extract_title_format">Extracting %1$,d</string>
     <string name="file_list_cab_paste_action_paste">Paste</string>
+    <string name="file_list_cab_paste_action_extract_here">Extract here</string>
     <string name="file_list_empty">No files</string>
     <string name="file_list_action_create_file">File</string>
     <string name="file_list_action_create_directory">Folder</string>
@@ -157,6 +160,7 @@
     <string name="file_item_action_open_as">Open as</string>
     <string name="file_item_action_cut">Cut</string>
     <string name="file_item_action_copy">Copy</string>
+    <string name="file_item_action_extract">Extract</string>
     <string name="file_item_action_delete">Delete</string>
     <string name="file_item_action_rename">Rename</string>
     <string name="file_item_action_send">@string/file_list_action_send</string>

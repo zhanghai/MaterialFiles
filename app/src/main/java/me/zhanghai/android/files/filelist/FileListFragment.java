@@ -55,6 +55,7 @@ import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
 import me.zhanghai.android.files.main.MainActivity;
 import me.zhanghai.android.files.navigation.NavigationFragment;
+import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
@@ -578,6 +579,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return;
         }
         FilePasteMode pasteMode = mViewModel.getPasteMode();
+        boolean allArchives = Functional.every(selectedFiles, file ->
+                ArchiveFileSystemProvider.isArchivePath(file.getPath()));
         int titleRes;
         int menuRes;
         switch (pasteMode) {
@@ -590,7 +593,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 menuRes = R.menu.file_list_cab_paste;
                 break;
             case COPY:
-                titleRes = R.string.file_list_cab_paste_copy_title_format;
+                titleRes = allArchives ? R.string.file_list_cab_paste_extract_title_format
+                        : R.string.file_list_cab_paste_copy_title_format;
                 menuRes = R.menu.file_list_cab_paste;
                 break;
             default:
@@ -604,13 +608,21 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 boolean hasReadOnly = Functional.some(selectedFiles, file ->
                         file.getPath().getFileSystem().isReadOnly());
                 menu.findItem(R.id.action_cut).setVisible(!hasReadOnly);
+                menu.findItem(R.id.action_copy)
+                        .setIcon(allArchives ? R.drawable.extract_icon_white_24dp
+                                : R.drawable.copy_icon_white_24dp)
+                        .setTitle(allArchives ? R.string.file_list_cab_select_action_extract
+                                : R.string.file_list_cab_select_action_copy);
                 menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
                 break;
             }
             case MOVE:
             case COPY: {
                 boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
-                menu.findItem(R.id.action_paste).setEnabled(!isReadOnly);
+                menu.findItem(R.id.action_paste)
+                        .setTitle(allArchives ? R.string.file_list_cab_paste_action_extract_here
+                                : R.string.file_list_cab_paste_action_paste)
+                        .setEnabled(!isReadOnly);
                 break;
             }
             default:

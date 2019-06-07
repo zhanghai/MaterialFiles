@@ -45,6 +45,7 @@ import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
+import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
@@ -239,6 +240,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         Menu menu = holder.menu.getMenu();
         boolean isReadOnly = path.getFileSystem().isReadOnly();
         menu.findItem(R.id.action_cut).setVisible(!isReadOnly);
+        boolean isArchivePath = ArchiveFileSystemProvider.isArchivePath(path);
+        menu.findItem(R.id.action_copy).setTitle(isArchivePath ? R.string.file_item_action_extract
+                : R.string.file_item_action_copy);
         menu.findItem(R.id.action_delete).setVisible(!isReadOnly);
         menu.findItem(R.id.action_rename).setVisible(!isReadOnly);
         holder.menu.setOnMenuItemClickListener(item -> {

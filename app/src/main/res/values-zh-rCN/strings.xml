@@ -135,11 +135,14 @@
     <string name="file_list_cab_select_title_format">已选择 %1$,d</string>
     <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
+    <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
     <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">移动 %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">复制 %1$,d</string>
+    <string name="file_list_cab_paste_extract_title_format">提取 %1$,d</string>
     <string name="file_list_cab_paste_action_paste">粘贴</string>
+    <string name="file_list_cab_paste_action_extract_here">提取至此处</string>
     <string name="file_list_empty">无文件</string>
     <string name="file_list_action_create_file">文件</string>
     <string name="file_list_action_create_directory">文件夹</string>
@@ -148,6 +151,7 @@
     <string name="file_item_action_open_as">打开为</string>
     <string name="file_item_action_cut">剪切</string>
     <string name="file_item_action_copy">复制</string>
+    <string name="file_item_action_extract">提取</string>
     <string name="file_item_action_delete">删除</string>
     <string name="file_item_action_rename">重命名</string>
     <string name="file_item_action_send">@string/file_list_action_send</string>
