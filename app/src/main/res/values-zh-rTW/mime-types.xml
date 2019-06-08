@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">檔案</string>
+    <string name="file_type_name_apk">Android 安裝包</string>
+    <string name="file_type_name_archive">%1$s 歸檔檔案</string>
+    <string name="file_type_name_audio">%1$s 音訊</string>
+    <string name="file_type_name_calendar">%1$s 日曆</string>
+    <string name="file_type_name_certificate">%1$s 證書</string>
+    <string name="file_type_name_code">%1$s 檔案</string>
+    <string name="file_type_name_contact">電子聯絡人</string>
+    <string name="file_type_name_directory">資料夾</string>
+    <string name="file_type_name_document">%1$s 檔案</string>
+    <string name="file_type_name_ebook">%1$s 電子書</string>
+    <string name="file_type_name_email">%1$s 電子郵件</string>
+    <string name="file_type_name_font">%1$s 字體</string>
+    <string name="file_type_name_generic">%1$s 檔案</string>
+    <string name="file_type_name_image">%1$s 圖像</string>
+    <string name="file_type_name_pdf">PDF 檔案</string>
+    <string name="file_type_name_presentation">%1$s 示範文稿</string>
+    <string name="file_type_name_spreadsheet">%1$s 電子表格</string>
+    <string name="file_type_name_text">%1$s 檔案</string>
+    <string name="file_type_name_text_plain">純文字檔案</string>
+    <string name="file_type_name_video">%1$s 影片</string>
+    <string name="file_type_name_word">Word 檔案</string>
+    <string name="file_type_name_powerpoint">PowerPoint 投影片</string>
+    <string name="file_type_name_excel">Excel 活頁簿</string>
+    <string name="file_type_name_posix_character_device">字元設備</string>
+    <string name="file_type_name_posix_block_device">塊設備</string>
+    <string name="file_type_name_posix_fifo">管道</string>
+    <string name="file_type_name_posix_symbolic_link">連結</string>
+    <string name="file_type_name_posix_socket">套接字</string>
+    <string name="file_type_name_posix_symbolic_link_broken">連結（已斷）</string>
+</resources>
