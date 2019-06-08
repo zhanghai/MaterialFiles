@@ -812,8 +812,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         if (fileListData == null || fileListData.state != FileListData.State.SUCCESS) {
             return false;
         }
-        return Functional.some(fileListData.fileList, path -> TextUtils.equals(
-                FileUtils.getName(path), name));
+        return Functional.some(fileListData.fileList, path -> Objects.equals(FileUtils.getName(
+                path), name));
     }
 
     @Override

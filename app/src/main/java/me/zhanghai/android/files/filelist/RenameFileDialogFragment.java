@@ -7,7 +7,8 @@ package me.zhanghai.android.files.filelist;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.text.TextUtils;
+
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,7 +80,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
 
     @Override
     protected boolean isNameUnchanged(@NonNull String name) {
-        return TextUtils.equals(name, FileUtils.getName(mExtraFile));
+        return Objects.equals(name, FileUtils.getName(mExtraFile));
     }
 
     @Override

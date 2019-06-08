@@ -20,6 +20,7 @@ import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.File;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +44,7 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
             return false;
         }
         String mimeType = MimeTypes.getMimeType(path);
-        return TextUtils.equals(mimeType, "application/vnd.android.package-archive");
+        return Objects.equals(mimeType, "application/vnd.android.package-archive");
     }
 
     @Nullable

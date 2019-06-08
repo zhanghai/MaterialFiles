@@ -12,6 +12,7 @@ import android.webkit.MimeTypeMap;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -187,18 +188,18 @@ public class MimeTypes {
     }
 
     public static boolean supportsThumbnail(@NonNull String mimeType) {
-        return isImage(mimeType) || isMedia(mimeType) || TextUtils.equals(mimeType,
+        return isImage(mimeType) || isMedia(mimeType) || Objects.equals(mimeType,
                 "application/vnd.android.package-archive");
     }
 
     public static boolean isApk(@NonNull String mimeType) {
-        return TextUtils.equals(mimeType, "application/vnd.android.package-archive");
+        return Objects.equals(mimeType, "application/vnd.android.package-archive");
     }
 
     public static boolean isSupportedArchive(@NonNull String mimeType) {
         return sSupportedArchiveMimeTypes.contains(mimeType)
                 || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
-                        && TextUtils.equals(mimeType, "application/x-7z-compressed"));
+                        && Objects.equals(mimeType, "application/x-7z-compressed"));
     }
 
     public static boolean isImage(@NonNull String mimeType) {

@@ -7,9 +7,9 @@ package me.zhanghai.android.files.settings;
 
 import android.content.SharedPreferences;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -31,7 +31,7 @@ public class TypedListSettingsLiveData<T extends Parcelable> extends LiveData<Li
     @Override
     public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences,
                                           @NonNull String key) {
-        if (TextUtils.equals(key, mEntry.getKey())) {
+        if (Objects.equals(key, mEntry.getKey())) {
             loadValue();
         }
     }

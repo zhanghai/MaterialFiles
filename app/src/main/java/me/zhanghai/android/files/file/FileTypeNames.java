@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.R;
@@ -82,7 +83,7 @@ public class FileTypeNames {
             case MimeTypeIcons.Icons.SPREADSHEET:
                 return R.string.file_type_name_spreadsheet;
             case MimeTypeIcons.Icons.TEXT:
-                if (TextUtils.equals(mimeType, "text/plain")) {
+                if (Objects.equals(mimeType, "text/plain")) {
                     return R.string.file_type_name_text_plain;
                 }
                 return R.string.file_type_name_text;

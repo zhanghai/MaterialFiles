@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +26,7 @@ import android.widget.TextView;
 import com.bumptech.glide.signature.ObjectKey;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -307,7 +307,7 @@ public class FileJobConflictDialogFragment extends DialogFragment {
             return false;
         }
         String fileName = mTargetFile.getPath().getFileName().toString();
-        return !TextUtils.equals(name, fileName);
+        return !Objects.equals(name, fileName);
     }
 
     @Override

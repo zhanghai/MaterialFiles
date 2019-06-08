@@ -6,7 +6,8 @@
 package me.zhanghai.android.files.settings;
 
 import android.content.SharedPreferences;
-import android.text.TextUtils;
+
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +30,7 @@ public class SettingsLiveData<T> extends LiveData<T>
     @Override
     public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences,
                                           @NonNull String key) {
-        if (TextUtils.equals(key, mEntry.getKey())) {
+        if (Objects.equals(key, mEntry.getKey())) {
             loadValue();
         }
     }
