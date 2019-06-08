@@ -23,6 +23,8 @@ import me.zhanghai.android.files.util.FileNameUtils;
 import me.zhanghai.android.files.util.MapBuilder;
 import me.zhanghai.android.files.util.SetBuilder;
 
+// TODO: Use Debian mime.types, as in
+//  https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/mime.types
 public class MimeTypes {
 
     public static final String DIRECTORY_MIME_TYPE = DocumentsContract.Document.MIME_TYPE_DIR;
@@ -59,17 +61,19 @@ public class MimeTypes {
                     .put("arw", "image/x-sony-arw")
                     .put("ogv", "video/ogg")
                     // Fixes
-                    .put("tgz", "application/x-gzip") // Was "application/x-gtar"
-                    .put("taz", "application/x-compress") // Was "application/x-gtar"
+                    .put("tgz", "application/x-gtar-compressed") // Was "application/x-gtar"
+                    .put("taz", "application/x-gtar-compressed") // Was "application/x-gtar"
                     .put("csv", "text/csv") // Was "text/comma-separated-values"
                     // Addition
                     .put("gz", "application/gzip")
+                    .put("cab", "application/vnd.ms-cab-compressed")
                     .put("7z", "application/x-7z-compressed")
                     .put("bz", "application/x-bzip")
                     .put("bz2", "application/x-bzip2")
                     .put("z", "application/x-compress")
                     .put("jar", "application/x-java-archive")
-                    .put("cab", "application/vnd.ms-cab-compressed")
+                    .put("lzma", "application/x-lzma")
+                    .put("xz", "application/x-xz")
                     .put("m3u", "audio/x-mpegurl")
                     .put("m3u8", "audio/x-mpegurl")
                     .put("p7b", "application/x-pkcs7-certificates")
@@ -149,13 +153,19 @@ public class MimeTypes {
             .add("application/java-archive")
             .add("application/zip")
             .add("application/vnd.debian.binary-package")
+            // Requires O and handled in isSupportedArchive.
+            //.add("application/x-7z-compressed")
             .add("application/x-bzip2")
             .add("application/x-compress")
+            .add("application/x-cpio")
             .add("application/x-deb")
             .add("application/x-debian-package")
             .add("application/x-gtar")
+            .add("application/x-gtar-compressed")
             .add("application/x-java-archive")
+            .add("application/x-lzma")
             .add("application/x-tar")
+            .add("application/x-xz")
             .buildUnmodifiable();
 
     @NonNull
