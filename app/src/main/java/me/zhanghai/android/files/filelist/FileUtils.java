@@ -9,6 +9,8 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
+import java8.nio.file.attribute.BasicFileAttributes;
+import java8.nio.file.attribute.FileTime;
 import me.zhanghai.android.files.file.FileTypeNames;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
@@ -18,6 +20,14 @@ import me.zhanghai.android.files.util.FileNameUtils;
 public class FileUtils {
 
     private FileUtils() {}
+
+    @NonNull
+    public static FileItem createDummyFileItemForArchiveRoot(@NonNull FileItem file) {
+        Path path = ArchiveFileSystemProvider.getRootPathForArchiveFile(file.getPath());
+        BasicFileAttributes attributes = new DummyArchiveRootBasicFileAttributes();
+        String mimeType = MimeTypes.DIRECTORY_MIME_TYPE;
+        return new FileItem(path, attributes, null, null, false, mimeType);
+    }
 
     @NonNull
     public static String getExtension(@NonNull FileItem file) {
@@ -53,18 +63,75 @@ public class FileUtils {
         return FileTypeNames.getTypeName(file.getMimeType(), extension, context);
     }
 
-    public static boolean isListable(@NonNull FileItem file) {
-        return file.getAttributes().isDirectory() || MimeTypes.isSupportedArchive(
+    public static boolean isArchiveFile(@NonNull FileItem file) {
+        return LinuxFileSystemProvider.isLinuxPath(file.getPath()) && MimeTypes.isSupportedArchive(
                 file.getMimeType());
+    }
+
+    public static boolean isListable(@NonNull FileItem file) {
+        return file.getAttributes().isDirectory() || isArchiveFile(file);
     }
 
     @NonNull
     public static Path toListablePath(@NonNull FileItem file) {
         Path path = file.getPath();
-        if (LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.isSupportedArchive(
-                file.getMimeType())) {
+        if (isArchiveFile(file)) {
             return ArchiveFileSystemProvider.getRootPathForArchiveFile(path);
         }
         return path;
+    }
+
+    // Dummy attributes only to be added to the selection set, which may be used to determine file
+    // type when confirming deletion.
+    private static class DummyArchiveRootBasicFileAttributes implements BasicFileAttributes {
+
+        @NonNull
+        @Override
+        public FileTime lastModifiedTime() {
+            throw new UnsupportedOperationException();
+        }
+
+        @NonNull
+        @Override
+        public FileTime lastAccessTime() {
+            throw new UnsupportedOperationException();
+        }
+
+        @NonNull
+        @Override
+        public FileTime creationTime() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public boolean isRegularFile() {
+            return false;
+        }
+
+        @Override
+        public boolean isDirectory() {
+            return true;
+        }
+
+        @Override
+        public boolean isSymbolicLink() {
+            return false;
+        }
+
+        @Override
+        public boolean isOther() {
+            return false;
+        }
+
+        @Override
+        public long size() {
+            throw new UnsupportedOperationException();
+        }
+
+        @NonNull
+        @Override
+        public Object fileKey() {
+            throw new UnsupportedOperationException();
+        }
     }
 }

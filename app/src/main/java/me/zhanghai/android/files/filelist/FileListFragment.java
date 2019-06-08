@@ -822,6 +822,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
+    public void extractFile(@NonNull FileItem file) {
+        copyFiles(Collections.singleton(FileUtils.createDummyFileItemForArchiveRoot(file)));
+    }
+
+    @Override
     public void sendFile(@NonNull FileItem file) {
         sendFile(file.getPath(), file.getMimeType());
     }

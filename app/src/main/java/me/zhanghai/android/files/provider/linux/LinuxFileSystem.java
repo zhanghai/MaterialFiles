@@ -8,12 +8,12 @@ package me.zhanghai.android.files.provider.linux;
 import android.os.Parcel;
 
 import androidx.annotation.NonNull;
-import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
 import me.zhanghai.android.files.provider.root.RootFileSystem;
 import me.zhanghai.android.files.provider.root.RootableFileSystem;
 
-class LinuxFileSystem extends RootableFileSystem {
+class LinuxFileSystem extends RootableFileSystem implements ByteStringListPathFactory {
 
     static final byte SEPARATOR = LocalLinuxFileSystem.SEPARATOR;
 
@@ -40,8 +40,9 @@ class LinuxFileSystem extends RootableFileSystem {
     }
 
     @NonNull
-    Path getPath(@NonNull ByteString path) {
-        return getLocalFileSystem().getPath(path);
+    @Override
+    public LinuxPath getPath(@NonNull ByteString first, @NonNull ByteString... more) {
+        return getLocalFileSystem().getPath(first, more);
     }
 
     @Override

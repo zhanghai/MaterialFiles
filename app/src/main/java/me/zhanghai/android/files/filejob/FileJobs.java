@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.AnyRes;
@@ -40,6 +41,7 @@ import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
+import me.zhanghai.android.files.util.PathFileNameUtils;
 import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.promise.Promise;
 
@@ -795,13 +797,25 @@ public class FileJobs {
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             try {
                 for (Path source : mSources) {
-                    Path target = MoreFiles.resolve(mTargetDirectory, source.getFileName());
+                    Path target = MoreFiles.resolve(mTargetDirectory, getTargetFileName(source));
                     copyRecursively(source, target, isExtract, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                 }
             } finally {
                 cancelNotification();
             }
+        }
+
+        @NonNull
+        private static Path getTargetFileName(@NonNull Path source) {
+            if (ArchiveFileSystemProvider.isArchivePath(source)) {
+                Path archiveFile = ArchiveFileSystemProvider.getArchiveFile(source);
+                Path archiveRoot = ArchiveFileSystemProvider.getRootPathForArchiveFile(archiveFile);
+                if (Objects.equals(source, archiveRoot)) {
+                    return PathFileNameUtils.getFullBaseName(archiveFile.getFileName());
+                }
+            }
+            return source.getFileName();
         }
 
         private void copyRecursively(@NonNull Path source, @NonNull Path target, boolean isExtract,

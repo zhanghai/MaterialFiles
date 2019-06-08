@@ -19,8 +19,9 @@ import java8.nio.file.WatchService;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
+import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
 
-class LocalLinuxFileSystem extends FileSystem {
+class LocalLinuxFileSystem extends FileSystem implements ByteStringListPathFactory {
 
     static final byte SEPARATOR = '/';
 
@@ -135,7 +136,8 @@ class LocalLinuxFileSystem extends FileSystem {
     }
 
     @NonNull
-    Path getPath(@NonNull ByteString first, @NonNull ByteString... more) {
+    @Override
+    public LinuxPath getPath(@NonNull ByteString first, @NonNull ByteString... more) {
         Objects.requireNonNull(first);
         Objects.requireNonNull(more);
         ByteStringBuilder pathBuilder = new ByteStringBuilder(first);

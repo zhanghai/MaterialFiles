@@ -87,6 +87,11 @@ public class MoreFiles {
         return result;
     }
 
+    public static ByteString toByteString(@NonNull Path path) {
+        ByteStringListPath byteStringPath = requireByteStringListPath(path);
+        return byteStringPath.toByteString();
+    }
+
     @NonNull
     private static ByteStringListPath requireByteStringListPath(@NonNull Path path) {
         if (!(path instanceof ByteStringListPath)) {

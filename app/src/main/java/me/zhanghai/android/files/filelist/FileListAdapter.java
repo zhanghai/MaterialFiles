@@ -245,6 +245,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                 : R.string.file_item_action_copy);
         menu.findItem(R.id.action_delete).setVisible(!isReadOnly);
         menu.findItem(R.id.action_rename).setVisible(!isReadOnly);
+        boolean isArchiveFile = FileUtils.isArchiveFile(file);
+        menu.findItem(R.id.action_extract).setVisible(isArchiveFile);
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_open_as:
@@ -261,6 +263,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                     return true;
                 case R.id.action_rename:
                     mListener.showRenameFileDialog(file);
+                    return true;
+                case R.id.action_extract:
+                    mListener.extractFile(file);
                     return true;
                 case R.id.action_send:
                     mListener.sendFile(file);
@@ -301,6 +306,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         void copyFile(@NonNull FileItem file);
         void confirmDeleteFile(@NonNull FileItem file);
         void showRenameFileDialog(@NonNull FileItem file);
+        void extractFile(@NonNull FileItem file);
         void sendFile(@NonNull FileItem file);
         void copyPath(@NonNull FileItem file);
         void showPropertiesDialog(@NonNull FileItem file);

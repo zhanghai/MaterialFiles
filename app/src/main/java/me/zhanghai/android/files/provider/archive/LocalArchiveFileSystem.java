@@ -31,8 +31,9 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
+import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
 
-class LocalArchiveFileSystem extends FileSystem {
+class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFactory {
 
     static final byte SEPARATOR = '/';
 
@@ -237,7 +238,8 @@ class LocalArchiveFileSystem extends FileSystem {
     }
 
     @NonNull
-    Path getPath(@NonNull ByteString first, @NonNull ByteString... more) {
+    @Override
+    public ArchivePath getPath(@NonNull ByteString first, @NonNull ByteString... more) {
         Objects.requireNonNull(first);
         Objects.requireNonNull(more);
         ByteStringBuilder pathBuilder = new ByteStringBuilder(first);
