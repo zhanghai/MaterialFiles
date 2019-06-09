@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.archive.writer;
+package me.zhanghai.android.files.provider.archive.archiver;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.ArchiveOutputStream;
@@ -30,7 +30,6 @@ import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java9.util.function.LongConsumer;
-import me.zhanghai.android.files.provider.archive.reader.ArchiveException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileMode;

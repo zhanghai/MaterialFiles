@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.archive.reader;
+package me.zhanghai.android.files.provider.archive.archiver;
 
 import org.apache.commons.compress.compressors.CompressorException;
 

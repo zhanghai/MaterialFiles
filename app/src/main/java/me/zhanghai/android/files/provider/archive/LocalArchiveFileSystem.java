@@ -28,7 +28,7 @@ import java8.nio.file.PathMatcher;
 import java8.nio.file.WatchService;
 import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.spi.FileSystemProvider;
-import me.zhanghai.android.files.provider.archive.reader.ArchiveReader;
+import me.zhanghai.android.files.provider.archive.archiver.ArchiveReader;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;

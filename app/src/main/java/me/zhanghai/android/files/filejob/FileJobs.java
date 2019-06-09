@@ -40,7 +40,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
-import me.zhanghai.android.files.provider.archive.writer.ArchiveWriter;
+import me.zhanghai.android.files.provider.archive.archiver.ArchiveWriter;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
