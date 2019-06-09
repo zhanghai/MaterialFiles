@@ -203,6 +203,9 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         if (otherPath.isEmpty()) {
             return this;
         }
+        if (isEmpty()) {
+            return otherPath;
+        }
         List<ByteString> resolvedNames = new ArrayList<>(CollectionUtils.union(mNames,
                 otherPath.mNames));
         return createPath(mAbsolute, resolvedNames);
