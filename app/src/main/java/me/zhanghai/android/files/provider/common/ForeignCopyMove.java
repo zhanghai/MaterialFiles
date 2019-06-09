@@ -7,7 +7,6 @@ package me.zhanghai.android.files.provider.common;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InterruptedIOException;
 import java.io.OutputStream;
 
 import androidx.annotation.NonNull;
@@ -24,8 +23,6 @@ import java8.nio.file.attribute.BasicFileAttributeView;
 import java8.nio.file.attribute.BasicFileAttributes;
 
 class ForeignCopyMove {
-
-    private static final int BUFFER_SIZE = 8192;
 
     private ForeignCopyMove() {}
 
@@ -57,29 +54,8 @@ class ForeignCopyMove {
                         StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
                 boolean successful = false;
                 try {
-                    byte[] buffer = new byte[BUFFER_SIZE];
-                    long progressIntervalMillis = copyOptions.getProgressIntervalMillis();
-                    long lastProgressMillis = System.currentTimeMillis();
-                    long copiedSize = 0;
-                    while (true) {
-                        int readSize = inputStream.read(buffer);
-                        if (readSize == -1) {
-                            break;
-                        }
-                        outputStream.write(buffer, 0, readSize);
-                        copiedSize += readSize;
-                        throwIfInterrupted();
-                        long currentTimeMillis = System.currentTimeMillis();
-                        if (copyOptions.hasProgressListener() && currentTimeMillis >=
-                                lastProgressMillis + progressIntervalMillis) {
-                            copyOptions.getProgressListener().accept(copiedSize);
-                            lastProgressMillis = currentTimeMillis;
-                            copiedSize = 0;
-                        }
-                    }
-                    if (copyOptions.hasProgressListener()) {
-                        copyOptions.getProgressListener().accept(copiedSize);
-                    }
+                    MoreFiles.copy(inputStream, outputStream, copyOptions.getProgressListener(),
+                            copyOptions.getProgressIntervalMillis());
                     successful = true;
                 } finally {
                     try {
@@ -132,12 +108,6 @@ class ForeignCopyMove {
             } catch (IOException | UnsupportedOperationException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    private static void throwIfInterrupted() throws InterruptedIOException {
-        if (Thread.interrupted()) {
-            throw new InterruptedIOException();
         }
     }
 

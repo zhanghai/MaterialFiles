@@ -31,6 +31,13 @@
     <string name="notification_channel_file_job_dialog_name">文件操作对话框</string>
     <string name="notification_channel_file_job_dialog_description">打开文件操作对话框</string>
 
+    <plurals name="file_job_archive_scan_notification_title">
+        <item quantity="other">正在准备压缩 %1$,d 个文件（%2$s）</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one">正在将“%1$s”压缩进“%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple">
+        <item quantity="other">正在将 %1$,d 个文件压缩进“%2$s”</item>
+    </plurals>
     <plurals name="file_job_copy_scan_notification_title">
         <item quantity="other">正在准备复制 %1$,d 个文件（%2$s）</item>
     </plurals>
@@ -52,8 +59,8 @@
     <plurals name="file_job_move_notification_title_multiple">
         <item quantity="other">正在将 %1$,d 个文件移动到“%2$s”</item>
     </plurals>
-    <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_copy_move_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
         <item quantity="other">正在准备删除 %1$,d 个文件</item>
     </plurals>
@@ -61,7 +68,7 @@
     <plurals name="file_job_delete_notification_title_multiple">
         <item quantity="other">正在删除 %1$,d 个文件</item>
     </plurals>
-    <string name="file_job_delete_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">无法将文件夹复制到自身</string>
     <string name="file_job_cannot_extract_into_itself_title">无法将文件夹提取到自身</string>
     <string name="file_job_cannot_move_into_itself_title">无法将文件夹移动到自身</string>
@@ -81,6 +88,8 @@
     <string name="file_job_conflict_show_name">为目标选择新的名称</string>
     <string name="file_job_conflict_name_hint">新名称</string>
     <string name="file_job_conflict_reset_name">重置</string>
+    <string name="file_job_archive_error_title_format">压缩“%1$s”时发生错误</string>
+    <string name="file_job_archive_error_message_format">将文件压缩进“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_copy_error_title_format">复制“%1$s”时发生错误</string>
     <string name="file_job_copy_error_message_format">将文件复制到“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_extract_error_title_format">提取“%1$s”时发生错误</string>

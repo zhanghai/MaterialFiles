@@ -53,6 +53,12 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Copy(sources, targetDirectory), context);
     }
 
+    public static void archive(@NonNull List<Path> sources, @NonNull Path archiveFile,
+                               @NonNull String archiveType, @Nullable String compressorType,
+                               @NonNull Context context) {
+        startJob(new FileJobs.Archive(sources, archiveFile, archiveType, compressorType), context);
+    }
+
     public static void createFile(@NonNull Path path, @NonNull Context context) {
         startJob(new FileJobs.CreateFile(path), context);
     }

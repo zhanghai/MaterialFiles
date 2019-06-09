@@ -19,6 +19,7 @@ import java.io.BufferedOutputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 
@@ -28,6 +29,7 @@ import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
+import java9.util.function.LongConsumer;
 import me.zhanghai.android.files.provider.archive.reader.ArchiveException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
@@ -62,7 +64,7 @@ public class ArchiveWriter implements Closeable {
                     sCompressorStreamFactory.createCompressorOutputStream(compressorType,
                             bufferedOutputStream) : bufferedOutputStream;
             mArchiveOutputStream = sArchiveStreamFactory.createArchiveOutputStream(archiveType,
-                    compressorOutputStream, /* TODO */ null);
+                    compressorOutputStream, /* TODO: Encoding */ null);
             successful = true;
         } catch (org.apache.commons.compress.archivers.ArchiveException e) {
             throw new ArchiveException(e);
@@ -80,9 +82,10 @@ public class ArchiveWriter implements Closeable {
         }
     }
 
-    public void write(@NonNull Path file, @NonNull Path rootDirectory) throws IOException {
+    public void write(@NonNull Path file, @NonNull Path entryName, @Nullable LongConsumer listener,
+                      int intervalMillis) throws IOException {
         ArchiveEntry entry = mArchiveOutputStream.createArchiveEntry(new PathFile(file),
-                file.relativize(rootDirectory).toString());
+                entryName.toString());
         BasicFileAttributes attributes = Files.readAttributes(file, BasicFileAttributes.class,
                 LinkOption.NOFOLLOW_LINKS);
         boolean writeData;
@@ -133,17 +136,25 @@ public class ArchiveWriter implements Closeable {
             }
         }
         mArchiveOutputStream.putArchiveEntry(entry);
+        boolean listenerNotified = false;
         try {
             if (writeData) {
                 if (attributes.isSymbolicLink()) {
                     byte[] target = MoreFiles.readSymbolicLink(file).getOwnedBytes();
                     mArchiveOutputStream.write(target);
                 } else {
-                    Files.copy(file, mArchiveOutputStream);
+                    try (InputStream inputStream = Files.newInputStream(file,
+                            LinkOption.NOFOLLOW_LINKS)) {
+                        MoreFiles.copy(inputStream, mArchiveOutputStream, listener, intervalMillis);
+                    }
+                    listenerNotified = true;
                 }
             }
         } finally {
             mArchiveOutputStream.closeArchiveEntry();
+        }
+        if (listener != null && !listenerNotified) {
+            listener.accept(attributes.size());
         }
     }
 

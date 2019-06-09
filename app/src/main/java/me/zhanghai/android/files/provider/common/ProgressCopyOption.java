@@ -20,8 +20,6 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
 
     private static final String KEY_COPIED_SIZE = KEY_PREFIX + "COPIED_SIZE";
 
-    private static final int DEFAULT_INTERVAL_MILLIS = 200;
-
     @NonNull
     private final LongConsumer mListener;
 
@@ -30,10 +28,6 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
     public ProgressCopyOption(@NonNull LongConsumer listener, int intervalMillis) {
         mListener = listener;
         mIntervalMillis = intervalMillis;
-    }
-
-    public ProgressCopyOption(@NonNull LongConsumer listener) {
-        this(listener, DEFAULT_INTERVAL_MILLIS);
     }
 
     @NonNull

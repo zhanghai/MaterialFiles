@@ -13,6 +13,7 @@ import android.content.Intent;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,11 +34,13 @@ import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.SimpleFileVisitor;
 import java8.nio.file.StandardCopyOption;
+import java8.nio.file.StandardOpenOption;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.provider.archive.writer.ArchiveWriter;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
@@ -46,6 +49,8 @@ import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.promise.Promise;
 
 public class FileJobs {
+
+    private static final int PROGRESS_INTERVAL_MILLIS = 200;
 
     private FileJobs() {}
 
@@ -106,6 +111,61 @@ public class FileJobs {
             int fileCount = scanInfo.getFileCount();
             String title = getQuantityString(titleRes, fileCount, fileCount, size);
             postNotification(title, null, null, null, 0, 0, true, true);
+        }
+
+        @NonNull
+        protected static Path getTargetFileName(@NonNull Path source) {
+            if (ArchiveFileSystemProvider.isArchivePath(source)) {
+                Path archiveFile = ArchiveFileSystemProvider.getArchiveFile(source);
+                Path archiveRoot = ArchiveFileSystemProvider.getRootPathForArchiveFile(archiveFile);
+                if (Objects.equals(source, archiveRoot)) {
+                    return PathFileNameUtils.getFullBaseName(archiveFile.getFileName());
+                }
+            }
+            return source.getFileName();
+        }
+
+        protected void archive(@NonNull Path file, @NonNull ArchiveWriter writer,
+                               @NonNull Path entryName, @NonNull Path archiveFile,
+                               @NonNull TransferInfo transferInfo)
+                throws IOException {
+            try {
+                postArchiveNotification(transferInfo, file, archiveFile);
+                writer.write(file, entryName, size -> {
+                    transferInfo.addToTransferredSize(size);
+                    postArchiveNotification(transferInfo, file, archiveFile);
+                }, PROGRESS_INTERVAL_MILLIS);
+                transferInfo.incrementTransferredFileCount();
+                postArchiveNotification(transferInfo, file, archiveFile);
+            } catch (InterruptedIOException e) {
+                throw e;
+            } catch (IOException e) {
+                ActionResult result = showActionDialog(
+                        getString(R.string.file_job_archive_error_title_format, file.getFileName()),
+                        getString(R.string.file_job_archive_error_message_format,
+                                archiveFile.getFileName(), e.getLocalizedMessage()),
+                        false,
+                        null,
+                        getString(android.R.string.cancel),
+                        null);
+                switch (result.getAction()) {
+                    case NEGATIVE:
+                    case CANCELED:
+                        throw new InterruptedIOException();
+                    case POSITIVE:
+                    case NEUTRAL:
+                    default:
+                        throw new AssertionError(result.getAction());
+                }
+            }
+        }
+
+        private void postArchiveNotification(@NonNull TransferInfo transferInfo,
+                                             @NonNull Path currentFile,
+                                             @NonNull Path archiveFile) {
+            postTransferSizeNotification(transferInfo, currentFile, archiveFile,
+                    R.string.file_job_archive_notification_title_one,
+                    R.plurals.file_job_archive_notification_title_multiple);
         }
 
         protected void copy(@NonNull Path source, @NonNull Path target, boolean isExtract,
@@ -207,7 +267,7 @@ public class FileJobs {
                 optionList.add(new ProgressCopyOption(size -> {
                     transferInfo.addToTransferredSize(size);
                     postCopyMoveNotification(transferInfo, source, targetParent, type);
-                }));
+                }, PROGRESS_INTERVAL_MILLIS));
                 CopyOption[] options = optionList.toArray(new CopyOption[0]);
                 try {
                     postCopyMoveNotification(transferInfo, source, targetParent, type);
@@ -332,6 +392,21 @@ public class FileJobs {
                                               @NonNull Path currentSource,
                                               @NonNull Path targetParent,
                                               @NonNull CopyMoveType type) {
+            postTransferSizeNotification(transferInfo, currentSource, targetParent,
+                    type.getResource(R.string.file_job_copy_notification_title_one,
+                            R.string.file_job_extract_notification_title_one,
+                            R.string.file_job_move_notification_title_one),
+                    type.getResource(
+                            R.plurals.file_job_copy_notification_title_multiple,
+                            R.plurals.file_job_extract_notification_title_multiple,
+                            R.plurals.file_job_move_notification_title_multiple));
+        }
+
+        private void postTransferSizeNotification(@NonNull TransferInfo transferInfo,
+                                                  @NonNull Path currentSource,
+                                                  @NonNull Path targetParent,
+                                                  @StringRes int titleOneRes,
+                                                  @PluralsRes int titleMultipleRes) {
             if (!transferInfo.shouldPostNotification()) {
                 return;
             }
@@ -341,25 +416,20 @@ public class FileJobs {
             long size = transferInfo.getSize();
             long transferredSize = transferInfo.getTransferredSize();
             if (fileCount == 1) {
-                title = getString(type.getResource(R.string.file_job_copy_notification_title_one,
-                        R.string.file_job_extract_notification_title_one,
-                        R.string.file_job_move_notification_title_one), currentSource.getFileName(),
+                title = getString(titleOneRes, currentSource.getFileName(),
                         targetParent.getFileName());
                 Context context = getService();
                 String sizeString = FormatUtils.formatHumanReadableSize(size, context);
                 String transferredSizeString = FormatUtils.formatHumanReadableSize(transferredSize,
                         context);
-                text = getString(R.string.file_job_copy_move_notification_text_one,
+                text = getString(R.string.file_job_transfer_size_notification_text_one,
                         transferredSizeString, sizeString);
             } else {
-                title = getQuantityString(type.getResource(
-                        R.plurals.file_job_copy_notification_title_multiple,
-                        R.plurals.file_job_extract_notification_title_multiple,
-                        R.plurals.file_job_move_notification_title_multiple), fileCount, fileCount,
+                title = getQuantityString(titleMultipleRes, fileCount, fileCount,
                         targetParent.getFileName());
                 int currentFileIndex = Math.min(transferInfo.getTransferredFileCount() + 1,
                         fileCount);
-                text = getString(R.string.file_job_copy_move_notification_text_multiple,
+                text = getString(R.string.file_job_transfer_size_notification_text_multiple,
                         currentFileIndex, fileCount);
             }
             int max;
@@ -443,6 +513,15 @@ public class FileJobs {
 
         private void postDeleteNotification(@NonNull TransferInfo transferInfo,
                                             @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_delete_notification_title_one,
+                    R.plurals.file_job_delete_notification_title_multiple);
+        }
+
+        private void postTransferCountNotification(@NonNull TransferInfo transferInfo,
+                                                   @NonNull Path currentPath,
+                                                   @StringRes int titleOneRes,
+                                                   @PluralsRes int titleMultipleRes) {
             if (!transferInfo.shouldPostNotification()) {
                 return;
             }
@@ -453,18 +532,16 @@ public class FileJobs {
             boolean indeterminate;
             int fileCount = transferInfo.getFileCount();
             if (fileCount == 1) {
-                title = getString(R.string.file_job_delete_notification_title_one,
-                        currentPath.getFileName());
+                title = getString(titleOneRes, currentPath.getFileName());
                 text = null;
                 max = 0;
                 progress = 0;
                 indeterminate = true;
             } else {
-                title = getQuantityString(R.plurals.file_job_delete_notification_title_multiple,
-                        fileCount, fileCount);
+                title = getQuantityString(titleMultipleRes, fileCount, fileCount);
                 int transferredFileCount = transferInfo.getTransferredFileCount();
                 int currentFileIndex = Math.min(transferredFileCount + 1, fileCount);
-                text = getString(R.string.file_job_delete_notification_text_multiple,
+                text = getString(R.string.file_job_transfer_count_notification_text_multiple,
                         currentFileIndex, fileCount);
                 max = fileCount;
                 progress = transferredFileCount;
@@ -774,6 +851,82 @@ public class FileJobs {
         }
     }
 
+    public static class Archive extends Base {
+
+        @NonNull
+        private final List<Path> mSources;
+        @NonNull
+        private final Path mArchiveFile;
+        @NonNull
+        private final String mArchiveType;
+        @Nullable
+        private final String mCompressorType;
+
+        public Archive(@NonNull List<Path> sources, @NonNull Path archiveFile,
+                       @NonNull String archiveType, @Nullable String compressorType) {
+            mSources = sources;
+            mArchiveFile = archiveFile;
+            mArchiveType = archiveType;
+            mCompressorType = compressorType;
+        }
+
+        @Override
+        public void run() throws IOException {
+            ScanInfo scanInfo = scan(mSources, R.plurals.file_job_archive_scan_notification_title);
+            try (OutputStream outputStream = Files.newOutputStream(mArchiveFile,
+                    StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
+                 ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
+                         outputStream)) {
+                TransferInfo transferInfo = new TransferInfo(scanInfo);
+                try {
+                    for (Path source : mSources) {
+                        Path target = getTargetFileName(source);
+                        archiveRecursively(source, writer, target, transferInfo);
+                        throwIfInterrupted();
+                    }
+                } finally {
+                    cancelNotification();
+                }
+            }
+        }
+
+        private void archiveRecursively(@NonNull Path source, @NonNull ArchiveWriter writer,
+                                        @NonNull Path target, @NonNull TransferInfo transferInfo)
+                throws IOException {
+            Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    Path directoryInTarget = MoreFiles.resolve(target, source.relativize(
+                            directory));
+                    archive(directory, writer, directoryInTarget, mArchiveFile, transferInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    Path fileInTarget = MoreFiles.resolve(target, source.relativize(file));
+                    archive(file, writer, fileInTarget, mArchiveFile, transferInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+            });
+        }
+    }
+
     public static class Copy extends Base {
 
         @NonNull
@@ -804,18 +957,6 @@ public class FileJobs {
             } finally {
                 cancelNotification();
             }
-        }
-
-        @NonNull
-        private static Path getTargetFileName(@NonNull Path source) {
-            if (ArchiveFileSystemProvider.isArchivePath(source)) {
-                Path archiveFile = ArchiveFileSystemProvider.getArchiveFile(source);
-                Path archiveRoot = ArchiveFileSystemProvider.getRootPathForArchiveFile(archiveFile);
-                if (Objects.equals(source, archiveRoot)) {
-                    return PathFileNameUtils.getFullBaseName(archiveFile.getFileName());
-                }
-            }
-            return source.getFileName();
         }
 
         private void copyRecursively(@NonNull Path source, @NonNull Path target, boolean isExtract,
