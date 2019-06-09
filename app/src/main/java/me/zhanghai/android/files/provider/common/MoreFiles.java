@@ -12,8 +12,10 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import java8.nio.file.CopyOption;
 import java8.nio.file.Files;
+import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
+import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.util.IoUtils;
 
@@ -55,7 +57,7 @@ public class MoreFiles {
     @NonNull
     public static byte[] readAllBytes(@NonNull Path path) throws IOException {
         Objects.requireNonNull(path);
-        long sizeLong = Files.size(path);
+        long sizeLong = size(path);
         if (sizeLong > Integer.MAX_VALUE) {
             throw new OutOfMemoryError("size " + sizeLong);
         }
@@ -63,6 +65,16 @@ public class MoreFiles {
         try (InputStream inputStream = Files.newInputStream(path)) {
             return IoUtils.inputStreamToByteArray(inputStream, size);
         }
+    }
+
+    @NonNull
+    public static ByteString readSymbolicLink(@NonNull Path link) throws IOException {
+        Path target = Files.readSymbolicLink(link);
+        if (!(target instanceof ByteStringPath)) {
+            throw new ProviderMismatchException(target.toString());
+        }
+        ByteStringPath targetPath = (ByteStringPath) target;
+        return targetPath.toByteString();
     }
 
     // Can resolve path in a foreign provider.
@@ -85,6 +97,11 @@ public class MoreFiles {
             result = result.resolve(name);
         }
         return result;
+    }
+
+    // Can accept link options.
+    public static long size(@NonNull Path path, @NonNull LinkOption... options) throws IOException {
+        return Files.readAttributes(path, BasicFileAttributes.class, options).size();
     }
 
     public static ByteString toByteString(@NonNull Path path) {

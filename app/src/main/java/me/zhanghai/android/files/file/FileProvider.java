@@ -55,6 +55,7 @@ import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.provider.common.ForceableChannel;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
+import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.java.functional.Functional;
 
@@ -119,7 +120,7 @@ public class FileProvider extends ContentProvider {
                 case OpenableColumns.SIZE: {
                     long size;
                     try {
-                        size = Files.size(path);
+                        size = MoreFiles.size(path);
                     } catch (IOException e) {
                         e.printStackTrace();
                         size = 0;

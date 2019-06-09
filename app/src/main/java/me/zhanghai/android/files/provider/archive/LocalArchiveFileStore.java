@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import java8.nio.file.Files;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileAttributeView;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.common.FileStore;
+import me.zhanghai.android.files.provider.common.MoreFiles;
 
 class LocalArchiveFileStore extends FileStore {
 
@@ -43,7 +43,7 @@ class LocalArchiveFileStore extends FileStore {
 
     @Override
     public long getTotalSpace() throws IOException {
-        return Files.size(mArchiveFile);
+        return MoreFiles.size(mArchiveFile);
     }
 
     @Override

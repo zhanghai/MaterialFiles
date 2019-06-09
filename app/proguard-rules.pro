@@ -27,6 +27,10 @@
 # Apache Commons Compress
 -dontwarn org.apache.commons.compress.compressors.**
 -dontwarn org.apache.commons.compress.archivers.**
+# me.zhanghai.android.files.provider.archive.writer.ArchiveWriter.sTarArchiveEntryLinkFlagsField
+-keepclassmembernames class org.apache.commons.compress.archivers.tar.TarArchiveEntry {
+    byte linkFlag;
+}
 
 # EventBus
 -keepattributes *Annotation*
