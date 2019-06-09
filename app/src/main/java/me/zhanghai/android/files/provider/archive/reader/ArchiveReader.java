@@ -117,8 +117,8 @@ public class ArchiveReader {
         File ioFile = file.toFile();
         String compressorType;
         String archiveType;
-        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(
-                ioFile))) {
+        try (FileInputStream fileInputStream = new FileInputStream(ioFile);
+             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
             try {
                 compressorType = CompressorStreamFactory.detect(bufferedInputStream);
             } catch (CompressorException e) {
@@ -156,8 +156,8 @@ public class ArchiveReader {
                 }
             }
         }
-        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(
-                ioFile));
+        try (FileInputStream fileInputStream = new FileInputStream(ioFile);
+             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
              InputStream compressorInputStream = compressorType != null ?
                      sCompressorStreamFactory.createCompressorInputStream(compressorType,
                              bufferedInputStream) : bufferedInputStream;
@@ -209,8 +209,8 @@ public class ArchiveReader {
         File ioFile = file.toFile();
         String compressorType;
         String archiveType;
-        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(
-                ioFile))) {
+        try (FileInputStream fileInputStream = new FileInputStream(ioFile);
+             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream)) {
             try {
                 compressorType = CompressorStreamFactory.detect(bufferedInputStream);
             } catch (CompressorException e) {
@@ -283,11 +283,13 @@ public class ArchiveReader {
             }
         }
         boolean successful = false;
+        FileInputStream fileInputStream = null;
         BufferedInputStream bufferedInputStream = null;
         InputStream compressorInputStream = null;
         ArchiveInputStream archiveInputStream = null;
         try {
-            bufferedInputStream = new BufferedInputStream(new FileInputStream(ioFile));
+            fileInputStream = new FileInputStream(ioFile);
+            bufferedInputStream = new BufferedInputStream(fileInputStream);
             compressorInputStream = compressorType != null ?
                     sCompressorStreamFactory.createCompressorInputStream(compressorType,
                             bufferedInputStream) : bufferedInputStream;
@@ -321,6 +323,9 @@ public class ArchiveReader {
                 }
                 if (bufferedInputStream != null) {
                     bufferedInputStream.close();
+                }
+                if (fileInputStream != null) {
+                    fileInputStream.close();
                 }
             }
         }
