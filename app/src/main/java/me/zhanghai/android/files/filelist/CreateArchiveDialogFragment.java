@@ -100,7 +100,7 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
             case R.id.type_tar_xz:
                 extension = "tar.xz";
                 break;
-            case R.id.type_7z:
+            case R.id.type_seven_z:
                 extension = "7z";
                 break;
             default:
@@ -123,7 +123,7 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
                 archiveType = ArchiveStreamFactory.TAR;
                 compressorType = CompressorStreamFactory.XZ;
                 break;
-            case R.id.type_7z:
+            case R.id.type_seven_z:
                 archiveType = ArchiveStreamFactory.SEVEN_Z;
                 compressorType = null;
                 break;

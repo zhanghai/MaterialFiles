@@ -7,6 +7,7 @@ package me.zhanghai.android.files.provider.archive.archiver;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.util.Pair;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -143,17 +144,21 @@ public class ArchiveReader {
         String encoding = getArchiveFileNameEncoding();
         ArrayList<ArchiveEntry> entries = new ArrayList<>();
         if (compressorType == null) {
-            if (ArchiveStreamFactory.ZIP.equals(archiveType)) {
-                try (ZipFileCompat zipFile = new ZipFileCompat(ioFile, encoding)) {
-                    Iterators.forEachRemaining(EnumerationCompat.asIterator(zipFile.getEntries()),
-                            entries::add);
-                    return entries;
-                }
-            } else if (ArchiveStreamFactory.SEVEN_Z.equals(archiveType)) {
-                try (SevenZFile sevenZFile = new SevenZFile(ioFile)) {
-                    Iterables.forEach(sevenZFile.getEntries(), entries::add);
-                    return entries;
-                }
+            switch (archiveType) {
+                case ArchiveStreamFactory.ZIP:
+                    try (ZipFileCompat zipFile = new ZipFileCompat(ioFile, encoding)) {
+                        Iterators.forEachRemaining(EnumerationCompat.asIterator(
+                                zipFile.getEntries()), entries::add);
+                        return entries;
+                    }
+                case ArchiveStreamFactory.SEVEN_Z:
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        throw new IOException(new UnsupportedOperationException("SevenZFile"));
+                    }
+                    try (SevenZFile sevenZFile = new SevenZFile(ioFile)) {
+                        Iterables.forEach(sevenZFile.getEntries(), entries::add);
+                        return entries;
+                    }
             }
         }
         try (FileInputStream fileInputStream = new FileInputStream(ioFile);

@@ -6,7 +6,11 @@
   -->
 
 <resources>
+
     <integer name="visibility_visible">0</integer>
     <integer name="visibility_invisible">1</integer>
     <integer name="visibility_gone">2</integer>
+
+    <!-- SevenZFile and SevenZOutputFile requires SeekableByteChannel which requires Android N. -->
+    <integer name="type_seven_z_visibility">@integer/visibility_gone</integer>
 </resources>

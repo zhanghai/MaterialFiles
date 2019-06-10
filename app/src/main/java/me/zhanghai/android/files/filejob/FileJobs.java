@@ -13,7 +13,6 @@ import android.content.Intent;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +25,7 @@ import androidx.annotation.PluralsRes;
 import androidx.annotation.StringRes;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.CopyOption;
 import java8.nio.file.FileAlreadyExistsException;
 import java8.nio.file.FileVisitResult;
@@ -874,11 +874,11 @@ public class FileJobs {
         public void run() throws IOException {
             ScanInfo scanInfo = scan(mSources, R.plurals.file_job_archive_scan_notification_title);
             try {
-                OutputStream outputStream = Files.newOutputStream(mArchiveFile,
+                SeekableByteChannel channel = Files.newByteChannel(mArchiveFile,
                         StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
                 boolean successful = false;
                 try (ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
-                        outputStream)) {
+                        channel)) {
                     TransferInfo transferInfo = new TransferInfo(scanInfo);
                     for (Path source : mSources) {
                         Path target = getTargetFileName(source);
@@ -888,7 +888,7 @@ public class FileJobs {
                     successful = true;
                 } finally {
                     try {
-                        outputStream.close();
+                        channel.close();
                     } finally {
                         if (!successful) {
                             try {

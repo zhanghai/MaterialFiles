@@ -39,13 +39,14 @@
             android:text="@string/file_create_archive_type_tar_xz"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-        <RadioButton
-            android:id="@+id/type_7z"
+       <RadioButton
+            android:id="@+id/type_seven_z"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/dense_single_line_list_item_height"
             android:layout_weight="1"
             android:text="@string/file_create_archive_type_7z"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:visibility="@integer/type_seven_z_visibility" />
     </me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup>
 </LinearLayout>
