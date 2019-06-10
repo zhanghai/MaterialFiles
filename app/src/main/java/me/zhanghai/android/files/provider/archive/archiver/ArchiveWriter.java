@@ -136,22 +136,19 @@ public class ArchiveWriter implements Closeable {
         }
         mArchiveOutputStream.putArchiveEntry(entry);
         boolean listenerNotified = false;
-        try {
-            if (writeData) {
-                if (attributes.isSymbolicLink()) {
-                    byte[] target = MoreFiles.readSymbolicLink(file).getOwnedBytes();
-                    mArchiveOutputStream.write(target);
-                } else {
-                    try (InputStream inputStream = Files.newInputStream(file,
-                            LinkOption.NOFOLLOW_LINKS)) {
-                        MoreFiles.copy(inputStream, mArchiveOutputStream, listener, intervalMillis);
-                    }
-                    listenerNotified = true;
+        if (writeData) {
+            if (attributes.isSymbolicLink()) {
+                byte[] target = MoreFiles.readSymbolicLink(file).getOwnedBytes();
+                mArchiveOutputStream.write(target);
+            } else {
+                try (InputStream inputStream = Files.newInputStream(file,
+                        LinkOption.NOFOLLOW_LINKS)) {
+                    MoreFiles.copy(inputStream, mArchiveOutputStream, listener, intervalMillis);
                 }
+                listenerNotified = true;
             }
-        } finally {
-            mArchiveOutputStream.closeArchiveEntry();
         }
+        mArchiveOutputStream.closeArchiveEntry();
         if (listener != null && !listenerNotified) {
             listener.accept(attributes.size());
         }
