@@ -873,20 +873,34 @@ public class FileJobs {
         @Override
         public void run() throws IOException {
             ScanInfo scanInfo = scan(mSources, R.plurals.file_job_archive_scan_notification_title);
-            try (OutputStream outputStream = Files.newOutputStream(mArchiveFile,
-                    StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-                 ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
-                         outputStream)) {
-                TransferInfo transferInfo = new TransferInfo(scanInfo);
-                try {
+            try {
+                OutputStream outputStream = Files.newOutputStream(mArchiveFile,
+                        StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
+                boolean successful = false;
+                try (ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
+                        outputStream)) {
+                    TransferInfo transferInfo = new TransferInfo(scanInfo);
                     for (Path source : mSources) {
                         Path target = getTargetFileName(source);
                         archiveRecursively(source, writer, target, transferInfo);
                         throwIfInterrupted();
                     }
+                    successful = true;
                 } finally {
-                    cancelNotification();
+                    try {
+                        outputStream.close();
+                    } finally {
+                        if (!successful) {
+                            try {
+                                Files.deleteIfExists(mArchiveFile);
+                            } catch (IOException | UnsupportedOperationException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
                 }
+            } finally {
+                cancelNotification();
             }
         }
 

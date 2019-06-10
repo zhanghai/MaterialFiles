@@ -63,7 +63,7 @@ class ForeignCopyMove {
                     } finally {
                         if (!successful) {
                             try {
-                                Files.delete(target);
+                                Files.deleteIfExists(target);
                             } catch (IOException | UnsupportedOperationException e) {
                                 e.printStackTrace();
                             }
