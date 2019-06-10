@@ -23,43 +23,43 @@
         <item quantity="other">%1$,d 位元組</item>
     </plurals>
 
-    <string name="storage_permission_request_message">程式需要存取文件的權限。請在接下來的系統對話框中點擊「允許」。</string>
-    <string name="storage_permission_permanently_denied_message">程式需要存取文件的權限。請在設定中授予「儲存空間」權限</string>
+    <string name="storage_permission_request_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
+    <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在設定中授予「儲存空間」權限</string>
 
-    <string name="notification_channel_file_job_name">文件操作</string>
-    <string name="notification_channel_file_job_description">顯示和控制文件操作</string>
-    <string name="notification_channel_file_job_dialog_name">文件操作對話框</string>
-    <string name="notification_channel_file_job_dialog_description">打開文件操作對話框</string>
+    <string name="notification_channel_file_job_name">檔案操作</string>
+    <string name="notification_channel_file_job_description">顯示和控制檔案操作</string>
+    <string name="notification_channel_file_job_dialog_name">檔案操作對話框</string>
+    <string name="notification_channel_file_job_dialog_description">打開檔案操作對話框</string>
 
     <plurals name="file_job_copy_scan_notification_title">
-        <item quantity="other">正在準備複製 %1$,d 個文件（%2$s）</item>
+        <item quantity="other">正在準備複製 %1$,d 個檔案（%2$s）</item>
     </plurals>
     <string name="file_job_copy_notification_title_one">正在將「%1$s」複製到「%2$s」</string>
     <plurals name="file_job_copy_notification_title_multiple">
-        <item quantity="other">正在將 %1$,d 個文件複製到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案複製到「%2$s」</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title">
-        <item quantity="other">正在準備提取 %1$,d 個文件（%2$s）</item>
+        <item quantity="other">正在準備提取 %1$,d 個檔案（%2$s）</item>
     </plurals>
     <string name="file_job_extract_notification_title_one">正在將「%1$s」提取到「%2$s」</string>
     <plurals name="file_job_extract_notification_title_multiple">
-        <item quantity="other">正在將 %1$,d 個文件提取到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案提取到「%2$s」</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title">
-        <item quantity="other">正在準備移動 %1$,d 個文件（%2$s）</item>
+        <item quantity="other">正在準備移動 %1$,d 個檔案（%2$s）</item>
     </plurals>
     <string name="file_job_move_notification_title_one">正在將「%1$s」移動到「%2$s」</string>
     <plurals name="file_job_move_notification_title_multiple">
-        <item quantity="other">正在將 %1$,d 個文件移動到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」</item>
     </plurals>
     <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
     <string name="file_job_copy_move_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
-        <item quantity="other">正在準備刪除 %1$,d 個文件</item>
+        <item quantity="other">正在準備刪除 %1$,d 個檔案</item>
     </plurals>
     <string name="file_job_delete_notification_title_one">正在刪除「%1$s」</string>
     <plurals name="file_job_delete_notification_title_multiple">
-        <item quantity="other">正在刪除 %1$,d 個文件</item>
+        <item quantity="other">正在刪除 %1$,d 個檔案</item>
     </plurals>
     <string name="file_job_delete_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
@@ -69,35 +69,35 @@
     <string name="file_job_cannot_copy_over_itself_title">無法將資料夾複製到自身</string>
     <string name="file_job_cannot_extract_over_itself_title">無法將資料夾提取到自身</string>
     <string name="file_job_cannot_move_over_itself_title">無法將資料夾移動到自身</string>
-    <string name="file_job_cannot_copy_move_over_itself_message">來源文件將被目標覆蓋。</string>
-    <string name="file_job_replace_title_format">替換文件「%1$s」？</string>
-    <string name="file_job_replace_message_format">在「%1$s」中存在相同名稱的另一個文件。\n替換將覆蓋它的內容。</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">來源檔案將被目標覆蓋。</string>
+    <string name="file_job_replace_title_format">替換檔案「%1$s」？</string>
+    <string name="file_job_replace_message_format">在「%1$s」中存在相同名稱的另一個檔案。\n替換將覆蓋它的內容。</string>
     <string name="file_job_merge_title_format">合併資料夾「%1$s」？</string>
-    <string name="file_job_merge_copy_message_format">文件中有文件與正在被複製的文件衝突時，合併將在替換前請求確認。</string>
-    <string name="file_job_merge_extract_message_format">文件中有文件與正在被提取的文件衝突時，合併將在替換前請求確認。</string>
-    <string name="file_job_merge_move_message_format">文件中有文件與正在被移動的文件衝突時，合併將在替換前請求確認。</string>
-    <string name="file_job_conflict_target_name">原始文件</string>
+    <string name="file_job_merge_copy_message_format">檔案中有檔案與正在被複製的檔案衝突時，合併將在替換前請求確認。</string>
+    <string name="file_job_merge_extract_message_format">檔案中有檔案與正在被提取的檔案衝突時，合併將在替換前請求確認。</string>
+    <string name="file_job_merge_move_message_format">檔案中有檔案與正在被移動的檔案衝突時，合併將在替換前請求確認。</string>
+    <string name="file_job_conflict_target_name">原始檔案</string>
     <string name="file_job_conflict_source_name">替換為</string>
     <string name="file_job_conflict_show_name">為目標選擇新的名稱</string>
     <string name="file_job_conflict_name_hint">新名稱</string>
     <string name="file_job_conflict_reset_name">重設</string>
     <string name="file_job_copy_error_title_format">複製「%1$s」時發生錯誤</string>
-    <string name="file_job_copy_error_message_format">將文件複製到「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_copy_error_message_format">將檔案複製到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_extract_error_title_format">提取「%1$s」時發生錯誤</string>
-    <string name="file_job_extract_error_message_format">將文件提取到「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_extract_error_message_format">將檔案提取到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_move_error_title_format">移動「%1$s」時發生錯誤</string>
-    <string name="file_job_move_error_message_format">將文件移動到「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_move_error_message_format">將檔案移動到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
     <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_get_information_error_message_format">在獲取「%1$s」的訊息時發生錯誤。</string>
-    <string name="file_job_action_all">套用此操作到所有文件</string>
+    <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
+    <string name="file_job_action_all">套用此操作到所有檔案</string>
     <string name="file_job_action_merge">合併</string>
     <string name="file_job_action_rename">重新命名</string>
     <string name="file_job_action_replace">替換</string>
     <string name="file_job_action_retry">重試</string>
     <string name="file_job_action_skip">跳過</string>
 
-    <string name="file_open_apk_message">這個文件是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>
+    <string name="file_open_apk_message">這個檔案是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>
     <string name="file_open_as_title_format">將「%1$s」打開為</string>
     <string name="file_open_as_type_text">文字</string>
     <string name="file_open_as_type_image">圖片</string>
@@ -107,14 +107,14 @@
     <string name="file_open_as_type_any">其他</string>
     <string name="file_name_error_empty">檔案名不能為空</string>
     <string name="file_name_error_invalid">檔案名無效</string>
-    <string name="file_name_error_already_exists">已存在同名的文件</string>
+    <string name="file_name_error_already_exists">已存在同名的檔案</string>
     <string name="file_rename_title">重命名</string>
     <string name="file_delete_message_file_format">刪除「%1$s」?</string>
     <string name="file_delete_message_directory_format">刪除資料夾「%1$s」和它的內容？</string>
-    <string name="file_delete_message_multiple_files_format">刪除 %1$,d 個文件？</string>
+    <string name="file_delete_message_multiple_files_format">刪除 %1$,d 個檔案？</string>
     <string name="file_delete_message_multiple_directories_format">刪除 %1$,d 個資料夾和它們的內容？</string>
-    <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個文件和資料夾?</string>
-    <string name="file_create_file_title">新建文件</string>
+    <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾?</string>
+    <string name="file_create_file_title">新建檔案</string>
     <string name="file_create_directory_title">新建資料夾</string>
 
     <string name="file_list_subtitle_loading">正在載入…</string>
@@ -124,7 +124,7 @@
         <item quantity="other">%1$,d 個資料夾</item>
     </plurals>
     <plurals name="file_list_subtitle_file_count_format">
-        <item quantity="other">%1$,d 個文件</item>
+        <item quantity="other">%1$,d 個檔案</item>
     </plurals>
     <string name="file_list_subtitle_separator">，</string>
     <string name="file_list_action_sort">排序</string>
@@ -138,7 +138,7 @@
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_refresh">更新</string>
     <string name="file_list_action_select_all">全選</string>
-    <string name="file_list_action_show_hidden_files">顯示隱藏文件</string>
+    <string name="file_list_action_show_hidden_files">顯示隱藏檔案</string>
     <string name="file_list_action_send">分享</string>
     <string name="file_list_action_copy_path">複製路徑</string>
     <string name="file_list_action_open_in_terminal">在終端中打開</string>
@@ -155,8 +155,8 @@
     <string name="file_list_cab_paste_extract_title_format">提取 %1$,d</string>
     <string name="file_list_cab_paste_action_paste">貼上</string>
     <string name="file_list_cab_paste_action_extract_here">提取至此處</string>
-    <string name="file_list_empty">無文件</string>
-    <string name="file_list_action_create_file">文件</string>
+    <string name="file_list_empty">無檔案</string>
+    <string name="file_list_action_create_file">檔案</string>
     <string name="file_list_action_create_directory">資料夾</string>
 
     <string name="file_item_description_separator">"    "</string>
@@ -182,7 +182,7 @@
     <string name="file_properties_basic_contents">內容</string>
     <string name="file_properties_basic_last_modification_time">最後修改</string>
     <string name="file_properties_basic_parent_directory">父資料夾</string>
-    <string name="file_properties_basic_archive_file">歸檔文件</string>
+    <string name="file_properties_basic_archive_file">歸檔檔案</string>
     <string name="file_properties_basic_archive_entry">歸檔條目</string>
     <string name="file_properties_basic_free_space">可用空間</string>
     <string name="file_properties_permissions">權限</string>
@@ -201,7 +201,7 @@
     <string name="navigation_add_document_tree">新增外部儲存…</string>
     <string name="navigation_standard_directory_alarms">鬧鐘</string>
     <string name="navigation_standard_directory_dcim">相片</string>
-    <string name="navigation_standard_directory_documents">文件</string>
+    <string name="navigation_standard_directory_documents">檔案</string>
     <string name="navigation_standard_directory_downloads">下載</string>
     <string name="navigation_standard_directory_movies">電影</string>
     <string name="navigation_standard_directory_music">音樂</string>
@@ -218,7 +218,7 @@
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">界面</string>
-    <string name="settings_file_list_animation_title">文件列表動畫</string>
+    <string name="settings_file_list_animation_title">檔案列表動畫</string>
     <string name="settings_night_mode_title">夜間模式</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
