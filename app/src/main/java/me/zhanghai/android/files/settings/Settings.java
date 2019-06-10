@@ -10,6 +10,7 @@ import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.settings.SettingsEntries.BooleanSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.EnumSettingsEntry;
+import me.zhanghai.android.files.settings.SettingsEntries.ResourceIdSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.StringSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.TypedListSettingsEntry;
 
@@ -30,6 +31,9 @@ interface Settings {
     BooleanSettingsEntry FILE_LIST_SORT_DIRECTORIES_FIRST = new BooleanSettingsEntry(
             R.string.pref_key_file_list_sort_directories_first,
             R.bool.pref_default_value_file_list_sort_directories_first);
+
+    SettingsEntries.ResourceIdSettingsEntry CREATE_ARCHIVE_TYPE = new ResourceIdSettingsEntry(
+            R.string.pref_key_create_archive_type, R.string.pref_default_value_create_archive_type);
 
     BooleanSettingsEntry FILE_LIST_ANIMATION = new BooleanSettingsEntry(
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation);

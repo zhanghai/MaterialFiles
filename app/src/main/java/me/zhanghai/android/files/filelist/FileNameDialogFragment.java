@@ -16,8 +16,10 @@ import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import butterknife.BindView;
@@ -38,7 +40,7 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
                 .setTitle(getTitleRes());
-        View contentView = ViewUtils.inflate(R.layout.file_name_dialog, builder.getContext());
+        View contentView = ViewUtils.inflate(getLayoutRes(), builder.getContext());
         ButterKnife.bind(this, contentView);
         ViewUtils.hideTextInputLayoutErrorOnTextChange(mNameEdit, mNameLayout);
         mNameEdit.setOnEditorActionListener((view, actionId, event) -> {
@@ -61,10 +63,16 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
         return dialog;
     }
 
+    @StringRes
     protected abstract int getTitleRes();
 
+    @LayoutRes
+    protected int getLayoutRes() {
+        return R.layout.file_name_dialog;
+    }
+
     private void onOk() {
-        String name = mNameEdit.getText().toString();
+        String name = getName();
         if (isNameUnchanged(name)) {
             dismiss();
             return;
@@ -87,6 +95,11 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
         }
         onOk(name);
         dismiss();
+    }
+
+    @NonNull
+    protected String getName() {
+        return mNameEdit.getText().toString();
     }
 
     protected boolean isNameUnchanged(@NonNull String name) {

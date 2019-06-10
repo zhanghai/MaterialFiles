@@ -19,6 +19,7 @@
     <dimen name="content_start_from_screen_edge_margin_minus_44dp">12dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="dialog_padding_minus_4dp">20dp</dimen>
+    <dimen name="dialog_padding_minus_6dp">18dp</dimen>
     <dimen name="navigation_header_height">172dp</dimen>
     <dimen name="tab_layout_height">48dp</dimen>
     <dimen name="list_vertical_padding">8dp</dimen>

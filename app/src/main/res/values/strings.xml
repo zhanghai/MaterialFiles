@@ -134,6 +134,10 @@
     <string name="file_delete_message_multiple_files_format">Delete %1$,d files?</string>
     <string name="file_delete_message_multiple_directories_format">Delete %1$,d folders and their contents?</string>
     <string name="file_delete_message_multiple_mixed_format">Delete %1$,d items?</string>
+    <string name="file_create_archive_title">Create archive</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
     <string name="file_create_file_title">New file</string>
     <string name="file_create_directory_title">New folder</string>
 
@@ -171,6 +175,7 @@
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
+    <string name="file_list_cab_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">Copying %1$,d</string>
@@ -186,6 +191,7 @@
     <string name="file_item_action_cut">Cut</string>
     <string name="file_item_action_copy">Copy</string>
     <string name="file_item_action_extract">Extract</string>
+    <string name="file_item_action_archive">Compress</string>
     <string name="file_item_action_delete">Delete</string>
     <string name="file_item_action_rename">Rename</string>
     <string name="file_item_action_send">@string/file_list_action_send</string>

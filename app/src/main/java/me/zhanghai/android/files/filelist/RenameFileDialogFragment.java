@@ -12,6 +12,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.FileNameUtils;
@@ -74,6 +75,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     }
 
     @Override
+    @StringRes
     protected int getTitleRes() {
         return R.string.file_rename_title;
     }

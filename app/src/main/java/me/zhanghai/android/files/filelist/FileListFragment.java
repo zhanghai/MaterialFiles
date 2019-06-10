@@ -72,8 +72,9 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
         FileListAdapter.Listener, ToolbarActionMode.Callback, OpenApkDialogFragment.Listener,
         OpenFileAsDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
-        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
-        CreateDirectoryDialogFragment.Listener, NavigationFragment.FileListListener {
+        CreateArchiveDialogFragment.Listener, RenameFileDialogFragment.Listener,
+        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
+        NavigationFragment.FileListListener {
 
     private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
 
@@ -650,6 +651,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_delete:
                 confirmDeleteFiles(mViewModel.getSelectedFiles());
                 return true;
+            case R.id.action_archive:
+                showCreateArchiveDialog(mViewModel.getSelectedFiles());
+                return true;
             case R.id.action_select_all:
                 selectAllFiles();
                 return true;
@@ -713,6 +717,19 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void deleteFiles(@NonNull Set<FileItem> files) {
         mViewModel.selectFiles(files, false);
         FileJobService.delete(makePathListForJob(files), requireContext());
+    }
+
+    private void showCreateArchiveDialog(@NonNull Set<FileItem> files) {
+        CreateArchiveDialogFragment.show(files, this);
+    }
+
+    @Override
+    public void archive(@NonNull Set<FileItem> files, @NonNull String name,
+                        @NonNull String archiveType, @Nullable String compressorType) {
+        mViewModel.selectFiles(files, false);
+        Path archiveFile = mViewModel.getCurrentPath().resolve(name);
+        FileJobService.archive(makePathListForJob(files), archiveFile, archiveType, compressorType,
+                requireContext());
     }
 
     @NonNull
@@ -824,6 +841,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void extractFile(@NonNull FileItem file) {
         copyFiles(Collections.singleton(FileUtils.createDummyFileItemForArchiveRoot(file)));
+    }
+
+    @Override
+    public void showCreateArchiveDialog(@NonNull FileItem file) {
+        showCreateArchiveDialog(Collections.singleton(file));
     }
 
     @Override

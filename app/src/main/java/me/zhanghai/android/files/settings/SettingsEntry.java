@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.settings;
 
+import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -16,7 +17,7 @@ public abstract class SettingsEntry<T> implements SharedPrefsUtils.Entry<T> {
     private final int mKeyResId;
     private final int mDefaultValueResId;
 
-    public SettingsEntry(@StringRes int keyResId, int defaultValueResId) {
+    public SettingsEntry(@StringRes int keyResId, @AnyRes int defaultValueResId) {
         mKeyResId = keyResId;
         mDefaultValueResId = defaultValueResId;
     }
@@ -27,6 +28,7 @@ public abstract class SettingsEntry<T> implements SharedPrefsUtils.Entry<T> {
         return AppApplication.getInstance().getString(mKeyResId);
     }
 
+    @AnyRes
     protected int getDefaultValueResId() {
         return mDefaultValueResId;
     }

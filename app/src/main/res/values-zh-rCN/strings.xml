@@ -123,6 +123,10 @@
     <string name="file_delete_message_multiple_files_format">删除 %1$,d 个文件？</string>
     <string name="file_delete_message_multiple_directories_format">删除 %1$,d 个文件夹和它们的内容？</string>
     <string name="file_delete_message_multiple_mixed_format">删除 %1$,d 个文件和文件夹?</string>
+    <string name="file_create_archive_title">新建压缩文件</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
     <string name="file_create_file_title">新建文件</string>
     <string name="file_create_directory_title">新建文件夹</string>
 
@@ -158,6 +162,7 @@
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
+    <string name="file_list_cab_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">移动 %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">复制 %1$,d</string>
@@ -173,6 +178,7 @@
     <string name="file_item_action_cut">剪切</string>
     <string name="file_item_action_copy">复制</string>
     <string name="file_item_action_extract">提取</string>
+    <string name="file_item_action_archive">压缩</string>
     <string name="file_item_action_delete">删除</string>
     <string name="file_item_action_rename">重命名</string>
     <string name="file_item_action_send">@string/file_list_action_send</string>

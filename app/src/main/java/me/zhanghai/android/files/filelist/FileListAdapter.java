@@ -267,6 +267,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                 case R.id.action_extract:
                     mListener.extractFile(file);
                     return true;
+                case R.id.action_archive:
+                    mListener.showCreateArchiveDialog(file);
+                    return true;
                 case R.id.action_send:
                     mListener.sendFile(file);
                     return true;
@@ -307,6 +310,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         void confirmDeleteFile(@NonNull FileItem file);
         void showRenameFileDialog(@NonNull FileItem file);
         void extractFile(@NonNull FileItem file);
+        void showCreateArchiveDialog(@NonNull FileItem file);
         void sendFile(@NonNull FileItem file);
         void copyPath(@NonNull FileItem file);
         void showPropertiesDialog(@NonNull FileItem file);

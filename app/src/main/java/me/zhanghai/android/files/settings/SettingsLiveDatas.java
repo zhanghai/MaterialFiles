@@ -22,6 +22,9 @@ public interface SettingsLiveDatas {
     SettingsLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new SettingsLiveData<>(
             Settings.FILE_LIST_SORT_DIRECTORIES_FIRST);
 
+    ResourceIdSettingsLiveData CREATE_ARCHIVE_TYPE = new ResourceIdSettingsLiveData(
+            Settings.CREATE_ARCHIVE_TYPE);
+
     SettingsLiveData<Boolean> FILE_LIST_ANIMATION = new SettingsLiveData<>(
             Settings.FILE_LIST_ANIMATION);
 

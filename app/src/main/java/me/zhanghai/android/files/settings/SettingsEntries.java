@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.settings;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -16,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.AnyRes;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.BoolRes;
 import androidx.annotation.IntegerRes;
@@ -203,15 +205,46 @@ public interface SettingsEntries {
                 LogUtils.w("Invalid ordinal " + ordinal + ", with key=" + getKey()
                         + ", enum values=" + Arrays.toString(mEnumValues)
                         + ", reverting to default value");
-                E enumValue = getDefaultEnumValue();
-                putEnumValue(enumValue);
-                return enumValue;
+                putValue(null);
+                return getDefaultEnumValue();
             }
             return mEnumValues[ordinal];
         }
 
         public void putEnumValue(@NonNull E value) {
             putValue(String.valueOf(value.ordinal()));
+        }
+    }
+
+    class ResourceIdSettingsEntry extends StringSettingsEntry {
+
+        public ResourceIdSettingsEntry(@StringRes int keyResId, @StringRes int defaultValueResId) {
+            super(keyResId, defaultValueResId);
+        }
+
+        @AnyRes
+        public int getDefaultResourceIdValue() {
+            Context context = AppApplication.getInstance();
+            return context.getResources().getIdentifier(getDefaultValue(), null,
+                    context.getPackageName());
+        }
+
+        @AnyRes
+        public int getResourceIdValue() {
+            Context context = AppApplication.getInstance();
+            int resourceId = context.getResources().getIdentifier(getValue(), null,
+                    context.getPackageName());
+            if (resourceId == 0) {
+                LogUtils.w("Invalid resource ID " + resourceId + ", with key=" + getKey()
+                        + ", string value=" + getValue() + ", reverting to default value");
+                putValue(null);
+                return getDefaultResourceIdValue();
+            }
+            return resourceId;
+        }
+
+        public void putResourceIdValue(@AnyRes int value) {
+            putValue(AppApplication.getInstance().getResources().getResourceName(value));
         }
     }
 

@@ -58,7 +58,8 @@ public class SharedPrefsUtils {
         getEditor().putString(entry.getKey(), value).apply();
     }
 
-    public static void putStringSet(@NonNull Entry<Set<String>> entry, @Nullable Set<String> value) {
+    public static void putStringSet(@NonNull Entry<Set<String>> entry,
+                                    @Nullable Set<String> value) {
         getEditor().putStringSet(entry.getKey(), value).apply();
     }
 
