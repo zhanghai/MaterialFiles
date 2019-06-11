@@ -79,9 +79,9 @@ public abstract class AbstractWatchService implements WatchService {
                 return;
             }
             onClose();
+            mClosed = true;
             mQueue.clear();
             mQueue.offer(KEY_CLOSED);
-            mClosed = true;
         }
     }
 
