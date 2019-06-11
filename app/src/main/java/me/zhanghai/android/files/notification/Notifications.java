@@ -23,7 +23,7 @@ public interface Notifications {
             String ID = "file_job_dialog";
             int NAME_RES = R.string.notification_channel_file_job_dialog_name;
             int DESCRIPTION_RES = R.string.notification_channel_file_job_dialog_description;
-            int IMPORTANCE = NotificationManagerCompat.IMPORTANCE_DEFAULT;
+            int IMPORTANCE = NotificationManagerCompat.IMPORTANCE_HIGH;
         }
     }
 
