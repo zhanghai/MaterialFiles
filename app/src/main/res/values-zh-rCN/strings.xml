@@ -260,36 +260,6 @@
     <string name="about_version_title">版本</string>
     <string name="about_github_title">在 GitHub 上查看</string>
     <string name="about_licenses_title">许可证</string>
-    <string name="about_licenses_html_style_light" translatable="false">
-        body {
-            font-family: sans-serif;
-            overflow-wrap: break-word;
-        }
-        pre {
-            background: #eeeeee;
-            padding: 1em;
-            white-space: pre-wrap;
-        }
-        a, a:link, a:visited, a:hover, a:focus, a:active {
-            color: #e91e63;
-        }
-    </string>
-    <string name="about_licenses_html_style_dark" translatable="false">
-        body {
-            background: #424242;
-            color: white;
-            font-family: sans-serif;
-            overflow-wrap: break-word;
-        }
-        pre {
-            background: #303030;
-            padding: 1em;
-            white-space: pre-wrap;
-        }
-        a, a:link, a:visited, a:hover, a:focus, a:active {
-            color: #e91e63;
-        }
-    </string>
     <string name="about_privacy_policy_title">隐私权政策</string>
     <string name="about_author_title">作者</string>
     <string name="about_author_name_title">张海</string>
