@@ -25,21 +25,24 @@ public class ToolbarActionMode {
     private static final String STATE_ACTIVE = STATE_PREFIX + "ACTIVE";
 
     @NonNull
-    private transient Toolbar mToolbar;
-    @NonNull
-    private transient Callback mCallback;
+    private final Toolbar mToolbar;
+
+    @Nullable
+    private Callback mCallback;
 
     @MenuRes
     private int mMenuRes;
-
-    private boolean mActive;
 
     public ToolbarActionMode(@NonNull Toolbar toolbar) {
         mToolbar = toolbar;
         ViewUtils.setVisibleOrGone(mToolbar, false);
         mToolbar.setNavigationOnClickListener(view -> finish());
-        mToolbar.setOnMenuItemClickListener(item -> mCallback.onToolbarActionModeItemClicked(this,
-                item));
+        mToolbar.setOnMenuItemClickListener(item -> {
+            if (mCallback == null) {
+                return false;
+            }
+            return mCallback.onToolbarActionModeItemClicked(this, item);
+        });
     }
 
     public void setTitle(@StringRes int titleRes) {
@@ -76,7 +79,7 @@ public class ToolbarActionMode {
     }
 
     public boolean isActive() {
-        return mActive;
+        return mCallback != null;
     }
 
     public void start(@NonNull Callback callback) {
@@ -85,7 +88,6 @@ public class ToolbarActionMode {
 
     private void start(@NonNull Callback callback, boolean animate) {
         mCallback = callback;
-        mActive = true;
         if (animate) {
             ViewUtils.fadeIn(mToolbar);
         } else {
@@ -95,9 +97,12 @@ public class ToolbarActionMode {
     }
 
     public void finish() {
+        if (mCallback == null) {
+            return;
+        }
         Callback callback = mCallback;
         mCallback = null;
-        mActive = false;
+        mToolbar.getMenu().close();
         ViewUtils.fadeOut(mToolbar);
         callback.onToolbarActionModeFinished(this);
     }
@@ -106,7 +111,7 @@ public class ToolbarActionMode {
         outState.putCharSequence(STATE_TITLE, mToolbar.getTitle());
         outState.putCharSequence(STATE_SUBTITLE, mToolbar.getSubtitle());
         outState.putInt(STATE_MENU_RES, mMenuRes);
-        outState.putBoolean(STATE_ACTIVE, mActive);
+        outState.putBoolean(STATE_ACTIVE, mCallback != null);
     }
 
     public void restoreInstanceState(@NonNull Bundle savedInstanceState,
