@@ -573,7 +573,7 @@ public class FileJobs {
                                         int max, int progress, boolean indeterminate,
                                         boolean showCancel) {
             Context context = getService();
-            NotificationCompat.Builder bulider = new NotificationCompat.Builder(context,
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                     FileJobNotificationManager.CHANNEL_ID)
                     .setColor(ContextCompat.getColor(context, R.color.color_primary))
                     .setSmallIcon(R.drawable.notification_icon)
@@ -593,10 +593,10 @@ public class FileJobs {
                         .putExtra(FileJobReceiver.EXTRA_JOB_ID, id);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id + 1, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
-                bulider.addAction(R.drawable.close_icon_white_24dp, getString(
+                builder.addAction(R.drawable.close_icon_white_24dp, getString(
                         android.R.string.cancel), pendingIntent);
             }
-            Notification notification = bulider.build();
+            Notification notification = builder.build();
             getService().getNotificationManager().notify(id, notification);
         }
 
