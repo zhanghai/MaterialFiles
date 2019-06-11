@@ -7,7 +7,7 @@
 
 <resources>
 
-    <string name="app_name">質感文件</string>
+    <string name="app_name">質感檔案</string>
 
     <string name="close">關閉</string>
     <string name="install">安裝</string>
@@ -31,6 +31,13 @@
     <string name="notification_channel_file_job_dialog_name">檔案操作對話框</string>
     <string name="notification_channel_file_job_dialog_description">打開檔案操作對話框</string>
 
+    <plurals name="file_job_archive_scan_notification_title">
+        <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one">正在將「%1$s」壓縮進「%2$s」</string>
+    <plurals name="file_job_archive_notification_title_multiple">
+        <item quantity="other">正在將 %1$,d 個檔案壓縮進「%2$s」</item>
+    </plurals>
     <plurals name="file_job_copy_scan_notification_title">
         <item quantity="other">正在準備複製 %1$,d 個檔案（%2$s）</item>
     </plurals>
@@ -52,8 +59,8 @@
     <plurals name="file_job_move_notification_title_multiple">
         <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」</item>
     </plurals>
-    <string name="file_job_copy_move_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_copy_move_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
         <item quantity="other">正在準備刪除 %1$,d 個檔案</item>
     </plurals>
@@ -61,7 +68,7 @@
     <plurals name="file_job_delete_notification_title_multiple">
         <item quantity="other">正在刪除 %1$,d 個檔案</item>
     </plurals>
-    <string name="file_job_delete_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
     <string name="file_job_cannot_extract_into_itself_title">無法將資料夾提取到自身</string>
     <string name="file_job_cannot_move_into_itself_title">無法將資料夾移動到自身</string>
@@ -81,6 +88,8 @@
     <string name="file_job_conflict_show_name">為目標選擇新的名稱</string>
     <string name="file_job_conflict_name_hint">新名稱</string>
     <string name="file_job_conflict_reset_name">重設</string>
+    <string name="file_job_archive_error_title_format">壓縮「%1$s」時發生錯誤</string>
+    <string name="file_job_archive_error_message_format">將檔案壓縮進「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_copy_error_title_format">複製「%1$s」時發生錯誤</string>
     <string name="file_job_copy_error_message_format">將檔案複製到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_extract_error_title_format">提取「%1$s」時發生錯誤</string>
@@ -114,6 +123,10 @@
     <string name="file_delete_message_multiple_files_format">刪除 %1$,d 個檔案？</string>
     <string name="file_delete_message_multiple_directories_format">刪除 %1$,d 個資料夾和它們的內容？</string>
     <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾?</string>
+    <string name="file_create_archive_title">新建壓縮檔案</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
     <string name="file_create_file_title">新建檔案</string>
     <string name="file_create_directory_title">新建資料夾</string>
 
@@ -149,6 +162,7 @@
     <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
+    <string name="file_list_cab_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">移動 %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">複製 %1$,d</string>
@@ -164,6 +178,7 @@
     <string name="file_item_action_cut">剪下</string>
     <string name="file_item_action_copy">複製</string>
     <string name="file_item_action_extract">提取</string>
+    <string name="file_item_action_archive">壓縮</string>
     <string name="file_item_action_delete">刪除</string>
     <string name="file_item_action_rename">重命名</string>
     <string name="file_item_action_send">@string/file_list_action_send</string>
@@ -194,7 +209,7 @@
     <string name="file_properties_permissions_mode_format">%1$s（%2$04o）</string>
     <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
 
-    <string name="main_title">文件</string>
+    <string name="main_title">檔案</string>
 
     <string name="navigation_root_directory">根目錄</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩餘 %1$s</string>
