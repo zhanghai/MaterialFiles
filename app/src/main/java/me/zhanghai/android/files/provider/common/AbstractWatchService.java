@@ -91,25 +91,29 @@ public abstract class AbstractWatchService implements WatchService {
 
         @Override
         public boolean isValid() {
-            return false;
+            throw new AssertionError();
         }
 
+        @NonNull
         @Override
         public List<WatchEvent<?>> pollEvents() {
-            return null;
+            throw new AssertionError();
         }
 
         @Override
         public boolean reset() {
-            return false;
+            throw new AssertionError();
         }
 
         @Override
-        public void cancel() {}
+        public void cancel() {
+            throw new AssertionError();
+        }
 
+        @NonNull
         @Override
         public Watchable watchable() {
-            return null;
+            throw new AssertionError();
         }
     }
 }
