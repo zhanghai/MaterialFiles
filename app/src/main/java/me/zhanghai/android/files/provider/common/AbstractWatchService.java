@@ -26,7 +26,7 @@ public abstract class AbstractWatchService implements WatchService {
     @NonNull
     private final LinkedBlockingQueue<WatchKey> mQueue = new LinkedBlockingQueue<>();
 
-    private boolean mClosed;
+    private volatile boolean mClosed;
 
     @NonNull
     private final Object mLock = new Object();
