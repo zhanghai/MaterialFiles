@@ -563,7 +563,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void openInNewTask(@NonNull Path path) {
-        Intent intent = MainActivity.makeIntent(path, requireContext())
+        Intent intent = MainActivity.newIntent(path, requireContext())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);

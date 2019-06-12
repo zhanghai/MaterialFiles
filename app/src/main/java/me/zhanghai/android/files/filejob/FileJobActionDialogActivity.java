@@ -21,12 +21,12 @@ public class FileJobActionDialogActivity extends AppCompatActivity {
     private FileJobActionDialogFragment mFragment;
 
     @NonNull
-    public static Intent makeIntent(@NonNull CharSequence title, @NonNull CharSequence message,
-                                    boolean showAll, @Nullable CharSequence positiveButtonText,
-                                    @Nullable CharSequence negativeButtonText,
-                                    @Nullable CharSequence neutralButtonText,
-                                    @NonNull FileJobActionDialogFragment.Listener listener,
-                                    @NonNull Context context) {
+    public static Intent newIntent(@NonNull CharSequence title, @NonNull CharSequence message,
+                                   boolean showAll, @Nullable CharSequence positiveButtonText,
+                                   @Nullable CharSequence negativeButtonText,
+                                   @Nullable CharSequence neutralButtonText,
+                                   @NonNull FileJobActionDialogFragment.Listener listener,
+                                   @NonNull Context context) {
         Intent intent = new Intent(context, FileJobActionDialogActivity.class);
         FileJobActionDialogFragment.putArguments(intent, title, message, showAll,
                 positiveButtonText, negativeButtonText, neutralButtonText, listener);

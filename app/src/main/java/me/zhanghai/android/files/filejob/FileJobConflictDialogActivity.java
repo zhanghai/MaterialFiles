@@ -22,10 +22,10 @@ public class FileJobConflictDialogActivity extends AppCompatActivity {
     private FileJobConflictDialogFragment mFragment;
 
     @NonNull
-    public static Intent makeIntent(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
-                                    @NonNull FileJobs.Base.CopyMoveType type,
-                                    @NonNull FileJobConflictDialogFragment.Listener listener,
-                                    @NonNull Context context) {
+    public static Intent newIntent(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
+                                   @NonNull FileJobs.Base.CopyMoveType type,
+                                   @NonNull FileJobConflictDialogFragment.Listener listener,
+                                   @NonNull Context context) {
         Intent intent = new Intent(context, FileJobConflictDialogActivity.class);
         FileJobConflictDialogFragment.putArguments(intent, sourceFile, targetFile, type, listener);
         return intent;

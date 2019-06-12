@@ -17,7 +17,7 @@ import me.zhanghai.android.files.util.FragmentUtils;
 public class StandardDirectoriesActivity extends AppCompatActivity {
 
     @NonNull
-    public static Intent makeIntent(@NonNull Context context) {
+    public static Intent newIntent(@NonNull Context context) {
         return new Intent(context, StandardDirectoriesActivity.class);
     }
 

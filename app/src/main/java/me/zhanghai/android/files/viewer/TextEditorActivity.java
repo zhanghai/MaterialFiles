@@ -20,7 +20,7 @@ public class TextEditorActivity extends AppCompatActivity {
     private TextEditorFragment mTextEditorFragment;
 
     @NonNull
-    public static Intent makeIntent(@NonNull Path path, @NonNull Context context) {
+    public static Intent newIntent(@NonNull Path path, @NonNull Context context) {
         Intent intent = new Intent(context, TextEditorActivity.class);
         TextEditorFragment.putArguments(intent, path);
         return intent;

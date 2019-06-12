@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment mMainFragment;
 
     @NonNull
-    public static Intent makeIntent(@Nullable Path path, @NonNull Context context) {
+    public static Intent newIntent(@Nullable Path path, @NonNull Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         MainFragment.putArguments(intent, path);
         return intent;

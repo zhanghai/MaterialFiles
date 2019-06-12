@@ -618,7 +618,7 @@ public class FileJobs {
             Service service = getService();
             try {
                 return new Promise<ActionResult>(settler ->
-                        service.startActivity(FileJobActionDialogActivity.makeIntent(title, message,
+                        service.startActivity(FileJobActionDialogActivity.newIntent(title, message,
                                 showAll, positiveButtonText, negativeButtonText, neutralButtonText,
                                 (action, all) -> settler.resolve(new ActionResult(action, all)),
                                 service)
@@ -641,7 +641,7 @@ public class FileJobs {
             Service service = getService();
             try {
                 return new Promise<ConflictResult>(settler ->
-                        service.startActivity(FileJobConflictDialogActivity.makeIntent(sourceFile,
+                        service.startActivity(FileJobConflictDialogActivity.newIntent(sourceFile,
                                 targetFile, type, (action, name, all) -> settler.resolve(
                                         new ConflictResult(action, name, all)), service)
                                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)))

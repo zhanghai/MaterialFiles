@@ -18,11 +18,11 @@ public class Terminal {
     private Terminal() {}
 
     public static boolean open(@NonNull String path, @NonNull Context context) {
-        return AppUtils.startActivity(makeIntent(path), context);
+        return AppUtils.startActivity(newIntent(path), context);
     }
 
     @NonNull
-    private static Intent makeIntent(@NonNull String path) {
+    private static Intent newIntent(@NonNull String path) {
         return new Intent()
                 .setComponent(new ComponentName("jackpal.androidterm",
                         "jackpal.androidterm.TermHere"))
