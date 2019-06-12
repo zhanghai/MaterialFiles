@@ -14,15 +14,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.util.FragmentUtils;
-import me.zhanghai.android.files.util.IntentPathUtils;
 
 public class TextEditorActivity extends AppCompatActivity {
 
     private TextEditorFragment mTextEditorFragment;
 
     @NonNull
-    public static Intent makeIntent(@NonNull Context context) {
-        return new Intent(context, TextEditorActivity.class);
+    public static Intent makeIntent(@NonNull Path path, @NonNull Context context) {
+        Intent intent = new Intent(context, TextEditorActivity.class);
+        TextEditorFragment.putArguments(intent, path);
+        return intent;
     }
 
     @Override
@@ -33,13 +34,7 @@ public class TextEditorActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            Path path = IntentPathUtils.getPath(getIntent());
-            if (path == null) {
-                // TODO: Show a toast.
-                finish();
-                return;
-            }
-            mTextEditorFragment = TextEditorFragment.newInstance(path);
+            mTextEditorFragment = TextEditorFragment.newInstance(getIntent());
             FragmentUtils.add(mTextEditorFragment, this, android.R.id.content);
         } else {
             mTextEditorFragment = FragmentUtils.findById(this, android.R.id.content);

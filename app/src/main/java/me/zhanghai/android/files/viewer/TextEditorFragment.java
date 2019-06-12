@@ -5,8 +5,8 @@
 
 package me.zhanghai.android.files.viewer;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,14 +26,12 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class TextEditorFragment extends Fragment {
 
-    private static final String KEY_PREFIX = TextEditorFragment.class.getName() + '.';
-
-    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
-
+    private Intent mIntent;
     private Path mExtraPath;
 
     @BindView(R.id.toolbar)
@@ -47,17 +45,21 @@ public class TextEditorFragment extends Fragment {
 
     private TextEditorViewModel mViewModel;
 
+    public static void putArguments(@NonNull Intent intent, @NonNull Path path) {
+        IntentPathUtils.putExtraPath(intent, path);
+    }
+
     @NonNull
-    public static TextEditorFragment newInstance(@NonNull Path path) {
+    public static TextEditorFragment newInstance(@NonNull Intent intent) {
         //noinspection deprecation
         TextEditorFragment fragment = new TextEditorFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_PATH, (Parcelable) path);
+                .putParcelable(Intent.EXTRA_INTENT, intent);
         return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance(Path)} instead.
+     * @deprecated Use {@link #newInstance(Intent)} instead.
      */
     public TextEditorFragment() {}
 
@@ -65,7 +67,8 @@ public class TextEditorFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
+        mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
+        mExtraPath = IntentPathUtils.getExtraPath(mIntent);
 
         setHasOptionsMenu(true);
     }
@@ -89,6 +92,12 @@ public class TextEditorFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        if (mExtraPath == null) {
+            // TODO: Show a toast.
+            activity.finish();
+            return;
+        }
+
         activity.setSupportActionBar(mToolbar);
 
         mViewModel = ViewModelProviders.of(this).get(TextEditorViewModel.class);

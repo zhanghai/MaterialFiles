@@ -161,7 +161,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         super.onCreate(savedInstanceState);
 
         mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
-        mExtraPath = IntentPathUtils.getPath(mIntent);
+        mExtraPath = IntentPathUtils.getExtraPath(mIntent);
 
         setHasOptionsMenu(true);
     }
