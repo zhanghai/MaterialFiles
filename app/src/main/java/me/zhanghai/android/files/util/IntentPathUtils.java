@@ -32,7 +32,7 @@ public class IntentPathUtils {
     }
 
     @Nullable
-    public static Path getExtraPath(@NonNull Intent intent) {
+    public static Path getPath(@NonNull Intent intent) {
 
         URI extraPathUri = (URI) intent.getSerializableExtra(EXTRA_PATH_URI);
         if (extraPathUri != null) {

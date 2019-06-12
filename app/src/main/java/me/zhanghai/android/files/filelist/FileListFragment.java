@@ -76,16 +76,13 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
         NavigationFragment.FileListListener {
 
-    private static final String KEY_PREFIX = FileListFragment.class.getName() + '.';
-
-    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
-
     private static final int REQUEST_CODE_STORAGE_PERMISSIONS = 1;
 
     private static final String[] STORAGE_PERMISSIONS = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 
+    private Intent mIntent;
     @Nullable
     private Path mExtraPath;
 
@@ -139,17 +136,23 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Nullable
     private Path mLastFile;
 
+    public static void putArguments(@NonNull Intent intent, @Nullable Path path) {
+        if (path != null) {
+            IntentPathUtils.putExtraPath(intent, path);
+        }
+    }
+
     @NonNull
-    public static FileListFragment newInstance(@Nullable Path path) {
+    public static FileListFragment newInstance(@NonNull Intent intent) {
         //noinspection deprecation
         FileListFragment fragment = new FileListFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_PATH, (Parcelable) path);
+                .putParcelable(Intent.EXTRA_INTENT, intent);
         return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance(Path)} instead.
+     * @deprecated Use {@link #newInstance(Intent)} instead.
      */
     public FileListFragment() {}
 
@@ -157,7 +160,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
+        mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
+        mExtraPath = IntentPathUtils.getPath(mIntent);
 
         setHasOptionsMenu(true);
     }
@@ -218,6 +222,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             Path path;
             if (mExtraPath != null) {
                 path = mExtraPath;
+                String mimeType = mIntent.getType();
+                if (mimeType != null && FileUtils.isArchiveFile(path, mimeType)) {
+                    path = ArchiveFileSystemProvider.getRootPathForArchiveFile(path);
+                }
             } else {
                 // TODO: Allow configuration.
                 path = Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath());

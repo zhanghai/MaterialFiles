@@ -148,10 +148,9 @@ public class MimeTypes {
                     .build();
 
     private static final Set<String> sSupportedArchiveMimeTypes = SetBuilder.<String>newHashSet()
-            .add("application/vnd.android.package-archive")
             .add("application/gzip")
             .add("application/java-archive")
-            .add("application/zip")
+            .add("application/vnd.android.package-archive")
             .add("application/vnd.debian.binary-package")
             // Requires O and handled in isSupportedArchive.
             //.add("application/x-7z-compressed")
@@ -166,6 +165,7 @@ public class MimeTypes {
             .add("application/x-lzma")
             .add("application/x-tar")
             .add("application/x-xz")
+            .add("application/zip")
             .buildUnmodifiable();
 
     @NonNull

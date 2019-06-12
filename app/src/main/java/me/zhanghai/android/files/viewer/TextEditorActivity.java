@@ -33,7 +33,7 @@ public class TextEditorActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            Path path = IntentPathUtils.getExtraPath(getIntent());
+            Path path = IntentPathUtils.getPath(getIntent());
             if (path == null) {
                 // TODO: Show a toast.
                 finish();

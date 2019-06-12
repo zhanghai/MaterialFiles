@@ -5,8 +5,8 @@
 
 package me.zhanghai.android.files.main;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,32 +27,31 @@ import me.zhanghai.android.files.util.FragmentUtils;
 
 public class MainFragment extends Fragment implements NavigationFragment.MainListener {
 
-    private static final String KEY_PREFIX = MainFragment.class.getName() + '.';
-
-    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
+    private Intent mIntent;
 
     @BindView(R.id.drawer)
     DrawerLayout mDrawerLayout;
-
-    @Nullable
-    private Path mExtraPath;
 
     @NonNull
     private NavigationFragment mNavigationFragment;
     @NonNull
     private FileListFragment mFileListFragment;
 
+    public static void putArguments(@NonNull Intent intent, @Nullable Path path) {
+        FileListFragment.putArguments(intent, path);
+    }
+
     @NonNull
-    public static MainFragment newInstance(@Nullable Path path) {
+    public static MainFragment newInstance(@NonNull Intent intent) {
         //noinspection deprecation
         MainFragment fragment = new MainFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_PATH, (Parcelable) path);
+                .putParcelable(Intent.EXTRA_INTENT, intent);
         return fragment;
     }
 
     /**
-     * @deprecated Use {@link #newInstance(Path)} instead.
+     * @deprecated Use {@link #newInstance(Intent)} instead.
      */
     public MainFragment() {}
 
@@ -60,7 +59,7 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
+        mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
 
         setHasOptionsMenu(true);
     }
@@ -77,10 +76,15 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
         super.onViewCreated(view, savedInstanceState);
 
         ButterKnife.bind(this, view);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         if (savedInstanceState == null) {
             mNavigationFragment = NavigationFragment.newInstance();
-            mFileListFragment = FileListFragment.newInstance(mExtraPath);
+            mFileListFragment = FileListFragment.newInstance(mIntent);
             // Add FileListFragment first so that NavigationFragment can observe its current file.
             FragmentUtils.add(mFileListFragment, this, R.id.file_list_fragment);
             FragmentUtils.add(mNavigationFragment, this, R.id.navigation_fragment);
@@ -88,11 +92,6 @@ public class MainFragment extends Fragment implements NavigationFragment.MainLis
             mFileListFragment = FragmentUtils.findById(this, R.id.file_list_fragment);
             mNavigationFragment = FragmentUtils.findById(this, R.id.navigation_fragment);
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
         mNavigationFragment.setListeners(this, mFileListFragment);
     }

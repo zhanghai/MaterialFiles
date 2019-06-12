@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.util.FragmentUtils;
-import me.zhanghai.android.files.util.IntentPathUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,13 +21,10 @@ public class MainActivity extends AppCompatActivity {
     private MainFragment mMainFragment;
 
     @NonNull
-    public static Intent makeIntent(@NonNull Context context) {
-        return new Intent(context, MainActivity.class);
-    }
-
-    @NonNull
-    public static Intent makeIntent(@NonNull Path path, @NonNull Context context) {
-        return IntentPathUtils.putExtraPath(makeIntent(context), path);
+    public static Intent makeIntent(@Nullable Path path, @NonNull Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        MainFragment.putArguments(intent, path);
+        return intent;
     }
 
     @Override
@@ -39,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            Path path = IntentPathUtils.getExtraPath(getIntent());
-            mMainFragment = MainFragment.newInstance(path);
+            mMainFragment = MainFragment.newInstance(getIntent());
             FragmentUtils.add(mMainFragment, this, android.R.id.content);
         } else {
             mMainFragment = FragmentUtils.findById(this, android.R.id.content);

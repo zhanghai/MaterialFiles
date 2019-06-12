@@ -63,9 +63,12 @@ public class FileUtils {
         return FileTypeNames.getTypeName(file.getMimeType(), extension, context);
     }
 
+    public static boolean isArchiveFile(@NonNull Path path, @NonNull String mimeType) {
+        return LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.isSupportedArchive(mimeType);
+    }
+
     public static boolean isArchiveFile(@NonNull FileItem file) {
-        return LinuxFileSystemProvider.isLinuxPath(file.getPath()) && MimeTypes.isSupportedArchive(
-                file.getMimeType());
+        return isArchiveFile(file.getPath(), file.getMimeType());
     }
 
     public static boolean isListable(@NonNull FileItem file) {
