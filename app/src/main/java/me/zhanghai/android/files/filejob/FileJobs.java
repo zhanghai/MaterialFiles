@@ -586,8 +586,8 @@ public class FileJobs {
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
                     // TODO
                     //.setContentIntent();
-            int id = getId();
             if (showCancel) {
+                int id = getId();
                 Intent intent = new Intent(context, FileJobReceiver.class)
                         .setAction(FileJobReceiver.ACTION_CANCEL)
                         .putExtra(FileJobReceiver.EXTRA_JOB_ID, id);
@@ -597,11 +597,7 @@ public class FileJobs {
                         android.R.string.cancel), pendingIntent);
             }
             Notification notification = builder.build();
-            getService().getNotificationManager().notify(id, notification);
-        }
-
-        protected void cancelNotification() {
-            getService().getNotificationManager().cancel(getId());
+            postNotification(notification);
         }
 
         @NonNull
@@ -873,34 +869,30 @@ public class FileJobs {
         @Override
         public void run() throws IOException {
             ScanInfo scanInfo = scan(mSources, R.plurals.file_job_archive_scan_notification_title);
-            try {
-                SeekableByteChannel channel = Files.newByteChannel(mArchiveFile,
-                        StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
-                boolean successful = false;
-                try (ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
-                        channel)) {
-                    TransferInfo transferInfo = new TransferInfo(scanInfo);
-                    for (Path source : mSources) {
-                        Path target = getTargetFileName(source);
-                        archiveRecursively(source, writer, target, transferInfo);
-                        throwIfInterrupted();
-                    }
-                    successful = true;
+            SeekableByteChannel channel = Files.newByteChannel(mArchiveFile,
+                    StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
+            boolean successful = false;
+            try (ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
+                    channel)) {
+                TransferInfo transferInfo = new TransferInfo(scanInfo);
+                for (Path source : mSources) {
+                    Path target = getTargetFileName(source);
+                    archiveRecursively(source, writer, target, transferInfo);
+                    throwIfInterrupted();
+                }
+                successful = true;
+            } finally {
+                try {
+                    channel.close();
                 } finally {
-                    try {
-                        channel.close();
-                    } finally {
-                        if (!successful) {
-                            try {
-                                Files.deleteIfExists(mArchiveFile);
-                            } catch (IOException | UnsupportedOperationException e) {
-                                e.printStackTrace();
-                            }
+                    if (!successful) {
+                        try {
+                            Files.deleteIfExists(mArchiveFile);
+                        } catch (IOException | UnsupportedOperationException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
-            } finally {
-                cancelNotification();
             }
         }
 
@@ -962,14 +954,10 @@ public class FileJobs {
                     : R.plurals.file_job_copy_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            try {
-                for (Path source : mSources) {
-                    Path target = MoreFiles.resolve(mTargetDirectory, getTargetFileName(source));
-                    copyRecursively(source, target, isExtract, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                }
-            } finally {
-                cancelNotification();
+            for (Path source : mSources) {
+                Path target = MoreFiles.resolve(mTargetDirectory, getTargetFileName(source));
+                copyRecursively(source, target, isExtract, transferInfo, actionAllInfo);
+                throwIfInterrupted();
             }
         }
 
@@ -1054,13 +1042,9 @@ public class FileJobs {
             ScanInfo scanInfo = scan(mPaths, R.plurals.file_job_delete_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            try {
-                for (Path path : mPaths) {
-                    deleteRecursively(path, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                }
-            } finally {
-                cancelNotification();
+            for (Path path : mPaths) {
+                deleteRecursively(path, transferInfo, actionAllInfo);
+                throwIfInterrupted();
             }
         }
 
@@ -1132,14 +1116,10 @@ public class FileJobs {
                     R.plurals.file_job_move_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            try {
-                for (Path source : sourcesToMove) {
-                    Path target = MoreFiles.resolve(mTargetDirectory, source.getFileName());
-                    moveRecursively(source, target, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                }
-            } finally {
-                cancelNotification();
+            for (Path source : sourcesToMove) {
+                Path target = MoreFiles.resolve(mTargetDirectory, source.getFileName());
+                moveRecursively(source, target, transferInfo, actionAllInfo);
+                throwIfInterrupted();
             }
         }
 
