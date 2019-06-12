@@ -76,6 +76,11 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Move(sources, targetDirectory), context);
     }
 
+    public static void open(@NonNull Path file, @NonNull String mimeType,
+                            @NonNull Context context) {
+        startJob(new FileJobs.Open(file, mimeType), context);
+    }
+
     public static void rename(@NonNull Path path, @NonNull String newName,
                               @NonNull Context context) {
         startJob(new FileJobs.Rename(path, newName), context);

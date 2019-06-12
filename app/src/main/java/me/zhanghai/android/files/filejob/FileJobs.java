@@ -10,10 +10,12 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutionException;
@@ -32,11 +34,13 @@ import java8.nio.file.FileVisitResult;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
+import java8.nio.file.Paths;
 import java8.nio.file.SimpleFileVisitor;
 import java8.nio.file.StandardCopyOption;
 import java8.nio.file.StandardOpenOption;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
@@ -44,6 +48,9 @@ import me.zhanghai.android.files.provider.archive.archiver.ArchiveWriter;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
+import me.zhanghai.android.files.util.AppUtils;
+import me.zhanghai.android.files.util.IntentPathUtils;
+import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.PathFileNameUtils;
 import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.promise.Promise;
@@ -1186,6 +1193,41 @@ public class FileJobs {
                     return FileVisitResult.CONTINUE;
                 }
             });
+        }
+    }
+
+    public static class Open extends Base {
+
+        @NonNull
+        private final Path mFile;
+        @NonNull
+        private final String mMimeType;
+
+        public Open(@NonNull Path file, @NonNull String mimeType) {
+            mFile = file;
+            mMimeType = mimeType;
+        }
+
+        @Override
+        public void run() throws IOException {
+            boolean isExtract = ArchiveFileSystemProvider.isArchivePath(mFile);
+            ScanInfo scanInfo = scan(Collections.singletonList(mFile), isExtract ?
+                    R.plurals.file_job_extract_scan_notification_title
+                    : R.plurals.file_job_copy_scan_notification_title);
+            Context context = getService();
+            Path cacheDirectory = Paths.get(context.getCacheDir().getPath(), "open_cache");
+            Files.createDirectories(cacheDirectory);
+            Path path = MoreFiles.resolve(cacheDirectory, getTargetFileName(mFile));
+            TransferInfo transferInfo = new TransferInfo(scanInfo);
+            ActionAllInfo actionAllInfo = new ActionAllInfo();
+            actionAllInfo.replace = true;
+            copy(mFile, path, isExtract, transferInfo, actionAllInfo);
+            Uri uri = FileProvider.getUriForPath(path);
+            Intent intent = IntentUtils.makeView(uri, mMimeType)
+                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            IntentPathUtils.putExtraPath(intent, path);
+            AppUtils.startActivity(intent, context);
         }
     }
 

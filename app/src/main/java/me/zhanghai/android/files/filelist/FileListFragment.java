@@ -791,16 +791,15 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void openFileAs(@NonNull FileItem file, @NonNull String mimeType) {
         Path path = file.getPath();
-        Uri uri = FileProvider.getUriForPath(path);
-        Intent intent = IntentUtils.makeView(uri, mimeType)
-                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        IntentPathUtils.putExtraPath(intent, path);
-        // TODO: Archive provider only supports newInputStream() but not newByteChannel(), which
-        //  makes it unable to be exposed by our FileProvider.
-        if (!LinuxFileSystemProvider.isLinuxPath(path)) {
-            intent.setPackage(requireContext().getPackageName());
+        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+            Uri uri = FileProvider.getUriForPath(path);
+            Intent intent = IntentUtils.makeView(uri, mimeType)
+                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            IntentPathUtils.putExtraPath(intent, path);
+            AppUtils.startActivity(intent, this);
+        } else {
+            FileJobService.open(path, mimeType, requireContext());
         }
-        AppUtils.startActivity(intent, this);
     }
 
     @Override
