@@ -11,7 +11,9 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
@@ -1215,7 +1217,7 @@ public class FileJobs {
                     R.plurals.file_job_extract_scan_notification_title
                     : R.plurals.file_job_copy_scan_notification_title);
             Context context = getService();
-            Path cacheDirectory = Paths.get(context.getCacheDir().getPath(), "open_cache");
+            Path cacheDirectory = Paths.get(getCacheDirectory().getPath(), "open_cache");
             Files.createDirectories(cacheDirectory);
             Path path = MoreFiles.resolve(cacheDirectory, getTargetFileName(mFile));
             TransferInfo transferInfo = new TransferInfo(scanInfo);
@@ -1228,6 +1230,18 @@ public class FileJobs {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             IntentPathUtils.putExtraPath(intent, path);
             AppUtils.startActivity(intent, context);
+        }
+
+        @NonNull
+        private File getCacheDirectory() {
+            Context context = getService();
+            File externalCacheDirectory = context.getExternalCacheDir();
+            if (externalCacheDirectory != null && Objects.equals(
+                    Environment.getExternalStorageState(externalCacheDirectory),
+                    Environment.MEDIA_MOUNTED)) {
+                return externalCacheDirectory;
+            }
+            return context.getCacheDir();
         }
     }
 
