@@ -61,8 +61,7 @@ public class FileJobActionDialogFragment extends DialogFragment {
     CheckBox mAllCheck;
 
     public static void putArguments(@NonNull Intent intent, @NonNull CharSequence title,
-                                    @NonNull CharSequence message,
-                                    boolean showAll,
+                                    @NonNull CharSequence message, boolean showAll,
                                     @Nullable CharSequence positiveButtonText,
                                     @Nullable CharSequence negativeButtonText,
                                     @Nullable CharSequence neutralButtonText,
