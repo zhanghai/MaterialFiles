@@ -16,7 +16,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.ParcelFileDescriptor;
 import android.os.storage.StorageManager;
-import android.os.storage.StorageVolume;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.system.ErrnoException;
@@ -41,7 +40,6 @@ import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.AccessDeniedException;
 import java8.nio.file.FileSystemException;
 import java8.nio.file.FileSystemLoopException;
-import java8.nio.file.FileSystems;
 import java8.nio.file.Files;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.OpenOption;
@@ -51,13 +49,12 @@ import java8.nio.file.StandardOpenOption;
 import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.compat.ProxyFileDescriptorCallbackCompat;
 import me.zhanghai.android.files.compat.StorageManagerCompat;
-import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.provider.common.ForceableChannel;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
-import me.zhanghai.java.functional.Functional;
 
 public class FileProvider extends ContentProvider {
 
@@ -180,7 +177,7 @@ public class FileProvider extends ContentProvider {
         // ContentProvider has already checked granted permissions
         Path path = getPathForUri(uri);
         int modeBits = ParcelFileDescriptor.parseMode(mode);
-        if (isInsideStorageVolume(path)) {
+        if (canOpenDirectly(path, modeBits)) {
             return ParcelFileDescriptor.open(path.toFile(), modeBits);
         }
         // Allowing other apps to write to files that require root access is dangerous.
@@ -205,15 +202,20 @@ public class FileProvider extends ContentProvider {
         }
     }
 
-    private boolean isInsideStorageVolume(@NonNull Path path) {
-        if (path.getFileSystem() != FileSystems.getDefault()) {
+    private static boolean canOpenDirectly(@NonNull Path path, int mode) {
+        if (!LinuxFileSystemProvider.isLinuxPath(path)) {
             return false;
         }
-        StorageManager storageManager = ContextCompat.getSystemService(getContext(),
-                StorageManager.class);
-        List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
-        return Functional.some(storageVolumes, storageVolume ->
-                path.startsWith(Paths.get(StorageVolumeCompat.getPath(storageVolume))));
+        File file = path.toFile();
+        boolean readOnly = (mode & ParcelFileDescriptor.MODE_READ_ONLY)
+                == ParcelFileDescriptor.MODE_READ_ONLY;
+        boolean writeOnly = (mode & ParcelFileDescriptor.MODE_WRITE_ONLY)
+                == ParcelFileDescriptor.MODE_WRITE_ONLY;
+        boolean readWrite = (mode & ParcelFileDescriptor.MODE_READ_WRITE)
+                == ParcelFileDescriptor.MODE_READ_WRITE;
+        boolean needRead = readOnly || readWrite;
+        boolean needWrite = writeOnly || readWrite;
+        return !(needRead && !file.canRead()) || (needWrite && !file.canWrite());
     }
 
     @NonNull
