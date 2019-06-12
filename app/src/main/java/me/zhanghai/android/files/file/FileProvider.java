@@ -255,7 +255,7 @@ public class FileProvider extends ContentProvider {
         }
     }
 
-    @Nullable
+    @NonNull
     public static Uri getUriForPath(@NonNull Path path) {
         String uriPath = Uri.encode(path.toUri().toString());
         return new Uri.Builder()
