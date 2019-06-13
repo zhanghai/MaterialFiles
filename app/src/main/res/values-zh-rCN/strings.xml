@@ -235,6 +235,9 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_error_format">保存时发生错误：%1$s</string>
     <string name="text_editor_save_success">已保存</string>
+    <string name="text_editor_close_message">您确定要舍弃对文档未保存的变更吗？</string>
+    <string name="text_editor_close_keep_editing">继续编辑</string>
+    <string name="text_editor_close_discard">舍弃</string>
 
     <string name="settings_title">设置</string>
     <string name="settings_interface_title">界面</string>

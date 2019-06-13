@@ -34,7 +34,7 @@ import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class TextEditorFragment extends Fragment {
+public class TextEditorFragment extends Fragment implements ConfirmCloseDialogFragment.Listener {
 
     private Intent mIntent;
     private Path mExtraPath;
@@ -151,8 +151,9 @@ public class TextEditorFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
-                AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                activity.finish();
+                if (!onFinish()) {
+                    finish();
+                }
                 return true;
             }
             case R.id.action_save:
@@ -164,8 +165,20 @@ public class TextEditorFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
-        // TODO
+        return onFinish();
+    }
+
+    private boolean onFinish() {
+        if (mViewModel.isTextChanged()) {
+            ConfirmCloseDialogFragment.show(this);
+            return true;
+        }
         return false;
+    }
+
+    @Override
+    public void finish() {
+        requireActivity().finish();
     }
 
     private void onFileContentChanged(@NonNull FileContentData fileContentData) {

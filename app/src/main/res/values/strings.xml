@@ -248,6 +248,9 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_error_format">Error while saving: %1$s</string>
     <string name="text_editor_save_success">Saved</string>
+    <string name="text_editor_close_message">Are you sure you want to discard unsaved changes to the document?</string>
+    <string name="text_editor_close_keep_editing">Keep editing</string>
+    <string name="text_editor_close_discard">Discard</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>
