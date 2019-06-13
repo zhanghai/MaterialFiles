@@ -8,6 +8,8 @@ package me.zhanghai.android.files.viewer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
+import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class TextEditorFragment extends Fragment {
@@ -42,6 +45,9 @@ public class TextEditorFragment extends Fragment {
     TextView mErrorView;
     @BindView(R.id.text)
     EditText mTextEdit;
+
+    @Nullable
+    private MenuItem mSaveMenuItem;
 
     private TextEditorViewModel mViewModel;
 
@@ -105,8 +111,24 @@ public class TextEditorFragment extends Fragment {
         //  rid of the mPathLiveData in TextEditorViewModel.
         mViewModel.setPath(mExtraPath);
         mViewModel.getFileContentLiveData().observe(this, this::onFileContentChanged);
+        mViewModel.getWriteFileStateLiveData().observe(this, this::onWriteFileStateChanged);
 
         // TODO: Request storage permission if not granted.
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.text_editor, menu);
+        mSaveMenuItem = menu.findItem(R.id.action_save);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        updateSaveMenuItem();
     }
 
     @Override
@@ -117,6 +139,9 @@ public class TextEditorFragment extends Fragment {
                 activity.finish();
                 return true;
             }
+            case R.id.action_save:
+                save();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -149,11 +174,45 @@ public class TextEditorFragment extends Fragment {
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
                 ViewUtils.fadeIn(mTextEdit);
+                // TODO: Charset.
                 mTextEdit.setText(new String(fileContentData.content));
                 break;
             }
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    private void save() {
+        // TODO: Charset
+        byte[] content = mTextEdit.getText().toString().getBytes();
+        mViewModel.getWriteFileStateLiveData().write(mExtraPath, content);
+    }
+
+    private void onWriteFileStateChanged(@NonNull WriteFileStateLiveData.State state) {
+        WriteFileStateLiveData liveData = mViewModel.getWriteFileStateLiveData();
+        switch (state) {
+            case READY:
+            case WRITING:
+                updateSaveMenuItem();
+                break;
+            case ERROR:
+                ToastUtils.show(getString(R.string.text_editor_save_error_format,
+                        liveData.getException().getLocalizedMessage()), requireContext());
+                liveData.reset();
+                break;
+            case SUCCESS:
+                ToastUtils.show(R.string.text_editor_save_success, requireContext());
+                liveData.reset();
+                break;
+        }
+    }
+
+    private void updateSaveMenuItem() {
+        if (mSaveMenuItem == null) {
+            return;
+        }
+        WriteFileStateLiveData liveData = mViewModel.getWriteFileStateLiveData();
+        mSaveMenuItem.setEnabled(liveData.getValue() == WriteFileStateLiveData.State.READY);
     }
 }

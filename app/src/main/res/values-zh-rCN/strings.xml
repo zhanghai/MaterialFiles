@@ -11,6 +11,7 @@
 
     <string name="close">关闭</string>
     <string name="install">安装</string>
+    <string name="save">保存</string>
     <string name="search">搜索</string>
     <string name="view">查看</string>
 
@@ -230,6 +231,8 @@
     <string name="navigation_about">@string/about_title</string>
 
     <string name="text_editor_title">文本编辑器</string>
+    <string name="text_editor_save_error_format">保存时发生错误：%1$s</string>
+    <string name="text_editor_save_success">已保存</string>
 
     <string name="settings_title">设置</string>
     <string name="settings_interface_title">界面</string>
