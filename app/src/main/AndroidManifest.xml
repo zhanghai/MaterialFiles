@@ -108,7 +108,7 @@
             android:theme="@style/AppTheme.Translucent" />
 
         <activity
-            android:name="me.zhanghai.android.files.viewer.TextEditorActivity"
+            android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"
             android:label="@string/text_editor_title"
             android:theme="@style/AppTheme">
             <!-- TODO: Support viewing content URIs. -->

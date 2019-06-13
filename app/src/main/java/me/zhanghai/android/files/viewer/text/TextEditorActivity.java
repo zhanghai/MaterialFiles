@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.viewer;
+package me.zhanghai.android.files.viewer.text;
 
 import android.content.Context;
 import android.content.Intent;
