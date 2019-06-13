@@ -33,6 +33,10 @@ public class TextEditorViewModel extends ViewModel {
         }
     }
 
+    public void reload() {
+        mPathLiveData.setValue(mPathLiveData.getValue());
+    }
+
     @NonNull
     public LiveData<FileContentData> getFileContentLiveData() {
         return mFileContentLiveData;
@@ -53,6 +57,10 @@ public class TextEditorViewModel extends ViewModel {
     }
 
     public void setTextChanged(boolean changed) {
+        if (mFileContentLiveData.getValue().state != FileContentData.State.SUCCESS) {
+            // Might happen if the animation is running and user is quick enough.
+            return;
+        }
         mTextChangedLiveData.setValue(changed);
     }
 

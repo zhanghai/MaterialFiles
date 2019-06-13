@@ -159,6 +159,9 @@ public class TextEditorFragment extends Fragment implements ConfirmCloseDialogFr
             case R.id.action_save:
                 save();
                 return true;
+            case R.id.action_reload:
+                reload();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -224,6 +227,11 @@ public class TextEditorFragment extends Fragment implements ConfirmCloseDialogFr
         String title = getString(changed ? R.string.text_editor_title_changed_format
                 : R.string.text_editor_title_format, fileName);
         requireActivity().setTitle(title);
+    }
+
+    private void reload() {
+        mViewModel.setTextChanged(false);
+        mViewModel.reload();
     }
 
     private void save() {

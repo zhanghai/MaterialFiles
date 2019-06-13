@@ -17,4 +17,10 @@
         android:title="@string/save"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/action_reload"
+        android:orderInCategory="100"
+        android:title="@string/reload"
+        app:showAsAction="never" />
 </menu>

@@ -11,6 +11,7 @@
 
     <string name="close">Close</string>
     <string name="install">Install</string>
+    <string name="reload">Reload</string>
     <string name="save">Save</string>
     <string name="search">Search</string>
     <string name="view">View</string>

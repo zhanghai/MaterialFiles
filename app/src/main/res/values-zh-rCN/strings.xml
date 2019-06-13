@@ -11,6 +11,7 @@
 
     <string name="close">关闭</string>
     <string name="install">安装</string>
+    <string name="reload">重新加载</string>
     <string name="save">保存</string>
     <string name="search">搜索</string>
     <string name="view">查看</string>
