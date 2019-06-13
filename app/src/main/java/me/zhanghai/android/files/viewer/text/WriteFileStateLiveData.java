@@ -37,7 +37,7 @@ public class WriteFileStateLiveData extends LiveData<WriteFileStateLiveData.Stat
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void write(@NonNull Path file, @NonNull byte[] content) {
+    public void write(@NonNull Path path, @NonNull byte[] content) {
         if (getValue() != State.READY) {
             throw new IllegalStateException(getValue().toString());
         }
@@ -47,7 +47,7 @@ public class WriteFileStateLiveData extends LiveData<WriteFileStateLiveData.Stat
             @Override
             @WorkerThread
             protected Exception doInBackground(Void... parameters) {
-                try (OutputStream outputStream = Files.newOutputStream(file,
+                try (OutputStream outputStream = Files.newOutputStream(path,
                         StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING,
                         StandardOpenOption.CREATE)) {
                     MoreFiles.copy(new ByteArrayInputStream(content), outputStream, null, 0);
