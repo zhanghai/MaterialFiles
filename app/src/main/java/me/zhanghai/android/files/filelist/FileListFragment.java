@@ -296,8 +296,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        updateSortOptionsMenu();
-        updateShowHiddenFilesMenu();
+        updateSortOptionsMenuItems();
+        updateShowHiddenFilesMenuItem();
     }
 
     @Override
@@ -452,10 +452,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void onSortOptionsChanged(@NonNull FileSortOptions sortOptions) {
         mAdapter.setComparator(sortOptions.makeComparator());
-        updateSortOptionsMenu();
+        updateSortOptionsMenuItems();
     }
 
-    private void updateSortOptionsMenu() {
+    private void updateSortOptionsMenuItems() {
         if (mSortByNameMenuItem == null || mSortByTypeMenuItem == null
                 || mSortBySizeMenuItem == null || mSortByLastModifiedMenuItem == null
                 || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null) {
@@ -504,7 +504,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void onShowHiddenFilesChanged(boolean showHiddenFiles) {
         updateAdapterFileList();
-        updateShowHiddenFilesMenu();
+        updateShowHiddenFilesMenuItem();
     }
 
     private void updateAdapterFileList() {
@@ -519,7 +519,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mAdapter.replace(files);
     }
 
-    private void updateShowHiddenFilesMenu() {
+    private void updateShowHiddenFilesMenuItem() {
         if (mShowHiddenFilesMenuItem == null) {
             return;
         }
