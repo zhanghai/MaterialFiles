@@ -7,6 +7,8 @@ package me.zhanghai.android.files.viewer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -111,7 +113,21 @@ public class TextEditorFragment extends Fragment {
         //  rid of the mPathLiveData in TextEditorViewModel.
         mViewModel.setPath(mExtraPath);
         mViewModel.getFileContentLiveData().observe(this, this::onFileContentChanged);
+        mViewModel.getTextChangedLiveData().observe(this, this::onTextChangedChanged);
         mViewModel.getWriteFileStateLiveData().observe(this, this::onWriteFileStateChanged);
+
+        mTextEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(@NonNull CharSequence text, int start, int count,
+                                          int after) {}
+            @Override
+            public void onTextChanged(@NonNull CharSequence text, int start, int before,
+                                      int count) {}
+            @Override
+            public void afterTextChanged(@NonNull Editable text) {
+                mViewModel.setTextChanged(true);
+            }
+        });
 
         // TODO: Request storage permission if not granted.
     }
@@ -153,7 +169,7 @@ public class TextEditorFragment extends Fragment {
     }
 
     private void onFileContentChanged(@NonNull FileContentData fileContentData) {
-        requireActivity().setTitle(fileContentData.path.getFileName().toString());
+        updateTitle();
         switch (fileContentData.state) {
             case LOADING: {
                 ViewUtils.fadeIn(mProgress);
@@ -170,17 +186,31 @@ public class TextEditorFragment extends Fragment {
                 ViewUtils.fadeOut(mTextEdit);
                 //mTextEdit.setText(null);
                 break;
-            case SUCCESS: {
+            case SUCCESS:
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
                 ViewUtils.fadeIn(mTextEdit);
-                // TODO: Charset.
-                mTextEdit.setText(new String(fileContentData.content));
+                if (!mViewModel.isTextChanged()) {
+                    // TODO: Charset.
+                    mTextEdit.setText(new String(fileContentData.content));
+                    mViewModel.setTextChanged(false);
+                }
                 break;
-            }
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    private void onTextChangedChanged(boolean changed) {
+        updateTitle();
+    }
+
+    private void updateTitle() {
+        String fileName = mViewModel.getFileContentData().path.getFileName().toString();
+        boolean changed = mViewModel.isTextChanged();
+        String title = getString(changed ? R.string.text_editor_title_changed_format
+                : R.string.text_editor_title_format, fileName);
+        requireActivity().setTitle(title);
     }
 
     private void save() {
@@ -204,6 +234,7 @@ public class TextEditorFragment extends Fragment {
             case SUCCESS:
                 ToastUtils.show(R.string.text_editor_save_success, requireContext());
                 liveData.reset();
+                mViewModel.setTextChanged(false);
                 break;
         }
     }

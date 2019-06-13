@@ -23,6 +23,8 @@ public class TextEditorViewModel extends ViewModel {
     private final LiveData<FileContentData> mFileContentLiveData = Transformations.switchMap(
             mPathLiveData, FileContentLiveData::new);
 
+    private final MutableLiveData<Boolean> mTextChangedLiveData = new MutableLiveData<>(false);
+
     private final WriteFileStateLiveData mWriteFileStateLiveData = new WriteFileStateLiveData();
 
     public void setPath(@NonNull Path path) {
@@ -34,6 +36,24 @@ public class TextEditorViewModel extends ViewModel {
     @NonNull
     public LiveData<FileContentData> getFileContentLiveData() {
         return mFileContentLiveData;
+    }
+
+    @NonNull
+    public FileContentData getFileContentData() {
+        return mFileContentLiveData.getValue();
+    }
+
+    @NonNull
+    public LiveData<Boolean> getTextChangedLiveData() {
+        return mTextChangedLiveData;
+    }
+
+    public boolean isTextChanged() {
+        return mTextChangedLiveData.getValue();
+    }
+
+    public void setTextChanged(boolean changed) {
+        mTextChangedLiveData.setValue(changed);
     }
 
     @NonNull

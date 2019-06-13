@@ -231,6 +231,8 @@
     <string name="navigation_about">@string/about_title</string>
 
     <string name="text_editor_title">文本编辑器</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_error_format">保存时发生错误：%1$s</string>
     <string name="text_editor_save_success">已保存</string>
 
