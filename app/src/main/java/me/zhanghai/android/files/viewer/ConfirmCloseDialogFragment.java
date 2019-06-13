@@ -45,7 +45,7 @@ public class ConfirmCloseDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     private Listener getListener() {
-        return (Listener) getParentFragment();
+        return (Listener) requireParentFragment();
     }
 
     public interface Listener {

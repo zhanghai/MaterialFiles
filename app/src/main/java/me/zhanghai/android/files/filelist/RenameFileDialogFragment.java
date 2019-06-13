@@ -93,7 +93,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     @NonNull
     @Override
     protected Listener getListener() {
-        return (Listener) getParentFragment();
+        return (Listener) requireParentFragment();
     }
 
     public interface Listener extends FileNameDialogFragment.Listener {

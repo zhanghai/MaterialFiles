@@ -110,7 +110,7 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     protected Listener getListener() {
-        return (Listener) getParentFragment();
+        return (Listener) requireParentFragment();
     }
 
     protected interface Listener {

@@ -83,7 +83,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
 
     @NonNull
     private Listener getListener() {
-        return (Listener) getParentFragment();
+        return (Listener) requireParentFragment();
     }
 
     public interface Listener {
