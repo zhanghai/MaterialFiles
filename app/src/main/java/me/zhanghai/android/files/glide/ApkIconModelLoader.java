@@ -9,11 +9,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Options;
+import com.bumptech.glide.load.data.DataFetcher;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
@@ -40,7 +40,7 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
     @Override
     public boolean handles(@NonNull Model model) {
         String path = getPath(model);
-        if (TextUtils.isEmpty(path)) {
+        if (path == null) {
             return false;
         }
         String mimeType = MimeTypes.getMimeType(path);
@@ -51,10 +51,10 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
     @Override
     public LoadData<Drawable> buildLoadData(@NonNull Model model, int width, int height,
                                             @NonNull Options options) {
-        return new LoadData<>(new ObjectKey(model), new DataFetcher(getPath(model), context));
+        return new LoadData<>(new ObjectKey(model), new Fetcher(getPath(model), context));
     }
 
-    @NonNull
+    @Nullable
     private String getPath(@NonNull Model model) {
         if (model instanceof String) {
             return (String) model;
@@ -63,21 +63,22 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
             return file.getPath();
         } else if (model instanceof Path) {
             Path path = (Path) model;
-            if (LinuxFileSystemProvider.isLinuxPath(path)) {
-                return path.toFile().getPath();
+            if (!LinuxFileSystemProvider.isLinuxPath(path)) {
+                return null;
             }
+            return path.toFile().getPath();
         }
-        throw new IllegalArgumentException("Unable to get path from model: " + model);
+        throw new AssertionError(model);
     }
 
-    private static class DataFetcher implements com.bumptech.glide.load.data.DataFetcher<Drawable> {
+    private static class Fetcher implements DataFetcher<Drawable> {
 
         @NonNull
         private final String path;
         @NonNull
         private final Context context;
 
-        public DataFetcher(@NonNull String path, @NonNull Context context) {
+        public Fetcher(@NonNull String path, @NonNull Context context) {
             this.path = path;
             this.context = context.getApplicationContext();
         }

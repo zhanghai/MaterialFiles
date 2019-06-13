@@ -7,12 +7,14 @@ package me.zhanghai.android.files.glide;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.ParcelFileDescriptor;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 
 import java.io.File;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import androidx.annotation.NonNull;
@@ -38,5 +40,8 @@ public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
         registry.prepend(String.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
         registry.prepend(File.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
         registry.prepend(Path.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
+        registry.append(Path.class, InputStream.class, new PathInputStreamModelLoader.Factory());
+        registry.append(Path.class, ParcelFileDescriptor.class,
+                new PathParcelFileDescriptorModelLoader.Factory());
     }
 }

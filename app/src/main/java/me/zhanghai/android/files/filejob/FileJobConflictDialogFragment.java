@@ -235,9 +235,10 @@ public class FileJobConflictDialogFragment extends DialogFragment {
                 mimeType));
         BasicFileAttributes attributes = file.getAttributes();
         Path path = file.getPath();
+        // TODO: Allow other providers as well - but might be resource consuming.
         if (LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(this)
-                    .load(path.toFile())
+                    .load(path)
                     .signature(new ObjectKey(attributes.lastModifiedTime()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(iconImage));

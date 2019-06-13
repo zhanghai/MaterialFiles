@@ -198,9 +198,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                 MimeTypes.getIconRes(mimeType));
         BasicFileAttributes attributes = file.getAttributes();
         Path path = file.getPath();
+        // TODO: Allow other providers as well - but might be resource consuming.
         if (LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.supportsThumbnail(mimeType)) {
             GlideApp.with(mFragment)
-                    .load(path.toFile())
+                    .load(path)
                     .signature(new ObjectKey(attributes.lastModifiedTime()))
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(holder.iconImage));
