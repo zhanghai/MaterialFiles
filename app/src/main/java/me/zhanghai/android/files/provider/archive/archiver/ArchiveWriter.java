@@ -79,8 +79,10 @@ public class ArchiveWriter implements Closeable {
                     compressorOutputStream = compressorType != null ?
                             sCompressorStreamFactory.createCompressorOutputStream(compressorType,
                                     bufferedOutputStream) : bufferedOutputStream;
+                    // Use the platform default encoding (which is UTF-8) instead of the user-set
+                    // one, because that one is for reading archives instead of creating.
                     mArchiveOutputStream = sArchiveStreamFactory.createArchiveOutputStream(
-                            archiveType, compressorOutputStream, /* TODO: Encoding */ null);
+                            archiveType, compressorOutputStream);
                     successful = true;
                 } catch (org.apache.commons.compress.archivers.ArchiveException e) {
                     throw new ArchiveException(e);
