@@ -34,7 +34,8 @@ import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class TextEditorFragment extends Fragment implements ConfirmCloseDialogFragment.Listener {
+public class TextEditorFragment extends Fragment implements ConfirmReloadDialogFragment.Listener,
+        ConfirmCloseDialogFragment.Listener {
 
     private Intent mIntent;
     private Path mExtraPath;
@@ -160,7 +161,7 @@ public class TextEditorFragment extends Fragment implements ConfirmCloseDialogFr
                 save();
                 return true;
             case R.id.action_reload:
-                reload();
+                onReload();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -229,7 +230,16 @@ public class TextEditorFragment extends Fragment implements ConfirmCloseDialogFr
         requireActivity().setTitle(title);
     }
 
-    private void reload() {
+    private void onReload() {
+        if (mViewModel.isTextChanged()) {
+            ConfirmReloadDialogFragment.show(this);
+        } else {
+            reload();
+        }
+    }
+
+    @Override
+    public void reload() {
         mViewModel.setTextChanged(false);
         mViewModel.reload();
     }

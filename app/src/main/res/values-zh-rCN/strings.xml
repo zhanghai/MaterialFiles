@@ -10,7 +10,9 @@
     <string name="app_name">质感文件</string>
 
     <string name="close">关闭</string>
+    <string name="discard">舍弃</string>
     <string name="install">安装</string>
+    <string name="keep_editing">继续编辑</string>
     <string name="reload">重新加载</string>
     <string name="save">保存</string>
     <string name="search">搜索</string>
@@ -236,9 +238,8 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_error_format">保存时发生错误：%1$s</string>
     <string name="text_editor_save_success">已保存</string>
-    <string name="text_editor_close_message">您确定要舍弃对文档未保存的变更吗？</string>
-    <string name="text_editor_close_keep_editing">继续编辑</string>
-    <string name="text_editor_close_discard">舍弃</string>
+    <string name="text_editor_reload_message">您确定要重新加载吗？对此文档未保存的变更将丢失。</string>
+    <string name="text_editor_close_message">您确定要舍弃对此文档未保存的变更吗？</string>
 
     <string name="settings_title">设置</string>
     <string name="settings_interface_title">界面</string>

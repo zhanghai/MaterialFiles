@@ -10,7 +10,9 @@
     <string name="app_name">質感檔案</string>
 
     <string name="close">關閉</string>
+    <string name="discard">捨棄</string>
     <string name="install">安裝</string>
+    <string name="keep_editing">繼續編輯</string>
     <string name="reload">重新載入</string>
     <string name="save">儲存</string>
     <string name="search">搜尋</string>
@@ -236,9 +238,8 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_error_format">儲存時發生錯誤：%1$s</string>
     <string name="text_editor_save_success">已儲存</string>
-    <string name="text_editor_close_message">您確定要捨棄對文件未保存的變更嗎？</string>
-    <string name="text_editor_close_keep_editing">繼續編輯</string>
-    <string name="text_editor_close_discard">捨棄</string>
+    <string name="text_editor_reload_message">您確定要重新載入嗎？對此文件未儲存的變更將丟失。</string>
+    <string name="text_editor_close_message">您確定要捨棄對此文件未儲存的變更嗎？</string>
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">界面</string>
