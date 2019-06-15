@@ -17,6 +17,7 @@
     <string name="save">Save</string>
     <string name="search">Search</string>
     <string name="share">Share</string>
+    <string name="unknown">Unknown</string>
     <string name="view">View</string>
 
     <!-- android.R.string.app_not_found -->

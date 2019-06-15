@@ -17,6 +17,7 @@
     <string name="save">保存</string>
     <string name="search">搜索</string>
     <string name="share">分享</string>
+    <string name="unknown">未知</string>
     <string name="view">查看</string>
 
     <!-- android.R.string.app_not_found -->

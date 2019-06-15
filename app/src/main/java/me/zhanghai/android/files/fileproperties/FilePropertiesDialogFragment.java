@@ -100,8 +100,10 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
         mTabAdapter = new TabFragmentPagerAdapter(this);
         mTabAdapter.addTab(() -> FilePropertiesBasicTabFragment.newInstance(mExtraFile), getString(
                 R.string.file_properties_basic));
-        mTabAdapter.addTab(() -> FilePropertiesPermissionsTabFragment.newInstance(mExtraFile),
-                getString(R.string.file_properties_permissions));
+        if (FilePropertiesPermissionsTabFragment.isAvailable(mExtraFile)) {
+            mTabAdapter.addTab(() -> FilePropertiesPermissionsTabFragment.newInstance(mExtraFile),
+                    getString(R.string.file_properties_permissions));
+        }
         mViewPager.setOffscreenPageLimit(mTabAdapter.getCount() - 1);
         mViewPager.setAdapter(mTabAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
