@@ -66,6 +66,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha01'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha05'
+    implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.0'
     implementation 'com.google.android.material:material:1.1.0-alpha07'
