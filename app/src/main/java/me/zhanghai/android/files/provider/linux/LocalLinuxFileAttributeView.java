@@ -84,7 +84,9 @@ public class LocalLinuxFileAttributeView implements PosixFileAttributeView {
                 seLinuxContext = Syscalls.getfilecon(mPath);
             }
         } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath.toString());
+            // Filesystem may not support xattrs and SELinux calls may fail with EOPNOTSUPP.
+            e.toFileSystemException(mPath.toString()).printStackTrace();
+            seLinuxContext = null;
         }
         return new LinuxFileAttributes(stat, owner, group, seLinuxContext);
     }
