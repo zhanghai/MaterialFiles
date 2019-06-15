@@ -21,9 +21,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.java.functional.Functional;
 
 public class CreateArchiveDialogFragment extends FileNameDialogFragment {
 
@@ -67,9 +69,19 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         if (savedInstanceState == null) {
+            String name = null;
             if (mExtraFiles.size() == 1) {
                 FileItem file = CollectionUtils.first(mExtraFiles);
-                String name = file.getPath().getFileName().toString();
+                name = file.getPath().getFileName().toString();
+            } else {
+                Set<Path> parents = Functional.map(mExtraFiles, file -> file.getPath().getParent(),
+                        new HashSet<>());
+                if (parents.size() == 1) {
+                    Path parent = CollectionUtils.first(parents);
+                    name = parent.getFileName().toString();
+                }
+            }
+            if (name != null) {
                 mNameEdit.setText(name);
                 mNameEdit.setSelection(0, name.length());
             }
