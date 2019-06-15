@@ -4,7 +4,7 @@
 
 An open source Material Design file manager, for Android 5.0+.
 
-Download: [Google Play](https://play.google.com/store/apps/details?id=me.zhanghai.android.files), [Coolapk](https://www.coolapk.com/apk/me.zhanghai.android.files), [APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.3/app-release.apk)
+Download: [Google Play](https://play.google.com/store/apps/details?id=me.zhanghai.android.files), [Coolapk](https://www.coolapk.com/apk/me.zhanghai.android.files), [APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.4/app-release.apk)
 
 ## Preview
 
@@ -59,10 +59,9 @@ Because I know people can do it right.
 
 So, it's time for yet another Android file manager.
 
-## Things not yet in Beta 3…
+## Things not yet in Beta 4…
 
 - Search files.
-- Extracting archives.
 - More in [Issues](https://github.com/zhanghai/MaterialFiles/issues).
 
 ## License

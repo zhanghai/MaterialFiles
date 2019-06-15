@@ -2,7 +2,7 @@
 
 一个开源的 Material Design 文件管理器，适用于 Android 5.0+。
 
-下载：[Google Play](https://play.google.com/store/apps/details?id=me.zhanghai.android.files)、[酷安](https://www.coolapk.com/apk/me.zhanghai.android.files)、[APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.3/app-release.apk)
+下载：[Google Play](https://play.google.com/store/apps/details?id=me.zhanghai.android.files)、[酷安](https://www.coolapk.com/apk/me.zhanghai.android.files)、[APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.4/app-release.apk)
 
 ## 预览
 
@@ -57,10 +57,9 @@
 
 所以，是时候再制作一个 Android 文件管理器了。
 
-## Beta 3 中尚未实现的功能…
+## Beta 4 中尚未实现的功能…
 
 - 搜索文件。
-- 提取压缩文件。
 - [Issues](https://github.com/zhanghai/MaterialFiles/issues) 中的更多。
 
 ## 许可证
