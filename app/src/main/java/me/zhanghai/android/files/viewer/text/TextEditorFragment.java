@@ -100,13 +100,13 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        AppCompatActivity activity = (AppCompatActivity) requireActivity();
         if (mExtraPath == null) {
             // TODO: Show a toast.
-            activity.finish();
+            finish();
             return;
         }
 
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
         mViewModel = ViewModelProviders.of(this).get(TextEditorViewModel.class);

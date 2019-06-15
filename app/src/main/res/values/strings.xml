@@ -16,6 +16,7 @@
     <string name="reload">Reload</string>
     <string name="save">Save</string>
     <string name="search">Search</string>
+    <string name="share">Share</string>
     <string name="view">View</string>
 
     <!-- android.R.string.app_not_found -->
@@ -246,6 +247,8 @@
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
 
+    <string name="image_viewer_title">Image viewer</string>
+    <string name="image_viewer_subtitle_format">%1$d/%2$d</string>
     <string name="text_editor_title">Text editor</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>

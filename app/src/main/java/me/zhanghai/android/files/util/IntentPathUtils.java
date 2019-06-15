@@ -10,18 +10,24 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.Paths;
+import java9.util.function.Function;
+import me.zhanghai.java.functional.Functional;
 
 public class IntentPathUtils {
 
     private static final String KEY_PREFIX = IntentPathUtils.class.getName() + '.';
 
     private static final String EXTRA_PATH_URI = KEY_PREFIX + "PATH_URI";
+
+    private static final String EXTRA_PATH_URI_LIST = KEY_PREFIX + "PATH_URI_LIST";
 
     private IntentPathUtils() {}
 
@@ -53,5 +59,25 @@ public class IntentPathUtils {
         }
 
         return null;
+    }
+
+    @NonNull
+    public static Intent putExtraPathList(@NonNull Intent intent, @NonNull List<Path> paths) {
+        // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
+        ArrayList<URI> pathUris = Functional.map(paths, Path::toUri);
+        return intent.putExtra(EXTRA_PATH_URI_LIST, pathUris);
+    }
+
+    @NonNull
+    public static List<Path> getExtraPathList(@NonNull Intent intent) {
+
+        //noinspection unchecked
+        List<URI> extraPathUris = (List<URI>) intent.getSerializableExtra(EXTRA_PATH_URI_LIST);
+        if (extraPathUris != null) {
+            return Functional.map(extraPathUris, (Function<URI, Path>) Paths::get);
+        }
+
+        Path extraPath = getExtraPath(intent);
+        return CollectionUtils.singletonListOrEmpty(extraPath);
     }
 }

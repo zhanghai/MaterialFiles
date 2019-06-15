@@ -15,10 +15,24 @@
     </notice>
 
     <notice>
+        <name>SubsamplingScaleImageView</name>
+        <url>https://github.com/davemorrissey/subsampling-scale-image-view</url>
+        <copyright>Copyright 2016 David Morrissey</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>Glide</name>
         <url>https://github.com/bumptech/glide</url>
         <copyright>Copyright 2014 Google, Inc.</copyright>
         <license>BSD 2-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>PhotoView</name>
+        <url>https://github.com/chrisbanes/PhotoView</url>
+        <copyright>Copyright 2011, 2012 Chris Banes</copyright>
+        <license>Apache Software License 2.0</license>
     </notice>
 
     <notice>
@@ -89,6 +103,13 @@
         <url>https://github.com/zhanghai/AndroidRetroFile</url>
         <copyright>Copyright 2018 Hai Zhang</copyright>
         <license>GNU General Public License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>SystemUiHelper</name>
+        <url>https://github.com/zhanghai/SystemUiHelper</url>
+        <copyright>Copyright 2015 Hai Zhang</copyright>
+        <license>Apache Software License 2.0</license>
     </notice>
 
     <notice>

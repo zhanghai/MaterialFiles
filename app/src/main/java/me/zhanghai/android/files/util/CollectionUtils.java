@@ -7,6 +7,7 @@ package me.zhanghai.android.files.util;
 
 import java.util.AbstractList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.RandomAccess;
@@ -59,8 +60,8 @@ public class CollectionUtils {
         return lastOrNull(list);
     }
 
-    public static <E> void push(@NonNull List<? super E> list, E item) {
-        list.add(item);
+    public static <E> void push(@NonNull List<? super E> list, E element) {
+        list.add(element);
     }
 
     public static <E> E pop(@NonNull List<? extends E> list) {
@@ -92,6 +93,26 @@ public class CollectionUtils {
         return list1Size >= list2.size() && FunctionalIterator.everyRemaining(
                 new FunctionalIterator.ReverseIterator<>(list2), (element, index) ->
                         ObjectsCompat.equals(list1.get(list1Size - 1 - index), element));
+    }
+
+    @Nullable
+    public static <E> Set<E> singletonOrNull(@Nullable E element) {
+        return element != null ? Collections.singleton(element) : null;
+    }
+
+    @Nullable
+    public static <E> List<E> singletonListOrNull(@Nullable E element) {
+        return element != null ? Collections.singletonList(element) : null;
+    }
+
+    @NonNull
+    public static <E> Set<E> singletonOrEmpty(@Nullable E element) {
+        return element != null ? Collections.singleton(element) : Collections.emptySet();
+    }
+
+    @NonNull
+    public static <E> List<E> singletonListOrEmpty(@Nullable E element) {
+        return element != null ? Collections.singletonList(element) : Collections.emptyList();
     }
 
     @NonNull

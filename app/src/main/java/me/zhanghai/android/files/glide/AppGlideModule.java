@@ -31,6 +31,7 @@ public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
     @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide,
                                    @NonNull Registry registry) {
+        registry.prepend(InputStream.class, ImageInfo.class, new ImageInfoResourceDecoder());
         registry.prepend(String.class, ByteBuffer.class,
                 new MediaEmbeddedPictureModelLoader.Factory<>());
         registry.prepend(File.class, ByteBuffer.class,
