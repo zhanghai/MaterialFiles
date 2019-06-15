@@ -13,6 +13,10 @@
 
     <color name="pink_500">#E91E63</color>
 
+    <color name="dark_30_percent">#4d000000</color>
+    <color name="dark_50_percent">#80000000</color>
+    <color name="dark_70_percent">#b3000000</color>
+
     <color name="file_icon_blue">#4883F3</color>
     <color name="file_icon_green">#16A765</color>
     <color name="file_icon_orange">#FF7537</color>

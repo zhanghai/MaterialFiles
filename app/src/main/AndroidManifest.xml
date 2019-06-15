@@ -129,7 +129,7 @@
         <activity
             android:name="me.zhanghai.android.files.viewer.image.ImageViewerActivity"
             android:label="@string/image_viewer_title"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme.Immersive">
             <!-- TODO: Support viewing content URIs. -->
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />

@@ -36,4 +36,17 @@
     </style>
     <style name="Base.AppTheme.Translucent" parent="Base.V21.AppTheme.Translucent" />
     <style name="AppTheme.Translucent" parent="Base.AppTheme.Translucent" />
+
+    <style name="Base.V21.AppTheme.Immersive" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:navigationBarColor">@color/dark_70_percent</item>
+        <item name="android:statusBarColor">@color/dark_70_percent</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Base.AppTheme.Immersive" parent="Base.V21.AppTheme.Immersive" />
+    <style name="AppTheme.Immersive" parent="Base.AppTheme.Immersive" />
 </resources>
