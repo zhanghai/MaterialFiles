@@ -30,7 +30,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:visibility="invisible" />
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -38,6 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:visibility="invisible"
+        android:visibility="gone"
         style="@style/Widget.AppCompat.ProgressBar" />
 </FrameLayout>

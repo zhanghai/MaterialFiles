@@ -150,7 +150,7 @@ public class ViewUtils {
     }
 
     public static void crossfade(@NonNull View fromView, @NonNull View toView) {
-        crossfade(fromView, toView, false);
+        crossfade(fromView, toView, true);
     }
 
     public static void fadeOutThenFadeIn(@NonNull View fromView, @NonNull View toView, int duration,
@@ -164,7 +164,7 @@ public class ViewUtils {
     }
 
     public static void fadeOutThenFadeIn(@NonNull View fromView, @NonNull View toView) {
-        fadeOutThenFadeIn(fromView, toView, false);
+        fadeOutThenFadeIn(fromView, toView, true);
     }
 
     @Dimension
