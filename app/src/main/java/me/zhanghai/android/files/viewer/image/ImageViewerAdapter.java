@@ -80,7 +80,7 @@ public class ImageViewerAdapter extends ViewStatePagerAdapter {
                 .with(holder.progress)
                 .asImageInfo()
                 .load(path)
-                .listener(new RequestListener<ImageInfo>() {
+                .addListener(new RequestListener<ImageInfo>() {
                     @Override
                     public boolean onResourceReady(@NonNull ImageInfo resource,
                                                    @NonNull Object model,
@@ -120,7 +120,7 @@ public class ImageViewerAdapter extends ViewStatePagerAdapter {
                     .placeholder(android.R.color.transparent)
                     .transition(DrawableTransitionOptions.withCrossFade(ViewUtils.getShortAnimTime(
                             holder.image)))
-                    .listener(new RequestListener<Drawable>() {
+                    .addListener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onResourceReady(@NonNull Drawable drawable,
                                                        @NonNull Object model,
