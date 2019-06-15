@@ -150,9 +150,9 @@ public class FileJobs {
                 throw e;
             } catch (IOException e) {
                 ActionResult result = showActionDialog(
-                        getString(R.string.file_job_archive_error_title_format, file.getFileName()),
+                        getString(R.string.file_job_archive_error_title_format, getFileName(file)),
                         getString(R.string.file_job_archive_error_message_format,
-                                archiveFile.getFileName(), e.getLocalizedMessage()),
+                                getFileName(archiveFile), e.getLocalizedMessage()),
                         false,
                         null,
                         getString(android.R.string.cancel),
@@ -366,11 +366,11 @@ public class FileJobs {
                             getString(type.getResource(R.string.file_job_copy_error_title_format,
                                     R.string.file_job_extract_error_title_format,
                                     R.string.file_job_move_error_title_format),
-                                    source.getFileName()),
+                                    getFileName(source)),
                             getString(type.getResource(R.string.file_job_copy_error_message_format,
                                     R.string.file_job_extract_error_message_format,
                                     R.string.file_job_move_error_message_format),
-                                    targetParent.getFileName(), e.getLocalizedMessage()),
+                                    getFileName(targetParent), e.getLocalizedMessage()),
                             true,
                             getString(R.string.file_job_action_retry),
                             getString(R.string.file_job_action_skip),
@@ -425,8 +425,8 @@ public class FileJobs {
             long size = transferInfo.getSize();
             long transferredSize = transferInfo.getTransferredSize();
             if (fileCount == 1) {
-                title = getString(titleOneRes, currentSource.getFileName(),
-                        targetParent.getFileName());
+                title = getString(titleOneRes, getFileName(currentSource), getFileName(
+                        targetParent));
                 Context context = getService();
                 String sizeString = FormatUtils.formatHumanReadableSize(size, context);
                 String transferredSizeString = FormatUtils.formatHumanReadableSize(transferredSize,
@@ -434,8 +434,8 @@ public class FileJobs {
                 text = getString(R.string.file_job_transfer_size_notification_text_one,
                         transferredSizeString, sizeString);
             } else {
-                title = getQuantityString(titleMultipleRes, fileCount, fileCount,
-                        targetParent.getFileName());
+                title = getQuantityString(titleMultipleRes, fileCount, fileCount, getFileName(
+                        targetParent));
                 int currentFileIndex = Math.min(transferInfo.getTransferredFileCount() + 1,
                         fileCount);
                 text = getString(R.string.file_job_transfer_size_notification_text_multiple,
@@ -491,7 +491,7 @@ public class FileJobs {
                     ActionResult result = showActionDialog(
                             getString(R.string.file_job_delete_error_title),
                             getString(R.string.file_job_delete_error_message_format,
-                                    path.getFileName(), e.getLocalizedMessage()),
+                                    getFileName(path), e.getLocalizedMessage()),
                             true,
                             getString(R.string.file_job_action_retry),
                             getString(R.string.file_job_action_skip),
@@ -541,7 +541,7 @@ public class FileJobs {
             boolean indeterminate;
             int fileCount = transferInfo.getFileCount();
             if (fileCount == 1) {
-                title = getString(titleOneRes, currentPath.getFileName());
+                title = getString(titleOneRes, getFileName(currentPath));
                 text = null;
                 max = 0;
                 progress = 0;
@@ -557,6 +557,11 @@ public class FileJobs {
                 indeterminate = false;
             }
             postNotification(title, text, null, null, max, progress, indeterminate, true);
+        }
+
+        private static String getFileName(@NonNull Path path) {
+            return path.isAbsolute() && path.getNameCount() == 0 ?
+                    path.getFileSystem().getSeparator() : path.getFileName().toString();
         }
 
         protected void moveAtomically(@NonNull Path source, @NonNull Path target)
