@@ -20,10 +20,15 @@ import me.zhanghai.android.files.util.FragmentUtils;
 public class ImageViewerActivity extends AppCompatActivity {
 
     @NonNull
-    public static Intent newIntent(@NonNull List<Path> paths, int position, @NonNull Context context) {
+    public static Intent newIntent(@NonNull List<Path> paths, int position,
+                                   @NonNull Context context) {
         Intent intent = new Intent(context, ImageViewerActivity.class);
-        ImageViewerFragment.putArguments(intent, paths, position);
+        putExtras(intent, paths, position);
         return intent;
+    }
+
+    public static void putExtras(@NonNull Intent intent, @NonNull List<Path> paths, int position) {
+        ImageViewerFragment.putArguments(intent, paths, position);
     }
 
     @Override

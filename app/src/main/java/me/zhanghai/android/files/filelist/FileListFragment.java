@@ -25,6 +25,7 @@ import android.widget.TextView;
 import com.google.android.material.appbar.AppBarLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -66,6 +67,7 @@ import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
+import me.zhanghai.android.files.viewer.image.ImageViewerActivity;
 import me.zhanghai.java.functional.Functional;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
@@ -804,10 +806,32 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             Intent intent = IntentUtils.makeView(uri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             IntentPathUtils.putExtraPath(intent, path);
+            maybeAddImageViewerActivityExtras(intent, file, mimeType);
             AppUtils.startActivity(intent, this);
         } else {
             FileJobService.open(path, mimeType, requireContext());
         }
+    }
+
+    private void maybeAddImageViewerActivityExtras(@NonNull Intent intent, @NonNull FileItem file,
+                                                   @NonNull String mimeType) {
+        if (!MimeTypes.isImage(mimeType) || !MimeTypes.isImage(file.getMimeType())) {
+            return;
+        }
+        List<Path> paths = new ArrayList<>();
+        // We need the ordered list from our adapter instead of the list from FileListLiveData.
+        for (int i = 0; i < mAdapter.getItemCount(); ++i) {
+            FileItem adapterFile = mAdapter.getItem(i);
+            if (!MimeTypes.isImage(adapterFile.getMimeType())) {
+                continue;
+            }
+            paths.add(adapterFile.getPath());
+        }
+        int position = paths.indexOf(file.getPath());
+        if (position == -1) {
+            return;
+        }
+        ImageViewerActivity.putExtras(intent, paths, position);
     }
 
     @Override
@@ -832,8 +856,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public boolean hasFileWithName(@NonNull String name) {
-        FileListData fileListData = mViewModel.getFileListLiveData().getValue();
-        if (fileListData == null || fileListData.state != FileListData.State.SUCCESS) {
+        FileListData fileListData = mViewModel.getFileListData();
+        if (fileListData.state != FileListData.State.SUCCESS) {
             return false;
         }
         return Functional.some(fileListData.fileList, path -> Objects.equals(FileUtils.getName(

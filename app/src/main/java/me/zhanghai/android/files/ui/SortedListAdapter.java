@@ -42,7 +42,7 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         mSortedList.clear();
     }
 
-    protected T getItem(int position) {
+    public T getItem(int position) {
         return mSortedList.get(position);
     }
 
