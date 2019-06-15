@@ -1,11 +1,11 @@
 #!/bin/bash
 set -e
-inkscape -e launcher_icon-mdpi.png -w 48 -h 48 launcher_icon.svg
-inkscape -e launcher_icon-hdpi.png -w 72 -h 72 launcher_icon.svg
-inkscape -e launcher_icon-xhdpi.png -w 96 -h 96 launcher_icon.svg
-inkscape -e launcher_icon-xxhdpi.png -w 144 -h 144 launcher_icon.svg
-inkscape -e launcher_icon-xxxhdpi.png -w 192 -h 192 launcher_icon.svg
-inkscape -e launcher_icon-web.png -D -w 512 -h 512 launcher_icon.svg
+inkscape -e launcher_icon-mdpi.png -a 15:15:93:93 -w 48 -h 48 launcher_icon.svg
+inkscape -e launcher_icon-hdpi.png -a 15:15:93:93 -w 72 -h 72 launcher_icon.svg
+inkscape -e launcher_icon-xhdpi.png -a 15:15:93:93 -w 96 -h 96 launcher_icon.svg
+inkscape -e launcher_icon-xxhdpi.png -a 15:15:93:93 -w 144 -h 144 launcher_icon.svg
+inkscape -e launcher_icon-xxxhdpi.png -a 15:15:93:93 -w 192 -h 192 launcher_icon.svg
+inkscape -e launcher_icon-web.png -a 18:18:90:90 -w 512 -h 512 launcher_icon.svg
 
 cp launcher_icon.svg launcher_icon_foreground.svg
 inkscape --select=circle-clip-group --verb=SelectionUnGroup --verb=EditDeselect --select=circle --select=circle-edge-top --select=circle-edge-bottom --verb=EditDelete --verb=FileSave --verb=FileQuit launcher_icon_foreground.svg
