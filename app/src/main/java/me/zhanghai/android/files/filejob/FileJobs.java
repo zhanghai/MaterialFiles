@@ -177,32 +177,33 @@ public class FileJobs {
                     R.plurals.file_job_archive_notification_title_multiple);
         }
 
-        protected void copy(@NonNull Path source, @NonNull Path target, boolean isExtract,
-                            @NonNull TransferInfo transferInfo,
-                            @NonNull ActionAllInfo actionAllInfo) throws IOException {
-            copyOrMove(source, target, isExtract ? CopyMoveType.EXTRACT : CopyMoveType.COPY, true,
-                    false, transferInfo, actionAllInfo);
+        protected boolean copy(@NonNull Path source, @NonNull Path target, boolean isExtract,
+                               @NonNull TransferInfo transferInfo,
+                               @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            return copyOrMove(source, target, isExtract ? CopyMoveType.EXTRACT : CopyMoveType.COPY,
+                    true, false, transferInfo, actionAllInfo);
         }
 
-        protected void copyForMove(@NonNull Path source, @NonNull Path target,
-                                   @NonNull TransferInfo transferInfo,
-                                   @NonNull ActionAllInfo actionAllInfo) throws IOException {
-            copyOrMove(source, target, CopyMoveType.MOVE, true, true, transferInfo, actionAllInfo);
+        protected boolean copyForMove(@NonNull Path source, @NonNull Path target,
+                                      @NonNull TransferInfo transferInfo,
+                                      @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            return copyOrMove(source, target, CopyMoveType.MOVE, true, true, transferInfo,
+                    actionAllInfo);
         }
 
         // @see https://github.com/GNOME/nautilus/blob/master/src/nautilus-file-operations.c
         //      copy_move_file
-        private void copyOrMove(@NonNull Path source, @NonNull Path target,
-                                @NonNull CopyMoveType type, boolean useCopy, boolean copyAttributes,
-                                @NonNull TransferInfo transferInfo,
-                                @NonNull ActionAllInfo actionAllInfo) throws IOException {
+        private boolean copyOrMove(@NonNull Path source, @NonNull Path target,
+                                   @NonNull CopyMoveType type, boolean useCopy,
+                                   boolean copyAttributes, @NonNull TransferInfo transferInfo,
+                                   @NonNull ActionAllInfo actionAllInfo) throws IOException {
             Path targetParent = target.getParent();
             if (targetParent.startsWith(source)) {
                 // Don't allow copy/move into the source itself.
                 if (actionAllInfo.skipCopyMoveIntoItself) {
                     transferInfo.skipFile(source);
                     postCopyMoveNotification(transferInfo, source, targetParent, type);
-                    return;
+                    return false;
                 }
                 ActionResult result = showActionDialog(
                         getString(type.getResource(R.string.file_job_cannot_copy_into_itself_title,
@@ -222,7 +223,7 @@ public class FileJobs {
                     case CANCELED:
                         transferInfo.skipFile(source);
                         postCopyMoveNotification(transferInfo, source, targetParent, type);
-                        return;
+                        return false;
                     case NEGATIVE:
                         throw new InterruptedIOException();
                     default:
@@ -234,7 +235,7 @@ public class FileJobs {
                 if (actionAllInfo.skipCopyMoveOverItself) {
                     transferInfo.skipFile(source);
                     postCopyMoveNotification(transferInfo, source, targetParent, type);
-                    return;
+                    return false;
                 }
                 ActionResult result = showActionDialog(
                         getString(type.getResource(R.string.file_job_cannot_copy_over_itself_title,
@@ -254,7 +255,7 @@ public class FileJobs {
                     case CANCELED:
                         transferInfo.skipFile(source);
                         postCopyMoveNotification(transferInfo, source, targetParent, type);
-                        return;
+                        return false;
                     case NEGATIVE:
                         throw new InterruptedIOException();
                     default:
@@ -308,7 +309,7 @@ public class FileJobs {
                                 || (!isMerge && actionAllInfo.skipReplace)) {
                             transferInfo.skipFile(source);
                             postCopyMoveNotification(transferInfo, source, targetParent, type);
-                            return;
+                            return false;
                         }
                         ConflictResult result = showConflictDialog(sourceFile, targetFile, type);
                         switch (result.getAction()) {
@@ -339,8 +340,7 @@ public class FileJobs {
                             case CANCELED:
                                 transferInfo.skipFile(source);
                                 postCopyMoveNotification(transferInfo, source, targetParent, type);
-                                // TODO: Skip subtree.
-                                return;
+                                return false;
                             case CANCEL:
                                 throw new InterruptedIOException();
                             default:
@@ -360,7 +360,7 @@ public class FileJobs {
                     if (actionAllInfo.skipCopyMoveError) {
                         transferInfo.skipFile(source);
                         postCopyMoveNotification(transferInfo, source, targetParent, type);
-                        return;
+                        return false;
                     }
                     ActionResult result = showActionDialog(
                             getString(type.getResource(R.string.file_job_copy_error_title_format,
@@ -387,7 +387,7 @@ public class FileJobs {
                         case CANCELED:
                             transferInfo.skipFile(source);
                             postCopyMoveNotification(transferInfo, source, targetParent, type);
-                            return;
+                            return false;
                         case NEUTRAL:
                             throw new InterruptedIOException();
                         default:
@@ -395,6 +395,7 @@ public class FileJobs {
                     }
                 }
             } while (retry);
+            return true;
         }
 
         private void postCopyMoveNotification(@NonNull TransferInfo transferInfo,
@@ -570,10 +571,11 @@ public class FileJobs {
                     StandardCopyOption.ATOMIC_MOVE);
         }
 
-        protected void moveByCopy(@NonNull Path source, @NonNull Path target,
-                                  @NonNull TransferInfo transferInfo,
-                                  @NonNull ActionAllInfo actionAllInfo) throws IOException {
-            copyOrMove(source, target, CopyMoveType.MOVE, false, true, transferInfo, actionAllInfo);
+        protected boolean moveByCopy(@NonNull Path source, @NonNull Path target,
+                                     @NonNull TransferInfo transferInfo,
+                                     @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            return copyOrMove(source, target, CopyMoveType.MOVE, false, true, transferInfo,
+                    actionAllInfo);
         }
 
         protected void throwIfInterrupted() throws InterruptedIOException {
@@ -986,9 +988,10 @@ public class FileJobs {
                         throws IOException {
                     Path directoryInTarget = MoreFiles.resolve(target, source.relativize(
                             directory));
-                    copy(directory, directoryInTarget, isExtract, transferInfo, actionAllInfo);
+                    boolean copied = copy(directory, directoryInTarget, isExtract, transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return copied ? FileVisitResult.CONTINUE : FileVisitResult.SKIP_SUBTREE;
                 }
                 @NonNull
                 @Override
@@ -1157,9 +1160,10 @@ public class FileJobs {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    copyForMove(directory, directoryInTarget, transferInfo, actionAllInfo);
+                    boolean copied = copyForMove(directory, directoryInTarget, transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return copied ? FileVisitResult.CONTINUE : FileVisitResult.SKIP_SUBTREE;
                 }
                 @NonNull
                 @Override
