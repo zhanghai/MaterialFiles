@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filesystem.Documents;
+import me.zhanghai.android.files.util.AppUtils;
 
 public class NavigationFragment extends Fragment implements NavigationItem.Listener {
 
@@ -133,7 +134,8 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
 
     @Override
     public void onAddDocumentTree() {
-        startActivityForResult(Documents.makeOpenTreeIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE);
+        AppUtils.startActivityForResult(Documents.makeOpenTreeIntent(),
+                REQUEST_CODE_OPEN_DOCUMENT_TREE, this);
     }
 
     private void addDocumentTree(@NonNull Uri uri) {
