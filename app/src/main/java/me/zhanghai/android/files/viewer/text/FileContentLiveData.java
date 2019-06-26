@@ -5,14 +5,11 @@
 
 package me.zhanghai.android.files.viewer.text;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
 import java8.nio.file.Files;
 import java8.nio.file.Path;
@@ -30,29 +27,20 @@ public class FileContentLiveData extends LiveData<FileContentData> {
         loadValue();
     }
 
-    @SuppressLint("StaticFieldLeak")
     private void loadValue() {
         setValue(FileContentData.ofLoading(mPath));
-        new AsyncTask<Void, Void, FileContentData>() {
-            @NonNull
-            @Override
-            @WorkerThread
-            protected FileContentData doInBackground(Void... parameters) {
-                try {
-                    if (Files.size(mPath) > MAX_SIZE) {
-                        throw new IOException("File is too large");
-                    }
-                    byte[] content = MoreFiles.readAllBytes(mPath);
-                    return FileContentData.ofSuccess(mPath, content);
-                } catch (Exception e) {
-                    return FileContentData.ofError(mPath, e);
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            FileContentData value;
+            try {
+                if (Files.size(mPath) > MAX_SIZE) {
+                    throw new IOException("File is too large");
                 }
+                byte[] content = MoreFiles.readAllBytes(mPath);
+                value = FileContentData.ofSuccess(mPath, content);
+            } catch (Exception e) {
+                value = FileContentData.ofError(mPath, e);
             }
-            @MainThread
-            @Override
-            protected void onPostExecute(FileContentData fileContentData) {
-                setValue(fileContentData);
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            postValue(value);
+        });
     }
 }
