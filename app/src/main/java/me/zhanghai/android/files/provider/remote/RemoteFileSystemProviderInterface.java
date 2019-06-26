@@ -7,6 +7,7 @@ package me.zhanghai.android.files.provider.remote;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,8 +25,10 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
 import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
 
@@ -305,5 +308,27 @@ public class RemoteFileSystemProviderInterface extends IRemoteFileSystemProvider
             return null;
         }
         return remoteDirectoryObservable;
+    }
+
+    @NonNull
+    @Override
+    public RemoteCallback search(@NonNull ParcelableObject parcelableDirectory,
+                                 @NonNull String query,
+                                 @NonNull ParcelablePathListConsumer parcelableListener,
+                                 long intervalMillis, @NonNull RemoteCallback callback) {
+        Path directory = parcelableDirectory.get();
+        Consumer<List<Path>> listener = parcelableListener.get();
+        Future<Void> future = mExecutorService.submit(() -> {
+            try {
+                ((Searchable) mProvider).search(directory, query, listener, intervalMillis);
+                callback.sendResult(null);
+            } catch (IOException e) {
+                callback.sendResult(new BundleBuilder()
+                        .putSerializable(KEY_IO_EXCEPTION, e)
+                        .build());
+            }
+            return null;
+        });
+        return new RemoteCallback(result -> future.cancel(true));
     }
 }

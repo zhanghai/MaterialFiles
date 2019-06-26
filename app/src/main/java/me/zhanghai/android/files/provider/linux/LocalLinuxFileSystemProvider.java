@@ -11,6 +11,7 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -36,6 +37,7 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringPath;
@@ -46,13 +48,15 @@ import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.provider.common.LinkOptions;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.Searchable;
+import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
 import me.zhanghai.android.files.provider.common.WatchServiceDirectoryObservable;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 class LocalLinuxFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider {
+        implements DirectoryObservableProvider, Searchable {
 
     static final String SCHEME = "file";
 
@@ -433,7 +437,18 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
     @Override
     public DirectoryObservable observeDirectory(@NonNull Path directory,
                                                 long intervalMillis) throws IOException {
+        requireLinuxPath(directory);
         return new WatchServiceDirectoryObservable(directory, intervalMillis);
+    }
+
+    @Override
+    public void search(@NonNull Path directory, @NonNull String query,
+                       @NonNull Consumer<List<Path>> listener, long intervalMillis)
+            throws IOException {
+        requireLinuxPath(directory);
+        Objects.requireNonNull(query);
+        Objects.requireNonNull(listener);
+        WalkFileTreeSearchable.search(directory, query, listener, intervalMillis);
     }
 
     @NonNull

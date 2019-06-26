@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -32,13 +33,15 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
 import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.java.promise.Promise;
 
 public abstract class RemoteFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider {
+        implements DirectoryObservableProvider, Searchable {
 
     private final RemoteInterfaceHolder<IRemoteFileSystemProvider> mRemoteInterface;
 
@@ -388,6 +391,43 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider
         exception.throwIfNotNull();
         remoteDirectoryObservable.initForRemote();
         return remoteDirectoryObservable;
+    }
+
+    @Override
+    public void search(@NonNull Path directory, @NonNull String query,
+                       @NonNull Consumer<List<Path>> listener, long intervalMillis)
+            throws IOException {
+        ParcelableObject parcelableDirectory = new ParcelableObject(directory);
+        ParcelablePathListConsumer parcelableListener = new ParcelablePathListConsumer(listener);
+        IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
+        RemoteCallback[] interruptible = new RemoteCallback[1];
+        Promise<Void> promise = new Promise<>(settler -> {
+            RemoteCallback callback = new RemoteCallback(result -> {
+                if (result == null) {
+                    settler.resolve(null);
+                } else {
+                    IOException exception = (IOException) result.getSerializable(
+                            RemoteFileSystemProviderInterface.KEY_IO_EXCEPTION);
+                    settler.reject(exception);
+                }
+            });
+            try {
+                interruptible[0] = remoteInterface.search(parcelableDirectory, query,
+                        parcelableListener, intervalMillis, callback);
+            } catch (RemoteException e) {
+                throw new RemoteFileSystemException(e);
+            }
+        });
+        try {
+            promise.await();
+        } catch (ExecutionException e) {
+            throw (IOException) e.getCause();
+        } catch (InterruptedException e) {
+            interruptible[0].sendResult(null);
+            InterruptedIOException exception = new InterruptedIOException();
+            exception.initCause(e);
+            throw exception;
+        }
     }
 
     private static class ParcelableAcceptAllDirectoryStreamFilter

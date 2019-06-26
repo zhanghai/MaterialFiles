@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.util;
 
 import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -182,5 +183,14 @@ public class CollectionUtils {
                                      @NonNull List<? extends E> list2) {
             super(list1, list2);
         }
+    }
+
+    @NonNull
+    public static <E> ArrayList<E> toArrayList(@NonNull List<E> list) {
+        return list instanceof ArrayList ? (ArrayList<E>) list : new ArrayList<>(list);
+    }
+
+    public static <E> ArrayList<E> toArrayListOrNull(@Nullable List<E> list) {
+        return list != null ? toArrayList(list) : null;
     }
 }

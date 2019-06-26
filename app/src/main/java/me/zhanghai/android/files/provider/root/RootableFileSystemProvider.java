@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,12 +29,14 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
+import java9.util.function.Consumer;
 import java9.util.function.Function;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
 import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.Searchable;
 
 public class RootableFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider {
+        implements DirectoryObservableProvider, Searchable {
 
     @NonNull
     private final FileSystemProvider mLocalProvider;
@@ -225,6 +228,14 @@ public class RootableFileSystemProvider extends FileSystemProvider
             return ((DirectoryObservableProvider) provider).observeDirectory(directory,
                     intervalMillis);
         });
+    }
+
+    @Override
+    public void search(@NonNull Path directory, @NonNull String query,
+                       @NonNull Consumer<List<Path>> listener, long intervalMillis)
+            throws IOException {
+        acceptRootable(directory, provider -> ((Searchable) provider).search(directory, query,
+                listener, intervalMillis));
     }
 
     private void acceptRootable(@NonNull Path path,

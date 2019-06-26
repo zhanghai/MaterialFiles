@@ -36,6 +36,7 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringPath;
@@ -43,8 +44,10 @@ import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.FileSystemCache;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
+import me.zhanghai.android.files.provider.common.Searchable;
+import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
 
-class LocalArchiveFileSystemProvider extends FileSystemProvider {
+class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searchable {
 
     static final String SCHEME = "archive";
 
@@ -372,6 +375,16 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(value);
         Objects.requireNonNull(options);
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void search(@NonNull Path directory, @NonNull String query,
+                       @NonNull Consumer<List<Path>> listener, long intervalMillis)
+            throws IOException {
+        requireArchivePath(directory);
+        Objects.requireNonNull(query);
+        Objects.requireNonNull(listener);
+        WalkFileTreeSearchable.search(directory, query, listener, intervalMillis);
     }
 
     private static void requireArchivePath(@NonNull Path path) {

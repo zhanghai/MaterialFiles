@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.spi.FileSystemProvider;
+import java9.util.function.Consumer;
 import java9.util.function.LongConsumer;
 import me.zhanghai.android.files.util.IoUtils;
 
@@ -135,6 +137,12 @@ public class MoreFiles {
             result = result.resolve(name);
         }
         return result;
+    }
+
+    public static void search(@NonNull Path directory, @NonNull String query,
+                              @NonNull Consumer<List<Path>> listener, long intervalMillis)
+            throws IOException {
+        ((Searchable) provider(directory)).search(directory, query, listener, intervalMillis);
     }
 
     // Can accept link options.
