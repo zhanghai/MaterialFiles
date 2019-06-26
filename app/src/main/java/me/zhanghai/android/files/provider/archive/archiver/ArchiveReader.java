@@ -136,7 +136,7 @@ public class ArchiveReader {
                 throw new ArchiveException(e);
             }
         } catch (FileNotFoundException e) {
-            MoreFiles.provider(file).checkAccess(file, AccessMode.READ);
+            MoreFiles.checkAccess(file, AccessMode.READ);
             NoSuchFileException noSuchFileException = new NoSuchFileException(file.toString());
             noSuchFileException.initCause(e);
             throw noSuchFileException;
@@ -232,7 +232,7 @@ public class ArchiveReader {
                 throw new ArchiveException(e);
             }
         } catch (FileNotFoundException e) {
-            MoreFiles.provider(file).checkAccess(file, AccessMode.READ);
+            MoreFiles.checkAccess(file, AccessMode.READ);
             NoSuchFileException noSuchFileException = new NoSuchFileException(file.toString());
             noSuchFileException.initCause(e);
             throw noSuchFileException;

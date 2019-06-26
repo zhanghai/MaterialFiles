@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.file.AccessMode;
 import java8.nio.file.CopyOption;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
@@ -30,6 +31,11 @@ public class MoreFiles {
     private static final int BUFFER_SIZE = 8192;
 
     private MoreFiles() {}
+
+    public static void checkAccess(@NonNull Path path, @NonNull AccessMode... modes)
+            throws IOException {
+        provider(path).checkAccess(path, modes);
+    }
 
     // Can handle ProgressCopyOption.
     public static void copy(@NonNull Path source, @NonNull Path target,
@@ -86,9 +92,10 @@ public class MoreFiles {
     }
 
     @NonNull
-    public static FileSystemProvider provider(@NonNull Path path) {
-        Objects.requireNonNull(path);
-        return path.getFileSystem().provider();
+    public static DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
+            throws IOException {
+        return ((DirectoryObservableProvider) provider(directory)).observeDirectory(directory,
+                intervalMillis);
     }
 
     // TODO: Just use Files.readAllBytes(), if all our providers support
@@ -96,7 +103,6 @@ public class MoreFiles {
     // Uses newInputStream() instead of newByteChannel().
     @NonNull
     public static byte[] readAllBytes(@NonNull Path path) throws IOException {
-        Objects.requireNonNull(path);
         long sizeLong = size(path);
         if (sizeLong > Integer.MAX_VALUE) {
             throw new OutOfMemoryError("size " + sizeLong);
@@ -153,6 +159,12 @@ public class MoreFiles {
     public static ByteString toByteString(@NonNull Path path) {
         ByteStringListPath byteStringPath = requireByteStringListPath(path);
         return byteStringPath.toByteString();
+    }
+
+    @NonNull
+    private static FileSystemProvider provider(@NonNull Path path) {
+        Objects.requireNonNull(path);
+        return path.getFileSystem().provider();
     }
 
     @NonNull

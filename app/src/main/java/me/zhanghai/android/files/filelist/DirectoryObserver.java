@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.MoreFiles;
 
 public class DirectoryObserver implements Closeable {
 
@@ -38,7 +39,7 @@ public class DirectoryObserver implements Closeable {
                     return;
                 }
                 try {
-                    mDirectoryObservable = DirectoryObservable.observeDirectory(path,
+                    mDirectoryObservable = MoreFiles.observeDirectory(path,
                             THROTTLE_INTERVAL_MILLIS);
                 } catch (UnsupportedOperationException e) {
                     // Ignored.

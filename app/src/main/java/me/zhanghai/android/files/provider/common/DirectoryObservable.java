@@ -6,24 +6,12 @@
 package me.zhanghai.android.files.provider.common;
 
 import java.io.Closeable;
-import java.io.IOException;
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
-import java8.nio.file.Path;
 
 public interface DirectoryObservable extends Closeable {
 
     void addObserver(@NonNull Runnable observer);
 
     void removeObserver(@NonNull Runnable observer);
-
-    @NonNull
-    static DirectoryObservable observeDirectory(@NonNull Path path, long intervalMillis)
-            throws IOException {
-        Objects.requireNonNull(path);
-        DirectoryObservableProvider provider = (DirectoryObservableProvider) MoreFiles.provider(
-                path);
-        return provider.observeDirectory(path, intervalMillis);
-    }
 }
