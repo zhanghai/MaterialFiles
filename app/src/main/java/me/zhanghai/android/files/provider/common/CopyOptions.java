@@ -24,11 +24,11 @@ public class CopyOptions {
     private final boolean mNoFollowLinks;
     @Nullable
     private final LongConsumer mProgressListener;
-    private final int mProgressIntervalMillis;
+    private final long mProgressIntervalMillis;
 
     public CopyOptions(boolean replaceExisting, boolean copyAttributes, boolean atomicMove,
                        boolean noFollowLinks, @Nullable LongConsumer progressListener,
-                       int progressIntervalMillis) {
+                       long progressIntervalMillis) {
         mReplaceExisting = replaceExisting;
         mCopyAttributes = copyAttributes;
         mAtomicMove = atomicMove;
@@ -44,7 +44,7 @@ public class CopyOptions {
         boolean atomicMove = false;
         boolean noFollowLinks = false;
         LongConsumer progressListener = null;
-        int progressIntervalMillis = 0;
+        long progressIntervalMillis = 0;
         for (CopyOption option : options) {
             Objects.requireNonNull(option);
             if (option instanceof StandardCopyOption) {
@@ -101,7 +101,7 @@ public class CopyOptions {
         return mProgressListener;
     }
 
-    public int getProgressIntervalMillis() {
+    public long getProgressIntervalMillis() {
         return mProgressIntervalMillis;
     }
 

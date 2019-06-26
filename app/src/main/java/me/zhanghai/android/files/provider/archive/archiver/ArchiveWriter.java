@@ -106,7 +106,7 @@ public class ArchiveWriter implements Closeable {
     }
 
     public void write(@NonNull Path file, @NonNull Path entryName, @Nullable LongConsumer listener,
-                      int intervalMillis) throws IOException {
+                      long intervalMillis) throws IOException {
         ArchiveEntry entry = mArchiveOutputStream.createArchiveEntry(new PathFile(file),
                 entryName.toString());
         BasicFileAttributes attributes = Files.readAttributes(file, BasicFileAttributes.class,

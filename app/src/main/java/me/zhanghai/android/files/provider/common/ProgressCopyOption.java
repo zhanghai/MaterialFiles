@@ -23,9 +23,9 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
     @NonNull
     private final LongConsumer mListener;
 
-    private final int mIntervalMillis;
+    private final long mIntervalMillis;
 
-    public ProgressCopyOption(@NonNull LongConsumer listener, int intervalMillis) {
+    public ProgressCopyOption(@NonNull LongConsumer listener, long intervalMillis) {
         mListener = listener;
         mIntervalMillis = intervalMillis;
     }
@@ -35,7 +35,7 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
         return mListener;
     }
 
-    public int getIntervalMillis() {
+    public long getIntervalMillis() {
         return mIntervalMillis;
     }
 
@@ -56,7 +56,7 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
         mListener = copiedSize -> remoteCallback.sendResult(new BundleBuilder()
                 .putLong(KEY_COPIED_SIZE, copiedSize)
                 .build());
-        mIntervalMillis = in.readInt();
+        mIntervalMillis = in.readLong();
     }
 
     @Override
@@ -68,6 +68,6 @@ public class ProgressCopyOption implements CopyOption, Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(new RemoteCallback(result -> mListener.accept(result.getLong(
                 KEY_COPIED_SIZE, 0))), flags);
-        dest.writeInt(mIntervalMillis);
+        dest.writeLong(mIntervalMillis);
     }
 }

@@ -49,7 +49,7 @@ public class MoreFiles {
     }
 
     public static void copy(@NonNull InputStream inputStream, @NonNull OutputStream outputStream,
-                            @Nullable LongConsumer listener, int intervalMillis)
+                            @Nullable LongConsumer listener, long intervalMillis)
             throws IOException {
         byte[] buffer = new byte[BUFFER_SIZE];
         long lastProgressMillis = System.currentTimeMillis();

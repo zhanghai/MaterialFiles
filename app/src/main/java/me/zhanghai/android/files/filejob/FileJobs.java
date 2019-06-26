@@ -59,7 +59,7 @@ import me.zhanghai.java.promise.Promise;
 
 public class FileJobs {
 
-    private static final int PROGRESS_INTERVAL_MILLIS = 200;
+    private static final long PROGRESS_INTERVAL_MILLIS = 200;
 
     private FileJobs() {}
 
