@@ -38,7 +38,7 @@ public class FileListLiveData extends LiveData<FileListData> implements Closeabl
     }
 
     private void loadValue() {
-        setValue(FileListData.ofLoading(mPath));
+        setValue(FileListData.ofLoading());
         AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
             FileListData value;
             try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(mPath)) {
@@ -52,9 +52,9 @@ public class FileListLiveData extends LiveData<FileListData> implements Closeabl
                     }
                     throw e.getCauseAs(IOException.class);
                 }
-                value = FileListData.ofSuccess(mPath, fileList);
+                value = FileListData.ofSuccess(fileList);
             } catch (Exception e) {
-                value = FileListData.ofError(mPath, e);
+                value = FileListData.ofError(e);
             }
             postValue(value);
         });

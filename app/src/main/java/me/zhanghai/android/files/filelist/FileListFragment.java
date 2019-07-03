@@ -136,7 +136,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private FileListViewModel mViewModel;
 
     @Nullable
-    private Path mLastFile;
+    private Path mLastPath;
 
     public static void putArguments(@NonNull Intent intent, @Nullable Path path) {
         if (path != null) {
@@ -375,11 +375,22 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private void onFileListChanged(@NonNull FileListData fileListData) {
         switch (fileListData.state) {
             case LOADING: {
-                Path path = fileListData.path;
-                boolean isReload = Objects.equals(path, mLastFile);
-                mLastFile = path;
-                if (!isReload) {
+                List<FileItem> fileList = fileListData.fileList;
+                Path path = mViewModel.getCurrentPath();
+                boolean isReload = Objects.equals(path, mLastPath);
+                mLastPath = path;
+                if (fileList != null) {
+                    updateSubtitle(fileList);
+                    mSwipeRefreshLayout.setRefreshing(true);
+                    ViewUtils.fadeOut(mProgress);
+                    ViewUtils.fadeOut(mErrorView);
+                    ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
+                    updateAdapterFileList();
+                } else if (isReload) {
+                    mSwipeRefreshLayout.setRefreshing(true);
+                } else {
                     mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
+                    mSwipeRefreshLayout.setRefreshing(false);
                     ViewUtils.fadeIn(mProgress);
                     ViewUtils.fadeOut(mErrorView);
                     ViewUtils.fadeOut(mEmptyView);
@@ -496,7 +507,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void refresh() {
-        mSwipeRefreshLayout.setRefreshing(true);
         mViewModel.reload();
     }
 
