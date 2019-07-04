@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import me.zhanghai.android.files.R;
@@ -59,6 +61,14 @@ public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewH
     public void refresh() {
         resetAnimation();
         super.refresh();
+    }
+
+    @Override
+    public void replace(@NonNull List<T> list, boolean clear) {
+        if (clear) {
+            resetAnimation();
+        }
+        super.replace(list, clear);
     }
 
     @Override

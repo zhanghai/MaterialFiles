@@ -11,6 +11,7 @@ import java.io.Closeable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -31,20 +32,25 @@ public class FileListViewModel extends ViewModel {
     private final LiveData<Path> mCurrentPathLiveData = Transformations.map(mTrailLiveData,
             TrailData::getCurrentPath);
     @NonNull
+    private final MutableLiveData<SearchState> mSearchStateLiveData = new MutableLiveData<>(
+            new SearchState(false, ""));
+    @NonNull
     private final FileListSwitchMapLiveData mFileListLiveData = new FileListSwitchMapLiveData(
-            mCurrentPathLiveData);
+            mCurrentPathLiveData, mSearchStateLiveData);
+    @NonNull
+    private final MutableLiveData<Boolean> mSearchViewExpandedLiveData = new MutableLiveData<>(
+            false);
+    @NonNull
+    private final MutableLiveData<String> mSearchViewQueryLiveData = new MutableLiveData<>("");
     @NonNull
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
             mTrailLiveData);
     @NonNull
-    private final MutableLiveData<Set<FileItem>> mSelectedFilesLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Set<FileItem>> mSelectedFilesLiveData = new MutableLiveData<>(
+            new HashSet<>());
     @NonNull
-    private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>();
-
-    public FileListViewModel() {
-        mSelectedFilesLiveData.setValue(new HashSet<>());
-        mPasteModeLiveData.setValue(FilePasteMode.NONE);
-    }
+    private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>(
+            FilePasteMode.NONE);
 
     public boolean hasTrail() {
         return mTrailLiveData.getValue() != null;
@@ -89,6 +95,32 @@ public class FileListViewModel extends ViewModel {
     }
 
     @NonNull
+    public LiveData<SearchState> getSearchStateLiveData() {
+        return mSearchStateLiveData;
+    }
+
+    @NonNull
+    public SearchState getSearchState() {
+        return mSearchStateLiveData.getValue();
+    }
+
+    public void search(@NonNull String query) {
+        SearchState searchState = mSearchStateLiveData.getValue();
+        if (searchState.searching && Objects.equals(searchState.query, query)) {
+            return;
+        }
+        mSearchStateLiveData.setValue(new SearchState(true, query));
+    }
+
+    public void stopSearching() {
+        SearchState searchState = mSearchStateLiveData.getValue();
+        if (!searchState.searching) {
+            return;
+        }
+        mSearchStateLiveData.setValue(new SearchState(false, ""));
+    }
+
+    @NonNull
     public LiveData<FileListData> getFileListLiveData() {
         return mFileListLiveData;
     }
@@ -96,6 +128,34 @@ public class FileListViewModel extends ViewModel {
     @NonNull
     public FileListData getFileListData() {
         return mFileListLiveData.getValue();
+    }
+
+    @NonNull
+    public MutableLiveData<Boolean> getSearchViewExpandedLiveData() {
+        return mSearchViewExpandedLiveData;
+    }
+
+    public boolean isSearchViewExpanded() {
+        return mSearchViewExpandedLiveData.getValue();
+    }
+
+    public void setSearchViewExpanded(boolean expanded) {
+        if (mSearchViewExpandedLiveData.getValue() == expanded) {
+            return;
+        }
+        mSearchViewExpandedLiveData.setValue(expanded);
+    }
+
+    @NonNull
+    public String getSearchViewQuery() {
+        return mSearchViewQueryLiveData.getValue();
+    }
+
+    public void setSearchViewQuery(@NonNull String query) {
+        if (Objects.equals(mSearchViewQueryLiveData.getValue(), query)) {
+            return;
+        }
+        mSearchViewQueryLiveData.setValue(query);
     }
 
     @NonNull
@@ -184,22 +244,36 @@ public class FileListViewModel extends ViewModel {
     private static class FileListSwitchMapLiveData extends MediatorLiveData<FileListData>
             implements Closeable {
 
-        @Nullable
-        private FileListLiveData mLiveData;
+        @NonNull
+        private LiveData<Path> mPathLiveData;
+        @NonNull
+        private LiveData<SearchState> mSearchStateLiveData;
 
-        public FileListSwitchMapLiveData(@NonNull LiveData<Path> source) {
-            addSource(source, path -> {
-                FileListLiveData newLiveData = new FileListLiveData(path);
-                if (mLiveData == newLiveData) {
-                    return;
-                }
-                if (mLiveData != null) {
-                    removeSource(mLiveData);
-                    mLiveData.close();
-                }
-                mLiveData = newLiveData;
-                addSource(mLiveData, FileListSwitchMapLiveData.this::setValue);
-            });
+        @Nullable
+        private CloseableLiveData<FileListData> mLiveData;
+
+        public FileListSwitchMapLiveData(@NonNull LiveData<Path> pathLiveData,
+                                         @NonNull LiveData<SearchState> searchStateLiveData) {
+
+            mPathLiveData = pathLiveData;
+            mSearchStateLiveData = searchStateLiveData;
+
+            addSource(mPathLiveData, path -> updateSource());
+            addSource(mSearchStateLiveData, searchState -> updateSource());
+        }
+
+        private void updateSource() {
+            Path path = mPathLiveData.getValue();
+            SearchState searchState = mSearchStateLiveData.getValue();
+            CloseableLiveData<FileListData> newLiveData = searchState.searching ?
+                    new SearchFileListLiveData(path, searchState.query)
+                    : new FileListLiveData(path);
+            if (mLiveData != null) {
+                removeSource(mLiveData);
+                mLiveData.close();
+            }
+            mLiveData = newLiveData;
+            addSource(mLiveData, FileListSwitchMapLiveData.this::setValue);
         }
 
         @Override

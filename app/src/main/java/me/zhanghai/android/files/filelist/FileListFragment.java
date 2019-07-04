@@ -34,6 +34,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -60,6 +61,7 @@ import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
+import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.ClipboardUtils;
@@ -112,6 +114,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     SpeedDialView mSpeedDialView;
 
     @Nullable
+    private MenuItem mSortMenuItem;
+    @Nullable
     private MenuItem mSortByNameMenuItem;
     @Nullable
     private MenuItem mSortByTypeMenuItem;
@@ -137,6 +141,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Nullable
     private Path mLastPath;
+    private boolean mLastSearching;
 
     public static void putArguments(@NonNull Intent intent, @Nullable Path path) {
         if (path != null) {
@@ -235,6 +240,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             mViewModel.resetTo(path);
         }
         mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
+        mViewModel.getSearchViewExpandedLiveData().observe(this, this::onSearchViewExpandedChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
         FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
@@ -285,6 +291,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.file_list, menu);
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        mSortMenuItem = menu.findItem(R.id.action_sort);
         mSortByNameMenuItem = menu.findItem(R.id.action_sort_by_name);
         mSortByTypeMenuItem = menu.findItem(R.id.action_sort_by_type);
         mSortBySizeMenuItem = menu.findItem(R.id.action_sort_by_size);
@@ -292,13 +300,54 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mSortOrderAscendingMenuItem = menu.findItem(R.id.action_sort_order_ascending);
         mSortDirectoriesFirstMenuItem = menu.findItem(R.id.action_sort_directories_first);
         mShowHiddenFilesMenuItem = menu.findItem(R.id.action_show_hidden_files);
+
+        FixQueryChangeSearchView searchView = (FixQueryChangeSearchView)
+                searchMenuItem.getActionView();
+        // MenuItem.OnActionExpandListener.onMenuItemActionExpand() is called before SearchView
+        // resets the query.
+        searchView.setOnSearchClickListener(view -> {
+            mViewModel.setSearchViewExpanded(true);
+            searchView.setQuery(mViewModel.getSearchViewQuery(), false);
+        });
+        // SearchView.OnCloseListener.onClose() is not always called.
+        searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(@NonNull MenuItem item) {
+                return true;
+            }
+            @Override
+            public boolean onMenuItemActionCollapse(@NonNull MenuItem item) {
+                mViewModel.setSearchViewExpanded(false);
+                mViewModel.stopSearching();
+                return true;
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(@NonNull String query) {
+                mViewModel.search(query);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(@NonNull String query) {
+                if (searchView.shouldIgnoreQueryChange()) {
+                    return false;
+                }
+                mViewModel.setSearchViewQuery(query);
+                // TODO: Submit automatically with throttle.
+                return false;
+            }
+        });
+        if (mViewModel.isSearchViewExpanded()) {
+            searchMenuItem.expandActionView();
+        }
     }
 
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        updateSortOptionsMenuItems();
+        updateSortMenuItems();
         updateShowHiddenFilesMenuItem();
     }
 
@@ -372,19 +421,26 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         updateCab();
     }
 
+    private void onSearchViewExpandedChanged(boolean expanded) {
+        updateSortMenuItems();
+    }
+
     private void onFileListChanged(@NonNull FileListData fileListData) {
         switch (fileListData.state) {
             case LOADING: {
-                List<FileItem> fileList = fileListData.fileList;
                 Path path = mViewModel.getCurrentPath();
-                boolean isReload = Objects.equals(path, mLastPath);
+                boolean searching = mViewModel.getSearchState().searching;
+                boolean isReload = Objects.equals(path, mLastPath) && searching == mLastSearching;
                 mLastPath = path;
-                if (fileList != null) {
+                mLastSearching = searching;
+                if (searching) {
+                    List<FileItem> fileList = fileListData.fileList;
                     updateSubtitle(fileList);
                     mSwipeRefreshLayout.setRefreshing(true);
                     ViewUtils.fadeOut(mProgress);
                     ViewUtils.fadeOut(mErrorView);
-                    ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
+                    // We are still searching so it's never empty.
+                    ViewUtils.fadeOut(mEmptyView);
                     updateAdapterFileList();
                 } else if (isReload) {
                     mSwipeRefreshLayout.setRefreshing(true);
@@ -465,13 +521,18 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void onSortOptionsChanged(@NonNull FileSortOptions sortOptions) {
         mAdapter.setComparator(sortOptions.makeComparator());
-        updateSortOptionsMenuItems();
+        updateSortMenuItems();
     }
 
-    private void updateSortOptionsMenuItems() {
-        if (mSortByNameMenuItem == null || mSortByTypeMenuItem == null
+    private void updateSortMenuItems() {
+        if (mSortMenuItem == null || mSortByNameMenuItem == null || mSortByTypeMenuItem == null
                 || mSortBySizeMenuItem == null || mSortByLastModifiedMenuItem == null
                 || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null) {
+            return;
+        }
+        boolean searchViewExpanded = mViewModel.isSearchViewExpanded();
+        mSortMenuItem.setVisible(!searchViewExpanded);
+        if (searchViewExpanded) {
             return;
         }
         MenuItem checkedSortByMenuItem;
@@ -528,7 +589,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         if (!SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.getValue()) {
             files = Functional.filter(files, file -> !file.isHidden());
         }
-        mAdapter.replace(files);
+        mAdapter.replace2(files, mViewModel.getSearchState().searching);
     }
 
     private void updateShowHiddenFilesMenuItem() {

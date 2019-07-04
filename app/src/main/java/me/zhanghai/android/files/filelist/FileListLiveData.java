@@ -7,12 +7,10 @@ package me.zhanghai.android.files.filelist;
 
 import android.os.AsyncTask;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Files;
@@ -21,7 +19,7 @@ import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.functional.FunctionalException;
 import me.zhanghai.java.functional.throwing.ThrowingFunction;
 
-public class FileListLiveData extends LiveData<FileListData> implements Closeable {
+public class FileListLiveData extends CloseableLiveData<FileListData> {
 
     @NonNull
     private final Path mPath;

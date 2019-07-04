@@ -16,10 +16,11 @@
         android:icon="@drawable/search_icon_white_24dp"
         android:orderInCategory="100"
         android:title="@string/search"
-        app:actionViewClass="me.zhanghai.android.files.ui.FixLayoutSearchView"
+        app:actionViewClass="me.zhanghai.android.files.ui.FixQueryChangeSearchView"
         app:showAsAction="always|collapseActionView" />
 
     <item
+        android:id="@+id/action_sort"
         android:icon="@drawable/sort_icon_white_24dp"
         android:orderInCategory="100"
         android:title="@string/file_list_action_sort"

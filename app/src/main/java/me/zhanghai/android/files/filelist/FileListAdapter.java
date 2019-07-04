@@ -57,6 +57,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
 
     private static final Object PAYLOAD_SELECTED_CHANGED = new Object();
 
+    private boolean mSearching;
     @NonNull
     private Comparator<FileItem> mComparator;
     @NonNull
@@ -64,7 +65,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
             new SortedListAdapterCallback<FileItem>(this) {
                 @Override
                 public int compare(FileItem file1, FileItem file2) {
-                    return mComparator.compare(file1, file2);
+                    if (mSearching) {
+                        return ((SearchFileItem) file1).compareTo((SearchFileItem) file2);
+                    } else {
+                        return mComparator.compare(file1, file2);
+                    }
                 }
                 @Override
                 public boolean areItemsTheSame(FileItem oldItem, FileItem newItem) {
@@ -98,8 +103,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
 
     public void setComparator(@NonNull Comparator<FileItem> comparator) {
         mComparator = comparator;
-        refresh();
-        rebuildFilePositionMap();
+        if (!mSearching) {
+            refresh();
+            rebuildFilePositionMap();
+        }
     }
 
     public void replaceSelectedFiles(@NonNull Set<FileItem> files) {
@@ -132,9 +139,20 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         rebuildFilePositionMap();
     }
 
+    /**
+     * @deprecated Use {@link #replace2(List, boolean)} instead.
+     */
     @Override
-    public void replace(@NonNull List<FileItem> list) {
-        super.replace(list);
+    public void replace(@NonNull List<FileItem> list, boolean clear) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void replace2(@NonNull List<FileItem> list, boolean searching) {
+
+        boolean clear = mSearching != searching;
+        mSearching = searching;
+
+        super.replace(list, clear);
 
         rebuildFilePositionMap();
     }

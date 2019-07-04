@@ -30,7 +30,7 @@ public class WalkFileTreeSearchable {
         List<Path> paths = new ArrayList<>();
         // Cannot use Files.find() or Files.walk() because it cannot ignore exceptions.
         Files.walkFileTree(directory, new FileVisitor<Path>() {
-            private long mLastProgressMillis;
+            private long mLastProgressMillis = System.currentTimeMillis();
             @NonNull
             @Override
             public FileVisitResult preVisitDirectory(@NonNull Path directory,

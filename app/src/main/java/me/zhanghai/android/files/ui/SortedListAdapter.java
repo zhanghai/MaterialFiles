@@ -31,10 +31,17 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
         mSortedList.endBatchedUpdates();
     }
 
-    public void replace(@NonNull List<T> list) {
+    public void replace(@NonNull List<T> list, boolean clear) {
         mList.clear();
         mList.addAll(list);
-        mSortedList.replaceAll(mList);
+        if (clear) {
+            mSortedList.beginBatchedUpdates();
+            mSortedList.clear();
+            mSortedList.addAll(mList);
+            mSortedList.endBatchedUpdates();
+        } else {
+            mSortedList.replaceAll(mList);
+        }
     }
 
     public void clear() {
