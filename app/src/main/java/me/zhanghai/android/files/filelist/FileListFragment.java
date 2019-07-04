@@ -11,6 +11,8 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -65,6 +67,7 @@ import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.ClipboardUtils;
+import me.zhanghai.android.files.util.DebouncedRunnable;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
@@ -142,6 +145,18 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Nullable
     private Path mLastPath;
     private boolean mLastSearching;
+
+    @NonNull
+    private final DebouncedRunnable mDebouncedSearchRunnable = new DebouncedRunnable(() -> {
+        if (!isResumed() || !mViewModel.isSearchViewExpanded()) {
+            return;
+        }
+        String query = mViewModel.getSearchViewQuery();
+        if (query.isEmpty()) {
+            return;
+        }
+        mViewModel.search(query);
+    }, 1000, new Handler(Looper.getMainLooper()));
 
     public static void putArguments(@NonNull Intent intent, @Nullable Path path) {
         if (path != null) {
@@ -325,6 +340,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(@NonNull String query) {
+                mDebouncedSearchRunnable.cancel();
                 mViewModel.search(query);
                 return true;
             }
@@ -334,7 +350,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     return false;
                 }
                 mViewModel.setSearchViewQuery(query);
-                // TODO: Submit automatically with throttle.
+                mDebouncedSearchRunnable.run();
                 return false;
             }
         });
