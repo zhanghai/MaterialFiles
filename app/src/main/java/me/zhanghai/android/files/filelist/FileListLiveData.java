@@ -45,6 +45,7 @@ public class FileListLiveData extends CloseableLiveData<FileListData> {
                     fileList = Functional.map(directoryStream,
                             (ThrowingFunction<Path, FileItem>) FileItem::load);
                 } catch (FunctionalException e) {
+                    // TODO: Support file without information.
                     if (e.getCause() instanceof DirectoryIteratorException) {
                         throw e.getCauseAs(DirectoryIteratorException.class).getCause();
                     }
