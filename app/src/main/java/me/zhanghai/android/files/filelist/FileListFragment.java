@@ -117,6 +117,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     SpeedDialView mSpeedDialView;
 
     @Nullable
+    private MenuItem mSearchMenuItem;
+    @Nullable
     private MenuItem mSortMenuItem;
     @Nullable
     private MenuItem mSortByNameMenuItem;
@@ -306,7 +308,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         super.onCreateOptionsMenu(menu, inflater);
 
         inflater.inflate(R.menu.file_list, menu);
-        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        mSearchMenuItem = menu.findItem(R.id.action_search);
         mSortMenuItem = menu.findItem(R.id.action_sort);
         mSortByNameMenuItem = menu.findItem(R.id.action_sort_by_name);
         mSortByTypeMenuItem = menu.findItem(R.id.action_sort_by_type);
@@ -316,8 +318,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mSortDirectoriesFirstMenuItem = menu.findItem(R.id.action_sort_directories_first);
         mShowHiddenFilesMenuItem = menu.findItem(R.id.action_show_hidden_files);
 
+        setUpSearchView();
+    }
+
+    private void setUpSearchView() {
         FixQueryChangeSearchView searchView = (FixQueryChangeSearchView)
-                searchMenuItem.getActionView();
+                mSearchMenuItem.getActionView();
         // MenuItem.OnActionExpandListener.onMenuItemActionExpand() is called before SearchView
         // resets the query.
         searchView.setOnSearchClickListener(view -> {
@@ -325,7 +331,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             searchView.setQuery(mViewModel.getSearchViewQuery(), false);
         });
         // SearchView.OnCloseListener.onClose() is not always called.
-        searchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+        mSearchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(@NonNull MenuItem item) {
                 return true;
@@ -355,7 +361,13 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
         });
         if (mViewModel.isSearchViewExpanded()) {
-            searchMenuItem.expandActionView();
+            mSearchMenuItem.expandActionView();
+        }
+    }
+
+    private void collapseSearchView() {
+        if (mSearchMenuItem != null && mSearchMenuItem.isActionViewExpanded()) {
+            mSearchMenuItem.collapseActionView();
         }
     }
 
@@ -577,6 +589,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void navigateUp() {
+        collapseSearchView();
         mViewModel.navigateUp(true);
     }
 
@@ -636,6 +649,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void navigateTo(@NonNull Path path) {
+        collapseSearchView();
         Parcelable state = mRecyclerView.getLayoutManager().onSaveInstanceState();
         mViewModel.navigateTo(state, path);
     }
@@ -1022,6 +1036,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void navigateToRoot(@NonNull Path path) {
+        collapseSearchView();
         mViewModel.resetTo(path);
     }
 
