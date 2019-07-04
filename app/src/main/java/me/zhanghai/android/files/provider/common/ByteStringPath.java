@@ -182,6 +182,11 @@ public class ByteStringPath implements Parcelable, Path, RootablePath {
     }
 
     @Override
+    public boolean preferUseRoot() {
+        return false;
+    }
+
+    @Override
     public boolean shouldUseRoot() {
         return false;
     }

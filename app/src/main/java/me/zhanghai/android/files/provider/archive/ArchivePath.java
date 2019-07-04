@@ -125,6 +125,16 @@ class ArchivePath extends ByteStringListPath implements RootablePath {
     }
 
     @Override
+    public boolean preferUseRoot() {
+        Path archiveFile = mFileSystem.getArchiveFile();
+        if (!(archiveFile instanceof RootablePath)) {
+            return false;
+        }
+        RootablePath rootablePath = (RootablePath) archiveFile;
+        return rootablePath.preferUseRoot();
+    }
+
+    @Override
     public boolean shouldUseRoot() {
         Path archiveFile = mFileSystem.getArchiveFile();
         if (!(archiveFile instanceof RootablePath)) {

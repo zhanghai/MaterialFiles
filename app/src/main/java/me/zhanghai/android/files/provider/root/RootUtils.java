@@ -53,14 +53,27 @@ public class RootUtils {
         if (sRunningAsRoot || !rootablePath.canUseRoot()) {
             return function.apply(localObject);
         }
-        if (!rootablePath.shouldUseRoot()) {
+        if (rootablePath.shouldUseRoot()) {
+            return function.apply(rootObject);
+        } else if (rootablePath.preferUseRoot()) {
+            try {
+                R result = function.apply(rootObject);
+                rootablePath.setUseRoot();
+                return result;
+            } catch (IOException e) {
+                // Ignored.
+            }
+            return function.apply(localObject);
+        } else {
             try {
                 return function.apply(localObject);
             } catch (AccessDeniedException e) {
-                rootablePath.setUseRoot();
+                // Ignored.
             }
+            R result = function.apply(rootObject);
+            rootablePath.setUseRoot();
+            return result;
         }
-        return function.apply(rootObject);
     }
 
     public static <T, R> R applyRootable(@NonNull Path path1, @NonNull Path path2,
@@ -72,14 +85,36 @@ public class RootUtils {
         if (sRunningAsRoot || !rootablePath1.canUseRoot() || !rootablePath2.canUseRoot()) {
             return function.apply(localObject);
         }
-        if (!rootablePath1.shouldUseRoot() && !rootablePath2.shouldUseRoot()) {
-            try {
+        if (rootablePath1.shouldUseRoot() || rootablePath2.shouldUseRoot()) {
+            return function.apply(rootObject);
+        } else {
+            boolean preferUseRootForPath1 = rootablePath1.preferUseRoot();
+            boolean preferUseRootForPath2 = rootablePath2.preferUseRoot();
+            if (preferUseRootForPath1 || preferUseRootForPath2) {
+                try {
+                    R result = function.apply(rootObject);
+                    if (preferUseRootForPath1) {
+                        rootablePath1.setUseRoot();
+                    }
+                    if (preferUseRootForPath2) {
+                        rootablePath2.setUseRoot();
+                    }
+                    return result;
+                } catch (IOException e) {
+                    // Ignored.
+                }
                 return function.apply(localObject);
-            } catch (AccessDeniedException e) {
-                // Ignored, as we don't know which path(s) should use root afterwards.
+            } else {
+                try {
+                    return function.apply(localObject);
+                } catch (AccessDeniedException e) {
+                    // Ignored.
+                }
+                // We don't know which path(s) should use root afterwards, so just skip
+                // setUseRoot().
+                return function.apply(rootObject);
             }
         }
-        return function.apply(rootObject);
     }
 
     @NonNull

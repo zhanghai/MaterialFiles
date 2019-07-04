@@ -132,6 +132,12 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
     }
 
     @Override
+    public boolean preferUseRoot() {
+        // procfs is special and we should ask for root first to allow seeing all processes.
+        return equals(PreferUseRootPaths.PROC);
+    }
+
+    @Override
     public boolean shouldUseRoot() {
         return mUseRoot;
     }
@@ -139,6 +145,14 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
     @Override
     public void setUseRoot() {
         mUseRoot = true;
+    }
+
+    // Use another class to host these static fields to avoid circular dependency during
+    // initialization.
+    private static class PreferUseRootPaths {
+
+        public static final LinuxPath PROC = new LinuxPath(LinuxFileSystemProvider.getFileSystem(),
+                ByteString.fromString("/proc"));
     }
 
 

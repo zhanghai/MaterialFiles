@@ -9,6 +9,8 @@ public interface RootablePath {
 
     boolean canUseRoot();
 
+    boolean preferUseRoot();
+
     boolean shouldUseRoot();
 
     void setUseRoot();
