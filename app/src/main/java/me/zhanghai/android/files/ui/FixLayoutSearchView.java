@@ -39,6 +39,10 @@ public class FixLayoutSearchView extends SearchView {
 
     private void init() {
 
+        // A negative value won't work here because SearchView will use its preferred width as max
+        // width instead.
+        setMaxWidth(Integer.MAX_VALUE);
+
         View searchEditFrame = ViewCompat.requireViewById(this, R.id.search_edit_frame);
         MarginLayoutParams searchEditFrameLayoutParams = (MarginLayoutParams)
                 searchEditFrame.getLayoutParams();
