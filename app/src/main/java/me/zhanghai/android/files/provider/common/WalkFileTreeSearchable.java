@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -76,6 +77,10 @@ public class WalkFileTreeSearchable {
                 return FileVisitResult.CONTINUE;
             }
             private void visit(@NonNull Path path) {
+                // Exclude the directory being searched.
+                if (Objects.equals(path, directory)) {
+                    return;
+                }
                 Path fileName = path.getFileName();
                 if (fileName == null || !fileName.toString().contains(query)) {
                     return;
