@@ -143,8 +143,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private FileListViewModel mViewModel;
 
     @Nullable
-    private Path mLastPath;
-    private boolean mLastSearching;
+    private Path mLastLoadingPath;
+    private boolean mLastLoadingSearching;
 
     @NonNull
     private final DebouncedRunnable mDebouncedSearchRunnable = new DebouncedRunnable(() -> {
@@ -446,9 +446,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case LOADING: {
                 Path path = mViewModel.getCurrentPath();
                 boolean searching = mViewModel.getSearchState().searching;
-                boolean isReload = Objects.equals(path, mLastPath) && searching == mLastSearching;
-                mLastPath = path;
-                mLastSearching = searching;
+                boolean isReload = Objects.equals(path, mLastLoadingPath)
+                        && searching == mLastLoadingSearching;
+                mLastLoadingPath = path;
+                mLastLoadingSearching = searching;
                 if (searching) {
                     List<FileItem> fileList = fileListData.fileList;
                     updateSubtitle(fileList);
