@@ -50,16 +50,51 @@ public class RootUtils {
                                          @NonNull T rootObject, @NonNull Function<T, R> function)
             throws IOException {
         RootablePath rootablePath = requireRootablePath(path);
-        if (sRunningAsRoot || !rootablePath.canUseRoot()) {
-            return function.apply(localObject);
-        }
-        if (rootablePath.shouldUseRoot()) {
-            return function.apply(rootObject);
-        } else if (rootablePath.preferUseRoot()) {
-            try {
+        RootStrategy strategy = rootablePath.getRootStrategy();
+        switch (strategy) {
+            case NEVER:
+                return function.apply(localObject);
+            case PREFER_NO: {
+                try {
+                    return function.apply(localObject);
+                } catch (AccessDeniedException e) {
+                    // Ignored.
+                }
                 R result = function.apply(rootObject);
-                rootablePath.setUseRoot();
+                rootablePath.setPreferRoot();
                 return result;
+            }
+            case PREFER_YES:
+                try {
+                    return function.apply(rootObject);
+                } catch (IOException e) {
+                    // Ignored.
+                }
+                return function.apply(localObject);
+            case ALWAYS:
+                return function.apply(rootObject);
+            default:
+                throw new AssertionError(strategy);
+        }
+    }
+
+    public static <T, R> R applyRootable(@NonNull Path path1, @NonNull Path path2,
+                                         @NonNull T localObject, @NonNull T rootObject,
+                                         @NonNull Function<T, R> function)
+            throws IOException {
+        RootablePath rootablePath1 = requireRootablePath(path1);
+        RootablePath rootablePath2 = requireRootablePath(path2);
+        RootStrategy strategy1 = rootablePath1.getRootStrategy();
+        RootStrategy strategy2 = rootablePath2.getRootStrategy();
+        if (strategy1 == RootStrategy.NEVER || strategy2 == RootStrategy.NEVER) {
+            return function.apply(localObject);
+        } else if (strategy1 == RootStrategy.ALWAYS || strategy2 == RootStrategy.ALWAYS) {
+            return function.apply(rootObject);
+        } else if (strategy1 == RootStrategy.PREFER_YES || strategy2 == RootStrategy.PREFER_YES) {
+            // We let PREFER_YES win over PREFER_NO because user can reject a root request, but not
+            // vice versa.
+            try {
+                return function.apply(rootObject);
             } catch (IOException e) {
                 // Ignored.
             }
@@ -70,50 +105,9 @@ public class RootUtils {
             } catch (AccessDeniedException e) {
                 // Ignored.
             }
-            R result = function.apply(rootObject);
-            rootablePath.setUseRoot();
-            return result;
-        }
-    }
-
-    public static <T, R> R applyRootable(@NonNull Path path1, @NonNull Path path2,
-                                         @NonNull T localObject, @NonNull T rootObject,
-                                         @NonNull Function<T, R> function)
-            throws IOException {
-        RootablePath rootablePath1 = requireRootablePath(path1);
-        RootablePath rootablePath2 = requireRootablePath(path2);
-        if (sRunningAsRoot || !rootablePath1.canUseRoot() || !rootablePath2.canUseRoot()) {
-            return function.apply(localObject);
-        }
-        if (rootablePath1.shouldUseRoot() || rootablePath2.shouldUseRoot()) {
+            // We don't know which path(s) should prefer using root afterwards, so just skip
+            // setPreferRoot().
             return function.apply(rootObject);
-        } else {
-            boolean preferUseRootForPath1 = rootablePath1.preferUseRoot();
-            boolean preferUseRootForPath2 = rootablePath2.preferUseRoot();
-            if (preferUseRootForPath1 || preferUseRootForPath2) {
-                try {
-                    R result = function.apply(rootObject);
-                    if (preferUseRootForPath1) {
-                        rootablePath1.setUseRoot();
-                    }
-                    if (preferUseRootForPath2) {
-                        rootablePath2.setUseRoot();
-                    }
-                    return result;
-                } catch (IOException e) {
-                    // Ignored.
-                }
-                return function.apply(localObject);
-            } else {
-                try {
-                    return function.apply(localObject);
-                } catch (AccessDeniedException e) {
-                    // Ignored.
-                }
-                // We don't know which path(s) should use root afterwards, so just skip
-                // setUseRoot().
-                return function.apply(rootObject);
-            }
         }
     }
 

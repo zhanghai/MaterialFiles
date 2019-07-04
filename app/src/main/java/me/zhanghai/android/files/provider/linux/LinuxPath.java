@@ -25,6 +25,7 @@ import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
+import me.zhanghai.android.files.provider.root.RootStrategy;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
 class LinuxPath extends ByteStringListPath implements RootablePath {
@@ -34,7 +35,7 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
     @NonNull
     private final LinuxFileSystem mFileSystem;
 
-    private volatile boolean mUseRoot;
+    private volatile boolean mPreferRoot;
 
     public LinuxPath(@NonNull LinuxFileSystem fileSystem, @NonNull ByteString path) {
         super(LinuxFileSystem.SEPARATOR, path);
@@ -126,33 +127,24 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
     }
 
     @Override
-    public boolean canUseRoot() {
-        return EffortlessPermissions.hasPermissions(AppApplication.getInstance(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    public boolean shouldPreferRoot() {
+        return mPreferRoot;
     }
 
     @Override
-    public boolean preferUseRoot() {
-        // procfs is special and we should ask for root first to allow seeing all processes.
-        return equals(PreferUseRootPaths.PROC);
+    public void setPreferRoot() {
+        mPreferRoot = true;
     }
 
+    @NonNull
     @Override
-    public boolean shouldUseRoot() {
-        return mUseRoot;
-    }
-
-    @Override
-    public void setUseRoot() {
-        mUseRoot = true;
-    }
-
-    // Use another class to host these static fields to avoid circular dependency during
-    // initialization.
-    private static class PreferUseRootPaths {
-
-        public static final LinuxPath PROC = new LinuxPath(LinuxFileSystemProvider.getFileSystem(),
-                ByteString.fromString("/proc"));
+    public RootStrategy getRootStrategy() {
+        RootStrategy strategy = RootablePath.super.getRootStrategy();
+        if (strategy == RootStrategy.PREFER_NO && !EffortlessPermissions.hasPermissions(
+                AppApplication.getInstance(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            return RootStrategy.NEVER;
+        }
+        return strategy;
     }
 
 
@@ -171,7 +163,7 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
         super(in);
 
         mFileSystem = in.readParcelable(LinuxFileSystem.class.getClassLoader());
-        mUseRoot = in.readByte() != 0;
+        mPreferRoot = in.readByte() != 0;
     }
 
     @Override
@@ -184,6 +176,6 @@ class LinuxPath extends ByteStringListPath implements RootablePath {
         super.writeToParcel(dest, flags);
 
         dest.writeParcelable(mFileSystem, flags);
-        dest.writeByte(mUseRoot ? (byte) 1 : (byte) 0);
+        dest.writeByte(mPreferRoot ? (byte) 1 : (byte) 0);
     }
 }
