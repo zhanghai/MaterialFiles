@@ -329,6 +329,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         searchView.setOnSearchClickListener(view -> {
             mViewModel.setSearchViewExpanded(true);
             searchView.setQuery(mViewModel.getSearchViewQuery(), false);
+            mDebouncedSearchRunnable.run();
         });
         // SearchView.OnCloseListener.onClose() is not always called.
         mSearchMenuItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
