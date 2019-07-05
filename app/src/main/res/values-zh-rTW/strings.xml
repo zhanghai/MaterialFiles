@@ -32,10 +32,10 @@
     <string name="storage_permission_request_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
     <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在設定中授予「儲存空間」權限</string>
 
-    <string name="notification_channel_file_job_name">檔案操作</string>
-    <string name="notification_channel_file_job_description">顯示和控制檔案操作</string>
-    <string name="notification_channel_file_job_dialog_name">檔案操作對話框</string>
-    <string name="notification_channel_file_job_dialog_description">打開檔案操作對話框</string>
+    <string name="notification_channel_file_job_name">檔案作業</string>
+    <string name="notification_channel_file_job_description">顯示和控制檔案作業</string>
+    <string name="notification_channel_file_job_dialog_name">檔案作業對話框</string>
+    <string name="notification_channel_file_job_dialog_description">打開檔案作業對話框</string>
 
     <plurals name="file_job_archive_scan_notification_title">
         <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）</item>
