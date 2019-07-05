@@ -13,6 +13,7 @@
     <string name="discard">捨棄</string>
     <string name="install">安裝</string>
     <string name="keep_editing">繼續編輯</string>
+    <string name="maybe_later">稍後再說</string>
     <string name="reload">重新載入</string>
     <string name="save">儲存</string>
     <string name="search">搜尋</string>
@@ -268,6 +269,9 @@
         <item>偏好 root 存取</item>
         <item>僅 root 存取</item>
     </string-array>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="other">您有 %1$,d 個正在執行的檔案作業，因此現在變更 root 存取模式可能會導致未預期的錯誤。您確定要現在變更它嗎？</item>
+    </plurals>
     <string name="settings_archive_file_name_encoding_title">歸檔檔案名編碼</string>
     <string name="settings_archive_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">打開 Android 安裝包</string>

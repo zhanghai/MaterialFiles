@@ -39,6 +39,7 @@ public class FileJobService extends Service {
 
     private FileJobNotificationManager mNotificationManager;
 
+    @MainThread
     private static void startJob(@NonNull FileJob job, @NonNull Context context) {
         if (sInstance != null) {
             sInstance.startJob(job);
@@ -87,6 +88,14 @@ public class FileJobService extends Service {
     }
 
     @MainThread
+    public static int getRunningJobCount() {
+        if (sInstance == null) {
+            return 0;
+        }
+        return sInstance.getJobCount();
+    }
+
+    @MainThread
     public static void cancelRunningJob(int jobId) {
         if (sInstance != null) {
             sInstance.cancelJob(jobId);
@@ -127,6 +136,10 @@ public class FileJobService extends Service {
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         return START_STICKY;
+    }
+
+    private int getJobCount() {
+        return mRunningJobs.size();
     }
 
     private void cancelJob(int jobId) {

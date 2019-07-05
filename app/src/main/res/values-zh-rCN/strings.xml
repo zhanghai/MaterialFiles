@@ -13,6 +13,7 @@
     <string name="discard">舍弃</string>
     <string name="install">安装</string>
     <string name="keep_editing">继续编辑</string>
+    <string name="maybe_later">以后再说</string>
     <string name="reload">重新加载</string>
     <string name="save">保存</string>
     <string name="search">搜索</string>
@@ -268,6 +269,9 @@
         <item>优先 root 访问</item>
         <item>仅 root 访问</item>
     </string-array>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="other">您有 %1$,d 个正在运行的文件操作，因此现在更改 root 访问模式可能会导致意外错误。您确定要现在更改它吗？</item>
+    </plurals>
     <string name="settings_archive_file_name_encoding_title">归档文件名编码</string>
     <string name="settings_archive_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">打开 Android 安装包</string>

@@ -30,7 +30,7 @@
             android:title="@string/settings_standard_directories_title"
             android:summary="@string/settings_standard_directories_summary_empty" />
 
-        <com.takisoft.preferencex.SimpleMenuPreference
+        <me.zhanghai.android.files.settings.RootStrategyPreference
             android:key="@string/pref_key_root_strategy"
             android:title="@string/settings_root_strategy_title"
             android:defaultValue="@string/pref_default_value_root_strategy"

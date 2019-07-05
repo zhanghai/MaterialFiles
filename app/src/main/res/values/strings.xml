@@ -13,6 +13,7 @@
     <string name="discard">Discard</string>
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>
+    <string name="maybe_later">Maybe later</string>
     <string name="reload">Reload</string>
     <string name="save">Save</string>
     <string name="search">Search</string>
@@ -275,6 +276,10 @@
     <string name="settings_standard_directories_summary_empty">No standard directories enabled</string>
     <string name="settings_root_strategy_title">Root access mode</string>
     <string name="settings_root_strategy_summary">%1$s</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">You have %1$,d file operation running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>
+        <item quantity="other">You have %1$,d file operations running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>
+    </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Normal access only</item>
         <item>Prefer normal access</item>
