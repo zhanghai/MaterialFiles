@@ -23,13 +23,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.MaterialFiles"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name="me.zhanghai.android.files.main.MainActivity"
             android:label="@string/main_title"
-            android:theme="@style/AppTheme.TransparentStatusBar">
+            android:theme="@style/Theme.MaterialFiles.TransparentStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -69,7 +69,7 @@
             android:name="me.zhanghai.android.files.settings.SettingsActivity"
             android:label="@string/settings_title"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.MaterialFiles">
             <intent-filter>
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -83,7 +83,7 @@
             android:name="me.zhanghai.android.files.settings.StandardDirectoriesActivity"
             android:label="@string/settings_standard_directories_title"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.MaterialFiles">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.zhanghai.android.files.settings.SettingsActivity" />
@@ -93,7 +93,7 @@
             android:name="me.zhanghai.android.files.about.AboutActivity"
             android:label="@string/about_title"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.MaterialFiles">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.zhanghai.android.files.main.MainActivity" />
@@ -101,16 +101,16 @@
 
         <activity
             android:name="me.zhanghai.android.files.filejob.FileJobActionDialogActivity"
-            android:theme="@style/AppTheme.Translucent" />
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
             android:name="me.zhanghai.android.files.filejob.FileJobConflictDialogActivity"
-            android:theme="@style/AppTheme.Translucent" />
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
             android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"
             android:label="@string/text_editor_title"
-            android:theme="@style/AppTheme">
+            android:theme="@style/Theme.MaterialFiles">
             <!-- TODO: Support viewing content URIs. -->
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
@@ -129,7 +129,7 @@
         <activity
             android:name="me.zhanghai.android.files.viewer.image.ImageViewerActivity"
             android:label="@string/image_viewer_title"
-            android:theme="@style/AppTheme.Immersive">
+            android:theme="@style/Theme.MaterialFiles.Immersive">
             <!-- TODO: Support viewing content URIs. -->
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
