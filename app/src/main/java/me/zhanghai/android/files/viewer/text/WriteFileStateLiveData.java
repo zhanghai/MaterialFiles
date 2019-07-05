@@ -62,8 +62,8 @@ public class WriteFileStateLiveData extends LiveData<WriteFileStateLiveData.Stat
                 if (e == null) {
                     setValue(State.SUCCESS);
                 } else {
-                    setValue(State.ERROR);
                     mException = e;
+                    setValue(State.ERROR);
                 }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -80,9 +80,11 @@ public class WriteFileStateLiveData extends LiveData<WriteFileStateLiveData.Stat
             case WRITING:
                 throw new IllegalStateException();
             case ERROR:
+                mException = null;
+                // Fall through!
             case SUCCESS:
                 setValue(State.READY);
-                mException = null;
+                break;
         }
     }
 }
