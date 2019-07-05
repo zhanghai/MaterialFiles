@@ -15,6 +15,7 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import androidx.preference.PreferenceDialogFragmentCompat;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filejob.FileJobService;
 
@@ -22,7 +23,7 @@ public class RootStrategyPreference extends SimpleMenuPreference {
 
     static {
         PreferenceFragmentCompat.registerPreferenceFragment(RootStrategyPreference.class,
-                RootStrategyPreferenceDialogFragment.class);
+                DialogFragment.class);
     }
 
     public RootStrategyPreference(@NonNull Context context) {
@@ -60,5 +61,16 @@ public class RootStrategyPreference extends SimpleMenuPreference {
 
     public void confirmClick() {
         super.onClick();
+    }
+
+    public static class DialogFragment extends PreferenceDialogFragmentCompat {
+
+        @Override
+        public void onDialogClosed(boolean positiveResult) {
+            RootStrategyPreference preference = (RootStrategyPreference) getPreference();
+            if (positiveResult) {
+                preference.confirmClick();
+            }
+        }
     }
 }
