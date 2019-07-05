@@ -271,6 +271,8 @@
         <item>Based on battery saver</item>
     </string-array>
     <string name="settings_behavior_title">Behavior</string>
+    <string name="settings_standard_directories_title">Standard directories</string>
+    <string name="settings_standard_directories_summary_empty">No standard directories enabled</string>
     <string name="settings_root_strategy_title">Root access mode</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">
@@ -288,8 +290,6 @@
         <item>View contents</item>
         <item>Ask what to do</item>
     </string-array>
-    <string name="settings_standard_directories_title">Standard directories</string>
-    <string name="settings_standard_directories_summary_empty">No standard directories enabled</string>
 
     <string name="about_title">About</string>
     <string name="about_version_title">Version</string>

@@ -258,6 +258,8 @@
         <item>基于省电模式</item>
     </string-array>
     <string name="settings_behavior_title">行为</string>
+    <string name="settings_standard_directories_title">标准文件夹</string>
+    <string name="settings_standard_directories_summary_empty">未启用标准文件夹</string>
     <string name="settings_root_strategy_title">Root 访问模式</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">
@@ -275,8 +277,6 @@
         <item>查看内容</item>
         <item>询问操作</item>
     </string-array>
-    <string name="settings_standard_directories_title">标准文件夹</string>
-    <string name="settings_standard_directories_summary_empty">未启用标准文件夹</string>
 
     <string name="about_title">关于</string>
     <string name="about_version_title">版本</string>

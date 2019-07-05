@@ -258,6 +258,8 @@
         <item>基於省電模式</item>
     </string-array>
     <string name="settings_behavior_title">行為</string>
+    <string name="settings_standard_directories_title">標準資料夾</string>
+    <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">
@@ -275,8 +277,6 @@
         <item>查看內容</item>
         <item>詢問操作</item>
     </string-array>
-    <string name="settings_standard_directories_title">標準資料夾</string>
-    <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
 
     <string name="about_title">關於</string>
     <string name="about_version_title">版本</string>

@@ -32,6 +32,9 @@ public interface SettingsLiveDatas {
     EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
             Settings.NIGHT_MODE);
 
+    TypedListSettingsLiveData<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
+            new TypedListSettingsLiveData<>(Settings.STANDARD_DIRECTORY_SETTINGS);
+
     EnumSettingsLiveData<RootStrategy> ROOT_STRATEGY = new EnumSettingsLiveData<>(
             Settings.ROOT_STRATEGY);
 
@@ -40,7 +43,4 @@ public interface SettingsLiveDatas {
 
     EnumSettingsLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsLiveData<>(
             Settings.OPEN_APK_DEFAULT_ACTION);
-
-    TypedListSettingsLiveData<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
-            new TypedListSettingsLiveData<>(Settings.STANDARD_DIRECTORY_SETTINGS);
 }
