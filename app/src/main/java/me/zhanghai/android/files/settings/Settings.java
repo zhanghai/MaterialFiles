@@ -8,6 +8,7 @@ package me.zhanghai.android.files.settings;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
+import me.zhanghai.android.files.provider.root.RootStrategy;
 import me.zhanghai.android.files.settings.SettingsEntries.BooleanSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.EnumSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.ResourceIdSettingsEntry;
@@ -44,6 +45,10 @@ interface Settings {
     TypedListSettingsEntry<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
             new TypedListSettingsEntry<>(R.string.pref_key_standard_directories,
                     StandardDirectorySettings.CREATOR);
+
+    EnumSettingsEntry<RootStrategy> ROOT_STRATEGY = new EnumSettingsEntry<>(
+            R.string.pref_key_root_strategy, R.string.pref_default_value_root_strategy,
+            RootStrategy.class);
 
     StringSettingsEntry ARCHIVE_FILE_NAME_ENCODING = new StringSettingsEntry(
             R.string.pref_key_archive_file_name_encoding,

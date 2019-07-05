@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.root;
 
 import androidx.annotation.NonNull;
+import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
 public interface RootablePath {
 
@@ -18,8 +19,7 @@ public interface RootablePath {
         if (RootUtils.isRunningAsRoot()) {
             return RootStrategy.NEVER;
         }
-        // TODO: Get global strategy.
-        RootStrategy strategy = RootStrategy.PREFER_NO;
+        RootStrategy strategy = SettingsLiveDatas.ROOT_STRATEGY.getValue();
         if (strategy == RootStrategy.PREFER_NO && shouldPreferRoot()) {
             return RootStrategy.PREFER_YES;
         }

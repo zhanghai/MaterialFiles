@@ -7,6 +7,7 @@ package me.zhanghai.android.files.settings;
 
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
+import me.zhanghai.android.files.provider.root.RootStrategy;
 
 public interface SettingsLiveDatas {
 
@@ -30,6 +31,9 @@ public interface SettingsLiveDatas {
 
     EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
             Settings.NIGHT_MODE);
+
+    EnumSettingsLiveData<RootStrategy> ROOT_STRATEGY = new EnumSettingsLiveData<>(
+            Settings.ROOT_STRATEGY);
 
     SettingsLiveData<String> ARCHIVE_FILE_NAME_ENCODING = new SettingsLiveData<>(
             Settings.ARCHIVE_FILE_NAME_ENCODING);

@@ -30,6 +30,14 @@
             android:title="@string/settings_standard_directories_title"
             android:summary="@string/settings_standard_directories_summary_empty" />
 
+        <com.takisoft.preferencex.SimpleMenuPreference
+            android:key="@string/pref_key_root_strategy"
+            android:title="@string/settings_root_strategy_title"
+            android:defaultValue="@string/pref_default_value_root_strategy"
+            android:entries="@array/settings_root_strategy_entries"
+            android:entryValues="@array/pref_entry_values_root_strategy"
+            android:summary="@string/settings_root_strategy_summary" />
+
         <me.zhanghai.android.files.settings.CharsetPreference
             android:key="@string/pref_key_archive_file_name_encoding"
             android:title="@string/settings_archive_file_name_encoding_title"
