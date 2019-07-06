@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<me.zhanghai.android.files.ui.FixNestedScrollAppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="?actionBarTheme">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <me.zhanghai.android.files.ui.CrossfadeSubtitleToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:navigationIcon="@drawable/menu_icon_white_24dp"
+            app:popupTheme="?actionBarPopupTheme"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/action_mode_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?colorPrimary"
+            android:visibility="gone"
+            app:navigationIcon="@drawable/close_icon_white_24dp"
+            app:popupTheme="?actionBarPopupTheme" />
+    </FrameLayout>
+
+    <me.zhanghai.android.files.filelist.BreadcrumbLayout
+        android:id="@+id/breadcrumb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/content_start_margin_minus_12dp"
+        android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
+</me.zhanghai.android.files.ui.FixNestedScrollAppBarLayout>

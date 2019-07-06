@@ -97,6 +97,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private NavigationFragment mNavigationFragment;
 
     @BindView(R.id.drawer)
+    @Nullable
     DrawerLayout mDrawerLayout;
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
@@ -397,7 +398,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
+                if (mDrawerLayout != null) {
+                    mDrawerLayout.openDrawer(GravityCompat.START);
+                }
                 return true;
             case R.id.action_search:
                 // TODO
@@ -451,7 +454,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     public boolean onBackPressed() {
-        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDrawerLayout.closeDrawer(GravityCompat.START);
             return true;
         }
@@ -1069,6 +1072,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void closeNavigationDrawer() {
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
     }
 }

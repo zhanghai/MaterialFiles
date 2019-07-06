@@ -7,12 +7,9 @@
 
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:clipChildren="false"
     android:fitsSystemWindows="true">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -20,120 +17,15 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <me.zhanghai.android.files.ui.FixNestedScrollAppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="?actionBarTheme">
+        <include layout="@layout/file_list_fragment_app_bar_include" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
-
-                <me.zhanghai.android.files.ui.CrossfadeSubtitleToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    app:navigationIcon="@drawable/menu_icon_white_24dp"
-                    app:popupTheme="?actionBarPopupTheme"
-                    app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/action_mode_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:background="?colorPrimary"
-                    android:visibility="gone"
-                    app:navigationIcon="@drawable/close_icon_white_24dp"
-                    app:popupTheme="?actionBarPopupTheme" />
-            </FrameLayout>
-
-            <me.zhanghai.android.files.filelist.BreadcrumbLayout
-                android:id="@+id/breadcrumb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/content_start_margin_minus_12dp"
-                android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
-        </me.zhanghai.android.files.ui.FixNestedScrollAppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <ProgressBar
-                android:id="@+id/progress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/error"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="32dp"
-                android:drawableTop="@drawable/error_icon_240dp"
-                android:drawablePadding="8dp"
-                android:gravity="center_horizontal"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingTop="12dp"
-                android:paddingBottom="32dp"
-                android:drawableTop="@drawable/file_icon_240dp"
-                android:drawablePadding="8dp"
-                android:gravity="center_horizontal"
-                android:text="@string/file_list_empty"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:visibility="gone" />
-
-            <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
-                android:id="@+id/swipe_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
-                    android:id="@+id/recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingBottom="@dimen/list_bottom_padding_with_fab"
-                    android:clipToPadding="false"
-                    app:fastScrollEnableThumbInactiveColor="false"
-                    app:fastScrollPopupBgColor="?colorAccent"
-                    app:fastScrollThumbColor="?colorAccent"
-                    tools:listitem="@layout/file_item" />
-            </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
-        </FrameLayout>
+        <include layout="@layout/file_list_fragment_content_include" />
 
         <me.zhanghai.android.files.ui.StatusBarBackgroundView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.leinardi.android.speeddial.SpeedDialOverlayLayout
-            android:id="@+id/speed_dial_overlay"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true" />
-
-        <me.zhanghai.android.files.ui.ThemedSpeedDialView
-            android:id="@+id/speed_dial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/screen_edge_margin_minus_16dp"
-            app:sdMainFabAnimationRotateAngle="135"
-            app:sdMainFabClosedSrc="@drawable/add_icon_white_24dp"
-            app:sdOverlayLayout="@id/speed_dial_overlay" />
+        <include layout="@layout/file_list_fragment_speed_dial_include" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <me.zhanghai.android.files.ui.PassWindowInsetsFrameLayout
@@ -141,5 +33,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="?android:windowBackground"
         android:fitsSystemWindows="true" />
 </androidx.drawerlayout.widget.DrawerLayout>

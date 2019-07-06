@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="design_navigation_max_width" tools:ignore="MissingDefaultResource,PrivateResource">280dp</dimen>
+</resources>
