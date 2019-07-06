@@ -26,14 +26,14 @@
             <FrameLayout
                 android:id="@+id/navigation_fragment"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="?colorBackgroundFloating" />
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:background="?dividerVertical" />
-            </FrameLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="?dividerVertical" />
 
             <include
                 android:layout_width="0dp"
