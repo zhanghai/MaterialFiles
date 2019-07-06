@@ -18,29 +18,29 @@
 
         <include layout="@layout/file_list_fragment_app_bar_include" />
 
-        <androidx.drawerlayout.widget.PersistentDrawerLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                layout="@layout/file_list_fragment_content_include" />
-
-            <!--<View-->
-            <!--android:layout_width="1dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="end"-->
-            <!--android:background="?dividerVertical" />-->
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <FrameLayout
                 android:id="@+id/navigation_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="start"
                 android:background="?colorBackgroundFloating" />
-        </androidx.drawerlayout.widget.PersistentDrawerLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:background="?dividerVertical" />
+
+            <include
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                layout="@layout/file_list_fragment_content_include" />
+        </LinearLayout>
     </LinearLayout>
 
     <me.zhanghai.android.files.ui.StatusBarBackgroundView
