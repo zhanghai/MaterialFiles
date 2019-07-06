@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.main;
+package me.zhanghai.android.files.filelist;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,15 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.util.FragmentUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class FileListActivity extends AppCompatActivity {
 
-    @NonNull
-    private MainFragment mMainFragment;
+    private FileListFragment mFileListFragment;
 
     @NonNull
     public static Intent newIntent(@Nullable Path path, @NonNull Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        MainFragment.putArguments(intent, path);
+        Intent intent = new Intent(context, FileListActivity.class);
+        FileListFragment.putArguments(intent, path);
         return intent;
     }
 
@@ -35,16 +34,16 @@ public class MainActivity extends AppCompatActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            mMainFragment = MainFragment.newInstance(getIntent());
-            FragmentUtils.add(mMainFragment, this, android.R.id.content);
+            mFileListFragment = FileListFragment.newInstance(getIntent());
+            FragmentUtils.add(mFileListFragment, this, android.R.id.content);
         } else {
-            mMainFragment = FragmentUtils.findById(this, android.R.id.content);
+            mFileListFragment = FragmentUtils.findById(this, android.R.id.content);
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (mMainFragment.onBackPressed()) {
+        if (mFileListFragment.onBackPressed()) {
             return;
         }
         super.onBackPressed();

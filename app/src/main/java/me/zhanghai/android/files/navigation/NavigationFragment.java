@@ -41,9 +41,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     private NavigationListAdapter mAdapter;
 
     @NonNull
-    private MainListener mMainListener;
-    @NonNull
-    private FileListListener mFileListListener;
+    private Listener mListener;
 
     @NonNull
     public static NavigationFragment newInstance() {
@@ -56,10 +54,8 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
      */
     public NavigationFragment() {}
 
-    public void setListeners(@NonNull MainListener mainListener,
-                             @NonNull FileListListener fileListListener) {
-        mMainListener = mainListener;
-        mFileListListener = fileListListener;
+    public void setListeners(@NonNull Listener listener) {
+        mListener = listener;
     }
 
     @Nullable
@@ -89,7 +85,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         mRecyclerView.setAdapter(mAdapter);
 
         NavigationItemListLiveData.getInstance().observe(this, this::onNavigationItemsChanged);
-        mFileListListener.observeCurrentPath(this, this::onCurrentPathChanged);
+        mListener.observeCurrentPath(this, this::onCurrentPathChanged);
     }
 
     @Override
@@ -119,17 +115,17 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     @NonNull
     @Override
     public Path getCurrentPath() {
-        return mFileListListener.getCurrentPath();
+        return mListener.getCurrentPath();
     }
 
     @Override
     public void navigateTo(@NonNull Path path) {
-        mFileListListener.navigateTo(path);
+        mListener.navigateTo(path);
     }
 
     @Override
     public void navigateToRoot(@NonNull Path path) {
-        mFileListListener.navigateToRoot(path);
+        mListener.navigateToRoot(path);
     }
 
     @Override
@@ -145,15 +141,10 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
 
     @Override
     public void closeNavigationDrawer() {
-        mMainListener.closeNavigationDrawer();
+        mListener.closeNavigationDrawer();
     }
 
-    public interface MainListener {
-
-        void closeNavigationDrawer();
-    }
-
-    public interface FileListListener {
+    public interface Listener {
 
         @NonNull
         Path getCurrentPath();
@@ -163,5 +154,7 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         void navigateToRoot(@NonNull Path path);
 
         void observeCurrentPath(@NonNull LifecycleOwner owner, @NonNull Observer<Path> observer);
+
+        void closeNavigationDrawer();
     }
 }

@@ -27,7 +27,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="me.zhanghai.android.files.main.MainActivity"
+            android:name="me.zhanghai.android.files.filelist.FileListActivity"
             android:label="@string/main_title"
             android:theme="@style/Theme.MaterialFiles.TransparentStatusBar">
             <intent-filter>
@@ -76,7 +76,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.main.MainActivity" />
+                android:value="me.zhanghai.android.files.main.FileListActivity" />
         </activity>
 
         <activity
@@ -96,7 +96,7 @@
             android:theme="@style/Theme.MaterialFiles">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.main.MainActivity" />
+                android:value="me.zhanghai.android.files.main.FileListActivity" />
         </activity>
 
         <activity

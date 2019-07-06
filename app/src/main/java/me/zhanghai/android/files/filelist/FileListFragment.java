@@ -38,6 +38,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
@@ -57,7 +59,6 @@ import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
-import me.zhanghai.android.files.main.MainActivity;
 import me.zhanghai.android.files.navigation.NavigationFragment;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
@@ -81,7 +82,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         OpenFileAsDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
         CreateArchiveDialogFragment.Listener, RenameFileDialogFragment.Listener,
         CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-        NavigationFragment.FileListListener {
+        NavigationFragment.Listener {
 
     private static final int REQUEST_CODE_STORAGE_PERMISSIONS = 1;
 
@@ -93,6 +94,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Nullable
     private Path mExtraPath;
 
+    private NavigationFragment mNavigationFragment;
+
+    @BindView(R.id.drawer)
+    DrawerLayout mDrawerLayout;
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
@@ -207,6 +212,14 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (savedInstanceState == null) {
+            mNavigationFragment = NavigationFragment.newInstance();
+            FragmentUtils.add(mNavigationFragment, this, R.id.navigation_fragment);
+        } else {
+            mNavigationFragment = FragmentUtils.findById(this, R.id.navigation_fragment);
+        }
+        mNavigationFragment.setListeners(this);
 
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
@@ -383,6 +396,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
             case R.id.action_search:
                 // TODO
                 return true;
@@ -435,6 +451,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     public boolean onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        }
         if (mSpeedDialView.isOpen()) {
             mSpeedDialView.close();
             return true;
@@ -668,7 +688,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void openInNewTask(@NonNull Path path) {
-        Intent intent = MainActivity.newIntent(path, requireContext())
+        Intent intent = FileListActivity.newIntent(path, requireContext())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);
@@ -1045,5 +1065,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void observeCurrentPath(@NonNull LifecycleOwner owner,
                                    @NonNull Observer<Path> observer) {
         mViewModel.getCurrentPathLiveData().observe(owner, observer);
+    }
+
+    @Override
+    public void closeNavigationDrawer() {
+        mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 }
