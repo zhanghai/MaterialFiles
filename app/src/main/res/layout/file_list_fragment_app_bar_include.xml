@@ -16,7 +16,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_scrollFlags="scroll|enterAlways">
+        app:layout_scrollFlags="@integer/file_list_toolbar_scroll_flags">
 
         <me.zhanghai.android.files.ui.CrossfadeSubtitleToolbar
             android:id="@+id/toolbar"

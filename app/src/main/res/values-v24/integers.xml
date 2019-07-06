@@ -7,5 +7,5 @@
 
 <resources>
     <!-- SevenZFile and SevenZOutputFile requires SeekableByteChannel which requires Android N. -->
-    <integer name="type_seven_z_visibility">@integer/visibility_visible</integer>
+    <integer name="create_archive_type_seven_z_visibility">@integer/visibility_visible</integer>
 </resources>

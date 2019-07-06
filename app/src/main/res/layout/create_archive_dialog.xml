@@ -47,6 +47,6 @@
             android:layout_weight="1"
             android:text="@string/file_create_archive_type_7z"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            android:visibility="@integer/type_seven_z_visibility" />
+            android:visibility="@integer/create_archive_type_seven_z_visibility" />
     </me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup>
 </LinearLayout>

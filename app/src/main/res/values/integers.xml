@@ -11,6 +11,11 @@
     <integer name="visibility_invisible">1</integer>
     <integer name="visibility_gone">2</integer>
 
+    <integer name="scrollFlags_noScroll">0</integer>
+    <integer name="scrollFlags_scroll_enterAlways">5</integer>
+
+    <integer name="file_list_toolbar_scroll_flags">@integer/scrollFlags_scroll_enterAlways</integer>
+
     <!-- SevenZFile and SevenZOutputFile requires SeekableByteChannel which requires Android N. -->
-    <integer name="type_seven_z_visibility">@integer/visibility_gone</integer>
+    <integer name="create_archive_type_seven_z_visibility">@integer/visibility_gone</integer>
 </resources>
