@@ -11,6 +11,9 @@ import me.zhanghai.android.files.provider.root.RootStrategy;
 
 public interface SettingsLiveDatas {
 
+    SettingsLiveData<Boolean> FILE_LIST_PERSISTENT_DRAWER_OPEN = new SettingsLiveData<>(
+            Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN);
+
     SettingsLiveData<Boolean> FILE_LIST_SHOW_HIDDEN_FILES = new SettingsLiveData<>(
             Settings.FILE_LIST_SHOW_HIDDEN_FILES);
 

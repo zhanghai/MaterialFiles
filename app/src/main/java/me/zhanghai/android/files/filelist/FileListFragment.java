@@ -274,6 +274,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
             mViewModel.resetTo(path);
         }
+        if (mPersistentDrawerLayout != null) {
+            SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.observe(this,
+                    this::onPersistentDrawerOpenChanged);
+        }
         mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
         mViewModel.getSearchViewExpandedLiveData().observe(this, this::onSearchViewExpandedChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
@@ -406,7 +410,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     mDrawerLayout.openDrawer(GravityCompat.START);
                 }
                 if (mPersistentDrawerLayout != null) {
-                    mPersistentDrawerLayout.toggleDrawer(GravityCompat.START);
+                    SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.putValue(
+                            !SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.getValue());
                 }
                 return true;
             case R.id.action_search:
@@ -474,6 +479,16 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return true;
         }
         return mViewModel.navigateUp(false);
+    }
+
+    private void onPersistentDrawerOpenChanged(boolean open) {
+        if (mPersistentDrawerLayout != null) {
+            if (open) {
+                mPersistentDrawerLayout.openDrawer(GravityCompat.START);
+            } else {
+                mPersistentDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        }
     }
 
     private void onCurrentPathChanged(@NonNull Path path) {

@@ -17,6 +17,10 @@ import me.zhanghai.android.files.settings.SettingsEntries.TypedListSettingsEntry
 
 interface Settings {
 
+    BooleanSettingsEntry FILE_LIST_PERSISTENT_DRAWER_OPEN = new BooleanSettingsEntry(
+            R.string.pref_key_file_list_persistent_drawer_open,
+            R.bool.pref_default_value_file_list_persistent_drawer_open);
+
     BooleanSettingsEntry FILE_LIST_SHOW_HIDDEN_FILES = new BooleanSettingsEntry(
             R.string.pref_key_file_list_show_hidden_files,
             R.bool.pref_default_value_file_list_show_hidden_files);
