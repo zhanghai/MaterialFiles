@@ -52,12 +52,13 @@ public class FullScreenFrameLayout extends FrameLayout {
     @Override
     public WindowInsets dispatchApplyWindowInsets(@NonNull WindowInsets insets) {
         insets = onApplyWindowInsets(insets);
-        if (!insets.isConsumed()) {
-            for (int i = 0, count = getChildCount(); i < count; ++i) {
-                View child = getChildAt(i);
-                child.dispatchApplyWindowInsets(insets);
-            }
+        if (insets.isConsumed()) {
+            return insets;
         }
-        return insets;
+        for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
+            View child = getChildAt(i);
+            child.dispatchApplyWindowInsets(insets);
+        }
+        return insets.consumeSystemWindowInsets();
     }
 }
