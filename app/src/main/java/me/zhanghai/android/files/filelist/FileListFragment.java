@@ -65,6 +65,7 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
+import me.zhanghai.android.files.ui.PersistentDrawerLayout;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.ClipboardUtils;
@@ -99,6 +100,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @BindView(R.id.drawer)
     @Nullable
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.persistent_drawer)
+    @Nullable
+    PersistentDrawerLayout mPersistentDrawerLayout;
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
@@ -400,6 +404,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case android.R.id.home:
                 if (mDrawerLayout != null) {
                     mDrawerLayout.openDrawer(GravityCompat.START);
+                }
+                if (mPersistentDrawerLayout != null) {
+                    mPersistentDrawerLayout.toggleDrawer(GravityCompat.START);
                 }
                 return true;
             case R.id.action_search:
