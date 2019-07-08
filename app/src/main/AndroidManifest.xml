@@ -76,7 +76,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.main.FileListActivity" />
+                android:value="me.zhanghai.android.files.filelist.FileListActivity" />
         </activity>
 
         <activity
@@ -96,7 +96,7 @@
             android:theme="@style/Theme.MaterialFiles">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.main.FileListActivity" />
+                android:value="me.zhanghai.android.files.filelist.FileListActivity" />
         </activity>
 
         <activity
