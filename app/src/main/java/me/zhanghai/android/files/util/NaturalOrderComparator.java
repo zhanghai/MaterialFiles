@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 
 public class NaturalOrderComparator implements Comparator<String> {
 
+    private static final char CHAR_DOT = '.';
+
     private static final int DIGIT_RADIX = 10;
 
     @Override
@@ -23,7 +25,13 @@ public class NaturalOrderComparator implements Comparator<String> {
             int codePoint2 = string2.codePointAt(start2);
             if (!Character.isDigit(codePoint1) || !Character.isDigit(codePoint2)) {
                 if (!codePointEqualsIgnoreCase(codePoint1, codePoint2)) {
-                    return codePointCompareToIgnoreCase(codePoint1, codePoint2);
+                    if (codePoint1 == CHAR_DOT) {
+                        return -1;
+                    } else if (codePoint2 == CHAR_DOT) {
+                        return 1;
+                    } else {
+                        return codePointCompareToIgnoreCase(codePoint1, codePoint2);
+                    }
                 }
                 start1 = string1.offsetByCodePoints(start1, 1);
                 start2 = string2.offsetByCodePoints(start2, 1);
