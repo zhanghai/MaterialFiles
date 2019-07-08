@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+
 inkscape -e launcher_icon-mdpi.png -a 15:15:93:93 -w 48 -h 48 launcher_icon.svg
 inkscape -e launcher_icon-hdpi.png -a 15:15:93:93 -w 72 -h 72 launcher_icon.svg
 inkscape -e launcher_icon-xhdpi.png -a 15:15:93:93 -w 96 -h 96 launcher_icon.svg
