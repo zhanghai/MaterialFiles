@@ -29,11 +29,11 @@ public interface SettingsLiveDatas {
     ResourceIdSettingsLiveData CREATE_ARCHIVE_TYPE = new ResourceIdSettingsLiveData(
             Settings.CREATE_ARCHIVE_TYPE);
 
-    SettingsLiveData<Boolean> FILE_LIST_ANIMATION = new SettingsLiveData<>(
-            Settings.FILE_LIST_ANIMATION);
-
     EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
             Settings.NIGHT_MODE);
+
+    SettingsLiveData<Boolean> FILE_LIST_ANIMATION = new SettingsLiveData<>(
+            Settings.FILE_LIST_ANIMATION);
 
     TypedListSettingsLiveData<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
             new TypedListSettingsLiveData<>(Settings.STANDARD_DIRECTORY_SETTINGS);

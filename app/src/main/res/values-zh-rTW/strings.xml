@@ -248,7 +248,6 @@
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">界面</string>
-    <string name="settings_file_list_animation_title">檔案列表動畫</string>
     <string name="settings_night_mode_title">夜間模式</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
@@ -258,6 +257,7 @@
         <item>基於時間</item>
         <item>基於省電模式</item>
     </string-array>
+    <string name="settings_file_list_animation_title">檔案列表動畫</string>
     <string name="settings_behavior_title">行為</string>
     <string name="settings_standard_directories_title">標準資料夾</string>
     <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>

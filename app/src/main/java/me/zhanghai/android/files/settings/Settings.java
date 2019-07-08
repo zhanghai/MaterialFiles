@@ -40,11 +40,11 @@ interface Settings {
     SettingsEntries.ResourceIdSettingsEntry CREATE_ARCHIVE_TYPE = new ResourceIdSettingsEntry(
             R.string.pref_key_create_archive_type, R.string.pref_default_value_create_archive_type);
 
-    BooleanSettingsEntry FILE_LIST_ANIMATION = new BooleanSettingsEntry(
-            R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation);
-
     EnumSettingsEntry<NightMode> NIGHT_MODE = new EnumSettingsEntry<>(R.string.pref_key_night_mode,
             R.string.pref_default_value_night_mode, NightMode.class);
+
+    BooleanSettingsEntry FILE_LIST_ANIMATION = new BooleanSettingsEntry(
+            R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation);
 
     TypedListSettingsEntry<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
             new TypedListSettingsEntry<>(R.string.pref_key_standard_directories,

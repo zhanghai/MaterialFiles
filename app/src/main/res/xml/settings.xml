@@ -9,11 +9,6 @@
 
     <PreferenceCategory android:title="@string/settings_interface_title">
 
-        <SwitchPreferenceCompat
-            android:key="@string/pref_key_file_list_animation"
-            android:title="@string/settings_file_list_animation_title"
-            android:defaultValue="@bool/pref_default_value_file_list_animation" />
-
         <com.takisoft.preferencex.SimpleMenuPreference
             android:key="@string/pref_key_night_mode"
             android:title="@string/settings_night_mode_title"
@@ -21,6 +16,11 @@
             android:entries="@array/settings_night_mode_entries"
             android:entryValues="@array/pref_entry_values_night_mode"
             android:summary="@string/settings_night_mode_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_file_list_animation"
+            android:title="@string/settings_file_list_animation_title"
+            android:defaultValue="@bool/pref_default_value_file_list_animation" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_behavior_title">

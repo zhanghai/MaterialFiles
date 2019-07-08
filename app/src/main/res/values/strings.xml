@@ -261,7 +261,6 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>
-    <string name="settings_file_list_animation_title">File list animation</string>
     <string name="settings_night_mode_title">Night mode</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
@@ -271,6 +270,7 @@
         <item>Based on time</item>
         <item>Based on battery saver</item>
     </string-array>
+    <string name="settings_file_list_animation_title">File list animation</string>
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_standard_directories_title">Standard directories</string>
     <string name="settings_standard_directories_summary_empty">No standard directories enabled</string>
