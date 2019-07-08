@@ -13,6 +13,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.firebase.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
+import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.util.NightModeHelper;
 
 public class AppApplication extends Application {
@@ -40,6 +41,7 @@ public class AppApplication extends Application {
         FileSystemProviders.install();
         FileSystemProviders.setOverflowWatchEvents(true);
 
+        CustomThemeHelper.initialize(this);
         NightModeHelper.syncDefaultNightMode();
     }
 }

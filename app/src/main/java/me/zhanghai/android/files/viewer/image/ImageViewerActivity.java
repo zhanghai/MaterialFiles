@@ -13,11 +13,11 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
 import me.zhanghai.android.files.util.FragmentUtils;
 
-public class ImageViewerActivity extends AppCompatActivity {
+public class ImageViewerActivity extends CustomThemeAppCompatActivity {
 
     @NonNull
     public static Intent newIntent(@NonNull List<Path> paths, int position,

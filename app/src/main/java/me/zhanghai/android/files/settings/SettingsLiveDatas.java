@@ -8,6 +8,7 @@ package me.zhanghai.android.files.settings;
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.provider.root.RootStrategy;
+import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 
 public interface SettingsLiveDatas {
 
@@ -29,6 +30,12 @@ public interface SettingsLiveDatas {
     ResourceIdSettingsLiveData CREATE_ARCHIVE_TYPE = new ResourceIdSettingsLiveData(
             Settings.CREATE_ARCHIVE_TYPE);
 
+    EnumSettingsLiveData<CustomThemeColors.Primary> PRIMARY_COLOR = new EnumSettingsLiveData<>(
+            Settings.PRIMARY_COLOR);
+
+    EnumSettingsLiveData<CustomThemeColors.Accent> ACCENT_COLOR = new EnumSettingsLiveData<>(
+            Settings.ACCENT_COLOR);
+ 
     EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
             Settings.NIGHT_MODE);
 

@@ -11,6 +11,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.util.NightModeHelper;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -19,6 +20,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        SettingsLiveDatas.PRIMARY_COLOR.observe(this, primaryColor -> CustomThemeHelper.sync());
+        SettingsLiveDatas.ACCENT_COLOR.observe(this, accentColor -> CustomThemeHelper.sync());
         SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode ->
                 NightModeHelper.syncDefaultNightMode());
     }

@@ -9,6 +9,22 @@
 
     <PreferenceCategory android:title="@string/settings_interface_title">
 
+        <ListPreference
+            android:key="@string/pref_key_primary_color"
+            android:title="@string/settings_primary_color_title"
+            android:defaultValue="@string/pref_default_value_primary_color"
+            android:entries="@array/pref_entry_values_primary_color"
+            android:entryValues="@array/pref_entry_values_primary_color"
+            android:summary="@string/settings_primary_color_summary" />
+
+        <ListPreference
+            android:key="@string/pref_key_accent_color"
+            android:title="@string/settings_accent_color_title"
+            android:defaultValue="@string/pref_default_value_accent_color"
+            android:entries="@array/pref_entry_values_accent_color"
+            android:entryValues="@array/pref_entry_values_accent_color"
+            android:summary="@string/settings_accent_color_summary" />
+
         <com.takisoft.preferencex.SimpleMenuPreference
             android:key="@string/pref_key_night_mode"
             android:title="@string/settings_night_mode_title"

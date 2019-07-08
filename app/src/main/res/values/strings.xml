@@ -261,6 +261,10 @@
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>
+    <string name="settings_primary_color_title">Primary color</string>
+    <string name="settings_primary_color_summary">%1$s</string>
+    <string name="settings_accent_color_title">Accent color</string>
+    <string name="settings_accent_color_summary">%1$s</string>
     <string name="settings_night_mode_title">Night mode</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">

@@ -14,6 +14,7 @@ import me.zhanghai.android.files.settings.SettingsEntries.EnumSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.ResourceIdSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.StringSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.TypedListSettingsEntry;
+import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 
 interface Settings {
 
@@ -39,6 +40,14 @@ interface Settings {
 
     SettingsEntries.ResourceIdSettingsEntry CREATE_ARCHIVE_TYPE = new ResourceIdSettingsEntry(
             R.string.pref_key_create_archive_type, R.string.pref_default_value_create_archive_type);
+
+    EnumSettingsEntry<CustomThemeColors.Primary> PRIMARY_COLOR = new EnumSettingsEntry<>(
+            R.string.pref_key_primary_color, R.string.pref_default_value_primary_color,
+            CustomThemeColors.Primary.class);
+
+    EnumSettingsEntry<CustomThemeColors.Accent> ACCENT_COLOR = new EnumSettingsEntry<>(
+            R.string.pref_key_accent_color, R.string.pref_default_value_accent_color,
+            CustomThemeColors.Accent.class);
 
     EnumSettingsEntry<NightMode> NIGHT_MODE = new EnumSettingsEntry<>(R.string.pref_key_night_mode,
             R.string.pref_default_value_night_mode, NightMode.class);

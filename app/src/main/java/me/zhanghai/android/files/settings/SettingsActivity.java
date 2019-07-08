@@ -11,10 +11,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
 import me.zhanghai.android.files.util.FragmentUtils;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends CustomThemeAppCompatActivity {
 
     @NonNull
     public static Intent newIntent(@NonNull Context context) {

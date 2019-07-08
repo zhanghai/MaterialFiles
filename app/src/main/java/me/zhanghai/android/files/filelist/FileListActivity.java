@@ -11,11 +11,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
 import me.zhanghai.android.files.util.FragmentUtils;
 
-public class FileListActivity extends AppCompatActivity {
+public class FileListActivity extends CustomThemeAppCompatActivity {
 
     private FileListFragment mFileListFragment;
 

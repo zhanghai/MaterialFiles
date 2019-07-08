@@ -248,6 +248,10 @@
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">界面</string>
+    <string name="settings_primary_color_title">主要色</string>
+    <string name="settings_primary_color_summary">%1$s</string>
+    <string name="settings_accent_color_title">強調色</string>
+    <string name="settings_accent_color_summary">%1$s</string>
     <string name="settings_night_mode_title">夜間模式</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
