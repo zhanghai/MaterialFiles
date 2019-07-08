@@ -7,25 +7,19 @@
 
 <resources>
 
-    <color name="blue_500">#2196F3</color>
-    <color name="blue_700">#1976D2</color>
-    <color name="blue_800">#1565C0</color>
-
-    <color name="pink_500">#E91E63</color>
-
     <color name="dark_30_percent">#4d000000</color>
     <color name="dark_50_percent">#80000000</color>
     <color name="dark_70_percent">#b3000000</color>
+
+    <color name="system_window_scrim">#44000000</color>
+
+    <color name="color_primary">@color/material_blue_700</color>
+    <color name="color_primary_dark">@color/material_blue_800</color>
+    <color name="color_accent">@color/material_pink_500</color>
 
     <color name="file_icon_blue">#4883F3</color>
     <color name="file_icon_green">#16A765</color>
     <color name="file_icon_orange">#FF7537</color>
     <color name="file_icon_red">#DB4437</color>
     <color name="file_icon_yellow">#F4B400</color>
-
-    <color name="system_window_scrim">#44000000</color>
-
-    <color name="color_primary">@color/blue_700</color>
-    <color name="color_primary_dark">@color/blue_800</color>
-    <color name="color_accent">@color/pink_500</color>
 </resources>
