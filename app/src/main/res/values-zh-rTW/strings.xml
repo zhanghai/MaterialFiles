@@ -80,9 +80,9 @@
     <string name="file_job_cannot_extract_into_itself_title">無法將資料夾提取到自身</string>
     <string name="file_job_cannot_move_into_itself_title">無法將資料夾移動到自身</string>
     <string name="file_job_cannot_copy_move_into_itself_message">目標資料夾位於來源資料夾內。</string>
-    <string name="file_job_cannot_copy_over_itself_title">無法將資料夾複製到自身</string>
-    <string name="file_job_cannot_extract_over_itself_title">無法將資料夾提取到自身</string>
-    <string name="file_job_cannot_move_over_itself_title">無法將資料夾移動到自身</string>
+    <string name="file_job_cannot_copy_over_itself_title">無法將檔案複製到自身</string>
+    <string name="file_job_cannot_extract_over_itself_title">無法將檔案提取到自身</string>
+    <string name="file_job_cannot_move_over_itself_title">無法將檔案移動到自身</string>
     <string name="file_job_cannot_copy_move_over_itself_message">來源檔案將被目標覆蓋。</string>
     <string name="file_job_replace_title_format">替換檔案「%1$s」？</string>
     <string name="file_job_replace_message_format">在「%1$s」中存在相同名稱的另一個檔案。\n替換將覆蓋它的內容。</string>
