@@ -168,7 +168,7 @@ public class MoreFiles {
     }
 
     @NonNull
-    private static ByteStringListPath requireByteStringListPath(@NonNull Path path) {
+    public static ByteStringListPath requireByteStringListPath(@NonNull Path path) {
         if (!(path instanceof ByteStringListPath)) {
             throw new ProviderMismatchException(path.toString());
         }

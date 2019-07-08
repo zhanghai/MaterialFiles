@@ -47,6 +47,9 @@ import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.archive.archiver.ArchiveWriter;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringBuilder;
+import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
@@ -971,9 +974,112 @@ public class FileJobs {
             TransferInfo transferInfo = new TransferInfo(scanInfo);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             for (Path source : mSources) {
-                Path target = MoreFiles.resolve(mTargetDirectory, getTargetFileName(source));
+                Path target;
+                if (Objects.equals(source.getParent(), mTargetDirectory)) {
+                    target = getTargetPathForDuplicate(source);
+                } else {
+                    target = MoreFiles.resolve(mTargetDirectory, getTargetFileName(source));
+                }
                 copyRecursively(source, target, isExtract, transferInfo, actionAllInfo);
                 throwIfInterrupted();
+            }
+        }
+
+        @NonNull
+        private static Path getTargetPathForDuplicate(@NonNull Path source) {
+            ByteStringListPath byteStringSource = MoreFiles.requireByteStringListPath(source);
+            ByteString sourceFileName = MoreFiles.toByteString(source.getFileName());
+            int extensionSeparatorIndex;
+            // We do want to follow symbolic links here.
+            if (Files.isDirectory(source)) {
+                extensionSeparatorIndex = -1;
+            } else {
+                extensionSeparatorIndex = PathFileNameUtils.indexOfFullExtensionSeparator(
+                        sourceFileName);
+            }
+            int countEndIndex = extensionSeparatorIndex > 0 ? extensionSeparatorIndex
+                    : sourceFileName.length();
+            DuplicateCountInfo countInfo = getDuplicateCountInfo(sourceFileName, countEndIndex);
+            for (int i = countInfo.count + 1; i > 0; ++i) {
+                ByteString targetFileName = setDuplicateCount(sourceFileName, countInfo, i);
+                Path target = byteStringSource.resolveSibling(targetFileName);
+                if (!Files.exists(target)) {
+                    return target;
+                }
+            }
+            // Just leave it to conflict handling logic.
+            return source;
+        }
+
+        @NonNull
+        private static DuplicateCountInfo getDuplicateCountInfo(@NonNull ByteString fileName,
+                                                                int countEnd) {
+            while (true) {
+                // /(?<=.) \(\d+\)$/
+                int index = countEnd - 1;
+                // \)
+                if (index < 0 || fileName.byteAt(index) != ')') {
+                    break;
+                }
+                --index;
+                // \d+
+                int digitsEndInclusive = index;
+                while (index >= 0) {
+                    byte b = fileName.byteAt(index);
+                    if (b < '0' || b > '9') {
+                        break;
+                    }
+                    --index;
+                }
+                if (index == digitsEndInclusive) {
+                    break;
+                }
+                String countString = fileName.substring(index + 1, digitsEndInclusive + 1)
+                        .toString();
+                int count;
+                try {
+                    count = Integer.parseInt(countString);
+                } catch (NumberFormatException e) {
+                    break;
+                }
+                // \(
+                if (index < 0 || fileName.byteAt(index) != '(') {
+                    break;
+                }
+                --index;
+                //
+                if (index < 0 || fileName.byteAt(index) != ' ') {
+                    break;
+                }
+                // (?<=.)
+                if (index == 0) {
+                    break;
+                }
+                return new DuplicateCountInfo(index, countEnd, count);
+            }
+            return new DuplicateCountInfo(countEnd, countEnd, 0);
+        }
+
+        @NonNull
+        private static ByteString setDuplicateCount(@NonNull ByteString fileName,
+                                                    @NonNull DuplicateCountInfo countInfo,
+                                                    int count) {
+            return new ByteStringBuilder(fileName.substring(0, countInfo.countStart))
+                    .append(ByteString.fromString(" (" + count + ")"))
+                    .append(fileName.substring(countInfo.countEnd))
+                    .toByteString();
+        }
+
+        private static class DuplicateCountInfo {
+
+            public final int countStart;
+            public final int countEnd;
+            public final int count;
+
+            public DuplicateCountInfo(int countStart, int countEnd, int count) {
+                this.countStart = countStart;
+                this.countEnd = countEnd;
+                this.count = count;
             }
         }
 

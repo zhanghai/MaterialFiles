@@ -161,6 +161,17 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
     }
 
     @NonNull
+    public ByteString concat(@NonNull ByteString other) {
+        Objects.requireNonNull(other);
+        if (other.mBytes.length == 0) {
+            return this;
+        }
+        byte[] bytes = Arrays.copyOf(mBytes, mBytes.length + other.mBytes.length);
+        System.arraycopy(other.mBytes, 0, bytes, mBytes.length, other.mBytes.length);
+        return ofOwnableBytes(bytes);
+    }
+
+    @NonNull
     @Override
     public String toString() {
         // We are okay with the potential race condition here.
