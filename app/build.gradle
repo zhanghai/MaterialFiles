@@ -58,6 +58,7 @@ repositories {
 }
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.github.kizitonwose.colorpreference:core:1.1.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
 }
 
