@@ -22,6 +22,10 @@
     <string name="pref_key_create_archive_type">key_create_archive_type</string>
     <string name="pref_default_value_create_archive_type">"@id/type_zip"</string>
 
+    <string name="pref_key_primary_color">key_primary_color</string>
+    <string name="pref_default_value_primary_color">0</string>
+    <string name="pref_key_accent_color">key_accent_color</string>
+    <string name="pref_default_value_accent_color">0</string>
     <string name="pref_key_night_mode">key_night_mode</string>
     <string name="pref_default_value_night_mode">0</string>
     <string-array name="pref_entry_values_night_mode">

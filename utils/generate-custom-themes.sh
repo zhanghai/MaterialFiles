@@ -71,7 +71,6 @@ ACCENT_COLORS=(
     material_deep_orange_a200
 )
 CUSTOM_THEMES_XML='../app/src/main/res/values/themes-custom.xml'
-CUSTOM_PREFS_XML='../app/src/main/res/values/donottranslate-prefs-custom.xml'
 CUSTOM_THEME_COLORS_JAVA='../app/src/main/java/me/zhanghai/android/files/theme/custom/CustomThemeColors.java'
 
 cat >"${CUSTOM_THEMES_XML}" <<EOF
@@ -100,37 +99,6 @@ EOF
     done
 done
 cat >>"${CUSTOM_THEMES_XML}" <<EOF
-</resources>
-EOF
-
-cat >"${CUSTOM_PREFS_XML}" <<EOF
-<?xml version="1.0" encoding="utf-8"?>
-
-<resources>
-
-    <string name="pref_key_primary_color">key_primary_color</string>
-    <string name="pref_default_value_primary_color">0</string>
-    <string-array name="pref_entry_values_primary_color">
-EOF
-for primary_color_index in "${!PRIMARY_COLORS[@]}"; do
-    cat >>"${CUSTOM_PREFS_XML}" <<EOF
-        <item>${primary_color_index}</item>
-EOF
-done
-cat >>"${CUSTOM_PREFS_XML}" <<EOF
-    </string-array>
-
-    <string name="pref_key_accent_color">key_accent_color</string>
-    <string name="pref_default_value_accent_color">0</string>
-    <string-array name="pref_entry_values_accent_color">
-EOF
-for accent_color_index in "${!ACCENT_COLORS[@]}"; do
-    cat >>"${CUSTOM_PREFS_XML}" <<EOF
-        <item>${accent_color_index}</item>
-EOF
-done
-cat >>"${CUSTOM_PREFS_XML}" <<EOF
-    </string-array>
 </resources>
 EOF
 
