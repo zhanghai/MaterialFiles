@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/abc_dialog_title_divider_material">
+
+    <GridView
+        android:id="@+id/palette"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="?dialogPreferredPadding"
+        android:paddingEnd="?dialogPreferredPadding"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:choiceMode="singleChoice"
+        android:clipToPadding="false"
+        android:columnWidth="48dp"
+        android:horizontalSpacing="16dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="auto_fit"
+        android:scrollIndicators="top|bottom"
+        android:scrollbarStyle="outsideOverlay"
+        android:stretchMode="spacingWidth"
+        android:verticalSpacing="16dp" />
+</FrameLayout>

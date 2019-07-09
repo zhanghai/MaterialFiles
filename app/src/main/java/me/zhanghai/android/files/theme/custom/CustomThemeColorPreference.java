@@ -8,37 +8,35 @@ package me.zhanghai.android.files.theme.custom;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-import com.kizitonwose.colorpreference.ColorDialog;
-import com.kizitonwose.colorpreference.ColorShape;
-import com.kizitonwose.colorpreference.ColorUtils;
+import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 import java.util.Objects;
 
 import androidx.annotation.AttrRes;
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.core.content.ContextCompat;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceViewHolder;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.colorpicker.BaseColorPreference;
+import me.zhanghai.android.files.colorpicker.ColorPreferenceDialogFragment;
 import me.zhanghai.android.files.util.ArrayUtils;
 
-/*
- * @see https://github.com/kizitonwose/colorpreference/blob/master/support/src/main/java/com/kizitonwose/colorpreferencecompat/ColorPreferenceCompat.java
- */
-public class CustomThemeColorPreference extends Preference
-        implements ColorDialog.OnColorSelectedListener {
+public class CustomThemeColorPreference extends BaseColorPreference {
 
-    private static final int NUM_COLUMNS = 5;
-    private static final ColorShape COLOR_SHAPE = ColorShape.CIRCLE;
+    static {
+        PreferenceFragmentCompat.registerPreferenceFragment(CustomThemeColorPreference.class,
+                ColorPreferenceDialogFragment.class);
+    }
 
-    private String mValue;
-    private boolean mValueSet;
+    private String mStringValue;
+    private boolean mStringValueSet;
 
-    private int[] mColors;
+    private String mDefaultStringValue;
+
+    private int[] mEntryValues;
 
     public CustomThemeColorPreference(@NonNull Context context) {
         super(context);
@@ -67,9 +65,6 @@ public class CustomThemeColorPreference extends Preference
     }
 
     private void init() {
-
-        setWidgetLayoutResource(R.layout.pref_color_layout);
-
         String key = getKey();
         Context context = getContext();
         CustomThemeColor[] colors;
@@ -80,22 +75,33 @@ public class CustomThemeColorPreference extends Preference
         } else {
             throw new IllegalArgumentException("Unknown custom theme color preference key: " + key);
         }
-        mColors = new int[colors.length];
+        mEntryValues = new int[colors.length];
         for (int i = 0; i < colors.length; ++i) {
             CustomThemeColor color = colors[i];
-            mColors[i] = ContextCompat.getColor(context, color.getResourceId());
+            mEntryValues[i] = ContextCompat.getColor(context, color.getResourceId());
         }
     }
 
-    public String getValue() {
-        return mValue;
+    @Override
+    protected Object onGetDefaultValue(@NonNull TypedArray a, int index) {
+        mDefaultStringValue = a.getString(index);
+        return mDefaultStringValue;
     }
 
-    public void setValue(String value) {
-        boolean changed = !Objects.equals(mValue, value);
-        if (changed || !mValueSet) {
-            mValue = value;
-            mValueSet = true;
+    @Override
+    protected void onSetInitialValue(Object defaultValue) {
+        setStringValue(getPersistedString((String) defaultValue));
+    }
+
+    public String getStringValue() {
+        return mStringValue;
+    }
+
+    public void setStringValue(String value) {
+        boolean changed = !Objects.equals(mStringValue, value);
+        if (changed || !mStringValueSet) {
+            mStringValue = value;
+            mStringValueSet = true;
             persistString(value);
             if (changed) {
                 notifyChanged();
@@ -103,54 +109,26 @@ public class CustomThemeColorPreference extends Preference
         }
     }
 
+    @ColorInt
     @Override
-    protected Object onGetDefaultValue(@NonNull TypedArray a, int index) {
-        return a.getString(index);
-    }
-
-    @Override
-    protected void onSetInitialValue(Object defaultValue) {
-        setValue(getPersistedString((String) defaultValue));
-    }
-
-    private int getColorFromValue() {
-        return mColors[Integer.parseInt(getValue())];
-    }
-
-    private void setValueByColor(int color) {
-        setValue(String.valueOf(ArrayUtils.indexOf(mColors, color)));
+    public int getValue() {
+        return mEntryValues[Integer.parseInt(getStringValue())];
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
-        super.onBindViewHolder(holder);
-
-        ImageView colorView = (ImageView) holder.findViewById(R.id.color_view);
-        if (colorView != null) {
-            ColorUtils.setColorViewValue(colorView, getColorFromValue(), false, COLOR_SHAPE);
-        }
+    public void setValue(@ColorInt int value) {
+        setStringValue(String.valueOf(ArrayUtils.indexOf(mEntryValues, value)));
     }
 
+    @ColorInt
     @Override
-    protected void onClick() {
-        ColorUtils.showDialog(getContext(), this, getFragmentTag(), NUM_COLUMNS, COLOR_SHAPE,
-                mColors, getColorFromValue());
-    }
-
-    @Override
-    public void onAttached() {
-        super.onAttached();
-
-        ColorUtils.attach(getContext(), this, getFragmentTag());
+    public int getDefaultValue() {
+        return mEntryValues[Integer.parseInt(mDefaultStringValue)];
     }
 
     @NonNull
-    private String getFragmentTag() {
-        return "color_" + getKey();
-    }
-
     @Override
-    public void onColorSelected(int color, String tag) {
-        setValueByColor(color);
+    public int[] getEntryValues() {
+        return mEntryValues;
     }
 }

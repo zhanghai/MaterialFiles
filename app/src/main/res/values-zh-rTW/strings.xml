@@ -10,6 +10,7 @@
     <string name="app_name">質感檔案</string>
 
     <string name="close">關閉</string>
+    <string name="default_">預設</string>
     <string name="discard">捨棄</string>
     <string name="install">安裝</string>
     <string name="keep_editing">繼續編輯</string>

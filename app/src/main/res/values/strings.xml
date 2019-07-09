@@ -10,6 +10,7 @@
     <string name="app_name">Material Files</string>
 
     <string name="close">Close</string>
+    <string name="default_">Default</string>
     <string name="discard">Discard</string>
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>

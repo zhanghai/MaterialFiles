@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <size android:width="48dp" android:height="48dp" />
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+
+    <!-- An outline - we don't seem to need this though.
+    <item>
+        <shape android:shape="oval">
+            <size android:width="48dp" android:height="48dp" />
+            <stroke android:color="?colorControlHighlight" android:width="2dp" />
+        </shape>
+    </item>
+    -->
+
+    <item android:gravity="center">
+        <animated-selector
+            android:enterFadeDuration="@android:integer/config_shortAnimTime"
+            android:exitFadeDuration="@android:integer/config_shortAnimTime">
+            <item android:state_checked="true" android:drawable="@drawable/check_icon_white_36dp" />
+            <item>
+                <shape android:shape="oval">
+                    <size android:width="36dp" android:height="36dp" />
+                </shape>
+            </item>
+        </animated-selector>
+    </item>
+
+    <item android:drawable="?selectableItemBackgroundBorderless" />
+</layer-list>
