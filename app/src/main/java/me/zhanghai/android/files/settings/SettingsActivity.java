@@ -8,6 +8,8 @@ package me.zhanghai.android.files.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,8 @@ import me.zhanghai.android.files.util.FragmentUtils;
 
 public class SettingsActivity extends CustomThemeAppCompatActivity
         implements CustomThemeHelper.OnThemeChangedListener {
+
+    private boolean mRestarting;
 
     @NonNull
     public static Intent newIntent(@NonNull Context context) {
@@ -57,5 +61,31 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
         finish();
         startActivity(newIntent(this));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        mRestarting = true;
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
+        return mRestarting || super.dispatchKeyEvent(event);
+    }
+
+    @Override
+    public boolean dispatchKeyShortcutEvent(@NonNull KeyEvent event) {
+        return mRestarting || super.dispatchKeyShortcutEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
+        return mRestarting || super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean dispatchTrackballEvent(@NonNull MotionEvent event) {
+        return mRestarting || super.dispatchTrackballEvent(event);
+    }
+
+    @Override
+    public boolean dispatchGenericMotionEvent(@NonNull MotionEvent event) {
+        return mRestarting || super.dispatchGenericMotionEvent(event);
     }
 }
