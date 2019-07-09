@@ -67,6 +67,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.settings.SettingsActivity"
+            android:configChanges="uiMode"
             android:label="@string/settings_title"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MaterialFiles">

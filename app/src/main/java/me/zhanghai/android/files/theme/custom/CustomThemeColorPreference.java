@@ -36,6 +36,8 @@ public class CustomThemeColorPreference extends BaseColorPreference {
 
     private String mDefaultStringValue;
 
+    private Integer mInitialValue;
+
     private int[] mEntryValues;
 
     public CustomThemeColorPreference(@NonNull Context context) {
@@ -112,7 +114,13 @@ public class CustomThemeColorPreference extends BaseColorPreference {
     @ColorInt
     @Override
     public int getValue() {
-        return mEntryValues[Integer.parseInt(getStringValue())];
+        // Deliberately only bind for the initial value, because we are going to restart the
+        // activity upon change and we want to let the activity animation have the correct visual
+        // appearance.
+        if (mInitialValue == null) {
+            mInitialValue = mEntryValues[Integer.parseInt(getStringValue())];
+        }
+        return mInitialValue;
     }
 
     @Override

@@ -71,7 +71,11 @@ public class CustomThemeHelper {
             int currentThemeRes = ContextCompat.getThemeResId(activity);
             int customThemeRes = getCustomTheme(baseThemeRes, activity);
             if (currentThemeRes != customThemeRes) {
-                ActivityCompat.recreate(activity);
+                if (activity instanceof OnThemeChangedListener) {
+                    ((OnThemeChangedListener) activity).onThemeChanged(customThemeRes);
+                } else {
+                    ActivityCompat.recreate(activity);
+                }
             }
         }
     }
@@ -87,5 +91,9 @@ public class CustomThemeHelper {
         String customThemeName = baseThemeName + "." + primaryColorEntryName + "."
                 + accentColorEntryName;
         return resources.getIdentifier(customThemeName, null, null);
+    }
+
+    public interface OnThemeChangedListener {
+        void onThemeChanged(@StyleRes int theme);
     }
 }
