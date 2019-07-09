@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.core.app.ActivityCompat;
-import me.zhanghai.android.files.compat.ContextCompat;
+import me.zhanghai.android.files.compat.MoreContextCompat;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
 public class CustomThemeHelper {
@@ -57,7 +57,7 @@ public class CustomThemeHelper {
     }
 
     public static void apply(@NonNull Activity activity) {
-        int baseThemeRes = ContextCompat.getThemeResId(activity);
+        int baseThemeRes = MoreContextCompat.getThemeResId(activity);
         sActivityBaseThemes.put(activity, baseThemeRes);
         int customThemeRes = getCustomTheme(baseThemeRes, activity);
         activity.setTheme(customThemeRes);
@@ -68,7 +68,7 @@ public class CustomThemeHelper {
             Activity activity = entry.getKey();
             int baseThemeRes = entry.getValue();
 
-            int currentThemeRes = ContextCompat.getThemeResId(activity);
+            int currentThemeRes = MoreContextCompat.getThemeResId(activity);
             int customThemeRes = getCustomTheme(baseThemeRes, activity);
             if (currentThemeRes != customThemeRes) {
                 if (activity instanceof OnThemeChangedListener) {

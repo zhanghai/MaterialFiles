@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
 import me.zhanghai.java.reflected.ReflectedMethod;
 
-public class ContextCompat {
+public class MoreContextCompat {
 
     static {
         RestrictedHiddenApiAccess.allow();
@@ -21,7 +21,7 @@ public class ContextCompat {
     private static final ReflectedMethod<Context> sGetThemeResIdMethod = new ReflectedMethod<>(
             Context.class, "getThemeResId");
 
-    private ContextCompat() {}
+    private MoreContextCompat() {}
 
     @StyleRes
     public static int getThemeResId(@NonNull Context context) {
