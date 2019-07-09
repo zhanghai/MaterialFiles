@@ -59,16 +59,19 @@ ACCENT_COLORS=(
     material_deep_purple_a200
     material_indigo_a200
     material_blue_a200
-    material_light_blue_a200
-    material_cyan_a200
-    material_teal_a200
-    material_green_a200
-    material_light_green_a200
-    material_lime_a200
-    material_yellow_a200
-    material_amber_a200
-    material_orange_a200
-    material_deep_orange_a200
+    material_light_blue_500
+    material_cyan_500
+    material_teal_500
+    material_green_500
+    material_light_green_500
+    material_lime_500
+    material_yellow_500
+    material_amber_500
+    material_orange_500
+    material_deep_orange_500
+    material_brown_500
+    material_grey_500
+    material_blue_grey_500
 )
 CUSTOM_THEMES_XML='../app/src/main/res/values/themes-custom.xml'
 CUSTOM_THEME_COLORS_JAVA='../app/src/main/java/me/zhanghai/android/files/theme/custom/CustomThemeColors.java'

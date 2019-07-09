@@ -63,16 +63,19 @@ public class CustomThemeColors {
         MATERIAL_DEEP_PURPLE_A200(R.color.material_deep_purple_a200, "material_deep_purple_a200"),
         MATERIAL_INDIGO_A200(R.color.material_indigo_a200, "material_indigo_a200"),
         MATERIAL_BLUE_A200(R.color.material_blue_a200, "material_blue_a200"),
-        MATERIAL_LIGHT_BLUE_A200(R.color.material_light_blue_a200, "material_light_blue_a200"),
-        MATERIAL_CYAN_A200(R.color.material_cyan_a200, "material_cyan_a200"),
-        MATERIAL_TEAL_A200(R.color.material_teal_a200, "material_teal_a200"),
-        MATERIAL_GREEN_A200(R.color.material_green_a200, "material_green_a200"),
-        MATERIAL_LIGHT_GREEN_A200(R.color.material_light_green_a200, "material_light_green_a200"),
-        MATERIAL_LIME_A200(R.color.material_lime_a200, "material_lime_a200"),
-        MATERIAL_YELLOW_A200(R.color.material_yellow_a200, "material_yellow_a200"),
-        MATERIAL_AMBER_A200(R.color.material_amber_a200, "material_amber_a200"),
-        MATERIAL_ORANGE_A200(R.color.material_orange_a200, "material_orange_a200"),
-        MATERIAL_DEEP_ORANGE_A200(R.color.material_deep_orange_a200, "material_deep_orange_a200");
+        MATERIAL_LIGHT_BLUE_500(R.color.material_light_blue_500, "material_light_blue_500"),
+        MATERIAL_CYAN_500(R.color.material_cyan_500, "material_cyan_500"),
+        MATERIAL_TEAL_500(R.color.material_teal_500, "material_teal_500"),
+        MATERIAL_GREEN_500(R.color.material_green_500, "material_green_500"),
+        MATERIAL_LIGHT_GREEN_500(R.color.material_light_green_500, "material_light_green_500"),
+        MATERIAL_LIME_500(R.color.material_lime_500, "material_lime_500"),
+        MATERIAL_YELLOW_500(R.color.material_yellow_500, "material_yellow_500"),
+        MATERIAL_AMBER_500(R.color.material_amber_500, "material_amber_500"),
+        MATERIAL_ORANGE_500(R.color.material_orange_500, "material_orange_500"),
+        MATERIAL_DEEP_ORANGE_500(R.color.material_deep_orange_500, "material_deep_orange_500"),
+        MATERIAL_BROWN_500(R.color.material_brown_500, "material_brown_500"),
+        MATERIAL_GREY_500(R.color.material_grey_500, "material_grey_500"),
+        MATERIAL_BLUE_GREY_500(R.color.material_blue_grey_500, "material_blue_grey_500");
 
         @ColorRes
         private final int mResourceId;
