@@ -21,6 +21,10 @@ import me.zhanghai.android.files.util.FragmentUtils;
 public class SettingsActivity extends CustomThemeAppCompatActivity
         implements CustomThemeHelper.OnThemeChangedListener {
 
+    private static final String KEY_PREFIX = SettingsActivity.class.getName() + '.';
+
+    private static final String EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE";
+
     private boolean mRestarting;
 
     @NonNull
@@ -28,8 +32,18 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
         return new Intent(context, SettingsActivity.class);
     }
 
+    @NonNull
+    private static Intent newIntent(@NonNull Bundle savedInstanceState, @NonNull Context context) {
+        return newIntent(context)
+                .putExtra(EXTRA_SAVED_INSTANCE_STATE, savedInstanceState);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
+        if (savedInstanceState == null) {
+            savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_INSTANCE_STATE);
+        }
         super.onCreate(savedInstanceState);
 
         // Calls ensureSubDecor().
@@ -58,8 +72,10 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
     }
 
     private void restart() {
+        Bundle savedInstanceState = new Bundle();
+        onSaveInstanceState(savedInstanceState);
         finish();
-        startActivity(newIntent(this));
+        startActivity(newIntent(savedInstanceState, this));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         mRestarting = true;
     }
