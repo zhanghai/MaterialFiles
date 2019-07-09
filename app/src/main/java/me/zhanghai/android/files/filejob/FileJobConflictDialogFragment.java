@@ -31,9 +31,9 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.DialogFragment;
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,7 +53,7 @@ import me.zhanghai.android.files.util.ImeUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class FileJobConflictDialogFragment extends DialogFragment {
+public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
 
     private static final String KEY_PREFIX = FileJobConflictDialogFragment.class.getName() + '.';
 

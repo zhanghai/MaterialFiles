@@ -17,8 +17,8 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.DialogFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
@@ -26,7 +26,7 @@ import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class FileJobActionDialogFragment extends DialogFragment {
+public class FileJobActionDialogFragment extends AppCompatDialogFragment {
 
     private static final String KEY_PREFIX = FileJobActionDialogFragment.class.getName() + '.';
 
