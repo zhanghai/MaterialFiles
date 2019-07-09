@@ -17,6 +17,7 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import androidx.core.app.ActivityCompat;
 import me.zhanghai.android.files.compat.ContextCompat;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
@@ -70,7 +71,7 @@ public class CustomThemeHelper {
             int currentThemeRes = ContextCompat.getThemeResId(activity);
             int customThemeRes = getCustomTheme(baseThemeRes, activity);
             if (currentThemeRes != customThemeRes) {
-                activity.recreate();
+                ActivityCompat.recreate(activity);
             }
         }
     }
