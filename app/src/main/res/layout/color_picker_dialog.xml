@@ -20,6 +20,7 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:choiceMode="singleChoice"
+        android:clipChildren="false"
         android:clipToPadding="false"
         android:columnWidth="48dp"
         android:horizontalSpacing="16dp"

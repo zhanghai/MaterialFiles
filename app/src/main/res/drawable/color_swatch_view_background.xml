@@ -35,6 +35,4 @@
             </item>
         </animated-selector>
     </item>
-
-    <item android:drawable="?selectableItemBackgroundBorderless" />
 </layer-list>
