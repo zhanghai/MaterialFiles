@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.core.app.ActivityCompat;
+import me.zhanghai.android.files.compat.MoreActivityCompat;
 import me.zhanghai.android.files.compat.MoreContextCompat;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
@@ -60,7 +61,7 @@ public class CustomThemeHelper {
         int baseThemeRes = MoreContextCompat.getThemeResId(activity);
         sActivityBaseThemes.put(activity, baseThemeRes);
         int customThemeRes = getCustomTheme(baseThemeRes, activity);
-        activity.setTheme(customThemeRes);
+        MoreActivityCompat.setTheme(activity, customThemeRes);
     }
 
     public static void sync() {
