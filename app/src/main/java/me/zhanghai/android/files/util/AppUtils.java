@@ -5,22 +5,15 @@
 
 package me.zhanghai.android.files.util;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NavUtils;
@@ -42,106 +35,6 @@ public class AppUtils {
         } else {
             return null;
         }
-    }
-
-    @Nullable
-    private static Field sActivityTaskDescriptionField;
-    private static boolean sActivityTaskDescriptionFieldInitialized;
-
-    @Nullable
-    public static ActivityManager.TaskDescription getTaskDescription(@NonNull Activity activity) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return null;
-        }
-        if (!sActivityTaskDescriptionFieldInitialized) {
-            try {
-                sActivityTaskDescriptionField = Activity.class.getDeclaredField("mTaskDescription");
-                sActivityTaskDescriptionField.setAccessible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            sActivityTaskDescriptionFieldInitialized = true;
-        }
-        if (sActivityTaskDescriptionField == null) {
-            return null;
-        }
-        try {
-            return (ActivityManager.TaskDescription) sActivityTaskDescriptionField.get(activity);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Nullable
-    private static Method sTaskDescriptionSetLabelMethod;
-    private static boolean sTaskDescriptionSetLabelMethodInitialized;
-
-    @SuppressLint("PrivateApi")
-    public static void setTaskDescriptionLabel(@NonNull Activity activity, @Nullable String label) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
-        ActivityManager.TaskDescription taskDescription = getTaskDescription(activity);
-        if (taskDescription == null) {
-            return;
-        }
-        if (!sTaskDescriptionSetLabelMethodInitialized) {
-            try {
-                sTaskDescriptionSetLabelMethod = ActivityManager.TaskDescription.class
-                        .getDeclaredMethod("setLabel", String.class);
-                sTaskDescriptionSetLabelMethod.setAccessible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            sTaskDescriptionSetLabelMethodInitialized = true;
-        }
-        if (sTaskDescriptionSetLabelMethod == null) {
-            return;
-        }
-        try {
-            sTaskDescriptionSetLabelMethod.invoke(taskDescription, label);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        activity.setTaskDescription(taskDescription);
-    }
-
-    @Nullable
-    private static Method sTaskDescriptionSetPrimaryColorMethod;
-    private static boolean sTaskDescriptionSetPrimaryColorMethodInitialized;
-
-    @SuppressLint("PrivateApi")
-    public static void setTaskDescriptionPrimaryColor(@NonNull Activity activity,
-                                                      @ColorInt int primaryColor) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
-        ActivityManager.TaskDescription taskDescription = getTaskDescription(activity);
-        if (taskDescription == null) {
-            return;
-        }
-        if (!sTaskDescriptionSetPrimaryColorMethodInitialized) {
-            try {
-                sTaskDescriptionSetPrimaryColorMethod = ActivityManager.TaskDescription.class
-                        .getDeclaredMethod("setPrimaryColor", int.class);
-                sTaskDescriptionSetPrimaryColorMethod.setAccessible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            sTaskDescriptionSetPrimaryColorMethodInitialized = true;
-        }
-        if (sTaskDescriptionSetPrimaryColorMethod == null) {
-            return;
-        }
-        try {
-            sTaskDescriptionSetPrimaryColorMethod.invoke(taskDescription, primaryColor);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
-        }
-        activity.setTaskDescription(taskDescription);
     }
 
     public static boolean isIntentHandled(@NonNull Intent intent, @NonNull Context context) {
