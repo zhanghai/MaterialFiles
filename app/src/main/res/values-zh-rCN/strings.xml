@@ -249,9 +249,9 @@
     <string name="settings_title">设置</string>
     <string name="settings_interface_title">界面</string>
     <string name="settings_primary_color_title">主要色</string>
-    <string name="settings_primary_color_summary">%1$s</string>
+    <string name="settings_primary_color_summary">应用中最常见的颜色</string>
     <string name="settings_accent_color_title">强调色</string>
-    <string name="settings_accent_color_summary">%1$s</string>
+    <string name="settings_accent_color_summary">用于强调界面中关键部分的颜色</string>
     <string name="settings_night_mode_title">夜间模式</string>
     <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
