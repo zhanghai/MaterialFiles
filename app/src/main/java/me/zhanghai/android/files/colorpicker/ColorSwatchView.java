@@ -16,40 +16,45 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.ui.CheckableImageButton;
+import me.zhanghai.android.files.ui.CheckableView;
 
-public class ColorSwatchButton extends CheckableImageButton {
+public class ColorSwatchView extends CheckableView {
 
     private GradientDrawable mGradientDrawable;
 
-    public ColorSwatchButton(@NonNull Context context) {
+    public ColorSwatchView(@NonNull Context context) {
         super(context);
 
         init();
     }
 
-    public ColorSwatchButton(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public ColorSwatchView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
         init();
     }
 
-    public ColorSwatchButton(@NonNull Context context, @Nullable AttributeSet attrs,
-                             @AttrRes int defStyleAttr) {
+    public ColorSwatchView(@NonNull Context context, @Nullable AttributeSet attrs,
+                           @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init();
     }
 
     private void init() {
-        setBackground(null);
         Context context = getContext();
-        LayerDrawable drawable = (LayerDrawable) AppCompatResources.getDrawable(getContext(),
+        LayerDrawable background = (LayerDrawable) AppCompatResources.getDrawable(getContext(),
                 R.drawable.color_swatch_view_background);
-        mGradientDrawable = (GradientDrawable) drawable.getDrawable(0);
-        setImageDrawable(drawable);
+        mGradientDrawable = (GradientDrawable) background.getDrawable(0);
+        setBackground(background);
         setForeground(AppCompatResources.getDrawable(context,
                 R.drawable.selectable_item_background_oval));
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(resolveSize(getSuggestedMinimumWidth(), widthMeasureSpec),
+                resolveSize(getSuggestedMinimumHeight(), heightMeasureSpec));
     }
 
     public void setColor(@ColorInt int color) {
