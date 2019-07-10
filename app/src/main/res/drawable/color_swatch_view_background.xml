@@ -35,4 +35,6 @@
             </item>
         </animated-selector>
     </item>
+
+    <item android:drawable="@drawable/selectable_item_background_oval" />
 </layer-list>

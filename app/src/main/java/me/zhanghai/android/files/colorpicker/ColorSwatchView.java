@@ -50,13 +50,10 @@ public class ColorSwatchView extends CheckableView {
     }
 
     private void init() {
-        Context context = getContext();
         LayerDrawable background = (LayerDrawable) AppCompatResources.getDrawable(getContext(),
                 R.drawable.color_swatch_view_background);
         mGradientDrawable = (GradientDrawable) background.getDrawable(0);
         setBackground(background);
-        setForeground(AppCompatResources.getDrawable(context,
-                R.drawable.selectable_item_background_oval));
     }
 
     @Override

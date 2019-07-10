@@ -7,13 +7,13 @@ package me.zhanghai.android.files.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Checkable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.foreground.ForegroundView;
 
-public class CheckableView extends ForegroundView implements Checkable {
+public class CheckableView extends View implements Checkable {
 
     private static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
