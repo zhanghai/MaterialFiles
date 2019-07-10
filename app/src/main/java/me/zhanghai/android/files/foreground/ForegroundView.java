@@ -123,20 +123,28 @@ public class ForegroundView extends View {
 
     public ForegroundView(@NonNull Context context) {
         super(context);
+
+        mForegroundHelper.init(context, null, 0, 0);
     }
 
     public ForegroundView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+
+        mForegroundHelper.init(context, attrs, 0, 0);
     }
 
     public ForegroundView(@NonNull Context context, @Nullable AttributeSet attrs,
                           @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        mForegroundHelper.init(context, attrs, defStyleAttr, 0);
     }
 
     public ForegroundView(@NonNull Context context, @Nullable AttributeSet attrs,
                           @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+
+        mForegroundHelper.init(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override
