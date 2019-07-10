@@ -14,6 +14,7 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
 import androidx.appcompat.content.res.AppCompatResources;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.ui.CheckableView;
@@ -37,6 +38,13 @@ public class ColorSwatchView extends CheckableView {
     public ColorSwatchView(@NonNull Context context, @Nullable AttributeSet attrs,
                            @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        init();
+    }
+
+    public ColorSwatchView(@NonNull Context context, @Nullable AttributeSet attrs,
+                           @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
 
         init();
     }
