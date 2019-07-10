@@ -11,9 +11,9 @@ import android.widget.Checkable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.foreground.ForegroundView;
+import me.zhanghai.android.files.foreground.ForegroundImageButton;
 
-public class CheckableView extends ForegroundView implements Checkable {
+public class CheckableImageButton extends ForegroundImageButton implements Checkable {
 
     private static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
@@ -21,22 +21,17 @@ public class CheckableView extends ForegroundView implements Checkable {
 
     private boolean mChecked;
 
-    public CheckableView(@NonNull Context context) {
+    public CheckableImageButton(@NonNull Context context) {
         super(context);
     }
 
-    public CheckableView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CheckableImageButton(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CheckableView(@NonNull Context context, @Nullable AttributeSet attrs,
-                         int defStyleAttr) {
+    public CheckableImageButton(@NonNull Context context, @Nullable AttributeSet attrs,
+                                int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    public CheckableView(@NonNull Context context, @Nullable AttributeSet attrs,
-                         int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public void toggle() {
@@ -55,7 +50,7 @@ public class CheckableView extends ForegroundView implements Checkable {
     }
 
     @Override
-    protected int[] onCreateDrawableState(int extraSpace) {
+    public int[] onCreateDrawableState(int extraSpace) {
         int[] drawableState = super.onCreateDrawableState(extraSpace + 1);
         if (isChecked()) {
             mergeDrawableStates(drawableState, CHECKED_STATE_SET);

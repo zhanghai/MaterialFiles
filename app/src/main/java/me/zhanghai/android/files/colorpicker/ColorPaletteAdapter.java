@@ -48,14 +48,14 @@ public class ColorPaletteAdapter extends BaseAdapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ColorSwatchView swatchView = (ColorSwatchView) convertView;
-        if (swatchView == null) {
-            swatchView = new ColorSwatchView(parent.getContext());
-            swatchView.setLayoutParams(new GridView.LayoutParams(
+        ColorSwatchButton swatchButton = (ColorSwatchButton) convertView;
+        if (swatchButton == null) {
+            swatchButton = new ColorSwatchButton(parent.getContext());
+            swatchButton.setLayoutParams(new GridView.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
         int color = getItemColor(position);
-        swatchView.setColor(color);
-        return swatchView;
+        swatchButton.setColor(color);
+        return swatchButton;
     }
 }
