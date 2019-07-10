@@ -42,6 +42,6 @@ public class AppApplication extends Application {
         FileSystemProviders.setOverflowWatchEvents(true);
 
         CustomThemeHelper.initialize(this);
-        NightModeHelper.sync();
+        NightModeHelper.initialize(this);
     }
 }

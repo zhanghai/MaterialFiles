@@ -14,20 +14,18 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import androidx.appcompat.app.AppCompatDelegate;
-import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
+import me.zhanghai.android.files.AppActivity;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.android.files.util.NightModeHelper;
 
-public class SettingsActivity extends CustomThemeAppCompatActivity
-        implements CustomThemeHelper.OnThemeChangedListener {
+public class SettingsActivity extends AppActivity
+        implements CustomThemeHelper.OnThemeChangedListener,
+        NightModeHelper.OnNightModeChangedListener {
 
     private static final String KEY_PREFIX = SettingsActivity.class.getName() + '.';
 
     private static final String EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE";
-
-    private boolean mDelegateCreated;
-    private NightMode mNightMode;
 
     private boolean mRestarting;
 
@@ -40,25 +38,6 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
     private static Intent newIntent(@NonNull Bundle savedInstanceState, @NonNull Context context) {
         return newIntent(context)
                 .putExtra(EXTRA_SAVED_INSTANCE_STATE, savedInstanceState);
-    }
-
-    @NonNull
-    @Override
-    public AppCompatDelegate getDelegate() {
-        AppCompatDelegate delegate = super.getDelegate();
-        if (!mDelegateCreated) {
-            // We want to handle our own night mode.
-            // android:configChanges="uiMode" doesn't work because instead of recreating the
-            // activity, AppCompatDelegateImpl will update the resources configuration which is
-            // shared between activities, and later it won't be able to correctly figure out the
-            // actual night mode for activities currently stopped.
-            // We have to do it here so that Activity.attachBaseContext() has been called but
-            // AppCompatDelegateImpl.attacheBaseContext() isn't yet.
-            delegate.setLocalNightMode(AppCompatDelegate.getDefaultNightMode());
-            SettingsLiveDatas.NIGHT_MODE.observe(this, this::onNightModeChanged);
-            mDelegateCreated = true;
-        }
-        return delegate;
     }
 
     @Override
@@ -85,15 +64,12 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
         restart();
     }
 
-    private void onNightModeChanged(@NonNull NightMode nightMode) {
-        if (mNightMode == null) {
-            mNightMode = nightMode;
-            return;
-        }
-        if (mNightMode != nightMode) {
-            mNightMode = nightMode;
-            restart();
-        }
+    @Override
+    public void onNightModeChangedFromHelper(int nightMode) {
+        // ActivityCompat.recreate() may call ActivityRecreator.recreate() without calling
+        // Activity.recreate(), so we cannot simply override it. To work around this, we just
+        // manually call restart().
+        restart();
     }
 
     private void restart() {

@@ -12,10 +12,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.filelist.FileItem;
-import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
+import me.zhanghai.android.files.AppActivity;
 import me.zhanghai.android.files.util.FragmentUtils;
 
-public class FileJobConflictDialogActivity extends CustomThemeAppCompatActivity {
+public class FileJobConflictDialogActivity extends AppActivity {
 
     private static final String FRAGMENT_TAG = FileJobConflictDialogFragment.class.getName();
 

@@ -35,8 +35,8 @@ public class CustomThemeHelper {
                     public void onActivityCreated(@NonNull Activity activity,
                                                   @Nullable Bundle savedInstanceState) {
                         if (!sActivityBaseThemes.containsKey(activity)) {
-                            throw new IllegalStateException("Activity must extend" +
-                                    " CustomThemeAppCompatActivity:" + activity);
+                            throw new IllegalStateException("Activity must extend AppActivity:"
+                                    + activity);
                         }
                     }
                     @Override

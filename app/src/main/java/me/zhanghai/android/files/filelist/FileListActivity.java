@@ -12,10 +12,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
+import me.zhanghai.android.files.AppActivity;
 import me.zhanghai.android.files.util.FragmentUtils;
 
-public class FileListActivity extends CustomThemeAppCompatActivity {
+public class FileListActivity extends AppActivity {
 
     private FileListFragment mFileListFragment;
 
