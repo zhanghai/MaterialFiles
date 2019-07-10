@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.ui.CheckableView;
-import me.zhanghai.android.files.util.ViewUtils;
 
 public class ColorSwatchView extends CheckableView {
 
@@ -48,8 +47,8 @@ public class ColorSwatchView extends CheckableView {
                 R.drawable.color_swatch_view_background);
         mGradientDrawable = (GradientDrawable) background.getDrawable(0);
         setBackground(background);
-        setForeground(ViewUtils.getDrawableFromAttrRes(R.attr.selectableItemBackgroundBorderless,
-                context));
+        setForeground(AppCompatResources.getDrawable(context,
+                R.drawable.selectable_item_background_oval));
     }
 
     @Override
