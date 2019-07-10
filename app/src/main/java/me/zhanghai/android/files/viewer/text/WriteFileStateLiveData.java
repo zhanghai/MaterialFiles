@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import androidx.lifecycle.LiveData;
-import java8.nio.file.Files;
 import java8.nio.file.Path;
 import java8.nio.file.StandardOpenOption;
 import me.zhanghai.android.files.provider.common.MoreFiles;
@@ -47,7 +46,7 @@ public class WriteFileStateLiveData extends LiveData<WriteFileStateLiveData.Stat
             @Override
             @WorkerThread
             protected Exception doInBackground(Void... parameters) {
-                try (OutputStream outputStream = Files.newOutputStream(path,
+                try (OutputStream outputStream = MoreFiles.newOutputStream(path,
                         StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING,
                         StandardOpenOption.CREATE)) {
                     MoreFiles.copy(new ByteArrayInputStream(content), outputStream, null, 0);

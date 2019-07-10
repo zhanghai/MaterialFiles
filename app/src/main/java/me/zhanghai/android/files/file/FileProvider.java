@@ -25,9 +25,11 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.nio.channels.ClosedByInterruptException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -385,6 +387,9 @@ public class FileProvider extends ContentProvider {
                     errno = OsConstants.EISDIR;
                 } else if (exception instanceof NoSuchFileException) {
                     errno = OsConstants.ENOENT;
+                } else if (exception instanceof ClosedByInterruptException
+                        || exception instanceof InterruptedIOException) {
+                    errno = OsConstants.EINTR;
                 } else {
                     errno = OsConstants.EIO;
                 }

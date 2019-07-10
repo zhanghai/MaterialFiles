@@ -165,7 +165,7 @@ public class ArchiveWriter implements Closeable {
                 byte[] target = MoreFiles.readSymbolicLink(file).getOwnedBytes();
                 mArchiveOutputStream.write(target);
             } else {
-                try (InputStream inputStream = Files.newInputStream(file,
+                try (InputStream inputStream = MoreFiles.newInputStream(file,
                         LinkOption.NOFOLLOW_LINKS)) {
                     MoreFiles.copy(inputStream, mArchiveOutputStream, listener, intervalMillis);
                 }

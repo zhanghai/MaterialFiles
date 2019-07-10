@@ -19,8 +19,8 @@ import java.io.InputStream;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import java8.nio.file.Files;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.MoreFiles;
 
 public class PathInputStreamModelLoader implements ModelLoader<Path, InputStream> {
 
@@ -51,7 +51,7 @@ public class PathInputStreamModelLoader implements ModelLoader<Path, InputStream
         public void loadData(@NonNull Priority priority,
                              @NonNull DataCallback<? super InputStream> callback) {
             try {
-                inputStream = Files.newInputStream(path);
+                inputStream = MoreFiles.newInputStream(path);
             } catch (Exception e) {
                 callback.onLoadFailed(e);
                 return;

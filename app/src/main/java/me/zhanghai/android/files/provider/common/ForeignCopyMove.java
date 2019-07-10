@@ -49,8 +49,8 @@ class ForeignCopyMove {
             }
             OpenOption[] openOptions = copyOptions.hasNoFollowLinks() ?
                     new OpenOption[] { LinkOption.NOFOLLOW_LINKS } : new OpenOption[0];
-            try (InputStream inputStream = Files.newInputStream(source, openOptions)) {
-                OutputStream outputStream = Files.newOutputStream(target,
+            try (InputStream inputStream = MoreFiles.newInputStream(source, openOptions)) {
+                OutputStream outputStream = MoreFiles.newOutputStream(target,
                         StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
                 boolean successful = false;
                 try {
