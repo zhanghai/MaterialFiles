@@ -25,8 +25,6 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
 
     private static final String EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE";
 
-    private boolean mSuperCreated;
-
     private boolean mRestarting;
 
     @NonNull
@@ -47,7 +45,6 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
             savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_INSTANCE_STATE);
         }
         super.onCreate(savedInstanceState);
-        mSuperCreated = true;
 
         // Calls ensureSubDecor().
         findViewById(android.R.id.content);
@@ -58,25 +55,16 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
     }
 
     @Override
-    protected void onNightModeChanged(int mode) {
-        super.onNightModeChanged(mode);
-
-        // onNightModeChanged() can be called during super.onCreate(), and we should not call
-        // restart() in that case.
-        if (!mSuperCreated) {
-            return;
-        }
-        // AppCompatDelegateImpl.updateForNightMode() calls ActivityCompat.recreate(), which may
-        // call ActivityRecreator.recreate() without calling Activity.recreate(), so we cannot
-        // simply override it. To work around this, we declare android:configChanges="uiMode" in our
-        // manifest and manually call restart().
-        restart();
-    }
-
-    @Override
     public void onThemeChanged(@StyleRes int theme) {
-        // The same thing about ActivityCompat.recreate() in onNightModeChanged() applies here as
-        // well.
+        // ActivityCompat.recreate() may call ActivityRecreator.recreate() without calling
+        // Activity.recreate(), so we cannot simply override it. To work around this, we can just
+        // call restart() manually.
+        // The same thing could have been done for night mode, but currently in
+        // AppCompatDelegateImpl:
+        // final int currentNightMode = mContext.getResources().getConfiguration().uiMode
+        //                & Configuration.UI_MODE_NIGHT_MASK;
+        // currentNightMode will be the same as the new night mode for activities that's stopped,
+        // and when they are started again they won't recreate.
         restart();
     }
 
