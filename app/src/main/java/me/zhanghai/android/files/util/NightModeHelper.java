@@ -12,8 +12,8 @@ public class NightModeHelper {
 
     private NightModeHelper() {}
 
-    public static void syncDefaultNightMode() {
-        int nightModeValue = SettingsLiveDatas.NIGHT_MODE.getValue().getValue();
-        AppCompatDelegate.setDefaultNightMode(nightModeValue);
+    public static void sync() {
+        int nightMode = SettingsLiveDatas.NIGHT_MODE.getValue().getValue();
+        AppCompatDelegate.setDefaultNightMode(nightMode);
     }
 }

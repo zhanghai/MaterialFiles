@@ -14,6 +14,7 @@ import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import me.zhanghai.android.files.theme.custom.CustomThemeAppCompatActivity;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.util.FragmentUtils;
@@ -25,7 +26,8 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
 
     private static final String EXTRA_SAVED_INSTANCE_STATE = KEY_PREFIX + "SAVED_INSTANCE_STATE";
 
-    private boolean mSuperCreated;
+    private boolean mDelegateCreated;
+    private NightMode mNightMode;
 
     private boolean mRestarting;
 
@@ -40,6 +42,25 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
                 .putExtra(EXTRA_SAVED_INSTANCE_STATE, savedInstanceState);
     }
 
+    @NonNull
+    @Override
+    public AppCompatDelegate getDelegate() {
+        AppCompatDelegate delegate = super.getDelegate();
+        if (!mDelegateCreated) {
+            // We want to handle our own night mode.
+            // android:configChanges="uiMode" doesn't work because instead of recreating the
+            // activity, AppCompatDelegateImpl will update the resources configuration which is
+            // shared between activities, and later it won't be able to correctly figure out the
+            // actual night mode for activities currently stopped.
+            // We have to do it here so that Activity.attachBaseContext() has been called but
+            // AppCompatDelegateImpl.attacheBaseContext() isn't yet.
+            delegate.setLocalNightMode(AppCompatDelegate.getDefaultNightMode());
+            SettingsLiveDatas.NIGHT_MODE.observe(this, this::onNightModeChanged);
+            mDelegateCreated = true;
+        }
+        return delegate;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -47,7 +68,6 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
             savedInstanceState = getIntent().getBundleExtra(EXTRA_SAVED_INSTANCE_STATE);
         }
         super.onCreate(savedInstanceState);
-        mSuperCreated = true;
 
         // Calls ensureSubDecor().
         findViewById(android.R.id.content);
@@ -58,26 +78,22 @@ public class SettingsActivity extends CustomThemeAppCompatActivity
     }
 
     @Override
-    protected void onNightModeChanged(int mode) {
-        super.onNightModeChanged(mode);
-
-        // onNightModeChanged() can be called during super.onCreate(), and we should not call
-        // restart() in that case.
-        if (!mSuperCreated) {
-            return;
-        }
-        // AppCompatDelegateImpl.updateForNightMode() calls ActivityCompat.recreate(), which may
-        // call ActivityRecreator.recreate() without calling Activity.recreate(), so we cannot
-        // simply override it. To work around this, we declare android:configChanges="uiMode" in our
-        // manifest and manually call restart().
+    public void onThemeChanged(@StyleRes int theme) {
+        // ActivityCompat.recreate() may call ActivityRecreator.recreate() without calling
+        // Activity.recreate(), so we cannot simply override it. To work around this, we just
+        // manually call restart().
         restart();
     }
 
-    @Override
-    public void onThemeChanged(@StyleRes int theme) {
-        // The same thing about ActivityCompat.recreate() in onNightModeChanged() applies here as
-        // well.
-        restart();
+    private void onNightModeChanged(@NonNull NightMode nightMode) {
+        if (mNightMode == null) {
+            mNightMode = nightMode;
+            return;
+        }
+        if (mNightMode != nightMode) {
+            mNightMode = nightMode;
+            restart();
+        }
     }
 
     private void restart() {

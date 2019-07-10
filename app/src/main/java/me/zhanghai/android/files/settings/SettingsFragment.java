@@ -29,8 +29,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // https://stackoverflow.com/a/27524543
         //SettingsLiveDatas.PRIMARY_COLOR.observe(this, primaryColor -> CustomThemeHelper.sync());
         //SettingsLiveDatas.ACCENT_COLOR.observe(this, accentColor -> CustomThemeHelper.sync());
-        //SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode ->
-        //        NightModeHelper.syncDefaultNightMode());
+        //SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> NightModeHelper.sync());
         SettingsLiveDatas.PRIMARY_COLOR.observe(this, this::onCustomThemeColorChanged);
         SettingsLiveDatas.ACCENT_COLOR.observe(this, this::onCustomThemeColorChanged);
         SettingsLiveDatas.NIGHT_MODE.observe(this, this::onNightModeChanged);
@@ -47,6 +46,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     }
 
     private void onNightModeChanged(@NonNull NightMode nightMode) {
-        NightModeHelper.syncDefaultNightMode();
+        NightModeHelper.sync();
     }
 }
