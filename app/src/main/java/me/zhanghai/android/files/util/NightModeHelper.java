@@ -7,6 +7,7 @@ package me.zhanghai.android.files.util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import java.util.HashSet;
@@ -14,10 +15,14 @@ import java.util.HashSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.app.AppCompatDelegateCompat;
-import androidx.core.app.ActivityCompat;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 
+// We take over the activity creation when setting the default night mode from AppCompat so that:
+// 1. We can recreate all activities upon change, instead of only started activities.
+// 2. We can have custom handling of the change, instead of being forced to either recreate or
+//    update resources configuration which is shared among activities.
 public class NightModeHelper {
 
     private static final HashSet<AppCompatActivity> sActivities = new HashSet<>();
@@ -55,26 +60,43 @@ public class NightModeHelper {
 
     public static void apply(@NonNull AppCompatActivity activity) {
         sActivities.add(activity);
-        activity.getDelegate().setLocalNightMode(getNightMode(activity));
+        activity.getDelegate().setLocalNightMode(getNightMode());
     }
 
     public static void sync() {
         for (AppCompatActivity activity : sActivities) {
-            int localNightMode = activity.getDelegate().getLocalNightMode();
-            int nightMode = getNightMode(activity);
-            if (localNightMode != nightMode) {
-                if (activity instanceof OnNightModeChangedListener) {
+            int nightMode = getNightMode();
+            if (activity instanceof OnNightModeChangedListener) {
+                int localNightMode = activity.getDelegate().getLocalNightMode();
+                if (getUiModeNight(localNightMode, activity) != getUiModeNight(nightMode,
+                        activity)) {
                     ((OnNightModeChangedListener) activity).onNightModeChangedFromHelper(nightMode);
-               } else {
-                    ActivityCompat.recreate(activity);
                 }
+            } else {
+                activity.getDelegate().setLocalNightMode(nightMode);
             }
         }
     }
 
-    private static int getNightMode(@NonNull AppCompatActivity activity) {
-        int nightMode = SettingsLiveDatas.NIGHT_MODE.getValue().getValue();
-        return AppCompatDelegateCompat.mapNightMode(activity.getDelegate(), nightMode);
+    private static int getNightMode() {
+        return SettingsLiveDatas.NIGHT_MODE.getValue().getValue();
+    }
+
+    /*
+     * @see androidx.appcompat.app.AppCompatDelegateImpl#updateForNightMode(int, boolean)
+     */
+    private static int getUiModeNight(int nightMode, @NonNull AppCompatActivity activity) {
+        nightMode = AppCompatDelegateCompat.mapNightMode(activity.getDelegate(), nightMode);
+        switch (nightMode) {
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                return Configuration.UI_MODE_NIGHT_YES;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                return Configuration.UI_MODE_NIGHT_NO;
+            default: {
+                return activity.getApplicationContext().getResources().getConfiguration().uiMode
+                        & Configuration.UI_MODE_NIGHT_MASK;
+            }
+        }
     }
 
     public interface OnNightModeChangedListener {
