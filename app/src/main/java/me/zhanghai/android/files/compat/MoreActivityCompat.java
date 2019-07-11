@@ -7,6 +7,7 @@ package me.zhanghai.android.files.compat;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
@@ -27,12 +28,16 @@ public class MoreActivityCompat {
 
     public static void setTheme(@NonNull Activity activity, @StyleRes int resid) {
         activity.setTheme(resid);
-        ActivityManager.TaskDescription taskDescription = sTaskDescriptionField.getObject(activity);
-        int primaryColor = ViewUtils.getColorFromAttrRes(android.R.attr.colorPrimary, 0, activity);
-        if (primaryColor == 0 || taskDescription.getPrimaryColor() == primaryColor) {
-            return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            ActivityManager.TaskDescription taskDescription = sTaskDescriptionField.getObject(
+                    activity);
+            int primaryColor = ViewUtils.getColorFromAttrRes(android.R.attr.colorPrimary, 0,
+                    activity);
+            if (primaryColor == 0 || taskDescription.getPrimaryColor() == primaryColor) {
+                return;
+            }
+            TaskDescriptionCompat.setPrimaryColor(taskDescription, primaryColor);
+            activity.setTaskDescription(taskDescription);
         }
-        TaskDescriptionCompat.setPrimaryColor(taskDescription, primaryColor);
-        activity.setTaskDescription(taskDescription);
     }
 }
