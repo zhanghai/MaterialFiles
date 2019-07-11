@@ -16,8 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import me.zhanghai.android.files.AppActivity;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
+import me.zhanghai.android.files.theme.night.NightModeHelper;
 import me.zhanghai.android.files.util.FragmentUtils;
-import me.zhanghai.android.files.util.NightModeHelper;
 
 public class SettingsActivity extends AppActivity
         implements CustomThemeHelper.OnThemeChangedListener,

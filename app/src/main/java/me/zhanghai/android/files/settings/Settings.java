@@ -15,6 +15,7 @@ import me.zhanghai.android.files.settings.SettingsEntries.ResourceIdSettingsEntr
 import me.zhanghai.android.files.settings.SettingsEntries.StringSettingsEntry;
 import me.zhanghai.android.files.settings.SettingsEntries.TypedListSettingsEntry;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;
+import me.zhanghai.android.files.theme.night.NightMode;
 
 interface Settings {
 

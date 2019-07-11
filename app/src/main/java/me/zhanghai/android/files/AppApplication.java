@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import me.zhanghai.android.files.firebase.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
-import me.zhanghai.android.files.util.NightModeHelper;
+import me.zhanghai.android.files.theme.night.NightModeHelper;
 
 public class AppApplication extends Application {
 

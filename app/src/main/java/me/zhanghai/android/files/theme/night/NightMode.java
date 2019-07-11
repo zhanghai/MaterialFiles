@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.settings;
+package me.zhanghai.android.files.theme.night;
 
 import androidx.appcompat.app.AppCompatDelegate;
 

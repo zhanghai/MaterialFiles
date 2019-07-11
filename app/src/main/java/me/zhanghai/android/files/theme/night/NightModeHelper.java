@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.util;
+package me.zhanghai.android.files.theme.night;
 
 import android.app.Activity;
 import android.app.Application;

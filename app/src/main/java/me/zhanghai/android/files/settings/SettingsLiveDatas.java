@@ -9,6 +9,7 @@ import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.provider.root.RootStrategy;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;
+import me.zhanghai.android.files.theme.night.NightMode;
 
 public interface SettingsLiveDatas {
 

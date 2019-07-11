@@ -14,7 +14,8 @@ import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.theme.custom.CustomThemeColor;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
-import me.zhanghai.android.files.util.NightModeHelper;
+import me.zhanghai.android.files.theme.night.NightMode;
+import me.zhanghai.android.files.theme.night.NightModeHelper;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 

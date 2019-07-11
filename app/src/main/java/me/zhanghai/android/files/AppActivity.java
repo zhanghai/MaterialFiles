@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
-import me.zhanghai.android.files.util.NightModeHelper;
+import me.zhanghai.android.files.theme.night.NightModeHelper;
 
 public abstract class AppActivity extends AppCompatActivity {
 
