@@ -23,7 +23,7 @@ import me.zhanghai.android.files.util.ViewUtils;
 
 public class PersistentDrawerLayout extends ViewGroup {
 
-    private static final int DRAWER_ELEVATION_DP = 2;
+    private static final float DRAWER_ELEVATION_DP = 2;
 
     private float mDrawerElevation;
 
