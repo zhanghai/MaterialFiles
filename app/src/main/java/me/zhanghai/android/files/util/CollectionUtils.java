@@ -143,23 +143,23 @@ public class CollectionUtils {
     }
 
     @NonNull
-    public static <E> List<E> union(@NonNull List<? extends E> list1,
-                                    @NonNull List<? extends E> list2) {
+    public static <E> List<E> join(@NonNull List<? extends E> list1,
+                                   @NonNull List<? extends E> list2) {
         if (list1 instanceof RandomAccess && list2 instanceof RandomAccess) {
-            return new RandomAccessUnionList<>(list1, list2);
+            return new RandomAccessJoinedList<>(list1, list2);
         } else {
-            return new UnionList<>(list1, list2);
+            return new JoinedList<>(list1, list2);
         }
     }
 
-    private static class UnionList<E> extends AbstractList<E> {
+    private static class JoinedList<E> extends AbstractList<E> {
 
         @NonNull
         private final List<? extends E> mList1;
         @NonNull
         private final List<? extends E> mList2;
 
-        public UnionList(@NonNull List<? extends E> list1, @NonNull List<? extends E> list2) {
+        public JoinedList(@NonNull List<? extends E> list1, @NonNull List<? extends E> list2) {
             mList1 = list1;
             mList2 = list2;
         }
@@ -177,10 +177,10 @@ public class CollectionUtils {
         }
     }
 
-    private static class RandomAccessUnionList<E> extends UnionList<E> implements RandomAccess {
+    private static class RandomAccessJoinedList<E> extends JoinedList<E> implements RandomAccess {
 
-        public RandomAccessUnionList(@NonNull List<? extends E> list1,
-                                     @NonNull List<? extends E> list2) {
+        public RandomAccessJoinedList(@NonNull List<? extends E> list1,
+                                      @NonNull List<? extends E> list2) {
             super(list1, list2);
         }
     }
