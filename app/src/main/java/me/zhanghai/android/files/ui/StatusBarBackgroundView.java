@@ -60,7 +60,7 @@ public class StatusBarBackgroundView extends View {
         mStatusBarBackground = new ColorDrawable(darkPrimaryColor);
 
         @SuppressLint("PrivateResource")
-        int appBarElevation = getResources().getDimensionPixelSize(R.dimen.design_appbar_elevation);
+        float appBarElevation = getResources().getDimension(R.dimen.design_appbar_elevation);
         setElevation(appBarElevation);
         setFitsSystemWindows(true);
         setWillNotDraw(true);
