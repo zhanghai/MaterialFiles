@@ -28,8 +28,10 @@
 
         <activity
             android:name="me.zhanghai.android.files.filelist.FileListActivity"
-            android:label="@string/main_title"
-            android:theme="@style/Theme.MaterialFiles.TransparentStatusBar">
+            android:label="@string/file_list_title"
+            android:theme="@style/Theme.MaterialFiles.TransparentStatusBar"
+            android:visibleToInstantApps="true"
+            tools:ignore="UnusedAttribute">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -63,6 +65,35 @@
                 <data android:mimeType="application/x-xz" />
                 <data android:mimeType="application/zip" />
             </intent-filter>
+            <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/master/AndroidManifest.xml -->
+            <intent-filter>
+                <action android:name="android.intent.action.OPEN_DOCUMENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <!--
+              ~ Unusable until we implement DocumentsProvider.
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_DOCUMENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            -->
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <!--
+              ~ Unusable until we implement DocumentsProvider.
+            <intent-filter>
+                <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            -->
         </activity>
 
         <activity

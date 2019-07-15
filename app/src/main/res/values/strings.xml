@@ -15,9 +15,12 @@
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>
     <string name="maybe_later">Maybe later</string>
+    <string name="pick">@string/select</string>
     <string name="reload">Reload</string>
     <string name="save">Save</string>
     <string name="search">Search</string>
+    <string name="select">Select</string>
+    <string name="select_all">Select all</string>
     <string name="share">Share</string>
     <string name="unknown">Unknown</string>
     <string name="view">View</string>
@@ -149,6 +152,15 @@
     <string name="file_create_file_title">New file</string>
     <string name="file_create_directory_title">New folder</string>
 
+    <string name="file_list_title">Files</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="one">Select a file</item>
+        <item quantity="other">Select files</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="one">Select a folder</item>
+        <item quantity="other">Select folders</item>
+    </plurals>
     <string name="file_list_subtitle_loading">Loading…</string>
     <string name="file_list_subtitle_error">Error</string>
     <string name="file_list_subtitle_empty">Empty</string>
@@ -171,7 +183,6 @@
     <string name="file_list_action_new_task">New window</string>
     <string name="file_list_action_navigate_up">Go up</string>
     <string name="file_list_action_refresh">Refresh</string>
-    <string name="file_list_action_select_all">Select all</string>
     <string name="file_list_action_show_hidden_files">Show hidden files</string>
     <string name="file_list_action_send">Share</string>
     <string name="file_list_action_copy_path">Copy path</string>
@@ -184,7 +195,6 @@
     <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
     <string name="file_list_cab_select_action_archive">@string/file_item_action_archive</string>
-    <string name="file_list_cab_select_action_select_all">@string/file_list_action_select_all</string>
     <string name="file_list_cab_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">Copying %1$,d</string>
     <string name="file_list_cab_paste_extract_title_format">Extracting %1$,d</string>
@@ -229,8 +239,6 @@
     <string name="file_properties_permissions_mode">Mode</string>
     <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
     <string name="file_properties_permissions_selinux_context">SELinux Context</string>
-
-    <string name="main_title">Files</string>
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>

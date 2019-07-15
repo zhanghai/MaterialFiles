@@ -7,6 +7,7 @@ package me.zhanghai.android.files.util;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 
 import java.net.URI;
@@ -48,6 +49,15 @@ public class IntentPathUtils {
         Uri data = intent.getData();
         if (data != null && Objects.equals(data.getScheme(), "file")) {
             String path = data.getPath();
+            if (!TextUtils.isEmpty(path)) {
+                return Paths.get(path);
+            }
+        }
+
+        Uri extraInitialUri = intent.getParcelableExtra(DocumentsContract.EXTRA_INITIAL_URI);
+        // TODO: Support DocumentsProvider Uri?
+        if (extraInitialUri != null && Objects.equals(extraInitialUri.getScheme(), "file")) {
+            String path = extraInitialUri.getPath();
             if (!TextUtils.isEmpty(path)) {
                 return Paths.get(path);
             }

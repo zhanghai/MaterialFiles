@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
+
+    <item
+        android:id="@+id/action_pick"
+        android:orderInCategory="100"
+        android:title="@string/pick"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_select_all"
+        android:orderInCategory="100"
+        android:title="@string/select_all"
+        app:showAsAction="never" />
+</menu>

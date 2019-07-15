@@ -10,7 +10,6 @@ import android.os.Parcelable;
 import java.io.Closeable;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -45,6 +44,8 @@ public class FileListViewModel extends ViewModel {
     @NonNull
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
             mTrailLiveData);
+    @NonNull
+    private final MutableLiveData<PickOptions> mPickOptionsLiveData = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<Set<FileItem>> mSelectedFilesLiveData = new MutableLiveData<>(
             new HashSet<>());
@@ -164,6 +165,20 @@ public class FileListViewModel extends ViewModel {
     }
 
     @NonNull
+    public LiveData<PickOptions> getPickOptionsLiveData() {
+        return mPickOptionsLiveData;
+    }
+
+    @Nullable
+    public PickOptions getPickOptions() {
+        return mPickOptionsLiveData.getValue();
+    }
+
+    public void setPickOptions(@NonNull PickOptions pickOptions) {
+        mPickOptionsLiveData.setValue(pickOptions);
+    }
+
+    @NonNull
     public LiveData<Set<FileItem>> getSelectedFilesLiveData() {
         return mSelectedFilesLiveData;
     }
@@ -193,14 +208,6 @@ public class FileListViewModel extends ViewModel {
         if (changed) {
             mSelectedFilesLiveData.setValue(selectedFiles);
         }
-    }
-
-    public void selectAllFiles() {
-        List<FileItem> files = mFileListLiveData.getValue().fileList;
-        if (files == null) {
-            return;
-        }
-        selectFiles(new HashSet<>(files), true);
     }
 
     public void replaceSelectedFiles(@NonNull Set<FileItem> files) {

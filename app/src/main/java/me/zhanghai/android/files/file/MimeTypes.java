@@ -220,4 +220,28 @@ public class MimeTypes {
         int icon = getIconRes(mimeType);
         return icon == MimeTypeIcons.Icons.AUDIO || icon == MimeTypeIcons.Icons.VIDEO;
     }
+
+    public static boolean matches(@NonNull String mimeTypeSpec, @NonNull String mimeType) {
+        MimeTypeInfo mimeTypeSpecInfo = MimeTypeInfo.parse(mimeTypeSpec);
+        if (mimeTypeSpecInfo == null) {
+            return false;
+        }
+        MimeTypeInfo mimeTypeInfo = MimeTypeInfo.parse(mimeType);
+        if (mimeTypeInfo == null) {
+            return false;
+        }
+        if (!(Objects.equals(mimeTypeSpecInfo.type, "*")
+                || Objects.equals(mimeTypeInfo.type, mimeTypeSpecInfo.type))) {
+            return false;
+        }
+        if (!(Objects.equals(mimeTypeSpecInfo.subtype, "*")
+                || Objects.equals(mimeTypeInfo.subtype, mimeTypeSpecInfo.subtype))) {
+            return false;
+        }
+        if (!(mimeTypeSpecInfo.parameters == null
+                || Objects.equals(mimeTypeInfo.parameters, mimeTypeSpecInfo.parameters))) {
+            return false;
+        }
+        return true;
+    }
 }

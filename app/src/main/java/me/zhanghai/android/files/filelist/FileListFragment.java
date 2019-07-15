@@ -6,6 +6,8 @@
 package me.zhanghai.android.files.filelist;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -28,6 +30,7 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.leinardi.android.speeddial.SpeedDialView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -69,6 +72,7 @@ import me.zhanghai.android.files.ui.PersistentDrawerLayout;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.ClipboardUtils;
+import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.DebouncedRunnable;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
@@ -261,18 +265,52 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
         mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
         if (!mViewModel.hasTrail()) {
-            Path path;
-            if (mExtraPath != null) {
-                path = mExtraPath;
-                String mimeType = mIntent.getType();
-                if (mimeType != null && FileUtils.isArchiveFile(path, mimeType)) {
-                    path = ArchiveFileSystemProvider.getRootPathForArchiveFile(path);
+            Path path = mExtraPath;
+            PickOptions pickOptions = null;
+            String action = mIntent.getAction();
+            if (action == null) {
+                action = Intent.ACTION_VIEW;
+            }
+            switch (action) {
+                case Intent.ACTION_GET_CONTENT:
+                case Intent.ACTION_OPEN_DOCUMENT:
+                case Intent.ACTION_CREATE_DOCUMENT: {
+                    boolean readOnly = Objects.equals(action, Intent.ACTION_GET_CONTENT);
+                    List<String> mimeTypes = Collections.singletonList(mIntent.getType());
+                    String[] extraMimeTypes = mIntent.getStringArrayExtra(Intent.EXTRA_MIME_TYPES);
+                    if (extraMimeTypes != null) {
+                        mimeTypes = Arrays.asList(extraMimeTypes);
+                    }
+                    boolean localOnly = mIntent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                    boolean allowMultiple = mIntent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE,
+                            false);
+                    // TODO: Actually support ACTION_CREATE_DOCUMENT.
+                    pickOptions = new PickOptions(readOnly, false, mimeTypes, localOnly,
+                            allowMultiple);
+                    break;
                 }
-            } else {
+                case Intent.ACTION_OPEN_DOCUMENT_TREE:
+                    boolean localOnly = mIntent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false);
+                    pickOptions = new PickOptions(false, true, Collections.emptyList(), localOnly,
+                            false);
+                    break;
+                case Intent.ACTION_VIEW:
+                default:
+                    if (path != null) {
+                        String mimeType = mIntent.getType();
+                        if (mimeType != null && FileUtils.isArchiveFile(path, mimeType)) {
+                            path = ArchiveFileSystemProvider.getRootPathForArchiveFile(path);
+                        }
+                    }
+            }
+            if (path == null) {
                 // TODO: Allow configuration.
                 path = Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath());
             }
             mViewModel.resetTo(path);
+            if (pickOptions != null) {
+                mViewModel.setPickOptions(pickOptions);
+            }
         }
         if (mPersistentDrawerLayout != null) {
             SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.observe(this,
@@ -282,6 +320,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getSearchViewExpandedLiveData().observe(this, this::onSearchViewExpandedChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
         FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
+        mViewModel.getPickOptionsLiveData().observe(this, this::onPickOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
@@ -719,14 +758,54 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         startActivity(intent);
     }
 
-    @Override
-    public void selectFile(@NonNull FileItem file, boolean selected) {
-        mViewModel.selectFile(file, selected);
+    private void onPickOptionsChanged(@Nullable PickOptions pickOptions) {
+        String title;
+        if (pickOptions == null) {
+            title = getString(R.string.file_list_title);
+        } else {
+            int titleRes = pickOptions.pickDirectory ? R.plurals.file_list_title_pick_directory
+                    : R.plurals.file_list_title_pick_file;
+            int count = pickOptions.allowMultiple ? Integer.MAX_VALUE : 1;
+            title = getResources().getQuantityString(titleRes, count);
+        }
+        requireActivity().setTitle(title);
+        updateCab();
+        mAdapter.setPickOptions(pickOptions);
+    }
+
+    private void pickFiles(@NonNull Set<FileItem> files) {
+        Intent intent = new Intent();
+        PickOptions pickOptions = mViewModel.getPickOptions();
+        if (files.size() == 1) {
+            Uri data = FileProvider.getUriForPath(CollectionUtils.first(files).getPath());
+            intent.setData(data);
+        } else {
+            String[] mimeTypes = pickOptions.mimeTypes.toArray(new String[0]);
+            List<ClipData.Item> items = Functional.map(files, file -> new ClipData.Item(
+                    FileProvider.getUriForPath(file.getPath())));
+            ClipData clipData = new ClipData(null, mimeTypes, items.get(0));
+            for (int i = 1; i < items.size(); ++i) {
+                clipData.addItem(items.get(i));
+            }
+            intent.setClipData(clipData);
+        }
+        int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
+        if (!pickOptions.readOnly) {
+            flags |= Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                    | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION;
+        }
+        if (pickOptions.pickDirectory) {
+            flags |= Intent.FLAG_GRANT_PREFIX_URI_PERMISSION;
+        }
+        intent.addFlags(flags);
+        Activity activity = requireActivity();
+        activity.setResult(Activity.RESULT_OK, intent);
+        activity.finish();
     }
 
     private void onSelectedFilesChanged(@NonNull Set<FileItem> files) {
-        mAdapter.replaceSelectedFiles(files);
         updateCab();
+        mAdapter.replaceSelectedFiles(files);
     }
 
     private void updateCab() {
@@ -737,55 +816,62 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
             return;
         }
+        PickOptions pickOptions = mViewModel.getPickOptions();
         FilePasteMode pasteMode = mViewModel.getPasteMode();
-        boolean isExtract = Functional.every(selectedFiles, file ->
-                ArchiveFileSystemProvider.isArchivePath(file.getPath()));
-        int titleRes;
-        int menuRes;
-        switch (pasteMode) {
-            case NONE:
-                titleRes = R.string.file_list_cab_select_title_format;
-                menuRes = R.menu.file_list_cab_select;
-                break;
-            case MOVE:
-                titleRes = R.string.file_list_cab_paste_move_title_format;
-                menuRes = R.menu.file_list_cab_paste;
-                break;
-            case COPY:
-                titleRes = isExtract ? R.string.file_list_cab_paste_extract_title_format
-                        : R.string.file_list_cab_paste_copy_title_format;
-                menuRes = R.menu.file_list_cab_paste;
-                break;
-            default:
-                throw new IllegalStateException();
-        }
-        mToolbarActionMode.setTitle(getString(titleRes, selectedFiles.size()));
-        mToolbarActionMode.setMenuResource(menuRes);
-        Menu menu = mToolbarActionMode.getMenu();
-        switch (pasteMode) {
-            case NONE: {
-                boolean hasReadOnly = Functional.some(selectedFiles, file ->
-                        file.getPath().getFileSystem().isReadOnly());
-                menu.findItem(R.id.action_cut).setVisible(!hasReadOnly);
-                menu.findItem(R.id.action_copy)
-                        .setIcon(isExtract ? R.drawable.extract_icon_white_24dp
-                                : R.drawable.copy_icon_white_24dp)
-                        .setTitle(isExtract ? R.string.file_list_cab_select_action_extract
-                                : R.string.file_list_cab_select_action_copy);
-                menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
-                break;
+        if (pickOptions != null) {
+            mToolbarActionMode.setTitle(getString(R.string.file_list_cab_select_title_format,
+                    selectedFiles.size()));
+            mToolbarActionMode.setMenuResource(R.menu.file_list_cab_pick);
+        } else {
+            boolean isExtract = Functional.every(selectedFiles, file ->
+                    ArchiveFileSystemProvider.isArchivePath(file.getPath()));
+            int titleRes;
+            int menuRes;
+            switch (pasteMode) {
+                case NONE:
+                    titleRes = R.string.file_list_cab_select_title_format;
+                    menuRes = R.menu.file_list_cab_select;
+                    break;
+                case MOVE:
+                    titleRes = R.string.file_list_cab_paste_move_title_format;
+                    menuRes = R.menu.file_list_cab_paste;
+                    break;
+                case COPY:
+                    titleRes = isExtract ? R.string.file_list_cab_paste_extract_title_format
+                            : R.string.file_list_cab_paste_copy_title_format;
+                    menuRes = R.menu.file_list_cab_paste;
+                    break;
+                default:
+                    throw new IllegalStateException();
             }
-            case MOVE:
-            case COPY: {
-                boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
-                menu.findItem(R.id.action_paste)
-                        .setTitle(isExtract ? R.string.file_list_cab_paste_action_extract_here
-                                : R.string.file_list_cab_paste_action_paste)
-                        .setEnabled(!isReadOnly);
-                break;
+            mToolbarActionMode.setTitle(getString(titleRes, selectedFiles.size()));
+            mToolbarActionMode.setMenuResource(menuRes);
+            Menu menu = mToolbarActionMode.getMenu();
+            switch (pasteMode) {
+                case NONE: {
+                    boolean hasReadOnly = Functional.some(selectedFiles, file ->
+                            file.getPath().getFileSystem().isReadOnly());
+                    menu.findItem(R.id.action_cut).setVisible(!hasReadOnly);
+                    menu.findItem(R.id.action_copy)
+                            .setIcon(isExtract ? R.drawable.extract_icon_white_24dp
+                                    : R.drawable.copy_icon_white_24dp)
+                            .setTitle(isExtract ? R.string.file_list_cab_select_action_extract
+                                    : R.string.file_list_cab_select_action_copy);
+                    menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
+                    break;
+                }
+                case MOVE:
+                case COPY: {
+                    boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
+                    menu.findItem(R.id.action_paste)
+                            .setTitle(isExtract ? R.string.file_list_cab_paste_action_extract_here
+                                    : R.string.file_list_cab_paste_action_paste)
+                            .setEnabled(!isReadOnly);
+                    break;
+                }
+                default:
+                    throw new IllegalStateException();
             }
-            default:
-                throw new IllegalStateException();
         }
         if (!mToolbarActionMode.isActive()) {
             mAppBarLayout.setExpanded(true);
@@ -800,6 +886,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public boolean onToolbarActionModeItemClicked(@NonNull ToolbarActionMode toolbarActionMode,
                                                   @NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_pick:
+                pickFiles(mViewModel.getSelectedFiles());
+                return true;
             case R.id.action_cut:
                 cutFiles(mViewModel.getSelectedFiles());
                 return true;
@@ -898,11 +987,39 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void selectAllFiles() {
-        mViewModel.selectAllFiles();
+        mAdapter.selectAllFiles();
+    }
+
+    @Override
+    public void clearSelectedFiles() {
+        mViewModel.clearSelectedFiles();
+    }
+
+    @Override
+    public void selectFile(@NonNull FileItem file, boolean selected) {
+        mViewModel.selectFile(file, selected);
+    }
+
+    @Override
+    public void selectFiles(@NonNull Set<FileItem> files, boolean selected) {
+        mViewModel.selectFiles(files, selected);
     }
 
     @Override
     public void openFile(@NonNull FileItem file) {
+        PickOptions pickOptions = mViewModel.getPickOptions();
+        if (pickOptions != null) {
+            if (pickOptions.pickDirectory) {
+                // TODO
+            } else {
+                if (file.getAttributes().isDirectory()) {
+                    navigateTo(file.getPath());
+                } else {
+                    pickFiles(Collections.singleton(file));
+                }
+            }
+            return;
+        }
         String mimeType = file.getMimeType();
         if (MimeTypes.isApk(mimeType)) {
             openApk(file);
