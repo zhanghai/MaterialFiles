@@ -147,6 +147,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Nullable
     private MenuItem mSortDirectoriesFirstMenuItem;
     @Nullable
+    private MenuItem mSelectAllMenuItem;
+    @Nullable
     private MenuItem mShowHiddenFilesMenuItem;
 
     @NonNull
@@ -377,6 +379,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mSortByLastModifiedMenuItem = menu.findItem(R.id.action_sort_by_last_modified);
         mSortOrderAscendingMenuItem = menu.findItem(R.id.action_sort_order_ascending);
         mSortDirectoriesFirstMenuItem = menu.findItem(R.id.action_sort_directories_first);
+        mSelectAllMenuItem = menu.findItem(R.id.action_select_all);
         mShowHiddenFilesMenuItem = menu.findItem(R.id.action_show_hidden_files);
 
         setUpSearchView();
@@ -438,6 +441,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         super.onPrepareOptionsMenu(menu);
 
         updateSortMenuItems();
+        updateSelectAllMenuItem();
         updateShowHiddenFilesMenuItem();
     }
 
@@ -769,8 +773,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             title = getResources().getQuantityString(titleRes, count);
         }
         requireActivity().setTitle(title);
+        updateSelectAllMenuItem();
         updateCab();
         mAdapter.setPickOptions(pickOptions);
+    }
+
+    private void updateSelectAllMenuItem() {
+        if (mSelectAllMenuItem == null) {
+            return;
+        }
+        PickOptions pickOptions = mViewModel.getPickOptions();
+        mSelectAllMenuItem.setVisible(pickOptions == null || pickOptions.allowMultiple);
     }
 
     private void pickFiles(@NonNull LinkedHashSet<FileItem> files) {
@@ -822,6 +835,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             mToolbarActionMode.setTitle(getString(R.string.file_list_cab_select_title_format,
                     selectedFiles.size()));
             mToolbarActionMode.setMenuResource(R.menu.file_list_cab_pick);
+            Menu menu = mToolbarActionMode.getMenu();
+            menu.findItem(R.id.action_select_all).setVisible(pickOptions.allowMultiple);
         } else {
             boolean isExtract = Functional.every(selectedFiles, file ->
                     ArchiveFileSystemProvider.isArchivePath(file.getPath()));
