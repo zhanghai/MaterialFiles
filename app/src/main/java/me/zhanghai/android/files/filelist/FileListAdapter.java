@@ -306,7 +306,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         holder.descriptionText.setText(description);
         boolean isArchivePath = ArchiveFileSystemProvider.isArchivePath(path);
         menu.findItem(R.id.action_copy).setTitle(isArchivePath ? R.string.file_item_action_extract
-                : R.string.file_item_action_copy);
+                : R.string.copy);
         menu.findItem(R.id.action_delete).setVisible(!isReadOnly);
         menu.findItem(R.id.action_rename).setVisible(!isReadOnly);
         boolean isArchiveFile = FileUtils.isArchiveFile(file);

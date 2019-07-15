@@ -214,7 +214,7 @@ public class FileJobs {
                                 R.string.file_job_cannot_move_into_itself_title)),
                         getString(R.string.file_job_cannot_copy_move_into_itself_message),
                         true,
-                        getString(R.string.file_job_action_skip),
+                        getString(R.string.skip),
                         getString(android.R.string.cancel),
                         null);
                 switch (result.getAction()) {
@@ -246,7 +246,7 @@ public class FileJobs {
                                 R.string.file_job_cannot_move_over_itself_title)),
                         getString(R.string.file_job_cannot_copy_move_over_itself_message),
                         true,
-                        getString(R.string.file_job_action_skip),
+                        getString(R.string.skip),
                         getString(android.R.string.cancel),
                         null);
                 switch (result.getAction()) {
@@ -375,8 +375,8 @@ public class FileJobs {
                                     R.string.file_job_move_error_message_format),
                                     getFileName(targetParent), e.getLocalizedMessage()),
                             true,
-                            getString(R.string.file_job_action_retry),
-                            getString(R.string.file_job_action_skip),
+                            getString(R.string.retry),
+                            getString(R.string.skip),
                             getString(android.R.string.cancel));
                     switch (result.getAction()) {
                         case POSITIVE:
@@ -497,8 +497,8 @@ public class FileJobs {
                             getString(R.string.file_job_delete_error_message_format,
                                     getFileName(path), e.getLocalizedMessage()),
                             true,
-                            getString(R.string.file_job_action_retry),
-                            getString(R.string.file_job_action_skip),
+                            getString(R.string.retry),
+                            getString(R.string.skip),
                             getString(android.R.string.cancel));
                     switch (result.getAction()) {
                         case POSITIVE:

@@ -195,7 +195,7 @@
                 android:minWidth="64dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="-12dp"
-                android:text="@string/file_job_conflict_reset_name"
+                android:text="@string/reset"
                 style="@style/Widget.AppCompat.Button.Borderless.Colored" />
         </LinearLayout>
     </LinearLayout>

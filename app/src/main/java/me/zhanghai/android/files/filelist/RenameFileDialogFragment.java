@@ -77,7 +77,7 @@ public class RenameFileDialogFragment extends FileNameDialogFragment {
     @Override
     @StringRes
     protected int getTitleRes() {
-        return R.string.file_rename_title;
+        return R.string.rename;
     }
 
     @Override

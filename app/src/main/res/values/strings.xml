@@ -10,18 +10,34 @@
     <string name="app_name">Material Files</string>
 
     <string name="close">Close</string>
+    <string name="copy">Copy</string>
+    <string name="cut">Cut</string>
     <string name="default_">Default</string>
+    <string name="delete">Delete</string>
     <string name="discard">Discard</string>
+    <string name="empty">Empty</string>
+    <string name="error">Error</string>
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>
+    <string name="loading">Loading…</string>
     <string name="maybe_later">Maybe later</string>
+    <string name="merge">Merge</string>
+    <string name="paste">Paste</string>
     <string name="pick">@string/select</string>
+    <string name="refresh">Refresh</string>
     <string name="reload">Reload</string>
+    <string name="rename">Rename</string>
+    <string name="replace">Replace</string>
+    <string name="reset">Reset</string>
+    <string name="retry">Retry</string>
     <string name="save">Save</string>
     <string name="search">Search</string>
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
+    <string name="send">@string/share</string>
     <string name="share">Share</string>
+    <string name="skip">Skip</string>
+    <string name="sort">Sort</string>
     <string name="unknown">Unknown</string>
     <string name="view">View</string>
 
@@ -109,7 +125,6 @@
     <string name="file_job_conflict_source_name">Replace with</string>
     <string name="file_job_conflict_show_name">Select a new name for the destination</string>
     <string name="file_job_conflict_name_hint">New name</string>
-    <string name="file_job_conflict_reset_name">Reset</string>
     <string name="file_job_archive_error_title_format">Error while compressing “%1$s”</string>
     <string name="file_job_archive_error_message_format">There was an error compressing the file into “%1$s”.\n%2$s</string>
     <string name="file_job_copy_error_title_format">Error while copying “%1$s”</string>
@@ -122,11 +137,6 @@
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
     <string name="file_job_action_all">Apply this action to all files</string>
-    <string name="file_job_action_merge">Merge</string>
-    <string name="file_job_action_rename">Rename</string>
-    <string name="file_job_action_replace">Replace</string>
-    <string name="file_job_action_retry">Retry</string>
-    <string name="file_job_action_skip">Skip</string>
 
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
     <string name="file_open_as_title_format">Open “%1$s” as</string>
@@ -139,7 +149,6 @@
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>
-    <string name="file_rename_title">Rename</string>
     <string name="file_delete_message_file_format">Delete “%1$s”?</string>
     <string name="file_delete_message_directory_format">Delete folder “%1$s” and its contents?</string>
     <string name="file_delete_message_multiple_files_format">Delete %1$,d files?</string>
@@ -161,9 +170,6 @@
         <item quantity="one">Select a folder</item>
         <item quantity="other">Select folders</item>
     </plurals>
-    <string name="file_list_subtitle_loading">Loading…</string>
-    <string name="file_list_subtitle_error">Error</string>
-    <string name="file_list_subtitle_empty">Empty</string>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d folder</item>
         <item quantity="other">%1$,d folders</item>
@@ -173,7 +179,6 @@
         <item quantity="other">%1$,d files</item>
     </plurals>
     <string name="file_list_subtitle_separator">", "</string>
-    <string name="file_list_action_sort">Sort</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Type</string>
     <string name="file_list_action_sort_by_size">Size</string>
@@ -182,23 +187,17 @@
     <string name="file_list_action_sort_directories_first">Folders first</string>
     <string name="file_list_action_new_task">New window</string>
     <string name="file_list_action_navigate_up">Go up</string>
-    <string name="file_list_action_refresh">Refresh</string>
     <string name="file_list_action_show_hidden_files">Show hidden files</string>
-    <string name="file_list_action_send">Share</string>
     <string name="file_list_action_copy_path">Copy path</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Open in new window</string>
     <string name="file_list_cab_select_title_format">%1$,d selected</string>
-    <string name="file_list_cab_select_action_cut">@string/file_item_action_cut</string>
-    <string name="file_list_cab_select_action_copy">@string/file_item_action_copy</string>
     <string name="file_list_cab_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_cab_select_action_delete">@string/file_item_action_delete</string>
     <string name="file_list_cab_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_cab_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_cab_paste_copy_title_format">Copying %1$,d</string>
     <string name="file_list_cab_paste_extract_title_format">Extracting %1$,d</string>
-    <string name="file_list_cab_paste_action_paste">Paste</string>
     <string name="file_list_cab_paste_action_extract_here">Extract here</string>
     <string name="file_list_empty">No files</string>
     <string name="file_list_action_create_file">File</string>
@@ -206,13 +205,8 @@
 
     <string name="file_item_description_separator">"    "</string>
     <string name="file_item_action_open_as">Open as</string>
-    <string name="file_item_action_cut">Cut</string>
-    <string name="file_item_action_copy">Copy</string>
     <string name="file_item_action_extract">Extract</string>
     <string name="file_item_action_archive">Compress</string>
-    <string name="file_item_action_delete">Delete</string>
-    <string name="file_item_action_rename">Rename</string>
-    <string name="file_item_action_send">@string/file_list_action_send</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_item_action_properties">Properties</string>
 

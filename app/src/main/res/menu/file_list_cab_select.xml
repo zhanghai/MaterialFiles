@@ -15,21 +15,21 @@
         android:id="@+id/action_cut"
         android:icon="@drawable/cut_icon_white_24dp"
         android:orderInCategory="100"
-        android:title="@string/file_list_cab_select_action_cut"
+        android:title="@string/cut"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_copy"
         android:icon="@drawable/copy_icon_white_24dp"
         android:orderInCategory="100"
-        android:title="@string/file_list_cab_select_action_copy"
+        android:title="@string/copy"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_delete"
         android:icon="@drawable/delete_icon_white_24dp"
         android:orderInCategory="100"
-        android:title="@string/file_list_cab_select_action_delete"
+        android:title="@string/delete"
         app:showAsAction="always" />
 
     <item

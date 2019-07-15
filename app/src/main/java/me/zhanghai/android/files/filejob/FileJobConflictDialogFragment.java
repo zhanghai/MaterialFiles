@@ -158,11 +158,11 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
             messageRes = mType.getResource(R.string.file_job_merge_copy_message_format,
                     R.string.file_job_merge_extract_message_format,
                     R.string.file_job_merge_move_message_format);
-            positiveButtonRes = R.string.file_job_action_merge;
+            positiveButtonRes = R.string.merge;
         } else {
             titleRes = R.string.file_job_replace_title_format;
             messageRes = R.string.file_job_replace_message_format;
-            positiveButtonRes = R.string.file_job_action_replace;
+            positiveButtonRes = R.string.replace;
         }
         String targetFileName = mTargetFile.getPath().getFileName().toString();
         String title = context.getString(titleRes, targetFileName);
@@ -201,8 +201,7 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
                     mAllCheck.setChecked(false);
                 }
                 Button positiveButton = requireDialog().findViewById(android.R.id.button1);
-                positiveButton.setText(hasNewName ? R.string.file_job_action_rename
-                        : positiveButtonRes);
+                positiveButton.setText(hasNewName ? R.string.rename : positiveButtonRes);
             }
         });
         mResetNameButton.setOnClickListener(view -> {
@@ -217,7 +216,7 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(positiveButtonRes, this::onDialogButtonClick)
-                .setNegativeButton(R.string.file_job_action_skip, this::onDialogButtonClick)
+                .setNegativeButton(R.string.skip, this::onDialogButtonClick)
                 .setNeutralButton(android.R.string.cancel, this::onDialogButtonClick)
                 .create();
         dialog.setCanceledOnTouchOutside(false);

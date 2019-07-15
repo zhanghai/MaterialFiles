@@ -13,19 +13,19 @@
 
     <item
         android:id="@+id/action_cut"
-        android:title="@string/file_item_action_cut" />
+        android:title="@string/cut" />
 
     <item
         android:id="@+id/action_copy"
-        android:title="@string/file_item_action_copy" />
+        android:title="@string/copy" />
 
     <item
         android:id="@+id/action_delete"
-        android:title="@string/file_item_action_delete" />
+        android:title="@string/delete" />
 
     <item
         android:id="@+id/action_rename"
-        android:title="@string/file_item_action_rename" />
+        android:title="@string/rename" />
 
     <item
         android:id="@+id/action_extract"
@@ -37,7 +37,7 @@
 
     <item
         android:id="@+id/action_send"
-        android:title="@string/file_item_action_send" />
+        android:title="@string/send" />
 
     <item
         android:id="@+id/action_copy_path"

@@ -23,7 +23,7 @@
         android:id="@+id/action_sort"
         android:icon="@drawable/sort_icon_white_24dp"
         android:orderInCategory="100"
-        android:title="@string/file_list_action_sort"
+        android:title="@string/sort"
         app:showAsAction="always">
         <menu>
             <group android:checkableBehavior="single">
@@ -66,7 +66,7 @@
     <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
-        android:title="@string/file_list_action_refresh"
+        android:title="@string/refresh"
         app:showAsAction="never" />
 
     <item
@@ -85,7 +85,7 @@
     <item
         android:id="@+id/action_send"
         android:orderInCategory="100"
-        android:title="@string/file_list_action_send"
+        android:title="@string/send"
         app:showAsAction="never" />
 
     <item

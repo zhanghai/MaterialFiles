@@ -559,7 +559,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 } else if (isReload) {
                     mSwipeRefreshLayout.setRefreshing(true);
                 } else {
-                    mToolbar.setSubtitle(R.string.file_list_subtitle_loading);
+                    mToolbar.setSubtitle(R.string.loading);
                     mSwipeRefreshLayout.setRefreshing(false);
                     ViewUtils.fadeIn(mProgress);
                     ViewUtils.fadeOut(mErrorView);
@@ -570,7 +570,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
             case ERROR:
                 fileListData.exception.printStackTrace();
-                mToolbar.setSubtitle(R.string.file_list_subtitle_error);
+                mToolbar.setSubtitle(R.string.error);
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeIn(mErrorView);
@@ -616,7 +616,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         } else if (!TextUtils.isEmpty(fileCountText)) {
             subtitle = fileCountText;
         } else {
-            subtitle = getString(R.string.file_list_subtitle_empty);
+            subtitle = getString(R.string.empty);
         }
         mToolbar.setSubtitle(subtitle);
     }
@@ -856,7 +856,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                             .setIcon(isExtract ? R.drawable.extract_icon_white_24dp
                                     : R.drawable.copy_icon_white_24dp)
                             .setTitle(isExtract ? R.string.file_list_cab_select_action_extract
-                                    : R.string.file_list_cab_select_action_copy);
+                                    : R.string.copy);
                     menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
                     break;
                 }
@@ -865,7 +865,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
                     menu.findItem(R.id.action_paste)
                             .setTitle(isExtract ? R.string.file_list_cab_paste_action_extract_here
-                                    : R.string.file_list_cab_paste_action_paste)
+                                    : R.string.paste)
                             .setEnabled(!isReadOnly);
                     break;
                 }
