@@ -8,10 +8,8 @@ package me.zhanghai.android.files.filelist;
 import android.os.Parcelable;
 
 import java.io.Closeable;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +20,7 @@ import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.util.CollectionUtils;
 
 public class FileListViewModel extends ViewModel {
 
@@ -47,8 +46,8 @@ public class FileListViewModel extends ViewModel {
     @NonNull
     private final MutableLiveData<PickOptions> mPickOptionsLiveData = new MutableLiveData<>();
     @NonNull
-    private final MutableLiveData<Set<FileItem>> mSelectedFilesLiveData = new MutableLiveData<>(
-            new HashSet<>());
+    private final MutableLiveData<LinkedHashSet<FileItem>> mSelectedFilesLiveData =
+            new MutableLiveData<>(new LinkedHashSet<>());
     @NonNull
     private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>(
             FilePasteMode.NONE);
@@ -179,21 +178,21 @@ public class FileListViewModel extends ViewModel {
     }
 
     @NonNull
-    public LiveData<Set<FileItem>> getSelectedFilesLiveData() {
+    public LiveData<LinkedHashSet<FileItem>> getSelectedFilesLiveData() {
         return mSelectedFilesLiveData;
     }
 
     @NonNull
-    public Set<FileItem> getSelectedFiles() {
+    public LinkedHashSet<FileItem> getSelectedFiles() {
         return mSelectedFilesLiveData.getValue();
     }
 
     public void selectFile(@NonNull FileItem file, boolean selected) {
-        selectFiles(Collections.singleton(file), selected);
+        selectFiles(CollectionUtils.singletonLinkedSet(file), selected);
     }
 
-    public void selectFiles(@NonNull Set<FileItem> files, boolean selected) {
-        Set<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
+    public void selectFiles(@NonNull LinkedHashSet<FileItem> files, boolean selected) {
+        LinkedHashSet<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles == files) {
             if (!selected && !selectedFiles.isEmpty()) {
                 selectedFiles.clear();
@@ -210,8 +209,8 @@ public class FileListViewModel extends ViewModel {
         }
     }
 
-    public void replaceSelectedFiles(@NonNull Set<FileItem> files) {
-        Set<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
+    public void replaceSelectedFiles(@NonNull LinkedHashSet<FileItem> files) {
+        LinkedHashSet<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles.equals(files)) {
             return;
         }
@@ -221,7 +220,7 @@ public class FileListViewModel extends ViewModel {
     }
 
     public void clearSelectedFiles() {
-        Set<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
+        LinkedHashSet<FileItem> selectedFiles = mSelectedFilesLiveData.getValue();
         if (selectedFiles.isEmpty()) {
             return;
         }

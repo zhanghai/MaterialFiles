@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -86,7 +87,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     private PickOptions mPickOptions;
 
     @NonNull
-    private final Set<FileItem> mSelectedFiles = new HashSet<>();
+    private final LinkedHashSet<FileItem> mSelectedFiles = new LinkedHashSet<>();
     @NonNull
     private final Map<FileItem, Integer> mFilePositionMap = new HashMap<>();
 
@@ -118,7 +119,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         notifyItemRangeChanged(0, getItemCount(), PAYLOAD_STATE_CHANGED);
     }
 
-    public void replaceSelectedFiles(@NonNull Set<FileItem> files) {
+    public void replaceSelectedFiles(@NonNull LinkedHashSet<FileItem> files) {
         Set<FileItem> changedFiles = new HashSet<>();
         for (Iterator<FileItem> iterator = mSelectedFiles.iterator(); iterator.hasNext(); ) {
             FileItem file = iterator.next();
@@ -152,7 +153,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     }
 
     public void selectAllFiles() {
-        Set<FileItem> files = new HashSet<>();
+        LinkedHashSet<FileItem> files = new LinkedHashSet<>();
         for (int i = 0, count = getItemCount(); i < count; ++i) {
             FileItem file = getItem(i);
             if (isFileSelectable(file)) {
@@ -368,7 +369,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     public interface Listener {
         void clearSelectedFiles();
         void selectFile(@NonNull FileItem file, boolean selected);
-        void selectFiles(@NonNull Set<FileItem> files, boolean selected);
+        void selectFiles(@NonNull LinkedHashSet<FileItem> files, boolean selected);
         void openFile(@NonNull FileItem file);
         void showOpenFileAsDialog(@NonNull FileItem file);
         void cutFile(@NonNull FileItem file);

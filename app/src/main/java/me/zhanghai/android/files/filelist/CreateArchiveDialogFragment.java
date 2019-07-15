@@ -14,6 +14,7 @@ import org.apache.commons.compress.compressors.CompressorStreamFactory;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import androidx.annotation.LayoutRes;
@@ -36,10 +37,10 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
     @BindView(R.id.type_group)
     RadioGroup mTypeGroup;
 
-    private Set<FileItem> mExtraFiles;
+    private LinkedHashSet<FileItem> mExtraFiles;
 
     @NonNull
-    public static CreateArchiveDialogFragment newInstance(@NonNull Set<FileItem> files) {
+    public static CreateArchiveDialogFragment newInstance(@NonNull LinkedHashSet<FileItem> files) {
         //noinspection deprecation
         CreateArchiveDialogFragment fragment = new CreateArchiveDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
@@ -47,13 +48,13 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
         return fragment;
     }
 
-    public static void show(@NonNull Set<FileItem> files, @NonNull Fragment fragment) {
+    public static void show(@NonNull LinkedHashSet<FileItem> files, @NonNull Fragment fragment) {
         CreateArchiveDialogFragment.newInstance(files)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
-     * @deprecated Use {@link #newInstance(Set)} instead.
+     * @deprecated Use {@link #newInstance(LinkedHashSet)} instead.
      */
     public CreateArchiveDialogFragment() {}
 
@@ -61,7 +62,7 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFiles = new HashSet<>(getArguments().getParcelableArrayList(EXTRA_FILES));
+        mExtraFiles = new LinkedHashSet<>(getArguments().getParcelableArrayList(EXTRA_FILES));
     }
 
     @NonNull
@@ -152,7 +153,7 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
     }
 
     public interface Listener extends FileNameDialogFragment.Listener {
-        void archive(@NonNull Set<FileItem> files, @NonNull String name,
+        void archive(@NonNull LinkedHashSet<FileItem> files, @NonNull String name,
                      @NonNull String archiveType, @Nullable String compressorType);
     }
 }

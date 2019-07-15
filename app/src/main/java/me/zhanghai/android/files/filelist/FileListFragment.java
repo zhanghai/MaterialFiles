@@ -32,9 +32,9 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -773,7 +773,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mAdapter.setPickOptions(pickOptions);
     }
 
-    private void pickFiles(@NonNull Set<FileItem> files) {
+    private void pickFiles(@NonNull LinkedHashSet<FileItem> files) {
         Intent intent = new Intent();
         PickOptions pickOptions = mViewModel.getPickOptions();
         if (files.size() == 1) {
@@ -803,13 +803,13 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         activity.finish();
     }
 
-    private void onSelectedFilesChanged(@NonNull Set<FileItem> files) {
+    private void onSelectedFilesChanged(@NonNull LinkedHashSet<FileItem> files) {
         updateCab();
         mAdapter.replaceSelectedFiles(files);
     }
 
     private void updateCab() {
-        Set<FileItem> selectedFiles = mViewModel.getSelectedFiles();
+        LinkedHashSet<FileItem> selectedFiles = mViewModel.getSelectedFiles();
         if (selectedFiles.isEmpty()) {
             if (mToolbarActionMode.isActive()) {
                 mToolbarActionMode.finish();
@@ -918,7 +918,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.setPasteMode(FilePasteMode.NONE);
     }
 
-    private void cutFiles(@NonNull Set<FileItem> files) {
+    private void cutFiles(@NonNull LinkedHashSet<FileItem> files) {
         if (mViewModel.getPasteMode() == FilePasteMode.MOVE) {
             mViewModel.selectFiles(files, true);
         } else {
@@ -927,7 +927,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
     }
 
-    private void copyFiles(@NonNull Set<FileItem> files) {
+    private void copyFiles(@NonNull LinkedHashSet<FileItem> files) {
         if (mViewModel.getPasteMode() == FilePasteMode.COPY) {
             mViewModel.selectFiles(files, true);
         } else {
@@ -941,7 +941,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         updateCab();
     }
 
-    private void pasteFiles(@NonNull Set<FileItem> sources, @NonNull Path targetDirectory) {
+    private void pasteFiles(@NonNull LinkedHashSet<FileItem> sources,
+                            @NonNull Path targetDirectory) {
         switch (mViewModel.getPasteMode()) {
             case MOVE:
                 FileJobService.move(makePathListForJob(sources), targetDirectory, requireContext());
@@ -956,22 +957,22 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.setPasteMode(FilePasteMode.NONE);
     }
 
-    private void confirmDeleteFiles(@NonNull Set<FileItem> files) {
+    private void confirmDeleteFiles(@NonNull LinkedHashSet<FileItem> files) {
         ConfirmDeleteFilesDialogFragment.show(files, this);
     }
 
     @Override
-    public void deleteFiles(@NonNull Set<FileItem> files) {
+    public void deleteFiles(@NonNull LinkedHashSet<FileItem> files) {
         mViewModel.selectFiles(files, false);
         FileJobService.delete(makePathListForJob(files), requireContext());
     }
 
-    private void showCreateArchiveDialog(@NonNull Set<FileItem> files) {
+    private void showCreateArchiveDialog(@NonNull LinkedHashSet<FileItem> files) {
         CreateArchiveDialogFragment.show(files, this);
     }
 
     @Override
-    public void archive(@NonNull Set<FileItem> files, @NonNull String name,
+    public void archive(@NonNull LinkedHashSet<FileItem> files, @NonNull String name,
                         @NonNull String archiveType, @Nullable String compressorType) {
         mViewModel.selectFiles(files, false);
         Path archiveFile = mViewModel.getCurrentPath().resolve(name);
@@ -980,7 +981,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @NonNull
-    private List<Path> makePathListForJob(@NonNull Set<FileItem> files) {
+    private List<Path> makePathListForJob(@NonNull LinkedHashSet<FileItem> files) {
         List<Path> pathList = Functional.map(files, FileItem::getPath);
         Collections.sort(pathList);
         return pathList;
@@ -1001,7 +1002,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void selectFiles(@NonNull Set<FileItem> files, boolean selected) {
+    public void selectFiles(@NonNull LinkedHashSet<FileItem> files, boolean selected) {
         mViewModel.selectFiles(files, selected);
     }
 
@@ -1015,7 +1016,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 if (file.getAttributes().isDirectory()) {
                     navigateTo(file.getPath());
                 } else {
-                    pickFiles(Collections.singleton(file));
+                    pickFiles(CollectionUtils.singletonLinkedSet(file));
                 }
             }
             return;
@@ -1101,17 +1102,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void cutFile(@NonNull FileItem file) {
-        cutFiles(Collections.singleton(file));
+        cutFiles(CollectionUtils.singletonLinkedSet(file));
     }
 
     @Override
     public void copyFile(@NonNull FileItem file) {
-        copyFiles(Collections.singleton(file));
+        copyFiles(CollectionUtils.singletonLinkedSet(file));
     }
 
     @Override
     public void confirmDeleteFile(@NonNull FileItem file) {
-        confirmDeleteFiles(Collections.singleton(file));
+        confirmDeleteFiles(CollectionUtils.singletonLinkedSet(file));
     }
 
     @Override
@@ -1136,12 +1137,13 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void extractFile(@NonNull FileItem file) {
-        copyFiles(Collections.singleton(FileUtils.createDummyFileItemForArchiveRoot(file)));
+        file = FileUtils.createDummyFileItemForArchiveRoot(file);
+        copyFiles(CollectionUtils.singletonLinkedSet(file));
     }
 
     @Override
     public void showCreateArchiveDialog(@NonNull FileItem file) {
-        showCreateArchiveDialog(Collections.singleton(file));
+        showCreateArchiveDialog(CollectionUtils.singletonLinkedSet(file));
     }
 
     @Override

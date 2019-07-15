@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.RandomAccess;
 import java.util.Set;
@@ -94,6 +95,13 @@ public class CollectionUtils {
         return list1Size >= list2.size() && FunctionalIterator.everyRemaining(
                 new FunctionalIterator.ReverseIterator<>(list2), (element, index) ->
                         ObjectsCompat.equals(list1.get(list1Size - 1 - index), element));
+    }
+
+    @NonNull
+    public static <E> LinkedHashSet<E> singletonLinkedSet(@Nullable E element) {
+        LinkedHashSet<E> set =  new LinkedHashSet<>(1, 1);
+        set.add(element);
+        return set;
     }
 
     @Nullable
