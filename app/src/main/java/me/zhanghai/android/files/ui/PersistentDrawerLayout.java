@@ -228,8 +228,8 @@ public class PersistentDrawerLayout extends ViewGroup {
                         break;
                     case Gravity.BOTTOM: {
                         int childBottom = height - childLayoutParams.bottomMargin;
-                        child.layout(childLeft, childBottom - child.getMeasuredHeight(),
-                                childLeft + childWidth, childBottom);
+                        child.layout(childLeft, childBottom - childHeight, childLeft + childWidth,
+                                childBottom);
                         break;
                     }
                     case Gravity.CENTER_VERTICAL: {
@@ -489,8 +489,7 @@ public class PersistentDrawerLayout extends ViewGroup {
         for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
             View child = getChildAt(i);
 
-            int childHorizontalGravity = getChildAbsoluteGravity(child)
-                    & Gravity.HORIZONTAL_GRAVITY_MASK;
+            int childHorizontalGravity = getChildAbsoluteHorizontalGravity(child);
             if (childHorizontalGravity == horizontalGravity) {
                 return child;
             }
@@ -503,13 +502,12 @@ public class PersistentDrawerLayout extends ViewGroup {
     }
 
     private boolean isDrawerView(@NonNull View child) {
-        int horizontalGravity = getChildAbsoluteGravity(child) & Gravity.HORIZONTAL_GRAVITY_MASK;
+        int horizontalGravity = getChildAbsoluteHorizontalGravity(child);
         return horizontalGravity == Gravity.LEFT || horizontalGravity == Gravity.RIGHT;
     }
 
     private boolean isLeftDrawerView(@NonNull View drawerView) {
-        int horizontalGravity = getChildAbsoluteGravity(drawerView)
-                & Gravity.HORIZONTAL_GRAVITY_MASK;
+        int horizontalGravity = getChildAbsoluteHorizontalGravity(drawerView);
         return horizontalGravity == Gravity.LEFT;
     }
 
@@ -517,8 +515,9 @@ public class PersistentDrawerLayout extends ViewGroup {
         return ((LayoutParams) child.getLayoutParams()).gravity;
     }
 
-    private int getChildAbsoluteGravity(@NonNull View child) {
-        return Gravity.getAbsoluteGravity(getChildGravity(child), getLayoutDirection());
+    private int getChildAbsoluteHorizontalGravity(@NonNull View child) {
+        return Gravity.getAbsoluteGravity(getChildGravity(child), getLayoutDirection())
+                & Gravity.HORIZONTAL_GRAVITY_MASK;
     }
 
     private class ViewDragCallback extends ViewDragHelper.Callback {
