@@ -7,26 +7,35 @@
 
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <me.zhanghai.android.files.ui.PersistentBarLayout
+        android:id="@+id/bar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <include layout="@layout/file_list_fragment_app_bar_include" />
-
-        <include layout="@layout/file_list_fragment_content_include" />
-
-        <me.zhanghai.android.files.ui.StatusBarBackgroundView
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+            <include layout="@layout/file_list_fragment_app_bar_include" />
+
+            <include layout="@layout/file_list_fragment_content_include" />
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include layout="@layout/file_list_fragment_status_bar_background_include" />
+
+        <include layout="@layout/file_list_fragment_bottom_toolbar_include"/>
 
         <include layout="@layout/file_list_fragment_speed_dial_include" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </me.zhanghai.android.files.ui.PersistentBarLayout>
 
     <me.zhanghai.android.files.ui.PassWindowInsetsFrameLayout
         android:id="@+id/navigation_fragment"

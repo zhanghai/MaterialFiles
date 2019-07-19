@@ -5,10 +5,11 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.ui.FullScreenFrameLayout
+<me.zhanghai.android.files.ui.PersistentBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_height="match_parent"
@@ -35,9 +36,9 @@
         </me.zhanghai.android.files.ui.PersistentDrawerLayout>
     </LinearLayout>
 
-    <me.zhanghai.android.files.ui.StatusBarBackgroundView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include layout="@layout/file_list_fragment_status_bar_background_include" />
+
+    <include layout="@layout/file_list_fragment_bottom_toolbar_include"/>
 
     <include layout="@layout/file_list_fragment_speed_dial_include" />
-</me.zhanghai.android.files.ui.FullScreenFrameLayout>
+</me.zhanghai.android.files.ui.PersistentBarLayout>

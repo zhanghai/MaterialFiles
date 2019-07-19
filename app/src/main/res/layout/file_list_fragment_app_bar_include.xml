@@ -22,7 +22,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/menu_icon_white_24dp"
+            app:navigationIcon="@drawable/menu_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme"
             app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
 
@@ -32,7 +32,7 @@
             android:layout_height="?actionBarSize"
             android:background="?colorPrimary"
             android:visibility="gone"
-            app:navigationIcon="@drawable/close_icon_white_24dp"
+            app:navigationIcon="@drawable/close_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
     </FrameLayout>
 

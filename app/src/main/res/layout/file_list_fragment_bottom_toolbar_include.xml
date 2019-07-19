@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<androidx.appcompat.widget.Toolbar
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    android:layout_gravity="bottom"
+    android:background="?colorBackgroundFloating"
+    android:elevation="@dimen/design_appbar_elevation"
+    app:navigationIcon="@drawable/close_icon_control_normal_24dp"
+    app:popupTheme="?actionBarPopupTheme" />

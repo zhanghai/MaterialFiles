@@ -68,6 +68,7 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
+import me.zhanghai.android.files.ui.PersistentBarLayout;
 import me.zhanghai.android.files.ui.PersistentDrawerLayout;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
@@ -107,6 +108,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @BindView(R.id.persistent_drawer)
     @Nullable
     PersistentDrawerLayout mPersistentDrawerLayout;
+    @BindView(R.id.bar_layout)
+    PersistentBarLayout mPersistentBarLayout;
+    @BindView(R.id.bottom_toolbar)
+    Toolbar mBottomToolbar;
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)

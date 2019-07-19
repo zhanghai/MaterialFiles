@@ -21,44 +21,41 @@ import androidx.core.math.MathUtils;
 import androidx.customview.widget.ViewDragHelper;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class PersistentDrawerLayout extends ViewGroup {
-
-    private static final float DRAWER_ELEVATION_DP = 2;
-
-    private float mDrawerElevation;
+/**
+ * @see PersistentDrawerLayout
+ */
+public class PersistentBarLayout extends ViewGroup {
 
     @NonNull
-    private final ViewDragHelper mLeftDragger;
+    private final ViewDragHelper mTopDragger;
     @NonNull
-    private final ViewDragHelper mRightDragger;
+    private final ViewDragHelper mBottomDragger;
 
-    public PersistentDrawerLayout(@NonNull Context context) {
+    public PersistentBarLayout(@NonNull Context context) {
         this(context, null);
     }
 
-    public PersistentDrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public PersistentBarLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PersistentDrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs,
-                                  @AttrRes int defStyleAttr) {
+    public PersistentBarLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                               @AttrRes int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
 
-    public PersistentDrawerLayout(@NonNull Context context, @Nullable AttributeSet attrs,
-                                  @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+    public PersistentBarLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                               @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
-        mDrawerElevation = ViewUtils.dpToPx(DRAWER_ELEVATION_DP, context);
 
         if (getFitsSystemWindows()) {
             ViewUtils.setLayoutFullscreen(this);
         }
 
-        ViewDragCallback leftCallback = new ViewDragCallback(Gravity.LEFT);
-        mLeftDragger = ViewDragHelper.create(this, leftCallback);
-        ViewDragCallback rightCallback = new ViewDragCallback(Gravity.RIGHT);
-        mRightDragger = ViewDragHelper.create(this, rightCallback);
+        ViewDragCallback topCallback = new ViewDragCallback(Gravity.TOP);
+        mTopDragger = ViewDragHelper.create(this, topCallback);
+        ViewDragCallback bottomCallback = new ViewDragCallback(Gravity.BOTTOM);
+        mBottomDragger = ViewDragHelper.create(this, bottomCallback);
     }
 
     @NonNull
@@ -70,14 +67,15 @@ public class PersistentDrawerLayout extends ViewGroup {
         for (int i = 0, count = getChildCount(); i < count; ++i) {
             View child = getChildAt(i);
 
-            if (isDrawerView(child)) {
-                if (isLeftDrawerView(child)) {
+            if (isBarView(child)) {
+                if (isTopBarView(child)) {
                     child.dispatchApplyWindowInsets(insets.replaceSystemWindowInsets(
-                            insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(), 0,
-                            insets.getSystemWindowInsetBottom()));
+                            insets.getSystemWindowInsetLeft(), insets.getSystemWindowInsetTop(),
+                            insets.getSystemWindowInsetRight(), 0));
                 } else {
-                    child.dispatchApplyWindowInsets(insets.replaceSystemWindowInsets(0,
-                            insets.getSystemWindowInsetTop(), insets.getSystemWindowInsetRight(),
+                    child.dispatchApplyWindowInsets(insets.replaceSystemWindowInsets(
+                            insets.getSystemWindowInsetLeft(), 0,
+                            insets.getSystemWindowInsetRight(),
                             insets.getSystemWindowInsetBottom()));
                 }
             } else {
@@ -89,9 +87,9 @@ public class PersistentDrawerLayout extends ViewGroup {
 
     @Override
     public void computeScroll() {
-        boolean leftSettling = mLeftDragger.continueSettling(true);
-        boolean rightSettling = mRightDragger.continueSettling(true);
-        if (leftSettling || rightSettling) {
+        boolean topSettling = mTopDragger.continueSettling(true);
+        boolean bottomSettling = mBottomDragger.continueSettling(true);
+        if (topSettling || bottomSettling) {
             postInvalidateOnAnimation();
         }
     }
@@ -114,14 +112,14 @@ public class PersistentDrawerLayout extends ViewGroup {
                 }
             } else {
                 throw new IllegalArgumentException(
-                        "DrawerLayout must be measured with MeasureSpec.EXACTLY.");
+                        "BarLayout must be measured with MeasureSpec.EXACTLY.");
             }
         }
 
         setMeasuredDimension(widthSize, heightSize);
 
-        boolean hasLeftDrawer = false;
-        boolean hasRightDrawer = false;
+        boolean hasTopBar = false;
+        boolean hasBottomBar = false;
         for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
             View child = getChildAt(i);
 
@@ -129,23 +127,20 @@ public class PersistentDrawerLayout extends ViewGroup {
                 continue;
             }
 
-            boolean isDrawer = isDrawerView(child);
-            if (isDrawer || isFillView(child)) {
+            boolean isBar = isBarView(child);
+            if (isBar || isFillView(child)) {
 
-                if (isDrawer) {
-
-                    boolean isLeftDrawer = isLeftDrawerView(child);
-                    if ((isLeftDrawer && hasLeftDrawer) || (!isLeftDrawer && hasRightDrawer)) {
+                if (isBar) {
+                    boolean isTopBar = isTopBarView(child);
+                    if ((isTopBar && hasTopBar) || (!isTopBar && hasBottomBar)) {
                         throw new IllegalStateException("Child " + child + " at index " + i
-                                + " is a second " + (isLeftDrawer ? "left" : "right") + " drawer");
+                                + " is a second " + (isTopBar ? "top" : "bottom") + " bar");
                     }
-                    if (isLeftDrawer) {
-                        hasLeftDrawer = true;
+                    if (isTopBar) {
+                        hasTopBar = true;
                     } else {
-                        hasRightDrawer = true;
+                        hasBottomBar = true;
                     }
-
-                    child.setElevation(mDrawerElevation);
                 }
 
                 LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
@@ -177,11 +172,11 @@ public class PersistentDrawerLayout extends ViewGroup {
                 continue;
             }
 
-            if (isDrawerView(child)) {
+            if (isBarView(child)) {
                 LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
-                int childRange = childLayoutParams.leftMargin + child.getMeasuredWidth()
-                        + childLayoutParams.rightMargin;
-                contentWidth -= (int) (childRange * childLayoutParams.offset);
+                int childRange = childLayoutParams.topMargin + child.getMeasuredHeight()
+                        + childLayoutParams.bottomMargin;
+                contentHeight -= (int) (childRange * childLayoutParams.offset);
             }
         }
 
@@ -215,33 +210,33 @@ public class PersistentDrawerLayout extends ViewGroup {
                 continue;
             }
 
-            if (isDrawerView(child)) {
+            if (isBarView(child)) {
 
                 int childWidth = child.getMeasuredWidth();
                 int childHeight = child.getMeasuredHeight();
                 LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
 
-                int childLeft = computeDrawerViewLeft(child);
+                int childTop = computeBarViewTop(child);
 
-                int childVerticalGravity = childLayoutParams.gravity
-                        & Gravity.VERTICAL_GRAVITY_MASK;
-                int height = bottom - top;
-                switch (childVerticalGravity) {
+                int childHorizontalGravity = Gravity.getAbsoluteGravity(childLayoutParams.gravity,
+                        getLayoutDirection()) & Gravity.HORIZONTAL_GRAVITY_MASK;
+                int width = right - left;
+                switch (childHorizontalGravity) {
                     //noinspection DefaultNotLastCaseInSwitch
                     default:
-                    case Gravity.TOP:
-                        child.layout(childLeft, childLayoutParams.topMargin, childLeft + childWidth,
-                                childLayoutParams.topMargin + childHeight);
+                    case Gravity.LEFT:
+                        child.layout(childLayoutParams.leftMargin, childTop,
+                                childLayoutParams.leftMargin + childWidth, childTop + childHeight);
                         break;
-                    case Gravity.BOTTOM: {
-                        int childBottom = height - childLayoutParams.bottomMargin;
-                        child.layout(childLeft, childBottom - childHeight, childLeft + childWidth,
-                                childBottom);
+                    case Gravity.RIGHT: {
+                        int childRight = width - childLayoutParams.rightMargin;
+                        child.layout(childRight - childWidth, childTop, childRight,
+                                childTop + childHeight);
                         break;
                     }
-                    case Gravity.CENTER_VERTICAL: {
-                        int childTop = (height - childHeight) / 2 + childLayoutParams.topMargin
-                                - childLayoutParams.bottomMargin;
+                    case Gravity.CENTER_HORIZONTAL: {
+                        int childLeft = (width - childWidth) / 2 + childLayoutParams.leftMargin
+                                - childLayoutParams.rightMargin;
                         child.layout(childLeft, childTop, childLeft + childWidth,
                                 childTop + childHeight);
                         break;
@@ -260,22 +255,22 @@ public class PersistentDrawerLayout extends ViewGroup {
         layoutContentViews();
     }
 
-    private int computeDrawerViewLeft(@NonNull View drawerView) {
-        LayoutParams childLayoutParams = (LayoutParams) drawerView.getLayoutParams();
-        int childRange = childLayoutParams.leftMargin + drawerView.getMeasuredWidth()
-                + childLayoutParams.rightMargin;
-        if (isLeftDrawerView(drawerView)) {
+    private int computeBarViewTop(@NonNull View barView) {
+        LayoutParams childLayoutParams = (LayoutParams) barView.getLayoutParams();
+        int childRange = childLayoutParams.topMargin + barView.getMeasuredHeight()
+                + childLayoutParams.bottomMargin;
+        if (isTopBarView(barView)) {
             return -childRange + (int) (childRange * childLayoutParams.offset)
-                    + childLayoutParams.leftMargin;
+                    + childLayoutParams.topMargin;
         } else {
-            return getMeasuredWidth() - (int) (childRange * childLayoutParams.offset)
-                    + childLayoutParams.leftMargin;
+            return getMeasuredHeight() - (int) (childRange * childLayoutParams.offset)
+                    + childLayoutParams.bottomMargin;
         }
     }
 
     private void layoutContentViews() {
 
-        int contentLeft = 0;
+        int contentTop = 0;
         for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
             View child = getChildAt(i);
 
@@ -283,10 +278,10 @@ public class PersistentDrawerLayout extends ViewGroup {
                 continue;
             }
 
-            if (isDrawerView(child)) {
-                if (isLeftDrawerView(child)) {
+            if (isBarView(child)) {
+                if (isTopBarView(child)) {
                     LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
-                    contentLeft = child.getRight() + childLayoutParams.rightMargin;
+                    contentTop = child.getBottom() + childLayoutParams.bottomMargin;
                 }
             }
         }
@@ -300,10 +295,10 @@ public class PersistentDrawerLayout extends ViewGroup {
 
             if (isContentView(child)) {
                 LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
-                int childLeft = contentLeft + childLayoutParams.leftMargin;
-                child.layout(childLeft, childLayoutParams.topMargin,
-                        childLeft + child.getMeasuredWidth(),
-                        childLayoutParams.topMargin + child.getMeasuredHeight());
+                int childTop = contentTop + childLayoutParams.topMargin;
+                child.layout(childLayoutParams.leftMargin, childTop,
+                        childLayoutParams.leftMargin + child.getMeasuredWidth(),
+                        childTop + child.getMeasuredHeight());
             }
         }
     }
@@ -319,7 +314,7 @@ public class PersistentDrawerLayout extends ViewGroup {
     protected ViewGroup.LayoutParams generateLayoutParams(
             @NonNull ViewGroup.LayoutParams layoutParams) {
         return layoutParams instanceof LayoutParams ? new LayoutParams((LayoutParams) layoutParams)
-                : layoutParams instanceof ViewGroup.MarginLayoutParams ?
+                : layoutParams instanceof MarginLayoutParams ?
                 new LayoutParams((MarginLayoutParams) layoutParams)
                 : new LayoutParams(layoutParams);
     }
@@ -335,188 +330,165 @@ public class PersistentDrawerLayout extends ViewGroup {
         return layoutParams instanceof LayoutParams && super.checkLayoutParams(layoutParams);
     }
 
-    public float getDrawerElevation() {
-        return mDrawerElevation;
+    public boolean isBarShown(@NonNull View barView) {
+
+        if (!isBarView(barView)) {
+            throw new IllegalArgumentException("View " + barView + " is not a bar");
+        }
+
+        LayoutParams childLayoutParams = (LayoutParams) barView.getLayoutParams();
+        return childLayoutParams.shown;
     }
 
-    public void setDrawerElevation(float elevation) {
+    public boolean isBarShown(int gravity) {
+        View barView = findBarView(gravity);
+        if (barView == null) {
+            throw new IllegalArgumentException("No bar view found with gravity " + gravity);
+        }
+        return isBarShown(barView);
+    }
 
-        if (mDrawerElevation == elevation) {
+    public void showBar(@NonNull View barView, boolean animate) {
+
+        if (!isBarView(barView)) {
+            throw new IllegalArgumentException("View " + barView + " is not a bar");
+        }
+
+        LayoutParams childLayoutParams = (LayoutParams) barView.getLayoutParams();
+        if (childLayoutParams.shown && childLayoutParams.offset == 1) {
             return;
         }
 
-        mDrawerElevation = elevation;
-        for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
-            View child = getChildAt(i);
-
-            if (isDrawerView(child)) {
-                child.setElevation(mDrawerElevation);
-            }
-        }
-    }
-
-    public boolean isDrawerOpen(@NonNull View drawerView) {
-
-        if (!isDrawerView(drawerView)) {
-            throw new IllegalArgumentException("View " + drawerView + " is not a drawer");
-        }
-
-        LayoutParams childLayoutParams = (LayoutParams) drawerView.getLayoutParams();
-        return childLayoutParams.open;
-    }
-
-    public boolean isDrawerOpen(int gravity) {
-        View drawerView = findDrawerView(gravity);
-        if (drawerView == null) {
-            throw new IllegalArgumentException("No drawer view found with gravity " + gravity);
-        }
-        return isDrawerOpen(drawerView);
-    }
-
-    public void openDrawer(@NonNull View drawerView, boolean animate) {
-
-        if (!isDrawerView(drawerView)) {
-            throw new IllegalArgumentException("View " + drawerView + " is not a drawer");
-        }
-
-        LayoutParams childLayoutParams = (LayoutParams) drawerView.getLayoutParams();
-        if (childLayoutParams.open && childLayoutParams.offset == 1) {
-            return;
-        }
-
-        childLayoutParams.open = true;
+        childLayoutParams.shown = true;
         if (!isLaidOut()) {
             childLayoutParams.offset = 1;
         } else if (animate) {
-            if (isLeftDrawerView(drawerView)) {
-                mLeftDragger.smoothSlideViewTo(drawerView, 0, drawerView.getTop());
+            if (isTopBarView(barView)) {
+                mTopDragger.smoothSlideViewTo(barView, barView.getLeft(), 0);
             } else {
-                mRightDragger.smoothSlideViewTo(drawerView,
-                        getWidth() - drawerView.getWidth() - childLayoutParams.rightMargin,
-                        drawerView.getTop());
+                mBottomDragger.smoothSlideViewTo(barView, barView.getLeft(),
+                        getHeight() - barView.getHeight() - childLayoutParams.bottomMargin);
             }
         } else {
-            moveDrawerToOffset(drawerView, 1);
+            moveBarToOffset(barView, 1);
             measureContentViews();
             layoutContentViews();
         }
         invalidate();
     }
 
-    public void openDrawer(@NonNull View drawerView) {
-        openDrawer(drawerView, true);
+    public void showBar(@NonNull View barView) {
+        showBar(barView, true);
     }
 
-    public void openDrawer(int gravity, boolean animate) {
-        View drawerView = findDrawerView(gravity);
-        if (drawerView == null) {
-            throw new IllegalArgumentException("No drawer view found with gravity " + gravity);
+    public void showBar(int gravity, boolean animate) {
+        View barView = findBarView(gravity);
+        if (barView == null) {
+            throw new IllegalArgumentException("No bar view found with gravity " + gravity);
         }
-        openDrawer(drawerView, animate);
+        showBar(barView, animate);
     }
 
-    public void openDrawer(int gravity) {
-        openDrawer(gravity, true);
+    public void showBar(int gravity) {
+        showBar(gravity, true);
     }
 
-    public void closeDrawer(@NonNull View drawerView, boolean animate) {
+    public void hideBar(@NonNull View barView, boolean animate) {
 
-        if (!isDrawerView(drawerView)) {
-            throw new IllegalArgumentException("View " + drawerView + " is not a drawer");
+        if (!isBarView(barView)) {
+            throw new IllegalArgumentException("View " + barView + " is not a bar");
         }
 
-        LayoutParams childLayoutParams = (LayoutParams) drawerView.getLayoutParams();
-        if (!childLayoutParams.open && childLayoutParams.offset == 0) {
+        LayoutParams childLayoutParams = (LayoutParams) barView.getLayoutParams();
+        if (!childLayoutParams.shown && childLayoutParams.offset == 0) {
             return;
         }
 
-        childLayoutParams.open = false;
+        childLayoutParams.shown = false;
         if (!isLaidOut()) {
             childLayoutParams.offset = 0;
         } else if (animate) {
-            if (isLeftDrawerView(drawerView)) {
-                mLeftDragger.smoothSlideViewTo(drawerView,
-                        -drawerView.getWidth() - childLayoutParams.rightMargin,
-                        drawerView.getTop());
+            if (isTopBarView(barView)) {
+                mTopDragger.smoothSlideViewTo(barView, barView.getLeft(),
+                        -barView.getHeight() - childLayoutParams.bottomMargin);
             } else {
-                mRightDragger.smoothSlideViewTo(drawerView, getWidth(), drawerView.getTop());
+                mBottomDragger.smoothSlideViewTo(barView, barView.getLeft(), getHeight());
             }
         } else {
             childLayoutParams.offset = 0;
-            moveDrawerToOffset(drawerView, 0);
+            moveBarToOffset(barView, 0);
             measureContentViews();
             layoutContentViews();
         }
         invalidate();
     }
 
-    public void closeDrawer(@NonNull View drawerView) {
-        closeDrawer(drawerView, true);
+    public void hideBar(@NonNull View barView) {
+        hideBar(barView, true);
     }
 
-    public void closeDrawer(int gravity, boolean animate) {
-        View drawerView = findDrawerView(gravity);
-        if (drawerView == null) {
-            throw new IllegalArgumentException("No drawer view found with gravity " + gravity);
+    public void hideBar(int gravity, boolean animate) {
+        View barView = findBarView(gravity);
+        if (barView == null) {
+            throw new IllegalArgumentException("No bar view found with gravity " + gravity);
         }
-        closeDrawer(drawerView, animate);
+        hideBar(barView, animate);
     }
 
-    public void closeDrawer(int gravity) {
-        closeDrawer(gravity, true);
+    public void hideBar(int gravity) {
+        hideBar(gravity, true);
     }
 
-    private void moveDrawerToOffset(@NonNull View drawerView, float offset) {
-        LayoutParams childLayoutParams = (LayoutParams) drawerView.getLayoutParams();
+    private void moveBarToOffset(@NonNull View barView, float offset) {
+        LayoutParams childLayoutParams = (LayoutParams) barView.getLayoutParams();
         if (childLayoutParams.offset == offset) {
             return;
         }
         childLayoutParams.offset = offset;
-        int oldChildLeft = drawerView.getLeft();
-        int newChildLeft = computeDrawerViewLeft(drawerView);
-        drawerView.offsetLeftAndRight(newChildLeft - oldChildLeft);
-        drawerView.setVisibility(offset > 0 ? VISIBLE : INVISIBLE);
+        int oldChildTop = barView.getTop();
+        int newChildTop = computeBarViewTop(barView);
+        barView.offsetTopAndBottom(newChildTop - oldChildTop);
+        barView.setVisibility(offset > 0 ? VISIBLE : INVISIBLE);
     }
 
-    public void toggleDrawer(@NonNull View drawerView) {
-        if (isDrawerOpen(drawerView)) {
-            closeDrawer(drawerView);
+    public void toggleBar(@NonNull View barView) {
+        if (isBarShown(barView)) {
+            hideBar(barView);
         } else {
-            openDrawer(drawerView);
+            showBar(barView);
         }
     }
 
-    public void toggleDrawer(int gravity) {
-        View drawerView = findDrawerView(gravity);
-        if (drawerView == null) {
-            throw new IllegalArgumentException("No drawer view found with gravity " + gravity);
+    public void toggleBar(int gravity) {
+        View barView = findBarView(gravity);
+        if (barView == null) {
+            throw new IllegalArgumentException("No bar view found with gravity " + gravity);
         }
-        toggleDrawer(drawerView);
+        toggleBar(barView);
     }
 
     @Nullable
-    private View findDrawerView(int gravity) {
-        int horizontalGravity = Gravity.getAbsoluteGravity(gravity, getLayoutDirection())
-                & Gravity.HORIZONTAL_GRAVITY_MASK;
+    private View findBarView(int gravity) {
+        int verticalGravity = gravity & Gravity.VERTICAL_GRAVITY_MASK;
         for (int i = 0, childCount = getChildCount(); i < childCount; ++i) {
             View child = getChildAt(i);
 
-            int childHorizontalGravity = getChildAbsoluteHorizontalGravity(child);
-            if (childHorizontalGravity == horizontalGravity) {
+            int childVerticalGravity = getChildVerticalGravity(child);
+            if (childVerticalGravity == verticalGravity) {
                 return child;
             }
         }
         return null;
     }
 
-    private boolean isDrawerView(@NonNull View child) {
-        int horizontalGravity = getChildAbsoluteHorizontalGravity(child);
-        return horizontalGravity == Gravity.LEFT || horizontalGravity == Gravity.RIGHT;
+    private boolean isBarView(@NonNull View child) {
+        int verticalGravity = getChildVerticalGravity(child);
+        return verticalGravity == Gravity.TOP || verticalGravity == Gravity.BOTTOM;
     }
 
-    private boolean isLeftDrawerView(@NonNull View drawerView) {
-        int horizontalGravity = getChildAbsoluteHorizontalGravity(drawerView);
-        return horizontalGravity == Gravity.LEFT;
+    private boolean isTopBarView(@NonNull View barView) {
+        int verticalGravity = getChildVerticalGravity(barView);
+        return verticalGravity == Gravity.TOP;
     }
 
     private boolean isContentView(@NonNull View child) {
@@ -531,9 +503,8 @@ public class PersistentDrawerLayout extends ViewGroup {
         return ((LayoutParams) child.getLayoutParams()).gravity;
     }
 
-    private int getChildAbsoluteHorizontalGravity(@NonNull View child) {
-        return Gravity.getAbsoluteGravity(getChildGravity(child), getLayoutDirection())
-                & Gravity.HORIZONTAL_GRAVITY_MASK;
+    private int getChildVerticalGravity(@NonNull View child) {
+        return getChildGravity(child) & Gravity.VERTICAL_GRAVITY_MASK;
     }
 
     private class ViewDragCallback extends ViewDragHelper.Callback {
@@ -552,14 +523,14 @@ public class PersistentDrawerLayout extends ViewGroup {
         @Override
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx,
                                           int dy) {
-            int childRange = getViewHorizontalDragRange(changedView);
+            int childRange = getViewVerticalDragRange(changedView);
             LayoutParams childLayoutParams = (LayoutParams) changedView.getLayoutParams();
-            if (isLeftDrawerView(changedView)) {
-                childLayoutParams.offset = (float) (left - childLayoutParams.leftMargin
+            if (isTopBarView(changedView)) {
+                childLayoutParams.offset = (float) (top - childLayoutParams.topMargin
                         + childRange) / childRange;
             } else {
-                int width = getWidth();
-                childLayoutParams.offset = (float) (childLayoutParams.leftMargin + width - left)
+                int height = getHeight();
+                childLayoutParams.offset = (float) (childLayoutParams.topMargin + height - top)
                         / childRange;
             }
             changedView.setVisibility(childLayoutParams.offset > 0 ? VISIBLE : INVISIBLE);
@@ -569,39 +540,39 @@ public class PersistentDrawerLayout extends ViewGroup {
 
         @Override
         public void onViewCaptured(@NonNull View capturedChild, int activePointerId) {
-            closeOtherDrawer();
+            closeOtherBar();
         }
 
-        private void closeOtherDrawer() {
-            int otherGravity = mGravity == Gravity.LEFT ? Gravity.RIGHT : Gravity.LEFT;
-            View otherDrawer = findDrawerView(otherGravity);
-            if (otherDrawer != null) {
-                closeDrawer(otherDrawer);
+        private void closeOtherBar() {
+            int otherGravity = mGravity == Gravity.TOP ? Gravity.BOTTOM : Gravity.TOP;
+            View otherBar = findBarView(otherGravity);
+            if (otherBar != null) {
+                hideBar(otherBar);
             }
         }
 
         @Override
-        public int getViewHorizontalDragRange(@NonNull View child) {
-            if (!isDrawerView(child)) {
+        public int getViewVerticalDragRange(@NonNull View child) {
+            if (!isBarView(child)) {
                 return 0;
             }
             LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
-            return childLayoutParams.leftMargin + child.getWidth() + childLayoutParams.rightMargin;
+            return childLayoutParams.topMargin + child.getHeight() + childLayoutParams.bottomMargin;
         }
 
         @Override
         public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
-            if (isLeftDrawerView(child)) {
-                return MathUtils.clamp(left, -getViewHorizontalDragRange(child), 0);
-            } else {
-                int width = getWidth();
-                return MathUtils.clamp(left, width - getViewHorizontalDragRange(child), width);
-            }
+            return child.getLeft();
         }
 
         @Override
         public int clampViewPositionVertical(@NonNull View child, int top, int dy) {
-            return child.getTop();
+            if (isTopBarView(child)) {
+                return MathUtils.clamp(top, -getViewVerticalDragRange(child), 0);
+            } else {
+                int height = getHeight();
+                return MathUtils.clamp(top, height - getViewVerticalDragRange(child), height);
+            }
         }
     }
 
@@ -611,7 +582,7 @@ public class PersistentDrawerLayout extends ViewGroup {
 
         public int gravity = Gravity.NO_GRAVITY;
         public float offset;
-        public boolean open;
+        public boolean shown;
 
         public LayoutParams(@NonNull Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);

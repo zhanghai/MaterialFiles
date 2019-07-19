@@ -9,10 +9,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
+    android:tint="?colorControlNormal"
     android:viewportWidth="24"
     android:viewportHeight="24">
 
     <path
-        android:fillColor="#FFFFFFFF"
+        android:fillColor="@android:color/white"
         android:pathData="M3,18h18v-2H3v2zm0,-5h18v-2H3v2zm0,-7v2h18V6H3z" />
 </vector>
