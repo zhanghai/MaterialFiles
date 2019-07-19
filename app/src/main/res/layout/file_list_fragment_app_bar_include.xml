@@ -27,7 +27,7 @@
             app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/action_mode_toolbar"
+            android:id="@+id/overlay_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="?colorPrimary"

@@ -68,7 +68,9 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
+import me.zhanghai.android.files.ui.OverlayToolbarActionMode;
 import me.zhanghai.android.files.ui.PersistentBarLayout;
+import me.zhanghai.android.files.ui.PersistentBarLayoutToolbarActionMode;
 import me.zhanghai.android.files.ui.PersistentDrawerLayout;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
@@ -84,11 +86,10 @@ import me.zhanghai.java.functional.Functional;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
-        FileListAdapter.Listener, ToolbarActionMode.Callback, OpenApkDialogFragment.Listener,
-        OpenFileAsDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
-        CreateArchiveDialogFragment.Listener, RenameFileDialogFragment.Listener,
-        CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-        NavigationFragment.Listener {
+        FileListAdapter.Listener, OpenApkDialogFragment.Listener, OpenFileAsDialogFragment.Listener,
+        ConfirmDeleteFilesDialogFragment.Listener, CreateArchiveDialogFragment.Listener,
+        RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
+        CreateDirectoryDialogFragment.Listener, NavigationFragment.Listener {
 
     private static final int REQUEST_CODE_STORAGE_PERMISSIONS = 1;
 
@@ -116,8 +117,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.action_mode_toolbar)
-    Toolbar mActionModeToolbar;
+    @BindView(R.id.overlay_toolbar)
+    Toolbar mOverlayToolbar;
     @BindView(R.id.breadcrumb)
     BreadcrumbLayout mBreadcrumbLayout;
     @BindView(R.id.content)
@@ -157,7 +158,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private MenuItem mShowHiddenFilesMenuItem;
 
     @NonNull
-    private ToolbarActionMode mToolbarActionMode;
+    private ToolbarActionMode mOverlayActionMode;
+    @NonNull
+    private ToolbarActionMode mBottomActionMode;
 
     @NonNull
     private FileListAdapter mAdapter;
@@ -240,10 +243,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
-        mToolbarActionMode = new ToolbarActionMode(mActionModeToolbar);
-        if (savedInstanceState != null) {
-            mToolbarActionMode.restoreInstanceState(savedInstanceState, this);
-        }
+        mOverlayActionMode = new OverlayToolbarActionMode(mOverlayToolbar);
+        mBottomActionMode = new PersistentBarLayoutToolbarActionMode(mBottomToolbar,
+                mPersistentBarLayout);
 
         int contentLayoutInitialPaddingBottom = mContentLayout.getPaddingBottom();
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
@@ -362,13 +364,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     R.string.storage_permission_permanently_denied_message,
                     R.string.open_settings, this);
         }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        mToolbarActionMode.saveInstanceState(outState);
     }
 
     @Override
@@ -522,8 +517,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             mSpeedDialView.close();
             return true;
         }
-        if (mToolbarActionMode.isActive()) {
-            mToolbarActionMode.finish();
+        if (mOverlayActionMode.isActive()) {
+            mOverlayActionMode.finish();
             return true;
         }
         return mViewModel.navigateUp(false);
@@ -540,7 +535,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void onCurrentPathChanged(@NonNull Path path) {
-        updateCab();
+        updateOverlayToolbar();
     }
 
     private void onSearchViewExpandedChanged(boolean expanded) {
@@ -779,7 +774,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
         requireActivity().setTitle(title);
         updateSelectAllMenuItem();
-        updateCab();
+        updateOverlayToolbar();
         mAdapter.setPickOptions(pickOptions);
     }
 
@@ -822,25 +817,25 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void onSelectedFilesChanged(@NonNull LinkedHashSet<FileItem> files) {
-        updateCab();
+        updateOverlayToolbar();
         mAdapter.replaceSelectedFiles(files);
     }
 
-    private void updateCab() {
+    private void updateOverlayToolbar() {
         LinkedHashSet<FileItem> selectedFiles = mViewModel.getSelectedFiles();
         if (selectedFiles.isEmpty()) {
-            if (mToolbarActionMode.isActive()) {
-                mToolbarActionMode.finish();
+            if (mOverlayActionMode.isActive()) {
+                mOverlayActionMode.finish();
             }
             return;
         }
         PickOptions pickOptions = mViewModel.getPickOptions();
         FilePasteMode pasteMode = mViewModel.getPasteMode();
         if (pickOptions != null) {
-            mToolbarActionMode.setTitle(getString(R.string.file_list_cab_select_title_format,
+            mOverlayActionMode.setTitle(getString(R.string.file_list_cab_select_title_format,
                     selectedFiles.size()));
-            mToolbarActionMode.setMenuResource(R.menu.file_list_cab_pick);
-            Menu menu = mToolbarActionMode.getMenu();
+            mOverlayActionMode.setMenuResource(R.menu.file_list_cab_pick);
+            Menu menu = mOverlayActionMode.getMenu();
             menu.findItem(R.id.action_select_all).setVisible(pickOptions.allowMultiple);
         } else {
             boolean isExtract = Functional.every(selectedFiles, file ->
@@ -864,9 +859,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 default:
                     throw new IllegalStateException();
             }
-            mToolbarActionMode.setTitle(getString(titleRes, selectedFiles.size()));
-            mToolbarActionMode.setMenuResource(menuRes);
-            Menu menu = mToolbarActionMode.getMenu();
+            mOverlayActionMode.setTitle(getString(titleRes, selectedFiles.size()));
+            mOverlayActionMode.setMenuResource(menuRes);
+            Menu menu = mOverlayActionMode.getMenu();
             switch (pasteMode) {
                 case NONE: {
                     boolean hasReadOnly = Functional.some(selectedFiles, file ->
@@ -893,18 +888,28 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     throw new IllegalStateException();
             }
         }
-        if (!mToolbarActionMode.isActive()) {
+        if (!mOverlayActionMode.isActive()) {
             mAppBarLayout.setExpanded(true);
-            mToolbarActionMode.start(this);
+            mOverlayActionMode.start(new ToolbarActionMode.Callback() {
+                @Override
+                public void onToolbarActionModeStarted(
+                        @NonNull ToolbarActionMode toolbarActionMode) {}
+                @Override
+                public boolean onToolbarActionModeItemClicked(
+                        @NonNull ToolbarActionMode toolbarActionMode, @NonNull MenuItem item) {
+                    return onOverlayActionModeItemClicked(toolbarActionMode, item);
+                }
+                @Override
+                public void onToolbarActionModeFinished(
+                        @NonNull ToolbarActionMode toolbarActionMode) {
+                    onOverlayActionModeFinished(toolbarActionMode);
+                }
+            });
         }
     }
 
-    @Override
-    public void onToolbarActionModeStarted(@NonNull ToolbarActionMode toolbarActionMode) {}
-
-    @Override
-    public boolean onToolbarActionModeItemClicked(@NonNull ToolbarActionMode toolbarActionMode,
-                                                  @NonNull MenuItem item) {
+    private boolean onOverlayActionModeItemClicked(
+            @NonNull ToolbarActionMode toolbarActionMode, @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_pick:
                 pickFiles(mViewModel.getSelectedFiles());
@@ -932,8 +937,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
     }
 
-    @Override
-    public void onToolbarActionModeFinished(@NonNull ToolbarActionMode toolbarActionMode) {
+    private void onOverlayActionModeFinished(@NonNull ToolbarActionMode toolbarActionMode) {
         mViewModel.clearSelectedFiles();
         mViewModel.setPasteMode(FilePasteMode.NONE);
     }
@@ -958,7 +962,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void onPasteModeChanged(@NonNull FilePasteMode pasteMode) {
         mAdapter.setPasteMode(pasteMode);
-        updateCab();
+        updateOverlayToolbar();
     }
 
     private void pasteFiles(@NonNull LinkedHashSet<FileItem> sources,
