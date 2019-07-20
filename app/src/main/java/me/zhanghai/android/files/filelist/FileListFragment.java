@@ -919,8 +919,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void deleteFiles(@NonNull LinkedHashSet<FileItem> files) {
-        mViewModel.selectFiles(files, false);
         FileJobService.delete(makePathListForJob(files), requireContext());
+        mViewModel.selectFiles(files, false);
     }
 
     private void showCreateArchiveDialog(@NonNull LinkedHashSet<FileItem> files) {
@@ -930,10 +930,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void archive(@NonNull LinkedHashSet<FileItem> files, @NonNull String name,
                         @NonNull String archiveType, @Nullable String compressorType) {
-        mViewModel.selectFiles(files, false);
         Path archiveFile = mViewModel.getCurrentPath().resolve(name);
         FileJobService.archive(makePathListForJob(files), archiveFile, archiveType, compressorType,
                 requireContext());
+        mViewModel.selectFiles(files, false);
     }
 
     private void selectAllFiles() {
