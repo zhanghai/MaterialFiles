@@ -18,4 +18,6 @@
     <dimen name="list_bottom_padding_with_fab">104dp</dimen>
     <dimen name="card_list_horizontal_padding">@dimen/screen_edge_margin</dimen>
     <dimen name="card_list_vertical_padding">@dimen/screen_edge_margin</dimen>
+
+    <dimen name="toolbar_padding_end_no_overflow">12dp</dimen>
 </resources>

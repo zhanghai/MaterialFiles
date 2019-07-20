@@ -39,4 +39,6 @@
     <dimen name="badge_size">19dp</dimen>
     <dimen name="badge_icon_padding">1dp</dimen>
     <dimen name="badge_elevation">1dp</dimen>
+
+    <dimen name="toolbar_padding_end_no_overflow">4dp</dimen>
 </resources>
