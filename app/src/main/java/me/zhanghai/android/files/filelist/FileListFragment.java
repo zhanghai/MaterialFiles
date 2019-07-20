@@ -849,7 +849,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     ArchiveFileSystemProvider.isArchivePath(file.getPath()));
             menu.findItem(R.id.action_copy)
                     .setIcon(isExtract ? R.drawable.extract_icon_white_24dp
-                            : R.drawable.copy_icon_white_24dp)
+                            : R.drawable.copy_icon_control_normal_24dp)
                     .setTitle(isExtract ? R.string.file_list_select_action_extract : R.string.copy);
             menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
         }
