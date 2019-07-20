@@ -987,7 +987,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                                                   @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_paste:
-                pasteFiles(mViewModel.getSelectedFiles(), getCurrentPath());
+                pasteFiles(getCurrentPath());
                 return true;
             default:
                 return false;
@@ -998,12 +998,14 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.clearPasteState();
     }
 
-    private void pasteFiles(@NonNull LinkedHashSet<FileItem> sources,
-                            @NonNull Path targetDirectory) {
+    private void pasteFiles(@NonNull Path targetDirectory) {
+        PasteState pasteState = mViewModel.getPasteState();
         if (mViewModel.getPasteState().copy) {
-            FileJobService.copy(makePathListForJob(sources), targetDirectory, requireContext());
+            FileJobService.copy(makePathListForJob(pasteState.files), targetDirectory,
+                    requireContext());
         } else {
-            FileJobService.move(makePathListForJob(sources), targetDirectory, requireContext());
+            FileJobService.move(makePathListForJob(pasteState.files), targetDirectory,
+                    requireContext());
         }
         mViewModel.clearPasteState();
     }
