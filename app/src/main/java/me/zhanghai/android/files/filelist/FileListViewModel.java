@@ -49,8 +49,8 @@ public class FileListViewModel extends ViewModel {
     private final MutableLiveData<LinkedHashSet<FileItem>> mSelectedFilesLiveData =
             new MutableLiveData<>(new LinkedHashSet<>());
     @NonNull
-    private final MutableLiveData<FilePasteMode> mPasteModeLiveData = new MutableLiveData<>(
-            FilePasteMode.NONE);
+    private final MutableLiveData<PasteState> mPasteStateLiveData = new MutableLiveData<>(
+            new PasteState());
 
     public boolean hasTrail() {
         return mTrailLiveData.getValue() != null;
@@ -229,17 +229,36 @@ public class FileListViewModel extends ViewModel {
     }
 
     @NonNull
-    public LiveData<FilePasteMode> getPasteModeLiveData() {
-        return mPasteModeLiveData;
+    public LiveData<PasteState> getPasteStateLiveData() {
+        return mPasteStateLiveData;
     }
 
     @NonNull
-    public FilePasteMode getPasteMode() {
-        return mPasteModeLiveData.getValue();
+    public PasteState getPasteState() {
+        return mPasteStateLiveData.getValue();
     }
 
-    public void setPasteMode(@NonNull FilePasteMode pasteMode) {
-        mPasteModeLiveData.setValue(pasteMode);
+    public void addToPasteState(boolean copy, @NonNull LinkedHashSet<FileItem> files) {
+        PasteState pasteState = mPasteStateLiveData.getValue();
+        boolean changed = false;
+        if (pasteState.copy != copy) {
+            changed = !pasteState.files.isEmpty();
+            pasteState.files.clear();
+            pasteState.copy = copy;
+        }
+        changed |= pasteState.files.addAll(files);
+        if (changed) {
+            mPasteStateLiveData.setValue(pasteState);
+        }
+    }
+
+    public void clearPasteState() {
+        PasteState pasteState = mPasteStateLiveData.getValue();
+        if (pasteState.files.isEmpty()) {
+            return;
+        }
+        pasteState.files.clear();
+        mPasteStateLiveData.setValue(pasteState);
     }
 
     @Override

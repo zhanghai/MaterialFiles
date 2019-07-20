@@ -331,7 +331,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
         mViewModel.getPickOptionsLiveData().observe(this, this::onPickOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
-        mViewModel.getPasteModeLiveData().observe(this, this::onPasteModeChanged);
+        mViewModel.getPasteStateLiveData().observe(this, this::onPasteStateChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
         SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
 
@@ -536,6 +536,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void onCurrentPathChanged(@NonNull Path path) {
         updateOverlayToolbar();
+        updateBottomToolbar();
     }
 
     private void onSearchViewExpandedChanged(boolean expanded) {
@@ -822,71 +823,35 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void updateOverlayToolbar() {
-        LinkedHashSet<FileItem> selectedFiles = mViewModel.getSelectedFiles();
-        if (selectedFiles.isEmpty()) {
+        LinkedHashSet<FileItem> files = mViewModel.getSelectedFiles();
+        if (files.isEmpty()) {
             if (mOverlayActionMode.isActive()) {
                 mOverlayActionMode.finish();
             }
             return;
         }
         PickOptions pickOptions = mViewModel.getPickOptions();
-        FilePasteMode pasteMode = mViewModel.getPasteMode();
         if (pickOptions != null) {
-            mOverlayActionMode.setTitle(getString(R.string.file_list_cab_select_title_format,
-                    selectedFiles.size()));
-            mOverlayActionMode.setMenuResource(R.menu.file_list_cab_pick);
+            mOverlayActionMode.setTitle(getString(R.string.file_list_select_title_format,
+                    files.size()));
+            mOverlayActionMode.setMenuResource(R.menu.file_list_pick);
             Menu menu = mOverlayActionMode.getMenu();
             menu.findItem(R.id.action_select_all).setVisible(pickOptions.allowMultiple);
         } else {
-            boolean isExtract = Functional.every(selectedFiles, file ->
-                    ArchiveFileSystemProvider.isArchivePath(file.getPath()));
-            int titleRes;
-            int menuRes;
-            switch (pasteMode) {
-                case NONE:
-                    titleRes = R.string.file_list_cab_select_title_format;
-                    menuRes = R.menu.file_list_cab_select;
-                    break;
-                case MOVE:
-                    titleRes = R.string.file_list_cab_paste_move_title_format;
-                    menuRes = R.menu.file_list_cab_paste;
-                    break;
-                case COPY:
-                    titleRes = isExtract ? R.string.file_list_cab_paste_extract_title_format
-                            : R.string.file_list_cab_paste_copy_title_format;
-                    menuRes = R.menu.file_list_cab_paste;
-                    break;
-                default:
-                    throw new IllegalStateException();
-            }
-            mOverlayActionMode.setTitle(getString(titleRes, selectedFiles.size()));
-            mOverlayActionMode.setMenuResource(menuRes);
+            mOverlayActionMode.setTitle(getString(R.string.file_list_select_title_format,
+                    files.size()));
+            mOverlayActionMode.setMenuResource(R.menu.file_list_select);
             Menu menu = mOverlayActionMode.getMenu();
-            switch (pasteMode) {
-                case NONE: {
-                    boolean hasReadOnly = Functional.some(selectedFiles, file ->
-                            file.getPath().getFileSystem().isReadOnly());
-                    menu.findItem(R.id.action_cut).setVisible(!hasReadOnly);
-                    menu.findItem(R.id.action_copy)
-                            .setIcon(isExtract ? R.drawable.extract_icon_white_24dp
-                                    : R.drawable.copy_icon_white_24dp)
-                            .setTitle(isExtract ? R.string.file_list_cab_select_action_extract
-                                    : R.string.copy);
-                    menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
-                    break;
-                }
-                case MOVE:
-                case COPY: {
-                    boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
-                    menu.findItem(R.id.action_paste)
-                            .setTitle(isExtract ? R.string.file_list_cab_paste_action_extract_here
-                                    : R.string.paste)
-                            .setEnabled(!isReadOnly);
-                    break;
-                }
-                default:
-                    throw new IllegalStateException();
-            }
+            boolean hasReadOnly = Functional.some(files, file ->
+                    file.getPath().getFileSystem().isReadOnly());
+            menu.findItem(R.id.action_cut).setVisible(!hasReadOnly);
+            boolean isExtract = Functional.every(files, file ->
+                    ArchiveFileSystemProvider.isArchivePath(file.getPath()));
+            menu.findItem(R.id.action_copy)
+                    .setIcon(isExtract ? R.drawable.extract_icon_white_24dp
+                            : R.drawable.copy_icon_white_24dp)
+                    .setTitle(isExtract ? R.string.file_list_select_action_extract : R.string.copy);
+            menu.findItem(R.id.action_delete).setVisible(!hasReadOnly);
         }
         if (!mOverlayActionMode.isActive()) {
             mAppBarLayout.setExpanded(true);
@@ -908,8 +873,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         }
     }
 
-    private boolean onOverlayActionModeItemClicked(
-            @NonNull ToolbarActionMode toolbarActionMode, @NonNull MenuItem item) {
+    private boolean onOverlayActionModeItemClicked(@NonNull ToolbarActionMode toolbarActionMode,
+                                                   @NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_pick:
                 pickFiles(mViewModel.getSelectedFiles());
@@ -929,9 +894,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_select_all:
                 selectAllFiles();
                 return true;
-            case R.id.action_paste:
-                pasteFiles(mViewModel.getSelectedFiles(), getCurrentPath());
-                return true;
             default:
                 return false;
         }
@@ -939,46 +901,16 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void onOverlayActionModeFinished(@NonNull ToolbarActionMode toolbarActionMode) {
         mViewModel.clearSelectedFiles();
-        mViewModel.setPasteMode(FilePasteMode.NONE);
     }
 
     private void cutFiles(@NonNull LinkedHashSet<FileItem> files) {
-        if (mViewModel.getPasteMode() == FilePasteMode.MOVE) {
-            mViewModel.selectFiles(files, true);
-        } else {
-            mViewModel.replaceSelectedFiles(files);
-            mViewModel.setPasteMode(FilePasteMode.MOVE);
-        }
+        mViewModel.addToPasteState(false, files);
+        mViewModel.selectFiles(files, false);
     }
 
     private void copyFiles(@NonNull LinkedHashSet<FileItem> files) {
-        if (mViewModel.getPasteMode() == FilePasteMode.COPY) {
-            mViewModel.selectFiles(files, true);
-        } else {
-            mViewModel.replaceSelectedFiles(files);
-            mViewModel.setPasteMode(FilePasteMode.COPY);
-        }
-    }
-
-    private void onPasteModeChanged(@NonNull FilePasteMode pasteMode) {
-        mAdapter.setPasteMode(pasteMode);
-        updateOverlayToolbar();
-    }
-
-    private void pasteFiles(@NonNull LinkedHashSet<FileItem> sources,
-                            @NonNull Path targetDirectory) {
-        switch (mViewModel.getPasteMode()) {
-            case MOVE:
-                FileJobService.move(makePathListForJob(sources), targetDirectory, requireContext());
-                break;
-            case COPY:
-                FileJobService.copy(makePathListForJob(sources), targetDirectory, requireContext());
-                break;
-            default:
-                throw new IllegalStateException();
-        }
-        mViewModel.selectFiles(sources, false);
-        mViewModel.setPasteMode(FilePasteMode.NONE);
+        mViewModel.addToPasteState(true, files);
+        mViewModel.selectFiles(files, false);
     }
 
     private void confirmDeleteFiles(@NonNull LinkedHashSet<FileItem> files) {
@@ -1004,15 +936,83 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 requireContext());
     }
 
+    private void selectAllFiles() {
+        mAdapter.selectAllFiles();
+    }
+
+    private void onPasteStateChanged(@NonNull PasteState pasteState) {
+        updateBottomToolbar();
+    }
+
+    private void updateBottomToolbar() {
+        PasteState pasteState = mViewModel.getPasteState();
+        LinkedHashSet<FileItem> files = pasteState.files;
+        if (files.isEmpty()) {
+            if (mBottomActionMode.isActive()) {
+                mBottomActionMode.finish();
+            }
+            return;
+        }
+        boolean isExtract = Functional.every(files, file -> ArchiveFileSystemProvider.isArchivePath(
+                file.getPath()));
+        mBottomActionMode.setTitle(getString(pasteState.copy ? isExtract ?
+                R.string.file_list_paste_extract_title_format
+                : R.string.file_list_paste_copy_title_format
+                : R.string.file_list_paste_move_title_format, files.size()));
+        mBottomActionMode.setMenuResource(R.menu.file_list_paste);
+        boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
+        mBottomActionMode.getMenu().findItem(R.id.action_paste)
+                .setTitle(isExtract ? R.string.file_list_paste_action_extract_here : R.string.paste)
+                .setEnabled(!isReadOnly);
+        if (!mBottomActionMode.isActive()) {
+            mBottomActionMode.start(new ToolbarActionMode.Callback() {
+                @Override
+                public void onToolbarActionModeStarted(
+                        @NonNull ToolbarActionMode toolbarActionMode) {}
+                @Override
+                public boolean onToolbarActionModeItemClicked(
+                        @NonNull ToolbarActionMode toolbarActionMode, @NonNull MenuItem item) {
+                    return onBottomActionModeItemClicked(toolbarActionMode, item);
+                }
+                @Override
+                public void onToolbarActionModeFinished(
+                        @NonNull ToolbarActionMode toolbarActionMode) {
+                    onBottomActionModeFinished(toolbarActionMode);
+                }
+            });
+        }
+    }
+
+    private boolean onBottomActionModeItemClicked(@NonNull ToolbarActionMode toolbarActionMode,
+                                                  @NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_paste:
+                pasteFiles(mViewModel.getSelectedFiles(), getCurrentPath());
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    private void onBottomActionModeFinished(@NonNull ToolbarActionMode toolbarActionMode) {
+        mViewModel.clearPasteState();
+    }
+
+    private void pasteFiles(@NonNull LinkedHashSet<FileItem> sources,
+                            @NonNull Path targetDirectory) {
+        if (mViewModel.getPasteState().copy) {
+            FileJobService.copy(makePathListForJob(sources), targetDirectory, requireContext());
+        } else {
+            FileJobService.move(makePathListForJob(sources), targetDirectory, requireContext());
+        }
+        mViewModel.clearPasteState();
+    }
+
     @NonNull
     private List<Path> makePathListForJob(@NonNull LinkedHashSet<FileItem> files) {
         List<Path> pathList = Functional.map(files, FileItem::getPath);
         Collections.sort(pathList);
         return pathList;
-    }
-
-    private void selectAllFiles() {
-        mAdapter.selectAllFiles();
     }
 
     @Override

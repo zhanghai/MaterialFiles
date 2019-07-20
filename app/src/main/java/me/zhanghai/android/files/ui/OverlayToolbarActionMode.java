@@ -13,6 +13,8 @@ public class OverlayToolbarActionMode extends ToolbarActionMode {
 
     public OverlayToolbarActionMode(@NonNull Toolbar toolbar) {
         super(toolbar);
+
+        ViewUtils.setVisibleOrGone(toolbar, false);
     }
 
     @Override

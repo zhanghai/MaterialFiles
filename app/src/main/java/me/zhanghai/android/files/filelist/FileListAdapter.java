@@ -92,9 +92,6 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     private final Map<FileItem, Integer> mFilePositionMap = new HashMap<>();
 
     @NonNull
-    private FilePasteMode mPasteMode;
-
-    @NonNull
     private Fragment mFragment;
     @NonNull
     private Listener mListener;
@@ -204,10 +201,6 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         }
     }
 
-    public void setPasteMode(@NonNull FilePasteMode pasteMode) {
-        mPasteMode = pasteMode;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -248,14 +241,14 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         }
         bindViewHolderAnimation(holder);
         holder.itemLayout.setOnClickListener(view -> {
-            if (mSelectedFiles.isEmpty() || mPasteMode != FilePasteMode.NONE) {
+            if (mSelectedFiles.isEmpty()) {
                 mListener.openFile(file);
             } else {
                 selectFile(file);
             }
         });
         holder.itemLayout.setOnLongClickListener(view -> {
-            if (mSelectedFiles.isEmpty() || mPasteMode != FilePasteMode.NONE) {
+            if (mSelectedFiles.isEmpty()) {
                 selectFile(file);
             } else {
                 mListener.openFile(file);

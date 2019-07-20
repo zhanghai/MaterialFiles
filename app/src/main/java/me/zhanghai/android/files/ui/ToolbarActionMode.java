@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.Toolbar;
-import me.zhanghai.android.files.util.ViewUtils;
 
 public abstract class ToolbarActionMode {
 
@@ -28,7 +27,6 @@ public abstract class ToolbarActionMode {
 
     public ToolbarActionMode(@NonNull Toolbar toolbar) {
         mToolbar = toolbar;
-        ViewUtils.setVisibleOrGone(mToolbar, false);
         mToolbar.setNavigationOnClickListener(view -> finish());
         mToolbar.setOnMenuItemClickListener(item -> {
             if (mCallback == null) {

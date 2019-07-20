@@ -99,7 +99,7 @@ public class CollectionUtils {
 
     @NonNull
     public static <E> LinkedHashSet<E> singletonLinkedSet(@Nullable E element) {
-        LinkedHashSet<E> set =  new LinkedHashSet<>(1, 1);
+        LinkedHashSet<E> set = new LinkedHashSet<>(1, 1);
         set.add(element);
         return set;
     }
