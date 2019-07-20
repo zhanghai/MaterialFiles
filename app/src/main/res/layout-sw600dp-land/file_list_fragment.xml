@@ -7,6 +7,7 @@
 
 <me.zhanghai.android.files.ui.PersistentBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bar_layout"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fitsSystemWindows="true">
