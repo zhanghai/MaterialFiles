@@ -171,6 +171,25 @@ class ContentPath extends ByteStringListPath {
         throw new UnsupportedOperationException();
     }
 
+    @NonNull
+    @Override
+    public ByteString toByteString() {
+        if (mUri != null) {
+            return ByteString.fromString(mUri.toString());
+        }
+        return super.toByteString();
+    }
+
+    @NonNull
+    @Override
+    @SuppressWarnings("deprecation")
+    public String toString() {
+        if (mUri != null) {
+            return mUri.toString();
+        }
+        return super.toString();
+    }
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
