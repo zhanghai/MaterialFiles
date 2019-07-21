@@ -77,7 +77,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
         super.onCreate(savedInstanceState);
 
         mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
-        mExtraPath = IntentPathUtils.getExtraPath(mIntent);
+        mExtraPath = IntentPathUtils.getExtraPath(mIntent, true);
 
         setHasOptionsMenu(true);
     }

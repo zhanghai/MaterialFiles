@@ -83,7 +83,7 @@ public class ImageViewerFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
-        mExtraPaths = IntentPathUtils.getExtraPathList(mIntent);
+        mExtraPaths = IntentPathUtils.getExtraPathList(mIntent, true);
         mExtraPosition = mIntent.getIntExtra(EXTRA_POSITION, 0);
 
         setHasOptionsMenu(true);

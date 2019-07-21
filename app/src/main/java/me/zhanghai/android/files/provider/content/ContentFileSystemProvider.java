@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.content;
 
+import android.content.ContentResolver;
 import android.os.ParcelFileDescriptor;
 
 import java.io.FileNotFoundException;
@@ -46,7 +47,7 @@ import me.zhanghai.android.files.provider.content.resolver.Resolver;
 
 public class ContentFileSystemProvider extends FileSystemProvider {
 
-    static final String SCHEME = "content";
+    static final String SCHEME = ContentResolver.SCHEME_CONTENT;
 
     private static ContentFileSystemProvider sInstance;
     private static final Object sInstanceLock = new Object();

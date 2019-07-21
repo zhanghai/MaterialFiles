@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.file;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.pm.ProviderInfo;
@@ -263,7 +264,7 @@ public class FileProvider extends ContentProvider {
     public static Uri getUriForPath(@NonNull Path path) {
         String uriPath = Uri.encode(path.toUri().toString());
         return new Uri.Builder()
-                .scheme("content")
+                .scheme(ContentResolver.SCHEME_CONTENT)
                 .authority(BuildConfig.FILE_PROVIDIER_AUTHORITY)
                 .path(uriPath)
                 .build();
