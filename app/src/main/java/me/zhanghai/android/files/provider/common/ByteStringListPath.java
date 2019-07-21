@@ -286,10 +286,8 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         // We are okay with the potential race condition here.
         if (mByteStringCache == null) {
             ByteStringBuilder builder = new ByteStringBuilder();
-            if (mAbsolute) {
-                if (getRoot().getNameCount() == 0) {
-                    builder.append(mSeparator);
-                }
+            if (mAbsolute && getRoot() != null) {
+                builder.append(mSeparator);
             }
             boolean first = true;
             for (ByteString name : mNames) {
