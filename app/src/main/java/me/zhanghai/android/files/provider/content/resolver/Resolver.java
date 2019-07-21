@@ -108,8 +108,7 @@ public class Resolver {
             AssetFileDescriptor descriptor = getContentResolver().openAssetFileDescriptor(uri,
                     mode);
             if (descriptor == null) {
-                throw new FileNotFoundException(
-                        "ContentResolver.openAssetFileDescriptor() returned null");
+                throw new IOException("ContentResolver.openAssetFileDescriptor() returned null");
             }
             return descriptor.createInputStream();
         } catch (IOException e) {
@@ -126,8 +125,7 @@ public class Resolver {
             AssetFileDescriptor descriptor = getContentResolver().openAssetFileDescriptor(uri,
                     mode);
             if (descriptor == null) {
-                throw new FileNotFoundException(
-                        "ContentResolver.openAssetFileDescriptor() returned null");
+                throw new IOException("ContentResolver.openAssetFileDescriptor() returned null");
             }
             return descriptor.createOutputStream();
         } catch (IOException e) {
