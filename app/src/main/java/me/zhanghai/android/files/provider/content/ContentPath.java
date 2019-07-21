@@ -61,7 +61,7 @@ class ContentPath extends ByteStringListPath {
             fileName = uri.getLastPathSegment();
         }
         if (fileName == null) {
-            fileName = "";
+            fileName = uri.toString();
         }
         return ByteString.fromString(fileName);
     }
