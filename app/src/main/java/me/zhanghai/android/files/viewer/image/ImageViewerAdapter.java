@@ -22,6 +22,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.github.chrisbanes.photoview.PhotoView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,19 +36,25 @@ import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.ImageInfo;
 import me.zhanghai.android.files.ui.SaveStateSubsamplingScaleImageView;
-import me.zhanghai.android.files.ui.ViewStatePagerAdapter;
+import me.zhanghai.android.files.ui.ViewPagerAdapter;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class ImageViewerAdapter extends ViewStatePagerAdapter {
+public class ImageViewerAdapter extends ViewPagerAdapter {
 
     @NonNull
-    private final List<Path> mPaths;
+    private final List<Path> mPaths = new ArrayList<>();
+
     @NonNull
     private final View.OnClickListener mListener;
 
-    public ImageViewerAdapter(@NonNull List<Path> paths, @NonNull View.OnClickListener listener) {
-        mPaths = paths;
+    public ImageViewerAdapter(@NonNull View.OnClickListener listener) {
         mListener = listener;
+    }
+
+    public void replace(@NonNull List<Path> paths) {
+        mPaths.clear();
+        mPaths.addAll(paths);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -55,20 +62,15 @@ public class ImageViewerAdapter extends ViewStatePagerAdapter {
         return mPaths.size();
     }
 
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return view == object;
-    }
-
     @NonNull
     @Override
     public View onCreateView(@NonNull ViewGroup container, int position) {
         View view = ViewUtils.inflate(R.layout.image_viewer_item, container);
-        ViewHolder holder = new ViewHolder(view);
+        Path path = mPaths.get(position);
+        ViewHolder holder = new ViewHolder(view, path);
         view.setTag(holder);
         holder.image.setOnPhotoTapListener((view2, x, y) -> mListener.onClick(view2));
         holder.largeImage.setOnClickListener(mListener);
-        Path path = mPaths.get(position);
         container.addView(view);
         loadImage(holder, path);
         return view;
@@ -214,6 +216,16 @@ public class ImageViewerAdapter extends ViewStatePagerAdapter {
         container.removeView(view);
     }
 
+    @Override
+    public int getViewPosition(@NonNull View view) {
+        ViewHolder holder = (ViewHolder) view.getTag();
+        int index = mPaths.indexOf(holder.path);
+        if (index == -1) {
+            return POSITION_NONE;
+        }
+        return index;
+    }
+
     static class ViewHolder {
 
         @BindView(R.id.image)
@@ -225,8 +237,11 @@ public class ImageViewerAdapter extends ViewStatePagerAdapter {
         @BindView(R.id.progress)
         public ProgressBar progress;
 
-        public ViewHolder(@NonNull View view) {
+        public final Path path;
+
+        public ViewHolder(@NonNull View view, @NonNull Path path) {
             ButterKnife.bind(this, view);
+            this.path = path;
         }
     }
 }

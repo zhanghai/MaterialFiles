@@ -239,6 +239,7 @@
 
     <string name="image_viewer_title">图像查看器</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">文本编辑器</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>

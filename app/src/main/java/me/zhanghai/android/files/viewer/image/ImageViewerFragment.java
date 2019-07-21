@@ -8,6 +8,7 @@ package me.zhanghai.android.files.viewer.image;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -27,6 +31,7 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Files;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FileProvider;
@@ -35,13 +40,16 @@ import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
+import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.systemuihelper.SystemUiHelper;
 
-public class ImageViewerFragment extends Fragment {
+public class ImageViewerFragment extends Fragment implements ConfirmDeleteDialogFragment.Listener {
 
     private static final String KEY_PREFIX = ImageViewerFragment.class.getName() + '.';
 
     private static final String EXTRA_POSITION = KEY_PREFIX + "POSITION";
+
+    private static final String STATE_PATHS = KEY_PREFIX + "PATHS";
 
     private Intent mIntent;
     private List<Path> mExtraPaths;
@@ -54,6 +62,8 @@ public class ImageViewerFragment extends Fragment {
     Toolbar mToolbar;
     @BindView(R.id.view_pager)
     ViewPager mViewPager;
+
+    private ArrayList<Path> mPaths;
 
     private SystemUiHelper mSystemUiHelper;
     private ImageViewerAdapter mAdapter;
@@ -107,7 +117,14 @@ public class ImageViewerFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if (mExtraPaths.isEmpty()) {
+        if (savedInstanceState == null) {
+            mPaths = new ArrayList<>(mExtraPaths);
+        } else {
+            //noinspection unchecked
+            mPaths = (ArrayList<Path>) (ArrayList<?>) savedInstanceState.getParcelableArrayList(
+                    STATE_PATHS);
+        }
+        if (mPaths.isEmpty()) {
             // TODO: Show a toast.
             finish();
             return;
@@ -126,9 +143,10 @@ public class ImageViewerFragment extends Fragment {
         // This will set up window flags.
         mSystemUiHelper.show();
 
-        mAdapter = new ImageViewerAdapter(mExtraPaths, view -> mSystemUiHelper.toggle());
+        mAdapter = new ImageViewerAdapter(view -> mSystemUiHelper.toggle());
+        mAdapter.replace(mPaths);
         mViewPager.setAdapter(mAdapter);
-        // TODO: Rotation?
+        // ViewPager saves its position and will restore it later.
         mViewPager.setCurrentItem(mExtraPosition);
         mViewPager.setPageTransformer(true, ViewPagerTransformers.DEPTH);
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -140,12 +158,12 @@ public class ImageViewerFragment extends Fragment {
         updateTitle();
     }
 
-    private void updateTitle() {
-        Path path = getCurrentPath();
-        requireActivity().setTitle(path.getFileName().toString());
-        int size = mExtraPaths.size();
-        mToolbar.setSubtitle(size > 1 ? getString(R.string.image_viewer_subtitle_format,
-                mViewPager.getCurrentItem() + 1, size) : null);
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        //noinspection unchecked
+        outState.putParcelableArrayList(STATE_PATHS, (ArrayList<Parcelable>) (ArrayList<?>) mPaths);
     }
 
     @Override
@@ -161,6 +179,9 @@ public class ImageViewerFragment extends Fragment {
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_delete:
+                confirmDelete();
+                return true;
             case R.id.action_share:
                 share();
                 return true;
@@ -173,6 +194,35 @@ public class ImageViewerFragment extends Fragment {
         requireActivity().finish();
     }
 
+    private void confirmDelete() {
+        ConfirmDeleteDialogFragment.show(getCurrentPath(), this);
+    }
+
+    public void delete(@NonNull Path path) {
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+            ToastUtils.show(e.toString(), requireContext());
+            return;
+        }
+        mPaths.removeAll(Collections.singletonList(path));
+        if (mPaths.isEmpty()) {
+            finish();
+            return;
+        }
+        mAdapter.replace(mPaths);
+        updateTitle();
+    }
+
+    private void updateTitle() {
+        Path path = getCurrentPath();
+        requireActivity().setTitle(path.getFileName().toString());
+        int size = mPaths.size();
+        mToolbar.setSubtitle(size > 1 ? getString(R.string.image_viewer_subtitle_format,
+                mViewPager.getCurrentItem() + 1, size) : null);
+    }
+
     private void share() {
         Path path = getCurrentPath();
         Uri uri = FileProvider.getUriForPath(path);
@@ -183,6 +233,6 @@ public class ImageViewerFragment extends Fragment {
 
     @NonNull
     private Path getCurrentPath() {
-        return mExtraPaths.get(mViewPager.getCurrentItem());
+        return mPaths.get(mViewPager.getCurrentItem());
     }
 }
