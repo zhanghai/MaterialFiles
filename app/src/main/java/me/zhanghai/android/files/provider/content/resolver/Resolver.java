@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.provider.OpenableColumns;
+import android.text.TextUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -95,8 +96,8 @@ public class Resolver {
         } catch (Exception e) {
             throw new IOException(e);
         }
-        if ((type != null && type.isEmpty()) || Objects.equals(type, MimeTypes.GENERIC_MIME_TYPE)) {
-            type = null;
+        if (TextUtils.isEmpty(type) || Objects.equals(type, MimeTypes.GENERIC_MIME_TYPE)) {
+            return null;
         }
         return type;
     }
