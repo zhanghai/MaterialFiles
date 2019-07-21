@@ -29,7 +29,7 @@ public class Resolver {
         int rowCount;
         try (Cursor cursor = getContentResolver().query(uri, new String[0], null, null, null)) {
             if (cursor == null) {
-                throw new IOException("query() returned null");
+                throw new IOException("ContentResolver.query() returned null");
             }
             rowCount = cursor.getCount();
         } catch (Exception e) {
@@ -53,26 +53,28 @@ public class Resolver {
     }
 
     @Nullable
-    public static String getDisplayName(@NonNull Uri uri) {
+    public static String getDisplayName(@NonNull Uri uri) throws IOException {
         try (Cursor cursor = getContentResolver().query(uri,
                 new String[] { OpenableColumns.DISPLAY_NAME }, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                if (columnIndex != -1) {
-                    return cursor.getString(columnIndex);
-                }
+            if (cursor == null) {
+                throw new IOException("ContentResolver.query() returned null");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (!cursor.moveToFirst()) {
+                throw new IOException("Cursor.moveToFirst() returned false");
+            }
+            int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            if (columnIndex == -1) {
+                throw new IOException("Cursor.getColumnIndex() returned -1");
+            }
+            return cursor.getString(columnIndex);
         }
-        return null;
     }
 
     public static long getSize(@NonNull Uri uri) throws IOException {
         try (Cursor cursor = getContentResolver().query(uri, new String[] { OpenableColumns.SIZE },
                 null, null, null)) {
             if (cursor == null) {
-                throw new IOException("query() returned null");
+                throw new IOException("ContentResolver.query() returned null");
             }
             if (!cursor.moveToFirst()) {
                 throw new IOException("Cursor.moveToFirst() returned false");
@@ -106,7 +108,8 @@ public class Resolver {
             AssetFileDescriptor descriptor = getContentResolver().openAssetFileDescriptor(uri,
                     mode);
             if (descriptor == null) {
-                throw new FileNotFoundException("openAssetFileDescriptor() returned null");
+                throw new FileNotFoundException(
+                        "ContentResolver.openAssetFileDescriptor() returned null");
             }
             return descriptor.createInputStream();
         } catch (IOException e) {
@@ -123,7 +126,8 @@ public class Resolver {
             AssetFileDescriptor descriptor = getContentResolver().openAssetFileDescriptor(uri,
                     mode);
             if (descriptor == null) {
-                throw new FileNotFoundException("openAssetFileDescriptor() returned null");
+                throw new FileNotFoundException(
+                        "ContentResolver.openAssetFileDescriptor() returned null");
             }
             return descriptor.createOutputStream();
         } catch (IOException e) {
@@ -146,7 +150,7 @@ public class Resolver {
             throw new IOException(e);
         }
         if (descriptor == null) {
-            throw new IOException("openFileDescriptor() returned null");
+            throw new IOException("ContentResolver.openFileDescriptor() returned null");
         }
         return descriptor;
     }

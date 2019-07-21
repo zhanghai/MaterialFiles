@@ -51,7 +51,12 @@ class ContentPath extends ByteStringListPath {
 
     @NonNull
     private static ByteString getDisplayName(@NonNull Uri uri) {
-        String fileName = Resolver.getDisplayName(uri);
+        String fileName = null;
+        try {
+            fileName = Resolver.getDisplayName(uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (fileName == null) {
             fileName = uri.getLastPathSegment();
         }
