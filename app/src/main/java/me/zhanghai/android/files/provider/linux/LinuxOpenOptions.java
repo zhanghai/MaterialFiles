@@ -39,14 +39,14 @@ class LinuxOpenOptions {
         } else if (options.hasCreate()) {
             flags |= OsConstants.O_CREAT;
         }
-        if (options.hasNoFollowLinks() || (!options.hasCreateNew() && options.hasDeleteOnClose())) {
-            flags |= OsConstants.O_NOFOLLOW;
+        if (options.hasSync()) {
+            flags |= OsConstants.O_SYNC;
         }
         if (options.hasDsync()) {
             flags |= Constants.O_DSYNC;
         }
-        if (options.hasSync()) {
-            flags |= OsConstants.O_SYNC;
+        if (options.hasNoFollowLinks() || (!options.hasCreateNew() && options.hasDeleteOnClose())) {
+            flags |= OsConstants.O_NOFOLLOW;
         }
         return flags;
     }

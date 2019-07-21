@@ -159,8 +159,8 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
     }
 
     @NonNull
-    private ArchiveFileSystem newFileSystem(@NonNull Path file) {
-        return new ArchiveFileSystem(mProvider, file);
+    private ArchiveFileSystem newFileSystem(@NonNull Path archiveFile) {
+        return new ArchiveFileSystem(mProvider, archiveFile);
     }
 
     @NonNull

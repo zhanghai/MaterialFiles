@@ -223,7 +223,7 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
 
     @NonNull
     @Override
-    public Path getPath(@NonNull String first, @NonNull String... more) {
+    public ArchivePath getPath(@NonNull String first, @NonNull String... more) {
         Objects.requireNonNull(first);
         Objects.requireNonNull(more);
         ByteStringBuilder pathBuilder = new ByteStringBuilder(ByteString.fromString(first));
