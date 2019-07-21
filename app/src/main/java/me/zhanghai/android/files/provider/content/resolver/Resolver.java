@@ -83,12 +83,17 @@ public class Resolver {
 
     @Nullable
     public static String getType(@NonNull Uri uri) {
+        String type;
         try {
-            return getContentResolver().getType(uri);
+            type = getContentResolver().getType(uri);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+        if (type != null && type.isEmpty()) {
+            type = null;
+        }
+        return type;
     }
 
     @NonNull

@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.content;
 
-import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 
 import java.io.FileNotFoundException;
@@ -74,10 +73,10 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         return path instanceof ContentPath;
     }
 
-    @NonNull
-    public static Uri getUri(@NonNull Path path) {
+    @Nullable
+    public static String getType(@NonNull Path path) {
         ContentPath contentPath = requireContentPath(path);
-        return contentPath.getUri();
+        return Resolver.getType(contentPath.getUri());
     }
 
     @NonNull

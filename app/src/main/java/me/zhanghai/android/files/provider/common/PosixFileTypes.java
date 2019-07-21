@@ -14,8 +14,6 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.BasicFileAttributes;
-import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes;
-import me.zhanghai.android.files.provider.linux.LinuxFileAttributes;
 
 public class PosixFileTypes {
 
@@ -106,12 +104,9 @@ public class PosixFileTypes {
 
     @NonNull
     public static PosixFileType fromFileAttributes(@NonNull BasicFileAttributes attributes) {
-        if (attributes instanceof ArchiveFileAttributes) {
-            ArchiveFileAttributes archiveAttributes = (ArchiveFileAttributes) attributes;
-            return archiveAttributes.type();
-        } else if (attributes instanceof LinuxFileAttributes) {
-            LinuxFileAttributes linuxAttributes = (LinuxFileAttributes) attributes;
-            return linuxAttributes.type();
+        if (attributes instanceof PosixFileAttributes) {
+            PosixFileAttributes posixAttributes = (PosixFileAttributes) attributes;
+            return posixAttributes.type();
         } else {
             if (attributes.isRegularFile()) {
                 return PosixFileType.REGULAR_FILE;
