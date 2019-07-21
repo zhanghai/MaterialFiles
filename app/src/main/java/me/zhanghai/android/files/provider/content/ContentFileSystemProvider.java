@@ -301,16 +301,17 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         }
         if (accessModes.hasRead()) {
             try (InputStream inputStream = Resolver.openInputStream(contentPath.getUri(), "r")) {
-                // Check read access already checks existence.
-                return;
+                // Do nothing.
             } catch (IOException e) {
                 throw toNoSuchFileOrAccessDeniedException(e, path);
             }
         }
-        try {
-            Resolver.checkExistence(contentPath.getUri());
-        } catch (IOException e) {
-            throw toNoSuchFileOrAccessDeniedException(e, path);
+        if (!(accessModes.hasRead() || accessModes.hasWrite())) {
+            try {
+                Resolver.checkExistence(contentPath.getUri());
+            } catch (IOException e) {
+                throw toNoSuchFileOrAccessDeniedException(e, path);
+            }
         }
     }
 
