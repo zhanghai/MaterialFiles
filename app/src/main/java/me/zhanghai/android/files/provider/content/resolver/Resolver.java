@@ -16,10 +16,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.file.MimeTypes;
 
 public class Resolver {
 
@@ -66,31 +68,32 @@ public class Resolver {
         return null;
     }
 
-    public static long getSize(@NonNull Uri uri) {
+    public static long getSize(@NonNull Uri uri) throws IOException {
         try (Cursor cursor = getContentResolver().query(uri, new String[] { OpenableColumns.SIZE },
                 null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int columnIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-                if (columnIndex != -1) {
-                    return cursor.getLong(columnIndex);
-                }
+            if (cursor == null) {
+                throw new IOException("query() returned null");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (!cursor.moveToFirst()) {
+                throw new IOException("Cursor.moveToFirst() returned false");
+            }
+            int columnIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+            if (columnIndex == -1) {
+                throw new IOException("Cursor.getColumnIndex() returned -1");
+            }
+            return cursor.getLong(columnIndex);
         }
-        return 0;
     }
 
     @Nullable
-    public static String getType(@NonNull Uri uri) {
+    public static String getType(@NonNull Uri uri) throws IOException {
         String type;
         try {
             type = getContentResolver().getType(uri);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new IOException(e);
         }
-        if (type != null && type.isEmpty()) {
+        if ((type != null && type.isEmpty()) || Objects.equals(type, MimeTypes.GENERIC_MIME_TYPE)) {
             type = null;
         }
         return type;

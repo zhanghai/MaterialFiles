@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.content;
 
 import android.net.Uri;
-import android.provider.DocumentsContract;
 
 import org.threeten.bp.Instant;
 
@@ -16,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.file.MimeTypes;
 
 class ContentFileAttributesImpl implements BasicFileAttributes {
 
@@ -56,7 +56,7 @@ class ContentFileAttributesImpl implements BasicFileAttributes {
 
     @Override
     public boolean isDirectory() {
-        return Objects.equals(mType, DocumentsContract.Document.MIME_TYPE_DIR);
+        return Objects.equals(mType, MimeTypes.DIRECTORY_MIME_TYPE);
     }
 
     @Override

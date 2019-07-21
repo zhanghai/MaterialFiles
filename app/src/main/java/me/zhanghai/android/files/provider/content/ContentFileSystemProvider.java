@@ -74,7 +74,7 @@ public class ContentFileSystemProvider extends FileSystemProvider {
     }
 
     @Nullable
-    public static String getType(@NonNull Path path) {
+    public static String getType(@NonNull Path path) throws IOException {
         ContentPath contentPath = requireContentPath(path);
         return Resolver.getType(contentPath.getUri());
     }

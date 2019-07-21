@@ -29,6 +29,8 @@ public class MimeTypes {
 
     public static final String DIRECTORY_MIME_TYPE = DocumentsContract.Document.MIME_TYPE_DIR;
 
+    public static final String GENERIC_MIME_TYPE = "application/octet-stream";
+
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/MimeUtils.java
     // See also http://www.iana.org/assignments/media-types/media-types.xhtml
@@ -144,7 +146,7 @@ public class MimeTypes {
                     .put("application/x-sh", "text/x-shellscript")
                     .put("application/x-shellscript", "text/x-shellscript")
                     // Allows matching generic
-                    .put("application/octet-stream", "*/*")
+                    .put(GENERIC_MIME_TYPE, "*/*")
                     .build();
 
     private static final Set<String> sSupportedArchiveMimeTypes = SetBuilder.<String>newHashSet()
@@ -180,7 +182,7 @@ public class MimeTypes {
         if (!TextUtils.isEmpty(mimeType)) {
             return mimeType;
         }
-        return "application/octet-stream";
+        return GENERIC_MIME_TYPE;
     }
 
     @Nullable
