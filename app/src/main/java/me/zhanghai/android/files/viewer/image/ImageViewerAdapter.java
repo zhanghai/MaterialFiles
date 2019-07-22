@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
@@ -82,6 +83,8 @@ public class ImageViewerAdapter extends ViewPagerAdapter {
                 .with(holder.progress)
                 .asImageInfo()
                 .load(path)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .addListener(new RequestListener<ImageInfo>() {
                     @Override
                     public boolean onResourceReady(@NonNull ImageInfo resource,
@@ -118,6 +121,8 @@ public class ImageViewerAdapter extends ViewPagerAdapter {
             ViewUtils.setVisibleOrGone(holder.image, true);
             GlideApp.with(holder.image)
                     .load(path)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
                     .dontTransform()
                     .placeholder(android.R.color.transparent)
                     .transition(DrawableTransitionOptions.withCrossFade(ViewUtils.getShortAnimTime(
