@@ -34,7 +34,7 @@ class ContentFileAttributesImpl implements BasicFileAttributes {
     @NonNull
     @Override
     public FileTime lastModifiedTime() {
-        return FileTime.from(Instant.ofEpochMilli(0));
+        return FileTime.from(Instant.EPOCH);
     }
 
     @NonNull
