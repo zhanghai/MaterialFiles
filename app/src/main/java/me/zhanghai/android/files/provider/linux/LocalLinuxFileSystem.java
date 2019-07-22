@@ -29,16 +29,16 @@ class LocalLinuxFileSystem extends FileSystem implements ByteStringListPathFacto
     private static final String SEPARATOR_STRING = Character.toString((char) SEPARATOR);
 
     @NonNull
-    private final LinuxPath mRootDirectory;
-
-    @NonNull
-    private final LinuxPath mDefaultDirectory;
-
-    @NonNull
     private final LinuxFileSystem mFileSystem;
 
     @NonNull
     private final LinuxFileSystemProvider mProvider;
+
+    @NonNull
+    private final LinuxPath mRootDirectory;
+
+    @NonNull
+    private final LinuxPath mDefaultDirectory;
 
     public LocalLinuxFileSystem(@NonNull LinuxFileSystem fileSystem,
                                 @NonNull LinuxFileSystemProvider provider) {

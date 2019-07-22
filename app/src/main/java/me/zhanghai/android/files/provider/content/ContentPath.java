@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.FileSystem;
 import java8.nio.file.LinkOption;
-import java8.nio.file.Path;
 import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
@@ -119,7 +118,7 @@ class ContentPath extends ByteStringListPath {
 
     @Nullable
     @Override
-    public Path getRoot() {
+    public ContentPath getRoot() {
         return null;
     }
 
@@ -150,7 +149,7 @@ class ContentPath extends ByteStringListPath {
 
     @NonNull
     @Override
-    public Path toRealPath(@NonNull LinkOption... options) throws IOException {
+    public ContentPath toRealPath(@NonNull LinkOption... options) {
         Objects.requireNonNull(options);
         return this;
     }
@@ -164,7 +163,7 @@ class ContentPath extends ByteStringListPath {
     @NonNull
     @Override
     public WatchKey register(@NonNull WatchService watcher, @NonNull WatchEvent.Kind<?>[] events,
-                             @NonNull WatchEvent.Modifier... modifiers) throws IOException {
+                             @NonNull WatchEvent.Modifier... modifiers) {
         Objects.requireNonNull(watcher);
         Objects.requireNonNull(events);
         Objects.requireNonNull(modifiers);

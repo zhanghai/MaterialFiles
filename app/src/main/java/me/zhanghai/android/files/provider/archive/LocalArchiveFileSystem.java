@@ -41,9 +41,6 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
     private static final String SEPARATOR_STRING = Character.toString((char) SEPARATOR);
 
     @NonNull
-    private final ArchivePath mRootDirectory;
-
-    @NonNull
     private final ArchiveFileSystem mFileSystem;
 
     @NonNull
@@ -51,6 +48,9 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
 
     @NonNull
     private final Path mArchiveFile;
+
+    @NonNull
+    private final ArchivePath mRootDirectory;
 
     @NonNull
     private final Object mLock = new Object();
@@ -269,6 +269,7 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
     @NonNull
     @Override
     public WatchService newWatchService() throws IOException {
+        // TODO
         throw new UnsupportedOperationException();
     }
 

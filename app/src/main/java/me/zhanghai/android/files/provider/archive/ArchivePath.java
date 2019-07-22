@@ -116,6 +116,7 @@ class ArchivePath extends ByteStringListPath implements RootablePath {
         Objects.requireNonNull(watcher);
         Objects.requireNonNull(events);
         Objects.requireNonNull(modifiers);
+        // TODO
         throw new UnsupportedOperationException();
     }
 
