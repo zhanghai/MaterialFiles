@@ -26,6 +26,8 @@ import me.zhanghai.android.files.file.MimeTypes;
 
 public class Resolver {
 
+    private Resolver() {}
+
     public static void checkExistence(@NonNull Uri uri) throws IOException {
         int rowCount;
         try (Cursor cursor = getContentResolver().query(uri, new String[0], null, null, null)) {

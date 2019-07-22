@@ -85,6 +85,7 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
 
     @NonNull
     ArchiveFileSystem getOrNewFileSystem(@NonNull Path archiveFile) {
+        Objects.requireNonNull(archiveFile);
         return mFileSystems.getOrNew(archiveFile, () -> newFileSystem(archiveFile));
     }
 
@@ -137,11 +138,12 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
     public Path getPath(@NonNull URI uri) {
         Objects.requireNonNull(uri);
         requireSameScheme(uri);
+        Path archiveFile = getArchiveFileFromUri(uri);
         ByteString fragment = ByteStringUriUtils.getDecodedFragment(uri);
         if (fragment == null) {
             throw new IllegalArgumentException("URI must have a fragment");
         }
-        return getFileSystem(uri).getPath(fragment);
+        return getOrNewFileSystem(archiveFile).getPath(fragment);
     }
 
     private static void requireSameScheme(@NonNull URI uri) {

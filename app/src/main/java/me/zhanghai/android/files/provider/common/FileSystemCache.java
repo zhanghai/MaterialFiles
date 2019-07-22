@@ -47,7 +47,7 @@ public class FileSystemCache<K, FS extends FileSystem> {
             if (fileSystemReference != null) {
                 fileSystem = fileSystemReference.get();
                 if (fileSystem != null) {
-                    throw new FileSystemAlreadyExistsException();
+                    throw new FileSystemAlreadyExistsException(key.toString());
                 }
             }
             fileSystem = newFileSystem.get();
@@ -69,7 +69,7 @@ public class FileSystemCache<K, FS extends FileSystem> {
             }
         }
         if (fileSystem == null) {
-            throw new FileSystemNotFoundException();
+            throw new FileSystemNotFoundException(key.toString());
         }
         return fileSystem;
     }
