@@ -44,6 +44,7 @@ import java9.util.Objects;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
+import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 
 public class ContentFileSystemProvider extends FileSystemProvider {
 
@@ -132,8 +133,8 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         String mode = ContentOpenOptions.toMode(openOptions);
         try {
             return Resolver.openInputStream(contentFile.getUri(), mode);
-        } catch (IOException e) {
-            throw toFileSystemException(e, file);
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(file.toString());
         }
     }
 
@@ -160,8 +161,8 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         String mode = ContentOpenOptions.toMode(openOptions);
         try {
             return Resolver.openOutputStream(contentFile.getUri(), mode);
-        } catch (IOException e) {
-            throw toFileSystemException(e, file);
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(file.toString());
         }
     }
 
@@ -236,8 +237,8 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         ContentPath contentPath = requireContentPath(path);
         try {
             Resolver.delete(contentPath.getUri());
-        } catch (IOException e) {
-            throw toFileSystemException(e, path);
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(path.toString());
         }
     }
 
@@ -295,54 +296,24 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         if (accessModes.hasWrite()) {
             try (OutputStream outputStream = Resolver.openOutputStream(contentPath.getUri(), "w")) {
                 // Do nothing.
-            } catch (IOException e) {
-                throw toNoSuchFileOrAccessDeniedException(e, path);
+            } catch (ResolverException e) {
+                throw e.toFileSystemException(path.toString());
             }
         }
         if (accessModes.hasRead()) {
             try (InputStream inputStream = Resolver.openInputStream(contentPath.getUri(), "r")) {
                 // Do nothing.
-            } catch (IOException e) {
-                throw toNoSuchFileOrAccessDeniedException(e, path);
+            } catch (ResolverException e) {
+                throw e.toFileSystemException(path.toString());
             }
         }
         if (!(accessModes.hasRead() || accessModes.hasWrite())) {
             try {
                 Resolver.checkExistence(contentPath.getUri());
-            } catch (IOException e) {
-                throw toNoSuchFileOrAccessDeniedException(e, path);
+            } catch (ResolverException e) {
+                throw e.toFileSystemException(path.toString());
             }
         }
-    }
-
-    @NonNull
-    private static FileSystemException toNoSuchFileOrAccessDeniedException(
-            @NonNull IOException exception, @NonNull Path file) {
-        FileSystemException fileSystemException = toFileSystemException(exception, file);
-        if (!(fileSystemException instanceof NoSuchFileException
-                || fileSystemException instanceof AccessDeniedException)) {
-            fileSystemException = new AccessDeniedException(file.toString());
-            fileSystemException.initCause(exception);
-        }
-        return fileSystemException;
-    }
-
-    @NonNull
-    private static FileSystemException toFileSystemException(@NonNull IOException exception,
-                                                             @NonNull Path file) {
-        FileSystemException fileSystemException;
-        if (exception instanceof FileNotFoundException) {
-            fileSystemException = new NoSuchFileException(file.toString());
-        } else {
-            Throwable cause = exception.getCause();
-            if (cause instanceof SecurityException) {
-                fileSystemException = new AccessDeniedException(file.toString());
-            } else {
-                fileSystemException = new FileSystemException(file.toString());
-            }
-        }
-        fileSystemException.initCause(exception);
-        return fileSystemException;
     }
 
     @Nullable

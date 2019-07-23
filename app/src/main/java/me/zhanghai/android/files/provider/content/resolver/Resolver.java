@@ -23,80 +23,59 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.file.MimeTypes;
+import me.zhanghai.android.files.util.IoUtils;
 
 public class Resolver {
 
     private Resolver() {}
 
-    public static void checkExistence(@NonNull Uri uri) throws IOException {
+    public static void checkExistence(@NonNull Uri uri) throws ResolverException {
         int rowCount;
-        try (Cursor cursor = getContentResolver().query(uri, new String[0], null, null, null)) {
-            if (cursor == null) {
-                throw new IOException("ContentResolver.query() returned null");
-            }
+        try (Cursor cursor = query(uri, new String[0], null, null, null)) {
             rowCount = cursor.getCount();
-        } catch (Exception e) {
-            throw new IOException(e);
         }
         if (rowCount < 1) {
-            throw new IOException("Row count is less than 1: " + rowCount);
+            throw new ResolverException(new FileNotFoundException("Row count is less than 1: "
+                    + rowCount));
         }
     }
 
-    public static void delete(@NonNull Uri uri) throws IOException {
+    public static void delete(@NonNull Uri uri) throws ResolverException {
         int deletedRowCount;
         try {
             deletedRowCount = getContentResolver().delete(uri, null, null);
         } catch (Exception e) {
-            throw new IOException(e);
+            throw new ResolverException(e);
         }
         if (deletedRowCount < 1) {
-            throw new IOException("Deleted row count is less than 1: " + deletedRowCount);
+            throw new ResolverException(new FileNotFoundException(
+                    "Deleted row count is less than 1: " + deletedRowCount));
         }
     }
 
     @Nullable
-    public static String getDisplayName(@NonNull Uri uri) throws IOException {
-        try (Cursor cursor = getContentResolver().query(uri,
-                new String[] { OpenableColumns.DISPLAY_NAME }, null, null, null)) {
-            if (cursor == null) {
-                throw new IOException("ContentResolver.query() returned null");
-            }
-            if (!cursor.moveToFirst()) {
-                throw new IOException("Cursor.moveToFirst() returned false");
-            }
-            int columnIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-            if (columnIndex == -1) {
-                throw new IOException("Cursor.getColumnIndex() returned -1");
-            }
-            return cursor.getString(columnIndex);
+    public static String getDisplayName(@NonNull Uri uri) throws ResolverException {
+        try (Cursor cursor = query(uri, new String[] { OpenableColumns.DISPLAY_NAME }, null, null,
+                null)) {
+            cursorMoveToFirst(cursor);
+            return cursorGetString(cursor, OpenableColumns.DISPLAY_NAME);
         }
     }
 
-    public static long getSize(@NonNull Uri uri) throws IOException {
-        try (Cursor cursor = getContentResolver().query(uri, new String[] { OpenableColumns.SIZE },
-                null, null, null)) {
-            if (cursor == null) {
-                throw new IOException("ContentResolver.query() returned null");
-            }
-            if (!cursor.moveToFirst()) {
-                throw new IOException("Cursor.moveToFirst() returned false");
-            }
-            int columnIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
-            if (columnIndex == -1) {
-                throw new IOException("Cursor.getColumnIndex() returned -1");
-            }
-            return cursor.getLong(columnIndex);
+    public static long getSize(@NonNull Uri uri) throws ResolverException {
+        try (Cursor cursor = query(uri, new String[] { OpenableColumns.SIZE }, null, null, null)) {
+            cursorMoveToFirst(cursor);
+            return cursorGetLong(cursor, OpenableColumns.SIZE);
         }
     }
 
     @Nullable
-    public static String getType(@NonNull Uri uri) throws IOException {
+    public static String getType(@NonNull Uri uri) throws ResolverException {
         String type;
         try {
             type = getContentResolver().getType(uri);
         } catch (Exception e) {
-            throw new IOException(e);
+            throw new ResolverException(e);
         }
         if (TextUtils.isEmpty(type) || Objects.equals(type, MimeTypes.GENERIC_MIME_TYPE)) {
             return null;
@@ -105,59 +84,107 @@ public class Resolver {
     }
 
     @NonNull
-    public static InputStream openInputStream(@NonNull Uri uri, @NonNull String mode)
-            throws IOException {
+    public static AssetFileDescriptor openAssetFileDescriptor(@NonNull Uri uri,
+                                                              @NonNull String mode)
+            throws ResolverException {
+        AssetFileDescriptor descriptor;
         try {
-            AssetFileDescriptor descriptor = getContentResolver().openAssetFileDescriptor(uri,
-                    mode);
-            if (descriptor == null) {
-                throw new IOException("ContentResolver.openAssetFileDescriptor() returned null");
-            }
+            descriptor = getContentResolver().openAssetFileDescriptor(uri, mode);
+        } catch (Exception e) {
+            throw new ResolverException(e);
+        }
+        if (descriptor == null) {
+            throw new ResolverException("ContentResolver.openAssetFileDescriptor() returned null: "
+                    + uri);
+        }
+        return descriptor;
+    }
+
+    @NonNull
+    public static InputStream openInputStream(@NonNull Uri uri, @NonNull String mode)
+            throws ResolverException {
+        AssetFileDescriptor descriptor = openAssetFileDescriptor(uri, mode);
+        try {
             return descriptor.createInputStream();
         } catch (IOException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new IOException(e);
+            IoUtils.close(descriptor);
+            throw new ResolverException(e);
         }
     }
 
     @NonNull
     public static OutputStream openOutputStream(@NonNull Uri uri, @NonNull String mode)
-            throws IOException {
+            throws ResolverException {
+        AssetFileDescriptor descriptor = openAssetFileDescriptor(uri, mode);
         try {
-            AssetFileDescriptor descriptor = getContentResolver().openAssetFileDescriptor(uri,
-                    mode);
-            if (descriptor == null) {
-                throw new IOException("ContentResolver.openAssetFileDescriptor() returned null");
-            }
             return descriptor.createOutputStream();
         } catch (IOException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new IOException(e);
+            IoUtils.close(descriptor);
+            throw new ResolverException(e);
         }
     }
 
     @NonNull
     public static ParcelFileDescriptor openParcelFileDescriptor(@NonNull Uri uri,
                                                                 @NonNull String mode)
-            throws IOException {
+            throws ResolverException {
         ParcelFileDescriptor descriptor;
         try {
             descriptor = getContentResolver().openFileDescriptor(uri, mode);
-        } catch (FileNotFoundException e) {
-            throw e;
         } catch (Exception e) {
-            throw new IOException(e);
+            throw new ResolverException(e);
         }
         if (descriptor == null) {
-            throw new IOException("ContentResolver.openFileDescriptor() returned null");
+            throw new ResolverException("ContentResolver.openFileDescriptor() returned null: "
+                    + uri);
         }
         return descriptor;
     }
 
     @NonNull
+    public static Cursor query(@NonNull Uri uri, @Nullable String[] projection,
+                               @Nullable String selection, @Nullable String[] selectionArgs,
+                               @Nullable String sortOrder) throws ResolverException {
+        Cursor cursor;
+        try {
+            cursor = getContentResolver().query(uri, projection, selection, selectionArgs,
+                    sortOrder);
+        } catch (Exception e) {
+            throw new ResolverException(e);
+        }
+        if (cursor == null) {
+            throw new ResolverException("ContentResolver.query() returned null: " + uri);
+        }
+        return cursor;
+    }
+
+    @NonNull
     private static ContentResolver getContentResolver() {
         return AppApplication.getInstance().getContentResolver();
+    }
+
+    public static void cursorMoveToFirst(@NonNull Cursor cursor) throws ResolverException {
+        if (!cursor.moveToFirst()) {
+            throw new ResolverException("Cursor.moveToFirst() returned false");
+        }
+    }
+
+    public static long cursorGetLong(@NonNull Cursor cursor, @NonNull String columnName)
+            throws ResolverException {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        if (columnIndex == -1) {
+            throw new ResolverException("Cursor.getColumnIndex() returned -1: " + columnName);
+        }
+        return cursor.getLong(columnIndex);
+    }
+
+    @Nullable
+    public static String cursorGetString(@NonNull Cursor cursor, @NonNull String columnName)
+            throws ResolverException {
+        int columnIndex = cursor.getColumnIndex(columnName);
+        if (columnIndex == -1) {
+            throw new ResolverException("Cursor.getColumnIndex() returned -1: " + columnName);
+        }
+        return cursor.getString(columnIndex);
     }
 }

@@ -100,4 +100,12 @@ public class IoUtils {
     public static byte[] base64ToByteArray(@NonNull String base64) {
         return Base64.decode(base64, Base64.DEFAULT);
     }
+
+    public static void close(@NonNull AutoCloseable closeable) {
+        try {
+            closeable.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

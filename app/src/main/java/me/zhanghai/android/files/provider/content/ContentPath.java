@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Parcel;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;
@@ -26,6 +25,7 @@ import java8.nio.file.WatchService;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
+import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 
 class ContentPath extends ByteStringListPath {
 
@@ -53,7 +53,7 @@ class ContentPath extends ByteStringListPath {
         String fileName = null;
         try {
             fileName = Resolver.getDisplayName(uri);
-        } catch (IOException e) {
+        } catch (ResolverException e) {
             e.printStackTrace();
         }
         if (fileName == null) {

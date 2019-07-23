@@ -21,6 +21,7 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributeView;
 import java8.nio.file.attribute.FileTime;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
+import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 
 public class ContentFileAttributeView implements BasicFileAttributeView, Parcelable {
 
@@ -47,7 +48,12 @@ public class ContentFileAttributeView implements BasicFileAttributeView, Parcela
     public ContentFileAttributes readAttributes() throws IOException {
         Uri uri = mPath.getUri();
         String type = Resolver.getType(uri);
-        long size = Resolver.getSize(uri);
+        long size;
+        try {
+            size = Resolver.getSize(uri);
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(mPath.toString());
+        }
         return new ContentFileAttributes(type, size, uri);
     }
 
