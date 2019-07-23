@@ -57,15 +57,15 @@ public class Resolver {
     public static String getDisplayName(@NonNull Uri uri) throws ResolverException {
         try (Cursor cursor = query(uri, new String[] { OpenableColumns.DISPLAY_NAME }, null, null,
                 null)) {
-            cursorMoveToFirst(cursor);
-            return cursorGetString(cursor, OpenableColumns.DISPLAY_NAME);
+            Cursors.moveToFirst(cursor);
+            return Cursors.getString(cursor, OpenableColumns.DISPLAY_NAME);
         }
     }
 
     public static long getSize(@NonNull Uri uri) throws ResolverException {
         try (Cursor cursor = query(uri, new String[] { OpenableColumns.SIZE }, null, null, null)) {
-            cursorMoveToFirst(cursor);
-            return cursorGetLong(cursor, OpenableColumns.SIZE);
+            Cursors.moveToFirst(cursor);
+            return Cursors.getLong(cursor, OpenableColumns.SIZE);
         }
     }
 
@@ -159,32 +159,7 @@ public class Resolver {
     }
 
     @NonNull
-    private static ContentResolver getContentResolver() {
+    public static ContentResolver getContentResolver() {
         return AppApplication.getInstance().getContentResolver();
-    }
-
-    public static void cursorMoveToFirst(@NonNull Cursor cursor) throws ResolverException {
-        if (!cursor.moveToFirst()) {
-            throw new ResolverException("Cursor.moveToFirst() returned false");
-        }
-    }
-
-    public static long cursorGetLong(@NonNull Cursor cursor, @NonNull String columnName)
-            throws ResolverException {
-        int columnIndex = cursor.getColumnIndex(columnName);
-        if (columnIndex == -1) {
-            throw new ResolverException("Cursor.getColumnIndex() returned -1: " + columnName);
-        }
-        return cursor.getLong(columnIndex);
-    }
-
-    @Nullable
-    public static String cursorGetString(@NonNull Cursor cursor, @NonNull String columnName)
-            throws ResolverException {
-        int columnIndex = cursor.getColumnIndex(columnName);
-        if (columnIndex == -1) {
-            throw new ResolverException("Cursor.getColumnIndex() returned -1: " + columnName);
-        }
-        return cursor.getString(columnIndex);
     }
 }
