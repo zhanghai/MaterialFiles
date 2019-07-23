@@ -131,6 +131,12 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         ContentPath contentFile = requireContentPath(file);
         Objects.requireNonNull(options);
         OpenOptions openOptions = OpenOptions.fromArray(options);
+        if (openOptions.hasWrite()) {
+            throw new UnsupportedOperationException(StandardOpenOption.WRITE.toString());
+        }
+        if (openOptions.hasAppend()) {
+            throw new UnsupportedOperationException(StandardOpenOption.APPEND.toString());
+        }
         String mode = ContentOpenOptions.toMode(openOptions);
         try {
             return Resolver.openInputStream(contentFile.getUri(), mode);
@@ -145,15 +151,8 @@ public class ContentFileSystemProvider extends FileSystemProvider {
             throws IOException {
         ContentPath contentFile = requireContentPath(file);
         Objects.requireNonNull(options);
-        Set<OpenOption> optionsSet = new HashSet<>();
-        if (options.length > 0) {
-            for (OpenOption option: options) {
-                if (option == StandardOpenOption.READ) {
-                    throw new IllegalArgumentException(StandardOpenOption.READ.toString());
-                }
-                optionsSet.add(option);
-            }
-        } else {
+        Set<OpenOption> optionsSet = new HashSet<>(Arrays.asList(options));
+        if (optionsSet.isEmpty()) {
             optionsSet.add(StandardOpenOption.CREATE);
             optionsSet.add(StandardOpenOption.TRUNCATE_EXISTING);
         }

@@ -128,6 +128,7 @@ class ContentPath extends ByteStringListPath {
         return this;
     }
 
+    @NonNull
     @Override
     public URI toUri() {
         try {
