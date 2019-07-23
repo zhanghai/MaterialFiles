@@ -8,7 +8,6 @@ package me.zhanghai.android.files.provider.content;
 import android.content.ContentResolver;
 import android.os.ParcelFileDescriptor;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -29,9 +28,7 @@ import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileStore;
 import java8.nio.file.FileSystem;
 import java8.nio.file.FileSystemAlreadyExistsException;
-import java8.nio.file.FileSystemException;
 import java8.nio.file.LinkOption;
-import java8.nio.file.NoSuchFileException;
 import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
@@ -78,7 +75,11 @@ public class ContentFileSystemProvider extends FileSystemProvider {
     @Nullable
     public static String getType(@NonNull Path path) throws IOException {
         ContentPath contentPath = requireContentPath(path);
-        return Resolver.getType(contentPath.getUri());
+        try {
+            return Resolver.getType(contentPath.getUri());
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(path.toString());
+        }
     }
 
     @NonNull
@@ -182,8 +183,8 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         ParcelFileDescriptor pfd;
         try {
             pfd = Resolver.openParcelFileDescriptor(contentFile.getUri(), mode);
-        } catch (IOException e) {
-            throw toFileSystemException(e, file);
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(file.toString());
         }
         return ContentFileChannels.open(pfd, mode);
     }
