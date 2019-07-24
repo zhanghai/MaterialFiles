@@ -27,7 +27,6 @@ public class WalkFileTreeSearchable {
     public static void search(@NonNull Path directory, @NonNull String query,
                               @NonNull Consumer<List<Path>> listener, long intervalMillis)
             throws IOException {
-        // FIXME: Exclude self.
         List<Path> paths = new ArrayList<>();
         // Cannot use Files.find() or Files.walk() because it cannot ignore exceptions.
         Files.walkFileTree(directory, new FileVisitor<Path>() {
