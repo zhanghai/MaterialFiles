@@ -30,7 +30,9 @@ public class DocumentTree {
     }
 
     public static String getDisplayName(@NonNull Uri treeUri, @NonNull Context context) {
-        try (Cursor cursor = context.getContentResolver().query(treeUri,
+        Uri documentUri = DocumentsContract.buildDocumentUriUsingTree(treeUri,
+                DocumentsContract.getTreeDocumentId(treeUri));
+        try (Cursor cursor = context.getContentResolver().query(documentUri,
                 new String[] { DocumentsContract.Document.COLUMN_DISPLAY_NAME }, null, null,
                 null)) {
             if (cursor != null && cursor.moveToFirst()) {
