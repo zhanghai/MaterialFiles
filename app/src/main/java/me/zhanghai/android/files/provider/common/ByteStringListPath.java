@@ -11,7 +11,9 @@ import android.os.Parcelable;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -99,6 +101,15 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
         return mAbsolute;
     }
 
+    @Nullable
+    public final ByteString getByteStringFileName() {
+        int nameCount = mNames.size();
+        if (nameCount == 0) {
+            return null;
+        }
+        return getByteStringName(nameCount - 1);
+    }
+
     @Override
     public final int getNameCount() {
         return mNames.size();
@@ -107,10 +118,16 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     @NonNull
     @Override
     public final ByteStringListPath getName(int index) {
+        ByteString name = getByteStringName(index);
+        return createPath(false, Collections.singletonList(name));
+    }
+
+    @NonNull
+    public final ByteString getByteStringName(int index) {
         if (index < 0 || index >= mNames.size()) {
             throw new IllegalArgumentException();
         }
-        return createPath(false, Collections.singletonList(mNames.get(index)));
+        return mNames.get(index);
     }
 
     @NonNull
@@ -340,6 +357,11 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
     }
 
     @NonNull
+    public final Iterator<ByteString> byteStringIterator() {
+        return new ByteStringNameIterator();
+    }
+
+    @NonNull
     private ByteStringListPath requireByteStringListPath(@NonNull Path path) {
         if (!(path instanceof ByteStringListPath)) {
             throw new ProviderMismatchException(path.toString());
@@ -376,6 +398,27 @@ public abstract class ByteStringListPath extends AbstractPath implements Parcela
 
     @NonNull
     protected abstract ByteStringListPath getDefaultDirectory();
+
+    private class ByteStringNameIterator implements Iterator<ByteString> {
+
+        private int mNameIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return mNameIndex < getNameCount();
+        }
+
+        @NonNull
+        @Override
+        public ByteString next() {
+            if (mNameIndex >= getNameCount()) {
+                throw new NoSuchElementException();
+            }
+            ByteString name = getByteStringName(mNameIndex);
+            ++mNameIndex;
+            return name;
+        }
+    }
 
 
     protected ByteStringListPath(Parcel in) {

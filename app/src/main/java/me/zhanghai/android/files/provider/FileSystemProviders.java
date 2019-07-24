@@ -11,6 +11,7 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector;
 import me.zhanghai.android.files.provider.content.ContentFileSystemProvider;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class FileSystemProviders {
@@ -23,6 +24,7 @@ public class FileSystemProviders {
         LinuxFileSystemProvider.installAsDefault();
         ArchiveFileSystemProvider.install();
         ContentFileSystemProvider.install();
+        DocumentFileSystemProvider.install();
         AndroidFileTypeDetector.install();
     }
 

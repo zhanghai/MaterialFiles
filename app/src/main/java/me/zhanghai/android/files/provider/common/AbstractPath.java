@@ -50,21 +50,21 @@ public abstract class AbstractPath implements Path {
     }
 
     @Override
-    public final boolean endsWith(@NonNull String other) {
+    public boolean endsWith(@NonNull String other) {
         Objects.requireNonNull(other);
         return endsWith(getFileSystem().getPath(other));
     }
 
     @NonNull
     @Override
-    public final Path resolve(@NonNull String other) {
+    public Path resolve(@NonNull String other) {
         Objects.requireNonNull(other);
         return resolve(getFileSystem().getPath(other));
     }
 
     @NonNull
     @Override
-    public final Path resolveSibling(@NonNull Path other) {
+    public Path resolveSibling(@NonNull Path other) {
         Objects.requireNonNull(other);
         Path parent = getParent();
         return parent != null ? parent.resolve(other) : other;
@@ -72,14 +72,14 @@ public abstract class AbstractPath implements Path {
 
     @NonNull
     @Override
-    public final Path resolveSibling(@NonNull String other) {
+    public Path resolveSibling(@NonNull String other) {
         Objects.requireNonNull(other);
         return resolveSibling(getFileSystem().getPath(other));
     }
 
     @NonNull
     @Override
-    public final Iterator<Path> iterator() {
+    public Iterator<Path> iterator() {
         return new NameIterator();
     }
 
