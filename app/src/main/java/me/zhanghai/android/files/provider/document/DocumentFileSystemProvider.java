@@ -42,19 +42,25 @@ import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.Objects;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
+import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
+import me.zhanghai.android.files.provider.common.Searchable;
+import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
 import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 
-public class DocumentFileSystemProvider extends FileSystemProvider {
+public class DocumentFileSystemProvider extends FileSystemProvider
+        implements DirectoryObservableProvider, Searchable {
 
     static final String SCHEME = "document";
 
@@ -63,6 +69,7 @@ public class DocumentFileSystemProvider extends FileSystemProvider {
 
     @NonNull
     private final Map<Uri, DocumentFileSystem> mFileSystems = new HashMap<>();
+
     private final Object mLock = new Object();
 
     private DocumentFileSystemProvider() {}
@@ -518,6 +525,24 @@ public class DocumentFileSystemProvider extends FileSystemProvider {
         Objects.requireNonNull(value);
         Objects.requireNonNull(options);
         throw new UnsupportedOperationException();
+    }
+
+    @NonNull
+    @Override
+    public DirectoryObservable observeDirectory(@NonNull Path directory,
+                                                long intervalMillis) throws IOException {
+        DocumentPath documentDirectory = requireDocumentPath(directory);
+        return new DocumentDirectoryObservable(documentDirectory, intervalMillis);
+    }
+
+    @Override
+    public void search(@NonNull Path directory, @NonNull String query,
+                       @NonNull Consumer<List<Path>> listener, long intervalMillis)
+            throws IOException {
+        requireDocumentPath(directory);
+        Objects.requireNonNull(query);
+        Objects.requireNonNull(listener);
+        WalkFileTreeSearchable.search(directory, query, listener, intervalMillis);
     }
 
     private static DocumentPath requireDocumentPath(@NonNull Path path) {

@@ -481,6 +481,12 @@ public class DocumentResolver {
     }
 
     @NonNull
+    public static Uri getDocumentChildrenUri(@NonNull Path path) throws ResolverException {
+        String documentId = queryDocumentId(path);
+        return DocumentsContract.buildChildDocumentsUriUsingTree(path.getTreeUri(), documentId);
+    }
+
+    @NonNull
     private static String queryDocumentId(@NonNull Path path) throws ResolverException {
         String documentId = sPathDocumentIdCache.get(path);
         if (documentId != null) {
