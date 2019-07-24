@@ -8,6 +8,7 @@ package me.zhanghai.android.files.navigation;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
@@ -33,7 +34,10 @@ import me.zhanghai.android.files.about.AboutActivity;
 import me.zhanghai.android.files.compat.StorageManagerCompat;
 import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.file.FormatUtils;
+import me.zhanghai.android.files.filesystem.DocumentTree;
 import me.zhanghai.android.files.filesystem.JavaFile;
+import me.zhanghai.android.files.filesystem.PersistedDocumentTreeUrisLiveData;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsActivity;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.settings.StandardDirectorySettings;
@@ -106,6 +110,8 @@ public class NavigationItems {
                 StorageManager.class);
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
         Functional.map(storageVolumes, StorageVolumeRootItem::new, rootItems);
+        List<Uri> treeUris = PersistedDocumentTreeUrisLiveData.getInstance().getValue();
+        Functional.map(treeUris, DocumentTreeRootItem::new, rootItems);
         rootItems.add(new AddDocumentTreeItem());
         return rootItems;
     }
@@ -301,7 +307,36 @@ public class NavigationItems {
 
         @Override
         public int getTitleRes() {
-            throw new UnsupportedOperationException();
+            throw new AssertionError();
+        }
+    }
+
+    private static class DocumentTreeRootItem extends RootItem {
+
+        @NonNull
+        private final String mTitle;
+
+        public DocumentTreeRootItem(@NonNull Uri treeUri) {
+            super(DocumentFileSystemProvider.getRootPathForTreeUri(treeUri));
+
+            mTitle = DocumentTree.getDisplayName(treeUri, AppApplication.getInstance());
+        }
+
+        @DrawableRes
+        @Override
+        public int getIconRes() {
+            return R.drawable.directory_icon_white_24dp;
+        }
+
+        @NonNull
+        @Override
+        public String getTitle(@NonNull Context context) {
+            return mTitle;
+        }
+
+        @Override
+        protected int getTitleRes() {
+            throw new AssertionError();
         }
     }
 
@@ -358,7 +393,7 @@ public class NavigationItems {
 
         @Override
         protected int getTitleRes() {
-            throw new UnsupportedOperationException();
+            throw new AssertionError();
         }
     }
 

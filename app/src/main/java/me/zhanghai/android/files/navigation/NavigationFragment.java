@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.Documents;
+import me.zhanghai.android.files.filesystem.DocumentTree;
 import me.zhanghai.android.files.util.AppUtils;
 
 public class NavigationFragment extends Fragment implements NavigationItem.Listener {
@@ -130,13 +130,12 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
 
     @Override
     public void onAddDocumentTree() {
-        AppUtils.startActivityForResult(Documents.makeOpenTreeIntent(),
+        AppUtils.startActivityForResult(DocumentTree.makeOpenIntent(),
                 REQUEST_CODE_OPEN_DOCUMENT_TREE, this);
     }
 
-    private void addDocumentTree(@NonNull Uri uri) {
-        // TODO: Support DocumentsProvider and add to navigation roots.
-        //Documents.takePersistableTreePermission(uri, requireContext());
+    private void addDocumentTree(@NonNull Uri treeUri) {
+        DocumentTree.takePersistablePermission(treeUri, requireContext());
     }
 
     @Override
