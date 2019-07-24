@@ -39,6 +39,7 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.Objects;
 import me.zhanghai.android.files.provider.common.AccessModes;
+import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
 import me.zhanghai.android.files.provider.content.resolver.ResolverException;
@@ -175,7 +176,7 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         } catch (ResolverException e) {
             throw e.toFileSystemException(file.toString());
         }
-        return ContentFileChannels.open(pfd, mode);
+        return MoreFileChannels.open(pfd, mode);
     }
 
     @NonNull

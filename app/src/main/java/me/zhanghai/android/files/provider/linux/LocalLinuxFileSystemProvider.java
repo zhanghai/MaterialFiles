@@ -46,6 +46,7 @@ import me.zhanghai.android.files.provider.common.CopyOptions;
 import me.zhanghai.android.files.provider.common.DirectoryObservable;
 import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
 import me.zhanghai.android.files.provider.common.LinkOptions;
+import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.Searchable;
@@ -147,7 +148,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
             }
             throw e.toFileSystemException(fileBytes.toString());
         }
-        FileChannel fileChannel = LinuxFileChannels.open(fd, flags);
+        FileChannel fileChannel = MoreFileChannels.open(fd, flags);
         if (openOptions.hasDeleteOnClose()) {
             try {
                 Syscalls.remove(fileBytes);

@@ -1,9 +1,11 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.linux;
+package me.zhanghai.android.files.provider.common;
+
+import android.os.ParcelFileDescriptor;
 
 import java.io.Closeable;
 import java.io.FileDescriptor;
@@ -16,14 +18,20 @@ import me.zhanghai.android.files.compat.NioUtilsCompat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
-class LinuxFileChannels {
+public class MoreFileChannels {
 
-    private LinuxFileChannels() {}
+    private MoreFileChannels() {}
 
     @NonNull
     public static FileChannel open(@NonNull FileDescriptor fd, int flags) {
         Closeable closeable = new FileDescriptorCloseable(fd);
         return FileChannels.from(NioUtilsCompat.newFileChannel(closeable, fd, flags));
+    }
+
+    @NonNull
+    public static FileChannel open(@NonNull ParcelFileDescriptor pfd, @NonNull String mode) {
+        return FileChannels.from(NioUtilsCompat.newFileChannel(pfd, pfd.getFileDescriptor(),
+                ParcelFileDescriptor.parseMode(mode)));
     }
 
     private static class FileDescriptorCloseable implements Closeable {
