@@ -112,9 +112,9 @@ public class DocumentResolver {
             throw new ResolverException("DocumentsContract.copyDocument() returned null: "
                     + sourceUri + ", " + targetParentUri);
         }
-        String targetDisplayName = targetPath.getDisplayName();
         String sourceDisplayName = sourcePath.getDisplayName();
-        if (Objects.equals(targetDisplayName, sourceDisplayName)) {
+        String targetDisplayName = targetPath.getDisplayName();
+        if (Objects.equals(sourceDisplayName, targetDisplayName)) {
             maybeNotifyListenerWithSize(copiedTargetUri, listener);
             return copiedTargetUri;
         }
@@ -122,13 +122,13 @@ public class DocumentResolver {
         try {
             try {
                 renamedTargetUri = DocumentsContract.renameDocument(Resolver.getContentResolver(),
-                        copiedTargetUri, sourceDisplayName);
+                        copiedTargetUri, targetDisplayName);
             } catch (Exception e) {
                 throw new ResolverException(e);
             }
             if (renamedTargetUri == null) {
                 throw new ResolverException("DocumentsContract.renameDocument() returned null: "
-                        + copiedTargetUri + ", " + sourceDisplayName);
+                        + copiedTargetUri + ", " + targetDisplayName);
             }
         } catch (ResolverException e) {
             try {
@@ -313,22 +313,22 @@ public class DocumentResolver {
             throw new ResolverException("DocumentsContract.moveDocument() returned null: "
                     + sourceUri + ", " + targetParentUri);
         }
-        String targetDisplayName = targetPath.getDisplayName();
         String sourceDisplayName = sourcePath.getDisplayName();
-        if (Objects.equals(targetDisplayName, sourceDisplayName)) {
+        String targetDisplayName = targetPath.getDisplayName();
+        if (Objects.equals(sourceDisplayName, targetDisplayName)) {
             maybeNotifyListenerWithSize(movedTargetUri, listener);
             return movedTargetUri;
         }
         Uri renamedTargetUri;
         try {
             renamedTargetUri = DocumentsContract.renameDocument(Resolver.getContentResolver(),
-                    movedTargetUri, sourceDisplayName);
+                    movedTargetUri, targetDisplayName);
         } catch (Exception e) {
             throw new ResolverException(e);
         }
         if (renamedTargetUri == null) {
             throw new ResolverException("DocumentsContract.renameDocument() returned null: "
-                    + movedTargetUri + ", " + sourceDisplayName);
+                    + movedTargetUri + ", " + targetDisplayName);
         }
         maybeNotifyListenerWithSize(renamedTargetUri, listener);
         return renamedTargetUri;
