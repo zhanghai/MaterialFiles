@@ -64,6 +64,7 @@ import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
 import me.zhanghai.android.files.navigation.NavigationFragment;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.terminal.Terminal;
@@ -1093,7 +1094,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void openFileAs(@NonNull FileItem file, @NonNull String mimeType) {
         Path path = file.getPath();
-        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+        if (LinuxFileSystemProvider.isLinuxPath(path)
+                || DocumentFileSystemProvider.isDocumentPath(path)) {
             Uri uri = FileProvider.getUriForPath(path);
             Intent intent = IntentUtils.makeView(uri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -1178,7 +1180,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void sendFile(@NonNull Path path, @NonNull String mimeType) {
-        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+        if (LinuxFileSystemProvider.isLinuxPath(path)
+                || DocumentFileSystemProvider.isDocumentPath(path)) {
             Uri uri = FileProvider.getUriForPath(path);
             Intent intent = IntentUtils.makeSendStream(uri, mimeType);
             AppUtils.startActivityWithChooser(intent, this);
