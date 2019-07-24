@@ -64,6 +64,7 @@ public class DocumentFileAttributeView implements BasicFileAttributeView, Parcel
                 DocumentsContract.Document.COLUMN_SIZE,
                 DocumentsContract.Document.COLUMN_LAST_MODIFIED
         }, null, null, null)) {
+            Cursors.moveToFirst(cursor);
             mimeType = Cursors.getString(cursor, DocumentsContract.Document.COLUMN_MIME_TYPE);
             size = Cursors.getLong(cursor, DocumentsContract.Document.COLUMN_SIZE);
             lastModifiedTimeMillis = Cursors.getLong(cursor,
