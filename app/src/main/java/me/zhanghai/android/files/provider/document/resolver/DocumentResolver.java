@@ -120,16 +120,7 @@ public class DocumentResolver {
         }
         Uri renamedTargetUri;
         try {
-            try {
-                renamedTargetUri = DocumentsContract.renameDocument(Resolver.getContentResolver(),
-                        copiedTargetUri, targetDisplayName);
-            } catch (Exception e) {
-                throw new ResolverException(e);
-            }
-            if (renamedTargetUri == null) {
-                throw new ResolverException("DocumentsContract.renameDocument() returned null: "
-                        + copiedTargetUri + ", " + targetDisplayName);
-            }
+            renamedTargetUri = rename(copiedTargetUri, targetDisplayName);
         } catch (ResolverException e) {
             try {
                 remove(copiedTargetUri, targetParentUri);
@@ -270,6 +261,11 @@ public class DocumentResolver {
     public static Uri move(@NonNull Path sourcePath, @NonNull Path targetPath, boolean moveOnly,
                            @Nullable LongConsumer listener, long intervalMillis)
             throws ResolverException {
+        Path sourceParentPath = pathRequireParent(sourcePath);
+        Path targetParentPath = pathRequireParent(targetPath);
+        if (Objects.equals(sourceParentPath, targetParentPath)) {
+            return rename(sourcePath, targetPath.getDisplayName());
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isMoveUnsupported(sourcePath)) {
             return moveApi24(sourcePath, targetPath, moveOnly, listener, intervalMillis);
         } else {
@@ -319,17 +315,7 @@ public class DocumentResolver {
             maybeNotifyListenerWithSize(movedTargetUri, listener);
             return movedTargetUri;
         }
-        Uri renamedTargetUri;
-        try {
-            renamedTargetUri = DocumentsContract.renameDocument(Resolver.getContentResolver(),
-                    movedTargetUri, targetDisplayName);
-        } catch (Exception e) {
-            throw new ResolverException(e);
-        }
-        if (renamedTargetUri == null) {
-            throw new ResolverException("DocumentsContract.renameDocument() returned null: "
-                    + movedTargetUri + ", " + targetDisplayName);
-        }
+        Uri renamedTargetUri = rename(movedTargetUri, targetDisplayName);
         maybeNotifyListenerWithSize(renamedTargetUri, listener);
         return renamedTargetUri;
     }
@@ -451,6 +437,9 @@ public class DocumentResolver {
             throw new ResolverException("Path does not have a parent: " + path);
         }
         Uri parentUri = getDocumentUri(parentPath);
+        // Always remove the path from cache, in case a removal actually succeeded despite exception
+        // being thrown.
+        sPathDocumentIdCache.remove(path);
         removeApi24(uri, parentUri);
     }
 
@@ -473,6 +462,32 @@ public class DocumentResolver {
             throw new ResolverException("DocumentsContract.removeDocument() returned false: "
                     + uri);
         }
+    }
+
+    public static Uri rename(@NonNull Path path, @NonNull String displayName)
+            throws ResolverException {
+        Uri uri = getDocumentUri(path);
+        // Always remove the path from cache, in case a rename actually succeeded despite exception
+        // being thrown.
+        sPathDocumentIdCache.remove(path);
+        return rename(uri, displayName);
+    }
+
+    @NonNull
+    public static Uri rename(@NonNull Uri uri, @NonNull String displayName)
+            throws ResolverException {
+        Uri renamedUri;
+        try {
+            renamedUri = DocumentsContract.renameDocument(Resolver.getContentResolver(), uri,
+                    displayName);
+        } catch (Exception e) {
+            throw new ResolverException(e);
+        }
+        if (renamedUri == null) {
+            throw new ResolverException("DocumentsContract.renameDocument() returned null: " + uri
+                    + ", " + displayName);
+        }
+        return renamedUri;
     }
 
     @NonNull
