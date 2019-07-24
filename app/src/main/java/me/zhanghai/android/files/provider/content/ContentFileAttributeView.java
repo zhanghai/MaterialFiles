@@ -47,9 +47,9 @@ public class ContentFileAttributeView implements BasicFileAttributeView, Parcela
     @Override
     public ContentFileAttributes readAttributes() throws IOException {
         Uri uri = mPath.getUri();
-        String type;
+        String mimeType;
         try {
-            type = Resolver.getType(uri);
+            mimeType = Resolver.getMimeType(uri);
         } catch (ResolverException e) {
             throw e.toFileSystemException(mPath.toString());
         }
@@ -59,7 +59,7 @@ public class ContentFileAttributeView implements BasicFileAttributeView, Parcela
         } catch (ResolverException e) {
             throw e.toFileSystemException(mPath.toString());
         }
-        return new ContentFileAttributes(type, size, uri);
+        return new ContentFileAttributes(mimeType, size, uri);
     }
 
     @Override

@@ -53,6 +53,15 @@ public class Resolver {
         }
     }
 
+    public static boolean exists(@NonNull Uri uri) {
+        try {
+            checkExistence(uri);
+            return true;
+        } catch (ResolverException e) {
+            return false;
+        }
+    }
+
     @Nullable
     public static String getDisplayName(@NonNull Uri uri) throws ResolverException {
         try (Cursor cursor = query(uri, new String[] { OpenableColumns.DISPLAY_NAME }, null, null,
@@ -70,17 +79,17 @@ public class Resolver {
     }
 
     @Nullable
-    public static String getType(@NonNull Uri uri) throws ResolverException {
-        String type;
+    public static String getMimeType(@NonNull Uri uri) throws ResolverException {
+        String mimeType;
         try {
-            type = getContentResolver().getType(uri);
+            mimeType = getContentResolver().getType(uri);
         } catch (Exception e) {
             throw new ResolverException(e);
         }
-        if (TextUtils.isEmpty(type) || Objects.equals(type, MimeTypes.GENERIC_MIME_TYPE)) {
+        if (TextUtils.isEmpty(mimeType) || Objects.equals(mimeType, MimeTypes.GENERIC_MIME_TYPE)) {
             return null;
         }
-        return type;
+        return mimeType;
     }
 
     @NonNull

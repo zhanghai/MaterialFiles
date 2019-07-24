@@ -14,7 +14,6 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.spi.FileTypeDetector;
 import me.zhanghai.android.files.file.MimeTypes;
-import me.zhanghai.android.files.provider.content.ContentFileSystemProvider;
 
 public class AndroidFileTypeDetector extends FileTypeDetector {
 
@@ -43,15 +42,12 @@ public class AndroidFileTypeDetector extends FileTypeDetector {
         if (attributes.isDirectory()) {
             return MimeTypes.DIRECTORY_MIME_TYPE;
         }
-        if (ContentFileSystemProvider.isContentPath(path)) {
-            String contentMimeType = null;
-            try {
-                contentMimeType = ContentFileSystemProvider.getType(path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if (contentMimeType != null) {
-                return contentMimeType;
+        if (attributes instanceof ContentProviderFileAttributes) {
+            ContentProviderFileAttributes contentProviderAttributes =
+                    (ContentProviderFileAttributes) attributes;
+            String contentProviderMimeType = contentProviderAttributes.mimeType();
+            if (contentProviderMimeType != null) {
+                return contentProviderMimeType;
             }
         }
         return MimeTypes.getMimeType(path.toString());

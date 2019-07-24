@@ -72,16 +72,6 @@ public class ContentFileSystemProvider extends FileSystemProvider {
         return path instanceof ContentPath;
     }
 
-    @Nullable
-    public static String getType(@NonNull Path path) throws IOException {
-        ContentPath contentPath = requireContentPath(path);
-        try {
-            return Resolver.getType(contentPath.getUri());
-        } catch (ResolverException e) {
-            throw e.toFileSystemException(path.toString());
-        }
-    }
-
     @NonNull
     static ContentFileSystem getFileSystem() {
         return sInstance.mFileSystem;

@@ -14,8 +14,8 @@ import me.zhanghai.android.files.provider.common.ParcelableBasicFileAttributes;
 
 public class ContentFileAttributes extends ParcelableBasicFileAttributes {
 
-    ContentFileAttributes(@Nullable String type, long size, @NonNull Uri uri) {
-        super(new ContentFileAttributesImpl(type, size, uri));
+    ContentFileAttributes(@Nullable String mimeType, long size, @NonNull Uri uri) {
+        super(new ContentFileAttributesImpl(mimeType, size, uri));
     }
 
 
