@@ -23,7 +23,6 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributeView;
 import java8.nio.file.attribute.FileTime;
 import me.zhanghai.android.files.provider.content.resolver.Cursors;
-import me.zhanghai.android.files.provider.content.resolver.Resolver;
 import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 
@@ -59,11 +58,11 @@ public class DocumentFileAttributeView implements BasicFileAttributeView, Parcel
         String mimeType;
         long size;
         long lastModifiedTimeMillis;
-        try (Cursor cursor = Resolver.query(uri, new String[] {
+        try (Cursor cursor = DocumentResolver.query(uri, new String[] {
                 DocumentsContract.Document.COLUMN_MIME_TYPE,
                 DocumentsContract.Document.COLUMN_SIZE,
                 DocumentsContract.Document.COLUMN_LAST_MODIFIED
-        }, null, null, null)) {
+        }, null)) {
             Cursors.moveToFirst(cursor);
             mimeType = Cursors.getString(cursor, DocumentsContract.Document.COLUMN_MIME_TYPE);
             size = Cursors.getLong(cursor, DocumentsContract.Document.COLUMN_SIZE);

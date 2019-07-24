@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.provider.common.AbstractDirectoryObservable;
-import me.zhanghai.android.files.provider.content.resolver.Resolver;
 import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 
@@ -45,7 +44,7 @@ public class DocumentDirectoryObservable extends AbstractDirectoryObservable {
             throw e.toFileSystemException(path.toString());
         }
         try {
-            mCursor = Resolver.query(childrenUri, new String[0], null, null, null);
+            mCursor = DocumentResolver.query(childrenUri, new String[0], null);
         } catch (ResolverException e) {
             throw e.toFileSystemException(path.toString());
         }

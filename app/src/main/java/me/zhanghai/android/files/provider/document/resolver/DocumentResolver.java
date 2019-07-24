@@ -12,6 +12,7 @@ import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.text.TextUtils;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -241,8 +242,8 @@ public class DocumentResolver {
     @Nullable
     public static String getMimeType(@NonNull Uri uri) throws ResolverException {
         String mimeType;
-        try (Cursor cursor = Resolver.query(uri,
-                new String[] { DocumentsContract.Document.COLUMN_MIME_TYPE }, null, null, null)) {
+        try (Cursor cursor = query(uri,
+                new String[] { DocumentsContract.Document.COLUMN_MIME_TYPE }, null)) {
             Cursors.moveToFirst(cursor);
             mimeType = Cursors.getString(cursor, DocumentsContract.Document.COLUMN_MIME_TYPE);
         }
@@ -258,8 +259,8 @@ public class DocumentResolver {
     }
 
     public static long getSize(@NonNull Uri uri) throws ResolverException {
-        try (Cursor cursor = Resolver.query(uri,
-                new String[] { DocumentsContract.Document.COLUMN_SIZE }, null, null, null)) {
+        try (Cursor cursor = query(uri, new String[] { DocumentsContract.Document.COLUMN_SIZE },
+                null)) {
             Cursors.moveToFirst(cursor);
             return Cursors.getLong(cursor, DocumentsContract.Document.COLUMN_SIZE);
         }
@@ -397,10 +398,10 @@ public class DocumentResolver {
         Uri childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(parentPath.getTreeUri(),
                 parentDocumentId);
         List<Path> childrenPaths = new ArrayList<>();
-        try (Cursor cursor = Resolver.query(childrenUri, new String[] {
+        try (Cursor cursor = query(childrenUri, new String[] {
                 DocumentsContract.Document.COLUMN_DOCUMENT_ID,
                 DocumentsContract.Document.COLUMN_DISPLAY_NAME
-        }, null, null, null)) {
+        }, null)) {
             while (cursor.moveToNext()) {
                 String childDocumentId = Cursors.requireString(cursor,
                         DocumentsContract.Document.COLUMN_DOCUMENT_ID);
@@ -494,29 +495,44 @@ public class DocumentResolver {
         }
         Path parentPath = path.getParent();
         Uri treeUri = path.getTreeUri();
-        if (parentPath == null) {
-            documentId = DocumentsContract.getTreeDocumentId(treeUri);
-        } else {
-            String parentDocumentId = queryDocumentId(parentPath);
-            documentId = queryChildDocumentId(parentDocumentId, path.getDisplayName(), treeUri);
-        }
+        documentId = parentPath != null ? queryChildDocumentId(parentPath, path.getDisplayName(),
+                treeUri) : DocumentsContract.getTreeDocumentId(treeUri);
         sPathDocumentIdCache.put(path, documentId);
         return documentId;
     }
 
     @NonNull
-    private static String queryChildDocumentId(@NonNull String parentDocumentId,
+    private static String queryChildDocumentId(@NonNull Path parentPath,
                                                @NonNull String displayName, @NonNull Uri treeUri)
             throws ResolverException {
+        String parentDocumentId = queryDocumentId(parentPath);
         Uri childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(treeUri,
                 parentDocumentId);
-        try (Cursor cursor = Resolver.query(childrenUri,
-                new String[] { DocumentsContract.Document.COLUMN_DOCUMENT_ID },
-                DocumentsContract.Document.COLUMN_DISPLAY_NAME + " = ?",
-                new String[] { displayName }, null)) {
-            Cursors.moveToFirst(cursor);
-            return Cursors.requireString(cursor, DocumentsContract.Document.COLUMN_DOCUMENT_ID);
+        try (Cursor cursor = query(childrenUri, new String[] {
+                DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+                DocumentsContract.Document.COLUMN_DISPLAY_NAME
+        }, null)) {
+            while (cursor.moveToNext()) {
+                String childDocumentId = Cursors.requireString(cursor,
+                        DocumentsContract.Document.COLUMN_DOCUMENT_ID);
+                String childDisplayName = Cursors.requireString(cursor,
+                        DocumentsContract.Document.COLUMN_DISPLAY_NAME);
+                Path childPath = parentPath.resolve(childDisplayName);
+                sPathDocumentIdCache.put(childPath, childDocumentId);
+                if (Objects.equals(childDisplayName, displayName)) {
+                    return childDocumentId;
+                }
+            }
         }
+        throw new ResolverException(new FileNotFoundException("Cannot find document ID: "
+                + parentPath.resolve(displayName)));
+    }
+
+    @NonNull
+    public static Cursor query(@NonNull Uri uri, @Nullable String[] projection,
+                               @Nullable String sortOrder) throws ResolverException {
+        // DocumentsProvider doesn't support selection and selectionArgs.
+        return Resolver.query(uri, projection, null, null, sortOrder);
     }
 
     @NonNull
