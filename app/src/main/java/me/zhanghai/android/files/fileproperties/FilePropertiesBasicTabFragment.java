@@ -23,6 +23,7 @@ import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -100,7 +101,8 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
 
         mNameText.setText(FileUtils.getName(mExtraFile));
         Path path = mExtraFile.getPath();
-        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+        if (LinuxFileSystemProvider.isLinuxPath(path)
+                || DocumentFileSystemProvider.isDocumentPath(path)) {
             Path parentPath = path.getParent();
             if (parentPath != null) {
                 ViewUtils.setVisibleOrGone(mParentDirectoryLayout, true);

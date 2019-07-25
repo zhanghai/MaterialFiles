@@ -599,7 +599,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 break;
             }
             default:
-                throw new IllegalArgumentException();
+                throw new AssertionError();
         }
     }
 
@@ -1061,6 +1061,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void openApk(@NonNull FileItem file) {
+        if (!FileUtils.isListable(file)) {
+            installApk(file);
+            return;
+        }
         switch (SettingsLiveDatas.OPEN_APK_DEFAULT_ACTION.getValue()) {
             case INSTALL:
                 installApk(file);
@@ -1072,7 +1076,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 OpenApkDialogFragment.show(file, this);
                 break;
             default:
-                throw new IllegalArgumentException();
+                throw new AssertionError();
         }
     }
 
