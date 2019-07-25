@@ -18,6 +18,17 @@ public class Cursors {
         }
     }
 
+    public static int getInt(@NonNull Cursor cursor, @NonNull String columnName)
+            throws ResolverException {
+        int columnIndex;
+        try {
+            columnIndex = cursor.getColumnIndexOrThrow(columnName);
+        } catch (IllegalArgumentException e) {
+            throw new ResolverException(e);
+        }
+        return cursor.getInt(columnIndex);
+    }
+
     public static long getLong(@NonNull Cursor cursor, @NonNull String columnName)
             throws ResolverException {
         int columnIndex;

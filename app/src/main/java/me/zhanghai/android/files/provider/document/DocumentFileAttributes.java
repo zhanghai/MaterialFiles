@@ -14,9 +14,21 @@ import me.zhanghai.android.files.provider.common.ParcelableContentProviderFileAt
 
 public class DocumentFileAttributes extends ParcelableContentProviderFileAttributes {
 
-    DocumentFileAttributes(@Nullable String mimeType, long size, long lastModifiedTimeMillis,
-                           @NonNull Uri uri) {
-        super(new DocumentFileAttributesImpl(mimeType, size, lastModifiedTimeMillis, uri));
+    private final int mFlags;
+
+    DocumentFileAttributes(long lastModifiedTimeMillis, @Nullable String mimeType, long size,
+                           int flags, @NonNull Uri uri) {
+        this(new DocumentFileAttributesImpl(lastModifiedTimeMillis, mimeType, size, flags, uri));
+    }
+
+    private DocumentFileAttributes(@NonNull DocumentFileAttributesImpl attributes) {
+        super(attributes);
+
+        mFlags = attributes.getFlags();
+    }
+
+    public int getFlags() {
+        return mFlags;
     }
 
 
@@ -34,5 +46,15 @@ public class DocumentFileAttributes extends ParcelableContentProviderFileAttribu
 
     protected DocumentFileAttributes(Parcel in) {
         super(in);
+
+        mFlags = in.readInt();
+    }
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+
+        dest.writeInt(mFlags);
     }
 }

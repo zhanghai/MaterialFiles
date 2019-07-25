@@ -55,23 +55,26 @@ public class DocumentFileAttributeView implements BasicFileAttributeView, Parcel
         } catch (ResolverException e) {
             throw e.toFileSystemException(mPath.toString());
         }
+        long lastModifiedTimeMillis;
         String mimeType;
         long size;
-        long lastModifiedTimeMillis;
+        int flags;
         try (Cursor cursor = DocumentResolver.query(uri, new String[] {
+                DocumentsContract.Document.COLUMN_LAST_MODIFIED,
                 DocumentsContract.Document.COLUMN_MIME_TYPE,
                 DocumentsContract.Document.COLUMN_SIZE,
-                DocumentsContract.Document.COLUMN_LAST_MODIFIED
+                DocumentsContract.Document.COLUMN_FLAGS
         }, null)) {
             Cursors.moveToFirst(cursor);
-            mimeType = Cursors.getString(cursor, DocumentsContract.Document.COLUMN_MIME_TYPE);
-            size = Cursors.getLong(cursor, DocumentsContract.Document.COLUMN_SIZE);
             lastModifiedTimeMillis = Cursors.getLong(cursor,
                     DocumentsContract.Document.COLUMN_LAST_MODIFIED);
+            mimeType = Cursors.getString(cursor, DocumentsContract.Document.COLUMN_MIME_TYPE);
+            size = Cursors.getLong(cursor, DocumentsContract.Document.COLUMN_SIZE);
+            flags = Cursors.getInt(cursor, DocumentsContract.Document.COLUMN_FLAGS);
         } catch (ResolverException e) {
             throw e.toFileSystemException(mPath.toString());
         }
-        return new DocumentFileAttributes(mimeType, size, lastModifiedTimeMillis, uri);
+        return new DocumentFileAttributes(lastModifiedTimeMillis, mimeType, size, flags, uri);
     }
 
     @Override

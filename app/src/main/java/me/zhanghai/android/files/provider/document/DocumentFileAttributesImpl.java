@@ -16,18 +16,20 @@ import me.zhanghai.android.files.provider.common.ContentProviderFileAttributes;
 
 class DocumentFileAttributesImpl implements ContentProviderFileAttributes {
 
+    private final long mLastModifiedTimeMillis;
     @Nullable
     private final String mMimeType;
     private final long mSize;
-    private final long mLastModifiedTimeMillis;
+    private final int mFlags;
     @NonNull
     private final Uri mUri;
 
-    DocumentFileAttributesImpl(@Nullable String mimeType, long size, long lastModifiedTimeMillis,
-                               @NonNull Uri uri) {
+    DocumentFileAttributesImpl(long lastModifiedTimeMillis, @Nullable String mimeType, long size,
+                               int flags, @NonNull Uri uri) {
+        mLastModifiedTimeMillis = lastModifiedTimeMillis;
         mMimeType = mimeType;
         mSize = size;
-        mLastModifiedTimeMillis = lastModifiedTimeMillis;
+        mFlags = flags;
         mUri = uri;
     }
 
@@ -58,6 +60,10 @@ class DocumentFileAttributesImpl implements ContentProviderFileAttributes {
     @Override
     public long size() {
         return mSize;
+    }
+
+    public int getFlags() {
+        return mFlags;
     }
 
     @NonNull
