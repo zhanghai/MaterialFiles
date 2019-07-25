@@ -15,7 +15,6 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 
-import java.io.File;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
@@ -41,15 +40,9 @@ public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
     public void registerComponents(@NonNull Context context, @NonNull Glide glide,
                                    @NonNull Registry registry) {
         registry.prepend(InputStream.class, ImageInfo.class, new ImageInfoResourceDecoder());
-        registry.prepend(String.class, ByteBuffer.class,
-                new MediaEmbeddedPictureModelLoader.Factory<>());
-        registry.prepend(File.class, ByteBuffer.class,
-                new MediaEmbeddedPictureModelLoader.Factory<>());
         registry.prepend(Path.class, ByteBuffer.class,
-                new MediaEmbeddedPictureModelLoader.Factory<>());
-        registry.prepend(String.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
-        registry.prepend(File.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
-        registry.prepend(Path.class, Drawable.class, new ApkIconModelLoader.Factory<>(context));
+                new MediaEmbeddedPictureModelLoader.Factory());
+        registry.prepend(Path.class, Drawable.class, new ApkIconModelLoader.Factory(context));
         registry.append(Path.class, InputStream.class, new PathInputStreamModelLoader.Factory());
         registry.append(Path.class, ParcelFileDescriptor.class,
                 new PathParcelFileDescriptorModelLoader.Factory());

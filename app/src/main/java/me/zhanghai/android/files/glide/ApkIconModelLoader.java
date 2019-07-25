@@ -19,7 +19,6 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 import com.bumptech.glide.signature.ObjectKey;
 
-import java.io.File;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -28,7 +27,7 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
-public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
+public class ApkIconModelLoader implements ModelLoader<Path, Drawable> {
 
     @NonNull
     private final Context context;
@@ -38,37 +37,19 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
     }
 
     @Override
-    public boolean handles(@NonNull Model model) {
-        String path = getPath(model);
-        if (path == null) {
+    public boolean handles(@NonNull Path model) {
+        if (!LinuxFileSystemProvider.isLinuxPath(model)) {
             return false;
         }
-        String mimeType = MimeTypes.getMimeType(path);
+        String mimeType = MimeTypes.getMimeType(model.toFile().getPath());
         return Objects.equals(mimeType, "application/vnd.android.package-archive");
     }
 
     @Nullable
     @Override
-    public LoadData<Drawable> buildLoadData(@NonNull Model model, int width, int height,
+    public LoadData<Drawable> buildLoadData(@NonNull Path model, int width, int height,
                                             @NonNull Options options) {
-        return new LoadData<>(new ObjectKey(model), new Fetcher(getPath(model), context));
-    }
-
-    @Nullable
-    private String getPath(@NonNull Model model) {
-        if (model instanceof String) {
-            return (String) model;
-        } else if (model instanceof File) {
-            File file = (File) model;
-            return file.getPath();
-        } else if (model instanceof Path) {
-            Path path = (Path) model;
-            if (!LinuxFileSystemProvider.isLinuxPath(path)) {
-                return null;
-            }
-            return path.toFile().getPath();
-        }
-        throw new AssertionError(model);
+        return new LoadData<>(new ObjectKey(model), new Fetcher(model.toFile().getPath(), context));
     }
 
     private static class Fetcher implements DataFetcher<Drawable> {
@@ -90,7 +71,7 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
             PackageInfo packageInfo = packageManager.getPackageArchiveInfo(path, 0);
             if (packageInfo == null) {
                 callback.onLoadFailed(new NullPointerException(
-                        "PackageManager.getPackageArchiveInfo() returned null"));
+                        "PackageManager.getPackageArchiveInfo() returned null: " + path));
                 return;
             }
             packageInfo.applicationInfo.sourceDir = path;
@@ -98,9 +79,10 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
             Drawable icon = packageInfo.applicationInfo.loadIcon(packageManager);
             if (icon == null) {
                 callback.onLoadFailed(new NullPointerException(
-                        "ApplicationInfo.loadIcon() returned null"));
+                        "ApplicationInfo.loadIcon() returned null: " + path));
                 return;
             }
+            // TODO: Add shadow for adaptive icons.
             callback.onDataReady(icon);
         }
 
@@ -123,7 +105,7 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
         }
     }
 
-    public static class Factory<Model> implements ModelLoaderFactory<Model, Drawable> {
+    public static class Factory implements ModelLoaderFactory<Path, Drawable> {
 
         @NonNull
         private final Context context;
@@ -134,8 +116,8 @@ public class ApkIconModelLoader<Model> implements ModelLoader<Model, Drawable> {
 
         @NonNull
         @Override
-        public ModelLoader<Model, Drawable> build(@NonNull MultiModelLoaderFactory multiFactory) {
-            return new ApkIconModelLoader<>(context);
+        public ModelLoader<Path, Drawable> build(@NonNull MultiModelLoaderFactory multiFactory) {
+            return new ApkIconModelLoader(context);
         }
 
         @Override
