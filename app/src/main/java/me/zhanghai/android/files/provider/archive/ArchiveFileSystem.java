@@ -21,8 +21,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
 import me.zhanghai.android.files.provider.root.RootableFileSystem;
 
-class ArchiveFileSystem extends RootableFileSystem implements ByteStringListPathFactory,
-        Parcelable {
+class ArchiveFileSystem extends RootableFileSystem implements ByteStringListPathFactory {
 
     static final byte SEPARATOR = LocalArchiveFileSystem.SEPARATOR;
 
