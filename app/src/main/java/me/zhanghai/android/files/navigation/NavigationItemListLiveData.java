@@ -10,7 +10,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MediatorLiveData;
-import me.zhanghai.android.files.filesystem.DocumentTreesLiveData;
 
 public class NavigationItemListLiveData extends MediatorLiveData<List<NavigationItem>> {
 

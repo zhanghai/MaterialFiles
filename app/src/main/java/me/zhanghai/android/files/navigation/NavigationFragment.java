@@ -27,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filesystem.DocumentTree;
+import me.zhanghai.android.files.navigation.file.DocumentTree;
 import me.zhanghai.android.files.util.AppUtils;
 
 public class NavigationFragment extends Fragment implements NavigationItem.Listener {

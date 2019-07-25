@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.filesystem;
+package me.zhanghai.android.files.navigation.file;
 
 import java.io.File;
 
