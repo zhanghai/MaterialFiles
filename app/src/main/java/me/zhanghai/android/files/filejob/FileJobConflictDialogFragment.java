@@ -47,7 +47,6 @@ import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.filelist.FileListAdapter;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
-import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.ImeUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
@@ -234,8 +233,7 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
                 mimeType));
         BasicFileAttributes attributes = file.getAttributes();
         Path path = file.getPath();
-        // TODO: Allow other providers as well - but might be resource consuming.
-        if (LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.supportsThumbnail(mimeType)) {
+        if (FileListAdapter.supportsThumbnail(file)) {
             GlideApp.with(this)
                     .load(path)
                     .signature(new ObjectKey(attributes.lastModifiedTime()))

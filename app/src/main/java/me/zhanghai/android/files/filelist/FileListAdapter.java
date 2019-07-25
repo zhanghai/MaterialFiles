@@ -345,7 +345,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         });
     }
 
-    private static boolean supportsThumbnail(@NonNull FileItem file) {
+    // TODO: Move this to somewhere else since it's shared logic.
+    public static boolean supportsThumbnail(@NonNull FileItem file) {
         Path path = file.getPath();
         if (LinuxFileSystemProvider.isLinuxPath(path)) {
             return MimeTypes.supportsThumbnail(file.getMimeType());
