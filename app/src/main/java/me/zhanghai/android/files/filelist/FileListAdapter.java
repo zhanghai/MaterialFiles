@@ -7,6 +7,7 @@ package me.zhanghai.android.files.filelist;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.View;
@@ -48,6 +49,8 @@ import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
+import me.zhanghai.android.files.provider.document.DocumentFileAttributes;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
@@ -260,8 +263,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 MimeTypes.getIconRes(mimeType));
         BasicFileAttributes attributes = file.getAttributes();
-        // TODO: Allow other providers as well - but might be resource consuming.
-        if (LinuxFileSystemProvider.isLinuxPath(path) && MimeTypes.supportsThumbnail(mimeType)) {
+        if (supportsThumbnail(file)) {
             GlideApp.with(mFragment)
                     .load(path)
                     .signature(new ObjectKey(attributes.lastModifiedTime()))
@@ -341,6 +343,20 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                     return false;
             }
         });
+    }
+
+    private static boolean supportsThumbnail(@NonNull FileItem file) {
+        Path path = file.getPath();
+        if (LinuxFileSystemProvider.isLinuxPath(path)) {
+            return MimeTypes.supportsThumbnail(file.getMimeType());
+        } else if (DocumentFileSystemProvider.isDocumentPath(path)) {
+            DocumentFileAttributes attributes = (DocumentFileAttributes) file.getAttributes();
+            return (attributes.getFlags() & DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
+                    == DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL;
+        } else {
+            // TODO: Allow other providers as well - but might be resource consuming.
+            return false;
+        }
     }
 
     @NonNull
