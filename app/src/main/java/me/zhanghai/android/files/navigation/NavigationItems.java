@@ -313,12 +313,15 @@ public class NavigationItems {
     private static class DocumentTreeRootItem extends RootItem {
 
         @NonNull
+        private final Uri mTreeUri;
+        @NonNull
         private final String mTitle;
 
         public DocumentTreeRootItem(@NonNull Uri treeUri) {
             super(DocumentFileSystemProvider.getRootPathForTreeUri(treeUri));
 
-            mTitle = DocumentTree.getDisplayName(treeUri, AppApplication.getInstance());
+            mTreeUri = treeUri;
+            mTitle = DocumentTree.getDisplayName(mTreeUri, AppApplication.getInstance());
         }
 
         @DrawableRes
@@ -336,6 +339,12 @@ public class NavigationItems {
         @Override
         protected int getTitleRes() {
             throw new AssertionError();
+        }
+
+        @Override
+        public boolean onLongClick(@NonNull Listener listener) {
+            listener.onRemoveDocumentTree(mTreeUri);
+            return true;
         }
     }
 

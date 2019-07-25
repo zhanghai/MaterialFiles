@@ -8,6 +8,7 @@ package me.zhanghai.android.files.navigation;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -47,6 +48,10 @@ public abstract class NavigationItem {
 
     public abstract void onClick(@NonNull Listener listener);
 
+    public boolean onLongClick(@NonNull Listener listener) {
+        return false;
+    }
+
     interface Listener {
 
         @NonNull
@@ -57,6 +62,8 @@ public abstract class NavigationItem {
         void navigateToRoot(@NonNull Path path);
 
         void onAddDocumentTree();
+
+        void onRemoveDocumentTree(@NonNull Uri treeUri);
 
         void closeNavigationDrawer();
 

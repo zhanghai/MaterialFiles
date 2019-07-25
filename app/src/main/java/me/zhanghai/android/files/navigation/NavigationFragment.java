@@ -139,6 +139,17 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     }
 
     @Override
+    public void onRemoveDocumentTree(@NonNull Uri treeUri) {
+        // TODO: Show confirmation dialog
+        removeDocumentTree(treeUri);
+    }
+
+    private void removeDocumentTree(@NonNull Uri treeUri) {
+        DocumentTree.releasePersistablePermission(treeUri, requireContext());
+        // TODO: Go to another navigation item if the current one went away.
+    }
+
+    @Override
     public void closeNavigationDrawer() {
         mListener.closeNavigationDrawer();
     }

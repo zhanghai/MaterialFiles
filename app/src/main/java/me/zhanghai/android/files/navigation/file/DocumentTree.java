@@ -77,4 +77,22 @@ public class DocumentTree {
             return false;
         }
     }
+
+    public static void releasePersistablePermission(@NonNull Uri treeUri,
+                                                    @NonNull Context context) {
+        releasePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION
+                | Intent.FLAG_GRANT_WRITE_URI_PERMISSION, context);
+        DocumentTreesLiveData.getInstance().loadValue();
+    }
+
+    private static boolean releasePersistableUriPermission(@NonNull Uri uri, int modeFlags,
+                                                        @NonNull Context context) {
+        try {
+            context.getContentResolver().releasePersistableUriPermission(uri, modeFlags);
+            return true;
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

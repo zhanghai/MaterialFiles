@@ -105,6 +105,7 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
                     return;
                 }
                 itemHolder.itemLayout.setOnClickListener(view -> item.onClick(mListener));
+                itemHolder.itemLayout.setOnLongClickListener(view -> item.onLongClick(mListener));
                 itemHolder.iconImage.setImageDrawable(item.getIcon(
                         itemHolder.iconImage.getContext()));
                 itemHolder.titleText.setText(item.getTitle(itemHolder.titleText.getContext()));
