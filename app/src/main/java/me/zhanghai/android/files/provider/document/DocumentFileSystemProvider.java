@@ -344,6 +344,7 @@ public class DocumentFileSystemProvider extends FileSystemProvider
         } catch (ResolverException e) {
             throw e.toFileSystemException(directory.toString());
         }
+        // TODO: Handle DocumentsContract.EXTRA_LOADING, EXTRA_INFO and EXTRA_ERROR.
         return new PathListDirectoryStream(children, filter);
     }
 
