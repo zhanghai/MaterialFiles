@@ -10,9 +10,9 @@ import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.provider.common.ParcelableBasicFileAttributes;
+import me.zhanghai.android.files.provider.common.ParcelableContentProviderFileAttributes;
 
-public class DocumentFileAttributes extends ParcelableBasicFileAttributes {
+public class DocumentFileAttributes extends ParcelableContentProviderFileAttributes {
 
     DocumentFileAttributes(@Nullable String mimeType, long size, long lastModifiedTimeMillis,
                            @NonNull Uri uri) {
