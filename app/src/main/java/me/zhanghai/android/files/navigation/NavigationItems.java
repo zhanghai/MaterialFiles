@@ -36,7 +36,7 @@ import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filesystem.DocumentTree;
 import me.zhanghai.android.files.filesystem.JavaFile;
-import me.zhanghai.android.files.filesystem.PersistedDocumentTreeUrisLiveData;
+import me.zhanghai.android.files.filesystem.DocumentTreesLiveData;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.settings.SettingsActivity;
 import me.zhanghai.android.files.settings.SettingsLiveDatas;
@@ -110,7 +110,7 @@ public class NavigationItems {
                 StorageManager.class);
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
         Functional.map(storageVolumes, StorageVolumeRootItem::new, rootItems);
-        List<Uri> treeUris = PersistedDocumentTreeUrisLiveData.getInstance().getValue();
+        List<Uri> treeUris = DocumentTreesLiveData.getInstance().getValue();
         Functional.map(treeUris, DocumentTreeRootItem::new, rootItems);
         rootItems.add(new AddDocumentTreeItem());
         return rootItems;

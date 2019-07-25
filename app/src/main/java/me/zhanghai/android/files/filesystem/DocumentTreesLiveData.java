@@ -14,20 +14,20 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import me.zhanghai.android.files.AppApplication;
 
-public class PersistedDocumentTreeUrisLiveData extends LiveData<List<Uri>> {
+public class DocumentTreesLiveData extends LiveData<List<Uri>> {
 
     @Nullable
-    private static PersistedDocumentTreeUrisLiveData sInstance;
+    private static DocumentTreesLiveData sInstance;
 
     @NonNull
-    public static PersistedDocumentTreeUrisLiveData getInstance() {
+    public static DocumentTreesLiveData getInstance() {
         if (sInstance == null) {
-            sInstance = new PersistedDocumentTreeUrisLiveData();
+            sInstance = new DocumentTreesLiveData();
         }
         return sInstance;
     }
 
-    private PersistedDocumentTreeUrisLiveData() {
+    private DocumentTreesLiveData() {
         // Initialize value before we have any active observer.
         loadValue();
     }

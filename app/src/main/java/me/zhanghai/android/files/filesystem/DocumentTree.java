@@ -62,7 +62,7 @@ public class DocumentTree {
                 | Intent.FLAG_GRANT_WRITE_URI_PERMISSION, context)
                 || takePersistableUriPermission(treeUri, Intent.FLAG_GRANT_READ_URI_PERMISSION,
                 context)) {
-            PersistedDocumentTreeUrisLiveData.getInstance().loadValue();
+            DocumentTreesLiveData.getInstance().loadValue();
         }
     }
 

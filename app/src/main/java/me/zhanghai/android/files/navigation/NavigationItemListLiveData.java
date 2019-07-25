@@ -10,6 +10,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MediatorLiveData;
+import me.zhanghai.android.files.filesystem.DocumentTreesLiveData;
 
 public class NavigationItemListLiveData extends MediatorLiveData<List<NavigationItem>> {
 
@@ -28,6 +29,7 @@ public class NavigationItemListLiveData extends MediatorLiveData<List<Navigation
         // Initialize value before we have any active observer.
         loadValue();
         addSource(StandardDirectoriesLiveData.getInstance(), standardDirectories -> loadValue());
+        addSource(DocumentTreesLiveData.getInstance(), treeUris -> loadValue());
     }
 
     private void loadValue() {
