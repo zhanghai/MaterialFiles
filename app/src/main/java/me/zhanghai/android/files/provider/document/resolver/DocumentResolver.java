@@ -6,6 +6,8 @@
 package me.zhanghai.android.files.provider.document.resolver;
 
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
@@ -255,6 +257,24 @@ public class DocumentResolver {
             Cursors.moveToFirst(cursor);
             return Cursors.getLong(cursor, DocumentsContract.Document.COLUMN_SIZE);
         }
+    }
+
+    @NonNull
+    public static Bitmap getThumbnail(@NonNull Path path, int width, int height)
+            throws ResolverException {
+        Uri uri = getDocumentUri(path);
+        Bitmap thumbnail;
+        try {
+            thumbnail = DocumentsContract.getDocumentThumbnail(Resolver.getContentResolver(), uri,
+                    new Point(width, height), null);
+        } catch (Exception e) {
+            throw new ResolverException(e);
+        }
+        if (thumbnail == null) {
+            throw new ResolverException("DocumentsContract.getDocumentThumbnail() returned null: "
+                    + uri);
+        }
+        return thumbnail;
     }
 
     @NonNull

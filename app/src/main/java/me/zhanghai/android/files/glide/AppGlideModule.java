@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.glide;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
@@ -43,6 +44,7 @@ public class AppGlideModule extends com.bumptech.glide.module.AppGlideModule {
         registry.prepend(Path.class, ByteBuffer.class,
                 new MediaEmbeddedPictureModelLoader.Factory());
         registry.prepend(Path.class, Drawable.class, new ApkIconModelLoader.Factory(context));
+        registry.prepend(Path.class, Bitmap.class, new DocumentThumbnailModelLoader.Factory());
         registry.append(Path.class, InputStream.class, new PathInputStreamModelLoader.Factory());
         registry.append(Path.class, ParcelFileDescriptor.class,
                 new PathParcelFileDescriptorModelLoader.Factory());
