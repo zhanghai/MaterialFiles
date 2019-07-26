@@ -13,9 +13,11 @@ import android.net.Uri;
 import android.provider.DocumentsContract;
 import android.text.TextUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import java9.util.Comparators;
 import me.zhanghai.android.files.compat.DocumentsContractCompat;
 import me.zhanghai.android.files.navigation.DocumentTreesLiveData;
 import me.zhanghai.java.functional.Functional;
@@ -23,11 +25,13 @@ import me.zhanghai.java.functional.Functional;
 public class DocumentTree {
 
     @NonNull
-    public static List<Uri> getPersistedUris(@NonNull Context context) {
-        return Functional.map(Functional.filter(
+    public static List<Uri> getPersistedTreeUris(@NonNull Context context) {
+        List<UriPermission> treeUriPermissions = Functional.filter(
                 context.getContentResolver().getPersistedUriPermissions(),
-                uriPermission -> DocumentsContractCompat.isTreeUri(uriPermission.getUri())),
-                UriPermission::getUri);
+                uriPermission -> DocumentsContractCompat.isTreeUri(uriPermission.getUri()));
+        Collections.sort(treeUriPermissions, Comparators.comparing(
+                UriPermission::getPersistedTime));
+        return Functional.map(treeUriPermissions, UriPermission::getUri);
     }
 
     public static String getDisplayName(@NonNull Uri treeUri, @NonNull Context context) {
