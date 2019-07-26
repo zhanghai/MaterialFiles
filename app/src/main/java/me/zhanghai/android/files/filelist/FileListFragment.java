@@ -314,8 +314,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     }
             }
             if (path == null) {
-                // TODO: Allow configuration.
-                path = Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath());
+                path = getDefaultPath();
             }
             mViewModel.resetTo(path);
             if (pickOptions != null) {
@@ -1236,6 +1235,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void navigateToRoot(@NonNull Path path) {
         collapseSearchView();
         mViewModel.resetTo(path);
+    }
+
+    @Override
+    public void navigateToDefaultRoot() {
+        navigateToRoot(getDefaultPath());
+    }
+
+    @NonNull
+    private Path getDefaultPath() {
+        // TODO: Allow configuration.
+        return Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath());
     }
 
     @Override

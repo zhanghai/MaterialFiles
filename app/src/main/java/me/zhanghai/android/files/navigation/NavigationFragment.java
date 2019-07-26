@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.navigation.file.DocumentTree;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.util.AppUtils;
 
 public class NavigationFragment extends Fragment implements NavigationItem.Listener,
@@ -147,7 +149,11 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     @Override
     public void removeDocumentTree(@NonNull Uri treeUri) {
         DocumentTree.releasePersistablePermission(treeUri, requireContext());
-        // TODO: Go to another navigation item if the current one went away.
+        Path currentPath = mListener.getCurrentPath();
+        if (DocumentFileSystemProvider.isDocumentPath(currentPath)
+                && Objects.equals(DocumentFileSystemProvider.getTreeUri(currentPath), treeUri)) {
+            mListener.navigateToDefaultRoot();
+        }
     }
 
     @Override
@@ -163,6 +169,8 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         void navigateTo(@NonNull Path path);
 
         void navigateToRoot(@NonNull Path path);
+
+        void navigateToDefaultRoot();
 
         void observeCurrentPath(@NonNull LifecycleOwner owner, @NonNull Observer<Path> observer);
 

@@ -90,6 +90,12 @@ public class DocumentFileSystemProvider extends FileSystemProvider
     }
 
     @NonNull
+    public static Uri getTreeUri(@NonNull Path path) {
+        DocumentPath documentPath = requireDocumentPath(path);
+        return documentPath.getTreeUri();
+    }
+
+    @NonNull
     public static Path getRootPathForTreeUri(@NonNull Uri treeUri) {
         Objects.requireNonNull(treeUri);
         return getOrNewFileSystem(treeUri).getRootDirectory();
