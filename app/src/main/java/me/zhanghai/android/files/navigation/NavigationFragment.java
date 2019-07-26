@@ -30,7 +30,8 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.navigation.file.DocumentTree;
 import me.zhanghai.android.files.util.AppUtils;
 
-public class NavigationFragment extends Fragment implements NavigationItem.Listener {
+public class NavigationFragment extends Fragment implements NavigationItem.Listener,
+        ConfirmRemoveDocumentTreeDialogFragment.Listener {
 
     private static final int REQUEST_CODE_OPEN_DOCUMENT_TREE = 1;
 
@@ -140,11 +141,11 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
 
     @Override
     public void onRemoveDocumentTree(@NonNull Uri treeUri) {
-        // TODO: Show confirmation dialog
-        removeDocumentTree(treeUri);
+        ConfirmRemoveDocumentTreeDialogFragment.show(treeUri, this);
     }
 
-    private void removeDocumentTree(@NonNull Uri treeUri) {
+    @Override
+    public void removeDocumentTree(@NonNull Uri treeUri) {
         DocumentTree.releasePersistablePermission(treeUri, requireContext());
         // TODO: Go to another navigation item if the current one went away.
     }

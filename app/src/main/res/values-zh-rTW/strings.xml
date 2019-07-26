@@ -222,6 +222,7 @@
     <string name="navigation_root_directory">根目錄</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩餘 %1$s</string>
     <string name="navigation_add_document_tree">新增外部儲存…</string>
+    <string name="navigation_confirm_remove_document_tree_format">移除外部儲存“%1$s”？</string>
     <string name="navigation_standard_directory_alarms">鬧鐘</string>
     <string name="navigation_standard_directory_dcim">相片</string>
     <string name="navigation_standard_directory_documents">檔案</string>

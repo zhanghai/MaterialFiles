@@ -237,6 +237,7 @@
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_document_tree">Add external storage…</string>
+    <string name="navigation_confirm_remove_document_tree_format">Remove external storage “%1$s”?</string>
     <string name="navigation_standard_directory_alarms">Alarms</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documents</string>
