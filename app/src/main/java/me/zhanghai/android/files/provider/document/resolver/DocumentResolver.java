@@ -80,7 +80,8 @@ public class DocumentResolver {
     public static Uri copy(@NonNull Path sourcePath, @NonNull Path targetPath,
                            @Nullable LongConsumer listener, long intervalMillis)
             throws ResolverException {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isCopyUnsupported(sourcePath)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && hasSameAuthority(sourcePath, targetPath) && !isCopyUnsupported(sourcePath)) {
             return copyApi24(sourcePath, targetPath, listener, intervalMillis);
         } else {
             return copyManually(sourcePath, targetPath, listener, intervalMillis);
@@ -94,8 +95,8 @@ public class DocumentResolver {
 
     @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public static Uri copyApi24(@NonNull Path sourcePath, @NonNull Path targetPath,
-                                @Nullable LongConsumer listener, long intervalMillis)
+    private static Uri copyApi24(@NonNull Path sourcePath, @NonNull Path targetPath,
+                                 @Nullable LongConsumer listener, long intervalMillis)
             throws ResolverException {
         Uri sourceUri = getDocumentUri(sourcePath);
         Uri targetParentUri = getDocumentUri(pathRequireParent(targetPath));
@@ -286,7 +287,8 @@ public class DocumentResolver {
         if (Objects.equals(sourceParentPath, targetParentPath)) {
             return rename(sourcePath, targetPath.getDisplayName());
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isMoveUnsupported(sourcePath)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                && hasSameAuthority(sourcePath, targetPath) && !isMoveUnsupported(sourcePath)) {
             return moveApi24(sourcePath, targetPath, moveOnly, listener, intervalMillis);
         } else {
             if (moveOnly) {
@@ -298,6 +300,12 @@ public class DocumentResolver {
         }
     }
 
+    private static boolean hasSameAuthority(@NonNull Path path1, @NonNull Path path2) {
+        String authority1 = path1.getTreeUri().getAuthority();
+        String authority2 = path2.getTreeUri().getAuthority();
+        return Objects.equals(authority1, authority2);
+    }
+
     private static boolean isMoveUnsupported(@NonNull Path path) {
         String authority = path.getTreeUri().getAuthority();
         return MOVE_UNSUPPORTED_AUTHORITIES.contains(authority);
@@ -305,9 +313,9 @@ public class DocumentResolver {
 
     @NonNull
     @RequiresApi(Build.VERSION_CODES.N)
-    public static Uri moveApi24(@NonNull Path sourcePath, @NonNull Path targetPath,
-                                boolean moveOnly, @Nullable LongConsumer listener,
-                                long intervalMillis)
+    private static Uri moveApi24(@NonNull Path sourcePath, @NonNull Path targetPath,
+                                 boolean moveOnly, @Nullable LongConsumer listener,
+                                 long intervalMillis)
             throws ResolverException {
         Uri sourceParentUri = getDocumentUri(pathRequireParent(sourcePath));
         Uri sourceUri = getDocumentUri(sourcePath);
