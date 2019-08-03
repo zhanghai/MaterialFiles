@@ -5,53 +5,68 @@
 
 package me.zhanghai.android.files.settings;
 
+import java.util.List;
+
+import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.provider.root.RootStrategy;
+import me.zhanghai.android.files.settings.SettingLiveDatas.*;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 import me.zhanghai.android.files.theme.night.NightMode;
 
 public interface SettingsLiveDatas {
 
-    SettingsLiveData<Boolean> FILE_LIST_PERSISTENT_DRAWER_OPEN = new SettingsLiveData<>(
-            Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN);
+    SettingLiveData<Boolean> FILE_LIST_PERSISTENT_DRAWER_OPEN = new BooleanSettingLiveData(
+            R.string.pref_key_file_list_persistent_drawer_open,
+            R.bool.pref_default_value_file_list_persistent_drawer_open);
 
-    SettingsLiveData<Boolean> FILE_LIST_SHOW_HIDDEN_FILES = new SettingsLiveData<>(
-            Settings.FILE_LIST_SHOW_HIDDEN_FILES);
+    SettingLiveData<Boolean> FILE_LIST_SHOW_HIDDEN_FILES = new BooleanSettingLiveData(
+            R.string.pref_key_file_list_show_hidden_files,
+            R.bool.pref_default_value_file_list_show_hidden_files);
 
-    EnumSettingsLiveData<FileSortOptions.By> FILE_LIST_SORT_BY = new EnumSettingsLiveData<>(
-            Settings.FILE_LIST_SORT_BY);
+    SettingLiveData<FileSortOptions.By> FILE_LIST_SORT_BY = new EnumSettingLiveData<>(
+            R.string.pref_key_file_list_sort_by, R.string.pref_default_value_file_list_sort_by,
+            FileSortOptions.By.class);
 
-    EnumSettingsLiveData<FileSortOptions.Order> FILE_LIST_SORT_ORDER = new EnumSettingsLiveData<>(
-            Settings.FILE_LIST_SORT_ORDER);
+    SettingLiveData<FileSortOptions.Order> FILE_LIST_SORT_ORDER = new EnumSettingLiveData<>(
+            R.string.pref_key_file_list_sort_order,
+            R.string.pref_default_value_file_list_sort_order, FileSortOptions.Order.class);
 
-    SettingsLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new SettingsLiveData<>(
-            Settings.FILE_LIST_SORT_DIRECTORIES_FIRST);
+    SettingLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new BooleanSettingLiveData(
+            R.string.pref_key_file_list_sort_directories_first,
+            R.bool.pref_default_value_file_list_sort_directories_first);
 
-    ResourceIdSettingsLiveData CREATE_ARCHIVE_TYPE = new ResourceIdSettingsLiveData(
-            Settings.CREATE_ARCHIVE_TYPE);
+    SettingLiveData<Integer> CREATE_ARCHIVE_TYPE = new ResourceIdSettingLiveData(
+            R.string.pref_key_create_archive_type, R.string.pref_default_value_create_archive_type);
 
-    EnumSettingsLiveData<CustomThemeColors.Primary> PRIMARY_COLOR = new EnumSettingsLiveData<>(
-            Settings.PRIMARY_COLOR);
+    SettingLiveData<CustomThemeColors.Primary> PRIMARY_COLOR = new EnumSettingLiveData<>(
+            R.string.pref_key_primary_color, R.string.pref_default_value_primary_color,
+            CustomThemeColors.Primary.class);
 
-    EnumSettingsLiveData<CustomThemeColors.Accent> ACCENT_COLOR = new EnumSettingsLiveData<>(
-            Settings.ACCENT_COLOR);
+    SettingLiveData<CustomThemeColors.Accent> ACCENT_COLOR = new EnumSettingLiveData<>(
+            R.string.pref_key_accent_color, R.string.pref_default_value_accent_color,
+            CustomThemeColors.Accent.class);
  
-    EnumSettingsLiveData<NightMode> NIGHT_MODE = new EnumSettingsLiveData<>(
-            Settings.NIGHT_MODE);
+    SettingLiveData<NightMode> NIGHT_MODE = new EnumSettingLiveData<>(R.string.pref_key_night_mode,
+            R.string.pref_default_value_night_mode, NightMode.class);
 
-    SettingsLiveData<Boolean> FILE_LIST_ANIMATION = new SettingsLiveData<>(
-            Settings.FILE_LIST_ANIMATION);
+    SettingLiveData<Boolean> FILE_LIST_ANIMATION = new BooleanSettingLiveData(
+            R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation);
 
-    TypedListSettingsLiveData<StandardDirectorySettings> STANDARD_DIRECTORY_SETTINGS =
-            new TypedListSettingsLiveData<>(Settings.STANDARD_DIRECTORY_SETTINGS);
+    SettingLiveData<List<StandardDirectorySettings>> STANDARD_DIRECTORY_SETTINGS =
+            new ParcelableListSettingLiveData<>(R.string.pref_key_standard_directories,
+                    StandardDirectorySettings.CREATOR);
 
-    EnumSettingsLiveData<RootStrategy> ROOT_STRATEGY = new EnumSettingsLiveData<>(
-            Settings.ROOT_STRATEGY);
+    SettingLiveData<RootStrategy> ROOT_STRATEGY = new EnumSettingLiveData<>(
+            R.string.pref_key_root_strategy, R.string.pref_default_value_root_strategy,
+            RootStrategy.class);
 
-    SettingsLiveData<String> ARCHIVE_FILE_NAME_ENCODING = new SettingsLiveData<>(
-            Settings.ARCHIVE_FILE_NAME_ENCODING);
+    SettingLiveData<String> ARCHIVE_FILE_NAME_ENCODING = new StringSettingLiveData(
+            R.string.pref_key_archive_file_name_encoding,
+            R.string.pref_default_value_archive_file_name_encoding);
 
-    EnumSettingsLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingsLiveData<>(
-            Settings.OPEN_APK_DEFAULT_ACTION);
+    SettingLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingLiveData<>(
+            R.string.pref_key_open_apk_default_action,
+            R.string.pref_default_value_open_apk_default_action, OpenApkDefaultAction.class);
 }
