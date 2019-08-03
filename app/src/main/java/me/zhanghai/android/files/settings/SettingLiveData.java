@@ -25,14 +25,23 @@ public abstract class SettingLiveData<T> extends LiveData<T> {
     private final SharedPreferences mSharedPreferences;
     @NonNull
     private final String mKey;
-    private final T mDefaultValue;
+    @AnyRes
+    private final int mDefaultValueRes;
+    private T mDefaultValue;
 
     public SettingLiveData(@Nullable String name, @NonNull String key,
                            @AnyRes int defaultValueRes) {
         mSharedPreferences = getSharedPreferences(name);
         mKey = key;
-        mDefaultValue = getDefaultValue(defaultValueRes);
+        mDefaultValueRes = defaultValueRes;
+    }
 
+    public SettingLiveData(@StringRes int keyRes, @AnyRes int defaultValueRes) {
+        this(null, AppApplication.getInstance().getString(keyRes), defaultValueRes);
+    }
+
+    protected void init() {
+        mDefaultValue = getDefaultValue(mDefaultValueRes);
         loadValue();
         // Only a weak reference is stored so we don't need to worry about unregistering.
         mSharedPreferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key2) -> {
@@ -40,10 +49,6 @@ public abstract class SettingLiveData<T> extends LiveData<T> {
                 loadValue();
             }
         });
-    }
-
-    public SettingLiveData(@StringRes int keyRes, @AnyRes int defaultValueRes) {
-        this(null, AppApplication.getInstance().getString(keyRes), defaultValueRes);
     }
 
     @NonNull

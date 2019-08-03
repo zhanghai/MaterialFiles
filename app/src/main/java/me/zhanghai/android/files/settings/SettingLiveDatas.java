@@ -34,10 +34,14 @@ interface SettingLiveDatas {
         public StringSettingLiveData(@Nullable String name, @NonNull String key,
                                      @StringRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public StringSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @NonNull
@@ -65,10 +69,14 @@ interface SettingLiveDatas {
         public StringSetSettingLiveData(@Nullable String name, @NonNull String key,
                                         @ArrayRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public StringSetSettingLiveData(@StringRes int keyRes, @ArrayRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @NonNull
@@ -100,10 +108,14 @@ interface SettingLiveDatas {
         public IntegerSettingLiveData(@Nullable String name, @NonNull String key,
                                       @IntegerRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public IntegerSettingLiveData(@StringRes int keyRes, @IntegerRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @NonNull
@@ -131,10 +143,14 @@ interface SettingLiveDatas {
         public LongSettingLiveData(@Nullable String name, @NonNull String key,
                                    @StringRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public LongSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @NonNull
@@ -164,10 +180,14 @@ interface SettingLiveDatas {
         public FloatSettingLiveData(@Nullable String name, @NonNull String key,
                                     @DimenRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public FloatSettingLiveData(@StringRes int keyRes, @DimenRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @NonNull
@@ -196,10 +216,14 @@ interface SettingLiveDatas {
         public BooleanSettingLiveData(@Nullable String name, @NonNull String key,
                                       @BoolRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public BooleanSettingLiveData(@StringRes int keyRes, @BoolRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @NonNull
@@ -233,6 +257,7 @@ interface SettingLiveDatas {
             super(name, key, defaultValueRes);
 
             mEnumValues = enumClass.getEnumConstants();
+            init();
         }
 
         public EnumSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes,
@@ -240,6 +265,7 @@ interface SettingLiveDatas {
             super(keyRes, defaultValueRes);
 
             mEnumValues = enumClass.getEnumConstants();
+            init();
         }
 
         @NonNull
@@ -283,10 +309,14 @@ interface SettingLiveDatas {
         public ResourceIdSettingLiveData(@Nullable String name, @NonNull String key,
                                          @StringRes int defaultValueRes) {
             super(name, key, defaultValueRes);
+
+            init();
         }
 
         public ResourceIdSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes) {
             super(keyRes, defaultValueRes);
+
+            init();
         }
 
         @AnyRes
@@ -334,12 +364,14 @@ interface SettingLiveDatas {
             super(name, key, 0);
 
             mClassLoader = class_.getClassLoader();
+            init();
         }
 
         public ParcelableSettingLiveData(@StringRes int keyRes, @NonNull Class<T> parcelableClass) {
             super(keyRes, 0);
 
             mClassLoader = parcelableClass.getClassLoader();
+            init();
         }
 
         @Nullable
@@ -412,6 +444,7 @@ interface SettingLiveDatas {
             super(name, key, 0);
 
             mCreator = creator;
+            init();
         }
 
         public ParcelableListSettingLiveData(@StringRes int keyRes,
@@ -419,6 +452,7 @@ interface SettingLiveDatas {
             super(keyRes, 0);
 
             mCreator = creator;
+            init();
         }
 
         @Nullable
