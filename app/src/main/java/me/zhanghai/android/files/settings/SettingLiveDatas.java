@@ -374,7 +374,7 @@ interface SettingLiveDatas {
             if (base64 == null) {
                 return null;
             }
-            byte[] bytes= IoUtils.base64ToByteArray(base64);
+            byte[] bytes = IoUtils.base64ToByteArray(base64);
             Parcel parcel = Parcel.obtain();
             try {
                 parcel.unmarshall(bytes, 0, bytes.length);
@@ -453,7 +453,7 @@ interface SettingLiveDatas {
             if (base64 == null) {
                 return null;
             }
-            byte[] bytes= IoUtils.base64ToByteArray(base64);
+            byte[] bytes = IoUtils.base64ToByteArray(base64);
             Parcel parcel = Parcel.obtain();
             try {
                 parcel.unmarshall(bytes, 0, bytes.length);
