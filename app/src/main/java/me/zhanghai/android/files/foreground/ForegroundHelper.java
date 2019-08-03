@@ -26,7 +26,7 @@ import androidx.annotation.StyleRes;
 import androidx.appcompat.widget.TintTypedArray;
 import androidx.core.graphics.drawable.DrawableCompat;
 
-public class ForegroundHelper {
+class ForegroundHelper {
 
     private static final int[] STYLEABLE = {
             android.R.attr.foreground,
