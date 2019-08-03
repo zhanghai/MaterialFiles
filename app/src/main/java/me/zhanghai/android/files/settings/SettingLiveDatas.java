@@ -257,7 +257,17 @@ interface SettingLiveDatas {
             if (valueString == null) {
                 return defaultValue;
             }
-            return mEnumValues[Integer.parseInt(valueString)];
+            int valueOrdinal;
+            try {
+                valueOrdinal = Integer.parseInt(valueString);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+                valueOrdinal = -1;
+            }
+            if (valueOrdinal < 0 || valueOrdinal >= mEnumValues.length) {
+                return defaultValue;
+            }
+            return mEnumValues[valueOrdinal];
         }
 
         @Override
@@ -298,8 +308,12 @@ interface SettingLiveDatas {
                 return defaultValue;
             }
             Context context = AppApplication.getInstance();
-            return context.getResources().getIdentifier(valueString, null,
+            int value = context.getResources().getIdentifier(valueString, null,
                     context.getPackageName());
+            if (value == 0) {
+                return defaultValue;
+            }
+            return value;
         }
 
         @Override
@@ -339,7 +353,12 @@ interface SettingLiveDatas {
         public T getValue(@NonNull SharedPreferences sharedPreferences, @NonNull String key,
                           @Nullable T defaultValue) {
             String valueString = sharedPreferences.getString(key, null);
-            return base64ToParcelable(valueString, mClassLoader);
+            try {
+                return base64ToParcelable(valueString, mClassLoader);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
@@ -412,8 +431,13 @@ interface SettingLiveDatas {
         @Override
         public List<T> getValue(@NonNull SharedPreferences sharedPreferences, @NonNull String key,
                                 @Nullable List<T> defaultValue) {
-            String valueString = sharedPreferences.getString(key, null);
-            return base64ToTypedList(valueString, mCreator);
+            try {
+                String valueString = sharedPreferences.getString(key, null);
+                return base64ToTypedList(valueString, mCreator);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
         @Override
