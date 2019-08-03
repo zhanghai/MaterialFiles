@@ -19,7 +19,8 @@ import androidx.preference.PreferenceManager;
 import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.compat.PreferenceManagerCompat;
 
-public abstract class SettingLiveData<T> extends LiveData<T> {
+public abstract class SettingLiveData<T> extends LiveData<T>
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     @NonNull
     private final SharedPreferences mSharedPreferences;
@@ -44,11 +45,7 @@ public abstract class SettingLiveData<T> extends LiveData<T> {
         mDefaultValue = getDefaultValue(mDefaultValueRes);
         loadValue();
         // Only a weak reference is stored so we don't need to worry about unregistering.
-        mSharedPreferences.registerOnSharedPreferenceChangeListener((sharedPreferences, key2) -> {
-            if (Objects.equals(key2, mKey)) {
-                loadValue();
-            }
-        });
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     @NonNull
@@ -68,6 +65,14 @@ public abstract class SettingLiveData<T> extends LiveData<T> {
 
     private void loadValue() {
         setValue(getValue(mSharedPreferences, mKey, mDefaultValue));
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(@NonNull SharedPreferences sharedPreferences,
+                                          @NonNull String key) {
+        if (Objects.equals(key, mKey)) {
+            loadValue();
+        }
     }
 
     protected abstract T getValue(@NonNull SharedPreferences sharedPreferences, @NonNull String key,
