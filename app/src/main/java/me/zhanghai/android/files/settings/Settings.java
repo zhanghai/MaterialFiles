@@ -25,17 +25,9 @@ public interface Settings {
             R.string.pref_key_file_list_show_hidden_files,
             R.bool.pref_default_value_file_list_show_hidden_files);
 
-    SettingLiveData<FileSortOptions.By> FILE_LIST_SORT_BY = new EnumSettingLiveData<>(
-            R.string.pref_key_file_list_sort_by, R.string.pref_default_value_file_list_sort_by,
-            FileSortOptions.By.class);
-
-    SettingLiveData<FileSortOptions.Order> FILE_LIST_SORT_ORDER = new EnumSettingLiveData<>(
-            R.string.pref_key_file_list_sort_order,
-            R.string.pref_default_value_file_list_sort_order, FileSortOptions.Order.class);
-
-    SettingLiveData<Boolean> FILE_LIST_SORT_DIRECTORIES_FIRST = new BooleanSettingLiveData(
-            R.string.pref_key_file_list_sort_directories_first,
-            R.bool.pref_default_value_file_list_sort_directories_first);
+    SettingLiveData<FileSortOptions> FILE_LIST_SORT_OPTIONS = new ParcelableSettingLiveData<>(
+            R.string.pref_key_file_list_sort_options, new FileSortOptions(FileSortOptions.By.NAME,
+            FileSortOptions.Order.ASCENDING, true), FileSortOptions.class);
 
     SettingLiveData<Integer> CREATE_ARCHIVE_TYPE = new ResourceIdSettingLiveData(
             R.string.pref_key_create_archive_type, R.string.pref_default_value_create_archive_type);
@@ -55,7 +47,7 @@ public interface Settings {
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation);
 
     SettingLiveData<List<StandardDirectorySettings>> STANDARD_DIRECTORY_SETTINGS =
-            new ParcelableListSettingLiveData<>(R.string.pref_key_standard_directories,
+            new ParcelableListSettingLiveData<>(R.string.pref_key_standard_directories, null,
                     StandardDirectorySettings.CREATOR);
 
     SettingLiveData<RootStrategy> ROOT_STRATEGY = new EnumSettingLiveData<>(

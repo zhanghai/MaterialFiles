@@ -356,41 +356,48 @@ interface SettingLiveDatas {
 
     class ParcelableSettingLiveData<T extends Parcelable> extends SettingLiveData<T> {
 
+        private final T mDefaultValue;
         @Nullable
         private final ClassLoader mClassLoader;
 
         public ParcelableSettingLiveData(@Nullable String name, @NonNull String key,
-                                         @NonNull Class<T> class_) {
+                                         T defaultValue, @NonNull Class<T> class_) {
             super(name, key, 0);
 
+            mDefaultValue = defaultValue;
             mClassLoader = class_.getClassLoader();
             init();
         }
 
-        public ParcelableSettingLiveData(@StringRes int keyRes, @NonNull Class<T> parcelableClass) {
+        public ParcelableSettingLiveData(@StringRes int keyRes, @Nullable T defaultValue,
+                                         @NonNull Class<T> class_) {
             super(keyRes, 0);
 
-            mClassLoader = parcelableClass.getClassLoader();
+            mDefaultValue = defaultValue;
+            mClassLoader = class_.getClassLoader();
             init();
         }
 
-        @Nullable
         @Override
         protected T getDefaultValue(@AnyRes int defaultValueRes) {
-            return null;
+            return mDefaultValue;
         }
 
-        @Nullable
         @Override
         public T getValue(@NonNull SharedPreferences sharedPreferences, @NonNull String key,
-                          @Nullable T defaultValue) {
+                          T defaultValue) {
             String valueString = sharedPreferences.getString(key, null);
+            T value;
             try {
-                return base64ToParcelable(valueString, mClassLoader);
+                value = base64ToParcelable(valueString, mClassLoader);
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
+                value = null;
             }
+            if (value == null) {
+                return mDefaultValue;
+            }
+            return value;
         }
 
         @Override
@@ -436,42 +443,50 @@ interface SettingLiveDatas {
 
     class ParcelableListSettingLiveData<T extends Parcelable> extends SettingLiveData<List<T>> {
 
+        private final List<T> mDefaultValue;
         @NonNull
         private final Parcelable.Creator<T> mCreator;
 
         public ParcelableListSettingLiveData(@Nullable String name, @NonNull String key,
+                                             List<T> defaultValue,
                                              @NonNull Parcelable.Creator<T> creator) {
             super(name, key, 0);
 
+            mDefaultValue = defaultValue;
             mCreator = creator;
             init();
         }
 
-        public ParcelableListSettingLiveData(@StringRes int keyRes,
+        public ParcelableListSettingLiveData(@StringRes int keyRes, List<T> defaultValue,
                                              @NonNull Parcelable.Creator<T> creator) {
             super(keyRes, 0);
 
+            mDefaultValue = defaultValue;
             mCreator = creator;
             init();
         }
 
-        @Nullable
         @Override
         protected List<T> getDefaultValue(@AnyRes int defaultValueRes) {
-            return null;
+            return mDefaultValue;
         }
 
         @Nullable
         @Override
         public List<T> getValue(@NonNull SharedPreferences sharedPreferences, @NonNull String key,
-                                @Nullable List<T> defaultValue) {
+                                List<T> defaultValue) {
+            String valueString = sharedPreferences.getString(key, null);
+            List<T> value;
             try {
-                String valueString = sharedPreferences.getString(key, null);
-                return base64ToTypedList(valueString, mCreator);
+                value = base64ToTypedList(valueString, mCreator);
             } catch (Exception e) {
                 e.printStackTrace();
-                return null;
+                value = null;
             }
+            if (value == null) {
+                return defaultValue;
+            }
+            return value;
         }
 
         @Override

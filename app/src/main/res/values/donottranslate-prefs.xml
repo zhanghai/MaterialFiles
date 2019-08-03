@@ -13,12 +13,7 @@
     <bool name="pref_default_value_file_list_persistent_drawer_open">true</bool>
     <string name="pref_key_file_list_show_hidden_files">key_file_list_show_hidden_files</string>
     <bool name="pref_default_value_file_list_show_hidden_files">false</bool>
-    <string name="pref_key_file_list_sort_by">key_file_list_sort_by</string>
-    <string name="pref_default_value_file_list_sort_by">0</string>
-    <string name="pref_key_file_list_sort_order">key_file_list_sort_order</string>
-    <string name="pref_default_value_file_list_sort_order">0</string>
-    <string name="pref_key_file_list_sort_directories_first">key_file_list_sort_directories_first</string>
-    <bool name="pref_default_value_file_list_sort_directories_first">true</bool>
+    <string name="pref_key_file_list_sort_options">key_file_list_sort_options</string>
     <string name="pref_key_create_archive_type">key_create_archive_type</string>
     <string name="pref_default_value_create_archive_type">"@id/type_zip"</string>
 

@@ -5,6 +5,9 @@
 
 package me.zhanghai.android.files.filelist;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -16,7 +19,7 @@ import me.zhanghai.android.files.util.NaturalOrderComparator;
 import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.functional.MoreComparator;
 
-public class FileSortOptions {
+public class FileSortOptions implements Parcelable {
 
     public enum By {
         NAME,
@@ -115,5 +118,37 @@ public class FileSortOptions {
             comparator = Comparators.thenComparing(isDirectoryComparator, comparator);
         }
         return comparator;
+    }
+
+
+    public static final Creator<FileSortOptions> CREATOR = new Creator<FileSortOptions>() {
+        @Override
+        public FileSortOptions createFromParcel(Parcel source) {
+            return new FileSortOptions(source);
+        }
+        @Override
+        public FileSortOptions[] newArray(int size) {
+            return new FileSortOptions[size];
+        }
+    };
+
+    protected FileSortOptions(Parcel in) {
+        int tmpMBy = in.readInt();
+        mBy = tmpMBy == -1 ? null : By.values()[tmpMBy];
+        int tmpMOrder = in.readInt();
+        mOrder = tmpMOrder == -1 ? null : Order.values()[tmpMOrder];
+        mDirectoriesFirst = in.readByte() != 0;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(mBy == null ? -1 : mBy.ordinal());
+        dest.writeInt(mOrder == null ? -1 : mOrder.ordinal());
+        dest.writeByte(mDirectoriesFirst ? (byte) 1 : (byte) 0);
     }
 }

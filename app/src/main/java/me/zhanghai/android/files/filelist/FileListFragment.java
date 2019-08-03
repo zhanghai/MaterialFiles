@@ -328,7 +328,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
         mViewModel.getSearchViewExpandedLiveData().observe(this, this::onSearchViewExpandedChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
-        FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
+        Settings.FILE_LIST_SORT_OPTIONS.observe(this, this::onSortOptionsChanged);
         mViewModel.getPickOptionsLiveData().observe(this, this::onPickOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteStateLiveData().observe(this, this::onPasteStateChanged);
@@ -627,15 +627,18 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void setSortBy(@NonNull FileSortOptions.By by) {
-        FileSortOptionsLiveData.getInstance().putBy(by);
+        Settings.FILE_LIST_SORT_OPTIONS.putValue(
+                Settings.FILE_LIST_SORT_OPTIONS.getValue().withBy(by));
     }
 
     private void setSortOrder(@NonNull FileSortOptions.Order order) {
-        FileSortOptionsLiveData.getInstance().putOrder(order);
+        Settings.FILE_LIST_SORT_OPTIONS.putValue(
+                Settings.FILE_LIST_SORT_OPTIONS.getValue().withOrder(order));
     }
 
     private void setSortDirectoriesFirst(boolean directoriesFirst) {
-        FileSortOptionsLiveData.getInstance().putDirectoriesFirst(directoriesFirst);
+        Settings.FILE_LIST_SORT_OPTIONS.putValue(
+                Settings.FILE_LIST_SORT_OPTIONS.getValue().withDirectoriesFirst(directoriesFirst));
     }
 
     private void onSortOptionsChanged(@NonNull FileSortOptions sortOptions) {
@@ -655,7 +658,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return;
         }
         MenuItem checkedSortByMenuItem;
-        FileSortOptions sortOptions = FileSortOptionsLiveData.getInstance().getValue();
+        FileSortOptions sortOptions = Settings.FILE_LIST_SORT_OPTIONS.getValue();
         switch (sortOptions.getBy()) {
             case NAME:
                 checkedSortByMenuItem = mSortByNameMenuItem;
