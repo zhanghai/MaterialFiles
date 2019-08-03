@@ -30,7 +30,7 @@ public interface Settings {
             FileSortOptions.Order.ASCENDING, true), FileSortOptions.class);
 
     SettingLiveData<Integer> CREATE_ARCHIVE_TYPE = new ResourceIdSettingLiveData(
-            R.string.pref_key_create_archive_type, R.string.pref_default_value_create_archive_type);
+            R.string.pref_key_create_archive_type, R.id.type_zip);
 
     SettingLiveData<CustomThemeColors.Primary> PRIMARY_COLOR = new EnumSettingLiveData<>(
             R.string.pref_key_primary_color, R.string.pref_default_value_primary_color,

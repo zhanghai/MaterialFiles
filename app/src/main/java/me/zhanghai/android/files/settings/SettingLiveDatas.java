@@ -307,14 +307,14 @@ interface SettingLiveDatas {
     class ResourceIdSettingLiveData extends SettingLiveData<Integer> {
 
         public ResourceIdSettingLiveData(@Nullable String name, @NonNull String key,
-                                         @StringRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+                                         @AnyRes int defaultValue) {
+            super(name, key, defaultValue);
 
             init();
         }
 
-        public ResourceIdSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
+        public ResourceIdSettingLiveData(@StringRes int keyRes, @AnyRes int defaultValue) {
+            super(keyRes, defaultValue);
 
             init();
         }
@@ -322,11 +322,8 @@ interface SettingLiveDatas {
         @AnyRes
         @NonNull
         @Override
-        protected Integer getDefaultValue(@StringRes int defaultValueRes) {
-            Context context = AppApplication.getInstance();
-            String defaultValueString = context.getString(defaultValueRes);
-            return context.getResources().getIdentifier(defaultValueString, null,
-                    context.getPackageName());
+        protected Integer getDefaultValue(@AnyRes int defaultValueRes) {
+            return defaultValueRes;
         }
 
         @NonNull

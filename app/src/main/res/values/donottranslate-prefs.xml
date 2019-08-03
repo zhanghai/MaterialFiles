@@ -15,7 +15,6 @@
     <bool name="pref_default_value_file_list_show_hidden_files">false</bool>
     <string name="pref_key_file_list_sort_options">key_file_list_sort_options</string>
     <string name="pref_key_create_archive_type">key_create_archive_type</string>
-    <string name="pref_default_value_create_archive_type">"@id/type_zip"</string>
 
     <string name="pref_key_primary_color">key_primary_color</string>
     <string name="pref_default_value_primary_color">0</string>
