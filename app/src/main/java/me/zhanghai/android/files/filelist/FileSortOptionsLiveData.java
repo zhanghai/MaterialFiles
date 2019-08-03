@@ -7,7 +7,7 @@ package me.zhanghai.android.files.filelist;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MediatorLiveData;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 
 public class FileSortOptionsLiveData extends MediatorLiveData<FileSortOptions> {
 
@@ -22,29 +22,29 @@ public class FileSortOptionsLiveData extends MediatorLiveData<FileSortOptions> {
     }
 
     private FileSortOptionsLiveData() {
-        addSource(SettingsLiveDatas.FILE_LIST_SORT_BY, by -> loadValue());
-        addSource(SettingsLiveDatas.FILE_LIST_SORT_ORDER, order -> loadValue());
-        addSource(SettingsLiveDatas.FILE_LIST_SORT_DIRECTORIES_FIRST, directoryFirst ->
+        addSource(Settings.FILE_LIST_SORT_BY, by -> loadValue());
+        addSource(Settings.FILE_LIST_SORT_ORDER, order -> loadValue());
+        addSource(Settings.FILE_LIST_SORT_DIRECTORIES_FIRST, directoryFirst ->
                 loadValue());
     }
 
     private void loadValue() {
         FileSortOptions fileSortOptions = new FileSortOptions(
-                SettingsLiveDatas.FILE_LIST_SORT_BY.getValue(),
-                SettingsLiveDatas.FILE_LIST_SORT_ORDER.getValue(),
-                SettingsLiveDatas.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue());
+                Settings.FILE_LIST_SORT_BY.getValue(),
+                Settings.FILE_LIST_SORT_ORDER.getValue(),
+                Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.getValue());
         setValue(fileSortOptions);
     }
 
     public void putBy(FileSortOptions.By by) {
-        SettingsLiveDatas.FILE_LIST_SORT_BY.putValue(by);
+        Settings.FILE_LIST_SORT_BY.putValue(by);
     }
 
     public void putOrder(FileSortOptions.Order order) {
-        SettingsLiveDatas.FILE_LIST_SORT_ORDER.putValue(order);
+        Settings.FILE_LIST_SORT_ORDER.putValue(order);
     }
 
     public void putDirectoriesFirst(boolean directoriesFirst) {
-        SettingsLiveDatas.FILE_LIST_SORT_DIRECTORIES_FIRST.putValue(directoriesFirst);
+        Settings.FILE_LIST_SORT_DIRECTORIES_FIRST.putValue(directoriesFirst);
     }
 }

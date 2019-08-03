@@ -31,9 +31,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         //SettingsLiveDatas.PRIMARY_COLOR.observe(this, primaryColor -> CustomThemeHelper.sync());
         //SettingsLiveDatas.ACCENT_COLOR.observe(this, accentColor -> CustomThemeHelper.sync());
         //SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> NightModeHelper.sync());
-        SettingsLiveDatas.PRIMARY_COLOR.observe(this, this::onCustomThemeColorChanged);
-        SettingsLiveDatas.ACCENT_COLOR.observe(this, this::onCustomThemeColorChanged);
-        SettingsLiveDatas.NIGHT_MODE.observe(this, this::onNightModeChanged);
+        Settings.PRIMARY_COLOR.observe(this, this::onCustomThemeColorChanged);
+        Settings.ACCENT_COLOR.observe(this, this::onCustomThemeColorChanged);
+        Settings.NIGHT_MODE.observe(this, this::onNightModeChanged);
     }
 
     @Override

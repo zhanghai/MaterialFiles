@@ -52,7 +52,7 @@ import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.common.PosixFileTypes;
 import me.zhanghai.android.files.provider.root.RootUtils;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.IoUtils;
 
 public class ArchiveReader {
@@ -201,7 +201,7 @@ public class ArchiveReader {
                 return StandardCharsets.UTF_8.name();
             }
         } else {
-            return SettingsLiveDatas.ARCHIVE_FILE_NAME_ENCODING.getValue();
+            return Settings.ARCHIVE_FILE_NAME_ENCODING.getValue();
         }
     }
 

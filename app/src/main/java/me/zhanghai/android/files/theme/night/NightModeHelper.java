@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.app.AppCompatDelegateCompat;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 
 // We take over the activity creation when setting the default night mode from AppCompat so that:
 // 1. We can recreate all activities upon change, instead of only started activities.
@@ -79,7 +79,7 @@ public class NightModeHelper {
     }
 
     private static int getNightMode() {
-        return SettingsLiveDatas.NIGHT_MODE.getValue().getValue();
+        return Settings.NIGHT_MODE.getValue().getValue();
     }
 
     /*

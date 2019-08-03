@@ -20,7 +20,7 @@ import androidx.annotation.StyleRes;
 import androidx.core.app.ActivityCompat;
 import me.zhanghai.android.files.compat.MoreActivityCompat;
 import me.zhanghai.android.files.compat.MoreContextCompat;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 
 public class CustomThemeHelper {
 
@@ -85,9 +85,9 @@ public class CustomThemeHelper {
     private static int getCustomTheme(@StyleRes int baseThemeRes, @NonNull Context context) {
         Resources resources = context.getResources();
         String baseThemeName = resources.getResourceName(baseThemeRes);
-        String primaryColorEntryName = SettingsLiveDatas.PRIMARY_COLOR.getValue()
+        String primaryColorEntryName = Settings.PRIMARY_COLOR.getValue()
                 .getResourceEntryName();
-        String accentColorEntryName = SettingsLiveDatas.ACCENT_COLOR.getValue()
+        String accentColorEntryName = Settings.ACCENT_COLOR.getValue()
                 .getResourceEntryName();
         String customThemeName = baseThemeName + "." + primaryColorEntryName + "."
                 + accentColorEntryName;

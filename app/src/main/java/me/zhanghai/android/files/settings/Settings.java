@@ -15,7 +15,7 @@ import me.zhanghai.android.files.settings.SettingLiveDatas.*;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 import me.zhanghai.android.files.theme.night.NightMode;
 
-public interface SettingsLiveDatas {
+public interface Settings {
 
     SettingLiveData<Boolean> FILE_LIST_PERSISTENT_DRAWER_OPEN = new BooleanSettingLiveData(
             R.string.pref_key_file_list_persistent_drawer_open,

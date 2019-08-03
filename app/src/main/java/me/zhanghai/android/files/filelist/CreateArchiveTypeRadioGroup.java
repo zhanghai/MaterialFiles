@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 
 public class CreateArchiveTypeRadioGroup extends RadioGroup {
 
@@ -31,9 +31,9 @@ public class CreateArchiveTypeRadioGroup extends RadioGroup {
     }
 
     private void init() {
-        check(SettingsLiveDatas.CREATE_ARCHIVE_TYPE.getValue());
+        check(Settings.CREATE_ARCHIVE_TYPE.getValue());
         super.setOnCheckedChangeListener((group, checkedId) -> {
-            SettingsLiveDatas.CREATE_ARCHIVE_TYPE.putValue(checkedId);
+            Settings.CREATE_ARCHIVE_TYPE.putValue(checkedId);
             if (mOnCheckedChangeListener != null) {
                 mOnCheckedChangeListener.onCheckedChanged(group, checkedId);
             }

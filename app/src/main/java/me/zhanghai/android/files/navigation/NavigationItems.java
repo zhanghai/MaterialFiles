@@ -37,8 +37,8 @@ import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.navigation.file.DocumentTree;
 import me.zhanghai.android.files.navigation.file.JavaFile;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.settings.SettingsActivity;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
 import me.zhanghai.android.files.settings.StandardDirectorySettings;
 import me.zhanghai.android.files.util.ListBuilder;
 import me.zhanghai.java.functional.Functional;
@@ -131,7 +131,7 @@ public class NavigationItems {
             defaultStandardDirectories.put(standardDirectory.getId(), standardDirectory);
         }
         List<StandardDirectorySettings> settingsList =
-                SettingsLiveDatas.STANDARD_DIRECTORY_SETTINGS.getValue();
+                Settings.STANDARD_DIRECTORY_SETTINGS.getValue();
         if (settingsList != null) {
             for (StandardDirectorySettings settings : settingsList) {
                 StandardDirectory standardDirectory = defaultStandardDirectories.remove(

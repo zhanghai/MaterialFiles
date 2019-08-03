@@ -52,7 +52,7 @@ import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.document.DocumentFileAttributes;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
 import me.zhanghai.android.files.ui.CheckableFrameLayout;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -373,7 +373,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
 
     @Override
     protected boolean isAnimationEnabled() {
-        return SettingsLiveDatas.FILE_LIST_ANIMATION.getValue();
+        return Settings.FILE_LIST_ANIMATION.getValue();
     }
 
     public interface Listener {

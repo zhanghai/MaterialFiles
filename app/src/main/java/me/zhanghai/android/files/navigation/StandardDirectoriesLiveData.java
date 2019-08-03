@@ -10,7 +10,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MediatorLiveData;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 
 public class StandardDirectoriesLiveData extends MediatorLiveData<List<StandardDirectory>> {
 
@@ -28,7 +28,7 @@ public class StandardDirectoriesLiveData extends MediatorLiveData<List<StandardD
     private StandardDirectoriesLiveData() {
         // Initialize value before we have any active observer.
         loadValue();
-        addSource(SettingsLiveDatas.STANDARD_DIRECTORY_SETTINGS, standardDirectorySettings ->
+        addSource(Settings.STANDARD_DIRECTORY_SETTINGS, standardDirectorySettings ->
                 loadValue());
     }
 

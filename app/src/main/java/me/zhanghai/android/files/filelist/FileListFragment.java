@@ -66,7 +66,7 @@ import me.zhanghai.android.files.navigation.NavigationFragment;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
-import me.zhanghai.android.files.settings.SettingsLiveDatas;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.terminal.Terminal;
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
 import me.zhanghai.android.files.ui.OverlayToolbarActionMode;
@@ -322,7 +322,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
         }
         if (mPersistentDrawerLayout != null) {
-            SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.observe(this,
+            Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.observe(this,
                     this::onPersistentDrawerOpenChanged);
         }
         mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
@@ -333,7 +333,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteStateLiveData().observe(this, this::onPasteStateChanged);
         mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
-        SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
+        Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
 
         if (!EffortlessPermissions.hasPermissions(this, STORAGE_PERMISSIONS)) {
             EffortlessPermissions.requestPermissions(this,
@@ -453,8 +453,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     mDrawerLayout.openDrawer(GravityCompat.START);
                 }
                 if (mPersistentDrawerLayout != null) {
-                    SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.putValue(
-                            !SettingsLiveDatas.FILE_LIST_PERSISTENT_DRAWER_OPEN.getValue());
+                    Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.putValue(
+                            !Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.getValue());
                 }
                 return true;
             case R.id.action_search:
@@ -692,7 +692,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void setShowHiddenFiles(boolean showHiddenFiles) {
-        SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.putValue(showHiddenFiles);
+        Settings.FILE_LIST_SHOW_HIDDEN_FILES.putValue(showHiddenFiles);
     }
 
     private void onShowHiddenFilesChanged(boolean showHiddenFiles) {
@@ -706,7 +706,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return;
         }
         List<FileItem> files = fileListData.fileList;
-        if (!SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.getValue()) {
+        if (!Settings.FILE_LIST_SHOW_HIDDEN_FILES.getValue()) {
             files = Functional.filter(files, file -> !file.isHidden());
         }
         mAdapter.replace2(files, mViewModel.getSearchState().searching);
@@ -716,7 +716,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         if (mShowHiddenFilesMenuItem == null) {
             return;
         }
-        boolean showHiddenFiles = SettingsLiveDatas.FILE_LIST_SHOW_HIDDEN_FILES.getValue();
+        boolean showHiddenFiles = Settings.FILE_LIST_SHOW_HIDDEN_FILES.getValue();
         mShowHiddenFilesMenuItem.setChecked(showHiddenFiles);
     }
 
@@ -1064,7 +1064,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             installApk(file);
             return;
         }
-        switch (SettingsLiveDatas.OPEN_APK_DEFAULT_ACTION.getValue()) {
+        switch (Settings.OPEN_APK_DEFAULT_ACTION.getValue()) {
             case INSTALL:
                 installApk(file);
                 break;

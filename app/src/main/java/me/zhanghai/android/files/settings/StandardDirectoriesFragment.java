@@ -100,7 +100,7 @@ public class StandardDirectoriesFragment extends PreferenceFragmentCompat
                     }
                     return settings;
                 });
-        SettingsLiveDatas.STANDARD_DIRECTORY_SETTINGS.putValue(settingsList);
+        Settings.STANDARD_DIRECTORY_SETTINGS.putValue(settingsList);
         return true;
     }
 }
