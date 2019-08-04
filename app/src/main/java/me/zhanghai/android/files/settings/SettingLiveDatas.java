@@ -31,17 +31,15 @@ interface SettingLiveDatas {
 
     class StringSettingLiveData extends SettingLiveData<String> {
 
-        public StringSettingLiveData(@Nullable String name, @NonNull String key,
-                                     @StringRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+        public StringSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                     @Nullable String keySuffix, @StringRes int defaultValueRes) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             init();
         }
 
         public StringSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
-
-            init();
+            this(null, keyRes, null, defaultValueRes);
         }
 
         @NonNull
@@ -66,17 +64,15 @@ interface SettingLiveDatas {
 
     class StringSetSettingLiveData extends SettingLiveData<Set<String>> {
 
-        public StringSetSettingLiveData(@Nullable String name, @NonNull String key,
-                                        @ArrayRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+        public StringSetSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                        @Nullable String keySuffix, @ArrayRes int defaultValueRes) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             init();
         }
 
         public StringSetSettingLiveData(@StringRes int keyRes, @ArrayRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
-
-            init();
+            this(null, keyRes, null, defaultValueRes);
         }
 
         @NonNull
@@ -105,17 +101,15 @@ interface SettingLiveDatas {
 
     class IntegerSettingLiveData extends SettingLiveData<Integer> {
 
-        public IntegerSettingLiveData(@Nullable String name, @NonNull String key,
-                                      @IntegerRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+        public IntegerSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                      @Nullable String keySuffix, @IntegerRes int defaultValueRes) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             init();
         }
 
         public IntegerSettingLiveData(@StringRes int keyRes, @IntegerRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
-
-            init();
+            this(null, keyRes, null, defaultValueRes);
         }
 
         @NonNull
@@ -140,17 +134,15 @@ interface SettingLiveDatas {
 
     class LongSettingLiveData extends SettingLiveData<Long> {
 
-        public LongSettingLiveData(@Nullable String name, @NonNull String key,
-                                   @StringRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+        public LongSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                   @Nullable String keySuffix, @StringRes int defaultValueRes) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             init();
         }
 
         public LongSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
-
-            init();
+            this(null, keyRes, null, defaultValueRes);
         }
 
         @NonNull
@@ -177,17 +169,15 @@ interface SettingLiveDatas {
 
     class FloatSettingLiveData extends SettingLiveData<Float> {
 
-        public FloatSettingLiveData(@Nullable String name, @NonNull String key,
-                                    @DimenRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+        public FloatSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                    @Nullable String keySuffix, @DimenRes int defaultValueRes) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             init();
         }
 
         public FloatSettingLiveData(@StringRes int keyRes, @DimenRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
-
-            init();
+            this(null, keyRes, null, defaultValueRes);
         }
 
         @NonNull
@@ -213,17 +203,15 @@ interface SettingLiveDatas {
 
     class BooleanSettingLiveData extends SettingLiveData<Boolean> {
 
-        public BooleanSettingLiveData(@Nullable String name, @NonNull String key,
-                                      @BoolRes int defaultValueRes) {
-            super(name, key, defaultValueRes);
+        public BooleanSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                      @Nullable String keySuffix, @BoolRes int defaultValueRes) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             init();
         }
 
         public BooleanSettingLiveData(@StringRes int keyRes, @BoolRes int defaultValueRes) {
-            super(keyRes, defaultValueRes);
-
-            init();
+            this(null, keyRes, null, defaultValueRes);
         }
 
         @NonNull
@@ -252,9 +240,10 @@ interface SettingLiveDatas {
         @NonNull
         private final E[] mEnumValues;
 
-        public EnumSettingLiveData(@Nullable String name, @NonNull String key,
-                                   @StringRes int defaultValueRes, @NonNull Class<E> enumClass) {
-            super(name, key, defaultValueRes);
+        public EnumSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                   @Nullable String keySuffix, @StringRes int defaultValueRes,
+                                   @NonNull Class<E> enumClass) {
+            super(nameSuffix, keyRes, keySuffix, defaultValueRes);
 
             mEnumValues = enumClass.getEnumConstants();
             init();
@@ -262,10 +251,7 @@ interface SettingLiveDatas {
 
         public EnumSettingLiveData(@StringRes int keyRes, @StringRes int defaultValueRes,
                                    @NonNull Class<E> enumClass) {
-            super(keyRes, defaultValueRes);
-
-            mEnumValues = enumClass.getEnumConstants();
-            init();
+            this(null, keyRes, null, defaultValueRes, enumClass);
         }
 
         @NonNull
@@ -306,17 +292,15 @@ interface SettingLiveDatas {
 
     class ResourceIdSettingLiveData extends SettingLiveData<Integer> {
 
-        public ResourceIdSettingLiveData(@Nullable String name, @NonNull String key,
-                                         @AnyRes int defaultValue) {
-            super(name, key, defaultValue);
+        public ResourceIdSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                         @Nullable String keySuffix, @AnyRes int defaultValue) {
+            super(nameSuffix, keyRes, keySuffix, defaultValue);
 
             init();
         }
 
         public ResourceIdSettingLiveData(@StringRes int keyRes, @AnyRes int defaultValue) {
-            super(keyRes, defaultValue);
-
-            init();
+            this(null, keyRes, null, defaultValue);
         }
 
         @AnyRes
@@ -357,9 +341,10 @@ interface SettingLiveDatas {
         @Nullable
         private final ClassLoader mClassLoader;
 
-        public ParcelableSettingLiveData(@Nullable String name, @NonNull String key,
-                                         T defaultValue, @NonNull Class<T> class_) {
-            super(name, key, 0);
+        public ParcelableSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                         @Nullable String keySuffix, T defaultValue,
+                                         @NonNull Class<T> class_) {
+            super(nameSuffix, keyRes, keySuffix, 0);
 
             mDefaultValue = defaultValue;
             mClassLoader = class_.getClassLoader();
@@ -368,11 +353,7 @@ interface SettingLiveDatas {
 
         public ParcelableSettingLiveData(@StringRes int keyRes, @Nullable T defaultValue,
                                          @NonNull Class<T> class_) {
-            super(keyRes, 0);
-
-            mDefaultValue = defaultValue;
-            mClassLoader = class_.getClassLoader();
-            init();
+            this(null, keyRes, null, defaultValue, class_);
         }
 
         @Override
@@ -444,10 +425,10 @@ interface SettingLiveDatas {
         @NonNull
         private final Parcelable.Creator<T> mCreator;
 
-        public ParcelableListSettingLiveData(@Nullable String name, @NonNull String key,
-                                             List<T> defaultValue,
+        public ParcelableListSettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                                             @Nullable String keySuffix, List<T> defaultValue,
                                              @NonNull Parcelable.Creator<T> creator) {
-            super(name, key, 0);
+            super(nameSuffix, keyRes, keySuffix, 0);
 
             mDefaultValue = defaultValue;
             mCreator = creator;
@@ -456,11 +437,7 @@ interface SettingLiveDatas {
 
         public ParcelableListSettingLiveData(@StringRes int keyRes, List<T> defaultValue,
                                              @NonNull Parcelable.Creator<T> creator) {
-            super(keyRes, 0);
-
-            mDefaultValue = defaultValue;
-            mCreator = creator;
-            init();
+            this(null, keyRes, null, defaultValue, creator);
         }
 
         @Override

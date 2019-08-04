@@ -30,15 +30,15 @@ public abstract class SettingLiveData<T> extends LiveData<T>
     private final int mDefaultValueRes;
     private T mDefaultValue;
 
-    public SettingLiveData(@Nullable String name, @NonNull String key,
-                           @AnyRes int defaultValueRes) {
-        mSharedPreferences = getSharedPreferences(name);
-        mKey = key;
+    public SettingLiveData(@Nullable String nameSuffix, @StringRes int keyRes,
+                           @Nullable String keySuffix, @AnyRes int defaultValueRes) {
+        mSharedPreferences = getSharedPreferences(nameSuffix);
+        mKey = getKey(keyRes, keySuffix);
         mDefaultValueRes = defaultValueRes;
     }
 
     public SettingLiveData(@StringRes int keyRes, @AnyRes int defaultValueRes) {
-        this(null, AppApplication.getInstance().getString(keyRes), defaultValueRes);
+        this(null, keyRes, null, defaultValueRes);
     }
 
     protected void init() {
@@ -59,6 +59,16 @@ public abstract class SettingLiveData<T> extends LiveData<T>
             int mode = PreferenceManagerCompat.getDefaultSharedPreferencesMode();
             return context.getSharedPreferences(name, mode);
         }
+    }
+
+    @NonNull
+    private static String getKey(@StringRes int keyRes, @Nullable String keySuffix) {
+        Context context = AppApplication.getInstance();
+        String key = AppApplication.getInstance().getString(keyRes);
+        if (keySuffix != null) {
+            key = key + '_' + keySuffix;
+        }
+        return key;
     }
 
     protected abstract T getDefaultValue(@AnyRes int defaultValueRes);
