@@ -98,6 +98,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.filelist.OpenFileAsDialogActivity"
+            android:autoRemoveFromRecents="true"
             android:icon="@drawable/open_as_icon"
             android:label="@string/file_open_as_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
@@ -138,10 +139,12 @@
 
         <activity
             android:name="me.zhanghai.android.files.filejob.FileJobActionDialogActivity"
+            android:autoRemoveFromRecents="true"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
             android:name="me.zhanghai.android.files.filejob.FileJobConflictDialogActivity"
+            android:autoRemoveFromRecents="true"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
