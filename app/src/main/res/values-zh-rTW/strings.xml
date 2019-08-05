@@ -44,7 +44,7 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">未找到可處理此操作的程式</string>
     <string name="copied_to_clipboard_format">已複製到剪貼板\n%1$s</string>
-    <string name="open_settings">打開設定</string>
+    <string name="open_settings">開啟設定</string>
 
     <plurals name="size_in_bytes_format">
         <item quantity="other">%1$,d 位元組</item>
@@ -56,7 +56,7 @@
     <string name="notification_channel_file_job_name">檔案作業</string>
     <string name="notification_channel_file_job_description">顯示和控制檔案作業</string>
     <string name="notification_channel_file_job_dialog_name">檔案作業對話框</string>
-    <string name="notification_channel_file_job_dialog_description">打開檔案作業對話框</string>
+    <string name="notification_channel_file_job_dialog_description">開啟檔案作業對話框</string>
 
     <plurals name="file_job_archive_scan_notification_title">
         <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）</item>
@@ -128,8 +128,8 @@
     <string name="file_job_action_all">套用此操作到所有檔案</string>
 
     <string name="file_open_apk_message">這個檔案是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>
-    <string name="file_open_as_title">打開為…</string>
-    <string name="file_open_as_title_format">將「%1$s」打開為</string>
+    <string name="file_open_as_title">開啟為…</string>
+    <string name="file_open_as_title_format">將「%1$s」開啟為</string>
     <string name="file_open_as_type_text">文字</string>
     <string name="file_open_as_type_image">圖片</string>
     <string name="file_open_as_type_audio">音訊</string>
@@ -176,9 +176,9 @@
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_show_hidden_files">顯示隱藏檔案</string>
     <string name="file_list_action_copy_path">複製路徑</string>
-    <string name="file_list_action_open_in_terminal">在終端中打開</string>
+    <string name="file_list_action_open_in_terminal">在終端中開啟</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中打開</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中開啟</string>
     <string name="file_list_select_title_format">已選取 %1$,d</string>
     <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
@@ -191,7 +191,7 @@
     <string name="file_list_action_create_directory">資料夾</string>
 
     <string name="file_item_description_separator">"    "</string>
-    <string name="file_item_action_open_with">打開方式</string>
+    <string name="file_item_action_open_with">開啟方式</string>
     <string name="file_item_action_extract">提取</string>
     <string name="file_item_action_archive">壓縮</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
@@ -283,7 +283,7 @@
     </plurals>
     <string name="settings_archive_file_name_encoding_title">歸檔檔案名編碼</string>
     <string name="settings_archive_file_name_encoding_summary">%1$s</string>
-    <string name="settings_open_apk_default_action_title">打開 Android 安裝包</string>
+    <string name="settings_open_apk_default_action_title">開啟 Android 安裝包</string>
     <string name="settings_open_apk_default_action_summary">%1$s</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>安裝</item>
