@@ -55,7 +55,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
-import me.zhanghai.android.files.util.AppUtils;
+import me.zhanghai.android.files.util.BackgroundActivityStarter;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.PathFileNameUtils;
@@ -630,12 +630,11 @@ public class FileJobs {
                 throws IOException {
             Service service = getService();
             try {
-                return new Promise<ActionResult>(settler ->
-                        service.startActivity(FileJobActionDialogActivity.newIntent(title, message,
-                                showAll, positiveButtonText, negativeButtonText, neutralButtonText,
+                return new Promise<ActionResult>(settler -> BackgroundActivityStarter.startActivity(
+                        FileJobActionDialogActivity.newIntent(title, message, showAll,
+                                positiveButtonText, negativeButtonText, neutralButtonText,
                                 (action, all) -> settler.resolve(new ActionResult(action, all)),
-                                service)
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)))
+                                service), title, message, service))
                         .await();
             } catch (ExecutionException e) {
                 throw new FileJobUiException(e);
@@ -654,10 +653,15 @@ public class FileJobs {
             Service service = getService();
             try {
                 return new Promise<ConflictResult>(settler ->
-                        service.startActivity(FileJobConflictDialogActivity.newIntent(sourceFile,
-                                targetFile, type, (action, name, all) -> settler.resolve(
-                                        new ConflictResult(action, name, all)), service)
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)))
+                        BackgroundActivityStarter.startActivity(
+                                FileJobConflictDialogActivity.newIntent(sourceFile, targetFile,
+                                        type, (action, name, all) -> settler.resolve(
+                                                new ConflictResult(action, name, all)), service),
+                                FileJobConflictDialogActivity.getTitle(sourceFile, targetFile,
+                                        service),
+                                FileJobConflictDialogActivity.getMessage(sourceFile, targetFile,
+                                        type, service),
+                                service))
                         .await();
             } catch (ExecutionException e) {
                 throw new FileJobUiException(e);
@@ -1344,15 +1348,16 @@ public class FileJobs {
             copy(mFile, path, isExtract, transferInfo, actionAllInfo);
             Uri uri = FileProvider.getUriForPath(path);
             Intent intent = IntentUtils.makeView(uri, mMimeType)
-                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             IntentPathUtils.putExtraPath(intent, path);
             if (mWithChooser) {
                 intent = IntentUtils.withChooser(intent);
                 intent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
                         new Parcelable[] { OpenFileAsDialogActivity.newIntent(path, context) });
             }
-            AppUtils.startActivity(intent, context);
+            BackgroundActivityStarter.startActivity(intent,
+                    getString(R.string.file_open_from_background_title),
+                    getString(R.string.file_open_from_background_text), context);
         }
 
         @NonNull

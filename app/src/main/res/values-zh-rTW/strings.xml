@@ -53,10 +53,10 @@
     <string name="storage_permission_request_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
     <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在設定中授予「儲存空間」權限</string>
 
+    <string name="notification_channel_background_activity_start_name">背景期間動作</string>
+    <string name="notification_channel_background_activity_start_description">在應用程式處於背景期間採取動作</string>
     <string name="notification_channel_file_job_name">檔案作業</string>
     <string name="notification_channel_file_job_description">顯示和控制檔案作業</string>
-    <string name="notification_channel_file_job_dialog_name">檔案作業對話框</string>
-    <string name="notification_channel_file_job_dialog_description">開啟檔案作業對話框</string>
 
     <plurals name="file_job_archive_scan_notification_title">
         <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）</item>
@@ -136,6 +136,8 @@
     <string name="file_open_as_type_video">影片</string>
     <string name="file_open_as_type_directory">資料夾</string>
     <string name="file_open_as_type_any">其他</string>
+    <string name="file_open_from_background_title">“%1$s”已可供開啟</string>
+    <string name="file_open_from_background_text">輕觸即可開啟</string>
     <string name="file_name_error_empty">檔案名不能為空</string>
     <string name="file_name_error_invalid">檔案名無效</string>
     <string name="file_name_error_already_exists">已存在同名的檔案</string>

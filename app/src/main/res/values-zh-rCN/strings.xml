@@ -53,10 +53,10 @@
     <string name="storage_permission_request_message">应用需要访问文件的权限。请在接下来的系统对话框中点击“允许”。</string>
     <string name="storage_permission_permanently_denied_message">应用需要访问文件的权限。请在设置中授予“存储空间”权限</string>
 
+    <string name="notification_channel_background_activity_start_name">后台期间动作</string>
+    <string name="notification_channel_background_activity_start_description">在应用处于后台期间采取动作</string>
     <string name="notification_channel_file_job_name">文件操作</string>
     <string name="notification_channel_file_job_description">显示和控制文件操作</string>
-    <string name="notification_channel_file_job_dialog_name">文件操作对话框</string>
-    <string name="notification_channel_file_job_dialog_description">打开文件操作对话框</string>
 
     <plurals name="file_job_archive_scan_notification_title">
         <item quantity="other">正在准备压缩 %1$,d 个文件（%2$s）</item>
@@ -136,6 +136,8 @@
     <string name="file_open_as_type_video">视频</string>
     <string name="file_open_as_type_directory">文件夹</string>
     <string name="file_open_as_type_any">其他</string>
+    <string name="file_open_from_background_title">“%1$s”已可打开</string>
+    <string name="file_open_from_background_text">点按即可打开</string>
     <string name="file_name_error_empty">文件名不能为空</string>
     <string name="file_name_error_invalid">文件名无效</string>
     <string name="file_name_error_already_exists">已存在同名的文件</string>

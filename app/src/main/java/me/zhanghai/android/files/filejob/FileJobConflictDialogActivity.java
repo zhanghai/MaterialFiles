@@ -31,6 +31,19 @@ public class FileJobConflictDialogActivity extends AppActivity {
         return intent;
     }
 
+    @NonNull
+    public static String getTitle(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
+                                  @NonNull Context context) {
+        return FileJobConflictDialogFragment.getTitle(sourceFile, targetFile, context);
+    }
+
+    @NonNull
+    public static String getMessage(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
+                                    @NonNull FileJobs.Base.CopyMoveType type,
+                                    @NonNull Context context) {
+        return FileJobConflictDialogFragment.getMessage(sourceFile, targetFile, type, context);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

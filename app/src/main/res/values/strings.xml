@@ -54,10 +54,10 @@
     <string name="storage_permission_request_message">App needs permission to access files. Please click “ALLOW” in the upcoming system dialog.</string>
     <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the “Storage” permission in system settings.</string>
 
+    <string name="notification_channel_background_activity_start_name">Actions while background</string>
+    <string name="notification_channel_background_activity_start_description">Take actions while app is in the background</string>
     <string name="notification_channel_file_job_name">File operations</string>
     <string name="notification_channel_file_job_description">Display and control file operations</string>
-    <string name="notification_channel_file_job_dialog_name">File operation dialogs</string>
-    <string name="notification_channel_file_job_dialog_description">Open file operation dialogs</string>
 
     <plurals name="file_job_archive_scan_notification_title">
         <item quantity="one">Preparing to compress %1$,d file (%2$s)</item>
@@ -147,6 +147,8 @@
     <string name="file_open_as_type_video">Video</string>
     <string name="file_open_as_type_directory">Folder</string>
     <string name="file_open_as_type_any">Other</string>
+    <string name="file_open_from_background_title">“%1$s” is ready to be opened</string>
+    <string name="file_open_from_background_text">Tap to open</string>
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>

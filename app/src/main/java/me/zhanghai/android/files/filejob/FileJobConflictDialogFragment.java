@@ -147,26 +147,10 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
 
         Context context = requireContext();
         int theme = getTheme();
-        boolean sourceIsDirectory = mSourceFile.getAttributesNoFollowLinks().isDirectory();
-        boolean targetIsDirectory = mTargetFile.getAttributesNoFollowLinks().isDirectory();
-        int titleRes;
-        int messageRes;
-        int positiveButtonRes;
-        if (sourceIsDirectory && targetIsDirectory) {
-            titleRes = R.string.file_job_merge_title_format;
-            messageRes = mType.getResource(R.string.file_job_merge_copy_message_format,
-                    R.string.file_job_merge_extract_message_format,
-                    R.string.file_job_merge_move_message_format);
-            positiveButtonRes = R.string.merge;
-        } else {
-            titleRes = R.string.file_job_replace_title_format;
-            messageRes = R.string.file_job_replace_message_format;
-            positiveButtonRes = R.string.replace;
-        }
-        String targetFileName = mTargetFile.getPath().getFileName().toString();
-        String title = context.getString(titleRes, targetFileName);
-        String message = context.getString(messageRes,
-                mTargetFile.getPath().getParent().getFileName());
+        String title = getTitle(mSourceFile, mTargetFile, context);
+        String message = getMessage(mSourceFile, mTargetFile, mType, context);
+        int positiveButtonRes = isMerge(mSourceFile, mTargetFile) ? R.string.merge
+                : R.string.replace;
 
         mView = ViewUtils.inflateWithTheme(R.layout.file_job_conflict_dialog_view, context, theme);
         ButterKnife.bind(this, mView);
@@ -185,6 +169,7 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
                 ImeUtils.showIme(mNameEdit);
             }
         });
+        String targetFileName = mTargetFile.getPath().getFileName().toString();
         mNameEdit.setText(targetFileName);
         mNameEdit.setSelection(0, targetFileName.length());
         mNameEdit.addTextChangedListener(new TextWatcher() {
@@ -220,6 +205,32 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
                 .create();
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
+    }
+
+    @NonNull
+    public static String getTitle(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
+                                  @NonNull Context context) {
+        int titleRes = isMerge(sourceFile, targetFile) ? R.string.file_job_merge_title_format
+                : R.string.file_job_replace_title_format;
+        return context.getString(titleRes, targetFile.getPath().getFileName());
+    }
+
+    @NonNull
+    public static String getMessage(@NonNull FileItem sourceFile, @NonNull FileItem targetFile,
+                                    @NonNull FileJobs.Base.CopyMoveType type,
+                                    @NonNull Context context) {
+        int messageRes = isMerge(sourceFile, targetFile) ? type.getResource(
+                R.string.file_job_merge_copy_message_format,
+                R.string.file_job_merge_extract_message_format,
+                R.string.file_job_merge_move_message_format)
+                : R.string.file_job_replace_message_format;
+        return context.getString(messageRes, targetFile.getPath().getParent().getFileName());
+    }
+
+    private static boolean isMerge(@NonNull FileItem sourceFile, @NonNull FileItem targetFile) {
+        boolean sourceIsDirectory = sourceFile.getAttributesNoFollowLinks().isDirectory();
+        boolean targetIsDirectory = targetFile.getAttributesNoFollowLinks().isDirectory();
+        return sourceIsDirectory && targetIsDirectory;
     }
 
     /**
