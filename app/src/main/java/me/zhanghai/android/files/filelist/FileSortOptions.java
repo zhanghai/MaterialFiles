@@ -11,6 +11,7 @@ import android.os.Parcelable;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import java9.util.Comparators;
@@ -120,6 +121,25 @@ public class FileSortOptions implements Parcelable {
         return comparator;
     }
 
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        FileSortOptions that = (FileSortOptions) object;
+        return mDirectoriesFirst == that.mDirectoriesFirst
+                && mBy == that.mBy
+                && mOrder == that.mOrder;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mBy, mOrder, mDirectoriesFirst);
+    }
 
     public static final Creator<FileSortOptions> CREATOR = new Creator<FileSortOptions>() {
         @Override

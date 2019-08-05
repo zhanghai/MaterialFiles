@@ -170,6 +170,7 @@
     <string name="file_list_action_sort_by_last_modified">最後修改</string>
     <string name="file_list_action_sort_order_ascending">升序</string>
     <string name="file_list_action_sort_directories_first">資料夾優先</string>
+    <string name="file_list_action_sort_path_specific">僅用於此資料夾</string>
     <string name="file_list_action_new_task">新建窗口</string>
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_show_hidden_files">顯示隱藏檔案</string>

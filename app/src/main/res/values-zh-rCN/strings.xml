@@ -170,6 +170,7 @@
     <string name="file_list_action_sort_by_last_modified">最后修改</string>
     <string name="file_list_action_sort_order_ascending">升序</string>
     <string name="file_list_action_sort_directories_first">文件夹优先</string>
+    <string name="file_list_action_sort_path_specific">仅用于此文件夹</string>
     <string name="file_list_action_new_task">新建窗口</string>
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_show_hidden_files">显示隐藏文件</string>

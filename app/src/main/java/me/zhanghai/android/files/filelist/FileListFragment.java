@@ -154,6 +154,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Nullable
     private MenuItem mSortDirectoriesFirstMenuItem;
     @Nullable
+    private MenuItem mSortPathSpecificMenuItem;
+    @Nullable
     private MenuItem mSelectAllMenuItem;
     @Nullable
     private MenuItem mShowHiddenFilesMenuItem;
@@ -328,7 +330,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
         mViewModel.getSearchViewExpandedLiveData().observe(this, this::onSearchViewExpandedChanged);
         mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
-        FileSortOptionsLiveData.getInstance().observe(this, this::onSortOptionsChanged);
+        mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
+        mViewModel.getSortPathSpecificLiveData().observe(this, this::onSortPathSpecificChanged);
         mViewModel.getPickOptionsLiveData().observe(this, this::onPickOptionsChanged);
         mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
         mViewModel.getPasteStateLiveData().observe(this, this::onPasteStateChanged);
@@ -379,6 +382,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mSortByLastModifiedMenuItem = menu.findItem(R.id.action_sort_by_last_modified);
         mSortOrderAscendingMenuItem = menu.findItem(R.id.action_sort_order_ascending);
         mSortDirectoriesFirstMenuItem = menu.findItem(R.id.action_sort_directories_first);
+        mSortPathSpecificMenuItem = menu.findItem(R.id.action_sort_path_specific);
         mSelectAllMenuItem = menu.findItem(R.id.action_select_all);
         mShowHiddenFilesMenuItem = menu.findItem(R.id.action_show_hidden_files);
 
@@ -461,23 +465,26 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 // TODO
                 return true;
             case R.id.action_sort_by_name:
-                setSortBy(FileSortOptions.By.NAME);
+                mViewModel.setSortBy(FileSortOptions.By.NAME);
                 return true;
             case R.id.action_sort_by_type:
-                setSortBy(FileSortOptions.By.TYPE);
+                mViewModel.setSortBy(FileSortOptions.By.TYPE);
                 return true;
             case R.id.action_sort_by_size:
-                setSortBy(FileSortOptions.By.SIZE);
+                mViewModel.setSortBy(FileSortOptions.By.SIZE);
                 return true;
             case R.id.action_sort_by_last_modified:
-                setSortBy(FileSortOptions.By.LAST_MODIFIED);
+                mViewModel.setSortBy(FileSortOptions.By.LAST_MODIFIED);
                 return true;
             case R.id.action_sort_order_ascending:
-                setSortOrder(!mSortOrderAscendingMenuItem.isChecked() ?
+                mViewModel.setSortOrder(!mSortOrderAscendingMenuItem.isChecked() ?
                         FileSortOptions.Order.ASCENDING : FileSortOptions.Order.DESCENDING);
                 return true;
             case R.id.action_sort_directories_first:
-                setSortDirectoriesFirst(!mSortDirectoriesFirstMenuItem.isChecked());
+                mViewModel.setSortDirectoriesFirst(!mSortDirectoriesFirstMenuItem.isChecked());
+                return true;
+            case R.id.action_sort_path_specific:
+                mViewModel.setSortPathSpecific(!mSortPathSpecificMenuItem.isChecked());
                 return true;
             case R.id.action_new_task:
                 newTask();
@@ -626,27 +633,20 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mToolbar.setSubtitle(subtitle);
     }
 
-    private void setSortBy(@NonNull FileSortOptions.By by) {
-        FileSortOptionsLiveData.getInstance().putBy(by);
-    }
-
-    private void setSortOrder(@NonNull FileSortOptions.Order order) {
-        FileSortOptionsLiveData.getInstance().putOrder(order);
-    }
-
-    private void setSortDirectoriesFirst(boolean directoriesFirst) {
-        FileSortOptionsLiveData.getInstance().putDirectoriesFirst(directoriesFirst);
-    }
-
     private void onSortOptionsChanged(@NonNull FileSortOptions sortOptions) {
         mAdapter.setComparator(sortOptions.makeComparator());
+        updateSortMenuItems();
+    }
+
+    private void onSortPathSpecificChanged(boolean pathSpecific) {
         updateSortMenuItems();
     }
 
     private void updateSortMenuItems() {
         if (mSortMenuItem == null || mSortByNameMenuItem == null || mSortByTypeMenuItem == null
                 || mSortBySizeMenuItem == null || mSortByLastModifiedMenuItem == null
-                || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null) {
+                || mSortOrderAscendingMenuItem == null || mSortDirectoriesFirstMenuItem == null
+                || mSortPathSpecificMenuItem == null) {
             return;
         }
         boolean searchViewExpanded = mViewModel.isSearchViewExpanded();
@@ -655,7 +655,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return;
         }
         MenuItem checkedSortByMenuItem;
-        FileSortOptions sortOptions = FileSortOptionsLiveData.getInstance().getValue();
+        FileSortOptions sortOptions = mViewModel.getSortOptions();
         switch (sortOptions.getBy()) {
             case NAME:
                 checkedSortByMenuItem = mSortByNameMenuItem;
@@ -676,6 +676,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mSortOrderAscendingMenuItem.setChecked(sortOptions.getOrder()
                 == FileSortOptions.Order.ASCENDING);
         mSortDirectoriesFirstMenuItem.setChecked(sortOptions.isDirectoriesFirst());
+        mSortPathSpecificMenuItem.setChecked(mViewModel.isSortPathSpecific());
     }
 
     private void navigateUp() {

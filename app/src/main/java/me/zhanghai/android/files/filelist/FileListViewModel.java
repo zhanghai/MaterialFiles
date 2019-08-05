@@ -44,6 +44,12 @@ public class FileListViewModel extends ViewModel {
     private final LiveData<BreadcrumbData> mBreadcrumbLiveData = new BreadcrumbLiveData(
             mTrailLiveData);
     @NonNull
+    private final FileSortOptionsLiveData mSortOptionsLiveData = new FileSortOptionsLiveData(
+            mCurrentPathLiveData);
+    @NonNull
+    private final FileSortPathSpecificLiveData mSortPathSpecificLiveData =
+            new FileSortPathSpecificLiveData(mCurrentPathLiveData);
+    @NonNull
     private final MutableLiveData<PickOptions> mPickOptionsLiveData = new MutableLiveData<>();
     @NonNull
     private final MutableLiveData<LinkedHashSet<FileItem>> mSelectedFilesLiveData =
@@ -161,6 +167,41 @@ public class FileListViewModel extends ViewModel {
     @NonNull
     public LiveData<BreadcrumbData> getBreadcrumbLiveData() {
         return mBreadcrumbLiveData;
+    }
+
+    @NonNull
+    public LiveData<FileSortOptions> getSortOptionsLiveData() {
+        return mSortOptionsLiveData;
+    }
+
+    @NonNull
+    public FileSortOptions getSortOptions() {
+        return mSortOptionsLiveData.getValue();
+    }
+
+    public void setSortBy(@NonNull FileSortOptions.By by) {
+        mSortOptionsLiveData.putBy(by);
+    }
+
+    public void setSortOrder(@NonNull FileSortOptions.Order order) {
+        mSortOptionsLiveData.putOrder(order);
+    }
+
+    public void setSortDirectoriesFirst(boolean directoriesFirst) {
+        mSortOptionsLiveData.putDirectoriesFirst(directoriesFirst);
+    }
+
+    @NonNull
+    public LiveData<Boolean> getSortPathSpecificLiveData() {
+        return mSortPathSpecificLiveData;
+    }
+
+    public boolean isSortPathSpecific() {
+        return mSortPathSpecificLiveData.getValue();
+    }
+
+    public void setSortPathSpecific(boolean pathSpecific) {
+        mSortPathSpecificLiveData.putValue(pathSpecific);
     }
 
     @NonNull
