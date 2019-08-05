@@ -603,8 +603,7 @@ public class FileJobs {
                     .setSubText(subText)
                     .setContentInfo(info)
                     .setProgress(max, progress, indeterminate)
-                    .setOngoing(true)
-                    .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                    .setOngoing(true);
                     // TODO
                     //.setContentIntent();
             if (showCancel) {
