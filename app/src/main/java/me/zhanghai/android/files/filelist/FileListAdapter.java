@@ -309,8 +309,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         menu.findItem(R.id.action_extract).setVisible(isArchiveFile);
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
-                case R.id.action_open_as:
-                    mListener.showOpenFileAsDialog(file);
+                case R.id.action_open_with:
+                    mListener.openFileWith(file);
                     return true;
                 case R.id.action_cut:
                     mListener.cutFile(file);
@@ -381,7 +381,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         void selectFile(@NonNull FileItem file, boolean selected);
         void selectFiles(@NonNull LinkedHashSet<FileItem> files, boolean selected);
         void openFile(@NonNull FileItem file);
-        void showOpenFileAsDialog(@NonNull FileItem file);
+        void openFileWith(@NonNull FileItem file);
         void cutFile(@NonNull FileItem file);
         void copyFile(@NonNull FileItem file);
         void confirmDeleteFile(@NonNull FileItem file);

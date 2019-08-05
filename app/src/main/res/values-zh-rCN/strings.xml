@@ -128,6 +128,7 @@
     <string name="file_job_action_all">应用此操作到所有文件</string>
 
     <string name="file_open_apk_message">这个文件是一个 Android 安装包。您想要安装它，还是查看它的内容？</string>
+    <string name="file_open_as_title">打开为…</string>
     <string name="file_open_as_title_format">将“%1$s”打开为</string>
     <string name="file_open_as_type_text">文本</string>
     <string name="file_open_as_type_image">图片</string>
@@ -190,7 +191,7 @@
     <string name="file_list_action_create_directory">文件夹</string>
 
     <string name="file_item_description_separator">"    "</string>
-    <string name="file_item_action_open_as">打开为</string>
+    <string name="file_item_action_open_with">打开方式</string>
     <string name="file_item_action_extract">提取</string>
     <string name="file_item_action_archive">压缩</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>

@@ -5,8 +5,13 @@
 
 package me.zhanghai.android.files.filelist;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Pair;
 
 import java.util.List;
@@ -15,10 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.fragment.app.Fragment;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
-import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.android.files.util.AppUtils;
+import me.zhanghai.android.files.util.IntentPathUtils;
+import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.ListBuilder;
 import me.zhanghai.java.functional.Functional;
 
@@ -26,7 +34,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
 
     private static final String KEY_PREFIX = OpenFileAsDialogFragment.class.getName() + '.';
 
-    private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
+    private static final String EXTRA_PATH = KEY_PREFIX + "PATH";
 
     private static final List<Pair<Integer, String>> FILE_TYPES =
             ListBuilder.<Pair<Integer, String>>newArrayList()
@@ -40,24 +48,22 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
                     .buildUnmodifiable();
 
     @NonNull
-    private FileItem mExtraFile;
+    private Path mExtraPath;
+
+    public static void putArguments(@NonNull Intent intent, @NonNull Path path) {
+        intent.putExtra(EXTRA_PATH, (Parcelable) path);
+    }
 
     @NonNull
-    public static OpenFileAsDialogFragment newInstance(@NonNull FileItem file) {
+    public static OpenFileAsDialogFragment newInstance(@NonNull Intent intent) {
         //noinspection deprecation
         OpenFileAsDialogFragment fragment = new OpenFileAsDialogFragment();
-        FragmentUtils.getArgumentsBuilder(fragment)
-                .putParcelable(EXTRA_FILE, file);
+        fragment.setArguments(intent.getExtras());
         return fragment;
     }
 
-    public static void show(@NonNull FileItem file, @NonNull Fragment fragment) {
-        OpenFileAsDialogFragment.newInstance(file)
-                .show(fragment.getChildFragmentManager(), null);
-    }
-
     /**
-     * @deprecated Use {@link #newInstance(FileItem)} instead.
+     * @deprecated Use {@link #newInstance(Intent)} instead.
      */
     public OpenFileAsDialogFragment() {}
 
@@ -65,7 +71,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
     }
 
     @NonNull
@@ -75,18 +81,25 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
                 .toArray(new CharSequence[0]);
         return new AlertDialog.Builder(requireContext(), getTheme())
                 .setTitle(getString(R.string.file_open_as_title_format,
-                        mExtraFile.getPath().getFileName().toString()))
-                .setItems(items, (dialog, which) -> getListener().openFileAs(mExtraFile,
-                        FILE_TYPES.get(which).second))
+                        mExtraPath.getFileName().toString()))
+                .setItems(items, (dialog, which) -> openAs(FILE_TYPES.get(which).second))
                 .create();
     }
 
-    @NonNull
-    private Listener getListener() {
-        return (Listener) requireParentFragment();
+    private void openAs(@NonNull String mimeType) {
+        Uri uri = FileProvider.getUriForPath(mExtraPath);
+        Intent intent = IntentUtils.makeView(uri, mimeType)
+                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        IntentPathUtils.putExtraPath(intent, mExtraPath);
+        Activity activity = requireActivity();
+        AppUtils.startActivityWithChooser(intent, activity);
+        activity.finish();
     }
 
-    public interface Listener {
-        void openFileAs(@NonNull FileItem file, @NonNull String mimeType);
+    @Override
+    public void onCancel(@NonNull DialogInterface dialog) {
+        super.onCancel(dialog);
+
+        requireActivity().finish();
     }
 }

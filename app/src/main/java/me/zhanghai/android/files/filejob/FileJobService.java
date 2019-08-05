@@ -77,9 +77,9 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Move(sources, targetDirectory), context);
     }
 
-    public static void open(@NonNull Path file, @NonNull String mimeType,
+    public static void open(@NonNull Path file, @NonNull String mimeType, boolean withChooser,
                             @NonNull Context context) {
-        startJob(new FileJobs.Open(file, mimeType), context);
+        startJob(new FileJobs.Open(file, mimeType, withChooser), context);
     }
 
     public static void rename(@NonNull Path path, @NonNull String newName,

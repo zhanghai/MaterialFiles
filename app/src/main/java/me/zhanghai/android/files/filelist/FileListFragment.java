@@ -8,6 +8,7 @@ package me.zhanghai.android.files.filelist;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -87,7 +88,7 @@ import me.zhanghai.java.functional.Functional;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 
 public class FileListFragment extends Fragment implements BreadcrumbLayout.Listener,
-        FileListAdapter.Listener, OpenApkDialogFragment.Listener, OpenFileAsDialogFragment.Listener,
+        FileListAdapter.Listener, OpenApkDialogFragment.Listener,
         ConfirmDeleteFilesDialogFragment.Listener, CreateArchiveDialogFragment.Listener,
         RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
         CreateDirectoryDialogFragment.Listener, NavigationFragment.Listener {
@@ -1048,8 +1049,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             }
             return;
         }
-        String mimeType = file.getMimeType();
-        if (MimeTypes.isApk(mimeType)) {
+        if (MimeTypes.isApk(file.getMimeType())) {
             openApk(file);
             return;
         }
@@ -1057,7 +1057,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             navigateTo(FileUtils.toListablePath(file));
             return;
         }
-        openFileAs(file, mimeType);
+        openFileWithIntent(file, false);
     }
 
     private void openApk(@NonNull FileItem file) {
@@ -1082,7 +1082,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void installApk(@NonNull FileItem file) {
-        openFileAs(file, file.getMimeType());
+        openFileWithIntent(file, false);
     }
 
     @Override
@@ -1091,41 +1091,47 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void showOpenFileAsDialog(@NonNull FileItem file) {
-        OpenFileAsDialogFragment.show(file, this);
+    public void openFileWith(@NonNull FileItem file) {
+        openFileWithIntent(file, true);
     }
 
-    @Override
-    public void openFileAs(@NonNull FileItem file, @NonNull String mimeType) {
+    private void openFileWithIntent(@NonNull FileItem file, boolean withChooser) {
         Path path = file.getPath();
+        String mimeType = file.getMimeType();
+        Context context = requireContext();
         if (LinuxFileSystemProvider.isLinuxPath(path)
                 || DocumentFileSystemProvider.isDocumentPath(path)) {
             Uri uri = FileProvider.getUriForPath(path);
             Intent intent = IntentUtils.makeView(uri, mimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             IntentPathUtils.putExtraPath(intent, path);
-            maybeAddImageViewerActivityExtras(intent, file, mimeType);
+            maybeAddImageViewerActivityExtras(intent, path, mimeType);
+            if (withChooser) {
+                intent = IntentUtils.withChooser(intent);
+                intent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                        new Parcelable[] { OpenFileAsDialogActivity.newIntent(path, context) });
+            }
             AppUtils.startActivity(intent, this);
         } else {
-            FileJobService.open(path, mimeType, requireContext());
+            FileJobService.open(path, mimeType, withChooser, context);
         }
     }
 
-    private void maybeAddImageViewerActivityExtras(@NonNull Intent intent, @NonNull FileItem file,
+    private void maybeAddImageViewerActivityExtras(@NonNull Intent intent, @NonNull Path path,
                                                    @NonNull String mimeType) {
-        if (!MimeTypes.isImage(mimeType) || !MimeTypes.isImage(file.getMimeType())) {
+        if (!MimeTypes.isImage(mimeType)) {
             return;
         }
         List<Path> paths = new ArrayList<>();
         // We need the ordered list from our adapter instead of the list from FileListLiveData.
         for (int i = 0; i < mAdapter.getItemCount(); ++i) {
-            FileItem adapterFile = mAdapter.getItem(i);
-            if (!MimeTypes.isImage(adapterFile.getMimeType())) {
-                continue;
+            FileItem file = mAdapter.getItem(i);
+            Path filePath = file.getPath();
+            if (MimeTypes.isImage(file.getMimeType()) || Objects.equals(filePath, path)) {
+                paths.add(filePath);
             }
-            paths.add(adapterFile.getPath());
         }
-        int position = paths.indexOf(file.getPath());
+        int position = paths.indexOf(path);
         if (position == -1) {
             return;
         }

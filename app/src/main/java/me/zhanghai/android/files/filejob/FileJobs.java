@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Parcelable;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.filelist.OpenFileAsDialogActivity;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.archive.archiver.ArchiveWriter;
 import me.zhanghai.android.files.provider.common.ByteString;
@@ -1319,10 +1321,12 @@ public class FileJobs {
         private final Path mFile;
         @NonNull
         private final String mMimeType;
+        private final boolean mWithChooser;
 
-        public Open(@NonNull Path file, @NonNull String mimeType) {
+        public Open(@NonNull Path file, @NonNull String mimeType, boolean withChooser) {
             mFile = file;
             mMimeType = mimeType;
+            mWithChooser = withChooser;
         }
 
         @Override
@@ -1344,6 +1348,11 @@ public class FileJobs {
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             IntentPathUtils.putExtraPath(intent, path);
+            if (mWithChooser) {
+                intent = IntentUtils.withChooser(intent);
+                intent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
+                        new Parcelable[] { OpenFileAsDialogActivity.newIntent(path, context) });
+            }
             AppUtils.startActivity(intent, context);
         }
 

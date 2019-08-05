@@ -97,6 +97,12 @@
         </activity>
 
         <activity
+            android:name="me.zhanghai.android.files.filelist.OpenFileAsDialogActivity"
+            android:icon="@drawable/open_as_icon"
+            android:label="@string/file_open_as_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
             android:name="me.zhanghai.android.files.settings.SettingsActivity"
             android:label="@string/settings_title"
             android:launchMode="singleTop"

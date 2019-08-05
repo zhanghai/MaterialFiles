@@ -139,6 +139,7 @@
     <string name="file_job_action_all">Apply this action to all files</string>
 
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
+    <string name="file_open_as_title">Open as…</string>
     <string name="file_open_as_title_format">Open “%1$s” as</string>
     <string name="file_open_as_type_text">Text</string>
     <string name="file_open_as_type_image">Image</string>
@@ -205,7 +206,7 @@
     <string name="file_list_action_create_directory">Folder</string>
 
     <string name="file_item_description_separator">"    "</string>
-    <string name="file_item_action_open_as">Open as</string>
+    <string name="file_item_action_open_with">Open with</string>
     <string name="file_item_action_extract">Extract</string>
     <string name="file_item_action_archive">Compress</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
