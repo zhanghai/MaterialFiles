@@ -136,7 +136,7 @@
     <string name="file_open_as_type_video">视频</string>
     <string name="file_open_as_type_directory">文件夹</string>
     <string name="file_open_as_type_any">其他</string>
-    <string name="file_open_from_background_title">“%1$s”已可打开</string>
+    <string name="file_open_from_background_title_format">“%1$s”已可打开</string>
     <string name="file_open_from_background_text">点按即可打开</string>
     <string name="file_name_error_empty">文件名不能为空</string>
     <string name="file_name_error_invalid">文件名无效</string>

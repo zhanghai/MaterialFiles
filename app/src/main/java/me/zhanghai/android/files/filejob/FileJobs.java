@@ -1341,7 +1341,8 @@ public class FileJobs {
             Context context = getService();
             Path cacheDirectory = Paths.get(getCacheDirectory().getPath(), "open_cache");
             Files.createDirectories(cacheDirectory);
-            Path path = MoreFiles.resolve(cacheDirectory, getTargetFileName(mFile));
+            Path targetFileName = getTargetFileName(mFile);
+            Path path = MoreFiles.resolve(cacheDirectory, targetFileName);
             TransferInfo transferInfo = new TransferInfo(scanInfo);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             actionAllInfo.replace = true;
@@ -1356,7 +1357,7 @@ public class FileJobs {
                         new Parcelable[] { OpenFileAsDialogActivity.newIntent(path, context) });
             }
             BackgroundActivityStarter.startActivity(intent,
-                    getString(R.string.file_open_from_background_title),
+                    getString(R.string.file_open_from_background_title_format, targetFileName),
                     getString(R.string.file_open_from_background_text), context);
         }
 

@@ -147,7 +147,7 @@
     <string name="file_open_as_type_video">Video</string>
     <string name="file_open_as_type_directory">Folder</string>
     <string name="file_open_as_type_any">Other</string>
-    <string name="file_open_from_background_title">“%1$s” is ready to be opened</string>
+    <string name="file_open_from_background_title_format">“%1$s” is ready to be opened</string>
     <string name="file_open_from_background_text">Tap to open</string>
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
