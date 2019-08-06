@@ -81,6 +81,9 @@ public class NavigationItems {
                     .add(new StandardDirectory(R.drawable.qq_icon_white_24dp,
                             R.string.navigation_standard_directory_qq, "tencent/QQfile_recv",
                             false))
+                    .add(new StandardDirectory(R.drawable.tim_icon_white_24dp,
+                            R.string.navigation_standard_directory_tim, "tencent/TIMfile_recv",
+                            false))
                     .add(new StandardDirectory(R.drawable.wechat_icon_white_24dp,
                             R.string.navigation_standard_directory_wechat,
                             "tencent/MicroMsg/Download", false))
@@ -151,6 +154,7 @@ public class NavigationItems {
         return Functional.map(DEFAULT_STANDARD_DIRECTORIES, standardDirectory -> {
             switch (standardDirectory.getIconRes()) {
                 case R.drawable.qq_icon_white_24dp:
+                case R.drawable.tim_icon_white_24dp:
                 case R.drawable.wechat_icon_white_24dp: {
                     String path = getExternalStorageDirectory(standardDirectory.getRelativePath());
                     if (JavaFile.isDirectory(path)) {

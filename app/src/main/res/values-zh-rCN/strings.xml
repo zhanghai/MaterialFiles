@@ -238,6 +238,7 @@
     <string name="navigation_standard_directory_podcasts">播客</string>
     <string name="navigation_standard_directory_ringtones">铃声</string>
     <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">微信</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>

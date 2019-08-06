@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- com.tencent.tim -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M 7.478927,2 C 5.441226,2 3.800766,3.6404598 3.800766,5.678161 v 8.735632 c 0,2.037701 1.64046,3.678161 3.678161,3.678161 H 10.62069 L 15.908046,22 v -3.908046 h 0.613027 c 2.037701,0 3.678161,-1.64046 3.678161,-3.678161 V 5.678161 C 20.199234,3.6404598 18.558774,2 16.521073,2 Z m 3.21839,2.5287356 h 2.605364 v 4.0613027 l 3.831418,-1.302682 0.842912,2.4521073 -3.831417,1.3026824 2.375479,3.21839 -2.068966,1.532568 L 11.999999,12.651341 9.547893,15.793104 7.478927,14.260536 9.854406,11.042146 6.022988,9.7394636 6.8659,7.2873563 l 3.831417,1.302682 z" />
+</vector>

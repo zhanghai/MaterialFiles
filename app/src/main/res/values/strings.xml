@@ -253,6 +253,7 @@
     <string name="navigation_standard_directory_podcasts">Podcasts</string>
     <string name="navigation_standard_directory_ringtones">Ringtones</string>
     <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
