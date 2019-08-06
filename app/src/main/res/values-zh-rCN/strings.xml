@@ -131,7 +131,7 @@
     <string name="file_open_as_title">打开为…</string>
     <string name="file_open_as_title_format">将“%1$s”打开为</string>
     <string name="file_open_as_type_text">文本</string>
-    <string name="file_open_as_type_image">图片</string>
+    <string name="file_open_as_type_image">图像</string>
     <string name="file_open_as_type_audio">音频</string>
     <string name="file_open_as_type_video">视频</string>
     <string name="file_open_as_type_directory">文件夹</string>
