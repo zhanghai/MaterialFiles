@@ -63,6 +63,8 @@ public class BackgroundActivityStarter {
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
                 .setAutoCancel(true)
+                .setCategory(Notifications.Channels.BACKGROUND_ACTIVITY_START.CATEGORY)
+                .setPriority(Notifications.Channels.BACKGROUND_ACTIVITY_START.PRIORITY)
                 .build();
         notificationManager.notify(intent.hashCode(), notification);
     }

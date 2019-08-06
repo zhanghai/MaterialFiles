@@ -47,6 +47,7 @@ import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.filelist.OpenFileAsDialogActivity;
+import me.zhanghai.android.files.notification.Notifications;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.archive.archiver.ArchiveWriter;
 import me.zhanghai.android.files.provider.common.ByteString;
@@ -603,9 +604,11 @@ public class FileJobs {
                     .setSubText(subText)
                     .setContentInfo(info)
                     .setProgress(max, progress, indeterminate)
-                    .setOngoing(true);
                     // TODO
                     //.setContentIntent();
+                    .setOngoing(true)
+                    .setCategory(Notifications.Channels.FILE_JOB.CATEGORY)
+                    .setPriority(Notifications.Channels.FILE_JOB.PRIORITY);
             if (showCancel) {
                 int id = getId();
                 Intent intent = new Intent(context, FileJobReceiver.class)
