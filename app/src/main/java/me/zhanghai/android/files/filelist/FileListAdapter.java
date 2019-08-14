@@ -165,8 +165,12 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
 
     private boolean isFileSelectable(@NonNull FileItem file) {
         if (mPickOptions != null) {
-            return !file.getAttributes().isDirectory() && mPickOptions.mimeTypeMatches(
-                    file.getMimeType());
+            if (mPickOptions.pickDirectory) {
+                return file.getAttributes().isDirectory();
+            } else {
+                return !file.getAttributes().isDirectory() && mPickOptions.mimeTypeMatches(
+                        file.getMimeType());
+            }
         }
         return true;
     }

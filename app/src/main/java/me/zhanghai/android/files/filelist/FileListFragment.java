@@ -64,6 +64,8 @@ import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
 import me.zhanghai.android.files.navigation.NavigationFragment;
+import me.zhanghai.android.files.navigation.NavigationRoot;
+import me.zhanghai.android.files.navigation.NavigationRootMapLiveData;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
@@ -778,6 +780,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         requireActivity().setTitle(title);
         updateSelectAllMenuItem();
         updateOverlayToolbar();
+        updateBottomToolbar();
         mAdapter.setPickOptions(pickOptions);
     }
 
@@ -790,20 +793,27 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void pickFiles(@NonNull LinkedHashSet<FileItem> files) {
+        pickPaths(Functional.map(files, FileItem::getPath, new LinkedHashSet<>()));
+    }
+
+    private void pickPaths(@NonNull LinkedHashSet<Path> paths) {
         Intent intent = new Intent();
         PickOptions pickOptions = mViewModel.getPickOptions();
-        if (files.size() == 1) {
-            Uri data = FileProvider.getUriForPath(CollectionUtils.first(files).getPath());
+        if (paths.size() == 1) {
+            Path path = CollectionUtils.first(paths);
+            Uri data = FileProvider.getUriForPath(path);
             intent.setData(data);
+            IntentPathUtils.putExtraPath(intent, path);
         } else {
             String[] mimeTypes = pickOptions.mimeTypes.toArray(new String[0]);
-            List<ClipData.Item> items = Functional.map(files, file -> new ClipData.Item(
-                    FileProvider.getUriForPath(file.getPath())));
+            List<ClipData.Item> items = Functional.map(paths, path -> new ClipData.Item(
+                    FileProvider.getUriForPath(path)));
             ClipData clipData = new ClipData(null, mimeTypes, items.get(0));
             for (int i = 1; i < items.size(); ++i) {
                 clipData.addItem(items.get(i));
             }
             intent.setClipData(clipData);
+            IntentPathUtils.putExtraPathList(intent, paths);
         }
         int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION;
         if (!pickOptions.readOnly) {
@@ -947,25 +957,44 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void updateBottomToolbar() {
-        PasteState pasteState = mViewModel.getPasteState();
-        LinkedHashSet<FileItem> files = pasteState.files;
-        if (files.isEmpty()) {
-            if (mBottomActionMode.isActive()) {
-                mBottomActionMode.finish();
+        PickOptions pickOptions = mViewModel.getPickOptions();
+        if (pickOptions != null) {
+            if (!pickOptions.pickDirectory) {
+                if (mBottomActionMode.isActive()) {
+                    mBottomActionMode.finish();
+                }
+                return;
             }
-            return;
+            mBottomActionMode.setNavigationIcon(R.drawable.check_icon_control_normal_24dp);
+            Path path = mViewModel.getCurrentPath();
+            NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
+                    path);
+            String name = navigationRoot != null ? navigationRoot.getName(requireContext())
+                    : FileUtils.getName(path);
+            mBottomActionMode.setTitle(getString(R.string.file_list_select_current_directory_format,
+                    name));
+        } else {
+            PasteState pasteState = mViewModel.getPasteState();
+            LinkedHashSet<FileItem> files = pasteState.files;
+            if (files.isEmpty()) {
+                if (mBottomActionMode.isActive()) {
+                    mBottomActionMode.finish();
+                }
+                return;
+            }
+            mBottomActionMode.setNavigationIcon(R.drawable.close_icon_control_normal_24dp);
+            boolean isExtract = Functional.every(files, file ->
+                    ArchiveFileSystemProvider.isArchivePath(file.getPath()));
+            mBottomActionMode.setTitle(getString(pasteState.copy ? isExtract ?
+                    R.string.file_list_paste_extract_title_format
+                    : R.string.file_list_paste_copy_title_format
+                    : R.string.file_list_paste_move_title_format, files.size()));
+            mBottomActionMode.setMenuResource(R.menu.file_list_paste);
+            boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
+            mBottomActionMode.getMenu().findItem(R.id.action_paste)
+                    .setTitle(isExtract ? R.string.file_list_paste_action_extract_here : R.string.paste)
+                    .setEnabled(!isReadOnly);
         }
-        boolean isExtract = Functional.every(files, file -> ArchiveFileSystemProvider.isArchivePath(
-                file.getPath()));
-        mBottomActionMode.setTitle(getString(pasteState.copy ? isExtract ?
-                R.string.file_list_paste_extract_title_format
-                : R.string.file_list_paste_copy_title_format
-                : R.string.file_list_paste_move_title_format, files.size()));
-        mBottomActionMode.setMenuResource(R.menu.file_list_paste);
-        boolean isReadOnly = mViewModel.getCurrentPath().getFileSystem().isReadOnly();
-        mBottomActionMode.getMenu().findItem(R.id.action_paste)
-                .setTitle(isExtract ? R.string.file_list_paste_action_extract_here : R.string.paste)
-                .setEnabled(!isReadOnly);
         if (!mBottomActionMode.isActive()) {
             mBottomActionMode.start(new ToolbarActionMode.Callback() {
                 @Override
@@ -997,7 +1026,14 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void onBottomActionModeFinished(@NonNull ToolbarActionMode toolbarActionMode) {
-        mViewModel.clearPasteState();
+        PickOptions pickOptions = mViewModel.getPickOptions();
+        if (pickOptions != null) {
+            if (pickOptions.pickDirectory) {
+                pickPaths(CollectionUtils.singletonLinkedSet(mViewModel.getCurrentPath()));
+            }
+        } else {
+            mViewModel.clearPasteState();
+        }
     }
 
     private void pasteFiles(@NonNull Path targetDirectory) {

@@ -199,6 +199,7 @@
     <string name="file_list_select_title_format">%1$,d selected</string>
     <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">Select “%1$s”</string>
     <string name="file_list_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copying %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extracting %1$,d</string>

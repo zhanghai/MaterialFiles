@@ -5,9 +5,11 @@
 
 package me.zhanghai.android.files.ui;
 
+import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +36,14 @@ public abstract class ToolbarActionMode {
             }
             return mCallback.onToolbarActionModeItemClicked(this, item);
         });
+    }
+
+    public void setNavigationIcon(@DrawableRes int iconRes) {
+        mToolbar.setNavigationIcon(iconRes);
+    }
+
+    public void setNavigationIcon(@Nullable Drawable icon) {
+        mToolbar.setNavigationIcon(icon);
     }
 
     public void setTitle(@StringRes int titleRes) {

@@ -91,7 +91,7 @@ public class IntentPathUtils {
     }
 
     @NonNull
-    public static Intent putExtraPathList(@NonNull Intent intent, @NonNull List<Path> paths) {
+    public static Intent putExtraPathList(@NonNull Intent intent, @NonNull Iterable<Path> paths) {
         // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
         ArrayList<URI> pathUris = Functional.map(paths, Path::toUri);
         return intent.putExtra(EXTRA_PATH_URI_LIST, pathUris);
