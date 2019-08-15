@@ -1072,14 +1072,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void openFile(@NonNull FileItem file) {
         PickOptions pickOptions = mViewModel.getPickOptions();
         if (pickOptions != null) {
-            if (pickOptions.pickDirectory) {
-                // TODO
-            } else {
-                if (file.getAttributes().isDirectory()) {
-                    navigateTo(file.getPath());
-                } else {
-                    pickFiles(CollectionUtils.singletonLinkedSet(file));
-                }
+            if (file.getAttributes().isDirectory()) {
+                navigateTo(file.getPath());
+            } else if (!pickOptions.pickDirectory) {
+                pickFiles(CollectionUtils.singletonLinkedSet(file));
             }
             return;
         }
