@@ -289,8 +289,8 @@
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_default_path_title">Default folder</string>
     <string name="settings_default_path_summary">%1$s</string>
-    <string name="settings_standard_directories_title">Standard directories</string>
-    <string name="settings_standard_directories_summary_empty">No standard directories enabled</string>
+    <string name="settings_standard_directories_title">Standard folders</string>
+    <string name="settings_standard_directories_summary_empty">No standard folders enabled</string>
     <string name="settings_root_strategy_title">Root access mode</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <plurals name="settings_root_strategy_message_format">
