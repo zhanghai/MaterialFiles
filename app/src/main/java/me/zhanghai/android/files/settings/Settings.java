@@ -5,8 +5,13 @@
 
 package me.zhanghai.android.files.settings;
 
+import android.os.Environment;
+import android.os.Parcelable;
+
 import java.util.List;
 
+import java8.nio.file.Path;
+import java8.nio.file.Paths;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
@@ -16,6 +21,12 @@ import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 import me.zhanghai.android.files.theme.night.NightMode;
 
 public interface Settings {
+
+    @SuppressWarnings("unchecked")
+    SettingLiveData<Path> FILE_LIST_DEFAULT_PATH = (SettingLiveData<Path>) (SettingLiveData<?>)
+            new ParcelableSettingLiveData<>(R.string.pref_key_file_list_default_path, (Parcelable)
+                    Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath()),
+                    (Class<Parcelable>) (Class<?>) Path.class);
 
     SettingLiveData<Boolean> FILE_LIST_PERSISTENT_DRAWER_OPEN = new BooleanSettingLiveData(
             R.string.pref_key_file_list_persistent_drawer_open,

@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
@@ -54,7 +53,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
-import java8.nio.file.Paths;
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
 import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment;
@@ -319,7 +317,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     }
             }
             if (path == null) {
-                path = getDefaultPath();
+                path = Settings.FILE_LIST_DEFAULT_PATH.getValue();
             }
             mViewModel.resetTo(path);
             if (pickOptions != null) {
@@ -1282,13 +1280,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void navigateToDefaultRoot() {
-        navigateToRoot(getDefaultPath());
-    }
-
-    @NonNull
-    private Path getDefaultPath() {
-        // TODO: Allow configuration.
-        return Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath());
+        navigateToRoot(Settings.FILE_LIST_DEFAULT_PATH.getValue());
     }
 
     @Override
