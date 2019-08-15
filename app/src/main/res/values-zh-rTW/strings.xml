@@ -184,6 +184,7 @@
     <string name="file_list_select_title_format">已選取 %1$,d</string>
     <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">選取「%1$s」</string>
     <string name="file_list_paste_move_title_format">移動 %1$,d</string>
     <string name="file_list_paste_copy_title_format">複製 %1$,d</string>
     <string name="file_list_paste_extract_title_format">提取 %1$,d</string>
