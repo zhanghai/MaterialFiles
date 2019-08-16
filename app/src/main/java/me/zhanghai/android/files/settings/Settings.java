@@ -15,6 +15,7 @@ import java8.nio.file.Paths;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
+import me.zhanghai.android.files.navigation.StandardDirectorySettings;
 import me.zhanghai.android.files.provider.root.RootStrategy;
 import me.zhanghai.android.files.settings.SettingLiveDatas.*;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;

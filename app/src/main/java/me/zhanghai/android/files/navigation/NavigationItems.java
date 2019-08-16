@@ -39,7 +39,6 @@ import me.zhanghai.android.files.navigation.file.JavaFile;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.settings.SettingsActivity;
-import me.zhanghai.android.files.settings.StandardDirectorySettings;
 import me.zhanghai.android.files.util.ListBuilder;
 import me.zhanghai.java.functional.Functional;
 

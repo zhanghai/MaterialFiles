@@ -12,7 +12,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import me.zhanghai.android.files.settings.StandardDirectorySettings;
 
 public class StandardDirectory {
 

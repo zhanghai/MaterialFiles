@@ -27,6 +27,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import me.zhanghai.android.files.navigation.NavigationItems;
 import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData;
 import me.zhanghai.android.files.navigation.StandardDirectory;
+import me.zhanghai.android.files.navigation.StandardDirectorySettings;
 import me.zhanghai.android.files.util.ViewUtils;
 import me.zhanghai.java.functional.Functional;
 
