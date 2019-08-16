@@ -23,8 +23,8 @@
         app:popupTheme="?actionBarPopupTheme" />
 
     <fragment
-        android:id="@+id/settings"
-        android:name="me.zhanghai.android.files.settings.StandardDirectoriesFragment"
+        android:id="@+id/preference_fragment"
+        android:name="me.zhanghai.android.files.settings.SettingsPreferenceFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

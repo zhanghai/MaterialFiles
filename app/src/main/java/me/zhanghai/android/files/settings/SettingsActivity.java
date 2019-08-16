@@ -52,7 +52,7 @@ public class SettingsActivity extends AppActivity
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            FragmentUtils.add(SettingsActivityFragment.newInstance(), this, android.R.id.content);
+            FragmentUtils.add(SettingsFragment.newInstance(), this, android.R.id.content);
         }
     }
 

@@ -6,47 +6,78 @@
 package me.zhanghai.android.files.settings;
 
 import android.os.Bundle;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.theme.custom.CustomThemeColor;
-import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
-import me.zhanghai.android.files.theme.night.NightMode;
-import me.zhanghai.android.files.theme.night.NightModeHelper;
 
-public class SettingsFragment extends PreferenceFragmentCompat {
+public class SettingsFragment extends Fragment {
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @NonNull
+    public static SettingsFragment newInstance() {
+        //noinspection deprecation
+        return new SettingsFragment();
+    }
+
+    /**
+     * @deprecated Use {@link #newInstance()} instead.
+     */
+    public SettingsFragment() {}
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.settings_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ButterKnife.bind(this, view);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        // The following may end up passing the same lambda instance to the observer because it has
-        // no capture, and result in an IllegalArgumentException "Cannot add the same observer with
-        // different lifecycles" if activity is finished and instantly started again. To work around
-        // this, always use an instance method reference.
-        // https://stackoverflow.com/a/27524543
-        //SettingsLiveDatas.PRIMARY_COLOR.observe(this, primaryColor -> CustomThemeHelper.sync());
-        //SettingsLiveDatas.ACCENT_COLOR.observe(this, accentColor -> CustomThemeHelper.sync());
-        //SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> NightModeHelper.sync());
-        Settings.PRIMARY_COLOR.observe(this, this::onCustomThemeColorChanged);
-        Settings.ACCENT_COLOR.observe(this, this::onCustomThemeColorChanged);
-        Settings.NIGHT_MODE.observe(this, this::onNightModeChanged);
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        activity.setSupportActionBar(mToolbar);
     }
 
     @Override
-    public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState,
-                                       @Nullable String rootKey) {
-        addPreferencesFromResource(R.xml.settings);
-    }
-
-    private void onCustomThemeColorChanged(@NonNull CustomThemeColor color) {
-        CustomThemeHelper.sync();
-    }
-
-    private void onNightModeChanged(@NonNull NightMode nightMode) {
-        NightModeHelper.sync();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                // This recreates MainActivity but we cannot have singleTop as launch mode along
+                // with document launch mode.
+                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
+                //activity.onSupportNavigateUp();
+                requireActivity().finish();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

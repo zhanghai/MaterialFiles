@@ -5,103 +5,79 @@
 
 package me.zhanghai.android.files.settings;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import com.takisoft.preferencex.PreferenceFragmentCompat;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.content.res.AppCompatResources;
-import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceScreen;
-import androidx.preference.SwitchPreferenceCompat;
-import me.zhanghai.android.files.navigation.NavigationItems;
-import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData;
-import me.zhanghai.android.files.navigation.StandardDirectory;
-import me.zhanghai.android.files.navigation.StandardDirectorySettings;
-import me.zhanghai.android.files.util.ViewUtils;
-import me.zhanghai.java.functional.Functional;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import me.zhanghai.android.files.R;
 
-public class StandardDirectoriesFragment extends PreferenceFragmentCompat
-        implements Preference.OnPreferenceClickListener {
+public class StandardDirectoriesFragment extends Fragment {
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @NonNull
+    public static StandardDirectoriesFragment newInstance() {
+        //noinspection deprecation
+        return new StandardDirectoriesFragment();
+    }
+
+    /**
+     * @deprecated Use {@link #newInstance()} instead.
+     */
+    public StandardDirectoriesFragment() {}
 
     @Override
-    public void onCreatePreferencesFix(@Nullable Bundle savedInstanceState,
-                                       @Nullable String rootKey) {}
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.standard_directories_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ButterKnife.bind(this, view);
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        StandardDirectoriesLiveData.getInstance().observe(this, this::onStandardDirectoriesChanged);
-    }
-
-    private void onStandardDirectoriesChanged(
-            @NonNull List<StandardDirectory> standardDirectories) {
-
-        PreferenceManager preferenceManager = getPreferenceManager();
-        Context context = preferenceManager.getContext();
-        PreferenceScreen preferenceScreen = getPreferenceScreen();
-        Map<String, Preference> oldPreferences = new HashMap<>();
-        if (preferenceScreen == null) {
-            preferenceScreen = preferenceManager.createPreferenceScreen(context);
-            setPreferenceScreen(preferenceScreen);
-        } else {
-            for (int i = preferenceScreen.getPreferenceCount() - 1; i >= 0; --i) {
-                Preference preference = preferenceScreen.getPreference(i);
-                preferenceScreen.removePreference(preference);
-                oldPreferences.put(preference.getKey(), preference);
-            }
-        }
-
-        int secondaryTextColor = ViewUtils.getColorFromAttrRes(android.R.attr.textColorSecondary, 0,
-                context);
-        for (StandardDirectory standardDirectory : standardDirectories) {
-            String id = standardDirectory.getId();
-            SwitchPreferenceCompat preference = (SwitchPreferenceCompat) oldPreferences.get(id);
-            if (preference == null) {
-                preference = new SwitchPreferenceCompat(context);
-                preference.setKey(id);
-                preference.setPersistent(false);
-                preference.setOnPreferenceClickListener(this);
-            }
-            Drawable icon = AppCompatResources.getDrawable(context, standardDirectory.getIconRes());
-            icon.mutate();
-            DrawableCompat.setTint(icon, secondaryTextColor);
-            preference.setIcon(icon);
-            preference.setTitle(standardDirectory.getTitle(context));
-            preference.setSummary(NavigationItems.getExternalStorageDirectory(
-                    standardDirectory.getRelativePath()));
-            preference.setChecked(standardDirectory.isEnabled());
-            preferenceScreen.addPreference(preference);
-        }
+        AppCompatActivity activity = (AppCompatActivity) requireActivity();
+        activity.setSupportActionBar(mToolbar);
     }
 
     @Override
-    public boolean onPreferenceClick(@NonNull Preference preference) {
-        SwitchPreferenceCompat switchPreference = (SwitchPreferenceCompat) preference;
-        String id = switchPreference.getKey();
-        boolean enabled = switchPreference.isChecked();
-        List<StandardDirectory> standardDirectories =
-                StandardDirectoriesLiveData.getInstance().getValue();
-        List<StandardDirectorySettings> settingsList = Functional.map(standardDirectories,
-                standardDirectory -> {
-                    StandardDirectorySettings settings = standardDirectory.toSettings();
-                    if (Objects.equals(settings.getId(), id)) {
-                        settings = settings.withEnabled(enabled);
-                    }
-                    return settings;
-                });
-        Settings.STANDARD_DIRECTORY_SETTINGS.putValue(settingsList);
-        return true;
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                // This recreates MainActivity but we cannot have singleTop as launch mode along
+                // with document launch mode.
+                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
+                //activity.onSupportNavigateUp();
+                requireActivity().finish();
+                return true;
+            }
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

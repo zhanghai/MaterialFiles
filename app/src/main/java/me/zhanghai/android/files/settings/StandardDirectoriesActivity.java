@@ -29,7 +29,7 @@ public class StandardDirectoriesActivity extends AppActivity {
         findViewById(android.R.id.content);
 
         if (savedInstanceState == null) {
-            FragmentUtils.add(StandardDirectoriesActivityFragment.newInstance(), this,
+            FragmentUtils.add(StandardDirectoriesFragment.newInstance(), this,
                     android.R.id.content);
         }
     }
