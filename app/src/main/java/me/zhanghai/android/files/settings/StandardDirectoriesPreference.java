@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.settings;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
@@ -100,6 +99,6 @@ public class StandardDirectoriesPreference extends Preference {
     @Override
     protected void onClick() {
         Context context = getContext();
-        context.startActivity(new Intent(context, StandardDirectoriesActivity.class));
+        context.startActivity(StandardDirectoriesActivity.newIntent(context));
     }
 }
