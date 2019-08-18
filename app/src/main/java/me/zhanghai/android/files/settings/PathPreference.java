@@ -23,9 +23,9 @@ import androidx.annotation.StyleRes;
 import androidx.preference.Preference;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.filelist.FileListActivity;
+import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.navigation.NavigationRoot;
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData;
-import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.IntentPathUtils;
 
 public abstract class PathPreference extends Preference
@@ -78,8 +78,7 @@ public abstract class PathPreference extends Preference
             NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
                     path);
             pathString = navigationRoot != null ? navigationRoot.getName(getContext())
-                    : LinuxFileSystemProvider.isLinuxPath(path) ? path.toFile().getPath()
-                    : path.toUri().toString();
+                    : FileUtils.getPathString(path);
         }
         return String.format(summary.toString(), pathString);
     }

@@ -55,6 +55,12 @@ public class FileUtils {
     }
 
     @NonNull
+    public static String getPathString(@NonNull Path path) {
+        return LinuxFileSystemProvider.isLinuxPath(path) ? path.toFile().getPath()
+                : path.toUri().toString();
+    }
+
+    @NonNull
     public static String getTypeName(@NonNull FileItem file, @NonNull Context context) {
         if (file.getAttributesNoFollowLinks().isSymbolicLink() && file.isSymbolicLinkBroken()) {
             return FileTypeNames.getBrokenSymbolicLinkTypeName(context);

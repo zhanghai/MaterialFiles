@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileListActivity;
-import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -144,13 +144,7 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
     }
 
     private void updatePathButton() {
-        NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
-                mPath);
-        String pathString = navigationRoot != null ? navigationRoot.getName(
-                mPathButton.getContext())
-                : LinuxFileSystemProvider.isLinuxPath(mPath) ? mPath.toFile().getPath()
-                : mPath.toUri().toString();
-        mPathButton.setText(pathString);
+        mPathButton.setText(FileUtils.getPathString(mPath));
     }
 
     @NonNull

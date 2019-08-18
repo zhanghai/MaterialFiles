@@ -758,13 +758,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void copyPath(@NonNull Path path) {
-        String pathString;
-        if (LinuxFileSystemProvider.isLinuxPath(path)) {
-            pathString = path.toFile().getPath();
-        } else {
-            pathString = path.toUri().toString();
-        }
-        ClipboardUtils.copyText(pathString, requireContext());
+        ClipboardUtils.copyText(FileUtils.getPathString(path), requireContext());
     }
 
     @Override

@@ -18,13 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.ViewGroupCompat;
+import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.navigation.BookmarkDirectory;
-import me.zhanghai.android.files.navigation.NavigationRoot;
-import me.zhanghai.android.files.navigation.NavigationRootMapLiveData;
-import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.ui.SimpleAdapter;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -62,14 +59,7 @@ public class BookmarkDirectoryAdapter
         holder.itemView.setOnClickListener(view -> mListener.editBookmarkDirectory(
                 bookmarkDirectory));
         holder.nameText.setText(bookmarkDirectory.getName());
-        Path path = bookmarkDirectory.getPath();
-        NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
-                path);
-        String pathString = navigationRoot != null ? navigationRoot.getName(
-                holder.pathText.getContext())
-                : LinuxFileSystemProvider.isLinuxPath(path) ? path.toFile().getPath()
-                : path.toUri().toString();
-        holder.pathText.setText(pathString);
+        holder.pathText.setText(FileUtils.getPathString(bookmarkDirectory.getPath()));
     }
 
     @Override
