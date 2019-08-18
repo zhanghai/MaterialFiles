@@ -147,13 +147,13 @@
     <string name="file_delete_message_multiple_files_format">刪除 %1$,d 個檔案？</string>
     <string name="file_delete_message_multiple_directories_format">刪除 %1$,d 個資料夾和它們的內容？</string>
     <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾?</string>
-    <string name="file_create_archive_title">新建壓縮檔案</string>
+    <string name="file_create_archive_title">建立壓縮檔案</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
     <string name="file_add_bookmark_success">已新增書籤</string>
-    <string name="file_create_file_title">新建檔案</string>
-    <string name="file_create_directory_title">新建資料夾</string>
+    <string name="file_create_file_title">建立檔案</string>
+    <string name="file_create_directory_title">建立資料夾</string>
 
     <string name="file_list_title">檔案</string>
     <plurals name="file_list_title_pick_file">
@@ -176,7 +176,7 @@
     <string name="file_list_action_sort_order_ascending">升序</string>
     <string name="file_list_action_sort_directories_first">資料夾優先</string>
     <string name="file_list_action_sort_path_specific">僅用於此資料夾</string>
-    <string name="file_list_action_new_task">新建窗口</string>
+    <string name="file_list_action_new_task">開新視窗</string>
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_show_hidden_files">顯示隱藏檔案</string>
     <string name="file_list_action_copy_path">複製路徑</string>
