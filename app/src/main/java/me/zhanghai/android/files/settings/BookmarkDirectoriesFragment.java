@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.settings;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.NinePatchDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager;
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils;
@@ -28,18 +31,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.filelist.FileListActivity;
 import me.zhanghai.android.files.navigation.BookmarkDirectories;
 import me.zhanghai.android.files.navigation.BookmarkDirectory;
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment;
+import me.zhanghai.android.files.util.IntentPathUtils;
 
 public class BookmarkDirectoriesFragment extends Fragment
         implements BookmarkDirectoryAdapter.Listener, EditBookmarkDirectoryDialogFragment.Listener {
+
+    private static final int REQUEST_CODE_PICK_PATH = 1;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
+    @BindView(R.id.fab)
+    FloatingActionButton mFab;
 
     private BookmarkDirectoryAdapter mAdapter;
     private RecyclerViewDragDropManager mDragDropManager;
@@ -94,6 +104,7 @@ public class BookmarkDirectoriesFragment extends Fragment
         mRecyclerView.setAdapter(mWrappedAdapter);
         mRecyclerView.setItemAnimator(new DraggableItemAnimator());
         mDragDropManager.attachRecyclerView(mRecyclerView);
+        mFab.setOnClickListener(view -> onAddBookmarkDirectory());
 
         Settings.BOOKMARK_DIRECTORIES.observe(this, this::onBookmarkDirectoriesChanged);
     }
@@ -129,9 +140,35 @@ public class BookmarkDirectoriesFragment extends Fragment
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case REQUEST_CODE_PICK_PATH:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    Path path = IntentPathUtils.getExtraPath(data);
+                    addBookmarkDirectory(path);
+                }
+                break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private void onBookmarkDirectoriesChanged(
             @NonNull List<BookmarkDirectory> bookmarkDirectories) {
         mAdapter.replace(bookmarkDirectories);
+    }
+
+    private void onAddBookmarkDirectory() {
+        // TODO: FileListActivity doesn't actually declare the intent filter for
+        //  ACTION_OPEN_DOCUMENT_TREE, because we don't have a DocumentsProvider for now.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                .setClass(requireContext(), FileListActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_PICK_PATH);
+    }
+
+    private void addBookmarkDirectory(@NonNull Path path) {
+        BookmarkDirectories.add(new BookmarkDirectory(null, path));
     }
 
     @Override
@@ -153,5 +190,4 @@ public class BookmarkDirectoriesFragment extends Fragment
     public void removeBookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory) {
         BookmarkDirectories.remove(bookmarkDirectory);
     }
-
 }

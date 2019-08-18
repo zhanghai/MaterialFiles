@@ -22,12 +22,26 @@
         app:navigationIcon="@drawable/back_icon_white_24dp"
         app:popupTheme="?actionBarPopupTheme" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" />
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            android:scrollbars="vertical" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="@dimen/screen_edge_margin"
+            android:src="@drawable/add_icon_white_24dp"
+            android:theme="?actionBarTheme" />
+    </FrameLayout>
 </LinearLayout>
