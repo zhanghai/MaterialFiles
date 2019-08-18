@@ -73,15 +73,15 @@ public abstract class PathPreference extends Preference
             return summary;
         }
         Path path = getPath();
-        String name = "";
+        String pathString = "";
         if (path != null) {
             NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
                     path);
-            name = navigationRoot != null ? navigationRoot.getName(getContext())
+            pathString = navigationRoot != null ? navigationRoot.getName(getContext())
                     : LinuxFileSystemProvider.isLinuxPath(path) ? path.toFile().getPath()
                     : path.toUri().toString();
         }
-        return String.format(summary.toString(), name);
+        return String.format(summary.toString(), pathString);
     }
 
     @Override

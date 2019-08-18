@@ -103,4 +103,10 @@
         android:orderInCategory="100"
         android:title="@string/file_list_action_open_in_terminal"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_add_bookmark"
+        android:orderInCategory="100"
+        android:title="@string/file_list_action_add_bookmark"
+        app:showAsAction="never" />
 </menu>

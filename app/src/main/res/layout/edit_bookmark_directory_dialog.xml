@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="?dialogPreferredPadding"
+    android:paddingEnd="?dialogPreferredPadding"
+    android:paddingTop="?dialogPreferredPadding"
+    android:paddingBottom="@dimen/dialog_padding_minus_8dp"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/navigation_edit_bookmark_directory_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+    <me.zhanghai.android.materialedittext.MaterialEditText
+        android:id="@id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-4dp"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginTop="-10dp"
+        android:layout_marginBottom="-7dp"
+        android:inputType="text">
+        <requestFocus />
+    </me.zhanghai.android.materialedittext.MaterialEditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="4dp"
+        android:text="@string/navigation_edit_bookmark_directory_path"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+    <Button
+        android:id="@+id/path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-19dp"
+        android:layout_marginTop="-9dp"
+        android:layout_marginBottom="-9dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        style="?spinnerStyle" />
+</LinearLayout>

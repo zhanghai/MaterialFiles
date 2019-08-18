@@ -33,7 +33,8 @@ import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.util.AppUtils;
 
 public class NavigationFragment extends Fragment implements NavigationItem.Listener,
-        ConfirmRemoveDocumentTreeDialogFragment.Listener {
+        ConfirmRemoveDocumentTreeDialogFragment.Listener,
+        EditBookmarkDirectoryDialogFragment.Listener {
 
     private static final int REQUEST_CODE_OPEN_DOCUMENT_TREE = 1;
 
@@ -92,10 +93,10 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
             case REQUEST_CODE_OPEN_DOCUMENT_TREE:
-                if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK && data != null) {
                     Uri uri = data.getData();
                     if (uri != null) {
                         addDocumentTree(uri);
@@ -154,6 +155,21 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
                 && Objects.equals(DocumentFileSystemProvider.getTreeUri(currentPath), treeUri)) {
             mListener.navigateToDefaultRoot();
         }
+    }
+
+    @Override
+    public void onEditBookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory) {
+        EditBookmarkDirectoryDialogFragment.show(bookmarkDirectory, this);
+    }
+
+    @Override
+    public void replaceBookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory) {
+        BookmarkDirectories.replace(bookmarkDirectory);
+    }
+
+    @Override
+    public void removeBookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory) {
+        BookmarkDirectories.remove(bookmarkDirectory);
     }
 
     @Override

@@ -26,6 +26,7 @@
     <string name="pick">@string/select</string>
     <string name="refresh">更新</string>
     <string name="reload">重新載入</string>
+    <string name="remove">移除</string>
     <string name="rename">重新命名</string>
     <string name="replace">替換</string>
     <string name="reset">重設</string>
@@ -150,6 +151,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">已新增書籤</string>
     <string name="file_create_file_title">新建檔案</string>
     <string name="file_create_directory_title">新建資料夾</string>
 
@@ -179,6 +181,7 @@
     <string name="file_list_action_show_hidden_files">顯示隱藏檔案</string>
     <string name="file_list_action_copy_path">複製路徑</string>
     <string name="file_list_action_open_in_terminal">在終端中開啟</string>
+    <string name="file_list_action_add_bookmark">新增書籤</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中開啟</string>
     <string name="file_list_select_title_format">已選取 %1$,d</string>
@@ -198,6 +201,7 @@
     <string name="file_item_action_extract">提取</string>
     <string name="file_item_action_archive">壓縮</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
     <string name="file_item_action_properties">屬性</string>
 
     <string name="file_properties_title_format">「%1$s」屬性</string>
@@ -241,6 +245,9 @@
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">微信</string>
+    <string name="navigation_edit_bookmark_directory_title">書籤資料夾</string>
+    <string name="navigation_edit_bookmark_directory_name">名稱</string>
+    <string name="navigation_edit_bookmark_directory_path">路徑</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
 
@@ -276,6 +283,8 @@
     <string name="settings_default_path_summary">%1$s</string>
     <string name="settings_standard_directories_title">標準資料夾</string>
     <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
+    <string name="settings_bookmark_directories_title">書籤資料夾</string>
+    <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">

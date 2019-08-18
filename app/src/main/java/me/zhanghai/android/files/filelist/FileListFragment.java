@@ -61,12 +61,14 @@ import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment;
+import me.zhanghai.android.files.navigation.BookmarkDirectory;
 import me.zhanghai.android.files.navigation.NavigationFragment;
 import me.zhanghai.android.files.navigation.NavigationRoot;
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.navigation.BookmarkDirectories;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.terminal.Terminal;
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView;
@@ -82,6 +84,7 @@ import me.zhanghai.android.files.util.DebouncedRunnable;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
+import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 import me.zhanghai.android.files.viewer.image.ImageViewerActivity;
 import me.zhanghai.java.functional.Functional;
@@ -511,6 +514,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_open_in_terminal:
                 openInTerminal();
                 return true;
+            case R.id.action_add_bookmark:
+                addBookmark();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -737,6 +743,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         } else {
             // TODO
         }
+    }
+
+    private void addBookmark() {
+        addBookmark(getCurrentPath());
     }
 
     @Override
@@ -1233,6 +1243,17 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @Override
     public void copyPath(@NonNull FileItem file) {
         copyPath(file.getPath());
+    }
+
+    @Override
+    public void addBookmark(@NonNull FileItem file) {
+        addBookmark(file.getPath());
+    }
+
+    private void addBookmark(@NonNull Path path) {
+        BookmarkDirectory bookmarkDirectory = new BookmarkDirectory(null, path);
+        BookmarkDirectories.add(bookmarkDirectory);
+        ToastUtils.show(R.string.file_add_bookmark_success, requireContext());
     }
 
     @Override

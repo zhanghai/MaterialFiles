@@ -44,6 +44,10 @@
         android:title="@string/file_item_action_copy_path" />
 
     <item
+        android:id="@+id/action_add_bookmark"
+        android:title="@string/file_item_action_add_bookmark" />
+
+    <item
         android:id="@+id/action_properties"
         android:title="@string/file_item_action_properties" />
 </menu>

@@ -97,6 +97,11 @@ public class NavigationItems {
             items.add(null);
             items.addAll(standardDirectoryItems);
         }
+        List<NavigationItem> bookmarkDirectoryItems = getBookmarkDirectoryItems();
+        if (!bookmarkDirectoryItems.isEmpty()) {
+            items.add(null);
+            items.addAll(bookmarkDirectoryItems);
+        }
         items.add(null);
         items.addAll(getMenuItems());
         return items;
@@ -170,6 +175,12 @@ public class NavigationItems {
     @NonNull
     public static String getExternalStorageDirectory(@NonNull String relativePath) {
         return Environment.getExternalStoragePublicDirectory(relativePath).getPath();
+    }
+
+    @NonNull
+    @Size(min = 0)
+    private static List<NavigationItem> getBookmarkDirectoryItems() {
+        return Functional.map(Settings.BOOKMARK_DIRECTORIES.getValue(), BookmarkDirectoryItem::new);
     }
 
     @NonNull
@@ -405,6 +416,40 @@ public class NavigationItems {
         @Override
         protected int getTitleRes() {
             throw new AssertionError();
+        }
+    }
+
+    private static class BookmarkDirectoryItem extends FileItem {
+
+        private final BookmarkDirectory mBookmarkDirectory;
+
+        public BookmarkDirectoryItem(@NonNull BookmarkDirectory bookmarkDirectory) {
+            super(bookmarkDirectory.getPath());
+
+            mBookmarkDirectory = bookmarkDirectory;
+        }
+
+        @DrawableRes
+        @Override
+        public int getIconRes() {
+            return R.drawable.directory_icon_white_24dp;
+        }
+
+        @NonNull
+        @Override
+        public String getTitle(@NonNull Context context) {
+            return mBookmarkDirectory.getName();
+        }
+
+        @Override
+        protected int getTitleRes() {
+            throw new AssertionError();
+        }
+
+        @Override
+        public boolean onLongClick(@NonNull Listener listener) {
+            listener.onEditBookmarkDirectory(mBookmarkDirectory);
+            return true;
         }
     }
 

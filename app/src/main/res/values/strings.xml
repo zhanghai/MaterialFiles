@@ -26,6 +26,7 @@
     <string name="pick">@string/select</string>
     <string name="refresh">Refresh</string>
     <string name="reload">Reload</string>
+    <string name="remove">Remove</string>
     <string name="rename">Rename</string>
     <string name="replace">Replace</string>
     <string name="reset">Reset</string>
@@ -161,6 +162,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Bookmark added</string>
     <string name="file_create_file_title">New file</string>
     <string name="file_create_directory_title">New folder</string>
 
@@ -194,6 +196,7 @@
     <string name="file_list_action_show_hidden_files">Show hidden files</string>
     <string name="file_list_action_copy_path">Copy path</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
+    <string name="file_list_action_add_bookmark">Add bookmark</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Open in new window</string>
     <string name="file_list_select_title_format">%1$,d selected</string>
@@ -213,6 +216,7 @@
     <string name="file_item_action_extract">Extract</string>
     <string name="file_item_action_archive">Compress</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
     <string name="file_item_action_properties">Properties</string>
 
     <string name="file_properties_title_format">“%1$s” properties</string>
@@ -256,6 +260,9 @@
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Bookmark folder</string>
+    <string name="navigation_edit_bookmark_directory_name">Name</string>
+    <string name="navigation_edit_bookmark_directory_path">Path</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
 
@@ -291,6 +298,8 @@
     <string name="settings_default_path_summary">%1$s</string>
     <string name="settings_standard_directories_title">Standard folders</string>
     <string name="settings_standard_directories_summary_empty">No standard folders enabled</string>
+    <string name="settings_bookmark_directories_title">Bookmark folders</string>
+    <string name="settings_bookmark_directories_summary_empty">No bookmark folders</string>
     <string name="settings_root_strategy_title">Root access mode</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <plurals name="settings_root_strategy_message_format">

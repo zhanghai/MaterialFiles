@@ -311,6 +311,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         menu.findItem(R.id.action_rename).setVisible(!isReadOnly);
         boolean isArchiveFile = FileUtils.isArchiveFile(file);
         menu.findItem(R.id.action_extract).setVisible(isArchiveFile);
+        menu.findItem(R.id.action_add_bookmark).setVisible(isDirectory);
         holder.menu.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_open_with:
@@ -339,6 +340,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                     return true;
                 case R.id.action_copy_path:
                     mListener.copyPath(file);
+                    return true;
+                case R.id.action_add_bookmark:
+                    mListener.addBookmark(file);
                     return true;
                 case R.id.action_properties:
                     mListener.showPropertiesDialog(file);
@@ -394,6 +398,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         void showCreateArchiveDialog(@NonNull FileItem file);
         void sendFile(@NonNull FileItem file);
         void copyPath(@NonNull FileItem file);
+        void addBookmark(@NonNull FileItem file);
         void showPropertiesDialog(@NonNull FileItem file);
     }
 

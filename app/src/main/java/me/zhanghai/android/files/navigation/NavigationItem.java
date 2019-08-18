@@ -65,6 +65,8 @@ public abstract class NavigationItem {
 
         void onRemoveDocumentTree(@NonNull Uri treeUri);
 
+        void onEditBookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory);
+
         void closeNavigationDrawer();
 
         void startActivity(@NonNull Intent intent);
