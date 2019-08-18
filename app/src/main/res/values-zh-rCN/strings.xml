@@ -285,6 +285,7 @@
     <string name="settings_standard_directories_summary_empty">未启用标准文件夹</string>
     <string name="settings_bookmark_directories_title">书签文件夹</string>
     <string name="settings_bookmark_directories_summary_empty">无书签文件夹</string>
+    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 访问模式</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">

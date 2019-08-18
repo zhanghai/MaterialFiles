@@ -285,6 +285,7 @@
     <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
     <string name="settings_bookmark_directories_title">書籤資料夾</string>
     <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
+    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">

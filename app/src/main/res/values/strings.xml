@@ -300,6 +300,7 @@
     <string name="settings_standard_directories_summary_empty">No standard folders enabled</string>
     <string name="settings_bookmark_directories_title">Bookmark folders</string>
     <string name="settings_bookmark_directories_summary_empty">No bookmark folders</string>
+    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root access mode</string>
     <string name="settings_root_strategy_summary">%1$s</string>
     <plurals name="settings_root_strategy_message_format">

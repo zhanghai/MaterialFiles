@@ -38,6 +38,7 @@ import me.zhanghai.android.files.navigation.BookmarkDirectories;
 import me.zhanghai.android.files.navigation.BookmarkDirectory;
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment;
 import me.zhanghai.android.files.util.IntentPathUtils;
+import me.zhanghai.android.files.util.ViewUtils;
 
 public class BookmarkDirectoriesFragment extends Fragment
         implements BookmarkDirectoryAdapter.Listener, EditBookmarkDirectoryDialogFragment.Listener {
@@ -46,6 +47,8 @@ public class BookmarkDirectoriesFragment extends Fragment
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+    @BindView(R.id.empty)
+    View mEmptyView;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.fab)
@@ -156,6 +159,7 @@ public class BookmarkDirectoriesFragment extends Fragment
 
     private void onBookmarkDirectoriesChanged(
             @NonNull List<BookmarkDirectory> bookmarkDirectories) {
+        ViewUtils.fadeToVisibility(mEmptyView, bookmarkDirectories.isEmpty());
         mAdapter.replace(bookmarkDirectories);
     }
 
