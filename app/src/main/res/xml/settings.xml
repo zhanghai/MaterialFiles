@@ -43,7 +43,7 @@
             android:summary="@string/settings_default_path_summary" />
 
         <me.zhanghai.android.files.settings.StandardDirectoriesPreference
-            android:key="@string/pref_key_standard_directories"
+            android:key="@string/pref_key_standard_directory_settings"
             android:title="@string/settings_standard_directories_title"
             android:summary="@string/settings_standard_directories_summary_empty" />
 
