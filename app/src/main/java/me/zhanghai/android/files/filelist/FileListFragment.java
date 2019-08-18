@@ -1251,8 +1251,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void addBookmark(@NonNull Path path) {
-        BookmarkDirectory bookmarkDirectory = new BookmarkDirectory(null, path);
-        BookmarkDirectories.add(bookmarkDirectory);
+        BookmarkDirectories.add(new BookmarkDirectory(null, path));
         ToastUtils.show(R.string.file_add_bookmark_success, requireContext());
     }
 
