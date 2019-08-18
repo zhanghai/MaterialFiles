@@ -191,12 +191,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mViewModel.search(query);
     }, 1000, new Handler(Looper.getMainLooper()));
 
-    public static void putArguments(@NonNull Intent intent, @Nullable Path path) {
-        if (path != null) {
-            IntentPathUtils.putExtraPath(intent, path);
-        }
-    }
-
     @NonNull
     public static FileListFragment newInstance(@NonNull Intent intent) {
         //noinspection deprecation
@@ -763,7 +757,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void openInNewTask(@NonNull Path path) {
-        Intent intent = FileListActivity.newIntent(path, requireContext())
+        Intent intent = FileListActivity.newViewIntent(path, requireContext())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
                 .addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivity(intent);

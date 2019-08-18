@@ -86,10 +86,7 @@ public abstract class PathPreference extends Preference
     @Override
     public void onPreferenceClick(@NonNull PreferenceFragmentCompat fragment,
                                   @NonNull Preference preference) {
-        // TODO: FileListActivity doesn't actually declare the intent filter for
-        //  ACTION_OPEN_DOCUMENT_TREE, because we don't have a DocumentsProvider for now.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                .setClass(getContext(), FileListActivity.class);
+        Intent intent = FileListActivity.newPickDirectoryIntent(mPath, getContext());
         fragment.startActivityForResult(intent, getRequestCode());
     }
 

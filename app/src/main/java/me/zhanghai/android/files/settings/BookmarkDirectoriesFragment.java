@@ -43,7 +43,7 @@ import me.zhanghai.android.files.util.ViewUtils;
 public class BookmarkDirectoriesFragment extends Fragment
         implements BookmarkDirectoryAdapter.Listener, EditBookmarkDirectoryDialogFragment.Listener {
 
-    private static final int REQUEST_CODE_PICK_PATH = 1;
+    private static final int REQUEST_CODE_PICK_DIRECTORY = 1;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -146,7 +146,7 @@ public class BookmarkDirectoriesFragment extends Fragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_PICK_PATH:
+            case REQUEST_CODE_PICK_DIRECTORY:
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     Path path = IntentPathUtils.getExtraPath(data);
                     addBookmarkDirectory(path);
@@ -164,11 +164,8 @@ public class BookmarkDirectoriesFragment extends Fragment
     }
 
     private void onAddBookmarkDirectory() {
-        // TODO: FileListActivity doesn't actually declare the intent filter for
-        //  ACTION_OPEN_DOCUMENT_TREE, because we don't have a DocumentsProvider for now.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                .setClass(requireContext(), FileListActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_PICK_PATH);
+        Intent intent = FileListActivity.newPickDirectoryIntent(null, requireContext());
+        startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY);
     }
 
     private void addBookmarkDirectory(@NonNull Path path) {

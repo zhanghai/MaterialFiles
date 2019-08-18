@@ -39,7 +39,7 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
 
     private static final String STATE_PATH = KEY_PREFIX + "PATH";
 
-    private static final int REQUEST_CODE_PICK_PATH = 1;
+    private static final int REQUEST_CODE_PICK_DIRECTORY = 1;
 
     @NonNull
     private BookmarkDirectory mExtraBookmarkDirectory;
@@ -96,11 +96,8 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
         }
         updatePathButton();
         mPathButton.setOnClickListener(view -> {
-            // TODO: FileListActivity doesn't actually declare the intent filter for
-            //  ACTION_OPEN_DOCUMENT_TREE, because we don't have a DocumentsProvider for now.
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                    .setClass(requireContext(), FileListActivity.class);
-            startActivityForResult(intent, REQUEST_CODE_PICK_PATH);
+            Intent intent = FileListActivity.newPickDirectoryIntent(mPath, requireContext());
+            startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY);
         });
         AlertDialog dialog = builder
                 .setTitle(R.string.navigation_edit_bookmark_directory_title)
@@ -132,7 +129,7 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
-            case REQUEST_CODE_PICK_PATH:
+            case REQUEST_CODE_PICK_DIRECTORY:
                 if (resultCode == Activity.RESULT_OK && data != null) {
                     mPath = IntentPathUtils.getExtraPath(data);
                     updatePathButton();
