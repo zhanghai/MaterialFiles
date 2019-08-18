@@ -91,16 +91,23 @@ public class StandardDirectoriesPreferenceFragment extends PreferenceFragmentCom
         SwitchPreferenceCompat switchPreference = (SwitchPreferenceCompat) preference;
         String id = switchPreference.getKey();
         boolean enabled = switchPreference.isChecked();
-        List<StandardDirectory> standardDirectories =
-                StandardDirectoriesLiveData.getInstance().getValue();
-        List<StandardDirectorySettings> settingsList = Functional.map(standardDirectories,
-                standardDirectory -> {
-                    StandardDirectorySettings settings = standardDirectory.toSettings();
-                    if (Objects.equals(settings.getId(), id)) {
-                        settings = settings.withEnabled(enabled);
-                    }
-                    return settings;
-                });
+        List<StandardDirectorySettings> settingsList =
+                Settings.STANDARD_DIRECTORY_SETTINGS.getValue();
+        int index = Functional.findIndex(settingsList, settings -> Objects.equals(settings.getId(),
+                id));
+        if (index != -1) {
+            StandardDirectorySettings settings = settingsList.get(index);
+            settings = settings.withEnabled(enabled);
+            settingsList.set(index, settings);
+        } else {
+            List<StandardDirectory> standardDirectories =
+                    StandardDirectoriesLiveData.getInstance().getValue();
+            StandardDirectory standardDirectory = Functional.find(standardDirectories,
+                    standardDirectory2 -> Objects.equals(standardDirectory2.getId(), id));
+            StandardDirectorySettings settings = standardDirectory.toSettings().withEnabled(
+                    enabled);
+            settingsList.add(settings);
+        }
         Settings.STANDARD_DIRECTORY_SETTINGS.putValue(settingsList);
         return true;
     }

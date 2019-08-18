@@ -66,8 +66,8 @@ public interface Settings {
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation);
 
     SettingLiveData<List<StandardDirectorySettings>> STANDARD_DIRECTORY_SETTINGS =
-            new ParcelableListSettingLiveData<>(R.string.pref_key_standard_directory_settings, null,
-                    StandardDirectorySettings.CREATOR);
+            new ParcelableListSettingLiveData<>(R.string.pref_key_standard_directory_settings,
+                    Collections.emptyList(), StandardDirectorySettings.CREATOR);
 
     SettingLiveData<List<BookmarkDirectory>> BOOKMARK_DIRECTORIES =
             new ParcelableListSettingLiveData<>(R.string.pref_key_bookmark_directories,

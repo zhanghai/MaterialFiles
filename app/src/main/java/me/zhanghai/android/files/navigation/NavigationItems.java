@@ -132,23 +132,18 @@ public class NavigationItems {
 
     @NonNull
     public static List<StandardDirectory> getStandardDirectories() {
-        List<StandardDirectory> standardDirectories = new ArrayList<>();
-        Map<String, StandardDirectory> defaultStandardDirectories = new LinkedHashMap<>();
-        for (StandardDirectory standardDirectory : getDefaultStandardDirectories()) {
-            defaultStandardDirectories.put(standardDirectory.getId(), standardDirectory);
+        Map<String, StandardDirectorySettings> settingsMap = new LinkedHashMap<>();
+        for (StandardDirectorySettings settings : Settings.STANDARD_DIRECTORY_SETTINGS.getValue()) {
+            settingsMap.put(settings.getId(), settings);
         }
-        List<StandardDirectorySettings> settingsList =
-                Settings.STANDARD_DIRECTORY_SETTINGS.getValue();
-        if (settingsList != null) {
-            for (StandardDirectorySettings settings : settingsList) {
-                StandardDirectory standardDirectory = defaultStandardDirectories.remove(
-                        settings.getId());
-                if (standardDirectory != null) {
-                    standardDirectories.add(standardDirectory.withSettings(settings));
-                }
+        List<StandardDirectory> standardDirectories = getDefaultStandardDirectories();
+        standardDirectories = Functional.map(standardDirectories, standardDirectory -> {
+            StandardDirectorySettings settings = settingsMap.get(standardDirectory.getId());
+            if (settings != null) {
+                standardDirectory = standardDirectory.withSettings(settings);
             }
-        }
-        standardDirectories.addAll(defaultStandardDirectories.values());
+            return standardDirectory;
+        });
         return standardDirectories;
     }
 
