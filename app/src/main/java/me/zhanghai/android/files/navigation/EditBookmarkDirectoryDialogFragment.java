@@ -131,8 +131,6 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
         switch (requestCode) {
             case REQUEST_CODE_PICK_PATH:
                 if (resultCode == Activity.RESULT_OK && data != null) {
