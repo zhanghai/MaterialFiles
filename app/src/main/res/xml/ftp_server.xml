@@ -10,10 +10,14 @@
     <PreferenceCategory android:title="@string/ftp_server_information_title">
 
         <me.zhanghai.android.files.ftpserver.FtpServerStatePreference
+            android:key="@string/pref_key_ftp_server_state"
+            android:disableDependentsState="true"
             android:title="@string/ftp_server_state_title" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/ftp_server_configuration_title">
+    <PreferenceCategory
+        android:title="@string/ftp_server_configuration_title"
+        android:dependency="@string/pref_key_ftp_server_state">
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_ftp_server_anonymous_login"
