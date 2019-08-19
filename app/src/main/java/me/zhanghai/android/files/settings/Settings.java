@@ -61,8 +61,9 @@ public interface Settings {
 
     @SuppressWarnings("unchecked")
     SettingLiveData<Path> FTP_SERVER_HOME_DIRECTORY = (SettingLiveData<Path>) (SettingLiveData<?>)
-            new ParcelableSettingLiveData<>(R.string.pref_key_file_list_default_path, (Parcelable)
-                    Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath()),
+            new ParcelableSettingLiveData<>(R.string.pref_key_ftp_server_home_directory,
+                    (Parcelable) Paths.get(
+                            Environment.getExternalStorageDirectory().getAbsolutePath()),
                     (Class<Parcelable>) (Class<?>) Path.class);
 
     SettingLiveData<Boolean> FTP_SERVER_WRITABLE = new BooleanSettingLiveData(
