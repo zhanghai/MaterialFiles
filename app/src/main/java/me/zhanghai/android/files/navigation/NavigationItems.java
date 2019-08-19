@@ -34,6 +34,7 @@ import me.zhanghai.android.files.about.AboutActivity;
 import me.zhanghai.android.files.compat.StorageManagerCompat;
 import me.zhanghai.android.files.compat.StorageVolumeCompat;
 import me.zhanghai.android.files.file.FormatUtils;
+import me.zhanghai.android.files.ftpserver.FtpServerActivity;
 import me.zhanghai.android.files.navigation.file.DocumentTree;
 import me.zhanghai.android.files.navigation.file.JavaFile;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
@@ -183,6 +184,8 @@ public class NavigationItems {
     private static List<NavigationItem> getMenuItems() {
         Context context = AppApplication.getInstance();
         return Arrays.asList(
+                new ActivityMenuItem(R.drawable.shared_directory_icon_white_24dp,
+                        R.string.navigation_ftp_server, FtpServerActivity.class, context),
                 new ActivityMenuItem(R.drawable.settings_icon_white_24dp,
                         R.string.navigation_settings, SettingsActivity.class, context),
                 new ActivityMenuItem(R.drawable.about_icon_white_24dp, R.string.navigation_about,

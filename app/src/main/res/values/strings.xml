@@ -266,11 +266,9 @@
     <string name="navigation_edit_bookmark_directory_title">Bookmark folder</string>
     <string name="navigation_edit_bookmark_directory_name">Name</string>
     <string name="navigation_edit_bookmark_directory_path">Path</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
-
-    <string name="ftp_server_notification_title">FTP server</string>
-    <string name="ftp_server_notification_text">FTP server is running</string>
 
     <string name="image_viewer_title">Image viewer</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
@@ -282,6 +280,23 @@
     <string name="text_editor_save_success">Saved</string>
     <string name="text_editor_reload_message">Are you sure you want to reload? Unsaved changes to this document will be lost.</string>
     <string name="text_editor_close_message">Are you sure you want to discard unsaved changes to this document?</string>
+
+    <string name="ftp_server_title">FTP server</string>
+    <string name="ftp_server_information_title">Information</string>
+    <string name="ftp_server_state_title">Status</string>
+    <string name="ftp_server_state_summary_starting">Starting…</string>
+    <string name="ftp_server_state_summary_running">Running</string>
+    <string name="ftp_server_state_summary_stopping">Stopping…</string>
+    <string name="ftp_server_state_summary_stopped">Not started</string>
+    <string name="ftp_server_configuration_title">Configuration</string>
+    <string name="ftp_server_anonymous_login_title">Anonymous login</string>
+    <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_port_summary">%1$d</string>
+    <string name="ftp_server_home_directory_title">Root folder</string>
+    <string name="ftp_server_home_directory_summary">%1$s</string>
+    <string name="ftp_server_writable_title">Allow writing</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">FTP server is running</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>

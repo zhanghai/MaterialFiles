@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/ftp_server_information_title">
+
+        <me.zhanghai.android.files.ftpserver.FtpServerStatePreference
+            android:title="@string/ftp_server_state_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/ftp_server_configuration_title">
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_ftp_server_anonymous_login"
+            android:title="@string/ftp_server_anonymous_login_title"
+            android:defaultValue="@bool/pref_default_value_ftp_server_anonymous_login" />
+
+        <me.zhanghai.android.files.settings.NonNegativeIntegerPreference
+            android:key="@string/pref_key_ftp_server_port"
+            android:title="@string/ftp_server_port_title"
+            android:defaultValue="@integer/pref_default_value_ftp_server_port"
+            android:summary="@string/ftp_server_port_summary" />
+
+        <me.zhanghai.android.files.ftpserver.FtpServerHomeDirectoryPreference
+            android:key="@string/pref_key_ftp_server_home_directory"
+            android:title="@string/ftp_server_home_directory_title"
+            android:summary="@string/ftp_server_home_directory_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_ftp_server_writable"
+            android:title="@string/ftp_server_writable_title"
+            android:defaultValue="@bool/pref_default_value_ftp_server_writable" />
+    </PreferenceCategory>
+</PreferenceScreen>

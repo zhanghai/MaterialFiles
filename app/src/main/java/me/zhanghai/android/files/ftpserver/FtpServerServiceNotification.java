@@ -29,6 +29,10 @@ class FtpServerServiceNotification {
 
     public static void startForeground(@NonNull Service service) {
         ensureNotificationChannel(service);
+        Intent contentIntent = new Intent(service, FtpServerActivity.class);
+        PendingIntent contentPendingIntent = PendingIntent.getActivity(service,
+                FtpServerActivity.class.hashCode(), contentIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         Intent stopIntent = new Intent(service, FtpServerReceiver.class)
                 .setAction(FtpServerReceiver.ACTION_STOP);
         PendingIntent stopPendingIntent = PendingIntent.getBroadcast(service,
@@ -39,7 +43,7 @@ class FtpServerServiceNotification {
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(service.getString(R.string.ftp_server_notification_title))
                 .setContentText(service.getString(R.string.ftp_server_notification_text))
-                .setContentIntent(/* TODO: FtpServerActivity.class */ null)
+                .setContentIntent(contentPendingIntent)
                 .setOngoing(true)
                 .setCategory(Notifications.Channels.FTP_SERVER.CATEGORY)
                 .setPriority(Notifications.Channels.FTP_SERVER.PRIORITY)

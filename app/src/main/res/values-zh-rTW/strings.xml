@@ -251,11 +251,9 @@
     <string name="navigation_edit_bookmark_directory_title">書籤資料夾</string>
     <string name="navigation_edit_bookmark_directory_name">名稱</string>
     <string name="navigation_edit_bookmark_directory_path">路徑</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
-
-    <string name="ftp_server_notification_title">FTP 伺服器</string>
-    <string name="ftp_server_notification_text">FTP 伺服器正在執行</string>
 
     <string name="image_viewer_title">影像檢視器</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
@@ -267,6 +265,23 @@
     <string name="text_editor_save_success">已儲存</string>
     <string name="text_editor_reload_message">您確定要重新載入嗎？對此文件未儲存的變更將丟失。</string>
     <string name="text_editor_close_message">您確定要捨棄對此文件未儲存的變更嗎？</string>
+
+    <string name="ftp_server_title">FTP 伺服器</string>
+    <string name="ftp_server_information_title">資訊</string>
+    <string name="ftp_server_state_title">狀態</string>
+    <string name="ftp_server_state_summary_starting">正在啓動…</string>
+    <string name="ftp_server_state_summary_running">正在執行</string>
+    <string name="ftp_server_state_summary_stopping">正在停止…</string>
+    <string name="ftp_server_state_summary_stopped">未啓動</string>
+    <string name="ftp_server_configuration_title">配置</string>
+    <string name="ftp_server_anonymous_login_title">匿名登入</string>
+    <string name="ftp_server_port_title">連接埠</string>
+    <string name="ftp_server_port_summary">%1$d</string>
+    <string name="ftp_server_home_directory_title">根資料夾</string>
+    <string name="ftp_server_home_directory_summary">%1$s</string>
+    <string name="ftp_server_writable_title">允許寫入</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">FTP 伺服器正在執行</string>
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">介面</string>

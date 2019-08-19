@@ -104,6 +104,16 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
+            android:name="me.zhanghai.android.files.ftpserver.FtpServerActivity"
+            android:label="@string/ftp_server_title"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MaterialFiles">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.zhanghai.android.files.filelist.FileListActivity" />
+        </activity>
+
+        <activity
             android:name="me.zhanghai.android.files.settings.SettingsActivity"
             android:label="@string/settings_title"
             android:launchMode="singleTop"
