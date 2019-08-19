@@ -44,9 +44,9 @@ public class FtpServerService extends Service {
     @NonNull
     private final ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
 
-    private volatile FtpServer mServer;
+    private State mState = State.STOPPED;
 
-    private volatile State mState = State.STOPPED;
+    private FtpServer mServer;
 
     public static void generateDefaultUserSettings() {
         if (!Settings.FTP_SERVER_USERNAME.getValue().isEmpty()) {
@@ -143,6 +143,9 @@ public class FtpServerService extends Service {
 
     @WorkerThread
     private void doStart() {
+        if (mServer != null) {
+            return;
+        }
         String username;
         String password;
         if (Settings.FTP_SERVER_ANONYMOUS_LOGIN.getValue()) {
@@ -171,6 +174,9 @@ public class FtpServerService extends Service {
 
     @WorkerThread
     private void doStop() {
+        if (mServer == null) {
+            return;
+        }
         mServer.stop();
         postState(State.STOPPED);
     }
