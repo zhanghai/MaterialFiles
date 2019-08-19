@@ -30,7 +30,18 @@ public interface Notifications {
             String CATEGORY = NotificationCompat.CATEGORY_PROGRESS;
             int PRIORITY = NotificationCompat.PRIORITY_LOW;
         }
+
+        interface FTP_SERVER {
+            String ID = "ftp_server";
+            int NAME_RES = R.string.notification_channel_ftp_server_name;
+            int DESCRIPTION_RES = R.string.notification_channel_ftp_server_description;
+            int IMPORTANCE = NotificationManagerCompat.IMPORTANCE_LOW;
+            String CATEGORY = NotificationCompat.CATEGORY_SERVICE;
+            int PRIORITY = NotificationCompat.PRIORITY_LOW;
+        }
     }
 
-    interface Ids {}
+    interface Ids {
+        int FTP_SERVER = 1;
+    }
 }

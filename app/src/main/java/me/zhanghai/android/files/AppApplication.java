@@ -12,6 +12,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.firebase.CrashlyticsUtils;
+import me.zhanghai.android.files.ftpserver.FtpServerService;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.theme.night.NightModeHelper;
@@ -43,5 +44,7 @@ public class AppApplication extends Application {
 
         CustomThemeHelper.initialize(this);
         NightModeHelper.initialize(this);
+
+        FtpServerService.generateDefaultUserSettings();
     }
 }

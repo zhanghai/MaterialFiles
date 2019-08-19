@@ -19,12 +19,7 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.navigation.BookmarkDirectory;
 import me.zhanghai.android.files.navigation.StandardDirectorySettings;
 import me.zhanghai.android.files.provider.root.RootStrategy;
-import me.zhanghai.android.files.settings.SettingLiveDatas.BooleanSettingLiveData;
-import me.zhanghai.android.files.settings.SettingLiveDatas.EnumSettingLiveData;
-import me.zhanghai.android.files.settings.SettingLiveDatas.ParcelableListSettingLiveData;
-import me.zhanghai.android.files.settings.SettingLiveDatas.ParcelableSettingLiveData;
-import me.zhanghai.android.files.settings.SettingLiveDatas.ResourceIdSettingLiveData;
-import me.zhanghai.android.files.settings.SettingLiveDatas.StringSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.*;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 import me.zhanghai.android.files.theme.night.NightMode;
 
@@ -50,6 +45,28 @@ public interface Settings {
 
     SettingLiveData<Integer> CREATE_ARCHIVE_TYPE = new ResourceIdSettingLiveData(
             R.string.pref_key_create_archive_type, R.id.type_zip);
+
+    SettingLiveData<Boolean> FTP_SERVER_ANONYMOUS_LOGIN = new BooleanSettingLiveData(
+            R.string.pref_key_ftp_server_anonymous_login,
+            R.bool.pref_default_value_ftp_server_anonymous_login);
+
+    SettingLiveData<String> FTP_SERVER_USERNAME = new StringSettingLiveData(
+            R.string.pref_key_ftp_server_username, R.string.pref_default_value_empty);
+
+    SettingLiveData<String> FTP_SERVER_PASSWORD = new StringSettingLiveData(
+            R.string.pref_key_ftp_server_password, R.string.pref_default_value_empty);
+
+    SettingLiveData<Integer> FTP_SERVER_PORT = new IntegerSettingLiveData(
+            R.string.pref_key_ftp_server_port, R.integer.pref_default_value_ftp_server_port);
+
+    @SuppressWarnings("unchecked")
+    SettingLiveData<Path> FTP_SERVER_HOME_DIRECTORY = (SettingLiveData<Path>) (SettingLiveData<?>)
+            new ParcelableSettingLiveData<>(R.string.pref_key_file_list_default_path, (Parcelable)
+                    Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath()),
+                    (Class<Parcelable>) (Class<?>) Path.class);
+
+    SettingLiveData<Boolean> FTP_SERVER_WRITABLE = new BooleanSettingLiveData(
+            R.string.pref_key_ftp_server_writable, R.bool.pref_default_value_ftp_server_writable);
 
     SettingLiveData<CustomThemeColors.Primary> PRIMARY_COLOR = new EnumSettingLiveData<>(
             R.string.pref_key_primary_color, R.string.pref_default_value_primary_color,

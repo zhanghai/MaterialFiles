@@ -39,6 +39,7 @@
     <string name="share">Share</string>
     <string name="skip">Skip</string>
     <string name="sort">Sort</string>
+    <string name="stop">Stop</string>
     <string name="unknown">Unknown</string>
     <string name="view">View</string>
 
@@ -59,6 +60,8 @@
     <string name="notification_channel_background_activity_start_description">Take actions while app is in the background</string>
     <string name="notification_channel_file_job_name">File operations</string>
     <string name="notification_channel_file_job_description">Display and control file operations</string>
+    <string name="notification_channel_ftp_server_name">FTP server</string>
+    <string name="notification_channel_ftp_server_description">Display and control the FTP server</string>
 
     <plurals name="file_job_archive_scan_notification_title">
         <item quantity="one">Preparing to compress %1$,d file (%2$s)</item>
@@ -265,6 +268,9 @@
     <string name="navigation_edit_bookmark_directory_path">Path</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
+
+    <string name="ftp_server_notification_title">FTP server</string>
+    <string name="ftp_server_notification_text">FTP server is running</string>
 
     <string name="image_viewer_title">Image viewer</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>

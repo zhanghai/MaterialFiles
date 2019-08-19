@@ -104,6 +104,8 @@ dependencies {
     implementation 'org.apache.commons:commons-compress:1.18'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
+    implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
+    implementation 'org.slf4j:slf4j-android:1.7.28'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
