@@ -24,8 +24,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
+    externalNativeBuild {
+        cmake {
+            path 'CMakeLists.txt'
+        }
     }
     buildTypes {
         release {
@@ -35,10 +37,8 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    externalNativeBuild {
-        cmake {
-            path 'CMakeLists.txt'
-        }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
