@@ -178,6 +178,7 @@ public class FtpServerService extends Service {
             return;
         }
         mServer.stop();
+        mServer = null;
         postState(State.STOPPED);
     }
 }
