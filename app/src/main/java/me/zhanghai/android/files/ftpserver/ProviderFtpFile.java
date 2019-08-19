@@ -173,7 +173,7 @@ class ProviderFtpFile implements Comparable<ProviderFtpFile>, FtpFile {
 
     @NonNull
     @Override
-    public Object getPhysicalFile() {
+    public Path getPhysicalFile() {
         return mPath;
     }
 
@@ -231,7 +231,7 @@ class ProviderFtpFile implements Comparable<ProviderFtpFile>, FtpFile {
             return null;
         }
         List<ProviderFtpFile> files = Functional.map(directoryStream, path -> new ProviderFtpFile(
-                path, mRelativePath, mUser));
+                mPath.resolve(path), mRelativePath.resolve(path), mUser));
         Collections.sort(files);
         return files;
     }

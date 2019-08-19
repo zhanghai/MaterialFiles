@@ -22,8 +22,6 @@ class ProviderFileSystemView implements FileSystemView {
     private final User mUser;
 
     @NonNull
-    private final Path mHomeDirectoryPath;
-    @NonNull
     private final ProviderFtpFile mHomeDirectory;
 
     @NonNull
@@ -39,9 +37,9 @@ class ProviderFileSystemView implements FileSystemView {
         } catch (URISyntaxException e) {
             throw new AssertionError(e);
         }
-        mHomeDirectoryPath = Paths.get(homeDirectoryUri);
-        mHomeDirectory = new ProviderFtpFile(mHomeDirectoryPath, mHomeDirectoryPath.relativize(
-                mHomeDirectoryPath), mUser);
+        Path homeDirectoryPath = Paths.get(homeDirectoryUri);
+        mHomeDirectory = new ProviderFtpFile(homeDirectoryPath, homeDirectoryPath.relativize(
+                homeDirectoryPath), mUser);
         mWorkingDirectory = mHomeDirectory;
     }
 
@@ -69,18 +67,24 @@ class ProviderFileSystemView implements FileSystemView {
 
     @Override
     public ProviderFtpFile getFile(@NonNull String fileString) {
-        Path filePath = mHomeDirectoryPath.resolve(fileString);
+        boolean absolute = fileString.startsWith("/");
+        if (absolute) {
+            fileString = fileString.substring(1);
+        }
+        Path homeDirectoryPath = mHomeDirectory.getPhysicalFile();
+        Path parentPath = absolute ? homeDirectoryPath : mWorkingDirectory.getPhysicalFile();
+        Path filePath = parentPath.resolve(fileString);
         filePath = filePath.normalize();
-        if (!filePath.startsWith(mHomeDirectoryPath)) {
+        if (!filePath.startsWith(homeDirectoryPath)) {
             return mHomeDirectory;
         }
-        return new ProviderFtpFile(filePath, filePath.relativize(mHomeDirectoryPath), mUser);
+        return new ProviderFtpFile(filePath, filePath.relativize(homeDirectoryPath), mUser);
     }
 
     @Override
     public boolean isRandomAccessible() {
         // TODO: Better way of determining if the provider is random accessible.
-        return !ArchiveFileSystemProvider.isArchivePath(mHomeDirectoryPath);
+        return !ArchiveFileSystemProvider.isArchivePath(mHomeDirectory.getPhysicalFile());
     }
 
     @Override
