@@ -43,12 +43,10 @@
             android:summary="@string/settings_default_path_summary" />
 
         <me.zhanghai.android.files.settings.StandardDirectoriesPreference
-            android:key="@string/pref_key_standard_directory_settings"
             android:title="@string/settings_standard_directories_title"
             android:summary="@string/settings_standard_directories_summary_empty" />
 
         <me.zhanghai.android.files.settings.BookmarkDirectoriesPreference
-            android:key="@string/pref_key_bookmark_directories"
             android:title="@string/settings_bookmark_directories_title"
             android:summary="@string/settings_bookmark_directories_summary_empty" />
 
