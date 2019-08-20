@@ -46,7 +46,7 @@
             android:key="@string/pref_key_ftp_server_port"
             android:title="@string/ftp_server_port_title"
             android:defaultValue="@integer/pref_default_value_ftp_server_port"
-            android:summary="@string/ftp_server_port_summary" />
+            app:useSimpleSummaryProvider="true" />
 
         <me.zhanghai.android.files.ftpserver.FtpServerHomeDirectoryPreference
             android:key="@string/pref_key_ftp_server_home_directory"

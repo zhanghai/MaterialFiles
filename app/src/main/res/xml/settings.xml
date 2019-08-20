@@ -5,7 +5,9 @@
   ~ All Rights Reserved.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/settings_interface_title">
 
@@ -27,7 +29,7 @@
             android:defaultValue="@string/pref_default_value_night_mode"
             android:entries="@array/settings_night_mode_entries"
             android:entryValues="@array/pref_entry_values_night_mode"
-            android:summary="@string/settings_night_mode_summary" />
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_file_list_animation"
@@ -56,13 +58,13 @@
             android:defaultValue="@string/pref_default_value_root_strategy"
             android:entries="@array/settings_root_strategy_entries"
             android:entryValues="@array/pref_entry_values_root_strategy"
-            android:summary="@string/settings_root_strategy_summary" />
+            app:useSimpleSummaryProvider="true" />
 
         <me.zhanghai.android.files.settings.CharsetPreference
             android:key="@string/pref_key_archive_file_name_encoding"
             android:title="@string/settings_archive_file_name_encoding_title"
             android:defaultValue="@string/pref_default_value_archive_file_name_encoding"
-            android:summary="@string/settings_archive_file_name_encoding_summary" />
+            app:useSimpleSummaryProvider="true" />
 
         <com.takisoft.preferencex.SimpleMenuPreference
             android:key="@string/pref_key_open_apk_default_action"
@@ -70,6 +72,6 @@
             android:defaultValue="@string/pref_default_value_open_apk_default_action"
             android:entries="@array/settings_open_apk_default_action_entries"
             android:entryValues="@array/pref_entry_values_open_apk_default_action"
-            android:summary="@string/settings_open_apk_default_action_summary" />
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 </PreferenceScreen>

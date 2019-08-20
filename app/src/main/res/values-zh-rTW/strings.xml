@@ -278,7 +278,6 @@
     <string name="ftp_server_username_title">使用者名稱</string>
     <string name="ftp_server_password_title">密碼</string>
     <string name="ftp_server_port_title">連接埠</string>
-    <string name="ftp_server_port_summary">%1$d</string>
     <string name="ftp_server_home_directory_title">根資料夾</string>
     <string name="ftp_server_home_directory_summary">%1$s</string>
     <string name="ftp_server_writable_title">允許寫入</string>
@@ -292,7 +291,6 @@
     <string name="settings_accent_color_title">強調色</string>
     <string name="settings_accent_color_summary">用於強調介面中關鍵部分的色彩</string>
     <string name="settings_night_mode_title">夜間模式</string>
-    <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
         <item>跟隨系統</item>
         <item>關閉</item>
@@ -310,7 +308,6 @@
     <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
     <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
-    <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">
         <item>僅普通存取</item>
         <item>偏好普通存取</item>
@@ -321,9 +318,7 @@
         <item quantity="other">您有 %1$,d 個正在執行的檔案作業，因此現在變更 root 存取模式可能會導致未預期的錯誤。您確定要現在變更它嗎？</item>
     </plurals>
     <string name="settings_archive_file_name_encoding_title">歸檔檔案名編碼</string>
-    <string name="settings_archive_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">開啟 Android 安裝包</string>
-    <string name="settings_open_apk_default_action_summary">%1$s</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>安裝</item>
         <item>查看內容</item>

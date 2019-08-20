@@ -293,7 +293,6 @@
     <string name="ftp_server_username_title">Username</string>
     <string name="ftp_server_password_title">Password</string>
     <string name="ftp_server_port_title">Port</string>
-    <string name="ftp_server_port_summary">%1$d</string>
     <string name="ftp_server_home_directory_title">Root folder</string>
     <string name="ftp_server_home_directory_summary">%1$s</string>
     <string name="ftp_server_writable_title">Allow writing</string>
@@ -307,7 +306,6 @@
     <string name="settings_accent_color_title">Accent color</string>
     <string name="settings_accent_color_summary">Color used to accent key parts of the UI</string>
     <string name="settings_night_mode_title">Night mode</string>
-    <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
         <item>Follow system</item>
         <item>Off</item>
@@ -325,7 +323,6 @@
     <string name="settings_bookmark_directories_summary_empty">No bookmark folders</string>
     <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root access mode</string>
-    <string name="settings_root_strategy_summary">%1$s</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">You have %1$,d file operation running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>
         <item quantity="other">You have %1$,d file operations running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>
@@ -337,9 +334,7 @@
         <item>Root access only</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Archive file name encoding</string>
-    <string name="settings_archive_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">Open Android package</string>
-    <string name="settings_open_apk_default_action_summary">%1$s</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Install</item>
         <item>View contents</item>

@@ -118,16 +118,6 @@ public class NonNegativeIntegerPreference extends EditTextPreference {
         return mInteger;
     }
 
-    @Nullable
-    @Override
-    public CharSequence getSummary() {
-        CharSequence summary = super.getSummary();
-        if (summary == null) {
-            return null;
-        }
-        return String.format(summary.toString(), mInteger);
-    }
-
     @Override
     public boolean shouldDisableDependents() {
         return !isEnabled();

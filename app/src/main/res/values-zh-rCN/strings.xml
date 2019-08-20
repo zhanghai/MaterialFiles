@@ -278,7 +278,6 @@
     <string name="ftp_server_username_title">用户名</string>
     <string name="ftp_server_password_title">密码</string>
     <string name="ftp_server_port_title">端口</string>
-    <string name="ftp_server_port_summary">%1$d</string>
     <string name="ftp_server_home_directory_title">根文件夹</string>
     <string name="ftp_server_home_directory_summary">%1$s</string>
     <string name="ftp_server_writable_title">允许写入</string>
@@ -292,7 +291,6 @@
     <string name="settings_accent_color_title">强调色</string>
     <string name="settings_accent_color_summary">用于强调界面中关键部分的颜色</string>
     <string name="settings_night_mode_title">夜间模式</string>
-    <string name="settings_night_mode_summary">%1$s</string>
     <string-array name="settings_night_mode_entries">
         <item>跟随系统</item>
         <item>关闭</item>
@@ -310,7 +308,6 @@
     <string name="settings_bookmark_directories_summary_empty">无书签文件夹</string>
     <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 访问模式</string>
-    <string name="settings_root_strategy_summary">%1$s</string>
     <string-array name="settings_root_strategy_entries">
         <item>仅普通访问</item>
         <item>优先普通访问</item>
@@ -321,9 +318,7 @@
         <item quantity="other">您有 %1$,d 个正在运行的文件操作，因此现在更改 root 访问模式可能会导致意外错误。您确定要现在更改它吗？</item>
     </plurals>
     <string name="settings_archive_file_name_encoding_title">归档文件名编码</string>
-    <string name="settings_archive_file_name_encoding_summary">%1$s</string>
     <string name="settings_open_apk_default_action_title">打开 Android 安装包</string>
-    <string name="settings_open_apk_default_action_summary">%1$s</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>安装</item>
         <item>查看内容</item>
