@@ -90,8 +90,9 @@ dependencies {
     // If https://github.com/timusus/RecyclerView-FastScroll/pull/96 is merged and released, remove
     // the related dontwarn from proguard-rules.pro.
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
-    implementation 'com.takisoft.preferencex:preferencex:1.0.0'
-    implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.0.0'
+    implementation 'com.takisoft.preferencex:preferencex:1.1.0-alpha05'
+    implementation 'androidx.preference:preference:1.1.0-rc01'
+    implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.1.0-alpha05'
     implementation 'de.psdev.licensesdialog:licensesdialog:2.0.0'
     implementation 'eu.chainfire:librootjava:1.2.0'
     implementation 'eu.chainfire:libsuperuser:1.0.0.201704021214'

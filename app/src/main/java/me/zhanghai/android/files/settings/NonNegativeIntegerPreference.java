@@ -54,7 +54,10 @@ public class NonNegativeIntegerPreference extends EditTextPreference {
     }
 
     private void init() {
-        EditText editText = getEditText();
+        setOnBindEditTextListener(this::onBindEditText);
+    }
+
+    private void onBindEditText(@NonNull EditText editText) {
         DigitsKeyListener keyListener;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             keyListener = DigitsKeyListener.getInstance(null, false, false);

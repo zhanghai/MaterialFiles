@@ -9,8 +9,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import com.takisoft.preferencex.PreferenceFragmentCompat;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,7 @@ import me.zhanghai.android.files.navigation.StandardDirectorySettings;
 import me.zhanghai.android.files.util.ViewUtils;
 import me.zhanghai.java.functional.Functional;
 
-public class StandardDirectoriesPreferenceFragment extends PreferenceFragmentCompat
+public class StandardDirectoriesPreferenceFragment extends PreferenceFragmentCompatFixIssue201
         implements Preference.OnPreferenceClickListener {
 
     @Override
