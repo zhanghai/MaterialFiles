@@ -314,7 +314,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     }
             }
             if (path == null) {
-                path = Settings.FILE_LIST_DEFAULT_PATH.getValue();
+                path = Settings.FILE_LIST_DEFAULT_DIRECTORY.getValue();
             }
             mViewModel.resetTo(path);
             if (pickOptions != null) {
@@ -1284,7 +1284,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void navigateToDefaultRoot() {
-        navigateToRoot(Settings.FILE_LIST_DEFAULT_PATH.getValue());
+        navigateToRoot(Settings.FILE_LIST_DEFAULT_DIRECTORY.getValue());
     }
 
     @Override

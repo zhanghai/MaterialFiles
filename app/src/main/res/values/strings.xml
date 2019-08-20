@@ -314,7 +314,7 @@
     </string-array>
     <string name="settings_file_list_animation_title">File list animation</string>
     <string name="settings_behavior_title">Behavior</string>
-    <string name="settings_default_path_title">Default folder</string>
+    <string name="settings_default_directory_title">Default folder</string>
     <string name="settings_standard_directories_title">Standard folders</string>
     <string name="settings_standard_directories_summary_empty">No standard folders enabled</string>
     <string name="settings_bookmark_directories_title">Bookmark folders</string>

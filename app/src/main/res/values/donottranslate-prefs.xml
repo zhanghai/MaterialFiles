@@ -9,7 +9,7 @@
 
     <string name="pref_default_value_empty" />
 
-    <string name="pref_key_file_list_default_path">key_file_list_default_path</string>
+    <string name="pref_key_file_list_default_directory">key_file_list_default_directory</string>
     <string name="pref_key_file_list_persistent_drawer_open">key_file_list_persistent_drawer_open</string>
     <bool name="pref_default_value_file_list_persistent_drawer_open">true</bool>
     <string name="pref_key_file_list_show_hidden_files">key_file_list_show_hidden_files</string>

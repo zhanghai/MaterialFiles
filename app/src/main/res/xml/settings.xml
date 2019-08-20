@@ -39,9 +39,9 @@
 
     <PreferenceCategory android:title="@string/settings_behavior_title">
 
-        <me.zhanghai.android.files.settings.DefaultPathPreference
-            android:key="@string/pref_key_file_list_default_path"
-            android:title="@string/settings_default_path_title"
+        <me.zhanghai.android.files.settings.DefaultDirectoryPreference
+            android:key="@string/pref_key_file_list_default_directory"
+            android:title="@string/settings_default_directory_title"
             app:useSimpleSummaryProvider="true" />
 
         <me.zhanghai.android.files.settings.StandardDirectoriesPreference

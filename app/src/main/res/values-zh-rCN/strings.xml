@@ -299,7 +299,7 @@
     </string-array>
     <string name="settings_file_list_animation_title">文件列表动画</string>
     <string name="settings_behavior_title">行为</string>
-    <string name="settings_default_path_title">默认文件夹</string>
+    <string name="settings_default_directory_title">默认文件夹</string>
     <string name="settings_standard_directories_title">标准文件夹</string>
     <string name="settings_standard_directories_summary_empty">未启用标准文件夹</string>
     <string name="settings_bookmark_directories_title">书签文件夹</string>

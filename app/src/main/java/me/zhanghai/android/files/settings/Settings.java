@@ -26,9 +26,10 @@ import me.zhanghai.android.files.theme.night.NightMode;
 public interface Settings {
 
     @SuppressWarnings("unchecked")
-    SettingLiveData<Path> FILE_LIST_DEFAULT_PATH = (SettingLiveData<Path>) (SettingLiveData<?>)
-            new ParcelableSettingLiveData<>(R.string.pref_key_file_list_default_path, (Parcelable)
-                    Paths.get(Environment.getExternalStorageDirectory().getAbsolutePath()),
+    SettingLiveData<Path> FILE_LIST_DEFAULT_DIRECTORY = (SettingLiveData<Path>) (SettingLiveData<?>)
+            new ParcelableSettingLiveData<>(R.string.pref_key_file_list_default_directory,
+                    (Parcelable) Paths.get(
+                            Environment.getExternalStorageDirectory().getAbsolutePath()),
                     (Class<Parcelable>) (Class<?>) Path.class);
 
     SettingLiveData<Boolean> FILE_LIST_PERSISTENT_DRAWER_OPEN = new BooleanSettingLiveData(
