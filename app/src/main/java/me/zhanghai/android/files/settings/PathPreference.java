@@ -8,7 +8,7 @@ package me.zhanghai.android.files.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.takisoft.preferencex.PreferenceActivityResultListener;
@@ -20,8 +20,10 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import androidx.core.content.res.TypedArrayUtils;
 import androidx.preference.Preference;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.filelist.FileListActivity;
 import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.navigation.NavigationRoot;
@@ -37,50 +39,43 @@ public abstract class PathPreference extends Preference
     public PathPreference(@NonNull Context context) {
         super(context);
 
-        init();
+        init(null, 0, 0);
     }
 
     public PathPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        init();
+        init(attrs, 0, 0);
     }
 
     public PathPreference(@NonNull Context context, @Nullable AttributeSet attrs,
-                              @AttrRes int defStyleAttr) {
+                          @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        init();
+        init(attrs, defStyleAttr, 0);
     }
 
     public PathPreference(@NonNull Context context, @Nullable AttributeSet attrs,
-                              @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+                          @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
 
-        init();
+        init(attrs, defStyleAttr, defStyleRes);
     }
 
-    private void init() {
-        // We must set a default value here, otherwise onSetInitialValue() may not be called in
-        // Preference.dispatchSetInitialValue().
+    private void init(@Nullable AttributeSet attrs, @AttrRes int defStyleAttr,
+                      @StyleRes int defStyleRes) {
+
+        setPersistent(false);
+        // Otherwise onSetInitialValue() won't be called in dispatchSetInitialValue().
         setDefaultValue(new Object());
-    }
 
-    @Override
-    public CharSequence getSummary() {
-        CharSequence summary = super.getSummary();
-        if (TextUtils.isEmpty(summary)) {
-            return summary;
+        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.EditTextPreference,
+                defStyleAttr, defStyleRes);
+        if (TypedArrayUtils.getBoolean(a, R.styleable.EditTextPreference_useSimpleSummaryProvider,
+                R.styleable.EditTextPreference_useSimpleSummaryProvider, false)) {
+            setSummaryProvider(SimpleSummaryProvider.getInstance());
         }
-        Path path = getPath();
-        String pathString = "";
-        if (path != null) {
-            NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
-                    path);
-            pathString = navigationRoot != null ? navigationRoot.getName(getContext())
-                    : FileUtils.getPathString(path);
-        }
-        return String.format(summary.toString(), pathString);
+        a.recycle();
     }
 
     @Override
@@ -132,4 +127,32 @@ public abstract class PathPreference extends Preference
     protected abstract Path getPersistedPath();
 
     protected abstract void persistPath(Path path);
+
+    public static class SimpleSummaryProvider implements SummaryProvider<PathPreference> {
+
+        @Nullable
+        private static SimpleSummaryProvider sInstance;
+
+        @NonNull
+        public static SimpleSummaryProvider getInstance() {
+            if (sInstance == null) {
+                sInstance = new SimpleSummaryProvider();
+            }
+            return sInstance;
+        }
+
+        @Nullable
+        @Override
+        public CharSequence provideSummary(@NonNull PathPreference preference) {
+            Path path = preference.getPath();
+            Context context = preference.getContext();
+            if (path == null) {
+                return context.getString(R.string.not_set);
+            }
+            NavigationRoot navigationRoot = NavigationRootMapLiveData.getInstance().getValue().get(
+                    path);
+            return navigationRoot != null ? navigationRoot.getName(context)
+                    : FileUtils.getPathString(path);
+        }
+    }
 }

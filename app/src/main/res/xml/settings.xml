@@ -42,7 +42,7 @@
         <me.zhanghai.android.files.settings.DefaultPathPreference
             android:key="@string/pref_key_file_list_default_path"
             android:title="@string/settings_default_path_title"
-            android:summary="@string/settings_default_path_summary" />
+            app:useSimpleSummaryProvider="true" />
 
         <me.zhanghai.android.files.settings.StandardDirectoriesPreference
             android:title="@string/settings_standard_directories_title"

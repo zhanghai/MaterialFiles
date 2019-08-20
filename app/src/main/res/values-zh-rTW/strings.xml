@@ -279,7 +279,6 @@
     <string name="ftp_server_password_title">密碼</string>
     <string name="ftp_server_port_title">連接埠</string>
     <string name="ftp_server_home_directory_title">根資料夾</string>
-    <string name="ftp_server_home_directory_summary">%1$s</string>
     <string name="ftp_server_writable_title">允許寫入</string>
     <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP 伺服器正在執行</string>
@@ -301,7 +300,6 @@
     <string name="settings_file_list_animation_title">檔案列表動畫</string>
     <string name="settings_behavior_title">行為</string>
     <string name="settings_default_path_title">預設資料夾</string>
-    <string name="settings_default_path_summary">%1$s</string>
     <string name="settings_standard_directories_title">標準資料夾</string>
     <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
     <string name="settings_bookmark_directories_title">書籤資料夾</string>

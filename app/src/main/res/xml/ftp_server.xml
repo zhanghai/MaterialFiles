@@ -51,7 +51,7 @@
         <me.zhanghai.android.files.ftpserver.FtpServerHomeDirectoryPreference
             android:key="@string/pref_key_ftp_server_home_directory"
             android:title="@string/ftp_server_home_directory_title"
-            android:summary="@string/ftp_server_home_directory_summary" />
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
             android:key="@string/pref_key_ftp_server_writable"

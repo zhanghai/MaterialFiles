@@ -279,7 +279,6 @@
     <string name="ftp_server_password_title">密码</string>
     <string name="ftp_server_port_title">端口</string>
     <string name="ftp_server_home_directory_title">根文件夹</string>
-    <string name="ftp_server_home_directory_summary">%1$s</string>
     <string name="ftp_server_writable_title">允许写入</string>
     <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP 服务器正在运行</string>
@@ -301,7 +300,6 @@
     <string name="settings_file_list_animation_title">文件列表动画</string>
     <string name="settings_behavior_title">行为</string>
     <string name="settings_default_path_title">默认文件夹</string>
-    <string name="settings_default_path_summary">%1$s</string>
     <string name="settings_standard_directories_title">标准文件夹</string>
     <string name="settings_standard_directories_summary_empty">未启用标准文件夹</string>
     <string name="settings_bookmark_directories_title">书签文件夹</string>
