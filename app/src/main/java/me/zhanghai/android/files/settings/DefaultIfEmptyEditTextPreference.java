@@ -47,6 +47,12 @@ public class DefaultIfEmptyEditTextPreference extends EditTextPreference {
     }
 
     @Override
+    public void setDefaultValue(@Nullable Object defaultValue) {
+        super.setDefaultValue(defaultValue);
+        mDefaultValue = (String) defaultValue;
+    }
+
+    @Override
     public void setText(@Nullable String text) {
         if (TextUtils.isEmpty(text)) {
             text = mDefaultValue;
