@@ -9,13 +9,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/ftp_server_information_title">
+    <me.zhanghai.android.files.ftpserver.FtpServerStatePreference
+        android:key="@string/pref_key_ftp_server_state"
+        android:disableDependentsState="true"
+        android:title="@string/ftp_server_state_title" />
 
-        <me.zhanghai.android.files.ftpserver.FtpServerStatePreference
-            android:key="@string/pref_key_ftp_server_state"
-            android:disableDependentsState="true"
-            android:title="@string/ftp_server_state_title" />
-    </PreferenceCategory>
+    <me.zhanghai.android.files.ftpserver.FtpServerUrlPreference
+        android:title="@string/ftp_server_url_title"
+        app:enableCopying="true" />
 
     <PreferenceCategory
         android:title="@string/ftp_server_configuration_title"
