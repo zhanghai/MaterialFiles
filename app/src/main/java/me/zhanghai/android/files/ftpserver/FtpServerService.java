@@ -148,9 +148,6 @@ public class FtpServerService extends Service {
         } else {
             username = Settings.FTP_SERVER_USERNAME.getValue();
             password = Settings.FTP_SERVER_PASSWORD.getValue();
-            if (password.isEmpty()) {
-                password = null;
-            }
         }
         int port = Settings.FTP_SERVER_PORT.getValue();
         Path homeDirectory = Settings.FTP_SERVER_HOME_DIRECTORY.getValue();
