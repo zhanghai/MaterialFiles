@@ -51,7 +51,7 @@ public interface Settings {
             R.bool.pref_default_value_ftp_server_anonymous_login);
 
     SettingLiveData<String> FTP_SERVER_USERNAME = new StringSettingLiveData(
-            R.string.pref_key_ftp_server_username, R.string.pref_default_value_empty);
+            R.string.pref_key_ftp_server_username, R.string.pref_default_value_ftp_server_username);
 
     SettingLiveData<String> FTP_SERVER_PASSWORD = new StringSettingLiveData(
             R.string.pref_key_ftp_server_password, R.string.pref_default_value_empty);

@@ -21,6 +21,7 @@
     <string name="pref_key_ftp_server_anonymous_login">key_ftp_server_anonymous_login</string>
     <bool name="pref_default_value_ftp_server_anonymous_login">true</bool>
     <string name="pref_key_ftp_server_username">key_ftp_server_username</string>
+    <string name="pref_default_value_ftp_server_username">admin</string>
     <string name="pref_key_ftp_server_password">key_ftp_server_password</string>
     <string name="pref_key_ftp_server_port">key_ftp_server_port</string>
     <integer name="pref_default_value_ftp_server_port">2121</integer>

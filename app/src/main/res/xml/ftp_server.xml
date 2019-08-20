@@ -5,7 +5,9 @@
   ~ All Rights Reserved.
   -->
 
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/ftp_server_information_title">
 
@@ -22,7 +24,23 @@
         <SwitchPreferenceCompat
             android:key="@string/pref_key_ftp_server_anonymous_login"
             android:title="@string/ftp_server_anonymous_login_title"
-            android:defaultValue="@bool/pref_default_value_ftp_server_anonymous_login" />
+            android:defaultValue="@bool/pref_default_value_ftp_server_anonymous_login"
+            android:disableDependentsState="true" />
+
+        <me.zhanghai.android.files.settings.DefaultIfEmptyEditTextPreference
+            android:key="@string/pref_key_ftp_server_username"
+            android:title="@string/ftp_server_username_title"
+            android:defaultValue="@string/pref_default_value_ftp_server_username"
+            android:dependency="@string/pref_key_ftp_server_anonymous_login"
+            android:inputType="text"
+            app:useSimpleSummaryProvider="true" />
+
+        <me.zhanghai.android.files.settings.PasswordPreference
+            android:key="@string/pref_key_ftp_server_password"
+            android:title="@string/ftp_server_password_title"
+            android:dependency="@string/pref_key_ftp_server_anonymous_login"
+            android:inputType="textVisiblePassword"
+            app:useSimpleSummaryProvider="true" />
 
         <me.zhanghai.android.files.settings.NonNegativeIntegerPreference
             android:key="@string/pref_key_ftp_server_port"

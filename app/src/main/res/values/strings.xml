@@ -290,6 +290,8 @@
     <string name="ftp_server_state_summary_stopped">Not started</string>
     <string name="ftp_server_configuration_title">Configuration</string>
     <string name="ftp_server_anonymous_login_title">Anonymous login</string>
+    <string name="ftp_server_username_title">Username</string>
+    <string name="ftp_server_password_title">Password</string>
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_port_summary">%1$d</string>
     <string name="ftp_server_home_directory_title">Root folder</string>

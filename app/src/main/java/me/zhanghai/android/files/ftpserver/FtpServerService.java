@@ -34,6 +34,8 @@ public class FtpServerService extends Service {
         STOPPED
     }
 
+    public static final String USERNAME_ANONYMOUS = "anonymous";
+
     @Nullable
     private static FtpServerService sInstance;
 
@@ -47,14 +49,6 @@ public class FtpServerService extends Service {
     private State mState = State.STOPPED;
 
     private FtpServer mServer;
-
-    public static void generateDefaultUserSettings() {
-        if (!Settings.FTP_SERVER_USERNAME.getValue().isEmpty()) {
-            return;
-        }
-        Settings.FTP_SERVER_USERNAME.putValue("correcthorse");
-        Settings.FTP_SERVER_PASSWORD.putValue("batterystaple");
-    }
 
     public static void start(@NonNull Context context) {
         if (sInstance != null) {
@@ -149,7 +143,7 @@ public class FtpServerService extends Service {
         String username;
         String password;
         if (Settings.FTP_SERVER_ANONYMOUS_LOGIN.getValue()) {
-            username = "anonymous";
+            username = USERNAME_ANONYMOUS;
             password = null;
         } else {
             username = Settings.FTP_SERVER_USERNAME.getValue();

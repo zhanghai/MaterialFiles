@@ -275,6 +275,8 @@
     <string name="ftp_server_state_summary_stopped">未启动</string>
     <string name="ftp_server_configuration_title">配置</string>
     <string name="ftp_server_anonymous_login_title">匿名登录</string>
+    <string name="ftp_server_username_title">用户名</string>
+    <string name="ftp_server_password_title">密码</string>
     <string name="ftp_server_port_title">端口</string>
     <string name="ftp_server_port_summary">%1$d</string>
     <string name="ftp_server_home_directory_title">根文件夹</string>
