@@ -46,34 +46,33 @@ public class PasswordPreference extends EditTextPreference {
     }
 
     private void init() {
-        if (getSummaryProvider() instanceof SimpleSummaryProvider) {
-            setSummaryProvider(SimplePasswordSummaryProvider.getInstance());
+        if (getSummaryProvider() instanceof EditTextPreference.SimpleSummaryProvider) {
+            setSummaryProvider(SimpleSummaryProvider.getInstance());
         }
     }
 
-    private static class SimplePasswordSummaryProvider
-            implements SummaryProvider<PasswordPreference> {
+    public static class SimpleSummaryProvider implements SummaryProvider<EditTextPreference> {
 
         @Nullable
-        private static SimplePasswordSummaryProvider sInstance;
+        private static SimpleSummaryProvider sInstance;
 
         @NonNull
-        public static SimplePasswordSummaryProvider getInstance() {
+        public static SimpleSummaryProvider getInstance() {
             if (sInstance == null) {
-                sInstance = new SimplePasswordSummaryProvider();
+                sInstance = new SimpleSummaryProvider();
             }
             return sInstance;
         }
 
         @Nullable
         @Override
-        public CharSequence provideSummary(@NonNull PasswordPreference preference) {
+        public CharSequence provideSummary(@NonNull EditTextPreference preference) {
             String text = preference.getText();
             if (TextUtils.isEmpty(text)) {
-                return SimpleSummaryProvider.getInstance().provideSummary(preference);
-            } else {
-                return PasswordTransformationMethod.getInstance().getTransformation(text, null);
+                return EditTextPreference.SimpleSummaryProvider.getInstance().provideSummary(
+                        preference);
             }
+            return PasswordTransformationMethod.getInstance().getTransformation(text, null);
         }
     }
 }
