@@ -46,6 +46,8 @@ public class FtpServerService extends Service {
     @NonNull
     private final ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
 
+    private FtpServerWakeLock mWakeLock;
+
     private State mState = State.STOPPED;
 
     private FtpServer mServer;
@@ -72,6 +74,8 @@ public class FtpServerService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        mWakeLock = new FtpServerWakeLock(this);
 
         sInstance = this;
 
@@ -103,6 +107,7 @@ public class FtpServerService extends Service {
         if (mState == State.STARTING || mState == State.RUNNING) {
             return;
         }
+        mWakeLock.acquire();
         FtpServerServiceNotification.startForeground(this);
         setState(State.STARTING);
         mExecutorService.submit(this::doStart);
@@ -112,6 +117,7 @@ public class FtpServerService extends Service {
         setState(State.STOPPED);
         ToastUtils.show(exception.toString(), this);
         FtpServerServiceNotification.stopForeground(this);
+        mWakeLock.release();
     }
 
     private void submitStop() {
@@ -121,6 +127,7 @@ public class FtpServerService extends Service {
         setState(State.STOPPING);
         mExecutorService.submit(this::doStop);
         FtpServerServiceNotification.stopForeground(this);
+        mWakeLock.release();
     }
 
     private void setState(@NonNull State state) {
