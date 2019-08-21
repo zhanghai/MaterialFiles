@@ -44,7 +44,7 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">未找到可處理此操作的程式</string>
-    <string name="copied_to_clipboard_format">已複製到剪貼板\n%1$s</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">開啟設定</string>
 
     <plurals name="size_in_bytes_format">
