@@ -15,8 +15,7 @@
         android:title="@string/ftp_server_state_title" />
 
     <me.zhanghai.android.files.ftpserver.FtpServerUrlPreference
-        android:title="@string/ftp_server_url_title"
-        app:enableCopying="true" />
+        android:title="@string/ftp_server_url_title" />
 
     <PreferenceCategory
         android:title="@string/ftp_server_configuration_title"

@@ -273,6 +273,8 @@
     <string name="ftp_server_state_summary_stopped">未启动</string>
     <string name="ftp_server_url_title">网址</string>
     <string name="ftp_server_url_summary_no_local_inet_address">无法获取本地 IP 地址</string>
+    <string name="ftp_server_url_menu_copy_url">复制网址</string>
+    <string name="ftp_server_url_menu_copy_password">复制密码</string>
     <string name="ftp_server_configuration_title">配置</string>
     <string name="ftp_server_anonymous_login_title">匿名登录</string>
     <string name="ftp_server_username_title">用户名</string>

@@ -10,7 +10,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.View;
 
 import java.net.InetAddress;
 import java.util.Objects;
@@ -21,8 +25,10 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 import androidx.lifecycle.Observer;
 import androidx.preference.Preference;
+import androidx.preference.PreferenceViewHolder;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.settings.Settings;
+import me.zhanghai.android.files.util.ClipboardUtils;
 import me.zhanghai.android.files.util.NetworkUtils;
 
 public class FtpServerUrlPreference extends Preference {
@@ -31,6 +37,11 @@ public class FtpServerUrlPreference extends Preference {
     private final Observer<Object> mObserver = _1 -> updateSummary();
     @NonNull
     private final ConnectivityReceiver mConnectivityReceiver = new ConnectivityReceiver();
+
+    @NonNull
+    private final ContextMenuListener mContextMenuListener = new ContextMenuListener();
+
+    private boolean mHasUrl;
 
     public FtpServerUrlPreference(@NonNull Context context) {
         super(context);
@@ -93,10 +104,19 @@ public class FtpServerUrlPreference extends Preference {
             String host = inetAddress.getHostAddress();
             int port = Settings.FTP_SERVER_PORT.getValue();
             summary = "ftp://" + (username != null ? username + "@" : "") + host + ":" + port + "/";
+            mHasUrl = true;
         } else {
             summary = getContext().getString(R.string.ftp_server_url_summary_no_local_inet_address);
+            mHasUrl = false;
         }
         setSummary(summary);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+
+        holder.itemView.setOnCreateContextMenuListener(mContextMenuListener);
     }
 
     private class ConnectivityReceiver extends BroadcastReceiver {
@@ -107,6 +127,35 @@ public class FtpServerUrlPreference extends Preference {
                 return;
             }
             updateSummary();
+        }
+    }
+
+    private class ContextMenuListener implements View.OnCreateContextMenuListener {
+
+        @Override
+        public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View view,
+                                        @NonNull ContextMenu.ContextMenuInfo menuInfo) {
+            if (!mHasUrl) {
+                return;
+            }
+            CharSequence url = getSummary();
+            menu.setHeaderTitle(url);
+            menu.add(Menu.NONE, Menu.NONE, Menu.NONE, R.string.ftp_server_url_menu_copy_url)
+                    .setOnMenuItemClickListener(item -> {
+                        ClipboardUtils.copyText(url, getContext());
+                        return true;
+                    });
+            if (!Settings.FTP_SERVER_ANONYMOUS_LOGIN.getValue()) {
+                String password = Settings.FTP_SERVER_PASSWORD.getValue();
+                if (!TextUtils.isEmpty(password)) {
+                    menu.add(Menu.NONE, Menu.NONE, Menu.NONE,
+                            R.string.ftp_server_url_menu_copy_password)
+                            .setOnMenuItemClickListener(item -> {
+                                ClipboardUtils.copyText(password, getContext());
+                                return true;
+                            });
+                }
+            }
         }
     }
 }
