@@ -25,7 +25,9 @@ public class NetworkUtils {
 
     @Nullable
     public static InetAddress getLocalInetAddress(@NonNull Context context) {
-        WifiManager wifiManager = ContextCompat.getSystemService(context, WifiManager.class);
+        // WifiManagerPotentialLeak
+        WifiManager wifiManager = ContextCompat.getSystemService(context.getApplicationContext(),
+                WifiManager.class);
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         if (wifiInfo != null) {
             // WifiStateMachine doesn't support IPv6 as of P, so no need to get the original
