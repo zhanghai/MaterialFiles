@@ -62,5 +62,6 @@ class FtpServer {
 
     public void stop() {
         mServer.stop();
+        mServer = null;
     }
 }
