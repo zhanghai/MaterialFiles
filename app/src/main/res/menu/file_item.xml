@@ -36,8 +36,8 @@
         android:title="@string/file_item_action_archive" />
 
     <item
-        android:id="@+id/action_send"
-        android:title="@string/send" />
+        android:id="@+id/action_share"
+        android:title="@string/share" />
 
     <item
         android:id="@+id/action_copy_path"

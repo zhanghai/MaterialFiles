@@ -499,8 +499,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_show_hidden_files:
                 setShowHiddenFiles(!mShowHiddenFilesMenuItem.isChecked());
                 return true;
-            case R.id.action_send:
-                send();
+            case R.id.action_share:
+                share();
                 return true;
             case R.id.action_copy_path:
                 copyPath();
@@ -722,8 +722,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mShowHiddenFilesMenuItem.setChecked(showHiddenFiles);
     }
 
-    private void send() {
-        sendFile(getCurrentPath(), MimeTypes.DIRECTORY_MIME_TYPE);
+    private void share() {
+        shareFile(getCurrentPath(), MimeTypes.DIRECTORY_MIME_TYPE);
     }
 
     private void copyPath() {
@@ -1213,11 +1213,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     @Override
-    public void sendFile(@NonNull FileItem file) {
-        sendFile(file.getPath(), file.getMimeType());
+    public void shareFile(@NonNull FileItem file) {
+        shareFile(file.getPath(), file.getMimeType());
     }
 
-    private void sendFile(@NonNull Path path, @NonNull String mimeType) {
+    private void shareFile(@NonNull Path path, @NonNull String mimeType) {
         if (LinuxFileSystemProvider.isLinuxPath(path)
                 || DocumentFileSystemProvider.isDocumentPath(path)) {
             Uri uri = FileProvider.getUriForPath(path);

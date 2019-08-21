@@ -335,8 +335,8 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                 case R.id.action_archive:
                     mListener.showCreateArchiveDialog(file);
                     return true;
-                case R.id.action_send:
-                    mListener.sendFile(file);
+                case R.id.action_share:
+                    mListener.shareFile(file);
                     return true;
                 case R.id.action_copy_path:
                     mListener.copyPath(file);
@@ -396,7 +396,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         void showRenameFileDialog(@NonNull FileItem file);
         void extractFile(@NonNull FileItem file);
         void showCreateArchiveDialog(@NonNull FileItem file);
-        void sendFile(@NonNull FileItem file);
+        void shareFile(@NonNull FileItem file);
         void copyPath(@NonNull FileItem file);
         void addBookmark(@NonNull FileItem file);
         void showPropertiesDialog(@NonNull FileItem file);
