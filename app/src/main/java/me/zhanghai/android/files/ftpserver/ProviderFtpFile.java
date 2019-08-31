@@ -245,12 +245,7 @@ class ProviderFtpFile implements Comparable<ProviderFtpFile>, FtpFile {
         if (offset == 0) {
             return Files.newOutputStream(mPath);
         } else {
-            SeekableByteChannel channel;
-            try {
-                channel = Files.newByteChannel(mPath);
-            } catch (UnsupportedOperationException e) {
-                throw new IOException(e);
-            }
+            SeekableByteChannel channel = MoreFiles.newByteChannel(mPath);
             boolean successful = false;
             try {
                 channel.position(offset);
@@ -270,12 +265,7 @@ class ProviderFtpFile implements Comparable<ProviderFtpFile>, FtpFile {
         if (offset == 0) {
             return Files.newInputStream(mPath);
         } else {
-            SeekableByteChannel channel;
-            try {
-                channel = Files.newByteChannel(mPath);
-            } catch (UnsupportedOperationException e) {
-                throw new IOException(e);
-            }
+            SeekableByteChannel channel = MoreFiles.newByteChannel(mPath);
             boolean successful = false;
             try {
                 channel.position(offset);

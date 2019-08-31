@@ -43,7 +43,6 @@ import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.AccessDeniedException;
 import java8.nio.file.FileSystemException;
 import java8.nio.file.FileSystemLoopException;
-import java8.nio.file.Files;
 import java8.nio.file.NoSuchFileException;
 import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
@@ -191,7 +190,7 @@ public class FileProvider extends ContentProvider {
         Set<OpenOption> options = modeToOpenOptions(modeBits);
         SeekableByteChannel channel;
         try {
-            channel = Files.newByteChannel(path, options);
+            channel = MoreFiles.newByteChannel(path, options);
         } catch (IOException e) {
             throw toFileNotFoundException(e);
         }

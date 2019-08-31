@@ -17,9 +17,11 @@ import java.nio.channels.ClosedByInterruptException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.AccessMode;
 import java8.nio.file.CopyOption;
 import java8.nio.file.Files;
@@ -28,6 +30,7 @@ import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.attribute.BasicFileAttributes;
+import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.function.Consumer;
 import java9.util.function.LongConsumer;
@@ -113,6 +116,29 @@ public class MoreFiles {
             throws IOException {
         return new BufferedWriter(new OutputStreamWriter(newOutputStream(path, options),
                 charset.newEncoder()));
+    }
+
+    @NonNull
+    public static SeekableByteChannel newByteChannel(@NonNull Path path,
+                                                     @NonNull Set<? extends OpenOption> options,
+                                                     @NonNull FileAttribute<?>... attributes)
+            throws IOException {
+        try {
+            return Files.newByteChannel(path, options, attributes);
+        } catch (UnsupportedOperationException e) {
+            throw new IOException(e);
+        }
+    }
+
+    @NonNull
+    public static SeekableByteChannel newByteChannel(@NonNull Path path,
+                                                     @NonNull OpenOption... options)
+            throws IOException {
+        try {
+            return Files.newByteChannel(path, options);
+        } catch (UnsupportedOperationException e) {
+            throw new IOException(e);
+        }
     }
 
     @NonNull

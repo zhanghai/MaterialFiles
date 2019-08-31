@@ -896,7 +896,7 @@ public class FileJobs {
         @Override
         public void run() throws IOException {
             ScanInfo scanInfo = scan(mSources, R.plurals.file_job_archive_scan_notification_title);
-            SeekableByteChannel channel = Files.newByteChannel(mArchiveFile,
+            SeekableByteChannel channel = MoreFiles.newByteChannel(mArchiveFile,
                     StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
             boolean successful = false;
             try (ArchiveWriter writer = new ArchiveWriter(mArchiveType, mCompressorType,
