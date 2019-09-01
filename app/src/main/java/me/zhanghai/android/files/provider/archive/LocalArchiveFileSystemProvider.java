@@ -314,7 +314,7 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
         Objects.requireNonNull(modes);
         AccessModes accessModes = AccessModes.fromArray(modes);
         ArchiveFileSystem fileSystem = (ArchiveFileSystem) path.getFileSystem();
-        fileSystem.getEntryAsLocal(path);
+        fileSystem.getItemAsLocal(path);
         if (accessModes.hasWrite() || accessModes.hasExecute()) {
             throw new AccessDeniedException(path.toString());
         }

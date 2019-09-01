@@ -7,6 +7,8 @@ package me.zhanghai.android.files.provider.common;
 
 import android.system.OsConstants;
 
+import net.sf.sevenzipjbinding.PropID;
+
 import org.apache.commons.compress.archivers.ArchiveEntry;
 import org.apache.commons.compress.archivers.dump.DumpArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
@@ -14,6 +16,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.BasicFileAttributes;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveItem;
 
 public class PosixFileTypes {
 
@@ -88,6 +91,27 @@ public class PosixFileTypes {
         } else {
             return PosixFileType.REGULAR_FILE;
         }
+    }
+
+    @NonNull
+    public static PosixFileType fromArchiveItem(@NonNull ArchiveItem item) {
+        if (item.getLink() != null) {
+            return PosixFileType.SYMBOLIC_LINK;
+        }
+        int attributes = item.getAttributes();
+        if ((attributes & PropID.AttributesBitMask.FILE_ATTRIBUTE_DIRECTORY)
+                == PropID.AttributesBitMask.FILE_ATTRIBUTE_DIRECTORY) {
+            return PosixFileType.DIRECTORY;
+        }
+        if ((attributes & PropID.AttributesBitMask.FILE_ATTRIBUTE_UNIX_EXTENSION)
+                == PropID.AttributesBitMask.FILE_ATTRIBUTE_UNIX_EXTENSION) {
+            int mode = attributes >> 16;
+            PosixFileType type = fromMode(mode);
+            if (type != PosixFileType.UNKNOWN) {
+                return type;
+            }
+        }
+        return PosixFileType.REGULAR_FILE;
     }
 
     @NonNull

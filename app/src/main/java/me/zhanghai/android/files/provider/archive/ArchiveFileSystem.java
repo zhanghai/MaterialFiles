@@ -8,14 +8,13 @@ package me.zhanghai.android.files.provider.archive;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveItem;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
@@ -65,8 +64,8 @@ class ArchiveFileSystem extends RootableFileSystem implements ByteStringListPath
     }
 
     @NonNull
-    ArchiveEntry getEntryAsLocal(@NonNull Path path) throws IOException {
-        return getLocalFileSystem().getEntry(path);
+    ArchiveItem getItemAsLocal(@NonNull Path path) throws IOException {
+        return getLocalFileSystem().getItem(path);
     }
 
     @NonNull

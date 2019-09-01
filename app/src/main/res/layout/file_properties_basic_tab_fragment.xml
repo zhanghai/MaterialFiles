@@ -83,11 +83,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="@string/file_properties_basic_archive_entry"
+                    android:text="@string/file_properties_basic_archive_item"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
                 <TextView
-                    android:id="@+id/archive_entry"
+                    android:id="@+id/archive_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

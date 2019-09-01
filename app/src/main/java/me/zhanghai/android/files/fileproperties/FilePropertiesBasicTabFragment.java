@@ -44,8 +44,8 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
     ViewGroup mArchiveFileAndEntryLayout;
     @BindView(R.id.archive_file)
     TextView mArchiveFileText;
-    @BindView(R.id.archive_entry)
-    TextView mArchiveEntryText;
+    @BindView(R.id.archive_item)
+    TextView mArchiveItemText;
     @BindView(R.id.type)
     TextView mTypeText;
     @BindView(R.id.symbolic_link_target_layout)
@@ -113,7 +113,7 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
             Path archiveFile = ArchiveFileSystemProvider.getArchiveFile(path);
             mArchiveFileText.setText(archiveFile.toFile().getPath());
             ArchiveFileAttributes attributes = (ArchiveFileAttributes) mExtraFile.getAttributes();
-            mArchiveEntryText.setText(attributes.getEntryName());
+            mArchiveItemText.setText(attributes.getItemPath());
         }
         mTypeText.setText(getTypeText(mExtraFile));
         boolean isSymbolicLink = mExtraFile.getAttributesNoFollowLinks().isSymbolicLink();

@@ -7,8 +7,6 @@ package me.zhanghai.android.files.provider.archive;
 
 import android.util.Pair;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -28,7 +26,8 @@ import java8.nio.file.PathMatcher;
 import java8.nio.file.WatchService;
 import java8.nio.file.attribute.UserPrincipalLookupService;
 import java8.nio.file.spi.FileSystemProvider;
-import me.zhanghai.android.files.provider.archive.archiver.ArchiveReader;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveItem;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveReader;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
@@ -59,7 +58,7 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
 
     private boolean mNeedRefresh = true;
 
-    private Map<Path, ArchiveEntry> mEntries;
+    private Map<Path, ArchiveItem> mItems;
 
     private Map<Path, List<Path>> mTree;
 
@@ -94,21 +93,21 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
     }
 
     @NonNull
-    ArchiveEntry getEntry(@NonNull Path path) throws IOException {
+    ArchiveItem getItem(@NonNull Path path) throws IOException {
         synchronized (mLock) {
             ensureEntriesLocked();
-            return getEntryLocked(path);
+            return getItemLocked(path);
         }
     }
 
     @NonNull
-    private ArchiveEntry getEntryLocked(@NonNull Path path) throws IOException {
+    private ArchiveItem getItemLocked(@NonNull Path path) throws IOException {
         synchronized (mLock) {
-            ArchiveEntry entry = mEntries.get(path);
-            if (entry == null) {
+            ArchiveItem item = mItems.get(path);
+            if (item == null) {
                 throw new NoSuchFileException(path.toString());
             }
-            return entry;
+            return item;
         }
     }
 
@@ -116,8 +115,8 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
     InputStream newInputStream(@NonNull Path file) throws IOException {
         synchronized (mLock) {
             ensureEntriesLocked();
-            ArchiveEntry entry = getEntryLocked(file);
-            return ArchiveReader.newInputStream(mArchiveFile, entry);
+            ArchiveItem item = getItemLocked(file);
+            return ArchiveReader.newInputStream(mArchiveFile, item);
         }
     }
 
@@ -125,8 +124,8 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
     List<Path> getDirectoryChildren(@NonNull Path directory) throws IOException {
         synchronized (mLock) {
             ensureEntriesLocked();
-            ArchiveEntry entry = getEntryLocked(directory);
-            if (!entry.isDirectory()) {
+            ArchiveItem item = getItemLocked(directory);
+            if (!item.isDirectory()) {
                 throw new NotDirectoryException(directory.toString());
             }
             return mTree.get(directory);
@@ -137,8 +136,8 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
     String readSymbolicLink(@NonNull Path link) throws IOException {
         synchronized (mLock) {
             ensureEntriesLocked();
-            ArchiveEntry entry = getEntryLocked(link);
-            return ArchiveReader.readSymbolicLink(mArchiveFile, entry);
+            ArchiveItem item = getItemLocked(link);
+            return ArchiveReader.readSymbolicLink(mArchiveFile, item);
         }
     }
 
@@ -156,10 +155,10 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
             throw new ClosedFileSystemException();
         }
         if (mNeedRefresh) {
-            Pair<Map<Path, ArchiveEntry>, Map<Path, List<Path>>> entriesAndTree =
-                    ArchiveReader.readEntries(mArchiveFile, mRootDirectory);
-            mEntries = entriesAndTree.first;
-            mTree = entriesAndTree.second;
+            Pair<Map<Path, ArchiveItem>, Map<Path, List<Path>>> itemsAndTree =
+                    ArchiveReader.readItems(mArchiveFile, mRootDirectory);
+            mItems = itemsAndTree.first;
+            mTree = itemsAndTree.second;
             mNeedRefresh = false;
         }
     }
@@ -178,7 +177,7 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
             }
             mProvider.removeFileSystem(mFileSystem);
             mNeedRefresh = false;
-            mEntries = null;
+            mItems = null;
             mTree = null;
             mOpen = false;
         }

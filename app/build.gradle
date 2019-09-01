@@ -65,7 +65,7 @@ dependencies {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation 'androidx.appcompat:appcompat:1.1.0-rc01'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha03'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-alpha03'

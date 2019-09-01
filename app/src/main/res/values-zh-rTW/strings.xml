@@ -219,7 +219,7 @@
     <string name="file_properties_basic_last_modification_time">最後修改</string>
     <string name="file_properties_basic_parent_directory">父資料夾</string>
     <string name="file_properties_basic_archive_file">歸檔檔案</string>
-    <string name="file_properties_basic_archive_entry">歸檔條目</string>
+    <string name="file_properties_basic_archive_item">歸檔條目</string>
     <string name="file_properties_basic_free_space">可用空間</string>
     <string name="file_properties_permissions">權限</string>
     <string name="file_properties_permissions_owner">所有者</string>

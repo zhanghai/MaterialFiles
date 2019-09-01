@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.provider.archive;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveItem;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
@@ -48,8 +47,8 @@ public class LocalArchiveFileAttributeView implements PosixFileAttributeView {
     @Override
     public ArchiveFileAttributes readAttributes() throws IOException {
         ArchiveFileSystem fileSystem = (ArchiveFileSystem) mPath.getFileSystem();
-        ArchiveEntry entry = fileSystem.getEntryAsLocal(mPath);
-        return new ArchiveFileAttributes(fileSystem.getArchiveFile(), entry);
+        ArchiveItem item = fileSystem.getItemAsLocal(mPath);
+        return new ArchiveFileAttributes(fileSystem.getArchiveFile(), item);
     }
 
     @Override

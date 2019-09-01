@@ -5,11 +5,6 @@
 
 package me.zhanghai.android.files.provider.archive;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-import org.apache.commons.compress.archivers.dump.DumpArchiveEntry;
-import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.threeten.bp.Instant;
 
 import java.util.Set;
@@ -18,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveItem;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
-import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.provider.common.PosixFileTypes;
@@ -32,41 +27,34 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
     @NonNull
     private final Path mArchiveFile;
     @NonNull
-    private final ArchiveEntry mEntry;
+    private final ArchiveItem mItem;
 
-    ArchiveFileAttributesImpl(@NonNull Path archiveFile, @NonNull ArchiveEntry entry) {
+    ArchiveFileAttributesImpl(@NonNull Path archiveFile, @NonNull ArchiveItem item) {
         mArchiveFile = archiveFile;
-        mEntry = entry;
+        mItem = item;
     }
 
     @NonNull
-    public String getEntryName() {
-        return mEntry.getName();
+    public String getItemPath() {
+        return mItem.getPath();
     }
 
     @NonNull
     @Override
     public FileTime lastModifiedTime() {
-        return FileTime.from(Instant.ofEpochMilli(mEntry.getLastModifiedDate().getTime()));
+        Instant lastModifiedTime = mItem.getLastModifiedTime();
+        if (lastModifiedTime == null) {
+            lastModifiedTime = Instant.EPOCH;
+        }
+        return FileTime.from(lastModifiedTime);
     }
 
     @NonNull
     @Override
     public FileTime lastAccessTime() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return FileTime.from(Instant.ofEpochMilli(dumpEntry.getAccessTime().getTime()));
-        } else if (mEntry instanceof SevenZArchiveEntry) {
-            SevenZArchiveEntry sevenZEntry = (SevenZArchiveEntry) mEntry;
-            if (sevenZEntry.getHasAccessDate()) {
-                return FileTime.from(Instant.ofEpochMilli(sevenZEntry.getAccessDate().getTime()));
-            }
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            Long atimeMillis = getTarEntryTimeMillis(tarEntry, "atime");
-            if (atimeMillis != null) {
-                return FileTime.from(Instant.ofEpochMilli(atimeMillis));
-            }
+        Instant lastAccessTime = mItem.getLastAccessTime();
+        if (lastAccessTime != null) {
+            return FileTime.from(lastAccessTime);
         }
         return lastModifiedTime();
     }
@@ -74,103 +62,48 @@ class ArchiveFileAttributesImpl implements PosixFileAttributes {
     @NonNull
     @Override
     public FileTime creationTime() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return FileTime.from(Instant.ofEpochMilli(dumpEntry.getCreationTime().getTime()));
-        } else if (mEntry instanceof SevenZArchiveEntry) {
-            SevenZArchiveEntry sevenZEntry = (SevenZArchiveEntry) mEntry;
-            if (sevenZEntry.getHasCreationDate()) {
-                return FileTime.from(Instant.ofEpochMilli(sevenZEntry.getCreationDate().getTime()));
-            }
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            Long ctimeMillis = getTarEntryTimeMillis(tarEntry, "ctime");
-            if (ctimeMillis != null) {
-                return FileTime.from(Instant.ofEpochMilli(ctimeMillis));
-            }
+        Instant creationTime = mItem.getCreationTime();
+        if (creationTime != null) {
+            return FileTime.from(creationTime);
         }
         return lastModifiedTime();
     }
 
-    @Nullable
-    private static Long getTarEntryTimeMillis(@NonNull TarArchiveEntry entry,
-                                              @NonNull String name) {
-        String atime = entry.getExtraPaxHeader(name);
-        if (atime == null) {
-            return null;
-        }
-        double atimeSeconds;
-        try {
-            atimeSeconds = Double.parseDouble(atime);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            return null;
-        }
-        return (long) (atimeSeconds * 1000);
-    }
-
     @NonNull
     public PosixFileType type() {
-        return PosixFileTypes.fromArchiveEntry(mEntry);
+        return PosixFileTypes.fromArchiveItem(mItem);
     }
 
     @Override
     public long size() {
-        return mEntry.getSize();
+        return mItem.getSize();
     }
 
     @NonNull
     @Override
     public ArchiveFileKey fileKey() {
-        return new ArchiveFileKey(mArchiveFile, mEntry.getName());
+        return new ArchiveFileKey(mArchiveFile, mItem.getPath());
     }
 
     @Nullable
     @Override
     public PosixUser owner() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixUser(dumpEntry.getUserId(), null);
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixUser(tarEntry.getUserId(), ByteString.fromStringOrNull(
-                    tarEntry.getUserName()));
-        }
+        String owner = mItem.getOwner();
+        // TODO: Where is ID?
         return null;
     }
 
     @Nullable
     @Override
     public PosixGroup group() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixGroup(dumpEntry.getGroupId(), null);
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            //noinspection deprecation
-            return new PosixGroup(tarEntry.getGroupId(), ByteString.fromStringOrNull(
-                    tarEntry.getGroupName()));
-        }
+        String group = mItem.getGroup();
+        // TODO: Where is ID?
         return null;
     }
 
     @Nullable
     public Set<PosixFileModeBit> mode() {
-        if (mEntry instanceof DumpArchiveEntry) {
-            DumpArchiveEntry dumpEntry = (DumpArchiveEntry) mEntry;
-            return PosixFileMode.fromInt(dumpEntry.getMode());
-        } else if (mEntry instanceof TarArchiveEntry) {
-            TarArchiveEntry tarEntry = (TarArchiveEntry) mEntry;
-            return PosixFileMode.fromInt(tarEntry.getMode());
-        } else if (mEntry instanceof ZipArchiveEntry) {
-            ZipArchiveEntry zipEntry = (ZipArchiveEntry) mEntry;
-            if (zipEntry.getPlatform() == ZipArchiveEntry.PLATFORM_UNIX) {
-                return PosixFileMode.fromInt(zipEntry.getUnixMode());
-            }
-        }
+        // TODO
         return null;
     }
 

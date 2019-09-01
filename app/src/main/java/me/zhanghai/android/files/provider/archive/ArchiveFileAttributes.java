@@ -7,30 +7,29 @@ package me.zhanghai.android.files.provider.archive;
 
 import android.os.Parcel;
 
-import org.apache.commons.compress.archivers.ArchiveEntry;
-
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.archive.archiver_sevenzipjbinding.ArchiveItem;
 import me.zhanghai.android.files.provider.common.ParcelablePosixFileAttributes;
 
 public class ArchiveFileAttributes extends ParcelablePosixFileAttributes {
 
     @NonNull
-    private final String mEntryName;
+    private final String mItemPath;
 
-    ArchiveFileAttributes(@NonNull Path archiveFile, @NonNull ArchiveEntry entry) {
-        this(new ArchiveFileAttributesImpl(archiveFile, entry));
+    ArchiveFileAttributes(@NonNull Path archiveFile, @NonNull ArchiveItem item) {
+        this(new ArchiveFileAttributesImpl(archiveFile, item));
     }
 
     private ArchiveFileAttributes(@NonNull ArchiveFileAttributesImpl attributes) {
         super(attributes);
 
-        mEntryName = attributes.getEntryName();
+        mItemPath = attributes.getItemPath();
     }
 
     @NonNull
-    public String getEntryName() {
-        return mEntryName;
+    public String getItemPath() {
+        return mItemPath;
     }
 
 
@@ -49,13 +48,13 @@ public class ArchiveFileAttributes extends ParcelablePosixFileAttributes {
     protected ArchiveFileAttributes(Parcel in) {
         super(in);
 
-        mEntryName = in.readString();
+        mItemPath = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
 
-        dest.writeString(mEntryName);
+        dest.writeString(mItemPath);
     }
 }

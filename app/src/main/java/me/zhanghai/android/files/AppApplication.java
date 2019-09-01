@@ -15,6 +15,7 @@ import me.zhanghai.android.files.firebase.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.theme.night.NightModeHelper;
+import me.zhanghai.android.sevenzipjbinding.SevenZip;
 
 public class AppApplication extends Application {
 
@@ -38,6 +39,7 @@ public class AppApplication extends Application {
         CrashlyticsUtils.init(this);
         Stetho.initializeWithDefaults(this);
 
+        SevenZip.init();
         FileSystemProviders.install();
         FileSystemProviders.setOverflowWatchEvents(true);
 

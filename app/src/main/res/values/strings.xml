@@ -234,7 +234,7 @@
     <string name="file_properties_basic_last_modification_time">Last Modified</string>
     <string name="file_properties_basic_parent_directory">Parent Folder</string>
     <string name="file_properties_basic_archive_file">Archive File</string>
-    <string name="file_properties_basic_archive_entry">Archive Entry</string>
+    <string name="file_properties_basic_archive_item">Archive Item</string>
     <string name="file_properties_basic_free_space">Free Space</string>
     <string name="file_properties_permissions">Permissions</string>
     <string name="file_properties_permissions_owner">Owner</string>
