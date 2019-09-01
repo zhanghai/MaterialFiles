@@ -2,18 +2,21 @@ android {
     signingConfigs {
         release {
 
-            def signingProperties = new Properties()
-            signingProperties.load(rootProject.file('signing.properties').newDataInputStream())
-
-            def getPassword = { String propertyName, String environmentName, String prompt ->
-                return signingProperties.get(propertyName) ?: System.getenv(environmentName) ?:
+            def properties
+            def propertiesFile = rootProject.file('signing.properties')
+            if (propertiesFile.exists()) {
+                properties = new Properties()
+                properties.load(propertiesFile.newDataInputStream())
+            }
+            def getString = { String propertyName, String environmentName, String prompt ->
+                return properties?.get(propertyName) ?: System.getenv(environmentName) ?:
                         System.console()?.readLine('\n' + prompt + ': ')
             }
 
-            storeFile rootProject.file(signingProperties.get('storeFile'))
-            storePassword getPassword('storePassword', 'STORE_PASSWORD', 'Store password')
-            keyAlias signingProperties.get('keyAlias')
-            keyPassword getPassword('keyPassword', 'KEY_PASSWORD', 'Key password')
+            storeFile rootProject.file(getString('storeFile', 'STORE_FILE', 'Store file'))
+            storePassword getString('storePassword', 'STORE_PASSWORD', 'Store password')
+            keyAlias getString('keyAlias', 'KEY_ALIAS', 'Key alias')
+            keyPassword getString('keyPassword', 'KEY_PASSWORD', 'Key password')
         }
     }
 }
