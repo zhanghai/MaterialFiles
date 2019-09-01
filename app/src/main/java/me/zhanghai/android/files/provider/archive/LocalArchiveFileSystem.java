@@ -138,7 +138,7 @@ class LocalArchiveFileSystem extends FileSystem implements ByteStringListPathFac
         synchronized (mLock) {
             ensureEntriesLocked();
             ArchiveEntry entry = getEntryLocked(link);
-            return ArchiveReader.readSymbolicLink(link, entry);
+            return ArchiveReader.readSymbolicLink(mArchiveFile, entry);
         }
     }
 
