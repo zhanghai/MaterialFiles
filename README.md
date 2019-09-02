@@ -2,6 +2,8 @@
 
 [本文中文版](README_zh-CN.md)
 
+[![Android CI status](https://github.com/zhanghai/MaterialFiles/workflows/Android%20CI/badge.svg)](https://github.com/zhanghai/MaterialFiles/actions)
+
 An open source Material Design file manager, for Android 5.0+.
 
 Download: [Google Play](https://play.google.com/store/apps/details?id=me.zhanghai.android.files), [Coolapk](https://www.coolapk.com/apk/me.zhanghai.android.files), [APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.7/app-release.apk)

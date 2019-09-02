@@ -1,5 +1,7 @@
 # Material Files (Beta)
 
+[![Android CI 状态](https://github.com/zhanghai/MaterialFiles/workflows/Android%20CI/badge.svg)](https://github.com/zhanghai/MaterialFiles/actions)
+
 一个开源的 Material Design 文件管理器，适用于 Android 5.0+。
 
 下载：[Google Play](https://play.google.com/store/apps/details?id=me.zhanghai.android.files)、[酷安](https://www.coolapk.com/apk/me.zhanghai.android.files)、[APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0-beta.7/app-release.apk)
