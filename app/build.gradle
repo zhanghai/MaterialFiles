@@ -86,7 +86,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
-    implementation "com.leinardi.android:speed-dial:1.0.2"
+    implementation 'com.leinardi.android:speed-dial:1.0.2'
     // If https://github.com/timusus/RecyclerView-FastScroll/pull/96 is merged and released, remove
     // the related dontwarn from proguard-rules.pro.
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
