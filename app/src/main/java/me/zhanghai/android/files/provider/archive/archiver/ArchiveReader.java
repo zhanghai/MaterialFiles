@@ -21,6 +21,7 @@ import org.apache.commons.compress.compressors.CompressorException;
 import org.apache.commons.compress.compressors.CompressorStreamFactory;
 
 import java.io.BufferedInputStream;
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -129,7 +130,7 @@ public class ArchiveReader {
             try (BufferedInputStream bufferedCompressorInputStream = compressorType != null ?
                     new BufferedInputStream(sCompressorStreamFactory.createCompressorInputStream(
                             compressorType, bufferedInputStream)) : bufferedInputStream) {
-                archiveType = ArchiveStreamFactory.detect(bufferedCompressorInputStream);
+                archiveType = detectArchiveType(bufferedCompressorInputStream);
             } catch (org.apache.commons.compress.archivers.ArchiveException e) {
                 throw new ArchiveException(e);
             } catch (CompressorException e) {
@@ -142,7 +143,7 @@ public class ArchiveReader {
             throw noSuchFileException;
         }
         String encoding = getArchiveFileNameEncoding();
-        ArrayList<ArchiveEntry> entries = new ArrayList<>();
+        List<ArchiveEntry> entries = new ArrayList<>();
         if (compressorType == null) {
             switch (archiveType) {
                 case ArchiveStreamFactory.ZIP:
@@ -157,6 +158,11 @@ public class ArchiveReader {
                     }
                     try (SevenZFile sevenZFile = new SevenZFile(ioFile)) {
                         Iterables.forEach(sevenZFile.getEntries(), entries::add);
+                        return entries;
+                    }
+                case RarFile.RAR:
+                    try (RarFile rarFile = new RarFile(ioFile, encoding)) {
+                        Iterables.forEach(rarFile.getEntries(), entries::add);
                         return entries;
                     }
             }
@@ -225,7 +231,7 @@ public class ArchiveReader {
             try (BufferedInputStream bufferedCompressorInputStream = compressorType != null ?
                     new BufferedInputStream(sCompressorStreamFactory.createCompressorInputStream(
                             compressorType, bufferedInputStream)) : bufferedInputStream) {
-                archiveType = ArchiveStreamFactory.detect(bufferedCompressorInputStream);
+                archiveType = detectArchiveType(bufferedCompressorInputStream);
             } catch (org.apache.commons.compress.archivers.ArchiveException e) {
                 throw new ArchiveException(e);
             } catch (CompressorException e) {
@@ -250,8 +256,8 @@ public class ArchiveReader {
                     if (zipEntryInputStream == null) {
                         throw new NoSuchFileException(file.toString());
                     }
-                    InputStream inputStream = new ZipFileEntryInputStream(zipFile,
-                            zipEntryInputStream);
+                    InputStream inputStream = new CloseableInputStream(zipEntryInputStream,
+                            zipFile);
                     successful = true;
                     return inputStream;
                 } finally {
@@ -283,6 +289,26 @@ public class ArchiveReader {
                 } finally {
                     if (!successful && sevenZFile != null) {
                         sevenZFile.close();
+                    }
+                }
+            } else if (entry instanceof RarArchiveEntry) {
+                boolean successful = false;
+                RarFile rarFile = null;
+                try {
+                    rarFile = new RarFile(ioFile, encoding);
+                    RarArchiveEntry currentEntry;
+                    while ((currentEntry = rarFile.getNextEntry()) != null) {
+                        if (!Objects.equals(currentEntry.getName(), entry.getName())) {
+                            continue;
+                        }
+                        InputStream inputStream = rarFile.getInputStream(currentEntry);
+                        successful = true;
+                        return inputStream;
+                    }
+                    throw new NoSuchFileException(file.toString());
+                } finally {
+                    if (!successful && rarFile != null) {
+                        rarFile.close();
                     }
                 }
             }
@@ -334,6 +360,21 @@ public class ArchiveReader {
                 }
             }
         }
+    }
+
+    @NonNull
+    private static String detectArchiveType(@NonNull InputStream inputStream)
+            throws org.apache.commons.compress.archivers.ArchiveException {
+        String rarType;
+        try {
+            rarType = RarFile.detect(inputStream);
+        } catch (IOException e) {
+            throw new org.apache.commons.compress.archivers.ArchiveException("RarFile.detect()", e);
+        }
+        if (rarType != null) {
+            return rarType;
+        }
+        return ArchiveStreamFactory.detect(inputStream);
     }
 
     @NonNull
@@ -408,17 +449,17 @@ public class ArchiveReader {
         }
     }
 
-    private static class ZipFileEntryInputStream extends InputStream {
+    private static class CloseableInputStream extends InputStream {
 
-        @NonNull
-        private final ZipFileCompat mFile;
         @NonNull
         private final InputStream mInputStream;
+        @NonNull
+        private final Closeable mCloseable;
 
-        public ZipFileEntryInputStream(@NonNull ZipFileCompat file,
-                                       @NonNull InputStream inputStream) {
-            mFile = file;
+        public CloseableInputStream(@NonNull InputStream inputStream,
+                                    @NonNull Closeable closeable) {
             mInputStream = inputStream;
+            mCloseable = closeable;
         }
 
         @Override
@@ -444,7 +485,7 @@ public class ArchiveReader {
         @Override
         public void close() throws IOException {
             mInputStream.close();
-            mFile.close();
+            mCloseable.close();
         }
     }
 

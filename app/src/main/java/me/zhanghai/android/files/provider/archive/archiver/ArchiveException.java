@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.archive.archiver;
 
+import com.github.junrar.exception.RarException;
+
 import org.apache.commons.compress.compressors.CompressorException;
 
 import java.io.IOException;
@@ -16,6 +18,10 @@ public class ArchiveException extends IOException {
     }
 
     public ArchiveException(CompressorException cause) {
+        super(cause);
+    }
+
+    public ArchiveException(RarException cause) {
         super(cause);
     }
 }
