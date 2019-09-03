@@ -79,7 +79,12 @@ dependencies {
     //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-    implementation 'com.github.junrar:junrar:4.0.0'
+    implementation ('com.github.junrar:junrar:4.0.0') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+    }
+    // As a replacement for commons-logging, to avoid the DuplicatePlatformClasses error due to
+    // httpclient depending on commons-logging and being removed in Android 6.0.
+    implementation 'org.slf4j:jcl-over-slf4j:1.7.28'
     implementation 'com.google.android.material:material:1.1.0-alpha09'
     implementation 'com.google.firebase:firebase-core:17.2.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
