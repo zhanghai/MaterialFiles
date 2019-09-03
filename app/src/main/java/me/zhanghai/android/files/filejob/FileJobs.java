@@ -1349,19 +1349,20 @@ public class FileJobs {
             Path cacheDirectory = Paths.get(getCacheDirectory().getPath(), "open_cache");
             Files.createDirectories(cacheDirectory);
             Path targetFileName = getTargetFileName(mFile);
-            Path path = MoreFiles.resolve(cacheDirectory, targetFileName);
+            Path targetFile = MoreFiles.resolve(cacheDirectory, targetFileName);
             TransferInfo transferInfo = new TransferInfo(scanInfo, cacheDirectory);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             actionAllInfo.replace = true;
-            copy(mFile, path, isExtract, transferInfo, actionAllInfo);
-            Uri uri = FileProvider.getUriForPath(path);
+            copy(mFile, targetFile, isExtract, transferInfo, actionAllInfo);
+            Uri uri = FileProvider.getUriForPath(targetFile);
             Intent intent = IntentUtils.makeView(uri, mMimeType)
                     .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            IntentPathUtils.putExtraPath(intent, path);
+            IntentPathUtils.putExtraPath(intent, targetFile);
             if (mWithChooser) {
                 intent = IntentUtils.withChooser(intent);
-                intent.putExtra(Intent.EXTRA_INITIAL_INTENTS,
-                        new Parcelable[] { OpenFileAsDialogActivity.newIntent(path, context) });
+                intent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[] {
+                        OpenFileAsDialogActivity.newIntent(targetFile, context)
+                });
             }
             BackgroundActivityStarter.startActivity(intent,
                     getString(R.string.file_open_from_background_title_format, targetFileName),
