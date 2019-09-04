@@ -673,7 +673,7 @@ static jobject newStructInotifyEvent(JNIEnv *env, const struct inotify_event *ev
 
 JNIEXPORT jobjectArray JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_inotify_1get_1events(
-        JNIEnv *env, jclass clazz, jbyteArray javaBuffer, jsize javaOffset, jsize javaLength) {
+        JNIEnv *env, jclass clazz, jbyteArray javaBuffer, jint javaOffset, jint javaLength) {
     void *buffer = (*env)->GetByteArrayElements(env, javaBuffer, NULL);
     size_t offset = (size_t) javaOffset;
     size_t length = (size_t) javaLength;
@@ -924,8 +924,8 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lstat(
 }
 
 static void readStructTimespec(JNIEnv *env, jobject javaTime, struct timespec *time) {
-    time->tv_sec = (*env)->GetLongField(env, javaTime, getStructTimespecTvSecField(env));
-    time->tv_nsec = (*env)->GetLongField(env, javaTime, getStructTimespecTvNsecField(env));
+    time->tv_sec = (time_t) (*env)->GetLongField(env, javaTime, getStructTimespecTvSecField(env));
+    time->tv_nsec = (long) (*env)->GetLongField(env, javaTime, getStructTimespecTvNsecField(env));
 }
 
 JNIEXPORT void JNICALL
