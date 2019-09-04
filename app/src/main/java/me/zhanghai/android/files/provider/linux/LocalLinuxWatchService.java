@@ -329,7 +329,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
                                 } else {
                                     WatchEvent.Kind<Path> kind = maskToEventKind(event.mask);
                                     LinuxFileSystem fileSystem = key.watchable().getFileSystem();
-                                    Path name = fileSystem.getPath(event.name);
+                                    LinuxPath name = fileSystem.getPath(event.name);
                                     key.addEvent(kind, name);
                                 }
                             }
