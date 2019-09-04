@@ -57,6 +57,8 @@ public class Syscalls {
 
     public static native void closedir(long dir) throws SyscallException;
 
+    public static native void endmntent(long file) throws SyscallException;
+
     private static native int errno();
 
     public static int fcntl(@NonNull FileDescriptor fd, int cmd) throws SyscallException {
@@ -90,10 +92,16 @@ public class Syscalls {
     public static native StructGroup getgrnam(@NonNull ByteString name) throws SyscallException;
 
     @Nullable
+    public static native StructMntent getmntent(long file) throws SyscallException;
+
+    @Nullable
     public static native StructPasswd getpwnam(@NonNull ByteString name) throws SyscallException;
 
     @Nullable
     public static native StructPasswd getpwuid(int uid) throws SyscallException;
+
+    public static native boolean hasmntopt(@NonNull StructMntent mntent, @NonNull ByteString option)
+            throws SyscallException;
 
     public static native int inotify_add_watch(@NonNull FileDescriptor fd, @NonNull ByteString path,
                                                int mask) throws SyscallException;
@@ -255,6 +263,9 @@ public class Syscalls {
             throw new SyscallException(e);
         }
     }
+
+    public static native long setmntent(@NonNull ByteString path, @NonNull ByteString mode)
+            throws SyscallException;
 
     @NonNull
     @Size(2)
