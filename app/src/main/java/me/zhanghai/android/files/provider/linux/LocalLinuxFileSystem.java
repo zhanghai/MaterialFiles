@@ -7,7 +7,7 @@ package me.zhanghai.android.files.provider.linux;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
@@ -21,9 +21,6 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPathFactory;
-import me.zhanghai.android.files.provider.linux.syscall.StructMntent;
-import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
-import me.zhanghai.java.functional.Functional;
 
 class LocalLinuxFileSystem extends FileSystem implements ByteStringListPathFactory {
 
@@ -113,14 +110,8 @@ class LocalLinuxFileSystem extends FileSystem implements ByteStringListPathFacto
     @NonNull
     @Override
     public Iterable<FileStore> getFileStores() {
-        List<StructMntent> mountEntries;
-        try {
-            mountEntries = LocalLinuxFileStore.getMountEntries();
-        } catch (SyscallException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-        return Functional.map(mountEntries, mntent -> new LocalLinuxFileStore(this, mntent));
+        //noinspection unchecked
+        return (Iterable<FileStore>) (Iterator<?>) LocalLinuxFileStore.getFileStores(this);
     }
 
     @NonNull

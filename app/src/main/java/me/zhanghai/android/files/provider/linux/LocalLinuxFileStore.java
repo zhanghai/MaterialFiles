@@ -9,6 +9,7 @@ import android.system.StructStatVfs;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import me.zhanghai.android.files.provider.common.FileStoreNotFoundException;
 import me.zhanghai.android.files.provider.linux.syscall.StructMntent;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.java.functional.Functional;
 
 class LocalLinuxFileStore extends AbstractFileStore {
 
@@ -36,13 +38,6 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @NonNull
     private final StructMntent mMntent;
     private final boolean mReadOnly;
-
-    public LocalLinuxFileStore(@NonNull LocalLinuxFileSystem fileSystem,
-                               @NonNull StructMntent mntent) {
-        mPath = fileSystem.getPath(mntent.mnt_dir);
-        mMntent = mntent;
-        mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
-    }
 
     public LocalLinuxFileStore(@NonNull LinuxPath path) throws IOException {
         mPath = path;
@@ -75,8 +70,28 @@ class LocalLinuxFileStore extends AbstractFileStore {
         return null;
     }
 
+    private LocalLinuxFileStore(@NonNull LocalLinuxFileSystem fileSystem,
+                                @NonNull StructMntent mntent) {
+        mPath = fileSystem.getPath(mntent.mnt_dir);
+        mMntent = mntent;
+        mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
+    }
+
     @NonNull
-    static List<StructMntent> getMountEntries() throws SyscallException {
+    public static List<LocalLinuxFileStore> getFileStores(
+            @NonNull LocalLinuxFileSystem fileSystem) {
+        List<StructMntent> mountEntries;
+        try {
+            mountEntries = getMountEntries();
+        } catch (SyscallException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
+        return Functional.map(mountEntries, mntent -> new LocalLinuxFileStore(fileSystem, mntent));
+    }
+
+    @NonNull
+    private static List<StructMntent> getMountEntries() throws SyscallException {
         List<StructMntent> entries = new ArrayList<>();
         long file = Syscalls.setmntent(PATH_PROC_SELF_MOUNTS, MODE_R);
         try {
