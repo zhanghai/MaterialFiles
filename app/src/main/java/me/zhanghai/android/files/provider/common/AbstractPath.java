@@ -17,11 +17,12 @@ import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 
-public abstract class AbstractPath implements Path {
+public abstract class AbstractPath<PathType extends AbstractPath<PathType>>
+        extends CovariantPath<PathType> {
 
     @Nullable
     @Override
-    public Path getFileName() {
+    public PathType getFileName() {
         int nameCount = getNameCount();
         if (nameCount == 0) {
             return null;
@@ -31,7 +32,7 @@ public abstract class AbstractPath implements Path {
 
     @Nullable
     @Override
-    public Path getParent() {
+    public PathType getParent() {
         int nameCount = getNameCount();
         switch (nameCount) {
             case 0:
@@ -57,22 +58,23 @@ public abstract class AbstractPath implements Path {
 
     @NonNull
     @Override
-    public Path resolve(@NonNull String other) {
+    public PathType resolve(@NonNull String other) {
         Objects.requireNonNull(other);
         return resolve(getFileSystem().getPath(other));
     }
 
     @NonNull
     @Override
-    public Path resolveSibling(@NonNull Path other) {
+    public PathType resolveSibling(@NonNull Path other) {
         Objects.requireNonNull(other);
-        Path parent = getParent();
-        return parent != null ? parent.resolve(other) : other;
+        PathType parent = getParent();
+        //noinspection unchecked
+        return parent != null ? parent.resolve(other) : (PathType) other;
     }
 
     @NonNull
     @Override
-    public Path resolveSibling(@NonNull String other) {
+    public PathType resolveSibling(@NonNull String other) {
         Objects.requireNonNull(other);
         return resolveSibling(getFileSystem().getPath(other));
     }

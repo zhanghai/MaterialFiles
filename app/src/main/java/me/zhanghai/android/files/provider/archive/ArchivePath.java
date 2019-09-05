@@ -25,7 +25,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.root.RootStrategy;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
-class ArchivePath extends ByteStringListPath implements RootablePath {
+class ArchivePath extends ByteStringListPath<ArchivePath> implements RootablePath {
 
     @NonNull
     private final ArchiveFileSystem mFileSystem;

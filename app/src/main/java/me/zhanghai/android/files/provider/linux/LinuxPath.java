@@ -28,7 +28,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.root.RootStrategy;
 import me.zhanghai.android.files.provider.root.RootablePath;
 
-class LinuxPath extends ByteStringListPath implements RootablePath {
+class LinuxPath extends ByteStringListPath<LinuxPath> implements RootablePath {
 
     private static final ByteString BYTE_STRING_TWO_SLASHES = ByteString.fromString("//");
 

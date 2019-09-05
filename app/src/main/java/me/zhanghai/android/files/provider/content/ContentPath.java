@@ -27,7 +27,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
 import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 
-class ContentPath extends ByteStringListPath {
+class ContentPath extends ByteStringListPath<ContentPath> {
 
     @NonNull
     private final ContentFileSystem mFileSystem;
@@ -140,7 +140,7 @@ class ContentPath extends ByteStringListPath {
 
     @NonNull
     @Override
-    public ByteStringListPath toAbsolutePath() {
+    public ContentPath toAbsolutePath() {
         if (isAbsolute()) {
             return this;
         } else {

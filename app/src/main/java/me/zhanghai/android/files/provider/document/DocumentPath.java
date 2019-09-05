@@ -28,7 +28,7 @@ import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 /**
  * @see DocumentsContract.Path
  */
-class DocumentPath extends ByteStringListPath implements DocumentResolver.Path {
+class DocumentPath extends ByteStringListPath<DocumentPath> implements DocumentResolver.Path {
 
     @NonNull
     private final DocumentFileSystem mFileSystem;
@@ -134,18 +134,6 @@ class DocumentPath extends ByteStringListPath implements DocumentResolver.Path {
     public String getDisplayName() {
         ByteString name = getByteStringFileName();
         return name != null ? name.toString() : null;
-    }
-
-    @Nullable
-    @Override
-    public DocumentPath getParent() {
-        return (DocumentPath) super.getParent();
-    }
-
-    @NonNull
-    @Override
-    public DocumentPath resolve(@NonNull String other) {
-        return (DocumentPath) super.resolve(other);
     }
 
 
