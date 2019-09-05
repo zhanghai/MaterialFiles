@@ -11,14 +11,14 @@ import android.os.Parcelable;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.provider.common.FileStore;
+import me.zhanghai.android.files.provider.common.AbstractFileStore;
 
-public abstract class RootableFileStore extends FileStore implements Parcelable {
+public abstract class RootableFileStore extends AbstractFileStore implements Parcelable {
 
     @NonNull
-    private final FileStore mFileStore;
+    private final AbstractFileStore mFileStore;
 
-    public RootableFileStore(@NonNull FileStore fileStore) {
+    public RootableFileStore(@NonNull AbstractFileStore fileStore) {
         mFileStore = fileStore;
     }
 

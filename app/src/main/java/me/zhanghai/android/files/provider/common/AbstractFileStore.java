@@ -10,9 +10,10 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java8.nio.file.FileStore;
 import java8.nio.file.attribute.FileStoreAttributeView;
 
-public abstract class FileStore extends java8.nio.file.FileStore {
+public abstract class AbstractFileStore extends FileStore {
 
     @Nullable
     @Override

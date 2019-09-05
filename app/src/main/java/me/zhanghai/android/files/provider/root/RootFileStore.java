@@ -9,12 +9,12 @@ import android.os.Parcel;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileAttributeView;
-import me.zhanghai.android.files.provider.common.FileStore;
+import me.zhanghai.android.files.provider.common.AbstractFileStore;
 import me.zhanghai.android.files.provider.remote.RemoteFileStore;
 
 public class RootFileStore extends RemoteFileStore {
 
-    public RootFileStore(@NonNull FileStore fileStore) {
+    public RootFileStore(@NonNull AbstractFileStore fileStore) {
         super(fileStore);
     }
 

@@ -12,10 +12,10 @@ import androidx.annotation.NonNull;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.FileAttributeView;
 import me.zhanghai.android.files.file.MimeTypes;
-import me.zhanghai.android.files.provider.common.FileStore;
+import me.zhanghai.android.files.provider.common.AbstractFileStore;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 
-class LocalArchiveFileStore extends FileStore {
+class LocalArchiveFileStore extends AbstractFileStore {
 
     @NonNull
     private final Path mArchiveFile;

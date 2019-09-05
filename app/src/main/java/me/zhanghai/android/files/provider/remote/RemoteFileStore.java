@@ -12,9 +12,9 @@ import android.os.RemoteException;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.provider.common.FileStore;
+import me.zhanghai.android.files.provider.common.AbstractFileStore;
 
-public abstract class RemoteFileStore extends FileStore implements Parcelable {
+public abstract class RemoteFileStore extends AbstractFileStore implements Parcelable {
 
     @NonNull
     private final String mName;
@@ -25,7 +25,7 @@ public abstract class RemoteFileStore extends FileStore implements Parcelable {
     @NonNull
     private final IRemoteFileStore mRemoteInterface;
 
-    public RemoteFileStore(@NonNull FileStore fileStore) {
+    public RemoteFileStore(@NonNull AbstractFileStore fileStore) {
         mName = fileStore.name();
         mType = fileStore.type();
         mReadOnly = fileStore.isReadOnly();

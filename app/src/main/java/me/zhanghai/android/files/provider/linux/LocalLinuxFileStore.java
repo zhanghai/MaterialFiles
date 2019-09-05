@@ -15,14 +15,14 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileAttributeView;
+import me.zhanghai.android.files.provider.common.AbstractFileStore;
 import me.zhanghai.android.files.provider.common.ByteString;
-import me.zhanghai.android.files.provider.common.FileStore;
 import me.zhanghai.android.files.provider.common.FileStoreNotFoundException;
 import me.zhanghai.android.files.provider.linux.syscall.StructMntent;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
-class LocalLinuxFileStore extends FileStore {
+class LocalLinuxFileStore extends AbstractFileStore {
 
     private static final ByteString PATH_PROC_SELF_MOUNTS = ByteString.fromString(
             "/proc/self/mounts");
