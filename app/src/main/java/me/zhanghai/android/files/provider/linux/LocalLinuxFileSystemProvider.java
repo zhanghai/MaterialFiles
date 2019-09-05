@@ -333,10 +333,9 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public FileStore getFileStore(@NonNull Path path) {
+    public FileStore getFileStore(@NonNull Path path) throws IOException {
         LinuxPath linuxPath = requireLinuxPath(path);
-        ByteString pathBytes = linuxPath.toByteString();
-        return new LinuxFileStore(pathBytes);
+        return new LinuxFileStore(linuxPath);
     }
 
     @Override

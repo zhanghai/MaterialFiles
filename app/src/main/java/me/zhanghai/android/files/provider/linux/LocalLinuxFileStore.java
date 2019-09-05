@@ -8,42 +8,85 @@ package me.zhanghai.android.files.provider.linux;
 import android.system.StructStatVfs;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import java8.nio.file.attribute.FileAttributeView;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.FileStore;
+import me.zhanghai.android.files.provider.common.FileStoreNotFoundException;
+import me.zhanghai.android.files.provider.linux.syscall.StructMntent;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 class LocalLinuxFileStore extends FileStore {
 
-    @NonNull
-    private final ByteString mPath;
+    private static final ByteString PATH_PROC_SELF_MOUNTS = ByteString.fromString(
+            "/proc/self/mounts");
+    private static final ByteString MODE_R = ByteString.fromString("r");
+    private static final ByteString OPTION_RO = ByteString.fromString("ro");
 
-    public LocalLinuxFileStore(@NonNull ByteString path) {
+    @NonNull
+    private final LinuxPath mPath;
+    @NonNull
+    private final StructMntent mMntent;
+    private final boolean mReadOnly;
+
+    public LocalLinuxFileStore(@NonNull LinuxPath path) throws IOException {
         mPath = path;
+        StructMntent mntent;
+        try {
+            mntent = findMountEntry(path);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(path.toString());
+        }
+        if (mntent == null) {
+            throw new FileStoreNotFoundException(path.toString());
+        }
+        mMntent = mntent;
+        mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
+    }
+
+    @Nullable
+    private static StructMntent findMountEntry(@NonNull LinuxPath path) throws SyscallException {
+        Map<LinuxPath, StructMntent> entries = new HashMap<>();
+        long file = Syscalls.setmntent(PATH_PROC_SELF_MOUNTS, MODE_R);
+        try {
+            StructMntent mntent;
+            while ((mntent = Syscalls.getmntent(file)) != null) {
+                LinuxPath entryPath = path.getFileSystem().getPath(mntent.mnt_dir);
+                entries.put(entryPath, mntent);
+            }
+        } finally {
+            Syscalls.endmntent(file);
+        }
+        do {
+            StructMntent mntent = entries.get(path);
+            if (mntent != null) {
+                return mntent;
+            }
+        } while ((path = (LinuxPath) path.getParent()) != null);
+        return null;
     }
 
     @NonNull
     @Override
     public String name() {
-        // TODO: Use getmntent_r.
-        return null;
+        return mMntent.mnt_fsname.toString();
     }
 
     @NonNull
     @Override
     public String type() {
-        // TODO: Use getmntent_r.
-        return null;
+        return mMntent.mnt_type.toString();
     }
 
     @Override
     public boolean isReadOnly() {
-        // TODO: Use getmntent_r.
-        return false;
+        return mReadOnly;
     }
 
     @Override
@@ -67,7 +110,7 @@ class LocalLinuxFileStore extends FileStore {
     @NonNull
     private StructStatVfs getStatVfs() throws IOException {
         try {
-            return Syscalls.statvfs(mPath);
+            return Syscalls.statvfs(mPath.toByteString());
         } catch (SyscallException e) {
             throw e.toFileSystemException(mPath.toString());
         }

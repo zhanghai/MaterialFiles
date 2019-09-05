@@ -100,8 +100,8 @@ public class Syscalls {
     @Nullable
     public static native StructPasswd getpwuid(int uid) throws SyscallException;
 
-    public static native boolean hasmntopt(@NonNull StructMntent mntent, @NonNull ByteString option)
-            throws SyscallException;
+    public static native boolean hasmntopt(@NonNull StructMntent mntent,
+                                           @NonNull ByteString option);
 
     public static native int inotify_add_watch(@NonNull FileDescriptor fd, @NonNull ByteString path,
                                                int mask) throws SyscallException;

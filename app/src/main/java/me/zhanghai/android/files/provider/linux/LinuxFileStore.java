@@ -7,14 +7,15 @@ package me.zhanghai.android.files.provider.linux;
 
 import android.os.Parcel;
 
+import java.io.IOException;
+
 import androidx.annotation.NonNull;
 import java8.nio.file.attribute.FileAttributeView;
-import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.root.RootableFileStore;
 
 class LinuxFileStore extends RootableFileStore {
 
-    public LinuxFileStore(@NonNull ByteString path) {
+    public LinuxFileStore(@NonNull LinuxPath path) throws IOException {
         super(new LocalLinuxFileStore(path));
     }
 

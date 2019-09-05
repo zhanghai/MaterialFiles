@@ -762,16 +762,12 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_hasmntopt(
     mntent.mnt_opts = mallocMntOptsFromStructMntent(env, javaMntent);
     char *option = mallocStringFromByteString(env, javaOption);
 #if __ANDROID_API__ >= 26
-    char *match = TEMP_FAILURE_RETRY(hasmntopt(&mntent, option));
+    char *match = hasmntopt(&mntent, option);
 #else
-    char *match = TEMP_FAILURE_RETRY(_hasmntopt(&mntent, option));
+    char *match = _hasmntopt(&mntent, option);
 #endif
     free(mntent.mnt_opts);
     free(option);
-    if (errno) {
-        throwSyscallException(env, "hasmntopt");
-        return JNI_FALSE;
-    }
     bool hasOption = match != NULL;
     return (jboolean) hasOption;
 }
