@@ -8,7 +8,9 @@ package me.zhanghai.android.files.provider.linux;
 import android.system.StructStatVfs;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -35,6 +37,13 @@ class LocalLinuxFileStore extends AbstractFileStore {
     private final StructMntent mMntent;
     private final boolean mReadOnly;
 
+    public LocalLinuxFileStore(@NonNull LocalLinuxFileSystem fileSystem,
+                               @NonNull StructMntent mntent) {
+        mPath = fileSystem.getPath(mntent.mnt_dir);
+        mMntent = mntent;
+        mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
+    }
+
     public LocalLinuxFileStore(@NonNull LinuxPath path) throws IOException {
         mPath = path;
         StructMntent mntent;
@@ -53,15 +62,9 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @Nullable
     private static StructMntent findMountEntry(@NonNull LinuxPath path) throws SyscallException {
         Map<LinuxPath, StructMntent> entries = new HashMap<>();
-        long file = Syscalls.setmntent(PATH_PROC_SELF_MOUNTS, MODE_R);
-        try {
-            StructMntent mntent;
-            while ((mntent = Syscalls.getmntent(file)) != null) {
-                LinuxPath entryPath = path.getFileSystem().getPath(mntent.mnt_dir);
-                entries.put(entryPath, mntent);
-            }
-        } finally {
-            Syscalls.endmntent(file);
+        for (StructMntent mntent : getMountEntries()) {
+            LinuxPath entryPath = path.getFileSystem().getPath(mntent.mnt_dir);
+            entries.put(entryPath, mntent);
         }
         do {
             StructMntent mntent = entries.get(path);
@@ -70,6 +73,21 @@ class LocalLinuxFileStore extends AbstractFileStore {
             }
         } while ((path = path.getParent()) != null);
         return null;
+    }
+
+    @NonNull
+    static List<StructMntent> getMountEntries() throws SyscallException {
+        List<StructMntent> entries = new ArrayList<>();
+        long file = Syscalls.setmntent(PATH_PROC_SELF_MOUNTS, MODE_R);
+        try {
+            StructMntent mntent;
+            while ((mntent = Syscalls.getmntent(file)) != null) {
+                entries.add(mntent);
+            }
+        } finally {
+            Syscalls.endmntent(file);
+        }
+        return entries;
     }
 
     @NonNull

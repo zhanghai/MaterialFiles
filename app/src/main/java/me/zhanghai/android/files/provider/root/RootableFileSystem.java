@@ -91,6 +91,7 @@ public abstract class RootableFileSystem extends FileSystem implements Parcelabl
     @NonNull
     @Override
     public Iterable<FileStore> getFileStores() {
+        // TODO: Consider using root? But when?
         return mLocalFileSystem.getFileStores();
     }
 
