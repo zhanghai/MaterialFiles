@@ -68,7 +68,7 @@ class LocalLinuxFileStore extends FileStore {
             if (mntent != null) {
                 return mntent;
             }
-        } while ((path = (LinuxPath) path.getParent()) != null);
+        } while ((path = path.getParent()) != null);
         return null;
     }
 
