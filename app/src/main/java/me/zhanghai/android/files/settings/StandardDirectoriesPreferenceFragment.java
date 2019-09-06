@@ -9,6 +9,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -89,8 +90,8 @@ public class StandardDirectoriesPreferenceFragment extends PreferenceFragmentCom
         SwitchPreferenceCompat switchPreference = (SwitchPreferenceCompat) preference;
         String id = switchPreference.getKey();
         boolean enabled = switchPreference.isChecked();
-        List<StandardDirectorySettings> settingsList =
-                Settings.STANDARD_DIRECTORY_SETTINGS.getValue();
+        List<StandardDirectorySettings> settingsList = new ArrayList<>(
+                Settings.STANDARD_DIRECTORY_SETTINGS.getValue());
         int index = Functional.findIndex(settingsList, settings -> Objects.equals(settings.getId(),
                 id));
         if (index != -1) {
