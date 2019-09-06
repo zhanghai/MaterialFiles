@@ -33,6 +33,13 @@
     byte linkFlag;
 }
 
+# Apache FtpServer
+-keepclassmembers class ** implements org.apache.mina.core.service.IoProcessor {
+    public <init>(java.util.concurrent.ExecutorService);
+    public <init>(java.util.concurrent.Executor);
+    public <init>();
+}
+
 # EventBus
 -keepattributes *Annotation*
 -keepclassmembers class ** {
