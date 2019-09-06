@@ -54,7 +54,7 @@ public class FtpServerService extends Service {
 
     public static void start(@NonNull Context context) {
         if (sInstance != null) {
-            sInstance.submitStart();
+            sInstance.executeStart();
         } else {
             context.startService(new Intent(context, FtpServerService.class));
         }
@@ -62,7 +62,7 @@ public class FtpServerService extends Service {
 
     public static void stop() {
         if (sInstance != null) {
-            sInstance.submitStop();
+            sInstance.executeStop();
         }
     }
 
@@ -79,7 +79,7 @@ public class FtpServerService extends Service {
 
         sInstance = this;
 
-        submitStart();
+        executeStart();
     }
 
     @Nullable
@@ -99,18 +99,18 @@ public class FtpServerService extends Service {
 
         sInstance = null;
 
-        submitStop();
+        executeStop();
         mExecutorService.shutdown();
     }
 
-    private void submitStart() {
+    private void executeStart() {
         if (mState == State.STARTING || mState == State.RUNNING) {
             return;
         }
         mWakeLock.acquire();
         FtpServerServiceNotification.startForeground(this);
         setState(State.STARTING);
-        mExecutorService.submit(this::doStart);
+        mExecutorService.execute(this::doStart);
     }
 
     private void onStartError(@NonNull Exception exception) {
@@ -120,12 +120,12 @@ public class FtpServerService extends Service {
         mWakeLock.release();
     }
 
-    private void submitStop() {
+    private void executeStop() {
         if (mState == State.STOPPING || mState == State.STOPPED) {
             return;
         }
         setState(State.STOPPING);
-        mExecutorService.submit(this::doStop);
+        mExecutorService.execute(this::doStop);
         FtpServerServiceNotification.stopForeground(this);
         mWakeLock.release();
     }
@@ -162,12 +162,13 @@ public class FtpServerService extends Service {
         mServer = new FtpServer(username, password, port, homeDirectory, writable);
         try {
             mServer.start();
-            postState(State.RUNNING);
         } catch (FtpException e) {
             e.printStackTrace();
             mServer = null;
             AppUtils.runOnUiThread(() -> onStartError(e));
+            return;
         }
+        postState(State.RUNNING);
     }
 
     @WorkerThread
