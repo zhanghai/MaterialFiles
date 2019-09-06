@@ -19,7 +19,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="@dimen/sd_overlay_elevation">
+        android:elevation="@dimen/sd_open_elevation">
 
         <me.zhanghai.android.files.ui.ThemedSpeedDialView
             android:id="@+id/speed_dial"
