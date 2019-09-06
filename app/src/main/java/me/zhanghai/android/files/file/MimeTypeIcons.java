@@ -44,6 +44,7 @@ class MimeTypeIcons {
         int POWERPOINT = R.drawable.file_powerpoint_icon_40dp;
     }
 
+    // See also https://mimesniff.spec.whatwg.org/#mime-type-groups
     private static final Map<String, Integer> sMimeTypeToIconMap =
             MapBuilder.<String, Integer>newHashMap()
 
@@ -69,6 +70,7 @@ class MimeTypeIcons {
                     .put("application/x-debian-package", Icons.ARCHIVE)
                     .put("application/x-gtar", Icons.ARCHIVE)
                     .put("application/x-gtar-compressed", Icons.ARCHIVE)
+                    .put("application/x-gzip", Icons.ARCHIVE)
                     .put("application/x-iso9660-image", Icons.ARCHIVE)
                     .put("application/x-java-archive", Icons.ARCHIVE)
                     .put("application/x-lha", Icons.ARCHIVE)
@@ -106,6 +108,7 @@ class MimeTypeIcons {
                     .put("application/typescript", Icons.CODE)
                     .put("application/xml", Icons.CODE)
                     .put("application/x-csh", Icons.CODE)
+                    .put("application/x-ecmascript", Icons.CODE)
                     .put("application/x-javascript", Icons.CODE)
                     .put("application/x-latex", Icons.CODE)
                     .put("application/x-perl", Icons.CODE)
@@ -117,7 +120,10 @@ class MimeTypeIcons {
                     .put("application/x-yaml", Icons.CODE)
                     .put("text/css", Icons.CODE)
                     .put("text/html", Icons.CODE)
+                    .put("text/ecmascript", Icons.CODE)
                     .put("text/javascript", Icons.CODE)
+                    .put("text/jscript", Icons.CODE)
+                    .put("text/livescript", Icons.CODE)
                     .put("text/xml", Icons.CODE)
                     .put("text/x-asm", Icons.CODE)
                     .put("text/x-c++hdr", Icons.CODE)
@@ -127,8 +133,10 @@ class MimeTypeIcons {
                     .put("text/x-csharp", Icons.CODE)
                     .put("text/x-csrc", Icons.CODE)
                     .put("text/x-dsrc", Icons.CODE)
+                    .put("text/x-ecmascript", Icons.CODE)
                     .put("text/x-haskell", Icons.CODE)
                     .put("text/x-java", Icons.CODE)
+                    .put("text/x-javascript", Icons.CODE)
                     .put("text/x-literate-haskell", Icons.CODE)
                     .put("text/x-pascal", Icons.CODE)
                     .put("text/x-perl", Icons.CODE)
@@ -167,8 +175,13 @@ class MimeTypeIcons {
                     .put("application/vnd.ms-outlook", Icons.EMAIL)
                     .put("message/rfc822", Icons.EMAIL)
 
+                    .put("application/font-cff", Icons.FONT)
+                    .put("application/font-off", Icons.FONT)
+                    .put("application/font-sfnt", Icons.FONT)
+                    .put("application/font-ttf", Icons.FONT)
                     .put("application/font-woff", Icons.FONT)
                     .put("application/vnd.ms-fontobject", Icons.FONT)
+                    .put("application/vnd.ms-opentype", Icons.FONT)
                     .put("application/x-font", Icons.FONT)
                     .put("application/x-font-ttf", Icons.FONT)
                     .put("application/x-font-woff", Icons.FONT)
