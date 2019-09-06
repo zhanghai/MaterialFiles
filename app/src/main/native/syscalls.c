@@ -1277,7 +1277,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setmntent(
     free(mode);
     if (errno) {
         throwSyscallException(env, "setmntent");
-        return NULL;
+        return (jlong) NULL;
     }
     return (jlong) file;
 }
