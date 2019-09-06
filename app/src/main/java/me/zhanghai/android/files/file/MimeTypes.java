@@ -32,7 +32,7 @@ public class MimeTypes {
     public static final String GENERIC_MIME_TYPE = "application/octet-stream";
 
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
-    // See also https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/MimeUtils.java
+    // See also https://android.googlesource.com/platform/libcore/+/pie-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also http://www.iana.org/assignments/media-types/media-types.xhtml
     // See also /usr/share/mime/packages/freedesktop.org.xml
     private static final Map<String, String> sExtensionToMimeTypeMap =
