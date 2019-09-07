@@ -10,10 +10,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class OpenApkDialogFragment extends AppCompatDialogFragment {
@@ -54,7 +54,7 @@ public class OpenApkDialogFragment extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return new AlertDialog.Builder(requireContext(), getTheme())
+        return AlertDialogBuilderCompat.create(requireContext(), getTheme())
                 .setMessage(R.string.file_open_apk_message)
                 .setPositiveButton(R.string.install, (dialog, which) -> getListener().installApk(
                         mExtraFile))

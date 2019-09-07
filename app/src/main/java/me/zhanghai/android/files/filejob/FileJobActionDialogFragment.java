@@ -22,6 +22,7 @@ import androidx.core.widget.NestedScrollView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -127,7 +128,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
             }
         }
 
-        AlertDialog dialog = new AlertDialog.Builder(context, theme)
+        AlertDialog dialog = AlertDialogBuilderCompat.create(context, theme)
                 .setTitle(mTitle)
                 .setMessage(mMessage)
                 .setPositiveButton(mPositiveButtonText, this::onDialogButtonClick)

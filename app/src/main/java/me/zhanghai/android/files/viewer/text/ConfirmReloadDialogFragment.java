@@ -10,10 +10,10 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 
 public class ConfirmReloadDialogFragment extends AppCompatDialogFragment {
 
@@ -36,7 +36,7 @@ public class ConfirmReloadDialogFragment extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return new AlertDialog.Builder(requireContext(), getTheme())
+        return AlertDialogBuilderCompat.create(requireContext(), getTheme())
                 .setMessage(R.string.text_editor_reload_message)
                 .setPositiveButton(R.string.keep_editing, null)
                 .setNegativeButton(R.string.reload, (dialog, which) -> getListener().reload())

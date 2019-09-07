@@ -95,6 +95,7 @@ public class ColorPreferenceDialogFragment extends PreferenceDialogFragmentCompa
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        // FIXME: Use AlertDialogBuilderCompat for MaterialAlertDialogBuilder.
         AlertDialog dialog = (AlertDialog) super.onCreateDialog(savedInstanceState);
         int checkedPosition = ArrayUtils.indexOf(mColors, mDefaultColor);
         if (checkedPosition != -1) {

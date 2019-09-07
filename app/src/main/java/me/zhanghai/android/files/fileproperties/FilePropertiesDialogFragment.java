@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter;
@@ -76,7 +77,7 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         String title = getString(R.string.file_properties_title_format, FileUtils.getName(
                 mExtraFile));
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme())
+        AlertDialog.Builder builder = AlertDialogBuilderCompat.create(requireContext(), getTheme())
                 .setTitle(title);
         mView = ViewUtils.inflate(R.layout.file_properties_dialog, builder.getContext());
         ButterKnife.bind(this, mView);

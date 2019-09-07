@@ -11,11 +11,11 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class ConfirmDeleteDialogFragment extends AppCompatDialogFragment {
@@ -56,7 +56,7 @@ public class ConfirmDeleteDialogFragment extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        return new AlertDialog.Builder(requireContext(), getTheme())
+        return AlertDialogBuilderCompat.create(requireContext(), getTheme())
                 .setMessage(getString(R.string.image_viewer_delete_message_format,
                         mExtraPath.getFileName()))
                 .setPositiveButton(android.R.string.ok, (dialog, which) -> getListener().delete(

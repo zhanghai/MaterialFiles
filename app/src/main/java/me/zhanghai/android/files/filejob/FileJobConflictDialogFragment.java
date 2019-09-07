@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.compat.StringCompat;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
@@ -196,7 +197,7 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
             mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
 
-        AlertDialog dialog = new AlertDialog.Builder(context, theme)
+        AlertDialog dialog = AlertDialogBuilderCompat.create(context, theme)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(positiveButtonRes, this::onDialogButtonClick)

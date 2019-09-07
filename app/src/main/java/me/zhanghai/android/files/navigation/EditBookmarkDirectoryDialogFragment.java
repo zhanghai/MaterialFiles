@@ -24,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.filelist.FileListActivity;
 import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
@@ -82,7 +83,7 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), getTheme());
+        AlertDialog.Builder builder = AlertDialogBuilderCompat.create(requireContext(), getTheme());
         View contentView = ViewUtils.inflate(R.layout.edit_bookmark_directory_dialog,
                 builder.getContext());
         ButterKnife.bind(this, contentView);

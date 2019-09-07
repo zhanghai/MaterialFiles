@@ -18,10 +18,10 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.util.AppUtils;
@@ -79,7 +79,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         CharSequence[] items = Functional.map(FILE_TYPES, item -> getString(item.first))
                 .toArray(new CharSequence[0]);
-        return new AlertDialog.Builder(requireContext(), getTheme())
+        return AlertDialogBuilderCompat.create(requireContext(), getTheme())
                 .setTitle(getString(R.string.file_open_as_title_format,
                         mExtraPath.getFileName().toString()))
                 .setItems(items, (dialog, which) -> openAs(FILE_TYPES.get(which).second))
