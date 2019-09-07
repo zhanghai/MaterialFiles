@@ -7,7 +7,7 @@
 
 <resources>
 
-    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.AppCompat.DayNight.DarkActionBar" />
+    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles" />
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
         <item name="colorPrimary">@color/color_primary</item>
@@ -41,7 +41,7 @@
     </style>
     <style name="Theme.MaterialFiles.Translucent" parent="Base.Theme.MaterialFiles.Translucent" />
 
-    <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.AppCompat">
+    <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.MaterialComponents.Bridge">
         <item name="android:navigationBarColor">@color/dark_70_percent</item>
         <item name="android:statusBarColor">@color/dark_70_percent</item>
     </style>
