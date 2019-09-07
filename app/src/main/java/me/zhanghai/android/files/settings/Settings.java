@@ -77,7 +77,10 @@ public interface Settings {
     SettingLiveData<CustomThemeColors.Accent> ACCENT_COLOR = new EnumSettingLiveData<>(
             R.string.pref_key_accent_color, R.string.pref_default_value_accent_color,
             CustomThemeColors.Accent.class);
- 
+
+    SettingLiveData<Boolean> MATERIAL_DESIGN_2 = new BooleanSettingLiveData(
+            R.string.pref_key_material_design_2, R.bool.pref_default_value_material_design_2);
+
     SettingLiveData<NightMode> NIGHT_MODE = new EnumSettingLiveData<>(R.string.pref_key_night_mode,
             R.string.pref_default_value_night_mode, NightMode.class);
 

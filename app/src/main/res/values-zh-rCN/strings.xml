@@ -291,6 +291,7 @@
     <string name="settings_primary_color_summary">应用中最常见的颜色</string>
     <string name="settings_accent_color_title">强调色</string>
     <string name="settings_accent_color_summary">用于强调界面中关键部分的颜色</string>
+    <string name="settings_material_design_2_title">质感设计 2</string>
     <string name="settings_night_mode_title">夜间模式</string>
     <string-array name="settings_night_mode_entries">
         <item>跟随系统</item>

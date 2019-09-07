@@ -26,9 +26,9 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/dark_50_percent"
+            android:background="?colorAppBarSurface"
             android:theme="?actionBarTheme"
-            app:navigationIcon="@drawable/back_icon_white_24dp"
+            app:navigationIcon="@drawable/back_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
     </FrameLayout>
 </FrameLayout>

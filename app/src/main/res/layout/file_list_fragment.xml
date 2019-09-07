@@ -36,11 +36,11 @@
         <include layout="@layout/file_list_fragment_speed_dial_include" />
     </me.zhanghai.android.files.ui.PersistentBarLayout>
 
-    <me.zhanghai.android.files.ui.PassWindowInsetsFrameLayout
+    <me.zhanghai.android.files.ui.NavigationFrameLayout
         android:id="@+id/navigation_fragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="?colorBackgroundFloating"
+        android:background="?colorNavigationSurface"
         android:fitsSystemWindows="true" />
 </androidx.drawerlayout.widget.DrawerLayout>

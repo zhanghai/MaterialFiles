@@ -16,10 +16,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="?colorPrimary"
+        android:background="?colorAppBarSurface"
         android:elevation="@dimen/design_appbar_elevation"
         android:theme="?actionBarTheme"
-        app:navigationIcon="@drawable/back_icon_white_24dp"
+        app:navigationIcon="@drawable/back_icon_control_normal_24dp"
         app:popupTheme="?actionBarPopupTheme" />
 
     <fragment

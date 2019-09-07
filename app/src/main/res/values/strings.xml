@@ -306,6 +306,7 @@
     <string name="settings_primary_color_summary">Color that appears most frequently in the app</string>
     <string name="settings_accent_color_title">Accent color</string>
     <string name="settings_accent_color_summary">Color used to accent key parts of the UI</string>
+    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Night mode</string>
     <string-array name="settings_night_mode_entries">
         <item>Follow system</item>

@@ -85,12 +85,17 @@ public class CustomThemeHelper {
     private static int getCustomTheme(@StyleRes int baseThemeRes, @NonNull Context context) {
         Resources resources = context.getResources();
         String baseThemeName = resources.getResourceName(baseThemeRes);
-        String primaryColorEntryName = Settings.PRIMARY_COLOR.getValue()
-                .getResourceEntryName();
-        String accentColorEntryName = Settings.ACCENT_COLOR.getValue()
-                .getResourceEntryName();
-        String customThemeName = baseThemeName + "." + primaryColorEntryName + "."
-                + accentColorEntryName;
+        String customThemeName;
+        if (Settings.MATERIAL_DESIGN_2.getValue()) {
+            customThemeName = baseThemeName + ".Md2";
+        } else {
+            String primaryColorEntryName = Settings.PRIMARY_COLOR.getValue()
+                    .getResourceEntryName();
+            String accentColorEntryName = Settings.ACCENT_COLOR.getValue()
+                    .getResourceEntryName();
+            customThemeName = baseThemeName + "." + primaryColorEntryName + "."
+                    + accentColorEntryName;
+        }
         return resources.getIdentifier(customThemeName, null, null);
     }
 

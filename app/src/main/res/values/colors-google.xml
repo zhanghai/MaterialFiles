@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <color name="google_red">#DB4437</color>
+    <color name="google_blue">#4285F4</color>
+    <color name="google_green">#0F9D58</color>
+    <color name="google_yellow">#F4B400</color>
+</resources>

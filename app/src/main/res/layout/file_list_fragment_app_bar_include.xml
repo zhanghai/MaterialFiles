@@ -11,6 +11,7 @@
     android:id="@+id/app_bar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?colorAppBarSurface"
     android:theme="?actionBarTheme">
 
     <FrameLayout
@@ -30,7 +31,7 @@
             android:id="@+id/overlay_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="?colorPrimary"
+            android:background="?colorAppBarSurface"
             android:visibility="gone"
             app:navigationIcon="@drawable/close_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />

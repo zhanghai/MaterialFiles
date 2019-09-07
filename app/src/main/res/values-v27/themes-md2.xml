@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <style name="Platform.V27.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2">
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+        <item name="android:navigationBarDividerColor">?colorControlHighlight</item>
+        <item name="android:windowLightNavigationBar">?isLightTheme</item>
+        <item name="android:windowLightStatusBar">?isLightTheme</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V27.Theme.MaterialFiles.Md2" />
+</resources>

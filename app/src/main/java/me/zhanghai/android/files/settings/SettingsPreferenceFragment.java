@@ -33,6 +33,7 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
         //SettingsLiveDatas.NIGHT_MODE.observe(this, nightMode -> NightModeHelper.sync());
         Settings.PRIMARY_COLOR.observe(this, this::onCustomThemeColorChanged);
         Settings.ACCENT_COLOR.observe(this, this::onCustomThemeColorChanged);
+        Settings.MATERIAL_DESIGN_2.observe(this, this::onMaterialDesign2Changed);
         Settings.NIGHT_MODE.observe(this, this::onNightModeChanged);
     }
 
@@ -43,6 +44,10 @@ public class SettingsPreferenceFragment extends PreferenceFragmentCompat {
     }
 
     private void onCustomThemeColorChanged(@NonNull CustomThemeColor color) {
+        CustomThemeHelper.sync();
+    }
+
+    private void onMaterialDesign2Changed(boolean enabled) {
         CustomThemeHelper.sync();
     }
 

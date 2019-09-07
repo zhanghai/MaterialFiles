@@ -33,6 +33,8 @@
     <string name="pref_default_value_primary_color">0</string>
     <string name="pref_key_accent_color">key_accent_color</string>
     <string name="pref_default_value_accent_color">0</string>
+    <string name="pref_key_material_design_2">key_material_design_2</string>
+    <bool name="pref_default_value_material_design_2">false</bool>
     <string name="pref_key_night_mode">key_night_mode</string>
     <string name="pref_default_value_night_mode">0</string>
     <string-array name="pref_entry_values_night_mode">

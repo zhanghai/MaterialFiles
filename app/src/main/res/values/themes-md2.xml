@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <style name="Platform.V21.Theme.MaterialFiles.Md2" parent="Theme.MaterialComponents.DayNight" />
+    <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2" />
+    <style name="Base.Theme.MaterialFiles.Md2" parent="Platform.Theme.MaterialFiles.Md2">
+
+        <item name="colorPrimaryDark">?colorSurface</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/google_blue</item>
+        <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorSecondary">@color/google_blue</item>
+        <item name="colorSecondaryVariant">?colorSecondary</item>
+
+        <item name="colorAppBarSurface">?colorSurface</item>
+        <item name="colorNavigationSurface">?colorSurface</item>
+    </style>
+    <style name="Theme.MaterialFiles.Md2" parent="Base.Theme.MaterialFiles.Md2" />
+
+    <style name="Platform.V21.Theme.MaterialFiles.TransparentStatusBar.Md2" parent="Theme.MaterialFiles.Md2">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.TransparentStatusBar.Md2" parent="Platform.V21.Theme.MaterialFiles.TransparentStatusBar.Md2" />
+    <style name="Base.Theme.MaterialFiles.TransparentStatusBar.Md2" parent="Platform.Theme.MaterialFiles.TransparentStatusBar.Md2" />
+    <style name="Theme.MaterialFiles.TransparentStatusBar.Md2" parent="Base.Theme.MaterialFiles.TransparentStatusBar.Md2" />
+
+    <style name="Platform.V21.Theme.MaterialFiles.Translucent.Md2" parent="Theme.MaterialFiles.Md2">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Translucent.Md2" parent="Platform.V21.Theme.MaterialFiles.Translucent.Md2" />
+    <style name="Base.Theme.MaterialFiles.Translucent.Md2" parent="Platform.Theme.MaterialFiles.Translucent.Md2">
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.MaterialFiles.Translucent.Md2" parent="Base.Theme.MaterialFiles.Translucent.Md2" />
+
+    <style name="Platform.V21.Theme.MaterialFiles.Immersive.Md2" parent="Theme.MaterialComponents">
+        <item name="android:navigationBarColor">@color/dark_70_percent</item>
+        <item name="android:statusBarColor">@color/dark_70_percent</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Immersive.Md2" parent="Platform.V21.Theme.MaterialFiles.Immersive.Md2" />
+    <style name="Base.Theme.MaterialFiles.Immersive.Md2" parent="Platform.Theme.MaterialFiles.Immersive.Md2">
+
+        <item name="colorPrimaryDark">?colorPrimaryVariant</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorPrimary">@color/google_blue</item>
+        <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorSecondary">@color/google_blue</item>
+        <item name="colorSecondaryVariant">?colorSecondary</item>
+
+        <item name="colorAppBarSurface">@color/dark_50_percent</item>
+        <item name="colorNavigationSurface">?colorSurface</item>
+    </style>
+    <style name="Theme.MaterialFiles.Immersive.Md2" parent="Base.Theme.MaterialFiles.Immersive.Md2" />
+</resources>
