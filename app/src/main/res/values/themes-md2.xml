@@ -25,7 +25,7 @@
         <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
-        <item name="colorNavigationSurface">?colorSurface</item>
+        <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
     </style>
     <style name="Theme.MaterialFiles.Md2" parent="Base.Theme.MaterialFiles.Md2" />
@@ -75,7 +75,7 @@
         <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
-        <item name="colorNavigationSurface">?colorSurface</item>
+        <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.Md2" parent="Base.Theme.MaterialFiles.Immersive.Md2" />
