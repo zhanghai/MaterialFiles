@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.ui.FixNestedScrollAppBarLayout
+<com.google.android.material.appbar.AppBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_bar"
@@ -43,4 +43,4 @@
         android:layout_height="wrap_content"
         android:paddingStart="@dimen/content_start_margin_minus_12dp"
         android:paddingEnd="@dimen/screen_edge_margin_minus_12dp" />
-</me.zhanghai.android.files.ui.FixNestedScrollAppBarLayout>
+</com.google.android.material.appbar.AppBarLayout>
