@@ -12,15 +12,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:background="?colorAppBarSurface"
-        android:elevation="@dimen/design_appbar_elevation"
-        android:theme="?actionBarTheme"
-        app:navigationIcon="@drawable/back_icon_control_normal_24dp"
-        app:popupTheme="?actionBarPopupTheme" />
+        android:theme="?actionBarTheme">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:navigationIcon="@drawable/back_icon_control_normal_24dp"
+            app:popupTheme="?actionBarPopupTheme" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
