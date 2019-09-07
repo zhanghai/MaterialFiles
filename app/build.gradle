@@ -111,7 +111,7 @@ dependencies {
     implementation 'me.zhanghai.java.promise:library:1.0.0'
     implementation 'me.zhanghai.java.reflected:library:1.0.1'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.1'
-    implementation 'org.apache.commons:commons-compress:1.18'
+    implementation 'org.apache.commons:commons-compress:1.19'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
