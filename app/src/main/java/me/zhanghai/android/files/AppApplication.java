@@ -13,6 +13,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.firebase.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
 import me.zhanghai.android.files.theme.night.NightModeHelper;
 
@@ -40,6 +41,9 @@ public class AppApplication extends Application {
 
         FileSystemProviders.install();
         FileSystemProviders.setOverflowWatchEvents(true);
+
+        // Force initialization of Settings so that it won't happen on a background thread.
+        Settings.FILE_LIST_DEFAULT_DIRECTORY.getValue();
 
         CustomThemeHelper.initialize(this);
         NightModeHelper.initialize(this);
