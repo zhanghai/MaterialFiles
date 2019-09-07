@@ -9,7 +9,8 @@
 
     <style name="Platform.V27.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2">
         <item name="android:navigationBarColor">?android:colorBackground</item>
-        <item name="android:navigationBarDividerColor">?colorControlHighlight</item>
+        <!-- We need to override here or the value in v27/themes.xml will somehow stick around. -->
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar">?isLightTheme</item>
         <item name="android:windowLightStatusBar">?isLightTheme</item>
     </style>

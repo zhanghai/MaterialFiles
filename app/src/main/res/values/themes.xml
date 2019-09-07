@@ -19,6 +19,7 @@
 
         <item name="colorAppBarSurface">?colorPrimary</item>
         <item name="colorNavigationSurface">?colorBackgroundFloating</item>
+        <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
     </style>
     <style name="Theme.MaterialFiles" parent="Base.Theme.MaterialFiles" />
 
@@ -61,6 +62,7 @@
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
         <item name="colorNavigationSurface">?colorBackgroundFloating</item>
+        <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive" parent="Base.Theme.MaterialFiles.Immersive" />
 </resources>

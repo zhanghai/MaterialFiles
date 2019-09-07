@@ -15,7 +15,6 @@ import androidx.annotation.NonNull;
 import androidx.core.math.MathUtils;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindDimen;
-import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -28,9 +27,8 @@ public class NavigationRecyclerView extends RecyclerView {
     int mMaxWidth;
     @BindDimen(R.dimen.design_navigation_padding_bottom)
     int mVerticalPadding;
-    @BindDrawable(R.color.system_window_scrim)
-    Drawable mScrim;
     private int mActionBarSize;
+    private Drawable mScrim;
 
     private int mInsetTop;
 
@@ -55,8 +53,10 @@ public class NavigationRecyclerView extends RecyclerView {
 
     private void init() {
         ButterKnife.bind(this);
+        Context context = getContext();
         mActionBarSize = ViewUtils.getDimensionPixelSizeFromAttrRes(R.attr.actionBarSize, 0,
-                getContext());
+                context);
+        mScrim = ViewUtils.getDrawableFromAttrRes(R.attr.colorSystemWindowScrim, context);
         setPadding(getPaddingLeft(), mVerticalPadding, getPaddingRight(), mVerticalPadding);
         setElevation(mElevation);
         setFitsSystemWindows(true);

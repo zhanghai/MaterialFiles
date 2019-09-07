@@ -8,4 +8,5 @@
 <resources>
     <attr name="colorAppBarSurface" format="color" />
     <attr name="colorNavigationSurface" format="color" />
+    <attr name="colorSystemWindowScrim" format="color" />
 </resources>
