@@ -5,18 +5,18 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?colorAppBarSurface"
-        android:theme="?actionBarTheme">
+        android:theme="?actionBarTheme"
+        app:liftOnScrollTargetViewId="@id/scroll">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,7 +28,8 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ProgressBar
             android:id="@+id/progress"
@@ -51,7 +52,8 @@
             android:visibility="gone" />
 
         <!-- TODO: Use a WebView for large amount of text. -->
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
@@ -67,6 +69,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1">
                 <requestFocus />
             </EditText>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
     </FrameLayout>
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
