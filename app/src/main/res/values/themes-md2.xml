@@ -11,16 +11,18 @@
     <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2" />
     <style name="Base.Theme.MaterialFiles.Md2" parent="Platform.Theme.MaterialFiles.Md2">
 
+        <item name="android:colorBackground">?colorSurface</item>
         <item name="colorPrimaryDark">?colorSurface</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
         <item name="appBarLayoutStyle">@style/Widget.MaterialFiles.AppBarLayout.Md2</item>
 
-        <item name="colorPrimary">@color/google_blue</item>
+        <item name="colorPrimary">@color/color_primary_md2</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
-        <item name="colorSecondary">@color/google_blue</item>
+        <item name="colorSecondary">?colorPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
+        <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
         <item name="colorNavigationSurface">?colorSurface</item>
@@ -57,6 +59,7 @@
     <style name="Platform.Theme.MaterialFiles.Immersive.Md2" parent="Platform.V21.Theme.MaterialFiles.Immersive.Md2" />
     <style name="Base.Theme.MaterialFiles.Immersive.Md2" parent="Platform.Theme.MaterialFiles.Immersive.Md2">
 
+        <item name="android:colorBackground">?colorSurface</item>
         <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
@@ -64,10 +67,11 @@
 
         <item name="appBarLayoutStyle">@style/Widget.MaterialFiles.AppBarLayout.Md2</item>
 
-        <item name="colorPrimary">@color/google_blue</item>
+        <item name="colorPrimary">@color/color_primary_md2</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
-        <item name="colorSecondary">@color/google_blue</item>
+        <item name="colorSecondary">?colorPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
+        <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
         <item name="colorNavigationSurface">?colorSurface</item>

@@ -6,7 +6,6 @@
   -->
 
 <resources>
-    <color name="google_blue_500">#4285F4</color>
-    <color name="google_blue_300">#8AB4F8</color>
-    <color name="google_grey_900">#202124</color>
+    <color name="color_primary_md2">@color/google_blue_500</color>
+    <color name="color_surface_md2">@android:color/white</color>
 </resources>
