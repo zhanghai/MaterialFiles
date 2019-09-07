@@ -63,6 +63,13 @@ public class NavigationFrameLayout extends FrameLayout {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        MaterialShapeUtils.setParentAbsoluteElevation(this);
+    }
+
+    @Override
     public void setElevation(float elevation) {
         super.setElevation(elevation);
 
