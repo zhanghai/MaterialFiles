@@ -54,6 +54,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="application/gzip" />
                 <data android:mimeType="application/java-archive" />
+                <data android:mimeType="application/rar" />
+                <data android:mimeType="application/zip" />
                 <data android:mimeType="application/vnd.android.package-archive" />
                 <data android:mimeType="application/vnd.debian.binary-package" />
                 <data android:mimeType="application/x-7z-compressed" />
@@ -68,7 +70,6 @@
                 <data android:mimeType="application/x-lzma" />
                 <data android:mimeType="application/x-tar" />
                 <data android:mimeType="application/x-xz" />
-                <data android:mimeType="application/zip" />
             </intent-filter>
             <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/master/AndroidManifest.xml -->
             <intent-filter>
