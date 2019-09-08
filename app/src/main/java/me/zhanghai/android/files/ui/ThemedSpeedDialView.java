@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.leinardi.android.speeddial.FabWithLabelView;
 import com.leinardi.android.speeddial.SpeedDialActionItem;
@@ -51,8 +50,10 @@ public class ThemedSpeedDialView extends SpeedDialView {
         getMainFab().setSupportImageTintList(ColorStateList.valueOf(imageTintColor));
     }
 
+    @NonNull
     @Override
-    public void addActionItem(SpeedDialActionItem actionItem, int position, boolean animate) {
+    public FabWithLabelView addActionItem(@NonNull SpeedDialActionItem actionItem, int position,
+                                          boolean animate) {
         Context context = getContext();
         int fabImageTintColor = ViewUtils.getColorFromAttrRes(R.attr.colorOnMiniFabSurface, 0,
                 context);
@@ -66,7 +67,7 @@ public class ThemedSpeedDialView extends SpeedDialView {
         actionItem = new SpeedDialActionItem.Builder(actionItem.getId(),
                 // Should not be a resource, pass null to fail fast.
                 actionItem.getFabImageDrawable(null))
-                .setLabel(actionItem.getLabel())
+                .setLabel(actionItem.getLabel(context))
                 .setFabImageTintColor(fabImageTintColor)
                 .setFabBackgroundColor(fabBackgroundColor)
                 .setLabelColor(labelColor)
@@ -74,21 +75,10 @@ public class ThemedSpeedDialView extends SpeedDialView {
                 .setLabelClickable(actionItem.isLabelClickable())
                 .setTheme(actionItem.getTheme())
                 .create();
-        super.addActionItem(actionItem, position, animate);
-    }
-
-    @Override
-    public void addView(@NonNull View child, int index) {
-        super.addView(child, index);
-
+        FabWithLabelView view = super.addActionItem(actionItem, position, animate);
         // https://github.com/leinardi/FloatingActionButtonSpeedDial/pull/127
-        if (child instanceof FabWithLabelView) {
-            int fabImageTintColor = ViewUtils.getColorFromAttrRes(R.attr.colorOnMiniFabSurface, 0,
-                    getContext());
-            FabWithLabelView fabWithLabelView = (FabWithLabelView) child;
-            fabWithLabelView.getFab().setSupportImageTintList(ColorStateList.valueOf(
-                    fabImageTintColor));
-        }
+        view.getFab().setSupportImageTintList(ColorStateList.valueOf(fabImageTintColor));
+        return view;
     }
 
     @Nullable
