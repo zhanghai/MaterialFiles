@@ -7,10 +7,12 @@ package me.zhanghai.android.files.compat;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.graphics.Color;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StyleRes;
+import androidx.core.graphics.ColorUtils;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.ViewUtils;
 import me.zhanghai.java.reflected.ReflectedField;
@@ -37,6 +39,9 @@ public class MoreActivityCompat {
             if (appBarSurfaceColor == 0
                     || taskDescription.getPrimaryColor() == appBarSurfaceColor) {
                 return;
+            }
+            if (Color.alpha(appBarSurfaceColor) != 0xFF) {
+                appBarSurfaceColor = ColorUtils.setAlphaComponent(appBarSurfaceColor, 0xFF);
             }
             TaskDescriptionCompat.setPrimaryColor(taskDescription, appBarSurfaceColor);
             activity.setTaskDescription(taskDescription);
