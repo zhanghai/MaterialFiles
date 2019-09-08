@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.FileNameUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -69,7 +70,8 @@ public abstract class FileNameDialogFragment extends AppCompatDialogFragment {
 
     @LayoutRes
     protected int getLayoutRes() {
-        return R.layout.file_name_dialog;
+        return Settings.MATERIAL_DESIGN_2.getValue() ? R.layout.file_name_dialog_md2
+                : R.layout.file_name_dialog;
     }
 
     private void onOk() {
