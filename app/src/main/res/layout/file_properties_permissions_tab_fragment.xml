@@ -28,7 +28,7 @@
                 android:text="@string/file_properties_permissions_owner"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/owner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 android:text="@string/file_properties_permissions_group"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
                 android:text="@string/file_properties_permissions_mode"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                     android:text="@string/file_properties_permissions_selinux_context"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <Button
                     android:id="@+id/selinux_context"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
