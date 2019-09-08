@@ -22,6 +22,7 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.util.CollectionUtils;
 
+// TODO: Use SavedStateHandle to save state.
 public class FileListViewModel extends ViewModel {
 
     @NonNull
