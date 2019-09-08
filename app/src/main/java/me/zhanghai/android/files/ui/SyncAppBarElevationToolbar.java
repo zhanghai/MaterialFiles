@@ -18,6 +18,7 @@ import com.google.android.material.shape.MaterialShapeUtils;
 import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java9.util.function.Consumer;
 
 public class SyncAppBarElevationToolbar extends MaterialToolbar {
 
@@ -52,9 +53,8 @@ public class SyncAppBarElevationToolbar extends MaterialToolbar {
             if (!(appBarLayoutBackground instanceof SetElevationCallbackDrawable)
                     && appBarLayoutBackground instanceof MaterialShapeDrawable) {
                 appBarLayoutBackground = new SetElevationCallbackDrawable(
-                        (MaterialShapeDrawable) appBarLayoutBackground,
-                        () -> MaterialShapeUtils.setParentAbsoluteElevation(this),
-                        getContext());
+                        (MaterialShapeDrawable) appBarLayoutBackground, elevation ->
+                        MaterialShapeUtils.setElevation(this, elevation), getContext());
                 appBarLayout.setBackground(appBarLayoutBackground);
             }
         }
@@ -63,10 +63,10 @@ public class SyncAppBarElevationToolbar extends MaterialToolbar {
     private static class SetElevationCallbackDrawable extends MaterialShapeDrawable {
 
         @NonNull
-        private final Runnable mSetElevationCallback;
+        private final Consumer<Float> mSetElevationCallback;
 
         public SetElevationCallbackDrawable(@NonNull MaterialShapeDrawable drawable,
-                                            @NonNull Runnable setElevationCallback,
+                                            @NonNull Consumer<Float> setElevationCallback,
                                             @NonNull Context context) {
             mSetElevationCallback = setElevationCallback;
             setFillColor(drawable.getFillColor());
@@ -77,7 +77,7 @@ public class SyncAppBarElevationToolbar extends MaterialToolbar {
         public void setElevation(float elevation) {
             super.setElevation(elevation);
 
-            mSetElevationCallback.run();
+            mSetElevationCallback.accept(elevation);
         }
     }
 }
