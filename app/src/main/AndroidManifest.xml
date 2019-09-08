@@ -26,10 +26,11 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialFiles"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
             android:name="me.zhanghai.android.files.filelist.FileListActivity"

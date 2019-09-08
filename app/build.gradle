@@ -8,12 +8,12 @@ apply plugin: 'com.android.application'
 apply from: '../signing.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 10
         versionName '1.0.0-beta.9'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
