@@ -217,7 +217,6 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         holder.menu = new PopupMenu(holder.menuButton.getContext(), holder.menuButton);
         holder.menu.inflate(R.menu.file_item);
         holder.menuButton.setOnClickListener(view -> holder.menu.show());
-        holder.menuButton.setOnTouchListener(holder.menu.getDragToOpenListener());
         return holder;
     }
 
