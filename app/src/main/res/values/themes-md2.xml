@@ -23,6 +23,10 @@
         <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
+        <item name="colorFabSurface">?colorPrimary</item>
+        <item name="colorOnFabSurface">?colorOnPrimary</item>
+        <item name="colorMiniFabSurface">?colorSurface</item>
+        <item name="colorOnMiniFabSurface">?colorPrimary</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
     </style>
@@ -71,6 +75,10 @@
         <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
+        <item name="colorFabSurface">?colorPrimary</item>
+        <item name="colorOnFabSurface">?colorOnPrimary</item>
+        <item name="colorMiniFabSurface">?colorSurface</item>
+        <item name="colorOnMiniFabSurface">?colorPrimary</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
     </style>
