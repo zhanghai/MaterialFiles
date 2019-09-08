@@ -13,6 +13,7 @@
     android:layout_height="wrap_content"
     android:background="?colorAppBarSurface"
     android:theme="?actionBarTheme"
+    app:liftOnScroll="true"
     app:liftOnScrollTargetViewId="@id/recycler">
 
     <FrameLayout

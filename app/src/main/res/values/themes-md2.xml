@@ -16,8 +16,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <item name="appBarLayoutStyle">@style/Widget.MaterialFiles.AppBarLayout.Md2</item>
-
         <item name="colorPrimary">@color/color_primary_md2</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
         <item name="colorSecondary">?colorPrimary</item>
@@ -65,8 +63,6 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="windowNoTitle">true</item>
-
-        <item name="appBarLayoutStyle">@style/Widget.MaterialFiles.AppBarLayout.Md2</item>
 
         <item name="colorPrimary">@color/color_primary_md2</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
