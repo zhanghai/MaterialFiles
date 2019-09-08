@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/type_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dialog_padding_minus_6dp"
+    android:paddingEnd="@dimen/dialog_padding"
+    android:orientation="horizontal">
+
+    <RadioButton
+        android:id="@+id/type_zip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dense_single_line_list_item_height"
+        android:layout_weight="1"
+        android:text="@string/file_create_archive_type_zip"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+    <RadioButton
+        android:id="@+id/type_tar_xz"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dense_single_line_list_item_height"
+        android:layout_weight="1"
+        android:text="@string/file_create_archive_type_tar_xz"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+   <RadioButton
+        android:id="@+id/type_seven_z"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/dense_single_line_list_item_height"
+        android:layout_weight="1"
+        android:text="@string/file_create_archive_type_7z"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:visibility="@integer/create_archive_type_seven_z_visibility" />
+</me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup>
