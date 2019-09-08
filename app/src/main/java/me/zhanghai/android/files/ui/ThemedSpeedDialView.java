@@ -25,29 +25,14 @@ public class ThemedSpeedDialView extends SpeedDialView {
 
     public ThemedSpeedDialView(Context context) {
         super(context);
-
-        init();
     }
 
     public ThemedSpeedDialView(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        init();
     }
 
     public ThemedSpeedDialView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        init();
-    }
-
-    private void init() {
-        Context context = getContext();
-        int backgroundColor = ViewUtils.getColorFromAttrRes(R.attr.colorFabSurface, 0, context);
-        setMainFabClosedBackgroundColor(backgroundColor);
-        setMainFabOpenedBackgroundColor(backgroundColor);
-        int imageTintColor = ViewUtils.getColorFromAttrRes(R.attr.colorOnFabSurface, 0, context);
-        getMainFab().setSupportImageTintList(ColorStateList.valueOf(imageTintColor));
     }
 
     @NonNull
@@ -55,9 +40,9 @@ public class ThemedSpeedDialView extends SpeedDialView {
     public FabWithLabelView addActionItem(@NonNull SpeedDialActionItem actionItem, int position,
                                           boolean animate) {
         Context context = getContext();
-        int fabImageTintColor = ViewUtils.getColorFromAttrRes(R.attr.colorOnMiniFabSurface, 0,
+        int fabImageTintColor = ViewUtils.getColorFromAttrRes(R.attr.colorOnSpeedDialSurface, 0,
                 context);
-        int fabBackgroundColor = ViewUtils.getColorFromAttrRes(R.attr.colorMiniFabSurface, 0,
+        int fabBackgroundColor = ViewUtils.getColorFromAttrRes(R.attr.colorSpeedDialSurface, 0,
                 context);
         int labelColor = ViewUtils.getColorFromAttrRes(android.R.attr.textColorSecondary, 0,
                 context);

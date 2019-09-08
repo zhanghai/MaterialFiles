@@ -18,11 +18,9 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorAppBarSurface">?colorPrimary</item>
-        <item name="colorFabSurface">?colorAccent</item>
-        <item name="colorOnFabSurface">@android:color/white</item>
-        <item name="colorMiniFabSurface">?colorPrimary</item>
-        <item name="colorOnMiniFabSurface">@android:color/white</item>
         <item name="colorFloatingSurface">?colorBackgroundFloating</item>
+        <item name="colorSpeedDialSurface">?colorPrimary</item>
+        <item name="colorOnSpeedDialSurface">@android:color/white</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
         <item name="dividerVisibility">@integer/visibility_visible</item>
     </style>
@@ -66,11 +64,9 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
-        <item name="colorFabSurface">?colorAccent</item>
-        <item name="colorOnFabSurface">@android:color/white</item>
-        <item name="colorMiniFabSurface">?colorPrimary</item>
-        <item name="colorOnMiniFabSurface">@android:color/white</item>
         <item name="colorFloatingSurface">?colorBackgroundFloating</item>
+        <item name="colorSpeedDialSurface">?colorPrimary</item>
+        <item name="colorOnSpeedDialSurface">@android:color/white</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
         <item name="dividerVisibility">@integer/visibility_visible</item>
     </style>

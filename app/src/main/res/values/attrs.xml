@@ -7,11 +7,9 @@
 
 <resources>
     <attr name="colorAppBarSurface" format="color" />
-    <attr name="colorFabSurface" format="color" />
-    <attr name="colorOnFabSurface" format="color" />
-    <attr name="colorMiniFabSurface" format="color" />
-    <attr name="colorOnMiniFabSurface" format="color" />
     <attr name="colorFloatingSurface" format="color" />
+    <attr name="colorSpeedDialSurface" format="color" />
+    <attr name="colorOnSpeedDialSurface" format="color" />
     <attr name="colorSystemWindowScrim" format="color" />
     <attr name="dividerVisibility" format="integer" />
 </resources>

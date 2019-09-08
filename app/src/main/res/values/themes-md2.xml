@@ -25,11 +25,9 @@
         <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
-        <item name="colorFabSurface">?colorPrimary</item>
-        <item name="colorOnFabSurface">?colorOnPrimary</item>
-        <item name="colorMiniFabSurface">?colorSurface</item>
-        <item name="colorOnMiniFabSurface">?colorControlNormal</item>
         <item name="colorFloatingSurface">?colorSurface</item>
+        <item name="colorSpeedDialSurface">?colorSurface</item>
+        <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
     </style>
@@ -80,11 +78,9 @@
         <item name="colorSurface">@color/color_surface_md2</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
-        <item name="colorFabSurface">?colorPrimary</item>
-        <item name="colorOnFabSurface">?colorOnPrimary</item>
-        <item name="colorMiniFabSurface">?colorSurface</item>
-        <item name="colorOnMiniFabSurface">?colorControlNormal</item>
         <item name="colorFloatingSurface">?colorSurface</item>
+        <item name="colorSpeedDialSurface">?colorSurface</item>
+        <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
     </style>
