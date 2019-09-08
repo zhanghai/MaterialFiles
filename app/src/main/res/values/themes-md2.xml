@@ -26,7 +26,7 @@
         <item name="colorFabSurface">?colorPrimary</item>
         <item name="colorOnFabSurface">?colorOnPrimary</item>
         <item name="colorMiniFabSurface">?colorSurface</item>
-        <item name="colorOnMiniFabSurface">?colorPrimary</item>
+        <item name="colorOnMiniFabSurface">?colorControlNormal</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
@@ -79,7 +79,7 @@
         <item name="colorFabSurface">?colorPrimary</item>
         <item name="colorOnFabSurface">?colorOnPrimary</item>
         <item name="colorMiniFabSurface">?colorSurface</item>
-        <item name="colorOnMiniFabSurface">?colorPrimary</item>
+        <item name="colorOnMiniFabSurface">?colorControlNormal</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
