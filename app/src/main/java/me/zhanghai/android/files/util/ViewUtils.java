@@ -709,13 +709,25 @@ public class ViewUtils {
 
     public static void setLayoutFullscreen(@NonNull View view) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            view.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            view.setSystemUiVisibility(view.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
     }
 
     public static void setLayoutFullscreen(@NonNull Activity activity) {
         setLayoutFullscreen(activity.getWindow().getDecorView());
+    }
+
+    public static void setLayoutHideNavigation(@NonNull View view) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.setSystemUiVisibility(view.getSystemUiVisibility()
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        }
+    }
+
+    public static void setLayoutHideNavigation(@NonNull Activity activity) {
+        setLayoutHideNavigation(activity.getWindow().getDecorView());
     }
 
     public static void setTextViewBold(@NonNull TextView textView, boolean bold) {
