@@ -18,6 +18,7 @@ import androidx.annotation.StyleRes;
 import androidx.preference.DialogPreference;
 import androidx.preference.PreferenceViewHolder;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.util.ViewUtils;
 
 public abstract class BaseColorPreference extends DialogPreference {
 
@@ -62,6 +63,13 @@ public abstract class BaseColorPreference extends DialogPreference {
         if (swatchView != null) {
             GradientDrawable swatchDrawable = (GradientDrawable) swatchView.getBackground();
             swatchDrawable.setColor(getValue());
+            int alpha = 0xFF;
+            if (!isEnabled()) {
+                float disabledAlpha = ViewUtils.getFloatFromAttrRes(android.R.attr.disabledAlpha, 0,
+                        getContext());
+                alpha = Math.round(disabledAlpha * alpha);
+            }
+            swatchDrawable.setAlpha(alpha);
         }
     }
 
