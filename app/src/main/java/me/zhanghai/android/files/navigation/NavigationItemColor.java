@@ -10,6 +10,7 @@ import android.content.res.ColorStateList;
 
 import androidx.annotation.NonNull;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.ViewUtils;
 
 // We cannot reference disabled text color in XML resource, so we have to do this in Java.
@@ -25,7 +26,9 @@ public class NavigationItemColor {
     public static ColorStateList create(@NonNull ColorStateList color, @NonNull Context context) {
         // The primary color doesn't have enough contrast against the window background color in a
         // dark theme.
-        int checkedColorAttr = ViewUtils.isLightTheme(context) ? R.attr.colorPrimary
+        // But MD2 theme has.
+        int checkedColorAttr = Settings.MATERIAL_DESIGN_2.getValue()
+                || ViewUtils.isLightTheme(context) ? R.attr.colorPrimary
                 : android.R.attr.textColorPrimary;
         int checkedColor = ViewUtils.getColorFromAttrRes(checkedColorAttr, 0, context);
         int defaultColor = color.getDefaultColor();

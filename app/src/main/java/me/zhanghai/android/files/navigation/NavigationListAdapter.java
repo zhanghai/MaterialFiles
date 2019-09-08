@@ -5,10 +5,21 @@
 
 package me.zhanghai.android.files.navigation;
 
+import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.InsetDrawable;
+import android.graphics.drawable.RippleDrawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.material.shape.MaterialShapeDrawable;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.ui.CheckableLinearLayout;
 import me.zhanghai.android.files.ui.SimpleAdapter;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -70,8 +82,17 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
             case VIEW_TYPE_ITEM: {
                 ItemHolder holder = new ItemHolder(ViewUtils.inflate(R.layout.navigation_item,
                         parent));
-                holder.itemLayout.setBackground(AppCompatResources.getDrawable(
-                        holder.itemLayout.getContext(), R.drawable.navigation_item_background));
+                if (Settings.MATERIAL_DESIGN_2.getValue()) {
+                    Context context = holder.itemLayout.getContext();
+                    holder.itemLayout.setBackground(createItemBackgroundMd2(context));
+                    // FIXME: Use a ForegroundLinearLayout.
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        holder.itemLayout.setForeground(createItemForegroundMd2(context));
+                    }
+                } else {
+                    holder.itemLayout.setBackground(AppCompatResources.getDrawable(
+                            holder.itemLayout.getContext(), R.drawable.navigation_item_background));
+                }
                 holder.iconImage.setImageTintList(NavigationItemColor.create(
                         holder.iconImage.getImageTintList(), holder.iconImage.getContext()));
                 holder.titleText.setTextColor(NavigationItemColor.create(
@@ -86,6 +107,43 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    @NonNull
+    private static Drawable createItemBackgroundMd2(@NonNull Context context) {
+        // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground(TintTypedArray)
+        return createItemShapeDrawableMd2(AppCompatResources.getColorStateList(context,
+                R.color.mtrl_navigation_item_background_color), context);
+    }
+
+    @NonNull
+    private static Drawable createItemForegroundMd2(@NonNull Context context) {
+        Drawable mask = createItemShapeDrawableMd2(ColorStateList.valueOf(Color.WHITE), context);
+        int controlHighlightColor = ViewUtils.getColorFromAttrRes(R.attr.colorControlHighlight, 0,
+                context);
+        return new RippleDrawable(ColorStateList.valueOf(controlHighlightColor), null, mask);
+    }
+
+    @NonNull
+    private static Drawable createItemShapeDrawableMd2(@NonNull ColorStateList fillColor,
+                                                       @NonNull Context context) {
+        // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground(TintTypedArray)
+        int shapeAppearanceResId = ViewUtils.getResIdFromAttrRes(
+                R.attr.shapeAppearanceSmallComponent, 0, context);
+        MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(
+                ShapeAppearanceModel.builder(context, shapeAppearanceResId, 0).build());
+        materialShapeDrawable.setFillColor(fillColor);
+        Resources resources = context.getResources();
+        int insetLeft = resources.getDimensionPixelSize(
+                R.dimen.mtrl_navigation_item_shape_horizontal_margin);
+        int insetTop = resources.getDimensionPixelSize(
+                R.dimen.mtrl_navigation_item_shape_vertical_margin);
+        int insetRight = resources.getDimensionPixelSize(
+                R.dimen.mtrl_navigation_item_shape_horizontal_margin);
+        int insetBottom = resources.getDimensionPixelSize(
+                R.dimen.mtrl_navigation_item_shape_vertical_margin);
+        return new InsetDrawable(materialShapeDrawable, insetLeft, insetTop, insetRight,
+                insetBottom);
     }
 
     @Override
