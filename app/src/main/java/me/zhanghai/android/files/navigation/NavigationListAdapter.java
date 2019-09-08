@@ -7,7 +7,6 @@ package me.zhanghai.android.files.navigation;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
@@ -128,22 +127,12 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
     private static Drawable createItemShapeDrawableMd2(@NonNull ColorStateList fillColor,
                                                        @NonNull Context context) {
         // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground(TintTypedArray)
-        int shapeAppearanceResId = ViewUtils.getResIdFromAttrRes(
-                R.attr.shapeAppearanceSmallComponent, 0, context);
         MaterialShapeDrawable materialShapeDrawable = new MaterialShapeDrawable(
-                ShapeAppearanceModel.builder(context, shapeAppearanceResId, 0).build());
+                ShapeAppearanceModel.builder(context, R.style.ShapeAppearance_Google_Navigation, 0)
+                        .build());
         materialShapeDrawable.setFillColor(fillColor);
-        Resources resources = context.getResources();
-        int insetLeft = resources.getDimensionPixelSize(
-                R.dimen.mtrl_navigation_item_shape_horizontal_margin);
-        int insetTop = resources.getDimensionPixelSize(
-                R.dimen.mtrl_navigation_item_shape_vertical_margin);
-        int insetRight = resources.getDimensionPixelSize(
-                R.dimen.mtrl_navigation_item_shape_horizontal_margin);
-        int insetBottom = resources.getDimensionPixelSize(
-                R.dimen.mtrl_navigation_item_shape_vertical_margin);
-        return new InsetDrawable(materialShapeDrawable, insetLeft, insetTop, insetRight,
-                insetBottom);
+        int insetRight = ViewUtils.dpToPxSize(8, context);
+        return new InsetDrawable(materialShapeDrawable, 0, 0, insetRight, 0);
     }
 
     @Override

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <style name="ShapeAppearance.Google.Navigation" parent="">
+        <item name="cornerFamily">rounded</item>
+        <!-- Half of ?listPreferredItemHeightSmall -->
+        <item name="cornerSize">24dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+</resources>
