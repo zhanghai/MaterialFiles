@@ -13,4 +13,5 @@
     <attr name="colorOnMiniFabSurface" format="color" />
     <attr name="colorFloatingSurface" format="color" />
     <attr name="colorSystemWindowScrim" format="color" />
+    <attr name="dividerVisibility" format="integer" />
 </resources>

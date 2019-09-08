@@ -24,6 +24,7 @@
         <item name="colorOnMiniFabSurface">@android:color/white</item>
         <item name="colorFloatingSurface">?colorBackgroundFloating</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
+        <item name="dividerVisibility">@integer/visibility_visible</item>
     </style>
     <style name="Theme.MaterialFiles" parent="Base.Theme.MaterialFiles" />
 
@@ -71,6 +72,7 @@
         <item name="colorOnMiniFabSurface">@android:color/white</item>
         <item name="colorFloatingSurface">?colorBackgroundFloating</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
+        <item name="dividerVisibility">@integer/visibility_visible</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive" parent="Base.Theme.MaterialFiles.Immersive" />
 </resources>

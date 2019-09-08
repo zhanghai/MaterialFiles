@@ -351,7 +351,6 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                     return false;
             }
         });
-        ViewUtils.setVisibleOrGone(holder.dividerView, !Settings.MATERIAL_DESIGN_2.getValue());
     }
 
     // TODO: Move this to somewhere else since it's shared logic.
@@ -419,8 +418,6 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         public TextView descriptionText;
         @BindView(R.id.menu)
         public ImageButton menuButton;
-        @BindView(R.id.divider)
-        public View dividerView;
 
         @NonNull
         public PopupMenu menu;
