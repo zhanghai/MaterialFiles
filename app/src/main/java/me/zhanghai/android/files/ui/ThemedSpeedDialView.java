@@ -60,7 +60,8 @@ public class ThemedSpeedDialView extends SpeedDialView {
                 context);
         int labelColor = ViewUtils.getColorFromAttrRes(android.R.attr.textColorSecondary, 0,
                 context);
-        int labelBackgroundColor = ViewUtils.getColorFromAttrRes(R.attr.colorFloatingSurface, 0,
+        // Label view doesn't have enought elevation (only 1dp) for elevation overlay to work well.
+        int labelBackgroundColor = ViewUtils.getColorFromAttrRes(R.attr.colorBackgroundFloating, 0,
                 context);
         actionItem = new SpeedDialActionItem.Builder(actionItem.getId(),
                 // Should not be a resource, pass null to fail fast.
