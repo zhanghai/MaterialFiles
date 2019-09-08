@@ -47,7 +47,7 @@ public class DisabledAlphaImageView extends AppCompatImageView {
     }
 
     private void updateImageAlpha() {
-        int alpha = 255;
+        int alpha = 0xFF;
         Drawable drawable = getDrawable();
         // AdaptiveIconDrawable might be stateful without respecting enabled state.
         boolean isAdaptiveIconDrawable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
