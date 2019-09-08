@@ -49,6 +49,10 @@
                 <data android:mimeType="vnd.android.document/directory" />
             </intent-filter>
             <!-- @see me.zhanghai.android.files.file.MimeTypes#isSupportedArchive(String) -->
+            <!--
+              ~ We don't really support content URI archives.
+              ~ TODO: Figure out a good way to allow choosing this activity only in our app, or
+              ~ support content URI archives.
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -71,6 +75,7 @@
                 <data android:mimeType="application/x-tar" />
                 <data android:mimeType="application/x-xz" />
             </intent-filter>
+            -->
             <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/master/AndroidManifest.xml -->
             <intent-filter>
                 <action android:name="android.intent.action.OPEN_DOCUMENT" />
