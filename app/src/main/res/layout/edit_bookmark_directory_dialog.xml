@@ -43,7 +43,7 @@
         android:text="@string/navigation_edit_bookmark_directory_path"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/path"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
