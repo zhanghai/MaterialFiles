@@ -35,7 +35,7 @@
 }
 
 # Apache FtpServer
--keepclassmembers class ** implements org.apache.mina.core.service.IoProcessor {
+-keepclassmembers class * implements org.apache.mina.core.service.IoProcessor {
     public <init>(java.util.concurrent.ExecutorService);
     public <init>(java.util.concurrent.Executor);
     public <init>();
@@ -43,7 +43,7 @@
 
 # EventBus
 -keepattributes *Annotation*
--keepclassmembers class ** {
+-keepclassmembers class * {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
