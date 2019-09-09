@@ -13,6 +13,7 @@
     android:paddingStart="?dialogPreferredPadding"
     android:paddingEnd="?dialogPreferredPadding"
     android:paddingTop="8dp"
+    android:paddingBottom="16dp"
     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
     <com.google.android.material.textfield.TextInputEditText

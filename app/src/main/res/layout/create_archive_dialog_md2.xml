@@ -13,9 +13,10 @@
 
     <include layout="@layout/file_name_dialog_md2" />
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="4dp" />
-
-    <include layout="@layout/create_archive_dialog_type_include" />
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        android:layout_marginBottom="8dp"
+        layout="@layout/create_archive_dialog_type_include" />
 </LinearLayout>
