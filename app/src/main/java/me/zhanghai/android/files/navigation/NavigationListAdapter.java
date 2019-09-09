@@ -11,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -29,8 +28,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.foregroundcompat.ForegroundCompat;
 import me.zhanghai.android.files.settings.Settings;
-import me.zhanghai.android.files.ui.CheckableLinearLayout;
+import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout;
 import me.zhanghai.android.files.ui.SimpleAdapter;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -84,10 +84,8 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
                 if (Settings.MATERIAL_DESIGN_2.getValue()) {
                     Context context = holder.itemLayout.getContext();
                     holder.itemLayout.setBackground(createItemBackgroundMd2(context));
-                    // FIXME: Use a ForegroundLinearLayout.
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        holder.itemLayout.setForeground(createItemForegroundMd2(context));
-                    }
+                    ForegroundCompat.setForeground(holder.itemLayout, createItemForegroundMd2(
+                            context));
                 } else {
                     holder.itemLayout.setBackground(AppCompatResources.getDrawable(
                             holder.itemLayout.getContext(), R.drawable.navigation_item_background));
@@ -171,7 +169,7 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
     static class ItemHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item)
-        CheckableLinearLayout itemLayout;
+        CheckableForegroundLinearLayout itemLayout;
         @BindView(R.id.icon)
         ImageView iconImage;
         @BindView(R.id.title)

@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.ui.CheckableLinearLayout
+<me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item"
     android:layout_width="match_parent"
@@ -52,4 +52,4 @@
             android:textColor="?android:textColorSecondary"
             android:textSize="10sp" />
     </LinearLayout>
-</me.zhanghai.android.files.ui.CheckableLinearLayout>
+</me.zhanghai.android.files.ui.CheckableForegroundLinearLayout>

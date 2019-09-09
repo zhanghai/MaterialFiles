@@ -8,12 +8,14 @@ package me.zhanghai.android.files.ui;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.LinearLayout;
 
+import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import me.zhanghai.android.files.foregroundcompat.ForegroundLinearLayout;
 
-public class CheckableLinearLayout extends LinearLayout implements Checkable {
+public class CheckableForegroundLinearLayout extends ForegroundLinearLayout implements Checkable {
 
     private static final int[] CHECKED_STATE_SET = {
             android.R.attr.state_checked
@@ -21,21 +23,21 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
 
     private boolean mChecked;
 
-    public CheckableLinearLayout(@NonNull Context context) {
+    public CheckableForegroundLinearLayout(@NonNull Context context) {
         super(context);
     }
 
-    public CheckableLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CheckableForegroundLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CheckableLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs,
-                                 int defStyleAttr) {
+    public CheckableForegroundLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                                           @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CheckableLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs,
-                                 int defStyleAttr, int defStyleRes) {
+    public CheckableForegroundLinearLayout(@NonNull Context context, @Nullable AttributeSet attrs,
+                                           @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
