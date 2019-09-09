@@ -16,8 +16,6 @@
     <dimen name="content_start_from_screen_edge_margin_minus_36dp_considering_at_least_8dp">20dp</dimen>
     <dimen name="navigation_header_height">192dp</dimen>
     <dimen name="list_bottom_padding_with_fab">104dp</dimen>
-    <dimen name="card_list_horizontal_padding">@dimen/screen_edge_margin</dimen>
-    <dimen name="card_list_vertical_padding">@dimen/screen_edge_margin</dimen>
 
     <dimen name="toolbar_padding_end_no_overflow">12dp</dimen>
 </resources>
