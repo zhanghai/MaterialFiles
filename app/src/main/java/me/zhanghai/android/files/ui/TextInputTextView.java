@@ -73,7 +73,7 @@ public class TextInputTextView extends TextInputEditText {
 
     @Override
     public void setBackgroundDrawable(@Nullable Drawable background) {
-        if (background instanceof MaterialShapeDrawable) {
+        if (!isTextSelectable() && background instanceof MaterialShapeDrawable) {
             background = addRippleEffect((MaterialShapeDrawable) background);
         }
         super.setBackgroundDrawable(background);

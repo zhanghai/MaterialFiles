@@ -25,6 +25,7 @@ import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -85,7 +86,9 @@ public class FilePropertiesBasicTabFragment extends AppCompatDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.file_properties_basic_tab_fragment, container, false);
+        return inflater.inflate(Settings.MATERIAL_DESIGN_2.getValue() ?
+                R.layout.file_properties_basic_tab_fragment_md2
+                : R.layout.file_properties_basic_tab_fragment, container, false);
     }
 
     @Override
