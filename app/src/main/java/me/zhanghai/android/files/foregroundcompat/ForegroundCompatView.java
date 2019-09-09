@@ -10,25 +10,34 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 interface ForegroundCompatView {
 
     @Nullable
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     Drawable getSupportForeground();
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     void setSupportForeground(@Nullable Drawable foreground);
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     int getSupportForegroundGravity();
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     void setSupportForegroundGravity(int gravity);
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     void setSupportForegroundTintList(@Nullable ColorStateList tint);
 
     @Nullable
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     ColorStateList getSupportForegroundTintList();
 
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     void setSupportForegroundTintMode(@Nullable PorterDuff.Mode tintMode);
 
     @Nullable
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     PorterDuff.Mode getSupportForegroundTintMode();
 }
