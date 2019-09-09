@@ -20,42 +20,31 @@
             android:padding="?dialogPreferredPadding"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/file_properties_basic_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:hint="@string/file_properties_basic_name">
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textIsSelectable="true" />
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-            <LinearLayout
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
                 android:id="@+id/parent_directory_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_basic_parent_directory">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/file_properties_basic_parent_directory"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <TextView
+                <me.zhanghai.android.files.ui.TextInputTextView
                     android:id="@+id/parent_directory"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textIsSelectable="true"  />
-            </LinearLayout>
+                    android:textIsSelectable="true" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
             <LinearLayout
                 android:id="@+id/archive_file_and_entry_layout"
@@ -64,104 +53,85 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/file_properties_basic_archive_file"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_archive_file">
 
-                <TextView
-                    android:id="@+id/archive_file"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textIsSelectable="true"  />
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/archive_file"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/file_properties_basic_archive_entry"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_archive_entry">
 
-                <TextView
-                    android:id="@+id/archive_entry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textIsSelectable="true"  />
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/archive_entry"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/file_properties_basic_type"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_basic_type">
 
-            <TextView
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textIsSelectable="true"  />
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-            <LinearLayout
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
                 android:id="@+id/symbolic_link_target_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_basic_symbolic_link_target">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:text="@string/file_properties_basic_symbolic_link_target"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <TextView
+                <me.zhanghai.android.files.ui.TextInputTextView
                     android:id="@+id/symbolic_link_target"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textIsSelectable="true"  />
-            </LinearLayout>
+                    android:textIsSelectable="true" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/file_properties_basic_size"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_basic_size">
 
-            <TextView
-                android:id="@+id/size"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textIsSelectable="true"  />
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/file_properties_basic_last_modification_time"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_basic_last_modification_time">
 
-            <TextView
-                android:id="@+id/last_modification_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                android:textIsSelectable="true"  />
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/last_modification_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="true" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
         </LinearLayout>
     </ScrollView>
 

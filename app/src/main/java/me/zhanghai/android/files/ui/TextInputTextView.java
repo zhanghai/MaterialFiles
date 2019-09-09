@@ -10,6 +10,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
+import android.os.Build;
 import android.text.method.MovementMethod;
 import android.util.AttributeSet;
 
@@ -44,8 +45,14 @@ public class TextInputTextView extends TextInputEditText {
     }
 
     private void init() {
-        setClickable(false);
-        setFocusable(false);
+        if (isTextSelectable()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setFocusable(FOCUSABLE_AUTO);
+            }
+        } else {
+            setClickable(false);
+            setFocusable(false);
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,87 +23,53 @@
             android:clipToPadding="false"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/file_properties_permissions_owner"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-            <Button
-                android:id="@+id/owner"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-19dp"
-                android:layout_marginTop="-9dp"
-                android:layout_marginBottom="-9dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                style="?spinnerStyle" />
+                android:hint="@string/file_properties_permissions_owner">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/file_properties_permissions_group"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/owner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-            <Button
-                android:id="@+id/group"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-19dp"
-                android:layout_marginTop="-9dp"
-                android:layout_marginBottom="-9dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                style="?spinnerStyle" />
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_permissions_group">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="@string/file_properties_permissions_mode"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
-            <Button
-                android:id="@+id/mode"
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-19dp"
-                android:layout_marginTop="-9dp"
-                android:layout_marginBottom="-9dp"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                style="?spinnerStyle" />
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_permissions_mode">
 
-            <LinearLayout
+                <me.zhanghai.android.files.ui.TextInputTextView
+                    android:id="@+id/mode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
                 android:id="@+id/selinux_context_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_permissions_selinux_context">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/file_properties_permissions_selinux_context"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <Button
+                <me.zhanghai.android.files.ui.TextInputTextView
                     android:id="@+id/selinux_context"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="-19dp"
-                    android:layout_marginTop="-9dp"
-                    android:layout_marginBottom="-9dp"
-                    android:paddingTop="13dp"
-                    android:paddingBottom="13dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    style="?spinnerStyle" />
-            </LinearLayout>
+                    android:layout_height="wrap_content" />
+            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
         </LinearLayout>
     </ScrollView>
 

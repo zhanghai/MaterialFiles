@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/file_properties_permissions_owner"
-                app:endIconDrawable="@drawable/mtrl_dropdown_arrow"
+                app:endIconDrawable="@drawable/mtrl_ic_arrow_drop_down"
                 app:endIconMode="custom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/file_properties_permissions_group"
-                app:endIconDrawable="@drawable/mtrl_dropdown_arrow"
+                app:endIconDrawable="@drawable/mtrl_ic_arrow_drop_down"
                 app:endIconMode="custom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/file_properties_permissions_mode"
-                app:endIconDrawable="@drawable/mtrl_dropdown_arrow"
+                app:endIconDrawable="@drawable/mtrl_ic_arrow_drop_down"
                 app:endIconMode="custom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/file_properties_permissions_selinux_context"
-                app:endIconDrawable="@drawable/mtrl_dropdown_arrow"
+                app:endIconDrawable="@drawable/mtrl_ic_arrow_drop_down"
                 app:endIconMode="custom"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
