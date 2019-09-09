@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="about_licenses_html_style" translatable="false">
+        body {
+            background: #424242;
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            overflow-wrap: break-word;
+            padding: 12px;
+        }
+        pre {
+            background: #303030;
+            padding: 12px;
+            white-space: pre-wrap;
+        }
+        a, a:link, a:visited, a:hover, a:focus, a:active {
+            color: #e91e63;
+        }
+    </string>
+    <string name="about_licenses_html_style_md2" translatable="false">
+        body {
+            background: #424242;
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            overflow-wrap: break-word;
+            padding: 12px;
+        }
+        pre {
+            background: #303030;
+            padding: 12px;
+            white-space: pre-wrap;
+        }
+        a, a:link, a:visited, a:hover, a:focus, a:active {
+            color: #8ab4f8;
+        }
+    </string>
+</resources>

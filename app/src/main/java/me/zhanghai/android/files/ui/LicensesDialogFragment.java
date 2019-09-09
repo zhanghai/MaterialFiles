@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.ui;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,7 +17,7 @@ import de.psdev.licensesdialog.NoticesXmlParser;
 import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.util.ViewUtils;
+import me.zhanghai.android.files.settings.Settings;
 
 public class LicensesDialogFragment extends AppCompatDialogFragment {
 
@@ -76,11 +75,9 @@ public class LicensesDialogFragment extends AppCompatDialogFragment {
         for (Notice notice : mNotices.getNotices()) {
             notices.addNotice(notice);
         }
-        Context context = requireContext();
-        int htmlStyleRes = ViewUtils.isLightTheme(context) ?
-                R.string.about_licenses_html_style_light
-                : R.string.about_licenses_html_style_dark;
-        return new LicensesDialog.Builder(context)
+        int htmlStyleRes = Settings.MATERIAL_DESIGN_2.getValue() ?
+                R.string.about_licenses_html_style_md2 : R.string.about_licenses_html_style;
+        return new LicensesDialog.Builder(requireContext())
                 .setThemeResourceId(getTheme())
                 .setTitle(R.string.about_licenses_title)
                 .setNotices(notices)
