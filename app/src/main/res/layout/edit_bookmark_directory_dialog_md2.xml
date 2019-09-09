@@ -7,39 +7,43 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="?dialogPreferredPadding"
     android:paddingEnd="?dialogPreferredPadding"
     android:paddingTop="16dp"
-    android:clipChildren="false"
-    android:clipToPadding="false"
+    android:paddingBottom="16dp"
     android:orientation="vertical">
 
-    <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-4dp"
-        android:layout_marginEnd="-4dp"
-        android:hint="@string/navigation_edit_bookmark_directory_name">
+        android:hint="@string/navigation_edit_bookmark_directory_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <me.zhanghai.android.materialedittext.MaterialEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <requestFocus />
-        </me.zhanghai.android.materialedittext.MaterialEditText>
-    </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/selinux_context_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="@string/navigation_edit_bookmark_directory_path">
+        android:hint="@string/navigation_edit_bookmark_directory_path"
+        app:endIconDrawable="@drawable/mtrl_ic_arrow_drop_down"
+        app:endIconMode="custom"
+        app:hintAnimationEnabled="false"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <me.zhanghai.android.files.ui.TextInputTextView
             android:id="@+id/path"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 </LinearLayout>
