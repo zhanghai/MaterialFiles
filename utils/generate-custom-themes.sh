@@ -73,7 +73,7 @@ ACCENT_COLORS=(
     material_grey_500
     material_blue_grey_500
 )
-CUSTOM_THEMES_XML='../app/src/main/res/values/themes-custom.xml'
+CUSTOM_THEMES_XML='../app/src/main/res/values/themes_custom.xml'
 CUSTOM_THEME_COLORS_JAVA='../app/src/main/java/me/zhanghai/android/files/theme/custom/CustomThemeColors.java'
 
 cat >"${CUSTOM_THEMES_XML}" <<EOF
