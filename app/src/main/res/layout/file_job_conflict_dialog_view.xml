@@ -187,6 +187,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="-4dp"
                 android:hint="@string/file_job_conflict_name_hint"
+                android:inputType="text"
                 android:maxLines="1" />
 
             <Button
