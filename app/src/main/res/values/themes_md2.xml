@@ -29,6 +29,7 @@
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
+        <item name="appBarLiftOnScroll">true</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
     </style>
     <style name="Theme.MaterialFiles.Md2" parent="Base.Theme.MaterialFiles.Md2" />
@@ -82,6 +83,7 @@
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
+        <item name="appBarLiftOnScroll">true</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.Md2" parent="Base.Theme.MaterialFiles.Immersive.Md2" />

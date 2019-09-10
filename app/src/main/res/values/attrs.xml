@@ -11,5 +11,6 @@
     <attr name="colorSpeedDialSurface" format="color" />
     <attr name="colorOnSpeedDialSurface" format="color" />
     <attr name="colorSystemWindowScrim" format="color" />
+    <attr name="appBarLiftOnScroll" format="boolean" />
     <attr name="dividerVisibility" format="integer" />
 </resources>
