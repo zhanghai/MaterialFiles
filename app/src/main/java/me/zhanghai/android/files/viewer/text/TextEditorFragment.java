@@ -209,7 +209,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                 ViewUtils.fadeIn(mTextEdit);
                 if (!mViewModel.isTextChanged()) {
                     // TODO: Charset.
-                    mTextEdit.setText(new String(fileContentData.content));
+                    mTextEdit.setText(new String(fileContentData.data));
                     mViewModel.setTextChanged(false);
                 }
                 break;

@@ -9,27 +9,13 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import me.zhanghai.android.files.util.StatefulData;
 
-public class FileListData {
+public class FileListData extends StatefulData<List<FileItem>> {
 
-    public enum State {
-        LOADING,
-        ERROR,
-        SUCCESS
-    }
-
-    @NonNull
-    public final State state;
-    @Nullable
-    public final List<FileItem> fileList;
-    @Nullable
-    public final Exception exception;
-
-    private FileListData(@NonNull State state, @Nullable List<FileItem> fileList,
+    private FileListData(@NonNull State state, @Nullable List<FileItem> data,
                          @Nullable Exception exception) {
-        this.state = state;
-        this.fileList = fileList;
-        this.exception = exception;
+        super(state, data, exception);
     }
 
     @NonNull

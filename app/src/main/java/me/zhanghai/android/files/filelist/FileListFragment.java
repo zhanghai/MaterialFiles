@@ -561,8 +561,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 mLastLoadingPath = path;
                 mLastLoadingSearching = searching;
                 if (searching) {
-                    List<FileItem> fileList = fileListData.fileList;
-                    updateSubtitle(fileList);
+                    updateSubtitle(fileListData.data);
                     mSwipeRefreshLayout.setRefreshing(true);
                     ViewUtils.fadeOut(mProgress);
                     ViewUtils.fadeOut(mErrorView);
@@ -592,12 +591,11 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 mAdapter.clear();
                 break;
             case SUCCESS: {
-                List<FileItem> fileList = fileListData.fileList;
-                updateSubtitle(fileList);
+                updateSubtitle(fileListData.data);
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
                 ViewUtils.fadeOut(mErrorView);
-                ViewUtils.fadeToVisibility(mEmptyView, fileList.isEmpty());
+                ViewUtils.fadeToVisibility(mEmptyView, fileListData.data.isEmpty());
                 updateAdapterFileList();
                 Parcelable state = mViewModel.getPendingState();
                 if (state != null) {
@@ -704,10 +702,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void updateAdapterFileList() {
         FileListData fileListData = mViewModel.getFileListData();
-        if (fileListData.fileList == null) {
+        if (fileListData.data == null) {
             return;
         }
-        List<FileItem> files = fileListData.fileList;
+        List<FileItem> files = fileListData.data;
         if (!Settings.FILE_LIST_SHOW_HIDDEN_FILES.getValue()) {
             files = Functional.filter(files, file -> !file.isHidden());
         }
@@ -1192,7 +1190,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         if (fileListData.state != FileListData.State.SUCCESS) {
             return false;
         }
-        return Functional.some(fileListData.fileList, path -> Objects.equals(FileUtils.getName(
+        return Functional.some(fileListData.data, path -> Objects.equals(FileUtils.getName(
                 path), name));
     }
 

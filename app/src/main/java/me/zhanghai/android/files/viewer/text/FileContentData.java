@@ -8,30 +8,18 @@ package me.zhanghai.android.files.viewer.text;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.util.StatefulData;
 
-public class FileContentData {
+public class FileContentData extends StatefulData<byte[]> {
 
-    public enum State {
-        LOADING,
-        ERROR,
-        SUCCESS
-    }
-
-    @NonNull
-    public final State state;
     @NonNull
     public final Path path;
-    @Nullable
-    public final byte[] content;
-    @Nullable
-    public final Exception exception;
 
-    private FileContentData(@NonNull State state, @NonNull Path path, @Nullable byte[] content,
+    private FileContentData(@NonNull State state, @NonNull Path path, @Nullable byte[] data,
                             @Nullable Exception exception) {
-        this.state = state;
+        super(state, data, exception);
+
         this.path = path;
-        this.content = content;
-        this.exception = exception;
     }
 
     @NonNull
