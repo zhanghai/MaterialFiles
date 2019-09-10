@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties;
+package me.zhanghai.android.files.fileproperties.basic;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

@@ -26,6 +26,8 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.filelist.FileUtils;
+import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment;
+import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment;
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
