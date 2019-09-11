@@ -67,6 +67,7 @@
                 android:padding="@dimen/screen_edge_margin"
                 android:background="@null"
                 android:gravity="top"
+                android:importantForAutofill="no"
                 android:inputType="textMultiLine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1">
                 <requestFocus />
