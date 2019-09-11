@@ -34,8 +34,7 @@ import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout;
 import me.zhanghai.android.files.ui.SimpleAdapter;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
-        RecyclerView.ViewHolder> {
+public class NavigationListAdapter extends SimpleAdapter<NavigationItem, RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_ITEM = 0;
     private static final int VIEW_TYPE_DIVIDER = 1;
