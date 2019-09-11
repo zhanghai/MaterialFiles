@@ -477,7 +477,7 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
         JNIEnv *env, jclass clazz, jint javaGid) {
-#if __ANDROID_API__ >= 24
+#if __ANDROID_API__ >= __ANDROID_API_N__
     gid_t gid = (gid_t) javaGid;
     size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
     if (bufferSize == -1) {
@@ -513,7 +513,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
         JNIEnv *env, jclass clazz, jobject javaName) {
-#if __ANDROID_API__ >= 24
+#if __ANDROID_API__ >= __ANDROID_API_N__
     char *name = mallocStringFromByteString(env, javaName);
     size_t bufferSize = (size_t) sysconf(_SC_GETGR_R_SIZE_MAX);
     if (bufferSize == -1) {
@@ -548,7 +548,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
 #endif
 }
 
-#if __ANDROID_API__ < 22
+#if __ANDROID_API__ < __ANDROID_API_L_MR1__
 // https://android.googlesource.com/platform/bionic/+/master/libc/bionic/mntent.cpp
 static struct mntent* _getmntent_r(FILE* fp, struct mntent* e, char* buf, int buf_len) {
     memset(e, 0, sizeof(*e));
@@ -609,7 +609,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getmntent(
         JNIEnv *env, jclass clazz, jlong javaFile) {
     FILE *file = (FILE *) javaFile;
-#if __ANDROID_API__ >= 22
+#if __ANDROID_API__ >= __ANDROID_API_L_MR1__
     // getmntent() in bionic is thread safe.
     struct mntent *mntent = TEMP_FAILURE_RETRY(getmntent(file));
 #else
@@ -736,7 +736,7 @@ static char *mallocMntOptsFromStructMntent(JNIEnv *env, jobject javaMntent) {
     return mallocStringFromByteString(env, javaOpts);
 }
 
-#if __ANDROID_API__ < 26
+#if __ANDROID_API__ < __ANDROID_API_O__
 static char* _hasmntopt(const struct mntent* mnt, const char* opt) {
     char* token = mnt->mnt_opts;
     char* const end = mnt->mnt_opts + strlen(mnt->mnt_opts);
@@ -761,7 +761,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_hasmntopt(
     struct mntent mntent = { 0 };
     mntent.mnt_opts = mallocMntOptsFromStructMntent(env, javaMntent);
     char *option = mallocStringFromByteString(env, javaOption);
-#if __ANDROID_API__ >= 26
+#if __ANDROID_API__ >= __ANDROID_API_O__
     char *match = hasmntopt(&mntent, option);
 #else
     char *match = _hasmntopt(&mntent, option);
