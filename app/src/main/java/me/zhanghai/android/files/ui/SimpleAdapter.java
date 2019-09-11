@@ -20,14 +20,10 @@ public abstract class SimpleAdapter<T, VH extends RecyclerView.ViewHolder>
     private final List<T> mList = new ArrayList<>();
 
     public SimpleAdapter() {
-        this(null);
+        setHasStableIds(getHasStableIds());
     }
 
-    public SimpleAdapter(@Nullable List<T> list) {
-        if (list != null) {
-            mList.addAll(list);
-        }
-    }
+    protected abstract boolean getHasStableIds();
 
     @NonNull
     public List<T> getList() {

@@ -34,8 +34,11 @@ public class BookmarkDirectoryAdapter
 
     public BookmarkDirectoryAdapter(@NonNull Listener listener) {
         mListener = listener;
+    }
 
-        setHasStableIds(true);
+    @Override
+    protected boolean getHasStableIds() {
+        return true;
     }
 
     @Override

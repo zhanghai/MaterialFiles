@@ -47,7 +47,11 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
 
     public NavigationListAdapter(@NonNull NavigationItem.Listener listener) {
         mListener = listener;
-        setHasStableIds(true);
+    }
+
+    @Override
+    protected boolean getHasStableIds() {
+        return true;
     }
 
     public void notifyCheckedChanged() {
