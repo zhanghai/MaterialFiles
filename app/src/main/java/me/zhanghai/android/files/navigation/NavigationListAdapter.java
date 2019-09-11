@@ -49,13 +49,13 @@ public class NavigationListAdapter extends SimpleAdapter<NavigationItem,
         mListener = listener;
     }
 
+    public void notifyCheckedChanged() {
+        notifyItemRangeChanged(0, getItemCount(), PAYLOAD_CHECKED_CHANGED);
+    }
+
     @Override
     protected boolean getHasStableIds() {
         return true;
-    }
-
-    public void notifyCheckedChanged() {
-        notifyItemRangeChanged(0, getItemCount(), PAYLOAD_CHECKED_CHANGED);
     }
 
     @Override
