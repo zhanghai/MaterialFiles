@@ -58,13 +58,24 @@ public class IntentPathUtils {
                 }
             } else if (allowDataContentUri && Objects.equals(dataScheme,
                     ContentResolver.SCHEME_CONTENT)) {
-                URI dataUri;
+                URI dataUri = null;
                 try {
                     dataUri = new URI(data.toString());
                 } catch (URISyntaxException e) {
-                    throw new AssertionError(e);
+                    e.printStackTrace();
+                    // Some people use Uri.parse() without encoding their path. Let's try save them
+                    // by calling the other URI constructor that encodes everything.
+                    try {
+                        dataUri = new URI(data.getScheme(), data.getUserInfo(), data.getHost(),
+                                data.getPort(), data.getPath(), data.getQuery(),
+                                data.getFragment());
+                    } catch (URISyntaxException e2) {
+                        e2.printStackTrace();
+                    }
                 }
-                return Paths.get(dataUri);
+                if (dataUri != null) {
+                    return Paths.get(dataUri);
+                }
             }
         }
 
