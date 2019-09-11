@@ -20,6 +20,12 @@ public abstract class SortedListAdapter<T, VH extends RecyclerView.ViewHolder>
     @NonNull
     private SortedList<T> mSortedList;
 
+    public SortedListAdapter() {
+        setHasStableIds(getHasStableIds());
+    }
+
+    protected abstract boolean getHasStableIds();
+
     protected void init(@NonNull Class<T> classOfT, @NonNull SortedList.Callback<T> callback) {
         mSortedList = new SortedList<>(classOfT, callback);
     }

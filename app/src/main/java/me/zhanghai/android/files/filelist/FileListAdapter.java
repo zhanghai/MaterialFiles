@@ -208,6 +208,16 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         }
     }
 
+    @Override
+    protected boolean getHasStableIds() {
+        return true;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return getItem(position).getPath().hashCode();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
