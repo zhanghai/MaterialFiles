@@ -223,7 +223,10 @@
     <string name="file_properties_basic_free_space">可用空间</string>
     <string name="file_properties_permissions">权限</string>
     <string name="file_properties_permissions_owner">所有者</string>
-    <string name="file_properties_permissions_owner_format">%1$s（%2$d）</string>
+    <string name="file_properties_permissions_user_format">%1$s（%2$d）</string>
+    <string name="file_properties_permissions_change_owner_title">更改所有者</string>
+    <string name="file_properties_permissions_change_owner_filter_hint">输入名称或 UID</string>
+    <string name="file_properties_permissions_change_owner_system">系统</string>
     <string name="file_properties_permissions_group">组</string>
     <string name="file_properties_permissions_group_format">%1$s（%2$d）</string>
     <string name="file_properties_permissions_mode">模式</string>

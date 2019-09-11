@@ -59,6 +59,8 @@ public class Syscalls {
 
     public static native void endmntent(long file) throws SyscallException;
 
+    public static native void endpwent() throws SyscallException;
+
     private static native int errno();
 
     public static int fcntl(@NonNull FileDescriptor fd, int cmd) throws SyscallException {
@@ -93,6 +95,9 @@ public class Syscalls {
 
     @Nullable
     public static native StructMntent getmntent(long file) throws SyscallException;
+
+    @Nullable
+    public static native StructPasswd getpwent() throws SyscallException;
 
     @Nullable
     public static native StructPasswd getpwnam(@NonNull ByteString name) throws SyscallException;
@@ -266,6 +271,8 @@ public class Syscalls {
 
     public static native long setmntent(@NonNull ByteString path, @NonNull ByteString mode)
             throws SyscallException;
+
+    public static native void setpwent() throws SyscallException;
 
     @NonNull
     @Size(2)

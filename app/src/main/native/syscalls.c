@@ -387,6 +387,42 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endmntent(
     }
 }
 
+#define AID_APP_START 10000
+
+#if __ANDROID_API__ < __ANDROID_API_O__
+
+static __thread uid_t getpwentUid = AID_APP_START;
+
+void setpwent() {
+    getpwentUid = 0;
+}
+
+struct passwd *getpwent() {
+    while (getpwentUid < AID_APP_START) {
+        struct passwd *passwd = getpwuid(getpwentUid);
+        ++getpwentUid;
+        errno = 0;
+        if (passwd) {
+            return passwd;
+        }
+    }
+    return NULL;
+}
+
+void endpwent() {
+    setpwent();
+}
+
+#endif
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endpwent(JNIEnv *env, jclass clazz) {
+    TEMP_FAILURE_RETRY_V(endpwent());
+    if (errno) {
+        throwSyscallException(env, "endpwent");
+    }
+}
+
 JNIEXPORT jint JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_errno(
         JNIEnv *env, jclass clazz) {
@@ -682,6 +718,26 @@ static jobject newStructPasswd(JNIEnv *env, const struct passwd *passwd) {
     }
     return (*env)->NewObject(env, getStructPasswdClass(env), constructor, pw_name, pw_uid, pw_gid,
                              pw_gecos, pw_dir, pw_shell);
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwent(JNIEnv *env, jclass clazz) {
+    struct passwd *passwd = TEMP_FAILURE_RETRY(getpwent());
+    if (errno) {
+        throwSyscallException(env, "getpwent");
+        return NULL;
+    }
+    if (!passwd) {
+        return NULL;
+    }
+    if (passwd->pw_name[0] == 'o' && passwd->pw_name[1] == 'e' && passwd->pw_name[2] == 'm'
+        && passwd->pw_name[3] == '_') {
+        return NULL;
+    }
+    if (passwd->pw_name[0] == 'u' && passwd->pw_name[1] >= '0' && passwd->pw_name[1] <= '9') {
+        return NULL;
+    }
+    return newStructPasswd(env, passwd);
 }
 
 JNIEXPORT jobject JNICALL
@@ -1280,6 +1336,14 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setmntent(
         return (jlong) NULL;
     }
     return (jlong) file;
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setpwent(JNIEnv *env, jclass clazz) {
+    TEMP_FAILURE_RETRY_V(setpwent());
+    if (errno) {
+        throwSyscallException(env, "setpwent");
+    }
 }
 
 JNIEXPORT jobject JNICALL
