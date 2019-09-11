@@ -14,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.java.functional.Functional;
 
 public class ChangeOwnerViewModel extends ViewModel {
@@ -28,6 +29,9 @@ public class ChangeOwnerViewModel extends ViewModel {
     private final LiveData<UserListData> mFilteredUserListLiveData = new FilteredUserListLiveData(
             mUserListLiveData, mFilterLiveData);
 
+    @NonNull
+    private final SelectionLiveData<Integer> mSelectionLiveData = new SelectionLiveData<>();
+
     public void setFilter(@NonNull String filter) {
         if (!Objects.equals(mFilterLiveData.getValue(), filter)) {
             mFilterLiveData.setValue(filter);
@@ -40,8 +44,8 @@ public class ChangeOwnerViewModel extends ViewModel {
     }
 
     @NonNull
-    public UserListData getFilteredUserListData() {
-        return mFilteredUserListLiveData.getValue();
+    public SelectionLiveData<Integer> getSelectionLiveData() {
+        return mSelectionLiveData;
     }
 
     private static class FilteredUserListLiveData extends MediatorLiveData<UserListData> {

@@ -26,7 +26,9 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.util.FragmentUtils;
+import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
@@ -45,6 +47,8 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
     private ChangeOwnerViewModel mViewModel;
 
     private UserListAdapter mAdapter;
+
+    private Integer mPendingScrollToUid;
 
     @NonNull
     public static ChangeOwnerDialogFragment newInstance(@NonNull FileItem file) {
@@ -83,6 +87,13 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
         ButterKnife.bind(this, contentView);
 
         mViewModel = new ViewModelProvider(this).get(ChangeOwnerViewModel.class);
+        SelectionLiveData<Integer> selectionLiveData = mViewModel.getSelectionLiveData();
+        if (selectionLiveData.getValue() == null) {
+            PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
+            int uid = attributes.owner().getId();
+            selectionLiveData.setValue(uid);
+            mPendingScrollToUid = uid;
+        }
 
         mFilterEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -97,8 +108,9 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new UserListAdapter(this);
+        mAdapter = new UserListAdapter(this, selectionLiveData);
         mRecyclerView.setAdapter(mAdapter);
+        selectionLiveData.observe(this, mAdapter);
 
         mViewModel.getFilteredUserListLiveData().observe(this, this::onFilteredUserListChanged);
 
@@ -121,6 +133,13 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
                 break;
             case SUCCESS:
                 mAdapter.replace(userListData.data);
+                if (mPendingScrollToUid != null) {
+                    int position = mAdapter.findPositionByUid(mPendingScrollToUid);
+                    if (position != RecyclerView.NO_POSITION) {
+                        mRecyclerView.scrollToPosition(position);
+                    }
+                    mPendingScrollToUid = null;
+                }
                 break;
             default:
                 throw new AssertionError();

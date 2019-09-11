@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import java.util.List;
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
@@ -25,15 +28,20 @@ import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout;
 import me.zhanghai.android.files.ui.SimpleAdapter;
 import me.zhanghai.android.files.util.CollectionUtils;
+import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.ViewHolder> {
 
     @NonNull
     private final Fragment mFragment;
+    @NonNull
+    private final SelectionLiveData<Integer> mSelectionLiveData;
 
-    public UserListAdapter(@NonNull Fragment fragment) {
+    public UserListAdapter(@NonNull Fragment fragment,
+                           @NonNull SelectionLiveData<Integer> selectionLiveData) {
         mFragment = fragment;
+        mSelectionLiveData = selectionLiveData;
     }
 
     @Override
@@ -54,9 +62,18 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position,
+                                 @NonNull List<Object> payloads) {
         UserItem user = getItem(position);
-        holder.itemLayout.setChecked(false /* TODO */);
-        holder.itemLayout.setOnClickListener(view -> { /* TODO */ });
+        holder.itemLayout.setChecked(Objects.equals(mSelectionLiveData.getValue(), user.uid));
+        if (!payloads.isEmpty()) {
+            return;
+        }
+        holder.itemLayout.setOnClickListener(view -> mSelectionLiveData.setValue(user.uid));
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 R.drawable.person_icon_control_normal_24dp);
         ApplicationInfo applicationInfo = CollectionUtils.firstOrNull(user.applicationInfos);
@@ -78,6 +95,10 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
                 user.applicationLabels) : holder.labelText.getResources().getString(
                 R.string.file_properties_permissions_change_owner_system);
         holder.labelText.setText(label);
+    }
+
+    public int findPositionByUid(int uid) {
+        return findPositionById(uid);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
