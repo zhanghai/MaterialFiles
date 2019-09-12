@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -47,6 +48,8 @@ public class SetOwnerDialogFragment extends AppCompatDialogFragment {
     EditText mFilterEdit;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
+    @BindView(R.id.recursive)
+    CheckBox mRecursiveCheckBox;
 
     private SetOwnerViewModel mViewModel;
 
@@ -148,7 +151,7 @@ public class SetOwnerDialogFragment extends AppCompatDialogFragment {
 
     private void setOwner() {
         int uid = mViewModel.getSelectionLiveData().getValue();
-        boolean recursive = false;
+        boolean recursive = mRecursiveCheckBox.isChecked();
         if (!recursive) {
             PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
             if (uid == attributes.owner().getId()) {
