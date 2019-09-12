@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModel;
 import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.java.functional.Functional;
 
-public class ChangeOwnerViewModel extends ViewModel {
+public class SetOwnerViewModel extends ViewModel {
 
     @NonNull
     private final MutableLiveData<UserListData> mUserListLiveData = new UserListLiveData();
@@ -36,6 +36,11 @@ public class ChangeOwnerViewModel extends ViewModel {
         if (!Objects.equals(mFilterLiveData.getValue(), filter)) {
             mFilterLiveData.setValue(filter);
         }
+    }
+
+    @NonNull
+    public UserListData getUserListData() {
+        return mUserListLiveData.getValue();
     }
 
     @NonNull

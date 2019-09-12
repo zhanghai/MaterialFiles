@@ -111,7 +111,7 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                     R.string.file_properties_permissions_user_format, owner.getName(),
                     owner.getId()) : String.valueOf(owner.getId()) : getString(R.string.unknown);
             mOwnerText.setText(ownerString);
-            mOwnerText.setOnClickListener(view -> ChangeOwnerDialogFragment.show(mExtraFile, this));
+            mOwnerText.setOnClickListener(view -> SetOwnerDialogFragment.show(mExtraFile, this));
             PosixGroup group = posixAttributes.group();
             String groupString = group != null ? group.getName() != null ? getString(
                     R.string.file_properties_permissions_group_format, group.getName(),

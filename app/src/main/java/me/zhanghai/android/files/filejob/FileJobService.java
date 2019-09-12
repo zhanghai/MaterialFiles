@@ -22,6 +22,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.PosixUser;
 
 public class FileJobService extends Service {
 
@@ -49,23 +50,23 @@ public class FileJobService extends Service {
         }
     }
 
-    public static void copy(@NonNull List<Path> sources, @NonNull Path targetDirectory,
-                            @NonNull Context context) {
-        startJob(new FileJobs.Copy(sources, targetDirectory), context);
-    }
-
     public static void archive(@NonNull List<Path> sources, @NonNull Path archiveFile,
                                @NonNull String archiveType, @Nullable String compressorType,
                                @NonNull Context context) {
         startJob(new FileJobs.Archive(sources, archiveFile, archiveType, compressorType), context);
     }
 
-    public static void createFile(@NonNull Path path, @NonNull Context context) {
-        startJob(new FileJobs.CreateFile(path), context);
+    public static void copy(@NonNull List<Path> sources, @NonNull Path targetDirectory,
+                            @NonNull Context context) {
+        startJob(new FileJobs.Copy(sources, targetDirectory), context);
     }
 
     public static void createDirectory(@NonNull Path path, @NonNull Context context) {
         startJob(new FileJobs.CreateDirectory(path), context);
+    }
+
+    public static void createFile(@NonNull Path path, @NonNull Context context) {
+        startJob(new FileJobs.CreateFile(path), context);
     }
 
     public static void delete(@NonNull List<Path> paths, @NonNull Context context) {
@@ -85,6 +86,11 @@ public class FileJobService extends Service {
     public static void rename(@NonNull Path path, @NonNull String newName,
                               @NonNull Context context) {
         startJob(new FileJobs.Rename(path, newName), context);
+    }
+
+    public static void setOwner(@NonNull Path path, @NonNull PosixUser owner, boolean recursive,
+                                @NonNull Context context) {
+        startJob(new FileJobs.SetOwner(path, owner, recursive), context);
     }
 
     @MainThread

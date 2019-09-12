@@ -93,7 +93,7 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
         holder.userText.setText(userString);
         String label = !user.applicationLabels.isEmpty() ? CollectionUtils.first(
                 user.applicationLabels) : holder.labelText.getResources().getString(
-                R.string.file_properties_permissions_change_owner_system);
+                R.string.file_properties_permissions_set_owner_system);
         holder.labelText.setText(label);
     }
 

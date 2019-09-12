@@ -98,6 +98,13 @@
     <plurals name="file_job_delete_notification_title_multiple">
         <item quantity="other">正在刪除 %1$,d 個檔案</item>
     </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title">
+        <item quantity="other">正在準備變更 %1$,d 個檔案的擁有者</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one">正在變更「%1$s」的擁有者</string>
+    <plurals name="file_job_set_owner_notification_title_multiple">
+        <item quantity="other">正在變更 %1$,d 個檔案的擁有者</item>
+    </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
     <string name="file_job_cannot_extract_into_itself_title">無法將資料夾提取到自身</string>
@@ -127,6 +134,8 @@
     <string name="file_job_move_error_message_format">將檔案移動到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
     <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">變更「%1$s」的擁有者時發生錯誤</string>
+    <string name="file_job_set_owner_error_message_format">在變更擁有者爲「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
     <string name="file_job_action_all">套用此操作到所有檔案</string>
 
@@ -224,9 +233,9 @@
     <string name="file_properties_permissions">權限</string>
     <string name="file_properties_permissions_owner">擁有者</string>
     <string name="file_properties_permissions_user_format">%1$s（%2$d）</string>
-    <string name="file_properties_permissions_change_owner_title">變更擁有者</string>
-    <string name="file_properties_permissions_change_owner_filter_hint">輸入名稱或 UID</string>
-    <string name="file_properties_permissions_change_owner_system">系統</string>
+    <string name="file_properties_permissions_set_owner_title">變更擁有者</string>
+    <string name="file_properties_permissions_set_owner_filter_hint">輸入名稱或 UID</string>
+    <string name="file_properties_permissions_set_owner_system">系統</string>
     <string name="file_properties_permissions_group">組</string>
     <string name="file_properties_permissions_group_format">%1$s（%2$d）</string>
     <string name="file_properties_permissions_mode">模式</string>

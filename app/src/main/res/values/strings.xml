@@ -109,6 +109,15 @@
         <item quantity="one">Deleting %1$,d file</item>
         <item quantity="other">Deleting %1$,d files</item>
     </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title">
+        <item quantity="one">Preparing to change owner for %1$,d file</item>
+        <item quantity="other">Preparing to change owner for %1$,d files</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one">Changing owner for “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple">
+        <item quantity="one">Changing owner for %1$,d file</item>
+        <item quantity="other">Changing owner for %1$,d files</item>
+    </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
     <string name="file_job_cannot_extract_into_itself_title">Cannot extract a folder into itself</string>
@@ -138,6 +147,8 @@
     <string name="file_job_move_error_message_format">There was an error moving the file into “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Error while deleting</string>
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Error while changing owner for “%1$s”</string>
+    <string name="file_job_set_owner_error_message_format">There was an error changing the owner to “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
     <string name="file_job_action_all">Apply this action to all files</string>
 
@@ -239,9 +250,9 @@
     <string name="file_properties_permissions">Permissions</string>
     <string name="file_properties_permissions_owner">Owner</string>
     <string name="file_properties_permissions_user_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_change_owner_title">Change owner</string>
-    <string name="file_properties_permissions_change_owner_filter_hint">Enter a name or UID</string>
-    <string name="file_properties_permissions_change_owner_system">System</string>
+    <string name="file_properties_permissions_set_owner_title">Change owner</string>
+    <string name="file_properties_permissions_set_owner_filter_hint">Enter a name or UID</string>
+    <string name="file_properties_permissions_set_owner_system">System</string>
     <string name="file_properties_permissions_group">Group</string>
     <string name="file_properties_permissions_group_format">%1$s (%2$d)</string>
     <string name="file_properties_permissions_mode">Mode</string>

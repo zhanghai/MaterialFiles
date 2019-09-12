@@ -25,15 +25,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
+import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
+import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.android.files.util.ViewUtils;
+import me.zhanghai.java.functional.Functional;
 
-public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
+public class SetOwnerDialogFragment extends AppCompatDialogFragment {
 
-    private static final String KEY_PREFIX = ChangeOwnerDialogFragment.class.getName() + '.';
+    private static final String KEY_PREFIX = SetOwnerDialogFragment.class.getName() + '.';
 
     private static final String EXTRA_FILE = KEY_PREFIX + "FILE";
 
@@ -44,30 +48,30 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
 
-    private ChangeOwnerViewModel mViewModel;
+    private SetOwnerViewModel mViewModel;
 
     private UserListAdapter mAdapter;
 
     private Integer mPendingScrollToUid;
 
     @NonNull
-    public static ChangeOwnerDialogFragment newInstance(@NonNull FileItem file) {
+    public static SetOwnerDialogFragment newInstance(@NonNull FileItem file) {
         //noinspection deprecation
-        ChangeOwnerDialogFragment fragment = new ChangeOwnerDialogFragment();
+        SetOwnerDialogFragment fragment = new SetOwnerDialogFragment();
         FragmentUtils.getArgumentsBuilder(fragment)
                 .putParcelable(EXTRA_FILE, file);
         return fragment;
     }
 
     public static void show(@NonNull FileItem file, @NonNull Fragment fragment) {
-        ChangeOwnerDialogFragment.newInstance(file)
+        SetOwnerDialogFragment.newInstance(file)
                 .show(fragment.getChildFragmentManager(), null);
     }
 
     /**
      * @deprecated Use {@link #newInstance(FileItem)} instead.
      */
-    public ChangeOwnerDialogFragment() {}
+    public SetOwnerDialogFragment() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,12 +85,12 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = AlertDialogBuilderCompat.create(requireContext(), getTheme())
-                .setTitle(R.string.file_properties_permissions_change_owner_title);
+                .setTitle(R.string.file_properties_permissions_set_owner_title);
         Context context = builder.getContext();
-        View contentView = ViewUtils.inflate(R.layout.change_owner_dialog, context);
+        View contentView = ViewUtils.inflate(R.layout.set_owner_dialog, context);
         ButterKnife.bind(this, contentView);
 
-        mViewModel = new ViewModelProvider(this).get(ChangeOwnerViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(SetOwnerViewModel.class);
         SelectionLiveData<Integer> selectionLiveData = mViewModel.getSelectionLiveData();
         if (selectionLiveData.getValue() == null) {
             PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
@@ -114,15 +118,11 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
 
         mViewModel.getFilteredUserListLiveData().observe(this, this::onFilteredUserListChanged);
 
-        AlertDialog dialog = builder
+        return builder
                 .setView(contentView)
-                .setPositiveButton(android.R.string.ok, null)
+                .setPositiveButton(android.R.string.ok, (dialog1, which) -> setOwner())
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
-        // Override the listener here so that we have control over when to close the dialog.
-        dialog.setOnShowListener(dialog2 -> dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setOnClickListener(view -> onOk()));
-        return dialog;
     }
 
     private void onFilteredUserListChanged(@NonNull UserListData userListData) {
@@ -146,8 +146,24 @@ public class ChangeOwnerDialogFragment extends AppCompatDialogFragment {
         }
     }
 
-    private void onOk() {
-        // TODO
-        dismiss();
+    private void setOwner() {
+        int uid = mViewModel.getSelectionLiveData().getValue();
+        boolean recursive = false;
+        if (!recursive) {
+            PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
+            if (uid == attributes.owner().getId()) {
+                return;
+            }
+        }
+        UserListData userListData = mViewModel.getUserListData();
+        if (userListData.data == null) {
+            return;
+        }
+        UserItem user = Functional.find(userListData.data, user_ -> user_.uid == uid);
+        if (user == null) {
+            return;
+        }
+        PosixUser owner = new PosixUser(uid, ByteString.fromStringOrNull(user.name));
+        FileJobService.setOwner(mExtraFile.getPath(), owner, recursive, requireContext());
     }
 }

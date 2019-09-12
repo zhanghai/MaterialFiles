@@ -19,8 +19,10 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.AnyRes;
@@ -33,6 +35,7 @@ import androidx.core.content.ContextCompat;
 import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.CopyOption;
 import java8.nio.file.FileAlreadyExistsException;
+import java8.nio.file.FileVisitOption;
 import java8.nio.file.FileVisitResult;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
@@ -55,6 +58,7 @@ import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
 import me.zhanghai.android.files.util.BackgroundActivityStarter;
 import me.zhanghai.android.files.util.IntentPathUtils;
@@ -108,6 +112,26 @@ public class FileJobs {
                 });
             }
             postScanNotification(scanInfo, notificationTitleRes);
+            return scanInfo;
+        }
+
+        @NonNull
+        protected ScanInfo scan(@NonNull Path source, @PluralsRes int notificationTitleRes)
+                throws IOException {
+            return scan(Collections.singletonList(source), notificationTitleRes);
+        }
+
+        @NonNull
+        protected ScanInfo scan(@NonNull Path source, boolean recursive,
+                                @PluralsRes int notificationTitleRes) throws IOException {
+            if (recursive) {
+                return scan(source, notificationTitleRes);
+            }
+            ScanInfo scanInfo = new ScanInfo();
+            BasicFileAttributes attributes = Files.readAttributes(source, BasicFileAttributes.class,
+                    LinkOption.NOFOLLOW_LINKS);
+            scanPath(attributes, scanInfo, notificationTitleRes);
+            throwIfInterrupted();
             return scanInfo;
         }
 
@@ -531,6 +555,90 @@ public class FileJobs {
                     R.plurals.file_job_delete_notification_title_multiple);
         }
 
+        private static String getFileName(@NonNull Path path) {
+            return path.isAbsolute() && path.getNameCount() == 0 ?
+                    path.getFileSystem().getSeparator() : path.getFileName().toString();
+        }
+
+        protected void moveAtomically(@NonNull Path source, @NonNull Path target)
+                throws IOException {
+            MoreFiles.move(source, target, LinkOption.NOFOLLOW_LINKS,
+                    StandardCopyOption.ATOMIC_MOVE);
+        }
+
+        protected boolean moveByCopy(@NonNull Path source, @NonNull Path target,
+                                     @NonNull TransferInfo transferInfo,
+                                     @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            return copyOrMove(source, target, CopyMoveType.MOVE, false, true, transferInfo,
+                    actionAllInfo);
+        }
+
+        protected void setOwner(@NonNull Path path, @NonNull PosixUser user,
+                                @NonNull TransferInfo transferInfo,
+                                @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    // We do want to follow symbolic links here.
+                    Files.setOwner(path, user);
+                    transferInfo.incrementTransferredFileCount();
+                    postSetOwnerNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipSetOwnerError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postSetOwnerNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_set_owner_error_title_format,
+                                    getFileName(path)),
+                            getString(R.string.file_job_set_owner_error_message_format,
+                                    getUserName(user), e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipSetOwnerError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postSetOwnerNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        @NonNull
+        private static String getUserName(@NonNull PosixUser user) {
+            String name = user.getName();
+            if (name == null) {
+                name = String.valueOf(user.getId());
+            }
+            return name;
+        }
+
+        private void postSetOwnerNotification(@NonNull TransferInfo transferInfo,
+                                              @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_set_owner_notification_title_one,
+                    R.plurals.file_job_set_owner_notification_title_multiple);
+        }
+
         private void postTransferCountNotification(@NonNull TransferInfo transferInfo,
                                                    @NonNull Path currentPath,
                                                    @StringRes int titleOneRes,
@@ -561,24 +669,6 @@ public class FileJobs {
                 indeterminate = false;
             }
             postNotification(title, text, null, null, max, progress, indeterminate, true);
-        }
-
-        private static String getFileName(@NonNull Path path) {
-            return path.isAbsolute() && path.getNameCount() == 0 ?
-                    path.getFileSystem().getSeparator() : path.getFileName().toString();
-        }
-
-        protected void moveAtomically(@NonNull Path source, @NonNull Path target)
-                throws IOException {
-            MoreFiles.move(source, target, LinkOption.NOFOLLOW_LINKS,
-                    StandardCopyOption.ATOMIC_MOVE);
-        }
-
-        protected boolean moveByCopy(@NonNull Path source, @NonNull Path target,
-                                     @NonNull TransferInfo transferInfo,
-                                     @NonNull ActionAllInfo actionAllInfo) throws IOException {
-            return copyOrMove(source, target, CopyMoveType.MOVE, false, true, transferInfo,
-                    actionAllInfo);
         }
 
         protected void throwIfInterrupted() throws InterruptedIOException {
@@ -823,6 +913,7 @@ public class FileJobs {
             public boolean skipReplace;
             public boolean skipCopyMoveError;
             public boolean skipDeleteError;
+            public boolean skipSetOwnerError;
         }
 
         private static class ActionResult {
@@ -1342,7 +1433,7 @@ public class FileJobs {
         @Override
         public void run() throws IOException {
             boolean isExtract = ArchiveFileSystemProvider.isArchivePath(mFile);
-            ScanInfo scanInfo = scan(Collections.singletonList(mFile), isExtract ?
+            ScanInfo scanInfo = scan(mFile, isExtract ?
                     R.plurals.file_job_extract_scan_notification_title
                     : R.plurals.file_job_copy_scan_notification_title);
             Context context = getService();
@@ -1398,6 +1489,63 @@ public class FileJobs {
         public void run() throws IOException {
             Path newPath = mPath.resolveSibling(mNewName);
             moveAtomically(mPath, newPath);
+        }
+    }
+
+    public static class SetOwner extends Base {
+
+        @NonNull
+        private final Path mPath;
+        @NonNull
+        private final PosixUser mOwner;
+        private final boolean mRecursive;
+
+        public SetOwner(@NonNull Path path, @NonNull PosixUser owner, boolean recursive) {
+            mPath = path;
+            mOwner = owner;
+            mRecursive = recursive;
+        }
+
+        @Override
+        public void run() throws IOException {
+            ScanInfo scanInfo = scan(mPath, mRecursive,
+                    R.plurals.file_job_set_owner_scan_notification_title);
+            TransferInfo transferInfo = new TransferInfo(scanInfo, null);
+            ActionAllInfo actionAllInfo = new ActionAllInfo();
+            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
+            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
+            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    setOwner(file, mOwner, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @NonNull
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    setOwner(directory, mOwner, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         }
     }
 }
