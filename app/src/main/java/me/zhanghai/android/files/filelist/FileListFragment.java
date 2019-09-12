@@ -131,7 +131,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     @BindView(R.id.progress)
     ProgressBar mProgress;
     @BindView(R.id.error)
-    TextView mErrorView;
+    TextView mErrorText;
     @BindView(R.id.empty)
     View mEmptyView;
     @BindView(R.id.swipe_refresh)
@@ -564,7 +564,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     updateSubtitle(fileListData.data);
                     mSwipeRefreshLayout.setRefreshing(true);
                     ViewUtils.fadeOut(mProgress);
-                    ViewUtils.fadeOut(mErrorView);
+                    ViewUtils.fadeOut(mErrorText);
                     // We are still searching so it's never empty.
                     ViewUtils.fadeOut(mEmptyView);
                     updateAdapterFileList();
@@ -574,7 +574,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     mToolbar.setSubtitle(R.string.loading);
                     mSwipeRefreshLayout.setRefreshing(false);
                     ViewUtils.fadeIn(mProgress);
-                    ViewUtils.fadeOut(mErrorView);
+                    ViewUtils.fadeOut(mErrorText);
                     ViewUtils.fadeOut(mEmptyView);
                     mAdapter.clear();
                 }
@@ -585,8 +585,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 mToolbar.setSubtitle(R.string.error);
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
-                ViewUtils.fadeIn(mErrorView);
-                mErrorView.setText(fileListData.exception.toString());
+                ViewUtils.fadeIn(mErrorText);
+                mErrorText.setText(fileListData.exception.toString());
                 ViewUtils.fadeOut(mEmptyView);
                 mAdapter.clear();
                 break;
@@ -594,7 +594,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 updateSubtitle(fileListData.data);
                 mSwipeRefreshLayout.setRefreshing(false);
                 ViewUtils.fadeOut(mProgress);
-                ViewUtils.fadeOut(mErrorView);
+                ViewUtils.fadeOut(mErrorText);
                 ViewUtils.fadeToVisibility(mEmptyView, fileListData.data.isEmpty());
                 updateAdapterFileList();
                 Parcelable state = mViewModel.getPendingState();
