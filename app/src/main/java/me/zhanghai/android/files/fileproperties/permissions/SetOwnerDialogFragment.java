@@ -13,6 +13,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,6 +48,12 @@ public class SetOwnerDialogFragment extends AppCompatDialogFragment {
 
     @BindView(R.id.filter)
     EditText mFilterEdit;
+    @BindView(R.id.progress)
+    ProgressBar mProgress;
+    @BindView(R.id.error)
+    TextView mErrorText;
+    @BindView(R.id.empty)
+    View mEmptyView;
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.recursive)
@@ -131,10 +139,22 @@ public class SetOwnerDialogFragment extends AppCompatDialogFragment {
     private void onFilteredUserListChanged(@NonNull UserListData userListData) {
         switch (userListData.state) {
             case LOADING:
+                ViewUtils.fadeIn(mProgress);
+                ViewUtils.fadeOut(mErrorText);
+                ViewUtils.fadeOut(mEmptyView);
+                mAdapter.clear();
                 break;
             case ERROR:
+                ViewUtils.fadeOut(mProgress);
+                ViewUtils.fadeIn(mErrorText);
+                mErrorText.setText(userListData.exception.toString());
+                ViewUtils.fadeOut(mEmptyView);
+                mAdapter.clear();
                 break;
             case SUCCESS:
+                ViewUtils.fadeOut(mProgress);
+                ViewUtils.fadeOut(mErrorText);
+                ViewUtils.fadeToVisibility(mEmptyView, userListData.data.isEmpty());
                 mAdapter.replace(userListData.data);
                 if (mPendingScrollToUid != null) {
                     int position = mAdapter.findPositionByUid(mPendingScrollToUid);
