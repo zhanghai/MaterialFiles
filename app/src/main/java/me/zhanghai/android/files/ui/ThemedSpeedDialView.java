@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.ui;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -35,7 +34,7 @@ public class ThemedSpeedDialView extends SpeedDialView {
         super(context, attrs, defStyleAttr);
     }
 
-    @NonNull
+    @Nullable
     @Override
     public FabWithLabelView addActionItem(@NonNull SpeedDialActionItem actionItem, int position,
                                           boolean animate) {
@@ -60,10 +59,7 @@ public class ThemedSpeedDialView extends SpeedDialView {
                 .setLabelClickable(actionItem.isLabelClickable())
                 .setTheme(actionItem.getTheme())
                 .create();
-        FabWithLabelView view = super.addActionItem(actionItem, position, animate);
-        // https://github.com/leinardi/FloatingActionButtonSpeedDial/pull/127
-        view.getFab().setSupportImageTintList(ColorStateList.valueOf(fabImageTintColor));
-        return view;
+        return super.addActionItem(actionItem, position, animate);
     }
 
     @Nullable
