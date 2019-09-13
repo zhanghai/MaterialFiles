@@ -57,6 +57,8 @@ public class Syscalls {
 
     public static native void closedir(long dir) throws SyscallException;
 
+    public static native void endgrent() throws SyscallException;
+
     public static native void endmntent(long file) throws SyscallException;
 
     public static native void endpwent() throws SyscallException;
@@ -86,6 +88,9 @@ public class Syscalls {
             throw new SyscallException(e);
         }
     }
+
+    @Nullable
+    public static native StructGroup getgrent() throws SyscallException;
 
     @Nullable
     public static native StructGroup getgrgid(int gid) throws SyscallException;
@@ -268,6 +273,8 @@ public class Syscalls {
             throw new SyscallException(e);
         }
     }
+
+    public static native void setgrent() throws SyscallException;
 
     public static native long setmntent(@NonNull ByteString path, @NonNull ByteString mode)
             throws SyscallException;

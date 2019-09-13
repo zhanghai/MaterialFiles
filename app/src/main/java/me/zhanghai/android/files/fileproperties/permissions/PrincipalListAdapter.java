@@ -31,15 +31,16 @@ import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.ViewHolder> {
+public class PrincipalListAdapter
+        extends SimpleAdapter<PrincipalItem, PrincipalListAdapter.ViewHolder> {
 
     @NonNull
     private final Fragment mFragment;
     @NonNull
     private final SelectionLiveData<Integer> mSelectionLiveData;
 
-    public UserListAdapter(@NonNull Fragment fragment,
-                           @NonNull SelectionLiveData<Integer> selectionLiveData) {
+    public PrincipalListAdapter(@NonNull Fragment fragment,
+                                @NonNull SelectionLiveData<Integer> selectionLiveData) {
         mFragment = fragment;
         mSelectionLiveData = selectionLiveData;
     }
@@ -51,13 +52,13 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
 
     @Override
     public long getItemId(int position) {
-        return getItem(position).uid;
+        return getItem(position).id;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(ViewUtils.inflate(R.layout.user_item, parent));
+        return new ViewHolder(ViewUtils.inflate(R.layout.principal_item, parent));
     }
 
     @Override
@@ -68,15 +69,15 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position,
                                  @NonNull List<Object> payloads) {
-        UserItem user = getItem(position);
-        holder.itemLayout.setChecked(Objects.equals(mSelectionLiveData.getValue(), user.uid));
+        PrincipalItem principal = getItem(position);
+        holder.itemLayout.setChecked(Objects.equals(mSelectionLiveData.getValue(), principal.id));
         if (!payloads.isEmpty()) {
             return;
         }
-        holder.itemLayout.setOnClickListener(view -> mSelectionLiveData.setValue(user.uid));
+        holder.itemLayout.setOnClickListener(view -> mSelectionLiveData.setValue(principal.id));
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
                 R.drawable.person_icon_control_normal_24dp);
-        ApplicationInfo applicationInfo = CollectionUtils.firstOrNull(user.applicationInfos);
+        ApplicationInfo applicationInfo = CollectionUtils.firstOrNull(principal.applicationInfos);
         if (applicationInfo != null) {
             GlideApp.with(mFragment)
                     .load(applicationInfo)
@@ -87,18 +88,18 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
                     .clear(holder.iconImage);
             holder.iconImage.setImageDrawable(icon);
         }
-        String userString = user.name != null ? holder.userText.getContext().getString(
-                R.string.file_properties_permissions_user_format, user.name, user.uid)
-                : String.valueOf(user.uid);
-        holder.userText.setText(userString);
-        String label = !user.applicationLabels.isEmpty() ? CollectionUtils.first(
-                user.applicationLabels) : holder.labelText.getResources().getString(
-                R.string.file_properties_permissions_set_owner_system);
+        String principalString = principal.name != null ? holder.principalText.getContext().getString(
+                R.string.file_properties_permissions_principal_format, principal.name, principal.id)
+                : String.valueOf(principal.id);
+        holder.principalText.setText(principalString);
+        String label = !principal.applicationLabels.isEmpty() ? CollectionUtils.first(
+                principal.applicationLabels) : holder.labelText.getResources().getString(
+                R.string.file_properties_permissions_set_principal_system);
         holder.labelText.setText(label);
     }
 
-    public int findPositionByUid(int uid) {
-        return findPositionById(uid);
+    public int findPositionByPrincipalId(int id) {
+        return findPositionById(id);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -107,8 +108,8 @@ public class UserListAdapter extends SimpleAdapter<UserItem, UserListAdapter.Vie
         public CheckableForegroundLinearLayout itemLayout;
         @BindView(R.id.icon)
         public ImageView iconImage;
-        @BindView(R.id.user)
-        public TextView userText;
+        @BindView(R.id.principal)
+        public TextView principalText;
         @BindView(R.id.label)
         public TextView labelText;
         @BindView(R.id.radio)

@@ -7,10 +7,10 @@ package me.zhanghai.android.files.fileproperties.permissions;
 
 import androidx.lifecycle.MutableLiveData;
 
-public class SetOwnerViewModel extends SetPrincipalViewModel {
+public class SetGroupViewModel extends SetPrincipalViewModel {
 
     @Override
     protected MutableLiveData<PrincipalListData> onCreatePrincipalListLiveData() {
-        return new UserListLiveData();
+        return new GroupListLiveData();
     }
 }

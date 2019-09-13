@@ -108,16 +108,16 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
             PosixFileAttributes posixAttributes = (PosixFileAttributes) attributes;
             PosixUser owner = posixAttributes.owner();
             String ownerString = owner != null ? owner.getName() != null ? getString(
-                    R.string.file_properties_permissions_user_format, owner.getName(),
+                    R.string.file_properties_permissions_principal_format, owner.getName(),
                     owner.getId()) : String.valueOf(owner.getId()) : getString(R.string.unknown);
             mOwnerText.setText(ownerString);
             mOwnerText.setOnClickListener(view -> SetOwnerDialogFragment.show(mExtraFile, this));
             PosixGroup group = posixAttributes.group();
             String groupString = group != null ? group.getName() != null ? getString(
-                    R.string.file_properties_permissions_group_format, group.getName(),
+                    R.string.file_properties_permissions_principal_format, group.getName(),
                     group.getId()) : String.valueOf(group.getId()) : getString(R.string.unknown);
             mGroupText.setText(groupString);
-            mGroupText.setOnClickListener(view -> { /* TODO */ });
+            mGroupText.setOnClickListener(view -> SetGroupDialogFragment.show(mExtraFile, this));
             Set<PosixFileModeBit> mode = posixAttributes.mode();
             String modeString = mode != null ? getString(
                     R.string.file_properties_permissions_mode_format, PosixFileMode.toString(mode),

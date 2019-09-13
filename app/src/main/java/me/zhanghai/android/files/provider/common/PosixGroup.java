@@ -6,58 +6,15 @@
 package me.zhanghai.android.files.provider.common;
 
 import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.attribute.GroupPrincipal;
 
-public class PosixGroup implements Parcelable, GroupPrincipal {
-
-    private final int mId;
-
-    @Nullable
-    private final ByteString mName;
+public class PosixGroup extends PosixPrincipal implements GroupPrincipal {
 
     public PosixGroup(int id, @Nullable ByteString name) {
-        mId = id;
-        mName = name;
-    }
-
-    public int getId() {
-        return mId;
-    }
-
-    @Nullable
-    @Override
-    public String getName() {
-        return mName != null ? mName.toString() : null;
-    }
-
-    @Nullable
-    public ByteString getNameByteString() {
-        return mName;
-    }
-
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-        PosixGroup posixGroup = (PosixGroup) object;
-        return mId == posixGroup.mId
-                && Objects.equals(mName, posixGroup.mName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mId, mName);
+        super(id, name);
     }
 
 
@@ -75,18 +32,11 @@ public class PosixGroup implements Parcelable, GroupPrincipal {
     };
 
     protected PosixGroup(@NonNull Parcel in) {
-        mId = in.readInt();
-        mName = in.readParcelable(ByteString.class.getClassLoader());
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        super(in);
     }
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(mId);
-        dest.writeParcelable(mName, flags);
+        super.writeToParcel(dest, flags);
     }
 }

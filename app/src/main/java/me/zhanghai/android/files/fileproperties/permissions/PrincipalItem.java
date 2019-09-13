@@ -12,9 +12,9 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class UserItem {
+public class PrincipalItem {
 
-    public final int uid;
+    public final int id;
     @Nullable
     public final String name;
     @NonNull
@@ -22,9 +22,10 @@ public class UserItem {
     @NonNull
     public final List<String> applicationLabels;
 
-    public UserItem(int uid, @Nullable String name, @NonNull List<ApplicationInfo> applicationInfos,
-                    @NonNull List<String> applicationLabels) {
-        this.uid = uid;
+    public PrincipalItem(int id, @Nullable String name,
+                         @NonNull List<ApplicationInfo> applicationInfos,
+                         @NonNull List<String> applicationLabels) {
+        this.id = id;
         this.name = name;
         this.applicationInfos = applicationInfos;
         this.applicationLabels = applicationLabels;

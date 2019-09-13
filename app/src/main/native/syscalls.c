@@ -391,6 +391,40 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endmntent(
 
 #if __ANDROID_API__ < __ANDROID_API_O__
 
+static __thread gid_t getgrentGid = AID_APP_START;
+
+void setgrent() {
+    getgrentGid = 0;
+}
+
+struct group *getgrent() {
+    while (getgrentGid < AID_APP_START) {
+        struct group *group = getgrgid(getgrentGid);
+        ++getgrentGid;
+        errno = 0;
+        if (group) {
+            return group;
+        }
+    }
+    return NULL;
+}
+
+void endgrent() {
+    setgrent();
+}
+
+#endif
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endgrent(JNIEnv *env, jclass clazz) {
+    TEMP_FAILURE_RETRY_V(endgrent());
+    if (errno) {
+        throwSyscallException(env, "endgrent");
+    }
+}
+
+#if __ANDROID_API__ < __ANDROID_API_O__
+
 static __thread uid_t getpwentUid = AID_APP_START;
 
 void setpwent() {
@@ -508,6 +542,34 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
     }
     return (*env)->NewObject(env, getStructGroupClass(env), constructor, gr_name, gr_passwd, gr_gid,
                              gr_mem);
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrent(JNIEnv *env, jclass clazz) {
+    while (true) {
+        // getgrent() in bionic is thread safe.
+        struct group *group = TEMP_FAILURE_RETRY(getgrent());
+        if (errno) {
+            throwSyscallException(env, "getgrent");
+            return NULL;
+        }
+        if (!group) {
+            return NULL;
+        }
+        if (group->gr_name[0] == 'o' && group->gr_name[1] == 'e' && group->gr_name[2] == 'm'
+            && group->gr_name[3] == '_') {
+            continue;
+        }
+        if (group->gr_name[0] == 'u' && (group->gr_name[1] >= '0' && group->gr_name[1] <= '9')) {
+            return NULL;
+        }
+        if (group->gr_name[0] == 'a' && group->gr_name[1] == 'l' && group->gr_name[2] == 'l'
+            && group->gr_name[3] == '_' && group->gr_name[4] == 'a'
+            && (group->gr_name[5] >= '0' && group->gr_name[5] <= '9')) {
+            return NULL;
+        }
+        return newStructGroup(env, group);
+    }
 }
 
 JNIEXPORT jobject JNICALL
@@ -1324,6 +1386,14 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
         (*env)->SetLongField(env, javaOffset, getInt64RefValueField(env), offset);
     }
     return result;
+}
+
+JNIEXPORT jobject JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setgrent(JNIEnv *env, jclass clazz) {
+    TEMP_FAILURE_RETRY_V(setgrent());
+    if (errno) {
+        throwSyscallException(env, "setgrent");
+    }
 }
 
 JNIEXPORT jlong JNICALL

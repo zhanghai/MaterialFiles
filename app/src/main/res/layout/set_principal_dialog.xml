@@ -21,7 +21,7 @@
         android:background="@null"
         android:drawablePadding="24dp"
         android:drawableStart="@drawable/filter_icon_control_normal_24dp"
-        android:hint="@string/file_properties_permissions_set_owner_filter_hint"
+        android:hint="@string/file_properties_permissions_set_principal_filter_hint"
         android:importantForAutofill="no"
         android:inputType="text" />
 
@@ -76,6 +76,6 @@
         android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
         android:paddingStart="20dp"
         android:paddingEnd="?dialogPreferredPadding"
-        android:text="@string/file_properties_permissions_set_owner_recursive"
+        android:text="@string/file_properties_permissions_set_principal_recursive"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>
