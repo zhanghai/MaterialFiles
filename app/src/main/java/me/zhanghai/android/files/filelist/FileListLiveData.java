@@ -17,6 +17,7 @@ import java8.nio.file.DirectoryStream;
 import java8.nio.file.Files;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.file.FileItem;
+import me.zhanghai.android.files.util.CloseableLiveData;
 
 public class FileListLiveData extends CloseableLiveData<FileListData> {
 
