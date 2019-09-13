@@ -70,7 +70,6 @@
     <CheckBox
         android:id="@+id/recursive"
         android:layout_width="match_parent"
-        android:minWidth="0dp"
         android:layout_height="wrap_content"
         android:minHeight="?listPreferredItemHeightSmall"
         android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
