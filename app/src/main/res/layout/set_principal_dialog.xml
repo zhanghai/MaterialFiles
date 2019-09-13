@@ -67,7 +67,7 @@
             android:scrollbars="vertical" />
     </FrameLayout>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <CheckBox
         android:id="@+id/recursive"
         android:layout_width="match_parent"
         android:minWidth="0dp"
