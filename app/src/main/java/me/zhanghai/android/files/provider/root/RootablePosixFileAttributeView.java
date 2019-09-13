@@ -78,7 +78,7 @@ public abstract class RootablePosixFileAttributeView implements PosixFileAttribu
 
     @Override
     public void setGroup(@NonNull PosixGroup group) throws IOException {
-        acceptRootable(mPath, attributeView -> attributeView.setOwner(group));
+        acceptRootable(mPath, attributeView -> attributeView.setGroup(group));
     }
 
     @Override
