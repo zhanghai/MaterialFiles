@@ -722,22 +722,25 @@ static jobject newStructPasswd(JNIEnv *env, const struct passwd *passwd) {
 
 JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwent(JNIEnv *env, jclass clazz) {
-    struct passwd *passwd = TEMP_FAILURE_RETRY(getpwent());
-    if (errno) {
-        throwSyscallException(env, "getpwent");
-        return NULL;
+    while (true) {
+        // getpwent() in bionic is thread safe.
+        struct passwd *passwd = TEMP_FAILURE_RETRY(getpwent());
+        if (errno) {
+            throwSyscallException(env, "getpwent");
+            return NULL;
+        }
+        if (!passwd) {
+            return NULL;
+        }
+        if (passwd->pw_name[0] == 'o' && passwd->pw_name[1] == 'e' && passwd->pw_name[2] == 'm'
+            && passwd->pw_name[3] == '_') {
+            continue;
+        }
+        if (passwd->pw_name[0] == 'u' && passwd->pw_name[1] >= '0' && passwd->pw_name[1] <= '9') {
+            return NULL;
+        }
+        return newStructPasswd(env, passwd);
     }
-    if (!passwd) {
-        return NULL;
-    }
-    if (passwd->pw_name[0] == 'o' && passwd->pw_name[1] == 'e' && passwd->pw_name[2] == 'm'
-        && passwd->pw_name[3] == '_') {
-        return NULL;
-    }
-    if (passwd->pw_name[0] == 'u' && passwd->pw_name[1] >= '0' && passwd->pw_name[1] <= '9') {
-        return NULL;
-    }
-    return newStructPasswd(env, passwd);
 }
 
 JNIEXPORT jobject JNICALL
