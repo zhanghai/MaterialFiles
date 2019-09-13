@@ -58,6 +58,8 @@ import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixPrincipal;
 import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
 import me.zhanghai.android.files.util.BackgroundActivityStarter;
@@ -596,7 +598,7 @@ public class FileJobs {
                             getString(R.string.file_job_set_owner_error_title_format,
                                     getFileName(path)),
                             getString(R.string.file_job_set_owner_error_message_format,
-                                    getUserName(user), e.getLocalizedMessage()),
+                                    getPrincipalName(user), e.getLocalizedMessage()),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -623,20 +625,77 @@ public class FileJobs {
             } while (retry);
         }
 
-        @NonNull
-        private static String getUserName(@NonNull PosixUser user) {
-            String name = user.getName();
-            if (name == null) {
-                name = String.valueOf(user.getId());
-            }
-            return name;
-        }
-
         private void postSetOwnerNotification(@NonNull TransferInfo transferInfo,
                                               @NonNull Path currentPath) {
             postTransferCountNotification(transferInfo, currentPath,
                     R.string.file_job_set_owner_notification_title_one,
                     R.plurals.file_job_set_owner_notification_title_multiple);
+        }
+
+        protected void setGroup(@NonNull Path path, @NonNull PosixGroup group,
+                                @NonNull TransferInfo transferInfo,
+                                @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    // We do want to follow symbolic links here.
+                    MoreFiles.setGroup(path, group);
+                    transferInfo.incrementTransferredFileCount();
+                    postSetGroupNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipSetGroupError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postSetGroupNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_set_group_error_title_format,
+                                    getFileName(path)),
+                            getString(R.string.file_job_set_group_error_message_format,
+                                    getPrincipalName(group), e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipSetGroupError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postSetGroupNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        private void postSetGroupNotification(@NonNull TransferInfo transferInfo,
+                                              @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_set_group_notification_title_one,
+                    R.plurals.file_job_set_group_notification_title_multiple);
+        }
+
+        @NonNull
+        private static String getPrincipalName(@NonNull PosixPrincipal principal) {
+            String name = principal.getName();
+            if (name == null) {
+                name = String.valueOf(principal.getId());
+            }
+            return name;
         }
 
         private void postTransferCountNotification(@NonNull TransferInfo transferInfo,
@@ -913,6 +972,7 @@ public class FileJobs {
             public boolean skipReplace;
             public boolean skipCopyMoveError;
             public boolean skipDeleteError;
+            public boolean skipSetGroupError;
             public boolean skipSetOwnerError;
         }
 
@@ -1489,6 +1549,63 @@ public class FileJobs {
         public void run() throws IOException {
             Path newPath = mPath.resolveSibling(mNewName);
             moveAtomically(mPath, newPath);
+        }
+    }
+
+    public static class SetGroup extends Base {
+
+        @NonNull
+        private final Path mPath;
+        @NonNull
+        private final PosixGroup mGroup;
+        private final boolean mRecursive;
+
+        public SetGroup(@NonNull Path path, @NonNull PosixGroup group, boolean recursive) {
+            mPath = path;
+            mGroup = group;
+            mRecursive = recursive;
+        }
+
+        @Override
+        public void run() throws IOException {
+            ScanInfo scanInfo = scan(mPath, mRecursive,
+                    R.plurals.file_job_set_group_scan_notification_title);
+            TransferInfo transferInfo = new TransferInfo(scanInfo, null);
+            ActionAllInfo actionAllInfo = new ActionAllInfo();
+            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
+            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
+            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    setGroup(file, mGroup, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @NonNull
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    setGroup(directory, mGroup, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
         }
     }
 

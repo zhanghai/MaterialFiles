@@ -31,6 +31,8 @@ import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
+import java8.nio.file.attribute.GroupPrincipal;
+import java8.nio.file.attribute.PosixFileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.function.Consumer;
 import java9.util.function.LongConsumer;
@@ -211,6 +213,16 @@ public class MoreFiles {
                               @NonNull Consumer<List<Path>> listener, long intervalMillis)
             throws IOException {
         ((Searchable) provider(directory)).search(directory, query, listener, intervalMillis);
+    }
+
+    public static void setGroup(@NonNull Path path, @NonNull GroupPrincipal group)
+            throws IOException {
+        PosixFileAttributeView view = Files.getFileAttributeView(path,
+                PosixFileAttributeView.class);
+        if (view == null) {
+            throw new UnsupportedOperationException();
+        }
+        view.setGroup(group);
     }
 
     // Can accept link options.

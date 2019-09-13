@@ -105,6 +105,13 @@
     <plurals name="file_job_set_owner_notification_title_multiple">
         <item quantity="other">正在更改 %1$,d 个文件的所有者</item>
     </plurals>
+    <plurals name="file_job_set_group_scan_notification_title">
+        <item quantity="other">正在准备更改 %1$,d 个文件的组</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one">正在更改“%1$s”的组</string>
+    <plurals name="file_job_set_group_notification_title_multiple">
+        <item quantity="other">正在更改 %1$,d 个文件的组</item>
+    </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_cannot_copy_into_itself_title">无法将文件夹复制到自身</string>
     <string name="file_job_cannot_extract_into_itself_title">无法将文件夹提取到自身</string>
@@ -136,6 +143,8 @@
     <string name="file_job_delete_error_message_format">在删除“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">更改“%1$s”的所有者时发生错误</string>
     <string name="file_job_set_owner_error_message_format">在更改所有者为“%1$s”时发生错误。\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">更改“%1$s”的组时发生错误</string>
+    <string name="file_job_set_group_error_message_format">在更改组为“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在获取“%1$s”的信息时发生错误。</string>
     <string name="file_job_action_all">应用此操作到所有文件</string>
 

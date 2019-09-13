@@ -10,11 +10,12 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.filelist.FileItem;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
-import me.zhanghai.android.files.provider.common.PosixPrincipal;
 import me.zhanghai.android.files.provider.common.PosixGroup;
+import me.zhanghai.android.files.provider.common.PosixPrincipal;
 
 public class SetGroupDialogFragment extends SetPrincipalDialogFragment {
 
@@ -57,7 +58,6 @@ public class SetGroupDialogFragment extends SetPrincipalDialogFragment {
                                 boolean recursive) {
         PosixGroup group = new PosixGroup(principal.id, ByteString.fromStringOrNull(
                 principal.name));
-        // TODO
-        //FileJobService.setGroup(path, group, recursive, requireContext());
+        FileJobService.setGroup(path, group, recursive, requireContext());
     }
 }

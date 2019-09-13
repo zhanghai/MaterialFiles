@@ -22,6 +22,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
 public class FileJobService extends Service {
@@ -86,6 +87,11 @@ public class FileJobService extends Service {
     public static void rename(@NonNull Path path, @NonNull String newName,
                               @NonNull Context context) {
         startJob(new FileJobs.Rename(path, newName), context);
+    }
+
+    public static void setGroup(@NonNull Path path, @NonNull PosixGroup group, boolean recursive,
+                                @NonNull Context context) {
+        startJob(new FileJobs.SetGroup(path, group, recursive), context);
     }
 
     public static void setOwner(@NonNull Path path, @NonNull PosixUser owner, boolean recursive,
