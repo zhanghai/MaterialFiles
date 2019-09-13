@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
@@ -31,7 +32,7 @@ import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class PrincipalListAdapter
+abstract class PrincipalListAdapter
         extends SimpleAdapter<PrincipalItem, PrincipalListAdapter.ViewHolder> {
 
     @NonNull
@@ -76,7 +77,7 @@ public class PrincipalListAdapter
         }
         holder.itemLayout.setOnClickListener(view -> mSelectionLiveData.setValue(principal.id));
         Drawable icon = AppCompatResources.getDrawable(holder.iconImage.getContext(),
-                R.drawable.person_icon_control_normal_24dp);
+                getPrincipalIconRes());
         ApplicationInfo applicationInfo = CollectionUtils.firstOrNull(principal.applicationInfos);
         if (applicationInfo != null) {
             GlideApp.with(mFragment)
@@ -97,6 +98,9 @@ public class PrincipalListAdapter
                 R.string.file_properties_permissions_set_principal_system);
         holder.labelText.setText(label);
     }
+
+    @DrawableRes
+    protected abstract int getPrincipalIconRes();
 
     public int findPositionByPrincipalId(int id) {
         return findPositionById(id);

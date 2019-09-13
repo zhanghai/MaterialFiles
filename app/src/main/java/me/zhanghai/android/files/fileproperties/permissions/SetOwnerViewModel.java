@@ -10,7 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 public class SetOwnerViewModel extends SetPrincipalViewModel {
 
     @Override
-    protected MutableLiveData<PrincipalListData> onCreatePrincipalListLiveData() {
+    protected MutableLiveData<PrincipalListData> createPrincipalListLiveData() {
         return new UserListLiveData();
     }
 }

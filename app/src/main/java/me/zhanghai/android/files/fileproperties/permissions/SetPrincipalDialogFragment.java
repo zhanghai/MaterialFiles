@@ -108,7 +108,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
             }
         });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mAdapter = new PrincipalListAdapter(this, selectionLiveData);
+        mAdapter = createAdapter(selectionLiveData);
         mRecyclerView.setAdapter(mAdapter);
         selectionLiveData.observe(this, mAdapter);
 
@@ -125,7 +125,12 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
     @StringRes
     protected abstract int getTitleRes();
 
+    @NonNull
     protected abstract Class<? extends SetPrincipalViewModel> getViewModelClass();
+
+    @NonNull
+    protected abstract PrincipalListAdapter createAdapter(
+            @NonNull SelectionLiveData<Integer> selectionLiveData);
 
     private void onFilteredPrincipalListChanged(@NonNull PrincipalListData principalListData) {
         switch (principalListData.state) {

@@ -21,7 +21,7 @@ public abstract class SetPrincipalViewModel extends ViewModel {
 
     @NonNull
     private final MutableLiveData<PrincipalListData> mPrincipalListLiveData =
-            onCreatePrincipalListLiveData();
+            createPrincipalListLiveData();
 
     @NonNull
     private final MutableLiveData<String> mFilterLiveData = new MutableLiveData<>();
@@ -33,7 +33,7 @@ public abstract class SetPrincipalViewModel extends ViewModel {
     @NonNull
     private final SelectionLiveData<Integer> mSelectionLiveData = new SelectionLiveData<>();
 
-    protected abstract MutableLiveData<PrincipalListData> onCreatePrincipalListLiveData();
+    protected abstract MutableLiveData<PrincipalListData> createPrincipalListLiveData();
 
     public void setFilter(@NonNull String filter) {
         if (!Objects.equals(mFilterLiveData.getValue(), filter)) {

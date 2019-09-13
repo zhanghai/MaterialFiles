@@ -16,6 +16,7 @@ import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixPrincipal;
 import me.zhanghai.android.files.provider.common.PosixUser;
+import me.zhanghai.android.files.util.SelectionLiveData;
 
 public class SetOwnerDialogFragment extends SetPrincipalDialogFragment {
 
@@ -42,9 +43,17 @@ public class SetOwnerDialogFragment extends SetPrincipalDialogFragment {
         return R.string.file_properties_permissions_set_owner_title;
     }
 
+    @NonNull
     @Override
     protected Class<? extends SetPrincipalViewModel> getViewModelClass() {
         return SetOwnerViewModel.class;
+    }
+
+    @NonNull
+    @Override
+    protected PrincipalListAdapter createAdapter(
+            @NonNull SelectionLiveData<Integer> selectionLiveData) {
+        return new UserListAdapter(this, selectionLiveData);
     }
 
     @NonNull
