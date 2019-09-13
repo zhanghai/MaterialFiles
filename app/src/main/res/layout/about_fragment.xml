@@ -43,7 +43,7 @@
             android:orientation="vertical"
             android:showDividers="middle">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardPreventCornerOverlap="false">
@@ -207,9 +207,9 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
                     </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardPreventCornerOverlap="false">
@@ -349,7 +349,7 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
                     </LinearLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -23,6 +23,7 @@
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
         <item name="colorSurface">@color/color_surface_md2_daynight</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
@@ -78,6 +79,7 @@
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
         <item name="colorSurface">@color/color_surface_md2_dark</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
