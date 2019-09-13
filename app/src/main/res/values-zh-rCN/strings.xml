@@ -142,9 +142,9 @@
     <string name="file_job_delete_error_title">删除时发生错误</string>
     <string name="file_job_delete_error_message_format">在删除“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">更改“%1$s”的所有者时发生错误</string>
-    <string name="file_job_set_owner_error_message_format">在更改所有者为“%1$s”时发生错误。\n%2$s</string>
+    <string name="file_job_set_owner_error_message_format">将所有者更改为“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_set_group_error_title_format">更改“%1$s”的组时发生错误</string>
-    <string name="file_job_set_group_error_message_format">在更改组为“%1$s”时发生错误。\n%2$s</string>
+    <string name="file_job_set_group_error_message_format">将组更改为“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在获取“%1$s”的信息时发生错误。</string>
     <string name="file_job_action_all">应用此操作到所有文件</string>
 

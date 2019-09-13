@@ -142,9 +142,9 @@
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
     <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">變更「%1$s」的擁有者時發生錯誤</string>
-    <string name="file_job_set_owner_error_message_format">在變更擁有者爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_owner_error_message_format">將擁有者變更爲「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_group_error_title_format">變更「%1$s」的群組時發生錯誤</string>
-    <string name="file_job_set_group_error_message_format">在變更群組爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_group_error_message_format">將群組變更爲「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
     <string name="file_job_action_all">套用此操作到所有檔案</string>
 
