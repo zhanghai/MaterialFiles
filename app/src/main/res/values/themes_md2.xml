@@ -17,19 +17,19 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <item name="colorPrimary">@color/color_primary_md2</item>
+        <item name="colorPrimary">@color/color_primary_md2_daynight</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
         <item name="colorSecondary">?colorPrimary</item>
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
-        <item name="colorSurface">@color/color_surface_md2</item>
+        <item name="colorSurface">@color/color_surface_md2_daynight</item>
         <item name="minTouchTargetSize">0dp</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
-        <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
+        <item name="colorSystemWindowScrim">@color/system_window_scrim_md2_daynight</item>
         <item name="appBarLiftOnScroll">true</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
     </style>
@@ -72,19 +72,19 @@
         <item name="android:windowBackground">@android:color/black</item>
         <item name="windowNoTitle">true</item>
 
-        <item name="colorPrimary">@color/color_primary_md2</item>
+        <item name="colorPrimary">@color/color_primary_md2_dark</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
         <item name="colorSecondary">?colorPrimary</item>
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
-        <item name="colorSurface">@color/color_surface_md2</item>
+        <item name="colorSurface">@color/color_surface_md2_dark</item>
         <item name="minTouchTargetSize">0dp</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
-        <item name="colorSystemWindowScrim">@color/system_window_scrim_md2</item>
+        <item name="colorSystemWindowScrim">@color/system_window_scrim_md2_dark</item>
         <item name="appBarLiftOnScroll">true</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
     </style>

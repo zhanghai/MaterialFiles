@@ -7,8 +7,15 @@
 
 <resources>
 
-    <color name="system_window_scrim_md2">#99FFFFFF</color>
+    <color name="system_window_scrim_md2_light">#99FFFFFF</color>
+    <color name="system_window_scrim_md2_dark">#52000000</color>
+    <color name="system_window_scrim_md2_daynight">@color/system_window_scrim_md2_light</color>
 
-    <color name="color_primary_md2">@color/google_blue_500</color>
-    <color name="color_surface_md2">@android:color/white</color>
+    <color name="color_primary_md2_light">@color/google_blue_500</color>
+    <color name="color_primary_md2_dark">@color/google_blue_300</color>
+    <color name="color_primary_md2_daynight">@color/color_primary_md2_light</color>
+
+    <color name="color_surface_md2_light">@android:color/white</color>
+    <color name="color_surface_md2_dark">@color/google_grey_900</color>
+    <color name="color_surface_md2_daynight">@color/color_surface_md2_light</color>
 </resources>
