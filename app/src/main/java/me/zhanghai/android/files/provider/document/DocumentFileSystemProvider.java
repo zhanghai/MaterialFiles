@@ -48,8 +48,8 @@ import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
-import me.zhanghai.android.files.provider.common.DirectoryObservable;
-import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.PathObservable;
+import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
@@ -60,7 +60,7 @@ import me.zhanghai.android.files.provider.content.resolver.ResolverException;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 
 public class DocumentFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider, Searchable {
+        implements PathObservableProvider, Searchable {
 
     static final String SCHEME = "document";
 
@@ -536,10 +536,9 @@ public class DocumentFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory,
-                                                long intervalMillis) throws IOException {
-        DocumentPath documentDirectory = requireDocumentPath(directory);
-        return new DocumentDirectoryObservable(documentDirectory, intervalMillis);
+    public PathObservable observePath(@NonNull Path path, long intervalMillis) throws IOException {
+        DocumentPath documentDirectory = requireDocumentPath(path);
+        return new DocumentPathObservable(documentDirectory, intervalMillis);
     }
 
     @Override

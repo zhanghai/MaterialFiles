@@ -7,7 +7,7 @@ import me.zhanghai.android.files.provider.remote.ParcelableFileAttributes;
 import me.zhanghai.android.files.provider.remote.ParcelableObject;
 import me.zhanghai.android.files.provider.remote.ParcelablePathListConsumer;
 import me.zhanghai.android.files.provider.remote.ParcelableSerializable;
-import me.zhanghai.android.files.provider.remote.RemoteDirectoryObservable;
+import me.zhanghai.android.files.provider.remote.RemotePathObservable;
 import me.zhanghai.android.files.provider.remote.RemoteInputStream;
 import me.zhanghai.android.files.provider.remote.RemoteSeekableByteChannel;
 import me.zhanghai.android.files.util.RemoteCallback;
@@ -63,8 +63,8 @@ interface IRemoteFileSystemProvider {
             in ParcelableSerializable parcelableType, in ParcelableSerializable parcelableOptions,
             out ParcelableException exception);
 
-    RemoteDirectoryObservable observeDirectory(in ParcelableObject parcelableDirectory,
-            long intervalMillis, out ParcelableException exception);
+    RemotePathObservable observePath(in ParcelableObject parcelablePath, long intervalMillis,
+            out ParcelableException exception);
 
     RemoteCallback search(in ParcelableObject parcelableDirectory, in String query,
             in ParcelablePathListConsumer parcelableListener, long intervalMillis,

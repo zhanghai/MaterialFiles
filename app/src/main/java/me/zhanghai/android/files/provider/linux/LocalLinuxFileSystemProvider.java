@@ -43,21 +43,21 @@ import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringPath;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
-import me.zhanghai.android.files.provider.common.DirectoryObservable;
-import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.PathObservable;
+import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.LinkOptions;
 import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
-import me.zhanghai.android.files.provider.common.WatchServiceDirectoryObservable;
+import me.zhanghai.android.files.provider.common.WatchServicePathObservable;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 
 class LocalLinuxFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider, Searchable {
+        implements PathObservableProvider, Searchable {
 
     static final String SCHEME = "file";
 
@@ -435,10 +435,9 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory,
-                                                long intervalMillis) throws IOException {
-        requireLinuxPath(directory);
-        return new WatchServiceDirectoryObservable(directory, intervalMillis);
+    public PathObservable observePath(@NonNull Path path, long intervalMillis) throws IOException {
+        requireLinuxPath(path);
+        return new WatchServicePathObservable(path, intervalMillis);
     }
 
     @Override

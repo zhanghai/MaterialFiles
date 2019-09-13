@@ -31,12 +31,12 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.function.Consumer;
 import java9.util.function.Function;
-import me.zhanghai.android.files.provider.common.DirectoryObservable;
-import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.PathObservable;
+import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.Searchable;
 
 public class RootableFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider, Searchable {
+        implements PathObservableProvider, Searchable {
 
     @NonNull
     private final FileSystemProvider mLocalProvider;
@@ -215,18 +215,16 @@ public class RootableFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
-            throws IOException {
-        if (!(mLocalProvider instanceof DirectoryObservableProvider)) {
+    public PathObservable observePath(@NonNull Path path, long intervalMillis) throws IOException {
+        if (!(mLocalProvider instanceof PathObservableProvider)) {
             throw new UnsupportedOperationException();
         }
-        return applyRootable(directory, provider -> {
-            // observeDirectory() may or may not be able to detect denied access, and that is
-            // expansive on Linux (having to create the WatchService first before registering a
-            // WatchKey). So we check the access beforehand.
-            provider.checkAccess(directory, AccessMode.READ, AccessMode.EXECUTE);
-            return ((DirectoryObservableProvider) provider).observeDirectory(directory,
-                    intervalMillis);
+        return applyRootable(path, provider -> {
+            // observePath() may or may not be able to detect denied access, and that is expansive
+            // on Linux (having to create the WatchService first before registering a WatchKey). So
+            // we check the access beforehand.
+            provider.checkAccess(path, AccessMode.READ, AccessMode.EXECUTE);
+            return ((PathObservableProvider) provider).observePath(path, intervalMillis);
         });
     }
 

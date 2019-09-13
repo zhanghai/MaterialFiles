@@ -10,9 +10,8 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
 
-public interface DirectoryObservableProvider {
+public interface PathObservableProvider {
 
     @NonNull
-    DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
-            throws IOException;
+    PathObservable observePath(@NonNull Path path, long intervalMillis) throws IOException;
 }

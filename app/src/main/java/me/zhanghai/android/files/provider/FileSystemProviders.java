@@ -37,7 +37,7 @@ public class FileSystemProviders {
      * overflow event to all the registered keys upon successful read from the inotify fd. This can
      * help reducing the JNI and GC overhead when large amount of inotify events are generated.
      * Simply sending an overflow event to all the keys is okay because we use only one key per
-     * service for WatchServiceDirectoryObservable.
+     * service for WatchServicePathObservable.
      */
     public static void setOverflowWatchEvents(boolean overflowWatchEvents) {
         sOverflowWatchEvents = overflowWatchEvents;

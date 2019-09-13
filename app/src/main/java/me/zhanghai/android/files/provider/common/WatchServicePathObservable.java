@@ -15,7 +15,7 @@ import java8.nio.file.StandardWatchEventKinds;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 
-public class WatchServiceDirectoryObservable extends AbstractDirectoryObservable {
+public class WatchServicePathObservable extends AbstractPathObservable {
 
     private final WatchService mWatchService;
 
@@ -23,7 +23,7 @@ public class WatchServiceDirectoryObservable extends AbstractDirectoryObservable
     private static final AtomicInteger sPollerId = new AtomicInteger();
     private final Poller mPoller;
 
-    public WatchServiceDirectoryObservable(@NonNull Path path, long intervalMillis)
+    public WatchServicePathObservable(@NonNull Path path, long intervalMillis)
             throws IOException {
         super(intervalMillis);
 
@@ -56,7 +56,7 @@ public class WatchServiceDirectoryObservable extends AbstractDirectoryObservable
     private class Poller extends Thread {
 
         Poller() {
-            super("WatchServiceDirectoryObservable.Poller-" + sPollerId.getAndIncrement());
+            super("WatchServicePathObservable.Poller-" + sPollerId.getAndIncrement());
 
             setDaemon(true);
         }

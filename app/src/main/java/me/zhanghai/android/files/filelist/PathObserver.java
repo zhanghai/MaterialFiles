@@ -17,29 +17,29 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.PathObservable;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 
-public class DirectoryObserver implements Closeable {
+public class PathObserver implements Closeable {
 
     private static final long THROTTLE_INTERVAL_MILLIS = 1000;
 
     @Nullable
-    private DirectoryObservable mDirectoryObservable;
+    private PathObservable mPathObservable;
 
     private boolean mClosed;
 
     @NonNull
     private final Object mLock = new Object();
 
-    public DirectoryObserver(@NonNull Path path, @MainThread @NonNull Runnable onChange) {
+    public PathObserver(@NonNull Path path, @MainThread @NonNull Runnable onChange) {
         AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
             synchronized (mLock) {
                 if (mClosed) {
                     return;
                 }
                 try {
-                    mDirectoryObservable = MoreFiles.observeDirectory(path,
+                    mPathObservable = MoreFiles.observePath(path,
                             THROTTLE_INTERVAL_MILLIS);
                 } catch (UnsupportedOperationException e) {
                     // Ignored.
@@ -50,7 +50,7 @@ public class DirectoryObserver implements Closeable {
                     return;
                 }
                 Handler mainHandler = new Handler(Looper.getMainLooper());
-                mDirectoryObservable.addObserver(() -> mainHandler.post(onChange));
+                mPathObservable.addObserver(() -> mainHandler.post(onChange));
             }
         });
     }
@@ -64,9 +64,9 @@ public class DirectoryObserver implements Closeable {
                     return;
                 }
                 mClosed = true;
-                if (mDirectoryObservable != null) {
+                if (mPathObservable != null) {
                     try {
-                        mDirectoryObservable.close();
+                        mPathObservable.close();
                     } catch (IOException e) {
                         // Ignored.
                         e.printStackTrace();

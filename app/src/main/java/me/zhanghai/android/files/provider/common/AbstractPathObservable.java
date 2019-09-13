@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.util.ThrottledRunnable;
 
-public abstract class AbstractDirectoryObservable implements DirectoryObservable {
+public abstract class AbstractPathObservable implements PathObservable {
 
     private static final Notifier sNotifier;
     static {
@@ -35,7 +35,7 @@ public abstract class AbstractDirectoryObservable implements DirectoryObservable
     @NonNull
     private final Object mLock = new Object();
 
-    public AbstractDirectoryObservable(long intervalMillis) {
+    public AbstractPathObservable(long intervalMillis) {
         mIntervalMillis = intervalMillis;
     }
 
@@ -105,7 +105,7 @@ public abstract class AbstractDirectoryObservable implements DirectoryObservable
         private final Object mHandlerLock = new Object();
 
         Notifier() {
-            super("AbstractDirectoryObservable.Notifier");
+            super("AbstractPathObservable.Notifier");
 
             setDaemon(true);
         }

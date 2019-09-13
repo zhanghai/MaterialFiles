@@ -25,14 +25,14 @@ public class FileListLiveData extends CloseableLiveData<FileListData> {
     private final Path mPath;
 
     @NonNull
-    private final DirectoryObserver mObserver;
+    private final PathObserver mObserver;
 
     private volatile boolean mChangedWhileInactive;
 
     public FileListLiveData(@NonNull Path path) {
         mPath = path;
         loadValue();
-        mObserver = new DirectoryObserver(path, this::onChangeObserved);
+        mObserver = new PathObserver(path, this::onChangeObserved);
     }
 
     private void loadValue() {

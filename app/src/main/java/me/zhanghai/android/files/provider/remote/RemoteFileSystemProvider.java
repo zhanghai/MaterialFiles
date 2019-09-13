@@ -34,14 +34,14 @@ import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.function.Consumer;
-import me.zhanghai.android.files.provider.common.DirectoryObservable;
-import me.zhanghai.android.files.provider.common.DirectoryObservableProvider;
+import me.zhanghai.android.files.provider.common.PathObservable;
+import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.java.promise.Promise;
 
 public abstract class RemoteFileSystemProvider extends FileSystemProvider
-        implements DirectoryObservableProvider, Searchable {
+        implements PathObservableProvider, Searchable {
 
     private final RemoteInterfaceHolder<IRemoteFileSystemProvider> mRemoteInterface;
 
@@ -376,21 +376,20 @@ public abstract class RemoteFileSystemProvider extends FileSystemProvider
 
     @NonNull
     @Override
-    public DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
-            throws IOException {
-        ParcelableObject parcelableDirectory = new ParcelableObject(directory);
+    public PathObservable observePath(@NonNull Path path, long intervalMillis) throws IOException {
+        ParcelableObject parcelablePath = new ParcelableObject(path);
         ParcelableException exception = new ParcelableException();
         IRemoteFileSystemProvider remoteInterface = mRemoteInterface.get();
-        RemoteDirectoryObservable remoteDirectoryObservable;
+        RemotePathObservable remotePathObservable;
         try {
-            remoteDirectoryObservable = remoteInterface.observeDirectory(parcelableDirectory,
-                    intervalMillis, exception);
+            remotePathObservable = remoteInterface.observePath(parcelablePath, intervalMillis,
+                    exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
         exception.throwIfNotNull();
-        remoteDirectoryObservable.initForRemote();
-        return remoteDirectoryObservable;
+        remotePathObservable.initForRemote();
+        return remotePathObservable;
     }
 
     @Override

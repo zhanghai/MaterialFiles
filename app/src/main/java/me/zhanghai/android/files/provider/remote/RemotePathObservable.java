@@ -16,16 +16,16 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.provider.common.DirectoryObservable;
+import me.zhanghai.android.files.provider.common.PathObservable;
 import me.zhanghai.android.files.util.RemoteCallback;
 
-public class RemoteDirectoryObservable implements DirectoryObservable, Parcelable {
+public class RemotePathObservable implements PathObservable, Parcelable {
 
     @Nullable
-    private final DirectoryObservable mLocalDirectoryObservable;
+    private final PathObservable mLocalPathObservable;
 
     @Nullable
-    private final IRemoteDirectoryObservable mRemoteDirectoryObservable;
+    private final IRemotePathObservable mRemotePathObservable;
 
     private final Set<Runnable> mRemoteObservers;
 
@@ -33,9 +33,9 @@ public class RemoteDirectoryObservable implements DirectoryObservable, Parcelabl
 
     private final Object mRemoteLock;
 
-    public RemoteDirectoryObservable(@NonNull DirectoryObservable directoryObservable) {
-        mLocalDirectoryObservable = directoryObservable;
-        mRemoteDirectoryObservable = null;
+    public RemotePathObservable(@NonNull PathObservable pathObservable) {
+        mLocalPathObservable = pathObservable;
+        mRemotePathObservable = null;
         mRemoteObservers = null;
         mRemoteLock = null;
     }
@@ -46,7 +46,7 @@ public class RemoteDirectoryObservable implements DirectoryObservable, Parcelabl
                 throw new IllegalStateException();
             }
             try {
-                mRemoteDirectoryObservable.addObserver(new RemoteCallback(result -> {
+                mRemotePathObservable.addObserver(new RemoteCallback(result -> {
                     synchronized (mRemoteLock) {
                         for (Runnable observer : mRemoteObservers) {
                             observer.run();
@@ -85,11 +85,11 @@ public class RemoteDirectoryObservable implements DirectoryObservable, Parcelabl
 
     @Override
     public void close() throws IOException {
-        if (mRemoteDirectoryObservable != null) {
+        if (mRemotePathObservable != null) {
             synchronized (mRemoteLock) {
                 ParcelableException exception = new ParcelableException();
                 try {
-                    mRemoteDirectoryObservable.close(exception);
+                    mRemotePathObservable.close(exception);
                 } catch (RemoteException e) {
                     throw new RemoteFileSystemException(e);
                 }
@@ -97,29 +97,29 @@ public class RemoteDirectoryObservable implements DirectoryObservable, Parcelabl
                 mRemoteObservers.clear();
             }
         } else {
-            mLocalDirectoryObservable.close();
+            mLocalPathObservable.close();
         }
     }
 
-    private static class Stub extends IRemoteDirectoryObservable.Stub {
+    private static class Stub extends IRemotePathObservable.Stub {
 
         @NonNull
-        private final DirectoryObservable mDirectoryObservable;
+        private final PathObservable mPathObservable;
 
-        public Stub(@NonNull DirectoryObservable directoryObservable) {
-            mDirectoryObservable = directoryObservable;
+        public Stub(@NonNull PathObservable pathObservable) {
+            mPathObservable = pathObservable;
         }
 
         @Override
         public void addObserver(@NonNull RemoteCallback observer) {
             Objects.requireNonNull(observer);
-            mDirectoryObservable.addObserver(() -> observer.sendResult(null));
+            mPathObservable.addObserver(() -> observer.sendResult(null));
         }
 
         @Override
         public void close(@NonNull ParcelableException exception) {
             try {
-                mDirectoryObservable.close();
+                mPathObservable.close();
             } catch (IOException | RuntimeException e) {
                 exception.set(e);
             }
@@ -127,21 +127,21 @@ public class RemoteDirectoryObservable implements DirectoryObservable, Parcelabl
     }
 
 
-    public static final Creator<RemoteDirectoryObservable> CREATOR =
-            new Creator<RemoteDirectoryObservable>() {
+    public static final Creator<RemotePathObservable> CREATOR =
+            new Creator<RemotePathObservable>() {
                 @Override
-                public RemoteDirectoryObservable createFromParcel(Parcel source) {
-                    return new RemoteDirectoryObservable(source);
+                public RemotePathObservable createFromParcel(Parcel source) {
+                    return new RemotePathObservable(source);
                 }
                 @Override
-                public RemoteDirectoryObservable[] newArray(int size) {
-                    return new RemoteDirectoryObservable[size];
+                public RemotePathObservable[] newArray(int size) {
+                    return new RemotePathObservable[size];
                 }
             };
 
-    protected RemoteDirectoryObservable(Parcel in) {
-        mLocalDirectoryObservable = null;
-        mRemoteDirectoryObservable = IRemoteDirectoryObservable.Stub.asInterface(
+    protected RemotePathObservable(Parcel in) {
+        mLocalPathObservable = null;
+        mRemotePathObservable = IRemotePathObservable.Stub.asInterface(
                 in.readStrongBinder());
         mRemoteObservers = new HashSet<>();
         mRemoteLock = new Object();
@@ -154,9 +154,9 @@ public class RemoteDirectoryObservable implements DirectoryObservable, Parcelabl
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        if (mRemoteDirectoryObservable != null) {
+        if (mRemotePathObservable != null) {
             throw new IllegalStateException("Already at the remote side");
         }
-        dest.writeStrongBinder(new Stub(mLocalDirectoryObservable).asBinder());
+        dest.writeStrongBinder(new Stub(mLocalPathObservable).asBinder());
     }
 }

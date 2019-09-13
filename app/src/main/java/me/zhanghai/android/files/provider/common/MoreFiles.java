@@ -156,10 +156,9 @@ public class MoreFiles {
     }
 
     @NonNull
-    public static DirectoryObservable observeDirectory(@NonNull Path directory, long intervalMillis)
+    public static PathObservable observePath(@NonNull Path path, long intervalMillis)
             throws IOException {
-        return ((DirectoryObservableProvider) provider(directory)).observeDirectory(directory,
-                intervalMillis);
+        return ((PathObservableProvider) provider(path)).observePath(path, intervalMillis);
     }
 
     // TODO: Just use Files.readAllBytes(), if all our providers support
