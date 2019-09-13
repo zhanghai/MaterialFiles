@@ -16,6 +16,7 @@ import java8.nio.file.DirectoryIteratorException;
 import java8.nio.file.DirectoryStream;
 import java8.nio.file.Files;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.file.FileItem;
 
 public class FileListLiveData extends CloseableLiveData<FileListData> {
 

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileTime;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.file.FileTypeNames;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;

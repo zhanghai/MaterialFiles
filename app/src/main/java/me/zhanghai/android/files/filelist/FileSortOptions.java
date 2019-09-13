@@ -16,6 +16,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import java9.util.Comparators;
 import java9.util.function.Predicate;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.util.NaturalOrderComparator;
 import me.zhanghai.java.functional.Functional;
 import me.zhanghai.java.functional.MoreComparator;

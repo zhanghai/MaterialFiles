@@ -9,6 +9,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.util.StatefulData;
 
 public class FileListData extends StatefulData<List<FileItem>> {

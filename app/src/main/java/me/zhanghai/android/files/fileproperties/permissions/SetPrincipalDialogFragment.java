@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
-import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixPrincipal;
 import me.zhanghai.android.files.util.FragmentUtils;

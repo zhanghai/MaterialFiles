@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
-import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment;
 import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment;

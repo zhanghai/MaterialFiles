@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class OpenApkDialogFragment extends AppCompatDialogFragment {

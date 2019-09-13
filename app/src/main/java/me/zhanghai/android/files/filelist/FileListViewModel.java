@@ -19,6 +19,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.util.CollectionUtils;
 

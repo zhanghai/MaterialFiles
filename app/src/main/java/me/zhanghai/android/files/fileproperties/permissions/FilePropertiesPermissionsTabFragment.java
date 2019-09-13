@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.filelist.FileItem;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;

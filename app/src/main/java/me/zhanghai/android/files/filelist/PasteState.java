@@ -8,6 +8,7 @@ package me.zhanghai.android.files.filelist;
 import java.util.LinkedHashSet;
 
 import androidx.annotation.NonNull;
+import me.zhanghai.android.files.file.FileItem;
 
 public class PasteState {
 

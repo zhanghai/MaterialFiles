@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.util.FileNameUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 

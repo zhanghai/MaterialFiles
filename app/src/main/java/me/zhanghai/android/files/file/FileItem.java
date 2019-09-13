@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.filelist;
+package me.zhanghai.android.files.file;
 
 import android.os.Parcel;
 import android.os.Parcelable;

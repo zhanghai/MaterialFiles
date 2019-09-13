@@ -12,6 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.file.FileItem;
 
 public class SearchFileItem extends FileItem implements Comparable<SearchFileItem> {
 

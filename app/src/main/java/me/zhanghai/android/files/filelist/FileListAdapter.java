@@ -44,6 +44,7 @@ import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.StringCompat;
+import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.glide.GlideApp;
