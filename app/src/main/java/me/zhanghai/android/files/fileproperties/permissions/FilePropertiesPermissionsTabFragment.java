@@ -173,7 +173,8 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
             String seLinuxContext = ObjectUtils.toStringOrNull(posixAttributes.seLinuxContext());
             ViewUtils.setVisibleOrGone(mSeLinuxContextLayout, seLinuxContext != null);
             mSeLinuxContextText.setText(seLinuxContext);
-            mSeLinuxContextText.setOnClickListener(view -> { /* TODO */ });
+            mSeLinuxContextText.setOnClickListener(view -> SetSeLinuxContextDialogFragment.show(
+                    file, this));
         }
         // TODO: Other attributes?
     }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+        android:id="@+id/selinux_context_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dialog_padding_minus_4dp"
+        android:paddingEnd="@dimen/dialog_padding_minus_4dp">
+
+        <me.zhanghai.android.materialedittext.MaterialEditText
+            android:id="@+id/selinux_context"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="text">
+            <requestFocus />
+        </me.zhanghai.android.materialedittext.MaterialEditText>
+    </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+
+    <CheckBox
+        android:id="@+id/recursive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?listPreferredItemHeightSmall"
+        android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="?dialogPreferredPadding"
+        android:text="@string/file_properties_permissions_recursive"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+</LinearLayout>

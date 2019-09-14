@@ -56,7 +56,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
     @BindView(R.id.recursive)
-    CheckBox mRecursiveCheckBox;
+    CheckBox mRecursiveCheck;
 
     private SetPrincipalViewModel mViewModel;
 
@@ -116,7 +116,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
 
         return builder
                 .setView(contentView)
-                .setPositiveButton(android.R.string.ok, (dialog1, which) -> setPrincipal())
+                .setPositiveButton(android.R.string.ok, (dialog2, which) -> setPrincipal())
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }
@@ -166,7 +166,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
 
     private void setPrincipal() {
         int id = mViewModel.getSelectionLiveData().getValue();
-        boolean recursive = mRecursiveCheckBox.isChecked();
+        boolean recursive = mRecursiveCheck.isChecked();
         if (!recursive) {
             if (id == getExtraPrincipalId()) {
                 return;

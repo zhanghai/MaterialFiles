@@ -266,10 +266,12 @@
     <string name="file_properties_permissions_set_group_title">Change group</string>
     <string name="file_properties_permissions_set_principal_filter_hint">Enter a name or ID</string>
     <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_set_principal_recursive">Apply to enclosed files</string>
     <string name="file_properties_permissions_mode">Mode</string>
     <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
     <string name="file_properties_permissions_selinux_context">SELinux Context</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Change SELinux context</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Restore</string>
+    <string name="file_properties_permissions_recursive">Apply to enclosed files</string>
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>

@@ -247,10 +247,12 @@
     <string name="file_properties_permissions_set_group_title">更改组</string>
     <string name="file_properties_permissions_set_principal_filter_hint">输入名称或 ID</string>
     <string name="file_properties_permissions_set_principal_system">系统</string>
-    <string name="file_properties_permissions_set_principal_recursive">应用到包含的文件</string>
     <string name="file_properties_permissions_mode">模式</string>
     <string name="file_properties_permissions_mode_format">%1$s（%2$04o）</string>
     <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
+    <string name="file_properties_permissions_set_selinux_context_title">更改 SELinux 上下文</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">还原</string>
+    <string name="file_properties_permissions_recursive">应用到包含的文件</string>
 
     <string name="navigation_root_directory">根目录</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩余 %1$s</string>

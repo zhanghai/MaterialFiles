@@ -75,6 +75,6 @@
         android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
         android:paddingStart="20dp"
         android:paddingEnd="?dialogPreferredPadding"
-        android:text="@string/file_properties_permissions_set_principal_recursive"
+        android:text="@string/file_properties_permissions_recursive"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>
