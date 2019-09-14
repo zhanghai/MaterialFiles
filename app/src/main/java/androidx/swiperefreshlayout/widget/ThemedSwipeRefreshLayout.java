@@ -8,6 +8,7 @@ package androidx.swiperefreshlayout.widget;
 import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,5 +34,28 @@ public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
         ((ShapeDrawable) mCircleView.getBackground()).getPaint().setColor(
                 ViewUtils.getColorFromAttrRes(R.attr.colorBackgroundFloating, 0, context));
         setColorSchemeColors(ViewUtils.getColorFromAttrRes(R.attr.colorAccent, 0, context));
+    }
+
+    @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        View child = getChildView();
+        if (child != null) {
+            measureChild(child, widthMeasureSpec, heightMeasureSpec);
+            setMeasuredDimension(child.getMeasuredWidth() + getPaddingLeft() + getPaddingRight(),
+                    child.getMeasuredHeight() + getPaddingTop() + getPaddingBottom());
+        }
+    }
+
+    @Nullable
+    private View getChildView() {
+        for (int i = 0; i < getChildCount(); ++i) {
+            View child = getChildAt(i);
+            if (!child.equals(mCircleView)) {
+                return child;
+            }
+        }
+        return null;
     }
 }
