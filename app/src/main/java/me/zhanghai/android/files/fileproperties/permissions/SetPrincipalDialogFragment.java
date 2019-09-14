@@ -89,8 +89,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
         mViewModel = new ViewModelProvider(this).get(getViewModelClass());
         SelectionLiveData<Integer> selectionLiveData = mViewModel.getSelectionLiveData();
         if (selectionLiveData.getValue() == null) {
-            PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
-            int id = getExtraPrincipal(attributes).getId();
+            int id = getExtraPrincipalId();
             selectionLiveData.setValue(id);
             mPendingScrollToId = id;
         }
@@ -117,7 +116,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
 
         return builder
                 .setView(contentView)
-                .setPositiveButton(android.R.string.ok, (dialog1, which) -> onSetPrincipal())
+                .setPositiveButton(android.R.string.ok, (dialog1, which) -> setPrincipal())
                 .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }
@@ -165,12 +164,11 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
         }
     }
 
-    private void onSetPrincipal() {
+    private void setPrincipal() {
         int id = mViewModel.getSelectionLiveData().getValue();
         boolean recursive = mRecursiveCheckBox.isChecked();
         if (!recursive) {
-            PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
-            if (id == getExtraPrincipal(attributes).getId()) {
+            if (id == getExtraPrincipalId()) {
                 return;
             }
         }
@@ -184,6 +182,11 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
             return;
         }
         setPrincipal(mExtraFile.getPath(), principal, recursive);
+    }
+
+    private int getExtraPrincipalId() {
+        PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
+        return getExtraPrincipal(attributes).getId();
     }
 
     @NonNull
