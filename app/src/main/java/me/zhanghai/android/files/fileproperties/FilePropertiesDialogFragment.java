@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,12 +101,15 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        new ViewModelProvider(this, new FilePropertiesViewModel.Factory(mExtraFile))
+                .get(FilePropertiesViewModel.class);
+
         mTabAdapter = new TabFragmentPagerAdapter(this);
-        mTabAdapter.addTab(() -> FilePropertiesBasicTabFragment.newInstance(mExtraFile), getString(
+        mTabAdapter.addTab(FilePropertiesBasicTabFragment::newInstance, getString(
                 R.string.file_properties_basic));
         if (FilePropertiesPermissionsTabFragment.isAvailable(mExtraFile)) {
-            mTabAdapter.addTab(() -> FilePropertiesPermissionsTabFragment.newInstance(mExtraFile),
-                    getString(R.string.file_properties_permissions));
+            mTabAdapter.addTab(FilePropertiesPermissionsTabFragment::newInstance, getString(
+                    R.string.file_properties_permissions));
         }
         mViewPager.setOffscreenPageLimit(mTabAdapter.getCount() - 1);
         mViewPager.setAdapter(mTabAdapter);

@@ -10,137 +10,151 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="?dialogPreferredPadding"
-            android:orientation="vertical">
-
-            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/file_properties_basic_name">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-
-            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                android:id="@+id/parent_directory_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_parent_directory">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/parent_directory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/archive_file_and_entry_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/file_properties_basic_archive_file">
-
-                    <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/archive_file"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="true" />
-                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-
-                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/file_properties_basic_archive_entry">
-
-                    <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/archive_entry"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="true" />
-                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-            </LinearLayout>
-
-            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_type">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-
-            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                android:id="@+id/symbolic_link_target_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_symbolic_link_target">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/symbolic_link_target"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-
-            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_size">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-
-            <me.zhanghai.android.files.ui.AppCompatTextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_last_modification_time">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/last_modification_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
-        </LinearLayout>
-    </ScrollView>
-
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        style="@style/Widget.AppCompat.ProgressBar" />
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:visibility="gone" />
+
+    <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="?dialogPreferredPadding"
+                android:orientation="vertical">
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/file_properties_basic_name">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:id="@+id/parent_directory_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_parent_directory">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/parent_directory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/archive_file_and_entry_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/file_properties_basic_archive_file">
+
+                        <me.zhanghai.android.files.ui.TextInputTextView
+                            android:id="@+id/archive_file"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textIsSelectable="true" />
+                    </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                    <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/file_properties_basic_archive_entry">
+
+                        <me.zhanghai.android.files.ui.TextInputTextView
+                            android:id="@+id/archive_entry"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textIsSelectable="true" />
+                    </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+                </LinearLayout>
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_type">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:id="@+id/symbolic_link_target_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_symbolic_link_target">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/symbolic_link_target"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_size">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_last_modification_time">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/last_modification_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
 </FrameLayout>

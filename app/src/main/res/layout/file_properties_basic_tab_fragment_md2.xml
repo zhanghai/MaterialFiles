@@ -11,154 +11,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollIndicators="top|bottom">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="?dialogPreferredPadding"
-            android:orientation="vertical">
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/file_properties_basic_name"
-                app:hintAnimationEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/parent_directory_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_parent_directory"
-                app:hintAnimationEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/parent_directory"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:id="@+id/archive_file_and_entry_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/file_properties_basic_archive_file"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                    <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/archive_file"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="@string/file_properties_basic_archive_entry"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                    <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/archive_entry"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="true" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_type"
-                app:hintAnimationEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/symbolic_link_target_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_symbolic_link_target"
-                app:hintAnimationEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/symbolic_link_target"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_size"
-                app:hintAnimationEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/size"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_basic_last_modification_time"
-                app:hintAnimationEnabled="false"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                <me.zhanghai.android.files.ui.TextInputTextView
-                    android:id="@+id/last_modification_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textIsSelectable="true" />
-            </com.google.android.material.textfield.TextInputLayout>
-        </LinearLayout>
-    </ScrollView>
-
     <ProgressBar
         android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone"
-        style="@style/Widget.AppCompat.ProgressBar" />
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:visibility="gone" />
+
+    <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollIndicators="top|bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="?dialogPreferredPadding"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/file_properties_basic_name"
+                    app:hintAnimationEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/parent_directory_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_parent_directory"
+                    app:hintAnimationEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/parent_directory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/archive_file_and_entry_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/file_properties_basic_archive_file"
+                        app:hintAnimationEnabled="false"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <me.zhanghai.android.files.ui.TextInputTextView
+                            android:id="@+id/archive_file"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textIsSelectable="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/file_properties_basic_archive_entry"
+                        app:hintAnimationEnabled="false"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                        <me.zhanghai.android.files.ui.TextInputTextView
+                            android:id="@+id/archive_entry"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textIsSelectable="true" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_type"
+                    app:hintAnimationEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/symbolic_link_target_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_symbolic_link_target"
+                    app:hintAnimationEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/symbolic_link_target"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_size"
+                    app:hintAnimationEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/size"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_basic_last_modification_time"
+                    app:hintAnimationEnabled="false"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/last_modification_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
 </FrameLayout>
