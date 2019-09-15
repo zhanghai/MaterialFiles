@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?listPreferredItemHeightSmall"
-        android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
+        android:layout_marginStart="@dimen/dialog_padding_minus_7dp"
         android:layout_marginEnd="?dialogPreferredPadding"
         android:text="@string/file_properties_permissions_recursive"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
