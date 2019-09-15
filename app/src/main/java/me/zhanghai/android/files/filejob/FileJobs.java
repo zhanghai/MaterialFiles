@@ -698,7 +698,7 @@ public class FileJobs {
             return name;
         }
 
-        protected void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+        protected void setSeLinuxContext(@NonNull Path path, @NonNull String seLinuxContext,
                                          @NonNull TransferInfo transferInfo,
                                          @NonNull ActionAllInfo actionAllInfo) throws IOException {
             boolean retry;
@@ -706,7 +706,7 @@ public class FileJobs {
                 retry = false;
                 try {
                     // We do want to follow symbolic links here.
-                    MoreFiles.setSeLinuxContext(path, seLinuxContext);
+                    MoreFiles.setSeLinuxContext(path, ByteString.fromString(seLinuxContext));
                     transferInfo.incrementTransferredFileCount();
                     postSetSeLinuxContextNotification(transferInfo, path);
                 } catch (InterruptedIOException e) {
@@ -1841,10 +1841,10 @@ public class FileJobs {
         @NonNull
         private final Path mPath;
         @NonNull
-        private final ByteString mSeLinuxContext;
+        private final String mSeLinuxContext;
         private final boolean mRecursive;
 
-        public SetSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+        public SetSeLinuxContext(@NonNull Path path, @NonNull String seLinuxContext,
                                  boolean recursive) {
             mPath = path;
             mSeLinuxContext = seLinuxContext;

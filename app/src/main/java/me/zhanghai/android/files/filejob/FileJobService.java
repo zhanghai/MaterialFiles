@@ -22,7 +22,6 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
-import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
@@ -105,7 +104,7 @@ public class FileJobService extends Service {
         startJob(new FileJobs.SetOwner(path, owner, recursive), context);
     }
 
-    public static void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+    public static void setSeLinuxContext(@NonNull Path path, @NonNull String seLinuxContext,
                                          boolean recursive, @NonNull Context context) {
         startJob(new FileJobs.SetSeLinuxContext(path, seLinuxContext, recursive), context);
     }

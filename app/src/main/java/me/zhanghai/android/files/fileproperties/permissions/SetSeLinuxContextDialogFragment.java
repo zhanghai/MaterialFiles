@@ -26,7 +26,6 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.filejob.FileJobService;
-import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.FragmentUtils;
@@ -82,7 +81,7 @@ public class SetSeLinuxContextDialogFragment extends AppCompatDialogFragment {
                 context);
         ButterKnife.bind(this, contentView);
         if (savedInstanceState == null) {
-            mSeLinuxContextEdit.setText(getExtraSeLinuxContext().toString());
+            mSeLinuxContextEdit.setText(getExtraSeLinuxContext());
         }
         AlertDialog dialog = builder
                 .setView(contentView)
@@ -96,7 +95,7 @@ public class SetSeLinuxContextDialogFragment extends AppCompatDialogFragment {
     }
 
     private void setSeLinuxContext() {
-        ByteString seLinuxContext = ByteString.fromString(mSeLinuxContextEdit.getText().toString());
+        String seLinuxContext = mSeLinuxContextEdit.getText().toString();
         boolean recursive = mRecursiveCheck.isChecked();
         if (!recursive) {
             if (Objects.equals(seLinuxContext, getExtraSeLinuxContext())) {
@@ -108,9 +107,9 @@ public class SetSeLinuxContextDialogFragment extends AppCompatDialogFragment {
     }
 
     @NonNull
-    private ByteString getExtraSeLinuxContext() {
+    private String getExtraSeLinuxContext() {
         PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
-        return attributes.seLinuxContext();
+        return attributes.seLinuxContext().toString();
     }
 
     private void restoreSeLinuxContext() {
