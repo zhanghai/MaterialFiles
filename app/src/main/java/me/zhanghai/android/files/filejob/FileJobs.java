@@ -698,6 +698,120 @@ public class FileJobs {
             return name;
         }
 
+        protected void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+                                         @NonNull TransferInfo transferInfo,
+                                         @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    // We do want to follow symbolic links here.
+                    MoreFiles.setSeLinuxContext(path, seLinuxContext);
+                    transferInfo.incrementTransferredFileCount();
+                    postSetSeLinuxContextNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipSetSeLinuxContextError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postSetSeLinuxContextNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_set_selinux_context_error_title_format,
+                                    getFileName(path)),
+                            getString(R.string.file_job_set_selinux_context_error_message_format,
+                                    seLinuxContext, e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipSetSeLinuxContextError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postSetSeLinuxContextNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        private void postSetSeLinuxContextNotification(@NonNull TransferInfo transferInfo,
+                                              @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_set_selinux_context_notification_title_one,
+                    R.plurals.file_job_set_selinux_context_notification_title_multiple);
+        }
+
+        protected void restoreSeLinuxContext(@NonNull Path path, @NonNull TransferInfo transferInfo,
+                                             @NonNull ActionAllInfo actionAllInfo)
+                throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    // We do want to follow symbolic links here.
+                    MoreFiles.restoreSeLinuxContext(path);
+                    transferInfo.incrementTransferredFileCount();
+                    postRestoreSeLinuxContextNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipRestoreSeLinuxContextError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postRestoreSeLinuxContextNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_restore_selinux_context_error_title),
+                            getString(
+                                    R.string.file_job_restore_selinux_context_error_message_format,
+                                    getFileName(path), e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipRestoreSeLinuxContextError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postRestoreSeLinuxContextNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        private void postRestoreSeLinuxContextNotification(@NonNull TransferInfo transferInfo,
+                                                       @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_restore_selinux_context_notification_title_one,
+                    R.plurals.file_job_restore_selinux_context_notification_title_multiple);
+        }
+
         private void postTransferCountNotification(@NonNull TransferInfo transferInfo,
                                                    @NonNull Path currentPath,
                                                    @StringRes int titleOneRes,
@@ -974,6 +1088,8 @@ public class FileJobs {
             public boolean skipDeleteError;
             public boolean skipSetGroupError;
             public boolean skipSetOwnerError;
+            public boolean skipSetSeLinuxContextError;
+            public boolean skipRestoreSeLinuxContextError;
         }
 
         private static class ActionResult {
@@ -1552,6 +1668,60 @@ public class FileJobs {
         }
     }
 
+    public static class RestoreSeLinuxContext extends Base {
+
+        @NonNull
+        private final Path mPath;
+        private final boolean mRecursive;
+
+        public RestoreSeLinuxContext(@NonNull Path path, boolean recursive) {
+            mPath = path;
+            mRecursive = recursive;
+        }
+
+        @Override
+        public void run() throws IOException {
+            ScanInfo scanInfo = scan(mPath, mRecursive,
+                    R.plurals.file_job_restore_selinux_context_scan_notification_title);
+            TransferInfo transferInfo = new TransferInfo(scanInfo, null);
+            ActionAllInfo actionAllInfo = new ActionAllInfo();
+            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
+            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
+            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    restoreSeLinuxContext(file, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @NonNull
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    restoreSeLinuxContext(directory, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        }
+    }
+
     public static class SetGroup extends Base {
 
         @NonNull
@@ -1659,6 +1829,64 @@ public class FileJobs {
                         throw exception;
                     }
                     setOwner(directory, mOwner, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        }
+    }
+
+    public static class SetSeLinuxContext extends Base {
+
+        @NonNull
+        private final Path mPath;
+        @NonNull
+        private final ByteString mSeLinuxContext;
+        private final boolean mRecursive;
+
+        public SetSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+                                 boolean recursive) {
+            mPath = path;
+            mSeLinuxContext = seLinuxContext;
+            mRecursive = recursive;
+        }
+
+        @Override
+        public void run() throws IOException {
+            ScanInfo scanInfo = scan(mPath, mRecursive,
+                    R.plurals.file_job_set_selinux_context_scan_notification_title);
+            TransferInfo transferInfo = new TransferInfo(scanInfo, null);
+            ActionAllInfo actionAllInfo = new ActionAllInfo();
+            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
+            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
+            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    setSeLinuxContext(file, mSeLinuxContext, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @NonNull
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    setSeLinuxContext(directory, mSeLinuxContext, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }

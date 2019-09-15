@@ -22,6 +22,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
@@ -89,6 +90,11 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Rename(path, newName), context);
     }
 
+    public static void restoreSeLinuxContext(@NonNull Path path, boolean recursive,
+                                             @NonNull Context context) {
+        startJob(new FileJobs.RestoreSeLinuxContext(path, recursive), context);
+    }
+
     public static void setGroup(@NonNull Path path, @NonNull PosixGroup group, boolean recursive,
                                 @NonNull Context context) {
         startJob(new FileJobs.SetGroup(path, group, recursive), context);
@@ -97,6 +103,11 @@ public class FileJobService extends Service {
     public static void setOwner(@NonNull Path path, @NonNull PosixUser owner, boolean recursive,
                                 @NonNull Context context) {
         startJob(new FileJobs.SetOwner(path, owner, recursive), context);
+    }
+
+    public static void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+                                         boolean recursive, @NonNull Context context) {
+        startJob(new FileJobs.SetSeLinuxContext(path, seLinuxContext, recursive), context);
     }
 
     @MainThread

@@ -32,7 +32,6 @@ import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.GroupPrincipal;
-import java8.nio.file.attribute.PosixFileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.function.Consumer;
 import java9.util.function.LongConsumer;
@@ -208,6 +207,16 @@ public class MoreFiles {
         return result;
     }
 
+    public static void restoreSeLinuxContext(@NonNull Path path)
+            throws IOException {
+        PosixFileAttributeView view = Files.getFileAttributeView(path,
+                PosixFileAttributeView.class);
+        if (view == null) {
+            throw new UnsupportedOperationException();
+        }
+        view.restoreSeLinuxContext();
+    }
+
     public static void search(@NonNull Path directory, @NonNull String query,
                               @NonNull Consumer<List<Path>> listener, long intervalMillis)
             throws IOException {
@@ -216,12 +225,22 @@ public class MoreFiles {
 
     public static void setGroup(@NonNull Path path, @NonNull GroupPrincipal group)
             throws IOException {
+        java8.nio.file.attribute.PosixFileAttributeView view = Files.getFileAttributeView(path,
+                java8.nio.file.attribute.PosixFileAttributeView.class);
+        if (view == null) {
+            throw new UnsupportedOperationException();
+        }
+        view.setGroup(group);
+    }
+
+    public static void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext)
+            throws IOException {
         PosixFileAttributeView view = Files.getFileAttributeView(path,
                 PosixFileAttributeView.class);
         if (view == null) {
             throw new UnsupportedOperationException();
         }
-        view.setGroup(group);
+        view.setSeLinuxContext(seLinuxContext);
     }
 
     // Can accept link options.

@@ -25,6 +25,8 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.file.FileItem;
+import me.zhanghai.android.files.filejob.FileJobService;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.FragmentUtils;
@@ -80,7 +82,7 @@ public class SetSeLinuxContextDialogFragment extends AppCompatDialogFragment {
                 context);
         ButterKnife.bind(this, contentView);
         if (savedInstanceState == null) {
-            mSeLinuxContextEdit.setText(getExtraSeLinuxContext());
+            mSeLinuxContextEdit.setText(getExtraSeLinuxContext().toString());
         }
         AlertDialog dialog = builder
                 .setView(contentView)
@@ -94,25 +96,25 @@ public class SetSeLinuxContextDialogFragment extends AppCompatDialogFragment {
     }
 
     private void setSeLinuxContext() {
-        String seLinuxContext = mSeLinuxContextEdit.getText().toString();
+        ByteString seLinuxContext = ByteString.fromString(mSeLinuxContextEdit.getText().toString());
         boolean recursive = mRecursiveCheck.isChecked();
         if (!recursive) {
             if (Objects.equals(seLinuxContext, getExtraSeLinuxContext())) {
                 return;
             }
         }
-        //FileJobService.setSeLinuxContext(mExtraFile.getPath(), ByteString.fromStringOrNull(
-        //        seLinuxContext), recursive);
+        FileJobService.setSeLinuxContext(mExtraFile.getPath(), seLinuxContext, recursive,
+                requireContext());
     }
 
     @NonNull
-    private String getExtraSeLinuxContext() {
+    private ByteString getExtraSeLinuxContext() {
         PosixFileAttributes attributes = (PosixFileAttributes) mExtraFile.getAttributes();
-        return attributes.seLinuxContext().toString();
+        return attributes.seLinuxContext();
     }
 
     private void restoreSeLinuxContext() {
         boolean recursive = mRecursiveCheck.isChecked();
-        //FileJobService.restoreSeLinuxContext(mExtraFile.getPath(), recursive);
+        FileJobService.restoreSeLinuxContext(mExtraFile.getPath(), recursive, requireContext());
     }
 }
