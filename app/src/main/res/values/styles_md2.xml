@@ -7,8 +7,15 @@
 
 <resources>
 
-    <style name="Base.Widget.Material.ListView.DropDown" parent="Widget.AppCompat.ListView.DropDown" />
-    <style name="Widget.Material.ListView.DropDown" parent="Base.Widget.Material.ListView.DropDown" />
+    <!--
+      ~ See also drawable-v21/mtrl_popupmenu_background.xml and
+      ~ drawable-v23/mtrl_popupmenu_background_dark.xml which are overridden.
+      -->
+    <style name="Widget.Material.ListView.DropDown" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
 
     <style name="Widget.MaterialFiles.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="android:stateListAnimator">@null</item>
