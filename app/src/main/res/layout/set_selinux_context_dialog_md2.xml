@@ -17,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="?dialogPreferredPadding"
-        android:paddingEnd="?dialogPreferredPadding"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        android:paddingEnd="?dialogPreferredPadding">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/selinux_context"

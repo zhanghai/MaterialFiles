@@ -48,8 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/file_properties_basic_name"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/name"
@@ -64,8 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/file_properties_basic_parent_directory"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/parent_directory"
@@ -86,8 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:hint="@string/file_properties_basic_archive_file"
-                        app:hintAnimationEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:hintAnimationEnabled="false">
 
                         <me.zhanghai.android.files.ui.TextInputTextView
                             android:id="@+id/archive_file"
@@ -101,8 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:hint="@string/file_properties_basic_archive_entry"
-                        app:hintAnimationEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                        app:hintAnimationEnabled="false">
 
                         <me.zhanghai.android.files.ui.TextInputTextView
                             android:id="@+id/archive_entry"
@@ -117,8 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/file_properties_basic_type"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/type"
@@ -133,8 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/file_properties_basic_symbolic_link_target"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/symbolic_link_target"
@@ -148,8 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/file_properties_basic_size"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/size"
@@ -163,8 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="@string/file_properties_basic_last_modification_time"
-                    app:hintAnimationEnabled="false"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                    app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/last_modification_time"
