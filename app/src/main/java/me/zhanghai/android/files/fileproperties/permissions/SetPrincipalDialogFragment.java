@@ -109,10 +109,11 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = createAdapter(selectionLiveData);
         mRecyclerView.setAdapter(mAdapter);
-        selectionLiveData.observe(this, mAdapter);
+        ViewUtils.setVisibleOrGone(mRecursiveCheck, mExtraFile.getAttributes().isDirectory());
 
         mViewModel.getFilteredPrincipalListLiveData().observe(this,
                 this::onFilteredPrincipalListChanged);
+        selectionLiveData.observe(this, mAdapter);
 
         return builder
                 .setView(contentView)

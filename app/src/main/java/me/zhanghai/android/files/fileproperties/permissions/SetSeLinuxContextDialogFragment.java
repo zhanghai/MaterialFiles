@@ -83,6 +83,7 @@ public class SetSeLinuxContextDialogFragment extends AppCompatDialogFragment {
         if (savedInstanceState == null) {
             mSeLinuxContextEdit.setText(getExtraSeLinuxContext());
         }
+        ViewUtils.setVisibleOrGone(mRecursiveCheck, mExtraFile.getAttributes().isDirectory());
         AlertDialog dialog = builder
                 .setView(contentView)
                 .setPositiveButton(android.R.string.ok, (dialog2, which) -> setSeLinuxContext())
