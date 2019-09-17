@@ -23,7 +23,8 @@
         android:drawableStart="@drawable/filter_icon_control_normal_24dp"
         android:hint="@string/file_properties_permissions_set_principal_filter_hint"
         android:importantForAutofill="no"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
     <FrameLayout
         android:layout_width="match_parent"
