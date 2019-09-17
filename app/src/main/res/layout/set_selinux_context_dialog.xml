@@ -35,6 +35,7 @@
         android:minHeight="?listPreferredItemHeightSmall"
         android:layout_marginStart="@dimen/dialog_padding_minus_7dp"
         android:layout_marginEnd="?dialogPreferredPadding"
+        android:paddingStart="5dp"
         android:text="@string/file_properties_permissions_recursive"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>
