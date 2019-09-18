@@ -68,7 +68,7 @@ public class RootUtils {
                 try {
                     return function.apply(rootObject);
                 } catch (IOException e) {
-                    // Ignored.
+                    e.printStackTrace();
                 }
                 return function.apply(localObject);
             case ALWAYS:
@@ -96,7 +96,7 @@ public class RootUtils {
             try {
                 return function.apply(rootObject);
             } catch (IOException e) {
-                // Ignored.
+                e.printStackTrace();
             }
             return function.apply(localObject);
         } else {
