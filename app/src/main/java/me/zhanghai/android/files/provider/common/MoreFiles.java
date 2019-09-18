@@ -277,6 +277,7 @@ public class MoreFiles {
         return Files.readAttributes(path, BasicFileAttributes.class, options).size();
     }
 
+    @NonNull
     public static ByteString toByteString(@NonNull Path path) {
         ByteStringListPath byteStringPath = requireByteStringListPath(path);
         return byteStringPath.toByteString();
