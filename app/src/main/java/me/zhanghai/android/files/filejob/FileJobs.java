@@ -1923,9 +1923,10 @@ public class FileJobs {
                         throws IOException {
                     if (attributes.isSymbolicLink()) {
                         // We cannot set mode on symbolic links.
+                        transferInfo.skipFileIgnoringSize();
                         return FileVisitResult.CONTINUE;
                     }
-                    // The file might actually be a directory if max depth is reached.
+                    // The file may actually be a directory if we are not entering it.
                     Set<PosixFileModeBit> mode = !attributes.isDirectory() ? getFileMode(file)
                             : mMode;
                     setMode(file, mode, transferInfo, actionAllInfo);
