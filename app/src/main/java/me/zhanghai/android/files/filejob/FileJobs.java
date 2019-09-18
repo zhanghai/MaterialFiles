@@ -577,6 +577,65 @@ public class FileJobs {
                     actionAllInfo);
         }
 
+        protected void restoreSeLinuxContext(@NonNull Path path, boolean followLinks,
+                                             @NonNull TransferInfo transferInfo,
+                                             @NonNull ActionAllInfo actionAllInfo)
+                throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    LinkOption[] options = followLinks ? new LinkOption[0]
+                            : new LinkOption[] { LinkOption.NOFOLLOW_LINKS };
+                    MoreFiles.restoreSeLinuxContext(path, options);
+                    transferInfo.incrementTransferredFileCount();
+                    postRestoreSeLinuxContextNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipRestoreSeLinuxContextError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postRestoreSeLinuxContextNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_restore_selinux_context_error_title),
+                            getString(
+                                    R.string.file_job_restore_selinux_context_error_message_format,
+                                    getFileName(path), e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipRestoreSeLinuxContextError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postRestoreSeLinuxContextNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        private void postRestoreSeLinuxContextNotification(@NonNull TransferInfo transferInfo,
+                                                           @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_restore_selinux_context_notification_title_one,
+                    R.plurals.file_job_restore_selinux_context_notification_title_multiple);
+        }
+
         protected void setGroup(@NonNull Path path, @NonNull PosixGroup group, boolean followLinks,
                                 @NonNull TransferInfo transferInfo,
                                 @NonNull ActionAllInfo actionAllInfo) throws IOException {
@@ -816,65 +875,6 @@ public class FileJobs {
             postTransferCountNotification(transferInfo, currentPath,
                     R.string.file_job_set_selinux_context_notification_title_one,
                     R.plurals.file_job_set_selinux_context_notification_title_multiple);
-        }
-
-        protected void restoreSeLinuxContext(@NonNull Path path, boolean followLinks,
-                                             @NonNull TransferInfo transferInfo,
-                                             @NonNull ActionAllInfo actionAllInfo)
-                throws IOException {
-            boolean retry;
-            do {
-                retry = false;
-                try {
-                    LinkOption[] options = followLinks ? new LinkOption[0]
-                            : new LinkOption[] { LinkOption.NOFOLLOW_LINKS };
-                    MoreFiles.restoreSeLinuxContext(path, options);
-                    transferInfo.incrementTransferredFileCount();
-                    postRestoreSeLinuxContextNotification(transferInfo, path);
-                } catch (InterruptedIOException e) {
-                    throw e;
-                } catch (IOException e) {
-                    if (actionAllInfo.skipRestoreSeLinuxContextError) {
-                        transferInfo.skipFileIgnoringSize();
-                        postRestoreSeLinuxContextNotification(transferInfo, path);
-                        return;
-                    }
-                    ActionResult result = showActionDialog(
-                            getString(R.string.file_job_restore_selinux_context_error_title),
-                            getString(
-                                    R.string.file_job_restore_selinux_context_error_message_format,
-                                    getFileName(path), e.getLocalizedMessage()),
-                            true,
-                            getString(R.string.retry),
-                            getString(R.string.skip),
-                            getString(android.R.string.cancel));
-                    switch (result.getAction()) {
-                        case POSITIVE:
-                            retry = true;
-                            continue;
-                        case NEGATIVE:
-                            if (result.isAll()) {
-                                actionAllInfo.skipRestoreSeLinuxContextError = true;
-                            }
-                            // Fall through!
-                        case CANCELED:
-                            transferInfo.skipFileIgnoringSize();
-                            postRestoreSeLinuxContextNotification(transferInfo, path);
-                            return;
-                        case NEUTRAL:
-                            throw new InterruptedIOException();
-                        default:
-                            throw new AssertionError(result.getAction());
-                    }
-                }
-            } while (retry);
-        }
-
-        private void postRestoreSeLinuxContextNotification(@NonNull TransferInfo transferInfo,
-                                                       @NonNull Path currentPath) {
-            postTransferCountNotification(transferInfo, currentPath,
-                    R.string.file_job_restore_selinux_context_notification_title_one,
-                    R.plurals.file_job_restore_selinux_context_notification_title_multiple);
         }
 
         private void postTransferCountNotification(@NonNull TransferInfo transferInfo,
@@ -1151,11 +1151,11 @@ public class FileJobs {
             public boolean skipReplace;
             public boolean skipCopyMoveError;
             public boolean skipDeleteError;
+            public boolean skipRestoreSeLinuxContextError;
             public boolean skipSetGroupError;
             public boolean skipSetOwnerError;
             public boolean skipSetModeError;
             public boolean skipSetSeLinuxContextError;
-            public boolean skipRestoreSeLinuxContextError;
         }
 
         private static class ActionResult {
