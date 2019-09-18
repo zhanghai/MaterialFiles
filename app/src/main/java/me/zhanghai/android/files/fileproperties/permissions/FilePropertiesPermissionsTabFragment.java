@@ -169,7 +169,11 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                     R.string.file_properties_permissions_mode_format, PosixFileMode.toString(mode),
                     PosixFileMode.toInt(mode)) : getString(R.string.unknown);
             mModeText.setText(modeString);
-            mModeText.setOnClickListener(view -> SetModeDialogFragment.show(file, this));
+            mModeText.setOnClickListener(view -> {
+                if (!attributes.isSymbolicLink()) {
+                    SetModeDialogFragment.show(file, this);
+                }
+            });
             String seLinuxContext = ObjectUtils.toStringOrNull(posixAttributes.seLinuxContext());
             ViewUtils.setVisibleOrGone(mSeLinuxContextLayout, seLinuxContext != null);
             mSeLinuxContextText.setText(seLinuxContext);
