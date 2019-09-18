@@ -7,16 +7,13 @@ package me.zhanghai.android.files.ui;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.google.android.material.shape.MaterialShapeDrawable;
 import com.google.android.material.shape.ShapeAppearanceModel;
@@ -25,22 +22,12 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
+import androidx.appcompat.widget.FixPaddingListPopupWindow;
 import androidx.appcompat.widget.ListPopupWindow;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.compat.RestrictedHiddenApi;
-import me.zhanghai.android.files.compat.RestrictedHiddenApiAccess;
 import me.zhanghai.android.files.util.ViewUtils;
-import me.zhanghai.java.reflected.ReflectedField;
 
 public class DropDownView extends View {
-
-    static {
-        RestrictedHiddenApiAccess.allow();
-    }
-
-    @RestrictedHiddenApi
-    private static final ReflectedField<AbsListView> sAbsListViewListPaddingField =
-            new ReflectedField<>(AbsListView.class, "mListPadding");
 
     @NonNull
     private final ListPopupWindow mPopup;
@@ -64,7 +51,7 @@ public class DropDownView extends View {
 
         setVisibility(INVISIBLE);
 
-        mPopup = new ListPopupWindow(context, attrs);
+        mPopup = new FixPaddingListPopupWindow(context, attrs);
         mPopup.setModal(true);
         mPopup.setAnchorView(this);
         mPopup.setInputMethodMode(ListPopupWindow.INPUT_METHOD_NOT_NEEDED);
@@ -148,16 +135,6 @@ public class DropDownView extends View {
     }
 
     public void show() {
-        // Work around ListPopupWindow and AbsListView padding bug.
-        // DropDownListView.measureHeightOfChildrenCompat() uses list padding instead of regular
-        // padding, which isn't initialized before onMeasure() so returns no padding for the first
-        // time. And ListPopupWindow.buildDropDown() adds the regular padding back every time, which
-        // will double the padding after the first show.
-        ListView listView = mPopup.getListView();
-        if (listView != null) {
-            Rect listPadding = sAbsListViewListPaddingField.getObject(listView);
-            listPadding.setEmpty();
-        }
         mPopup.show();
     }
 
