@@ -185,6 +185,7 @@ public class FileJobs {
             } catch (InterruptedIOException e) {
                 throw e;
             } catch (IOException e) {
+                e.printStackTrace();
                 ActionResult result = showActionDialog(
                         getString(R.string.file_job_archive_error_title_format, getFileName(file)),
                         getString(R.string.file_job_archive_error_message_format,
@@ -392,6 +393,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipCopyMoveError) {
                         transferInfo.skipFile(source);
                         postCopyMoveNotification(transferInfo, source, type);
@@ -515,6 +517,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipDeleteError) {
                         if (transferInfo != null) {
                             transferInfo.skipFileIgnoringSize();
@@ -595,6 +598,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipRestoreSeLinuxContextError) {
                         transferInfo.skipFileIgnoringSize();
                         postRestoreSeLinuxContextNotification(transferInfo, path);
@@ -653,6 +657,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipSetGroupError) {
                         transferInfo.skipFileIgnoringSize();
                         postSetGroupNotification(transferInfo, path);
@@ -710,6 +715,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipSetModeError) {
                         transferInfo.skipFileIgnoringSize();
                         postSetModeNotification(transferInfo, path);
@@ -768,6 +774,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipSetOwnerError) {
                         transferInfo.skipFileIgnoringSize();
                         postSetOwnerNotification(transferInfo, path);
@@ -836,6 +843,7 @@ public class FileJobs {
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
+                    e.printStackTrace();
                     if (actionAllInfo.skipSetSeLinuxContextError) {
                         transferInfo.skipFileIgnoringSize();
                         postSetSeLinuxContextNotification(transferInfo, path);
