@@ -32,17 +32,17 @@ public class FilePropertiesViewModel extends ViewModel {
     public static class Factory implements ViewModelProvider.Factory {
 
         @NonNull
-        private final FileItem file;
+        private final FileItem mFile;
 
         public Factory(@NonNull FileItem file) {
-            this.file = file;
+            mFile = file;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new FilePropertiesViewModel(file);
+            return (T) new FilePropertiesViewModel(mFile);
         }
     }
 }
