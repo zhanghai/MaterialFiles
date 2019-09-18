@@ -303,6 +303,12 @@
         <item>Write</item>
         <item>Search</item>
     </string-array>
+    <string name="file_properties_permissions_set_mode_special">Special</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Set UID</item>
+        <item>Set GID</item>
+        <item>Sticky bit</item>
+    </string-array>
     <string name="file_properties_permissions_selinux_context">SELinux Context</string>
     <string name="file_properties_permissions_set_selinux_context_title">Change SELinux context</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Restore</string>

@@ -65,6 +65,23 @@
             android:layout_height="0dp" />
     </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
 
+    <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/file_properties_permissions_set_mode_special">
+
+        <me.zhanghai.android.files.ui.TextInputTextView
+            android:id="@+id/special"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <me.zhanghai.android.files.ui.DropDownView
+            android:id="@+id/special_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+    </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
     <CheckBox
         android:id="@+id/recursive"
         android:layout_width="match_parent"

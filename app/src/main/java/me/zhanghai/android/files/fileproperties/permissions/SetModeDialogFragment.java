@@ -53,6 +53,11 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
             PosixFileModeBit.OTHERS_WRITE,
             PosixFileModeBit.OTHERS_EXECUTE
     };
+    private static final PosixFileModeBit[] SPECIAL_MODE_BITS = {
+            PosixFileModeBit.SET_USER_ID,
+            PosixFileModeBit.SET_GROUP_ID,
+            PosixFileModeBit.STICKY
+    };
 
     private static final String KEY_PREFIX = SetModeDialogFragment.class.getName() + '.';
 
@@ -73,6 +78,10 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
     TextView mOthersText;
     @BindView(R.id.others_dropdown)
     DropDownView mOthersDropDown;
+    @BindView(R.id.special)
+    TextView mSpecialText;
+    @BindView(R.id.special_dropdown)
+    DropDownView mSpecialDropDown;
     @BindView(R.id.recursive)
     CheckBox mRecursiveCheck;
 
@@ -87,6 +96,10 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
     private ModeBitListAdapter mGroupAdapter;
     @NonNull
     private ModeBitListAdapter mOthersAdapter;
+    @NonNull
+    private String[] mSpecialModeBitNames;
+    @NonNull
+    private ModeBitListAdapter mSpecialAdapter;
 
     @NonNull
     public static SetModeDialogFragment newInstance(@NonNull FileItem file) {
@@ -147,6 +160,13 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
         mOthersDropDown.setAdapter(mOthersAdapter);
         mOthersDropDown.setOnItemClickListener((parent, view, position, id) ->
                 mViewModel.toggleModeBit(mOthersAdapter.getItem(position)));
+        mSpecialText.setOnClickListener(view -> mSpecialDropDown.show());
+        mSpecialModeBitNames = resources.getStringArray(
+                R.array.file_properties_permissions_set_mode_special_mode_bits);
+        mSpecialAdapter = new ModeBitListAdapter(SPECIAL_MODE_BITS, mSpecialModeBitNames);
+        mSpecialDropDown.setAdapter(mSpecialAdapter);
+        mSpecialDropDown.setOnItemClickListener((parent, view, position, id) ->
+                mViewModel.toggleModeBit(mSpecialAdapter.getItem(position)));
         ViewUtils.setVisibleOrGone(mRecursiveCheck, isDirectory);
 
         mViewModel.getModeLiveData().observe(this, this::onModeChanged);
@@ -165,6 +185,8 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
         mGroupAdapter.setMode(mode);
         mOthersText.setText(getModeBitsString(OTHERS_MODE_BITS, mNormalModeBitNames));
         mOthersAdapter.setMode(mode);
+        mSpecialText.setText(getModeBitsString(SPECIAL_MODE_BITS, mSpecialModeBitNames));
+        mSpecialAdapter.setMode(mode);
     }
 
     @NonNull
