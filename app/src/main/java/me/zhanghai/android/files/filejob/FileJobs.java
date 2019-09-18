@@ -34,9 +34,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import java8.nio.channels.SeekableByteChannel;
 import java8.nio.file.CopyOption;
+import java8.nio.file.DirectoryIteratorException;
+import java8.nio.file.DirectoryStream;
 import java8.nio.file.FileAlreadyExistsException;
-import java8.nio.file.FileVisitOption;
 import java8.nio.file.FileVisitResult;
+import java8.nio.file.FileVisitor;
 import java8.nio.file.Files;
 import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
@@ -909,6 +911,54 @@ public class FileJobs {
             postNotification(title, text, null, null, max, progress, indeterminate, true);
         }
 
+        // The attributes for start path prefers following links, but falls back to not following.
+        // FileVisitResult returned from visitor may be ignored and always considered CONTINUE.
+        protected void walkFileTreeForSettingAttributes(@NonNull Path start, boolean recursive,
+                                                        @NonNull FileVisitor<? super Path> visitor)
+                throws IOException {
+            BasicFileAttributes attributes = null;
+            try {
+                // Try to follow links first.
+                attributes = Files.readAttributes(start, BasicFileAttributes.class);
+            } catch (IOException ignored) {}
+            if (attributes == null) {
+                try {
+                    attributes = Files.readAttributes(start, BasicFileAttributes.class,
+                            LinkOption.NOFOLLOW_LINKS);
+                } catch (IOException e) {
+                    visitor.visitFileFailed(start, e);
+                    return;
+                }
+            }
+            if (!recursive || !attributes.isDirectory()) {
+                visitor.visitFile(start, attributes);
+                return;
+            }
+            DirectoryStream<Path> directoryStream;
+            try {
+                directoryStream = Files.newDirectoryStream(start);
+            } catch (IOException e) {
+                visitor.visitFileFailed(start, e);
+                return;
+            }
+            IOException exception = null;
+            try {
+                visitor.preVisitDirectory(start, attributes);
+                try {
+                    for (Path path : directoryStream) {
+                        Files.walkFileTree(path, visitor);
+                    }
+                } catch (DirectoryIteratorException e) {
+                    exception = e.getCause();
+                } catch (IOException e) {
+                    exception = e;
+                }
+            } finally {
+                directoryStream.close();
+            }
+            visitor.postVisitDirectory(start, exception);
+        }
+
         protected void throwIfInterrupted() throws InterruptedIOException {
             if (Thread.interrupted()) {
                 throw new InterruptedIOException();
@@ -1751,9 +1801,7 @@ public class FileJobs {
                     R.plurals.file_job_restore_selinux_context_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo, null);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
-            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
-            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+            walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
                 public FileVisitResult visitFile(@NonNull Path file,
@@ -1810,9 +1858,7 @@ public class FileJobs {
                     R.plurals.file_job_set_group_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo, null);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
-            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
-            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+            walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
                 public FileVisitResult visitFile(@NonNull Path file,
@@ -1869,9 +1915,7 @@ public class FileJobs {
                     R.plurals.file_job_set_mode_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo, null);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
-            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
-            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+            walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
                 public FileVisitResult visitFile(@NonNull Path file,
@@ -1952,9 +1996,7 @@ public class FileJobs {
                     R.plurals.file_job_set_owner_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo, null);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
-            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
-            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+            walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
                 public FileVisitResult visitFile(@NonNull Path file,
@@ -2012,9 +2054,7 @@ public class FileJobs {
                     R.plurals.file_job_set_selinux_context_scan_notification_title);
             TransferInfo transferInfo = new TransferInfo(scanInfo, null);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
-            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
-            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
-            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+            walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
                 public FileVisitResult visitFile(@NonNull Path file,
