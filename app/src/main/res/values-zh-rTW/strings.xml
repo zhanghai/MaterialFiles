@@ -22,6 +22,7 @@
     <string name="loading">正在載入…</string>
     <string name="maybe_later">稍後再說</string>
     <string name="merge">合併</string>
+    <string name="none">無</string>
     <string name="paste">貼上</string>
     <string name="pick">@string/select</string>
     <string name="refresh">更新</string>
@@ -267,6 +268,18 @@
     <string name="file_properties_permissions_set_principal_system">系統</string>
     <string name="file_properties_permissions_mode">模式</string>
     <string name="file_properties_permissions_mode_format">%1$s（%2$04o）</string>
+    <string name="file_properties_permissions_set_mode_title">變更模式</string>
+    <string name="file_properties_permissions_set_mode_others">其他</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>讀取</item>
+        <item>寫入</item>
+        <item>執行</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>讀取</item>
+        <item>寫入</item>
+        <item>搜尋</item>
+    </string-array>
     <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
     <string name="file_properties_permissions_set_selinux_context_title">變更 SELinux 上下文</string>
     <string name="file_properties_permissions_set_selinux_context_restore">還原</string>
