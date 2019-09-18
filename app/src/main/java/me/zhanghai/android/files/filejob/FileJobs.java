@@ -1881,7 +1881,9 @@ public class FileJobs {
                         // We cannot set mode on symbolic links.
                         return FileVisitResult.CONTINUE;
                     }
-                    Set<PosixFileModeBit> mode = getFileMode(file);
+                    // The file might actually be a directory if max depth is reached.
+                    Set<PosixFileModeBit> mode = !attributes.isDirectory() ? getFileMode(file)
+                            : mMode;
                     setMode(file, mode, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
