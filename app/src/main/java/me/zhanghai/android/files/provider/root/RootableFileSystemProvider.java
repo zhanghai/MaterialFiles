@@ -223,7 +223,21 @@ public class RootableFileSystemProvider extends FileSystemProvider
             // observePath() may or may not be able to detect denied access, and that is expansive
             // on Linux (having to create the WatchService first before registering a WatchKey). So
             // we check the access beforehand.
-            provider.checkAccess(path, AccessMode.READ);
+            if (provider == mLocalProvider) {
+                BasicFileAttributes attributes = null;
+                try {
+                    attributes = provider.readAttributes(path, BasicFileAttributes.class);
+                } catch (IOException ignored) {}
+                if (attributes == null) {
+                    attributes = provider.readAttributes(path, BasicFileAttributes.class,
+                            LinkOption.NOFOLLOW_LINKS);
+                }
+                if (attributes.isSymbolicLink()) {
+                    provider.readSymbolicLink(path);
+                } else {
+                    provider.checkAccess(path, AccessMode.READ);
+                }
+            }
             return ((PathObservableProvider) provider).observePath(path, intervalMillis);
         });
     }
