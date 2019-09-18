@@ -24,9 +24,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.ClosedWatchServiceException;
+import java8.nio.file.Files;
+import java8.nio.file.LinkOption;
 import java8.nio.file.Path;
 import java8.nio.file.StandardWatchEventKinds;
 import java8.nio.file.WatchEvent;
+import java8.nio.file.attribute.BasicFileAttributes;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.provider.common.AbstractWatchService;
 import me.zhanghai.android.files.provider.common.ByteString;
@@ -138,6 +141,7 @@ class LocalLinuxWatchService extends AbstractWatchService {
                 try {
                     ByteString pathBytes = path.toByteString();
                     int mask = eventKindsToMask(kinds);
+                    mask = maybeAddDontFollowMask(path, mask);
                     int wd;
                     try {
                         wd = Syscalls.inotify_add_watch(mInotifyFd, pathBytes, mask);
@@ -152,6 +156,23 @@ class LocalLinuxWatchService extends AbstractWatchService {
                     settler.reject(e);
                 }
             })));
+        }
+
+        private static int maybeAddDontFollowMask(@NonNull Path path, int mask) {
+            BasicFileAttributes attributes = null;
+            try {
+                attributes = Files.readAttributes(path, BasicFileAttributes.class);
+            } catch (IOException ignored) {}
+            if (attributes == null) {
+                try {
+                    attributes = Files.readAttributes(path, BasicFileAttributes.class,
+                            LinkOption.NOFOLLOW_LINKS);
+                } catch (IOException ignored) {}
+            }
+            if (attributes != null && attributes.isSymbolicLink()) {
+                return mask | Constants.IN_DONT_FOLLOW;
+            }
+            return mask;
         }
 
         void cancel(@NonNull LocalLinuxWatchKey key) {
