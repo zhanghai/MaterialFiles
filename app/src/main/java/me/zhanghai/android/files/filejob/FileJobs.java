@@ -1812,11 +1812,18 @@ public class FileJobs {
             walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    return visitFile(directory, attributes);
+                }
+                @NonNull
+                @Override
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    boolean followLinks = Objects.equals(file, mPath);
-                    restoreSeLinuxContext(file, followLinks, transferInfo, actionAllInfo);
+                    restoreSeLinuxContext(file, !attributes.isSymbolicLink(), transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1834,13 +1841,7 @@ public class FileJobs {
                                                           @Nullable IOException exception)
                         throws IOException {
                     // TODO: Prompt retry, skip, skip-all or abort.
-                    if (exception != null) {
-                        throw exception;
-                    }
-                    boolean followLinks = Objects.equals(directory, mPath);
-                    restoreSeLinuxContext(directory, followLinks, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return super.postVisitDirectory(directory, exception);
                 }
             });
         }
@@ -1869,11 +1870,18 @@ public class FileJobs {
             walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    return visitFile(directory, attributes);
+                }
+                @NonNull
+                @Override
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    boolean followLinks = Objects.equals(file, mPath);
-                    setGroup(file, mGroup, followLinks, transferInfo, actionAllInfo);
+                    setGroup(file, mGroup, !attributes.isSymbolicLink(), transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1891,13 +1899,7 @@ public class FileJobs {
                                                           @Nullable IOException exception)
                         throws IOException {
                     // TODO: Prompt retry, skip, skip-all or abort.
-                    if (exception != null) {
-                        throw exception;
-                    }
-                    boolean followLinks = Objects.equals(directory, mPath);
-                    setGroup(directory, mGroup, followLinks, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return super.postVisitDirectory(directory, exception);
                 }
             });
         }
@@ -1924,6 +1926,13 @@ public class FileJobs {
             TransferInfo transferInfo = new TransferInfo(scanInfo, null);
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    return visitFile(directory, attributes);
+                }
                 @NonNull
                 @Override
                 public FileVisitResult visitFile(@NonNull Path file,
@@ -1955,12 +1964,7 @@ public class FileJobs {
                                                           @Nullable IOException exception)
                         throws IOException {
                     // TODO: Prompt retry, skip, skip-all or abort.
-                    if (exception != null) {
-                        throw exception;
-                    }
-                    setMode(directory, mMode, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return super.postVisitDirectory(directory, exception);
                 }
             });
         }
@@ -2008,11 +2012,18 @@ public class FileJobs {
             walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    return visitFile(directory, attributes);
+                }
+                @NonNull
+                @Override
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    boolean followLinks = Objects.equals(file, mPath);
-                    setOwner(file, mOwner, followLinks, transferInfo, actionAllInfo);
+                    setOwner(file, mOwner, !attributes.isSymbolicLink(), transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -2030,13 +2041,7 @@ public class FileJobs {
                                                           @Nullable IOException exception)
                         throws IOException {
                     // TODO: Prompt retry, skip, skip-all or abort.
-                    if (exception != null) {
-                        throw exception;
-                    }
-                    boolean followLinks = Objects.equals(directory, mPath);
-                    setOwner(directory, mOwner, followLinks, transferInfo, actionAllInfo);
-                    throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return super.postVisitDirectory(directory, exception);
                 }
             });
         }
@@ -2066,12 +2071,18 @@ public class FileJobs {
             walkFileTreeForSettingAttributes(mPath, mRecursive, new SimpleFileVisitor<Path>() {
                 @NonNull
                 @Override
+                public FileVisitResult preVisitDirectory(@NonNull Path directory,
+                                                         @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    return visitFile(directory, attributes);
+                }
+                @NonNull
+                @Override
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    boolean followLinks = Objects.equals(file, mPath);
-                    setSeLinuxContext(file, mSeLinuxContext, followLinks, transferInfo,
-                            actionAllInfo);
+                    setSeLinuxContext(file, mSeLinuxContext, !attributes.isSymbolicLink(),
+                            transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -2089,14 +2100,7 @@ public class FileJobs {
                                                           @Nullable IOException exception)
                         throws IOException {
                     // TODO: Prompt retry, skip, skip-all or abort.
-                    if (exception != null) {
-                        throw exception;
-                    }
-                    boolean followLinks = Objects.equals(directory, mPath);
-                    setSeLinuxContext(directory, mSeLinuxContext, followLinks, transferInfo,
-                            actionAllInfo);
-                    throwIfInterrupted();
-                    return FileVisitResult.CONTINUE;
+                    return super.postVisitDirectory(directory, exception);
                 }
             });
         }
