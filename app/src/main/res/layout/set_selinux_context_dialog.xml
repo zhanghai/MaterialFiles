@@ -9,14 +9,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingStart="?dialogPreferredPadding"
+    android:paddingEnd="?dialogPreferredPadding"
+    android:clipToPadding="false"
     android:orientation="vertical">
 
     <me.zhanghai.android.materialedittext.MaterialTextInputLayout
         android:id="@+id/selinux_context_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/dialog_padding_minus_4dp"
-        android:paddingEnd="@dimen/dialog_padding_minus_4dp">
+        android:paddingStart="-4dp"
+        android:paddingEnd="-4dp">
 
         <me.zhanghai.android.materialedittext.MaterialEditText
             android:id="@+id/selinux_context"
@@ -33,8 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?listPreferredItemHeightSmall"
-        android:layout_marginStart="@dimen/dialog_padding_minus_7dp"
-        android:layout_marginEnd="?dialogPreferredPadding"
+        android:layout_marginStart="-7dp"
         android:paddingStart="5dp"
         android:text="@string/file_properties_permissions_recursive"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
