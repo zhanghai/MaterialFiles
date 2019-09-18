@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -22,6 +23,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 
@@ -97,6 +99,11 @@ public class FileJobService extends Service {
     public static void setGroup(@NonNull Path path, @NonNull PosixGroup group, boolean recursive,
                                 @NonNull Context context) {
         startJob(new FileJobs.SetGroup(path, group, recursive), context);
+    }
+
+    public static void setMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode,
+                               boolean recursive, @NonNull Context context) {
+        startJob(new FileJobs.SetMode(path, mode, recursive), context);
     }
 
     public static void setOwner(@NonNull Path path, @NonNull PosixUser owner, boolean recursive,

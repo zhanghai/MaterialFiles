@@ -91,6 +91,12 @@ public class MoreFiles {
         }
     }
 
+    @Nullable
+    public static Set<PosixFileModeBit> getMode(@NonNull Path path, @NonNull LinkOption... options)
+            throws IOException {
+        return Files.readAttributes(path, PosixFileAttributes.class, options).mode();
+    }
+
     // Can handle ProgressCopyOption.
     public static void move(@NonNull Path source, @NonNull Path target,
                             @NonNull CopyOption... options) throws IOException {
@@ -231,6 +237,16 @@ public class MoreFiles {
             throw new UnsupportedOperationException();
         }
         view.setGroup(group);
+    }
+
+    public static void setMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode)
+            throws IOException {
+        PosixFileAttributeView view = Files.getFileAttributeView(path,
+                PosixFileAttributeView.class);
+        if (view == null) {
+            throw new UnsupportedOperationException();
+        }
+        view.setMode(mode);
     }
 
     public static void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext)

@@ -58,6 +58,8 @@ import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.provider.common.PosixFileMode;
+import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixPrincipal;
 import me.zhanghai.android.files.provider.common.PosixUser;
@@ -632,6 +634,63 @@ public class FileJobs {
                     R.plurals.file_job_set_group_notification_title_multiple);
         }
 
+        protected void setMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode,
+                               @NonNull TransferInfo transferInfo,
+                               @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    // We do want to follow symbolic links here.
+                    MoreFiles.setMode(path, mode);
+                    transferInfo.incrementTransferredFileCount();
+                    postSetModeNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipSetModeError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postSetModeNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_set_mode_error_title_format,
+                                    getFileName(path)),
+                            getString(R.string.file_job_set_mode_error_message_format,
+                                    PosixFileMode.toString(mode), e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipSetModeError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postSetModeNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        private void postSetModeNotification(@NonNull TransferInfo transferInfo,
+                                                       @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_set_mode_notification_title_one,
+                    R.plurals.file_job_set_mode_notification_title_multiple);
+        }
+
         protected void setOwner(@NonNull Path path, @NonNull PosixUser user,
                                 @NonNull TransferInfo transferInfo,
                                 @NonNull ActionAllInfo actionAllInfo) throws IOException {
@@ -1088,6 +1147,7 @@ public class FileJobs {
             public boolean skipDeleteError;
             public boolean skipSetGroupError;
             public boolean skipSetOwnerError;
+            public boolean skipSetModeError;
             public boolean skipSetSeLinuxContextError;
             public boolean skipRestoreSeLinuxContextError;
         }
@@ -1776,6 +1836,87 @@ public class FileJobs {
                     return FileVisitResult.CONTINUE;
                 }
             });
+        }
+    }
+
+    public static class SetMode extends Base {
+
+        @NonNull
+        private final Path mPath;
+        @NonNull
+        private final Set<PosixFileModeBit> mMode;
+        private final boolean mRecursive;
+
+        public SetMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode, boolean recursive) {
+            mPath = path;
+            mMode = mode;
+            mRecursive = recursive;
+        }
+
+        @Override
+        public void run() throws IOException {
+            ScanInfo scanInfo = scan(mPath, mRecursive,
+                    R.plurals.file_job_set_mode_scan_notification_title);
+            TransferInfo transferInfo = new TransferInfo(scanInfo, null);
+            ActionAllInfo actionAllInfo = new ActionAllInfo();
+            Set<FileVisitOption> options = EnumSet.noneOf(FileVisitOption.class);
+            int maxDepth = mRecursive ? Integer.MAX_VALUE : 0;
+            Files.walkFileTree(mPath, options, maxDepth, new SimpleFileVisitor<Path>() {
+                @NonNull
+                @Override
+                public FileVisitResult visitFile(@NonNull Path file,
+                                                 @NonNull BasicFileAttributes attributes)
+                        throws IOException {
+                    if (attributes.isSymbolicLink()) {
+                        // We cannot set mode on symbolic links.
+                        return FileVisitResult.CONTINUE;
+                    }
+                    Set<PosixFileModeBit> mode = getFileMode(file);
+                    setMode(file, mode, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+                @NonNull
+                @Override
+                public FileVisitResult visitFileFailed(@NonNull Path file,
+                                                       @NonNull IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    return super.visitFileFailed(file, exception);
+                }
+                @NonNull
+                @Override
+                public FileVisitResult postVisitDirectory(@NonNull Path directory,
+                                                          @Nullable IOException exception)
+                        throws IOException {
+                    // TODO: Prompt retry, skip, skip-all or abort.
+                    if (exception != null) {
+                        throw exception;
+                    }
+                    setMode(directory, mMode, transferInfo, actionAllInfo);
+                    throwIfInterrupted();
+                    return FileVisitResult.CONTINUE;
+                }
+            });
+        }
+
+        @NonNull
+        private Set<PosixFileModeBit> getFileMode(@NonNull Path file) throws IOException {
+            if (Objects.equals(file, mPath)) {
+                return mMode;
+            }
+            Set<PosixFileModeBit> mode = EnumSet.copyOf(mMode);
+            Set<PosixFileModeBit> currentMode = MoreFiles.getMode(file, LinkOption.NOFOLLOW_LINKS);
+            if (!currentMode.contains(PosixFileModeBit.OWNER_EXECUTE)) {
+                mode.remove(PosixFileModeBit.OWNER_EXECUTE);
+            }
+            if (!currentMode.contains(PosixFileModeBit.GROUP_EXECUTE)) {
+                mode.remove(PosixFileModeBit.GROUP_EXECUTE);
+            }
+            if (!currentMode.contains(PosixFileModeBit.OTHERS_EXECUTE)) {
+                mode.remove(PosixFileModeBit.OTHERS_EXECUTE);
+            }
+            return mode;
         }
     }
 

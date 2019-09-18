@@ -113,6 +113,13 @@
     <plurals name="file_job_set_group_notification_title_multiple">
         <item quantity="other">正在變更 %1$,d 個檔案的群組</item>
     </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title">
+        <item quantity="other">正在準備變更 %1$,d 個檔案的模式</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one">正在變更「%1$s」的模式</string>
+    <plurals name="file_job_set_mode_notification_title_multiple">
+        <item quantity="other">正在變更 %1$,d 個檔案的模式</item>
+    </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title">
         <item quantity="other">正在準備變更 %1$,d 個檔案的 SELinux 上下文</item>
     </plurals>
@@ -160,6 +167,8 @@
     <string name="file_job_set_owner_error_message_format">將擁有者變更爲「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_group_error_title_format">變更「%1$s」的群組時發生錯誤</string>
     <string name="file_job_set_group_error_message_format">將群組變更爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">變更「%1$s」的模式時發生錯誤</string>
+    <string name="file_job_set_mode_error_message_format">將模式變更爲「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_selinux_context_error_title_format">變更「%1$s」的 SELinux 上下文時發生錯誤</string>
     <string name="file_job_set_selinux_context_error_message_format">將 SELinux 上下文變更爲「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">還原 SELinux 上下文時發生錯誤</string>

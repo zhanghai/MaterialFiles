@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.compat.ListFormatterCompat;
 import me.zhanghai.android.files.file.FileItem;
+import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.settings.Settings;
@@ -204,15 +206,14 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
     }
 
     private void setMode() {
-        //String mode = mModeEdit.getText().toString();
-        //boolean recursive = mRecursiveCheck.isChecked();
-        //if (!recursive) {
-        //    if (Objects.equals(mode, getExtraMode())) {
-        //        return;
-        //    }
-        //}
-        //FileJobService.setMode(mExtraFile.getPath(), mode, recursive,
-        //        requireContext());
+        Set<PosixFileModeBit> mode = mViewModel.getMode();
+        boolean recursive = mRecursiveCheck.isChecked();
+        if (!recursive) {
+            if (Objects.equals(mode, getExtraMode())) {
+                return;
+            }
+        }
+        FileJobService.setMode(mExtraFile.getPath(), mode, recursive, requireContext());
     }
 
     @NonNull

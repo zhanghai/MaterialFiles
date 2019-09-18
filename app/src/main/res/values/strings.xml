@@ -128,6 +128,15 @@
         <item quantity="one">Changing group for %1$,d file</item>
         <item quantity="other">Changing group for %1$,d files</item>
     </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title">
+        <item quantity="one">Preparing to change mode for %1$,d file</item>
+        <item quantity="other">Preparing to change mode for %1$,d files</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one">Changing mode for “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple">
+        <item quantity="one">Changing mode for %1$,d file</item>
+        <item quantity="other">Changing mode for %1$,d files</item>
+    </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title">
         <item quantity="one">Preparing to change SELinux context for %1$,d file</item>
         <item quantity="other">Preparing to change SELinux context for %1$,d files</item>
@@ -179,6 +188,8 @@
     <string name="file_job_set_owner_error_message_format">There was an error changing the owner to “%1$s”.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Error while changing group for “%1$s”</string>
     <string name="file_job_set_group_error_message_format">There was an error changing the group to “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Error while changing mode for “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">There was an error changing the mode to “%1$s”.\n%2$s</string>
     <string name="file_job_set_selinux_context_error_title_format">Error while changing SELinux context for “%1$s”</string>
     <string name="file_job_set_selinux_context_error_message_format">There was an error changing the SELinux context to “%1$s”.\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">Error while restoring SELinux context</string>
