@@ -31,7 +31,9 @@ import java8.nio.file.Path;
 import java8.nio.file.ProviderMismatchException;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
+import java8.nio.file.attribute.FileOwnerAttributeView;
 import java8.nio.file.attribute.GroupPrincipal;
+import java8.nio.file.attribute.UserPrincipal;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.function.Consumer;
 import java9.util.function.LongConsumer;
@@ -213,10 +215,10 @@ public class MoreFiles {
         return result;
     }
 
-    public static void restoreSeLinuxContext(@NonNull Path path)
+    public static void restoreSeLinuxContext(@NonNull Path path, @NonNull LinkOption... options)
             throws IOException {
-        PosixFileAttributeView view = Files.getFileAttributeView(path,
-                PosixFileAttributeView.class);
+        PosixFileAttributeView view = Files.getFileAttributeView(path, PosixFileAttributeView.class,
+                options);
         if (view == null) {
             throw new UnsupportedOperationException();
         }
@@ -229,10 +231,10 @@ public class MoreFiles {
         ((Searchable) provider(directory)).search(directory, query, listener, intervalMillis);
     }
 
-    public static void setGroup(@NonNull Path path, @NonNull GroupPrincipal group)
-            throws IOException {
+    public static void setGroup(@NonNull Path path, @NonNull GroupPrincipal group,
+                                @NonNull LinkOption... options) throws IOException {
         java8.nio.file.attribute.PosixFileAttributeView view = Files.getFileAttributeView(path,
-                java8.nio.file.attribute.PosixFileAttributeView.class);
+                java8.nio.file.attribute.PosixFileAttributeView.class, options);
         if (view == null) {
             throw new UnsupportedOperationException();
         }
@@ -249,10 +251,21 @@ public class MoreFiles {
         view.setMode(mode);
     }
 
-    public static void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext)
+    public static void setOwner(@NonNull Path path, @NonNull UserPrincipal owner,
+                                @NonNull LinkOption... options) throws IOException {
+        FileOwnerAttributeView view = Files.getFileAttributeView(path, FileOwnerAttributeView.class,
+                options);
+        if (view == null) {
+            throw new UnsupportedOperationException();
+        }
+        view.setOwner(owner);
+    }
+
+    public static void setSeLinuxContext(@NonNull Path path, @NonNull ByteString seLinuxContext,
+                                         @NonNull LinkOption... options)
             throws IOException {
-        PosixFileAttributeView view = Files.getFileAttributeView(path,
-                PosixFileAttributeView.class);
+        PosixFileAttributeView view = Files.getFileAttributeView(path, PosixFileAttributeView.class,
+                options);
         if (view == null) {
             throw new UnsupportedOperationException();
         }

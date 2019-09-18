@@ -577,15 +577,16 @@ public class FileJobs {
                     actionAllInfo);
         }
 
-        protected void setGroup(@NonNull Path path, @NonNull PosixGroup group,
+        protected void setGroup(@NonNull Path path, @NonNull PosixGroup group, boolean followLinks,
                                 @NonNull TransferInfo transferInfo,
                                 @NonNull ActionAllInfo actionAllInfo) throws IOException {
             boolean retry;
             do {
                 retry = false;
                 try {
-                    // We do want to follow symbolic links here.
-                    MoreFiles.setGroup(path, group);
+                    LinkOption[] options = followLinks ? new LinkOption[0]
+                            : new LinkOption[] { LinkOption.NOFOLLOW_LINKS };
+                    MoreFiles.setGroup(path, group, options);
                     transferInfo.incrementTransferredFileCount();
                     postSetGroupNotification(transferInfo, path);
                 } catch (InterruptedIOException e) {
@@ -641,7 +642,7 @@ public class FileJobs {
             do {
                 retry = false;
                 try {
-                    // We do want to follow symbolic links here.
+                    // This will always follow symbolic links.
                     MoreFiles.setMode(path, mode);
                     transferInfo.incrementTransferredFileCount();
                     postSetModeNotification(transferInfo, path);
@@ -691,15 +692,16 @@ public class FileJobs {
                     R.plurals.file_job_set_mode_notification_title_multiple);
         }
 
-        protected void setOwner(@NonNull Path path, @NonNull PosixUser user,
+        protected void setOwner(@NonNull Path path, @NonNull PosixUser owner, boolean followLinks,
                                 @NonNull TransferInfo transferInfo,
                                 @NonNull ActionAllInfo actionAllInfo) throws IOException {
             boolean retry;
             do {
                 retry = false;
                 try {
-                    // We do want to follow symbolic links here.
-                    Files.setOwner(path, user);
+                    LinkOption[] options = followLinks ? new LinkOption[0]
+                            : new LinkOption[] { LinkOption.NOFOLLOW_LINKS };
+                    MoreFiles.setOwner(path, owner, options);
                     transferInfo.incrementTransferredFileCount();
                     postSetOwnerNotification(transferInfo, path);
                 } catch (InterruptedIOException e) {
@@ -714,7 +716,7 @@ public class FileJobs {
                             getString(R.string.file_job_set_owner_error_title_format,
                                     getFileName(path)),
                             getString(R.string.file_job_set_owner_error_message_format,
-                                    getPrincipalName(user), e.getLocalizedMessage()),
+                                    getPrincipalName(owner), e.getLocalizedMessage()),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -758,14 +760,16 @@ public class FileJobs {
         }
 
         protected void setSeLinuxContext(@NonNull Path path, @NonNull String seLinuxContext,
-                                         @NonNull TransferInfo transferInfo,
+                                         boolean followLinks, @NonNull TransferInfo transferInfo,
                                          @NonNull ActionAllInfo actionAllInfo) throws IOException {
             boolean retry;
             do {
                 retry = false;
                 try {
-                    // We do want to follow symbolic links here.
-                    MoreFiles.setSeLinuxContext(path, ByteString.fromString(seLinuxContext));
+                    LinkOption[] options = followLinks ? new LinkOption[0]
+                            : new LinkOption[] { LinkOption.NOFOLLOW_LINKS };
+                    MoreFiles.setSeLinuxContext(path, ByteString.fromString(seLinuxContext),
+                            options);
                     transferInfo.incrementTransferredFileCount();
                     postSetSeLinuxContextNotification(transferInfo, path);
                 } catch (InterruptedIOException e) {
@@ -814,15 +818,17 @@ public class FileJobs {
                     R.plurals.file_job_set_selinux_context_notification_title_multiple);
         }
 
-        protected void restoreSeLinuxContext(@NonNull Path path, @NonNull TransferInfo transferInfo,
+        protected void restoreSeLinuxContext(@NonNull Path path, boolean followLinks,
+                                             @NonNull TransferInfo transferInfo,
                                              @NonNull ActionAllInfo actionAllInfo)
                 throws IOException {
             boolean retry;
             do {
                 retry = false;
                 try {
-                    // We do want to follow symbolic links here.
-                    MoreFiles.restoreSeLinuxContext(path);
+                    LinkOption[] options = followLinks ? new LinkOption[0]
+                            : new LinkOption[] { LinkOption.NOFOLLOW_LINKS };
+                    MoreFiles.restoreSeLinuxContext(path, options);
                     transferInfo.incrementTransferredFileCount();
                     postRestoreSeLinuxContextNotification(transferInfo, path);
                 } catch (InterruptedIOException e) {
@@ -1753,7 +1759,8 @@ public class FileJobs {
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    restoreSeLinuxContext(file, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(file, mPath);
+                    restoreSeLinuxContext(file, followLinks, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1774,7 +1781,8 @@ public class FileJobs {
                     if (exception != null) {
                         throw exception;
                     }
-                    restoreSeLinuxContext(directory, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(directory, mPath);
+                    restoreSeLinuxContext(directory, followLinks, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1810,7 +1818,8 @@ public class FileJobs {
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    setGroup(file, mGroup, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(file, mPath);
+                    setGroup(file, mGroup, followLinks, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1831,7 +1840,8 @@ public class FileJobs {
                     if (exception != null) {
                         throw exception;
                     }
-                    setGroup(directory, mGroup, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(directory, mPath);
+                    setGroup(directory, mGroup, followLinks, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1948,7 +1958,8 @@ public class FileJobs {
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    setOwner(file, mOwner, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(file, mPath);
+                    setOwner(file, mOwner, followLinks, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -1969,7 +1980,8 @@ public class FileJobs {
                     if (exception != null) {
                         throw exception;
                     }
-                    setOwner(directory, mOwner, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(directory, mPath);
+                    setOwner(directory, mOwner, followLinks, transferInfo, actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -2006,7 +2018,9 @@ public class FileJobs {
                 public FileVisitResult visitFile(@NonNull Path file,
                                                  @NonNull BasicFileAttributes attributes)
                         throws IOException {
-                    setSeLinuxContext(file, mSeLinuxContext, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(file, mPath);
+                    setSeLinuxContext(file, mSeLinuxContext, followLinks, transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
@@ -2027,7 +2041,9 @@ public class FileJobs {
                     if (exception != null) {
                         throw exception;
                     }
-                    setSeLinuxContext(directory, mSeLinuxContext, transferInfo, actionAllInfo);
+                    boolean followLinks = Objects.equals(directory, mPath);
+                    setSeLinuxContext(directory, mSeLinuxContext, followLinks, transferInfo,
+                            actionAllInfo);
                     throwIfInterrupted();
                     return FileVisitResult.CONTINUE;
                 }
