@@ -575,63 +575,6 @@ public class FileJobs {
                     actionAllInfo);
         }
 
-        protected void setOwner(@NonNull Path path, @NonNull PosixUser user,
-                                @NonNull TransferInfo transferInfo,
-                                @NonNull ActionAllInfo actionAllInfo) throws IOException {
-            boolean retry;
-            do {
-                retry = false;
-                try {
-                    // We do want to follow symbolic links here.
-                    Files.setOwner(path, user);
-                    transferInfo.incrementTransferredFileCount();
-                    postSetOwnerNotification(transferInfo, path);
-                } catch (InterruptedIOException e) {
-                    throw e;
-                } catch (IOException e) {
-                    if (actionAllInfo.skipSetOwnerError) {
-                        transferInfo.skipFileIgnoringSize();
-                        postSetOwnerNotification(transferInfo, path);
-                        return;
-                    }
-                    ActionResult result = showActionDialog(
-                            getString(R.string.file_job_set_owner_error_title_format,
-                                    getFileName(path)),
-                            getString(R.string.file_job_set_owner_error_message_format,
-                                    getPrincipalName(user), e.getLocalizedMessage()),
-                            true,
-                            getString(R.string.retry),
-                            getString(R.string.skip),
-                            getString(android.R.string.cancel));
-                    switch (result.getAction()) {
-                        case POSITIVE:
-                            retry = true;
-                            continue;
-                        case NEGATIVE:
-                            if (result.isAll()) {
-                                actionAllInfo.skipSetOwnerError = true;
-                            }
-                            // Fall through!
-                        case CANCELED:
-                            transferInfo.skipFileIgnoringSize();
-                            postSetOwnerNotification(transferInfo, path);
-                            return;
-                        case NEUTRAL:
-                            throw new InterruptedIOException();
-                        default:
-                            throw new AssertionError(result.getAction());
-                    }
-                }
-            } while (retry);
-        }
-
-        private void postSetOwnerNotification(@NonNull TransferInfo transferInfo,
-                                              @NonNull Path currentPath) {
-            postTransferCountNotification(transferInfo, currentPath,
-                    R.string.file_job_set_owner_notification_title_one,
-                    R.plurals.file_job_set_owner_notification_title_multiple);
-        }
-
         protected void setGroup(@NonNull Path path, @NonNull PosixGroup group,
                                 @NonNull TransferInfo transferInfo,
                                 @NonNull ActionAllInfo actionAllInfo) throws IOException {
@@ -687,6 +630,63 @@ public class FileJobs {
             postTransferCountNotification(transferInfo, currentPath,
                     R.string.file_job_set_group_notification_title_one,
                     R.plurals.file_job_set_group_notification_title_multiple);
+        }
+
+        protected void setOwner(@NonNull Path path, @NonNull PosixUser user,
+                                @NonNull TransferInfo transferInfo,
+                                @NonNull ActionAllInfo actionAllInfo) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    // We do want to follow symbolic links here.
+                    Files.setOwner(path, user);
+                    transferInfo.incrementTransferredFileCount();
+                    postSetOwnerNotification(transferInfo, path);
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    if (actionAllInfo.skipSetOwnerError) {
+                        transferInfo.skipFileIgnoringSize();
+                        postSetOwnerNotification(transferInfo, path);
+                        return;
+                    }
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_set_owner_error_title_format,
+                                    getFileName(path)),
+                            getString(R.string.file_job_set_owner_error_message_format,
+                                    getPrincipalName(user), e.getLocalizedMessage()),
+                            true,
+                            getString(R.string.retry),
+                            getString(R.string.skip),
+                            getString(android.R.string.cancel));
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                            if (result.isAll()) {
+                                actionAllInfo.skipSetOwnerError = true;
+                            }
+                            // Fall through!
+                        case CANCELED:
+                            transferInfo.skipFileIgnoringSize();
+                            postSetOwnerNotification(transferInfo, path);
+                            return;
+                        case NEUTRAL:
+                            throw new InterruptedIOException();
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
+        }
+
+        private void postSetOwnerNotification(@NonNull TransferInfo transferInfo,
+                                              @NonNull Path currentPath) {
+            postTransferCountNotification(transferInfo, currentPath,
+                    R.string.file_job_set_owner_notification_title_one,
+                    R.plurals.file_job_set_owner_notification_title_multiple);
         }
 
         @NonNull
