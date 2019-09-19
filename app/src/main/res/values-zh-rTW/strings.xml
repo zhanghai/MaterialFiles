@@ -165,13 +165,13 @@
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
     <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">變更「%1$s」的擁有者時發生錯誤</string>
-    <string name="file_job_set_owner_error_message_format">將擁有者變更爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_owner_error_message_format">將擁有者變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_group_error_title_format">變更「%1$s」的群組時發生錯誤</string>
-    <string name="file_job_set_group_error_message_format">將群組變更爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_group_error_message_format">將群組變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_mode_error_title_format">變更「%1$s」的模式時發生錯誤</string>
-    <string name="file_job_set_mode_error_message_format">將模式變更爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_mode_error_message_format">將模式變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_selinux_context_error_title_format">變更「%1$s」的 SELinux 上下文時發生錯誤</string>
-    <string name="file_job_set_selinux_context_error_message_format">將 SELinux 上下文變更爲「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_message_format">將 SELinux 上下文變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">還原 SELinux 上下文時發生錯誤</string>
     <string name="file_job_restore_selinux_context_error_message_format">在還原「%1$s」的 SELinux 上下文時發生錯誤。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
@@ -186,7 +186,7 @@
     <string name="file_open_as_type_video">影片</string>
     <string name="file_open_as_type_directory">資料夾</string>
     <string name="file_open_as_type_any">其他</string>
-    <string name="file_open_from_background_title_format">“%1$s”已可供開啟</string>
+    <string name="file_open_from_background_title_format">「%1$s」已可供開啟</string>
     <string name="file_open_from_background_text">輕觸即可開啟</string>
     <string name="file_name_error_empty">檔案名不能為空</string>
     <string name="file_name_error_invalid">檔案名無效</string>
@@ -305,7 +305,7 @@
     <string name="navigation_root_directory">根目錄</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩餘 %1$s</string>
     <string name="navigation_add_document_tree">新增外部儲存…</string>
-    <string name="navigation_confirm_remove_document_tree_format">移除外部儲存“%1$s”？</string>
+    <string name="navigation_confirm_remove_document_tree_format">移除外部儲存「%1$s」？</string>
     <string name="navigation_standard_directory_alarms">鬧鐘</string>
     <string name="navigation_standard_directory_dcim">相片</string>
     <string name="navigation_standard_directory_documents">檔案</string>
