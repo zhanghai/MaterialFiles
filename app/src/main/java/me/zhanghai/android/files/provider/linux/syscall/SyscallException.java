@@ -96,7 +96,7 @@ public class SyscallException extends Exception {
     @NonNull
     private FileSystemException toFileSystemExceptionWithoutCause(@Nullable String file,
                                                                   @Nullable String other) {
-        if (mErrno == OsConstants.EACCES) {
+        if (mErrno == OsConstants.EACCES || mErrno == OsConstants.EPERM) {
             return new AccessDeniedException(file, other, getMessage());
         } else if (mErrno == OsConstants.EEXIST) {
             return new FileAlreadyExistsException(file, other, getMessage());
