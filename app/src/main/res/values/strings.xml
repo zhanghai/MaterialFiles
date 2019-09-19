@@ -16,6 +16,7 @@
     <string name="delete">Delete</string>
     <string name="discard">Discard</string>
     <string name="empty">Empty</string>
+    <string name="empty_placeholder">(Empty)</string>
     <string name="error">Error</string>
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>

@@ -27,13 +27,13 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.fileproperties.FileData;
 import me.zhanghai.android.files.fileproperties.FilePropertiesViewModel;
+import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.settings.Settings;
-import me.zhanghai.android.files.util.ObjectUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragment {
@@ -174,9 +174,11 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
                     SetModeDialogFragment.show(file, this);
                 }
             });
-            String seLinuxContext = ObjectUtils.toStringOrNull(posixAttributes.seLinuxContext());
+            ByteString seLinuxContext = posixAttributes.seLinuxContext();
             ViewUtils.setVisibleOrGone(mSeLinuxContextLayout, seLinuxContext != null);
-            mSeLinuxContextText.setText(seLinuxContext);
+            String seLinuxContextString = seLinuxContext != null && !seLinuxContext.isEmpty() ?
+                    seLinuxContext.toString() : getString(R.string.empty_placeholder);
+            mSeLinuxContextText.setText(seLinuxContextString);
             mSeLinuxContextText.setOnClickListener(view -> SetSeLinuxContextDialogFragment.show(
                     file, this));
         }

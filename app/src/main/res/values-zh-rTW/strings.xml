@@ -16,6 +16,7 @@
     <string name="delete">刪除</string>
     <string name="discard">捨棄</string>
     <string name="empty">空</string>
+    <string name="empty_placeholder">（空）</string>
     <string name="error">錯誤</string>
     <string name="install">安裝</string>
     <string name="keep_editing">繼續編輯</string>
