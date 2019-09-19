@@ -296,6 +296,7 @@
         <item>设置 GID</item>
         <item>粘滞位</item>
     </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">不要为包含的文件添加“执行”</string>
     <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
     <string name="file_properties_permissions_set_selinux_context_title">更改 SELinux 上下文</string>
     <string name="file_properties_permissions_set_selinux_context_restore">还原</string>

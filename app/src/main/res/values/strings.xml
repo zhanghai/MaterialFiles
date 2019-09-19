@@ -321,6 +321,7 @@
         <item>Set GID</item>
         <item>Sticky bit</item>
     </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Don’t add “Execute” for enclosed files</string>
     <string name="file_properties_permissions_selinux_context">SELinux Context</string>
     <string name="file_properties_permissions_set_selinux_context_title">Change SELinux context</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Restore</string>

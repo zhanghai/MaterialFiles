@@ -102,8 +102,8 @@ public class FileJobService extends Service {
     }
 
     public static void setMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode,
-                               boolean recursive, @NonNull Context context) {
-        startJob(new FileJobs.SetMode(path, mode, recursive), context);
+                               boolean recursive, boolean uppercaseX, @NonNull Context context) {
+        startJob(new FileJobs.SetMode(path, mode, recursive, uppercaseX), context);
     }
 
     public static void setOwner(@NonNull Path path, @NonNull PosixUser owner, boolean recursive,

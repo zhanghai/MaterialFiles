@@ -1912,11 +1912,14 @@ public class FileJobs {
         @NonNull
         private final Set<PosixFileModeBit> mMode;
         private final boolean mRecursive;
+        private final boolean mUppercaseX;
 
-        public SetMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode, boolean recursive) {
+        public SetMode(@NonNull Path path, @NonNull Set<PosixFileModeBit> mode, boolean recursive,
+                       boolean uppercaseX) {
             mPath = path;
             mMode = mode;
             mRecursive = recursive;
+            mUppercaseX = uppercaseX;
         }
 
         @Override
@@ -1971,7 +1974,7 @@ public class FileJobs {
 
         @NonNull
         private Set<PosixFileModeBit> getFileMode(@NonNull Path file) throws IOException {
-            if (Objects.equals(file, mPath)) {
+            if (Objects.equals(file, mPath) || !mUppercaseX) {
                 return mMode;
             }
             Set<PosixFileModeBit> mode = EnumSet.copyOf(mMode);

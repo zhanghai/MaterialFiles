@@ -86,6 +86,8 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
     DropDownView mSpecialDropDown;
     @BindView(R.id.recursive)
     CheckBox mRecursiveCheck;
+    @BindView(R.id.uppercase_x)
+    CheckBox mUppercaseXCheck;
 
     @NonNull
     private SetModeViewModel mViewModel;
@@ -170,6 +172,13 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
         mSpecialDropDown.setOnItemClickListener((parent, view, position, id) ->
                 mViewModel.toggleModeBit(mSpecialAdapter.getItem(position)));
         ViewUtils.setVisibleOrGone(mRecursiveCheck, isDirectory);
+        mRecursiveCheck.setOnCheckedChangeListener((buttonView, isChecked) ->
+                mUppercaseXCheck.setEnabled(isChecked));
+        ViewUtils.setVisibleOrGone(mUppercaseXCheck, isDirectory);
+        if (savedInstanceState == null) {
+            mUppercaseXCheck.setEnabled(false);
+            mUppercaseXCheck.setChecked(true);
+        }
 
         mViewModel.getModeLiveData().observe(this, this::onModeChanged);
 
@@ -213,7 +222,8 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
                 return;
             }
         }
-        FileJobService.setMode(mExtraFile.getPath(), mode, recursive, requireContext());
+        boolean uppercaseX = mUppercaseXCheck.isChecked();
+        FileJobService.setMode(mExtraFile.getPath(), mode, recursive, uppercaseX, requireContext());
     }
 
     @NonNull
