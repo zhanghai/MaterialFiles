@@ -402,6 +402,7 @@
     <string name="settings_default_directory_title">Default folder</string>
     <string name="settings_standard_directories_title">Standard folders</string>
     <string name="settings_standard_directories_summary_empty">No standard folders enabled</string>
+    <string name="settings_bookmark_directory_screenshots">Screenshots</string>
     <string name="settings_bookmark_directories_title">Bookmark folders</string>
     <string name="settings_bookmark_directories_summary_empty">No bookmark folders</string>
     <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>

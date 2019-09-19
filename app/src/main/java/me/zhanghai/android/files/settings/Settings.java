@@ -8,18 +8,27 @@ package me.zhanghai.android.files.settings;
 import android.os.Environment;
 import android.os.Parcelable;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
 import java8.nio.file.Path;
 import java8.nio.file.Paths;
+import me.zhanghai.android.files.AppApplication;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.MoreEnvironmentCompat;
 import me.zhanghai.android.files.filelist.FileSortOptions;
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction;
 import me.zhanghai.android.files.navigation.BookmarkDirectory;
 import me.zhanghai.android.files.navigation.StandardDirectorySettings;
 import me.zhanghai.android.files.provider.root.RootStrategy;
-import me.zhanghai.android.files.settings.SettingLiveDatas.*;
+import me.zhanghai.android.files.settings.SettingLiveDatas.BooleanSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.EnumSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.IntegerSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.ParcelableListSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.ParcelableSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.ResourceIdSettingLiveData;
+import me.zhanghai.android.files.settings.SettingLiveDatas.StringSettingLiveData;
 import me.zhanghai.android.files.theme.custom.CustomThemeColors;
 import me.zhanghai.android.files.theme.night.NightMode;
 
@@ -93,7 +102,14 @@ public interface Settings {
 
     SettingLiveData<List<BookmarkDirectory>> BOOKMARK_DIRECTORIES =
             new ParcelableListSettingLiveData<>(R.string.pref_key_bookmark_directories,
-                    Collections.emptyList(), BookmarkDirectory.CREATOR);
+                    Collections.singletonList(new BookmarkDirectory(
+                            AppApplication.getInstance().getString(
+                                    R.string.settings_bookmark_directory_screenshots),
+                            Paths.get(new File(Environment.getExternalStoragePublicDirectory(
+                                    Environment.DIRECTORY_PICTURES),
+                                    MoreEnvironmentCompat.DIRECTORY_SCREENSHOTS)
+                                    .getAbsolutePath()))),
+                    BookmarkDirectory.CREATOR);
 
     SettingLiveData<RootStrategy> ROOT_STRATEGY = new EnumSettingLiveData<>(
             R.string.pref_key_root_strategy, R.string.pref_default_value_root_strategy,

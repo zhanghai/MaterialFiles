@@ -377,6 +377,7 @@
     <string name="settings_default_directory_title">預設資料夾</string>
     <string name="settings_standard_directories_title">標準資料夾</string>
     <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
+    <string name="settings_bookmark_directory_screenshots">螢幕擷取畫面</string>
     <string name="settings_bookmark_directories_title">書籤資料夾</string>
     <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
     <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
