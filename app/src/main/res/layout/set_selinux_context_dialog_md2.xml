@@ -11,12 +11,11 @@
     android:layout_height="wrap_content"
     android:paddingStart="?dialogPreferredPadding"
     android:paddingEnd="?dialogPreferredPadding"
-    android:paddingTop="8dp"
+    android:paddingTop="12dp"
     android:clipToPadding="false"
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/selinux_context_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -34,8 +33,8 @@
         android:id="@+id/recursive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?listPreferredItemHeightSmall"
         android:layout_marginStart="-7dp"
+        android:layout_marginTop="12dp"
         android:paddingStart="5dp"
         android:text="@string/file_properties_permissions_recursive"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
