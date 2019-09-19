@@ -211,7 +211,10 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
 
     @Override
     protected boolean getHasStableIds() {
-        return true;
+        // If we have stable IDs, changing sort options results in a weird animation, and we only
+        // want the animation when files change. So we disable stable IDs and only let the sorted
+        // list callback instruct animation properly.
+        return false;
     }
 
     @Override
