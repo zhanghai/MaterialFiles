@@ -127,6 +127,9 @@ public class Syscalls {
     public static native void inotify_rm_watch(@NonNull FileDescriptor fd, int wd)
             throws SyscallException;
 
+    public static native int ioctl_int(@NonNull FileDescriptor fd, int request,
+                                       @Nullable Int32Ref argument) throws SyscallException;
+
     public static boolean is_selinux_enabled() {
         return SeLinux.is_selinux_enabled();
     }
@@ -173,6 +176,10 @@ public class Syscalls {
             throws SyscallException;
 
     public static native void mkdir(@NonNull ByteString path, int mode) throws SyscallException;
+
+    public static native int mount(@Nullable ByteString source, @NonNull ByteString target,
+                                   @Nullable ByteString fileSystemType, long mountFlags,
+                                   @Nullable byte[] data) throws SyscallException;
 
     @NonNull
     public static native FileDescriptor open(@NonNull ByteString path, int flags, int mode)

@@ -9,6 +9,7 @@
 #include <mntent.h>
 #include <pwd.h>
 #include <sys/inotify.h>
+#include <sys/mount.h>
 #include <sys/sendfile.h>
 #include <sys/stat.h>
 #include <sys/statvfs.h>
@@ -119,6 +120,22 @@ static jfieldID getFileDescriptorDescriptorField(JNIEnv *env) {
                                                   "I");
     }
     return fileDescriptorDescriptorField;
+}
+
+static jclass getInt32RefClass(JNIEnv *env) {
+    static jclass int32RefClass = NULL;
+    if (!int32RefClass) {
+        int32RefClass = findClass(env, "me/zhanghai/android/files/provider/linux/syscall/Int32Ref");
+    }
+    return int32RefClass;
+}
+
+static jfieldID getInt32RefValueField(JNIEnv *env) {
+    static jclass int32RefValueField = NULL;
+    if (!int32RefValueField) {
+        int32RefValueField = findField(env, getInt32RefClass(env), "value", "I");
+    }
+    return int32RefValueField;
 }
 
 static jclass getInt64RefClass(JNIEnv *env) {
@@ -992,6 +1009,28 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_inotify_1rm_1watc
     }
 }
 
+JNIEXPORT jint JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_ioctl_1int(
+        JNIEnv* env, jclass clazz, jobject javaFd, jint javaRequest, jobject javaArgument) {
+    int fd = getFdFromFileDescriptor(env, javaFd);
+    int request = javaRequest;
+    int argument = 0;
+    int* argumentPointer = NULL;
+    if (javaArgument) {
+        argument = (*env)->GetIntField(env, javaArgument, getInt32RefValueField(env));
+        argumentPointer = &argument;
+    }
+    int result = TEMP_FAILURE_RETRY(ioctl(fd, request, argumentPointer));
+    if (errno) {
+        throwSyscallException(env, "ioctl");
+        return 0;
+    }
+    if (javaArgument) {
+        (*env)->SetIntField(env, javaArgument, getInt32RefValueField(env), argument);
+    }
+    return result;
+}
+
 JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lchown(
         JNIEnv *env, jclass clazz, jobject javaPath, jint javaUid, jint javaGid) {
@@ -1234,6 +1273,34 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_mkdir(
     if (errno) {
         throwSyscallException(env, "mkdir");
     }
+}
+
+JNIEXPORT jint JNICALL
+Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_mount(
+        JNIEnv *env, jclass clazz, jobject javaSource, jobject javaTarget,
+        jobject javaFileSystemType, jlong javaMountFlags, jbyteArray javaData) {
+    char *source = javaSource ? mallocStringFromByteString(env, javaSource) : NULL;
+    char *target = mallocStringFromByteString(env, javaTarget);
+    char *fileSystemType = javaFileSystemType ? mallocStringFromByteString(env, javaFileSystemType)
+            : NULL;
+    unsigned long mountFlags = (unsigned long) javaMountFlags;
+    void *data = javaData ? (*env)->GetByteArrayElements(env, javaData, NULL) : NULL;
+    int result = TEMP_FAILURE_RETRY(mount(source, target, fileSystemType, mountFlags, data));
+    if (javaSource) {
+        free(source);
+    }
+    free(target);
+    if (javaFileSystemType) {
+        free(fileSystemType);
+    }
+    if (javaData) {
+        (*env)->ReleaseByteArrayElements(env, javaData, data, JNI_ABORT);
+    }
+    if (errno) {
+        throwSyscallException(env, "mount");
+        return 0;
+    }
+    return result;
 }
 
 JNIEXPORT jobject JNICALL

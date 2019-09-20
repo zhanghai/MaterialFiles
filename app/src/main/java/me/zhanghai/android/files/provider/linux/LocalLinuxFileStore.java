@@ -5,8 +5,10 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.system.OsConstants;
 import android.system.StructStatVfs;
 
+import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,13 +19,18 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.util.Pair;
 import java8.nio.file.attribute.FileAttributeView;
 import me.zhanghai.android.files.provider.common.AbstractFileStore;
 import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.FileStoreNotFoundException;
+import me.zhanghai.android.files.provider.linux.syscall.Constants;
+import me.zhanghai.android.files.provider.linux.syscall.Int32Ref;
 import me.zhanghai.android.files.provider.linux.syscall.StructMntent;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
+import me.zhanghai.android.files.util.MapBuilder;
 import me.zhanghai.java.functional.Functional;
 
 class LocalLinuxFileStore extends AbstractFileStore {
@@ -31,7 +38,72 @@ class LocalLinuxFileStore extends AbstractFileStore {
     private static final ByteString PATH_PROC_SELF_MOUNTS = ByteString.fromString(
             "/proc/self/mounts");
     private static final ByteString MODE_R = ByteString.fromString("r");
+    private static final ByteString OPTIONS_DELIMITER = ByteString.ofByte((byte) ',');
     private static final ByteString OPTION_RO = ByteString.fromString("ro");
+    // @see https://android.googlesource.com/platform/system/core/+/master/fs_mgr/fs_mgr_fstab.cpp
+    //      kMountFlagsList
+    // @see https://github.com/mmalecki/util-linux/blob/master/mount-deprecated/mount.c opt_map
+    // @see https://android.googlesource.com/platform/external/toybox/+/refs/heads/master/toys/lsb/mount.c
+    //      flag_opts()
+    // @see http://lists.landley.net/pipermail/toybox-landley.net/2012-August/000628.html
+    private static final Map<ByteString, Long> OPTION_FLAG_MAP =
+            MapBuilder.<ByteString, Long>newHashMap()
+                    .put(ByteString.fromString("defaults"), 0L)
+                    .put(ByteString.fromString("ro"), Constants.MS_RDONLY)
+                    .put(ByteString.fromString("rw"), 0L)
+                    .put(ByteString.fromString("nosuid"), Constants.MS_NOSUID)
+                    .put(ByteString.fromString("suid"), 0L)
+                    .put(ByteString.fromString("nodev"), Constants.MS_NODEV)
+                    .put(ByteString.fromString("dev"), 0L)
+                    .put(ByteString.fromString("noexec"), Constants.MS_NOEXEC)
+                    .put(ByteString.fromString("exec"), 0L)
+                    .put(ByteString.fromString("sync"), Constants.MS_SYNCHRONOUS)
+                    .put(ByteString.fromString("async"), 0L)
+                    .put(ByteString.fromString("remount"), Constants.MS_REMOUNT)
+                    .put(ByteString.fromString("mand"), Constants.MS_MANDLOCK)
+                    .put(ByteString.fromString("nomand"), 0L)
+                    .put(ByteString.fromString("dirsync"), Constants.MS_DIRSYNC)
+                    .put(ByteString.fromString("noatime"), Constants.MS_NOATIME)
+                    .put(ByteString.fromString("atime"), 0L)
+                    .put(ByteString.fromString("nodiratime"), Constants.MS_NODIRATIME)
+                    .put(ByteString.fromString("diratime"), 0L)
+                    .put(ByteString.fromString("bind"), Constants.MS_BIND)
+                    .put(ByteString.fromString("rbind"), Constants.MS_BIND | Constants.MS_REC)
+                    .put(ByteString.fromString("move"), Constants.MS_MOVE)
+                    .put(ByteString.fromString("rec"), Constants.MS_REC)
+                    .put(ByteString.fromString("verbose"), Constants.MS_VERBOSE)
+                    .put(ByteString.fromString("silent"), Constants.MS_SILENT)
+                    .put(ByteString.fromString("loud"), 0L)
+                    //.put(ByteString.fromString("posixacl"), Constants.MS_POSIXACL)
+                    //.put(ByteString.fromString("noposixacl"), 0L)
+                    .put(ByteString.fromString("unbindable"), Constants.MS_UNBINDABLE)
+                    .put(ByteString.fromString("runbindable"), Constants.MS_UNBINDABLE
+                            | Constants.MS_REC)
+                    .put(ByteString.fromString("private"), Constants.MS_PRIVATE)
+                    .put(ByteString.fromString("rprivate"), Constants.MS_PRIVATE | Constants.MS_REC)
+                    .put(ByteString.fromString("slave"), Constants.MS_SLAVE)
+                    .put(ByteString.fromString("rslave"), Constants.MS_SLAVE | Constants.MS_REC)
+                    .put(ByteString.fromString("shared"), Constants.MS_SHARED)
+                    .put(ByteString.fromString("rshared"), Constants.MS_SHARED | Constants.MS_REC)
+                    .put(ByteString.fromString("relatime"), Constants.MS_RELATIME)
+                    .put(ByteString.fromString("norelatime"), 0L)
+                    //.put(ByteString.fromString("kernmount"), Constants.MS_KERNMOUNT)
+                    .put(ByteString.fromString("iversion"), Constants.MS_I_VERSION)
+                    .put(ByteString.fromString("noiversion"), 0L)
+                    .put(ByteString.fromString("strictatime"), Constants.MS_STRICTATIME)
+                    .put(ByteString.fromString("nostrictatime"), 0L)
+                    .put(ByteString.fromString("lazytime"), Constants.MS_LAZYTIME)
+                    .put(ByteString.fromString("nolazytime"), 0L)
+                    //.put(ByteString.fromString("submount"), Constants.MS_SUBMOUNT)
+                    //.put(ByteString.fromString("noremotelock"), Constants.MS_NOREMOTELOCK)
+                    //.put(ByteString.fromString("remotelock"), 0L)
+                    //.put(ByteString.fromString("nosec"), Constants.MS_NOSEC)
+                    //.put(ByteString.fromString("sec"), 0L)
+                    //.put(ByteString.fromString("born"), Constants.MS_BORN)
+                    //.put(ByteString.fromString("active"), Constants.MS_ACTIVE)
+                    .put(ByteString.fromString("nouser"), Constants.MS_NOUSER)
+                    .put(ByteString.fromString("user"), 0L)
+                    .build();
 
     @NonNull
     private final LinuxPath mPath;
@@ -57,6 +129,8 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @Nullable
     private static StructMntent findMountEntry(@NonNull LinuxPath path) throws SyscallException {
         Map<LinuxPath, StructMntent> entries = new HashMap<>();
+        // The last mount entry for the same path will win because we are putting them into a Map,
+        // so no need to traverse in reverse order like other implementations.
         for (StructMntent mntent : getMountEntries()) {
             LinuxPath entryPath = path.getFileSystem().getPath(mntent.mnt_dir);
             entries.put(entryPath, mntent);
@@ -120,6 +194,66 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @Override
     public boolean isReadOnly() {
         return mReadOnly;
+    }
+
+    public void remount(boolean readOnly) throws IOException {
+        // Fetch the latest mount entry before we remount.
+        StructMntent mntent;
+        try {
+            mntent = findMountEntry(mPath);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(mPath.toString());
+        }
+        if (mntent == null) {
+            throw new FileStoreNotFoundException(mPath.toString());
+        }
+        if (Syscalls.hasmntopt(mntent, OPTION_RO) == readOnly) {
+            return;
+        }
+        Pair<Long, ByteString> flagsAndOptions = getFlagsFromOptions(mntent.mnt_opts);
+        long flags = flagsAndOptions.first;
+        if (readOnly) {
+            flags |= Constants.MS_RDONLY;
+        } else {
+            flags &= ~Constants.MS_RDONLY;
+        }
+        ByteString options = flagsAndOptions.second;
+        try {
+            Syscalls.mount(mntent.mnt_fsname, mntent.mnt_dir, mntent.mnt_type, flags,
+                    options.getOwnedBytes());
+        } catch (SyscallException e) {
+            if (!readOnly && (e.getErrno() == OsConstants.EACCES
+                    || e.getErrno() == OsConstants.EPERM || e.getErrno() == OsConstants.EROFS)) {
+                try {
+                    FileDescriptor fd = Syscalls.open(mntent.mnt_fsname, OsConstants.O_RDONLY, 0);
+                    try {
+                        Syscalls.ioctl_int(fd, Constants.BLKROSET, new Int32Ref(0));
+                    } finally {
+                        Syscalls.close(fd);
+                    }
+                } catch (SyscallException e2) {
+                    e.addSuppressed(e2);
+                }
+            }
+            throw e.toFileSystemException(mntent.mnt_dir.toString());
+        }
+    }
+
+    @NonNull
+    private static Pair<Long, ByteString> getFlagsFromOptions(@NonNull ByteString options) {
+        long flags = 0;
+        ByteStringBuilder builder = new ByteStringBuilder();
+        for (ByteString option : options.split(OPTIONS_DELIMITER)) {
+            if (OPTION_FLAG_MAP.containsKey(option)) {
+                flags |= OPTION_FLAG_MAP.get(option);
+            } else {
+                if (!builder.isEmpty()) {
+                    builder.append(OPTIONS_DELIMITER);
+                }
+                builder.append(option);
+            }
+        }
+        return new Pair<>(flags, builder.toByteString());
     }
 
     @Override
