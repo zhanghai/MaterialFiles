@@ -1120,7 +1120,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lsetxattr(
         jint javaFlags) {
     char *path = mallocStringFromByteString(env, javaPath);
     char *name = mallocStringFromByteString(env, javaName);
-    jbyte *value = (*env)->GetByteArrayElements(env, javaValue, NULL);
+    void *value = (*env)->GetByteArrayElements(env, javaValue, NULL);
     size_t size = (size_t) (*env)->GetArrayLength(env, javaValue);
     int flags = javaFlags;
     TEMP_FAILURE_RETRY(lsetxattr(path, name, value, size, flags));
