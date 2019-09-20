@@ -80,14 +80,14 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @NonNull
     public static List<LocalLinuxFileStore> getFileStores(
             @NonNull LocalLinuxFileSystem fileSystem) {
-        List<StructMntent> mountEntries;
+        List<StructMntent> entries;
         try {
-            mountEntries = getMountEntries();
+            entries = getMountEntries();
         } catch (SyscallException e) {
             e.printStackTrace();
             return Collections.emptyList();
         }
-        return Functional.map(mountEntries, mntent -> new LocalLinuxFileStore(fileSystem, mntent));
+        return Functional.map(entries, mntent -> new LocalLinuxFileStore(fileSystem, mntent));
     }
 
     @NonNull
