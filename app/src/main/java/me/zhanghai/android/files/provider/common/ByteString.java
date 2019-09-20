@@ -8,7 +8,9 @@ package me.zhanghai.android.files.provider.common;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
@@ -144,6 +146,42 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         return -1;
     }
 
+    public int indexOf(@NonNull ByteString substring) {
+        return indexOf(substring, 0);
+    }
+
+    public int indexOf(@NonNull ByteString substring, int fromIndex) {
+        Objects.requireNonNull(substring);
+        if (fromIndex < 0) {
+            fromIndex = 0;
+        }
+        for (int i = fromIndex, iMax = mBytes.length - substring.mBytes.length; i < iMax; ++i) {
+            if (startsWith(substring, i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int lastIndexOf(@NonNull ByteString substring) {
+        Objects.requireNonNull(substring);
+        return lastIndexOf(substring, mBytes.length - substring.mBytes.length);
+    }
+
+    public int lastIndexOf(@NonNull ByteString substring, int fromIndex) {
+        Objects.requireNonNull(substring);
+        int lastFromIndex = mBytes.length - substring.mBytes.length;
+        if (fromIndex > lastFromIndex) {
+            fromIndex = lastFromIndex;
+        }
+        for (int i = fromIndex; i >= 0; --i) {
+            if (startsWith(substring, i)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     @NonNull
     public ByteString substring(int start) {
         return substring(start, mBytes.length);
@@ -169,6 +207,23 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
         byte[] bytes = Arrays.copyOf(mBytes, mBytes.length + other.mBytes.length);
         System.arraycopy(other.mBytes, 0, bytes, mBytes.length, other.mBytes.length);
         return ofOwnableBytes(bytes);
+    }
+
+    @NonNull
+    public List<ByteString> split(@NonNull ByteString delimiter) {
+        Objects.requireNonNull(delimiter);
+        if (delimiter.isEmpty()) {
+            throw new IllegalArgumentException("delimiter cannot be empty");
+        }
+        List<ByteString> result = new ArrayList<>();
+        int start = 0;
+        int end;
+        while ((end = indexOf(delimiter, start)) != -1) {
+            result.add(substring(start, end));
+            start = end + delimiter.mBytes.length;
+        }
+        result.add(substring(start));
+        return result;
     }
 
     @NonNull
