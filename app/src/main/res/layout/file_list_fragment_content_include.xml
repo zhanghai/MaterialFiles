@@ -60,8 +60,9 @@
             android:paddingBottom="@dimen/list_bottom_padding_with_fab"
             android:clipToPadding="false"
             app:fastScrollEnableThumbInactiveColor="false"
-            app:fastScrollPopupBgColor="?colorAccent"
-            app:fastScrollThumbColor="?colorAccent"
+            app:fastScrollPopupBgColor="?colorFastScrollSurface"
+            app:fastScrollPopupTextColor="?colorOnFastScrollSurface"
+            app:fastScrollThumbColor="?colorFastScrollSurface"
             tools:listitem="@layout/file_item" />
     </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
 </FrameLayout>

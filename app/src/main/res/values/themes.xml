@@ -18,6 +18,8 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorAppBarSurface">?colorPrimary</item>
+        <item name="colorFastScrollSurface">?colorAccent</item>
+        <item name="colorOnFastScrollSurface">@android:color/white</item>
         <item name="colorFloatingSurface">?colorBackgroundFloating</item>
         <item name="colorSpeedDialSurface">?colorPrimary</item>
         <item name="colorOnSpeedDialSurface">@android:color/white</item>
@@ -65,6 +67,8 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
+        <item name="colorFastScrollSurface">?colorAccent</item>
+        <item name="colorOnFastScrollSurface">@android:color/white</item>
         <item name="colorFloatingSurface">?colorBackgroundFloating</item>
         <item name="colorSpeedDialSurface">?colorPrimary</item>
         <item name="colorOnSpeedDialSurface">@android:color/white</item>
