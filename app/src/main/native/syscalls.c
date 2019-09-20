@@ -1377,10 +1377,10 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
         offsetPointer = &offset;
     }
     size_t count = (size_t) javaCount;
-    jlong result = TEMP_FAILURE_RETRY(sendfile64(outFd, inFd, offsetPointer, count));
+    long result = TEMP_FAILURE_RETRY(sendfile64(outFd, inFd, offsetPointer, count));
     if (errno) {
         throwSyscallException(env, "sendfile64");
-        return result;
+        return 0;
     }
     if (javaOffset) {
         (*env)->SetLongField(env, javaOffset, getInt64RefValueField(env), offset);
