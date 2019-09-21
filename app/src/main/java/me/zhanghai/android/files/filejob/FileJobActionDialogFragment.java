@@ -10,9 +10,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.Space;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +26,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
+import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -33,6 +38,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
 
     private static final String EXTRA_TITLE = KEY_PREFIX + "TITLE";
     private static final String EXTRA_MESSAGE = KEY_PREFIX + "MESSAGE";
+    private static final String EXTRA_READ_ONLY_FILE_STORE = KEY_PREFIX + "READ_ONLY_FILE_STORE";
     private static final String EXTRA_SHOW_ALL = KEY_PREFIX + "SHOW_ALL";
     private static final String EXTRA_POSITIVE_BUTTON_TEXT = KEY_PREFIX + "POSITIVE_BUTTON_TEXT";
     private static final String EXTRA_NEGATIVE_BUTTON_TEXT = KEY_PREFIX + "NEGATIVE_BUTTON_TEXT";
@@ -45,6 +51,8 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     private CharSequence mTitle;
     @NonNull
     private CharSequence mMessage;
+    @Nullable
+    private PosixFileStore mReadOnlyFileStore;
     private boolean mShowAll;
     @Nullable
     private CharSequence mPositiveButtonText;
@@ -55,14 +63,19 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     @Nullable
     private RemoteCallback mListener;
 
-    @Nullable
+    @NonNull
     private View mView;
 
+    @BindView(R.id.remount)
+    Button mRemountButton;
+    @BindView(R.id.all_space)
+    Space mAllSpace;
     @BindView(R.id.all)
     CheckBox mAllCheck;
 
     public static void putArguments(@NonNull Intent intent, @NonNull CharSequence title,
-                                    @NonNull CharSequence message, boolean showAll,
+                                    @NonNull CharSequence message,
+                                    @Nullable PosixFileStore readOnlyFileStore, boolean showAll,
                                     @Nullable CharSequence positiveButtonText,
                                     @Nullable CharSequence negativeButtonText,
                                     @Nullable CharSequence neutralButtonText,
@@ -70,6 +83,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
         intent
                 .putExtra(EXTRA_TITLE, title)
                 .putExtra(EXTRA_MESSAGE, message)
+                .putExtra(EXTRA_READ_ONLY_FILE_STORE, (Parcelable) readOnlyFileStore)
                 .putExtra(EXTRA_SHOW_ALL, showAll)
                 .putExtra(EXTRA_POSITIVE_BUTTON_TEXT, positiveButtonText)
                 .putExtra(EXTRA_NEGATIVE_BUTTON_TEXT, negativeButtonText)
@@ -97,6 +111,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
         Bundle arguments = getArguments();
         mTitle = arguments.getCharSequence(EXTRA_TITLE);
         mMessage = arguments.getCharSequence(EXTRA_MESSAGE);
+        mReadOnlyFileStore = arguments.getParcelable(EXTRA_READ_ONLY_FILE_STORE);
         mShowAll = arguments.getBoolean(EXTRA_SHOW_ALL);
         mPositiveButtonText = arguments.getCharSequence(EXTRA_POSITIVE_BUTTON_TEXT);
         mNegativeButtonText = arguments.getCharSequence(EXTRA_NEGATIVE_BUTTON_TEXT);
@@ -108,9 +123,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        if (mShowAll) {
-            outState.putBoolean(STATE_ALL_CHECKED, mAllCheck.isChecked());
-        }
+        outState.putBoolean(STATE_ALL_CHECKED, mAllCheck.isChecked());
     }
 
     @NonNull
@@ -119,13 +132,20 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
 
         Context context = requireContext();
         int theme = getTheme();
-        if (mShowAll) {
-            mView = ViewUtils.inflateWithTheme(R.layout.file_job_action_dialog_view, context,
-                    theme);
-            ButterKnife.bind(this, mView);
-            if (savedInstanceState != null) {
-                mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
-            }
+        mView = ViewUtils.inflateWithTheme(Settings.MATERIAL_DESIGN_2.getValue() ?
+                R.layout.file_job_action_dialog_view_md2 : R.layout.file_job_action_dialog_view,
+                context, theme);
+        ButterKnife.bind(this, mView);
+
+        ViewUtils.setVisibleOrGone(mRemountButton, mReadOnlyFileStore != null);
+        if (mReadOnlyFileStore != null) {
+            updateRemountButton();
+            mRemountButton.setOnClickListener(view -> remount());
+        }
+        ViewUtils.setVisibleOrGone(mAllSpace, mReadOnlyFileStore == null && mShowAll);
+        ViewUtils.setVisibleOrGone(mAllCheck, mShowAll);
+        if (savedInstanceState != null) {
+            mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
 
         AlertDialog dialog = AlertDialogBuilderCompat.create(context, theme)
@@ -137,6 +157,16 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
                 .create();
         dialog.setCanceledOnTouchOutside(false);
         return dialog;
+    }
+
+    private void updateRemountButton() {
+        mRemountButton.setText(getString(mReadOnlyFileStore.isReadOnly() ?
+                R.string.file_job_remount_format : R.string.file_job_remount_success_format,
+                mReadOnlyFileStore.name()));
+    }
+
+    private void remount() {
+        // TODO
     }
 
     private void onDialogButtonClick(@NonNull DialogInterface dialog, int which) {
@@ -162,12 +192,11 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     public void onStart() {
         super.onStart();
 
-        if (mView != null) {
+        if (mView.getParent() == null) {
             AlertDialog dialog = (AlertDialog) requireDialog();
             NestedScrollView scrollView = dialog.findViewById(R.id.scrollView);
             LinearLayout linearLayout = (LinearLayout) scrollView.getChildAt(0);
             linearLayout.addView(mView);
-            mView = null;
         }
     }
 

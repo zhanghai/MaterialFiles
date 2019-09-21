@@ -196,6 +196,9 @@
     <string name="file_job_restore_selinux_context_error_title">Error while restoring SELinux context</string>
     <string name="file_job_restore_selinux_context_error_message_format">There was an error restoring the SELinux context for “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
+    <string name="file_job_remount_format">Remount “%1$s” as read-write</string>
+    <string name="file_job_remount_loading_format">Remounting “%1$s” as read-write…</string>
+    <string name="file_job_remount_success_format">“%1$s” has been remounted as read-write</string>
     <string name="file_job_action_all">Apply this action to all files</string>
 
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>

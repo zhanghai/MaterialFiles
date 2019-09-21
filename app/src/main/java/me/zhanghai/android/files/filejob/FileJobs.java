@@ -62,10 +62,13 @@ import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixPrincipal;
 import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
+import me.zhanghai.android.files.provider.common.ReadOnlyFileSystemException;
+import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.util.BackgroundActivityStarter;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
@@ -190,6 +193,7 @@ public class FileJobs {
                         getString(R.string.file_job_archive_error_title_format, getFileName(file)),
                         getString(R.string.file_job_archive_error_message_format,
                                 getFileName(archiveFile), e.getLocalizedMessage()),
+                        getReadOnlyFileStore(archiveFile, e),
                         false,
                         null,
                         getString(android.R.string.cancel),
@@ -246,6 +250,7 @@ public class FileJobs {
                                 R.string.file_job_cannot_extract_into_itself_title,
                                 R.string.file_job_cannot_move_into_itself_title)),
                         getString(R.string.file_job_cannot_copy_move_into_itself_message),
+                        null,
                         true,
                         getString(R.string.skip),
                         getString(android.R.string.cancel),
@@ -278,6 +283,7 @@ public class FileJobs {
                                 R.string.file_job_cannot_extract_over_itself_title,
                                 R.string.file_job_cannot_move_over_itself_title)),
                         getString(R.string.file_job_cannot_copy_move_over_itself_message),
+                        null,
                         true,
                         getString(R.string.skip),
                         getString(android.R.string.cancel),
@@ -408,6 +414,7 @@ public class FileJobs {
                                     R.string.file_job_extract_error_message_format,
                                     R.string.file_job_move_error_message_format),
                                     getFileName(targetParent), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(target, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -529,6 +536,7 @@ public class FileJobs {
                             getString(R.string.file_job_delete_error_title),
                             getString(R.string.file_job_delete_error_message_format,
                                     getFileName(path), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -609,6 +617,7 @@ public class FileJobs {
                             getString(
                                     R.string.file_job_restore_selinux_context_error_message_format,
                                     getFileName(path), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -668,6 +677,7 @@ public class FileJobs {
                                     getFileName(path)),
                             getString(R.string.file_job_set_group_error_message_format,
                                     getPrincipalName(group), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -726,6 +736,7 @@ public class FileJobs {
                                     getFileName(path)),
                             getString(R.string.file_job_set_mode_error_message_format,
                                     PosixFileMode.toString(mode), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -785,6 +796,7 @@ public class FileJobs {
                                     getFileName(path)),
                             getString(R.string.file_job_set_owner_error_message_format,
                                     getPrincipalName(owner), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -854,6 +866,7 @@ public class FileJobs {
                                     getFileName(path)),
                             getString(R.string.file_job_set_selinux_context_error_message_format,
                                     seLinuxContext, e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
                             true,
                             getString(R.string.retry),
                             getString(R.string.skip),
@@ -1006,9 +1019,30 @@ public class FileJobs {
             postNotification(notification);
         }
 
+        @Nullable
+        protected PosixFileStore getReadOnlyFileStore(@NonNull Path path,
+                                                      @NonNull IOException exception) {
+            if (!(exception instanceof ReadOnlyFileSystemException)
+                    || !LinuxFileSystemProvider.isLinuxPath(path)) {
+                return null;
+            }
+            PosixFileStore fileStore;
+            try {
+                fileStore = (PosixFileStore) Files.getFileStore(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+            if (!fileStore.isReadOnly()) {
+                return null;
+            }
+            return fileStore;
+        }
+
         @NonNull
         protected ActionResult showActionDialog(@NonNull CharSequence title,
                                                 @NonNull CharSequence message,
+                                                @Nullable PosixFileStore readOnlyFileStore,
                                                 boolean showAll,
                                                 @Nullable CharSequence positiveButtonText,
                                                 @Nullable CharSequence negativeButtonText,
@@ -1017,8 +1051,8 @@ public class FileJobs {
             Service service = getService();
             try {
                 return new Promise<ActionResult>(settler -> BackgroundActivityStarter.startActivity(
-                        FileJobActionDialogActivity.newIntent(title, message, showAll,
-                                positiveButtonText, negativeButtonText, neutralButtonText,
+                        FileJobActionDialogActivity.newIntent(title, message, readOnlyFileStore,
+                                showAll, positiveButtonText, negativeButtonText, neutralButtonText,
                                 (action, all) -> settler.resolve(new ActionResult(action, all)),
                                 service), title, message, service))
                         .await();

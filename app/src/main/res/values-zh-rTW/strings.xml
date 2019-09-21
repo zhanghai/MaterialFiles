@@ -175,6 +175,9 @@
     <string name="file_job_restore_selinux_context_error_title">還原 SELinux 上下文時發生錯誤</string>
     <string name="file_job_restore_selinux_context_error_message_format">在還原「%1$s」的 SELinux 上下文時發生錯誤。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
+    <string name="file_job_remount_format">重新掛接「%1$s」為讀寫模式</string>
+    <string name="file_job_remount_loading_format">正在重新掛接「%1$s」為讀寫模式…</string>
+    <string name="file_job_remount_success_format">「%1$s」已被重新掛接為讀寫模式</string>
     <string name="file_job_action_all">套用此操作到所有檔案</string>
 
     <string name="file_open_apk_message">這個檔案是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>

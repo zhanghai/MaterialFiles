@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.AppActivity;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class FileJobActionDialogActivity extends AppActivity {
@@ -22,13 +23,14 @@ public class FileJobActionDialogActivity extends AppActivity {
 
     @NonNull
     public static Intent newIntent(@NonNull CharSequence title, @NonNull CharSequence message,
-                                   boolean showAll, @Nullable CharSequence positiveButtonText,
+                                   @Nullable PosixFileStore readOnlyFileStore, boolean showAll,
+                                   @Nullable CharSequence positiveButtonText,
                                    @Nullable CharSequence negativeButtonText,
                                    @Nullable CharSequence neutralButtonText,
                                    @NonNull FileJobActionDialogFragment.Listener listener,
                                    @NonNull Context context) {
         Intent intent = new Intent(context, FileJobActionDialogActivity.class);
-        FileJobActionDialogFragment.putArguments(intent, title, message, showAll,
+        FileJobActionDialogFragment.putArguments(intent, title, message, readOnlyFileStore, showAll,
                 positiveButtonText, negativeButtonText, neutralButtonText, listener);
         return intent;
     }
