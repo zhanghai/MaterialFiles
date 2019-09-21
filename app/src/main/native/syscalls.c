@@ -432,7 +432,7 @@ void endgrent() {
 
 #endif
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endgrent(JNIEnv *env, jclass clazz) {
     TEMP_FAILURE_RETRY_V(endgrent());
     if (errno) {
@@ -466,7 +466,7 @@ void endpwent() {
 
 #endif
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endpwent(JNIEnv *env, jclass clazz) {
     TEMP_FAILURE_RETRY_V(endpwent());
     if (errno) {
@@ -1455,7 +1455,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_sendfile(
     return result;
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setgrent(JNIEnv *env, jclass clazz) {
     TEMP_FAILURE_RETRY_V(setgrent());
     if (errno) {
@@ -1478,7 +1478,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setmntent(
     return (jlong) file;
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setpwent(JNIEnv *env, jclass clazz) {
     TEMP_FAILURE_RETRY_V(setpwent());
     if (errno) {
