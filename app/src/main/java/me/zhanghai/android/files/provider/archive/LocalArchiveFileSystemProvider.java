@@ -31,7 +31,6 @@ import java8.nio.file.OpenOption;
 import java8.nio.file.Path;
 import java8.nio.file.Paths;
 import java8.nio.file.ProviderMismatchException;
-import java8.nio.file.ReadOnlyFileSystemException;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java8.nio.file.attribute.FileAttribute;
 import java8.nio.file.attribute.FileAttributeView;
@@ -44,6 +43,7 @@ import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.FileSystemCache;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
+import me.zhanghai.android.files.provider.common.ReadOnlyFileSystemException;
 import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
 
@@ -222,32 +222,33 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
     }
 
     @Override
-    public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes) {
+    public void createDirectory(@NonNull Path directory, @NonNull FileAttribute<?>... attributes)
+            throws IOException{
         requireArchivePath(directory);
         Objects.requireNonNull(attributes);
-        throw new ReadOnlyFileSystemException();
+        throw new ReadOnlyFileSystemException(directory.toString());
     }
 
     @Override
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
-                                   @NonNull FileAttribute<?>... attributes) {
+                                   @NonNull FileAttribute<?>... attributes) throws IOException {
         requireArchivePath(link);
         requireArchivePath(target);
         Objects.requireNonNull(attributes);
-        throw new ReadOnlyFileSystemException();
+        throw new ReadOnlyFileSystemException(link.toString(), target.toString(), null);
     }
 
     @Override
-    public void createLink(@NonNull Path link, @NonNull Path existing) {
+    public void createLink(@NonNull Path link, @NonNull Path existing) throws IOException {
         requireArchivePath(link);
         requireArchivePath(existing);
-        throw new ReadOnlyFileSystemException();
+        throw new ReadOnlyFileSystemException(link.toString(), existing.toString(), null);
     }
 
     @Override
-    public void delete(@NonNull Path path) {
+    public void delete(@NonNull Path path) throws IOException {
         requireArchivePath(path);
-        throw new ReadOnlyFileSystemException();
+        throw new ReadOnlyFileSystemException(path.toString());
     }
 
     @NonNull
@@ -260,19 +261,21 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
     }
 
     @Override
-    public void copy(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options) {
+    public void copy(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
+            throws IOException {
         requireArchivePath(source);
         requireArchivePath(target);
         Objects.requireNonNull(options);
-        throw new ReadOnlyFileSystemException();
+        throw new ReadOnlyFileSystemException(source.toString(), target.toString(), null);
     }
 
     @Override
-    public void move(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options) {
+    public void move(@NonNull Path source, @NonNull Path target, @NonNull CopyOption... options)
+            throws IOException {
         requireArchivePath(source);
         requireArchivePath(target);
         Objects.requireNonNull(options);
-        throw new ReadOnlyFileSystemException();
+        throw new ReadOnlyFileSystemException(source.toString(), target.toString(), null);
     }
 
     @Override
