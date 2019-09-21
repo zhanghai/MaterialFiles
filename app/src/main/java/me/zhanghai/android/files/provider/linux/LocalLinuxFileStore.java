@@ -108,22 +108,49 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @NonNull
     private final LinuxPath mPath;
     @NonNull
-    private final StructMntent mMntent;
-    private final boolean mReadOnly;
+    private StructMntent mMntent;
+    private boolean mReadOnly;
 
     public LocalLinuxFileStore(@NonNull LinuxPath path) throws IOException {
         mPath = path;
-        StructMntent mntent;
+        updateMountEntry();
+    }
+
+    private LocalLinuxFileStore(@NonNull LocalLinuxFileSystem fileSystem,
+                                @NonNull StructMntent mntent) {
+        mPath = fileSystem.getPath(mntent.mnt_dir);
+        setMountEntry(mntent);
+    }
+
+    @NonNull
+    public static List<LocalLinuxFileStore> getFileStores(
+            @NonNull LocalLinuxFileSystem fileSystem) {
+        List<StructMntent> entries;
         try {
-            mntent = findMountEntry(path);
+            entries = getMountEntries();
         } catch (SyscallException e) {
-            throw e.toFileSystemException(path.toString());
+            e.printStackTrace();
+            return Collections.emptyList();
         }
-        if (mntent == null) {
-            throw new FileStoreNotFoundException(path.toString());
-        }
+        return Functional.map(entries, mntent -> new LocalLinuxFileStore(fileSystem, mntent));
+    }
+
+    private void setMountEntry(@NonNull StructMntent mntent) {
         mMntent = mntent;
         mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
+    }
+
+    private void updateMountEntry() throws IOException {
+        StructMntent mntent;
+        try {
+            mntent = findMountEntry(mPath);
+        } catch (SyscallException e) {
+            throw e.toFileSystemException(mPath.toString());
+        }
+        if (mntent == null) {
+            throw new FileStoreNotFoundException(mPath.toString());
+        }
+        setMountEntry(mntent);
     }
 
     @Nullable
@@ -144,26 +171,6 @@ class LocalLinuxFileStore extends AbstractFileStore {
         return null;
     }
 
-    private LocalLinuxFileStore(@NonNull LocalLinuxFileSystem fileSystem,
-                                @NonNull StructMntent mntent) {
-        mPath = fileSystem.getPath(mntent.mnt_dir);
-        mMntent = mntent;
-        mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
-    }
-
-    @NonNull
-    public static List<LocalLinuxFileStore> getFileStores(
-            @NonNull LocalLinuxFileSystem fileSystem) {
-        List<StructMntent> entries;
-        try {
-            entries = getMountEntries();
-        } catch (SyscallException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-        return Functional.map(entries, mntent -> new LocalLinuxFileStore(fileSystem, mntent));
-    }
-
     @NonNull
     private static List<StructMntent> getMountEntries() throws SyscallException {
         List<StructMntent> entries = new ArrayList<>();
@@ -182,7 +189,7 @@ class LocalLinuxFileStore extends AbstractFileStore {
     @NonNull
     @Override
     public String name() {
-        return mMntent.mnt_fsname.toString();
+        return mMntent.mnt_dir.toString();
     }
 
     @NonNull
@@ -196,21 +203,13 @@ class LocalLinuxFileStore extends AbstractFileStore {
         return mReadOnly;
     }
 
-    public void remount(boolean readOnly) throws IOException {
+    public void setReadOnly(boolean readOnly) throws IOException {
         // Fetch the latest mount entry before we remount.
-        StructMntent mntent;
-        try {
-            mntent = findMountEntry(mPath);
-        } catch (SyscallException e) {
-            throw e.toFileSystemException(mPath.toString());
-        }
-        if (mntent == null) {
-            throw new FileStoreNotFoundException(mPath.toString());
-        }
-        if (Syscalls.hasmntopt(mntent, OPTION_RO) == readOnly) {
+        updateMountEntry();
+        if (mReadOnly == readOnly) {
             return;
         }
-        Pair<Long, ByteString> flagsAndOptions = getFlagsFromOptions(mntent.mnt_opts);
+        Pair<Long, ByteString> flagsAndOptions = getFlagsFromOptions(mMntent.mnt_opts);
         long flags = flagsAndOptions.first;
         if (readOnly) {
             flags |= Constants.MS_RDONLY;
@@ -219,24 +218,12 @@ class LocalLinuxFileStore extends AbstractFileStore {
         }
         ByteString options = flagsAndOptions.second;
         try {
-            Syscalls.mount(mntent.mnt_fsname, mntent.mnt_dir, mntent.mnt_type, flags,
+            remount(mMntent.mnt_fsname, mMntent.mnt_dir, mMntent.mnt_type, flags,
                     options.getOwnedBytes());
         } catch (SyscallException e) {
-            if (!readOnly && (e.getErrno() == OsConstants.EACCES
-                    || e.getErrno() == OsConstants.EPERM || e.getErrno() == OsConstants.EROFS)) {
-                try {
-                    FileDescriptor fd = Syscalls.open(mntent.mnt_fsname, OsConstants.O_RDONLY, 0);
-                    try {
-                        Syscalls.ioctl_int(fd, Constants.BLKROSET, new Int32Ref(0));
-                    } finally {
-                        Syscalls.close(fd);
-                    }
-                } catch (SyscallException e2) {
-                    e.addSuppressed(e2);
-                }
-            }
-            throw e.toFileSystemException(mntent.mnt_dir.toString());
+            throw e.toFileSystemException(mMntent.mnt_dir.toString());
         }
+        updateMountEntry();
     }
 
     @NonNull
@@ -254,6 +241,33 @@ class LocalLinuxFileStore extends AbstractFileStore {
             }
         }
         return new Pair<>(flags, builder.toByteString());
+    }
+
+    private static void remount(@Nullable ByteString source, @NonNull ByteString target,
+                                @Nullable ByteString fileSystemType, long mountFlags,
+                                @Nullable byte[] data) throws SyscallException {
+        try {
+            Syscalls.mount(source, target, fileSystemType, mountFlags, data);
+        } catch (SyscallException e) {
+            boolean readOnly = (mountFlags & Constants.MS_RDONLY) == Constants.MS_RDONLY;
+            boolean isReadOnlyError = e.getErrno() == OsConstants.EACCES
+                    || e.getErrno() == OsConstants.EPERM || e.getErrno() == OsConstants.EROFS;
+            if (readOnly || !isReadOnlyError) {
+                throw e;
+            }
+            try {
+                FileDescriptor fd = Syscalls.open(source, OsConstants.O_RDONLY, 0);
+                try {
+                    Syscalls.ioctl_int(fd, Constants.BLKROSET, new Int32Ref(0));
+                } finally {
+                    Syscalls.close(fd);
+                }
+                Syscalls.mount(source, target, fileSystemType, mountFlags, data);
+            } catch (SyscallException e2) {
+                e.addSuppressed(e2);
+                throw e;
+            }
+        }
     }
 
     @Override
