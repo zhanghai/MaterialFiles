@@ -233,7 +233,7 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
                                    @NonNull FileAttribute<?>... attributes) throws IOException {
         requireArchivePath(link);
-        requireArchivePath(target);
+        requireArchiveOrByteStringPath(target);
         Objects.requireNonNull(attributes);
         throw new ReadOnlyFileSystemException(link.toString(), target.toString(), null);
     }
@@ -395,6 +395,17 @@ class LocalArchiveFileSystemProvider extends FileSystemProvider implements Searc
     private static void requireArchivePath(@NonNull Path path) {
         Objects.requireNonNull(path);
         if (!(path instanceof ArchivePath)) {
+            throw new ProviderMismatchException(path.toString());
+        }
+    }
+
+    private static ByteString requireArchiveOrByteStringPath(@NonNull Path path) {
+        Objects.requireNonNull(path);
+        if (path instanceof ArchivePath) {
+            return ((ArchivePath) path).toByteString();
+        } else if (path instanceof ByteStringPath) {
+            return ((ByteStringPath) path).toByteString();
+        } else {
             throw new ProviderMismatchException(path.toString());
         }
     }

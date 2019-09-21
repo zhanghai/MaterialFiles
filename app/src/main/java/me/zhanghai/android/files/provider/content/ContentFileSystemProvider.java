@@ -39,6 +39,8 @@ import java8.nio.file.attribute.FileAttributeView;
 import java8.nio.file.spi.FileSystemProvider;
 import java9.util.Objects;
 import me.zhanghai.android.files.provider.common.AccessModes;
+import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringPath;
 import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
@@ -211,7 +213,7 @@ public class ContentFileSystemProvider extends FileSystemProvider {
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
                                    @NonNull FileAttribute<?>... attributes) {
         requireContentPath(link);
-        requireContentPath(target);
+        requireContentOrByteStringPath(target);
         Objects.requireNonNull(attributes);
         throw new UnsupportedOperationException();
     }
@@ -373,5 +375,16 @@ public class ContentFileSystemProvider extends FileSystemProvider {
             throw new ProviderMismatchException(path.toString());
         }
         return (ContentPath) path;
+    }
+
+    private static ByteString requireContentOrByteStringPath(@NonNull Path path) {
+        Objects.requireNonNull(path);
+        if (path instanceof ContentPath) {
+            return ((ContentPath) path).toByteString();
+        } else if (path instanceof ByteStringPath) {
+            return ((ByteStringPath) path).toByteString();
+        } else {
+            throw new ProviderMismatchException(path.toString());
+        }
     }
 }

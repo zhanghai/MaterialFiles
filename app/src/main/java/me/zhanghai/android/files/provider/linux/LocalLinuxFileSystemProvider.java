@@ -208,12 +208,11 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
                                    @NonNull FileAttribute<?>... attributes) throws IOException {
         LinuxPath linuxLink = requireLinuxPath(link);
-        LinuxPath linuxTarget = requireLinuxPath(target);
+        ByteString targetBytes = requireLinuxOrByteStringPath(target);
         Objects.requireNonNull(attributes);
         if (attributes.length > 0) {
             throw new UnsupportedOperationException(Arrays.toString(attributes));
         }
-        ByteString targetBytes = linuxTarget.toByteString();
         ByteString linkBytes = linuxLink.toByteString();
         try {
             Syscalls.symlink(targetBytes, linkBytes);
@@ -457,5 +456,16 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
             throw new ProviderMismatchException(path.toString());
         }
         return (LinuxPath) path;
+    }
+
+    private static ByteString requireLinuxOrByteStringPath(@NonNull Path path) {
+        Objects.requireNonNull(path);
+        if (path instanceof LinuxPath) {
+            return ((LinuxPath) path).toByteString();
+        } else if (path instanceof ByteStringPath) {
+            return ((ByteStringPath) path).toByteString();
+        } else {
+            throw new ProviderMismatchException(path.toString());
+        }
     }
 }

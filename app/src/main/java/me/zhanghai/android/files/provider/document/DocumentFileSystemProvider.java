@@ -46,13 +46,14 @@ import java9.util.function.Consumer;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.common.AccessModes;
 import me.zhanghai.android.files.provider.common.ByteString;
+import me.zhanghai.android.files.provider.common.ByteStringPath;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
-import me.zhanghai.android.files.provider.common.PathObservable;
-import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream;
+import me.zhanghai.android.files.provider.common.PathObservable;
+import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
 import me.zhanghai.android.files.provider.content.resolver.Resolver;
@@ -373,7 +374,7 @@ public class DocumentFileSystemProvider extends FileSystemProvider
     public void createSymbolicLink(@NonNull Path link, @NonNull Path target,
                                    @NonNull FileAttribute<?>... attributes) {
         requireDocumentPath(link);
-        requireDocumentPath(target);
+        requireDocumentOrByteStringPath(target);
         Objects.requireNonNull(attributes);
         throw new UnsupportedOperationException();
     }
@@ -557,5 +558,16 @@ public class DocumentFileSystemProvider extends FileSystemProvider
             throw new ProviderMismatchException(path.toString());
         }
         return (DocumentPath) path;
+    }
+
+    private static ByteString requireDocumentOrByteStringPath(@NonNull Path path) {
+        Objects.requireNonNull(path);
+        if (path instanceof DocumentPath) {
+            return ((DocumentPath) path).toByteString();
+        } else if (path instanceof ByteStringPath) {
+            return ((ByteStringPath) path).toByteString();
+        } else {
+            throw new ProviderMismatchException(path.toString());
+        }
     }
 }
