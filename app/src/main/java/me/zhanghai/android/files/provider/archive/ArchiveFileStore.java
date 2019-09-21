@@ -6,26 +6,22 @@
 package me.zhanghai.android.files.provider.archive;
 
 import android.os.Parcel;
+import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
-import java8.nio.file.attribute.FileAttributeView;
-import me.zhanghai.android.files.provider.root.RootableFileStore;
+import me.zhanghai.android.files.provider.root.RootPosixFileStore;
+import me.zhanghai.android.files.provider.root.RootablePosixFileStore;
 
-class ArchiveFileStore extends RootableFileStore {
+class ArchiveFileStore extends RootablePosixFileStore {
 
-    ArchiveFileStore(@NonNull Path archiveFile) {
-        super(new LocalArchiveFileStore(archiveFile));
-    }
+    @NonNull
+    private final Path mArchiveFile;
 
-    @Override
-    public boolean supportsFileAttributeView(@NonNull Class<? extends FileAttributeView> type) {
-        return LocalArchiveFileStore.supportsFileAttributeView_(type);
-    }
+    public ArchiveFileStore(@NonNull Path archiveFile) {
+        super(archiveFile, new LocalArchiveFileStore(archiveFile), RootPosixFileStore::new);
 
-    @Override
-    public boolean supportsFileAttributeView(@NonNull String name) {
-        return LocalArchiveFileStore.supportsFileAttributeView_(name);
+        mArchiveFile = archiveFile;
     }
 
 
@@ -41,6 +37,16 @@ class ArchiveFileStore extends RootableFileStore {
     };
 
     protected ArchiveFileStore(Parcel in) {
-        super(in);
+        this((Path) in.readParcelable(Path.class.getClassLoader()));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable((Parcelable) mArchiveFile, flags);
     }
 }

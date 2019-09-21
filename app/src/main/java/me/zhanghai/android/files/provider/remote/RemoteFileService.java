@@ -10,6 +10,7 @@ import android.os.RemoteException;
 import androidx.annotation.NonNull;
 import java8.nio.file.FileSystem;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 
 public abstract class RemoteFileService {
 
@@ -47,6 +48,21 @@ public abstract class RemoteFileService {
             throw new RemoteFileSystemException(e);
         }
         return remoteFileSystemInterface;
+    }
+
+    @NonNull
+    public IRemotePosixFileStore getRemotePosixFileStoreInterface(@NonNull PosixFileStore fileStore)
+            throws RemoteFileSystemException {
+        ParcelableObject parcelableFileStore = new ParcelableObject(fileStore);
+        IRemoteFileService remoteInterface = mRemoteInterface.get();
+        IRemotePosixFileStore remoteFileStoreInterface;
+        try {
+            remoteFileStoreInterface = remoteInterface.getRemotePosixFileStoreInterface(
+                    parcelableFileStore);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        return remoteFileStoreInterface;
     }
 
     @NonNull

@@ -5,49 +5,55 @@
 
 package me.zhanghai.android.files.provider.remote;
 
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.os.RemoteException;
 
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import me.zhanghai.android.files.provider.common.AbstractFileStore;
+import java8.nio.file.attribute.FileAttributeView;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 
-public abstract class RemoteFileStore extends AbstractFileStore implements Parcelable {
-
-    @NonNull
-    private final String mName;
-    @NonNull
-    private final String mType;
-    private final boolean mReadOnly;
+public abstract class RemotePosixFileStore extends PosixFileStore {
 
     @NonNull
-    private final IRemoteFileStore mRemoteInterface;
+    private final RemoteInterfaceHolder<IRemotePosixFileStore> mRemoteInterface;
 
-    public RemoteFileStore(@NonNull AbstractFileStore fileStore) {
-        mName = fileStore.name();
-        mType = fileStore.type();
-        mReadOnly = fileStore.isReadOnly();
+    public RemotePosixFileStore(
+            @NonNull RemoteInterfaceHolder<IRemotePosixFileStore> remoteInterface) {
+        mRemoteInterface = remoteInterface;
+    }
 
-        mRemoteInterface = new RemoteFileStoreInterface(fileStore);
+    @Override
+    public void refresh() {
+        throw new AssertionError();
     }
 
     @NonNull
     @Override
     public String name() {
-        return mName;
+        throw new AssertionError();
     }
 
     @NonNull
     @Override
     public String type() {
-        return mType;
+        throw new AssertionError();
     }
 
     @Override
     public boolean isReadOnly() {
-        return mReadOnly;
+        throw new AssertionError();
+    }
+
+    @Override
+    public void setReadOnly(boolean readOnly) throws IOException {
+        ParcelableException exception = new ParcelableException();
+        try {
+            mRemoteInterface.get().setReadOnly(readOnly, exception);
+        } catch (RemoteException e) {
+            throw new RemoteFileSystemException(e);
+        }
+        exception.throwIfNotNull();
     }
 
     @Override
@@ -55,7 +61,7 @@ public abstract class RemoteFileStore extends AbstractFileStore implements Parce
         ParcelableException exception = new ParcelableException();
         long totalSpace;
         try {
-            totalSpace = mRemoteInterface.getTotalSpace(exception);
+            totalSpace = mRemoteInterface.get().getTotalSpace(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
@@ -68,7 +74,7 @@ public abstract class RemoteFileStore extends AbstractFileStore implements Parce
         ParcelableException exception = new ParcelableException();
         long usableSpace;
         try {
-            usableSpace = mRemoteInterface.getUsableSpace(exception);
+            usableSpace = mRemoteInterface.get().getUsableSpace(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
@@ -81,7 +87,7 @@ public abstract class RemoteFileStore extends AbstractFileStore implements Parce
         ParcelableException exception = new ParcelableException();
         long unallocatedSpace;
         try {
-            unallocatedSpace = mRemoteInterface.getUnallocatedSpace(exception);
+            unallocatedSpace = mRemoteInterface.get().getUnallocatedSpace(exception);
         } catch (RemoteException e) {
             throw new RemoteFileSystemException(e);
         }
@@ -89,24 +95,13 @@ public abstract class RemoteFileStore extends AbstractFileStore implements Parce
         return unallocatedSpace;
     }
 
-
-    protected RemoteFileStore(Parcel in) {
-        mName = in.readString();
-        mType = in.readString();
-        mReadOnly = in.readByte() != 0;
-        mRemoteInterface = IRemoteFileStore.Stub.asInterface(in.readStrongBinder());
+    @Override
+    public boolean supportsFileAttributeView(@NonNull Class<? extends FileAttributeView> type) {
+        throw new AssertionError();
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mName);
-        dest.writeString(mType);
-        dest.writeByte(mReadOnly ? (byte) 1 : (byte) 0);
-        dest.writeStrongBinder(mRemoteInterface.asBinder());
+    public boolean supportsFileAttributeView(@NonNull String name) {
+        throw new AssertionError();
     }
 }

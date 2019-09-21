@@ -11,6 +11,7 @@ import java8.nio.file.spi.FileSystemProvider;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 
 public class RemoteFileServiceInterface extends IRemoteFileService.Stub {
 
@@ -28,6 +29,14 @@ public class RemoteFileServiceInterface extends IRemoteFileService.Stub {
             @NonNull ParcelableObject parcelableFileSystem) {
         FileSystem fileSystem = parcelableFileSystem.get();
         return new RemoteFileSystemInterface(fileSystem);
+    }
+
+    @NonNull
+    @Override
+    public IRemotePosixFileStore getRemotePosixFileStoreInterface(
+            @NonNull ParcelableObject parcelableFileStore) {
+        PosixFileStore fileStore = parcelableFileStore.get();
+        return new RemotePosixFileStoreInterface(fileStore);
     }
 
     @NonNull

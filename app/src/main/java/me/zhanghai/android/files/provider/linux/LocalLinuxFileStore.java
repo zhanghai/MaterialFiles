@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.linux;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.system.OsConstants;
 import android.system.StructStatVfs;
 
@@ -21,7 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import java8.nio.file.attribute.FileAttributeView;
-import me.zhanghai.android.files.provider.common.AbstractFileStore;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.FileStoreNotFoundException;
@@ -33,7 +35,7 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.util.MapBuilder;
 import me.zhanghai.java.functional.Functional;
 
-class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileStore {
+class LocalLinuxFileStore extends PosixFileStore implements Parcelable {
 
     private static final ByteString PATH_PROC_SELF_MOUNTS = ByteString.fromString(
             "/proc/self/mounts");
@@ -109,17 +111,16 @@ class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileSt
     private final LinuxPath mPath;
     @NonNull
     private StructMntent mMntent;
-    private boolean mReadOnly;
 
     public LocalLinuxFileStore(@NonNull LinuxPath path) throws IOException {
         mPath = path;
-        updateMountEntry();
+        refresh();
     }
 
     private LocalLinuxFileStore(@NonNull LocalLinuxFileSystem fileSystem,
                                 @NonNull StructMntent mntent) {
         mPath = fileSystem.getPath(mntent.mnt_dir);
-        setMountEntry(mntent);
+        mMntent = mntent;
     }
 
     @NonNull
@@ -135,12 +136,8 @@ class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileSt
         return Functional.map(entries, mntent -> new LocalLinuxFileStore(fileSystem, mntent));
     }
 
-    private void setMountEntry(@NonNull StructMntent mntent) {
-        mMntent = mntent;
-        mReadOnly = Syscalls.hasmntopt(mMntent, OPTION_RO);
-    }
-
-    private void updateMountEntry() throws IOException {
+    @Override
+    public void refresh() throws IOException {
         StructMntent mntent;
         try {
             mntent = findMountEntry(mPath);
@@ -150,7 +147,7 @@ class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileSt
         if (mntent == null) {
             throw new FileStoreNotFoundException(mPath.toString());
         }
-        setMountEntry(mntent);
+        mMntent = mntent;
     }
 
     @Nullable
@@ -200,13 +197,13 @@ class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileSt
 
     @Override
     public boolean isReadOnly() {
-        return mReadOnly;
+        return Syscalls.hasmntopt(mMntent, OPTION_RO);
     }
 
     public void setReadOnly(boolean readOnly) throws IOException {
         // Fetch the latest mount entry before we remount.
-        updateMountEntry();
-        if (mReadOnly == readOnly) {
+        refresh();
+        if (isReadOnly() == readOnly) {
             return;
         }
         Pair<Long, ByteString> flagsAndOptions = getFlagsFromOptions(mMntent.mnt_opts);
@@ -223,7 +220,7 @@ class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileSt
         } catch (SyscallException e) {
             throw e.toFileSystemException(mMntent.mnt_dir.toString());
         }
-        updateMountEntry();
+        refresh();
     }
 
     @NonNull
@@ -299,21 +296,41 @@ class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileSt
 
     @Override
     public boolean supportsFileAttributeView(@NonNull Class<? extends FileAttributeView> type) {
-        throw new AssertionError();
-    }
-
-    @Override
-    public boolean supportsFileAttributeView(@NonNull String name) {
-        throw new AssertionError();
-    }
-
-    static boolean supportsFileAttributeView_(@NonNull Class<? extends FileAttributeView> type) {
         Objects.requireNonNull(type);
         return LinuxFileSystemProvider.supportsFileAttributeView(type);
     }
 
-    static boolean supportsFileAttributeView_(@NonNull String name) {
+    @Override
+    public boolean supportsFileAttributeView(@NonNull String name) {
         Objects.requireNonNull(name);
         return LinuxFileAttributeView.SUPPORTED_NAMES.contains(name);
+    }
+
+
+    public static final Creator<LocalLinuxFileStore> CREATOR = new Creator<LocalLinuxFileStore>() {
+        @Override
+        public LocalLinuxFileStore createFromParcel(Parcel source) {
+            return new LocalLinuxFileStore(source);
+        }
+        @Override
+        public LocalLinuxFileStore[] newArray(int size) {
+            return new LocalLinuxFileStore[size];
+        }
+    };
+
+    protected LocalLinuxFileStore(Parcel in) {
+        mPath = in.readParcelable(LinuxPath.class.getClassLoader());
+        mMntent = in.readParcelable(StructMntent.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(mPath, flags);
+        dest.writeParcelable(mMntent, flags);
     }
 }

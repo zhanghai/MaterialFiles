@@ -8,15 +8,24 @@ package me.zhanghai.android.files.provider.remote;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import java8.nio.file.FileStore;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 
-public class RemoteFileStoreInterface extends IRemoteFileStore.Stub {
+public class RemotePosixFileStoreInterface extends IRemotePosixFileStore.Stub {
 
     @NonNull
-    private final FileStore mFileStore;
+    private final PosixFileStore mFileStore;
 
-    public RemoteFileStoreInterface(@NonNull FileStore fileStore) {
+    public RemotePosixFileStoreInterface(@NonNull PosixFileStore fileStore) {
         mFileStore = fileStore;
+    }
+
+    @Override
+    public void setReadOnly(boolean readOnly, @NonNull ParcelableException exception) {
+        try {
+            mFileStore.setReadOnly(readOnly);
+        } catch (IOException | RuntimeException e) {
+            exception.set(e);
+        }
     }
 
     @Override

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import java8.nio.file.FileStore;
 import java8.nio.file.attribute.FileStoreAttributeView;
 
-public abstract class AbstractFileStore extends FileStore {
+abstract class AbstractFileStore extends FileStore {
 
     @Nullable
     @Override
