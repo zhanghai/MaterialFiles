@@ -33,7 +33,7 @@ import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
 import me.zhanghai.android.files.util.MapBuilder;
 import me.zhanghai.java.functional.Functional;
 
-class LocalLinuxFileStore extends AbstractFileStore {
+class LocalLinuxFileStore extends AbstractFileStore implements SetReadOnlyFileStore {
 
     private static final ByteString PATH_PROC_SELF_MOUNTS = ByteString.fromString(
             "/proc/self/mounts");
