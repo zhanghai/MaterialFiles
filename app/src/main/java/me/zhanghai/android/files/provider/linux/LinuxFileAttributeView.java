@@ -23,8 +23,8 @@ public class LinuxFileAttributeView extends RootablePosixFileAttributeView {
     private final boolean mNoFollowLinks;
 
     LinuxFileAttributeView(@NonNull LinuxPath path, boolean noFollowLinks) {
-        super(path, attributeView -> new LocalLinuxFileAttributeView(path.toByteString(),
-                noFollowLinks), RootPosixFileAttributeView::new);
+        super(path, new LocalLinuxFileAttributeView(path.toByteString(), noFollowLinks),
+                RootPosixFileAttributeView::new);
 
         mPath = path;
         mNoFollowLinks = noFollowLinks;

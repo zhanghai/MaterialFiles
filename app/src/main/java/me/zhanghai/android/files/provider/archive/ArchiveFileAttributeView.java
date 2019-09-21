@@ -22,8 +22,8 @@ public class ArchiveFileAttributeView extends RootablePosixFileAttributeView {
     private final Path mPath;
 
     ArchiveFileAttributeView(@NonNull Path path) {
-        super(path, attributeView -> new LocalArchiveFileAttributeView(path),
-                attributeView -> new RootArchiveFileAttributeView(attributeView, path));
+        super(path, new LocalArchiveFileAttributeView(path), attributeView ->
+                new RootArchiveFileAttributeView(attributeView, path));
 
         mPath = path;
     }
