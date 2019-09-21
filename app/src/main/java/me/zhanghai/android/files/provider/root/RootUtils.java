@@ -13,6 +13,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import java8.nio.file.AccessDeniedException;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.remote.RemoteFileSystemException;
 
 public class RootUtils {
 
@@ -67,10 +68,10 @@ public class RootUtils {
             case PREFER_YES:
                 try {
                     return function.apply(rootObject);
-                } catch (IOException e) {
+                } catch (RemoteFileSystemException e) {
                     e.printStackTrace();
+                    return function.apply(localObject);
                 }
-                return function.apply(localObject);
             case ALWAYS:
                 return function.apply(rootObject);
             default:
@@ -95,10 +96,10 @@ public class RootUtils {
             // vice versa.
             try {
                 return function.apply(rootObject);
-            } catch (IOException e) {
+            } catch (RemoteFileSystemException e) {
                 e.printStackTrace();
+                return function.apply(localObject);
             }
-            return function.apply(localObject);
         } else {
             try {
                 return function.apply(localObject);
