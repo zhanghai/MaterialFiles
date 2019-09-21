@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.root;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.Map;
 
@@ -34,8 +33,7 @@ public class RootFileSystemProvider extends RemoteFileSystemProvider {
 
     @NonNull
     @Override
-    public FileSystem newFileSystem(@NonNull URI uri, @NonNull Map<String, ?> env)
-            throws IOException {
+    public FileSystem newFileSystem(@NonNull URI uri, @NonNull Map<String, ?> env) {
         throw new AssertionError();
     }
 
@@ -63,8 +61,7 @@ public class RootFileSystemProvider extends RemoteFileSystemProvider {
     @Override
     public <A extends BasicFileAttributes> A readAttributes(@NonNull Path path,
                                                             @NonNull Class<A> type,
-                                                            @NonNull LinkOption... options)
-            throws IOException {
+                                                            @NonNull LinkOption... options) {
         throw new AssertionError();
     }
 }
