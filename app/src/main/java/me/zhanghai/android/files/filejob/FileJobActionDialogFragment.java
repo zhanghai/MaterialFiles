@@ -31,6 +31,7 @@ import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
+import me.zhanghai.android.files.util.StateData;
 import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -175,20 +176,21 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
         mViewModel.getRemountStateLiveData().remount(mReadOnlyFileStore);
     }
 
-    private void onRemountStateChanged(@NonNull RemountStateData remountStateData) {
-        switch (remountStateData.state) {
+    private void onRemountStateChanged(@NonNull StateData stateData) {
+        RemountStateLiveData liveData = mViewModel.getRemountStateLiveData();
+        switch (stateData.state) {
             case READY:
             case LOADING:
                 updateRemountButton();
                 break;
             case ERROR:
-                remountStateData.exception.printStackTrace();
-                ToastUtils.show(remountStateData.exception.getLocalizedMessage(), requireContext());
-                mViewModel.getRemountStateLiveData().reset();
+                stateData.exception.printStackTrace();
+                ToastUtils.show(stateData.exception.getLocalizedMessage(), requireContext());
+                liveData.reset();
                 updateRemountButton();
                 break;
             case SUCCESS:
-                mViewModel.getRemountStateLiveData().reset();
+                liveData.reset();
                 updateRemountButton();
                 break;
             default:
@@ -197,8 +199,8 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     }
 
     private void updateRemountButton() {
-        int textRes = mViewModel.getRemountStateData().state == RemountStateData.State.LOADING ?
-                R.string.file_job_remount_loading_format
+        int textRes = mViewModel.getRemountStateLiveData().getValue().state
+                == StateData.State.LOADING ? R.string.file_job_remount_loading_format
                 : mReadOnlyFileStore.isReadOnly() ? R.string.file_job_remount_format
                 : R.string.file_job_remount_success_format;
         mRemountButton.setText(getString(textRes, mReadOnlyFileStore.name()));

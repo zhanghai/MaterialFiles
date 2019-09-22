@@ -16,9 +16,4 @@ public class FileJobActionViewModel extends ViewModel {
     public RemountStateLiveData getRemountStateLiveData() {
         return mRemountStateLiveData;
     }
-
-    @NonNull
-    public RemountStateData getRemountStateData() {
-        return mRemountStateLiveData.getValue();
-    }
 }

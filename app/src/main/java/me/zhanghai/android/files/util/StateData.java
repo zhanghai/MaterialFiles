@@ -22,8 +22,28 @@ public class StateData {
     @Nullable
     public final Exception exception;
 
-    protected StateData(@NonNull State state, @Nullable Exception exception) {
+    private StateData(@NonNull State state, @Nullable Exception exception) {
         this.state = state;
         this.exception = exception;
+    }
+
+    @NonNull
+    public static StateData ofReady() {
+        return new StateData(State.READY, null);
+    }
+
+    @NonNull
+    public static StateData ofLoading() {
+        return new StateData(State.LOADING, null);
+    }
+
+    @NonNull
+    public static StateData ofError(@NonNull Exception exception) {
+        return new StateData(State.ERROR, exception);
+    }
+
+    @NonNull
+    public static StateData ofSuccess() {
+        return new StateData(State.SUCCESS, null);
     }
 }

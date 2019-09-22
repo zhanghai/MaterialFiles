@@ -10,41 +10,23 @@ import android.os.AsyncTask;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import me.zhanghai.android.files.provider.common.PosixFileStore;
+import me.zhanghai.android.files.util.StateData;
+import me.zhanghai.android.files.util.StateLiveData;
 
-class RemountStateLiveData extends LiveData<RemountStateData> {
-
-    public RemountStateLiveData() {
-        setValue(RemountStateData.ofReady());
-    }
+class RemountStateLiveData extends StateLiveData {
 
     public void remount(@NonNull PosixFileStore fileStore) {
-        if (getValue().state != RemountStateData.State.READY) {
-            throw new IllegalStateException(getValue().toString());
-        }
-        setValue(RemountStateData.ofLoading());
+        checkReady();
+        setValue(StateData.ofLoading());
         AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
             try {
                 fileStore.setReadOnly(false);
             } catch (IOException e) {
-                postValue(RemountStateData.ofError(e));
+                postValue(StateData.ofError(e));
                 return;
             }
-            postValue(RemountStateData.ofSuccess());
+            postValue(StateData.ofSuccess());
         });
-    }
-
-    public void reset() {
-        switch (getValue().state) {
-            case READY:
-                return;
-            case LOADING:
-                throw new IllegalStateException();
-            case ERROR:
-            case SUCCESS:
-                setValue(RemountStateData.ofReady());
-                break;
-        }
     }
 }
