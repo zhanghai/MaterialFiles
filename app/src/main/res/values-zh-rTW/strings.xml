@@ -335,7 +335,6 @@
     <string name="text_editor_title">文字編輯器</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
-    <string name="text_editor_save_error_format">儲存時發生錯誤：%1$s</string>
     <string name="text_editor_save_success">已儲存</string>
     <string name="text_editor_reload_message">您確定要重新載入嗎？對此文件未儲存的變更將丟失。</string>
     <string name="text_editor_close_message">您確定要捨棄對此文件未儲存的變更嗎？</string>

@@ -260,8 +260,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                 break;
             case ERROR:
                 stateData.exception.printStackTrace();
-                ToastUtils.show(getString(R.string.text_editor_save_error_format,
-                        stateData.exception.getLocalizedMessage()), requireContext());
+                ToastUtils.show(stateData.exception.getLocalizedMessage(), requireContext());
                 liveData.reset();
                 break;
             case SUCCESS:
