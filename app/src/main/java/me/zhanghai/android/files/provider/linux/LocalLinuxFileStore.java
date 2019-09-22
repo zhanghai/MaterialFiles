@@ -23,10 +23,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.util.Pair;
 import java8.nio.file.attribute.FileAttributeView;
-import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.FileStoreNotFoundException;
+import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.provider.linux.syscall.Constants;
 import me.zhanghai.android.files.provider.linux.syscall.Int32Ref;
 import me.zhanghai.android.files.provider.linux.syscall.StructMntent;
@@ -214,9 +214,9 @@ class LocalLinuxFileStore extends PosixFileStore implements Parcelable {
             flags &= ~Constants.MS_RDONLY;
         }
         ByteString options = flagsAndOptions.second;
+        byte[] data = options.toNullTerminatedString();
         try {
-            remount(mMntent.mnt_fsname, mMntent.mnt_dir, mMntent.mnt_type, flags,
-                    options.getOwnedBytes());
+            remount(mMntent.mnt_fsname, mMntent.mnt_dir, mMntent.mnt_type, flags, data);
         } catch (SyscallException e) {
             throw e.toFileSystemException(mMntent.mnt_dir.toString());
         }
@@ -243,6 +243,7 @@ class LocalLinuxFileStore extends PosixFileStore implements Parcelable {
     private static void remount(@Nullable ByteString source, @NonNull ByteString target,
                                 @Nullable ByteString fileSystemType, long mountFlags,
                                 @Nullable byte[] data) throws SyscallException {
+        mountFlags |= Constants.MS_REMOUNT;
         try {
             Syscalls.mount(source, target, fileSystemType, mountFlags, data);
         } catch (SyscallException e) {

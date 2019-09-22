@@ -227,6 +227,13 @@ public class ByteString implements Comparable<ByteString>, Parcelable {
     }
 
     @NonNull
+    public byte[] toNullTerminatedString() {
+        byte[] string = Arrays.copyOf(mBytes, mBytes.length + 1);
+        string[mBytes.length] = '\0';
+        return string;
+    }
+
+    @NonNull
     @Override
     public String toString() {
         // We are okay with the potential race condition here.
