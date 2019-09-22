@@ -248,7 +248,7 @@ class LocalLinuxFileStore extends PosixFileStore implements Parcelable {
         } catch (SyscallException e) {
             boolean readOnly = (mountFlags & Constants.MS_RDONLY) == Constants.MS_RDONLY;
             boolean isReadOnlyError = e.getErrno() == OsConstants.EACCES
-                    || e.getErrno() == OsConstants.EPERM || e.getErrno() == OsConstants.EROFS;
+                    || e.getErrno() == OsConstants.EROFS;
             if (readOnly || !isReadOnlyError) {
                 throw e;
             }
