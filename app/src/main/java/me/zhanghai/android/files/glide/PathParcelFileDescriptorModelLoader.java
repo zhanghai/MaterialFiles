@@ -24,14 +24,21 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.settings.Settings;
 
 public class PathParcelFileDescriptorModelLoader
         implements ModelLoader<Path, ParcelFileDescriptor> {
 
     @Override
     public boolean handles(@NonNull Path model) {
-        return LinuxFileSystemProvider.isLinuxPath(model)
-                || DocumentFileSystemProvider.isDocumentPath(model);
+        if (LinuxFileSystemProvider.isLinuxPath(model)) {
+            return true;
+        } else if (DocumentFileSystemProvider.isDocumentPath(model)) {
+            return DocumentResolver.isLocal((DocumentResolver.Path) model)
+                    || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.getValue();
+        } else {
+            return false;
+        }
     }
 
     @Nullable

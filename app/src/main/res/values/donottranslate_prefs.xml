@@ -65,4 +65,6 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="pref_key_read_remote_files_for_thumbnail">key_read_remote_files_for_thumbnail</string>
+    <bool name="pref_default_value_read_remote_files_for_thumbnail">false</bool>
 </resources>

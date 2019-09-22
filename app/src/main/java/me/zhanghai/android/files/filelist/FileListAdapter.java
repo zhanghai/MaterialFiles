@@ -52,6 +52,7 @@ import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider;
 import me.zhanghai.android.files.provider.document.DocumentFileAttributes;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
+import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
@@ -373,11 +374,15 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
             return MimeTypes.supportsThumbnail(file.getMimeType());
         } else if (DocumentFileSystemProvider.isDocumentPath(path)) {
             DocumentFileAttributes attributes = (DocumentFileAttributes) file.getAttributes();
-            boolean supportsThumbnail = (attributes.getFlags()
-                    & DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
-                    == DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL;
-            boolean isMedia = MimeTypes.isMedia(file.getMimeType());
-            return supportsThumbnail || isMedia;
+            if ((attributes.getFlags() & DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
+                    == DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL) {
+                return true;
+            }
+            if (MimeTypes.isMedia(file.getMimeType())) {
+                return DocumentResolver.isLocal((DocumentResolver.Path) path)
+                        || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.getValue();
+            }
+            return false;
         } else {
             // TODO: Allow other providers as well - but might be resource consuming.
             return false;

@@ -26,13 +26,20 @@ import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.settings.Settings;
 
 public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBuffer> {
 
     @Override
     public boolean handles(@NonNull Path model) {
-        if (!(LinuxFileSystemProvider.isLinuxPath(model)
-                || DocumentFileSystemProvider.isDocumentPath(model))) {
+        if (LinuxFileSystemProvider.isLinuxPath(model)) {
+            // Good.
+        } else if (DocumentFileSystemProvider.isDocumentPath(model)) {
+            if (!(DocumentResolver.isLocal((DocumentResolver.Path) model)
+                    || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.getValue())) {
+                return false;
+            }
+        } else {
             return false;
         }
         Path fileName = model.getFileName();

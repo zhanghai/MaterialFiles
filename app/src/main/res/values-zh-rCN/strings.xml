@@ -402,6 +402,7 @@
         <item>查看内容</item>
         <item>询问操作</item>
     </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">读取远程文件以加载缩略图</string>
 
     <string name="about_title">关于</string>
     <string name="about_version_title">版本</string>

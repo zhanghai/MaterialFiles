@@ -39,13 +39,23 @@ import me.zhanghai.android.files.util.SetBuilder;
 
 public class DocumentResolver {
 
+    // @see com.android.shell.BugreportStorageProvider#AUTHORITY
     private static final String BUGREPORT_STORAGE_PROVIDER_AUTHORITY =
             "com.android.shell.documents";
+    // @see com.android.externalstorage.ExternalStorageProvider#AUTHORITY
     private static final String EXTERNAL_STORAGE_PROVIDER_AUTHORITY =
             "com.android.externalstorage.documents";
+    // @see com.android.mtp.MtpDocumentsProvider#AUTHORITY
     private static final String MTP_DOCUMENTS_PROVIDER_AUTHORITY = "com.android.mtp.documents";
 
     private static final Set<String> COPY_UNSUPPORTED_AUTHORITIES =
+            SetBuilder.<String>newHashSet()
+                    .add(BUGREPORT_STORAGE_PROVIDER_AUTHORITY)
+                    .add(EXTERNAL_STORAGE_PROVIDER_AUTHORITY)
+                    .add(MTP_DOCUMENTS_PROVIDER_AUTHORITY)
+                    .buildUnmodifiable();
+
+    private static final Set<String> LOCAL_AUTHORITIES =
             SetBuilder.<String>newHashSet()
                     .add(BUGREPORT_STORAGE_PROVIDER_AUTHORITY)
                     .add(EXTERNAL_STORAGE_PROVIDER_AUTHORITY)
@@ -276,6 +286,11 @@ public class DocumentResolver {
                     + uri);
         }
         return thumbnail;
+    }
+
+    public static boolean isLocal(@NonNull Path path) {
+        String authority = path.getTreeUri().getAuthority();
+        return LOCAL_AUTHORITIES.contains(authority);
     }
 
     @NonNull

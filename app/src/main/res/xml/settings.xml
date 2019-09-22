@@ -81,5 +81,10 @@
             android:entries="@array/settings_open_apk_default_action_entries"
             android:entryValues="@array/pref_entry_values_open_apk_default_action"
             app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_read_remote_files_for_thumbnail"
+            android:title="@string/settings_read_remote_files_for_thumbnail_title"
+            android:defaultValue="@bool/pref_default_value_read_remote_files_for_thumbnail" />
     </PreferenceCategory>
 </PreferenceScreen>

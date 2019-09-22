@@ -122,4 +122,8 @@ public interface Settings {
     SettingLiveData<OpenApkDefaultAction> OPEN_APK_DEFAULT_ACTION = new EnumSettingLiveData<>(
             R.string.pref_key_open_apk_default_action,
             R.string.pref_default_value_open_apk_default_action, OpenApkDefaultAction.class);
+
+    SettingLiveData<Boolean> READ_REMOTE_FILES_FOR_THUMBNAIL = new BooleanSettingLiveData(
+            R.string.pref_key_read_remote_files_for_thumbnail,
+            R.bool.pref_default_value_read_remote_files_for_thumbnail);
 }

@@ -21,11 +21,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
+import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
+import me.zhanghai.android.files.settings.Settings;
 
 public class PathInputStreamModelLoader implements ModelLoader<Path, InputStream> {
 
     @Override
     public boolean handles(@NonNull Path model) {
+        if (DocumentFileSystemProvider.isDocumentPath(model)) {
+            return DocumentResolver.isLocal((DocumentResolver.Path) model)
+                    || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.getValue();
+        }
         return true;
     }
 

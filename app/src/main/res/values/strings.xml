@@ -428,6 +428,7 @@
         <item>View contents</item>
         <item>Ask what to do</item>
     </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">Read remote files for thumbnail</string>
 
     <string name="about_title">About</string>
     <string name="about_version_title">Version</string>
