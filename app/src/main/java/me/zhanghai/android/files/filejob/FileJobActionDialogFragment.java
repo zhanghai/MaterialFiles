@@ -156,7 +156,9 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
             mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
 
-        mViewModel.getRemountStateLiveData().observe(this, this::onRemountStateChanged);
+        if (mReadOnlyFileStore != null) {
+            mViewModel.getRemountStateLiveData().observe(this, this::onRemountStateChanged);
+        }
 
         AlertDialog dialog = AlertDialogBuilderCompat.create(context, theme)
                 .setTitle(mTitle)
