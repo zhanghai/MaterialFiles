@@ -5,85 +5,33 @@
 
 package me.zhanghai.android.files.viewer.text;
 
-import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
 
-import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.WorkerThread;
-import androidx.lifecycle.LiveData;
 import java8.nio.file.Path;
 import java8.nio.file.StandardOpenOption;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.util.StateData;
+import me.zhanghai.android.files.util.StateLiveData;
 
-public class WriteFileStateLiveData extends LiveData<WriteFileStateLiveData.State> {
+public class WriteFileStateLiveData extends StateLiveData {
 
-    public enum State {
-        READY,
-        WRITING,
-        ERROR,
-        SUCCESS
-    }
-
-    private Exception mException;
-
-    public WriteFileStateLiveData() {
-        setValue(State.READY);
-    }
-
-    @SuppressLint("StaticFieldLeak")
     public void write(@NonNull Path path, @NonNull byte[] content) {
-        if (getValue() != State.READY) {
-            throw new IllegalStateException(getValue().toString());
-        }
-        setValue(State.WRITING);
-        new AsyncTask<Void, Void, Exception>() {
-            @Nullable
-            @Override
-            @WorkerThread
-            protected Exception doInBackground(Void... parameters) {
-                try (OutputStream outputStream = MoreFiles.newOutputStream(path,
-                        StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING,
-                        StandardOpenOption.CREATE)) {
-                    MoreFiles.copy(new ByteArrayInputStream(content), outputStream, null, 0);
-                    return null;
-                } catch (Exception e) {
-                    return e;
-                }
-            }
-            @MainThread
-            @Override
-            protected void onPostExecute(@Nullable Exception e) {
-                if (e == null) {
-                    setValue(State.SUCCESS);
-                } else {
-                    mException = e;
-                    setValue(State.ERROR);
-                }
-            }
-        }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-    }
-
-    public Exception getException() {
-        return mException;
-    }
-
-    public void reset() {
-        switch (getValue()) {
-            case READY:
+        checkReady();
+        setValue(StateData.ofLoading());
+        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
+            try (OutputStream outputStream = MoreFiles.newOutputStream(path,
+                    StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING,
+                    StandardOpenOption.CREATE)) {
+                MoreFiles.copy(new ByteArrayInputStream(content), outputStream, null, 0);
+            } catch (Exception e) {
+                postValue(StateData.ofError(e));
                 return;
-            case WRITING:
-                throw new IllegalStateException();
-            case ERROR:
-                mException = null;
-                // Fall through!
-            case SUCCESS:
-                setValue(State.READY);
-                break;
-        }
+            }
+            postValue(StateData.ofSuccess());
+        });
     }
 }

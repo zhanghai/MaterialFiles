@@ -31,6 +31,7 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
+import me.zhanghai.android.files.util.StateData;
 import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -250,16 +251,17 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
         mViewModel.getWriteFileStateLiveData().write(mExtraPath, content);
     }
 
-    private void onWriteFileStateChanged(@NonNull WriteFileStateLiveData.State state) {
+    private void onWriteFileStateChanged(@NonNull StateData stateData) {
         WriteFileStateLiveData liveData = mViewModel.getWriteFileStateLiveData();
-        switch (state) {
+        switch (stateData.state) {
             case READY:
-            case WRITING:
+            case LOADING:
                 updateSaveMenuItem();
                 break;
             case ERROR:
+                stateData.exception.printStackTrace();
                 ToastUtils.show(getString(R.string.text_editor_save_error_format,
-                        liveData.getException().getLocalizedMessage()), requireContext());
+                        stateData.exception.getLocalizedMessage()), requireContext());
                 liveData.reset();
                 break;
             case SUCCESS:
@@ -275,6 +277,6 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
             return;
         }
         WriteFileStateLiveData liveData = mViewModel.getWriteFileStateLiveData();
-        mSaveMenuItem.setEnabled(liveData.getValue() == WriteFileStateLiveData.State.READY);
+        mSaveMenuItem.setEnabled(liveData.getValue().state == StateData.State.READY);
     }
 }
