@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.core.widget.NestedScrollView;
+import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
@@ -30,6 +31,7 @@ import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
+import me.zhanghai.android.files.util.ToastUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class FileJobActionDialogFragment extends AppCompatDialogFragment {
@@ -72,6 +74,9 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     Space mAllSpace;
     @BindView(R.id.all)
     CheckBox mAllCheck;
+
+    @NonNull
+    private FileJobActionViewModel mViewModel;
 
     public static void putArguments(@NonNull Intent intent, @NonNull CharSequence title,
                                     @NonNull CharSequence message,
@@ -137,6 +142,8 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
                 context, theme);
         ButterKnife.bind(this, mView);
 
+        mViewModel = new ViewModelProvider(this).get(FileJobActionViewModel.class);
+
         ViewUtils.setVisibleOrGone(mRemountButton, mReadOnlyFileStore != null);
         if (mReadOnlyFileStore != null) {
             updateRemountButton();
@@ -147,6 +154,8 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
         if (savedInstanceState != null) {
             mAllCheck.setChecked(savedInstanceState.getBoolean(STATE_ALL_CHECKED));
         }
+
+        mViewModel.getRemountStateLiveData().observe(this, this::onRemountStateChanged);
 
         AlertDialog dialog = AlertDialogBuilderCompat.create(context, theme)
                 .setTitle(mTitle)
@@ -159,14 +168,40 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
         return dialog;
     }
 
-    private void updateRemountButton() {
-        mRemountButton.setText(getString(mReadOnlyFileStore.isReadOnly() ?
-                R.string.file_job_remount_format : R.string.file_job_remount_success_format,
-                mReadOnlyFileStore.name()));
+    private void remount() {
+        if (!mReadOnlyFileStore.isReadOnly()) {
+            return;
+        }
+        mViewModel.getRemountStateLiveData().remount(mReadOnlyFileStore);
     }
 
-    private void remount() {
-        // TODO
+    private void onRemountStateChanged(@NonNull RemountStateData remountStateData) {
+        switch (remountStateData.state) {
+            case READY:
+            case LOADING:
+                updateRemountButton();
+                break;
+            case ERROR:
+                remountStateData.exception.printStackTrace();
+                ToastUtils.show(remountStateData.exception.getLocalizedMessage(), requireContext());
+                mViewModel.getRemountStateLiveData().reset();
+                updateRemountButton();
+                break;
+            case SUCCESS:
+                mViewModel.getRemountStateLiveData().reset();
+                updateRemountButton();
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
+    private void updateRemountButton() {
+        int textRes = mViewModel.getRemountStateData().state == RemountStateData.State.LOADING ?
+                R.string.file_job_remount_loading_format
+                : mReadOnlyFileStore.isReadOnly() ? R.string.file_job_remount_format
+                : R.string.file_job_remount_success_format;
+        mRemountButton.setText(getString(textRes, mReadOnlyFileStore.name()));
     }
 
     private void onDialogButtonClick(@NonNull DialogInterface dialog, int which) {
