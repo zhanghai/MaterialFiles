@@ -26,6 +26,8 @@
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
         <item name="appBarLiftOnScroll">false</item>
         <item name="dividerVisibility">@integer/visibility_visible</item>
+        <item name="textButtonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="textButtonHorizontalPaddingNegative">-12dp</item>
     </style>
     <style name="Theme.MaterialFiles" parent="Base.Theme.MaterialFiles" />
 
@@ -75,6 +77,8 @@
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
         <item name="appBarLiftOnScroll">false</item>
         <item name="dividerVisibility">@integer/visibility_visible</item>
+        <item name="textButtonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+        <item name="textButtonHorizontalPaddingNegative">-12dp</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive" parent="Base.Theme.MaterialFiles.Immersive" />
 </resources>

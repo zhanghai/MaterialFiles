@@ -18,9 +18,9 @@
         android:id="@+id/remount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-12dp"
-        android:layout_marginEnd="-12dp"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored" />
+        android:layout_marginStart="?textButtonHorizontalPaddingNegative"
+        android:layout_marginEnd="?textButtonHorizontalPaddingNegative"
+        style="?textButtonStyle" />
 
     <Space
         android:id="@+id/all_space"

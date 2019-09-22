@@ -36,6 +36,8 @@
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2_daynight</item>
         <item name="appBarLiftOnScroll">true</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
+        <item name="textButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="textButtonHorizontalPaddingNegative">-8dp</item>
     </style>
     <style name="Theme.MaterialFiles.Md2" parent="Base.Theme.MaterialFiles.Md2" />
 
@@ -95,6 +97,8 @@
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2_dark</item>
         <item name="appBarLiftOnScroll">true</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
+        <item name="textButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="textButtonHorizontalPaddingNegative">-8dp</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.Md2" parent="Base.Theme.MaterialFiles.Immersive.Md2" />
 </resources>

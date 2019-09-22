@@ -28,7 +28,6 @@ import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.provider.common.PosixFileStore;
-import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.util.BundleBuilder;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.StateData;
@@ -138,9 +137,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
 
         Context context = requireContext();
         int theme = getTheme();
-        mView = ViewUtils.inflateWithTheme(Settings.MATERIAL_DESIGN_2.getValue() ?
-                R.layout.file_job_action_dialog_view_md2 : R.layout.file_job_action_dialog_view,
-                context, theme);
+        mView = ViewUtils.inflateWithTheme(R.layout.file_job_action_dialog_view, context, theme);
         ButterKnife.bind(this, mView);
 
         mViewModel = new ViewModelProvider(this).get(FileJobActionViewModel.class);
