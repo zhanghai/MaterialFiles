@@ -1279,6 +1279,12 @@ JNIEXPORT jint JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_mount(
         JNIEnv *env, jclass clazz, jobject javaSource, jobject javaTarget,
         jobject javaFileSystemType, jlong javaMountFlags, jbyteArray javaData) {
+    if (geteuid() != 0) {
+        // Avoid getting killed by seccomp.
+        errno = EPERM;
+        throwSyscallException(env, "mount");
+        return 0;
+    }
     char *source = javaSource ? mallocStringFromByteString(env, javaSource) : NULL;
     char *target = mallocStringFromByteString(env, javaTarget);
     char *fileSystemType = javaFileSystemType ? mallocStringFromByteString(env, javaFileSystemType)
