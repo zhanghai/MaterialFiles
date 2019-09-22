@@ -157,6 +157,8 @@
         <item quantity="other">Restoring SELinux context for %1$,d files</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_create_error_title">Error while creating</string>
+    <string name="file_job_create_error_message_format">There was an error creating “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
     <string name="file_job_cannot_extract_into_itself_title">Cannot extract a folder into itself</string>
     <string name="file_job_cannot_move_into_itself_title">Cannot move a folder into itself</string>

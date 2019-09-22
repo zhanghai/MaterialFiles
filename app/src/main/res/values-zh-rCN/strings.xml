@@ -136,6 +136,8 @@
         <item quantity="other">正在还原 %1$,d 个文件的 SELinux 上下文</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_create_error_title">新建时发生错误</string>
+    <string name="file_job_create_error_message_format">在新建“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">无法将文件夹复制到自身</string>
     <string name="file_job_cannot_extract_into_itself_title">无法将文件夹提取到自身</string>
     <string name="file_job_cannot_move_into_itself_title">无法将文件夹移动到自身</string>

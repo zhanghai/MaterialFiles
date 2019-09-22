@@ -502,12 +502,42 @@ public class FileJobs {
             postNotification(title, text, null, null, max, progress, false, true);
         }
 
-        protected void createDirectory(@NonNull Path path) throws IOException {
-            Files.createDirectory(path);
-        }
-
-        protected void createFile(@NonNull Path path) throws IOException {
-            Files.createFile(path);
+        protected void create(@NonNull Path path, boolean createDirectory) throws IOException {
+            boolean retry;
+            do {
+                retry = false;
+                try {
+                    if (createDirectory) {
+                        Files.createDirectory(path);
+                    } else {
+                        Files.createFile(path);
+                    }
+                } catch (InterruptedIOException e) {
+                    throw e;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    ActionResult result = showActionDialog(
+                            getString(R.string.file_job_create_error_title),
+                            getString(R.string.file_job_create_error_message_format,
+                                    getFileName(path), e.getLocalizedMessage()),
+                            getReadOnlyFileStore(path, e),
+                            false,
+                            getString(R.string.retry),
+                            getString(android.R.string.cancel),
+                            null);
+                    switch (result.getAction()) {
+                        case POSITIVE:
+                            retry = true;
+                            continue;
+                        case NEGATIVE:
+                        case CANCELED:
+                            throw new InterruptedIOException();
+                        case NEUTRAL:
+                        default:
+                            throw new AssertionError(result.getAction());
+                    }
+                }
+            } while (retry);
         }
 
         protected void delete(@NonNull Path path, @Nullable TransferInfo transferInfo,
@@ -1558,33 +1588,20 @@ public class FileJobs {
         }
     }
 
-    public static class CreateDirectory extends Base {
+    public static class Create extends Base {
 
         @NonNull
         private final Path mPath;
+        private final boolean mCreateDirectory;
 
-        public CreateDirectory(@NonNull Path path) {
+        public Create(@NonNull Path path, boolean createDirectory) {
             mPath = path;
+            mCreateDirectory = createDirectory;
         }
 
         @Override
         public void run() throws IOException {
-            createDirectory(mPath);
-        }
-    }
-
-    public static class CreateFile extends Base {
-
-        @NonNull
-        private final Path mPath;
-
-        public CreateFile(@NonNull Path path) {
-            mPath = path;
-        }
-
-        @Override
-        public void run() throws IOException {
-            createFile(mPath);
+            create(mPath, mCreateDirectory);
         }
     }
 

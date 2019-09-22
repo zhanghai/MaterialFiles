@@ -1255,7 +1255,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void createFile(@NonNull String name) {
         // TODO
         Path path = getCurrentPath().resolve(name);
-        FileJobService.createFile(path, requireContext());
+        FileJobService.create(path, false, requireContext());
     }
 
     private void showCreateDirectoryDialog() {
@@ -1266,7 +1266,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void createDirectory(@NonNull String name) {
         // TODO
         Path path = getCurrentPath().resolve(name);
-        FileJobService.createDirectory(path, requireContext());
+        FileJobService.create(path, true, requireContext());
     }
 
     @NonNull

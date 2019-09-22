@@ -64,12 +64,9 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Copy(sources, targetDirectory), context);
     }
 
-    public static void createDirectory(@NonNull Path path, @NonNull Context context) {
-        startJob(new FileJobs.CreateDirectory(path), context);
-    }
-
-    public static void createFile(@NonNull Path path, @NonNull Context context) {
-        startJob(new FileJobs.CreateFile(path), context);
+    public static void create(@NonNull Path path, boolean createDirectory,
+                              @NonNull Context context) {
+        startJob(new FileJobs.Create(path, createDirectory), context);
     }
 
     public static void delete(@NonNull List<Path> paths, @NonNull Context context) {
