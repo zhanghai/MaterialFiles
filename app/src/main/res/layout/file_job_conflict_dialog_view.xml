@@ -202,5 +202,14 @@
         </LinearLayout>
     </LinearLayout>
 
-    <include layout="@layout/file_job_action_dialog_view" />
+    <CheckBox
+        android:id="@+id/all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dialog_padding_minus_7dp"
+        android:layout_marginEnd="?dialogPreferredPadding"
+        android:layout_marginTop="12dp"
+        android:paddingStart="7dp"
+        android:text="@string/file_job_action_all"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>
