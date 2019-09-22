@@ -10,6 +10,7 @@ import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
@@ -17,11 +18,13 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import java9.util.function.Function;
 import me.zhanghai.android.files.compat.MapCompat;
 import me.zhanghai.android.files.provider.common.PosixFileType;
 import me.zhanghai.android.files.util.FileNameUtils;
 import me.zhanghai.android.files.util.MapBuilder;
 import me.zhanghai.android.files.util.SetBuilder;
+import me.zhanghai.java.functional.Functional;
 
 // TODO: Use Debian mime.types, as in
 //  https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/mime.types
@@ -30,6 +33,8 @@ public class MimeTypes {
     public static final String DIRECTORY_MIME_TYPE = DocumentsContract.Document.MIME_TYPE_DIR;
 
     public static final String GENERIC_MIME_TYPE = "application/octet-stream";
+
+    public static final String ANY_MIME_TYPE = "*/*";
 
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also https://android.googlesource.com/platform/libcore/+/pie-release/luni/src/main/java/libcore/net/MimeUtils.java
@@ -146,7 +151,7 @@ public class MimeTypes {
                     .put("application/x-sh", "text/x-shellscript")
                     .put("application/x-shellscript", "text/x-shellscript")
                     // Allows matching generic
-                    .put(GENERIC_MIME_TYPE, "*/*")
+                    .put(GENERIC_MIME_TYPE, ANY_MIME_TYPE)
                     .build();
 
     private static final Set<String> sSupportedArchiveMimeTypes = SetBuilder.<String>newHashSet()
@@ -196,6 +201,24 @@ public class MimeTypes {
         return MapCompat.getOrDefault(sMimeTypeToIntentTypeMap, mimeType, mimeType);
     }
 
+    public static String getIntentType(@NonNull List<String> mimeTypes) {
+        List<MimeTypeInfo> mimeTypeInfos = Functional.map(mimeTypes,
+                ((Function<String, String>) MimeTypes::getIntentType).andThen(MimeTypeInfo::parse));
+        if (Functional.some(mimeTypeInfos, java9.util.Objects::isNull)) {
+            return ANY_MIME_TYPE;
+        }
+        MimeTypeInfo fullTypeInfo = mimeTypeInfos.get(0);
+        if (Functional.every(mimeTypeInfos, mimeTypeInfo -> mimeTypeInfo.matches(fullTypeInfo))) {
+            return fullTypeInfo.toString();
+        }
+        MimeTypeInfo partialTypeInfo = new MimeTypeInfo(fullTypeInfo.type, "*", null);
+        if (Functional.every(mimeTypeInfos, mimeTypeInfo ->
+                mimeTypeInfo.matches(partialTypeInfo))) {
+            return partialTypeInfo.toString();
+        }
+        return ANY_MIME_TYPE;
+    }
+
     public static int getIconRes(@NonNull String mimeType) {
         return MimeTypeIcons.get(mimeType);
     }
@@ -233,18 +256,6 @@ public class MimeTypes {
         if (mimeTypeInfo == null) {
             return false;
         }
-        if (!(Objects.equals(mimeTypeSpecInfo.type, "*")
-                || Objects.equals(mimeTypeInfo.type, mimeTypeSpecInfo.type))) {
-            return false;
-        }
-        if (!(Objects.equals(mimeTypeSpecInfo.subtype, "*")
-                || Objects.equals(mimeTypeInfo.subtype, mimeTypeSpecInfo.subtype))) {
-            return false;
-        }
-        if (!(mimeTypeSpecInfo.parameters == null
-                || Objects.equals(mimeTypeInfo.parameters, mimeTypeSpecInfo.parameters))) {
-            return false;
-        }
-        return true;
+        return mimeTypeInfo.matches(mimeTypeSpecInfo);
     }
 }

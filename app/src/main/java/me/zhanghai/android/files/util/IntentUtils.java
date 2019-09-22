@@ -14,6 +14,8 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -165,7 +167,17 @@ public class IntentUtils {
     public static Intent makeSendStream(@NonNull Uri stream, @NonNull String type) {
         return new Intent(Intent.ACTION_SEND)
                 .putExtra(Intent.EXTRA_STREAM, stream)
-                .setType(getIntentType(type));
+                .setType(MimeTypes.getIntentType(type));
+    }
+
+    @NonNull
+    public static Intent makeSendStream(@NonNull List<Uri> streams, @NonNull List<String> types) {
+        if (streams.size() == 1) {
+            return makeSendStream(streams.get(0), types.get(0));
+        }
+        return new Intent(Intent.ACTION_SEND_MULTIPLE)
+                .putParcelableArrayListExtra(Intent.EXTRA_STREAM, new ArrayList<>(streams))
+                .setType(MimeTypes.getIntentType(types));
     }
 
     @NonNull
@@ -207,13 +219,8 @@ public class IntentUtils {
     public static Intent makeView(@NonNull Uri uri, @NonNull String type) {
         return new Intent(Intent.ACTION_VIEW)
                 // Calling setType() will clear data.
-                .setDataAndType(uri, getIntentType(type))
+                .setDataAndType(uri, MimeTypes.getIntentType(type))
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-    }
-
-    @NonNull
-    private static String getIntentType(@NonNull String type) {
-        return MimeTypes.getIntentType(type);
     }
 
     @NonNull

@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.file;
 
+import java.util.Objects;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -45,5 +47,43 @@ public class MimeTypeInfo {
             parameters = mimeType.substring(indexOfSemicolon + 1);
         }
         return new MimeTypeInfo(type, subtype, parameters);
+    }
+
+    public boolean matches(@NonNull MimeTypeInfo spec) {
+        if (!(Objects.equals(spec.type, "*") || Objects.equals(type, spec.type))) {
+            return false;
+        }
+        if (!(Objects.equals(spec.subtype, "*") || Objects.equals(subtype, spec.subtype))) {
+            return false;
+        }
+        if (!(spec.parameters == null || Objects.equals(parameters, spec.parameters))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        MimeTypeInfo that = (MimeTypeInfo) object;
+        return type.equals(that.type)
+                && subtype.equals(that.subtype)
+                && Objects.equals(parameters, that.parameters);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, subtype, parameters);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return type + "/" + subtype + (parameters != null ? ";" + parameters : "");
     }
 }

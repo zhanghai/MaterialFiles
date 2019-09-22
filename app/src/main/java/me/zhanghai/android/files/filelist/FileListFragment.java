@@ -898,6 +898,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_archive:
                 showCreateArchiveDialog(mViewModel.getSelectedFiles());
                 return true;
+            case R.id.action_share:
+                shareFiles(mViewModel.getSelectedFiles());
+                return true;
             case R.id.action_select_all:
                 selectAllFiles();
                 return true;
@@ -940,6 +943,12 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         Path archiveFile = mViewModel.getCurrentPath().resolve(name);
         FileJobService.archive(makePathListForJob(files), archiveFile, archiveType, compressorType,
                 requireContext());
+        mViewModel.selectFiles(files, false);
+    }
+
+    private void shareFiles(@NonNull LinkedHashSet<FileItem> files) {
+        shareFiles(Functional.map(files, FileItem::getPath), Functional.map(files,
+                FileItem::getMimeType));
         mViewModel.selectFiles(files, false);
     }
 
@@ -1217,14 +1226,13 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     }
 
     private void shareFile(@NonNull Path path, @NonNull String mimeType) {
-        if (LinuxFileSystemProvider.isLinuxPath(path)
-                || DocumentFileSystemProvider.isDocumentPath(path)) {
-            Uri uri = FileProvider.getUriForPath(path);
-            Intent intent = IntentUtils.makeSendStream(uri, mimeType);
-            AppUtils.startActivityWithChooser(intent, this);
-        } else {
-            // TODO
-        }
+        shareFiles(Collections.singletonList(path), Collections.singletonList(mimeType));
+    }
+
+    private void shareFiles(@NonNull List<Path> paths, @NonNull List<String> mimeTypes) {
+        List<Uri> uris = Functional.map(paths, FileProvider::getUriForPath);
+        Intent intent = IntentUtils.makeSendStream(uris, mimeTypes);
+        AppUtils.startActivityWithChooser(intent, this);
     }
 
     @Override
