@@ -373,8 +373,11 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
             return MimeTypes.supportsThumbnail(file.getMimeType());
         } else if (DocumentFileSystemProvider.isDocumentPath(path)) {
             DocumentFileAttributes attributes = (DocumentFileAttributes) file.getAttributes();
-            return (attributes.getFlags() & DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
+            boolean supportsThumbnail = (attributes.getFlags()
+                    & DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
                     == DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL;
+            boolean isMedia = MimeTypes.isMedia(file.getMimeType());
+            return supportsThumbnail || isMedia;
         } else {
             // TODO: Allow other providers as well - but might be resource consuming.
             return false;

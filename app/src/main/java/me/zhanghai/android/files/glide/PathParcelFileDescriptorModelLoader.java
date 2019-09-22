@@ -21,6 +21,8 @@ import java.io.IOException;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
+import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class PathParcelFileDescriptorModelLoader
@@ -28,7 +30,8 @@ public class PathParcelFileDescriptorModelLoader
 
     @Override
     public boolean handles(@NonNull Path model) {
-        return LinuxFileSystemProvider.isLinuxPath(model);
+        return LinuxFileSystemProvider.isLinuxPath(model)
+                || DocumentFileSystemProvider.isDocumentPath(model);
     }
 
     @Nullable
@@ -53,8 +56,15 @@ public class PathParcelFileDescriptorModelLoader
         public void loadData(@NonNull Priority priority,
                              @NonNull DataCallback<? super ParcelFileDescriptor> callback) {
             try {
-                parcelFileDescriptor = ParcelFileDescriptor.open(path.toFile(),
-                        ParcelFileDescriptor.MODE_READ_ONLY);
+                if (LinuxFileSystemProvider.isLinuxPath(path)) {
+                    parcelFileDescriptor = ParcelFileDescriptor.open(path.toFile(),
+                            ParcelFileDescriptor.MODE_READ_ONLY);
+                } else if (DocumentFileSystemProvider.isDocumentPath(path)) {
+                    parcelFileDescriptor = DocumentResolver.openParcelFileDescriptor(
+                            (DocumentResolver.Path) path, "r");
+                } else {
+                    throw new AssertionError(path);
+                }
             } catch (Exception e) {
                 callback.onLoadFailed(e);
                 return;

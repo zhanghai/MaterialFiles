@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.glide;
 
 import android.media.MediaMetadataRetriever;
+import android.os.ParcelFileDescriptor;
 
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
@@ -22,16 +23,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.file.MimeTypes;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
+import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 
 public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBuffer> {
 
     @Override
     public boolean handles(@NonNull Path model) {
-        if (!LinuxFileSystemProvider.isLinuxPath(model)) {
+        if (!(LinuxFileSystemProvider.isLinuxPath(model)
+                || DocumentFileSystemProvider.isDocumentPath(model))) {
             return false;
         }
-        String mimeType = MimeTypes.getMimeType(model.toFile().toString());
+        Path fileName = model.getFileName();
+        if (fileName == null) {
+            return false;
+        }
+        String mimeType = MimeTypes.getMimeType(fileName.toString());
         return MimeTypes.isMedia(mimeType);
     }
 
@@ -39,15 +47,15 @@ public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBu
     @Override
     public LoadData<ByteBuffer> buildLoadData(@NonNull Path model, int width, int height,
                                               @NonNull Options options) {
-        return new LoadData<>(new ObjectKey(model), new Fetcher(model.toFile().toString()));
+        return new LoadData<>(new ObjectKey(model), new Fetcher(model));
     }
 
     private static class Fetcher implements DataFetcher<ByteBuffer> {
 
         @NonNull
-        private final String path;
+        private final Path path;
 
-        public Fetcher(@NonNull String path) {
+        public Fetcher(@NonNull Path path) {
             this.path = path;
         }
 
@@ -58,7 +66,7 @@ public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBu
             try {
                 MediaMetadataRetriever retriever = new MediaMetadataRetriever();
                 try {
-                    retriever.setDataSource(path);
+                    setDataSource(retriever, path);
                     picture = ByteBuffer.wrap(retriever.getEmbeddedPicture());
                 } finally {
                     retriever.release();
@@ -68,6 +76,20 @@ public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBu
                 return;
             }
             callback.onDataReady(picture);
+        }
+
+        private static void setDataSource(@NonNull MediaMetadataRetriever retriever,
+                                          @NonNull Path path) throws Exception {
+            if (LinuxFileSystemProvider.isLinuxPath(path)) {
+                retriever.setDataSource(path.toFile().toString());
+            } else if (DocumentFileSystemProvider.isDocumentPath(path)) {
+                try (ParcelFileDescriptor pfd = DocumentResolver.openParcelFileDescriptor(
+                        (DocumentResolver.Path) path, "r")) {
+                    retriever.setDataSource(pfd.getFileDescriptor());
+                }
+            } else {
+                throw new AssertionError(path);
+            }
         }
 
         @Override
