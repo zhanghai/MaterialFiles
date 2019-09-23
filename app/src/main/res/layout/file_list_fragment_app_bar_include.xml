@@ -5,6 +5,7 @@
   ~ All Rights Reserved.
   -->
 
+<!-- app:statusBarBackground is broken when scrolling. -->
 <com.google.android.material.appbar.AppBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
