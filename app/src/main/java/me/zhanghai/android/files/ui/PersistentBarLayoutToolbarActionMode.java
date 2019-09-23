@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.ui;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
@@ -13,20 +15,20 @@ public class PersistentBarLayoutToolbarActionMode extends ToolbarActionMode {
     @NonNull
     private final PersistentBarLayout mPersistentBarLayout;
 
-    public PersistentBarLayoutToolbarActionMode(@NonNull Toolbar toolbar,
-                                                @NonNull PersistentBarLayout persistentBarLayout) {
-        super(toolbar);
+    public PersistentBarLayoutToolbarActionMode(@NonNull PersistentBarLayout persistentBarLayout,
+                                                @NonNull ViewGroup bar, @NonNull Toolbar toolbar) {
+        super(bar, toolbar);
 
         mPersistentBarLayout = persistentBarLayout;
     }
 
     @Override
-    protected void show(@NonNull Toolbar toolbar, boolean animate) {
-        mPersistentBarLayout.showBar(toolbar, animate);
+    protected void show(@NonNull ViewGroup bar, boolean animate) {
+        mPersistentBarLayout.showBar(bar, animate);
     }
 
     @Override
-    protected void hide(@NonNull Toolbar toolbar, boolean animate) {
-        mPersistentBarLayout.hideBar(toolbar, animate);
+    protected void hide(@NonNull ViewGroup bar, boolean animate) {
+        mPersistentBarLayout.hideBar(bar, animate);
     }
 }

@@ -83,9 +83,9 @@ public class NavigationRecyclerView extends RecyclerView {
     public WindowInsets onApplyWindowInsets(@NonNull WindowInsets insets) {
         mInsetTop = insets.getSystemWindowInsetTop();
         setPadding(getPaddingLeft(), mVerticalPadding + mInsetTop, getPaddingRight(),
-                mVerticalPadding);
+                mVerticalPadding + insets.getSystemWindowInsetBottom());
         return insets.replaceSystemWindowInsets(insets.getSystemWindowInsetLeft(), 0,
-                insets.getSystemWindowInsetRight(), insets.getSystemWindowInsetBottom());
+                insets.getSystemWindowInsetRight(), 0);
     }
 
     @Override

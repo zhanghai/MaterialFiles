@@ -8,6 +8,7 @@ package me.zhanghai.android.files.ui;
 import android.graphics.drawable.Drawable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.MenuRes;
@@ -19,6 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 public abstract class ToolbarActionMode {
 
     @NonNull
+    private final ViewGroup mBar;
+    @NonNull
     private final Toolbar mToolbar;
 
     @Nullable
@@ -27,7 +30,8 @@ public abstract class ToolbarActionMode {
     @MenuRes
     private int mMenuRes;
 
-    public ToolbarActionMode(@NonNull Toolbar toolbar) {
+    public ToolbarActionMode(@NonNull ViewGroup bar, @NonNull Toolbar toolbar) {
+        mBar = bar;
         mToolbar = toolbar;
         mToolbar.setNavigationOnClickListener(view -> finish());
         mToolbar.setOnMenuItemClickListener(item -> {
@@ -89,11 +93,11 @@ public abstract class ToolbarActionMode {
 
     public void start(@NonNull Callback callback, boolean animate) {
         mCallback = callback;
-        show(mToolbar, animate);
+        show(mBar, animate);
         mCallback.onToolbarActionModeStarted(this);
     }
 
-    protected abstract void show(@NonNull Toolbar toolbar, boolean animate);
+    protected abstract void show(@NonNull ViewGroup bar, boolean animate);
 
     public void finish() {
         finish(true);
@@ -106,11 +110,11 @@ public abstract class ToolbarActionMode {
         Callback callback = mCallback;
         mCallback = null;
         mToolbar.getMenu().close();
-        hide(mToolbar, animate);
+        hide(mBar, animate);
         callback.onToolbarActionModeFinished(this);
     }
 
-    protected abstract void hide(@NonNull Toolbar toolbar, boolean animate);
+    protected abstract void hide(@NonNull ViewGroup bar, boolean animate);
 
     public interface Callback {
 

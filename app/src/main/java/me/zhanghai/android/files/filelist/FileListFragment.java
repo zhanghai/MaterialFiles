@@ -117,6 +117,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     PersistentDrawerLayout mPersistentDrawerLayout;
     @BindView(R.id.bar_layout)
     PersistentBarLayout mPersistentBarLayout;
+    @BindView(R.id.bottom_bar)
+    ViewGroup mBottomBarLayout;
     @BindView(R.id.bottom_toolbar)
     Toolbar mBottomToolbar;
     @BindView(R.id.app_bar)
@@ -246,8 +248,8 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         activity.setSupportActionBar(mToolbar);
 
         mOverlayActionMode = new OverlayToolbarActionMode(mOverlayToolbar);
-        mBottomActionMode = new PersistentBarLayoutToolbarActionMode(mBottomToolbar,
-                mPersistentBarLayout);
+        mBottomActionMode = new PersistentBarLayoutToolbarActionMode(mPersistentBarLayout,
+                mBottomBarLayout, mBottomToolbar);
 
         int contentLayoutInitialPaddingBottom = mContentLayout.getPaddingBottom();
         mAppBarLayout.addOnOffsetChangedListener((appBarLayout, verticalOffset) ->
