@@ -32,6 +32,9 @@ public class PersistentDrawerLayout extends ViewGroup {
     @NonNull
     private final ViewDragHelper mRightDragger;
 
+    @Nullable
+    private WindowInsets mLastInsets;
+
     public PersistentDrawerLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -80,11 +83,55 @@ public class PersistentDrawerLayout extends ViewGroup {
                             insets.getSystemWindowInsetTop(), insets.getSystemWindowInsetRight(),
                             insets.getSystemWindowInsetBottom()));
                 }
-            } else {
+            } else if (isFillView(child)) {
                 child.dispatchApplyWindowInsets(insets);
             }
         }
+        mLastInsets = insets;
+        updateContentViewsWindowInsets();
         return insets.consumeSystemWindowInsets();
+    }
+
+    private void updateContentViewsWindowInsets() {
+
+        if (mLastInsets == null) {
+            return;
+        }
+
+        WindowInsets contentInsets = mLastInsets;
+        for (int i = 0, count = getChildCount(); i < count; ++i) {
+            View child = getChildAt(i);
+
+            if (isDrawerView(child)) {
+                LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
+                int childRange = childLayoutParams.leftMargin + child.getMeasuredWidth()
+                        + childLayoutParams.rightMargin;
+                int childConsumedInset = (int) (childRange * childLayoutParams.offset);
+                if (isLeftDrawerView(child)) {
+                    contentInsets = contentInsets.replaceSystemWindowInsets(
+                            Math.max(0, contentInsets.getSystemWindowInsetLeft()
+                                    - childConsumedInset),
+                            contentInsets.getSystemWindowInsetTop(),
+                            contentInsets.getSystemWindowInsetRight(),
+                            contentInsets.getSystemWindowInsetBottom());
+                } else {
+                    contentInsets = contentInsets.replaceSystemWindowInsets(
+                            contentInsets.getSystemWindowInsetLeft(),
+                            contentInsets.getSystemWindowInsetTop(),
+                            Math.max(0, contentInsets.getSystemWindowInsetRight()
+                                    - childConsumedInset),
+                            contentInsets.getSystemWindowInsetBottom());
+                }
+            }
+        }
+
+        for (int i = 0, count = getChildCount(); i < count; ++i) {
+            View child = getChildAt(i);
+
+            if (isContentView(child)) {
+                child.dispatchApplyWindowInsets(contentInsets);
+            }
+        }
     }
 
     @Override
@@ -163,6 +210,7 @@ public class PersistentDrawerLayout extends ViewGroup {
             }
         }
 
+        updateContentViewsWindowInsets();
         measureContentViews();
     }
 
@@ -397,6 +445,7 @@ public class PersistentDrawerLayout extends ViewGroup {
             }
         } else {
             moveDrawerToOffset(drawerView, 1);
+            updateContentViewsWindowInsets();
             measureContentViews();
             layoutContentViews();
         }
@@ -444,6 +493,7 @@ public class PersistentDrawerLayout extends ViewGroup {
         } else {
             childLayoutParams.offset = 0;
             moveDrawerToOffset(drawerView, 0);
+            updateContentViewsWindowInsets();
             measureContentViews();
             layoutContentViews();
         }
@@ -563,6 +613,7 @@ public class PersistentDrawerLayout extends ViewGroup {
                         / childRange;
             }
             changedView.setVisibility(childLayoutParams.offset > 0 ? VISIBLE : INVISIBLE);
+            updateContentViewsWindowInsets();
             measureContentViews();
             layoutContentViews();
         }

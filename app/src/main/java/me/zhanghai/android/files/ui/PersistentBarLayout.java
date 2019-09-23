@@ -31,6 +31,9 @@ public class PersistentBarLayout extends ViewGroup {
     @NonNull
     private final ViewDragHelper mBottomDragger;
 
+    @Nullable
+    private WindowInsets mLastInsets;
+
     public PersistentBarLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -78,11 +81,55 @@ public class PersistentBarLayout extends ViewGroup {
                             insets.getSystemWindowInsetRight(),
                             insets.getSystemWindowInsetBottom()));
                 }
-            } else {
+            } else if (isFillView(child)) {
                 child.dispatchApplyWindowInsets(insets);
             }
         }
+        mLastInsets = insets;
+        updateContentViewsWindowInsets();
         return insets.consumeSystemWindowInsets();
+    }
+
+    private void updateContentViewsWindowInsets() {
+
+        if (mLastInsets == null) {
+            return;
+        }
+
+        WindowInsets contentInsets = mLastInsets;
+        for (int i = 0, count = getChildCount(); i < count; ++i) {
+            View child = getChildAt(i);
+
+            if (isBarView(child)) {
+                LayoutParams childLayoutParams = (LayoutParams) child.getLayoutParams();
+                int childRange = childLayoutParams.topMargin + child.getMeasuredHeight()
+                        + childLayoutParams.bottomMargin;
+                int childConsumedInset = (int) (childRange * childLayoutParams.offset);
+                if (isTopBarView(child)) {
+                    contentInsets = contentInsets.replaceSystemWindowInsets(
+                            contentInsets.getSystemWindowInsetLeft(),
+                            Math.max(0, contentInsets.getSystemWindowInsetTop()
+                                    - childConsumedInset),
+                            contentInsets.getSystemWindowInsetRight(),
+                            contentInsets.getSystemWindowInsetBottom());
+                } else {
+                    contentInsets = contentInsets.replaceSystemWindowInsets(
+                            contentInsets.getSystemWindowInsetLeft(),
+                            contentInsets.getSystemWindowInsetTop(),
+                            contentInsets.getSystemWindowInsetRight(),
+                            Math.max(0, contentInsets.getSystemWindowInsetBottom()
+                                    - childConsumedInset));
+                }
+            }
+        }
+
+        for (int i = 0, count = getChildCount(); i < count; ++i) {
+            View child = getChildAt(i);
+
+            if (isContentView(child)) {
+                child.dispatchApplyWindowInsets(contentInsets);
+            }
+        }
     }
 
     @Override
@@ -158,6 +205,7 @@ public class PersistentBarLayout extends ViewGroup {
             }
         }
 
+        updateContentViewsWindowInsets();
         measureContentViews();
     }
 
@@ -371,6 +419,7 @@ public class PersistentBarLayout extends ViewGroup {
             }
         } else {
             moveBarToOffset(barView, 1);
+            updateContentViewsWindowInsets();
             measureContentViews();
             layoutContentViews();
         }
@@ -417,6 +466,7 @@ public class PersistentBarLayout extends ViewGroup {
         } else {
             childLayoutParams.offset = 0;
             moveBarToOffset(barView, 0);
+            updateContentViewsWindowInsets();
             measureContentViews();
             layoutContentViews();
         }
@@ -534,6 +584,7 @@ public class PersistentBarLayout extends ViewGroup {
                         / childRange;
             }
             changedView.setVisibility(childLayoutParams.offset > 0 ? VISIBLE : INVISIBLE);
+            updateContentViewsWindowInsets();
             measureContentViews();
             layoutContentViews();
         }
