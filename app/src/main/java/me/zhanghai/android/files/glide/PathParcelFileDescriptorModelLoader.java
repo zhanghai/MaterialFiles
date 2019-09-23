@@ -11,6 +11,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.data.DataFetcher;
+import com.bumptech.glide.load.data.mediastore.MediaStoreUtil;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
@@ -24,27 +25,24 @@ import java8.nio.file.Path;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
-import me.zhanghai.android.files.settings.Settings;
 
 public class PathParcelFileDescriptorModelLoader
         implements ModelLoader<Path, ParcelFileDescriptor> {
 
     @Override
     public boolean handles(@NonNull Path model) {
-        if (LinuxFileSystemProvider.isLinuxPath(model)) {
-            return true;
-        } else if (DocumentFileSystemProvider.isDocumentPath(model)) {
-            return DocumentResolver.isLocal((DocumentResolver.Path) model)
-                    || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.getValue();
-        } else {
-            return false;
-        }
+        return LinuxFileSystemProvider.isLinuxPath(model)
+                || DocumentFileSystemProvider.isDocumentPath(model);
     }
 
     @Nullable
     @Override
     public LoadData<ParcelFileDescriptor> buildLoadData(@NonNull Path model, int width, int height,
                                                         @NonNull Options options) {
+        if (MediaStoreUtil.isThumbnailSize(width, height) && !GlidePathUtils.shouldLoadThumbnail(
+                model)) {
+            return null;
+        }
         return new LoadData<>(new ObjectKey(model), new Fetcher(model));
     }
 

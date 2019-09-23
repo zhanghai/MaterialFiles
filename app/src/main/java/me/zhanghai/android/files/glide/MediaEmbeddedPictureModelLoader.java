@@ -12,6 +12,7 @@ import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.Options;
 import com.bumptech.glide.load.data.DataFetcher;
+import com.bumptech.glide.load.data.mediastore.MediaStoreUtil;
 import com.bumptech.glide.load.model.ModelLoader;
 import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
@@ -26,20 +27,13 @@ import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
-import me.zhanghai.android.files.settings.Settings;
 
 public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBuffer> {
 
     @Override
     public boolean handles(@NonNull Path model) {
-        if (LinuxFileSystemProvider.isLinuxPath(model)) {
-            // Good.
-        } else if (DocumentFileSystemProvider.isDocumentPath(model)) {
-            if (!(DocumentResolver.isLocal((DocumentResolver.Path) model)
-                    || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.getValue())) {
-                return false;
-            }
-        } else {
+        if (!(LinuxFileSystemProvider.isLinuxPath(model)
+                || DocumentFileSystemProvider.isDocumentPath(model))) {
             return false;
         }
         Path fileName = model.getFileName();
@@ -54,6 +48,10 @@ public class MediaEmbeddedPictureModelLoader implements ModelLoader<Path, ByteBu
     @Override
     public LoadData<ByteBuffer> buildLoadData(@NonNull Path model, int width, int height,
                                               @NonNull Options options) {
+        if (MediaStoreUtil.isThumbnailSize(width, height) && !GlidePathUtils.shouldLoadThumbnail(
+                model)) {
+            return null;
+        }
         return new LoadData<>(new ObjectKey(model), new Fetcher(model));
     }
 
