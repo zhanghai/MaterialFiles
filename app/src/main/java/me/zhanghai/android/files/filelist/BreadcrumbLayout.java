@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -20,6 +19,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.appcompat.widget.PopupMenu;
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,7 +90,7 @@ public class BreadcrumbLayout extends HorizontalScrollView {
                 ViewUtils.getColorFromAttrRes(android.R.attr.textColorSecondary, 0, context)
         });
         int popupTheme = ViewUtils.getResIdFromAttrRes(R.attr.actionBarPopupTheme, 0, context);
-        mPopupContext = new ContextThemeWrapper(context, popupTheme);
+        mPopupContext = popupTheme != 0 ? new ContextThemeWrapper(context, popupTheme) : context;
         mItemsLayout = new LinearLayout(context);
         mItemsLayout.setPaddingRelative(getPaddingStart(), getPaddingTop(), getPaddingEnd(),
                 getPaddingBottom());
