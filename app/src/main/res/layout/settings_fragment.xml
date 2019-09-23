@@ -9,7 +9,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,10 +28,14 @@
             app:popupTheme="?actionBarPopupTheme" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <fragment
-        android:id="@+id/preference_fragment"
-        android:name="me.zhanghai.android.files.settings.SettingsPreferenceFragment"
+    <me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/preference_fragment"
+            android:name="me.zhanghai.android.files.settings.SettingsPreferenceFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

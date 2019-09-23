@@ -617,6 +617,25 @@ public class ViewUtils {
                 savedPaddingBottom);
     }
 
+    public static void setMargin(@NonNull View view, int left, int top, int right, int bottom) {
+        ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.leftMargin = left;
+        layoutParams.topMargin = top;
+        layoutParams.rightMargin = right;
+        layoutParams.bottomMargin = bottom;
+    }
+
+    public static void setMarginRelative(@NonNull View view, int start, int top, int end,
+                                         int bottom) {
+        ViewGroup.MarginLayoutParams layoutParams =
+                (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        MarginLayoutParamsCompat.setMarginStart(layoutParams, start);
+        layoutParams.topMargin = top;
+        MarginLayoutParamsCompat.setMarginEnd(layoutParams, end);
+        layoutParams.bottomMargin = bottom;
+    }
+
     public static void setMarginStart(@NonNull View view, int marginStart) {
         MarginLayoutParamsCompat.setMarginStart(
                 (ViewGroup.MarginLayoutParams) view.getLayoutParams(), marginStart);

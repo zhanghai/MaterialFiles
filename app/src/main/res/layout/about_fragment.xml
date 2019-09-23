@@ -9,7 +9,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -27,84 +28,125 @@
             app:popupTheme="?actionBarPopupTheme" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/scroll"
+    <me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/screen_edge_margin"
+            android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:divider="@drawable/transparent_divider_horizontal_16dp"
-            android:orientation="vertical"
-            android:showDividers="middle">
+            android:scrollbars="vertical">
 
-            <com.google.android.material.card.MaterialCardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardPreventCornerOverlap="false">
+                android:padding="@dimen/screen_edge_margin"
+                android:clipToPadding="false"
+                android:divider="@drawable/transparent_divider_horizontal_16dp"
+                android:orientation="vertical"
+                android:showDividers="middle">
 
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/list_vertical_padding"
-                    android:paddingBottom="@dimen/list_vertical_padding">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeight"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/large_icon_size"
-                            android:layout_height="@dimen/large_icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@mipmap/launcher_icon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_40dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/app_name"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-                    </LinearLayout>
+                    app:cardPreventCornerOverlap="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/information_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/list_vertical_padding"
+                        android:paddingBottom="@dimen/list_vertical_padding">
 
                         <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeight"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
                             android:gravity="center_vertical"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/large_icon_size"
+                                android:layout_height="@dimen/large_icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/launcher_icon" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_40dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/app_name"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:background="?selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/information_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="@string/about_version_title"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="@string/app_version"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/github"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/github_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -112,8 +154,26 @@
                                 android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="@string/about_version_title"
+                                android:text="@string/about_github_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/licenses"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/text_file_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -121,235 +181,181 @@
                                 android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
                                 android:ellipsize="end"
                                 android:maxLines="1"
-                                android:text="@string/app_version"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                                android:text="@string/about_licenses_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/privacy_policy"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/lock_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_privacy_policy_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
                         </LinearLayout>
                     </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <LinearLayout
-                        android:id="@+id/github"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/github_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_github_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/licenses"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/text_file_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_licenses_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/privacy_policy"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/lock_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_privacy_policy_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardPreventCornerOverlap="false">
-
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="@dimen/list_vertical_padding"
-                    android:paddingBottom="@dimen/list_vertical_padding">
+                    app:cardPreventCornerOverlap="false">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/list_vertical_padding"
+                        android:paddingBottom="@dimen/list_vertical_padding">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_author_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                            android:textColor="?android:textColorSecondary" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_author_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                                android:textColor="?android:textColorSecondary" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/author_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/person_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_author_name_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/author_github"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/github_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_author_github_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/author_google_plus"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/google_plus_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_author_google_plus_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/author_twitter"
+                            android:layout_width="match_parent"
+                            android:layout_height="?listPreferredItemHeightSmall"
+                            android:paddingStart="?android:listPreferredItemPaddingStart"
+                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
+                            android:background="?selectableItemBackground"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/icon_size"
+                                android:layout_height="@dimen/icon_size"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/twitter_icon_white_24dp"
+                                android:tint="?android:textColorSecondary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="@string/about_author_twitter_title"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                        </LinearLayout>
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/author_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/person_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_author_name_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/author_github"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/github_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_author_github_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/author_google_plus"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/google_plus_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_author_google_plus_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/author_twitter"
-                        android:layout_width="match_parent"
-                        android:layout_height="?listPreferredItemHeightSmall"
-                        android:paddingStart="?android:listPreferredItemPaddingStart"
-                        android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                        android:background="?selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/icon_size"
-                            android:layout_height="@dimen/icon_size"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/twitter_icon_white_24dp"
-                            android:tint="?android:textColorSecondary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="@string/about_author_twitter_title"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
