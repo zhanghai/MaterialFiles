@@ -61,7 +61,7 @@
             android:fillViewport="true"
             android:scrollbars="vertical">
 
-            <EditText
+            <me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:inputType="textMultiLine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1">
                 <requestFocus />
-            </EditText>
+            </me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText>
         </androidx.core.widget.NestedScrollView>
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

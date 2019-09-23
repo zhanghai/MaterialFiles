@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -29,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.StateData;
@@ -48,12 +48,14 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
     @BindView(R.id.error)
     TextView mErrorView;
     @BindView(R.id.text)
-    EditText mTextEdit;
+    IsRestoringInstanceStateEditText mTextEdit;
 
     @Nullable
     private MenuItem mSaveMenuItem;
 
     private TextEditorViewModel mViewModel;
+
+    private boolean mSettingText;
 
     public static void putArguments(@NonNull Intent intent, @NonNull Path path) {
         IntentPathUtils.putExtraPath(intent, path);
@@ -114,9 +116,6 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
         // TODO: Move reload-prevent here so that we can also handle save-as, etc. Or maybe just get
         //  rid of the mPathLiveData in TextEditorViewModel.
         mViewModel.setPath(mExtraPath);
-        mViewModel.getFileContentLiveData().observe(this, this::onFileContentChanged);
-        mViewModel.getTextChangedLiveData().observe(this, this::onTextChangedChanged);
-        mViewModel.getWriteFileStateLiveData().observe(this, this::onWriteFileStateChanged);
 
         mTextEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -127,9 +126,16 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                                       int count) {}
             @Override
             public void afterTextChanged(@NonNull Editable text) {
+                if (mTextEdit.isRestoringInstanceState() || mSettingText) {
+                    return;
+                }
                 mViewModel.setTextChanged(true);
             }
         });
+
+        mViewModel.getFileContentLiveData().observe(this, this::onFileContentChanged);
+        mViewModel.getTextChangedLiveData().observe(this, this::onTextChangedChanged);
+        mViewModel.getWriteFileStateLiveData().observe(this, this::onWriteFileStateChanged);
 
         // TODO: Request storage permission if not granted.
     }
@@ -193,7 +199,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                 ViewUtils.fadeIn(mProgress);
                 ViewUtils.fadeOut(mErrorView);
                 ViewUtils.fadeOut(mTextEdit);
-                //mTextEdit.setText(null);
+                //setText(null);
                 break;
             }
             case ERROR:
@@ -202,7 +208,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                 ViewUtils.fadeIn(mErrorView);
                 mErrorView.setText(fileContentData.exception.toString());
                 ViewUtils.fadeOut(mTextEdit);
-                //mTextEdit.setText(null);
+                //setText(null);
                 break;
             case SUCCESS:
                 ViewUtils.fadeOut(mProgress);
@@ -210,13 +216,19 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                 ViewUtils.fadeIn(mTextEdit);
                 if (!mViewModel.isTextChanged()) {
                     // TODO: Charset.
-                    mTextEdit.setText(new String(fileContentData.data));
-                    mViewModel.setTextChanged(false);
+                    setText(new String(fileContentData.data));
                 }
                 break;
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    private void setText(@Nullable String text) {
+        mSettingText = true;
+        mTextEdit.setText(text);
+        mSettingText = false;
+        mViewModel.setTextChanged(false);
     }
 
     private void onTextChangedChanged(boolean changed) {
