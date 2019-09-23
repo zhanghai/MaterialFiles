@@ -64,7 +64,6 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:scrollIndicators="top|bottom"
-            android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical" />
     </FrameLayout>
 

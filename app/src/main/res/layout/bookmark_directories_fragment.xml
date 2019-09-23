@@ -46,7 +46,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical" />
 
         <!-- Additional layout to receive window insets as margin. -->
