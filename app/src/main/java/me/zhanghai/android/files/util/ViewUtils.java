@@ -207,12 +207,12 @@ public class ViewUtils {
 
     public static int getColorFromAttrRes(@AttrRes int attrRes, int defaultValue,
                                           @NonNull Context context) {
-        TypedArray a = context.obtainStyledAttributes(new int[] { attrRes });
-        try {
-            return a.getColor(0, defaultValue);
-        } finally {
-            a.recycle();
+        // If attrRes points to a color state list, we need to use the compat parsing.
+        ColorStateList colorStateList = getColorStateListFromAttrRes(attrRes, context);
+        if (colorStateList == null) {
+            return defaultValue;
         }
+        return colorStateList.getDefaultColor();
     }
 
     @Nullable
