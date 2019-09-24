@@ -462,9 +462,6 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                             !Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.getValue());
                 }
                 return true;
-            case R.id.action_search:
-                // TODO
-                return true;
             case R.id.action_sort_by_name:
                 mViewModel.setSortBy(FileSortOptions.By.NAME);
                 return true;
