@@ -63,12 +63,20 @@ public class ForegroundHelper {
 
         TintTypedArray a = TintTypedArray.obtainStyledAttributes(context, attrs, STYLEABLE,
                 defStyleAttr, defStyleRes);
-        setSupportForeground(a.getDrawable(STYLEABLE_ANDROID_FOREGROUND));
-        setSupportForegroundGravity(a.getInt(STYLEABLE_ANDROID_FOREGROUND_GRAVITY,
-                Gravity.NO_GRAVITY));
-        setSupportForegroundTintMode(MoreDrawableCompat.parseTintMode(a.getInt(
-                STYLEABLE_ANDROID_FOREGROUND_TINT_MODE, -1), null));
-        setSupportForegroundTintList(a.getColorStateList(STYLEABLE_ANDROID_FOREGROUND_TINT));
+        if (a.hasValue(STYLEABLE_ANDROID_FOREGROUND)) {
+            setSupportForeground(a.getDrawable(STYLEABLE_ANDROID_FOREGROUND));
+        }
+        if (a.hasValue(STYLEABLE_ANDROID_FOREGROUND_GRAVITY)) {
+            setSupportForegroundGravity(a.getInt(STYLEABLE_ANDROID_FOREGROUND_GRAVITY,
+                    Gravity.NO_GRAVITY));
+        }
+        if (a.hasValue(STYLEABLE_ANDROID_FOREGROUND_TINT_MODE)) {
+            setSupportForegroundTintMode(MoreDrawableCompat.parseTintMode(a.getInt(
+                    STYLEABLE_ANDROID_FOREGROUND_TINT_MODE, -1), null));
+        }
+        if (a.hasValue(STYLEABLE_ANDROID_FOREGROUND_TINT)) {
+            setSupportForegroundTintList(a.getColorStateList(STYLEABLE_ANDROID_FOREGROUND_TINT));
+        }
         //if (a.hasValue(STYLEABLE_ANDROID_FOREGROUND_INSIDE_PADDING)) {
         //    if (mForegroundInfo == null) {
         //        mForegroundInfo = new ForegroundInfo();
