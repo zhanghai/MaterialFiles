@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.about;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -28,6 +29,9 @@ public class AboutFragment extends Fragment {
 
     private static final Uri GITHUB_URI = Uri.parse(
             "https://github.com/zhanghai/MaterialFiles");
+
+    private static final Uri LICENSES_URI = Uri.parse("https://github.com/zhanghai/MaterialFiles"
+            + "/blob/master/app/src/main/res/raw/licenses.xml");
 
     private static final Uri PRIVACY_POLICY_URI = Uri.parse(
             "https://github.com/zhanghai/MaterialFiles/blob/master/PRIVACY.md");
@@ -99,7 +103,14 @@ public class AboutFragment extends Fragment {
 
         mGitHubLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 GITHUB_URI), this));
-        mLicensesLayout.setOnClickListener(view -> LicensesDialogFragment.show(this));
+        mLicensesLayout.setOnClickListener(view -> {
+            // @see https://github.com/zhanghai/MaterialFiles/issues/161
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                LicensesDialogFragment.show(this);
+            } else {
+                AppUtils.startActivity(IntentUtils.makeView(LICENSES_URI), this);
+            }
+        });
         mPrivacyPolicyLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
                 PRIVACY_POLICY_URI), this));
         mAuthorNameLayout.setOnClickListener(view -> AppUtils.startActivity(IntentUtils.makeView(
