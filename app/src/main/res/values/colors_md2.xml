@@ -7,8 +7,12 @@
 
 <resources>
 
-    <color name="system_window_scrim_md2_light">#99FFFFFF</color>
-    <color name="system_window_scrim_md2_dark">#52000000</color>
+    <color name="status_bar_background_md2_compat_light">#BBBBBB</color>
+    <color name="status_bar_background_md2_compat_dark">@color/color_surface_md2_dark</color>
+    <color name="status_bar_background_md2_compat_daynight">@color/status_bar_background_md2_compat_light</color>
+
+    <color name="system_window_scrim_md2_light">@color/system_window_scrim</color>
+    <color name="system_window_scrim_md2_dark">@color/system_window_scrim</color>
     <color name="system_window_scrim_md2_daynight">@color/system_window_scrim_md2_light</color>
 
     <color name="color_primary_md2_light">@color/google_blue_500</color>

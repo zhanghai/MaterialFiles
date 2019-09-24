@@ -7,6 +7,8 @@
 
 <resources>
 
+    <color name="status_bar_background_md2_compat_daynight">@color/status_bar_background_md2_compat_dark</color>
+
     <color name="system_window_scrim_md2_daynight">@color/system_window_scrim_md2_dark</color>
 
     <color name="color_primary_md2_daynight">@color/color_primary_md2_dark</color>

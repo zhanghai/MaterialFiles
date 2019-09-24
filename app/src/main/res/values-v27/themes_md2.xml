@@ -7,12 +7,11 @@
 
 <resources>
 
-    <style name="Platform.V27.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2">
+    <style name="Platform.V27.Theme.MaterialFiles.Md2" parent="Platform.V23.Theme.MaterialFiles.Md2">
         <item name="android:navigationBarColor">?colorSystemWindowScrim</item>
         <!-- We need to override here or the value in v27/themes.xml will somehow stick around. -->
         <item name="android:navigationBarDividerColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar">?isLightTheme</item>
-        <item name="android:windowLightStatusBar">?isLightTheme</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V27.Theme.MaterialFiles.Md2" />
 </resources>

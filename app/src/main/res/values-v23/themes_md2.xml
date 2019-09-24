@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <style name="Platform.V23.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2">
+        <item name="colorPrimaryDark">?colorSurface</item>
+        <item name="android:windowLightStatusBar">?isLightTheme</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V23.Theme.MaterialFiles.Md2" />
+</resources>

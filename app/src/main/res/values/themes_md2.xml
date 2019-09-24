@@ -31,12 +31,13 @@
         <item name="searchViewStyle">@style/Widget.AppCompat.SearchView.ActionBar</item>
     </style>
 
-    <style name="Platform.V21.Theme.MaterialFiles.Md2" parent="Theme.MaterialComponents.DayNight" />
+    <style name="Platform.V21.Theme.MaterialFiles.Md2" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimaryDark">@color/status_bar_background_md2_compat_daynight</item>
+    </style>
     <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2" />
     <style name="Base.Theme.MaterialFiles.Md2" parent="Platform.Theme.MaterialFiles.Md2">
 
         <item name="android:colorBackground">?colorSurface</item>
-        <item name="colorPrimaryDark">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.Material.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
