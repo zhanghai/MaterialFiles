@@ -225,5 +225,10 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
+
+        <!-- We need to reference a MD2 theme in XML for R8 to keep relevant resources. -->
+        <activity
+            android:name=".KeepMd2Resources"
+            android:theme="@style/Theme.MaterialFiles.Md2" />
     </application>
 </manifest>
