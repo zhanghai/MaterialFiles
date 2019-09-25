@@ -59,7 +59,7 @@
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2_daynight</item>
-        <item name="appBarLiftOnScroll">true</item>
+        <item name="appBarLiftOnScroll">@bool/app_bar_lift_on_scroll_md2</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
         <item name="textButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
         <item name="textButtonHorizontalPaddingNegative">-8dp</item>
@@ -120,7 +120,7 @@
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim_md2_dark</item>
-        <item name="appBarLiftOnScroll">true</item>
+        <item name="appBarLiftOnScroll">@bool/app_bar_lift_on_scroll_md2</item>
         <item name="dividerVisibility">@integer/visibility_gone</item>
         <item name="textButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
         <item name="textButtonHorizontalPaddingNegative">-8dp</item>
