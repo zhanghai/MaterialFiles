@@ -20,6 +20,7 @@ public class RemoteInterfaceHolder<I extends IInterface> {
     @NonNull
     private final Object mRemoteInterfaceLock = new Object();
 
+    @NonNull
     private final IBinder.DeathRecipient mBinderDied = this::binderDied;
 
     public RemoteInterfaceHolder(@NonNull Getter<I> getter) {
@@ -50,6 +51,7 @@ public class RemoteInterfaceHolder<I extends IInterface> {
 
     private void binderDied() {
         synchronized (mRemoteInterfaceLock) {
+            mRemoteInterface.asBinder().unlinkToDeath(mBinderDied, 0);
             mRemoteInterface = null;
         }
     }
