@@ -29,6 +29,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.provider.common.PosixFileStore;
 import me.zhanghai.android.files.util.BundleBuilder;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.StateData;
 import me.zhanghai.android.files.util.ToastUtils;
@@ -116,12 +117,12 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
         Bundle arguments = getArguments();
         mTitle = arguments.getCharSequence(EXTRA_TITLE);
         mMessage = arguments.getCharSequence(EXTRA_MESSAGE);
-        mReadOnlyFileStore = arguments.getParcelable(EXTRA_READ_ONLY_FILE_STORE);
+        mReadOnlyFileStore = BundleUtils.getParcelable(arguments, EXTRA_READ_ONLY_FILE_STORE);
         mShowAll = arguments.getBoolean(EXTRA_SHOW_ALL);
         mPositiveButtonText = arguments.getCharSequence(EXTRA_POSITIVE_BUTTON_TEXT);
         mNegativeButtonText = arguments.getCharSequence(EXTRA_NEGATIVE_BUTTON_TEXT);
         mNeutralButtonText = arguments.getCharSequence(EXTRA_NEUTRAL_BUTTON_TEXT);
-        mListener = arguments.getParcelable(EXTRA_LISTENER);
+        mListener = BundleUtils.getParcelable(arguments, EXTRA_LISTENER);
     }
 
     @Override

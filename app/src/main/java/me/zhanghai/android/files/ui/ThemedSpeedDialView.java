@@ -18,6 +18,7 @@ import com.leinardi.android.speeddial.SpeedDialView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
 public class ThemedSpeedDialView extends SpeedDialView {
@@ -65,7 +66,8 @@ public class ThemedSpeedDialView extends SpeedDialView {
     @Nullable
     @Override
     protected Parcelable onSaveInstanceState() {
-        Parcelable superState = ((Bundle) super.onSaveInstanceState()).getParcelable("superState");
+        Parcelable superState = BundleUtils.getParcelable((Bundle) super.onSaveInstanceState(),
+                "superState");
         SavedState savedState = new SavedState(superState);
         savedState.open = isOpen();
         return savedState;

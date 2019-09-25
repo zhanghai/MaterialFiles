@@ -30,6 +30,7 @@ import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment;
 import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment;
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -71,7 +72,7 @@ public class FilePropertiesDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraFile = BundleUtils.getParcelable(getArguments(), EXTRA_FILE);
     }
 
     @NonNull

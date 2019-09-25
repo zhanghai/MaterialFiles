@@ -28,6 +28,7 @@ import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.filelist.FileListActivity;
 import me.zhanghai.android.files.filelist.FileUtils;
 import me.zhanghai.android.files.settings.Settings;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -78,7 +79,8 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraBookmarkDirectory = getArguments().getParcelable(EXTRA_BOOKMARK_DIRECTORY);
+        mExtraBookmarkDirectory = BundleUtils.getParcelable(getArguments(),
+                EXTRA_BOOKMARK_DIRECTORY);
     }
 
     @NonNull
@@ -95,7 +97,7 @@ public class EditBookmarkDirectoryDialogFragment extends AppCompatDialogFragment
             mNameEdit.setSelection(0, name.length());
             mPath = mExtraBookmarkDirectory.getPath();
         } else {
-            mPath = savedInstanceState.getParcelable(STATE_PATH);
+            mPath = BundleUtils.getParcelable(savedInstanceState, STATE_PATH);
         }
         updatePathButton();
         mPathText.setOnClickListener(view -> {

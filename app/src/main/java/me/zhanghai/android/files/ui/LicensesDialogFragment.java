@@ -18,6 +18,7 @@ import de.psdev.licensesdialog.model.Notice;
 import de.psdev.licensesdialog.model.Notices;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.settings.Settings;
+import me.zhanghai.android.files.util.BundleUtils;
 
 public class LicensesDialogFragment extends AppCompatDialogFragment {
 
@@ -49,7 +50,7 @@ public class LicensesDialogFragment extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            mNotices = savedInstanceState.getParcelable(STATE_NOTICES);
+            mNotices = BundleUtils.getParcelable(savedInstanceState, STATE_NOTICES);
         } else {
             try {
                 mNotices = NoticesXmlParser.parse(requireContext().getResources().openRawResource(

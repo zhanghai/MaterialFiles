@@ -35,6 +35,7 @@ import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.ui.DropDownView;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.ViewUtils;
 
@@ -128,7 +129,7 @@ public class SetModeDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraFile = BundleUtils.getParcelable(getArguments(), EXTRA_FILE);
     }
 
     @NonNull

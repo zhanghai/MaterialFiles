@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class ConfirmDeleteDialogFragment extends AppCompatDialogFragment {
@@ -50,7 +51,7 @@ public class ConfirmDeleteDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
+        mExtraPath = BundleUtils.getParcelable(getArguments(), EXTRA_PATH);
     }
 
     @NonNull

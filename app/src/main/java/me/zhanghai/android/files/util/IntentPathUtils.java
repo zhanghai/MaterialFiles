@@ -79,7 +79,8 @@ public class IntentPathUtils {
             }
         }
 
-        Uri extraInitialUri = intent.getParcelableExtra(DocumentsContract.EXTRA_INITIAL_URI);
+        Uri extraInitialUri = BundleUtils.getParcelableExtra(intent,
+                DocumentsContract.EXTRA_INITIAL_URI);
         // TODO: Support DocumentsProvider Uri?
         if (extraInitialUri != null && Objects.equals(extraInitialUri.getScheme(), "file")) {
             String path = extraInitialUri.getPath();

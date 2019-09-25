@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import java8.nio.file.Path;
 import java9.util.function.Consumer;
 import me.zhanghai.android.files.util.BundleBuilder;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
 
@@ -67,6 +68,7 @@ public class ParcelablePathListConsumer implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         //noinspection unchecked
         dest.writeParcelable(new RemoteCallback(result -> mListener.accept(
-                (List<Path>) (List<?>) result.getParcelableArrayList(KEY_PATH_LIST))), flags);
+                (List<Path>) (List<?>) BundleUtils.getParcelableArrayList(result, KEY_PATH_LIST))),
+                flags);
     }
 }

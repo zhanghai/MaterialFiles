@@ -32,6 +32,7 @@ import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.provider.common.PosixFileAttributes;
 import me.zhanghai.android.files.provider.common.PosixPrincipal;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.SelectionLiveData;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -73,7 +74,7 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraFile = getArguments().getParcelable(EXTRA_FILE);
+        mExtraFile = BundleUtils.getParcelable(getArguments(), EXTRA_FILE);
     }
 
     @NonNull

@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.StateData;
@@ -79,7 +80,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
+        mIntent = BundleUtils.getParcelable(getArguments(), Intent.EXTRA_INTENT);
         mExtraPath = IntentPathUtils.getExtraPath(mIntent, true);
 
         setHasOptionsMenu(true);

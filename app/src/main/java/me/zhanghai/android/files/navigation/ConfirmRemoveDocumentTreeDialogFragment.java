@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.navigation.file.DocumentTree;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 
 public class ConfirmRemoveDocumentTreeDialogFragment extends AppCompatDialogFragment {
@@ -52,7 +53,7 @@ public class ConfirmRemoveDocumentTreeDialogFragment extends AppCompatDialogFrag
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraTreeUri = getArguments().getParcelable(EXTRA_TREE_URI);
+        mExtraTreeUri = BundleUtils.getParcelable(getArguments(), EXTRA_TREE_URI);
     }
 
     @NonNull

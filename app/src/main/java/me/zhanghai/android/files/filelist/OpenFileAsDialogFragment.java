@@ -25,6 +25,7 @@ import me.zhanghai.android.files.compat.AlertDialogBuilderCompat;
 import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.util.AppUtils;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
 import me.zhanghai.android.files.util.ListBuilder;
@@ -71,7 +72,7 @@ public class OpenFileAsDialogFragment extends AppCompatDialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mExtraPath = getArguments().getParcelable(EXTRA_PATH);
+        mExtraPath = BundleUtils.getParcelable(getArguments(), EXTRA_PATH);
     }
 
     @NonNull

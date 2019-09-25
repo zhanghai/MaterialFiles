@@ -79,6 +79,7 @@ import me.zhanghai.android.files.ui.PersistentBarLayoutToolbarActionMode;
 import me.zhanghai.android.files.ui.PersistentDrawerLayout;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.ClipboardUtils;
 import me.zhanghai.android.files.util.CollectionUtils;
 import me.zhanghai.android.files.util.DebouncedRunnable;
@@ -212,7 +213,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
+        mIntent = BundleUtils.getParcelable(getArguments(), Intent.EXTRA_INTENT);
         mExtraPath = IntentPathUtils.getExtraPath(mIntent);
 
         setHasOptionsMenu(true);

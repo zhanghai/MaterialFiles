@@ -49,6 +49,7 @@ import me.zhanghai.android.files.filelist.FileListAdapter;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.util.BundleBuilder;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.ImeUtils;
 import me.zhanghai.android.files.util.RemoteCallback;
 import me.zhanghai.android.files.util.ViewUtils;
@@ -129,10 +130,10 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
         super.onCreate(savedInstanceState);
 
         Bundle arguments = getArguments();
-        mSourceFile = arguments.getParcelable(EXTRA_SOURCE_FILE);
-        mTargetFile = arguments.getParcelable(EXTRA_TARGET_FILE);
+        mSourceFile = BundleUtils.getParcelable(arguments, EXTRA_SOURCE_FILE);
+        mTargetFile = BundleUtils.getParcelable(arguments, EXTRA_TARGET_FILE);
         mType = (FileJobs.Base.CopyMoveType) arguments.getSerializable(EXTRA_TYPE);
-        mListener = arguments.getParcelable(EXTRA_LISTENER);
+        mListener = BundleUtils.getParcelable(arguments, EXTRA_LISTENER);
     }
 
     @Override

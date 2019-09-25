@@ -37,6 +37,7 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FileProvider;
 import me.zhanghai.android.files.ui.ViewPagerTransformers;
 import me.zhanghai.android.files.util.AppUtils;
+import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
@@ -92,7 +93,7 @@ public class ImageViewerFragment extends Fragment implements ConfirmDeleteDialog
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mIntent = getArguments().getParcelable(Intent.EXTRA_INTENT);
+        mIntent = BundleUtils.getParcelable(getArguments(), Intent.EXTRA_INTENT);
         mExtraPaths = IntentPathUtils.getExtraPathList(mIntent, true);
         mExtraPosition = mIntent.getIntExtra(EXTRA_POSITION, 0);
 
@@ -121,8 +122,8 @@ public class ImageViewerFragment extends Fragment implements ConfirmDeleteDialog
             mPaths = new ArrayList<>(mExtraPaths);
         } else {
             //noinspection unchecked
-            mPaths = (ArrayList<Path>) (ArrayList<?>) savedInstanceState.getParcelableArrayList(
-                    STATE_PATHS);
+            mPaths = (ArrayList<Path>) (ArrayList<?>) BundleUtils.getParcelableArrayList(
+                    savedInstanceState, STATE_PATHS);
         }
         if (mPaths.isEmpty()) {
             // TODO: Show a toast.
