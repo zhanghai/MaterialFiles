@@ -7,5 +7,5 @@
 
 <resources>
 
-    <bool name="app_bar_lift_on_scroll_md2">false</bool>
+    <bool name="file_list_app_bar_lift_on_scroll_md2">false</bool>
 </resources>
