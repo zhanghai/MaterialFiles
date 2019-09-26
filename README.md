@@ -16,9 +16,10 @@ Download: [Google Play](https://play.google.com/store/apps/details?id=me.zhangha
 ## Features
 
 - Open source: Lightweight, clean and secure.
-- Material Design: Like the good old [Cabinet](https://github.com/aminb/cabinet), with attention into details.
+- Material Design: Like the good old [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/), with attention into details.
 - Breadcrumbs: Navigate in the filesystem with ease.
 - Root support: View and manage files with root access.
+- Archive support: View, extract and create common compressed files.
 - Themes: Customizable UI colors and night mode.
 - Linux-aware: Like [Nautilus](https://wiki.gnome.org/action/show/Apps/Files), knows symbolic links, file permissions and SELinux context.
 - Robust: Uses Linux system calls under the hood, not yet another [`ls` parser](https://news.ycombinator.com/item?id=7994720).
@@ -28,33 +29,21 @@ Download: [Google Play](https://play.google.com/store/apps/details?id=me.zhangha
 
 Because I like Material Design, and clean Material Design.
 
-- [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) is dead, and broken on newer Android versions,
-- [Amaze File Manager](https://play.google.com/store/apps/details?id=com.amaze.filemanager) doesn't have breadcrumb navigation.
-- [Solid Explorer](https://play.google.com/store/apps/details?id=pl.solidexplorer2) has a strange dark ripple effect.
-- [Root Explorer](https://play.google.com/store/apps/details?id=com.speedsoftware.rootexplorer) feels like a hybrid of Holo and Material Design.
-- [MiXplorer](https://play.google.com/store/apps/details?id=com.mixplorer.silver), while being super powerful, just isn't really Material Design.
-
-Even among the apps with Material Design, they (more or less) have various minor design issues (about layout, alignment, padding, icon, font, etc) across the app which makes me uncomfortable, while still being minor enough so that not everybody would care to fix it. So I had to create my own.
+There are already a handful of powerful file managers, but most of them just isn't Material Design. And even among the ones with Material Design, they usually have various minor design flaws (layout, alignment, padding, icon, font, etc) across the app which makes me uncomfortable, while still being minor enough so that not everybody would care to fix it. So I had to create my own.
 
 Because I want an open source file manager.
 
-[Solid Explorer](https://play.google.com/store/apps/details?id=pl.solidexplorer2), [Root Explorer](https://play.google.com/store/apps/details?id=com.speedsoftware.rootexplorer) and [MiXplorer](https://play.google.com/store/apps/details?id=com.mixplorer.silver) are all powerful and feature-rich file managers, but just, closed source.
-
-I sometimes use file managers to view and modify files that require root access, but deep down inside, I just feel uneasy with giving any closed source app root access to my device. After all, that means giving literally full access to my device, which stays with me every day and stores my own information, and what apps do with such access merely depends on their good intent.
+Most of the popular and reliable file managers are just closed source, and I sometimes use them to view and modify files that require root access. But deep down inside, I just feel uneasy with giving any closed source app the root access to my device. After all, that means giving literally full access to my device, which stays with me every day and stores my own information, and what apps do with such access merely depends on their good intent.
 
 Because I want a file manager that is implemented the right way.
 
-Before I started working on this project, I investigated the existing open source apps, mainly [source code](https://github.com/aminb/cabinet) of the abandoned [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) and [source code](https://github.com/TeamAmaze/AmazeFileManager) of [Amaze File Manager](https://play.google.com/store/apps/details?id=com.amaze.filemanager).
+- This app implemented [Java NIO2 File API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html) as its backend, instead of inventing a custom model for file information/operations, which often gets coupled with UI logic and grows into a mixture of everything ([example](https://github.com/TeamAmaze/AmazeFileManager/blob/master/app/src/main/java/com/amaze/filemanager/filesystem/HybridFile.java)). On the contrary, a decoupled backend allows cleaner code (which means less bugs), and easier addition of support for other file systems.
 
-- They both built their custom models for file information ([cabinet/File.java](https://github.com/aminb/cabinet/blob/master/app/src/main/java/com/afollestad/cabinet/file/base/File.java), [AmazeFileManager/HybridFile.java](https://github.com/TeamAmaze/AmazeFileManager/blob/master/app/src/main/java/com/amaze/filemanager/filesystem/HybridFile.java)), and mixed the path of a file with the information about a file together. Such way of abstraction might be in good shape in the beginning, but then it grows over time and eventually becomes a terrible mixture of everything.
+- This app doesn't use `java.io.File` or parse the output of `ls`, but built bindings to Linux syscalls to properly access the file system. `java.io.File` is an old API missing many features, and just can't handle things like symbolic links correctly, which is the reason why many people rather parse `ls` instead. However parsing the output `ls` is not only slow, but also [unreliable](https://news.ycombinator.com/item?id=7994720), which made [Cabinet](https://github.com/aminb/cabinet/blob/master/app/src/main/java/com/afollestad/cabinet/file/root/LsParser.java) broken on newer Android versions. By virtue of using Linux syscalls, this app is able to be fast and smooth, and handle advanced things like Linux permissions, symbolic links and even SELinux context. It can also handle file names with invalid UTF-8 encoding because paths are not naively stored as Java `String`s, which most file managers does and fails during file operation.
 
-    On the contrary, Java 8 has came with the [NIO2 file API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html), a (comparatively) well designed abstraction for files, which is able to accommodate the similarities and differences of filesystems across Linux, Windows and macOS, and clearly separates the concept of a `Path` and how to get information about the file for that path (`FileSystemProvider`).
+- This app built its frontend upon modern `ViewModel` and `LiveData` which enables a clear code structure and support for rotation. It also properly handles things like errors during file operation, file conflicts and foreground/background state.
 
-- They are both parsing the output of `ls` ([cabinet/LsParser.java](https://github.com/aminb/cabinet/blob/master/app/src/main/java/com/afollestad/cabinet/file/root/LsParser.java), [AmazeFileManager/RootHelper.java](https://github.com/TeamAmaze/AmazeFileManager/blob/818e6f70b68f1d8df4d615b9f629ed5bc69e791d/app/src/main/java/com/amaze/filemanager/filesystem/RootHelper.java#L296)). A proper file manager should [never parse the output of `ls`](https://news.ycombinator.com/item?id=7994720), because there is just no reliable way to determine which part of that output is a file name, and if there's ever a file with an unexpected name, the app might crash or surprise user in even more unexpected ways. Moreover, parsing `ls` requires launching a whole new process every time, which noticeably slows down the loading time. And even if the app uses the old Java `File` API when possible, its symbolic link handling just won't let a file manager implement file operations correctly.
-
-    The proper solution to this is to use the Linux system calls, because Android is built upon Linux, uses the file system mechanism of Linux, and file managers should be Linux-aware. Only by using the system calls directly instead of a fragile or limited intermediate, will file managers be able to handle file names, symbolic links, ownership and permissions correctly.
-
-- Their source code, organization or quality, just isn't in my own personal flavor to work on to build the best file manager for Android.
+In a word, this app tries to follow the best practices on Android and do the right thing, while keeping its source code clean and maintainable.
 
 Because I know people can do it right.
 

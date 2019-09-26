@@ -17,6 +17,7 @@
 - Material Design：仿照 [Cabinet](https://github.com/aminb/cabinet)，并且注重细节。
 - 面包屑导航栏：点击导航栏所显示路径中的任一文件夹即可快速访问。
 - Root 支持：使用 root 权限查看和管理文件。
+- 压缩文件支持：查看、提取和创建常见的压缩文件。
 - 主题：可定制的界面颜色和夜间模式。
 - Linux 友好：类似 [Nautilus](https://wiki.gnome.org/action/show/Apps/Files)，支持符号链接、文件权限和 SELinux 上下文。
 - 健壮性：使用 Linux 系统调用实现，而不是另一个 [`ls` 解析器](https://news.ycombinator.com/item?id=7994720)。
@@ -26,39 +27,27 @@
 
 因为喜爱 Material Design，并且是整洁、精致的 Material Design。
 
-- [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) 已经不再更新了，并且在新的 Android 系统版本上无法使用。
-- [Amaze File Manager](https://play.google.com/store/apps/details?id=com.amaze.filemanager) 并不支持面包屑导航栏。
-- [Solid Explorer](https://play.google.com/store/apps/details?id=pl.solidexplorer2) 的波纹效果黑得奇怪。
-- [Root Explorer](https://play.google.com/store/apps/details?id=com.speedsoftware.rootexplorer) 感觉有些像是某种 Holo 和 Material Design 的混合产物。
-- [MiXplorer](https://play.google.com/store/apps/details?id=com.mixplorer.silver) 尽管十分强大，并不是十分 Material Design。
-
-即使在算是 Material Design 的应用之中，它们（或多或少）有各种各样的设计瑕疵（关于布局、对齐、留白、边距、图标、字体等等）存在于应用的各个角落，让人难受，然而却又不是特别大的问题以至于可能没人会因此去特意改善。所以还是需要自己编写。
+市面上已经有了许多强大的文件管理器，但它们中的大多数并非 Material Design。而即使在算是 Material Design 的应用之中，它们（或多或少）有着各种设计瑕疵（布局、对齐、留白、图标、字体等等）存在于应用的各个角落，让人难受；然而却又不是特别大的问题，以至于可能没人愿意特意改善。所以还是需要自己编写。
 
 因为想要一个开源的文件管理器。
 
-[Solid Explorer](https://play.google.com/store/apps/details?id=pl.solidexplorer2)、[Root Explorer](https://play.google.com/store/apps/details?id=com.speedsoftware.rootexplorer) 和 [MiXplorer](https://play.google.com/store/apps/details?id=com.mixplorer.silver) 都是十分强大和功能丰富的文件管理器，但是，它们都是闭源的。
+大多数流行并且可靠的文件管理器都是闭源的，并且我有时会使用它们来查看或修改需要 root 权限的文件，但我心里对于授予 root 权限给闭源应用还是有些不安。毕竟 root 权限意味着对设备的完全访问权限，而这台设备每天跟随着我并且存储着我的个人信息；这样的话，闭源应用实际上做了哪些事情就完全仅仅取决于它们的良心了。
 
-我有时会使用文件管理器来查看或修改需要 root 权限的文件，但是心里对于授予 root 权限给闭源应用还是有些不安。毕竟 root 权限意味着对设备的完全访问权限，而这台设备每天跟随着我并且存储着我的个人信息，这样的话闭源应用实际上做了哪些事情就完全是仅仅取决于它们的良心了。
+因为想要一个正确实现的文件管理器。
 
-因为想要一个实现正确的文件管理器。
+- 这个应用实现了 [Java NIO2 文件 API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html) 作为后端，而不是发明一个自定义的机制来获取文件信息和进行文件操作。后者经常变得与前端逻辑耦合起来，最终成长为一个包含各种东西的混合物（[示例](https://github.com/TeamAmaze/AmazeFileManager/blob/master/app/src/main/java/com/amaze/filemanager/filesystem/HybridFile.java)）。相反地，一个解耦的后端可以使得代码更加干净（更少问题），并且可以更轻松地加入新文件系统的支持。
 
-我在开始编写这个项目的代码之前参考了已有的开源应用，主要是已经停止更新的 [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) 的[源代码](https://github.com/aminb/cabinet)和 [Amaze File Manager](https://play.google.com/store/apps/details?id=com.amaze.filemanager) 的[源代码](https://github.com/TeamAmaze/AmazeFileManager)。
+- 这个应用没有使用 `java.io.File` 或者解析 `ls` 的输出，而是构建了 Linux 系统调用的绑定来正确地访问文件系统。`java.io.File` 是一个陈旧并且缺少许多功能的 API，并且无法正确处理符号链接，因此许多人宁愿解析 `ls` 的输出。然而解析 `ls` 的输出不仅缓慢，而且[不可靠](https://news.ycombinator.com/item?id=7994720)，同时也正是 [Cabinet](https://github.com/aminb/cabinet/blob/master/app/src/main/java/com/afollestad/cabinet/file/root/LsParser.java) 在新版本 Android 上无法正确运行的原因。而通过使用 Linux 系统调用，这个应用可以做到快速流畅，并且能够处理例如 Linux 权限、符号链接以至于 SELinux 上下文等等高级特性。应用也可以正确地处理含有无效 UTF-8 编码的文件名，因为应用中的路径没有简单地使用 Java 的 `String` 存储，而大多数其他文件管理器却并非如此，因此无法正确地进行文件操作。
 
-- 它们都建立了自己用于描述文件信息的模型（[cabinet/File.java](https://github.com/aminb/cabinet/blob/master/app/src/main/java/com/afollestad/cabinet/file/base/File.java)、[AmazeFileManager/HybridFile.java](https://github.com/TeamAmaze/AmazeFileManager/blob/master/app/src/main/java/com/amaze/filemanager/filesystem/HybridFile.java)），并且将文件的路径本身和文件的信息混合在了一个类里面。这样的抽象方式可能在开始时还能保持有序，但在开发过程中会不断膨胀臃肿，最后不可避免地变成包好了各种文件系统实现细节的混合物。
+- 这个应用的前端是基于现代的 `ViewModel` 和 `LiveData` 实现的，使得代码结构更加清晰并且支持转屏。应用也可以正确地处理文件操作中的错误、文件冲突和前台/后台状态。
 
-    与此同时，Java 8 已经引入了 [NIO2 文件 API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html)。它是一个（相对）设计良好的文件系统抽象，能够涵盖 Linux, Windows and macOS 下各种文件系统的相同和不同之处，并且清晰地区分了路径的概念（`Path`）和获取文件信息的方式(`FileSystemProvider`)。
+总而言之，这个应用尽力遵守 Android 上的最佳实践并且做正确的事，同时保持源代码干净和可维护。
 
-- 它们都在解析 `ls` 命令的输出（[cabinet/LsParser.java](https://github.com/aminb/cabinet/blob/master/app/src/main/java/com/afollestad/cabinet/file/root/LsParser.java)、[AmazeFileManager/RootHelper.java](https://github.com/TeamAmaze/AmazeFileManager/blob/818e6f70b68f1d8df4d615b9f629ed5bc69e791d/app/src/main/java/com/amaze/filemanager/filesystem/RootHelper.java#L296)）。一个实现良好的文件管理器[根本不应该尝试解析 `ls` 的输出](https://news.ycombinator.com/item?id=7994720)，因为完全没有办法可靠地从 `ls` 的输出中找出文件名的部分，并且如果一旦有这种解析没有处理好的文件名，应用都可能崩溃甚至导致更严重的未预期行为。此外，解析 `ls` 输出的实现需要每次启动一个新的进程，这也会显著地拖慢加载时间。并且即使应用在可能时尽量使用旧的 Java `File` API，这个 API 对符号链接的处理方式也会让应用无法正确地实现复制等文件操作。
-
-    一个正确的解决方式应该是使用 Linux 系统调用。Android 是基于 Linux 并且使用着 Linux 的文件系统机制的，因此文件管理器也应该是 Linux 友好的。只有直接使用系统调用而不是通过某种脆弱或者功能有限的中介，文件管理器才能够正确地处理文件名、符号链接、文件拥有者和权限等等。
-
-- 它们的源代码，例如组织或是质量，都不太能让我喜欢到愿意在其之上继续搭建出一个 Android 上最好的文件管理器。
-
-因为这些事情可以被做好。
+因为事情可以被人做好。
 
 [Nautilus](https://wiki.gnome.org/Apps/Files) 是一个设计美观并且用户友好的 Linux 桌面上的文件管理器，并且同时做到了 Linux 友好。[Phonograph](https://github.com/kabouzeid/Phonograph) 是一个开源的 Material Design 音乐播放其应用（我自己已经使用多年），而它也有着绝佳的 Material Design 设计和实现。
 
-所以，是时候再制作一个 Android 文件管理器了。
+所以，是时候再编写一个 Android 文件管理器了。
 
 ## 许可证
 
