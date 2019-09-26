@@ -46,6 +46,7 @@ import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.file.FormatUtils;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.filelist.FileListAdapter;
+import me.zhanghai.android.files.glide.DownsampleStrategies;
 import me.zhanghai.android.files.glide.GlideApp;
 import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget;
 import me.zhanghai.android.files.util.BundleBuilder;
@@ -250,6 +251,7 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
             GlideApp.with(this)
                     .load(path)
                     .signature(new ObjectKey(attributes.lastModifiedTime()))
+                    .downsample(DownsampleStrategies.AT_MOST_CENTER_OUTSIDE)
                     .placeholder(icon)
                     .into(new IgnoreErrorDrawableImageViewTarget(iconImage));
         } else {
