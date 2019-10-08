@@ -70,10 +70,10 @@ public class DropDownView extends View {
                 R.dimen.mtrl_exposed_dropdown_menu_popup_elevation);
         MaterialShapeDrawable background = MaterialShapeDrawable.createWithElevationOverlay(context,
                 elevation);
-        float cornerRadius = resources.getDimensionPixelOffset(
+        float cornerSize = resources.getDimensionPixelOffset(
                 R.dimen.mtrl_shape_corner_size_small_component);
         ShapeAppearanceModel shapeAppearanceModel = ShapeAppearanceModel.builder()
-                .setCornerRadius(cornerRadius)
+                .setAllCornerSizes(cornerSize)
                 .build();
         background.setShapeAppearanceModel(shapeAppearanceModel);
         mPopup.setBackgroundDrawable(background);

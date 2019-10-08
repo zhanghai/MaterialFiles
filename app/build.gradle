@@ -85,14 +85,14 @@ dependencies {
     // As a replacement for commons-logging, to avoid the DuplicatePlatformClasses error due to
     // httpclient depending on commons-logging and being removed in Android 6.0.
     implementation 'org.slf4j:jcl-over-slf4j:1.7.28'
-    implementation 'com.google.android.material:material:1.1.0-alpha10'
+    implementation 'com.google.android.material:material:1.1.0-beta01'
     implementation 'com.google.firebase:firebase-core:17.2.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
-    implementation 'com.leinardi.android:speed-dial:3.1.0'
+    implementation 'com.leinardi.android:speed-dial:3.1.1'
     // If https://github.com/timusus/RecyclerView-FastScroll/pull/96 is merged and released, remove
     // the related dontwarn from proguard-rules.pro.
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.18'
