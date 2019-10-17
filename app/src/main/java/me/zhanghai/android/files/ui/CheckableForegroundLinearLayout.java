@@ -13,7 +13,7 @@ import androidx.annotation.AttrRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import me.zhanghai.android.files.foregroundcompat.ForegroundLinearLayout;
+import me.zhanghai.android.foregroundcompat.ForegroundLinearLayout;
 
 public class CheckableForegroundLinearLayout extends ForegroundLinearLayout implements Checkable {
 

@@ -28,11 +28,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.files.R;
-import me.zhanghai.android.files.foregroundcompat.ForegroundCompat;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout;
 import me.zhanghai.android.files.ui.SimpleAdapter;
 import me.zhanghai.android.files.util.ViewUtils;
+import me.zhanghai.android.foregroundcompat.ForegroundCompat;
 
 public class NavigationListAdapter extends SimpleAdapter<NavigationItem, RecyclerView.ViewHolder> {
 
