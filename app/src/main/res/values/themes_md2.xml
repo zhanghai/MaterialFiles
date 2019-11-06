@@ -29,8 +29,6 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
-        <item name="colorFastScrollSurface">?colorSecondary</item>
-        <item name="colorOnFastScrollSurface">?colorOnSecondary</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>
@@ -91,8 +89,6 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
-        <item name="colorFastScrollSurface">?colorSecondary</item>
-        <item name="colorOnFastScrollSurface">?colorOnSecondary</item>
         <item name="colorFloatingSurface">?colorSurface</item>
         <item name="colorSpeedDialSurface">?colorSurface</item>
         <item name="colorOnSpeedDialSurface">?colorControlNormal</item>

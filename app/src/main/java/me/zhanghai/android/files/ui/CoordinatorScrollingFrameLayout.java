@@ -32,8 +32,6 @@ public class CoordinatorScrollingFrameLayout extends FrameLayout
     @Nullable
     private WindowInsets mLastInsets;
 
-    private int mScrollingViewPaddingBottom = -1;
-
     public CoordinatorScrollingFrameLayout(@NonNull Context context) {
         super(context);
 
@@ -89,13 +87,14 @@ public class CoordinatorScrollingFrameLayout extends FrameLayout
                 }
             }
             if (scrollingView != null) {
-                if (mScrollingViewPaddingBottom < 0) {
-                    mScrollingViewPaddingBottom = scrollingView.getPaddingBottom();
+                if (scrollingView.getFitsSystemWindows()) {
+                    scrollingView.onApplyWindowInsets(mLastInsets);
+                } else {
+                    scrollingView.setPadding(mLastInsets.getSystemWindowInsetLeft(),
+                            scrollingView.getPaddingTop(),
+                            mLastInsets.getSystemWindowInsetRight(),
+                            mLastInsets.getSystemWindowInsetBottom());
                 }
-                scrollingView.setPadding(mLastInsets.getSystemWindowInsetLeft(),
-                        scrollingView.getPaddingTop(),
-                        mLastInsets.getSystemWindowInsetRight(),
-                        mScrollingViewPaddingBottom + mLastInsets.getSystemWindowInsetBottom());
             }
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -103,14 +102,16 @@ public class CoordinatorScrollingFrameLayout extends FrameLayout
 
     @Nullable
     private View findChildView(@NonNull View view) {
-        while (view != null) {
+        while (true) {
             ViewParent parent = view.getParent();
             if (parent == this) {
                 return view;
             }
+            if (!(parent instanceof View)) {
+                return null;
+            }
             view = (View) parent;
         }
-        return null;
     }
 
     @Nullable

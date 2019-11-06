@@ -7,8 +7,6 @@
 
 <resources>
     <attr name="colorAppBarSurface" format="color" />
-    <attr name="colorFastScrollSurface" format="color" />
-    <attr name="colorOnFastScrollSurface" format="color" />
     <attr name="colorFloatingSurface" format="color" />
     <attr name="colorSpeedDialSurface" format="color" />
     <attr name="colorOnSpeedDialSurface" format="color" />

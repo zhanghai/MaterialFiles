@@ -7,7 +7,6 @@
 
 <me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
     android:layout_width="match_parent"
@@ -52,16 +51,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/list_bottom_padding_with_fab"
             android:clipToPadding="false"
-            app:fastScrollEnableThumbInactiveColor="false"
-            app:fastScrollPopupBgColor="?colorFastScrollSurface"
-            app:fastScrollPopupTextColor="?colorOnFastScrollSurface"
-            app:fastScrollThumbColor="?colorFastScrollSurface"
+            android:fitsSystemWindows="true"
             tools:listitem="@layout/file_item" />
     </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
 </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>

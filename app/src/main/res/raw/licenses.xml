@@ -106,6 +106,13 @@
     </notice>
 
     <notice>
+        <name>AndroidFastScroll</name>
+        <url>https://github.com/zhanghai/AndroidFastScroll</url>
+        <copyright>Copyright 2019 Google LLC</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>AndroidForegroundCompat</name>
         <url>https://github.com/google/AndroidForegroundCompat</url>
         <copyright>Copyright 2019 Google LLC</copyright>

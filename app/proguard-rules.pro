@@ -61,10 +61,6 @@
 # For DexGuard only
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
-# RecyclerView FastScroll
-# https://github.com/timusus/RecyclerView-FastScroll/pull/96
--dontwarn com.simplecityapps.recyclerview_fastscroll.views.FastScrollPopup
-
 # Stetho No-op
 # This library includes the no-op for stetho-okhttp3 which requires okhttp3, but we never used it.
 -dontwarn com.facebook.stetho.okhttp3.StethoInterceptor
