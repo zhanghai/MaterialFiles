@@ -85,7 +85,9 @@ dependencies {
     // As a replacement for commons-logging, to avoid the DuplicatePlatformClasses error due to
     // httpclient depending on commons-logging and being removed in Android 6.0.
     implementation 'org.slf4j:jcl-over-slf4j:1.7.28'
-    implementation 'com.google.android.material:material:1.2.0-alpha01'
+    // 1.2.0-alpha01 breaks Design widgets in Theme.MaterialComponents.*.Bridge.
+    // https://github.com/material-components/material-components-android/issues/740
+    implementation 'com.google.android.material:material:1.1.0-beta01'
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
