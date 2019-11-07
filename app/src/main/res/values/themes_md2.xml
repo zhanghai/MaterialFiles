@@ -7,6 +7,30 @@
 
 <resources>
 
+    <!-- Overriding to add the missing searchViewStyle in Theme.MaterialComponents. -->
+    <style name="ThemeOverlay.MaterialComponents.ActionBar.Primary" parent="">
+        <item name="android:textColorPrimary">?attr/colorOnPrimary</item>
+        <item name="android:textColorSecondary">@color/material_on_primary_emphasis_medium</item>
+        <item name="actionMenuTextColor">?attr/colorOnPrimary</item>
+        <item name="colorControlNormal">?attr/colorOnPrimary</item>
+        <!-- Counteracts the effect of setting textColorPrimary for popup menus. -->
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <!-- Used to tint the ActionMode background and preserve the underline. -->
+        <item name="android:colorBackground">?attr/colorPrimary</item>
+        <item name="searchViewStyle">@style/Widget.AppCompat.SearchView.ActionBar</item>
+    </style>
+    <style name="ThemeOverlay.MaterialComponents.ActionBar.Surface" parent="">
+        <item name="android:textColorPrimary">@color/material_on_surface_emphasis_high_type</item>
+        <item name="android:textColorSecondary">@color/material_on_surface_emphasis_medium</item>
+        <item name="actionMenuTextColor">@color/material_on_surface_emphasis_medium</item>
+        <item name="colorControlNormal">@color/material_on_surface_emphasis_medium</item>
+        <!-- Counteracts the effect of setting textColorPrimary for popup menus. -->
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <!-- Used to tint the ActionMode background and preserve the underline. -->
+        <item name="android:colorBackground">?attr/colorSurface</item>
+        <item name="searchViewStyle">@style/Widget.AppCompat.SearchView.ActionBar</item>
+    </style>
+
     <style name="Platform.V21.Theme.MaterialFiles.Md2" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimaryDark">@color/status_bar_background_md2_compat_daynight</item>
     </style>
