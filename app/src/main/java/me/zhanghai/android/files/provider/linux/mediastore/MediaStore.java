@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import java8.nio.channels.FileChannel;
 import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.provider.common.DelegateFileChannel;
+import me.zhanghai.android.files.provider.root.RootUtils;
 
 /*
  * @see com.android.internal.content.FileSystemProvider
@@ -24,6 +25,9 @@ public class MediaStore {
     private MediaStore() {}
 
     public static void scan(@NonNull File file) {
+        if (RootUtils.isRunningAsRoot()) {
+            return;
+        }
         MediaScannerConnection.scanFile(AppProvider.requireContext(),
                 new String[] { file.getPath() }, null, null);
     }
@@ -31,6 +35,9 @@ public class MediaStore {
     @NonNull
     public static FileChannel newScanOnCloseFileChannel(@NonNull FileChannel fileChannel,
                                                         @NonNull File file) {
+        if (RootUtils.isRunningAsRoot()) {
+            return fileChannel;
+        }
         return new DelegateFileChannel(fileChannel) {
             @Override
             protected void implCloseChannel() throws IOException {
