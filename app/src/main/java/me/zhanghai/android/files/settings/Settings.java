@@ -14,7 +14,7 @@ import java.util.List;
 
 import java8.nio.file.Path;
 import java8.nio.file.Paths;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.compat.MoreEnvironmentCompat;
 import me.zhanghai.android.files.filelist.FileSortOptions;
@@ -103,7 +103,7 @@ public interface Settings {
     SettingLiveData<List<BookmarkDirectory>> BOOKMARK_DIRECTORIES =
             new ParcelableListSettingLiveData<>(R.string.pref_key_bookmark_directories,
                     Collections.singletonList(new BookmarkDirectory(
-                            AppApplication.getInstance().getString(
+                            AppProvider.requireContext().getString(
                                     R.string.settings_bookmark_directory_screenshots),
                             Paths.get(new File(Environment.getExternalStoragePublicDirectory(
                                     Environment.DIRECTORY_PICTURES),

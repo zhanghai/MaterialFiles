@@ -18,7 +18,7 @@ import eu.chainfire.librootjava.RootIPCReceiver;
 import eu.chainfire.librootjava.RootJava;
 import eu.chainfire.libsuperuser.Debug;
 import eu.chainfire.libsuperuser.Shell;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.BuildConfig;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -60,7 +60,7 @@ public class RootFileService extends RemoteFileService {
     private IRemoteFileService launchRemoteInterface() throws RemoteFileSystemException {
         synchronized (mLock) {
             Shell.Interactive shell = getSuShellLocked();
-            Context context = AppApplication.getInstance();
+            Context context = AppProvider.requireContext();
             RootJava.cleanupCache(context);
             CountDownLatch latch = new CountDownLatch(1);
             IRemoteFileService[] remoteInterfaceHolder = new IRemoteFileService[1];

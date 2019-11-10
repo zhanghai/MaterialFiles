@@ -12,7 +12,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.navigation.file.DocumentTree;
 
 public class DocumentTreesLiveData extends LiveData<List<Uri>> {
@@ -34,7 +34,7 @@ public class DocumentTreesLiveData extends LiveData<List<Uri>> {
     }
 
     public void loadValue() {
-        List<Uri> treeUris = DocumentTree.getPersistedTreeUris(AppApplication.getInstance());
+        List<Uri> treeUris = DocumentTree.getPersistedTreeUris(AppProvider.requireContext());
         setValue(treeUris);
     }
 }

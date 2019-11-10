@@ -21,7 +21,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="me.zhanghai.android.files.AppApplication"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/launcher_icon"
@@ -211,6 +210,11 @@
         <service android:name="me.zhanghai.android.files.filejob.FileJobService" />
 
         <service android:name="me.zhanghai.android.files.ftpserver.FtpServerService" />
+
+        <provider
+            android:name="me.zhanghai.android.files.AppProvider"
+            android:authorities="@string/app_provider_authority"
+            android:exported="false" />
 
         <provider
             android:name="me.zhanghai.android.files.file.FileProvider"

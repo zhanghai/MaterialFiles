@@ -28,7 +28,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import java8.nio.file.Path;
 import java8.nio.file.Paths;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.about.AboutActivity;
 import me.zhanghai.android.files.compat.StorageManagerCompat;
@@ -113,7 +113,7 @@ public class NavigationItems {
     private static List<NavigationItem> getRootItems() {
         List<NavigationItem> rootItems = new ArrayList<>();
         rootItems.add(new RootDirectoryRootItem());
-        StorageManager storageManager = ContextCompat.getSystemService(AppApplication.getInstance(),
+        StorageManager storageManager = ContextCompat.getSystemService(AppProvider.requireContext(),
                 StorageManager.class);
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
         Functional.map(storageVolumes, StorageVolumeRootItem::new, rootItems);
@@ -182,7 +182,7 @@ public class NavigationItems {
     @NonNull
     @Size(2)
     private static List<NavigationItem> getMenuItems() {
-        Context context = AppApplication.getInstance();
+        Context context = AppProvider.requireContext();
         return Arrays.asList(
                 new ActivityMenuItem(R.drawable.shared_directory_icon_white_24dp,
                         R.string.navigation_ftp_server, FtpServerActivity.class, context),
@@ -333,7 +333,7 @@ public class NavigationItems {
             super(DocumentFileSystemProvider.getRootPathForTreeUri(treeUri));
 
             mTreeUri = treeUri;
-            mTitle = DocumentTree.getDisplayName(mTreeUri, AppApplication.getInstance());
+            mTitle = DocumentTree.getDisplayName(mTreeUri, AppProvider.requireContext());
         }
 
         @DrawableRes

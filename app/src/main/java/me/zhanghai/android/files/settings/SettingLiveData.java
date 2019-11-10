@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.LiveData;
 import androidx.preference.PreferenceManager;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.compat.PreferenceManagerCompat;
 
 public abstract class SettingLiveData<T> extends LiveData<T>
@@ -50,7 +50,7 @@ public abstract class SettingLiveData<T> extends LiveData<T>
 
     @NonNull
     private static SharedPreferences getSharedPreferences(@Nullable String nameSuffix) {
-        Context context = AppApplication.getInstance();
+        Context context = AppProvider.requireContext();
         if (nameSuffix == null) {
             return PreferenceManager.getDefaultSharedPreferences(context);
         } else {
@@ -63,8 +63,8 @@ public abstract class SettingLiveData<T> extends LiveData<T>
 
     @NonNull
     private static String getKey(@StringRes int keyRes, @Nullable String keySuffix) {
-        Context context = AppApplication.getInstance();
-        String key = AppApplication.getInstance().getString(keyRes);
+        Context context = AppProvider.requireContext();
+        String key = AppProvider.requireContext().getString(keyRes);
         if (keySuffix != null) {
             key = key + '_' + keySuffix;
         }

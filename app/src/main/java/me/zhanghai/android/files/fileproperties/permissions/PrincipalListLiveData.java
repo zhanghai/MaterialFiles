@@ -20,7 +20,7 @@ import java.util.Set;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import java9.util.Comparators;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.compat.MapCompat;
 import me.zhanghai.android.files.util.ObjectUtils;
 import me.zhanghai.java.functional.Functional;
@@ -47,7 +47,7 @@ abstract class PrincipalListLiveData extends MutableLiveData<PrincipalListData> 
                 List<PrincipalItem> principals = getAndroidPrincipals();
                 Set<Integer> androidIds = Functional.map(principals, principal -> principal.id,
                         new HashSet<>());
-                PackageManager packageManager = AppApplication.getInstance().getPackageManager();
+                PackageManager packageManager = AppProvider.requireContext().getPackageManager();
                 List<ApplicationInfo> installedApplicationInfos =
                         packageManager.getInstalledApplications(0);
                 Map<Integer, List<ApplicationInfo>> uidApplicationInfoMap = new HashMap<>();

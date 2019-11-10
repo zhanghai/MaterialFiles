@@ -21,7 +21,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.file.MimeTypes;
 import me.zhanghai.android.files.util.IoUtils;
 
@@ -169,6 +169,6 @@ public class Resolver {
 
     @NonNull
     public static ContentResolver getContentResolver() {
-        return AppApplication.getInstance().getContentResolver();
+        return AppProvider.requireContext().getContentResolver();
     }
 }

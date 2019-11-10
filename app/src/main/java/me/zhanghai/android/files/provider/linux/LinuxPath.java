@@ -21,7 +21,7 @@ import java8.nio.file.WatchEvent;
 import java8.nio.file.WatchKey;
 import java8.nio.file.WatchService;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringBuilder;
 import me.zhanghai.android.files.provider.common.ByteStringListPath;
@@ -141,7 +141,7 @@ class LinuxPath extends ByteStringListPath<LinuxPath> implements RootablePath {
     public RootStrategy getRootStrategy() {
         RootStrategy strategy = RootablePath.super.getRootStrategy();
         if (strategy == RootStrategy.PREFER_NO && !EffortlessPermissions.hasPermissions(
-                AppApplication.getInstance(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                AppProvider.requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             return RootStrategy.NEVER;
         }
         return strategy;

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import androidx.annotation.NonNull;
 import java8.nio.channels.FileChannel;
-import me.zhanghai.android.files.AppApplication;
+import me.zhanghai.android.files.AppProvider;
 import me.zhanghai.android.files.provider.common.DelegateFileChannel;
 
 /*
@@ -24,7 +24,7 @@ public class MediaStore {
     private MediaStore() {}
 
     public static void scan(@NonNull File file) {
-        MediaScannerConnection.scanFile(AppApplication.getInstance(),
+        MediaScannerConnection.scanFile(AppProvider.requireContext(),
                 new String[] { file.getPath() }, null, null);
     }
 
