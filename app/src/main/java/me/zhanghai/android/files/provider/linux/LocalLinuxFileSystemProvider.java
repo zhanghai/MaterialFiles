@@ -7,6 +7,7 @@ package me.zhanghai.android.files.provider.linux;
 
 import android.system.OsConstants;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.URI;
@@ -43,15 +44,16 @@ import me.zhanghai.android.files.provider.common.ByteString;
 import me.zhanghai.android.files.provider.common.ByteStringPath;
 import me.zhanghai.android.files.provider.common.ByteStringUriUtils;
 import me.zhanghai.android.files.provider.common.CopyOptions;
-import me.zhanghai.android.files.provider.common.PathObservable;
-import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.LinkOptions;
 import me.zhanghai.android.files.provider.common.MoreFileChannels;
 import me.zhanghai.android.files.provider.common.OpenOptions;
+import me.zhanghai.android.files.provider.common.PathObservable;
+import me.zhanghai.android.files.provider.common.PathObservableProvider;
 import me.zhanghai.android.files.provider.common.PosixFileMode;
 import me.zhanghai.android.files.provider.common.Searchable;
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable;
 import me.zhanghai.android.files.provider.common.WatchServicePathObservable;
+import me.zhanghai.android.files.provider.linux.mediastore.MediaStore;
 import me.zhanghai.android.files.provider.linux.syscall.StructStat;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls;
@@ -156,7 +158,9 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
                 e.printStackTrace();
             }
         }
-        return fileChannel;
+        File javaFile = linuxFile.toFile();
+        MediaStore.scan(javaFile);
+        return MediaStore.newScanOnCloseFileChannel(fileChannel, javaFile);
     }
 
     @NonNull
@@ -202,6 +206,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
             e.maybeThrowInvalidFileNameException(directoryBytes.toString());
             throw e.toFileSystemException(directoryBytes.toString());
         }
+        MediaStore.scan(linuxDirectory.toFile());
     }
 
     @Override
@@ -220,6 +225,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
             e.maybeThrowInvalidFileNameException(linkBytes.toString());
             throw e.toFileSystemException(linkBytes.toString(), targetBytes.toString());
         }
+        MediaStore.scan(linuxLink.toFile());
     }
 
     @Override
@@ -234,6 +240,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
             e.maybeThrowInvalidFileNameException(newPathBytes.toString());
             throw e.toFileSystemException(newPathBytes.toString(), oldPathBytes.toString());
         }
+        MediaStore.scan(linuxLink.toFile());
     }
 
     @Override
@@ -245,6 +252,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
         } catch (SyscallException e) {
             throw e.toFileSystemException(pathBytes.toString());
         }
+        MediaStore.scan(linuxPath.toFile());
     }
 
     @NonNull
@@ -276,6 +284,7 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
         ByteString targetBytes = linuxTarget.toByteString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
         LinuxCopyMove.copy(sourceBytes, targetBytes, copyOptions);
+        MediaStore.scan(linuxTarget.toFile());
     }
 
     @Override
@@ -288,6 +297,8 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
         ByteString targetBytes = linuxTarget.toByteString();
         CopyOptions copyOptions = CopyOptions.fromArray(options);
         LinuxCopyMove.move(sourceBytes, targetBytes, copyOptions);
+        MediaStore.scan(linuxSource.toFile());
+        MediaStore.scan(linuxTarget.toFile());
     }
 
     @Override
