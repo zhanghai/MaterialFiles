@@ -23,18 +23,6 @@ public class RootUtils {
         return sRunningAsRoot;
     }
 
-    public static void requireRunningAsRoot() {
-        if (!sRunningAsRoot) {
-            throw new IllegalArgumentException("Must be running as root");
-        }
-    }
-
-    public static void requireRunningAsNonRoot() {
-        if (sRunningAsRoot) {
-            throw new IllegalArgumentException("Must be running as non-root");
-        }
-    }
-
     public static <T> void acceptRootable(@NonNull Path path, @NonNull T localObject,
                                           @NonNull T rootObject, @NonNull Consumer<T> consumer)
             throws IOException {
