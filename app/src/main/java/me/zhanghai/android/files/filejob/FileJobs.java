@@ -459,6 +459,53 @@ public class FileJobs {
                             R.plurals.file_job_move_notification_title_multiple));
         }
 
+        private void postTransferSizeNotification(@NonNull TransferInfo transferInfo,
+                                                  @NonNull Path currentSource,
+                                                  @StringRes int titleOneRes,
+                                                  @PluralsRes int titleMultipleRes) {
+            if (!transferInfo.shouldPostNotification()) {
+                return;
+            }
+            String title;
+            String text;
+            int fileCount = transferInfo.getFileCount();
+            Path target = transferInfo.getTarget();
+            long size = transferInfo.getSize();
+            long transferredSize = transferInfo.getTransferredSize();
+            if (fileCount == 1) {
+                title = getString(titleOneRes, getFileName(currentSource), getFileName(target));
+                Context context = getService();
+                String sizeString = FormatUtils.formatHumanReadableSize(size, context);
+                String transferredSizeString = FormatUtils.formatHumanReadableSize(transferredSize,
+                        context);
+                text = getString(R.string.file_job_transfer_size_notification_text_one,
+                        transferredSizeString, sizeString);
+            } else {
+                title = getQuantityString(titleMultipleRes, fileCount, fileCount, getFileName(
+                        target));
+                int currentFileIndex = Math.min(transferInfo.getTransferredFileCount() + 1,
+                        fileCount);
+                text = getString(R.string.file_job_transfer_size_notification_text_multiple,
+                        currentFileIndex, fileCount);
+            }
+            int max;
+            int progress;
+            if (size <= Integer.MAX_VALUE) {
+                max = (int) size;
+                progress = (int) transferredSize;
+            } else {
+                long maxLong = size;
+                long progressLong = transferredSize;
+                while (maxLong > Integer.MAX_VALUE) {
+                    maxLong /= 2;
+                    progressLong /= 2;
+                }
+                max = (int) maxLong;
+                progress = (int) progressLong;
+            }
+            postNotification(title, text, null, null, max, progress, false, true);
+        }
+
         protected void create(@NonNull Path path, boolean createDirectory) throws IOException {
             boolean retry;
             do {
@@ -974,13 +1021,13 @@ public class FileJobs {
             boolean retry;
             do {
                 retry = false;
-                TransferInfo transferInfo = new TransferInfo(scanInfo, null);
+                TransferInfo transferInfo = new TransferInfo(scanInfo, file);
                 try (OutputStream outputStream = MoreFiles.newOutputStream(file)) {
                     MoreFiles.copy(new ByteArrayInputStream(content), outputStream, size -> {
                         transferInfo.addToTransferredSize(size);
-                        postWriteNotification(transferInfo, file);
+                        postWriteNotification(transferInfo);
                     }, PROGRESS_INTERVAL_MILLIS);
-                    postWriteNotification(transferInfo, file);
+                    postWriteNotification(transferInfo);
                 } catch (InterruptedIOException e) {
                     throw e;
                 } catch (IOException e) {
@@ -988,7 +1035,7 @@ public class FileJobs {
                     ActionResult result = showActionDialog(
                             getString(R.string.file_job_write_error_title, getFileName(file)),
                             getString(R.string.file_job_write_error_message_format,
-                                    e.getLocalizedMessage()),
+                                    getFileName(file), e.getLocalizedMessage()),
                             getReadOnlyFileStore(file, e),
                             false,
                             getString(R.string.retry),
@@ -1011,56 +1058,23 @@ public class FileJobs {
             return true;
         }
 
-        private void postWriteNotification(@NonNull TransferInfo transferInfo,
-                                           @NonNull Path file) {
-            postTransferSizeNotification(transferInfo, file,
-                    R.string.file_job_write_notification_title, 0);
-        }
-
-        private void postTransferSizeNotification(@NonNull TransferInfo transferInfo,
-                                                  @NonNull Path currentSource,
-                                                  @StringRes int titleOneRes,
-                                                  @PluralsRes int titleMultipleRes) {
+        private void postWriteNotification(@NonNull TransferInfo transferInfo) {
             if (!transferInfo.shouldPostNotification()) {
                 return;
             }
-            String title;
-            String text;
-            int fileCount = transferInfo.getFileCount();
             Path target = transferInfo.getTarget();
+            String title = getString(R.string.file_job_write_notification_title,
+                    getFileName(target));
             long size = transferInfo.getSize();
+            Context context = getService();
+            String sizeString = FormatUtils.formatHumanReadableSize(size, context);
             long transferredSize = transferInfo.getTransferredSize();
-            if (fileCount == 1) {
-                title = getString(titleOneRes, getFileName(currentSource), getFileName(target));
-                Context context = getService();
-                String sizeString = FormatUtils.formatHumanReadableSize(size, context);
-                String transferredSizeString = FormatUtils.formatHumanReadableSize(transferredSize,
-                        context);
-                text = getString(R.string.file_job_transfer_size_notification_text_one,
-                        transferredSizeString, sizeString);
-            } else {
-                title = getQuantityString(titleMultipleRes, fileCount, fileCount, getFileName(
-                        target));
-                int currentFileIndex = Math.min(transferInfo.getTransferredFileCount() + 1,
-                        fileCount);
-                text = getString(R.string.file_job_transfer_size_notification_text_multiple,
-                        currentFileIndex, fileCount);
-            }
-            int max;
-            int progress;
-            if (size <= Integer.MAX_VALUE) {
-                max = (int) size;
-                progress = (int) transferredSize;
-            } else {
-                long maxLong = size;
-                long progressLong = transferredSize;
-                while (maxLong > Integer.MAX_VALUE) {
-                    maxLong /= 2;
-                    progressLong /= 2;
-                }
-                max = (int) maxLong;
-                progress = (int) progressLong;
-            }
+            String transferredSizeString = FormatUtils.formatHumanReadableSize(transferredSize,
+                    context);
+            String text = getString(R.string.file_job_transfer_size_notification_text_one,
+                    transferredSizeString, sizeString);
+            int max = (int) size;
+            int progress = (int) transferredSize;
             postNotification(title, text, null, null, max, progress, false, true);
         }
 

@@ -91,6 +91,8 @@
     <plurals name="file_job_move_notification_title_multiple">
         <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」</item>
     </plurals>
+    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
         <item quantity="other">正在準備刪除 %1$,d 個檔案</item>
     </plurals>
@@ -135,8 +137,6 @@
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_write_notification_title">正在寫入「%1$s」</string>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_create_error_title">建立時發生錯誤</string>
     <string name="file_job_create_error_message_format">在建立「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
