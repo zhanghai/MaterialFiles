@@ -49,6 +49,7 @@ import java8.nio.file.SimpleFileVisitor;
 import java8.nio.file.StandardCopyOption;
 import java8.nio.file.StandardOpenOption;
 import java8.nio.file.attribute.BasicFileAttributes;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.file.FileProvider;
@@ -71,6 +72,7 @@ import me.zhanghai.android.files.provider.common.PosixUser;
 import me.zhanghai.android.files.provider.common.ProgressCopyOption;
 import me.zhanghai.android.files.provider.common.ReadOnlyFileSystemException;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
+import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.BackgroundActivityStarter;
 import me.zhanghai.android.files.util.IntentPathUtils;
 import me.zhanghai.android.files.util.IntentUtils;
@@ -965,7 +967,7 @@ public class FileJobs {
             visitor.postVisitDirectory(start, exception);
         }
 
-        protected void write(@NonNull Path file, @NonNull byte[] content) throws IOException {
+        protected boolean write(@NonNull Path file, @NonNull byte[] content) throws IOException {
             ScanInfo scanInfo = new ScanInfo();
             scanInfo.incrementFileCount();
             scanInfo.addToSize(content.length);
@@ -998,9 +1000,7 @@ public class FileJobs {
                             continue;
                         case NEGATIVE:
                         case CANCELED:
-                            transferInfo.skipFileIgnoringSize();
-                            postWriteNotification(transferInfo, file);
-                            return;
+                            return false;
                         case NEUTRAL:
                             throw new InterruptedIOException();
                         default:
@@ -1008,6 +1008,7 @@ public class FileJobs {
                     }
                 }
             } while (retry);
+            return true;
         }
 
         private void postWriteNotification(@NonNull TransferInfo transferInfo,
@@ -2219,15 +2220,22 @@ public class FileJobs {
         private final Path mFile;
         @NonNull
         private final byte[] mContent;
+        @Nullable
+        private final Consumer<Boolean> mListener;
 
-        public Write(@NonNull Path file, @NonNull byte[] content) {
+        public Write(@NonNull Path file, @NonNull byte[] content,
+                     @Nullable Consumer<Boolean> listener) {
             mFile = file;
             mContent = content;
+            mListener = listener;
         }
 
         @Override
         public void run() throws IOException {
-            write(mFile, mContent);
+            boolean success = write(mFile, mContent);
+            if (mListener != null) {
+                AppUtils.runOnUiThread(() -> mListener.accept(success));
+            }
         }
     }
 }

@@ -38,7 +38,7 @@ public class StateData {
     }
 
     @NonNull
-    public static StateData ofError(@NonNull Exception exception) {
+    public static StateData ofError(@Nullable Exception exception) {
         return new StateData(State.ERROR, exception);
     }
 

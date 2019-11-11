@@ -261,7 +261,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
     private void save() {
         // TODO: Charset
         byte[] content = mTextEdit.getText().toString().getBytes();
-        mViewModel.getWriteFileStateLiveData().write(mExtraPath, content);
+        mViewModel.getWriteFileStateLiveData().write(mExtraPath, content, requireContext());
     }
 
     private void onWriteFileStateChanged(@NonNull StateData stateData) {
@@ -272,8 +272,6 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                 updateSaveMenuItem();
                 break;
             case ERROR:
-                stateData.exception.printStackTrace();
-                ToastUtils.show(stateData.exception.getLocalizedMessage(), requireContext());
                 liveData.reset();
                 break;
             case SUCCESS:

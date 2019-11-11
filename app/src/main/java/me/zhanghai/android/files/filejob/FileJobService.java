@@ -23,6 +23,7 @@ import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
+import java9.util.function.Consumer;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
 import me.zhanghai.android.files.provider.common.PosixGroup;
 import me.zhanghai.android.files.provider.common.PosixUser;
@@ -114,8 +115,8 @@ public class FileJobService extends Service {
     }
 
     public static void write(@NonNull Path file, @NonNull byte[] content,
-                             @NonNull Context context) {
-        startJob(new FileJobs.Write(file, content), context);
+                             @Nullable Consumer<Boolean> listener, @NonNull Context context) {
+        startJob(new FileJobs.Write(file, content, listener), context);
     }
 
     @MainThread

@@ -5,33 +5,20 @@
 
 package me.zhanghai.android.files.viewer.text;
 
-import android.os.AsyncTask;
-
-import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import java8.nio.file.Path;
-import java8.nio.file.StandardOpenOption;
-import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.filejob.FileJobService;
 import me.zhanghai.android.files.util.StateData;
 import me.zhanghai.android.files.util.StateLiveData;
 
 public class WriteFileStateLiveData extends StateLiveData {
 
-    public void write(@NonNull Path path, @NonNull byte[] content) {
+    public void write(@NonNull Path path, @NonNull byte[] content, @NonNull Context context) {
         checkReady();
         setValue(StateData.ofLoading());
-        AsyncTask.THREAD_POOL_EXECUTOR.execute(() -> {
-            try (OutputStream outputStream = MoreFiles.newOutputStream(path,
-                    StandardOpenOption.WRITE, StandardOpenOption.TRUNCATE_EXISTING,
-                    StandardOpenOption.CREATE)) {
-                MoreFiles.copy(new ByteArrayInputStream(content), outputStream, null, 0);
-            } catch (Exception e) {
-                postValue(StateData.ofError(e));
-                return;
-            }
-            postValue(StateData.ofSuccess());
-        });
+        FileJobService.write(path, content, success -> setValue(success ? StateData.ofSuccess()
+                : StateData.ofError(null)), context);
     }
 }
