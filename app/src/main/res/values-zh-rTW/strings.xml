@@ -91,8 +91,6 @@
     <plurals name="file_job_move_notification_title_multiple">
         <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
         <item quantity="other">正在準備刪除 %1$,d 個檔案</item>
     </plurals>
@@ -136,6 +134,9 @@
         <item quantity="other">正在還原 %1$,d 個檔案的 SELinux 上下文</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title">正在寫入「%1$s」</string>
+    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_create_error_title">建立時發生錯誤</string>
     <string name="file_job_create_error_message_format">在建立「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
@@ -176,6 +177,8 @@
     <string name="file_job_set_selinux_context_error_message_format">將 SELinux 上下文變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">還原 SELinux 上下文時發生錯誤</string>
     <string name="file_job_restore_selinux_context_error_message_format">在還原「%1$s」的 SELinux 上下文時發生錯誤。\n%2$s</string>
+    <string name="file_job_write_error_title">寫入時發生錯誤</string>
+    <string name="file_job_write_error_message_format">在寫入「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
     <string name="file_job_remount_format">重新掛接「%1$s」為讀寫模式</string>
     <string name="file_job_remount_loading_format">正在重新掛接「%1$s」為讀寫模式…</string>

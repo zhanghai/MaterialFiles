@@ -100,8 +100,6 @@
         <item quantity="one">Moving %1$,d file to “%2$s”</item>
         <item quantity="other">Moving %1$,d files to “%2$s”</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title">
         <item quantity="one">Preparing to delete %1$,d file</item>
         <item quantity="other">Preparing to delete %1$,d files</item>
@@ -157,6 +155,9 @@
         <item quantity="other">Restoring SELinux context for %1$,d files</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title">Writing “%1$s”</string>
+    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
     <string name="file_job_create_error_title">Error while creating</string>
     <string name="file_job_create_error_message_format">There was an error creating “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
@@ -197,6 +198,8 @@
     <string name="file_job_set_selinux_context_error_message_format">There was an error changing the SELinux context to “%1$s”.\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">Error while restoring SELinux context</string>
     <string name="file_job_restore_selinux_context_error_message_format">There was an error restoring the SELinux context for “%1$s”.\n%2$s</string>
+    <string name="file_job_write_error_title">Error while writing</string>
+    <string name="file_job_write_error_message_format">There was an error writing “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">There was an error getting information about “%1$s”.</string>
     <string name="file_job_remount_format">Remount “%1$s” as read-write</string>
     <string name="file_job_remount_loading_format">Remounting “%1$s” as read-write…</string>

@@ -113,6 +113,11 @@ public class FileJobService extends Service {
         startJob(new FileJobs.SetSeLinuxContext(path, seLinuxContext, recursive), context);
     }
 
+    public static void write(@NonNull Path file, @NonNull byte[] content,
+                             @NonNull Context context) {
+        startJob(new FileJobs.Write(file, content), context);
+    }
+
     @MainThread
     public static int getRunningJobCount() {
         if (sInstance == null) {
