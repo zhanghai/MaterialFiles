@@ -181,7 +181,8 @@
         <activity
             android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"
             android:label="@string/text_editor_title"
-            android:theme="@style/Theme.MaterialFiles">
+            android:theme="@style/Theme.MaterialFiles"
+            android:windowSoftInputMode="adjustResize|stateUnchanged">
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
