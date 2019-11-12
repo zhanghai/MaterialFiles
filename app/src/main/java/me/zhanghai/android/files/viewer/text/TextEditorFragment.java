@@ -18,17 +18,22 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.appbar.AppBarLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.ui.FastScrollLiftOnScrollHack;
 import me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText;
+import me.zhanghai.android.files.ui.ThemedFastScroller;
 import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
 import me.zhanghai.android.files.util.IntentPathUtils;
@@ -42,12 +47,16 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
     private Intent mIntent;
     private Path mExtraPath;
 
+    @BindView(R.id.app_bar)
+    AppBarLayout mAppBarLayout;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
     @BindView(R.id.progress)
     ProgressBar mProgress;
     @BindView(R.id.error)
     TextView mErrorView;
+    @BindView(R.id.scroll)
+    NestedScrollView mScrollView;
     @BindView(R.id.text)
     IsRestoringInstanceStateEditText mTextEdit;
 
@@ -118,6 +127,8 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
         //  rid of the mPathLiveData in TextEditorViewModel.
         mViewModel.setPath(mExtraPath);
 
+        ThemedFastScroller.create(mScrollView);
+        FastScrollLiftOnScrollHack.hack(mAppBarLayout);
         mTextEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(@NonNull CharSequence text, int start, int count,

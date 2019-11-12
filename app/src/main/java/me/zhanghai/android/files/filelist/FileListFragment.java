@@ -11,7 +11,6 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,8 +57,6 @@ import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
 import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment;
 import me.zhanghai.android.fastscroll.FastScroller;
-import me.zhanghai.android.fastscroll.FastScrollerBuilder;
-import me.zhanghai.android.fastscroll.PopupStyles;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.file.FileItem;
 import me.zhanghai.android.files.file.FileProvider;
@@ -82,6 +79,7 @@ import me.zhanghai.android.files.ui.PersistentBarLayout;
 import me.zhanghai.android.files.ui.PersistentBarLayoutToolbarActionMode;
 import me.zhanghai.android.files.ui.PersistentDrawerLayout;
 import me.zhanghai.android.files.ui.ScrollingViewOnApplyWindowInsetsListener;
+import me.zhanghai.android.files.ui.ThemedFastScroller;
 import me.zhanghai.android.files.ui.ToolbarActionMode;
 import me.zhanghai.android.files.util.AppUtils;
 import me.zhanghai.android.files.util.BundleUtils;
@@ -266,16 +264,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         mRecyclerView.setLayoutManager(new GridLayoutManager(activity, /*TODO*/ 1));
         mAdapter = new FileListAdapter(this, this);
         mRecyclerView.setAdapter(mAdapter);
-        FastScrollerBuilder fastScrollerBuilder = new FastScrollerBuilder(mRecyclerView);
-        if (Settings.MATERIAL_DESIGN_2.getValue()) {
-            fastScrollerBuilder.useMd2Style();
-        } else {
-            fastScrollerBuilder.setPopupStyle(popupText -> {
-                PopupStyles.DEFAULT.accept(popupText);
-                popupText.setTextColor(Color.WHITE);
-            });
-        }
-        FastScroller fastScroller = fastScrollerBuilder.build();
+        FastScroller fastScroller = ThemedFastScroller.create(mRecyclerView);
         mRecyclerView.setOnApplyWindowInsetsListener(new ScrollingViewOnApplyWindowInsetsListener(
                 mRecyclerView, fastScroller));
         mSpeedDialView.inflate(R.menu.file_list_speed_dial);

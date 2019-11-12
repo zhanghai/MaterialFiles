@@ -13,6 +13,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?colorAppBarSurface"
@@ -53,13 +54,12 @@
             android:visibility="gone" />
 
         <!-- TODO: Use a WebView for large amount of text. -->
-        <androidx.core.widget.NestedScrollView
+        <me.zhanghai.android.fastscroll.FastScrollNestedScrollView
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:fillViewport="true"
-            android:scrollbars="vertical">
+            android:fillViewport="true">
 
             <me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText
                 android:id="@+id/text"
@@ -73,6 +73,6 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1">
                 <requestFocus />
             </me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText>
-        </androidx.core.widget.NestedScrollView>
+        </me.zhanghai.android.fastscroll.FastScrollNestedScrollView>
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
