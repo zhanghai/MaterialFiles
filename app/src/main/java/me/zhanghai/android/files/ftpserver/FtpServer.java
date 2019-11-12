@@ -40,7 +40,7 @@ class FtpServer {
         mWritable = writable;
     }
 
-    public void start() throws FtpException {
+    public void start() throws FtpException, RuntimeException {
         FtpServerFactory serverFactory = new FtpServerFactory();
         ListenerFactory listenerFactory = new ListenerFactory();
         listenerFactory.setPort(mPort);

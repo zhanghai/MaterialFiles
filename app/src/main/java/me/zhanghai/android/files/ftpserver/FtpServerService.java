@@ -162,7 +162,7 @@ public class FtpServerService extends Service {
         mServer = new FtpServer(username, password, port, homeDirectory, writable);
         try {
             mServer.start();
-        } catch (FtpException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             mServer = null;
             AppUtils.runOnUiThread(() -> onStartError(e));
