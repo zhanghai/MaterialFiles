@@ -296,10 +296,19 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 case Intent.ACTION_OPEN_DOCUMENT:
                 case Intent.ACTION_CREATE_DOCUMENT: {
                     boolean readOnly = Objects.equals(action, Intent.ACTION_GET_CONTENT);
-                    List<String> mimeTypes = Collections.singletonList(mIntent.getType());
+                    String mimeType = mIntent.getType();
+                    if (mimeType == null) {
+                        mimeType = MimeTypes.ANY_MIME_TYPE;
+                    }
+                    List<String> mimeTypes = Collections.singletonList(mimeType);
                     String[] extraMimeTypes = mIntent.getStringArrayExtra(Intent.EXTRA_MIME_TYPES);
                     if (extraMimeTypes != null) {
-                        mimeTypes = Arrays.asList(extraMimeTypes);
+                        List<String> extraMimeTypesList = Arrays.asList(extraMimeTypes);
+                        extraMimeTypesList = Functional.filter(extraMimeTypesList,
+                                java9.util.Objects::nonNull);
+                        if (!extraMimeTypesList.isEmpty()) {
+                            mimeTypes = extraMimeTypesList;
+                        }
                     }
                     boolean localOnly = mIntent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false);
                     boolean allowMultiple = mIntent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE,
