@@ -9,6 +9,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import java.util.Random;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java8.nio.file.Path;
@@ -31,7 +33,9 @@ public class BookmarkDirectory implements Parcelable {
     }
 
     public BookmarkDirectory(@Nullable String name, @NonNull Path path) {
-        this(path.hashCode(), name, path);
+        // We cannot simply use path.hashCode() as ID because different bookmark directories may
+        // have the same path.
+        this(new Random().nextLong(), name, path);
     }
 
     public BookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory, @Nullable String name,

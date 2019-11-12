@@ -427,6 +427,13 @@ public class NavigationItems {
             mBookmarkDirectory = bookmarkDirectory;
         }
 
+        @Override
+        public long getId() {
+            // We cannot simply use super.getId() because different bookmark directories may have
+            // the same path.
+            return mBookmarkDirectory.getId();
+        }
+
         @DrawableRes
         @Override
         public int getIconRes() {
