@@ -7,6 +7,7 @@ package me.zhanghai.android.files.viewer.text;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,7 +34,6 @@ import butterknife.ButterKnife;
 import java8.nio.file.Path;
 import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.ui.FastScrollLiftOnScrollHack;
-import me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText;
 import me.zhanghai.android.files.ui.ThemedFastScroller;
 import me.zhanghai.android.files.util.BundleUtils;
 import me.zhanghai.android.files.util.FragmentUtils;
@@ -58,7 +59,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
     @BindView(R.id.scroll)
     NestedScrollView mScrollView;
     @BindView(R.id.text)
-    IsRestoringInstanceStateEditText mTextEdit;
+    EditText mTextEdit;
 
     @Nullable
     private MenuItem mSaveMenuItem;
@@ -129,6 +130,12 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
 
         ThemedFastScroller.create(mScrollView);
         FastScrollLiftOnScrollHack.hack(mAppBarLayout);
+        // Manually save and restore state in view model to avoid TransactionTooLargeException.
+        mTextEdit.setSaveEnabled(false);
+        Parcelable textEditSavedState = mViewModel.removeEditTextSavedState();
+        if (textEditSavedState != null) {
+            mTextEdit.onRestoreInstanceState(textEditSavedState);
+        }
         mTextEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(@NonNull CharSequence text, int start, int count,
@@ -138,7 +145,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
                                       int count) {}
             @Override
             public void afterTextChanged(@NonNull Editable text) {
-                if (mTextEdit.isRestoringInstanceState() || mSettingText) {
+                if (mSettingText) {
                     return;
                 }
                 mViewModel.setTextChanged(true);
@@ -150,6 +157,13 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
         mViewModel.getWriteFileStateLiveData().observe(this, this::onWriteFileStateChanged);
 
         // TODO: Request storage permission if not granted.
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        mViewModel.setEditTextSavedState(mTextEdit.onSaveInstanceState());
     }
 
     @Override

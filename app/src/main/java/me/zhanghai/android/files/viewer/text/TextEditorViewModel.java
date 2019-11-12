@@ -5,9 +5,12 @@
 
 package me.zhanghai.android.files.viewer.text;
 
+import android.os.Parcelable;
+
 import java.util.Objects;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -26,6 +29,9 @@ public class TextEditorViewModel extends ViewModel {
     private final MutableLiveData<Boolean> mTextChangedLiveData = new MutableLiveData<>(false);
 
     private final WriteFileStateLiveData mWriteFileStateLiveData = new WriteFileStateLiveData();
+
+    @Nullable
+    private Parcelable mEditTextSavedState;
 
     public void setPath(@NonNull Path path) {
         if (!Objects.equals(mPathLiveData.getValue(), path)) {
@@ -67,5 +73,16 @@ public class TextEditorViewModel extends ViewModel {
     @NonNull
     public WriteFileStateLiveData getWriteFileStateLiveData() {
         return mWriteFileStateLiveData;
+    }
+
+    public void setEditTextSavedState(@Nullable Parcelable editTextSavedState) {
+        mEditTextSavedState = editTextSavedState;
+    }
+
+    @Nullable
+    public Parcelable removeEditTextSavedState() {
+        Parcelable savedState = mEditTextSavedState;
+        mEditTextSavedState = null;
+        return savedState;
     }
 }

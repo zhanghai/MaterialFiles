@@ -61,7 +61,7 @@
             android:clipToPadding="false"
             android:fillViewport="true">
 
-            <me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText
+            <EditText
                 android:id="@+id/text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 android:inputType="textMultiLine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1">
                 <requestFocus />
-            </me.zhanghai.android.files.ui.IsRestoringInstanceStateEditText>
+            </EditText>
         </me.zhanghai.android.fastscroll.FastScrollNestedScrollView>
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
