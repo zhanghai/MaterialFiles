@@ -11,9 +11,19 @@
     tools:targetApi="n_mr1">
 
     <shortcut
+        android:shortcutId="downloads"
+        android:icon="@mipmap/downloads_shortcut_icon"
+        android:shortcutShortLabel="@string/shortcut_downloads_title">
+
+        <intent
+            android:action="me.zhanghai.android.files.intent.action.VIEW_DOWNLOADS"
+            android:targetPackage="me.zhanghai.android.files" />
+    </shortcut>
+
+    <shortcut
         android:shortcutId="ftp_server"
         android:icon="@mipmap/ftp_server_shortcut_icon"
-        android:shortcutShortLabel="@string/ftp_server_title">
+        android:shortcutShortLabel="@string/shortcut_ftp_server_title">
 
         <intent
             android:action="me.zhanghai.android.files.intent.action.MANAGE_FTP_SERVER"

@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
@@ -53,6 +54,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
+import java8.nio.file.Paths;
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied;
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions;
 import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment;
@@ -100,6 +102,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         ConfirmDeleteFilesDialogFragment.Listener, CreateArchiveDialogFragment.Listener,
         RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
         CreateDirectoryDialogFragment.Listener, NavigationFragment.Listener {
+
+    private static final String ACTION_VIEW_DOWNLOADS =
+            "me.zhanghai.android.files.intent.action.VIEW_DOWNLOADS";
 
     private static final int REQUEST_CODE_STORAGE_PERMISSIONS = 1;
 
@@ -323,6 +328,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                     pickOptions = new PickOptions(false, true, Collections.emptyList(), localOnly,
                             false);
                     break;
+                case ACTION_VIEW_DOWNLOADS:
+                    path = Paths.get(Environment.getExternalStoragePublicDirectory(
+                            Environment.DIRECTORY_DOWNLOADS).getPath());
+                    // Fall through!
                 case Intent.ACTION_VIEW:
                 default:
                     if (path != null) {

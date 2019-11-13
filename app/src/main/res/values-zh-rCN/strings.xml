@@ -417,4 +417,7 @@
     <string name="about_author_github_title">在 GitHub 上关注</string>
     <string name="about_author_google_plus_title">添加到 Google+ 圈子</string>
     <string name="about_author_twitter_title">在 Twitter 上关注</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

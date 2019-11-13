@@ -7,6 +7,8 @@ for dpi in {m,h,xh,xxh,xxxh}dpi; do
 done
 cp launcher_icon-web.png ../app/src/main/launcher_icon-web.png
 
-for dpi in {m,h,xh,xxh,xxxh}dpi; do
-    cp "ftp_server_shortcut_icon-${dpi}.png" "../app/src/main/res/mipmap-${dpi}/ftp_server_shortcut_icon.png"
+for shortcut in downloads ftp_server; do
+    for dpi in {m,h,xh,xxh,xxxh}dpi; do
+        cp "${shortcut}_shortcut_icon-${dpi}.png" "../app/src/main/res/mipmap-${dpi}/${shortcut}_shortcut_icon.png"
+    done
 done
