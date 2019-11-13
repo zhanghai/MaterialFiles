@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.firebase;
+package me.zhanghai.android.files.nonfree;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

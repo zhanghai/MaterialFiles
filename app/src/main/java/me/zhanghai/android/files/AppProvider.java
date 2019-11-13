@@ -19,7 +19,7 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.firebase.CrashlyticsUtils;
+import me.zhanghai.android.files.nonfree.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
