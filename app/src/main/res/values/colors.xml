@@ -17,6 +17,8 @@
     <color name="color_primary_dark">@color/material_blue_800</color>
     <color name="color_accent">@color/material_pink_500</color>
 
+    <color name="shortcut_background">#F5F5F5</color>
+
     <color name="file_icon_blue">#4883F3</color>
     <color name="file_icon_green">#16A765</color>
     <color name="file_icon_orange">#FF7537</color>
