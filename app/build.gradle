@@ -121,6 +121,10 @@ buildscript {
 }
 apply plugin: 'io.fabric'
 
+crashlytics {
+    enableNdk true
+}
+
 dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.1'
