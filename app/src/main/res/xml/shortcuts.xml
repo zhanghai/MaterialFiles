@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<shortcuts
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:targetApi="n_mr1">
+
+    <shortcut
+        android:shortcutId="ftp_server"
+        android:icon="@mipmap/ftp_server_shortcut_icon"
+        android:shortcutShortLabel="@string/ftp_server_title">
+
+        <intent
+            android:action="me.zhanghai.android.files.intent.action.MANAGE_FTP_SERVER"
+            android:targetPackage="me.zhanghai.android.files" />
+    </shortcut>
+</shortcuts>

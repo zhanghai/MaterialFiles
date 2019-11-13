@@ -105,6 +105,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
 
         <activity
@@ -119,6 +122,10 @@
             android:label="@string/ftp_server_title"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MaterialFiles">
+            <intent-filter>
+                <action android:name="me.zhanghai.android.files.intent.action.MANAGE_FTP_SERVER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.zhanghai.android.files.filelist.FileListActivity" />
