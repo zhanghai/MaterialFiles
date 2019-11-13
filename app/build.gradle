@@ -133,7 +133,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.3.2'
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 apply plugin: 'com.google.gms.google-services'
