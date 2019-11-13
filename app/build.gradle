@@ -56,22 +56,22 @@ dependencies {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc01'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-rc02'
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0-rc02'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03'
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     debugImplementation 'com.facebook.stetho:stetho:1.5.1'
     // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
     //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation ('com.github.junrar:junrar:4.0.0') {
         exclude group: 'commons-logging', module: 'commons-logging'
     }
     // As a replacement for commons-logging, to avoid the DuplicatePlatformClasses error due to
     // httpclient depending on commons-logging and being removed in Android 6.0.
-    implementation 'org.slf4j:jcl-over-slf4j:1.7.28'
+    implementation 'org.slf4j:jcl-over-slf4j:1.7.29'
     // 1.2.0-alpha01 breaks Design widgets in Theme.MaterialComponents.*.Bridge.
     // https://github.com/material-components/material-components-android/issues/740
     // TODO: Run `git revert 9fc8452` after upgrading to 1.2.0.
@@ -103,7 +103,7 @@ dependencies {
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
-    implementation 'org.slf4j:slf4j-android:1.7.28'
+    implementation 'org.slf4j:slf4j-android:1.7.29'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
