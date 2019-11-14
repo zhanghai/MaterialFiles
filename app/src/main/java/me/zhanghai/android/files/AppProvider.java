@@ -19,7 +19,6 @@ import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import me.zhanghai.android.files.nonfree.CrashlyticsUtils;
 import me.zhanghai.android.files.provider.FileSystemProviders;
 import me.zhanghai.android.files.settings.Settings;
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper;
@@ -43,8 +42,10 @@ public class AppProvider extends ContentProvider {
     public boolean onCreate() {
 
         Context context = requireContext();
+//#ifdef NONFREE
+        me.zhanghai.android.files.nonfree.CrashlyticsUtils.init(context);
+//#endif
         AndroidThreeTen.init(context);
-        CrashlyticsUtils.init(context);
         Stetho.initializeWithDefaults(context);
 
         FileSystemProviders.install();
