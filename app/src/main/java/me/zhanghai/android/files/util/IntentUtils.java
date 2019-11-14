@@ -45,6 +45,13 @@ public class IntentUtils {
     }
 
     @NonNull
+    public static Intent makeInstallPackage(@NonNull Uri uri) {
+        return new Intent(Intent.ACTION_INSTALL_PACKAGE)
+                .setDataAndType(uri, MimeTypes.APK_MIME_TYPE)
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    }
+
+    @NonNull
     public static Intent makeInstallShortcut(int iconRes, int nameRes,
                                              @NonNull Class<?> intentClass,
                                              @NonNull Context context) {

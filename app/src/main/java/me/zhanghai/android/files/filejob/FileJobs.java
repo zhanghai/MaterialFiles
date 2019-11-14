@@ -11,6 +11,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Parcelable;
 
@@ -1835,18 +1836,13 @@ public class FileJobs {
         }
     }
 
-    public static class Open extends Base {
+    public static abstract class BaseOpen extends Base {
 
         @NonNull
         private final Path mFile;
-        @NonNull
-        private final String mMimeType;
-        private final boolean mWithChooser;
 
-        public Open(@NonNull Path file, @NonNull String mimeType, boolean withChooser) {
+        public BaseOpen(@NonNull Path file) {
             mFile = file;
-            mMimeType = mimeType;
-            mWithChooser = withChooser;
         }
 
         @Override
@@ -1864,19 +1860,9 @@ public class FileJobs {
             ActionAllInfo actionAllInfo = new ActionAllInfo();
             actionAllInfo.replace = true;
             copy(mFile, targetFile, isExtract, transferInfo, actionAllInfo);
-            Uri uri = FileProvider.getUriForPath(targetFile);
-            Intent intent = IntentUtils.makeView(uri, mMimeType)
-                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            IntentPathUtils.putExtraPath(intent, targetFile);
-            if (mWithChooser) {
-                intent = IntentUtils.withChooser(intent);
-                intent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[] {
-                        OpenFileAsDialogActivity.newIntent(targetFile, context)
-                });
-            }
-            BackgroundActivityStarter.startActivity(intent,
-                    getString(R.string.file_open_from_background_title_format, targetFileName),
-                    getString(R.string.file_open_from_background_text), context);
+            BackgroundActivityStarter.startActivity(createIntent(targetFile),
+                    getString(getNotificationTitleFormatRes(), targetFileName),
+                    getString(getNotificationTextRes()), context);
         }
 
         @NonNull
@@ -1889,6 +1875,85 @@ public class FileJobs {
                 return externalCacheDirectory;
             }
             return context.getCacheDir();
+        }
+
+        @NonNull
+        protected abstract Intent createIntent(@NonNull Path file);
+
+        @StringRes
+        protected abstract int getNotificationTitleFormatRes();
+
+        @StringRes
+        protected abstract int getNotificationTextRes();
+    }
+
+    public static class InstallApk extends BaseOpen {
+
+        public InstallApk(@NonNull Path file) {
+            super(file);
+        }
+
+        @NonNull
+        @Override
+        protected Intent createIntent(@NonNull Path file) {
+            Uri uri;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                uri = FileProvider.getUriForPath(file);
+            } else {
+                // PackageInstaller only supports file URI before N.
+                uri = Uri.fromFile(file.toFile());
+            }
+            return IntentUtils.makeInstallPackage(uri);
+        }
+
+        @Override
+        protected int getNotificationTitleFormatRes() {
+            return R.string.file_install_apk_from_background_title_format;
+        }
+
+        @Override
+        protected int getNotificationTextRes() {
+            return R.string.file_install_apk_from_background_text;
+        }
+    }
+
+    public static class Open extends BaseOpen {
+
+        @NonNull
+        private final String mMimeType;
+        private final boolean mWithChooser;
+
+        public Open(@NonNull Path file, @NonNull String mimeType, boolean withChooser) {
+            super(file);
+
+            mMimeType = mimeType;
+            mWithChooser = withChooser;
+        }
+
+        @NonNull
+        @Override
+        protected Intent createIntent(@NonNull Path file) {
+            Uri uri = FileProvider.getUriForPath(file);
+            Intent intent = IntentUtils.makeView(uri, mMimeType)
+                    .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            IntentPathUtils.putExtraPath(intent, file);
+            if (mWithChooser) {
+                intent = IntentUtils.withChooser(intent);
+                intent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Parcelable[] {
+                        OpenFileAsDialogActivity.newIntent(file, getService())
+                });
+            }
+            return intent;
+        }
+
+        @Override
+        protected int getNotificationTitleFormatRes() {
+            return R.string.file_open_from_background_title_format;
+        }
+
+        @Override
+        protected int getNotificationTextRes() {
+            return R.string.file_open_from_background_text;
         }
     }
 

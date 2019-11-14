@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -1142,7 +1143,25 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     @Override
     public void installApk(@NonNull FileItem file) {
-        openFileWithIntent(file, false);
+        Path path = file.getPath();
+        Uri uri = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (LinuxFileSystemProvider.isLinuxPath(path)
+                    || DocumentFileSystemProvider.isDocumentPath(path)) {
+                uri = FileProvider.getUriForPath(path);
+            }
+        } else {
+            // PackageInstaller only supports file URI before N.
+            if (LinuxFileSystemProvider.isLinuxPath(path)) {
+                uri = Uri.fromFile(path.toFile());
+            }
+        }
+        if (uri != null) {
+            Intent intent = IntentUtils.makeInstallPackage(uri);
+            AppUtils.startActivity(intent, this);
+        } else {
+            FileJobService.installApk(path, requireContext());
+        }
     }
 
     @Override

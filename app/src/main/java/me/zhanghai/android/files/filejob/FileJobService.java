@@ -79,6 +79,10 @@ public class FileJobService extends Service {
         startJob(new FileJobs.Move(sources, targetDirectory), context);
     }
 
+    public static void installApk(@NonNull Path file, @NonNull Context context) {
+        startJob(new FileJobs.InstallApk(file), context);
+    }
+
     public static void open(@NonNull Path file, @NonNull String mimeType, boolean withChooser,
                             @NonNull Context context) {
         startJob(new FileJobs.Open(file, mimeType, withChooser), context);

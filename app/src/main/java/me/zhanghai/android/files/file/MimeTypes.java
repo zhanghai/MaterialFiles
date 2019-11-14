@@ -30,11 +30,10 @@ import me.zhanghai.java.functional.Functional;
 //  https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/mime.types
 public class MimeTypes {
 
-    public static final String DIRECTORY_MIME_TYPE = DocumentsContract.Document.MIME_TYPE_DIR;
-
-    public static final String GENERIC_MIME_TYPE = "application/octet-stream";
-
     public static final String ANY_MIME_TYPE = "*/*";
+    public static final String APK_MIME_TYPE = "application/vnd.android.package-archive";
+    public static final String DIRECTORY_MIME_TYPE = DocumentsContract.Document.MIME_TYPE_DIR;
+    public static final String GENERIC_MIME_TYPE = "application/octet-stream";
 
     // See also https://android.googlesource.com/platform/libcore/+/lollipop-release/luni/src/main/java/libcore/net/MimeUtils.java
     // See also https://android.googlesource.com/platform/libcore/+/pie-release/luni/src/main/java/libcore/net/MimeUtils.java
@@ -229,7 +228,7 @@ public class MimeTypes {
     }
 
     public static boolean isApk(@NonNull String mimeType) {
-        return Objects.equals(mimeType, "application/vnd.android.package-archive");
+        return Objects.equals(mimeType, APK_MIME_TYPE);
     }
 
     public static boolean isSupportedArchive(@NonNull String mimeType) {
