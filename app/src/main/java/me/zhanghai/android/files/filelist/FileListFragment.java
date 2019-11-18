@@ -332,7 +332,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 case ACTION_VIEW_DOWNLOADS:
                     path = Paths.get(Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_DOWNLOADS).getPath());
-                    // Fall through!
+                    break;
                 case Intent.ACTION_VIEW:
                 default:
                     if (path != null) {
