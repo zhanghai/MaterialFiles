@@ -115,6 +115,10 @@
                 android:resource="@xml/shortcuts" />
         </activity>
 
+        <!--
+          ~ Using android:documentLaunchMode="always" gives a better result than
+          ~ Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK. Not sure why though.
+          -->
         <activity
             android:name="me.zhanghai.android.files.filelist.OpenFileActivity"
             android:documentLaunchMode="always"
