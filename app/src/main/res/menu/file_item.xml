@@ -48,6 +48,10 @@
         android:title="@string/file_item_action_add_bookmark" />
 
     <item
+        android:id="@+id/action_create_shortcut"
+        android:title="@string/file_item_action_create_shortcut" />
+
+    <item
         android:id="@+id/action_properties"
         android:title="@string/file_item_action_properties" />
 </menu>

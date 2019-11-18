@@ -37,15 +37,25 @@ public class IntentPathUtils {
     @NonNull
     public static Intent putExtraPath(@NonNull Intent intent, @NonNull Path path) {
         // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
-        return intent.putExtra(EXTRA_PATH_URI, path.toUri());
+        // We cannot put URI into intent here either, because ShortcutInfo uses PersistableBundle
+        // which doesn't support Serializable.
+        return intent.putExtra(EXTRA_PATH_URI, path.toUri().toString());
     }
 
     @Nullable
     public static Path getExtraPath(@NonNull Intent intent, boolean allowDataContentUri) {
 
-        URI extraPathUri = (URI) intent.getSerializableExtra(EXTRA_PATH_URI);
-        if (extraPathUri != null) {
-            return Paths.get(extraPathUri);
+        String extraPathUriString = intent.getStringExtra(EXTRA_PATH_URI);
+        if (extraPathUriString != null) {
+            URI extraPathUri = null;
+            try {
+                extraPathUri = new URI(extraPathUriString);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
+            if (extraPathUri != null) {
+                return Paths.get(extraPathUri);
+            }
         }
 
         Uri data = intent.getData();

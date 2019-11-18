@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
         android:allowBackup="true"
@@ -112,6 +113,18 @@
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity
+            android:name="me.zhanghai.android.files.filelist.OpenFileActivity"
+            android:autoRemoveFromRecents="true"
+            android:documentLaunchMode="always"
+            android:theme="@style/Theme.MaterialFiles.Translucent">
+            <intent-filter>
+                <action android:name="me.zhanghai.android.files.intent.action.OPEN_FILE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
         </activity>
 
         <activity

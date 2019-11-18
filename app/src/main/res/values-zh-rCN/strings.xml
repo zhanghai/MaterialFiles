@@ -241,6 +241,7 @@
     <string name="file_list_action_copy_path">复制路径</string>
     <string name="file_list_action_open_in_terminal">在终端中打开</string>
     <string name="file_list_action_add_bookmark">添加书签</string>
+    <string name="file_list_action_create_shortcut">创建快捷方式</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中打开</string>
     <string name="file_list_select_title_format">已选择 %1$,d</string>
@@ -261,6 +262,7 @@
     <string name="file_item_action_archive">压缩</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">属性</string>
 
     <string name="file_properties_title_format">“%1$s”属性</string>

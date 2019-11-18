@@ -22,7 +22,7 @@ inkscape -e launcher_icon_foreground-xxxhdpi.png -w 432 -h 432 launcher_icon_for
 inkscape -e launcher_icon-play.png -a 18:18:90:90 -b '#1976d2' -w 512 -h 512 launcher_icon_foreground.svg
 rm launcher_icon_foreground.svg
 
-for shortcut in downloads ftp_server; do
+for shortcut in directory downloads file ftp_server; do
     inkscape -e "${shortcut}_shortcut_icon-mdpi.png" -a 15:15:93:93 -w 48 -h 48 "${shortcut}_shortcut_icon.svg"
     inkscape -e "${shortcut}_shortcut_icon-hdpi.png" -a 15:15:93:93 -w 72 -h 72 "${shortcut}_shortcut_icon.svg"
     inkscape -e "${shortcut}_shortcut_icon-xhdpi.png" -a 15:15:93:93 -w 96 -h 96 "${shortcut}_shortcut_icon.svg"

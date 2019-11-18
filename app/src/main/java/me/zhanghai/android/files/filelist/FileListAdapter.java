@@ -360,6 +360,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
                 case R.id.action_add_bookmark:
                     mListener.addBookmark(file);
                     return true;
+                case R.id.action_create_shortcut:
+                    mListener.createShortcut(file);
+                    return true;
                 case R.id.action_properties:
                     mListener.showPropertiesDialog(file);
                     return true;
@@ -422,6 +425,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
         void shareFile(@NonNull FileItem file);
         void copyPath(@NonNull FileItem file);
         void addBookmark(@NonNull FileItem file);
+        void createShortcut(@NonNull FileItem file);
         void showPropertiesDialog(@NonNull FileItem file);
     }
 

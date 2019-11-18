@@ -109,4 +109,10 @@
         android:orderInCategory="100"
         android:title="@string/file_list_action_add_bookmark"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_create_shortcut"
+        android:orderInCategory="100"
+        android:title="@string/file_list_action_create_shortcut"
+        app:showAsAction="never" />
 </menu>

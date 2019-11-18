@@ -43,6 +43,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.pm.ShortcutInfoCompat;
+import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.core.graphics.drawable.IconCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -537,6 +540,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             case R.id.action_add_bookmark:
                 addBookmark();
                 return true;
+            case R.id.action_create_shortcut:
+                createShortcut();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -765,6 +771,10 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
 
     private void addBookmark() {
         addBookmark(getCurrentPath());
+    }
+
+    private void createShortcut() {
+        createShortcut(getCurrentPath(), MimeTypes.DIRECTORY_MIME_TYPE);
     }
 
     @Override
@@ -1291,6 +1301,24 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
     private void addBookmark(@NonNull Path path) {
         BookmarkDirectories.add(new BookmarkDirectory(null, path));
         ToastUtils.show(R.string.file_add_bookmark_success, requireContext());
+    }
+
+    @Override
+    public void createShortcut(@NonNull FileItem file) {
+        createShortcut(file.getPath(), file.getMimeType());
+    }
+
+    private void createShortcut(@NonNull Path path, @NonNull String mimeType) {
+        Context context = requireContext();
+        boolean isDirectory = Objects.equals(mimeType, MimeTypes.DIRECTORY_MIME_TYPE);
+        ShortcutInfoCompat shortcutInfo = new ShortcutInfoCompat.Builder(context, path.toString())
+                .setShortLabel(FileUtils.getName(path))
+                .setIntent(isDirectory ? FileListActivity.newViewIntent(path, context)
+                        : OpenFileActivity.newIntent(path, mimeType, context))
+                .setIcon(IconCompat.createWithResource(context, isDirectory ?
+                        R.mipmap.directory_shortcut_icon : R.mipmap.file_shortcut_icon))
+                .build();
+        ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null);
     }
 
     @Override
