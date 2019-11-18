@@ -33,7 +33,7 @@ public class BackgroundActivityStarter {
                                      @Nullable CharSequence text, @NonNull Context context) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (isInForeground()) {
-            context.startActivity(intent);
+            AppUtils.startActivity(intent, context);
         } else {
             notifyStartActivity(intent, title, text, context);
         }
