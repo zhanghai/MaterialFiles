@@ -117,8 +117,8 @@
 
         <activity
             android:name="me.zhanghai.android.files.filelist.OpenFileActivity"
-            android:autoRemoveFromRecents="true"
             android:documentLaunchMode="always"
+            android:excludeFromRecents="true"
             android:theme="@style/Theme.MaterialFiles.Translucent">
             <intent-filter>
                 <action android:name="me.zhanghai.android.files.intent.action.OPEN_FILE" />
