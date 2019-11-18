@@ -1314,6 +1314,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
         ShortcutInfoCompat shortcutInfo = new ShortcutInfoCompat.Builder(context, path.toString())
                 .setShortLabel(FileUtils.getName(path))
                 .setIntent(isDirectory ? FileListActivity.newViewIntent(path, context)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                         : OpenFileActivity.newIntent(path, mimeType, context))
                 .setIcon(IconCompat.createWithResource(context, isDirectory ?
                         R.mipmap.directory_shortcut_icon : R.mipmap.file_shortcut_icon))
