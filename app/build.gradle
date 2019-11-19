@@ -14,8 +14,8 @@ android {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 11
-        versionName '1.0.0-beta.10'
+        versionCode 12
+        versionName '1.0.0-beta.11'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
