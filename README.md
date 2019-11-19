@@ -10,8 +10,8 @@ Download: [Google Play](https://play.google.com/store/apps/details?id=me.zhangha
 
 ## Preview
 
-<p><img src="screenshots/main.png" width="32%" /> <img src="screenshots/drawer.png" width="32%" /> <img src="screenshots/properties-basic.png" width="32%" />
-<img src="screenshots/settings.png" width="32%" /> <img src="screenshots/standard-directories.png" width="32%" /> <img src="screenshots/about.png" width="32%" /></p>
+<p><img src="screenshots/main.png" width="32%" /> <img src="screenshots/drawer.png" width="32%" /> <img src="screenshots/properties.png" width="32%" />
+<img src="screenshots/main-night.png" width="32%" /> <img src="screenshots/main-md2.png" width="32%" /> <img src="screenshots/main-md2-night.png" width="32%" /></p>
 
 ## Features
 
