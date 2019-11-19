@@ -1319,6 +1319,9 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                         R.mipmap.directory_shortcut_icon : R.mipmap.file_shortcut_icon))
                 .build();
         ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            ToastUtils.show(R.string.shortcut_created, context);
+        }
     }
 
     @Override
