@@ -27,6 +27,10 @@ public class ScrollingViewOnApplyWindowInsetsListener implements View.OnApplyWin
                     view.getPaddingBottom());
         }
         mFastScroller = fastScroller;
+        if (mFastScroller != null) {
+            // Prevent FastScroller from using view padding even if no window insets is dispatched.
+            mFastScroller.setPadding(0, 0, 0, 0);
+        }
     }
 
     public ScrollingViewOnApplyWindowInsetsListener() {
