@@ -353,20 +353,25 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
                 mViewModel.setPickOptions(pickOptions);
             }
         }
+        LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
         if (mPersistentDrawerLayout != null) {
-            Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.observe(this,
+            Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.observe(viewLifecycleOwner,
                     this::onPersistentDrawerOpenChanged);
         }
-        mViewModel.getCurrentPathLiveData().observe(this, this::onCurrentPathChanged);
-        mViewModel.getSearchViewExpandedLiveData().observe(this, this::onSearchViewExpandedChanged);
-        mViewModel.getBreadcrumbLiveData().observe(this, mBreadcrumbLayout::setData);
-        mViewModel.getSortOptionsLiveData().observe(this, this::onSortOptionsChanged);
-        mViewModel.getSortPathSpecificLiveData().observe(this, this::onSortPathSpecificChanged);
-        mViewModel.getPickOptionsLiveData().observe(this, this::onPickOptionsChanged);
-        mViewModel.getSelectedFilesLiveData().observe(this, this::onSelectedFilesChanged);
-        mViewModel.getPasteStateLiveData().observe(this, this::onPasteStateChanged);
-        mViewModel.getFileListLiveData().observe(this, this::onFileListChanged);
-        Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(this, this::onShowHiddenFilesChanged);
+        mViewModel.getCurrentPathLiveData().observe(viewLifecycleOwner, this::onCurrentPathChanged);
+        mViewModel.getSearchViewExpandedLiveData().observe(viewLifecycleOwner,
+                this::onSearchViewExpandedChanged);
+        mViewModel.getBreadcrumbLiveData().observe(viewLifecycleOwner, mBreadcrumbLayout::setData);
+        mViewModel.getSortOptionsLiveData().observe(viewLifecycleOwner, this::onSortOptionsChanged);
+        mViewModel.getSortPathSpecificLiveData().observe(viewLifecycleOwner,
+                this::onSortPathSpecificChanged);
+        mViewModel.getPickOptionsLiveData().observe(viewLifecycleOwner, this::onPickOptionsChanged);
+        mViewModel.getSelectedFilesLiveData().observe(viewLifecycleOwner,
+                this::onSelectedFilesChanged);
+        mViewModel.getPasteStateLiveData().observe(viewLifecycleOwner, this::onPasteStateChanged);
+        mViewModel.getFileListLiveData().observe(viewLifecycleOwner, this::onFileListChanged);
+        Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(viewLifecycleOwner,
+                this::onShowHiddenFilesChanged);
 
         if (!EffortlessPermissions.hasPermissions(this, STORAGE_PERMISSIONS)) {
             EffortlessPermissions.requestPermissions(this,

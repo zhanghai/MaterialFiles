@@ -88,8 +88,10 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
         mAdapter = new NavigationListAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
 
-        NavigationItemListLiveData.getInstance().observe(this, this::onNavigationItemsChanged);
-        mListener.observeCurrentPath(this, this::onCurrentPathChanged);
+        LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
+        NavigationItemListLiveData.getInstance().observe(viewLifecycleOwner,
+                this::onNavigationItemsChanged);
+        mListener.observeCurrentPath(viewLifecycleOwner, this::onCurrentPathChanged);
     }
 
     @Override

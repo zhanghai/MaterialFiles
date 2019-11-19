@@ -41,7 +41,8 @@ public class StandardDirectoriesPreferenceFragment extends PreferenceFragmentCom
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        StandardDirectoriesLiveData.getInstance().observe(this, this::onStandardDirectoriesChanged);
+        StandardDirectoriesLiveData.getInstance().observe(getViewLifecycleOwner(),
+                this::onStandardDirectoriesChanged);
     }
 
     private void onStandardDirectoriesChanged(

@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -152,9 +153,11 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
             }
         });
 
-        mViewModel.getFileContentLiveData().observe(this, this::onFileContentChanged);
-        mViewModel.getTextChangedLiveData().observe(this, this::onTextChangedChanged);
-        mViewModel.getWriteFileStateLiveData().observe(this, this::onWriteFileStateChanged);
+        LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
+        mViewModel.getFileContentLiveData().observe(viewLifecycleOwner, this::onFileContentChanged);
+        mViewModel.getTextChangedLiveData().observe(viewLifecycleOwner, this::onTextChangedChanged);
+        mViewModel.getWriteFileStateLiveData().observe(viewLifecycleOwner,
+                this::onWriteFileStateChanged);
 
         // TODO: Request storage permission if not granted.
     }

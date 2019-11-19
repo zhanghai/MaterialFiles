@@ -107,7 +107,7 @@ public class FilePropertiesPermissionsTabFragment extends AppCompatDialogFragmen
 
         mSwipeRefreshLayout.setOnRefreshListener(this::refresh);
 
-        mViewModel.getFileLiveData().observe(this, this::onFileChanged);
+        mViewModel.getFileLiveData().observe(getViewLifecycleOwner(), this::onFileChanged);
     }
 
     private void refresh() {

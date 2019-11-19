@@ -109,7 +109,8 @@ public class BookmarkDirectoriesFragment extends Fragment
         mDragDropManager.attachRecyclerView(mRecyclerView);
         mFab.setOnClickListener(view -> onAddBookmarkDirectory());
 
-        Settings.BOOKMARK_DIRECTORIES.observe(this, this::onBookmarkDirectoriesChanged);
+        Settings.BOOKMARK_DIRECTORIES.observe(getViewLifecycleOwner(),
+                this::onBookmarkDirectoriesChanged);
     }
 
     @Override
