@@ -1,0 +1,6 @@
+- Added shortcuts for launcher icon.
+- Added creating shortcut for files and folders.
+- Added fast scroll support in text editor.
+- Added prompting remount partition as read-write when saving in text editor.
+- Fixed inconsistency in MediaStore after file operations.
+- Other fixes and improvements.

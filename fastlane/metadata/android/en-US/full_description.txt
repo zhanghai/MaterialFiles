@@ -1,0 +1,14 @@
+An open source Material Design file manager.
+
+Features:
+- Open source: Lightweight, clean and secure.
+- Material Design: Beautiful UI with attention into details.
+- Breadcrumbs: Navigate in the filesystem with ease.
+- Root support: View and manage files with root access.
+- Archive support: View, extract and create common compressed files.
+- Themes: Customizable UI colors and night mode.
+- Linux-aware: Knows symbolic links, file permissions and SELinux context.
+- Robust: Uses Linux system calls under the hood, not yet another ls parser.
+- Well-implemented: Built upon the right things, including Java NIO2 File API and LiveData.
+
+https://github.com/zhanghai/MaterialFiles
