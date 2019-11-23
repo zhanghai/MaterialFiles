@@ -150,21 +150,18 @@ public class NavigationItems {
 
     @NonNull
     private static List<StandardDirectory> getDefaultStandardDirectories() {
-        // HACK: Enable QQ and WeChat standard directories based on whether the directory exists.
-        return Functional.map(DEFAULT_STANDARD_DIRECTORIES, standardDirectory -> {
+        // HACK: Show QQ, TIM and WeChat standard directories based on whether the directory exists.
+        return Functional.filter(DEFAULT_STANDARD_DIRECTORIES, standardDirectory -> {
             switch (standardDirectory.getIconRes()) {
                 case R.drawable.qq_icon_white_24dp:
                 case R.drawable.tim_icon_white_24dp:
                 case R.drawable.wechat_icon_white_24dp: {
                     String path = getExternalStorageDirectory(standardDirectory.getRelativePath());
-                    if (JavaFile.isDirectory(path)) {
-                        return standardDirectory.withSettings(standardDirectory.toSettings()
-                                .withEnabled(true));
-                    }
-                    break;
+                    return JavaFile.isDirectory(path);
                 }
+                default:
+                    return true;
             }
-            return standardDirectory;
         });
     }
 
