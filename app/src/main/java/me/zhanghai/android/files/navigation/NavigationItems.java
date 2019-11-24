@@ -79,14 +79,13 @@ public class NavigationItems {
                             R.string.navigation_standard_directory_ringtones,
                             Environment.DIRECTORY_RINGTONES, false))
                     .add(new StandardDirectory(R.drawable.qq_icon_white_24dp,
-                            R.string.navigation_standard_directory_qq, "tencent/QQfile_recv",
-                            false))
+                            R.string.navigation_standard_directory_qq, "tencent/QQfile_recv", true))
                     .add(new StandardDirectory(R.drawable.tim_icon_white_24dp,
                             R.string.navigation_standard_directory_tim, "tencent/TIMfile_recv",
-                            false))
+                            true))
                     .add(new StandardDirectory(R.drawable.wechat_icon_white_24dp,
                             R.string.navigation_standard_directory_wechat,
-                            "tencent/MicroMsg/Download", false))
+                            "tencent/MicroMsg/Download", true))
                     .buildUnmodifiable();
 
     @NonNull
