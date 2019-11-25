@@ -25,6 +25,7 @@
 -keep class me.zhanghai.android.files.provider.common.ByteString { *; }
 -keep class me.zhanghai.android.files.provider.linux.syscall.** { *; }
 -keepnames class * extends java.lang.Exception
+-keepnames class me.zhanghai.android.files.** implements android.os.Parcelable
 
 # Apache Commons Compress
 -dontwarn org.apache.commons.compress.compressors.**
