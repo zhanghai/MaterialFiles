@@ -63,7 +63,6 @@ public abstract class SettingLiveData<T> extends LiveData<T>
 
     @NonNull
     private static String getKey(@StringRes int keyRes, @Nullable String keySuffix) {
-        Context context = AppProvider.requireContext();
         String key = AppProvider.requireContext().getString(keyRes);
         if (keySuffix != null) {
             key = key + '_' + keySuffix;
