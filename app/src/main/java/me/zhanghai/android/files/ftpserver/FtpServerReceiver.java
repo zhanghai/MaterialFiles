@@ -23,7 +23,7 @@ public class FtpServerReceiver extends BroadcastReceiver {
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         String action = intent.getAction();
         if (Objects.equals(action, ACTION_STOP)) {
-            FtpServerService.stop();
+            FtpServerService.stop(context);
         } else {
             throw new IllegalArgumentException(action);
         }

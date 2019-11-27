@@ -97,7 +97,7 @@ public class FtpServerStatePreference extends SwitchPreferenceCompat {
             case STOPPING:
                 break;
             case RUNNING:
-                FtpServerService.stop();
+                FtpServerService.stop(getContext());
                 break;
             case STOPPED:
                 FtpServerService.start(getContext());
