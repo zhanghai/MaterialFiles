@@ -21,7 +21,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -113,10 +112,9 @@ abstract class SetPrincipalDialogFragment extends AppCompatDialogFragment {
         mRecyclerView.setAdapter(mAdapter);
         ViewUtils.setVisibleOrGone(mRecursiveCheck, mExtraFile.getAttributes().isDirectory());
 
-        LifecycleOwner viewLifecycleOwner = getViewLifecycleOwner();
-        mViewModel.getFilteredPrincipalListLiveData().observe(viewLifecycleOwner,
+        mViewModel.getFilteredPrincipalListLiveData().observe(this,
                 this::onFilteredPrincipalListChanged);
-        selectionLiveData.observe(viewLifecycleOwner, mAdapter);
+        selectionLiveData.observe(this, mAdapter);
 
         return builder
                 .setView(contentView)
