@@ -7,8 +7,11 @@ package me.zhanghai.android.files.compat;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.storage.StorageVolume;
+import android.provider.DocumentsContract;
 
 import java.io.File;
 
@@ -122,5 +125,21 @@ public class StorageVolumeCompat {
     @SuppressLint("NewApi")
     public static String getState(@NonNull StorageVolume storageVolume) {
         return storageVolume.getState();
+    }
+
+    @NonNull
+    public static Intent createOpenDocumentTreeIntent(@NonNull StorageVolume storageVolume) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            return storageVolume.createOpenDocumentTreeIntent();
+        } else {
+            String rootId = isEmulated(storageVolume) ?
+                    DocumentsContractCompat.EXTERNAL_STORAGE_PRIMARY_EMULATED_ROOT_ID
+                    : getUuid(storageVolume);
+            Uri rootUri = DocumentsContract.buildRootUri(
+                    DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY, rootId);
+            return new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                    .putExtra(DocumentsContract.EXTRA_INITIAL_URI, rootUri)
+                    .putExtra(DocumentsContractCompat.EXTRA_SHOW_ADVANCED, true);
+        }
     }
 }

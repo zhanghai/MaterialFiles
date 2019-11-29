@@ -16,6 +16,13 @@ import androidx.annotation.NonNull;
 
 public class DocumentsContractCompat {
 
+    public static final String EXTRA_SHOW_ADVANCED = "android.provider.extra.SHOW_ADVANCED";
+
+    public static final String EXTERNAL_STORAGE_PROVIDER_AUTHORITY =
+            "com.android.externalstorage.documents";
+
+    public static final String EXTERNAL_STORAGE_PRIMARY_EMULATED_ROOT_ID = "primary";
+
     private DocumentsContractCompat() {}
 
     public static boolean isTreeUri(@NonNull Uri uri) {

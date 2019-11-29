@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.storage.StorageVolume;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,8 +146,8 @@ public class NavigationFragment extends Fragment implements NavigationItem.Liste
     }
 
     @Override
-    public void onRemoveDocumentTree(@NonNull Uri treeUri) {
-        ConfirmRemoveDocumentTreeDialogFragment.show(treeUri, this);
+    public void onRemoveDocumentTree(@NonNull Uri treeUri, @Nullable StorageVolume storageVolume) {
+        ConfirmRemoveDocumentTreeDialogFragment.show(treeUri, storageVolume, this);
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.storage.StorageManager;
 import android.os.storage.StorageVolume;
+import android.provider.DocumentsContract;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -115,11 +116,36 @@ public class NavigationItems {
         StorageManager storageManager = ContextCompat.getSystemService(AppProvider.requireContext(),
                 StorageManager.class);
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
-        Functional.map(storageVolumes, StorageVolumeRootItem::new, rootItems);
-        List<Uri> treeUris = DocumentTreesLiveData.getInstance().getValue();
-        Functional.map(treeUris, DocumentTreeRootItem::new, rootItems);
+        for (StorageVolume storageVolume : storageVolumes) {
+            if (StorageVolumeCompat.isPrimary(storageVolume)) {
+                rootItems.add(new StorageVolumeRootItem(storageVolume));
+            }
+        }
+        List<Uri> treeUris = new ArrayList<>(DocumentTreesLiveData.getInstance().getValue());
+        for (StorageVolume storageVolume : storageVolumes) {
+            if (StorageVolumeCompat.isPrimary(storageVolume)) {
+                continue;
+            }
+            Uri treeUri = getStorageVolumeTreeUri(storageVolume);
+            if (treeUris.remove(treeUri)) {
+                rootItems.add(new DocumentTreeStorageVolumeRootItem(storageVolume, treeUri));
+            }
+        }
+        for (Uri treeUri : treeUris) {
+            rootItems.add(new DocumentTreeRootItem(treeUri));
+        }
         rootItems.add(new AddDocumentTreeItem());
         return rootItems;
+    }
+
+    @NonNull
+    private static Uri getStorageVolumeTreeUri(@NonNull StorageVolume storageVolume) {
+        Intent intent = StorageVolumeCompat.createOpenDocumentTreeIntent(storageVolume);
+        Uri rootUri = intent.getParcelableExtra(DocumentsContract.EXTRA_INITIAL_URI);
+        // @see com.android.externalstorage.ExternalStorageProvider#getDocIdForFile(File)
+        // @see com.android.documentsui.picker.ConfirmFragment#onCreateDialog(Bundle)
+        return DocumentsContract.buildTreeDocumentUri(rootUri.getAuthority(),
+                DocumentsContract.getRootId(rootUri) + ":");
     }
 
     @NonNull
@@ -307,6 +333,11 @@ public class NavigationItems {
         }
 
         @NonNull
+        protected StorageVolume getStorageVolume() {
+            return mStorageVolume;
+        }
+
+        @NonNull
         @Override
         public String getTitle(@NonNull Context context) {
             return StorageVolumeCompat.getDescription(mStorageVolume, context);
@@ -315,6 +346,25 @@ public class NavigationItems {
         @Override
         public int getTitleRes() {
             throw new AssertionError();
+        }
+    }
+
+    private static class DocumentTreeStorageVolumeRootItem extends StorageVolumeRootItem {
+
+        @NonNull
+        private final Uri mTreeUri;
+
+        public DocumentTreeStorageVolumeRootItem(@NonNull StorageVolume storageVolume,
+                                                 @NonNull Uri treeUri) {
+            super(storageVolume);
+
+            mTreeUri = treeUri;
+        }
+
+        @Override
+        public boolean onLongClick(@NonNull Listener listener) {
+            listener.onRemoveDocumentTree(mTreeUri, getStorageVolume());
+            return true;
         }
     }
 
@@ -351,7 +401,7 @@ public class NavigationItems {
 
         @Override
         public boolean onLongClick(@NonNull Listener listener) {
-            listener.onRemoveDocumentTree(mTreeUri);
+            listener.onRemoveDocumentTree(mTreeUri, null);
             return true;
         }
     }

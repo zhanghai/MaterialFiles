@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.storage.StorageVolume;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -63,7 +64,7 @@ public abstract class NavigationItem {
 
         void onAddDocumentTree();
 
-        void onRemoveDocumentTree(@NonNull Uri treeUri);
+        void onRemoveDocumentTree(@NonNull Uri treeUri, @Nullable StorageVolume storageVolume);
 
         void onEditBookmarkDirectory(@NonNull BookmarkDirectory bookmarkDirectory);
 
