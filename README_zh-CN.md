@@ -16,7 +16,7 @@
 ## 特性
 
 - 开源：轻量、简洁并且安全。
-- Material Design：仿照 [Cabinet](https://github.com/aminb/cabinet)，并且注重细节。
+- Material Design：仿照 [Cabinet](https://github.com/aminb/cabinet) 并且注重细节，以及可选的 MD2 样式。
 - 面包屑导航栏：点击导航栏所显示路径中的任一文件夹即可快速访问。
 - Root 支持：使用 root 权限查看和管理文件。
 - 压缩文件支持：查看、提取和创建常见的压缩文件。

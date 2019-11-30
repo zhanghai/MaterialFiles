@@ -18,7 +18,7 @@ An open source Material Design file manager, for Android 5.0+.
 ## Features
 
 - Open source: Lightweight, clean and secure.
-- Material Design: Like the good old [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/), with attention into details.
+- Material Design: Like the good old [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) with attention into details, and optional MD2 style.
 - Breadcrumbs: Navigate in the filesystem with ease.
 - Root support: View and manage files with root access.
 - Archive support: View, extract and create common compressed files.
