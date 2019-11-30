@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/preference_fragment"
             android:name="me.zhanghai.android.files.ftpserver.FtpServerPreferenceFragment"
             android:layout_width="match_parent"
