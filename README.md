@@ -53,6 +53,14 @@ Because I know people can do it right.
 
 So, it's time for yet another Android file manager.
 
+Translations
+---
+
+You can help translate the app on (Transifex)[https://www.transifex.com/zhanghai/MaterialFiles].
+
+ - **English**
+ - **Russian**
+
 ## License
 
     Copyright (C) 2018 Hai Zhang
