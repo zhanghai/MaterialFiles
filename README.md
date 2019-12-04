@@ -56,7 +56,7 @@ So, it's time for yet another Android file manager.
 Translations
 ---
 
-You can help translate the app on (Transifex)[https://www.transifex.com/zhanghai/MaterialFiles].
+You can help translate the app on [Transifex](https://www.transifex.com/zhanghai/MaterialFiles).
 
  - **English**
  - **Chinese Simplified**
