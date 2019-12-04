@@ -59,6 +59,8 @@ Translations
 You can help translate the app on (Transifex)[https://www.transifex.com/zhanghai/MaterialFiles].
 
  - **English**
+ - **Chinese Simplified**
+ - **Chinese Traditional**
  - **Russian**
 
 ## License
