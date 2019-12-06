@@ -8,6 +8,8 @@
 
 [在酷安上下载](https://www.coolapk.com/apk/me.zhanghai.android.files) [下载 APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0/app-release.apk)
 
+[在 Transifex 上帮助翻译](https://www.transifex.com/zhanghai/MaterialFiles/)
+
 ## 预览
 
 <p><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" />

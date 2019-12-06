@@ -10,6 +10,8 @@ An open source Material Design file manager, for Android 5.0+.
 
 [Get it on Coolapk](https://www.coolapk.com/apk/me.zhanghai.android.files) [Get the APK](https://github.com/zhanghai/MaterialFiles/releases/download/v1.0.0/app-release.apk)
 
+[Help translation on Transifex](https://www.transifex.com/zhanghai/MaterialFiles/)
+
 ## Preview
 
 <p><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" />
