@@ -368,9 +368,15 @@ public class FileJobs {
                                         actionAllInfo.replace = true;
                                     }
                                 }
-                                replaceExisting = true;
-                                retry = true;
-                                continue;
+                                if (isMerge) {
+                                    transferInfo.addTransferredFile(target);
+                                    postCopyMoveNotification(transferInfo, source, type);
+                                    return true;
+                                } else {
+                                    replaceExisting = true;
+                                    retry = true;
+                                    continue;
+                                }
                             case RENAME:
                                 target = target.resolveSibling(result.getName());
                                 retry = true;
@@ -1289,6 +1295,16 @@ public class FileJobs {
 
             public void incrementTransferredFileCount() {
                 ++mTransferredFileCount;
+            }
+
+            public void addTransferredFile(@NonNull Path path) {
+                ++mTransferredFileCount;
+                try {
+                    mTransferredSize += Files.readAttributes(path, BasicFileAttributes.class,
+                            LinkOption.NOFOLLOW_LINKS).size();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
             public void skipFile(@NonNull Path path) {
