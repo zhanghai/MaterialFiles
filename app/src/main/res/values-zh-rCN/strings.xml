@@ -150,12 +150,14 @@
     <string name="file_job_cannot_copy_move_over_itself_message">来源文件将被目标覆盖。</string>
     <string name="file_job_replace_title_format">替换文件“%1$s”？</string>
     <string name="file_job_replace_message_format">在“%1$s”中存在相同名称的另一个文件。\n替换将覆盖它的内容。</string>
+    <string name="file_job_replace_target_name">原始文件</string>
+    <string name="file_job_replace_source_name">替换为</string>
     <string name="file_job_merge_title_format">合并文件夹“%1$s”？</string>
     <string name="file_job_merge_copy_message_format">文件中有文件与正在被复制的文件冲突时，合并将在替换前请求确认。</string>
     <string name="file_job_merge_extract_message_format">文件中有文件与正在被提取的文件冲突时，合并将在替换前请求确认。</string>
     <string name="file_job_merge_move_message_format">文件中有文件与正在被移动的文件冲突时，合并将在替换前请求确认。</string>
-    <string name="file_job_conflict_target_name">原始文件</string>
-    <string name="file_job_conflict_source_name">替换为</string>
+    <string name="file_job_merge_target_name">原始文件夹</string>
+    <string name="file_job_merge_source_name">合并</string>
     <string name="file_job_conflict_show_name">为目标选择新的名称</string>
     <string name="file_job_conflict_name_hint">新名称</string>
     <string name="file_job_archive_error_title_format">压缩“%1$s”时发生错误</string>

@@ -171,12 +171,14 @@
     <string name="file_job_cannot_copy_move_over_itself_message">The source file would be overwritten by the destination.</string>
     <string name="file_job_replace_title_format">Replace file “%1$s”?</string>
     <string name="file_job_replace_message_format">Another file with the same name already exists in “%1$s”.\nReplacing it will overwrite its content.</string>
+    <string name="file_job_replace_target_name">Original file</string>
+    <string name="file_job_replace_source_name">Replace with</string>
     <string name="file_job_merge_title_format">Merge folder “%1$s”?</string>
     <string name="file_job_merge_copy_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being copied.</string>
     <string name="file_job_merge_extract_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being extracted.</string>
     <string name="file_job_merge_move_message_format">Merging will ask for confirmation before replacing any files in the folder that conflict with the files being moved.</string>
-    <string name="file_job_conflict_target_name">Original file</string>
-    <string name="file_job_conflict_source_name">Replace with</string>
+    <string name="file_job_merge_target_name">Original folder</string>
+    <string name="file_job_merge_source_name">Merge with</string>
     <string name="file_job_conflict_show_name">Select a new name for the destination</string>
     <string name="file_job_conflict_name_hint">New name</string>
     <string name="file_job_archive_error_title_format">Error while compressing “%1$s”</string>

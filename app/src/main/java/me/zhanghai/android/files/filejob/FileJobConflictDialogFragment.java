@@ -81,12 +81,16 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
     ImageView mTargetIconImage;
     @BindView(R.id.target_badge)
     ImageView mTargetBadgeImage;
+    @BindView(R.id.target_name)
+    TextView mTargetNameText;
     @BindView(R.id.target_description)
     TextView mTargetDescriptionText;
     @BindView(R.id.source_icon)
     ImageView mSourceIconImage;
     @BindView(R.id.source_badge)
     ImageView mSourceBadgeImage;
+    @BindView(R.id.source_name)
+    TextView mSourceNameText;
     @BindView(R.id.source_description)
     TextView mSourceDescriptionText;
     @BindView(R.id.show_name_layout)
@@ -152,12 +156,17 @@ public class FileJobConflictDialogFragment extends AppCompatDialogFragment {
         int theme = getTheme();
         String title = getTitle(mSourceFile, mTargetFile, context);
         String message = getMessage(mSourceFile, mTargetFile, mType, context);
-        int positiveButtonRes = isMerge(mSourceFile, mTargetFile) ? R.string.merge
-                : R.string.replace;
+        boolean isMerge = isMerge(mSourceFile, mTargetFile);
+        int positiveButtonRes = isMerge ? R.string.merge : R.string.replace;
 
         mView = ViewUtils.inflateWithTheme(R.layout.file_job_conflict_dialog_view, context, theme);
         ButterKnife.bind(this, mView);
+
+        mTargetNameText.setText(isMerge ? R.string.file_job_merge_target_name
+                : R.string.file_job_replace_target_name);
         bindFileItem(mTargetFile, mTargetIconImage, mTargetBadgeImage, mTargetDescriptionText);
+        mSourceNameText.setText(isMerge ? R.string.file_job_merge_source_name
+                : R.string.file_job_replace_source_name);
         bindFileItem(mSourceFile, mSourceIconImage, mSourceBadgeImage, mSourceDescriptionText);
         mShowNameLayout.setOnClickListener(view2 -> {
             boolean visible = !ViewUtils.isVisible(mNameLayout);

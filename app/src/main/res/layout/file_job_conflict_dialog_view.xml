@@ -52,11 +52,11 @@
 
             <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
             <TextView
+                android:id="@+id/target_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:text="@string/file_job_conflict_target_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
@@ -112,11 +112,11 @@
 
             <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
             <TextView
+                android:id="@+id/source_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:text="@string/file_job_conflict_source_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
