@@ -142,7 +142,7 @@ public class FileProvider extends ContentProvider {
                 }
             }
         }
-        MatrixCursor cursor = new MatrixCursor(columns.toArray(new String[columns.size()]), 1);
+        MatrixCursor cursor = new MatrixCursor(columns.toArray(new String[0]), 1);
         cursor.addRow(values);
         return cursor;
     }
