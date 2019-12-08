@@ -79,11 +79,11 @@
         <item quantity="other">正在將 %1$,d 個檔案複製到「%2$s」</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title">
-        <item quantity="other">正在準備提取 %1$,d 個檔案（%2$s）</item>
+        <item quantity="other">正在準備解開 %1$,d 個檔案（%2$s）</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">正在將「%1$s」提取到「%2$s」</string>
+    <string name="file_job_extract_notification_title_one">正在將「%1$s」解開到「%2$s」</string>
     <plurals name="file_job_extract_notification_title_multiple">
-        <item quantity="other">正在將 %1$,d 個檔案提取到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案解開到「%2$s」</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title">
         <item quantity="other">正在準備移動 %1$,d 個檔案（%2$s）</item>
@@ -141,18 +141,18 @@
     <string name="file_job_create_error_title">建立時發生錯誤</string>
     <string name="file_job_create_error_message_format">在建立「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
-    <string name="file_job_cannot_extract_into_itself_title">無法將資料夾提取到自身</string>
+    <string name="file_job_cannot_extract_into_itself_title">無法將資料夾解開到自身</string>
     <string name="file_job_cannot_move_into_itself_title">無法將資料夾移動到自身</string>
     <string name="file_job_cannot_copy_move_into_itself_message">目標資料夾位於來源資料夾內。</string>
     <string name="file_job_cannot_copy_over_itself_title">無法將檔案複製到自身</string>
-    <string name="file_job_cannot_extract_over_itself_title">無法將檔案提取到自身</string>
+    <string name="file_job_cannot_extract_over_itself_title">無法將檔案解開到自身</string>
     <string name="file_job_cannot_move_over_itself_title">無法將檔案移動到自身</string>
     <string name="file_job_cannot_copy_move_over_itself_message">來源檔案將被目標覆蓋。</string>
     <string name="file_job_replace_title_format">替換檔案「%1$s」？</string>
     <string name="file_job_replace_message_format">在「%1$s」中存在相同名稱的另一個檔案。\n替換將覆蓋它的內容。</string>
     <string name="file_job_merge_title_format">合併資料夾「%1$s」？</string>
     <string name="file_job_merge_copy_message_format">檔案中有檔案與正在被複製的檔案衝突時，合併將在替換前請求確認。</string>
-    <string name="file_job_merge_extract_message_format">檔案中有檔案與正在被提取的檔案衝突時，合併將在替換前請求確認。</string>
+    <string name="file_job_merge_extract_message_format">檔案中有檔案與正在被解開的檔案衝突時，合併將在替換前請求確認。</string>
     <string name="file_job_merge_move_message_format">檔案中有檔案與正在被移動的檔案衝突時，合併將在替換前請求確認。</string>
     <string name="file_job_conflict_target_name">原始檔案</string>
     <string name="file_job_conflict_source_name">替換為</string>
@@ -162,8 +162,8 @@
     <string name="file_job_archive_error_message_format">將檔案壓縮進「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_copy_error_title_format">複製「%1$s」時發生錯誤</string>
     <string name="file_job_copy_error_message_format">將檔案複製到「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_extract_error_title_format">提取「%1$s」時發生錯誤</string>
-    <string name="file_job_extract_error_message_format">將檔案提取到「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_extract_error_title_format">解開「%1$s」時發生錯誤</string>
+    <string name="file_job_extract_error_message_format">將檔案解開到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_move_error_title_format">移動「%1$s」時發生錯誤</string>
     <string name="file_job_move_error_message_format">將檔案移動到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
@@ -251,15 +251,15 @@
     <string name="file_list_select_current_directory_format">選取「%1$s」</string>
     <string name="file_list_paste_move_title_format">移動 %1$,d</string>
     <string name="file_list_paste_copy_title_format">複製 %1$,d</string>
-    <string name="file_list_paste_extract_title_format">提取 %1$,d</string>
-    <string name="file_list_paste_action_extract_here">提取至此處</string>
+    <string name="file_list_paste_extract_title_format">解開 %1$,d</string>
+    <string name="file_list_paste_action_extract_here">在這裡解開</string>
     <string name="file_list_empty">無檔案</string>
     <string name="file_list_action_create_file">檔案</string>
     <string name="file_list_action_create_directory">資料夾</string>
 
     <string name="file_item_description_separator">"    "</string>
     <string name="file_item_action_open_with">開啟方式</string>
-    <string name="file_item_action_extract">提取</string>
+    <string name="file_item_action_extract">解開</string>
     <string name="file_item_action_archive">壓縮</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
