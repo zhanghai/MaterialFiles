@@ -92,18 +92,6 @@ public class FtpServerStatePreference extends SwitchPreferenceCompat {
 
     @Override
     protected void onClick() {
-        switch (FtpServerService.getStateLiveData().getValue()) {
-            case STARTING:
-            case STOPPING:
-                break;
-            case RUNNING:
-                FtpServerService.stop(getContext());
-                break;
-            case STOPPED:
-                FtpServerService.start(getContext());
-                break;
-            default:
-                throw new AssertionError();
-        }
+        FtpServerService.toggle(getContext());
     }
 }

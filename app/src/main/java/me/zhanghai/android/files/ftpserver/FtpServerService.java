@@ -55,6 +55,22 @@ public class FtpServerService extends Service {
         context.stopService(new Intent(context, FtpServerService.class));
     }
 
+    public static void toggle(@NonNull Context context) {
+        switch (sStateLiveData.getValue()) {
+            case STARTING:
+            case STOPPING:
+                break;
+            case RUNNING:
+                FtpServerService.stop(context);
+                break;
+            case STOPPED:
+                FtpServerService.start(context);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
     @NonNull
     public static LiveData<State> getStateLiveData() {
         return sStateLiveData;

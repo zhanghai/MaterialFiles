@@ -147,6 +147,10 @@
                 <action android:name="me.zhanghai.android.files.intent.action.MANAGE_FTP_SERVER" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.zhanghai.android.files.filelist.FileListActivity" />
@@ -238,6 +242,16 @@
         <service android:name="me.zhanghai.android.files.filejob.FileJobService" />
 
         <service android:name="me.zhanghai.android.files.ftpserver.FtpServerService" />
+
+        <service
+            android:name="me.zhanghai.android.files.ftpserver.FtpServerTileService"
+            android:icon="@drawable/shared_directory_icon_white_24dp"
+            android:label="@string/ftp_server_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
 
         <provider
             android:name="me.zhanghai.android.files.AppProvider"
