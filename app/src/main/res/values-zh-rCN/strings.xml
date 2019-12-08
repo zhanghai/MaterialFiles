@@ -252,7 +252,7 @@
     <string name="file_list_paste_move_title_format">移动 %1$,d</string>
     <string name="file_list_paste_copy_title_format">复制 %1$,d</string>
     <string name="file_list_paste_extract_title_format">提取 %1$,d</string>
-    <string name="file_list_paste_action_extract_here">提取至此处</string>
+    <string name="file_list_paste_action_extract_here">提取到此处</string>
     <string name="file_list_empty">无文件</string>
     <string name="file_list_action_create_file">文件</string>
     <string name="file_list_action_create_directory">文件夹</string>
