@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Material Files</string>
 
@@ -282,13 +282,13 @@
 
     <string name="file_list_title">Файлы</string>
     <plurals name="file_list_title_pick_file">
-        <item quantity="one">Выбрать файл</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">Выбрать файл</item>
         <item quantity="few">Выбрать файлы</item>
         <item quantity="many">Выбрать файлы</item>
         <item quantity="other">Выбрать файлы</item>
     </plurals>
     <plurals name="file_list_title_pick_directory">
-        <item quantity="one">Выбрать папку</item>
+        <item quantity="one" tools:ignore="ImpliedQuantity">Выбрать папку</item>
         <item quantity="few">Выбрать папки</item>
         <item quantity="many">Выбрать папки</item>
         <item quantity="other">Выбрать папки</item>
