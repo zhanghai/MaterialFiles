@@ -185,7 +185,7 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
                 break;
             case ERROR:
                 stateData.exception.printStackTrace();
-                ToastUtils.show(stateData.exception.getLocalizedMessage(), requireContext());
+                ToastUtils.show(stateData.exception.toString(), requireContext());
                 liveData.reset();
                 updateRemountButton();
                 break;

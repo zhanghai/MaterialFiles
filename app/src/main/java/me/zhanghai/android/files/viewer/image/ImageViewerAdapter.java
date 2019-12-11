@@ -210,7 +210,7 @@ public class ImageViewerAdapter extends ViewPagerAdapter {
         if (e == null) {
             e = new GlideException(null);
         }
-        holder.errorText.setText(e.getLocalizedMessage());
+        holder.errorText.setText(e.toString());
         ViewUtils.crossfade(holder.progress, holder.errorText);
     }
 
