@@ -118,7 +118,7 @@ public class NavigationItems {
         List<StorageVolume> storageVolumes = StorageManagerCompat.getStorageVolumes(storageManager);
         for (StorageVolume storageVolume : storageVolumes) {
             if (StorageVolumeCompat.isPrimary(storageVolume)) {
-                rootItems.add(new StorageVolumeRootItem(storageVolume));
+                rootItems.add(new PrimaryStorageVolumeRootItem(storageVolume));
             }
         }
         List<Uri> treeUris = new ArrayList<>(DocumentTreesLiveData.getInstance().getValue());
@@ -128,7 +128,7 @@ public class NavigationItems {
             }
             Uri treeUri = getStorageVolumeTreeUri(storageVolume);
             if (treeUris.remove(treeUri)) {
-                rootItems.add(new DocumentTreeStorageVolumeRootItem(storageVolume, treeUri));
+                rootItems.add(new DocumentTreeStorageVolumeRootItem(treeUri, storageVolume));
             }
         }
         for (Uri treeUri : treeUris) {
@@ -273,13 +273,14 @@ public class NavigationItems {
         private final long mFreeSpace;
         private final long mTotalSpace;
 
-        public LocalRootItem(@NonNull String path, @DrawableRes int iconRes) {
-            super(Paths.get(path));
+        public LocalRootItem(@NonNull Path path, @NonNull String localPath,
+                             @DrawableRes int iconRes) {
+            super(path);
 
             mIconRes = iconRes;
-            long totalSpace = JavaFile.getTotalSpace(path);
+            long totalSpace = JavaFile.getTotalSpace(localPath);
             if (totalSpace != 0) {
-                mFreeSpace = JavaFile.getFreeSpace(path);
+                mFreeSpace = JavaFile.getFreeSpace(localPath);
                 mTotalSpace = totalSpace;
             } else {
                 // Root directory may not be an actual partition on legacy Android versions (can be
@@ -290,6 +291,10 @@ public class NavigationItems {
                 mFreeSpace = JavaFile.getFreeSpace(systemPath);
                 mTotalSpace = JavaFile.getTotalSpace(systemPath);
             }
+        }
+
+        public LocalRootItem(@NonNull String path, @DrawableRes int iconRes) {
+            this(Paths.get(path), path, iconRes);
         }
 
         @DrawableRes
@@ -321,20 +326,15 @@ public class NavigationItems {
         }
     }
 
-    private static class StorageVolumeRootItem extends LocalRootItem {
+    private static class PrimaryStorageVolumeRootItem extends LocalRootItem {
 
         @NonNull
         private final StorageVolume mStorageVolume;
 
-        public StorageVolumeRootItem(@NonNull StorageVolume storageVolume) {
+        public PrimaryStorageVolumeRootItem(@NonNull StorageVolume storageVolume) {
             super(StorageVolumeCompat.getPath(storageVolume), R.drawable.sd_card_icon_white_24dp);
 
             mStorageVolume = storageVolume;
-        }
-
-        @NonNull
-        protected StorageVolume getStorageVolume() {
-            return mStorageVolume;
         }
 
         @NonNull
@@ -349,21 +349,36 @@ public class NavigationItems {
         }
     }
 
-    private static class DocumentTreeStorageVolumeRootItem extends StorageVolumeRootItem {
+    private static class DocumentTreeStorageVolumeRootItem extends LocalRootItem {
 
         @NonNull
         private final Uri mTreeUri;
+        @NonNull
+        private final StorageVolume mStorageVolume;
 
-        public DocumentTreeStorageVolumeRootItem(@NonNull StorageVolume storageVolume,
-                                                 @NonNull Uri treeUri) {
-            super(storageVolume);
+        public DocumentTreeStorageVolumeRootItem(@NonNull Uri treeUri,
+                                                 @NonNull StorageVolume storageVolume) {
+            super(DocumentFileSystemProvider.getRootPathForTreeUri(treeUri),
+                    StorageVolumeCompat.getPath(storageVolume), R.drawable.sd_card_icon_white_24dp);
 
             mTreeUri = treeUri;
+            mStorageVolume = storageVolume;
+        }
+
+        @NonNull
+        @Override
+        public String getTitle(@NonNull Context context) {
+            return StorageVolumeCompat.getDescription(mStorageVolume, context);
+        }
+
+        @Override
+        public int getTitleRes() {
+            throw new AssertionError();
         }
 
         @Override
         public boolean onLongClick(@NonNull Listener listener) {
-            listener.onRemoveDocumentTree(mTreeUri, getStorageVolume());
+            listener.onRemoveDocumentTree(mTreeUri, mStorageVolume);
             return true;
         }
     }
