@@ -18,11 +18,11 @@
 ## 特性
 
 - 开源：轻量、简洁并且安全。
-- Material Design：仿照 [Cabinet](https://github.com/aminb/cabinet) 并且注重细节，以及可选的 MD2 样式。
+- Material Design：支持 MD2 和经典两种主题，并且注重细节。
 - 面包屑导航栏：点击导航栏所显示路径中的任一文件夹即可快速访问。
 - Root 支持：使用 root 权限查看和管理文件。
 - 压缩文件支持：查看、提取和创建常见的压缩文件。
-- 主题：可定制的界面颜色和夜间模式。
+- 主题：可定制经典主题的界面颜色，以及夜间模式。
 - Linux 友好：类似 [Nautilus](https://wiki.gnome.org/action/show/Apps/Files)，支持符号链接、文件权限和 SELinux 上下文。
 - 健壮性：使用 Linux 系统调用实现，而不是另一个 [`ls` 解析器](https://news.ycombinator.com/item?id=7994720)。
 - 实现良好：使用正确的方式打造，包括 [Java NIO2 文件 API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html) 和 [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)。

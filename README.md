@@ -20,11 +20,11 @@ An open source Material Design file manager, for Android 5.0+.
 ## Features
 
 - Open source: Lightweight, clean and secure.
-- Material Design: Like the good old [Cabinet](https://www.ghacks.net/2015/04/27/cabinet-is-a-feature-rich-file-explorer-for-android/) with attention into details, and optional MD2 style.
+- Material Design: Both MD2 and classic themes, with attention into details.
 - Breadcrumbs: Navigate in the filesystem with ease.
 - Root support: View and manage files with root access.
 - Archive support: View, extract and create common compressed files.
-- Themes: Customizable UI colors and night mode.
+- Themes: Customizable UI colors for classic theme, plus night mode.
 - Linux-aware: Like [Nautilus](https://wiki.gnome.org/action/show/Apps/Files), knows symbolic links, file permissions and SELinux context.
 - Robust: Uses Linux system calls under the hood, not yet another [`ls` parser](https://news.ycombinator.com/item?id=7994720).
 - Well-implemented: Built upon the right things, including [Java NIO2 File API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html) and [LiveData](https://developer.android.com/topic/libraries/architecture/livedata).
