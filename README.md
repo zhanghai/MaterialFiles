@@ -14,8 +14,8 @@ An open source Material Design file manager, for Android 5.0+.
 
 ## Preview
 
-<p><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="32%" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/7.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/8.png" width="32%" /></p>
+<p><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" />
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/8.png" width="32%" /></p>
 
 ## Features
 
