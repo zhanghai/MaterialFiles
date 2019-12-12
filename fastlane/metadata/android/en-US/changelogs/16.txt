@@ -1,0 +1,6 @@
+- Added quick settings tile for FTP server.
+- Added Russian translation.
+- Made Material Design 2 the default theme.
+- Fixed issue when merging folders.
+- Fixed issue where added external storage is read-only.
+- Other fixes and improvements.
