@@ -57,6 +57,13 @@
     </notice>
 
     <notice>
+        <name>SMBJ</name>
+        <url>https://github.com/hierynomus/smbj</url>
+        <copyright>Copyright 2016 SMBJ Contributors</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>ButterKnife</name>
         <url>https://github.com/JakeWharton/butterknife</url>
         <copyright>Copyright 2013 Jake Wharton</copyright>

@@ -83,6 +83,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0-beta02'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
+    implementation 'com.hierynomus:smbj:0.9.1'
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
