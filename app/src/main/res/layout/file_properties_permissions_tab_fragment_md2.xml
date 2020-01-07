@@ -37,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:scrollIndicators="top|bottom">
+            android:scrollIndicators="top|bottom"
+            android:scrollbars="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
