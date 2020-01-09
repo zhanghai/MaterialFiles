@@ -65,6 +65,8 @@ public class DocumentFileSystemProvider extends FileSystemProvider
 
     static final String SCHEME = "document";
 
+    private static final ByteString HIDDEN_FILE_NAME_PREFIX = ByteString.fromString(".");
+
     private static DocumentFileSystemProvider sInstance;
     private static final Object sInstanceLock = new Object();
 
@@ -433,8 +435,13 @@ public class DocumentFileSystemProvider extends FileSystemProvider
 
     @Override
     public boolean isHidden(@NonNull Path path) {
-        requireDocumentPath(path);
-        return false;
+        DocumentPath documentPath = requireDocumentPath(path);
+        DocumentPath fileName = documentPath.getFileName();
+        if (fileName == null) {
+            return false;
+        }
+        ByteString fileNameBytes = fileName.toByteString();
+        return fileNameBytes.startsWith(HIDDEN_FILE_NAME_PREFIX);
     }
 
     @NonNull

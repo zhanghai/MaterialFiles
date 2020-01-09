@@ -332,12 +332,11 @@ class LocalLinuxFileSystemProvider extends FileSystemProvider
     @Override
     public boolean isHidden(@NonNull Path path) {
         LinuxPath linuxPath = requireLinuxPath(path);
-        Path fileName = linuxPath.getFileName();
+        LinuxPath fileName = linuxPath.getFileName();
         if (fileName == null) {
             return false;
         }
-        LinuxPath linuxFileName = requireLinuxPath(fileName);
-        ByteString fileNameBytes = linuxFileName.toByteString();
+        ByteString fileNameBytes = fileName.toByteString();
         return fileNameBytes.startsWith(HIDDEN_FILE_NAME_PREFIX);
     }
 
