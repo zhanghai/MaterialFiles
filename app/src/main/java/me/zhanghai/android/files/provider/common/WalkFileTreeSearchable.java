@@ -19,6 +19,7 @@ import java8.nio.file.Files;
 import java8.nio.file.Path;
 import java8.nio.file.attribute.BasicFileAttributes;
 import java9.util.function.Consumer;
+import me.zhanghai.android.files.util.MoreTextUtils;
 
 public class WalkFileTreeSearchable {
 
@@ -81,7 +82,8 @@ public class WalkFileTreeSearchable {
                     return;
                 }
                 Path fileName = path.getFileName();
-                if (fileName == null || !fileName.toString().contains(query)) {
+                if (fileName == null
+                        || !MoreTextUtils.containsIgnoreCase(fileName.toString(), query)) {
                     return;
                 }
                 paths.add(path);

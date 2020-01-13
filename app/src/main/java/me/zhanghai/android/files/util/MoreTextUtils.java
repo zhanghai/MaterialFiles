@@ -71,6 +71,19 @@ public class MoreTextUtils {
         return false;
     }
 
+    public static boolean containsIgnoreCase(@NonNull String text, @NonNull String other) {
+        int otherLength = other.length();
+        if (otherLength == 0) {
+            return true;
+        }
+        for (int i = 0, max = text.length() - otherLength; i <= max; ++i) {
+            if (text.regionMatches(true, i, other, 0, otherLength)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean startsWith(@Nullable String text, @NonNull String prefix) {
         return text != null && text.startsWith(prefix);
     }
