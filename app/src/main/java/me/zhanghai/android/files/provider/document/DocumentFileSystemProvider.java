@@ -93,6 +93,16 @@ public class DocumentFileSystemProvider extends FileSystemProvider
     }
 
     @NonNull
+    public static Uri getDocumentUri(@NonNull Path path) throws IOException {
+        DocumentPath documentPath = requireDocumentPath(path);
+        try {
+            return DocumentResolver.getDocumentUri(documentPath);
+        } catch (ResolverException e) {
+            throw e.toFileSystemException(path.toString());
+        }
+    }
+
+    @NonNull
     public static Uri getTreeUri(@NonNull Path path) {
         DocumentPath documentPath = requireDocumentPath(path);
         return documentPath.getTreeUri();

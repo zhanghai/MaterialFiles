@@ -55,6 +55,7 @@ import me.zhanghai.android.files.provider.common.ForceableChannel;
 import me.zhanghai.android.files.provider.common.InvalidFileNameException;
 import me.zhanghai.android.files.provider.common.IsDirectoryException;
 import me.zhanghai.android.files.provider.common.MoreFiles;
+import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException;
 
@@ -261,6 +262,14 @@ public class FileProvider extends ContentProvider {
 
     @NonNull
     public static Uri getUriForPath(@NonNull Path path) {
+        // Try avoid going through FUSE two times, which is bad for media playback.
+        if (DocumentFileSystemProvider.isDocumentPath(path)) {
+            try {
+                return DocumentFileSystemProvider.getDocumentUri(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         String uriPath = Uri.encode(path.toUri().toString());
         return new Uri.Builder()
                 .scheme(ContentResolver.SCHEME_CONTENT)
