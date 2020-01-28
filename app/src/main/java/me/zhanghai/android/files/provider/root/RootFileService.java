@@ -131,15 +131,19 @@ public class RootFileService extends RemoteFileService {
 
     @NonNull
     private static Shell.Interactive launchSuShell() throws RemoteFileSystemException {
+        boolean[] successfulHolder = new boolean[1];
         int[] exitCodeHolder = new int[1];
         Shell.Interactive shell = new Shell.Builder()
                 .useSU()
-                .open((commandCode, exitCode, output) -> exitCodeHolder[0] = exitCode);
+                .open((successful, exitCode) -> {
+                    successfulHolder[0] = successful;
+                    exitCodeHolder[0] = exitCode;
+                });
         shell.waitForIdle();
-        int exitCode = exitCodeHolder[0];
-        if (exitCode != Shell.OnCommandResultListener.SHELL_RUNNING) {
+        if (!successfulHolder[0]) {
             shell.close();
-            throw new RemoteFileSystemException("Cannot launch su shell, exit code: " + exitCode);
+            throw new RemoteFileSystemException("Cannot launch su shell, exit code: "
+                    + exitCodeHolder[0]);
         }
         return shell;
     }
