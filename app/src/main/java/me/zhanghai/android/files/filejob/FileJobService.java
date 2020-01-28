@@ -22,6 +22,7 @@ import java.util.concurrent.Future;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import java8.nio.file.Path;
 import java9.util.function.Consumer;
 import me.zhanghai.android.files.provider.common.PosixFileModeBit;
@@ -50,7 +51,8 @@ public class FileJobService extends Service {
             sInstance.startJob(job);
         } else {
             sPendingJobs.add(job);
-            context.startService(new Intent(context, FileJobService.class));
+            ContextCompat.startForegroundService(context, new Intent(context,
+                    FileJobService.class));
         }
     }
 

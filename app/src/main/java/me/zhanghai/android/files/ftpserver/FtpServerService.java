@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.WorkerThread;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import java8.nio.file.Path;
@@ -48,7 +49,7 @@ public class FtpServerService extends Service {
     private FtpServer mServer;
 
     public static void start(@NonNull Context context) {
-        context.startService(new Intent(context, FtpServerService.class));
+        ContextCompat.startForegroundService(context, new Intent(context, FtpServerService.class));
     }
 
     public static void stop(@NonNull Context context) {
