@@ -29,7 +29,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
@@ -124,7 +124,7 @@ public class TextEditorFragment extends Fragment implements ConfirmReloadDialogF
         AppCompatActivity activity = (AppCompatActivity) requireActivity();
         activity.setSupportActionBar(mToolbar);
 
-        mViewModel = ViewModelProviders.of(this).get(TextEditorViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(TextEditorViewModel.class);
         // TODO: Move reload-prevent here so that we can also handle save-as, etc. Or maybe just get
         //  rid of the mPathLiveData in TextEditorViewModel.
         mViewModel.setPath(mExtraPath);

@@ -51,7 +51,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -292,7 +292,7 @@ public class FileListFragment extends Fragment implements BreadcrumbLayout.Liste
             return true;
         });
 
-        mViewModel = ViewModelProviders.of(this).get(FileListViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(FileListViewModel.class);
         if (!mViewModel.hasTrail()) {
             Path path = mExtraPath;
             PickOptions pickOptions = null;
