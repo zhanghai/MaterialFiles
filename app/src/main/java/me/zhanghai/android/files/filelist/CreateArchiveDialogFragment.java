@@ -83,7 +83,9 @@ public class CreateArchiveDialogFragment extends FileNameDialogFragment {
                         new HashSet<>());
                 if (parents.size() == 1) {
                     Path parent = CollectionUtils.first(parents);
-                    name = parent.getFileName().toString();
+                    if (parent.getNameCount() > 0) {
+                        name = parent.getFileName().toString();
+                    }
                 }
             }
             if (name != null) {
