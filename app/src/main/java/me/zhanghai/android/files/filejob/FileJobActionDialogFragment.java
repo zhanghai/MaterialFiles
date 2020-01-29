@@ -170,7 +170,8 @@ public class FileJobActionDialogFragment extends AppCompatDialogFragment {
     }
 
     private void remount() {
-        if (!mReadOnlyFileStore.isReadOnly()) {
+        if (mViewModel.getRemountStateLiveData().getValue().state != StateData.State.READY
+                || !mReadOnlyFileStore.isReadOnly()) {
             return;
         }
         mViewModel.getRemountStateLiveData().remount(mReadOnlyFileStore);
