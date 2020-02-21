@@ -83,7 +83,7 @@ dependencies {
     // 1.2.0-alpha01 breaks Design widgets in Theme.MaterialComponents.*.Bridge.
     // https://github.com/material-components/material-components-android/issues/740
     // TODO: Run `git revert 9fc8452` after upgrading to 1.2.0.
-    implementation 'com.google.android.material:material:1.1.0-rc01'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.hierynomus:smbj:0.10.0'
