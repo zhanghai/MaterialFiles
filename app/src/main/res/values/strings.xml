@@ -255,7 +255,7 @@
         <item quantity="one">%1$,d file</item>
         <item quantity="other">%1$,d files</item>
     </plurals>
-    <string name="file_list_subtitle_separator">", "</string>
+    <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Type</string>
     <string name="file_list_action_sort_by_size">Size</string>
@@ -284,7 +284,7 @@
     <string name="file_list_action_create_file">File</string>
     <string name="file_list_action_create_directory">Folder</string>
 
-    <string name="file_item_description_separator">"    "</string>
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
     <string name="file_item_action_open_with">Open with</string>
     <string name="file_item_action_extract">Extract</string>
     <string name="file_item_action_archive">Compress</string>
