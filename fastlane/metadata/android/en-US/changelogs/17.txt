@@ -1,0 +1,6 @@
+- Added German and Portuguese (Brazil) translation.
+- Fixed root access on Android 10.
+- Fixed starting FTP server from quick settings tile.
+- Fixed video playback in external storage.
+- Fixed search to be case-insensitive.
+- Other fixes and improvements.
