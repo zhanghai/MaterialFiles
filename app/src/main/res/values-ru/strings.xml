@@ -305,7 +305,7 @@
         <item quantity="many">%1$,d файлов</item>
         <item quantity="other">%1$,d файлов</item>
     </plurals>
-    <string name="file_list_subtitle_separator">, </string>
+    <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_action_sort_by_name">Имя</string>
     <string name="file_list_action_sort_by_type">Тип</string>
     <string name="file_list_action_sort_by_size">Размер</string>
@@ -334,7 +334,7 @@
     <string name="file_list_action_create_file">Файл</string>
     <string name="file_list_action_create_directory">Папка</string>
 
-    <string name="file_item_description_separator">"    "</string>
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
     <string name="file_item_action_open_with">Открыть с помощью</string>
     <string name="file_item_action_extract">Извлечь</string>
     <string name="file_item_action_archive">Сжать</string>
@@ -409,7 +409,7 @@
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
-    <string name="navigation_edit_bookmark_directory_title">Папка закладок</string>
+    <string name="navigation_edit_bookmark_directory_title">Закладка папки</string>
     <string name="navigation_edit_bookmark_directory_name">Имя</string>
     <string name="navigation_edit_bookmark_directory_path">Путь</string>
     <string name="navigation_ftp_server">@string/ftp_server_title</string>
@@ -467,8 +467,8 @@
     <string name="settings_standard_directories_title">Стандартные папки</string>
     <string name="settings_standard_directories_summary_empty">Стандартные папки не включены</string>
     <string name="settings_bookmark_directory_screenshots">Скриншоты</string>
-    <string name="settings_bookmark_directories_title">Папка закладок</string>
-    <string name="settings_bookmark_directories_summary_empty">Нет папки для закладок</string>
+    <string name="settings_bookmark_directories_title">Закладки папок</string>
+    <string name="settings_bookmark_directories_summary_empty">Нет закладок папок</string>
     <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root-доступ</string>
     <plurals name="settings_root_strategy_message_format">
