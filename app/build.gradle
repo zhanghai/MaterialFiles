@@ -119,6 +119,7 @@ dependencies {
     implementation 'org.slf4j:jcl-over-slf4j:1.7.30'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
+    implementation 'com.hierynomus:smbj:0.10.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
     implementation 'com.leinardi.android:speed-dial:3.1.1'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0-alpha05'
