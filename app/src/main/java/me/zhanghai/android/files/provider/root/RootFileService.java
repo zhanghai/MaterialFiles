@@ -141,7 +141,9 @@ public class RootFileService extends RemoteFileService {
                 });
         shell.waitForIdle();
         if (!successfulHolder[0]) {
-            shell.close();
+            if (shell.isRunning()) {
+                shell.closeImmediately();
+            }
             throw new RemoteFileSystemException("Cannot launch su shell, exit code: "
                     + exitCodeHolder[0]);
         }
