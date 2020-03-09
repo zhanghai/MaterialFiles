@@ -115,6 +115,12 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
+android.applicationVariants.all { variant ->
+    variant.outputs.all {
+        outputFileName = "${rootProject.name}-${variant.versionName}_${variant.buildType.name}.apk"
+    }
+}
+
 //#ifdef NONFREE
 buildscript {
     repositories {
