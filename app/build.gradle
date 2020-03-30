@@ -66,7 +66,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-process:2.2.0"
     implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha03'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-beta01'
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     debugImplementation 'com.facebook.stetho:stetho:1.5.1'
@@ -88,7 +88,7 @@ dependencies {
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.2'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
     implementation 'com.leinardi.android:speed-dial:3.1.1'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0-alpha05'
     implementation 'androidx.preference:preference:1.1.0'
@@ -106,13 +106,12 @@ dependencies {
     implementation 'me.zhanghai.java.functional:android:1.0.0'
     implementation 'me.zhanghai.java.promise:library:1.0.0'
     implementation 'me.zhanghai.java.reflected:library:1.0.1'
-    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.1'
-    implementation 'org.apache.commons:commons-compress:1.19'
+    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.2'
+    implementation 'org.apache.commons:commons-compress:1.20'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
     implementation 'org.slf4j:slf4j-android:1.7.30'
-    implementation 'org.greenrobot:eventbus:3.1.1'
 }
 
 //#ifdef NONFREE
@@ -135,7 +134,7 @@ crashlytics {
 dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.1'
-    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 }
 
 buildscript {
