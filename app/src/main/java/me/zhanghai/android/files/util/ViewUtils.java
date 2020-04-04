@@ -226,7 +226,7 @@ public class ViewUtils {
             if (resId != 0) {
                 return AppCompatResources.getColorStateList(context, resId);
             }
-            return null;
+            return a.getColorStateList(0);
         } finally {
             a.recycle();
         }
