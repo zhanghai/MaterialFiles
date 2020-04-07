@@ -218,7 +218,7 @@ public class FileProvider extends ContentProvider {
                 == ParcelFileDescriptor.MODE_READ_WRITE;
         boolean needRead = readOnly || readWrite;
         boolean needWrite = writeOnly || readWrite;
-        return !(needRead && !file.canRead()) || (needWrite && !file.canWrite());
+        return !((needRead && !file.canRead()) || (needWrite && !file.canWrite()));
     }
 
     @NonNull
