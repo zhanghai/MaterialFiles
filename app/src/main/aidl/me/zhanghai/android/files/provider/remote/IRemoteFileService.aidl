@@ -7,15 +7,15 @@ import me.zhanghai.android.files.provider.remote.IRemotePosixFileStore;
 import me.zhanghai.android.files.provider.remote.ParcelableObject;
 
 interface IRemoteFileService {
-
     IRemoteFileSystemProvider getRemoteFileSystemProviderInterface(String scheme);
 
-    IRemoteFileSystem getRemoteFileSystemInterface(in ParcelableObject parcelableFileSystem);
+    IRemoteFileSystem getRemoteFileSystemInterface(in ParcelableObject fileSystem);
 
-    IRemotePosixFileStore getRemotePosixFileStoreInterface(in ParcelableObject parcelableFileStore);
+    IRemotePosixFileStore getRemotePosixFileStoreInterface(in ParcelableObject fileStore);
 
     IRemotePosixFileAttributeView getRemotePosixFileAttributeViewInterface(
-            in ParcelableObject parcelableAttributeView);
+        in ParcelableObject attributeView
+    );
 
-    void refreshArchiveFileSystem(in ParcelableObject parcelableFileSystem);
+    void refreshArchiveFileSystem(in ParcelableObject fileSystem);
 }

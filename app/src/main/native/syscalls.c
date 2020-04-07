@@ -309,7 +309,7 @@ static char *mallocStringFromByteString(JNIEnv *env, jobject javaByteString) {
 static jobject newByteString(JNIEnv *env, const void *bytes, size_t length) {
     static jmethodID constructor = NULL;
     if (!constructor) {
-        constructor = findMethod(env, getByteStringClass(env), "<init>", "([BZ)V");
+        constructor = findMethod(env, getByteStringClass(env), "<init>", "([B)V");
     }
     jsize javaLength = (jsize) length;
     jbyteArray javaBytes = (*env)->NewByteArray(env, javaLength);
@@ -317,8 +317,8 @@ static jobject newByteString(JNIEnv *env, const void *bytes, size_t length) {
         return NULL;
     }
     (*env)->SetByteArrayRegion(env, javaBytes, 0, javaLength, bytes);
-    jobject javaByteString = (*env)->NewObject(env, getByteStringClass(env), constructor, javaBytes,
-            JNI_FALSE);
+    jobject javaByteString = (*env)->NewObject(env, getByteStringClass(env), constructor,
+            javaBytes);
     (*env)->DeleteLocalRef(env, javaBytes);
     return javaByteString;
 }

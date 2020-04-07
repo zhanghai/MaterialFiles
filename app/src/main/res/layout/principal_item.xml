@@ -7,7 +7,7 @@
 
 <me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item"
+    android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeight"
     android:paddingStart="?dialogPreferredPadding"
@@ -17,7 +17,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/iconImage"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:scaleType="centerCrop" />
@@ -31,7 +31,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/principal"
+            android:id="@+id/principalText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ellipsize="end"
@@ -39,7 +39,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <me.zhanghai.android.files.ui.AutoGoneTextView
-            android:id="@+id/label"
+            android:id="@+id/labelText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:ellipsize="end"

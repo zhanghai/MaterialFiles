@@ -13,7 +13,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?colorAppBarSurface"
@@ -41,7 +41,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/error"
+            android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -55,14 +55,14 @@
 
         <!-- TODO: Use a WebView for large amount of text. -->
         <me.zhanghai.android.fastscroll.FastScrollNestedScrollView
-            android:id="@+id/scroll"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:fillViewport="true">
 
             <EditText
-                android:id="@+id/text"
+                android:id="@+id/textEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/screen_edge_margin"

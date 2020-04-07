@@ -19,7 +19,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/error"
+        android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,12 +28,12 @@
         android:visibility="gone" />
 
     <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroll"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -57,7 +57,7 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/owner"
+                        android:id="@+id/ownerText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -72,7 +72,7 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/group"
+                        android:id="@+id/groupText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -87,13 +87,13 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/mode"
+                        android:id="@+id/modeText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/selinux_context_layout"
+                    android:id="@+id/seLinuxContextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -103,7 +103,7 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/selinux_context"
+                        android:id="@+id/seLinuxContextText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </com.google.android.material.textfield.TextInputLayout>

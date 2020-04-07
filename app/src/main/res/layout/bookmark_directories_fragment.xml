@@ -18,7 +18,7 @@
         android:background="?colorAppBarSurface"
         android:theme="?actionBarTheme"
         app:liftOnScroll="?appBarLiftOnScroll"
-        app:liftOnScrollTargetViewId="@id/recycler">
+        app:liftOnScrollTargetViewId="@id/recyclerView">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,7 +33,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/empty"
+            android:id="@+id/emptyView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -42,7 +42,7 @@
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

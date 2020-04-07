@@ -12,7 +12,7 @@
     android:layout_height="match_parent">
 
     <me.zhanghai.android.files.ui.FixIllegalArgumentExceptionViewPager
-        android:id="@+id/view_pager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

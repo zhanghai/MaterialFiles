@@ -5,8 +5,10 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.ui.StatusBarBackgroundView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="fill" />
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <me.zhanghai.android.files.ui.StatusBarBackgroundView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="fill" />
+</merge>

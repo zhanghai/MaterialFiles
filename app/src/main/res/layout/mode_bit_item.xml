@@ -13,7 +13,7 @@
     android:paddingEnd="12dp">
 
     <CheckBox
-        android:id="@+id/mode_bit"
+        android:id="@+id/modeBitCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?listPreferredItemHeightSmall"

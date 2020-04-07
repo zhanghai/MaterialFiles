@@ -7,7 +7,7 @@
 
 <com.google.android.material.textfield.TextInputLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/name_layout"
+    android:id="@+id/nameLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="?dialogPreferredPadding"
@@ -16,7 +16,7 @@
     android:paddingBottom="16dp">
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/name"
+        android:id="@+id/nameEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:importantForAutofill="no"

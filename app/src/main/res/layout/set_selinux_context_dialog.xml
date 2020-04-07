@@ -16,7 +16,7 @@
     android:orientation="vertical">
 
     <me.zhanghai.android.materialedittext.MaterialEditText
-        android:id="@+id/selinux_context"
+        android:id="@+id/seLinuxContextEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-4dp"
@@ -27,7 +27,7 @@
     </me.zhanghai.android.materialedittext.MaterialEditText>
 
     <CheckBox
-        android:id="@+id/recursive"
+        android:id="@+id/recursiveCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-7dp"

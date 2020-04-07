@@ -24,7 +24,7 @@
             android:background="?colorControlHighlight" />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab"
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabMode="scrollable"
@@ -32,8 +32,8 @@
             app:tabPaddingEnd="?dialogPreferredPadding" />
     </FrameLayout>
 
-    <me.zhanghai.android.files.fileproperties.FirstPageWrapContentViewPager
-        android:id="@+id/view_pager"
+    <me.zhanghai.android.files.ui.WrapFirstPageContentViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

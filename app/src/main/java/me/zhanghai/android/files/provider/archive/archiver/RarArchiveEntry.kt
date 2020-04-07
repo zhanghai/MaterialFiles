@@ -1,0 +1,32 @@
+/*
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * All Rights Reserved.
+ */
+
+package me.zhanghai.android.files.provider.archive.archiver
+
+import com.github.junrar.rarfile.FileHeader
+import org.apache.commons.compress.archivers.ArchiveEntry
+import org.apache.commons.compress.archivers.zip.ZipEncoding
+import java.util.Date
+
+internal class RarArchiveEntry(val header: FileHeader, zipEncoding: ZipEncoding) : ArchiveEntry {
+    private val name: String
+
+    init {
+        var name = header.fileNameW
+        if (name.isNullOrEmpty()) {
+            name = zipEncoding.decode(header.fileNameByteArray)
+        }
+        name = name.replace('\\', '/')
+        this.name = name
+    }
+
+    override fun getName(): String = name
+
+    override fun getSize(): Long = header.fullUnpackSize
+
+    override fun isDirectory(): Boolean = header.isDirectory
+
+    override fun getLastModifiedDate(): Date = header.mTime
+}

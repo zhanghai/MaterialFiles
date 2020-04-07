@@ -29,13 +29,13 @@
             android:padding="@dimen/touch_target_large_icon_padding">
 
             <ImageView
-                android:id="@+id/target_icon"
+                android:id="@+id/targetIconImage"
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
                 android:scaleType="centerCrop" />
 
             <ImageView
-                android:id="@+id/target_badge"
+                android:id="@+id/targetBadgeImage"
                 android:layout_width="@dimen/badge_size"
                 android:layout_height="@dimen/badge_size"
                 android:layout_gravity="end|bottom"
@@ -52,7 +52,7 @@
 
             <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
             <TextView
-                android:id="@+id/target_name"
+                android:id="@+id/targetNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
@@ -60,7 +60,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
-                android:id="@+id/target_description"
+                android:id="@+id/targetDescriptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -89,13 +89,13 @@
             android:clipToPadding="false">
 
             <ImageView
-                android:id="@+id/source_icon"
+                android:id="@+id/sourceIconImage"
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
                 android:scaleType="centerCrop" />
 
             <ImageView
-                android:id="@+id/source_badge"
+                android:id="@+id/sourceBadgeImage"
                 android:layout_width="@dimen/badge_size"
                 android:layout_height="@dimen/badge_size"
                 android:layout_gravity="end|bottom"
@@ -112,7 +112,7 @@
 
             <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
             <TextView
-                android:id="@+id/source_name"
+                android:id="@+id/sourceNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
@@ -120,7 +120,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
-                android:id="@+id/source_description"
+                android:id="@+id/sourceDescriptionText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -137,7 +137,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/show_name_layout"
+            android:id="@+id/showNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/dense_single_line_list_item_height"
@@ -149,7 +149,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/show_name_arrow"
+                android:id="@+id/showNameArrowImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-3dp"
@@ -168,7 +168,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/name_layout"
+            android:id="@+id/nameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-4dp"
@@ -181,7 +181,7 @@
             android:visibility="gone">
 
             <me.zhanghai.android.materialedittext.MaterialEditText
-                android:id="@+id/name"
+                android:id="@+id/nameEdit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -192,7 +192,7 @@
                 android:maxLines="1" />
 
             <Button
-                android:id="@+id/reset_name"
+                android:id="@+id/resetNameButton"
                 android:layout_width="wrap_content"
                 android:minWidth="64dp"
                 android:layout_height="wrap_content"
@@ -203,7 +203,7 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/all"
+        android:id="@+id/allCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dialog_padding_minus_7dp"

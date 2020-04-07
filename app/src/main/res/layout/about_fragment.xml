@@ -33,7 +33,7 @@
         android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroll"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -132,7 +132,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/github"
+                            android:id="@+id/gitHubLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
@@ -159,7 +159,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/licenses"
+                            android:id="@+id/licensesLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
@@ -186,7 +186,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/privacy_policy"
+                            android:id="@+id/privacyPolicyLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
@@ -245,7 +245,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/author_name"
+                            android:id="@+id/authorNameLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
@@ -274,7 +274,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/author_github"
+                            android:id="@+id/authorGitHubLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
@@ -301,7 +301,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/author_google_plus"
+                            android:id="@+id/authorGooglePlusLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
@@ -328,7 +328,7 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/author_twitter"
+                            android:id="@+id/authorTwitterLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"

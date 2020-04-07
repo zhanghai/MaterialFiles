@@ -25,12 +25,12 @@
         app:hintAnimationEnabled="false">
 
         <me.zhanghai.android.files.ui.TextInputTextView
-            android:id="@+id/owner"
+            android:id="@+id/ownerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/owner_dropdown"
+            android:id="@+id/ownerDropDown"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,12 +45,12 @@
         app:hintAnimationEnabled="false">
 
         <me.zhanghai.android.files.ui.TextInputTextView
-            android:id="@+id/group"
+            android:id="@+id/groupText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/group_dropdown"
+            android:id="@+id/groupDropDown"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,12 +65,12 @@
         app:hintAnimationEnabled="false">
 
         <me.zhanghai.android.files.ui.TextInputTextView
-            android:id="@+id/others"
+            android:id="@+id/othersText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/others_dropdown"
+            android:id="@+id/othersDropDown"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -85,18 +85,18 @@
         app:hintAnimationEnabled="false">
 
         <me.zhanghai.android.files.ui.TextInputTextView
-            android:id="@+id/special"
+            android:id="@+id/specialText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/special_dropdown"
+            android:id="@+id/specialDropDown"
             android:layout_width="match_parent"
             android:layout_height="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
-        android:id="@+id/recursive"
+        android:id="@+id/recursiveCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-7dp"
@@ -106,7 +106,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
     <CheckBox
-        android:id="@+id/uppercase_x"
+        android:id="@+id/uppercaseXCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-7dp"

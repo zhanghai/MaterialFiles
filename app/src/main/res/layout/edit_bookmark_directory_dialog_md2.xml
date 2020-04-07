@@ -22,7 +22,7 @@
         android:hint="@string/navigation_edit_bookmark_directory_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@id/name"
+            android:id="@id/nameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
@@ -41,7 +41,7 @@
         app:hintAnimationEnabled="false">
 
         <me.zhanghai.android.files.ui.TextInputTextView
-            android:id="@+id/path"
+            android:id="@+id/pathText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>

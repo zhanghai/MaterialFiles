@@ -15,7 +15,7 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/remount"
+        android:id="@+id/remountButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="?textButtonHorizontalPaddingNegative"
@@ -23,12 +23,12 @@
         style="?textButtonStyle" />
 
     <Space
-        android:id="@+id/all_space"
+        android:id="@+id/allSpace"
         android:layout_width="0dp"
         android:layout_height="12dp" />
 
     <CheckBox
-        android:id="@+id/all"
+        android:id="@+id/allCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-7dp"

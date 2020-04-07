@@ -19,7 +19,7 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/error"
+        android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -28,12 +28,12 @@
         android:visibility="gone" />
 
     <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/scroll"
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollIndicators="top|bottom"
@@ -52,14 +52,14 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/name"
+                        android:id="@+id/nameText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/parent_directory_layout"
+                    android:id="@+id/parentDirectoryLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -67,14 +67,14 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/parent_directory"
+                        android:id="@+id/parentDirectoryText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
-                    android:id="@+id/archive_file_and_entry_layout"
+                    android:id="@+id/archiveFileAndEntryLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -88,7 +88,7 @@
                         app:hintAnimationEnabled="false">
 
                         <me.zhanghai.android.files.ui.TextInputTextView
-                            android:id="@+id/archive_file"
+                            android:id="@+id/archiveFileText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textIsSelectable="true" />
@@ -102,7 +102,7 @@
                         app:hintAnimationEnabled="false">
 
                         <me.zhanghai.android.files.ui.TextInputTextView
-                            android:id="@+id/archive_entry"
+                            android:id="@+id/archiveEntryText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textIsSelectable="true" />
@@ -117,14 +117,14 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/type"
+                        android:id="@+id/typeText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/symbolic_link_target_layout"
+                    android:id="@+id/symbolicLinkTargetLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -132,7 +132,7 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/symbolic_link_target"
+                        android:id="@+id/symbolicLinkTargetText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />
@@ -146,7 +146,7 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/size"
+                        android:id="@+id/sizeText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />
@@ -160,7 +160,7 @@
                     app:hintAnimationEnabled="false">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/last_modification_time"
+                        android:id="@+id/lastModificationTimeText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />

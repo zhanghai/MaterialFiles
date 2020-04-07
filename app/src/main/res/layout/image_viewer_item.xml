@@ -17,13 +17,13 @@
         android:visibility="gone" />
 
     <me.zhanghai.android.files.ui.SaveStateSubsamplingScaleImageView
-        android:id="@+id/large_image"
+        android:id="@+id/largeImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/error"
+        android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

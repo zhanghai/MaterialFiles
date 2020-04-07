@@ -10,7 +10,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.leinardi.android.speeddial.SpeedDialOverlayLayout
-        android:id="@+id/speed_dial_overlay"
+        android:id="@+id/speedDialOverlayLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="fill"
@@ -23,13 +23,13 @@
         android:fitsSystemWindows="true">
 
         <me.zhanghai.android.files.ui.ThemedSpeedDialView
-            android:id="@+id/speed_dial"
+            android:id="@+id/speedDialView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/screen_edge_margin_minus_16dp"
             app:sdMainFabAnimationRotateAngle="135"
             app:sdMainFabClosedSrc="@drawable/add_icon_white_24dp"
-            app:sdOverlayLayout="@id/speed_dial_overlay" />
+            app:sdOverlayLayout="@id/speedDialOverlayLayout" />
     </FrameLayout>
 </merge>

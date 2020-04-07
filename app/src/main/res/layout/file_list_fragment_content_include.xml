@@ -5,59 +5,62 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout
+<merge
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="12dp"
-        android:paddingBottom="32dp"
-        android:drawableTop="@drawable/error_icon_240dp"
-        android:drawablePadding="8dp"
-        android:gravity="center_horizontal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="12dp"
-        android:paddingBottom="32dp"
-        android:drawableTop="@drawable/file_icon_240dp"
-        android:drawablePadding="8dp"
-        android:gravity="center_horizontal"
-        android:text="@string/file_list_empty"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-        android:visibility="gone" />
-
-    <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
-        android:id="@+id/swipe_refresh"
+    <me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout
+        android:id="@+id/contentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/errorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="32dp"
+            android:drawableTop="@drawable/error_icon_240dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="32dp"
+            android:drawableTop="@drawable/file_icon_240dp"
+            android:drawablePadding="8dp"
+            android:gravity="center_horizontal"
+            android:text="@string/file_list_empty"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:visibility="gone" />
+
+        <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/list_bottom_padding_with_fab"
-            android:clipToPadding="false"
-            android:fitsSystemWindows="true"
-            tools:listitem="@layout/file_item" />
-    </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
-</me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/list_bottom_padding_with_fab"
+                android:clipToPadding="false"
+                android:fitsSystemWindows="true"
+                tools:listitem="@layout/file_item" />
+        </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
+    </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
+</merge>

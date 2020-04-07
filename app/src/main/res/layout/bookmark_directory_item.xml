@@ -35,7 +35,7 @@
 
             <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -43,7 +43,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
-                android:id="@+id/path"
+                android:id="@+id/pathText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -53,7 +53,7 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/drag_handle"
+            android:id="@+id/dragHandleView"
             android:layout_width="@dimen/touch_target_size"
             android:layout_height="@dimen/touch_target_size"
             android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_36dp_considering_at_least_8dp"

@@ -3,7 +3,6 @@ package me.zhanghai.android.files.provider.remote;
 import me.zhanghai.android.files.provider.remote.ParcelableException;
 
 interface IRemoteInputStream {
-
     int read(out ParcelableException exception);
 
     int read2(out byte[] buffer, out ParcelableException exception);

@@ -50,7 +50,7 @@
                 <data android:mimeType="resource/folder" />
                 <data android:mimeType="vnd.android.document/directory" />
             </intent-filter>
-            <!-- @see me.zhanghai.android.files.file.MimeTypes#isSupportedArchive(String) -->
+            <!-- @see me.zhanghai.android.files.file.isSupportedArchive -->
             <!--
               ~ We don't really support content URI archives.
               ~ TODO: Figure out a good way to allow choosing this activity only in our app, or
@@ -255,15 +255,9 @@
         </service>
 
         <provider
-            android:name="me.zhanghai.android.files.AppProvider"
+            android:name="me.zhanghai.android.files.app.AppProvider"
             android:authorities="@string/app_provider_authority"
             android:exported="false" />
-
-        <provider
-            android:name="me.zhanghai.android.files.file.FileProvider"
-            android:authorities="@string/file_provider_authority"
-            android:exported="false"
-            android:grantUriPermissions="true" />
 
         <receiver android:name="me.zhanghai.android.files.filejob.FileJobReceiver" />
 

@@ -33,7 +33,7 @@
         android:layout_height="match_parent">
 
         <fragment
-            android:id="@+id/preference_fragment"
+            android:id="@+id/preferenceFragment"
             android:name="me.zhanghai.android.files.settings.StandardDirectoriesPreferenceFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

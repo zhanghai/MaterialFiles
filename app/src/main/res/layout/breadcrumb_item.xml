@@ -16,7 +16,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/textText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -26,7 +26,7 @@
         android:textAppearance="@style/TextAppearance.Design.Tab" />
 
     <ImageView
-        android:id="@+id/arrow"
+        android:id="@+id/arrowImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="-4dp"

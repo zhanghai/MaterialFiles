@@ -13,7 +13,7 @@
     android:orientation="vertical">
 
     <EditText
-        android:id="@+id/filter"
+        android:id="@+id/filterEdit"
         android:layout_width="match_parent"
         android:layout_height="?listPreferredItemHeightSmall"
         android:paddingStart="?dialogPreferredPadding"
@@ -40,7 +40,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/error"
+            android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -49,7 +49,7 @@
             android:visibility="gone" />
 
         <TextView
-            android:id="@+id/empty"
+            android:id="@+id/emptyView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -59,7 +59,7 @@
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
@@ -68,7 +68,7 @@
     </FrameLayout>
 
     <CheckBox
-        android:id="@+id/recursive"
+        android:id="@+id/recursiveCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?listPreferredItemHeightSmall"

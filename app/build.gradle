@@ -32,6 +32,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs += [
+                '-Xopt-in=kotlin.RequiresOptIn',
+                "-XXLanguage:+InlineClasses",
+        ]
+    }
+    viewBinding {
+        enabled true
+    }
     externalNativeBuild {
         cmake {
             path 'CMakeLists.txt'
@@ -124,8 +134,6 @@ dependencies {
     implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
     implementation 'me.zhanghai.android.retrofile:library:1.1.0'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
-    implementation 'me.zhanghai.java.functional:android:1.0.0'
-    implementation 'me.zhanghai.java.promise:library:1.0.0'
     implementation 'me.zhanghai.java.reflected:library:1.0.1'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.2'
     implementation 'org.apache.commons:commons-compress:1.20'
