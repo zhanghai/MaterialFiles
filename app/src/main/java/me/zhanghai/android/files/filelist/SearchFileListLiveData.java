@@ -46,7 +46,7 @@ public class SearchFileListLiveData extends CloseableLiveData<FileListData> {
                     for (Path path : paths) {
                         FileItem fileItem;
                         try {
-                            fileItem = SearchFileItem.load(path);
+                            fileItem = FileItem.load(path);
                         } catch (IOException e) {
                             e.printStackTrace();
                             // TODO: Support file without information.

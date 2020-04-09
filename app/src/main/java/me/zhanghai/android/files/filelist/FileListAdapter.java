@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.signature.ObjectKey;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -34,9 +36,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SortedList;
-import androidx.recyclerview.widget.SortedListAdapterCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import java8.nio.file.Path;
@@ -56,38 +57,33 @@ import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider;
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver;
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider;
 import me.zhanghai.android.files.settings.Settings;
-import me.zhanghai.android.files.ui.AnimatedSortedListAdapter;
+import me.zhanghai.android.files.ui.AnimatedListAdapter;
 import me.zhanghai.android.files.ui.CheckableFrameLayout;
 import me.zhanghai.android.files.util.ViewUtils;
 
-public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileListAdapter.ViewHolder>
+public class FileListAdapter extends AnimatedListAdapter<FileItem, FileListAdapter.ViewHolder>
         implements PopupTextProvider {
 
     private static final Object PAYLOAD_STATE_CHANGED = new Object();
 
-    private boolean mSearching;
     @NonNull
-    private Comparator<FileItem> mComparator;
-    @NonNull
-    private final SortedList.Callback<FileItem> mCallback =
-            new SortedListAdapterCallback<FileItem>(this) {
+    private static final DiffUtil.ItemCallback<FileItem> CALLBACK =
+            new DiffUtil.ItemCallback<FileItem>() {
                 @Override
-                public int compare(FileItem file1, FileItem file2) {
-                    if (mSearching) {
-                        return ((SearchFileItem) file1).compareTo((SearchFileItem) file2);
-                    } else {
-                        return mComparator.compare(file1, file2);
-                    }
-                }
-                @Override
-                public boolean areItemsTheSame(FileItem oldItem, FileItem newItem) {
+                public boolean areItemsTheSame(@NonNull FileItem oldItem,
+                                               @NonNull FileItem newItem) {
                     return Objects.equals(oldItem, newItem);
                 }
                 @Override
-                public boolean areContentsTheSame(FileItem oldItem, FileItem newItem) {
+                public boolean areContentsTheSame(@NonNull FileItem oldItem,
+                                                  @NonNull FileItem newItem) {
                     return FileItem.contentEquals(oldItem, newItem);
                 }
             };
+
+    private boolean mSearching;
+    @NonNull
+    private Comparator<FileItem> mComparator;
 
     @Nullable
     private PickOptions mPickOptions;
@@ -103,7 +99,7 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     private Listener mListener;
 
     public FileListAdapter(@NonNull Fragment fragment, @NonNull Listener listener) {
-        init(FileItem.class, mCallback);
+        super(CALLBACK);
 
         mFragment = fragment;
         mListener = listener;
@@ -112,7 +108,9 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     public void setComparator(@NonNull Comparator<FileItem> comparator) {
         mComparator = comparator;
         if (!mSearching) {
-            refresh();
+            List<FileItem> list = new ArrayList<>(getList());
+            Collections.sort(list, mComparator);
+            super.replace(list, true);
             rebuildFilePositionMap();
         }
     }
@@ -194,12 +192,13 @@ public class FileListAdapter extends AnimatedSortedListAdapter<FileItem, FileLis
     }
 
     public void replace2(@NonNull List<FileItem> list, boolean searching) {
+        list = new ArrayList<>(list);
+        Collections.sort(list, mComparator);
 
         boolean clear = mSearching != searching;
         mSearching = searching;
 
         super.replace(list, clear);
-
         rebuildFilePositionMap();
     }
 

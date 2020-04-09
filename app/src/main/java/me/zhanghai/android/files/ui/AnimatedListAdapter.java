@@ -14,11 +14,12 @@ import android.view.animation.AnimationUtils;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 import me.zhanghai.android.files.R;
 
-public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewHolder>
-        extends SortedListAdapter<T, VH> {
+public abstract class AnimatedListAdapter<T, VH extends RecyclerView.ViewHolder>
+        extends ListAdapter<T, VH> {
 
     private static final int ANIMATION_STAGGER_MILLIS = 20;
 
@@ -40,6 +41,10 @@ public abstract class AnimatedSortedListAdapter<T, VH extends RecyclerView.ViewH
                     clearAnimation();
                 }
             };
+
+    public AnimatedListAdapter(@NonNull DiffUtil.ItemCallback<T> callback) {
+        super(callback);
+    }
 
     @Override
     public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
