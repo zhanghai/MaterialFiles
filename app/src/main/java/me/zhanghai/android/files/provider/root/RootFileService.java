@@ -170,6 +170,7 @@ public class RootFileService extends RemoteFileService {
 
         LogUtils.i("Installing file system providers");
         FileSystemProviders.install();
+        FileSystemProviders.setOverflowWatchEvents(true);
 
         LogUtils.i("Sending Binder");
         RemoteFileServiceInterface remoteInterface = new RemoteFileServiceInterface();
