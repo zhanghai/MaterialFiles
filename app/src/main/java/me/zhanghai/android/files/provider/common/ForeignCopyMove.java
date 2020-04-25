@@ -40,7 +40,7 @@ class ForeignCopyMove {
                 || sourceAttributes.isSymbolicLink())) {
             throw new IOException("Cannot copy special file to foreign provider");
         }
-        if (!copyOptions.hasReplaceExisting() && Files.exists(target)) {
+        if (!copyOptions.hasReplaceExisting() && Files.exists(target, LinkOption.NOFOLLOW_LINKS)) {
             throw new FileAlreadyExistsException(source.toString(), target.toString(), null);
         }
         if (sourceAttributes.isRegularFile()) {

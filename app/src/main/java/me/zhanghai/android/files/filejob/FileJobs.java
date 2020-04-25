@@ -1555,7 +1555,7 @@ public class FileJobs {
             for (int i = countInfo.count + 1; i > 0; ++i) {
                 ByteString targetFileName = setDuplicateCount(sourceFileName, countInfo, i);
                 Path target = byteStringSource.resolveSibling(targetFileName);
-                if (!Files.exists(target)) {
+                if (!Files.exists(target, LinkOption.NOFOLLOW_LINKS)) {
                     return target;
                 }
             }
