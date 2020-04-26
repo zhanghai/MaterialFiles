@@ -20,5 +20,5 @@ class ResolverException : Exception {
             is FileNotFoundException -> NoSuchFileException(file, other, message)
             is SecurityException -> AccessDeniedException(file, other, message)
             else -> FileSystemException(file, other, message)
-        }.apply { initCause(this) }
+        }.apply { initCause(this@ResolverException) }
 }

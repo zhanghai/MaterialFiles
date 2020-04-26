@@ -33,14 +33,16 @@ class SyscallException @JvmOverloads constructor(
     @Throws(AtomicMoveNotSupportedException::class)
     fun maybeThrowAtomicMoveNotSupportedException(file: String?, other: String?) {
         if (errno == OsConstants.EXDEV) {
-            throw AtomicMoveNotSupportedException(file, other, message).apply { initCause(this) }
+            throw AtomicMoveNotSupportedException(file, other, message)
+                .apply { initCause(this@SyscallException) }
         }
     }
 
     @Throws(InvalidFileNameException::class)
     fun maybeThrowInvalidFileNameException(file: String?) {
         if (errno == OsConstants.EINVAL) {
-            throw InvalidFileNameException(file, null, message).apply { initCause(this) }
+            throw InvalidFileNameException(file, null, message)
+                .apply { initCause(this@SyscallException) }
         }
     }
 
@@ -55,7 +57,7 @@ class SyscallException @JvmOverloads constructor(
             OsConstants.ENOENT -> NoSuchFileException(file, other, message)
             OsConstants.EROFS -> ReadOnlyFileSystemException(file, other, message)
             else -> FileSystemException(file, other, message)
-        }.apply { initCause(this) }
+        }.apply { initCause(this@SyscallException) }
 
     companion object {
         private fun perror(errno: Int, functionName: String): String =
