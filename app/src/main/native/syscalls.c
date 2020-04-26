@@ -100,7 +100,7 @@ static jclass getByteStringClass(JNIEnv *env) {
 static jfieldID getByteStringBytesField(JNIEnv *env) {
     static jclass byteStringBytesField = NULL;
     if (!byteStringBytesField) {
-        byteStringBytesField = findField(env, getByteStringClass(env), "mBytes", "[B");
+        byteStringBytesField = findField(env, getByteStringClass(env), "bytes", "[B");
     }
     return byteStringBytesField;
 }
