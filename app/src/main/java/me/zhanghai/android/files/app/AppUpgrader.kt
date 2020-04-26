@@ -7,8 +7,6 @@ package me.zhanghai.android.files.app
 
 import androidx.core.content.edit
 import me.zhanghai.android.files.BuildConfig
-import me.zhanghai.android.files.compat.PreferenceManagerCompat
-import java.io.File
 
 private const val KEY_VERSION_CODE = "key_version_code"
 
@@ -18,7 +16,8 @@ private const val VERSION_CODE_LATEST = BuildConfig.VERSION_CODE
 
 private var lastVersionCode: Int
     get() {
-        if (isNewInstall) {
+        if (defaultSharedPreferences.all.isEmpty()) {
+            // This is a new install.
             lastVersionCode = VERSION_CODE_LATEST
             return VERSION_CODE_LATEST
         }
@@ -27,9 +26,6 @@ private var lastVersionCode: Int
     set(value) {
         defaultSharedPreferences.edit { putInt(KEY_VERSION_CODE, value) }
     }
-
-private val isNewInstall: Boolean
-    get() = !File(PreferenceManagerCompat.getDefaultSharedPreferencesName(application)).exists()
 
 fun upgradeApp() {
     upgradeAppFrom(lastVersionCode)
