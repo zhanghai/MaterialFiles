@@ -134,7 +134,7 @@ class FilePropertiesBasicTabFragment : AppCompatDialogFragment() {
         } else {
             R.string.file_properties_basic_type_format
         }
-        return getString(typeFormatRes, file.getMimeTypeName(requireContext()), file.mimeType)
+        return getString(typeFormatRes, file.getMimeTypeName(requireContext()), file.mimeType.value)
     }
 
     private fun getSizeText(file: FileItem): String {

@@ -55,6 +55,8 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        // Initialize our view model before child fragments are created.
+        viewModel.fileLiveData
         val tabs = mutableListOf<Pair<Int, () -> Fragment>>()
             .apply {
                 add(R.string.file_properties_basic to { FilePropertiesBasicTabFragment() })
