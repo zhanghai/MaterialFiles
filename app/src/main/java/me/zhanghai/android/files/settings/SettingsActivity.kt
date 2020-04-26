@@ -18,18 +18,17 @@ import me.zhanghai.android.files.app.AppActivity
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper.OnThemeChangedListener
 import me.zhanghai.android.files.theme.night.NightModeHelper.OnNightModeChangedListener
 import me.zhanghai.android.files.util.ParcelableArgs
-import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.createIntent
+import me.zhanghai.android.files.util.getArgsOrNull
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.startActivitySafe
 
 class SettingsActivity : AppActivity(), OnThemeChangedListener, OnNightModeChangedListener {
-    private val args by args<Args>()
-
     private var isRestarting = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val savedInstanceState = savedInstanceState ?: args.savedInstanceState
+        val args = intent.extras?.getArgsOrNull<Args>()
+        val savedInstanceState = savedInstanceState ?: args?.savedInstanceState
         super.onCreate(savedInstanceState)
 
         // Calls ensureSubDecor().
