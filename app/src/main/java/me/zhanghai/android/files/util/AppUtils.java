@@ -89,7 +89,7 @@ public class AppUtils {
             return true;
         } catch (ActivityNotFoundException | IllegalArgumentException e) {
             e.printStackTrace();
-            ToastUtils.show(R.string.activity_not_found, context);
+            AppUtils.runOnUiThread(() -> ToastUtils.show(R.string.activity_not_found, context));
             return false;
         }
     }
@@ -100,7 +100,7 @@ public class AppUtils {
             return true;
         } catch (ActivityNotFoundException | IllegalArgumentException e) {
             e.printStackTrace();
-            ToastUtils.show(R.string.activity_not_found, fragment.requireContext());
+            AppUtils.runOnUiThread(() -> ToastUtils.show(R.string.activity_not_found, fragment.requireContext()));
             return false;
         }
     }
@@ -112,7 +112,7 @@ public class AppUtils {
             return true;
         } catch (ActivityNotFoundException | IllegalArgumentException e) {
             e.printStackTrace();
-            ToastUtils.show(R.string.activity_not_found, activity);
+            AppUtils.runOnUiThread(() -> ToastUtils.show(R.string.activity_not_found, activity));
             return false;
         }
     }
@@ -124,7 +124,7 @@ public class AppUtils {
             return true;
         } catch (ActivityNotFoundException | IllegalArgumentException e) {
             e.printStackTrace();
-            ToastUtils.show(R.string.activity_not_found, fragment.requireContext());
+            AppUtils.runOnUiThread(() -> ToastUtils.show(R.string.activity_not_found, fragment.requireContext()));
             return false;
         }
     }
