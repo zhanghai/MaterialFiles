@@ -13,7 +13,9 @@ import kotlin.contracts.contract
 import kotlin.math.min
 
 @Parcelize
-class ByteString private constructor(
+// @see https://youtrack.jetbrains.com/issue/KT-24842
+// @Parcelize throws IllegalAccessError if the primary constructor is private.
+class ByteString internal constructor(
     private val bytes: ByteArray
 ) : Comparable<ByteString>, Parcelable {
     val length: Int

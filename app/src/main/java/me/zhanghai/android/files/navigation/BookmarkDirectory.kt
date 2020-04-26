@@ -14,8 +14,9 @@ import me.zhanghai.android.files.util.ParcelableParceler
 import java.util.Random
 
 @Parcelize
-@Suppress("DataClassPrivateConstructor")
-data class BookmarkDirectory private constructor(
+// @see https://youtrack.jetbrains.com/issue/KT-24842
+// @Parcelize throws IllegalAccessError if the primary constructor is private.
+data class BookmarkDirectory internal constructor(
     val id: Long,
     private val customName: String?,
     val path: @WriteWith<ParcelableParceler> Path
