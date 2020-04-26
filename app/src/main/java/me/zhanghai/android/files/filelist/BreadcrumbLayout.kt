@@ -107,7 +107,7 @@ class BreadcrumbLayout : HorizontalScrollView {
     }
 
     fun setData(data: BreadcrumbData) {
-        if (this.data == data) {
+        if (this::data.isInitialized && this.data == data) {
             return
         }
         this.data = data
