@@ -10,8 +10,8 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import androidx.annotation.AnyRes
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
-import androidx.preference.PreferenceManager
 import me.zhanghai.android.files.app.application
+import me.zhanghai.android.files.app.defaultSharedPreferences
 import me.zhanghai.android.files.compat.PreferenceManagerCompat
 
 abstract class SettingLiveData<T>(
@@ -37,7 +37,7 @@ abstract class SettingLiveData<T>(
 
     private fun getSharedPreferences(nameSuffix: String?): SharedPreferences =
         if (nameSuffix == null) {
-            PreferenceManager.getDefaultSharedPreferences(application)
+            defaultSharedPreferences
         } else {
             val name = "${PreferenceManagerCompat.getDefaultSharedPreferencesName(application)
             }_$nameSuffix"

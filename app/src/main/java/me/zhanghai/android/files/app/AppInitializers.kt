@@ -18,7 +18,7 @@ import me.zhanghai.android.files.theme.night.NightModeHelper
 
 val appInitializers = listOf(
     ::initializeCrashlytics, ::allowRestrictedHiddenApiAccess, ::initializeThreeTen,
-    ::initializeStetho, ::initializeFileSystemProviders, ::initializeSettings,
+    ::initializeStetho, ::initializeFileSystemProviders, ::upgradeApp, ::initializeSettings,
     ::initializeCustomTheme, ::initializeNightMode, ::createNotificationChannels
 )
 

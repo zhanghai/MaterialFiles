@@ -7,17 +7,23 @@ package me.zhanghai.android.files.app
 
 import android.content.ClipboardManager
 import android.content.ContentResolver
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.net.wifi.WifiManager
 import android.os.PowerManager
 import android.os.storage.StorageManager
 import android.view.inputmethod.InputMethodManager
 import androidx.core.app.NotificationManagerCompat
+import androidx.preference.PreferenceManager
 import me.zhanghai.android.files.compat.getSystemServiceCompat
 import me.zhanghai.android.files.compat.mainExecutorCompat
 import java.util.concurrent.Executor
 
 val contentResolver: ContentResolver by lazy { application.contentResolver }
+
+val defaultSharedPreferences: SharedPreferences by lazy {
+    PreferenceManager.getDefaultSharedPreferences(application)
+}
 
 val mainExecutor: Executor by lazy { application.mainExecutorCompat }
 
