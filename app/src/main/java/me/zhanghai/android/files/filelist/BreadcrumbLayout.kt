@@ -65,10 +65,8 @@ class BreadcrumbLayout : HorizontalScrollView {
 
     init {
         isHorizontalScrollBarEnabled = false
-        itemsLayout = LinearLayout(context).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
-        }
+        itemsLayout = LinearLayout(context).apply { orientation = LinearLayout.HORIZONTAL }
+        itemsLayout.setPaddingRelative(paddingStart, paddingTop, paddingEnd, paddingBottom)
         setPaddingRelative(0, 0, 0, 0)
         addView(itemsLayout, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
     }
