@@ -20,6 +20,8 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.FileNameDialogBinding
 import me.zhanghai.android.files.databinding.FileNameDialogMd2Binding
+import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
+import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeMd2Binding
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.FileNameUtils
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
@@ -100,10 +102,14 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
             fun inflate(inflater: LayoutInflater): Binding =
                 if (Settings.MATERIAL_DESIGN_2.valueCompat) {
                     val binding = FileNameDialogMd2Binding.inflate(inflater)
-                    Binding(binding.root, binding.nameLayout, binding.nameEdit)
+                    val bindingRoot = binding.root
+                    val nameBinding = FileNameDialogNameIncludeMd2Binding.bind(bindingRoot)
+                    Binding(bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit)
                 } else {
                     val binding = FileNameDialogBinding.inflate(inflater)
-                    Binding(binding.root, binding.nameLayout, binding.nameEdit)
+                    val bindingRoot = binding.root
+                    val nameBinding = FileNameDialogNameIncludeBinding.bind(bindingRoot)
+                    Binding(bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit)
                 }
         }
     }

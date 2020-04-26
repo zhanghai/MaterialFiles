@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/file_name_dialog" />
+    <include layout="@layout/file_name_dialog_name_include" />
 
     <include layout="@layout/create_archive_dialog_type_include" />
 </LinearLayout>

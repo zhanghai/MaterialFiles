@@ -19,8 +19,8 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.CreateArchiveDialogBinding
 import me.zhanghai.android.files.databinding.CreateArchiveDialogMd2Binding
 import me.zhanghai.android.files.databinding.CreateArchiveDialogTypeIncludeBinding
-import me.zhanghai.android.files.databinding.FileNameDialogBinding
-import me.zhanghai.android.files.databinding.FileNameDialogMd2Binding
+import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
+import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeMd2Binding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.ParcelableArgs
@@ -118,19 +118,21 @@ class CreateArchiveDialogFragment : FileNameDialogFragment() {
             fun inflate(inflater: LayoutInflater): Binding =
                 if (Settings.MATERIAL_DESIGN_2.valueCompat) {
                     val binding = CreateArchiveDialogMd2Binding.inflate(inflater)
-                    val fileNameDialogBinding = FileNameDialogMd2Binding.bind(binding.root)
-                    val typeBinding = CreateArchiveDialogTypeIncludeBinding.bind(binding.root)
+                    val bindingRoot = binding.root
+                    val nameBinding = FileNameDialogNameIncludeMd2Binding.bind(bindingRoot)
+                    val typeBinding = CreateArchiveDialogTypeIncludeBinding.bind(bindingRoot)
                     Binding(
-                        binding.root, fileNameDialogBinding.nameLayout,
-                        fileNameDialogBinding.nameEdit, typeBinding.typeGroup
+                        bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit,
+                        typeBinding.typeGroup
                     )
                 } else {
                     val binding = CreateArchiveDialogBinding.inflate(inflater)
-                    val fileNameDialogBinding = FileNameDialogBinding.bind(binding.root)
-                    val typeBinding = CreateArchiveDialogTypeIncludeBinding.bind(binding.root)
+                    val bindingRoot = binding.root
+                    val nameBinding = FileNameDialogNameIncludeBinding.bind(bindingRoot)
+                    val typeBinding = CreateArchiveDialogTypeIncludeBinding.bind(bindingRoot)
                     Binding(
-                        binding.root, fileNameDialogBinding.nameLayout,
-                        fileNameDialogBinding.nameEdit, typeBinding.typeGroup
+                        bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit,
+                        typeBinding.typeGroup
                     )
                 }
         }

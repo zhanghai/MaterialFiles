@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2020 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+        android:id="@+id/nameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/dialog_padding_minus_4dp"
+        android:paddingEnd="@dimen/dialog_padding_minus_4dp">
+
+        <me.zhanghai.android.materialedittext.MaterialEditText
+            android:id="@+id/nameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:inputType="text">
+            <requestFocus />
+        </me.zhanghai.android.materialedittext.MaterialEditText>
+    </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+</merge>

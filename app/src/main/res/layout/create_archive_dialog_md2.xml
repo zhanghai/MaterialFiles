@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <include layout="@layout/file_name_dialog_md2" />
+    <include layout="@layout/file_name_dialog_name_include_md2" />
 
     <include
         android:layout_width="match_parent"

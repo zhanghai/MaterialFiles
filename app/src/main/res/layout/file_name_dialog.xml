@@ -5,20 +5,10 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.materialedittext.MaterialTextInputLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/nameLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="@dimen/dialog_padding_minus_4dp"
-    android:paddingEnd="@dimen/dialog_padding_minus_4dp">
+    android:layout_height="wrap_content">
 
-    <me.zhanghai.android.materialedittext.MaterialEditText
-        android:id="@+id/nameEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:importantForAutofill="no"
-        android:inputType="text">
-        <requestFocus />
-    </me.zhanghai.android.materialedittext.MaterialEditText>
-</me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+    <include layout="@layout/file_name_dialog_name_include" />
+</FrameLayout>
