@@ -16,7 +16,6 @@ import me.zhanghai.android.files.R;
 import me.zhanghai.android.files.util.ContextExtensionsKt;
 
 public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
-
     public ThemedSwipeRefreshLayout(@NonNull Context context) {
         super(context);
 

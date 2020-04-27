@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
 
 public class AppCompatDelegateCompat {
-
     private AppCompatDelegateCompat() {}
 
     @SuppressLint("RestrictedApi")

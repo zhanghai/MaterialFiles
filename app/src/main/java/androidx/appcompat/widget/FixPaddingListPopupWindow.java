@@ -14,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
 public class FixPaddingListPopupWindow extends ListPopupWindow {
-
     public FixPaddingListPopupWindow(@NonNull Context context) {
         super(context);
     }
@@ -40,7 +39,6 @@ public class FixPaddingListPopupWindow extends ListPopupWindow {
     }
 
     private static class FixPaddingDropDownListView extends DropDownListView {
-
         public FixPaddingDropDownListView(Context context, boolean hijackFocus) {
             super(context, hijackFocus);
         }
