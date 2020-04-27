@@ -13,17 +13,12 @@ import java.io.IOException
 class ParcelableException() : Parcelable {
     var value: Exception? = null
         set(value) {
-            check((value is IOException) or (value is RuntimeException)) {
+            check((value == null) or (value is IOException) or (value is RuntimeException)) {
                 "$value is not an IOException or a RuntimeException"
             }
             check(field == null) { "Exception is already set" }
             field = value
         }
-
-    @Throws(IOException::class)
-    fun throwIfNotNull() {
-        value?.let { throw it }
-    }
 
     private constructor(source: Parcel) : this() {
         value = source.readSerializableCompat()
