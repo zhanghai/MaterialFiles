@@ -112,7 +112,9 @@ class FtpServerUrlPreference : Preference {
     }
 
     private inner class ContextMenuListener : OnCreateContextMenuListener {
-        override fun onCreateContextMenu(menu: ContextMenu, view: View, menuInfo: ContextMenuInfo) {
+        override fun onCreateContextMenu(
+            menu: ContextMenu, view: View, menuInfo: ContextMenuInfo?
+        ) {
             if (!hasUrl) {
                 return
             }
