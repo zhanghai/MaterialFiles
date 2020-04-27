@@ -259,6 +259,12 @@
             android:authorities="@string/app_provider_authority"
             android:exported="false" />
 
+        <provider
+            android:name="me.zhanghai.android.files.file.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true" />
+
         <receiver android:name="me.zhanghai.android.files.filejob.FileJobReceiver" />
 
         <receiver android:name="me.zhanghai.android.files.ftpserver.FtpServerReceiver" />
