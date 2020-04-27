@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.root
 
+import java8.nio.file.AccessDeniedException
 import java8.nio.file.Path
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException
 import me.zhanghai.android.files.settings.Settings
