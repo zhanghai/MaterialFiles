@@ -11,7 +11,7 @@ import android.net.Uri
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.provider.Settings
-import me.zhanghai.android.files.app.AppProvider
+import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
 import me.zhanghai.android.files.file.MimeType
@@ -64,17 +64,17 @@ fun KClass<Intent>.createViewAppInMarket(packageName: String): Intent =
     Uri.parse("market://details?id=$packageName").createViewIntent()
 
 fun <T : Parcelable> Intent.getParcelableExtraSafe(key: String): T? {
-    setExtrasClassLoader(AppProvider::class.java.classLoader)
+    setExtrasClassLoader(appClassLoader)
     return getParcelableExtra(key)
 }
 
 fun Intent.getParcelableArrayExtraSafe(key: String): Array<Parcelable>? {
-    setExtrasClassLoader(AppProvider::class.java.classLoader)
+    setExtrasClassLoader(appClassLoader)
     return getParcelableArrayExtra(key)
 }
 
 fun <T : Parcelable?> Intent.getParcelableArrayListExtraSafe(key: String): ArrayList<T>? {
-    setExtrasClassLoader(AppProvider::class.java.classLoader)
+    setExtrasClassLoader(appClassLoader)
     return getParcelableArrayListExtra(key)
 }
 

@@ -19,6 +19,8 @@ import me.zhanghai.android.files.compat.getSystemServiceCompat
 import me.zhanghai.android.files.compat.mainExecutorCompat
 import java.util.concurrent.Executor
 
+val appClassLoader = AppProvider::class.java.classLoader
+
 val contentResolver: ContentResolver by lazy { application.contentResolver }
 
 val defaultSharedPreferences: SharedPreferences by lazy {

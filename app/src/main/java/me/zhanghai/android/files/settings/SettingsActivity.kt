@@ -14,10 +14,13 @@ import androidx.annotation.StyleRes
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.WriteWith
 import me.zhanghai.android.files.app.AppActivity
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper.OnThemeChangedListener
 import me.zhanghai.android.files.theme.night.NightModeHelper.OnNightModeChangedListener
+import me.zhanghai.android.files.util.BundleParceler
 import me.zhanghai.android.files.util.ParcelableArgs
+import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.getArgsOrNull
 import me.zhanghai.android.files.util.putArgs
@@ -85,5 +88,5 @@ class SettingsActivity : AppActivity(), OnThemeChangedListener, OnNightModeChang
     }
 
     @Parcelize
-    class Args(val savedInstanceState: Bundle?) : ParcelableArgs
+    class Args(val savedInstanceState: @WriteWith<BundleParceler> Bundle?) : ParcelableArgs
 }

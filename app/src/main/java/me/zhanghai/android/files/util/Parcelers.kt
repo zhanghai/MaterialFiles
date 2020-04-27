@@ -5,14 +5,23 @@
 
 package me.zhanghai.android.files.util
 
+import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import kotlinx.android.parcel.Parceler
+import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.compat.writeParcelableListCompat
 
+object BundleParceler : Parceler<Bundle?> {
+    override fun create(parcel: Parcel): Bundle? = parcel.readBundle(appClassLoader)
+
+    override fun Bundle?.write(parcel: Parcel, flags: Int) {
+        parcel.writeBundle(this)
+    }
+}
+
 object ParcelableParceler : Parceler<Any?> {
-    override fun create(parcel: Parcel): Any? =
-        parcel.readParcelable(ParcelableParceler::class.java.classLoader)
+    override fun create(parcel: Parcel): Any? = parcel.readParcelable(appClassLoader)
 
     override fun Any?.write(parcel: Parcel, flags: Int) {
         parcel.writeParcelable(this as Parcelable?, flags)
@@ -21,7 +30,7 @@ object ParcelableParceler : Parceler<Any?> {
 
 object ParcelableListParceler : Parceler<List<Any?>> {
     override fun create(parcel: Parcel): List<Any?> =
-        parcel.readParcelableListCompat(ParcelableParceler::class.java.classLoader)
+        parcel.readParcelableListCompat(appClassLoader)
 
     override fun List<Any?>.write(parcel: Parcel, flags: Int) {
         @Suppress("UNCHECKED_CAST")
@@ -30,8 +39,7 @@ object ParcelableListParceler : Parceler<List<Any?>> {
 }
 
 object ValueParceler : Parceler<Any?> {
-    override fun create(parcel: Parcel): Any? =
-        parcel.readValue(ParcelableParceler::class.java.classLoader)
+    override fun create(parcel: Parcel): Any? = parcel.readValue(appClassLoader)
 
     override fun Any?.write(parcel: Parcel, flags: Int) {
         parcel.writeValue(this)

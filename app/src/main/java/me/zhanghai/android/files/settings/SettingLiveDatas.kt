@@ -14,7 +14,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.core.content.edit
-import me.zhanghai.android.files.app.AppProvider
+import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.util.Base64
 import me.zhanghai.android.files.util.asBase64
@@ -300,7 +300,7 @@ class ParcelValueSettingLiveData<T>(
             parcel.unmarshall(bytes, 0, bytes.size)
             parcel.setDataPosition(0)
             @Suppress("UNCHECKED_CAST")
-            parcel.readValue(AppProvider::class.java.classLoader) as T
+            parcel.readValue(appClassLoader) as T
         }
     }
 
