@@ -190,7 +190,7 @@ val Context.layoutInflater: LayoutInflater
     get() = LayoutInflater.from(this)
 
 fun Context.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
-    if (Looper.myLooper() == null) {
+    if (Looper.myLooper() != Looper.getMainLooper()) {
         mainExecutorCompat.execute { showToast(textRes, duration) }
         return
     }
@@ -198,7 +198,7 @@ fun Context.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 fun Context.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
-    if (Looper.myLooper() == null) {
+    if (Looper.myLooper() != Looper.getMainLooper()) {
         mainExecutorCompat.execute { showToast(text, duration) }
         return
     }
