@@ -15,6 +15,7 @@ import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Looper
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.animation.Animation
@@ -34,6 +35,7 @@ import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getFloatCompat
+import me.zhanghai.android.files.compat.mainExecutorCompat
 import me.zhanghai.android.files.compat.obtainStyledAttributesCompat
 import me.zhanghai.android.files.compat.use
 
@@ -188,10 +190,18 @@ val Context.layoutInflater: LayoutInflater
     get() = LayoutInflater.from(this)
 
 fun Context.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
+    if (Looper.myLooper() == null) {
+        mainExecutorCompat.execute { showToast(textRes, duration) }
+        return
+    }
     Toast.makeText(this, textRes, duration).show()
 }
 
 fun Context.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    if (Looper.myLooper() == null) {
+        mainExecutorCompat.execute { showToast(text, duration) }
+        return
+    }
     Toast.makeText(this, text, duration).show()
 }
 

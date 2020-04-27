@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.filejob
 
-import me.zhanghai.android.files.app.mainExecutor
 import me.zhanghai.android.files.util.showToast
 import java.io.IOException
 import java.io.InterruptedIOException
@@ -27,7 +26,7 @@ abstract class FileJob {
             e.printStackTrace()
         } catch (e: Exception) {
             e.printStackTrace()
-            mainExecutor.execute { service.showToast(e.toString()) }
+            service.showToast(e.toString())
         } finally {
             service.notificationManager.cancel(id)
         }
