@@ -71,13 +71,6 @@
     </notice>
 
     <notice>
-        <name>RecyclerView FastScroll</name>
-        <url>https://github.com/timusus/RecyclerView-FastScroll</url>
-        <copyright>Copyright 2016 Tim Malseed</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
         <name>librootjava</name>
         <url>https://github.com/Chainfire/librootjava</url>
         <copyright>Copyright 2018 Jorrit "Chainfire" Jongma</copyright>
