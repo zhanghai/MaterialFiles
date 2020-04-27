@@ -97,7 +97,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         adapter.replace(paths)
         binding.viewPager.adapter = adapter
         // ViewPager saves its position and will restore it later.
-        binding.viewPager.currentItem = args.position ?: 0
+        binding.viewPager.currentItem = args.position
         binding.viewPager.setPageTransformer(true, DepthPageTransformer)
         binding.viewPager.addOnPageChangeListener(object : SimpleOnPageChangeListener() {
             override fun onPageSelected(position: Int) {
@@ -186,7 +186,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         get() = paths[binding.viewPager.currentItem]
 
     @Parcelize
-    class Args(val intent: Intent, val position: Int?) : ParcelableArgs
+    class Args(val intent: Intent, val position: Int) : ParcelableArgs
 
     @Parcelize
     private class State(val paths: @WriteWith<ParcelableListParceler> List<Path>) : ParcelableState

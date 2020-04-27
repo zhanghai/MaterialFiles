@@ -10,11 +10,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.commit
 import java8.nio.file.Path
-import kotlinx.android.parcel.Parcelize
 import me.zhanghai.android.files.app.AppActivity
-import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.extraPathList
-import me.zhanghai.android.files.util.getArgsOrNull
 import me.zhanghai.android.files.util.putArgs
 
 class ImageViewerActivity : AppActivity() {
@@ -25,20 +22,20 @@ class ImageViewerActivity : AppActivity() {
         findViewById<View>(android.R.id.content)
         if (savedInstanceState == null) {
             val intent = intent
-            val args = intent.extras?.getArgsOrNull<Args>()
+            val position = intent.getIntExtra(EXTRA_POSITION, 0)
             val fragment = ImageViewerFragment()
-                .putArgs(ImageViewerFragment.Args(intent, args?.position))
+                .putArgs(ImageViewerFragment.Args(intent, position))
             supportFragmentManager.commit { add(android.R.id.content, fragment) }
         }
     }
 
     companion object {
+        private val EXTRA_POSITION = "${ImageViewerActivity::class.java.name}.extra.POSITION"
+
         fun putExtras(intent: Intent, paths: List<Path>, position: Int) {
+            // All extra put here must be framework classes, or we may crash the resolver activity.
             intent.extraPathList = paths
-            intent.putArgs(Args(position))
+            intent.putExtra(EXTRA_POSITION, position)
         }
     }
-
-    @Parcelize
-    class Args(val position: Int?) : ParcelableArgs
 }
