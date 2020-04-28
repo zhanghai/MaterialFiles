@@ -5,35 +5,51 @@
 
 package me.zhanghai.android.files.viewer.image
 
-import android.graphics.drawable.Drawable
+import android.graphics.BitmapFactory
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import coil.api.clear
+import coil.api.loadAny
+import coil.bitmappool.BitmapPool
+import coil.decode.DataSource
+import coil.decode.Options
+import coil.fetch.FetchResult
+import coil.fetch.Fetcher
+import coil.fetch.SourceResult
+import coil.size.OriginalSize
+import coil.size.Size
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.DefaultOnImageEventListener
 import java8.nio.file.Path
+import java8.nio.file.attribute.BasicFileAttributes
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import me.zhanghai.android.files.databinding.ImageViewerItemBinding
 import me.zhanghai.android.files.file.MimeType
+import me.zhanghai.android.files.file.asMimeType
+import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.file.fileProviderUri
-import me.zhanghai.android.files.glide.GlideApp
-import me.zhanghai.android.files.glide.ImageInfo
+import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector
+import me.zhanghai.android.files.provider.common.newInputStream
+import me.zhanghai.android.files.provider.common.readAttributes
 import me.zhanghai.android.files.ui.ViewPagerAdapter
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.shortAnimTime
+import okio.buffer
+import okio.source
 import kotlin.math.max
 
-class ImageViewerAdapter(private val listener: (View) -> Unit) : ViewPagerAdapter() {
+class ImageViewerAdapter(
+    private val lifecycleOwner: LifecycleOwner,
+    private val listener: (View) -> Unit
+) : ViewPagerAdapter() {
     private val paths = mutableListOf<Path>()
 
     fun replace(paths: List<Path>) {
@@ -61,7 +77,7 @@ class ImageViewerAdapter(private val listener: (View) -> Unit) : ViewPagerAdapte
         @Suppress("UNCHECKED_CAST")
         val tag = view.tag as Pair<ImageViewerItemBinding, Path>
         val (binding) = tag
-        GlideApp.with(binding.image).clear(binding.image)
+        binding.image.clear()
         container.removeView(view)
     }
 
@@ -75,41 +91,29 @@ class ImageViewerAdapter(private val listener: (View) -> Unit) : ViewPagerAdapte
 
     private fun loadImage(binding: ImageViewerItemBinding, path: Path) {
         binding.progress.fadeInUnsafe()
-        GlideApp
-            .with(binding.progress)
-            .asImageInfo()
-            .load(path)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .addListener(object : RequestListener<ImageInfo> {
-                override fun onResourceReady(
-                    resource: ImageInfo,
-                    model: Any,
-                    target: Target<ImageInfo>,
-                    dataSource: DataSource,
-                    isFirstResource: Boolean
-                ): Boolean = false
-
-                override fun onLoadFailed(
-                    e: GlideException?, model: Any,
-                    target: Target<ImageInfo>,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    showError(binding, e)
-                    return false
-                }
-            })
-            .into(object : CustomTarget<ImageInfo>() {
-                override fun onResourceReady(
-                    imageInfo: ImageInfo,
-                    transition: Transition<in ImageInfo>?
-                ) {
-                    loadImageWithInfo(binding, path, imageInfo)
-                }
-
-                override fun onLoadCleared(placeholder: Drawable?) {}
-            })
+        lifecycleOwner.lifecycleScope.launch {
+            val imageInfo = try {
+                loadImageInfo(path)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                showError(binding, e)
+                return@launch
+            }
+            loadImageWithInfo(binding, path, imageInfo)
+        }
     }
+
+    private suspend fun loadImageInfo(path: Path): ImageInfo =
+        withContext(Dispatchers.IO) {
+            val attributes = path.readAttributes(BasicFileAttributes::class.java)
+            val mimeType = AndroidFileTypeDetector.getMimeType(path, attributes).asMimeType()
+            val bitmapOptions = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+            path.newInputStream().use { BitmapFactory.decodeStream(it, null, bitmapOptions) }
+            ImageInfo(
+                bitmapOptions.outWidth, bitmapOptions.outHeight,
+                bitmapOptions.outMimeType?.asMimeTypeOrNull() ?: mimeType
+            )
+        }
 
     private fun loadImageWithInfo(
         binding: ImageViewerItemBinding,
@@ -117,80 +121,39 @@ class ImageViewerAdapter(private val listener: (View) -> Unit) : ViewPagerAdapte
         imageInfo: ImageInfo
     ) {
         if (!shouldUseLargeImageView(imageInfo)) {
-            // Otherwise SizeReadyCallback.onSizeReady() is never called.
             binding.image.isVisible = true
-            GlideApp.with(binding.image)
-                .load(path)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .dontTransform()
-                .placeholder(android.R.color.transparent)
-                .transition(
-                    DrawableTransitionOptions.withCrossFade(binding.image.context.shortAnimTime)
-                )
-                .addListener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(
-                        drawable: Drawable,
-                        model: Any,
-                        target: Target<Drawable>,
-                        dataSource: DataSource,
-                        isFirstResource: Boolean
-                    ): Boolean {
+            binding.image.loadAny(path to imageInfo.mimeType) {
+                fetcher(coilFetcher)
+                size(OriginalSize)
+                placeholder(android.R.color.transparent)
+                crossfade(binding.image.context.shortAnimTime)
+                listener(onSuccess = { _, _ ->
+                    binding.progress.fadeOutUnsafe()
+                }, onError = { _, e ->
+                    showError(binding, e)
+                })
+            }
+        } else {
+            binding.largeImage.apply {
+                setDoubleTapZoomDuration(300)
+                orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
+                // Otherwise OnImageEventListener.onReady() is never called.
+                isVisible = true
+                alpha = 0f
+                setOnImageEventListener(object : DefaultOnImageEventListener() {
+                    override fun onReady() {
+                        setDoubleTapZoomScale(binding.largeImage.cropScale)
                         binding.progress.fadeOutUnsafe()
-                        binding.image.isVisible = true
-                        return false
+                        binding.largeImage.fadeInUnsafe()
                     }
 
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any,
-                        target: Target<Drawable>,
-                        isFirstResource: Boolean
-                    ): Boolean {
+                    override fun onImageLoadError(e: Exception) {
+                        e.printStackTrace()
                         showError(binding, e)
-                        return false
                     }
                 })
-                .into(binding.image)
-        } else {
-            binding.largeImage.setDoubleTapZoomDuration(300)
-            binding.largeImage.orientation = SubsamplingScaleImageView.ORIENTATION_USE_EXIF
-            // Otherwise OnImageEventListener.onReady() is never called.
-            binding.largeImage.isVisible = true
-            binding.largeImage.alpha = 0f
-            binding.largeImage.setOnImageEventListener(object : DefaultOnImageEventListener() {
-                override fun onReady() {
-                    val viewWidth = (binding.largeImage.width - binding.largeImage.paddingLeft
-                        - binding.largeImage.paddingRight)
-                    val viewHeight = (binding.largeImage.height - binding.largeImage.paddingTop
-                        - binding.largeImage.paddingBottom)
-                    val orientation = binding.largeImage.appliedOrientation
-                    val rotated90Or270 = (orientation == SubsamplingScaleImageView.ORIENTATION_90
-                        || orientation == SubsamplingScaleImageView.ORIENTATION_270)
-                    val imageWidth = if (rotated90Or270) {
-                        binding.largeImage.sHeight
-                    } else {
-                        binding.largeImage.sWidth
-                    }
-                    val imageHeight = if (rotated90Or270) {
-                        binding.largeImage.sWidth
-                    } else {
-                        binding.largeImage.sHeight
-                    }
-                    val cropScale = max(
-                        viewWidth.toFloat() / imageWidth, viewHeight.toFloat() / imageHeight
-                    )
-                    binding.largeImage.setDoubleTapZoomScale(cropScale)
-                    binding.progress.fadeOutUnsafe()
-                    binding.largeImage.fadeInUnsafe()
-                }
-
-                override fun onImageLoadError(e: Exception) {
-                    e.printStackTrace()
-                    showError(binding, e)
-                }
-            })
-            binding.largeImage.setImageRestoringSavedState(ImageSource.uri(path.fileProviderUri))
+                setImageRestoringSavedState(ImageSource.uri(path.fileProviderUri))
+            }
         }
     }
 
@@ -211,10 +174,41 @@ class ImageViewerAdapter(private val listener: (View) -> Unit) : ViewPagerAdapte
         return false
     }
 
-    private fun showError(binding: ImageViewerItemBinding, e: Exception?) {
-        val e = e ?: GlideException(null)
-        binding.errorText.text = e.toString()
+    private val SubsamplingScaleImageView.cropScale: Float
+        get() {
+            val viewWidth = (width - paddingLeft - paddingRight)
+            val viewHeight = (height - paddingTop - paddingBottom)
+            val orientation = appliedOrientation
+            val rotated90Or270 = orientation == SubsamplingScaleImageView.ORIENTATION_90
+                || orientation == SubsamplingScaleImageView.ORIENTATION_270
+            val imageWidth = if (rotated90Or270) sHeight else sWidth
+            val imageHeight = if (rotated90Or270) sWidth else sHeight
+            return max(viewWidth.toFloat() / imageWidth, viewHeight.toFloat() / imageHeight)
+        }
+
+    private fun showError(binding: ImageViewerItemBinding, throwable: Throwable) {
+        binding.errorText.text = throwable.toString()
         binding.progress.fadeOutUnsafe()
         binding.errorText.fadeInUnsafe()
+    }
+
+    private class ImageInfo(val width: Int, val height: Int, val mimeType: MimeType)
+
+    companion object {
+        private val coilFetcher = object : Fetcher<Pair<Path, MimeType>> {
+            // No memory caching.
+            override fun key(data: Pair<Path, MimeType>): String? = null
+
+            override suspend fun fetch(
+                pool: BitmapPool,
+                data: Pair<Path, MimeType>,
+                size: Size,
+                options: Options
+            ): FetchResult =
+                SourceResult(
+                    data.first.newInputStream().source().buffer(), data.second.value,
+                    DataSource.DISK
+                )
+        }
     }
 }

@@ -52,16 +52,6 @@
     <init>(java.lang.Throwable);
 }
 
-# Glide
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-    **[] $VALUES;
-    public *;
-}
-# For DexGuard only
-#-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
-
 # Stetho No-op
 # This library includes the no-op for stetho-okhttp3 which requires okhttp3, but we never used it.
 -dontwarn com.facebook.stetho.okhttp3.StethoInterceptor

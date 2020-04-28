@@ -60,7 +60,7 @@ class PathAttributesFetcher(
         context.getDimensionPixelSize(R.dimen.large_icon_size), false, context
     )
 
-    override fun key(data: Pair<Path, BasicFileAttributes>): String {
+    override fun key(data: Pair<Path, BasicFileAttributes>): String? {
         val (path, attributes) = data
         return "$path:${attributes.lastModifiedInstant.toEpochMilli()}"
     }

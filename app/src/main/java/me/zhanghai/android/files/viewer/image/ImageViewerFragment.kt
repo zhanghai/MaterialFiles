@@ -93,7 +93,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         }
         // This will set up window flags.
         systemUiHelper.show()
-        adapter = ImageViewerAdapter { systemUiHelper.toggle() }
+        adapter = ImageViewerAdapter(viewLifecycleOwner) { systemUiHelper.toggle() }
         adapter.replace(paths)
         binding.viewPager.adapter = adapter
         // ViewPager saves its position and will restore it later.
