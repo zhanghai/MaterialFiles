@@ -20,7 +20,6 @@ import java8.nio.file.Path
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
 import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
-import me.zhanghai.android.files.provider.document.resolver.DocumentResolver.getThumbnail
 
 class DocumentThumbnailModelLoader : ModelLoader<Path, Bitmap> {
     override fun handles(model: Path): Boolean = model.isDocumentPath
@@ -45,7 +44,7 @@ class DocumentThumbnailModelLoader : ModelLoader<Path, Bitmap> {
     ) : DataFetcher<Bitmap> {
         override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in Bitmap>) {
             val thumbnail = try {
-                getThumbnail(path, width, height)
+                DocumentResolver.getThumbnail(path, width, height)
             } catch (e: ResolverException) {
                 callback.onLoadFailed(e)
                 return

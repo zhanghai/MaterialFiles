@@ -22,7 +22,6 @@ import me.zhanghai.android.files.file.guessFromPath
 import me.zhanghai.android.files.file.isMedia
 import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
-import me.zhanghai.android.files.provider.document.resolver.DocumentResolver.openParcelFileDescriptor
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import java.nio.ByteBuffer
 
@@ -79,9 +78,9 @@ class MediaEmbeddedPictureModelLoader : ModelLoader<Path, ByteBuffer> {
                 when {
                     path.isLinuxPath -> retriever.setDataSource(path.toFile().toString())
                     path.isDocumentPath ->
-                        openParcelFileDescriptor((path as DocumentResolver.Path), "r").use { pfd ->
-                            retriever.setDataSource(pfd.fileDescriptor)
-                        }
+                        DocumentResolver.openParcelFileDescriptor(
+                            (path as DocumentResolver.Path), "r"
+                        ).use { pfd -> retriever.setDataSource(pfd.fileDescriptor) }
                     else -> throw AssertionError(path)
                 }
             }

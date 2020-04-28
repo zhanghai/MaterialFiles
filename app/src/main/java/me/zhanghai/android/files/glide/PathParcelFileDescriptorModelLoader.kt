@@ -19,7 +19,6 @@ import com.bumptech.glide.signature.ObjectKey
 import java8.nio.file.Path
 import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
-import me.zhanghai.android.files.provider.document.resolver.DocumentResolver.openParcelFileDescriptor
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.util.closeSafe
 
@@ -52,7 +51,9 @@ class PathParcelFileDescriptorModelLoader : ModelLoader<Path, ParcelFileDescript
                             path.toFile(), ParcelFileDescriptor.MODE_READ_ONLY
                         )
                     path.isDocumentPath ->
-                        openParcelFileDescriptor(path as DocumentResolver.Path, "r")
+                        DocumentResolver.openParcelFileDescriptor(
+                            path as DocumentResolver.Path, "r"
+                        )
                     else -> throw AssertionError(path)
                 }
             } catch (e: Exception) {
