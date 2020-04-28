@@ -84,7 +84,7 @@ class ImageViewerAdapter(
         binding.progress.fadeInUnsafe(true)
         lifecycleOwner.lifecycleScope.launch {
             val imageInfo = try {
-                loadImageInfo(path)
+                withContext(Dispatchers.IO) { path.loadImageInfo() }
             } catch (e: Exception) {
                 e.printStackTrace()
                 showError(binding, e)
@@ -94,35 +94,33 @@ class ImageViewerAdapter(
         }
     }
 
-    private suspend fun loadImageInfo(path: Path): ImageInfo =
-        withContext(Dispatchers.IO) {
-            val attributes = path.readAttributes(BasicFileAttributes::class.java)
-            val mimeType = AndroidFileTypeDetector.getMimeType(path, attributes).asMimeType()
-            val bitmapOptions = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-            path.newInputStream().use { BitmapFactory.decodeStream(it, null, bitmapOptions) }
-            ImageInfo(
-                attributes, bitmapOptions.outWidth, bitmapOptions.outHeight,
-                bitmapOptions.outMimeType?.asMimeTypeOrNull() ?: mimeType
-            )
-        }
+    private fun Path.loadImageInfo(): ImageInfo {
+        val attributes = readAttributes(BasicFileAttributes::class.java)
+        val mimeType = AndroidFileTypeDetector.getMimeType(this, attributes).asMimeType()
+        val bitmapOptions = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+        newInputStream().use { BitmapFactory.decodeStream(it, null, bitmapOptions) }
+        return ImageInfo(
+            attributes, bitmapOptions.outWidth, bitmapOptions.outHeight,
+            bitmapOptions.outMimeType?.asMimeTypeOrNull() ?: mimeType
+        )
+    }
 
     private fun loadImageWithInfo(
         binding: ImageViewerItemBinding,
         path: Path,
         imageInfo: ImageInfo
     ) {
-        if (!isLargeImageViewPreferred(imageInfo)) {
+        if (!imageInfo.isLargeImageViewPreferred) {
             binding.image.apply {
                 isVisible = true
                 loadAny(path to imageInfo.attributes) {
                     size(OriginalSize)
                     placeholder(android.R.color.transparent)
                     crossfade(binding.image.context.shortAnimTime)
-                    listener(onSuccess = { _, _ ->
-                        binding.progress.fadeOutUnsafe()
-                    }, onError = { _, e ->
-                        showError(binding, e)
-                    })
+                    listener(
+                        onSuccess = { _, _ -> binding.progress.fadeOutUnsafe() },
+                        onError = { _, e -> showError(binding, e) }
+                    )
                 }
             }
         } else {
@@ -149,22 +147,23 @@ class ImageViewerAdapter(
         }
     }
 
-    private fun isLargeImageViewPreferred(imageInfo: ImageInfo): Boolean {
-        // See BitmapFactory.cpp encodedFormatToString()
-        if (imageInfo.mimeType == MimeType.IMAGE_GIF) {
-            return false
-        }
-        if (imageInfo.width <= 0 || imageInfo.height <= 0) {
-            return false
-        }
-        if (imageInfo.width > 2048 || imageInfo.height > 2048) {
-            val ratio = imageInfo.width.toFloat() / imageInfo.height
-            if (ratio < 0.5 || ratio > 2) {
-                return true
+    private val ImageInfo.isLargeImageViewPreferred: Boolean
+        get() {
+            // See BitmapFactory.cpp encodedFormatToString()
+            if (mimeType == MimeType.IMAGE_GIF) {
+                return false
             }
+            if (width <= 0 || height <= 0) {
+                return false
+            }
+            if (width > 2048 || height > 2048) {
+                val ratio = width.toFloat() / height
+                if (ratio < 0.5 || ratio > 2) {
+                    return true
+                }
+            }
+            return false
         }
-        return false
-    }
 
     private val SubsamplingScaleImageView.cropScale: Float
         get() {
