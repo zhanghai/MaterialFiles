@@ -23,7 +23,7 @@ import me.zhanghai.android.files.databinding.FileNameDialogMd2Binding
 import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
 import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeMd2Binding
 import me.zhanghai.android.files.settings.Settings
-import me.zhanghai.android.files.util.FileNameUtils
+import me.zhanghai.android.files.util.asPathNameOrNull
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.setOnEditorConfirmActionListener
@@ -73,7 +73,7 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
             binding.nameLayout.error = getString(R.string.file_name_error_empty)
             return
         }
-        if (!FileNameUtils.isValidFileName(name)) {
+        if (!name.isValidFileName) {
             binding.nameLayout.error = getString(R.string.file_name_error_invalid)
             return
         }
@@ -85,6 +85,12 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
         onOk(name)
         dismiss()
     }
+
+    private val String.isValidFileName: Boolean
+        get() {
+            val pathName = asPathNameOrNull() ?: return false
+            return pathName.isFileName
+        }
 
     protected open val name: String
         get() = binding.nameEdit.text.toString()

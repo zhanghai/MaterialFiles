@@ -7,13 +7,13 @@ package me.zhanghai.android.files.file
 
 import android.webkit.MimeTypeMap
 import me.zhanghai.android.files.provider.common.PosixFileType
-import me.zhanghai.android.files.util.FileNameUtils
+import me.zhanghai.android.files.util.asPathName
 import java.util.Locale
 
 // TODO: Use Debian mime.types, as in
-//  https://android.googlesource.com/platform/libcore/+/master/luni/src/main/java/libcore/net/mime.types
+//  https://android.googlesource.com/platform/libcore/+/android10-release/luni/src/main/java/libcore/net/mime.types
 fun MimeType.Companion.guessFromPath(path: String): MimeType =
-    guessFromExtension(FileNameUtils.getExtension(path))
+    guessFromExtension(path.asPathName().extension)
 
 fun MimeType.Companion.guessFromExtension(extension: String): MimeType {
     val extensionInLowerCase = extension.toLowerCase(Locale.US)

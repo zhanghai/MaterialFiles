@@ -33,15 +33,6 @@ object PathFileNameUtils {
         return fileName.fileSystem.getPath(getFullBaseName(fileName.toByteString()))
     }
 
-    fun getFullExtension(fileName: ByteString): ByteString {
-        val index = indexOfFullExtensionSeparator(fileName)
-        return if (index != -1) fileName.substring(index + 1) else ByteString.EMPTY
-    }
-
-    fun getFullExtension(fileName: Path): Path {
-        return fileName.fileSystem.getPath(getFullExtension(fileName.toByteString()))
-    }
-
     fun indexOfFullExtensionSeparator(fileName: ByteString): Int {
         val lastExtensionSeparatorIndex = fileName.lastIndexOf(
             EXTENSION_SEPARATOR
@@ -66,27 +57,5 @@ object PathFileNameUtils {
 
     fun indexOfFullExtensionSeparator(fileName: Path): Int {
         return indexOfFullExtensionSeparator(fileName.toByteString())
-    }
-
-    fun replaceFullExtension(
-        fileName: ByteString,
-        extension: ByteString
-    ): ByteString {
-        val baseName = getFullBaseName(
-            fileName
-        )
-        return if (extension.isEmpty()) {
-            baseName
-        } else ByteStringBuilder(baseName)
-            .append(EXTENSION_SEPARATOR)
-            .append(extension)
-            .toByteString()
-    }
-
-    fun replaceFullExtension(
-        fileName: Path,
-        extension: ByteString
-    ): Path {
-        return fileName.fileSystem.getPath(replaceFullExtension(fileName.toByteString(), extension))
     }
 }
