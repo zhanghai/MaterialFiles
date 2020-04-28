@@ -98,6 +98,7 @@ import me.zhanghai.android.files.util.extraPathList
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
+import me.zhanghai.android.files.util.updateLiftOnScrollOnPreDraw
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.linkedHashSetOf
 import me.zhanghai.android.files.util.putArgs
@@ -180,6 +181,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             binding.persistentBarLayout, binding.bottomBarLayout, binding.bottomToolbar
         )
         val contentLayoutInitialPaddingBottom = binding.contentLayout.paddingBottom
+        binding.appBarLayout.updateLiftOnScrollOnPreDraw()
         binding.appBarLayout.addOnOffsetChangedListener(
             OnOffsetChangedListener { _, verticalOffset ->
                 binding.contentLayout.updatePaddingRelative(
