@@ -26,7 +26,7 @@ class SetGroupDialogFragment : SetPrincipalDialogFragment() {
     override val titleRes: Int = R.string.file_properties_permissions_set_group_title
 
     override fun createAdapter(selectionLiveData: SelectionLiveData<Int>): PrincipalListAdapter =
-        GroupListAdapter(this, selectionLiveData)
+        GroupListAdapter(selectionLiveData)
 
     override val PosixFileAttributes.principal
         get() = group()!!

@@ -6,14 +6,12 @@
 package me.zhanghai.android.files.fileproperties.permissions
 
 import androidx.annotation.DrawableRes
-import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.SelectionLiveData
 
 class UserListAdapter(
-    fragment: Fragment,
     selectionLiveData: SelectionLiveData<Int>
-) : PrincipalListAdapter(fragment, selectionLiveData) {
+) : PrincipalListAdapter(selectionLiveData) {
     @DrawableRes
     override val principalIconRes: Int = R.drawable.person_icon_control_normal_24dp
 }

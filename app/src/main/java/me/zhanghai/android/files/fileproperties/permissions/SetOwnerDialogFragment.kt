@@ -27,7 +27,7 @@ class SetOwnerDialogFragment : SetPrincipalDialogFragment() {
     override val titleRes: Int = R.string.file_properties_permissions_set_owner_title
 
     override fun createAdapter(selectionLiveData: SelectionLiveData<Int>): PrincipalListAdapter =
-        UserListAdapter(this, selectionLiveData)
+        UserListAdapter(selectionLiveData)
 
     override val PosixFileAttributes.principal: PosixPrincipal
         get() = owner()!!

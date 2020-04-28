@@ -7,19 +7,17 @@ package me.zhanghai.android.files.fileproperties.permissions
 
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.clear
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.coil.loadAnyIgnoringError
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.PrincipalItemBinding
-import me.zhanghai.android.files.glide.GlideApp
-import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.SelectionLiveData
 import me.zhanghai.android.files.util.layoutInflater
 
 abstract class PrincipalListAdapter(
-    private val fragment: Fragment,
     private val selectionLiveData: SelectionLiveData<Int>
 ) : SimpleAdapter<PrincipalItem, PrincipalListAdapter.ViewHolder>() {
     override val hasStableIds: Boolean
@@ -47,12 +45,9 @@ abstract class PrincipalListAdapter(
         val icon = binding.iconImage.context.getDrawableCompat(principalIconRes)
         val applicationInfo = principal.applicationInfos.firstOrNull()
         if (applicationInfo != null) {
-            GlideApp.with(fragment)
-                .load(applicationInfo)
-                .placeholder(icon)
-                .into(IgnoreErrorDrawableImageViewTarget(binding.iconImage))
+            binding.iconImage.loadAnyIgnoringError(applicationInfo) { placeholder(icon) }
         } else {
-            GlideApp.with(fragment).clear(binding.iconImage)
+            binding.iconImage.clear()
             binding.iconImage.setImageDrawable(icon)
         }
         binding.principalText.text = if (principal.name != null) {
