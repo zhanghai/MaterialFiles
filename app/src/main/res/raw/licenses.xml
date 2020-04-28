@@ -85,6 +85,13 @@
     </notice>
 
     <notice>
+        <name>AppIconLoader</name>
+        <url>https://github.com/zhanghai/AppIconLoader</url>
+        <copyright>Copyright 2020 Google LLC</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>EffortlessPermissions</name>
         <url>https://github.com/zhanghai/EffortlessPermissions</url>
         <copyright>Copyright 2017 Hai Zhang</copyright>

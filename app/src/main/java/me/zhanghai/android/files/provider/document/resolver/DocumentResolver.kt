@@ -239,15 +239,13 @@ object DocumentResolver {
         }
 
     @Throws(ResolverException::class)
-    fun getThumbnail(path: Path, width: Int, height: Int): Bitmap {
+    fun getThumbnail(path: Path, width: Int, height: Int): Bitmap? {
         val uri = getDocumentUri(path)
         return try {
             DocumentsContract.getDocumentThumbnail(contentResolver, uri, Point(width, height), null)
         } catch (e: Exception) {
             throw ResolverException(e)
-        } ?: throw ResolverException(
-            "DocumentsContract.getDocumentThumbnail() with $uri returned null"
-        )
+        }
     }
 
     fun isLocal(path: Path): Boolean {

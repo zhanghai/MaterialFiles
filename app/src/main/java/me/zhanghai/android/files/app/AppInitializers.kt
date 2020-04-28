@@ -8,6 +8,7 @@ package me.zhanghai.android.files.app
 import android.os.Build
 import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
+import me.zhanghai.android.files.coil.initializeCoil
 import me.zhanghai.android.files.compat.RestrictedHiddenApiAccess
 import me.zhanghai.android.files.filejob.fileJobNotificationTemplate
 import me.zhanghai.android.files.ftpserver.ftpServerServiceNotificationTemplate
@@ -18,8 +19,9 @@ import me.zhanghai.android.files.theme.night.NightModeHelper
 
 val appInitializers = listOf(
     ::initializeCrashlytics, ::allowRestrictedHiddenApiAccess, ::initializeThreeTen,
-    ::initializeStetho, ::initializeFileSystemProviders, ::upgradeApp, ::initializeSettings,
-    ::initializeCustomTheme, ::initializeNightMode, ::createNotificationChannels
+    ::initializeStetho, ::initializeCoil, ::initializeFileSystemProviders, ::upgradeApp,
+    ::initializeSettings, ::initializeCustomTheme, ::initializeNightMode,
+    ::createNotificationChannels
 )
 
 private fun initializeCrashlytics() {

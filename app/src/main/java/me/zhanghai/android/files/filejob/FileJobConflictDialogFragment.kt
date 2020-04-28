@@ -21,11 +21,12 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import com.bumptech.glide.signature.ObjectKey
+import coil.api.clear
 import kotlinx.android.parcel.Parceler
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.WriteWith
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.coil.loadAnyIgnoringError
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.compat.requireViewByIdCompat
@@ -36,9 +37,6 @@ import me.zhanghai.android.files.file.formatShort
 import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.file.lastModifiedInstant
 import me.zhanghai.android.files.filelist.supportsThumbnail
-import me.zhanghai.android.files.glide.DownsampleStrategies
-import me.zhanghai.android.files.glide.GlideApp
-import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
@@ -155,14 +153,9 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         val attributes = file.attributes
         val icon = iconImage.context.getDrawableCompat(file.mimeType.iconRes)
         if (file.supportsThumbnail) {
-            GlideApp.with(this)
-                .load(path)
-                .signature(ObjectKey(attributes.lastModifiedTime()))
-                .downsample(DownsampleStrategies.AT_MOST_CENTER_OUTSIDE)
-                .placeholder(icon)
-                .into(IgnoreErrorDrawableImageViewTarget(iconImage))
+            iconImage.loadAnyIgnoringError(path to attributes) { placeholder(icon) }
         } else {
-            GlideApp.with(this).clear(iconImage)
+            iconImage.clear()
             iconImage.setImageDrawable(icon)
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {

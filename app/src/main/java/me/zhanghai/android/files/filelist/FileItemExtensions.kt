@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.filelist
 
 import android.content.Context
-import android.provider.DocumentsContract
 import java8.nio.file.Path
 import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileTime
@@ -17,13 +16,12 @@ import me.zhanghai.android.files.file.getName
 import me.zhanghai.android.files.file.isMedia
 import me.zhanghai.android.files.file.supportsThumbnail
 import me.zhanghai.android.files.provider.archive.createArchiveRootPath
-import me.zhanghai.android.files.provider.document.DocumentFileAttributes
 import me.zhanghai.android.files.provider.document.isDocumentPath
+import me.zhanghai.android.files.provider.document.documentSupportsThumbnail
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.FileNameUtils
-import me.zhanghai.android.files.util.hasBits
 import me.zhanghai.android.files.util.valueCompat
 
 val FileItem.name: String
@@ -53,10 +51,8 @@ val FileItem.supportsThumbnail: Boolean
         when {
             path.isLinuxPath -> mimeType.supportsThumbnail
             path.isDocumentPath -> {
-                val attributes = attributes as DocumentFileAttributes
                 when {
-                    attributes.flags.hasBits(DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL) ->
-                        true
+                    attributes.documentSupportsThumbnail -> true
                     mimeType.isMedia ->
                         DocumentResolver.isLocal(path as DocumentResolver.Path)
                             || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat

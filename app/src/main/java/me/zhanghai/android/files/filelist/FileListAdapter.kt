@@ -8,22 +8,19 @@ package me.zhanghai.android.files.filelist
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.signature.ObjectKey
+import coil.api.clear
 import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.coil.loadAnyIgnoringError
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.FileItemBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.fileSize
 import me.zhanghai.android.files.file.formatShort
 import me.zhanghai.android.files.file.iconRes
-import me.zhanghai.android.files.glide.DownsampleStrategies
-import me.zhanghai.android.files.glide.GlideApp
-import me.zhanghai.android.files.glide.IgnoreErrorDrawableImageViewTarget
 import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.AnimatedListAdapter
@@ -33,8 +30,7 @@ import java.util.Comparator
 import java.util.LinkedHashSet
 import java.util.Locale
 
-open class FileListAdapter(
-    private val fragment: Fragment,
+class FileListAdapter(
     private val listener: Listener
 ) : AnimatedListAdapter<FileItem, FileListAdapter.ViewHolder>(
     CALLBACK
@@ -195,14 +191,9 @@ open class FileListAdapter(
         val attributes = file.attributes
         val icon = binding.iconImage.context.getDrawableCompat(file.mimeType.iconRes)
         if (file.supportsThumbnail) {
-            GlideApp.with(fragment)
-                .load(path)
-                .signature(ObjectKey(attributes.lastModifiedTime()))
-                .downsample(DownsampleStrategies.AT_MOST_CENTER_OUTSIDE)
-                .placeholder(icon)
-                .into(IgnoreErrorDrawableImageViewTarget(binding.iconImage))
+            binding.iconImage.loadAnyIgnoringError(path to attributes) { placeholder(icon) }
         } else {
-            GlideApp.with(fragment).clear(binding.iconImage)
+            binding.iconImage.clear()
             binding.iconImage.setImageDrawable(icon)
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {

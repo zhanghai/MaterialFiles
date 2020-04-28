@@ -45,9 +45,11 @@ private val supportedArchiveMimeTypes = mutableListOf(
 val MimeType.isImage: Boolean
     get() = icon == MimeTypeIcon.IMAGE
 
+val MimeType.isAudio: Boolean
+    get() = icon == MimeTypeIcon.AUDIO
+
+val MimeType.isVideo: Boolean
+    get() = icon == MimeTypeIcon.VIDEO
+
 val MimeType.isMedia: Boolean
-    get() =
-        when (icon) {
-            MimeTypeIcon.AUDIO, MimeTypeIcon.VIDEO -> true
-            else -> false
-        }
+    get() = isAudio || isVideo

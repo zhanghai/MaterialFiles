@@ -191,7 +191,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         binding.breadcrumbLayout.setListener(this)
         binding.swipeRefreshLayout.setOnRefreshListener { this.refresh() }
         binding.recyclerView.layoutManager = GridLayoutManager(activity, /* TODO */ 1)
-        adapter = FileListAdapter(this, this)
+        adapter = FileListAdapter(this)
         binding.recyclerView.adapter = adapter
         val fastScroller = ThemedFastScroller.create(binding.recyclerView)
         binding.recyclerView.setOnApplyWindowInsetsListener(
