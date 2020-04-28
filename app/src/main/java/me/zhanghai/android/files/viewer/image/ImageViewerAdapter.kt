@@ -13,14 +13,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import coil.api.clear
 import coil.api.loadAny
-import coil.bitmappool.BitmapPool
-import coil.decode.DataSource
-import coil.decode.Options
-import coil.fetch.FetchResult
-import coil.fetch.Fetcher
-import coil.fetch.SourceResult
 import coil.size.OriginalSize
-import coil.size.Size
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView.DefaultOnImageEventListener
@@ -42,8 +35,6 @@ import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.shortAnimTime
-import okio.buffer
-import okio.source
 import kotlin.math.max
 
 class ImageViewerAdapter(
@@ -90,7 +81,7 @@ class ImageViewerAdapter(
     }
 
     private fun loadImage(binding: ImageViewerItemBinding, path: Path) {
-        binding.progress.fadeInUnsafe()
+        binding.progress.fadeInUnsafe(true)
         lifecycleOwner.lifecycleScope.launch {
             val imageInfo = try {
                 loadImageInfo(path)
@@ -110,7 +101,7 @@ class ImageViewerAdapter(
             val bitmapOptions = BitmapFactory.Options().apply { inJustDecodeBounds = true }
             path.newInputStream().use { BitmapFactory.decodeStream(it, null, bitmapOptions) }
             ImageInfo(
-                bitmapOptions.outWidth, bitmapOptions.outHeight,
+                attributes, bitmapOptions.outWidth, bitmapOptions.outHeight,
                 bitmapOptions.outMimeType?.asMimeTypeOrNull() ?: mimeType
             )
         }
@@ -120,18 +111,19 @@ class ImageViewerAdapter(
         path: Path,
         imageInfo: ImageInfo
     ) {
-        if (!shouldUseLargeImageView(imageInfo)) {
-            binding.image.isVisible = true
-            binding.image.loadAny(path to imageInfo.mimeType) {
-                fetcher(coilFetcher)
-                size(OriginalSize)
-                placeholder(android.R.color.transparent)
-                crossfade(binding.image.context.shortAnimTime)
-                listener(onSuccess = { _, _ ->
-                    binding.progress.fadeOutUnsafe()
-                }, onError = { _, e ->
-                    showError(binding, e)
-                })
+        if (!isLargeImageViewPreferred(imageInfo)) {
+            binding.image.apply {
+                isVisible = true
+                loadAny(path to imageInfo.attributes) {
+                    size(OriginalSize)
+                    placeholder(android.R.color.transparent)
+                    crossfade(binding.image.context.shortAnimTime)
+                    listener(onSuccess = { _, _ ->
+                        binding.progress.fadeOutUnsafe()
+                    }, onError = { _, e ->
+                        showError(binding, e)
+                    })
+                }
             }
         } else {
             binding.largeImage.apply {
@@ -157,7 +149,7 @@ class ImageViewerAdapter(
         }
     }
 
-    private fun shouldUseLargeImageView(imageInfo: ImageInfo): Boolean {
+    private fun isLargeImageViewPreferred(imageInfo: ImageInfo): Boolean {
         // See BitmapFactory.cpp encodedFormatToString()
         if (imageInfo.mimeType == MimeType.IMAGE_GIF) {
             return false
@@ -192,23 +184,10 @@ class ImageViewerAdapter(
         binding.errorText.fadeInUnsafe()
     }
 
-    private class ImageInfo(val width: Int, val height: Int, val mimeType: MimeType)
-
-    companion object {
-        private val coilFetcher = object : Fetcher<Pair<Path, MimeType>> {
-            // No memory caching.
-            override fun key(data: Pair<Path, MimeType>): String? = null
-
-            override suspend fun fetch(
-                pool: BitmapPool,
-                data: Pair<Path, MimeType>,
-                size: Size,
-                options: Options
-            ): FetchResult =
-                SourceResult(
-                    data.first.newInputStream().source().buffer(), data.second.value,
-                    DataSource.DISK
-                )
-        }
-    }
+    private class ImageInfo(
+        val attributes: BasicFileAttributes,
+        val width: Int,
+        val height: Int,
+        val mimeType: MimeType
+    )
 }
