@@ -22,11 +22,12 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import coil.api.clear
+import coil.api.loadAny
 import kotlinx.android.parcel.Parceler
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.WriteWith
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.coil.loadAnyIgnoringError
+import me.zhanghai.android.files.coil.ignoreError
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.compat.requireViewByIdCompat
@@ -153,7 +154,10 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         val attributes = file.attributes
         val icon = iconImage.context.getDrawableCompat(file.mimeType.iconRes)
         if (file.supportsThumbnail) {
-            iconImage.loadAnyIgnoringError(path to attributes) { placeholder(icon) }
+            iconImage.loadAny(path to attributes) {
+                placeholder(icon)
+                ignoreError()
+            }
         } else {
             iconImage.clear()
             iconImage.setImageDrawable(icon)

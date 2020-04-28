@@ -11,10 +11,11 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.clear
+import coil.api.loadAny
 import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.coil.loadAnyIgnoringError
+import me.zhanghai.android.files.coil.ignoreError
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.FileItemBinding
 import me.zhanghai.android.files.file.FileItem
@@ -191,7 +192,10 @@ class FileListAdapter(
         val attributes = file.attributes
         val icon = binding.iconImage.context.getDrawableCompat(file.mimeType.iconRes)
         if (file.supportsThumbnail) {
-            binding.iconImage.loadAnyIgnoringError(path to attributes) { placeholder(icon) }
+            binding.iconImage.loadAny(path to attributes) {
+                placeholder(icon)
+                ignoreError()
+            }
         } else {
             binding.iconImage.clear()
             binding.iconImage.setImageDrawable(icon)
