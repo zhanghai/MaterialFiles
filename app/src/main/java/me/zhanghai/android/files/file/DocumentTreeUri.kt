@@ -25,10 +25,10 @@ inline class DocumentTreeUri(val value: Uri): Parcelable {
     val documentId: String
         get() = DocumentsContract.getTreeDocumentId(value)
 
-    constructor(parcel: Parcel) : this(parcel.readParcelable<Uri>()!!)
+    private constructor(source: Parcel) : this(Uri.CREATOR.createFromParcel(source))
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(value, flags)
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        value.writeToParcel(dest, flags)
     }
 
     override fun describeContents(): Int = 0
