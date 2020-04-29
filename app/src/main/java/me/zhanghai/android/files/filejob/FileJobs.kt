@@ -157,11 +157,11 @@ private fun FileJob.getFileName(path: Path): String =
 
 private fun FileJob.getTargetFileName(source: Path): Path {
     if (source.isArchivePath) {
-        val archiveFile = source.archiveFile
+        val archiveFile = source.archiveFile.asByteStringListPath()
         val archiveRoot = archiveFile.createArchiveRootPath()
         if (source == archiveRoot) {
             return archiveFile.fileSystem.getPath(
-                archiveFile.fileName.toByteString().asFileName().baseName
+                archiveFile.fileNameByteString!!.asFileName().baseName
             )
         }
     }

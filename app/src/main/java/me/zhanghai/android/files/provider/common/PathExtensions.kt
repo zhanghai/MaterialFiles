@@ -392,8 +392,6 @@ fun Path.restoreSeLinuxContext(vararg options: LinkOption) {
     view.restoreSeLinuxContext()
 }
 
-fun Path.toByteString(): ByteString = asByteStringListPath().toByteString()
-
 @OptIn(ExperimentalContracts::class)
 fun Path.asByteStringListPath(): ByteStringListPath<*> {
     contract {

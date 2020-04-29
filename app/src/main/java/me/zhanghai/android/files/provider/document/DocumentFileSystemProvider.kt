@@ -332,8 +332,8 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
 
     override fun isHidden(path: Path): Boolean {
         path as? DocumentPath ?: throw ProviderMismatchException(path.toString())
-        val fileName = path.fileName ?: return false
-        return fileName.toByteString().startsWith(HIDDEN_FILE_NAME_PREFIX)
+        val fileName = path.fileNameByteString ?: return false
+        return fileName.startsWith(HIDDEN_FILE_NAME_PREFIX)
     }
 
     override fun getFileStore(path: Path): FileStore {

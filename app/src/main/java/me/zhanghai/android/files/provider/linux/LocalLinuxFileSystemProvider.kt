@@ -148,7 +148,8 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
     override fun createSymbolicLink(link: Path, target: Path, vararg attributes: FileAttribute<*>) {
         link as? LinuxPath ?: throw ProviderMismatchException(link.toString())
         val targetBytes = when (target) {
-            is LinuxPath, is ByteStringPath -> target.toByteString()
+            is LinuxPath -> target.toByteString()
+            is ByteStringPath -> target.toByteString()
             else -> throw ProviderMismatchException(target.toString())
         }
         if (attributes.isNotEmpty()) {
