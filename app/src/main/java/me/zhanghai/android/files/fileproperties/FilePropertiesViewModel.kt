@@ -17,4 +17,8 @@ class FilePropertiesViewModel(file: FileItem) : ViewModel() {
     fun reloadFile() {
         _fileLiveData.loadValue()
     }
+
+    override fun onCleared() {
+        _fileLiveData.close()
+    }
 }

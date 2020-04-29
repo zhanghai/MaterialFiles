@@ -46,7 +46,6 @@ class PathObserver(path: Path, @MainThread onChange: () -> Unit) : Closeable {
         }
     }
 
-    @WorkerThread
     override fun close() {
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             synchronized(lock) {
