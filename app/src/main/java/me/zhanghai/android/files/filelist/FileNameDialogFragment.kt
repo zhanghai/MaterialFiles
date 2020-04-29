@@ -7,7 +7,6 @@ package me.zhanghai.android.files.filelist
 
 import android.app.Dialog
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -69,7 +68,7 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
             dismiss()
             return
         }
-        if (TextUtils.isEmpty(name)) {
+        if (name.isEmpty()) {
             binding.nameLayout.error = getString(R.string.file_name_error_empty)
             return
         }
