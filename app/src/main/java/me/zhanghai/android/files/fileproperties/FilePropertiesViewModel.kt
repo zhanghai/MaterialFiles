@@ -8,10 +8,11 @@ package me.zhanghai.android.files.fileproperties
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import me.zhanghai.android.files.file.FileItem
+import me.zhanghai.android.files.util.Stateful
 
 class FilePropertiesViewModel(file: FileItem) : ViewModel() {
     private val _fileLiveData = FileLiveData(file)
-    val fileLiveData: LiveData<FileData>
+    val fileLiveData: LiveData<Stateful<FileItem>>
         get() = _fileLiveData
 
     fun reloadFile() {

@@ -9,14 +9,18 @@ import android.content.pm.ApplicationInfo
 import android.os.AsyncTask
 import androidx.lifecycle.MutableLiveData
 import me.zhanghai.android.files.app.packageManager
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 
-abstract class PrincipalListLiveData : MutableLiveData<PrincipalListData>() {
+abstract class PrincipalListLiveData : MutableLiveData<Stateful<List<PrincipalItem>>>() {
     init {
         loadValue()
     }
 
     private fun loadValue() {
-        value = PrincipalListData.ofLoading()
+        value = Loading
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val principals = androidPrincipals
@@ -38,9 +42,9 @@ abstract class PrincipalListLiveData : MutableLiveData<PrincipalListData>() {
                     principals.add(principal)
                 }
                 principals.sortBy { it.id }
-                PrincipalListData.ofSuccess(principals)
+                Success(principals)
             } catch (e: Exception) {
-                PrincipalListData.ofError(e)
+                Failure(e)
             }
             postValue(value)
         }

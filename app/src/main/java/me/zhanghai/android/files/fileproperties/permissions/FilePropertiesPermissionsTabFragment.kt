@@ -21,14 +21,16 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.FilePropertiesPermissionsTabFragmentBinding
 import me.zhanghai.android.files.databinding.FilePropertiesPermissionsTabFragmentMd2Binding
 import me.zhanghai.android.files.file.FileItem
-import me.zhanghai.android.files.fileproperties.FileData
 import me.zhanghai.android.files.fileproperties.FilePropertiesViewModel
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
 import me.zhanghai.android.files.provider.common.isNullOrEmpty
 import me.zhanghai.android.files.provider.common.toInt
 import me.zhanghai.android.files.provider.common.toModeString
 import me.zhanghai.android.files.settings.Settings
-import me.zhanghai.android.files.util.StatefulData
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
@@ -63,9 +65,9 @@ class FilePropertiesPermissionsTabFragment : AppCompatDialogFragment() {
         viewModel.reloadFile()
     }
 
-    private fun onFileChanged(fileData: FileData) {
-        when (fileData.state) {
-            StatefulData.State.LOADING -> {
+    private fun onFileChanged(stateful: Stateful<FileItem>) {
+        when (stateful) {
+            is Loading -> {
                 binding.progress.fadeToVisibilityUnsafe(!lastIsSuccess)
                 if (lastIsSuccess) {
                     binding.swipeRefreshLayout.isRefreshing = true
@@ -75,20 +77,20 @@ class FilePropertiesPermissionsTabFragment : AppCompatDialogFragment() {
                     binding.scrollView.isInvisible = true
                 }
             }
-            StatefulData.State.ERROR -> {
+            is Failure -> {
                 binding.progress.fadeOutUnsafe()
                 binding.swipeRefreshLayout.isRefreshing = false
                 binding.errorText.fadeInUnsafe()
-                binding.errorText.text = fileData.exception.toString()
+                binding.errorText.text = stateful.throwable.toString()
                 binding.scrollView.fadeOutUnsafe()
                 lastIsSuccess = false
             }
-            StatefulData.State.SUCCESS -> {
+            is Success -> {
                 binding.progress.fadeOutUnsafe()
                 binding.swipeRefreshLayout.isRefreshing = false
                 binding.errorText.fadeOutUnsafe()
                 binding.scrollView.fadeInUnsafe()
-                updateView(fileData.data!!)
+                updateView(stateful.value)
                 lastIsSuccess = true
             }
         }

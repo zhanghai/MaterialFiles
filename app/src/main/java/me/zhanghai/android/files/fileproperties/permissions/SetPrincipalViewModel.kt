@@ -10,12 +10,14 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import me.zhanghai.android.files.util.SelectionLiveData
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.valueCompat
 
 abstract class SetPrincipalViewModel(
-    private val principalListLiveData: MutableLiveData<PrincipalListData>
+    private val principalListLiveData: MutableLiveData<Stateful<List<PrincipalItem>>>
 ) : ViewModel() {
-    val principalListData: PrincipalListData
+    val principalListStateful: Stateful<List<PrincipalItem>>
         get() = principalListLiveData.valueCompat
 
     private val filterLiveData = MutableLiveData("")
@@ -27,33 +29,34 @@ abstract class SetPrincipalViewModel(
             }
         }
 
-    val filteredPrincipalListLiveData: LiveData<PrincipalListData> =
+    val filteredPrincipalListLiveData: LiveData<Stateful<List<PrincipalItem>>> =
         FilteredPrincipalListLiveData(principalListLiveData, filterLiveData)
 
     val selectionLiveData = SelectionLiveData<Int>()
 
     private class FilteredPrincipalListLiveData(
-        private val principalListLiveData: LiveData<PrincipalListData>,
+        private val principalListLiveData: LiveData<Stateful<List<PrincipalItem>>>,
         private val filterLiveData: LiveData<String>
-    ) : MediatorLiveData<PrincipalListData>() {
+    ) : MediatorLiveData<Stateful<List<PrincipalItem>>>() {
         init {
             addSource(principalListLiveData) { loadValue() }
             addSource(filterLiveData) { loadValue() }
         }
 
         private fun loadValue() {
+            var principalListStateful = principalListLiveData.valueCompat
             val filter = filterLiveData.valueCompat
-            var principalListData = principalListLiveData.valueCompat
-            if (filter.isNotEmpty()) {
-                principalListData = principalListData.filter { filterPrincipal(it, filter) }
+            if (principalListStateful is Success && filter.isNotEmpty()) {
+                principalListStateful = Success(
+                    principalListStateful.value.filter { it.applyFilter(filter) }
+                )
             }
-            value = principalListData
+            value = principalListStateful
         }
 
-        private fun filterPrincipal(principal: PrincipalItem, filter: String): Boolean =
-            (filter in principal.id.toString()
-                || (principal.name != null && filter in principal.name)
-                || principal.applicationInfos.any { filter in it.packageName }
-                || principal.applicationLabels.any { filter in it })
+        private fun PrincipalItem.applyFilter(filter: String): Boolean =
+            (filter in id.toString() || (name != null && filter in name)
+                || applicationInfos.any { filter in it.packageName }
+                || applicationLabels.any { filter in it })
     }
 }

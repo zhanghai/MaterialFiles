@@ -11,11 +11,15 @@ import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.loadFileItem
 import me.zhanghai.android.files.filelist.PathObserver
 import me.zhanghai.android.files.util.CloseableLiveData
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 
 class FileLiveData private constructor(
     private val path: Path,
     file: FileItem?
-) : CloseableLiveData<FileData>() {
+) : CloseableLiveData<Stateful<FileItem>>() {
     private val observer: PathObserver
 
     @Volatile
@@ -27,7 +31,7 @@ class FileLiveData private constructor(
 
     init {
         if (file != null) {
-            value = FileData.ofSuccess(file)
+            value = Success(file)
         } else {
             loadValue()
         }
@@ -35,13 +39,13 @@ class FileLiveData private constructor(
     }
 
     fun loadValue() {
-        value = FileData.ofLoading()
+        value = Loading
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val file = path.loadFileItem()
-                FileData.ofSuccess(file)
+                Success(file)
             } catch (e: Exception) {
-                FileData.ofError(e)
+                Failure(e)
             }
             postValue(value)
         }

@@ -21,10 +21,13 @@ import me.zhanghai.android.files.databinding.SetPrincipalDialogBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
 import me.zhanghai.android.files.provider.common.PosixPrincipal
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.SelectionLiveData
 import me.zhanghai.android.files.util.SimpleTextWatcher
-import me.zhanghai.android.files.util.StatefulData
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
@@ -82,26 +85,26 @@ abstract class SetPrincipalDialogFragment : AppCompatDialogFragment() {
         selectionLiveData: SelectionLiveData<Int>
     ): PrincipalListAdapter
 
-    private fun onFilteredPrincipalListChanged(principalListData: PrincipalListData) {
-        when (principalListData.state) {
-            StatefulData.State.LOADING -> {
+    private fun onFilteredPrincipalListChanged(stateful: Stateful<List<PrincipalItem>>) {
+        when (stateful) {
+            is Loading -> {
                 binding.progress.fadeInUnsafe()
                 binding.errorText.fadeOutUnsafe()
                 binding.emptyView.fadeOutUnsafe()
                 adapter.clear()
             }
-            StatefulData.State.ERROR -> {
+            is Failure -> {
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeInUnsafe()
-                binding.errorText.text = principalListData.exception.toString()
+                binding.errorText.text = stateful.throwable.toString()
                 binding.emptyView.fadeOutUnsafe()
                 adapter.clear()
             }
-            StatefulData.State.SUCCESS -> {
+            is Success -> {
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeOutUnsafe()
-                binding.emptyView.fadeToVisibilityUnsafe(principalListData.data!!.isEmpty())
-                adapter.replace(principalListData.data)
+                binding.emptyView.fadeToVisibilityUnsafe(stateful.value.isEmpty())
+                adapter.replace(stateful.value)
                 pendingScrollToId?.let {
                     val position = adapter.findPositionByPrincipalId(it)
                     if (position != RecyclerView.NO_POSITION) {
@@ -121,11 +124,11 @@ abstract class SetPrincipalDialogFragment : AppCompatDialogFragment() {
                 return
             }
         }
-        val principalListData = viewModel.principalListData
-        if (principalListData.data == null) {
+        val principalListStateful = viewModel.principalListStateful
+        if (principalListStateful !is Success) {
             return
         }
-        val principal = principalListData.data.find { it.id == id } ?: return
+        val principal = principalListStateful.value.find { it.id == id } ?: return
         setPrincipal(args.file.path, principal, recursive)
     }
 
