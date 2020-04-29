@@ -45,7 +45,7 @@ class RenameFileDialogFragment : FileNameDialogFragment() {
 
     companion object {
         fun show(file: FileItem, fragment: Fragment) {
-            CreateArchiveDialogFragment().putArgs(Args(file)).show(fragment)
+            RenameFileDialogFragment().putArgs(Args(file)).show(fragment)
         }
     }
 
