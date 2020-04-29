@@ -28,6 +28,9 @@ class ByteString internal constructor(
     val indices: IntRange
         get() = bytes.indices
 
+    val lastIndex: Int
+        get() = bytes.lastIndex
+
     fun isEmpty(): Boolean = bytes.isEmpty()
 
     fun isNotEmpty(): Boolean = bytes.isNotEmpty()
@@ -200,4 +203,125 @@ fun String.toByteString(): ByteString = ByteString.fromString(this)
 fun ByteString?.isNullOrEmpty(): Boolean {
     contract { returns(false) implies (this@isNullOrEmpty != null) }
     return this == null || this.isEmpty()
+}
+
+fun ByteString.takeIfNotEmpty(): ByteString? = if (isNotEmpty()) this else null
+
+fun ByteString.drop(n: Int): ByteString {
+    require(n >= 0)
+    return substring(n.coerceAtMost(length))
+}
+
+fun ByteString.dropLast(n: Int): ByteString {
+    require(n >= 0)
+    return take((length - n).coerceAtLeast(0))
+}
+
+inline fun ByteString.dropLastWhile(predicate: (Byte) -> Boolean): ByteString {
+    for (index in lastIndex downTo 0) {
+        if (!predicate(this[index]))
+            return substring(0, index + 1)
+    }
+    return ByteString.EMPTY
+}
+
+inline fun ByteString.dropWhile(predicate: (Byte) -> Boolean): ByteString {
+    for (index in indices) {
+        if (!predicate(this[index]))
+            return substring(index)
+    }
+    return ByteString.EMPTY
+}
+
+fun ByteString.take(n: Int): ByteString {
+    require(n >= 0)
+    return substring(0, n.coerceAtMost(length))
+}
+
+fun ByteString.takeLast(n: Int): ByteString {
+    require(n >= 0)
+    val length = length
+    return substring(length - n.coerceAtMost(length))
+}
+
+inline fun ByteString.takeLastWhile(predicate: (Byte) -> Boolean): ByteString {
+    for (index in lastIndex downTo 0) {
+        if (!predicate(this[index])) {
+            return substring(index + 1)
+        }
+    }
+    return this
+}
+
+inline fun ByteString.takeWhile(predicate: (Byte) -> Boolean): ByteString {
+    for (index in indices) {
+        if (!predicate(get(index))) {
+            return substring(0, index)
+        }
+    }
+    return this
+}
+
+fun ByteString.substringBefore(
+    delimiter: Byte,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = indexOf(delimiter)
+    return if (index != -1) substring(0, index) else missingDelimiterValue
+}
+
+fun ByteString.substringBefore(
+    delimiter: ByteString,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = indexOf(delimiter)
+    return if (index != -1) substring(0, index) else missingDelimiterValue
+}
+
+fun ByteString.substringAfter(
+    delimiter: Byte,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = indexOf(delimiter)
+    return if (index != -1) substring(index + 1, length) else missingDelimiterValue
+}
+
+fun ByteString.substringAfter(
+    delimiter: ByteString,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = indexOf(delimiter)
+    return if (index != -1) substring(index + delimiter.length, length) else missingDelimiterValue
+}
+
+fun ByteString.substringBeforeLast(
+    delimiter: Byte,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = lastIndexOf(delimiter)
+    return if (index != -1) substring(0, index) else missingDelimiterValue
+}
+
+fun ByteString.substringBeforeLast(
+    delimiter: ByteString,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = lastIndexOf(delimiter)
+    return if (index != -1) substring(0, index) else missingDelimiterValue
+}
+
+fun ByteString.substringAfterLast(
+    delimiter: Byte,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = lastIndexOf(delimiter)
+    return if (index != -1) substring(index + 1, length) else missingDelimiterValue
+}
+
+fun ByteString.substringAfterLast(
+    delimiter: ByteString,
+    missingDelimiterValue: ByteString = this
+): ByteString {
+    val index = lastIndexOf(delimiter)
+    return if (index != -1) substring(index + delimiter.length, length) else missingDelimiterValue
 }

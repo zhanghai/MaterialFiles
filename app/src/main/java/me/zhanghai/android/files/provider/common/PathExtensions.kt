@@ -33,6 +33,8 @@ import java.io.OutputStream
 import java.io.OutputStreamWriter
 import java.nio.channels.ClosedByInterruptException
 import java.nio.charset.Charset
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 import java8.nio.file.attribute.PosixFileAttributeView as Java8PosixFileAttributeView
 
 @Throws(IOException::class)
@@ -315,21 +317,26 @@ fun Path.readSymbolicLinkByteString(): ByteString {
 
 // Can resolve path in a foreign provider.
 fun Path.resolveForeign(other: Path): Path {
-    val path = asByteStringListPath()
-    val otherPath = other.asByteStringListPath()
-    if (path.provider == otherPath.provider) {
-        return path.resolve(otherPath)
+    // TODO: kotlinc: Type mismatch: inferred type is Path but ByteStringListPath<*> was expected
+    //asByteStringListPath()
+    this.asByteStringListPath()
+    other.asByteStringListPath()
+    if (provider == other.provider) {
+        return resolve(other)
     }
     // TODO: kotlinc: Cannot access 'isAbsolute': it is private in 'ByteStringListPath'
     //if (otherPath.isAbsolute) {
-    if ((otherPath as Path).isAbsolute) {
-        return otherPath
+    if ((other as Path).isAbsolute) {
+        return other
     }
-    if (otherPath.isEmpty) {
-        return path
+    if (other.isEmpty) {
+        return this
     }
-    var result = path
-    for (name in otherPath.nameByteStrings) {
+    // TODO: kotlinc: None of the following functions can be called with the arguments supplied:
+    //  public abstract fun resolve(p0: Path!): Path! defined in java8.nio.file.Path
+    //  public abstract fun resolve(p0: String!): Path! defined in java8.nio.file.Path
+    var result: ByteStringListPath<*> = this
+    for (name in other.nameByteStrings) {
         result = result.resolve(name)
     }
     return result
@@ -387,9 +394,11 @@ fun Path.restoreSeLinuxContext(vararg options: LinkOption) {
 
 fun Path.toByteString(): ByteString = asByteStringListPath().toByteString()
 
+@OptIn(ExperimentalContracts::class)
 fun Path.asByteStringListPath(): ByteStringListPath<*> {
-    if (this !is ByteStringListPath<*>) {
-        throw ProviderMismatchException(toString())
+    contract {
+        returns() implies (this@asByteStringListPath is ByteStringListPath<*>)
     }
+    this as? ByteStringListPath<*> ?: throw ProviderMismatchException(toString())
     return this
 }

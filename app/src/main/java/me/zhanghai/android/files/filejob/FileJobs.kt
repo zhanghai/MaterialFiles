@@ -61,6 +61,7 @@ import me.zhanghai.android.files.provider.common.deleteIfExists
 import me.zhanghai.android.files.provider.common.exists
 import me.zhanghai.android.files.provider.common.getFileStore
 import me.zhanghai.android.files.provider.common.getMode
+import me.zhanghai.android.files.provider.common.getPath
 import me.zhanghai.android.files.provider.common.isDirectory
 import me.zhanghai.android.files.provider.common.moveTo
 import me.zhanghai.android.files.provider.common.newByteChannel
@@ -76,7 +77,7 @@ import me.zhanghai.android.files.provider.common.setSeLinuxContext
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.common.toModeString
 import me.zhanghai.android.files.provider.linux.isLinuxPath
-import me.zhanghai.android.files.util.PathFileNameUtils
+import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.createInstallPackageIntent
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.createViewIntent
@@ -159,7 +160,9 @@ private fun FileJob.getTargetFileName(source: Path): Path {
         val archiveFile = source.archiveFile
         val archiveRoot = archiveFile.createArchiveRootPath()
         if (source == archiveRoot) {
-            return PathFileNameUtils.getFullBaseName(archiveFile.fileName)
+            return archiveFile.fileSystem.getPath(
+                archiveFile.fileName.toByteString().asFileName().baseName
+            )
         }
     }
     return source.fileName
@@ -754,24 +757,19 @@ class CopyFileJob(private val sources: List<Path>, private val targetDirectory: 
     }
 
     private fun getTargetPathForDuplicate(source: Path): Path {
-        val byteStringSource = source.asByteStringListPath()
-        val sourceFileName = source.fileName.toByteString()
+        source.asByteStringListPath()
+        val sourceFileName = source.fileNameByteString!!
         // We do want to follow symbolic links here.
-        val extensionSeparatorIndex = if (source.isDirectory()) {
-            -1
-        } else {
-            PathFileNameUtils.indexOfFullExtensionSeparator(sourceFileName)
-        }
-        val countEndIndex = if (extensionSeparatorIndex > 0) {
-            extensionSeparatorIndex
-        } else {
+        val countEndIndex = if (source.isDirectory()) {
             sourceFileName.length
+        } else {
+            sourceFileName.asFileName().baseName.length
         }
         val countInfo = getDuplicateCountInfo(sourceFileName, countEndIndex)
         var i = countInfo.count + 1
         while (i > 0) {
             val targetFileName = setDuplicateCount(sourceFileName, countInfo, i)
-            val target = byteStringSource.resolveSibling(targetFileName)
+            val target = source.resolveSibling(targetFileName)
             if (!target.exists(LinkOption.NOFOLLOW_LINKS)) {
                 return target
             }

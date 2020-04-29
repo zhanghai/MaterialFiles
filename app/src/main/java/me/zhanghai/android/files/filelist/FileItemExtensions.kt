@@ -21,17 +21,17 @@ import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
-import me.zhanghai.android.files.util.asPathName
+import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.valueCompat
 
 val FileItem.name: String
     get() = path.name
 
 val FileItem.baseName: String
-    get() = if (attributes.isDirectory) name else name.asPathName().baseName
+    get() = if (attributes.isDirectory) name else name.asFileName().baseName
 
 val FileItem.extension: String
-    get() = if (attributes.isDirectory) "" else name.asPathName().extension
+    get() = if (attributes.isDirectory) "" else name.asFileName().extensions
 
 fun FileItem.getMimeTypeName(context: Context): String {
         if (attributesNoFollowLinks.isSymbolicLink && isSymbolicLinkBroken) {
