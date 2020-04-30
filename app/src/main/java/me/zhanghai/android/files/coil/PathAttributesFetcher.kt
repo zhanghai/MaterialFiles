@@ -152,7 +152,7 @@ class PathAttributesFetcher(
 
     private fun setMediaMetadataRetrieverDataSource(retriever: MediaMetadataRetriever, path: Path) {
         when {
-            path.isLinuxPath -> retriever.setDataSource(path.toFile().toString())
+            path.isLinuxPath -> retriever.setDataSource(path.toFile().path)
             path.isDocumentPath ->
                 DocumentResolver.openParcelFileDescriptor(path as DocumentResolver.Path, "r")
                     .use { pfd -> retriever.setDataSource(pfd.fileDescriptor) }
