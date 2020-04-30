@@ -20,7 +20,7 @@ abstract class PrincipalListLiveData : MutableLiveData<Stateful<List<PrincipalIt
     }
 
     private fun loadValue() {
-        value = Loading
+        value = Loading()
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val principals = androidPrincipals

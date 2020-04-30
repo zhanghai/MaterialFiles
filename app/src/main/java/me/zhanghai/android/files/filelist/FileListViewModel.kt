@@ -18,6 +18,7 @@ import me.zhanghai.android.files.filelist.FileSortOptions.Order
 import me.zhanghai.android.files.provider.archive.archiveRefresh
 import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.util.CloseableLiveData
+import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.valueCompat
 import java.io.Closeable
 import java.util.LinkedHashSet
@@ -76,9 +77,9 @@ class FileListViewModel : ViewModel() {
 
     private val _fileListLiveData =
         FileListSwitchMapLiveData(currentPathLiveData, _searchStateLiveData)
-    val fileListLiveData: LiveData<FileListData>
+    val fileListLiveData: LiveData<Stateful<List<FileItem>>>
         get() = _fileListLiveData
-    val fileListData: FileListData
+    val fileListStateful: Stateful<List<FileItem>>
         get() = _fileListLiveData.valueCompat
 
     val searchViewExpandedLiveData = MutableLiveData(false)
@@ -222,8 +223,8 @@ class FileListViewModel : ViewModel() {
     private class FileListSwitchMapLiveData(
         private val pathLiveData: LiveData<Path>,
         private val searchStateLiveData: LiveData<SearchState>
-    ) : MediatorLiveData<FileListData>(), Closeable {
-        private var liveData: CloseableLiveData<out FileListData>? = null
+    ) : MediatorLiveData<Stateful<List<FileItem>>>(), Closeable {
+        private var liveData: CloseableLiveData<Stateful<List<FileItem>>>? = null
 
         init {
             addSource(pathLiveData) { updateSource() }

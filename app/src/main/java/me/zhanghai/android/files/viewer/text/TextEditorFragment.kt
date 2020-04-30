@@ -23,10 +23,13 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.TextEditorFragmentBinding
 import me.zhanghai.android.files.ui.FastScrollLiftOnScrollHack
 import me.zhanghai.android.files.ui.ThemedFastScroller
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.SimpleTextWatcher
 import me.zhanghai.android.files.util.StateData
-import me.zhanghai.android.files.util.StatefulData
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
@@ -155,28 +158,28 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         requireActivity().finish()
     }
 
-    private fun onFileContentChanged(fileContentData: FileContentData) {
+    private fun onFileContentChanged(stateful: Stateful<ByteArray>) {
         updateTitle()
-        when (fileContentData.state) {
-            StatefulData.State.LOADING -> {
+        when (stateful) {
+            is Loading -> {
                 binding.progress.fadeInUnsafe()
                 binding.errorText.fadeOutUnsafe()
                 binding.textEdit.fadeOutUnsafe()
             }
-            StatefulData.State.ERROR -> {
-                fileContentData.exception!!.printStackTrace()
+            is Failure -> {
+                stateful.throwable.printStackTrace()
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeInUnsafe()
-                binding.errorText.text = fileContentData.exception.toString()
+                binding.errorText.text = stateful.throwable.toString()
                 binding.textEdit.fadeOutUnsafe()
             }
-            StatefulData.State.SUCCESS -> {
+            is Success -> {
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeOutUnsafe()
                 binding.textEdit.fadeInUnsafe()
                 if (!viewModel.isTextChanged) {
                     // TODO: Charset.
-                    setText(String(fileContentData.data!!))
+                    setText(String(stateful.value))
                 }
             }
         }
@@ -194,7 +197,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     }
 
     private fun updateTitle() {
-        val fileName = viewModel.fileContentData.path.fileName.toString()
+        val fileName = viewModel.path.fileName.toString()
         val changed = viewModel.isTextChanged
         requireActivity().title = getString(
             if (changed) {

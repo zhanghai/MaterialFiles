@@ -11,7 +11,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import java8.nio.file.Path
-import me.zhanghai.android.files.util.StatefulData
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.valueCompat
 
 class TextEditorViewModel : ViewModel() {
@@ -29,7 +30,7 @@ class TextEditorViewModel : ViewModel() {
     }
 
     val fileContentLiveData = pathLiveData.switchMap { FileContentLiveData(it) }
-    val fileContentData: FileContentData
+    val fileContentStateful: Stateful<ByteArray>
         get() = fileContentLiveData.valueCompat
 
     private val _textChangedLiveData = MutableLiveData(false)
@@ -38,7 +39,7 @@ class TextEditorViewModel : ViewModel() {
     var isTextChanged: Boolean
         get() = _textChangedLiveData.valueCompat
         set(changed) {
-            if (fileContentLiveData.valueCompat.state !== StatefulData.State.SUCCESS) {
+            if (fileContentStateful !is Success) {
                 // Might happen if the animation is running and user is quick enough.
                 return
             }

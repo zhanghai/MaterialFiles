@@ -11,6 +11,10 @@ import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.loadFileItem
 import me.zhanghai.android.files.provider.common.search
 import me.zhanghai.android.files.util.CloseableLiveData
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import java.io.IOException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
@@ -18,7 +22,7 @@ import java.util.concurrent.Future
 class SearchFileListLiveData(
     private val path: Path,
     private val query: String
-) : CloseableLiveData<FileListData>() {
+) : CloseableLiveData<Stateful<List<FileItem>>>() {
     private lateinit var future: Future<Unit>
 
     init {
@@ -26,7 +30,7 @@ class SearchFileListLiveData(
     }
 
     private fun loadValue() {
-        value = FileListData.ofLoading(emptyList())
+        value = Loading(emptyList())
         future = (AsyncTask.THREAD_POOL_EXECUTOR as ExecutorService).submit<Unit> {
             val fileList = mutableListOf<FileItem>()
             try {
@@ -41,11 +45,11 @@ class SearchFileListLiveData(
                         }
                         fileList.add(fileItem)
                     }
-                    postValue(FileListData.ofLoading(fileList.toList()))
+                    postValue(Loading(fileList.toList()))
                 }
-                postValue(FileListData.ofSuccess(fileList))
+                postValue(Success(fileList))
             } catch (e: Exception) {
-                postValue(FileListData.ofError(e))
+                postValue(Failure(e))
             }
         }
     }

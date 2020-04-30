@@ -39,7 +39,7 @@ class FileLiveData private constructor(
     }
 
     fun loadValue() {
-        value = Loading
+        value = Loading()
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val file = path.loadFileItem()

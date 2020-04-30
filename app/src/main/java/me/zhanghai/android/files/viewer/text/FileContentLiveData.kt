@@ -10,24 +10,28 @@ import androidx.lifecycle.LiveData
 import java8.nio.file.Path
 import me.zhanghai.android.files.provider.common.readAllBytes
 import me.zhanghai.android.files.provider.common.size
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import java.io.IOException
 
-class FileContentLiveData(private val path: Path) : LiveData<FileContentData>() {
+class FileContentLiveData(private val path: Path) : LiveData<Stateful<ByteArray>>() {
     init {
         loadValue()
     }
 
     private fun loadValue() {
-        value = FileContentData.ofLoading(path)
+        value = Loading()
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 if (path.size() > MAX_SIZE) {
                     throw IOException("File is too large")
                 }
                 val content = path.readAllBytes()
-                FileContentData.ofSuccess(path, content)
+                Success(content)
             } catch (e: Exception) {
-                FileContentData.ofError(path, e)
+                Failure(e)
             }
             postValue(value)
         }

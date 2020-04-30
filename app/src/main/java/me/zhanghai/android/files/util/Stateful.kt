@@ -7,7 +7,7 @@ package me.zhanghai.android.files.util
 
 sealed class Stateful<out T>
 
-object Loading : Stateful<Nothing>()
+class Loading<T>(val value: T? = null) : Stateful<T>()
 
 class Failure(val throwable: Throwable) : Stateful<Nothing>()
 

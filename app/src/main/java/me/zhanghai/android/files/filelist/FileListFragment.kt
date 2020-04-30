@@ -84,8 +84,11 @@ import me.zhanghai.android.files.ui.ScrollingViewOnApplyWindowInsetsListener
 import me.zhanghai.android.files.ui.ThemedFastScroller
 import me.zhanghai.android.files.ui.ToolbarActionMode
 import me.zhanghai.android.files.util.DebouncedRunnable
+import me.zhanghai.android.files.util.Failure
+import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.ParcelableArgs
-import me.zhanghai.android.files.util.StatefulData
+import me.zhanghai.android.files.util.Stateful
+import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.copyText
 import me.zhanghai.android.files.util.create
@@ -98,13 +101,13 @@ import me.zhanghai.android.files.util.extraPathList
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
-import me.zhanghai.android.files.util.updateLiftOnScrollOnPreDraw
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.linkedHashSetOf
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.takeIfNotEmpty
+import me.zhanghai.android.files.util.updateLiftOnScrollOnPreDraw
 import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 import me.zhanghai.android.files.util.withChooser
@@ -509,9 +512,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         updateSortMenuItems()
     }
 
-    private fun onFileListChanged(fileListData: FileListData) {
-        when (fileListData.state) {
-            StatefulData.State.LOADING -> {
+    private fun onFileListChanged(stateful: Stateful<List<FileItem>>) {
+        when (stateful) {
+            is Loading -> {
                 val path = viewModel.currentPath
                 val isSearching = viewModel.searchState.isSearching
                 val isReload = path == lastLoadingPath && isSearching == lastLoadingIsSearching
@@ -519,7 +522,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 lastLoadingIsSearching = isSearching
                 when {
                     isSearching -> {
-                        updateSubtitle(fileListData.data!!)
+                        updateSubtitle(stateful.value!!)
                         binding.swipeRefreshLayout.isRefreshing = true
                         binding.progress.fadeOutUnsafe()
                         binding.errorText.fadeOutUnsafe()
@@ -538,22 +541,22 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     }
                 }
             }
-            StatefulData.State.ERROR -> {
-                fileListData.exception!!.printStackTrace()
+            is Failure -> {
+                stateful.throwable.printStackTrace()
                 binding.toolbar.setSubtitle(R.string.error)
                 binding.swipeRefreshLayout.isRefreshing = false
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeInUnsafe()
-                binding.errorText.text = fileListData.exception.toString()
+                binding.errorText.text = stateful.throwable.toString()
                 binding.emptyView.fadeOutUnsafe()
                 adapter.clear()
             }
-            StatefulData.State.SUCCESS -> {
-                updateSubtitle(fileListData.data!!)
+            is Success -> {
+                updateSubtitle(stateful.value)
                 binding.swipeRefreshLayout.isRefreshing = false
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeOutUnsafe()
-                binding.emptyView.fadeToVisibilityUnsafe(fileListData.data.isEmpty())
+                binding.emptyView.fadeToVisibilityUnsafe(stateful.value.isEmpty())
                 updateAdapterFileList()
                 val state = viewModel.pendingState
                 if (state != null) {
@@ -646,11 +649,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun updateAdapterFileList() {
-        val fileListData = viewModel.fileListData
-        if (fileListData.data == null) {
+        val fileListData = viewModel.fileListStateful
+        if (fileListData !is Success) {
             return
         }
-        var files = fileListData.data
+        var files = fileListData.value
         if (!Settings.FILE_LIST_SHOW_HIDDEN_FILES.valueCompat) {
             files = files.filterNot { it.isHidden }
         }
@@ -1143,9 +1146,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     override fun hasFileWithName(name: String): Boolean {
-        val fileListData = viewModel.fileListData
-        return fileListData.state == StatefulData.State.SUCCESS
-            && fileListData.data!!.any { it.name == name }
+        val fileListData = viewModel.fileListStateful
+        return fileListData is Success && fileListData.value.any { it.name == name }
     }
 
     override fun renameFile(file: FileItem, newName: String) {
