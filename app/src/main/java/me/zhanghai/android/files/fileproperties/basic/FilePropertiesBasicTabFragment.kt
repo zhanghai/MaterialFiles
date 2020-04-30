@@ -17,7 +17,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.observe
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import kotlinx.android.synthetic.main.file_properties_basic_tab_fragment.scrollView
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.FilePropertiesBasicTabFragmentBinding
 import me.zhanghai.android.files.databinding.FilePropertiesBasicTabFragmentMd2Binding
@@ -80,7 +79,7 @@ class FilePropertiesBasicTabFragment : AppCompatDialogFragment() {
                 }
                 binding.errorText.fadeOutUnsafe()
                 if (!lastIsSuccess) {
-                    scrollView.isInvisible = true
+                    binding.scrollView.isInvisible = true
                 }
             }
             is Failure -> {
