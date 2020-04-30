@@ -15,7 +15,7 @@ class FilePropertiesViewModel(file: FileItem) : ViewModel() {
     val fileLiveData: LiveData<Stateful<FileItem>>
         get() = _fileLiveData
 
-    fun reloadFile() {
+    fun reload() {
         _fileLiveData.loadValue()
     }
 

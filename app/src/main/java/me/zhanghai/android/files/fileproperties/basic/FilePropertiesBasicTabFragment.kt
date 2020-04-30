@@ -67,7 +67,7 @@ class FilePropertiesBasicTabFragment : AppCompatDialogFragment() {
     }
 
     private fun refresh() {
-        viewModel.reloadFile()
+        viewModel.reload()
     }
 
     private fun onFileChanged(stateful: Stateful<FileItem>) {
