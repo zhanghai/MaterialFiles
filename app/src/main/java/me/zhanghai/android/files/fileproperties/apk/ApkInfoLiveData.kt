@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.fileproperties.apk
 
 import android.content.pm.PackageManager
+import android.content.pm.Signature
 import android.os.AsyncTask
 import android.os.Build
 import java8.nio.file.Path
@@ -70,7 +71,10 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                     }
                 } else {
                     null
-                } ?: emptyList()
+                // TODO: kotlinc: Type inference failed. Expected type mismatch: inferred type is
+                //  List<???> but MutableList<Signature!> was expected
+                //} ?: emptyList()
+                } ?: emptyList<Signature>()
                 val pastSigningCertificateDigests = pastSigningCertificates
                     .map { it.toByteArray().sha1Digest().toHexString() }
                 val apkInfo = ApkInfo(
