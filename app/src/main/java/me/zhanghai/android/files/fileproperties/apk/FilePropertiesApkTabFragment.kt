@@ -26,7 +26,7 @@ import me.zhanghai.android.files.compat.longVersionCodeCompat
 import me.zhanghai.android.files.databinding.FilePropertiesApkTabFragmentBinding
 import me.zhanghai.android.files.databinding.FilePropertiesApkTabFragmentMd2Binding
 import me.zhanghai.android.files.file.FileItem
-import me.zhanghai.android.files.file.MimeType
+import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.Failure
@@ -139,8 +139,7 @@ class FilePropertiesApkTabFragment : AppCompatDialogFragment() {
     }
 
     companion object {
-        fun isAvailable(file: FileItem): Boolean =
-            file.mimeType == MimeType.APK && file.path.isLinuxPath
+        fun isAvailable(file: FileItem): Boolean = file.mimeType.isApk && file.path.isLinuxPath
     }
 
     @Parcelize

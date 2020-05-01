@@ -25,6 +25,7 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeType
+import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.file.isMedia
 import me.zhanghai.android.files.file.isVideo
@@ -117,7 +118,7 @@ class PathAttributesFetcher(
                 }
             }
         }
-        if (path.isLinuxPath && mimeType == MimeType.APK) {
+        if (path.isLinuxPath && mimeType.isApk) {
             val apkPath = path.toFile().path
             val applicationInfo = context.packageManager.getPackageArchiveInfo(apkPath, 0)
                 ?.applicationInfo
