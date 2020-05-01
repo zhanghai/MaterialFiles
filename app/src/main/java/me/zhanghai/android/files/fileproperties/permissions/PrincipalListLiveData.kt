@@ -37,7 +37,7 @@ abstract class PrincipalListLiveData : MutableLiveData<Stateful<List<PrincipalIt
                 for ((uid, applicationInfos) in uidApplicationInfoMap) {
                     val principal = PrincipalItem(
                         uid, getAppPrincipalName(uid), applicationInfos,
-                        applicationInfos.map { packageManager.getApplicationLabel(it).toString() }
+                        applicationInfos.map { it.loadLabel(packageManager).toString() }
                     )
                     principals.add(principal)
                 }

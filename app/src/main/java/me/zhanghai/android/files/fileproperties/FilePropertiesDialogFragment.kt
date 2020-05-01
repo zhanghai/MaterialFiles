@@ -18,6 +18,7 @@ import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.FilePropertiesDialogBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.filelist.name
+import me.zhanghai.android.files.fileproperties.apk.FilePropertiesApkTabFragment
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment
 import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter
@@ -64,6 +65,15 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                     add(
                         R.string.file_properties_permissions
                             to { FilePropertiesPermissionsTabFragment() }
+                    )
+                }
+                if (FilePropertiesApkTabFragment.isAvailable(args.file)) {
+                    add(
+                        R.string.file_properties_apk to {
+                            FilePropertiesApkTabFragment().putArgs(
+                                FilePropertiesApkTabFragment.Args(args.file.path)
+                            )
+                        }
                     )
                 }
             }
