@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.fileproperties.apk
 
-import android.content.pm.PackageInfo
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -122,7 +121,11 @@ class FilePropertiesApkTabFragment : AppCompatDialogFragment() {
             binding.minSdkVersionLayout.isVisible = false
         }
         binding.targetSdkVersionText.text = getSdkVersionText(applicationInfo.targetSdkVersion)
-        binding.signatureText.text = apkInfo.signatures.joinToString("\n")
+        binding.signatureDigestsText.text = apkInfo.signingCertificateDigests.joinToString("\n")
+        binding.pastSignatureDigestsLayout.isVisible =
+            apkInfo.pastSigningCertificateDigests.isNotEmpty()
+        binding.pastSignatureDigestsText.text =
+            apkInfo.pastSigningCertificateDigests.joinToString("\n")
     }
 
     private fun getSdkVersionText(sdkVersion: Int): String {
@@ -155,7 +158,9 @@ class FilePropertiesApkTabFragment : AppCompatDialogFragment() {
         val minSdkVersionLayout: ViewGroup,
         val minSdkVersionText: TextView,
         val targetSdkVersionText: TextView,
-        val signatureText: TextView
+        val signatureDigestsText: TextView,
+        val pastSignatureDigestsLayout: ViewGroup,
+        val pastSignatureDigestsText: TextView
     ) {
         companion object {
             fun inflate(
@@ -172,7 +177,8 @@ class FilePropertiesApkTabFragment : AppCompatDialogFragment() {
                         binding.swipeRefreshLayout, binding.scrollView, binding.labelText,
                         binding.packageNameText, binding.versionText, binding.minSdkVersionLayout,
                         binding.minSdkVersionText, binding.targetSdkVersionText,
-                        binding.signatureText
+                        binding.signatureDigestsText, binding.pastSignatureDigestsLayout,
+                        binding.pastSignatureDigestsText
                     )
                 } else {
                     val binding = FilePropertiesApkTabFragmentBinding.inflate(
@@ -183,7 +189,8 @@ class FilePropertiesApkTabFragment : AppCompatDialogFragment() {
                         binding.swipeRefreshLayout, binding.scrollView, binding.labelText,
                         binding.packageNameText, binding.versionText, binding.minSdkVersionLayout,
                         binding.minSdkVersionText, binding.targetSdkVersionText,
-                        binding.signatureText
+                        binding.signatureDigestsText, binding.pastSignatureDigestsLayout,
+                        binding.pastSignatureDigestsText
                     )
                 }
         }

@@ -112,10 +112,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="@string/file_properties_apk_signature">
+                    android:hint="@string/file_properties_apk_signature_digests">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
-                        android:id="@+id/signatureText"
+                        android:id="@+id/signatureDigestsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textIsSelectable="true" />
+                </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+
+                <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+                    android:id="@+id/pastSignatureDigestsLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/file_properties_apk_past_signature_digests">
+
+                    <me.zhanghai.android.files.ui.TextInputTextView
+                        android:id="@+id/pastSignatureDigestsText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textIsSelectable="true" />
