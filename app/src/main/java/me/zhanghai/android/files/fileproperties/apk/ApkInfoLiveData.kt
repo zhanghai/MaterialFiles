@@ -54,9 +54,8 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                     @Suppress("DEPRECATION")
                     packageInfo.signatures
                 }
-                val signingCertificateDigests = signingCertificates.map {
-                    it.toByteArray().sha1Digest().toHexString()
-                }
+                val signingCertificateDigests = signingCertificates
+                    .map { it.toByteArray().sha1Digest().toHexString() }
                 val pastSigningCertificates = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     val signingInfo = packageInfo.signingInfo
                     // SigningInfo.getSigningCertificateHistory() may return the current certificate
