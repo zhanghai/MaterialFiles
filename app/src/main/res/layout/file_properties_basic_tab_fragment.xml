@@ -60,7 +60,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:hint="@string/file_properties_basic_parent_directory">
+                    android:hint="@string/file_properties_basic_parent_directory"
+                    android:visibility="gone">
 
                     <me.zhanghai.android.files.ui.TextInputTextView
                         android:id="@+id/parentDirectoryText"
