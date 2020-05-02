@@ -52,6 +52,7 @@ inline class MimeType (val value: String) {
         val DIRECTORY = DocumentsContract.Document.MIME_TYPE_DIR.asMimeType()
         val IMAGE_ANY = "image/*".asMimeType()
         val IMAGE_GIF = "image/gif".asMimeType()
+        val IMAGE_SVG_XML = "image/svg+xml".asMimeType()
         val TEXT_PLAIN = "text/plain".asMimeType()
         val GENERIC = "application/octet-stream".asMimeType()
 

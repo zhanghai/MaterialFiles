@@ -87,6 +87,7 @@ dependencies {
     def androidx_core_version = '1.3.0-rc01'
     implementation "androidx.core:core:$androidx_core_version"
     implementation "androidx.core:core-ktx:$androidx_core_version"
+    implementation 'androidx.exifinterface:exifinterface:1.3.0-alpha01'
     def androidx_fragment_version = '1.2.4'
     implementation "androidx.fragment:fragment:$androidx_fragment_version"
     implementation "androidx.fragment:fragment-ktx:$androidx_fragment_version"
@@ -105,6 +106,7 @@ dependencies {
     // TODO: Run `git revert 9fc8452` after upgrading to 1.2.0.
     implementation 'com.google.android.material:material:1.1.0'
 
+    implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     debugImplementation 'com.facebook.stetho:stetho:1.5.1'
     // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
