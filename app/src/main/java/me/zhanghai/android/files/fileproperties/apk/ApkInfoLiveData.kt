@@ -18,6 +18,7 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.sha1Digest
 import me.zhanghai.android.files.util.toHexString
+import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
 
 class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path) {
@@ -27,7 +28,7 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
     }
 
     override fun loadValue() {
-        value = Loading()
+        value = Loading(value?.value)
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val apkPath = path.toFile().path
@@ -81,7 +82,7 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                 )
                 Success(apkInfo)
             } catch (e: Exception) {
-                Failure(e)
+                Failure(valueCompat.value, e)
             }
             postValue(value)
         }

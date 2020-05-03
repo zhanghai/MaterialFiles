@@ -50,7 +50,8 @@ class AppCompatTextInputLayout : TextInputLayout {
                 child.background = context.obtainStyledAttributesCompat(
                     attrs = intArrayOf(android.R.attr.background), defStyleRes = spinnerStyleRes
                 ).use { it.getDrawable(0) }
-                (params as MarginLayoutParams).marginEnd = context.dpToDimensionPixelSize(-19)
+                params as MarginLayoutParams
+                params.marginEnd = context.dpToDimensionPixelSize(-19)
                 child.updatePaddingRelative(top = verticalPadding, bottom = verticalPadding)
             }
             child.setTextAppearanceCompat(R.style.TextAppearance_AppCompat_Subhead)

@@ -14,6 +14,7 @@ import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
+import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
 
 class FileContentLiveData(private val path: Path) : LiveData<Stateful<ByteArray>>() {
@@ -22,7 +23,7 @@ class FileContentLiveData(private val path: Path) : LiveData<Stateful<ByteArray>
     }
 
     private fun loadValue() {
-        value = Loading()
+        value = Loading(value?.value)
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 if (path.size() > MAX_SIZE) {
@@ -31,7 +32,7 @@ class FileContentLiveData(private val path: Path) : LiveData<Stateful<ByteArray>
                 val content = path.readAllBytes()
                 Success(content)
             } catch (e: Exception) {
-                Failure(e)
+                Failure(valueCompat.value, e)
             }
             postValue(value)
         }

@@ -15,6 +15,7 @@ import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
+import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Future
@@ -49,7 +50,8 @@ class SearchFileListLiveData(
                 }
                 postValue(Success(fileList))
             } catch (e: Exception) {
-                postValue(Failure(e))
+                // TODO: Retrieval of previous value is racy.
+                postValue(Failure(valueCompat.value, e))
             }
         }
     }

@@ -13,6 +13,7 @@ import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
+import me.zhanghai.android.files.util.valueCompat
 
 abstract class PrincipalListLiveData : MutableLiveData<Stateful<List<PrincipalItem>>>() {
     init {
@@ -20,7 +21,7 @@ abstract class PrincipalListLiveData : MutableLiveData<Stateful<List<PrincipalIt
     }
 
     private fun loadValue() {
-        value = Loading()
+        value = Loading(value?.value)
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val principals = androidPrincipals
@@ -42,9 +43,9 @@ abstract class PrincipalListLiveData : MutableLiveData<Stateful<List<PrincipalIt
                     principals.add(principal)
                 }
                 principals.sortBy { it.id }
-                Success(principals)
+                Success(principals as List<PrincipalItem>)
             } catch (e: Exception) {
-                Failure(e)
+                Failure(valueCompat.value, e)
             }
             postValue(value)
         }

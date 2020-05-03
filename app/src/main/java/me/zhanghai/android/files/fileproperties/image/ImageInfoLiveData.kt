@@ -19,6 +19,7 @@ import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
+import me.zhanghai.android.files.util.valueCompat
 import kotlin.math.roundToInt
 
 class ImageInfoLiveData(
@@ -31,7 +32,7 @@ class ImageInfoLiveData(
     }
 
     override fun loadValue() {
-        value = Loading()
+        value = Loading(value?.value)
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 val imageInfo = when (mimeType) {
@@ -104,7 +105,7 @@ class ImageInfoLiveData(
                 }
                 Success(imageInfo)
             } catch (e: Exception) {
-                Failure(e)
+                Failure(valueCompat.value, e)
             }
             postValue(value)
         }

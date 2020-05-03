@@ -16,6 +16,7 @@ import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
+import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
 
 class FileListLiveData(private val path: Path) : CloseableLiveData<Stateful<List<FileItem>>>() {
@@ -30,7 +31,7 @@ class FileListLiveData(private val path: Path) : CloseableLiveData<Stateful<List
     }
 
     private fun loadValue() {
-        value = Loading()
+        value = Loading(value?.value)
         AsyncTask.THREAD_POOL_EXECUTOR.execute {
             val value = try {
                 path.newDirectoryStream().use { directoryStream ->
@@ -46,10 +47,10 @@ class FileListLiveData(private val path: Path) : CloseableLiveData<Stateful<List
                             e.printStackTrace()
                         }
                     }
-                    Success(fileList)
+                    Success(fileList as List<FileItem>)
                 }
             } catch (e: Exception) {
-                Failure(e)
+                Failure(valueCompat.value, e)
             }
             postValue(value)
         }

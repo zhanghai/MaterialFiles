@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2020 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<me.zhanghai.android.files.fileproperties.FilePropertiesTabItemTextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textInputLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <me.zhanghai.android.files.fileproperties.FilePropertiesTabItemTextView
+        android:id="@+id/textText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</me.zhanghai.android.files.fileproperties.FilePropertiesTabItemTextInputLayout>
