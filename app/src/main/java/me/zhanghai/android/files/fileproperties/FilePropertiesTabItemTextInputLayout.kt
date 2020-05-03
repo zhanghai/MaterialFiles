@@ -39,17 +39,12 @@ class FilePropertiesTabItemTextInputLayout : TextInputLayout {
         if (!Settings.MATERIAL_DESIGN_2.valueCompat) {
             defaultHintTextColor =
                 context.getColorStateListByAttr(android.R.attr.textColorSecondary)
-        } else {
-            endIconDrawable = context.getDrawableCompat(R.drawable.mtrl_ic_arrow_drop_down)
         }
     }
 
     override fun addView(child: View, index: Int, params: ViewGroup.LayoutParams) {
         if (child is EditText) {
             if (!Settings.MATERIAL_DESIGN_2.valueCompat) {
-                val context = context
-                val verticalPadding = context.dpToDimensionPixelSize(8)
-                child.setPadding(0, verticalPadding, 0, verticalPadding)
                 child.setTextAppearanceCompat(R.style.TextAppearance_AppCompat_Subhead)
             }
         }
@@ -60,7 +55,12 @@ class FilePropertiesTabItemTextInputLayout : TextInputLayout {
         val editText = editText!!
         val context = context
         if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-            endIconMode = if (dropDown) END_ICON_CUSTOM else END_ICON_NONE
+            if (dropDown) {
+                endIconMode = END_ICON_CUSTOM
+                endIconDrawable = context.getDrawableCompat(R.drawable.mtrl_ic_arrow_drop_down)
+            } else {
+                endIconMode = END_ICON_NONE
+            }
         } else {
             @SuppressLint("RestrictedApi")
             editText.background = if (dropDown) {
@@ -75,6 +75,8 @@ class FilePropertiesTabItemTextInputLayout : TextInputLayout {
             editText.updateLayoutParams<MarginLayoutParams> {
                 marginEnd = if (dropDown) context.dpToDimensionPixelSize(-19) else 0
             }
+            val verticalPadding = context.dpToDimensionPixelSize(8)
+            editText.setPadding(0, verticalPadding, 0, verticalPadding)
         }
     }
 }

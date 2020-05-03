@@ -79,7 +79,7 @@ abstract class FilePropertiesTabFragment : Fragment() {
     protected class ViewBuilder(private val linearLayout: LinearLayout) {
         private var itemCount = 0
 
-        fun addItemView(hint: String, text: String, isDropDown: Boolean = false) {
+        fun addItemView(hint: String, text: String, onClickListener: ((View) -> Unit)? = null) {
             val itemBinding = if (itemCount < linearLayout.size) {
                 linearLayout[itemCount].tag as FilePropertiesTabItemBinding
             } else {
@@ -88,14 +88,21 @@ abstract class FilePropertiesTabFragment : Fragment() {
                 ).also { it.root.tag = it }
             }
             itemBinding.textInputLayout.hint = hint
-            itemBinding.textInputLayout.setDropDown(isDropDown)
+            itemBinding.textInputLayout.setDropDown(onClickListener != null)
             itemBinding.textText.setText(text)
-            itemBinding.textText.setTextIsSelectable(!isDropDown)
+            itemBinding.textText.setTextIsSelectable(onClickListener == null)
+            itemBinding.textText.setOnClickListener(
+                onClickListener?.let { View.OnClickListener(it) }
+            )
             ++itemCount
         }
 
-        fun addItemView(@StringRes hintRes: Int, text: String, isDropDown: Boolean = false) {
-            addItemView(linearLayout.context.getString(hintRes), text, isDropDown)
+        fun addItemView(
+            @StringRes hintRes: Int,
+            text: String,
+            onClickListener: ((View) -> Unit)? = null
+        ) {
+            addItemView(linearLayout.context.getString(hintRes), text, onClickListener)
         }
 
         fun build() {
