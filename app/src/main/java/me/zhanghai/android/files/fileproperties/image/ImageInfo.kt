@@ -5,13 +5,11 @@
 
 package me.zhanghai.android.files.fileproperties.image
 
-import me.zhanghai.android.files.file.MimeType
+import android.util.Size
 import org.threeten.bp.Instant
 
 class ImageInfo(
-    val mimeType: MimeType,
-    val width: Int?,
-    val height: Int?,
+    val size: Size?,
     val exifInfo: ExifInfo?
 )
 
@@ -19,7 +17,7 @@ class ImageInfo(
 // @see https://github.com/GNOME/nautilus/blob/c73ad94a72f8e9a989b01858018de74182d17f0e/extensions/image-properties/nautilus-image-properties-page.c#L198
 class ExifInfo(
     val dateTimeOriginal: Instant?,
-    val gpsLatitudeLongitude: Pair<Double, Double>?,
+    val gpsCoordinates: Pair<Double, Double>?,
     val gpsAltitude: Double?,
     val make: String?,
     val model: String?,

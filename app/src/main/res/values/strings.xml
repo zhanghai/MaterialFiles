@@ -341,6 +341,28 @@
     <string name="file_properties_permissions_set_selinux_context_title">Change SELinux context</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Restore</string>
     <string name="file_properties_permissions_recursive">Apply to enclosed files</string>
+    <string name="file_properties_image">Image</string>
+    <string name="file_properties_image_size">Dimensions</string>
+    <string name="file_properties_image_size_format">%1$d x %2$d</string>
+    <string name="file_properties_image_date_time_original">Taken on</string>
+    <string name="file_properties_image_gps_coordinates">Coordinates</string>
+    <string name="file_properties_image_gps_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_image_gps_altitude">Altitude</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Camera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Aperture</string>
+    <string name="file_properties_image_f_number_format" translatable="false">f/%1$.1f</string>
+    <string name="file_properties_image_shutter_speed">Shutter speed</string>
+    <string name="file_properties_image_shutter_speed_with_denominator_format" translatable="false">1/%1$d</string>
+    <string name="file_properties_image_focal_length">Focal length</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO equivalent</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Software</string>
+    <string name="file_properties_image_description">Description</string>
+    <string name="file_properties_image_artist">Creator</string>
+    <string name="file_properties_image_copyright">Copyright</string>
     <string name="file_properties_apk">APK</string>
     <string name="file_properties_apk_label">Name</string>
     <string name="file_properties_apk_package_name">Package name</string>

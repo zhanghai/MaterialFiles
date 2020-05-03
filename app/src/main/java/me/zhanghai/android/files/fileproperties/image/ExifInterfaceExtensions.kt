@@ -8,6 +8,8 @@ package me.zhanghai.android.files.fileproperties.image
 import androidx.exifinterface.media.ExifInterface
 import org.threeten.bp.Duration
 import org.threeten.bp.Instant
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZoneOffset
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -81,7 +83,13 @@ fun ExifInterface.inferDateTimeOriginal(lastModifiedTime: Instant): Instant? {
         dateTimeOriginal.withTimezoneInferredFrom(gpsDateTime)?.let { return it }
     }
     dateTimeOriginal.withTimezoneInferredFrom(lastModifiedTime)?.let { return it }
-    return null
+    // We don't have any timezone information, pretend that it's in the current timezone which is
+    // still better than in UTC.
+    return dateTimeOriginal
+        .atOffset(ZoneOffset.UTC)
+        .toLocalDateTime()
+        .atZone(ZoneId.systemDefault())
+        .toInstant()
 }
 
 private fun Instant.withTimezoneInferredFrom(other: Instant): Instant? {

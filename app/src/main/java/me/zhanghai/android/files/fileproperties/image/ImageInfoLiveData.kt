@@ -7,11 +7,11 @@ package me.zhanghai.android.files.fileproperties.image
 
 import android.graphics.BitmapFactory
 import android.os.AsyncTask
+import android.util.Size
 import androidx.exifinterface.media.ExifInterface
 import com.caverock.androidsvg.SVG
 import java8.nio.file.Path
 import me.zhanghai.android.files.file.MimeType
-import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.fileproperties.PathObserverLiveData
 import me.zhanghai.android.files.provider.common.getLastModifiedTime
 import me.zhanghai.android.files.provider.common.newInputStream
@@ -40,9 +40,14 @@ class ImageInfoLiveData(
                         val svg = path.newInputStream()
                             .buffered()
                             .use { SVG.getFromInputStream(it) }
-                        val width = svg.documentWidth.takeIf { it != -1f }?.roundToInt()
-                        val height = svg.documentHeight.takeIf { it != -1f }?.roundToInt()
-                        ImageInfo(mimeType, width, height, null)
+                        val width = svg.documentWidth
+                        val height = svg.documentHeight
+                        val dimensions = if (width != -1f && height != -1f) {
+                            Size(width.roundToInt(), height.roundToInt())
+                        } else {
+                            null
+                        }
+                        ImageInfo(dimensions, null)
                     }
                     else -> {
                         val bitmapOptions = BitmapFactory.Options()
@@ -50,16 +55,20 @@ class ImageInfoLiveData(
                         path.newInputStream()
                             .buffered()
                             .use { BitmapFactory.decodeStream(it, null, bitmapOptions) }
-                        val mimeType = bitmapOptions.outMimeType?.asMimeTypeOrNull() ?: mimeType
-                        val width = bitmapOptions.outWidth.takeIf { it != -1 }
-                        val height = bitmapOptions.outHeight.takeIf { it != -1 }
+                        val width = bitmapOptions.outWidth
+                        val height = bitmapOptions.outHeight
+                        val dimensions = if (width != -1 && height != -1) {
+                            Size(width, height)
+                        } else {
+                            null
+                        }
                         val exifInfo = try {
                             val lastModifiedTime = path.getLastModifiedTime().toInstant()
                             path.newInputStream().buffered().use {
                                 val exifInterface = ExifInterface(it)
                                 val dateTimeOriginal =
                                     exifInterface.inferDateTimeOriginal(lastModifiedTime)
-                                val gpsLatitudeLongitude = exifInterface.latLong
+                                val gpsCoordinates = exifInterface.latLong
                                     ?.let { Pair(it[0], it[1]) }
                                 val gpsAltitude = exifInterface.gpsAltitude
                                 val make =
@@ -90,7 +99,7 @@ class ImageInfoLiveData(
                                 val copyright =
                                     exifInterface.getAttributeNotBlank(ExifInterface.TAG_COPYRIGHT)
                                 ExifInfo(
-                                    dateTimeOriginal, gpsLatitudeLongitude, gpsAltitude, make,
+                                    dateTimeOriginal, gpsCoordinates, gpsAltitude, make,
                                     model, fNumber, shutterSpeedValue, focalLength,
                                     photographicSensitivity, software, description, artist,
                                     copyright
@@ -100,7 +109,7 @@ class ImageInfoLiveData(
                             e.printStackTrace()
                             null
                         }
-                        ImageInfo(mimeType, width, height, exifInfo)
+                        ImageInfo(dimensions, exifInfo)
                     }
                 }
                 Success(imageInfo)
