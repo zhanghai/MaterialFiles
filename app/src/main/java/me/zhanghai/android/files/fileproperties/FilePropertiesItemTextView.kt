@@ -19,7 +19,7 @@ import com.google.android.material.textfield.TextInputEditText
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.getColorStateListByAttr
 
-class FilePropertiesTabItemTextView : TextInputEditText {
+class FilePropertiesItemTextView : TextInputEditText {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -29,8 +29,7 @@ class FilePropertiesTabItemTextView : TextInputEditText {
     )
 
     init {
-        isClickable = false
-        isFocusable = false
+        setTextIsSelectable(isTextSelectable)
     }
 
     override fun getFreezesText(): Boolean = false

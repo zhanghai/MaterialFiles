@@ -25,7 +25,7 @@ import me.zhanghai.android.files.util.getColorStateListByAttr
 import me.zhanghai.android.files.util.getResourceIdByAttr
 import me.zhanghai.android.files.util.valueCompat
 
-class FilePropertiesTabItemTextInputLayout : TextInputLayout {
+class FilePropertiesItemTextInputLayout : TextInputLayout {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -49,6 +49,9 @@ class FilePropertiesTabItemTextInputLayout : TextInputLayout {
             }
         }
         super.addView(child, index, params)
+        if (child is EditText) {
+            setDropDown(!child.isTextSelectable)
+        }
     }
 
     fun setDropDown(dropDown: Boolean) {

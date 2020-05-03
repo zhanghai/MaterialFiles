@@ -7,10 +7,6 @@ package me.zhanghai.android.files.fileproperties.permissions
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.widget.CheckBox
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,20 +16,16 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.compat.ListFormatterCompat
 import me.zhanghai.android.files.databinding.SetModeDialogBinding
-import me.zhanghai.android.files.databinding.SetModeDialogMd2Binding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.filejob.FileJobService
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
 import me.zhanghai.android.files.provider.common.PosixFileModeBit
-import me.zhanghai.android.files.settings.Settings
-import me.zhanghai.android.files.ui.DropDownView
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.getStringArray
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.show
-import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 
 class SetModeDialogFragment : AppCompatDialogFragment() {
@@ -41,7 +33,7 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
 
     private val viewModel by viewModels { { SetModeViewModel(argsMode) } }
 
-    private lateinit var binding: Binding
+    private lateinit var binding: SetModeDialogBinding
 
     private lateinit var normalModeBitNames: Array<String>
     private lateinit var ownerAdapter: ModeBitListAdapter
@@ -54,7 +46,7 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
         AlertDialogBuilderCompat.create(requireContext(), theme)
             .setTitle(R.string.file_properties_permissions_set_mode_title)
             .apply {
-                binding = Binding.inflate(context.layoutInflater)
+                binding = SetModeDialogBinding.inflate(context.layoutInflater)
                 binding.ownerText.setOnClickListener { binding.ownerDropDown.show() }
                 val isDirectory = args.file.attributes.isDirectory
                 normalModeBitNames = getStringArray(
@@ -109,13 +101,13 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
             .create()
 
     private fun onModeChanged(mode: Set<PosixFileModeBit>) {
-        binding.ownerText.text = getModeString(OWNER_MODE_BITS, normalModeBitNames)
+        binding.ownerText.setText(getModeString(OWNER_MODE_BITS, normalModeBitNames))
         ownerAdapter.mode = mode
-        binding.groupText.text = getModeString(GROUP_MODE_BITS, normalModeBitNames)
+        binding.groupText.setText(getModeString(GROUP_MODE_BITS, normalModeBitNames))
         groupAdapter.mode = mode
-        binding.othersText.text = getModeString(OTHERS_MODE_BITS, normalModeBitNames)
+        binding.othersText.setText(getModeString(OTHERS_MODE_BITS, normalModeBitNames))
         othersAdapter.mode = mode
-        binding.specialText.text = getModeString(SPECIAL_MODE_BITS, specialModeBitNames)
+        binding.specialText.setText(getModeString(SPECIAL_MODE_BITS, specialModeBitNames))
         specialAdapter.mode = mode
     }
 
@@ -184,39 +176,4 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
 
     @Parcelize
     class Args(val file: FileItem) : ParcelableArgs
-
-    private class Binding private constructor(
-        val root: View,
-        val ownerText: TextView,
-        val ownerDropDown: DropDownView,
-        val groupText: TextView,
-        val groupDropDown: DropDownView,
-        val othersText: TextView,
-        val othersDropDown: DropDownView,
-        val specialText: TextView,
-        val specialDropDown: DropDownView,
-        val recursiveCheck: CheckBox,
-        val uppercaseXCheck: CheckBox
-    ) {
-        companion object {
-            fun inflate(inflater: LayoutInflater): Binding =
-                if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-                    val binding = SetModeDialogMd2Binding.inflate(inflater)
-                    Binding(
-                        binding.root, binding.ownerText, binding.ownerDropDown, binding.groupText,
-                        binding.groupDropDown, binding.othersText, binding.othersDropDown,
-                        binding.specialText, binding.specialDropDown, binding.recursiveCheck,
-                        binding.uppercaseXCheck
-                    )
-                } else {
-                    val binding = SetModeDialogBinding.inflate(inflater)
-                    Binding(
-                        binding.root, binding.ownerText, binding.ownerDropDown, binding.groupText,
-                        binding.groupDropDown, binding.othersText, binding.othersDropDown,
-                        binding.specialText, binding.specialDropDown, binding.recursiveCheck,
-                        binding.uppercaseXCheck
-                    )
-                }
-        }
-    }
 }
