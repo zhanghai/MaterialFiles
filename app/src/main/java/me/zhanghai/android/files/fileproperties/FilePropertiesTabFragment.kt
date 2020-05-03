@@ -24,6 +24,7 @@ import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.layoutInflater
+import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.valueCompat
 
 abstract class FilePropertiesTabFragment : Fragment() {
@@ -57,9 +58,14 @@ abstract class FilePropertiesTabFragment : Fragment() {
         val hasValue = value != null
         binding.progress.fadeToVisibilityUnsafe(stateful is Loading && !hasValue)
         binding.swipeRefreshLayout.isRefreshing = stateful is Loading && hasValue
-        binding.errorText.fadeToVisibilityUnsafe(stateful is Failure)
+        binding.errorText.fadeToVisibilityUnsafe(stateful is Failure && !hasValue)
         if (stateful is Failure) {
-            binding.errorText.text = stateful.throwable.toString()
+            val error = stateful.throwable.toString()
+            if (hasValue) {
+                showToast(error)
+            } else {
+                binding.errorText.text = error
+            }
         }
         binding.scrollView.fadeToVisibilityUnsafe(hasValue)
         if (value != null) {
