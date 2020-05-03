@@ -5,14 +5,14 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.fileproperties.FilePropertiesItemTextInputLayout
+<me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/textInputLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <me.zhanghai.android.files.fileproperties.FilePropertiesItemTextView
+    <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
         android:id="@+id/textText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</me.zhanghai.android.files.fileproperties.FilePropertiesItemTextInputLayout>
+</me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>

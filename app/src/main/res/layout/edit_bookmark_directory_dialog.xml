@@ -33,15 +33,15 @@
         </me.zhanghai.android.materialedittext.MaterialEditText>
     </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
 
-    <me.zhanghai.android.files.ui.AppCompatTextInputLayout
+    <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="@string/navigation_edit_bookmark_directory_path">
 
-        <me.zhanghai.android.files.ui.TextInputTextView
+        <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
             android:id="@+id/pathText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </me.zhanghai.android.files.ui.AppCompatTextInputLayout>
+    </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
 </LinearLayout>

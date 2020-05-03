@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties
+package me.zhanghai.android.files.ui
 
 import android.content.Context
 import android.graphics.Color
@@ -19,7 +19,7 @@ import com.google.android.material.textfield.TextInputEditText
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.getColorStateListByAttr
 
-class FilePropertiesItemTextView : TextInputEditText {
+class ReadOnlyTextInputEditText : TextInputEditText {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

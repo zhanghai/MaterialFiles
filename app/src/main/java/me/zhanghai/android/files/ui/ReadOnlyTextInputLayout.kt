@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties
+package me.zhanghai.android.files.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.annotation.AttrRes
 import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePaddingRelative
 import com.google.android.material.textfield.TextInputLayout
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getDrawableCompat
@@ -25,7 +26,7 @@ import me.zhanghai.android.files.util.getColorStateListByAttr
 import me.zhanghai.android.files.util.getResourceIdByAttr
 import me.zhanghai.android.files.util.valueCompat
 
-class FilePropertiesItemTextInputLayout : TextInputLayout {
+class ReadOnlyTextInputLayout : TextInputLayout {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -37,6 +38,7 @@ class FilePropertiesItemTextInputLayout : TextInputLayout {
     init {
         isHintAnimationEnabled = false
         if (!Settings.MATERIAL_DESIGN_2.valueCompat) {
+            clipChildren = false
             defaultHintTextColor =
                 context.getColorStateListByAttr(android.R.attr.textColorSecondary)
         }
@@ -73,13 +75,16 @@ class FilePropertiesItemTextInputLayout : TextInputLayout {
                     attrs = intArrayOf(android.R.attr.background), defStyleRes = spinnerStyleRes
                 ).use { it.getDrawable(0) }
             } else {
+                // Remove previous padding from background.
+                editText.setPadding(0, 0, 0, 0)
                 null
             }
             editText.updateLayoutParams<MarginLayoutParams> {
                 marginEnd = if (dropDown) context.dpToDimensionPixelSize(-19) else 0
             }
             val verticalPadding = context.dpToDimensionPixelSize(8)
-            editText.setPadding(0, verticalPadding, 0, verticalPadding)
+            // Keep horizontal padding from background.
+            editText.updatePaddingRelative(top = verticalPadding, bottom = verticalPadding)
         }
     }
 }
