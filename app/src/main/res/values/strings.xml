@@ -343,7 +343,7 @@
     <string name="file_properties_permissions_recursive">Apply to enclosed files</string>
     <string name="file_properties_image">Image</string>
     <string name="file_properties_image_size">Dimensions</string>
-    <string name="file_properties_image_size_format">%1$d x %2$d</string>
+    <string name="file_properties_image_size_format">%1$d \u00d7 %2$d</string>
     <string name="file_properties_image_date_time_original">Taken on</string>
     <string name="file_properties_image_gps_coordinates">Coordinates</string>
     <string name="file_properties_image_gps_coordinates_format">%1$.3f, %2$.3f</string>

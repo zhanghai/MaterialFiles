@@ -318,7 +318,7 @@
     <string name="file_properties_permissions_recursive">套用到包含的檔案</string>
     <string name="file_properties_image">影像</string>
     <string name="file_properties_image_size">尺寸</string>
-    <string name="file_properties_image_size_format">%1$d x %2$d</string>
+    <string name="file_properties_image_size_format">%1$d \u00d7 %2$d</string>
     <string name="file_properties_image_date_time_original">拍攝時間</string>
     <string name="file_properties_image_gps_coordinates">座標</string>
     <string name="file_properties_image_gps_coordinates_format">%1$,.3f，%2$,.3f</string>
