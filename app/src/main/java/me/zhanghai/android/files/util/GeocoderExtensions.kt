@@ -18,7 +18,7 @@ import kotlin.coroutines.suspendCoroutine
 val isGeocoderPresent by lazy { Geocoder.isPresent() }
 
 @Throws(IOException::class)
-suspend fun Geocoder.getFromLocationAsync(
+suspend fun Geocoder.awaitGetFromLocation(
     latitude :Double,
     longitude: Double,
     maxResults: Int

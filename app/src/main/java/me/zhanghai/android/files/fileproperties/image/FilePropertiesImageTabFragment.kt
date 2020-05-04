@@ -28,7 +28,7 @@ import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.createViewLocation
-import me.zhanghai.android.files.util.getFromLocationAsync
+import me.zhanghai.android.files.util.awaitGetFromLocation
 import me.zhanghai.android.files.util.isGeocoderPresent
 import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.userFriendlyString
@@ -98,7 +98,7 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
                         val geocoder = Geocoder(requireContext())
                         addressJob = viewLifecycleOwner.lifecycleScope.launch {
                             val address = try {
-                                geocoder.getFromLocationAsync(
+                                geocoder.awaitGetFromLocation(
                                     exifInfo.gpsCoordinates.first, exifInfo.gpsCoordinates.second, 1
                                 ).first()
                             } catch (e: Exception) {
