@@ -60,10 +60,10 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
         addressJob = null
         bindView(stateful) { imageInfo ->
             addItemView(
-                R.string.file_properties_image_size, if (imageInfo.size != null) {
+                R.string.file_properties_media_dimensions, if (imageInfo.dimensions != null) {
                     getString(
-                        R.string.file_properties_image_size_format, imageInfo.size.width,
-                        imageInfo.size.height
+                        R.string.file_properties_media_dimensions_format,
+                        imageInfo.dimensions.width, imageInfo.dimensions.height
                     )
                 } else {
                     getString(R.string.unknown)
@@ -73,14 +73,14 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
             if (exifInfo != null) {
                 if (exifInfo.dateTimeOriginal != null) {
                     addItemView(
-                        R.string.file_properties_image_date_time_original,
+                        R.string.file_properties_media_date_time,
                         exifInfo.dateTimeOriginal.formatLong()
                     )
                 }
                 if (exifInfo.gpsCoordinates != null) {
                     addItemView(
-                        R.string.file_properties_image_gps_coordinates, getString(
-                            R.string.file_properties_image_gps_coordinates_format,
+                        R.string.file_properties_media_coordinates, getString(
+                            R.string.file_properties_media_coordinates_format,
                             exifInfo.gpsCoordinates.first, exifInfo.gpsCoordinates.second
                         )
                     ) {
@@ -93,7 +93,7 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
                     }
                     if (isGeocoderPresent) {
                         val textView = addItemView(
-                            R.string.file_properties_image_address, getString(R.string.loading)
+                            R.string.file_properties_media_address, getString(R.string.loading)
                         )
                         val geocoder = Geocoder(requireContext())
                         addressJob = viewLifecycleOwner.lifecycleScope.launch {

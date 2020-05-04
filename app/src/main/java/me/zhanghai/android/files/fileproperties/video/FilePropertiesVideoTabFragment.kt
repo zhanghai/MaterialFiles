@@ -59,11 +59,11 @@ class FilePropertiesVideoTabFragment : FilePropertiesTabFragment() {
             if (videoInfo.title != null) {
                 addItemView(R.string.file_properties_media_title, videoInfo.title)
             }
-            if (videoInfo.size != null) {
+            if (videoInfo.dimensions != null) {
                 addItemView(
-                    R.string.file_properties_video_size, getString(
-                        R.string.file_properties_video_size_format, videoInfo.size.width,
-                        videoInfo.size.height
+                    R.string.file_properties_media_dimensions, getString(
+                        R.string.file_properties_media_dimensions_format,
+                        videoInfo.dimensions.width, videoInfo.dimensions.height
                     )
                 )
             }
@@ -71,13 +71,13 @@ class FilePropertiesVideoTabFragment : FilePropertiesTabFragment() {
                 addItemView(R.string.file_properties_media_duration, videoInfo.duration.format())
             }
             if (videoInfo.date != null) {
-                addItemView(R.string.file_properties_video_date, videoInfo.date.formatLong())
+                addItemView(R.string.file_properties_media_date_time, videoInfo.date.formatLong())
             }
             if (videoInfo.location != null) {
                 addItemView(
-                    R.string.file_properties_video_location, getString(
-                        R.string.file_properties_video_location_format,
-                        videoInfo.location.first, videoInfo.location.second
+                    R.string.file_properties_media_coordinates, getString(
+                        R.string.file_properties_media_coordinates_format, videoInfo.location.first,
+                        videoInfo.location.second
                     )
                 ) {
                     startActivitySafe(
@@ -88,7 +88,7 @@ class FilePropertiesVideoTabFragment : FilePropertiesTabFragment() {
                 }
                 if (isGeocoderPresent) {
                     val textView = addItemView(
-                        R.string.file_properties_video_address, getString(R.string.loading)
+                        R.string.file_properties_media_address, getString(R.string.loading)
                     )
                     val geocoder = Geocoder(requireContext())
                     addressJob = viewLifecycleOwner.lifecycleScope.launch {

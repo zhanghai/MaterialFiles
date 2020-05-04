@@ -49,7 +49,7 @@ class ImageInfoLiveData(
                             .use { SVG.getFromInputStream(it.inputStream()) }
                         val width = svg.documentWidth
                         val height = svg.documentHeight
-                        val size = if (width != -1f && height != -1f) {
+                        val dimensions = if (width != -1f && height != -1f) {
                             Size(width.roundToInt(), height.roundToInt())
                         } else {
                             val viewBox = svg.documentViewBox
@@ -59,7 +59,7 @@ class ImageInfoLiveData(
                                 null
                             }
                         }
-                        ImageInfo(size, null)
+                        ImageInfo(dimensions, null)
                     }
                     else -> {
                         val bitmapOptions = BitmapFactory.Options()

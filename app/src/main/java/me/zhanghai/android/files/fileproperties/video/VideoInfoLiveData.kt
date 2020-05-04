@@ -43,7 +43,7 @@ class VideoInfoLiveData(path: Path) : PathObserverLiveData<Stateful<VideoInfo>>(
                     val height = retriever.extractMetadataNotBlank(
                         MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT
                     )?.toIntOrNull()
-                    val size = if (width != null && height != null) {
+                    val dimensions = if (width != null && height != null) {
                         Size(width, height)
                     } else {
                         null
@@ -53,7 +53,7 @@ class VideoInfoLiveData(path: Path) : PathObserverLiveData<Stateful<VideoInfo>>(
                     )?.toLongOrNull()?.let { Duration.ofMillis(it) }
                     val date = retriever.date
                     val location = retriever.location
-                    VideoInfo(title, size, duration, date, location)
+                    VideoInfo(title, dimensions, duration, date, location)
                 }
                 Success(videoInfo)
             } catch (e: Exception) {

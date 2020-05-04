@@ -14,7 +14,7 @@ import org.threeten.bp.Instant
 // @see https://github.com/GNOME/nautilus/blob/c73ad94a72f8e9a989b01858018de74182d17f0e/extensions/audio-video-properties/bacon-video-widget-properties.c#L89
 class VideoInfo(
     val title: String?,
-    val size: Size?,
+    val dimensions: Size?,
     val duration: Duration?,
     val date: Instant?,
     val location: Pair<Float, Float>?

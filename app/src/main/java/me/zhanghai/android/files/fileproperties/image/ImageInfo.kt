@@ -9,7 +9,7 @@ import android.util.Size
 import org.threeten.bp.Instant
 
 class ImageInfo(
-    val size: Size?,
+    val dimensions: Size?,
     val exifInfo: ExifInfo?
 )
 
