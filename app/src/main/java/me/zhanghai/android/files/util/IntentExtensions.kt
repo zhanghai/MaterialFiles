@@ -63,6 +63,11 @@ fun KClass<Intent>.createSyncSettingsWithAccountType(vararg accountTypes: String
 fun KClass<Intent>.createViewAppInMarket(packageName: String): Intent =
     Uri.parse("market://details?id=$packageName").createViewIntent()
 
+// @see com.android.documentsui.inspector.InspectorController.createGeoIntent
+// @see https://developer.android.com/guide/components/intents-common.html#Maps
+fun KClass<Intent>.createViewLocation(latitude: Float, longitude: Float, label: String): Intent =
+    Uri.parse("geo:0,0?q=$latitude,$longitude(${Uri.encode(label)})").createViewIntent()
+
 fun <T : Parcelable> Intent.getParcelableExtraSafe(key: String): T? {
     setExtrasClassLoader(appClassLoader)
     return getParcelableExtra(key)

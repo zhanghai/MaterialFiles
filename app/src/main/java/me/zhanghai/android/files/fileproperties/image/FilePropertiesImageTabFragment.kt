@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.fileproperties.image
 
+import android.content.Intent
 import android.location.Geocoder
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -20,13 +21,16 @@ import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.formatLong
 import me.zhanghai.android.files.file.isImage
+import me.zhanghai.android.files.filelist.name
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.createViewLocation
 import me.zhanghai.android.files.util.getFromLocationAsync
 import me.zhanghai.android.files.util.isGeocoderPresent
+import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.userFriendlyString
 import me.zhanghai.android.files.util.viewModels
 import kotlin.math.pow
@@ -79,7 +83,14 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
                             R.string.file_properties_image_gps_coordinates_format,
                             exifInfo.gpsCoordinates.first, exifInfo.gpsCoordinates.second
                         )
-                    )
+                    ) {
+                        startActivitySafe(
+                            Intent::class.createViewLocation(
+                                exifInfo.gpsCoordinates.first.toFloat(),
+                                exifInfo.gpsCoordinates.second.toFloat(), args.path.name
+                            )
+                        )
+                    }
                     if (isGeocoderPresent) {
                         val textView = addItemView(
                             R.string.file_properties_image_address, getString(R.string.loading)
