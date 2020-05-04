@@ -53,7 +53,10 @@ class VideoInfoLiveData(path: Path) : PathObserverLiveData<Stateful<VideoInfo>>(
                     )?.toLongOrNull()?.let { Duration.ofMillis(it) }
                     val date = retriever.date
                     val location = retriever.location
-                    VideoInfo(title, dimensions, duration, date, location)
+                    val bitRate = retriever.extractMetadataNotBlank(
+                        MediaMetadataRetriever.METADATA_KEY_BITRATE
+                    )?.toLongOrNull()
+                    VideoInfo(title, dimensions, duration, date, location, bitRate)
                 }
                 Success(videoInfo)
             } catch (e: Exception) {

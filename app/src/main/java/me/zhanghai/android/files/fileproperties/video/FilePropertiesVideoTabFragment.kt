@@ -107,6 +107,13 @@ class FilePropertiesVideoTabFragment : FilePropertiesTabFragment() {
                     }
                 }
             }
+            if (videoInfo.bitRate != null) {
+                addItemView(
+                    R.string.file_properties_media_bit_rate, getString(
+                        R.string.file_properties_media_bit_rate_format, videoInfo.bitRate / 1000
+                    )
+                )
+            }
         }
     }
 

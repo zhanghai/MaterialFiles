@@ -375,8 +375,8 @@
     <string name="file_properties_audio_year">Year</string>
     <string name="file_properties_audio_genre">Genre</string>
     <string name="file_properties_media_duration">Duration</string>
-    <string name="file_properties_audio_bit_rate">Bit rate</string>
-    <string name="file_properties_audio_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_media_bit_rate">Bit rate</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
     <string name="file_properties_audio_sample_rate">Sample rate</string>
     <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
     <string name="file_properties_video">Video</string>

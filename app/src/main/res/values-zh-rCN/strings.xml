@@ -348,8 +348,8 @@
     <string name="file_properties_audio_year">年份</string>
     <string name="file_properties_audio_genre">流派</string>
     <string name="file_properties_media_duration">时长</string>
-    <string name="file_properties_audio_bit_rate">比特率</string>
-    <string name="file_properties_audio_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_media_bit_rate">比特率</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
     <string name="file_properties_audio_sample_rate">采样率</string>
     <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
     <string name="file_properties_video">视频</string>

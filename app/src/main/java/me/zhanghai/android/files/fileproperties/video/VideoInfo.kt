@@ -17,5 +17,6 @@ class VideoInfo(
     val dimensions: Size?,
     val duration: Duration?,
     val date: Instant?,
-    val location: Pair<Float, Float>?
+    val location: Pair<Float, Float>?,
+    val bitRate: Long?
 )
