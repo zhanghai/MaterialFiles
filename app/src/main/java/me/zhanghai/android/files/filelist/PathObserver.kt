@@ -9,7 +9,6 @@ import android.os.AsyncTask
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
 import java8.nio.file.Path
 import me.zhanghai.android.files.provider.common.PathObservable
 import me.zhanghai.android.files.provider.common.observe

@@ -14,7 +14,6 @@ import android.provider.DocumentsContract
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.navigation.DocumentTreesLiveData
-import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.releasePersistablePermission
 import me.zhanghai.android.files.util.takePersistablePermission
 

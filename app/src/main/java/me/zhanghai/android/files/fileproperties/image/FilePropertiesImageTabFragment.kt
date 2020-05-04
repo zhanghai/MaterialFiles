@@ -27,10 +27,10 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
-import me.zhanghai.android.files.util.createViewLocation
 import me.zhanghai.android.files.util.awaitGetFromLocation
-import me.zhanghai.android.files.util.isMediaMetadataRetrieverCompatible
+import me.zhanghai.android.files.util.createViewLocation
 import me.zhanghai.android.files.util.isGeocoderPresent
+import me.zhanghai.android.files.util.isMediaMetadataRetrieverCompatible
 import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.userFriendlyString
 import me.zhanghai.android.files.util.viewModels

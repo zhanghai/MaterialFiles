@@ -40,10 +40,10 @@ import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import me.zhanghai.android.files.util.setDataSource
-import me.zhanghai.android.files.util.setDataSource as appSetDataSource
 import me.zhanghai.android.files.util.valueCompat
 import okio.buffer
 import okio.source
+import me.zhanghai.android.files.util.setDataSource as appSetDataSource
 
 class PathAttributesFetcher(
     private val context: Context

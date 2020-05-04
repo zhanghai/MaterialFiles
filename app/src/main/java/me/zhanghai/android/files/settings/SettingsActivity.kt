@@ -20,7 +20,6 @@ import me.zhanghai.android.files.theme.custom.CustomThemeHelper.OnThemeChangedLi
 import me.zhanghai.android.files.theme.night.NightModeHelper.OnNightModeChangedListener
 import me.zhanghai.android.files.util.BundleParceler
 import me.zhanghai.android.files.util.ParcelableArgs
-import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.getArgsOrNull
 import me.zhanghai.android.files.util.putArgs
