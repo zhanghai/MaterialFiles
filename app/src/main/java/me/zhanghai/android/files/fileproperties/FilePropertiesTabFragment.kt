@@ -60,6 +60,7 @@ abstract class FilePropertiesTabFragment : Fragment() {
         binding.swipeRefreshLayout.isRefreshing = stateful is Loading && hasValue
         binding.errorText.fadeToVisibilityUnsafe(stateful is Failure && !hasValue)
         if (stateful is Failure) {
+            stateful.throwable.printStackTrace()
             val error = stateful.throwable.toString()
             if (hasValue) {
                 showToast(error)

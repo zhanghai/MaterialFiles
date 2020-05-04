@@ -20,6 +20,8 @@ import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.valueCompat
+import okio.buffer
+import okio.source
 import kotlin.math.roundToInt
 
 class ImageInfoLiveData(
@@ -38,14 +40,24 @@ class ImageInfoLiveData(
                 val imageInfo = when (mimeType) {
                     MimeType.IMAGE_SVG_XML -> {
                         val svg = path.newInputStream()
-                            .buffered()
-                            .use { SVG.getFromInputStream(it) }
+                            // It seems we need Okio for SVG parser to work for files with entities.
+                            // Something weird is going on with buffering and mark/reset.
+                            //.buffer()
+                            //.use { SVG.getFromInputStream(it) }
+                            .source()
+                            .buffer()
+                            .use { SVG.getFromInputStream(it.inputStream()) }
                         val width = svg.documentWidth
                         val height = svg.documentHeight
                         val dimensions = if (width != -1f && height != -1f) {
                             Size(width.roundToInt(), height.roundToInt())
                         } else {
-                            null
+                            val viewBox = svg.documentViewBox
+                            if (viewBox != null) {
+                                Size(viewBox.width().roundToInt(), viewBox.height().roundToInt())
+                            } else {
+                                null
+                            }
                         }
                         ImageInfo(dimensions, null)
                     }
