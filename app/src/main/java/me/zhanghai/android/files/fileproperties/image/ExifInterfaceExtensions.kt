@@ -37,9 +37,9 @@ val ExifInterface.dateTimeOriginalCompat: Long
         )
 
 private val nonZeroTimeRegex = Regex(".*[1-9].*")
-private val formatter = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.US)
+private val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.US)
     .apply { timeZone = TimeZone.getTimeZone("UTC") }
-private val formatterWithTimezone = SimpleDateFormat("yyyy:MM:dd HH:mm:ss XXX", Locale.US)
+private val dateFormatWithTimezone = SimpleDateFormat("yyyy:MM:dd HH:mm:ss XXX", Locale.US)
     .apply { timeZone = TimeZone.getTimeZone("UTC") }
 
 /** @see android.media.ExifInterface.parseDateTime */
@@ -54,9 +54,9 @@ private fun ExifInterface.parseDateTime(
     }
     val offsetTimeString = getAttributeNotBlank(offsetTimeTag)
     val date = if (offsetTimeString != null) {
-        formatterWithTimezone.parse("$dateTimeString $offsetTimeString", ParsePosition(0))
+        dateFormatWithTimezone.parse("$dateTimeString $offsetTimeString", ParsePosition(0))
     } else {
-        formatter.parse(dateTimeString, ParsePosition(0))
+        dateFormat.parse(dateTimeString, ParsePosition(0))
     } ?: return -1
     var time = date.time
     val subSecTimeString = getAttributeNotBlank(subSecTimeTag)

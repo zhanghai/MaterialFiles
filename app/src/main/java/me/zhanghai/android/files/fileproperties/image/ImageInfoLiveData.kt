@@ -49,7 +49,7 @@ class ImageInfoLiveData(
                             .use { SVG.getFromInputStream(it.inputStream()) }
                         val width = svg.documentWidth
                         val height = svg.documentHeight
-                        val dimensions = if (width != -1f && height != -1f) {
+                        val size = if (width != -1f && height != -1f) {
                             Size(width.roundToInt(), height.roundToInt())
                         } else {
                             val viewBox = svg.documentViewBox
@@ -59,7 +59,7 @@ class ImageInfoLiveData(
                                 null
                             }
                         }
-                        ImageInfo(dimensions, null)
+                        ImageInfo(size, null)
                     }
                     else -> {
                         val bitmapOptions = BitmapFactory.Options()
@@ -80,8 +80,7 @@ class ImageInfoLiveData(
                                 val exifInterface = ExifInterface(it)
                                 val dateTimeOriginal =
                                     exifInterface.inferDateTimeOriginal(lastModifiedTime)
-                                val gpsCoordinates = exifInterface.latLong
-                                    ?.let { Pair(it[0], it[1]) }
+                                val gpsCoordinates = exifInterface.latLong?.let { it[0] to it[1] }
                                 val gpsAltitude = exifInterface.gpsAltitude
                                 val make =
                                     exifInterface.getAttributeNotBlank(ExifInterface.TAG_MAKE)
