@@ -14,7 +14,7 @@ import me.zhanghai.android.files.file.formatLong
 import me.zhanghai.android.files.filelist.getMimeTypeName
 import me.zhanghai.android.files.filelist.name
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
-import me.zhanghai.android.files.fileproperties.FilePropertiesViewModel
+import me.zhanghai.android.files.fileproperties.FilePropertiesFileViewModel
 import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes
 import me.zhanghai.android.files.provider.archive.archiveFile
 import me.zhanghai.android.files.provider.archive.isArchivePath
@@ -24,7 +24,7 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.viewModels
 
 class FilePropertiesBasicTabFragment : FilePropertiesTabFragment() {
-    private val viewModel by viewModels<FilePropertiesViewModel>({ requireParentFragment() })
+    private val viewModel by viewModels<FilePropertiesFileViewModel>({ requireParentFragment() })
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

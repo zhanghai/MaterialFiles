@@ -10,7 +10,7 @@ import androidx.lifecycle.observe
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
-import me.zhanghai.android.files.fileproperties.FilePropertiesViewModel
+import me.zhanghai.android.files.fileproperties.FilePropertiesFileViewModel
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
 import me.zhanghai.android.files.provider.common.PosixPrincipal
 import me.zhanghai.android.files.provider.common.isNullOrEmpty
@@ -20,7 +20,7 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.viewModels
 
 class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
-    private val viewModel by viewModels<FilePropertiesViewModel>({ requireParentFragment() })
+    private val viewModel by viewModels<FilePropertiesFileViewModel>({ requireParentFragment() })
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

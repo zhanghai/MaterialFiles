@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModel
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.util.Stateful
 
-class FilePropertiesViewModel(file: FileItem) : ViewModel() {
+class FilePropertiesFileViewModel(file: FileItem) : ViewModel() {
     private val _fileLiveData = FileLiveData(file)
     val fileLiveData: LiveData<Stateful<FileItem>>
         get() = _fileLiveData

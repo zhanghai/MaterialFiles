@@ -35,7 +35,7 @@ import me.zhanghai.android.files.util.viewModels
 class FilePropertiesDialogFragment : AppCompatDialogFragment() {
     private val args by args<Args>()
 
-    private val viewModel by viewModels { { FilePropertiesViewModel(args.file) } }
+    private val viewModel by viewModels { { FilePropertiesFileViewModel(args.file) } }
 
     private lateinit var binding: FilePropertiesDialogBinding
 
@@ -59,7 +59,7 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // Initialize our view model before child fragments are created.
+        // Initialize the shared file view model before child fragments are created.
         viewModel.fileLiveData
         val tabs = mutableListOf<Pair<Int, () -> Fragment>>()
             .apply {
