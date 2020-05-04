@@ -43,14 +43,16 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
 
     private fun onImageInfoChanged(stateful: Stateful<ImageInfo>) {
         bindView(stateful) { imageInfo ->
-            if (imageInfo.size != null) {
-                addItemView(
-                    R.string.file_properties_image_size, getString(
+            addItemView(
+                R.string.file_properties_image_size, if (imageInfo.size != null) {
+                    getString(
                         R.string.file_properties_image_size_format, imageInfo.size.width,
                         imageInfo.size.height
                     )
-                )
-            }
+                } else {
+                    getString(R.string.unknown)
+                }
+            )
             val exifInfo = imageInfo.exifInfo
             if (exifInfo != null) {
                 if (exifInfo.dateTimeOriginal != null) {

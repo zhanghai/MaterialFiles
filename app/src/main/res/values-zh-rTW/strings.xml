@@ -41,7 +41,7 @@
     <string name="skip">跳過</string>
     <string name="sort">排序</string>
     <string name="stop">停止</string>
-    <string name="unknown">未知</string>
+    <string name="unknown">不明</string>
     <string name="view">查看</string>
 
     <!-- android.R.string.app_not_found -->
