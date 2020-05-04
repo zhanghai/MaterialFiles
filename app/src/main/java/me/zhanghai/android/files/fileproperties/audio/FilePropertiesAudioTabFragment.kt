@@ -40,7 +40,7 @@ class FilePropertiesAudioTabFragment : FilePropertiesTabFragment() {
     private fun onAudioInfoChanged(stateful: Stateful<AudioInfo>) {
         bindView(stateful) { audioInfo ->
             if (audioInfo.title != null) {
-                addItemView(R.string.file_properties_audio_title, audioInfo.title)
+                addItemView(R.string.file_properties_media_title, audioInfo.title)
             }
             if (audioInfo.artist != null) {
                 addItemView(R.string.file_properties_audio_artist, audioInfo.artist)
@@ -67,7 +67,7 @@ class FilePropertiesAudioTabFragment : FilePropertiesTabFragment() {
                 addItemView(R.string.file_properties_audio_genre, audioInfo.genre)
             }
             if (audioInfo.duration != null) {
-                addItemView(R.string.file_properties_audio_duration, audioInfo.duration.format())
+                addItemView(R.string.file_properties_media_duration, audioInfo.duration.format())
             }
             if (audioInfo.bitRate != null) {
                 addItemView(

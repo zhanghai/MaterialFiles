@@ -23,6 +23,7 @@ import me.zhanghai.android.files.fileproperties.audio.FilePropertiesAudioTabFrag
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment
 import me.zhanghai.android.files.fileproperties.image.FilePropertiesImageTabFragment
 import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment
+import me.zhanghai.android.files.fileproperties.video.FilePropertiesVideoTabFragment
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
@@ -85,6 +86,15 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                         R.string.file_properties_audio to {
                             FilePropertiesAudioTabFragment().putArgs(
                                 FilePropertiesAudioTabFragment.Args(args.file.path)
+                            )
+                        }
+                    )
+                }
+                if (FilePropertiesVideoTabFragment.isAvailable(args.file)) {
+                    add(
+                        R.string.file_properties_video to {
+                            FilePropertiesVideoTabFragment().putArgs(
+                                FilePropertiesVideoTabFragment.Args(args.file.path)
                             )
                         }
                     )

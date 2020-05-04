@@ -12,12 +12,12 @@ import java8.nio.file.Path
 import me.zhanghai.android.files.compat.METADATA_KEY_SAMPLERATE
 import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.fileproperties.PathObserverLiveData
+import me.zhanghai.android.files.fileproperties.extractMetadataNotBlank
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.setDataSource
-import me.zhanghai.android.files.util.takeIfNotBlank
 import me.zhanghai.android.files.util.valueCompat
 import org.threeten.bp.Duration
 
@@ -86,6 +86,3 @@ class AudioInfoLiveData(path: Path) : PathObserverLiveData<Stateful<AudioInfo>>(
         }
     }
 }
-
-private fun MediaMetadataRetriever.extractMetadataNotBlank(keyCode: Int): String? =
-    extractMetadata(keyCode)?.takeIfNotBlank()
