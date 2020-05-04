@@ -246,7 +246,9 @@ class FileProvider : ContentProvider() {
             }
             val buffer = ByteBuffer.wrap(data, 0, size)
             return try {
-                channel.read(buffer)
+                // ReadableByteChannel returns -1 upon end-of-stream, however read(2) returns 0 in
+                // this case.
+                channel.read(buffer).let { if (it == -1) 0 else it }
             } catch (e: IOException) {
                 throw e.toErrnoException()
             }.also { this.offset += it.toLong() }
