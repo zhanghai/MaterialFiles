@@ -10,9 +10,6 @@ import android.location.Geocoder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.IOException
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 val isGeocoderPresent by lazy { Geocoder.isPresent() }
 
@@ -23,17 +20,6 @@ suspend fun Geocoder.awaitGetFromLocation(
     maxResults: Int
 ): List<Address> =
     withContext(Dispatchers.IO) {
-        // TODO: kotlinc: Type inference failed: Not enough information to infer parameter T in
-        //  suspend inline fun <T> suspendCoroutine(crossinline block: (Continuation<T>) -> Unit): T
-        //  Please specify it explicitly.
-        suspendCoroutine<List<Address>> { continuation ->
-            val addresses = try {
-                getFromLocation(latitude, longitude, maxResults)
-                    ?: throw IOException(NullPointerException())
-            } catch (t: Throwable) {
-                continuation.resumeWithException(t)
-                return@suspendCoroutine
-            }
-            continuation.resume(addresses)
-        }
+        getFromLocation(latitude, longitude, maxResults)
+            ?: throw IOException(NullPointerException())
     }
