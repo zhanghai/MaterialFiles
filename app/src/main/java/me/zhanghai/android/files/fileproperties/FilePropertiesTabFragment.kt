@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.view.ViewCompat
 import androidx.core.view.get
@@ -80,7 +81,11 @@ abstract class FilePropertiesTabFragment : Fragment() {
     protected class ViewBuilder(private val linearLayout: LinearLayout) {
         private var itemCount = 0
 
-        fun addItemView(hint: String, text: String, onClickListener: ((View) -> Unit)? = null) {
+        fun addItemView(
+            hint: String,
+            text: String,
+            onClickListener: ((View) -> Unit)? = null
+        ): TextView {
             val itemBinding = if (itemCount < linearLayout.size) {
                 linearLayout[itemCount].tag as FilePropertiesTabItemBinding
             } else {
@@ -96,15 +101,14 @@ abstract class FilePropertiesTabFragment : Fragment() {
                 onClickListener?.let { View.OnClickListener(it) }
             )
             ++itemCount
+            return itemBinding.textText
         }
 
         fun addItemView(
             @StringRes hintRes: Int,
             text: String,
             onClickListener: ((View) -> Unit)? = null
-        ) {
-            addItemView(linearLayout.context.getString(hintRes), text, onClickListener)
-        }
+        ): TextView = addItemView(linearLayout.context.getString(hintRes), text, onClickListener)
 
         fun build() {
             for (index in linearLayout.size - 1 downTo itemCount) {

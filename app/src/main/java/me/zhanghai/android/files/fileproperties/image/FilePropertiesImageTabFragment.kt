@@ -5,11 +5,16 @@
 
 package me.zhanghai.android.files.fileproperties.image
 
+import android.location.Geocoder
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import java8.nio.file.Path
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.WriteWith
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
@@ -20,6 +25,9 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.getFromLocationAsync
+import me.zhanghai.android.files.util.isGeocoderPresent
+import me.zhanghai.android.files.util.userFriendlyString
 import me.zhanghai.android.files.util.viewModels
 import kotlin.math.pow
 import kotlin.math.roundToInt
@@ -30,6 +38,8 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
     private val viewModel by viewModels {
         { FilePropertiesImageTabViewModel(args.path, args.mimeType) }
     }
+
+    private var addressJob: Job? = null
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,6 +52,8 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
     }
 
     private fun onImageInfoChanged(stateful: Stateful<ImageInfo>) {
+        addressJob?.cancel()
+        addressJob = null
         bindView(stateful) { imageInfo ->
             addItemView(
                 R.string.file_properties_image_size, if (imageInfo.size != null) {
@@ -68,6 +80,25 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
                             exifInfo.gpsCoordinates.first, exifInfo.gpsCoordinates.second
                         )
                     )
+                    if (isGeocoderPresent) {
+                        val textView = addItemView(
+                            R.string.file_properties_image_address, getString(R.string.loading)
+                        )
+                        val geocoder = Geocoder(requireContext())
+                        addressJob = viewLifecycleOwner.lifecycleScope.launch {
+                            val address = try {
+                                geocoder.getFromLocationAsync(
+                                    exifInfo.gpsCoordinates.first, exifInfo.gpsCoordinates.second, 1
+                                ).first()
+                            } catch (e: Exception) {
+                                null
+                            }
+                            if (isActive) {
+                                textView.text = address?.userFriendlyString
+                                    ?: getString(R.string.unknown)
+                            }
+                        }
+                    }
                 }
                 if (exifInfo.gpsAltitude != null) {
                     addItemView(

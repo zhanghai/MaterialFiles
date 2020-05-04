@@ -347,6 +347,7 @@
     <string name="file_properties_image_date_time_original">Taken on</string>
     <string name="file_properties_image_gps_coordinates">Coordinates</string>
     <string name="file_properties_image_gps_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_image_address">Location</string>
     <string name="file_properties_image_gps_altitude">Altitude</string>
     <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
     <string name="file_properties_image_equipment">Camera</string>

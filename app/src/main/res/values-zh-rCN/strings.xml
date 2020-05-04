@@ -322,6 +322,7 @@
     <string name="file_properties_image_date_time_original">拍摄时间</string>
     <string name="file_properties_image_gps_coordinates">坐标</string>
     <string name="file_properties_image_gps_coordinates_format">%1$.3f，%2$.3f</string>
+    <string name="file_properties_image_address">位置</string>
     <string name="file_properties_image_gps_altitude">海拔</string>
     <string name="file_properties_image_gps_altitude_format">%1$,.3f 米</string>
     <string name="file_properties_image_equipment">相机</string>
