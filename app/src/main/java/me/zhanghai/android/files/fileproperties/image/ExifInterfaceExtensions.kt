@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.fileproperties.image
 
 import androidx.exifinterface.media.ExifInterface
+import me.zhanghai.android.files.util.takeIfNotBlank
 import org.threeten.bp.Duration
 import org.threeten.bp.Instant
 import org.threeten.bp.ZoneId
@@ -17,7 +18,7 @@ import java.util.TimeZone
 import kotlin.math.roundToLong
 
 fun ExifInterface.getAttributeNotBlank(tag: String): String? =
-    getAttribute(tag)?.takeIf { it.isNotBlank() }
+    getAttribute(tag)?.takeIfNotBlank()
 
 fun ExifInterface.getAttributeDoubleOrNull(tag: String): Double? =
     getAttributeDouble(tag, Double.NaN).takeIf { !it.isNaN() }

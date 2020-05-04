@@ -39,6 +39,8 @@ import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.getDimensionPixelSize
+import me.zhanghai.android.files.util.setDataSource
+import me.zhanghai.android.files.util.setDataSource as appSetDataSource
 import me.zhanghai.android.files.util.valueCompat
 import okio.buffer
 import okio.source
@@ -52,7 +54,7 @@ class PathAttributesFetcher(
         }
 
         override fun MediaMetadataRetriever.setDataSource(data: Path) {
-            setMediaMetadataRetrieverDataSource(this, data)
+            appSetDataSource(data)
         }
     }
 
@@ -146,18 +148,4 @@ class PathAttributesFetcher(
     private val Size.isThumbnailSize: Boolean
         // @see android.provider.MediaStore.ThumbnailConstants.MINI_SIZE
         get() = this is PixelSize && width <= 512 && height <= 384
-
-    private fun MediaMetadataRetriever.setDataSource(path: Path) {
-        setMediaMetadataRetrieverDataSource(this, path)
-    }
-
-    private fun setMediaMetadataRetrieverDataSource(retriever: MediaMetadataRetriever, path: Path) {
-        when {
-            path.isLinuxPath -> retriever.setDataSource(path.toFile().path)
-            path.isDocumentPath ->
-                DocumentResolver.openParcelFileDescriptor(path as DocumentResolver.Path, "r")
-                    .use { pfd -> retriever.setDataSource(pfd.fileDescriptor) }
-            else -> throw AssertionError(path)
-        }
-    }
 }

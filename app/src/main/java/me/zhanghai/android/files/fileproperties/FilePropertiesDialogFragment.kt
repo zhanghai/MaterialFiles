@@ -19,6 +19,7 @@ import me.zhanghai.android.files.databinding.FilePropertiesDialogBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.filelist.name
 import me.zhanghai.android.files.fileproperties.apk.FilePropertiesApkTabFragment
+import me.zhanghai.android.files.fileproperties.audio.FilePropertiesAudioTabFragment
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment
 import me.zhanghai.android.files.fileproperties.image.FilePropertiesImageTabFragment
 import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment
@@ -68,15 +69,6 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                             to { FilePropertiesPermissionsTabFragment() }
                     )
                 }
-                if (FilePropertiesApkTabFragment.isAvailable(args.file)) {
-                    add(
-                        R.string.file_properties_apk to {
-                            FilePropertiesApkTabFragment().putArgs(
-                                FilePropertiesApkTabFragment.Args(args.file.path)
-                            )
-                        }
-                    )
-                }
                 if (FilePropertiesImageTabFragment.isAvailable(args.file)) {
                     add(
                         R.string.file_properties_image to {
@@ -84,6 +76,24 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                                 FilePropertiesImageTabFragment.Args(
                                     args.file.path, args.file.mimeType
                                 )
+                            )
+                        }
+                    )
+                }
+                if (FilePropertiesAudioTabFragment.isAvailable(args.file)) {
+                    add(
+                        R.string.file_properties_audio to {
+                            FilePropertiesAudioTabFragment().putArgs(
+                                FilePropertiesAudioTabFragment.Args(args.file.path)
+                            )
+                        }
+                    )
+                }
+                if (FilePropertiesApkTabFragment.isAvailable(args.file)) {
+                    add(
+                        R.string.file_properties_apk to {
+                            FilePropertiesApkTabFragment().putArgs(
+                                FilePropertiesApkTabFragment.Args(args.file.path)
                             )
                         }
                     )

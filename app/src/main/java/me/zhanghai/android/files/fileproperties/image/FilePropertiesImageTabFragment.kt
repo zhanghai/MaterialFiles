@@ -29,6 +29,7 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.createViewLocation
 import me.zhanghai.android.files.util.awaitGetFromLocation
+import me.zhanghai.android.files.util.isMediaMetadataRetrieverCompatible
 import me.zhanghai.android.files.util.isGeocoderPresent
 import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.userFriendlyString
@@ -194,7 +195,8 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
         }
 
     companion object {
-        fun isAvailable(file: FileItem): Boolean = file.mimeType.isImage
+        fun isAvailable(file: FileItem): Boolean =
+            file.path.isMediaMetadataRetrieverCompatible && file.mimeType.isImage
     }
 
     @Parcelize
