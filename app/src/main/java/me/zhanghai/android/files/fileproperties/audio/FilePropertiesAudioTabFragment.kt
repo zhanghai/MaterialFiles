@@ -19,6 +19,7 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.isMediaMetadataRetrieverCompatible
 import me.zhanghai.android.files.util.viewModels
 
 class FilePropertiesAudioTabFragment : FilePropertiesTabFragment() {
@@ -86,7 +87,8 @@ class FilePropertiesAudioTabFragment : FilePropertiesTabFragment() {
     }
 
     companion object {
-        fun isAvailable(file: FileItem): Boolean = file.mimeType.isAudio
+        fun isAvailable(file: FileItem): Boolean =
+            file.path.isMediaMetadataRetrieverCompatible && file.mimeType.isAudio
     }
 
     @Parcelize
