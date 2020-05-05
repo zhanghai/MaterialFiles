@@ -178,40 +178,38 @@ private fun FileJob.walkFileTreeForSettingAttributes(
     start: Path,
     recursive: Boolean,
     visitor: FileVisitor<in Path>
-) {
+): Path {
     val attributes = try {
-        // Try to follow links first.
         start.readAttributes(BasicFileAttributes::class.java)
     } catch (ignored: IOException) {
         try {
             start.readAttributes(BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS)
         } catch (e: IOException) {
             visitor.visitFileFailed(start, e)
-            return
+            return start
         }
     }
     if (!recursive || !attributes.isDirectory) {
         visitor.visitFile(start, attributes)
-        return
+        return start
     }
     val directoryStream = try {
         start.newDirectoryStream()
     } catch (e: IOException) {
         visitor.visitFileFailed(start, e)
-        return
+        return start
     }
-    var exception: IOException? = null
     directoryStream.use {
         visitor.preVisitDirectory(start, attributes)
         try {
             directoryStream.forEach { Files.walkFileTree(it, visitor) }
         } catch (e: DirectoryIteratorException) {
-            exception = e.cause
-        } catch (e: IOException) {
-            exception = e
+            visitor.postVisitDirectory(start, e.cause)
+            return start
         }
     }
-    visitor.postVisitDirectory(start, exception)
+    visitor.postVisitDirectory(start, null)
+    return start
 }
 
 @Throws(InterruptedIOException::class)
