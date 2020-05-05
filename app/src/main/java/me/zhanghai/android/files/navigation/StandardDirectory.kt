@@ -9,7 +9,7 @@ import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-class StandardDirectory private constructor(
+data class StandardDirectory internal constructor(
     @DrawableRes val iconRes: Int,
     @StringRes private val titleRes: Int,
     private val customTitle: String?,

@@ -258,17 +258,24 @@ val standardDirectories: List<StandardDirectory>
         }
     }
 
+private const val relativePathSeparator = ":"
+
 private val defaultStandardDirectories: List<StandardDirectory>
     // HACK: Show QQ, TIM and WeChat standard directories based on whether the directory exists.
     get() =
-        DEFAULT_STANDARD_DIRECTORIES.filter {
+        DEFAULT_STANDARD_DIRECTORIES.mapNotNull {
             when (it.iconRes) {
                 R.drawable.qq_icon_white_24dp, R.drawable.tim_icon_white_24dp,
                 R.drawable.wechat_icon_white_24dp -> {
-                    val path = getExternalStorageDirectory(it.relativePath)
-                    JavaFile.isDirectory(path)
+                    for (relativePath in it.relativePath.split(relativePathSeparator)) {
+                        val path = getExternalStorageDirectory(relativePath)
+                        if (JavaFile.isDirectory(path)) {
+                            return@mapNotNull it.copy(relativePath = relativePath)
+                        }
+                    }
+                    null
                 }
-                else -> true
+                else -> it
             }
         }
 
@@ -316,15 +323,18 @@ private val DEFAULT_STANDARD_DIRECTORIES = listOf(
     ),
     StandardDirectory(
         R.drawable.qq_icon_white_24dp, R.string.navigation_standard_directory_qq,
-        "tencent/QQfile_recv", true
+        listOf("Android/data/com.tencent.mobileqq/Tencent/QQfile_recv", "Tencent/QQfile_recv")
+            .joinToString(relativePathSeparator), true
     ),
     StandardDirectory(
         R.drawable.tim_icon_white_24dp, R.string.navigation_standard_directory_tim,
-        "tencent/TIMfile_recv", true
+        listOf("Android/data/com.tencent.tim/Tencent/TIMfile_recv", "Tencent/TIMfile_recv")
+            .joinToString(relativePathSeparator), true
     ),
     StandardDirectory(
         R.drawable.wechat_icon_white_24dp, R.string.navigation_standard_directory_wechat,
-        "tencent/MicroMsg/Download", true
+        listOf("Android/data/com.tencent.mm/MicroMsg/Download", "Tencent/MicroMsg/Download")
+            .joinToString(relativePathSeparator), true
     )
 )
 
