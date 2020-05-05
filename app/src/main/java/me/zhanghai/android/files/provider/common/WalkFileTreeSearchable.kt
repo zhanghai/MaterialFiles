@@ -5,9 +5,11 @@
 
 package me.zhanghai.android.files.provider.common
 
+import java8.nio.file.DirectoryIteratorException
 import java8.nio.file.FileVisitResult
 import java8.nio.file.FileVisitor
 import java8.nio.file.Files
+import java8.nio.file.LinkOption
 import java8.nio.file.Path
 import java8.nio.file.attribute.BasicFileAttributes
 import java.io.IOException
@@ -23,7 +25,7 @@ object WalkFileTreeSearchable {
     ) {
         val paths = mutableListOf<Path>()
         // We cannot use Files.find() or Files.walk() because it cannot ignore exceptions.
-        Files.walkFileTree(directory, object : FileVisitor<Path> {
+        walkFileTreeFirstLevelFirst(directory, object : FileVisitor<Path> {
             private var lastProgressMillis = System.currentTimeMillis()
 
             @Throws(InterruptedIOException::class)
@@ -88,6 +90,64 @@ object WalkFileTreeSearchable {
         if (paths.isNotEmpty()) {
             listener(paths)
         }
+    }
+
+    // This method traverses the first level first, before diving into child directories.
+    // FileVisitResult returned from visitor may be ignored and always considered CONTINUE.
+    @Throws(IOException::class)
+    private fun walkFileTreeFirstLevelFirst(start: Path, visitor: FileVisitor<in Path>): Path {
+        val attributes = try {
+            start.readAttributes(BasicFileAttributes::class.java)
+        } catch (ignored: IOException) {
+            try {
+                start.readAttributes(BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS)
+            } catch (e: IOException) {
+                visitor.visitFileFailed(start, e)
+                return start
+            }
+        }
+        if (!attributes.isDirectory) {
+            visitor.visitFile(start, attributes)
+            return start
+        }
+        val directoryStream = try {
+            start.newDirectoryStream()
+        } catch (e: IOException) {
+            visitor.visitFileFailed(start, e)
+            return start
+        }
+        val directories = mutableListOf<Path>()
+        directoryStream.use {
+            visitor.preVisitDirectory(start, attributes)
+            try {
+                for (path in directoryStream) {
+                    val attributes = try {
+                        path.readAttributes(BasicFileAttributes::class.java)
+                    } catch (ignored: IOException) {
+                        try {
+                            path.readAttributes(
+                                BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS
+                            )
+                        } catch (e: IOException) {
+                            visitor.visitFileFailed(path, e)
+                            continue
+                        }
+                    }
+                    visitor.visitFile(path, attributes)
+                    if (attributes.isDirectory) {
+                        directories.add(path)
+                    }
+                }
+            } catch (e: DirectoryIteratorException) {
+                visitor.postVisitDirectory(start, e.cause)
+                return start
+            }
+        }
+        for (directory in directories) {
+            Files.walkFileTree(directory, visitor)
+        }
+        visitor.postVisitDirectory(start, null)
+        return start
     }
 
     @Throws(InterruptedIOException::class)
