@@ -126,7 +126,7 @@ class FileListAdapter(
     fun replaceListAndIsSearching(list: List<FileItem>, isSearching: Boolean) {
         val clear = this.isSearching != isSearching
         this.isSearching = isSearching
-        super.replace(list.sortedWith(comparator), clear)
+        super.replace(if (!isSearching) list.sortedWith(comparator) else list, clear)
         rebuildFilePositionMap()
     }
 
