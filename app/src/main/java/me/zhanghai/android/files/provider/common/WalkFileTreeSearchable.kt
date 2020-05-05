@@ -62,7 +62,7 @@ object WalkFileTreeSearchable {
                 exception: IOException?
             ): FileVisitResult {
                 if (exception is InterruptedIOException) {
-                    throw (exception as InterruptedIOException?)!!
+                    throw exception
                 }
                 exception?.printStackTrace()
                 throwIfInterrupted()
@@ -144,8 +144,53 @@ object WalkFileTreeSearchable {
                 return start
             }
         }
-        for (directory in directories) {
-            Files.walkFileTree(directory, visitor)
+        for (path in directories) {
+            Files.walkFileTree(path, object : FileVisitor<Path> {
+                @Throws(InterruptedIOException::class)
+                override fun preVisitDirectory(
+                    directory: Path,
+                    attributes: BasicFileAttributes
+                ): FileVisitResult {
+                    if (directory == path) {
+                        return FileVisitResult.CONTINUE
+                    }
+                    return visitor.preVisitDirectory(directory, attributes)
+                }
+
+                @Throws(InterruptedIOException::class)
+                override fun visitFile(
+                    file: Path,
+                    attributes: BasicFileAttributes
+                ): FileVisitResult {
+                    if (file == path) {
+                        return FileVisitResult.CONTINUE
+                    }
+                    return visitor.visitFile(file, attributes)
+                }
+
+                @Throws(InterruptedIOException::class)
+                override fun visitFileFailed(file: Path, exception: IOException): FileVisitResult {
+                    if (file == path) {
+                        // We are searching and ignoring errors, so just print it.
+                        exception.printStackTrace()
+                        return FileVisitResult.CONTINUE
+                    }
+                    return visitor.visitFileFailed(file, exception)
+                }
+
+                @Throws(InterruptedIOException::class)
+                override fun postVisitDirectory(
+                    directory: Path,
+                    exception: IOException?
+                ): FileVisitResult {
+                    if (directory == path) {
+                        // We are searching and ignoring errors, so just print it.
+                        exception?.printStackTrace()
+                        return FileVisitResult.CONTINUE
+                    }
+                    return visitor.postVisitDirectory(path, exception)
+                }
+            })
         }
         visitor.postVisitDirectory(start, null)
         return start
