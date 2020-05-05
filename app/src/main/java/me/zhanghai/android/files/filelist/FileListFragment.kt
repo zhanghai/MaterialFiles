@@ -650,10 +650,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     private fun updateAdapterFileList() {
         val fileListData = viewModel.fileListStateful
-        if (fileListData !is Success) {
-            return
-        }
-        var files = fileListData.value
+        var files = fileListData.value ?: return
         if (!Settings.FILE_LIST_SHOW_HIDDEN_FILES.valueCompat) {
             files = files.filterNot { it.isHidden }
         }
