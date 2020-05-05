@@ -75,15 +75,16 @@ object WalkFileTreeSearchable {
                     return
                 }
                 val fileName = path.fileName
-                if (fileName == null || !fileName.toString().contains(query, true)) {
-                    return
+                if (fileName != null && fileName.toString().contains(query, true)) {
+                    paths.add(path)
                 }
-                paths.add(path)
-                val currentTimeMillis = System.currentTimeMillis()
-                if (currentTimeMillis >= lastProgressMillis + intervalMillis) {
-                    listener(paths)
-                    lastProgressMillis = currentTimeMillis
-                    paths.clear()
+                if (paths.isNotEmpty()) {
+                    val currentTimeMillis = System.currentTimeMillis()
+                    if (currentTimeMillis >= lastProgressMillis + intervalMillis) {
+                        listener(paths)
+                        lastProgressMillis = currentTimeMillis
+                        paths.clear()
+                    }
                 }
             }
         })
