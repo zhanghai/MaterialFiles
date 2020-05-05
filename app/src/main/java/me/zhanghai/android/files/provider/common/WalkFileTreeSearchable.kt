@@ -25,7 +25,7 @@ object WalkFileTreeSearchable {
     ) {
         val paths = mutableListOf<Path>()
         // We cannot use Files.find() or Files.walk() because it cannot ignore exceptions.
-        walkFileTreeFirstLevelFirst(directory, object : FileVisitor<Path> {
+        walkFileTreeForSearch(directory, object : FileVisitor<Path> {
             private var lastProgressMillis = System.currentTimeMillis()
 
             @Throws(InterruptedIOException::class)
@@ -96,7 +96,7 @@ object WalkFileTreeSearchable {
     // This method traverses the first level first, before diving into child directories.
     // FileVisitResult returned from visitor may be ignored and always considered CONTINUE.
     @Throws(IOException::class)
-    private fun walkFileTreeFirstLevelFirst(start: Path, visitor: FileVisitor<in Path>): Path {
+    private fun walkFileTreeForSearch(start: Path, visitor: FileVisitor<in Path>): Path {
         val attributes = try {
             start.readAttributes(BasicFileAttributes::class.java)
         } catch (ignored: IOException) {
