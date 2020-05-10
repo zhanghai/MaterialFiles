@@ -303,6 +303,10 @@
     <string name="file_properties_basic_size">Size</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Contents</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d item, with size %2$s</item>
+        <item quantity="other">%1$,d items, totaling %2$s</item>
+    </plurals>
     <string name="file_properties_basic_last_modification_time">Last Modified</string>
     <string name="file_properties_basic_parent_directory">Parent Folder</string>
     <string name="file_properties_basic_archive_file">Archive File</string>

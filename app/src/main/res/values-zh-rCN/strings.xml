@@ -278,6 +278,9 @@
     <string name="file_properties_basic_size">大小</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s（%2$s）</string>
     <string name="file_properties_basic_contents">内容</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="other">%1$,d 项，共 %2$s</item>
+    </plurals>
     <string name="file_properties_basic_last_modification_time">最后修改</string>
     <string name="file_properties_basic_parent_directory">父文件夹</string>
     <string name="file_properties_basic_archive_file">归档文件</string>
