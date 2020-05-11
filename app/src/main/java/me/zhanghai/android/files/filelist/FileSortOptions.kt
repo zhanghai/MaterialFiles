@@ -9,7 +9,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import me.zhanghai.android.files.compat.reversedCompat
 import me.zhanghai.android.files.file.FileItem
-import me.zhanghai.android.files.util.NaturalOrderComparator
 import java.util.Comparator
 
 @Parcelize
