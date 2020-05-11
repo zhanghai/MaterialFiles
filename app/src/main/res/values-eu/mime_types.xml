@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Fitxategia</string>
+    <string name="file_type_name_apk">Android paketea</string>
+    <string name="file_type_name_archive">%1$s artxiboa</string>
+    <string name="file_type_name_audio">%1$s audioa</string>
+    <string name="file_type_name_calendar">%1$s egutegia</string>
+    <string name="file_type_name_certificate">%1$s ziurtagiria</string>
+    <string name="file_type_name_code">%1$s dokumentua</string>
+    <string name="file_type_name_contact">Bisita-txartel elektronikoa</string>
+    <string name="file_type_name_directory">Karpeta</string>
+    <string name="file_type_name_document">%1$s dokumentua</string>
+    <string name="file_type_name_ebook">%1$s e-liburua</string>
+    <string name="file_type_name_email">%1$s email mezua</string>
+    <string name="file_type_name_font">%1$s tipografia</string>
+    <string name="file_type_name_generic">%1$s fitxategia</string>
+    <string name="file_type_name_image">%1$s irudia</string>
+    <string name="file_type_name_pdf">PDF dokumentua</string>
+    <string name="file_type_name_presentation">%1$s aurkezpena</string>
+    <string name="file_type_name_spreadsheet">%1$s kalkulu-orria</string>
+    <string name="file_type_name_text">%1$s dokumentua</string>
+    <string name="file_type_name_text_plain">Testu soileko dokumentua</string>
+    <string name="file_type_name_video">%1$s bideoa</string>
+    <string name="file_type_name_word">Word dokumentua</string>
+    <string name="file_type_name_powerpoint">PowerPoint aurkezpena</string>
+    <string name="file_type_name_excel">Excel kalkulu-orria</string>
+    <string name="file_type_name_posix_character_device">Karaktere gailua</string>
+    <string name="file_type_name_posix_block_device">Bloke gailua</string>
+    <string name="file_type_name_posix_fifo">Hodia</string>
+    <string name="file_type_name_posix_symbolic_link">Esteka</string>
+    <string name="file_type_name_posix_socket">Socketa</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Esteka (hautsita)</string>
+</resources>

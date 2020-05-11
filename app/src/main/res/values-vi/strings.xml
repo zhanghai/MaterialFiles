@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">Đóng</string>
+    <string name="copy">Sao chép</string>
+    <string name="cut">Cắt</string>
+    <string name="default_">Mặc định</string>
+    <string name="delete">Xoá</string>
+    <string name="discard">Bỏ</string>
+    <string name="empty">Trống</string>
+    <string name="empty_placeholder">(trống)</string>
+    <string name="error">Lỗi</string>
+    <string name="install">Cài đặt</string>
+    <string name="keep_editing">Tiếp tục sửa đổi</string>
+    <string name="loading">Đang tải…</string>
+    <string name="maybe_later">Để sau</string>
+    <string name="merge">Nhập</string>
+    <string name="none">Không có</string>
+    <string name="paste">Dán</string>
+    <string name="pick">@string/select</string>
+    <string name="refresh">Làm mới</string>
+    <string name="reload">Tải lại</string>
+    <string name="remove">Gỡ bỏ</string>
+    <string name="rename">Đổi tên</string>
+    <string name="replace">Thay thế</string>
+    <string name="reset">Khôi phục</string>
+    <string name="retry">Thử lại</string>
+    <string name="save">Lưu</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="select">Chọn</string>
+    <string name="select_all">Chọn tất cả</string>
+    <string name="share">Chia sẻ</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="sort">Sắp xếp</string>
+    <string name="stop">Dừng</string>
+    <string name="unknown">Không rõ</string>
+    <string name="view">Xem</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Không tìm thấy ứng dụng nào xử lí được hành động này</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="open_settings">Mở cài đặt</string>
+    <string name="shortcut_created">Đã tạo lối tắt</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="other">%1$,d byte</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">Ứng dụng cần quyền truy cập tập tin. Hãy chọn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
+    <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tập tin. Hãy cấp cho ứng dụng quyền \"Lưu trữ\" trong mục cài đặt hệ thống.</string>
+
+    <string name="notification_channel_background_activity_start_name">Xử lí khi chạy nền</string>
+    <string name="notification_channel_background_activity_start_description">Thực hiện các hành động khi ứng dụng chạy nền</string>
+    <string name="notification_channel_file_job_name">Thao tác với tập tin</string>
+    <string name="notification_channel_file_job_description">Hiển thị và điều khiển các thao tác liên quan đến tập tin</string>
+    <string name="notification_channel_ftp_server_name">Máy chủ FTP</string>
+    <string name="notification_channel_ftp_server_description">Hiển thị và điều khiển máy chủ FTP</string>
+
+    <plurals name="file_job_archive_scan_notification_title">
+        <item quantity="other">Chuẩn bị nén %1$,d tập tin (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one">Đang nén  “%1$s” thành “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple">
+        <item quantity="other">Đang nén %1$,d tập tin thành “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title">
+        <item quantity="other">Chuẩn bị sao chép %1$,d tập tin (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one">Đang sao chép “%1$s” vào “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple">
+        <item quantity="other">Đang sao chép %1$,d tập tin vào “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title">
+        <item quantity="other">Chuẩn bị giải nén %1$,d tập tin (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one">Đang giải nén “%1$s” vào “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple">
+        <item quantity="other">Đang giải nén %1$,d tập tin vào “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title">
+        <item quantity="other">Chuẩn bị di chuyển %1$,d tập tin (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one">Đang di chuyển  “%1$s” vào “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple">
+        <item quantity="other">Đang di chuyển %1$,d tập tin vào “%2$s”</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one">%1$s/%2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title">
+        <item quantity="other">Chuẩn bị xoá %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one">Đang xoá “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple">
+        <item quantity="other">Đang xoá %1$,d tập tin</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title">
+        <item quantity="other">Chuẩn bị thay đổi chủ sở hữu của %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one">Đang thay đổi chủ sở hữu của “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple">
+        <item quantity="other">Đang thay đổi chủ sở hữu của %1$,d tập tin</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title">
+        <item quantity="other">Chuẩn bị thay đổi nhóm người dùng của %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one">Thay đổi nhóm người dùng của “%1$s”</string>
+    <plurals name="file_job_set_group_notification_title_multiple">
+        <item quantity="other">Thay đổi nhóm người dùng của %1$,d tập tin</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title">
+        <item quantity="other">Chuẩn bị thay đổi chế độ của %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one">Đang thay đổi chế độ của “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple">
+        <item quantity="other">Đang thay đổi chế độ của %1$,d tập tin</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title">
+        <item quantity="other">Chuẩn bị thay đổi hoàn cảnh SELinux của %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one">Đang thay đổi hoàn cảnh SELinux của “%1$s”</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+        <item quantity="other">Đang thay đổi hoàn cảnh SELinux của %1$,d tập tin</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+        <item quantity="other">Chuẩn bị khôi phục hoàn cảnh SELinux của %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one">Đang khôi phục hoàn cảnh SELinux của “%1$s”</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+        <item quantity="other">Đang khôi phục hoàn cảnh SELinux của %1$,d tập tin</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title">Đang ghi “%1$s”</string>
+    <string name="file_job_create_error_title">Lỗi khi tạo</string>
+    <string name="file_job_create_error_message_format">Xảy ra lỗi khi tạo “%1$s”.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">Không thể sao chép thư mục vào trong chính nó</string>
+    <string name="file_job_cannot_extract_into_itself_title">Không thể giải nén thư mục vào trong chính nó</string>
+    <string name="file_job_cannot_move_into_itself_title">Không thể di chuyển thư mục vào trong chính nó</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">Thư mục đích ở trong thư mục nguồn.</string>
+    <string name="file_job_cannot_copy_over_itself_title">Không thể sao chép một tập tin đè lên chính nó</string>
+    <string name="file_job_cannot_extract_over_itself_title">Không thể giải nén tập tin đè lên chính nó</string>
+    <string name="file_job_cannot_move_over_itself_title">Không thể di chuyển tập tin đè lên chính nó</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Tập tin nguồn sẽ bị tập tin đích ghi đè.</string>
+    <string name="file_job_replace_title_format">Thay thế tập tin “%1$s”?</string>
+    <string name="file_job_replace_message_format">Có tập tin trùng tên trong thư mục “%1$s”. Chọn thay thế sẽ ghi đè lên tập tin này.</string>
+    <string name="file_job_replace_target_name">Tập tin gốc</string>
+    <string name="file_job_replace_source_name">Thay bằng</string>
+    <string name="file_job_merge_title_format">Nhập thư mục “%1$s”?</string>
+    <string name="file_job_merge_copy_message_format">Khi nhập thư mục bạn sẽ được yêu cầu xác nhận trước khi ghi đè các tập tin trong thư mục bị trùng tên với các tập tin đang được sao chép.</string>
+    <string name="file_job_merge_extract_message_format">Khi nhập thư mục bạn sẽ được yêu cầu xác nhận trước khi ghi đè các tập tin trong thư mục bị trùng tên với các tập tin đang được giải nén.</string>
+    <string name="file_job_merge_move_message_format">Khi nhập thư mục bạn sẽ được yêu cầu xác nhận trước khi ghi đè các tập tin trong thư mục bị trùng tên với các tập tin đang được di chuyển.</string>
+    <string name="file_job_merge_target_name">Thư mục gốc</string>
+    <string name="file_job_merge_source_name">Nhập với</string>
+    <string name="file_job_conflict_show_name">Chọn tên mới cho tập tin đích</string>
+    <string name="file_job_conflict_name_hint">Tên mới</string>
+    <string name="file_job_archive_error_title_format">Lỗi khi nén “%1$s”</string>
+    <string name="file_job_archive_error_message_format">Xảy ra lỗi khi nén tập tin thành “%1$s”.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Lỗi khi sao chép “%1$s”</string>
+    <string name="file_job_copy_error_message_format">Xảy ra lỗi khi sao chép tập tin vào “%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Lỗi khi giải nén “%1$s”</string>
+    <string name="file_job_extract_error_message_format">Xảy ra lỗi khi giải nén tập tin vào “%1$s”.\n%2$s</string>
+    <string name="file_job_move_error_title_format">Lỗi khi di chuyển “%1$s”</string>
+    <string name="file_job_move_error_message_format">Xảy ra lỗi khi di chuyển tập tin vào “%1$s”.\n%2$s</string>
+    <string name="file_job_delete_error_title">Lỗi khi xoá</string>
+    <string name="file_job_delete_error_message_format">Xảy ra lỗi khi xoá “%1$s”.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Lỗi khi thay đổi chủ sở hữu của “%1$s”</string>
+    <string name="file_job_set_owner_error_message_format">Xảy ra lỗi khi thay đổi chủ sở hữu thành “%1$s”.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Lỗi khi thay đổi nhóm người dùng của “%1$s”</string>
+    <string name="file_job_set_group_error_message_format">Xảy ra lỗi khi thay đổi nhóm người dùng thành “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Lỗi khi thay đổi chế độ của “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">Xảy ra lỗi khi thay đổi chế độ thành “%1$s”.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Lỗi khi thay đổi hoàn cảnh SELinux của “%1$s”</string>
+    <string name="file_job_set_selinux_context_error_message_format">Xảy ra lỗi khi thay đổi hoàn cảnh SELinux thành “%1$s”.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Lỗi khi khổi phục hoàn cảnh SELinux</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Xảy ra lỗi khi khôi phục hoàn cảnh SELinux của “%1$s”.\n%2$s</string>
+    <string name="file_job_write_error_title">Lỗi khi ghi</string>
+    <string name="file_job_write_error_message_format">Xảy ra lỗi khi ghi “%1$s”.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Xảy ra lỗi khi lấy thông tin về “%1$s”.</string>
+    <string name="file_job_remount_format">Đã mount lại “%1$s” thành thiết bị đọc-ghi</string>
+    <string name="file_job_remount_loading_format">Đang mount lại “%1$s” thành thiết bị đọc-ghi…</string>
+    <string name="file_job_remount_success_format">“%1$s” đã được mount lại thành thiết bị đọc-ghi</string>
+    <string name="file_job_action_all">Thực hiện hành vi này với tất cả các tập tin</string>
+
+    <string name="file_open_apk_message">Tập tin này là một gói cài đặt Android. Bạn muốn cài đặt hay xem nội dung của nó?</string>
+    <string name="file_open_as_title">Mở như…</string>
+    <string name="file_open_as_title_format">Mở “%1$s” như</string>
+    <string name="file_open_as_type_text">Văn bản</string>
+    <string name="file_open_as_type_image">Hình ảnh</string>
+    <string name="file_open_as_type_audio">Âm thanh</string>
+    <string name="file_open_as_type_video">Video</string>
+    <string name="file_open_as_type_directory">Thư mục</string>
+    <string name="file_open_as_type_any">Khác</string>
+    <string name="file_install_apk_from_background_title_format">“%1$s” đã sẵn sàng cài đặt</string>
+    <string name="file_install_apk_from_background_text">Nhấn để cài đặt</string>
+    <string name="file_open_from_background_title_format">“%1$s” đã sẵn sàng mở</string>
+    <string name="file_open_from_background_text">Nhấn để mở</string>
+    <string name="file_name_error_empty">Tên tập tin không được để trống</string>
+    <string name="file_name_error_invalid">Tên tập tin không hợp lệ</string>
+    <string name="file_name_error_already_exists">Đã có tập tin trùng tên</string>
+    <string name="file_delete_message_file_format">Xoá “%1$s”?</string>
+    <string name="file_delete_message_directory_format">Xoá thư mục “%1$s” và toàn bộ nội dung?</string>
+    <string name="file_delete_message_multiple_files_format">Xoá %1$,d tập tin?</string>
+    <string name="file_delete_message_multiple_directories_format">Xoá %1$,d thư mục và toàn bộ nội dung?</string>
+    <string name="file_delete_message_multiple_mixed_format">Xoá %1$,d mục?</string>
+    <string name="file_create_archive_title">Tạo tập tin nén</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Đã thêm đánh dấu</string>
+    <string name="file_create_file_title">Tập tin mới</string>
+    <string name="file_create_directory_title">Thư mục mới</string>
+
+    <string name="file_list_title">Các tập tin</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="other">Chọn tập tin</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="other">Chọn thư mục</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="other">%1$,d thư mục</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="other">%1$,d tập tin</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_action_sort_by_name">Tên</string>
+    <string name="file_list_action_sort_by_type">Loại</string>
+    <string name="file_list_action_sort_by_size">Kích cỡ</string>
+    <string name="file_list_action_sort_by_last_modified">Thay đổi lần cuối</string>
+    <string name="file_list_action_sort_order_ascending">Tăng dần</string>
+    <string name="file_list_action_sort_directories_first">Thư mục lên trước</string>
+    <string name="file_list_action_sort_path_specific">Chỉ đối với thư mục này</string>
+    <string name="file_list_action_new_task">Cửa sổ mới</string>
+    <string name="file_list_action_navigate_up">Đi lên</string>
+    <string name="file_list_action_show_hidden_files">Hiện tập tin ẩn</string>
+    <string name="file_list_action_copy_path">Sao chép đường dẫn</string>
+    <string name="file_list_action_open_in_terminal">Mở trong cửa sổ dòng lệnh</string>
+    <string name="file_list_action_add_bookmark">Thêm đánh dấu</string>
+    <string name="file_list_action_create_shortcut">Tạo lối tắt</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Mở trong cửa sổ mới</string>
+    <string name="file_list_select_title_format">Đã chọn %1$,d</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">Chọn “%1$s”</string>
+    <string name="file_list_paste_move_title_format">Đang di chuyển %1$,d</string>
+    <string name="file_list_paste_copy_title_format">Đang sao chép %1$,d</string>
+    <string name="file_list_paste_extract_title_format">Đang giải nén %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Giải nén vào đây</string>
+    <string name="file_list_empty">Không có tập tin</string>
+    <string name="file_list_action_create_file">Tập tin</string>
+    <string name="file_list_action_create_directory">Thư mục</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Mở bằng</string>
+    <string name="file_item_action_extract">Giải nén</string>
+    <string name="file_item_action_archive">Nén</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
+    <string name="file_item_action_properties">Thuộc tính</string>
+
+    <string name="file_properties_title_format">Thuộc tính của “%1$s”</string>
+    <string name="file_properties_basic">Cơ bản</string>
+    <string name="file_properties_basic_name">Tên</string>
+    <string name="file_properties_basic_type">Loại</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Liên kết tới %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Đích đến liên kết</string>
+    <string name="file_properties_basic_size">Kích cỡ</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Nội dung</string>
+    <string name="file_properties_basic_last_modification_time">Thay đổi lần cuối</string>
+    <string name="file_properties_basic_parent_directory">Thư mục cha</string>
+    <string name="file_properties_basic_archive_file">Tập tin nén</string>
+    <string name="file_properties_basic_archive_entry">Mục lưu trữ nén</string>
+    <string name="file_properties_basic_free_space">Vùng nhớ trống</string>
+    <string name="file_properties_permissions">Quyền</string>
+    <string name="file_properties_permissions_owner">Chủ sở hữu</string>
+    <string name="file_properties_permissions_group">Nhóm người dùng</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Thay đổi chủ sở hữu</string>
+    <string name="file_properties_permissions_set_group_title">Thay đổi nhóm người dùng</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Nhập tên hoặc ID</string>
+    <string name="file_properties_permissions_set_principal_system">Hệ thống</string>
+    <string name="file_properties_permissions_mode">Chế độ</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Thay đổi chế độ</string>
+    <string name="file_properties_permissions_set_mode_others">Khác</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Đọc</item>
+        <item>Ghi</item>
+        <item>Thực thi</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Đọc</item>
+        <item>Ghi</item>
+        <item>Tìm kiếm</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Đặc biệt</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Đặt UID</item>
+        <item>Đặt GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Không thêm quyền “Thực thi” đối với những tập tin bên trong</string>
+    <string name="file_properties_permissions_selinux_context">Hoàn cảnh SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Thay đổi hoàn cảnh SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Khôi phục</string>
+    <string name="file_properties_permissions_recursive">Áp dụng cho các tập tin bên trong</string>
+
+    <string name="navigation_root_directory">Gốc</string>
+    <string name="navigation_root_subtitle_format">Còn trống %1$s trên %2$s</string>
+    <string name="navigation_add_document_tree">Thêm vùng lưu trữ ngoài…</string>
+    <string name="navigation_confirm_remove_document_tree_format">Gỡ bỏ vùng lưu trữ ngoài “%1$s”?</string>
+    <string name="navigation_standard_directory_alarms">Âm báo thức</string>
+    <string name="navigation_standard_directory_dcim">Máy ảnh</string>
+    <string name="navigation_standard_directory_documents">Tài liệu</string>
+    <string name="navigation_standard_directory_downloads">Tải xuống</string>
+    <string name="navigation_standard_directory_movies">Phim</string>
+    <string name="navigation_standard_directory_music">Âm nhạc</string>
+    <string name="navigation_standard_directory_notifications">Âm thông báo</string>
+    <string name="navigation_standard_directory_pictures">Hình ảnh</string>
+    <string name="navigation_standard_directory_podcasts">Podcast</string>
+    <string name="navigation_standard_directory_ringtones">Nhạc chuông</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Đánh dấu thư mục</string>
+    <string name="navigation_edit_bookmark_directory_name">Tên</string>
+    <string name="navigation_edit_bookmark_directory_path">Đường dẫn</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="image_viewer_title">Trình xem hình ảnh</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
+    <string name="text_editor_title">Trình chỉnh sửa văn bản</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">* %1$s</string>
+    <string name="text_editor_save_success">Đã lưu</string>
+    <string name="text_editor_reload_message">Bạn có chắc chắn muốn tải lại không? Những thay đổi chưa lưu sẽ bị mất.</string>
+    <string name="text_editor_close_message">Bạn có chắc chắn muốn huỷ bỏ những thay đổi chưa lưu đối với tài liệu này?</string>
+
+    <string name="ftp_server_title">Máy chủ FTP</string>
+    <string name="ftp_server_state_title">Trạng thái</string>
+    <string name="ftp_server_state_summary_starting">Đang khởi động…</string>
+    <string name="ftp_server_state_summary_running">Đang chạy</string>
+    <string name="ftp_server_state_summary_stopping">Đang dừng…</string>
+    <string name="ftp_server_state_summary_stopped">Chưa khởi động</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Không thể lấy địa chỉ IP nội bộ</string>
+    <string name="ftp_server_url_menu_copy_url">Sao chép URL</string>
+    <string name="ftp_server_url_menu_copy_password">Sao chép mật khẩu</string>
+    <string name="ftp_server_configuration_title">Thiết lập</string>
+    <string name="ftp_server_anonymous_login_title">Đăng nhập nặc danh</string>
+    <string name="ftp_server_username_title">Tên đăng nhập</string>
+    <string name="ftp_server_password_title">Mật khẩu</string>
+    <string name="ftp_server_port_title">Cổng</string>
+    <string name="ftp_server_home_directory_title">Thư mục gốc</string>
+    <string name="ftp_server_writable_title">Cho phép ghi</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">Máy chủ FTP đang chạy</string>
+
+    <string name="settings_title">Cài đặt</string>
+    <string name="settings_interface_title">Giao diện</string>
+    <string name="settings_primary_color_title">Màu chủ đạo</string>
+    <string name="settings_primary_color_summary">Màu thường xuyên xuất hiện nhất trong ứng dụng</string>
+    <string name="settings_accent_color_title">Màu nổi bật</string>
+    <string name="settings_accent_color_summary">Màu dùng để làm nổi bật những thành phần giao diện chính</string>
+    <string name="settings_material_design_2_title">Material Design 2</string>
+    <string name="settings_night_mode_title">Chế độ ban đêm</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Phụ thuộc vào hệ thống</item>
+        <item>Tắt</item>
+        <item>Bật</item>
+        <item>Dựa theo thời gian</item>
+        <item>Dựa theo chế độ tiết kiệm pin</item>
+    </string-array>
+    <string name="settings_file_list_animation_title">Hoạt ảnh danh sách tập tin</string>
+    <string name="settings_behavior_title">Hành vi</string>
+    <string name="settings_default_directory_title">Thư mục mặc định</string>
+    <string name="settings_standard_directories_title">Các thư mục tiêu chuẩn</string>
+    <string name="settings_standard_directories_summary_empty">Không bật thư mục tiêu chuẩn nào</string>
+    <string name="settings_bookmark_directory_screenshots">Ảnh chụp màn hình</string>
+    <string name="settings_bookmark_directories_title">Đánh dấu thư mục</string>
+    <string name="settings_bookmark_directories_summary_empty">Không có thư mục nào được đánh dấu</string>
+    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_root_strategy_title">Chế độ truy cập root</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="other">Bạn có %1$,d thao tác đang chạy, thay đổi chế độ root có thể gây ra lỗi. Bạn có chắc chắn muốn thay đổi ngay không?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Chỉ dùng quyền truy cập thông thường</item>
+        <item>Ưu tiên truy cập thông thường</item>
+        <item>Ưu tiên truy cập root</item>
+        <item>Chỉ dùng quyền truy cập root</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Bảng mã kí tự của tập tin nén</string>
+    <string name="settings_open_apk_default_action_title">Mở gói cài đặt Android</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Cài đặt</item>
+        <item>Xem nội dung</item>
+        <item>Hỏi xem sẽ làm gì</item>
+    </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">Đọc tập tin từ xa để lấy ảnh xem trước</string>
+
+    <string name="about_title">Giới thiệu</string>
+    <string name="about_version_title">Phiên bản</string>
+    <string name="about_github_title">Xem trên GitHub</string>
+    <string name="about_licenses_title">Giấy phép</string>
+    <string name="about_privacy_policy_title">Chính sách quyền riêng tư</string>
+    <string name="about_author_title">Tác giả</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Theo dõi trên GitHub</string>
+    <string name="about_author_google_plus_title">Thêm vào vòng bạn bè Google+</string>
+    <string name="about_author_twitter_title">Theo dõi trên Twitter</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
+</resources>

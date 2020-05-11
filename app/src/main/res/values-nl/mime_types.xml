@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Bestand</string>
+    <string name="file_type_name_apk">Android-pakket</string>
+    <string name="file_type_name_archive">%1$s archief</string>
+    <string name="file_type_name_audio">%1$s-audio</string>
+    <string name="file_type_name_calendar">%1$s-agenda</string>
+    <string name="file_type_name_certificate">%1$s-certificaat</string>
+    <string name="file_type_name_code">%1$s-document</string>
+    <string name="file_type_name_contact">Electronisch visitekaartje</string>
+    <string name="file_type_name_directory">Map</string>
+    <string name="file_type_name_document">%1$s-document</string>
+    <string name="file_type_name_ebook">%1$se-boek</string>
+    <string name="file_type_name_email">%1$s-e-mailbericht</string>
+    <string name="file_type_name_font">%1$s-lettertype</string>
+    <string name="file_type_name_generic">%1$s-bestand</string>
+    <string name="file_type_name_image">%1$s-afbeelding</string>
+    <string name="file_type_name_pdf">PDF-document</string>
+    <string name="file_type_name_presentation">%1$s-presentatie</string>
+    <string name="file_type_name_spreadsheet">%1$s-werkblad</string>
+    <string name="file_type_name_text">%1$s-document</string>
+    <string name="file_type_name_text_plain">Plattetekstdocument</string>
+    <string name="file_type_name_video">%1$s-video</string>
+    <string name="file_type_name_word">Word-document</string>
+    <string name="file_type_name_powerpoint">PowerPoint-presentatie</string>
+    <string name="file_type_name_excel">Excel-werkblad</string>
+    <string name="file_type_name_posix_character_device">Tekenapparaat</string>
+    <string name="file_type_name_posix_block_device">Blokapparaat</string>
+    <string name="file_type_name_posix_fifo">Pijp</string>
+    <string name="file_type_name_posix_symbolic_link">Verwijzing</string>
+    <string name="file_type_name_posix_socket">Socket</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Verwijzing (kapot)</string>
+</resources>

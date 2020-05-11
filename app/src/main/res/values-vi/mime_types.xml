@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Tập tin</string>
+    <string name="file_type_name_apk">Gói cài đặt Android</string>
+    <string name="file_type_name_archive">Tập tin nén %1$s</string>
+    <string name="file_type_name_audio">Âm thanh %1$s</string>
+    <string name="file_type_name_calendar">Lịch %1$s</string>
+    <string name="file_type_name_certificate">Chứng chỉ %1$s</string>
+    <string name="file_type_name_code">Tài liệu %1$s</string>
+    <string name="file_type_name_contact">Danh thiếp điện tử</string>
+    <string name="file_type_name_directory">Thư mục</string>
+    <string name="file_type_name_document">Tài liệu %1$s</string>
+    <string name="file_type_name_ebook">Sách điện tử %1$s</string>
+    <string name="file_type_name_email">Email %1$s</string>
+    <string name="file_type_name_font">Phông chữ %1$s</string>
+    <string name="file_type_name_generic">Tập tin %1$s</string>
+    <string name="file_type_name_image">Hình ảnh %1$s</string>
+    <string name="file_type_name_pdf">Tài liệu PDF</string>
+    <string name="file_type_name_presentation">Bản trình chiếu %1$s</string>
+    <string name="file_type_name_spreadsheet">Bảng tính %1$s</string>
+    <string name="file_type_name_text">Tài liệu %1$s</string>
+    <string name="file_type_name_text_plain">Tài liệu văn bản thuần</string>
+    <string name="file_type_name_video">Video %1$s</string>
+    <string name="file_type_name_word">Tài liệu Word</string>
+    <string name="file_type_name_powerpoint">Bản trình chiếu PowerPoint</string>
+    <string name="file_type_name_excel">Bảng tính Excel</string>
+    <string name="file_type_name_posix_character_device">Thiết bị kí tự</string>
+    <string name="file_type_name_posix_block_device">Thiết bị khối</string>
+    <string name="file_type_name_posix_fifo">Pipe</string>
+    <string name="file_type_name_posix_symbolic_link">Liên kết</string>
+    <string name="file_type_name_posix_socket">Socket</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Liên kết (bị hỏng)</string>
+</resources>
