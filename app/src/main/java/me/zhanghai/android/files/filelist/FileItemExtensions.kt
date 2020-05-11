@@ -23,6 +23,8 @@ import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.valueCompat
+import java.text.CollationKey
+import java.text.Collator
 
 val FileItem.name: String
     get() = path.name
@@ -68,9 +70,21 @@ val FileItem.supportsThumbnail: Boolean
 
 fun FileItem.createDummyArchiveRoot(): FileItem =
     FileItem(
-        path.createArchiveRootPath(), DummyArchiveRootBasicFileAttributes(), null, null, false,
-        MimeType.DIRECTORY
+        path.createArchiveRootPath(), DummyCollationKey(), DummyArchiveRootBasicFileAttributes(),
+        null, null, false, MimeType.DIRECTORY
     )
+
+// Dummy collation key only to be added to the selection set, which may be used to determine file
+// type when confirming deletion.
+private class DummyCollationKey : CollationKey("") {
+    override fun compareTo(other: CollationKey?): Int {
+        throw UnsupportedOperationException()
+    }
+
+    override fun toByteArray(): ByteArray {
+        throw UnsupportedOperationException()
+    }
+}
 
 // Dummy attributes only to be added to the selection set, which may be used to determine file
 // type when confirming deletion.

@@ -34,13 +34,15 @@ class ByteStringBuilder(capacity: Int = 16) {
         return this
     }
 
-    fun append(byteString: ByteString): ByteStringBuilder {
-        val newLength = length + byteString.length
+    fun append(bytes: ByteArray, start: Int = 0, end: Int = bytes.size): ByteStringBuilder {
+        val newLength = length + (end - start)
         ensureCapacity(newLength)
-        byteString.borrowBytes().copyInto(bytes, length)
+        bytes.copyInto(this.bytes, length, start, end)
         length = newLength
         return this
     }
+
+    fun append(byteString: ByteString): ByteStringBuilder = append(byteString.borrowBytes())
 
     private fun ensureCapacity(minimumCapacity: Int) {
         val capacity = bytes.size

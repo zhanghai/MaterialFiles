@@ -19,12 +19,9 @@ data class FileSortOptions(
     val isDirectoriesFirst: Boolean
 ) : Parcelable {
     fun createComparator(): Comparator<FileItem> {
-        val namePrefixComparator = compareBy<String> { name ->
-            NAME_UNIMPORTANT_PREFIXES.any { name.startsWith(it) }
-        }
-        var comparator = compareBy<FileItem, String>(
-            namePrefixComparator.then(NaturalOrderComparator)
-        ) { it.name }
+        var comparator = compareBy<FileItem> {
+            NAME_UNIMPORTANT_PREFIXES.any { prefix -> it.name.startsWith(prefix) }
+        }.thenBy { it.nameCollationKey }
         when (by) {
             // Nothing to do.
             By.NAME -> {}
