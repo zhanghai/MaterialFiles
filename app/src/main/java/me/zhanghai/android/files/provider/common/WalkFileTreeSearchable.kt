@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.common
 
 import java8.nio.file.DirectoryIteratorException
+import java8.nio.file.FileVisitOption
 import java8.nio.file.FileVisitResult
 import java8.nio.file.FileVisitor
 import java8.nio.file.Files
@@ -145,52 +146,58 @@ object WalkFileTreeSearchable {
             }
         }
         for (path in directories) {
-            Files.walkFileTree(path, object : FileVisitor<Path> {
-                @Throws(InterruptedIOException::class)
-                override fun preVisitDirectory(
-                    directory: Path,
-                    attributes: BasicFileAttributes
-                ): FileVisitResult {
-                    if (directory == path) {
-                        return FileVisitResult.CONTINUE
+            Files.walkFileTree(
+                path, setOf(FileVisitOption.FOLLOW_LINKS), Int.MAX_VALUE,
+                object : FileVisitor<Path> {
+                    @Throws(InterruptedIOException::class)
+                    override fun preVisitDirectory(
+                        directory: Path,
+                        attributes: BasicFileAttributes
+                    ): FileVisitResult {
+                        if (directory == path) {
+                            return FileVisitResult.CONTINUE
+                        }
+                        return visitor.preVisitDirectory(directory, attributes)
                     }
-                    return visitor.preVisitDirectory(directory, attributes)
-                }
 
-                @Throws(InterruptedIOException::class)
-                override fun visitFile(
-                    file: Path,
-                    attributes: BasicFileAttributes
-                ): FileVisitResult {
-                    if (file == path) {
-                        return FileVisitResult.CONTINUE
+                    @Throws(InterruptedIOException::class)
+                    override fun visitFile(
+                        file: Path,
+                        attributes: BasicFileAttributes
+                    ): FileVisitResult {
+                        if (file == path) {
+                            return FileVisitResult.CONTINUE
+                        }
+                        return visitor.visitFile(file, attributes)
                     }
-                    return visitor.visitFile(file, attributes)
-                }
 
-                @Throws(InterruptedIOException::class)
-                override fun visitFileFailed(file: Path, exception: IOException): FileVisitResult {
-                    if (file == path) {
-                        // We are searching and ignoring errors, so just print it.
-                        exception.printStackTrace()
-                        return FileVisitResult.CONTINUE
+                    @Throws(InterruptedIOException::class)
+                    override fun visitFileFailed(
+                        file: Path,
+                        exception: IOException
+                    ): FileVisitResult {
+                        if (file == path) {
+                            // We are searching and ignoring errors, so just print it.
+                            exception.printStackTrace()
+                            return FileVisitResult.CONTINUE
+                        }
+                        return visitor.visitFileFailed(file, exception)
                     }
-                    return visitor.visitFileFailed(file, exception)
-                }
 
-                @Throws(InterruptedIOException::class)
-                override fun postVisitDirectory(
-                    directory: Path,
-                    exception: IOException?
-                ): FileVisitResult {
-                    if (directory == path) {
-                        // We are searching and ignoring errors, so just print it.
-                        exception?.printStackTrace()
-                        return FileVisitResult.CONTINUE
+                    @Throws(InterruptedIOException::class)
+                    override fun postVisitDirectory(
+                        directory: Path,
+                        exception: IOException?
+                    ): FileVisitResult {
+                        if (directory == path) {
+                            // We are searching and ignoring errors, so just print it.
+                            exception?.printStackTrace()
+                            return FileVisitResult.CONTINUE
+                        }
+                        return visitor.postVisitDirectory(path, exception)
                     }
-                    return visitor.postVisitDirectory(path, exception)
                 }
-            })
+            )
         }
         visitor.postVisitDirectory(start, null)
         return start
