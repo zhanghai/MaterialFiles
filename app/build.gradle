@@ -168,7 +168,7 @@ crashlytics {
 dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.crashlytics.sdk.android:crashlytics-ndk:2.1.1'
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.4.1'
 }
 
 buildscript {
