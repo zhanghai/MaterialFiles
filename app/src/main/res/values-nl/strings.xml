@@ -45,7 +45,7 @@
     <string name="view">Bekijken</string>
 
     <!-- android.R.string.app_not_found -->
-    <string name="activity_not_found">Geen app aangetroffen die deze actie kan afhandelen</string>
+    <string name="activity_not_found">Er is geen app die deze actie kan uitvoeren</string>
     <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Instellingen openen</string>
     <string name="shortcut_created">De snelkoppeling is gemaakt</string>
@@ -303,6 +303,10 @@
     <string name="file_properties_basic_size">Grootte</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Inhoud</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d item; in totaal %2$s</item>
+        <item quantity="other">%1$,d items; in totaal %2$s</item>
+    </plurals>
     <string name="file_properties_basic_last_modification_time">Aangepast op</string>
     <string name="file_properties_basic_parent_directory">Bovenliggende map</string>
     <string name="file_properties_basic_archive_file">Archiefbestand</string>
@@ -341,6 +345,53 @@
     <string name="file_properties_permissions_set_selinux_context_title">SELinux-context aanpassen</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Herstellen</string>
     <string name="file_properties_permissions_recursive">Toepassen op bijgesloten bestanden</string>
+    <string name="file_properties_image">Afbeelding</string>
+    <string name="file_properties_media_dimensions">Afmetingen</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Genomen op</string>
+    <string name="file_properties_media_coordinates">Coördinaten</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Locatie</string>
+    <string name="file_properties_image_gps_altitude">Hoogte</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Camera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Diafragma</string>
+    <string name="file_properties_image_shutter_speed">Sluitersnelheid</string>
+    <string name="file_properties_image_focal_length">Brandpuntsafstand</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO-equivalent</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Software</string>
+    <string name="file_properties_image_description">Omschrijving</string>
+    <string name="file_properties_image_artist">Maker</string>
+    <string name="file_properties_image_copyright">Auteursrecht</string>
+    <string name="file_properties_audio">Audio</string>
+    <string name="file_properties_media_title">Titel</string>
+    <string name="file_properties_audio_artist">Artiest</string>
+    <string name="file_properties_audio_album">Album</string>
+    <string name="file_properties_audio_album_artist">Albumartiest</string>
+    <string name="file_properties_audio_composer">Componist</string>
+    <string name="file_properties_audio_disc_number">Schijf</string>
+    <string name="file_properties_audio_track_number">Nummer</string>
+    <string name="file_properties_audio_year">Jaartal</string>
+    <string name="file_properties_audio_genre">Genre</string>
+    <string name="file_properties_media_duration">Duur</string>
+    <string name="file_properties_media_bit_rate">Bitsnelheid</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">Samplesnelheid</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Video</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Naam</string>
+    <string name="file_properties_apk_package_name">Pakketnaam</string>
+    <string name="file_properties_apk_version">Versie</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Minimale systeemvereiste</string>
+    <string name="file_properties_apk_target_sdk_version">Doel-systeemvereiste</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_signature_digests">Ondertekeningen</string>
+    <string name="file_properties_apk_past_signature_digests">Oude ondertekeningen</string>
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s van %2$s vrij</string>
@@ -350,7 +401,7 @@
     <string name="navigation_standard_directory_dcim">Camerafoto\'s</string>
     <string name="navigation_standard_directory_documents">Documenten</string>
     <string name="navigation_standard_directory_downloads">Downloads</string>
-    <string name="navigation_standard_directory_movies">Films</string>
+    <string name="navigation_standard_directory_movies">Video\'s</string>
     <string name="navigation_standard_directory_music">Muziek</string>
     <string name="navigation_standard_directory_notifications">Meldingen</string>
     <string name="navigation_standard_directory_pictures">Afbeeldingen</string>

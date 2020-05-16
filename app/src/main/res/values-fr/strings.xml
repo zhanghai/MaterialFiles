@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">Fermer</string>
+    <string name="copy">Copier</string>
+    <string name="cut">Couper</string>
+    <string name="default_">Par défaut</string>
+    <string name="delete">Supprimer</string>
+    <string name="discard">Jeter</string>
+    <string name="empty">Vide</string>
+    <string name="empty_placeholder">(vide)</string>
+    <string name="error">Erreur</string>
+    <string name="install">Installer</string>
+    <string name="keep_editing">Continuer à modifier</string>
+    <string name="loading">Chargement…</string>
+    <string name="maybe_later">Peut-être plus tard</string>
+    <string name="merge">Fusionner</string>
+    <string name="none">Aucun</string>
+    <string name="paste">Coller</string>
+    <string name="pick">@string/select</string>
+    <string name="refresh">Rafraîchir</string>
+    <string name="reload">Recharger</string>
+    <string name="remove">Supprimer</string>
+    <string name="rename">Renommer</string>
+    <string name="replace">Remplacer</string>
+    <string name="reset">Remettre à zéro</string>
+    <string name="retry">Ré-essayer</string>
+    <string name="save">Sauvegarder</string>
+    <string name="search">Recherche</string>
+    <string name="select">Sélectionner</string>
+    <string name="select_all">Sélectionner tout</string>
+    <string name="share">Partager</string>
+    <string name="skip">Passer</string>
+    <string name="sort">Trier</string>
+    <string name="stop">Arrêter</string>
+    <string name="unknown">Inconnu</string>
+    <string name="view">Voir</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Aucune application n’a été trouvée pour gérer cette action</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="open_settings">Ouvrir les réglages</string>
+    <string name="shortcut_created">Raccourci créé</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d byte</item>
+        <item quantity="other">%1$,d bytes</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
+    <string name="storage_permission_permanently_denied_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez accorder la permission de stockage dans les paramètres du système.</string>
+
+    <string name="notification_channel_background_activity_start_name">Actions en arrière-plan</string>
+    <string name="notification_channel_background_activity_start_description">Maintenir les actions lorsque l’application est en arrière-plan</string>
+    <string name="notification_channel_file_job_name">Opérations sur les fichiers</string>
+    <string name="notification_channel_file_job_description">Afficher et contrôler les opérations sur les fichiers</string>
+    <string name="notification_channel_ftp_server_name">Serveur FTP</string>
+    <string name="notification_channel_ftp_server_description">Afficher et contrôler le serveur FTP</string>
+
+    <plurals name="file_job_archive_scan_notification_title">
+        <item quantity="one">Préparation de la compression de %1$,d fichier (%2$s)</item>
+        <item quantity="other">Préparation de la compression de %1$,d fichiers (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one">Compresser “%1$s” dans “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple">
+        <item quantity="one">Compresser %1$,d fichier dans “%2$s”</item>
+        <item quantity="other">Compresser %1$,d fichiers dans “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title">
+        <item quantity="one">Préparation de la copie de %1$,d fichier (%2$s)</item>
+        <item quantity="other">Préparation de la copie de %1$,d fichiers (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one">Copier “%1$s” dans “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple">
+        <item quantity="one">Copier %1$,d fichier dans “%2$s”</item>
+        <item quantity="other">Copier %1$,d fichiers dans “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title">
+        <item quantity="one">Préparation de l\'extraction de %1$,d fichier (%2$s)</item>
+        <item quantity="other">Préparation de l\'extraction de %1$,d fichiers (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one">Extraire “%1$s” dans “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple">
+        <item quantity="one">Extraire %1$,d fichier dans “%2$s”</item>
+        <item quantity="other">Extraire %1$,d fichiers dans “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title">
+        <item quantity="one">Préparation du déplacement de %1$,d fichier (%2$s)</item>
+        <item quantity="other">Préparation du déplacement de %1$,d fichiers (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one">Déplacer “%1$s” dans “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple">
+        <item quantity="one">Déplacer %1$,d fichier dans “%2$s”</item>
+        <item quantity="other">Déplacer %1$,d fichiers dans “%2$s”</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title">
+        <item quantity="one">Préparation de la suppression de  %1$,d fichier</item>
+        <item quantity="other">Préparation de la suppression de %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one">Supprimer “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple">
+        <item quantity="one">Supprimer %1$,d fichier</item>
+        <item quantity="other">Supprimer %1$,d fichiers</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title">
+        <item quantity="one">Préparation du changement de propriétaire pour %1$,d fichier</item>
+        <item quantity="other">Préparation du changement de propriétaire pour %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one">Changer le propriétaire de “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple">
+        <item quantity="one">Changer le propriétaire de %1$,d fichier</item>
+        <item quantity="other">Changer le propriétaire de %1$,d fichiers</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title">
+        <item quantity="one">Préparation du changement de groupe pour %1$,d fichier</item>
+        <item quantity="other">Préparation du changement de groupe pour %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one">Changer le groupe de “%1$s”</string>
+    <plurals name="file_job_set_group_notification_title_multiple">
+        <item quantity="one">Changer le groupe de %1$,d fichier</item>
+        <item quantity="other">Changer le groupe de %1$,d fichiers</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title">
+        <item quantity="one">Préparation du changement de mode pour %1$,d fichier</item>
+        <item quantity="other">Préparation du changement de mode pour %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one">Changer le mode de “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple">
+        <item quantity="one">Changer le mode de %1$,d fichier</item>
+        <item quantity="other">Changer le mode de %1$,d fichiers</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title">
+        <item quantity="one">Préparation du changement de contexte SElinux pour %1$,d fichier</item>
+        <item quantity="other">Préparation du changement de contexte SElinux pour %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one">Changement de contexte SELinux pour “%1$s”</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+        <item quantity="one">Changement du contexte SELinux pour %1$,d fichier</item>
+        <item quantity="other">Changement du contexte SELinux pour %1$,d fichiers</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+        <item quantity="one">Préparation de la restauration du contexte SELinux pour %1$,d fichier</item>
+        <item quantity="other">Préparation de la restauration du contexte SELinux pour %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one">Restauration du context SELinux pour \"%1$s\"</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+        <item quantity="one">Restauration du contexte SELinux pour %1$,d fichier</item>
+        <item quantity="other">Restauration du contexte SELinux pour %1$,d fichiers</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title">Ecrire “%1$s”</string>
+    <string name="file_job_create_error_title">Erreur lors de la création</string>
+    <string name="file_job_create_error_message_format">Il y a eu une erreur lors de la création “%1$s”.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">Impossible de copier un dossier dans lui-même</string>
+    <string name="file_job_cannot_extract_into_itself_title">Impossible d’extraire un dossier dans lui-même</string>
+    <string name="file_job_cannot_move_into_itself_title">Impossible de déplacer un dossier dans lui-même</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">Le dossier de destination est à l\'intérieur du dossier source</string>
+    <string name="file_job_cannot_copy_over_itself_title">Impossible de copier un fichier sur lui-même</string>
+    <string name="file_job_cannot_extract_over_itself_title">Impossible d\'éextraire un fichier sur lui-même</string>
+    <string name="file_job_cannot_move_over_itself_title">Impossible de déplacer un fichier sur lui-même</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Le fichier source serait écrasé par la destination.</string>
+    <string name="file_job_replace_title_format">Remplacer le fichier “%1$s” ?</string>
+    <string name="file_job_replace_message_format">Un autre fichier portant le même nom existe déjà dans \"%1$s\".\nLe remplacer réecrira son contenu.</string>
+    <string name="file_job_replace_target_name">Fichier original</string>
+    <string name="file_job_replace_source_name">Remplacer par</string>
+    <string name="file_job_merge_title_format">Fusionner le dossier “%1$s” ?</string>
+    <string name="file_job_merge_copy_message_format">La fusion demandera une confirmation avant de remplacer les fichiers du dossier qui entrent en conflit avec les fichiers copiés.</string>
+    <string name="file_job_merge_extract_message_format">La fusion demandera une confirmation avant de remplacer tous les fichiers du dossier qui entrent en conflit avec les fichiers extraits.</string>
+    <string name="file_job_merge_move_message_format">La fusion demandera une confirmation avant de remplacer tous les fichiers du dossier qui entrent en conflit avec les fichiers en cours de déplacement.</string>
+    <string name="file_job_merge_target_name">Dossier original</string>
+    <string name="file_job_merge_source_name">Fusionner avec</string>
+    <string name="file_job_conflict_show_name">Sélectionner un nouveau nom pour la destination</string>
+    <string name="file_job_conflict_name_hint">Nouveau nom</string>
+    <string name="file_job_archive_error_title_format">Erreur lors de la compression “%1$s”</string>
+    <string name="file_job_archive_error_message_format">Une erreur s\'est produite lors de la compression du fichier \"%1$s\".\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Erreur lors de copie “%1$s”</string>
+    <string name="file_job_copy_error_message_format">Une erreur s\'est produite lors de la copie du fichier dans \"%1$s\".\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Erreur lors de l\'extraction “%1$s”</string>
+    <string name="file_job_extract_error_message_format">Une erreur s\'est produite lors de l\'extraction du fichier dans \"%1$s\".\n%2$s</string>
+    <string name="file_job_move_error_title_format">Erreur lors du déplacement “%1$s”</string>
+    <string name="file_job_move_error_message_format">Une erreur s\'est produite lors du déplacement du fichier vers \"%1$s\".\n%2$s</string>
+    <string name="file_job_delete_error_title">Erreur lors de la suppression</string>
+    <string name="file_job_delete_error_message_format">Une erreur s\'est produite lors de la suppression de \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Erreur lors du changement de propriétaire de “%1$s”</string>
+    <string name="file_job_set_owner_error_message_format">Une erreur s\'est produite lors du changement de propriétaire par \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Erreur lors du changement de groupe de “%1$s”</string>
+    <string name="file_job_set_group_error_message_format">Une erreur s\'est produite lors du changement de groupe \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Erreur lors du changement du mode de “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">Une erreur s\'est produite lors du changement du mode en \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Erreur lors du changement de contexte SELinux pour \"%1$s\"</string>
+    <string name="file_job_set_selinux_context_error_message_format">Une erreur s\'est produite lors du changement de contexte SELinux en \"%1$s\".\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Erreur lors de la restauration du contexte SELinux</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Une erreur s\'est produite lors de la restauration du contexte SELinux pour \"%1$s\".\n%2$s</string>
+    <string name="file_job_write_error_title">Erreur lors de l\'écriture</string>
+    <string name="file_job_write_error_message_format">Une erreur s\'est produite lors de l\'écriture de \"%1$s\".\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Une erreur s\'est produite lors de l\'obtention d\'informations sur \"%1$s\".</string>
+    <string name="file_job_remount_format">Remontez \"%1$s\" en lecture-écriture</string>
+    <string name="file_job_remount_loading_format">Remontage de \"%1$s\" en lecture-écriture…</string>
+    <string name="file_job_remount_success_format">\"%1$s\" a été remonté en lecture-écriture</string>
+    <string name="file_job_action_all">Appliquer cette action à tous les fichiers</string>
+
+    <string name="file_open_apk_message">Ce fichier est un package Android. Voulez-vous l\'installer ou afficher son contenu?</string>
+    <string name="file_open_as_title">Ouvrir avec…</string>
+    <string name="file_open_as_title_format">Ouvrir “%1$s” comme</string>
+    <string name="file_open_as_type_text">Texte</string>
+    <string name="file_open_as_type_image">Image</string>
+    <string name="file_open_as_type_audio">Audio</string>
+    <string name="file_open_as_type_video">Vidéo</string>
+    <string name="file_open_as_type_directory">Dossier</string>
+    <string name="file_open_as_type_any">Autre</string>
+    <string name="file_install_apk_from_background_title_format">“%1$s” est prêt à être installé</string>
+    <string name="file_install_apk_from_background_text">Appuyer pour installer</string>
+    <string name="file_open_from_background_title_format">“%1$s” est prêt à être ouvert</string>
+    <string name="file_open_from_background_text">Appuyer pour ouvrir</string>
+    <string name="file_name_error_empty">Le nom du fichier ne peut pas être vide</string>
+    <string name="file_name_error_invalid">Nom de fichier invalide</string>
+    <string name="file_name_error_already_exists">Un fichier avec ce nom existe déjà</string>
+    <string name="file_delete_message_file_format">Supprimer “%1$s” ?</string>
+    <string name="file_delete_message_directory_format">Supprimer le dossier “%1$s” et son contenu ?</string>
+    <string name="file_delete_message_multiple_files_format">Supprimer %1$,d fichiers ?</string>
+    <string name="file_delete_message_multiple_directories_format">Supprimer %1$,d dossiers et leurs contenus ?</string>
+    <string name="file_delete_message_multiple_mixed_format">Supprimer %1$,d elements ?</string>
+    <string name="file_create_archive_title">Créer une archive</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Marque-page ajouté</string>
+    <string name="file_create_file_title">Nouveau fichier</string>
+    <string name="file_create_directory_title">Nouveau dossier</string>
+
+    <string name="file_list_title">Fichiers</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Sélectionner un fichier</item>
+        <item quantity="other">Sélectionner les fichiers</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="one" tools:ignore="ImpliedQuantity">Sélectionner un dossier</item>
+        <item quantity="other">Sélectionner les dossiers</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d dossier</item>
+        <item quantity="other">%1$,d dossiers</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d fichier</item>
+        <item quantity="other">%1$,d fichiers</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_action_sort_by_name">Nom</string>
+    <string name="file_list_action_sort_by_type">Type</string>
+    <string name="file_list_action_sort_by_size">Taille</string>
+    <string name="file_list_action_sort_by_last_modified">Dernière modification</string>
+    <string name="file_list_action_sort_order_ascending">Ascendant</string>
+    <string name="file_list_action_sort_directories_first">Dossiers en premier</string>
+    <string name="file_list_action_sort_path_specific">Seulement pour ce dossier</string>
+    <string name="file_list_action_new_task">Nouvelle fenêtre</string>
+    <string name="file_list_action_navigate_up">Aller en haut</string>
+    <string name="file_list_action_show_hidden_files">Voir les fichiers cachés</string>
+    <string name="file_list_action_copy_path">Copier le chemin</string>
+    <string name="file_list_action_open_in_terminal">Ouvrir dans le terminal</string>
+    <string name="file_list_action_add_bookmark">Ajouter un marque-page</string>
+    <string name="file_list_action_create_shortcut">Créer</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Ouvrir dans une nouvelle fenêtre</string>
+    <string name="file_list_select_title_format">%1$,d selectionné</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">Selectionner “%1$s”</string>
+    <string name="file_list_paste_move_title_format">Déplacer %1$,d</string>
+    <string name="file_list_paste_copy_title_format">Copier %1$,d</string>
+    <string name="file_list_paste_extract_title_format">Extraire %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Extraire ici</string>
+    <string name="file_list_empty">Pas de fichiers</string>
+    <string name="file_list_action_create_file">Fichier</string>
+    <string name="file_list_action_create_directory">Dossier</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Ouvrir avec</string>
+    <string name="file_item_action_extract">Extraire</string>
+    <string name="file_item_action_archive">Compresser</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
+    <string name="file_item_action_properties">Propriétés</string>
+
+    <string name="file_properties_title_format">“%1$s” propriétés</string>
+    <string name="file_properties_basic">Basique</string>
+    <string name="file_properties_basic_name">Nom</string>
+    <string name="file_properties_basic_type">Type</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Lié à %1$s (%2$s) </string>
+    <string name="file_properties_basic_symbolic_link_target">Lien Cible</string>
+    <string name="file_properties_basic_size">Taille</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Contenus</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d élément, pesant %2$s</item>
+        <item quantity="other">%1$,d éléments, totalisant %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Dernière Modification</string>
+    <string name="file_properties_basic_parent_directory">Dossier parent</string>
+    <string name="file_properties_basic_archive_file">Fichier d\'archive</string>
+    <string name="file_properties_basic_archive_entry">Entrée d\'Archive</string>
+    <string name="file_properties_basic_free_space">Espace libre</string>
+    <string name="file_properties_permissions">Permissions</string>
+    <string name="file_properties_permissions_owner">Propriétaire</string>
+    <string name="file_properties_permissions_group">Groupe</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Changer le propriétaire</string>
+    <string name="file_properties_permissions_set_group_title">Changer le groupe</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Entrer un nom ou un ID</string>
+    <string name="file_properties_permissions_set_principal_system">Système</string>
+    <string name="file_properties_permissions_mode">Mode</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Change le mode</string>
+    <string name="file_properties_permissions_set_mode_others">Autres</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Lire</item>
+        <item>Écrire</item>
+        <item>Exécuter</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Lire</item>
+        <item>Ecrire</item>
+        <item>Recherche</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Spécial</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Définir l\'UID</item>
+        <item>Définir le GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">N\'ajoutez pas \"Exécuter\" pour les fichiers joints</string>
+    <string name="file_properties_permissions_selinux_context">Contexte SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Changer le contexte SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Restaurer</string>
+    <string name="file_properties_permissions_recursive">Appliquer aux fichiers joints</string>
+    <string name="file_properties_image">Image</string>
+    <string name="file_properties_media_dimensions">Dimensions</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Prise le</string>
+    <string name="file_properties_media_coordinates">Coordonnées</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Localisation</string>
+    <string name="file_properties_image_gps_altitude">Altitude</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Appareil photo</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Ouverture</string>
+    <string name="file_properties_image_shutter_speed">Temps de pose</string>
+    <string name="file_properties_image_focal_length">Focale</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">Équivalent ISO</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Logiciel</string>
+    <string name="file_properties_image_description">Description</string>
+    <string name="file_properties_image_artist">Auteur</string>
+    <string name="file_properties_image_copyright">Copyright</string>
+    <string name="file_properties_audio">Audio</string>
+    <string name="file_properties_media_title">Titre</string>
+    <string name="file_properties_audio_artist">Artiste</string>
+    <string name="file_properties_audio_album">Album</string>
+    <string name="file_properties_audio_album_artist">Artiste de l\'album</string>
+    <string name="file_properties_audio_composer">Compositeur</string>
+    <string name="file_properties_audio_disc_number">Disque</string>
+    <string name="file_properties_audio_track_number">Piste</string>
+    <string name="file_properties_audio_year">Année</string>
+    <string name="file_properties_audio_genre">Genre</string>
+    <string name="file_properties_media_duration">Durée</string>
+    <string name="file_properties_media_bit_rate">Débit binaire</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbit/s</string>
+    <string name="file_properties_audio_sample_rate">Fréquence d\'échantillonnage</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Vidéo</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Nom</string>
+    <string name="file_properties_apk_package_name">Nom du paquet</string>
+    <string name="file_properties_apk_version">Version</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Version système minimale</string>
+    <string name="file_properties_apk_target_sdk_version">Version système cible</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_signature_digests">Signatures</string>
+    <string name="file_properties_apk_past_signature_digests">Anciennes signatures</string>
+
+    <string name="navigation_root_directory">Root</string>
+    <string name="navigation_root_subtitle_format">%1$s de libre sur %2$s</string>
+    <string name="navigation_add_document_tree">Ajouter un support de stockage externe…</string>
+    <string name="navigation_confirm_remove_document_tree_format">Supprimer le support de stockage externe “%1$s” ?</string>
+    <string name="navigation_standard_directory_alarms">Alarmes</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Documents</string>
+    <string name="navigation_standard_directory_downloads">Téléchargements</string>
+    <string name="navigation_standard_directory_movies">Vidéos</string>
+    <string name="navigation_standard_directory_music">Musique</string>
+    <string name="navigation_standard_directory_notifications">Notifications</string>
+    <string name="navigation_standard_directory_pictures">Images</string>
+    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_ringtones">Sonneries</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Dossier de marque-pages</string>
+    <string name="navigation_edit_bookmark_directory_name">Nom</string>
+    <string name="navigation_edit_bookmark_directory_path">Chemin</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="image_viewer_title">Visionneuse d\'images</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
+    <string name="text_editor_title">Éditeur de texte</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">Sauvegarder</string>
+    <string name="text_editor_reload_message">Êtes-vous sûr de vouloir recharger ? Les modifications non enregistrées apportées à ce document seront perdues.</string>
+    <string name="text_editor_close_message">Êtes-vous sûr de vouloir rejeter les modifications non enregistrées apportées à ce document ?</string>
+
+    <string name="ftp_server_title">Serveur FTP</string>
+    <string name="ftp_server_state_title">Status</string>
+    <string name="ftp_server_state_summary_starting">Démarrage…</string>
+    <string name="ftp_server_state_summary_running">Fonctionne</string>
+    <string name="ftp_server_state_summary_stopping">Arrêt…</string>
+    <string name="ftp_server_state_summary_stopped">Pas démarré</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Impossible de récupérer l’adresse IP locale</string>
+    <string name="ftp_server_url_menu_copy_url">Copier l\'URL</string>
+    <string name="ftp_server_url_menu_copy_password">Copier le mot de passe</string>
+    <string name="ftp_server_configuration_title">Configuration</string>
+    <string name="ftp_server_anonymous_login_title">Connexion anonyme</string>
+    <string name="ftp_server_username_title">Nom d\'utilisateur</string>
+    <string name="ftp_server_password_title">Mot de passe</string>
+    <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_home_directory_title">Dossier root</string>
+    <string name="ftp_server_writable_title">Autoriser l\'écriture</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">Le serveur FTP fonctionne</string>
+
+    <string name="settings_title">Réglages</string>
+    <string name="settings_interface_title">Interface</string>
+    <string name="settings_primary_color_title">Couleur primaire</string>
+    <string name="settings_primary_color_summary">Couleur qui apparaît le plus souvent dans l’application</string>
+    <string name="settings_accent_color_title">Couleur d\'accent</string>
+    <string name="settings_accent_color_summary">Couleur utilisée pour accentuer les parties clés de l’interface utilisateur</string>
+    <string name="settings_material_design_2_title">Material Design 2</string>
+    <string name="settings_night_mode_title">Mode nuit</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Système de suivi</item>
+        <item>Off</item>
+        <item>On</item>
+        <item>Basé sur le temps</item>
+        <item>Basé sur l’économiseur de batterie</item>
+    </string-array>
+    <string name="settings_file_list_animation_title">Animation de liste de fichiers</string>
+    <string name="settings_behavior_title">Comportement</string>
+    <string name="settings_default_directory_title">Dossier par défaut</string>
+    <string name="settings_standard_directories_title">Dossiers standard</string>
+    <string name="settings_standard_directories_summary_empty">Aucuns dossiers standard activés</string>
+    <string name="settings_bookmark_directory_screenshots">Captures d\'écran</string>
+    <string name="settings_bookmark_directories_title">Dossiers de marque-pages</string>
+    <string name="settings_bookmark_directories_summary_empty">Pas de dossiers de marque-pages</string>
+    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_root_strategy_title">Mode d\'accès root</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">Vous avez %1$,d opération de fichiers en cours d’exécution et changer maintenant le mode d’accès root peut entraîner une erreur inattendue. Êtes-vous sûr de vouloir changer cela maintenant ?</item>
+        <item quantity="other">Vous avez %1$,d opérations de fichiers en cours d’exécution et changer maintenant le mode d’accès root peut entraîner une erreur inattendue. Êtes-vous sûr de vouloir changer cela maintenant ?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Accès normal seulement</item>
+        <item>Préfère l’accès normal</item>
+        <item>Préfère l’accès root</item>
+        <item>Accès root uniquement</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Encodage du nom de l\'archive</string>
+    <string name="settings_open_apk_default_action_title">Ouvrir le paquet Android</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Installer</item>
+        <item>Voir le contenu</item>
+        <item>Demander quoi faire</item>
+    </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">Lire les fichiers distants pour les vignettes</string>
+
+    <string name="about_title">A propos</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_github_title">Voir sur GitHub</string>
+    <string name="about_licenses_title">Licences</string>
+    <string name="about_privacy_policy_title">Politique de confidentialité</string>
+    <string name="about_author_title">Auteur</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Suivre sur GitHub</string>
+    <string name="about_author_google_plus_title">Ajouter aux cercles Google+</string>
+    <string name="about_author_twitter_title">Suivre sur Twitter</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
+</resources>

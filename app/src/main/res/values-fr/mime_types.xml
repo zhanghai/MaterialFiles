@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Fichier</string>
+    <string name="file_type_name_apk">Paquet Android</string>
+    <string name="file_type_name_archive">%1$s archive</string>
+    <string name="file_type_name_audio">%1$s audio</string>
+    <string name="file_type_name_calendar">%1$s agenda</string>
+    <string name="file_type_name_certificate">%1$s certificat</string>
+    <string name="file_type_name_code">%1$s document</string>
+    <string name="file_type_name_contact">Carte de visite électronique</string>
+    <string name="file_type_name_directory">Dossier</string>
+    <string name="file_type_name_document">%1$s document</string>
+    <string name="file_type_name_ebook">%1$s livre numérique</string>
+    <string name="file_type_name_email">%1$s courriel</string>
+    <string name="file_type_name_font">%1$s police</string>
+    <string name="file_type_name_generic">%1$s fichier</string>
+    <string name="file_type_name_image">%1$s image</string>
+    <string name="file_type_name_pdf">Document PDF</string>
+    <string name="file_type_name_presentation">%1$s présentation</string>
+    <string name="file_type_name_spreadsheet">%1$s feuille de calcul</string>
+    <string name="file_type_name_text">%1$s document</string>
+    <string name="file_type_name_text_plain">Document texte</string>
+    <string name="file_type_name_video">%1$s vidéo</string>
+    <string name="file_type_name_word">Document Word</string>
+    <string name="file_type_name_powerpoint">Présentation PowerPoint</string>
+    <string name="file_type_name_excel">Feuille de calcul Excel</string>
+    <string name="file_type_name_posix_character_device">Dispositif de caractère</string>
+    <string name="file_type_name_posix_block_device">Périphérique bloc</string>
+    <string name="file_type_name_posix_fifo">Pipe</string>
+    <string name="file_type_name_posix_symbolic_link">Lien</string>
+    <string name="file_type_name_posix_socket">Interface de connexion</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Lien (mort)</string>
+</resources>
