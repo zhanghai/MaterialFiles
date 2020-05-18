@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.app
 
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.StringRes
@@ -17,9 +18,14 @@ import me.zhanghai.android.files.compat.writeParcelableListCompat
 import me.zhanghai.android.files.filelist.FileSortOptions
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
+import me.zhanghai.android.files.provider.archive.ArchiveFileSystem
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.moveToByteString
+import me.zhanghai.android.files.provider.content.ContentFileSystem
+import me.zhanghai.android.files.provider.document.DocumentFileSystem
+import me.zhanghai.android.files.provider.linux.LinuxFileSystem
 import me.zhanghai.android.files.util.asBase64
+import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.toBase64
 import me.zhanghai.android.files.util.toByteArray
 import me.zhanghai.android.files.util.use
@@ -151,10 +157,34 @@ private val oldByteStringCreator = object : Parcelable.Creator<ByteString> {
 }
 
 private fun migratePath(oldParcel: Parcel, newParcel: Parcel) {
-    newParcel.writeString(oldParcel.readString())
+    val className = oldParcel.readString()
+    newParcel.writeString(className)
     newParcel.writeByte(oldParcel.readByte())
     newParcel.writeBooleanCompat(oldParcel.readByte() != 0.toByte())
     newParcel.writeParcelableListCompat(oldParcel.createTypedArrayList(oldByteStringCreator), 0)
+    when (className) {
+        "me.zhanghai.android.files.provider.archive.ArchivePath" -> {
+            oldParcel.readString()
+            newParcel.writeString(ArchiveFileSystem::class.java.name)
+            migratePath(oldParcel, newParcel)
+        }
+        "me.zhanghai.android.files.provider.content.ContentPath" -> {
+            oldParcel.readString()
+            newParcel.writeString(ContentFileSystem::class.java.name)
+            newParcel.writeParcelable(oldParcel.readParcelable<Uri>(), 0)
+        }
+        "me.zhanghai.android.files.provider.document.DocumentPath" -> {
+            oldParcel.readString()
+            newParcel.writeString(DocumentFileSystem::class.java.name)
+            newParcel.writeParcelable(oldParcel.readParcelable<Uri>(), 0)
+        }
+        "me.zhanghai.android.files.provider.linux.LinuxPath" -> {
+            oldParcel.readString()
+            newParcel.writeString(LinuxFileSystem::class.java.name)
+            newParcel.writeBooleanCompat(oldParcel.readByte() != 0.toByte())
+        }
+        else -> throw AssertionError(className)
+    }
 }
 
 private val pathSharedPreferences: SharedPreferences
