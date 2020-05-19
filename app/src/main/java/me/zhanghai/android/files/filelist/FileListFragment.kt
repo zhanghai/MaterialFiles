@@ -26,6 +26,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -184,7 +185,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             binding.persistentBarLayout, binding.bottomBarLayout, binding.bottomToolbar
         )
         val contentLayoutInitialPaddingBottom = binding.contentLayout.paddingBottom
-        binding.appBarLayout.updateLiftOnScrollOnPreDraw()
+        if (binding.appBarLayout.parent is CoordinatorLayout) {
+            binding.appBarLayout.updateLiftOnScrollOnPreDraw()
+        }
         binding.appBarLayout.addOnOffsetChangedListener(
             OnOffsetChangedListener { _, verticalOffset ->
                 binding.contentLayout.updatePaddingRelative(
