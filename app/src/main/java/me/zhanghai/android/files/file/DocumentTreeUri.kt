@@ -5,12 +5,11 @@
 
 package me.zhanghai.android.files.file
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
-import android.os.Parcel
 import android.os.Parcelable
 import android.provider.DocumentsContract
+import kotlinx.android.parcel.Parcelize
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.navigation.DocumentTreesLiveData
@@ -18,19 +17,11 @@ import me.zhanghai.android.files.util.releasePersistablePermission
 import me.zhanghai.android.files.util.takePersistablePermission
 
 // TODO: https://youtrack.jetbrains.com/issue/KT-37384
-//@Parcelize
-@SuppressLint("ParcelCreator")
-inline class DocumentTreeUri(val value: Uri): Parcelable {
+//inline class DocumentTreeUri(val value: Uri) {
+@Parcelize
+data class DocumentTreeUri(val value: Uri): Parcelable {
     val documentId: String
         get() = DocumentsContract.getTreeDocumentId(value)
-
-    private constructor(source: Parcel) : this(Uri.CREATOR.createFromParcel(source))
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        value.writeToParcel(dest, flags)
-    }
-
-    override fun describeContents(): Int = 0
 
     companion object {
         val persistedUris: List<DocumentTreeUri>
@@ -42,13 +33,6 @@ inline class DocumentTreeUri(val value: Uri): Parcelable {
 
         // TODO: Consider StorageVolume.createAccessIntent().
         fun createOpenIntent(): Intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-
-        @JvmField
-        val CREATOR = object : Parcelable.Creator<DocumentTreeUri> {
-            override fun createFromParcel(parcel: Parcel): DocumentTreeUri = DocumentTreeUri(parcel)
-
-            override fun newArray(size: Int): Array<DocumentTreeUri?> = arrayOfNulls(size)
-        }
     }
 }
 

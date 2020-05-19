@@ -5,9 +5,14 @@
 
 package me.zhanghai.android.files.file
 
+import android.os.Parcelable
 import android.provider.DocumentsContract
+import kotlinx.android.parcel.Parcelize
 
-inline class MimeType (val value: String) {
+// TODO: https://youtrack.jetbrains.com/issue/KT-28512
+//inline class MimeType (val value: String) {
+@Parcelize
+data class MimeType (val value: String) : Parcelable {
     val type: String
         get() = value.substring(0, value.indexOf('/'))
 
