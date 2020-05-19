@@ -251,6 +251,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
             return
         }
         args.listener(action, name, isAll)
+        isListenerNotified = true
     }
 
     companion object {
