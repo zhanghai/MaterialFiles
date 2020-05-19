@@ -50,16 +50,21 @@ private fun migratePathSetting(@StringRes keyRes: Int) {
     val key = application.getString(keyRes)
     val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
         ?: return
-    val newBytes = Parcel.obtain().use { newParcel ->
-        newParcel.writeInt(PARCEL_VAL_PARCELABLE)
-        Parcel.obtain().use { oldParcel ->
-            oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
-            oldParcel.setDataPosition(0)
-            migratePath(oldParcel, newParcel)
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                migratePath(oldParcel, newParcel)
+            }
+            newParcel.marshall()
         }
-        newParcel.marshall()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
-    defaultSharedPreferences.edit { putString(key, newBytes.toBase64().value) }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
 }
 
 private fun migrateFileSortOptionsSetting() {
@@ -70,19 +75,24 @@ private fun migrateFileSortOptionsSetting() {
 
 private fun migrateFileSortOptionsSetting(sharedPreferences: SharedPreferences, key: String) {
     val oldBytes = sharedPreferences.getString(key, null)?.asBase64()?.toByteArray() ?: return
-    val newBytes = Parcel.obtain().use { newParcel ->
-        newParcel.writeInt(PARCEL_VAL_PARCELABLE)
-        Parcel.obtain().use { oldParcel ->
-            oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
-            oldParcel.setDataPosition(0)
-            newParcel.writeString(oldParcel.readString())
-            newParcel.writeString(FileSortOptions.By.values()[oldParcel.readInt()].name)
-            newParcel.writeString(FileSortOptions.Order.values()[oldParcel.readInt()].name)
-            newParcel.writeInt(oldParcel.readByte().toInt())
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                newParcel.writeString(oldParcel.readString())
+                newParcel.writeString(FileSortOptions.By.values()[oldParcel.readInt()].name)
+                newParcel.writeString(FileSortOptions.Order.values()[oldParcel.readInt()].name)
+                newParcel.writeInt(oldParcel.readByte().toInt())
+            }
+            newParcel.marshall()
         }
-        newParcel.marshall()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
-    sharedPreferences.edit { putString(key, newBytes.toBase64().value) }
+    sharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
 }
 
 fun migrateCreateArchiveTypeSetting() {
@@ -103,50 +113,60 @@ private fun migrateStandardDirectorySettingsSetting() {
     val key = application.getString(R.string.pref_key_standard_directory_settings)
     val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
         ?: return
-    val newBytes = Parcel.obtain().use { newParcel ->
-        newParcel.writeInt(PARCEL_VAL_LIST)
-        Parcel.obtain().use { oldParcel ->
-            oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
-            oldParcel.setDataPosition(0)
-            val size = oldParcel.readInt()
-            newParcel.writeInt(size)
-            repeat(size) {
-                oldParcel.readInt()
-                newParcel.writeInt(PARCEL_VAL_PARCELABLE)
-                newParcel.writeString(StandardDirectorySettings::class.java.name)
-                newParcel.writeString(oldParcel.readString())
-                newParcel.writeString(oldParcel.readString())
-                newParcel.writeInt(oldParcel.readByte().toInt())
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            newParcel.writeInt(PARCEL_VAL_LIST)
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                val size = oldParcel.readInt()
+                newParcel.writeInt(size)
+                repeat(size) {
+                    oldParcel.readInt()
+                    newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                    newParcel.writeString(StandardDirectorySettings::class.java.name)
+                    newParcel.writeString(oldParcel.readString())
+                    newParcel.writeString(oldParcel.readString())
+                    newParcel.writeInt(oldParcel.readByte().toInt())
+                }
             }
+            newParcel.marshall()
         }
-        newParcel.marshall()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
-    defaultSharedPreferences.edit { putString(key, newBytes.toBase64().value) }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
 }
 
 private fun migrateBookmarkDirectoriesSetting() {
     val key = application.getString(R.string.pref_key_bookmark_directories)
     val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
         ?: return
-    val newBytes = Parcel.obtain().use { newParcel ->
-        newParcel.writeInt(PARCEL_VAL_LIST)
-        Parcel.obtain().use { oldParcel ->
-            oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
-            oldParcel.setDataPosition(0)
-            val size = oldParcel.readInt()
-            newParcel.writeInt(size)
-            repeat(size) {
-                oldParcel.readInt()
-                newParcel.writeInt(PARCEL_VAL_PARCELABLE)
-                newParcel.writeString(BookmarkDirectory::class.java.name)
-                newParcel.writeLong(oldParcel.readLong())
-                newParcel.writeString(oldParcel.readString())
-                migratePath(oldParcel, newParcel)
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            newParcel.writeInt(PARCEL_VAL_LIST)
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                val size = oldParcel.readInt()
+                newParcel.writeInt(size)
+                repeat(size) {
+                    oldParcel.readInt()
+                    newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                    newParcel.writeString(BookmarkDirectory::class.java.name)
+                    newParcel.writeLong(oldParcel.readLong())
+                    newParcel.writeString(oldParcel.readString())
+                    migratePath(oldParcel, newParcel)
+                }
             }
+            newParcel.marshall()
         }
-        newParcel.marshall()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
     }
-    defaultSharedPreferences.edit { putString(key, newBytes.toBase64().value) }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
 }
 
 private val oldByteStringCreator = object : Parcelable.Creator<ByteString> {
@@ -183,7 +203,7 @@ private fun migratePath(oldParcel: Parcel, newParcel: Parcel) {
             newParcel.writeString(LinuxFileSystem::class.java.name)
             newParcel.writeBooleanCompat(oldParcel.readByte() != 0.toByte())
         }
-        else -> throw AssertionError(className)
+        else -> throw IllegalStateException(className)
     }
 }
 
