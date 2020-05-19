@@ -16,7 +16,7 @@ class ResolverException : Exception {
     constructor(cause: Throwable?) : super(cause)
 
     fun toFileSystemException(file: String?, other: String? = null): FileSystemException =
-        when (cause!!) {
+        when (cause) {
             is FileNotFoundException -> NoSuchFileException(file, other, message)
             is SecurityException -> AccessDeniedException(file, other, message)
             else -> FileSystemException(file, other, message)
