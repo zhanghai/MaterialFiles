@@ -1,0 +1,7 @@
+- Added file properties tab for image, audio, video and APK files.
+- Added showing file count and content for folders in file properties.
+- Added Spanish, Basque, French, Dutch, Portuguese (Portugal) and Vietnamese translations.
+- Changed file name sorting to use Unicode Collation Algorithm for better results.
+- Changed search to show files directly under the current folder first.
+- Source code has been rewritten in Kotlin.
+- Other fixes and improvements.
