@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.fileproperties.image
 
+import android.os.Build
 import androidx.exifinterface.media.ExifInterface
 import me.zhanghai.android.files.util.takeIfNotBlank
 import org.threeten.bp.Duration
@@ -13,6 +14,7 @@ import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import kotlin.math.roundToLong
@@ -39,8 +41,6 @@ val ExifInterface.dateTimeOriginalCompat: Long
 private val nonZeroTimeRegex = Regex(".*[1-9].*")
 private val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.US)
     .apply { timeZone = TimeZone.getTimeZone("UTC") }
-private val dateFormatWithTimezone = SimpleDateFormat("yyyy:MM:dd HH:mm:ss XXX", Locale.US)
-    .apply { timeZone = TimeZone.getTimeZone("UTC") }
 
 /** @see android.media.ExifInterface.parseDateTime */
 private fun ExifInterface.parseDateTime(
@@ -52,12 +52,13 @@ private fun ExifInterface.parseDateTime(
     if (dateTimeString == null || !dateTimeString.matches(nonZeroTimeRegex)) {
         return -1
     }
+    val date = dateFormat.parse(dateTimeString, ParsePosition(0)) ?: return -1
     val offsetTimeString = getAttributeNotBlank(offsetTimeTag)
-    val date = if (offsetTimeString != null) {
-        dateFormatWithTimezone.parse("$dateTimeString $offsetTimeString", ParsePosition(0))
-    } else {
-        dateFormat.parse(dateTimeString, ParsePosition(0))
-    } ?: return -1
+    if (offsetTimeString != null) {
+        val offsetTime = parseOffsetTime(offsetTimeString) ?: return -1
+        // We need to subtract the offset from UTC to get time in UTC from local time.
+        date.time = date.time - offsetTime.time
+    }
     var time = date.time
     val subSecTimeString = getAttributeNotBlank(subSecTimeTag)
     if (subSecTimeString != null) {
@@ -70,6 +71,41 @@ private fun ExifInterface.parseDateTime(
         }
     }
     return time
+}
+
+// X requires API 24+
+private val offsetTimeDateFormat =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        SimpleDateFormat("XXX", Locale.US).apply { timeZone = TimeZone.getTimeZone("UTC") }
+    } else {
+        null
+    }
+
+private fun parseOffsetTime(offsetTimeString: String): Date? {
+    if (offsetTimeDateFormat != null) {
+        return offsetTimeDateFormat.parse(offsetTimeString, ParsePosition(0))
+            // Local epoch with a positive offset from UTC comes before epoch in UTC.
+            ?.apply { time = -time }
+    } else {
+        if (offsetTimeString.length != 6) {
+            return null
+        }
+        val isPositive = when (offsetTimeString[0]) {
+            '+' -> true
+            '-' -> false
+            else -> return null
+        }
+        val hours = offsetTimeString.substring(1, 3).toLongOrNull() ?: return null
+        if (offsetTimeString[3] != ':') {
+            return null
+        }
+        val minutes = offsetTimeString.substring(4, 6).toLongOrNull() ?: return null
+        return Duration.ofHours(hours)
+            .plusMinutes(minutes)
+            .let { if (isPositive) it else it.negated() }
+            .toMillis()
+            .let { Date(it) }
+    }
 }
 
 /* @see com.android.providers.media.scan.ModernMediaScanner.parseOptionalDateTaken */
