@@ -55,6 +55,7 @@ import me.zhanghai.android.files.databinding.FileListFragmentAppBarIncludeBindin
 import me.zhanghai.android.files.databinding.FileListFragmentBinding
 import me.zhanghai.android.files.databinding.FileListFragmentBottomBarIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentContentIncludeBinding
+import me.zhanghai.android.files.databinding.FileListFragmentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentSpeedDialIncludeBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
@@ -1312,18 +1313,20 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             ): Binding {
                 val binding = FileListFragmentBinding.inflate(inflater, root, attachToRoot)
                 val bindingRoot = binding.root
+                val includeBinding = FileListFragmentIncludeBinding.bind(bindingRoot)
                 val appBarBinding = FileListFragmentAppBarIncludeBinding.bind(bindingRoot)
                 val contentBinding = FileListFragmentContentIncludeBinding.bind(bindingRoot)
                 val bottomBarBinding = FileListFragmentBottomBarIncludeBinding.bind(bindingRoot)
                 val speedDialBinding = FileListFragmentSpeedDialIncludeBinding.bind(bindingRoot)
                 return Binding(
-                    bindingRoot, binding.drawerLayout, binding.persistentDrawerLayout,
-                    binding.persistentBarLayout, appBarBinding.appBarLayout, appBarBinding.toolbar,
-                    appBarBinding.overlayToolbar, appBarBinding.breadcrumbLayout,
-                    contentBinding.contentLayout, contentBinding.progress, contentBinding.errorText,
-                    contentBinding.emptyView, contentBinding.swipeRefreshLayout,
-                    contentBinding.recyclerView, bottomBarBinding.bottomBarLayout,
-                    bottomBarBinding.bottomToolbar, speedDialBinding.speedDialView
+                    bindingRoot, includeBinding.drawerLayout, includeBinding.persistentDrawerLayout,
+                    includeBinding.persistentBarLayout, appBarBinding.appBarLayout,
+                    appBarBinding.toolbar, appBarBinding.overlayToolbar,
+                    appBarBinding.breadcrumbLayout, contentBinding.contentLayout,
+                    contentBinding.progress, contentBinding.errorText, contentBinding.emptyView,
+                    contentBinding.swipeRefreshLayout, contentBinding.recyclerView,
+                    bottomBarBinding.bottomBarLayout, bottomBarBinding.bottomToolbar,
+                    speedDialBinding.speedDialView
                 )
             }
         }

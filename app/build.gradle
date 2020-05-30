@@ -28,6 +28,9 @@ android {
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
         resValue 'string', 'file_provider_authority', applicationId + '.file_provider'
     }
+    buildFeatures {
+        viewBinding true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -38,9 +41,6 @@ android {
                 '-Xopt-in=kotlin.RequiresOptIn',
                 "-XXLanguage:+InlineClasses",
         ]
-    }
-    viewBinding {
-        enabled true
     }
     externalNativeBuild {
         cmake {

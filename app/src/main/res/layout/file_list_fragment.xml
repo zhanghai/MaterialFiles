@@ -1,46 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ Copyright (c) 2020 Hai Zhang <dreaming.in.code.zh@gmail.com>
   ~ All Rights Reserved.
   -->
 
-<androidx.drawerlayout.widget.DrawerLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawerLayout"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
-    <me.zhanghai.android.files.ui.PersistentBarLayout
-        android:id="@+id/persistentBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-            <include layout="@layout/file_list_fragment_app_bar_include" />
-
-            <include layout="@layout/file_list_fragment_content_include" />
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <include layout="@layout/file_list_fragment_status_bar_background_include" />
-
-        <include layout="@layout/file_list_fragment_bottom_bar_include"/>
-
-        <include layout="@layout/file_list_fragment_speed_dial_include" />
-    </me.zhanghai.android.files.ui.PersistentBarLayout>
-
-    <me.zhanghai.android.files.ui.NavigationFrameLayout
-        android:id="@+id/navigationFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="?colorFloatingSurface"
-        android:fitsSystemWindows="true" />
-</androidx.drawerlayout.widget.DrawerLayout>
+    <!--
+      ~ View binding complains about different root view IDs, so we have to wrap them inside a
+      ~ <merge> tag.
+      -->
+    <include layout="@layout/file_list_fragment_include" />
+</FrameLayout>
