@@ -18,8 +18,12 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Future
 
 class FileListLiveData(private val path: Path) : CloseableLiveData<Stateful<List<FileItem>>>() {
+    private var future: Future<Unit>? = null
+
     private val observer: PathObserver
 
     @Volatile
@@ -30,9 +34,10 @@ class FileListLiveData(private val path: Path) : CloseableLiveData<Stateful<List
         observer = PathObserver(path) { onChangeObserved() }
     }
 
-    private fun loadValue() {
+    fun loadValue() {
+        future?.cancel(true)
         value = Loading(value?.value)
-        AsyncTask.THREAD_POOL_EXECUTOR.execute {
+        future = (AsyncTask.THREAD_POOL_EXECUTOR as ExecutorService).submit<Unit> {
             val value = try {
                 path.newDirectoryStream().use { directoryStream ->
                     val fileList = mutableListOf<FileItem>()
@@ -73,5 +78,6 @@ class FileListLiveData(private val path: Path) : CloseableLiveData<Stateful<List
 
     override fun close() {
         observer.close()
+        future?.cancel(true)
     }
 }

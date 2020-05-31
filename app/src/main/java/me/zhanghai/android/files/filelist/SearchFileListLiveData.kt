@@ -24,13 +24,14 @@ class SearchFileListLiveData(
     private val path: Path,
     private val query: String
 ) : CloseableLiveData<Stateful<List<FileItem>>>() {
-    private lateinit var future: Future<Unit>
+    private var future: Future<Unit>? = null
 
     init {
         loadValue()
     }
 
-    private fun loadValue() {
+    fun loadValue() {
+        future?.cancel(true)
         value = Loading(emptyList())
         future = (AsyncTask.THREAD_POOL_EXECUTOR as ExecutorService).submit<Unit> {
             val fileList = mutableListOf<FileItem>()
@@ -57,7 +58,7 @@ class SearchFileListLiveData(
     }
 
     override fun close() {
-        future.cancel(true)
+        future?.cancel(true)
     }
 
     companion object {

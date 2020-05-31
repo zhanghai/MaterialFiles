@@ -100,8 +100,6 @@ import me.zhanghai.android.files.util.createSendStreamIntent
 import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.extraPathList
-import me.zhanghai.android.files.util.fadeInUnsafe
-import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.linkedHashSetOf
@@ -138,9 +136,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private lateinit var bottomActionMode: ToolbarActionMode
 
     private lateinit var adapter: FileListAdapter
-
-    private var lastLoadingPath: Path? = null
-    private var lastLoadingIsSearching = false
 
     private val debouncedSearchRunnable = DebouncedRunnable(Handler(Looper.getMainLooper()), 1000) {
         if (!isResumed || !viewModel.isSearchViewExpanded) {
@@ -517,60 +512,40 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun onFileListChanged(stateful: Stateful<List<FileItem>>) {
-        when (stateful) {
-            is Loading -> {
-                val path = viewModel.currentPath
-                val isSearching = viewModel.searchState.isSearching
-                val isReload = path == lastLoadingPath && isSearching == lastLoadingIsSearching
-                lastLoadingPath = path
-                lastLoadingIsSearching = isSearching
-                when {
-                    isSearching -> {
-                        updateSubtitle(stateful.value!!)
-                        binding.swipeRefreshLayout.isRefreshing = true
-                        binding.progress.fadeOutUnsafe()
-                        binding.errorText.fadeOutUnsafe()
-                        // We are still searching so it's never empty.
-                        binding.emptyView.fadeOutUnsafe()
-                        updateAdapterFileList()
-                    }
-                    isReload -> binding.swipeRefreshLayout.isRefreshing = true
-                    else -> {
-                        binding.toolbar.setSubtitle(R.string.loading)
-                        binding.swipeRefreshLayout.isRefreshing = false
-                        binding.progress.fadeInUnsafe()
-                        binding.errorText.fadeOutUnsafe()
-                        binding.emptyView.fadeOutUnsafe()
-                        adapter.clear()
-                    }
-                }
+        val files = stateful.value
+        val isSearching = viewModel.searchState.isSearching
+        when {
+            stateful is Failure -> binding.toolbar.setSubtitle(R.string.error)
+            stateful is Loading && !isSearching -> binding.toolbar.setSubtitle(R.string.loading)
+            else -> binding.toolbar.subtitle = getSubtitle(files!!)
+        }
+        val hasFiles = !files.isNullOrEmpty()
+        binding.swipeRefreshLayout.isRefreshing = stateful is Loading && (hasFiles || isSearching)
+        binding.progress.fadeToVisibilityUnsafe(stateful is Loading && !(hasFiles || isSearching))
+        binding.errorText.fadeToVisibilityUnsafe(stateful is Failure && !hasFiles)
+        if (stateful is Failure) {
+            stateful.throwable.printStackTrace()
+            val error = stateful.throwable.toString()
+            if (hasFiles) {
+                showToast(error)
+            } else {
+                binding.errorText.text = error
             }
-            is Failure -> {
-                stateful.throwable.printStackTrace()
-                binding.toolbar.setSubtitle(R.string.error)
-                binding.swipeRefreshLayout.isRefreshing = false
-                binding.progress.fadeOutUnsafe()
-                binding.errorText.fadeInUnsafe()
-                binding.errorText.text = stateful.throwable.toString()
-                binding.emptyView.fadeOutUnsafe()
-                adapter.clear()
-            }
-            is Success -> {
-                updateSubtitle(stateful.value)
-                binding.swipeRefreshLayout.isRefreshing = false
-                binding.progress.fadeOutUnsafe()
-                binding.errorText.fadeOutUnsafe()
-                binding.emptyView.fadeToVisibilityUnsafe(stateful.value.isEmpty())
-                updateAdapterFileList()
-                val state = viewModel.pendingState
-                if (state != null) {
-                    binding.recyclerView.layoutManager!!.onRestoreInstanceState(state)
-                }
-            }
+        }
+        binding.emptyView.fadeToVisibilityUnsafe(stateful is Success && !hasFiles)
+        if (files != null) {
+            updateAdapterFileList()
+        } else {
+            // This resets animation as well.
+            adapter.clear()
+        }
+        if (stateful is Success) {
+            viewModel.pendingState
+                ?.let { binding.recyclerView.layoutManager!!.onRestoreInstanceState(it) }
         }
     }
 
-    private fun updateSubtitle(files: List<FileItem>) {
+    private fun getSubtitle(files: List<FileItem>): String {
         val directoryCount = files.count { it.attributes.isDirectory }
         val fileCount = files.size - directoryCount
         val directoryCountText = if (directoryCount > 0) {
@@ -587,16 +562,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         } else {
             null
         }
-        val subtitle = if (!directoryCountText.isNullOrEmpty() && !fileCountText.isNullOrEmpty()) {
-            directoryCountText + getString(R.string.file_list_subtitle_separator) + fileCountText
-        } else if (!directoryCountText.isNullOrEmpty()) {
-            directoryCountText
-        } else if (!fileCountText.isNullOrEmpty()) {
-            fileCountText
-        } else {
-            getString(R.string.empty)
+        return when {
+            !directoryCountText.isNullOrEmpty() && !fileCountText.isNullOrEmpty() ->
+                (directoryCountText + getString(R.string.file_list_subtitle_separator)
+                    + fileCountText)
+            !directoryCountText.isNullOrEmpty() -> directoryCountText
+            !fileCountText.isNullOrEmpty() -> fileCountText
+            else -> getString(R.string.empty)
         }
-        binding.toolbar.subtitle = subtitle
     }
 
     private fun onSortOptionsChanged(sortOptions: FileSortOptions) {
@@ -653,8 +626,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun updateAdapterFileList() {
-        val fileListData = viewModel.fileListStateful
-        var files = fileListData.value ?: return
+        var files = viewModel.fileListStateful.value ?: return
         if (!Settings.FILE_LIST_SHOW_HIDDEN_FILES.valueCompat) {
             files = files.filterNot { it.isHidden }
         }

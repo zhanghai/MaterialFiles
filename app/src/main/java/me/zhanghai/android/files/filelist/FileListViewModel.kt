@@ -42,14 +42,6 @@ class FileListViewModel : ViewModel() {
             trailLiveData.navigateUp()
         }
 
-    fun reload() {
-        val path = trailLiveData.valueCompat.currentPath
-        if (path.isArchivePath) {
-            path.archiveRefresh()
-        }
-        trailLiveData.reload()
-    }
-
     val currentPathLiveData = trailLiveData.map { it.currentPath }
     val currentPath: Path
         get() = currentPathLiveData.valueCompat
@@ -81,6 +73,14 @@ class FileListViewModel : ViewModel() {
         get() = _fileListLiveData
     val fileListStateful: Stateful<List<FileItem>>
         get() = _fileListLiveData.valueCompat
+
+    fun reload() {
+        val path = currentPath
+        if (path.isArchivePath) {
+            path.archiveRefresh()
+        }
+        _fileListLiveData.reload()
+    }
 
     val searchViewExpandedLiveData = MutableLiveData(false)
     var isSearchViewExpanded: Boolean
@@ -245,6 +245,13 @@ class FileListViewModel : ViewModel() {
             }
             this.liveData = liveData
             addSource(liveData) { value = it }
+        }
+
+        fun reload() {
+            when (val liveData = liveData) {
+                is FileListLiveData -> liveData.loadValue()
+                is SearchFileListLiveData -> liveData.loadValue()
+            }
         }
 
         override fun close() {
