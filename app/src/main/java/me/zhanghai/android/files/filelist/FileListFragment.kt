@@ -43,6 +43,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.leinardi.android.speeddial.SpeedDialView
+import java8.nio.file.AccessDeniedException
 import java8.nio.file.Path
 import java8.nio.file.Paths
 import kotlinx.android.parcel.Parcelize
@@ -288,41 +289,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(viewLifecycleOwner) {
             onShowHiddenFilesChanged(it)
         }
-
-        if (!EffortlessPermissions.hasPermissions(this, *STORAGE_PERMISSIONS)) {
-            EffortlessPermissions.requestPermissions(
-                this,
-                R.string.storage_permission_request_message,
-                REQUEST_CODE_STORAGE_PERMISSIONS,
-                *STORAGE_PERMISSIONS
-            )
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        EffortlessPermissions.onRequestPermissionsResult(
-            requestCode, permissions, grantResults, this
-        )
-    }
-
-    @AfterPermissionGranted(REQUEST_CODE_STORAGE_PERMISSIONS)
-    private fun onStoragePermissionGranted() {
-        viewModel.reload()
-    }
-
-    @AfterPermissionDenied(REQUEST_CODE_STORAGE_PERMISSIONS)
-    private fun onStoragePermissionDenied() {
-        if (EffortlessPermissions.somePermissionPermanentlyDenied(this, *STORAGE_PERMISSIONS)) {
-            OpenAppDetailsDialogFragment.show(
-                R.string.storage_permission_permanently_denied_message, R.string.open_settings, this
-            )
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -523,9 +489,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         binding.swipeRefreshLayout.isRefreshing = stateful is Loading && (hasFiles || isSearching)
         binding.progress.fadeToVisibilityUnsafe(stateful is Loading && !(hasFiles || isSearching))
         binding.errorText.fadeToVisibilityUnsafe(stateful is Failure && !hasFiles)
-        if (stateful is Failure) {
-            stateful.throwable.printStackTrace()
-            val error = stateful.throwable.toString()
+        val throwable = (stateful as? Failure)?.throwable
+        if (throwable != null) {
+            throwable.printStackTrace()
+            val error = throwable.toString()
             if (hasFiles) {
                 showToast(error)
             } else {
@@ -543,6 +510,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             viewModel.pendingState
                 ?.let { binding.recyclerView.layoutManager!!.onRestoreInstanceState(it) }
         }
+        throwable?.let { onFileListFailure(it) }
     }
 
     private fun getSubtitle(files: List<FileItem>): String {
@@ -569,6 +537,45 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             !directoryCountText.isNullOrEmpty() -> directoryCountText
             !fileCountText.isNullOrEmpty() -> fileCountText
             else -> getString(R.string.empty)
+        }
+    }
+
+    private fun onFileListFailure(throwable: Throwable) {
+        if (throwable is AccessDeniedException) {
+            val path = viewModel.currentPath
+            if (path.isLinuxPath
+                && !EffortlessPermissions.hasPermissions(this, *STORAGE_PERMISSIONS)) {
+                EffortlessPermissions.requestPermissions(
+                    this, R.string.storage_permission_request_message,
+                    REQUEST_CODE_STORAGE_PERMISSIONS, *STORAGE_PERMISSIONS
+                )
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        EffortlessPermissions.onRequestPermissionsResult(
+            requestCode, permissions, grantResults, this
+        )
+    }
+
+    @AfterPermissionGranted(REQUEST_CODE_STORAGE_PERMISSIONS)
+    private fun onStoragePermissionGranted() {
+        refresh()
+    }
+
+    @AfterPermissionDenied(REQUEST_CODE_STORAGE_PERMISSIONS)
+    private fun onStoragePermissionDenied() {
+        if (EffortlessPermissions.somePermissionPermanentlyDenied(this, *STORAGE_PERMISSIONS)) {
+            OpenAppDetailsDialogFragment.show(
+                R.string.storage_permission_permanently_denied_message, R.string.open_settings, this
+            )
         }
     }
 
