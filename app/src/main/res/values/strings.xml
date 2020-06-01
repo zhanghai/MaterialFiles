@@ -191,6 +191,8 @@
     <string name="file_job_move_error_message_format">There was an error moving the file into “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Error while deleting</string>
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
+    <string name="file_job_rename_error_title">Error while renaming “%1$s”</string>
+    <string name="file_job_rename_error_message_format">There was an error renaming the file to “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Error while changing owner for “%1$s”</string>
     <string name="file_job_set_owner_error_message_format">There was an error changing the owner to “%1$s”.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Error while changing group for “%1$s”</string>

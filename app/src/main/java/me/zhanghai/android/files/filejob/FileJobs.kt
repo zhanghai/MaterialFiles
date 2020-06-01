@@ -1474,8 +1474,43 @@ class RenameFileJob(private val path: Path, private val newName: String) : FileJ
     @Throws(IOException::class)
     override fun run() {
         val newPath = path.resolveSibling(newName)
-        moveAtomically(path, newPath)
+        rename(path, newPath)
     }
+}
+
+@Throws(IOException::class)
+private fun FileJob.rename(path: Path, newPath: Path) {
+    var retry: Boolean
+    loop@ do {
+        retry = false
+        try {
+            moveAtomically(path, newPath)
+        } catch (e: InterruptedIOException) {
+            throw e
+        } catch (e: IOException) {
+            e.printStackTrace()
+            val result = showActionDialog(
+                getString(R.string.file_job_rename_error_title, getFileName(path)),
+                getString(
+                    R.string.file_job_rename_error_message_format, getFileName(newPath),
+                    e.toString()
+                ),
+                getReadOnlyFileStore(path, e),
+                false,
+                getString(R.string.retry),
+                getString(android.R.string.cancel),
+                null
+            )
+            when (result.action) {
+                FileJobAction.POSITIVE -> {
+                    retry = true
+                    continue@loop
+                }
+                FileJobAction.NEGATIVE, FileJobAction.CANCELED -> throw InterruptedIOException()
+                else -> throw AssertionError(result.action)
+            }
+        }
+    } while (retry)
 }
 
 class RestoreFileSeLinuxContextJob(

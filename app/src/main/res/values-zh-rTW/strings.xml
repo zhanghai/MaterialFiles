@@ -170,6 +170,8 @@
     <string name="file_job_move_error_message_format">將檔案移動到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
     <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_rename_error_title">重新命名「%1$s」時發生錯誤</string>
+    <string name="file_job_rename_error_message_format">將檔案重新命名為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">變更「%1$s」的擁有者時發生錯誤</string>
     <string name="file_job_set_owner_error_message_format">將擁有者變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_group_error_title_format">變更「%1$s」的群組時發生錯誤</string>
