@@ -24,7 +24,7 @@
         android:hint="@string/navigation_edit_bookmark_directory_name">
 
         <me.zhanghai.android.materialedittext.MaterialEditText
-            android:id="@id/nameEdit"
+            android:id="@+id/nameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
