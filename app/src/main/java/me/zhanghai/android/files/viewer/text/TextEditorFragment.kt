@@ -21,7 +21,6 @@ import java8.nio.file.Path
 import kotlinx.android.parcel.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.TextEditorFragmentBinding
-import me.zhanghai.android.files.ui.FastScrollLiftOnScrollHack
 import me.zhanghai.android.files.ui.ThemedFastScroller
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
@@ -83,7 +82,6 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         //  rid of the mPathLiveData in TextEditorViewModel.
         viewModel.path = argsPath
         ThemedFastScroller.create(binding.scrollView)
-        FastScrollLiftOnScrollHack.hack(binding.appBarLayout)
         // Manually save and restore state in view model to avoid TransactionTooLargeException.
         binding.textEdit.isSaveEnabled = false
         val textEditSavedState = viewModel.removeEditTextSavedState()

@@ -18,7 +18,7 @@
         android:background="?colorAppBarSurface"
         android:theme="?actionBarTheme"
         app:liftOnScroll="?appBarLiftOnScroll"
-        app:liftOnScrollTargetViewId="@id/scroll">
+        app:liftOnScrollTargetViewId="@id/scrollView">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
