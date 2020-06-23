@@ -17,7 +17,12 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout.AttachedBehavior
+import androidx.core.graphics.Insets
 import androidx.core.view.ScrollingView
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
+import androidx.core.view.marginLeft
+import androidx.core.view.marginRight
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import com.google.android.material.appbar.AppBarLayout.ScrollingViewBehavior
@@ -26,7 +31,7 @@ import me.zhanghai.android.files.util.layoutInNavigation
 import me.zhanghai.android.files.util.valueCompat
 
 class CoordinatorScrollingFrameLayout : FrameLayout, AttachedBehavior {
-    private var lastInsets: WindowInsets? = null
+    private var bottomInsets: WindowInsets? = null
 
     constructor(context: Context) : super(context)
 
@@ -51,34 +56,31 @@ class CoordinatorScrollingFrameLayout : FrameLayout, AttachedBehavior {
         }
     }
 
-    override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets =
-        insets.also { lastInsets = it }
+    override fun onApplyWindowInsets(insets: WindowInsets): WindowInsets {
+        updatePadding(left = insets.systemWindowInsetLeft, right = insets.systemWindowInsetRight)
+        bottomInsets = WindowInsetsCompat.Builder()
+            .setSystemWindowInsets(Insets.of(0, 0, 0, insets.systemWindowInsetBottom))
+            .build()
+            .toWindowInsets()
+        return insets
+    }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val lastInsets = lastInsets
-        if (lastInsets != null) {
+        val bottomInsets = bottomInsets
+        if (bottomInsets != null) {
             val scrollingView = findScrollingView()
             val scrollingChildView = scrollingView?.let { findChildView(it) }
-            for (index in 0 until childCount) {
-                val childView = getChildAt(index)
+            for (childView in children) {
                 if (childView != scrollingChildView) {
                     childView.updateLayoutParams<MarginLayoutParams> {
-                        leftMargin = lastInsets.systemWindowInsetLeft
-                        rightMargin = lastInsets.systemWindowInsetRight
-                        topMargin = 0
-                        bottomMargin = lastInsets.systemWindowInsetBottom
+                        bottomMargin = bottomInsets.systemWindowInsetBottom
                     }
-                }
-            }
-            if (scrollingView != null) {
-                if (scrollingView.fitsSystemWindows) {
-                    scrollingView.onApplyWindowInsets(lastInsets)
                 } else {
-                    scrollingView.updatePadding(
-                        left = lastInsets.systemWindowInsetLeft,
-                        right = lastInsets.systemWindowInsetRight,
-                        bottom = lastInsets.systemWindowInsetBottom
-                    )
+                    if (scrollingView.fitsSystemWindows) {
+                        scrollingView.onApplyWindowInsets(bottomInsets)
+                    } else {
+                        scrollingView.updatePadding(bottom = bottomInsets.systemWindowInsetBottom)
+                    }
                 }
             }
         }

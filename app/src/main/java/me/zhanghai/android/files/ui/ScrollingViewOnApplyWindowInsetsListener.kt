@@ -23,14 +23,10 @@ class ScrollingViewOnApplyWindowInsetsListener(
 
     override fun onApplyWindowInsets(view: View, insets: WindowInsets): WindowInsets {
         view.setPadding(
-            initialPadding.left + insets.systemWindowInsetLeft, initialPadding.top,
-            initialPadding.right + insets.systemWindowInsetRight,
+            initialPadding.left, initialPadding.top, initialPadding.right,
             initialPadding.bottom + insets.systemWindowInsetBottom
         )
-        fastScroller.setPadding(
-            insets.systemWindowInsetLeft, 0, insets.systemWindowInsetRight,
-            insets.systemWindowInsetBottom
-        )
+        fastScroller.setPadding(0, 0, 0, insets.systemWindowInsetBottom)
         return insets
     }
 }
