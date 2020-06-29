@@ -25,15 +25,15 @@ object NioUtilsCompat {
         Boolean::class.javaPrimitiveType, Any::class.java
     )
 
-    fun newFileChannel(ioObject: Closeable, fd: FileDescriptor, mode: Int): FileChannel =
+    fun newFileChannel(ioObject: Closeable, fd: FileDescriptor, flags: Int): FileChannel =
         if (Build.VERSION.SDK_INT in Build.VERSION_CODES.N..Build.VERSION_CODES.Q) {
             // They broke O_RDONLY by assuming it's non-zero, but in fact it is zero.
             // https://android.googlesource.com/platform/libcore/+/nougat-release/luni/src/main/java/java/nio/NioUtils.java#63
-            val readable = mode and OsConstants.O_ACCMODE != OsConstants.O_WRONLY
-            val writable = mode and OsConstants.O_ACCMODE != OsConstants.O_RDONLY
-            val append = mode and OsConstants.O_APPEND == OsConstants.O_APPEND
+            val readable = flags and OsConstants.O_ACCMODE != OsConstants.O_WRONLY
+            val writable = flags and OsConstants.O_ACCMODE != OsConstants.O_RDONLY
+            val append = flags and OsConstants.O_APPEND == OsConstants.O_APPEND
             fileChannelImplOpenMethod.invoke(null, fd, null, readable, writable, append, ioObject)
         } else {
-            newFileChannelMethod.invoke(null, ioObject, fd, mode)
+            newFileChannelMethod.invoke(null, ioObject, fd, flags)
         }
 }

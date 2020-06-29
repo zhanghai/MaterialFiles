@@ -30,6 +30,7 @@ fun KClass<FileChannel>.open(fd: FileDescriptor, flags: Int): FileChannel {
 fun KClass<FileChannel>.open(pfd: ParcelFileDescriptor, mode: String): FileChannel =
     FileChannels.from(
         NioUtilsCompat.newFileChannel(
-            pfd, pfd.fileDescriptor, ParcelFileDescriptor.parseMode(mode)
+            pfd, pfd.fileDescriptor,
+            ParcelFileDescriptor::class.modeToFlags(ParcelFileDescriptor.parseMode(mode))
         )
     )
