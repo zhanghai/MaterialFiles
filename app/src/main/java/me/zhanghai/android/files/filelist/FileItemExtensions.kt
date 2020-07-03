@@ -24,7 +24,6 @@ import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.valueCompat
 import java.text.CollationKey
-import java.text.Collator
 
 val FileItem.name: String
     get() = path.name
