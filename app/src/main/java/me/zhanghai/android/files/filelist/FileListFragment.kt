@@ -103,7 +103,6 @@ import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.extraPathList
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.getQuantityString
-import me.zhanghai.android.files.util.linkedHashSetOf
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.startActivitySafe
@@ -963,7 +962,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val pickOptions = viewModel.pickOptions
         if (pickOptions != null) {
             if (pickOptions.pickDirectory) {
-                pickPaths(linkedHashSetOf(viewModel.currentPath))
+                pickPaths(linkedSetOf(viewModel.currentPath))
             }
         } else {
             viewModel.clearPasteState()
@@ -1005,7 +1004,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             if (file.attributes.isDirectory) {
                 navigateTo(file.path)
             } else if (!pickOptions.pickDirectory) {
-                pickFiles(linkedHashSetOf(file))
+                pickFiles(linkedSetOf(file))
             }
             return
         }
@@ -1110,15 +1109,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     override fun cutFile(file: FileItem) {
-        cutFiles(linkedHashSetOf(file))
+        cutFiles(linkedSetOf(file))
     }
 
     override fun copyFile(file: FileItem) {
-        copyFiles(linkedHashSetOf(file))
+        copyFiles(linkedSetOf(file))
     }
 
     override fun confirmDeleteFile(file: FileItem) {
-        confirmDeleteFiles(linkedHashSetOf(file))
+        confirmDeleteFiles(linkedSetOf(file))
     }
 
     override fun showRenameFileDialog(file: FileItem) {
@@ -1140,7 +1139,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     override fun showCreateArchiveDialog(file: FileItem) {
-        showCreateArchiveDialog(linkedHashSetOf(file))
+        showCreateArchiveDialog(linkedSetOf(file))
     }
 
     override fun shareFile(file: FileItem) {
