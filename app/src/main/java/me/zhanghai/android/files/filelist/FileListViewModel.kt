@@ -21,7 +21,6 @@ import me.zhanghai.android.files.util.CloseableLiveData
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.valueCompat
 import java.io.Closeable
-import java.util.LinkedHashSet
 
 // TODO: Use SavedStateHandle to save state.
 class FileListViewModel : ViewModel() {
@@ -134,17 +133,17 @@ class FileListViewModel : ViewModel() {
             _pickOptionsLiveData.value = value
         }
 
-    private val _selectedFilesLiveData = MutableLiveData(LinkedHashSet<FileItem>())
-    val selectedFilesLiveData: LiveData<LinkedHashSet<FileItem>>
+    private val _selectedFilesLiveData = MutableLiveData(fileItemSetOf())
+    val selectedFilesLiveData: LiveData<FileItemSet>
         get() = _selectedFilesLiveData
-    val selectedFiles: LinkedHashSet<FileItem>
+    val selectedFiles: FileItemSet
         get() = _selectedFilesLiveData.valueCompat
 
     fun selectFile(file: FileItem, selected: Boolean) {
-        selectFiles(linkedSetOf(file), selected)
+        selectFiles(fileItemSetOf(file), selected)
     }
 
-    fun selectFiles(files: LinkedHashSet<FileItem>, selected: Boolean) {
+    fun selectFiles(files: FileItemSet, selected: Boolean) {
         val selectedFiles = _selectedFilesLiveData.valueCompat
         if (selectedFiles === files) {
             if (!selected && selectedFiles.isNotEmpty()) {
@@ -166,7 +165,7 @@ class FileListViewModel : ViewModel() {
         }
     }
 
-    fun replaceSelectedFiles(files: LinkedHashSet<FileItem>) {
+    fun replaceSelectedFiles(files: FileItemSet) {
         val selectedFiles = _selectedFilesLiveData.valueCompat
         if (selectedFiles == files) {
             return
@@ -189,7 +188,7 @@ class FileListViewModel : ViewModel() {
     val pasteState: PasteState
         get() = _pasteStateLiveData.valueCompat
 
-    fun addToPasteState(copy: Boolean, files: LinkedHashSet<FileItem>) {
+    fun addToPasteState(copy: Boolean, files: FileItemSet) {
         val pasteState = _pasteStateLiveData.valueCompat
         var changed = false
         if (pasteState.copy != copy) {

@@ -5,11 +5,8 @@
 
 package me.zhanghai.android.files.filelist
 
-import me.zhanghai.android.files.file.FileItem
-import java.util.LinkedHashSet
-
 // TODO: Make immutable?
 class PasteState(
     var copy: Boolean = false,
-    val files: LinkedHashSet<FileItem> = linkedSetOf()
+    val files: FileItemSet = fileItemSetOf()
 )

@@ -21,7 +21,6 @@ import me.zhanghai.android.files.databinding.CreateArchiveDialogMd2Binding
 import me.zhanghai.android.files.databinding.CreateArchiveDialogTypeIncludeBinding
 import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
 import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeMd2Binding
-import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
@@ -31,7 +30,6 @@ import me.zhanghai.android.files.util.show
 import me.zhanghai.android.files.util.valueCompat
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.compressors.CompressorStreamFactory
-import java.util.LinkedHashSet
 
 class CreateArchiveDialogFragment : FileNameDialogFragment() {
     private val args by args<Args>()
@@ -100,13 +98,13 @@ class CreateArchiveDialogFragment : FileNameDialogFragment() {
     }
 
     companion object {
-        fun show(files: LinkedHashSet<FileItem>, fragment: Fragment) {
+        fun show(files: FileItemSet, fragment: Fragment) {
             CreateArchiveDialogFragment().putArgs(Args(files)).show(fragment)
         }
     }
 
     @Parcelize
-    class Args(val files: LinkedHashSet<FileItem>) : ParcelableArgs
+    class Args(val files: FileItemSet) : ParcelableArgs
 
     protected class Binding private constructor(
         root: View,
@@ -139,11 +137,6 @@ class CreateArchiveDialogFragment : FileNameDialogFragment() {
     }
 
     interface Listener : FileNameDialogFragment.Listener {
-        fun archive(
-            files: LinkedHashSet<FileItem>,
-            name: String,
-            archiveType: String,
-            compressorType: String?
-        )
+        fun archive(files: FileItemSet, name: String, archiveType: String, compressorType: String?)
     }
 }

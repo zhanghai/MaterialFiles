@@ -707,8 +707,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         menuBinding.selectAllItem.isVisible = pickOptions == null || pickOptions.allowMultiple
     }
 
-    private fun pickFiles(files: LinkedHashSet<FileItem>) {
-        pickPaths(files.mapTo(LinkedHashSet()) { it.path })
+    private fun pickFiles(files: FileItemSet) {
+        pickPaths(files.mapTo(linkedSetOf()) { it.path })
     }
 
     private fun pickPaths(paths: LinkedHashSet<Path>) {
@@ -740,7 +740,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
     }
 
-    private fun onSelectedFilesChanged(files: LinkedHashSet<FileItem>) {
+    private fun onSelectedFilesChanged(files: FileItemSet) {
         updateOverlayToolbar()
         adapter.replaceSelectedFiles(files)
     }
@@ -836,31 +836,31 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.clearSelectedFiles()
     }
 
-    private fun cutFiles(files: LinkedHashSet<FileItem>) {
+    private fun cutFiles(files: FileItemSet) {
         viewModel.addToPasteState(false, files)
         viewModel.selectFiles(files, false)
     }
 
-    private fun copyFiles(files: LinkedHashSet<FileItem>) {
+    private fun copyFiles(files: FileItemSet) {
         viewModel.addToPasteState(true, files)
         viewModel.selectFiles(files, false)
     }
 
-    private fun confirmDeleteFiles(files: LinkedHashSet<FileItem>) {
+    private fun confirmDeleteFiles(files: FileItemSet) {
         ConfirmDeleteFilesDialogFragment.show(files, this)
     }
 
-    override fun deleteFiles(files: LinkedHashSet<FileItem>) {
+    override fun deleteFiles(files: FileItemSet) {
         FileJobService.delete(makePathListForJob(files), requireContext())
         viewModel.selectFiles(files, false)
     }
 
-    private fun showCreateArchiveDialog(files: LinkedHashSet<FileItem>) {
+    private fun showCreateArchiveDialog(files: FileItemSet) {
         CreateArchiveDialogFragment.show(files, this)
     }
 
     override fun archive(
-        files: LinkedHashSet<FileItem>,
+        files: FileItemSet,
         name: String,
         archiveType: String,
         compressorType: String?
@@ -872,7 +872,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.selectFiles(files, false)
     }
 
-    private fun shareFiles(files: LinkedHashSet<FileItem>) {
+    private fun shareFiles(files: FileItemSet) {
         shareFiles(files.map { it.path }, files.map { it.mimeType })
         viewModel.selectFiles(files, false)
     }
@@ -983,7 +983,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.clearPasteState()
     }
 
-    private fun makePathListForJob(files: LinkedHashSet<FileItem>): List<Path> =
+    private fun makePathListForJob(files: FileItemSet): List<Path> =
         files.map { it.path }.sorted()
 
     override fun clearSelectedFiles() {
@@ -994,7 +994,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.selectFile(file, selected)
     }
 
-    override fun selectFiles(files: LinkedHashSet<FileItem>, selected: Boolean) {
+    override fun selectFiles(files: FileItemSet, selected: Boolean) {
         viewModel.selectFiles(files, selected)
     }
 
@@ -1004,7 +1004,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             if (file.attributes.isDirectory) {
                 navigateTo(file.path)
             } else if (!pickOptions.pickDirectory) {
-                pickFiles(linkedSetOf(file))
+                pickFiles(fileItemSetOf(file))
             }
             return
         }
@@ -1109,15 +1109,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     override fun cutFile(file: FileItem) {
-        cutFiles(linkedSetOf(file))
+        cutFiles(fileItemSetOf(file))
     }
 
     override fun copyFile(file: FileItem) {
-        copyFiles(linkedSetOf(file))
+        copyFiles(fileItemSetOf(file))
     }
 
     override fun confirmDeleteFile(file: FileItem) {
-        confirmDeleteFiles(linkedSetOf(file))
+        confirmDeleteFiles(fileItemSetOf(file))
     }
 
     override fun showRenameFileDialog(file: FileItem) {
@@ -1139,7 +1139,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     override fun showCreateArchiveDialog(file: FileItem) {
-        showCreateArchiveDialog(linkedSetOf(file))
+        showCreateArchiveDialog(fileItemSetOf(file))
     }
 
     override fun shareFile(file: FileItem) {

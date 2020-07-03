@@ -12,12 +12,10 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.parcel.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
-import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.show
-import java.util.LinkedHashSet
 
 class ConfirmDeleteFilesDialogFragment : AppCompatDialogFragment() {
     private val args by args<Args>()
@@ -53,15 +51,15 @@ class ConfirmDeleteFilesDialogFragment : AppCompatDialogFragment() {
     }
 
     companion object {
-        fun show(files: LinkedHashSet<FileItem>, fragment: Fragment) {
+        fun show(files: FileItemSet, fragment: Fragment) {
             ConfirmDeleteFilesDialogFragment().putArgs(Args(files)).show(fragment)
         }
     }
 
     @Parcelize
-    class Args(val files: LinkedHashSet<FileItem>) : ParcelableArgs
+    class Args(val files: FileItemSet) : ParcelableArgs
 
     interface Listener {
-        fun deleteFiles(files: LinkedHashSet<FileItem>)
+        fun deleteFiles(files: FileItemSet)
     }
 }

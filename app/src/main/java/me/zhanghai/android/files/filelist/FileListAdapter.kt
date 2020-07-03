@@ -28,7 +28,6 @@ import me.zhanghai.android.files.ui.AnimatedListAdapter
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
 import java.util.Comparator
-import java.util.LinkedHashSet
 import java.util.Locale
 
 class FileListAdapter(
@@ -55,12 +54,12 @@ class FileListAdapter(
             notifyItemRangeChanged(0, itemCount, PAYLOAD_STATE_CHANGED)
         }
 
-    private val selectedFiles = LinkedHashSet<FileItem>()
+    private val selectedFiles = fileItemSetOf()
 
     private val filePositionMap = mutableMapOf<Path, Int>()
 
-    fun replaceSelectedFiles(files: LinkedHashSet<FileItem>) {
-        val changedFiles = mutableSetOf<FileItem>()
+    fun replaceSelectedFiles(files: FileItemSet) {
+        val changedFiles = fileItemSetOf()
         val iterator = selectedFiles.iterator()
         while (iterator.hasNext()) {
             val file = iterator.next()
@@ -93,7 +92,7 @@ class FileListAdapter(
     }
 
     fun selectAllFiles() {
-        val files = LinkedHashSet<FileItem>()
+        val files = fileItemSetOf()
         for (index in 0 until itemCount) {
             val file = getItem(index)
             if (isFileSelectable(file)) {
@@ -314,7 +313,7 @@ class FileListAdapter(
     interface Listener {
         fun clearSelectedFiles()
         fun selectFile(file: FileItem, selected: Boolean)
-        fun selectFiles(files: LinkedHashSet<FileItem>, selected: Boolean)
+        fun selectFiles(files: FileItemSet, selected: Boolean)
         fun openFile(file: FileItem)
         fun openFileWith(file: FileItem)
         fun cutFile(file: FileItem)
