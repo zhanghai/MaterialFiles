@@ -1251,14 +1251,18 @@ private fun FileJob.copyOrMove(
         } catch (e: FileAlreadyExistsException) {
             val sourceFile = source.loadFileItem()
             val targetFile = target.loadFileItem()
-            val sourceIsDirectory: Boolean = sourceFile.attributesNoFollowLinks.isDirectory
-            val targetIsDirectory: Boolean = targetFile.attributesNoFollowLinks.isDirectory
+            val sourceIsDirectory = sourceFile.attributesNoFollowLinks.isDirectory
+            val targetIsDirectory = targetFile.attributesNoFollowLinks.isDirectory
             if (!sourceIsDirectory && targetIsDirectory) {
                 // TODO: Don't allow replace directory with file.
                 throw e
             }
             val isMerge = sourceIsDirectory && targetIsDirectory
-            if ((isMerge && actionAllInfo.merge) || (!isMerge && actionAllInfo.replace)) {
+            if (isMerge && actionAllInfo.merge) {
+                transferInfo.addTransferredFile(target)
+                postCopyMoveNotification(transferInfo, source, type)
+                return true
+            } else if (!isMerge && actionAllInfo.replace) {
                 replaceExisting = true
                 retry = true
                 continue
