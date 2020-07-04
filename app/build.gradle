@@ -169,7 +169,6 @@ dependencies {
 
 //#ifdef NONFREE
     implementation 'com.google.firebase:firebase-analytics:17.4.3'
-    implementation 'com.google.firebase:firebase-crashlytics:17.1.0'
     implementation 'com.google.firebase:firebase-crashlytics-ndk:17.1.0'
 //#endif
 }
