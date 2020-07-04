@@ -37,7 +37,7 @@ abstract class RootableFileSystemProvider(
     override fun getScheme(): String = localProvider.scheme
 
     @Throws(IOException::class)
-    override fun newFileSystem(uri: URI, env: Map<String?, *>): FileSystem =
+    override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem =
         localProvider.newFileSystem(uri, env)
 
     override fun getFileSystem(uri: URI): FileSystem = localProvider.getFileSystem(uri)

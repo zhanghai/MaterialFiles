@@ -61,7 +61,7 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
 
     override fun getScheme(): String = SCHEME
 
-    override fun newFileSystem(uri: URI, env: Map<String?, *>): FileSystem {
+    override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
         val treeUri = uri.treeUri
         synchronized(lock) {

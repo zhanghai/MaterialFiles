@@ -45,13 +45,13 @@ class LocalArchiveFileSystemProvider(
 
     override fun getScheme(): String = SCHEME
 
-    override fun newFileSystem(uri: URI, env: Map<String?, *>): FileSystem {
+    override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
         val archiveFile = uri.archiveFile
         return fileSystems.create(archiveFile) { newFileSystem(archiveFile) }
     }
 
-    override fun newFileSystem(file: Path, env: Map<String?, *>): FileSystem = newFileSystem(file)
+    override fun newFileSystem(file: Path, env: Map<String, *>): FileSystem = newFileSystem(file)
 
     internal fun getOrNewFileSystem(archiveFile: Path): ArchiveFileSystem =
         fileSystems.getOrCreate(archiveFile) { newFileSystem(archiveFile) }

@@ -42,7 +42,7 @@ object ContentFileSystemProvider : FileSystemProvider() {
 
     override fun getScheme(): String = SCHEME
 
-    override fun newFileSystem(uri: URI, env: Map<String?, *>): FileSystem {
+    override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
         throw FileSystemAlreadyExistsException()
     }

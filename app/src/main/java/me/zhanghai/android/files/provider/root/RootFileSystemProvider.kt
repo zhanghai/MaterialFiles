@@ -21,7 +21,7 @@ open class RootFileSystemProvider(scheme: String) : RemoteFileSystemProvider(
         throw AssertionError()
     }
 
-    override fun newFileSystem(uri: URI, env: Map<String?, *>): FileSystem {
+    override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         throw AssertionError()
     }
 
