@@ -55,7 +55,9 @@ object RootFileService : RemoteFileService(
             RootJava.cleanupCache(application)
             val latch = CountDownLatch(1)
             lateinit var remoteInterface: IRemoteFileService
-            val ipcReceiver = object : RootIPCReceiver<IRemoteFileService>(application, 0) {
+            val ipcReceiver = object : RootIPCReceiver<IRemoteFileService>(
+                application, 0, IRemoteFileService::class.java
+            ) {
                 private val releaseLock = Any()
 
                 private var isReleasing = false
