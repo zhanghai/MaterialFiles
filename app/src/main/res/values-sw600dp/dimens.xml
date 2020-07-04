@@ -8,6 +8,7 @@
 <resources>
     <dimen name="screen_edge_margin">24dp</dimen>
     <dimen name="screen_edge_margin_minus_4dp">20dp</dimen>
+    <dimen name="screen_edge_margin_minus_8dp">16dp</dimen>
     <dimen name="screen_edge_margin_minus_12dp">12dp</dimen>
     <dimen name="screen_edge_margin_minus_12dp_at_least_8dp">12dp</dimen>
     <dimen name="screen_edge_margin_minus_16dp">8dp</dimen>
