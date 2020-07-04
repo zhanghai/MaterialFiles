@@ -77,11 +77,9 @@ abstract class RemoteFileSystemProvider(
         directory: Path,
         filter: DirectoryStream.Filter<in Path>
     ): DirectoryStream<Path> {
-        val filter = when {
-            filter is Parcelable -> filter
-            // Allow Files.AcceptAllFilter, but make it Parcelable.
-            filter.javaClass.enclosingClass == Files::class.java ->
-                ParcelableAcceptAllFilter.instance
+        val filter = when (filter) {
+            is Parcelable -> filter
+            filesAcceptAllFilter -> ParcelableAcceptAllFilter.instance
             else -> throw IllegalArgumentException("$filter is not Parcelable")
         }
         return remoteInterface.get().call { exception ->
