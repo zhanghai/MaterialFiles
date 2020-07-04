@@ -42,9 +42,7 @@ import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.common.toCopyOptions
 import me.zhanghai.android.files.provider.common.toOpenOptions
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openInputStream
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openOutputStream
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openParcelFileDescriptor
+import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import java.io.IOException
@@ -142,7 +140,7 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
                     throw e.toFileSystemException(file.toString())
                 }
                 return try {
-                    openInputStream(uri, mode)
+                    Resolver.openInputStream(uri, mode)
                 } catch (e: ResolverException) {
                     throw e.toFileSystemException(uri.toString())
                 }
@@ -181,7 +179,7 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
                     throw e.toFileSystemException(file.toString())
                 }
                 return try {
-                    openOutputStream(uri, mode)
+                    Resolver.openOutputStream(uri, mode)
                 } catch (e: ResolverException) {
                     throw e.toFileSystemException(uri.toString())
                 }
@@ -223,7 +221,7 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
                     throw e.toFileSystemException(file.toString())
                 }
                 pfd = try {
-                    openParcelFileDescriptor(uri, mode)
+                    Resolver.openParcelFileDescriptor(uri, mode)
                 } catch (e: ResolverException) {
                     throw e.toFileSystemException(uri.toString())
                 }
