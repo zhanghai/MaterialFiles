@@ -31,6 +31,10 @@
 -keep class me.zhanghai.android.files.provider.common.ByteString { *; }
 -keep class me.zhanghai.android.files.provider.linux.syscall.** { *; }
 -keepnames class * extends java.lang.Exception
+# For Class.getEnumConstants()
+-keepclassmembers enum * {
+  public static **[] values();
+}
 -keepnames class me.zhanghai.android.files.** implements android.os.Parcelable
 
 # Apache Commons Compress
