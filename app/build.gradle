@@ -120,7 +120,7 @@ dependencies {
     def androidx_preference_version = '1.1.1'
     implementation "androidx.preference:preference:$androidx_preference_version"
     implementation "androidx.preference:preference-ktx:$androidx_preference_version"
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-rc01'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     // 1.2.0-alpha01 breaks Design widgets in Theme.MaterialComponents.*.Bridge.
     // https://github.com/material-components/material-components-android/issues/740
     // TODO: Run `git revert 9fc8452` after upgrading to 1.2.0.
