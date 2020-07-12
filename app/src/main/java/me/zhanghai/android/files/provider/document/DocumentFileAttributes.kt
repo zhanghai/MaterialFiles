@@ -6,42 +6,35 @@
 package me.zhanghai.android.files.provider.document
 
 import android.net.Uri
-import android.os.Parcel
 import android.os.Parcelable
-import me.zhanghai.android.files.provider.common.ParcelableContentProviderFileAttributes
+import java8.nio.file.attribute.FileTime
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.WriteWith
+import me.zhanghai.android.files.provider.common.AbstractContentProviderFileAttributes
+import me.zhanghai.android.files.provider.common.FileTimeParceler
+import org.threeten.bp.Instant
 
-internal class DocumentFileAttributes : ParcelableContentProviderFileAttributes {
-    val flags: Int
-
-    constructor(
-        lastModifiedTimeMillis: Long,
-        mimeType: String?,
-        size: Long,
-        flags: Int,
-        uri: Uri
-    ) : this(DocumentFileAttributesImpl(lastModifiedTimeMillis, mimeType, size, flags, uri))
-
-    private constructor(attributes: DocumentFileAttributesImpl) : super(attributes) {
-        flags = attributes.flags
-    }
-
-    private constructor(source: Parcel) : super(source) {
-        flags = source.readInt()
-    }
-
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        super.writeToParcel(dest, flags)
-
-        dest.writeInt(this.flags)
-    }
+@Parcelize
+internal class DocumentFileAttributes(
+    override val lastModifiedTime: @WriteWith<FileTimeParceler> FileTime,
+    override val mimeType: String?,
+    override val size: Long,
+    override val fileKey: Parcelable,
+    private val flags: Int
+) : AbstractContentProviderFileAttributes() {
+    fun flags(): Int = flags
 
     companion object {
-        @JvmField
-        val CREATOR = object : Parcelable.Creator<DocumentFileAttributes> {
-            override fun createFromParcel(source: Parcel): DocumentFileAttributes =
-                DocumentFileAttributes(source)
-
-            override fun newArray(size: Int): Array<DocumentFileAttributes?> = arrayOfNulls(size)
+        fun from(
+            lastModifiedTimeMillis: Long,
+            mimeType: String?,
+            size: Long,
+            flags: Int,
+            uri: Uri
+        ): DocumentFileAttributes {
+            val lastModifiedTime = FileTime.from(Instant.ofEpochMilli(lastModifiedTimeMillis))
+            val fileKey = uri
+            return DocumentFileAttributes(lastModifiedTime, mimeType, size, fileKey, flags)
         }
     }
 }

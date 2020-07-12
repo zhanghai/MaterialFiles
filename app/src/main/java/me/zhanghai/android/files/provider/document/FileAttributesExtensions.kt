@@ -13,5 +13,5 @@ import me.zhanghai.android.files.util.hasBits
 val BasicFileAttributes.documentSupportsThumbnail: Boolean
     get() {
         this as? DocumentFileAttributes ?: throw ProviderMismatchException(toString())
-        return flags.hasBits(DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
+        return flags().hasBits(DocumentsContract.Document.FLAG_SUPPORTS_THUMBNAIL)
     }

@@ -5,13 +5,9 @@
 
 package me.zhanghai.android.files.provider.linux.syscall
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
 /**
  * @see android.system.StructStat
  */
-@Parcelize
 class StructStat(
     val st_dev: Long, /*dev_t*/
     val st_ino: Long, /*ino_t*/
@@ -26,7 +22,7 @@ class StructStat(
     val st_atim: StructTimespec,
     val st_mtim: StructTimespec,
     val st_ctim: StructTimespec
-) : Parcelable {
+) {
     val st_atime: Long /*time_t*/
         get() = st_atim.tv_sec
     val st_mtime: Long /*time_t*/

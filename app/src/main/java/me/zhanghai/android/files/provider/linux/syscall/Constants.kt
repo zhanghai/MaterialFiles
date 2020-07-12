@@ -34,7 +34,7 @@ object Constants {
     const val IN_EXCL_UNLINK = 0x04000000
     const val IN_MASK_ADD = 0x20000000
     const val IN_ISDIR = 0x40000000
-    const val IN_ONESHOT = 0x80000000
+    const val IN_ONESHOT = 0x80000000.toInt()
     const val IN_ALL_EVENTS = (IN_ACCESS or IN_MODIFY or IN_ATTRIB or IN_CLOSE_WRITE
         or IN_CLOSE_NOWRITE or IN_OPEN or IN_MOVED_FROM or IN_MOVED_TO or IN_DELETE or IN_CREATE
         or IN_DELETE_SELF or IN_MOVE_SELF)

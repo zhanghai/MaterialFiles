@@ -21,7 +21,7 @@ internal class LocalArchiveFileAttributeView(private val path: Path) : PosixFile
     override fun readAttributes(): ArchiveFileAttributes {
         val fileSystem = path.fileSystem as ArchiveFileSystem
         val entry = fileSystem.getEntryAsLocal(path)
-        return ArchiveFileAttributes(fileSystem.archiveFile, entry)
+        return ArchiveFileAttributes.from(fileSystem.archiveFile, entry)
     }
 
     override fun setTimes(

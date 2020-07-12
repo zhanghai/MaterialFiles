@@ -56,7 +56,7 @@ internal class DocumentFileAttributeView(
         } catch (e: ResolverException) {
             throw e.toFileSystemException(path.toString())
         }
-        return DocumentFileAttributes(lastModifiedTimeMillis, mimeType, size, flags, uri)
+        return DocumentFileAttributes.from(lastModifiedTimeMillis, mimeType, size, flags, uri)
     }
 
     override fun setTimes(

@@ -32,7 +32,7 @@ internal class ContentFileAttributeView(
         } catch (e: ResolverException) {
             throw e.toFileSystemException(path.toString())
         }
-        return ContentFileAttributes(mimeType, size, uri)
+        return ContentFileAttributes.from(mimeType, size, uri)
     }
 
     override fun setTimes(

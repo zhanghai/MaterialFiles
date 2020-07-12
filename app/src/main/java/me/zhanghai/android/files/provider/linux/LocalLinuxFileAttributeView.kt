@@ -56,7 +56,7 @@ internal class LocalLinuxFileAttributeView(
             e.toFileSystemException(path.toString()).printStackTrace()
             null
         }
-        return LinuxFileAttributes(stat, owner, group, seLinuxContext)
+        return LinuxFileAttributes.from(stat, owner, group, seLinuxContext)
     }
 
     @Throws(IOException::class)

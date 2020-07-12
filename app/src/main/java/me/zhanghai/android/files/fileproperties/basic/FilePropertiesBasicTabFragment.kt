@@ -71,7 +71,7 @@ class FilePropertiesBasicTabFragment : FilePropertiesTabFragment() {
                 val archiveFile = path.archiveFile
                 addItemView(R.string.file_properties_basic_archive_file, archiveFile.toFile().path)
                 val attributes = file.attributes as ArchiveFileAttributes
-                addItemView(R.string.file_properties_basic_archive_entry, attributes.entryName)
+                addItemView(R.string.file_properties_basic_archive_entry, attributes.entryName())
             }
             addItemView(R.string.file_properties_basic_type, getTypeText(file))
             val symbolicLinkTarget = file.symbolicLinkTarget
