@@ -29,4 +29,3 @@ fun KClass<ParcelFileDescriptor>.modeToFlags(mode: Int): Int {
     }
     return flags
 }
-
