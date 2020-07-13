@@ -32,9 +32,6 @@ internal fun OpenOptions.toDocumentMode(): String =
         if (deleteOnClose) {
             throw UnsupportedOperationException(StandardOpenOption.DELETE_ON_CLOSE.toString())
         }
-        if (sparse) {
-            throw UnsupportedOperationException(StandardOpenOption.SPARSE.toString())
-        }
         if (sync) {
             throw UnsupportedOperationException(StandardOpenOption.SYNC.toString())
         }

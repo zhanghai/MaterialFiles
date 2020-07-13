@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.common
 import java8.nio.file.LinkOption
 import java8.nio.file.OpenOption
 import java8.nio.file.StandardOpenOption
+import java.lang.IllegalArgumentException
 
 class OpenOptions(
     val read: Boolean,
@@ -38,24 +39,43 @@ fun Set<OpenOption>.toOpenOptions(): OpenOptions {
     var dsync = false
     var noFollowLinks = false
     for (option in this) {
-        when {
-            option is StandardOpenOption ->
-                when (option) {
-                    StandardOpenOption.READ -> read = true
-                    StandardOpenOption.WRITE -> write = true
-                    StandardOpenOption.APPEND -> append = true
-                    StandardOpenOption.TRUNCATE_EXISTING -> truncateExisting = true
-                    StandardOpenOption.CREATE -> create = true
-                    StandardOpenOption.CREATE_NEW -> createNew = true
-                    StandardOpenOption.DELETE_ON_CLOSE -> deleteOnClose = true
-                    StandardOpenOption.SPARSE -> sparse = true
-                    StandardOpenOption.SYNC -> sync = true
-                    StandardOpenOption.DSYNC -> dsync = true
-                    else -> throw UnsupportedOperationException(option.toString())
-                }
-            option == LinkOption.NOFOLLOW_LINKS -> noFollowLinks = true
+        when (option) {
+            is StandardOpenOption -> when (option) {
+                StandardOpenOption.READ -> read = true
+                StandardOpenOption.WRITE -> write = true
+                StandardOpenOption.APPEND -> append = true
+                StandardOpenOption.TRUNCATE_EXISTING -> truncateExisting = true
+                StandardOpenOption.CREATE -> create = true
+                StandardOpenOption.CREATE_NEW -> createNew = true
+                StandardOpenOption.DELETE_ON_CLOSE -> deleteOnClose = true
+                StandardOpenOption.SPARSE -> sparse = true
+                StandardOpenOption.SYNC -> sync = true
+                StandardOpenOption.DSYNC -> dsync = true
+                else -> throw UnsupportedOperationException(option.toString())
+            }
+            LinkOption.NOFOLLOW_LINKS -> noFollowLinks = true
             else -> throw UnsupportedOperationException(option.toString())
         }
+    }
+    if (!read && !write) {
+        if (append) {
+            write = true
+        } else {
+            read = true
+        }
+    }
+    if (deleteOnClose) {
+        noFollowLinks = true
+    }
+    check(!(read && append)) { "${StandardOpenOption.READ} + ${StandardOpenOption.APPEND}" }
+    check(!(append && truncateExisting)) {
+        "${StandardOpenOption.APPEND} + ${StandardOpenOption.TRUNCATE_EXISTING}"
+    }
+    if (!write) {
+        append = false
+        truncateExisting = false
+        create = false
+        createNew = false
     }
     return OpenOptions(
         read, write, append, truncateExisting, create, createNew, deleteOnClose, sparse,

@@ -11,9 +11,6 @@ import me.zhanghai.android.files.provider.common.OpenOptions
 import me.zhanghai.android.files.provider.linux.syscall.Constants
 
 internal fun OpenOptions.toLinuxFlags(): Int {
-    if (sparse) {
-        throw UnsupportedOperationException(StandardOpenOption.SPARSE.toString())
-    }
     var flags = if (read && write) {
         OsConstants.O_RDWR
     } else if (write) {
@@ -28,7 +25,7 @@ internal fun OpenOptions.toLinuxFlags(): Int {
         flags = flags or OsConstants.O_TRUNC
     }
     if (createNew) {
-        flags = flags or (OsConstants.O_CREAT or OsConstants.O_EXCL)
+        flags = flags or OsConstants.O_CREAT or OsConstants.O_EXCL
     } else if (create) {
         flags = flags or OsConstants.O_CREAT
     }

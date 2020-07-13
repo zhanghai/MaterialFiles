@@ -330,9 +330,9 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         path: Path,
         vararg options: LinkOption
     ): LinuxFileAttributeView {
-        val linuxPath = path as? LinuxPath ?: throw ProviderMismatchException(path.toString())
+        path as? LinuxPath ?: throw ProviderMismatchException(path.toString())
         val linkOptions = options.toLinkOptions()
-        return LinuxFileAttributeView(linuxPath, linkOptions.noFollowLinks)
+        return LinuxFileAttributeView(path, linkOptions.noFollowLinks)
     }
 
     override fun readAttributes(
