@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.ftpserver
 
 import java8.nio.file.Path
+import java8.nio.file.StandardOpenOption
 import java8.nio.file.attribute.FileTime
 import java8.nio.file.attribute.PosixFileAttributeView
 import me.zhanghai.android.files.provider.common.createDirectory
@@ -31,6 +32,7 @@ import org.apache.ftpserver.usermanager.impl.WriteRequest
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.nio.ByteBuffer
 
 class ProviderFtpFile(
     private val path: Path,
@@ -191,10 +193,19 @@ class ProviderFtpFile(
         return if (offset == 0L) {
             path.newOutputStream()
         } else {
-            val channel = path.newByteChannel()
+            val channel = path.newByteChannel(StandardOpenOption.WRITE)
             var successful = false
             try {
-                channel.position(offset)
+                val size = channel.size()
+                if (offset <= size) {
+                    if (offset < size) {
+                        channel.truncate(offset)
+                    }
+                    channel.position(offset)
+                } else {
+                    channel.position(offset - 1)
+                    channel.write(ByteBuffer.allocate(1))
+                }
                 val outputStream = channel.newOutputStream()
                 successful = true
                 outputStream
