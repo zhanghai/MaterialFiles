@@ -199,9 +199,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val targetBytes = try {
             Syscalls.readlink(linkBytes)
         } catch (e: SyscallException) {
-            if (e.errno == OsConstants.EINVAL) {
-                throw NotLinkException(linkBytes.toString()).apply { initCause(e) }
-            }
+            e.maybeThrowNotLinkException(linkBytes.toString())
             throw e.toFileSystemException(linkBytes.toString())
         }
         return ByteStringPath(targetBytes)

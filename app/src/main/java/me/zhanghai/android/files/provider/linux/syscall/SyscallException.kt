@@ -15,6 +15,7 @@ import java8.nio.file.FileSystemException
 import java8.nio.file.FileSystemLoopException
 import java8.nio.file.NoSuchFileException
 import java8.nio.file.NotDirectoryException
+import java8.nio.file.NotLinkException
 import me.zhanghai.android.files.compat.functionNameCompat
 import me.zhanghai.android.files.provider.common.InvalidFileNameException
 import me.zhanghai.android.files.provider.common.IsDirectoryException
@@ -40,6 +41,14 @@ class SyscallException @JvmOverloads constructor(
 
     @Throws(InvalidFileNameException::class)
     fun maybeThrowInvalidFileNameException(file: String?) {
+        if (errno == OsConstants.EINVAL) {
+            throw InvalidFileNameException(file, null, message)
+                .apply { initCause(this@SyscallException) }
+        }
+    }
+
+    @Throws(NotLinkException::class)
+    fun maybeThrowNotLinkException(file: String?) {
         if (errno == OsConstants.EINVAL) {
             throw InvalidFileNameException(file, null, message)
                 .apply { initCause(this@SyscallException) }
