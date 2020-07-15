@@ -51,15 +51,18 @@ internal object LinuxCopyMove {
             if (!copyOptions.replaceExisting) {
                 throw FileAlreadyExistsException(source.toString(), target.toString(), null)
             }
-            // FIXME: This won't work well when copying symbolic link into somewhere unsupported.
-            //  See what we did in ForeignCopyMove.
-            try {
-                Syscalls.remove(target)
-            } catch (e: SyscallException) {
-                throw e.toFileSystemException(target.toString())
-            }
+            // Symbolic links may not be supported so we cannot simply remove the target here.
         }
         if (OsConstants.S_ISREG(sourceStat.st_mode)) {
+            if (targetStat != null) {
+                try {
+                    Syscalls.remove(target)
+                } catch (e: SyscallException) {
+                    if (e.errno != OsConstants.ENOENT) {
+                        throw e.toFileSystemException(target.toString())
+                    }
+                }
+            }
             val sourceFd = try {
                 Syscalls.open(source, OsConstants.O_RDONLY, 0)
             } catch (e: SyscallException) {
@@ -127,22 +130,18 @@ internal object LinuxCopyMove {
                 }
             }
         } else if (OsConstants.S_ISDIR(sourceStat.st_mode)) {
+            if (targetStat != null) {
+                try {
+                    Syscalls.remove(target)
+                } catch (e: SyscallException) {
+                    if (e.errno != OsConstants.ENOENT) {
+                        throw e.toFileSystemException(target.toString())
+                    }
+                }
+            }
             try {
                 Syscalls.mkdir(target, sourceStat.st_mode)
             } catch (e: SyscallException) {
-                // TODO: We don't need to handle this since we alrady tried to remove the file?
-                if (copyOptions.replaceExisting && e.errno == OsConstants.EEXIST) {
-                    try {
-                        val toStat = Syscalls.lstat(target)
-                        if (!OsConstants.S_ISDIR(toStat.st_mode)) {
-                            Syscalls.remove(target)
-                            Syscalls.mkdir(target, sourceStat.st_mode)
-                        }
-                    } catch (e2: SyscallException) {
-                        e2.addSuppressed(e.toFileSystemException(target.toString()))
-                        throw e2.toFileSystemException(target.toString())
-                    }
-                }
                 e.maybeThrowInvalidFileNameException(target.toString())
                 throw e.toFileSystemException(target.toString())
             }
@@ -156,9 +155,16 @@ internal object LinuxCopyMove {
             try {
                 Syscalls.symlink(sourceTarget, target)
             } catch (e: SyscallException) {
-                if (copyOptions.replaceExisting && e.errno == OsConstants.EEXIST) {
+                if (e.errno == OsConstants.EEXIST && copyOptions.replaceExisting) {
                     try {
                         Syscalls.remove(target)
+                    } catch (e2: SyscallException) {
+                        if (e2.errno != OsConstants.ENOENT) {
+                            e2.addSuppressed(e.toFileSystemException(target.toString()))
+                            throw e2.toFileSystemException(target.toString())
+                        }
+                    }
+                    try {
                         Syscalls.symlink(sourceTarget, target)
                     } catch (e2: SyscallException) {
                         e2.addSuppressed(e.toFileSystemException(target.toString()))
