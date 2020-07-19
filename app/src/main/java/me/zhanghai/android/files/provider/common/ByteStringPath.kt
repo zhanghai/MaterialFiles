@@ -112,13 +112,13 @@ class ByteStringPath(private val byteString: ByteString) : Parcelable, Path {
 
     override fun register(
         watcher: WatchService,
-        events: Array<WatchEvent.Kind<*>?>?,
+        events: Array<WatchEvent.Kind<*>>,
         vararg modifiers: WatchEvent.Modifier
     ): WatchKey {
         throw UnsupportedOperationException()
     }
 
-    override fun register(watcher: WatchService, vararg events: WatchEvent.Kind<*>?): WatchKey {
+    override fun register(watcher: WatchService, vararg events: WatchEvent.Kind<*>): WatchKey {
         throw UnsupportedOperationException()
     }
 

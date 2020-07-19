@@ -96,7 +96,7 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
 
     override fun register(
         watcher: WatchService,
-        events: Array<WatchEvent.Kind<*>?>,
+        events: Array<WatchEvent.Kind<*>>,
         vararg modifiers: WatchEvent.Modifier
     ): WatchKey {
         throw UnsupportedOperationException()

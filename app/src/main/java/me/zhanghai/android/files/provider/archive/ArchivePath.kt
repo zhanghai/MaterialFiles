@@ -71,7 +71,7 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
     @Throws(IOException::class)
     override fun register(
         watcher: WatchService,
-        events: Array<WatchEvent.Kind<*>?>,
+        events: Array<WatchEvent.Kind<*>>,
         vararg modifiers: WatchEvent.Modifier
     ): WatchKey {
         throw UnsupportedOperationException()

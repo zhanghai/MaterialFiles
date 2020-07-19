@@ -71,9 +71,9 @@ internal class LocalLinuxWatchService : AbstractWatchService() {
         poller.close()
     }
 
-    private class Poller constructor(private val watchService: LocalLinuxWatchService) : Thread(
-        "LocalLinuxWatchService.Poller-" + id.getAndIncrement()
-    ), Closeable {
+    private class Poller(
+        private val watchService: LocalLinuxWatchService
+    ) : Thread("LocalLinuxWatchService.Poller-" + id.getAndIncrement()), Closeable {
         private val socketFds: Array<FileDescriptor>
 
         private var inotifyFd: FileDescriptor

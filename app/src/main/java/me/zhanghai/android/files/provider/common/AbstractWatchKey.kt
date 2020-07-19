@@ -18,7 +18,6 @@ abstract class AbstractWatchKey(
 
     private var events = mutableListOf<Event<*>>()
 
-    @JvmField
     protected val lock = Any()
 
     fun <T> addEvent(kind: WatchEvent.Kind<T>, context: T?) {
