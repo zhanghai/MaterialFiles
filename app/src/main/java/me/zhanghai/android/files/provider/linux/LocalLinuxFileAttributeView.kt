@@ -65,10 +65,12 @@ internal class LocalLinuxFileAttributeView(
         lastAccessTime: FileTime?,
         createTime: FileTime?
     ) {
-        if (createTime != null) {
-            throw UnsupportedOperationException("createTime")
-        }
         if (lastAccessTime == null && lastModifiedTime == null) {
+            // Only throw if caller is trying to set only create time, so that foreign copy move can
+            // still set other times.
+            if (createTime != null) {
+                throw UnsupportedOperationException("createTime")
+            }
             return
         }
         val times = arrayOf(lastAccessTime.toTimespec(), lastModifiedTime.toTimespec())

@@ -97,22 +97,22 @@ internal object ForeignCopyMove {
             }
             else -> throw AssertionError()
         }
-        if (copyOptions.copyAttributes) {
-            // We don't take error when copying attribute fatal, so errors will only be logged from
-            // now on.
-            val targetAttributeView = target.getFileAttributeView(
-                BasicFileAttributeView::class.java
-            )!!
-            try {
-                targetAttributeView.setTimes(
-                    sourceAttributes.lastModifiedTime(), sourceAttributes.lastAccessTime(),
-                    sourceAttributes.creationTime()
-                )
-            } catch (e: IOException) {
-                e.printStackTrace()
-            } catch (e: UnsupportedOperationException) {
-                e.printStackTrace()
-            }
+        // We don't take error when copying attribute fatal, so errors will only be logged from
+        // now on.
+        val targetAttributeView = target.getFileAttributeView(BasicFileAttributeView::class.java)!!
+        val lastModifiedTime = sourceAttributes.lastModifiedTime()
+        val lastAccessTime = if (copyOptions.copyAttributes) {
+            sourceAttributes.lastAccessTime()
+        } else {
+            null
+        }
+        val creationTime = if (copyOptions.copyAttributes) sourceAttributes.creationTime() else null
+        try {
+            targetAttributeView.setTimes(lastModifiedTime, lastAccessTime, creationTime)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } catch (e: UnsupportedOperationException) {
+            e.printStackTrace()
         }
     }
 
