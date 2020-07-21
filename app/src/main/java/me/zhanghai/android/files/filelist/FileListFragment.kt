@@ -849,6 +849,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     private fun confirmDeleteFiles(files: FileItemSet) {
         ConfirmDeleteFilesDialogFragment.show(files, this)
+        refresh()
     }
 
     override fun deleteFiles(files: FileItemSet) {
@@ -982,6 +983,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             )
         }
         viewModel.clearPasteState()
+        refresh()
     }
 
     private fun makePathListForJob(files: FileItemSet): List<Path> =
