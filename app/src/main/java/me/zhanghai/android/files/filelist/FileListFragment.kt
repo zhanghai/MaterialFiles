@@ -495,7 +495,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             if (hasFiles) {
                 showToast(error)
             } else {
-                binding.errorText.text = error
+                showToast(error.split("Exception: ")[1])
+                binding.errorText.text = "Unable to gain access."
             }
         }
         binding.emptyView.fadeToVisibilityUnsafe(stateful is Success && !hasFiles)
