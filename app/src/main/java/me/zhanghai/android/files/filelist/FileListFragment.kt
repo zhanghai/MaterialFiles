@@ -493,9 +493,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             throwable.printStackTrace()
             val error = throwable.toString()
             if (hasFiles) {
-                showToast(error)
+                showToast(error.split("Exception: ")[1])
             } else {
-                binding.errorText.text = error
+                showToast(error.split("Exception: ")[1])
+                binding.errorText.text = "Unable to gain access."
             }
         }
         binding.emptyView.fadeToVisibilityUnsafe(stateful is Success && !hasFiles)
