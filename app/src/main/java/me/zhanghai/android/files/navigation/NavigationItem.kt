@@ -14,6 +14,7 @@ import androidx.annotation.StringRes
 import java8.nio.file.Path
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.file.DocumentTreeUri
+import me.zhanghai.android.files.storage.Storage
 
 abstract class NavigationItem {
     abstract val id: Long
@@ -40,8 +41,8 @@ abstract class NavigationItem {
         val currentPath: Path
         fun navigateTo(path: Path)
         fun navigateToRoot(path: Path)
-        fun onAddDocumentTree()
-        fun onRemoveDocumentTree(treeUri: DocumentTreeUri, storageVolume: StorageVolume?)
+        fun onAddStorage()
+        fun onEditStorage(storage: Storage)
         fun onEditBookmarkDirectory(bookmarkDirectory: BookmarkDirectory)
         fun closeNavigationDrawer()
         fun startActivity(intent: Intent)

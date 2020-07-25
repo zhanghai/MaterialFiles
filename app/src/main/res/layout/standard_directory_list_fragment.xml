@@ -34,7 +34,7 @@
 
         <fragment
             android:id="@+id/preferenceFragment"
-            android:name="me.zhanghai.android.files.settings.StandardDirectoriesPreferenceFragment"
+            android:name="me.zhanghai.android.files.settings.StandardDirectoryListPreferenceFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>

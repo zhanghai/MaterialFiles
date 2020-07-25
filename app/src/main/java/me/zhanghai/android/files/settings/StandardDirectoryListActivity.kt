@@ -11,14 +11,16 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import me.zhanghai.android.files.app.AppActivity
 
-class StandardDirectoriesActivity : AppActivity() {
+class StandardDirectoryListActivity : AppActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Calls ensureSubDecor().
         findViewById<View>(android.R.id.content)
         if (savedInstanceState == null) {
-            supportFragmentManager.commit { add<StandardDirectoriesFragment>(android.R.id.content) }
+            supportFragmentManager.commit {
+                add<StandardDirectoryListFragment>(android.R.id.content)
+            }
         }
     }
 }

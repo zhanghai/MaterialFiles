@@ -15,7 +15,9 @@ import me.zhanghai.android.files.compat.RestrictedHiddenApiAccess
 import me.zhanghai.android.files.filejob.fileJobNotificationTemplate
 import me.zhanghai.android.files.ftpserver.ftpServerServiceNotificationTemplate
 import me.zhanghai.android.files.provider.FileSystemProviders
+import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.storage.SmbServerAuthenticator
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper
 import me.zhanghai.android.files.theme.night.NightModeHelper
 
@@ -53,6 +55,7 @@ private fun initializeStetho() {
 private fun initializeFileSystemProviders() {
     FileSystemProviders.install()
     FileSystemProviders.overflowWatchEvents = true
+    Client.authenticator = SmbServerAuthenticator
 }
 
 private fun initializeSettings() {

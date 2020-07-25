@@ -65,6 +65,9 @@ fun Fragment.getQuantityText(@PluralsRes id: Int, quantity: Int): CharSequence =
 
 fun Fragment.getStringArray(@ArrayRes id: Int) = requireContext().getStringArray(id)
 
+fun Fragment.getTextArray(@ArrayRes id: Int): Array<CharSequence> =
+    requireContext().getTextArray(id)
+
 fun Fragment.getBooleanByAttr(@AttrRes attr: Int) = requireContext().getBooleanByAttr(attr)
 
 @ColorInt

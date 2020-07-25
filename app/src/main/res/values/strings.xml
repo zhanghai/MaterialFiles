@@ -10,7 +10,6 @@
     <string name="app_name">Material Files</string>
 
     <string name="close">Close</string>
-    <string name="connect">Connect</string>
     <string name="copy">Copy</string>
     <string name="cut">Cut</string>
     <string name="default_">Default</string>
@@ -466,24 +465,39 @@
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_past_signature_digests">Old signatures</string>
 
-    <string name="storage_add_smb_server_title">Add SMB server</string>
-    <string name="storage_add_smb_server_hostname">Hostname</string>
-    <string name="storage_add_smb_server_hostname_empty_error">Enter a hostname</string>
-    <string name="storage_add_smb_server_port">Port</string>
-    <string name="storage_add_smb_server_port_default_value" translatable="false">445</string>
-    <string name="storage_add_smb_server_port_error">Invalid port</string>
-    <string name="storage_add_smb_server_name">Name</string>
-    <string name="storage_add_smb_server_username">Username</string>
-    <string name="storage_add_smb_server_username_empty_error">Enter a username</string>
-    <string name="storage_add_smb_server_password">Password</string>
-    <string name="storage_add_smb_server_password_empty_error">Enter a password</string>
-    <string name="storage_add_smb_server_domain">Domain</string>
-    <string name="storage_add_smb_server_share">Share</string>
+    <string name="storage_list_title">Storage</string>
+    <string name="storage_list_empty">No storage</string>
+    <string name="storage_add_storage_title">Add storage</string>
+    <string name="storage_add_storage_document_tree">External storage</string>
+    <string name="storage_add_storage_smb_server">SMB server</string>
+    <string name="storage_add_document_tree_title">Add external storage</string>
+    <string name="storage_confirm_remove_document_tree_format">Remove “%1$s”?</string>
+    <string name="storage_edit_smb_server_title_edit">Edit SMB server</string>
+    <string name="storage_edit_smb_server_title_add">Add SMB server</string>
+    <string name="storage_edit_smb_server_host">Hostname</string>
+    <string name="storage_edit_smb_server_host_empty_error">Enter a hostname</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
+    <string name="storage_edit_smb_server_port_error">Invalid port</string>
+    <string name="storage_edit_smb_server_name">Name</string>
+    <string name="storage_edit_smb_server_name_placeholder">Use hostname</string>
+    <string name="storage_edit_smb_server_authentication_type">Authentication</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Password</item>
+        <item>Guest</item>
+        <item>Anonymous</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Username</string>
+    <string name="storage_edit_smb_server_username_empty_error">Enter a username</string>
+    <string name="storage_edit_smb_server_password">Password</string>
+    <string name="storage_edit_smb_server_password_empty_error">Enter a password</string>
+    <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_connect_and_add">Connect and add</string>
+    <string name="storage_edit_smb_server_add">Add directly</string>
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>
-    <string name="navigation_add_document_tree">Add external storage…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Remove external storage “%1$s”?</string>
+    <string name="navigation_add_storage">Add storage…</string>
     <string name="navigation_standard_directory_alarms">Alarms</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documents</string>
@@ -557,12 +571,16 @@
     </string-array>
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_default_directory_title">Default folder</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Standard folders</string>
     <string name="settings_standard_directories_summary_empty">No standard folders enabled</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Screenshots</string>
     <string name="settings_bookmark_directories_title">Bookmark folders</string>
     <string name="settings_bookmark_directories_summary_empty">No bookmark folders</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root access mode</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">You have %1$,d file operation running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>

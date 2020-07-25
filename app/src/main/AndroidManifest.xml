@@ -139,8 +139,18 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
-            android:name="me.zhanghai.android.files.storage.AddSmbServerActivity"
-            android:label="@string/storage_add_smb_server_title"
+            android:name="me.zhanghai.android.files.storage.AddStorageDialogActivity"
+            android:label="@string/storage_add_storage_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
+            android:name="me.zhanghai.android.files.storage.AddDocumentTreeActivity"
+            android:label="@string/storage_add_document_tree_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
+            android:name="me.zhanghai.android.files.storage.EditSmbServerActivity"
+            android:label="@string/storage_edit_smb_server_title_edit"
             android:theme="@style/Theme.MaterialFiles" />
 
         <activity
@@ -176,8 +186,8 @@
         </activity>
 
         <activity
-            android:name="me.zhanghai.android.files.settings.StandardDirectoriesActivity"
-            android:label="@string/settings_standard_directories_title"
+            android:name="me.zhanghai.android.files.storage.StorageListActivity"
+            android:label="@string/storage_list_title"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MaterialFiles">
             <meta-data
@@ -186,8 +196,18 @@
         </activity>
 
         <activity
-            android:name="me.zhanghai.android.files.settings.BookmarkDirectoriesActivity"
-            android:label="@string/settings_bookmark_directories_title"
+            android:name="me.zhanghai.android.files.settings.StandardDirectoryListActivity"
+            android:label="@string/settings_standard_directory_list_title"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MaterialFiles">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="me.zhanghai.android.files.settings.SettingsActivity" />
+        </activity>
+
+        <activity
+            android:name="me.zhanghai.android.files.settings.BookmarkDirectoryListActivity"
+            android:label="@string/settings_bookmark_directory_list_title"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MaterialFiles">
             <meta-data

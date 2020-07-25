@@ -13,8 +13,12 @@ import androidx.annotation.StringRes
 import androidx.core.content.edit
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.PreferenceManagerCompat
+import me.zhanghai.android.files.compat.getDescriptionCompat
 import me.zhanghai.android.files.compat.writeBooleanCompat
 import me.zhanghai.android.files.compat.writeParcelableListCompat
+import me.zhanghai.android.files.file.DocumentTreeUri
+import me.zhanghai.android.files.file.displayName
+import me.zhanghai.android.files.file.storageVolume
 import me.zhanghai.android.files.filelist.FileSortOptions
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
@@ -24,6 +28,7 @@ import me.zhanghai.android.files.provider.common.moveToByteString
 import me.zhanghai.android.files.provider.content.ContentFileSystem
 import me.zhanghai.android.files.provider.document.DocumentFileSystem
 import me.zhanghai.android.files.provider.linux.LinuxFileSystem
+import me.zhanghai.android.files.storage.DocumentTree
 import me.zhanghai.android.files.util.asBase64
 import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.toBase64
@@ -213,3 +218,22 @@ private val pathSharedPreferences: SharedPreferences
         val mode = PreferenceManagerCompat.defaultSharedPreferencesMode
         return application.getSharedPreferences(name, mode)
     }
+
+internal fun upgradeAppTo1_2_0(lastVersionCode: Int) {
+    migrateStoragesSetting()
+}
+
+private fun migrateStoragesSetting() {
+    val key = application.getString(R.string.pref_key_storages)
+    val storages = DocumentTreeUri.persistedUris.map {
+        DocumentTree(
+            null, it.storageVolume?.getDescriptionCompat(application) ?: it.displayName
+                ?: it.value.toString(), it
+        )
+    }
+    val bytes = Parcel.obtain().use { parcel ->
+        parcel.writeValue(storages)
+        parcel.marshall()
+    }
+    defaultSharedPreferences.edit { putString(key, bytes.toBase64().value) }
+}

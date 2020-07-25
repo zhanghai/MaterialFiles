@@ -369,10 +369,39 @@
     <string name="file_properties_apk_signature_digests">签名</string>
     <string name="file_properties_apk_past_signature_digests">旧签名</string>
 
+    <string name="storage_list_title">存储</string>
+    <string name="storage_list_empty">无存储</string>
+    <string name="storage_add_storage_title">添加存储</string>
+    <string name="storage_add_storage_document_tree">外部存储</string>
+    <string name="storage_add_storage_smb_server">SMB 服务器</string>
+    <string name="storage_add_document_tree_title">添加外部存储</string>
+    <string name="storage_confirm_remove_document_tree_format">移除“%1$s”？</string>
+    <string name="storage_edit_smb_server_title_edit">编辑 SMB 服务器</string>
+    <string name="storage_edit_smb_server_title_add">添加 SMB 服务器</string>
+    <string name="storage_edit_smb_server_host">主机名</string>
+    <string name="storage_edit_smb_server_host_empty_error">输入主机名</string>
+    <string name="storage_edit_smb_server_port">端口</string>
+    <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
+    <string name="storage_edit_smb_server_port_error">无效端口</string>
+    <string name="storage_edit_smb_server_name">名称</string>
+    <string name="storage_edit_smb_server_name_placeholder">使用主机名</string>
+    <string name="storage_edit_smb_server_authentication_type">验证</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>密码</item>
+        <item>来宾</item>
+        <item>匿名</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">用户名</string>
+    <string name="storage_edit_smb_server_username_empty_error">输入用户名</string>
+    <string name="storage_edit_smb_server_password">密码</string>
+    <string name="storage_edit_smb_server_password_empty_error">输入密码</string>
+    <string name="storage_edit_smb_server_domain">域</string>
+    <string name="storage_edit_smb_server_connect_and_add">连接并添加</string>
+    <string name="storage_edit_smb_server_add">直接添加</string>
+
     <string name="navigation_root_directory">根目录</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩余 %1$s</string>
-    <string name="navigation_add_document_tree">添加外部存储…</string>
-    <string name="navigation_confirm_remove_document_tree_format">移除外部存储“%1$s”？</string>
+    <string name="navigation_add_storage">添加存储…</string>
     <string name="navigation_standard_directory_alarms">闹钟</string>
     <string name="navigation_standard_directory_dcim">相片</string>
     <string name="navigation_standard_directory_documents">文档</string>
@@ -451,7 +480,7 @@
     <string name="settings_bookmark_directory_screenshots">屏幕截图</string>
     <string name="settings_bookmark_directories_title">书签文件夹</string>
     <string name="settings_bookmark_directories_summary_empty">无书签文件夹</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 访问模式</string>
     <string-array name="settings_root_strategy_entries">
         <item>仅普通访问</item>

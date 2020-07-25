@@ -17,11 +17,15 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
 import me.zhanghai.android.files.provider.root.RootStrategy
+import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.theme.custom.ThemeColor
 import me.zhanghai.android.files.theme.night.NightMode
 import java.io.File
 
 object Settings {
+    val STORAGES: SettingLiveData<List<Storage>> =
+        ParcelValueSettingLiveData(R.string.pref_key_storages, emptyList())
+
     val FILE_LIST_DEFAULT_DIRECTORY: SettingLiveData<Path> =
         ParcelValueSettingLiveData(
             R.string.pref_key_file_list_default_directory,

@@ -80,6 +80,8 @@ fun Context.getQuantityText(@PluralsRes id: Int, quantity: Int): CharSequence =
 
 fun Context.getStringArray(@ArrayRes id: Int): Array<String> = resources.getStringArray(id)
 
+fun Context.getTextArray(@ArrayRes id: Int): Array<CharSequence> = resources.getTextArray(id)
+
 @SuppressLint("RestrictedApi")
 fun Context.getBooleanByAttr(@AttrRes attr: Int): Boolean =
     obtainStyledAttributesCompat(attrs = intArrayOf(attr)).use { it.getBoolean(0, false) }

@@ -3,10 +3,8 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.settings
+package me.zhanghai.android.files.storage
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.drawable.NinePatchDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,23 +18,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
-import java8.nio.file.Path
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.databinding.BookmarkDirectoriesFragmentBinding
-import me.zhanghai.android.files.filelist.FileListActivity
-import me.zhanghai.android.files.navigation.BookmarkDirectories
-import me.zhanghai.android.files.navigation.BookmarkDirectory
-import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
-import me.zhanghai.android.files.util.extraPath
+import me.zhanghai.android.files.databinding.StorageListFragmentBinding
+import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.getDrawable
-import me.zhanghai.android.files.util.startActivityForResultSafe
 
-class BookmarkDirectoriesFragment : Fragment(), BookmarkDirectoryAdapter.Listener,
-    EditBookmarkDirectoryDialogFragment.Listener {
-    private lateinit var binding: BookmarkDirectoriesFragmentBinding
+class StorageListFragment : Fragment(), StorageAdapter.Listener {
+    private lateinit var binding: StorageListFragmentBinding
 
-    private lateinit var adapter: BookmarkDirectoryAdapter
+    private lateinit var adapter: StorageAdapter
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
 
@@ -51,7 +42,7 @@ class BookmarkDirectoriesFragment : Fragment(), BookmarkDirectoryAdapter.Listene
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View =
-        BookmarkDirectoriesFragmentBinding.inflate(inflater, container, false)
+        StorageListFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root
 
@@ -63,7 +54,7 @@ class BookmarkDirectoriesFragment : Fragment(), BookmarkDirectoryAdapter.Listene
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        adapter = BookmarkDirectoryAdapter(this)
+        adapter = StorageAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
                 getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable
@@ -73,11 +64,9 @@ class BookmarkDirectoriesFragment : Fragment(), BookmarkDirectoryAdapter.Listene
         binding.recyclerView.adapter = wrappedAdapter
         binding.recyclerView.itemAnimator = DraggableItemAnimator()
         dragDropManager.attachRecyclerView(binding.recyclerView)
-        binding.fab.setOnClickListener { onAddBookmarkDirectory() }
+        binding.fab.setOnClickListener { onAddStorage() }
 
-        Settings.BOOKMARK_DIRECTORIES.observe(viewLifecycleOwner) {
-            onBookmarkDirectoriesChanged(it)
-        }
+        Settings.STORAGES.observe(viewLifecycleOwner) { onStorageListChanged(it) }
     }
 
     override fun onPause() {
@@ -106,47 +95,23 @@ class BookmarkDirectoriesFragment : Fragment(), BookmarkDirectoryAdapter.Listene
             else -> super.onOptionsItemSelected(item)
         }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_PICK_DIRECTORY ->
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.extraPath?.let { addBookmarkDirectory(it) }
-                }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
+    private fun onStorageListChanged(storages: List<Storage>) {
+        binding.emptyView.fadeToVisibilityUnsafe(storages.isEmpty())
+        adapter.replace(storages)
     }
 
-    private fun onBookmarkDirectoriesChanged(bookmarkDirectories: List<BookmarkDirectory>) {
-        binding.emptyView.fadeToVisibilityUnsafe(bookmarkDirectories.isEmpty())
-        adapter.replace(bookmarkDirectories)
+    private fun onAddStorage() {
+        // TODO
+        //val intent = FileListActivity.createPickDirectoryIntent(null)
+        //startActivityForResultSafe(intent, REQUEST_CODE_ADD_STORAGE)
     }
 
-    private fun onAddBookmarkDirectory() {
-        val intent = FileListActivity.createPickDirectoryIntent(null)
-        startActivityForResultSafe(intent, REQUEST_CODE_PICK_DIRECTORY)
+    override fun editStorage(storage: Storage) {
+        // TODO
+        //EditStorageDialogFragment.show(storage, this)
     }
 
-    private fun addBookmarkDirectory(path: Path) {
-        BookmarkDirectories.add(BookmarkDirectory(null, path))
-    }
-
-    override fun editBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        EditBookmarkDirectoryDialogFragment.show(bookmarkDirectory, this)
-    }
-
-    override fun moveBookmarkDirectory(fromPosition: Int, toPosition: Int) {
-        BookmarkDirectories.move(fromPosition, toPosition)
-    }
-
-    override fun replaceBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        BookmarkDirectories.replace(bookmarkDirectory)
-    }
-
-    override fun removeBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        BookmarkDirectories.remove(bookmarkDirectory)
-    }
-
-    companion object {
-        private const val REQUEST_CODE_PICK_DIRECTORY = 1
+    override fun moveStorage(fromPosition: Int, toPosition: Int) {
+        Storages.move(fromPosition, toPosition)
     }
 }

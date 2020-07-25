@@ -5,10 +5,7 @@
 
 package me.zhanghai.android.files.navigation
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.os.storage.StorageVolume
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,16 +16,16 @@ import java8.nio.file.Path
 import me.zhanghai.android.files.databinding.NavigationFragmentBinding
 import me.zhanghai.android.files.file.DocumentTreeUri
 import me.zhanghai.android.files.file.asDocumentTreeUri
-import me.zhanghai.android.files.file.asDocumentTreeUriOrNull
 import me.zhanghai.android.files.file.releasePersistablePermission
-import me.zhanghai.android.files.file.takePersistablePermission
 import me.zhanghai.android.files.provider.document.documentTreeUri
 import me.zhanghai.android.files.provider.document.isDocumentPath
-import me.zhanghai.android.files.storage.AddSmbServerActivity
+import me.zhanghai.android.files.storage.AddStorageDialogActivity
+import me.zhanghai.android.files.storage.Storage
+import me.zhanghai.android.files.storage.Storages
 import me.zhanghai.android.files.util.createIntent
 
 class NavigationFragment : Fragment(), NavigationItem.Listener,
-    ConfirmRemoveDocumentTreeDialogFragment.Listener, EditBookmarkDirectoryDialogFragment.Listener {
+    EditBookmarkDirectoryDialogFragment.Listener {
     private lateinit var binding: NavigationFragmentBinding
 
     private lateinit var adapter: NavigationListAdapter
@@ -60,16 +57,6 @@ class NavigationFragment : Fragment(), NavigationItem.Listener,
         listener.observeCurrentPath(viewLifecycleOwner) { onCurrentPathChanged(it) }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_OPEN_DOCUMENT_TREE ->
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.data?.asDocumentTreeUriOrNull()?.let { addDocumentTree(it) }
-                }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun onNavigationItemsChanged(navigationItems: List<NavigationItem?>) {
         adapter.replace(navigationItems)
     }
@@ -89,22 +76,20 @@ class NavigationFragment : Fragment(), NavigationItem.Listener,
         listener.navigateToRoot(path)
     }
 
-    override fun onAddDocumentTree() {
-        startActivity(AddSmbServerActivity::class.createIntent())
-//        startActivityForResultSafe(
-//            DocumentTreeUri.createOpenIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE
-//        )
+    override fun onAddStorage() {
+        startActivity(AddStorageDialogActivity::class.createIntent())
     }
 
-    private fun addDocumentTree(treeUri: DocumentTreeUri) {
-        treeUri.takePersistablePermission()
+    override fun onEditStorage(storage: Storage) {
+        // TODO
+        //ConfirmRemoveDocumentTreeDialogFragment.show(treeUri, storageVolume, this)
+        // For debugging
+        Storages.remove(storage)
     }
 
-    override fun onRemoveDocumentTree(treeUri: DocumentTreeUri, storageVolume: StorageVolume?) {
-        ConfirmRemoveDocumentTreeDialogFragment.show(treeUri, storageVolume, this)
-    }
-
-    override fun removeDocumentTree(treeUri: DocumentTreeUri) {
+    // TODO
+    // FIXME: Navigate away on async storage removal
+    fun removeDocumentTree(treeUri: DocumentTreeUri) {
         treeUri.releasePersistablePermission()
         val currentPath = listener.currentPath
         if (currentPath.isDocumentPath
@@ -136,9 +121,5 @@ class NavigationFragment : Fragment(), NavigationItem.Listener,
         fun navigateToDefaultRoot()
         fun observeCurrentPath(owner: LifecycleOwner, observer: (Path) -> Unit)
         fun closeNavigationDrawer()
-    }
-
-    companion object {
-        private const val REQUEST_CODE_OPEN_DOCUMENT_TREE = 1
     }
 }

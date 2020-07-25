@@ -17,4 +17,12 @@ data class Authentication(
 ) : Parcelable {
     fun toContext(): AuthenticationContext =
         AuthenticationContext(username, password.toCharArray(), domain)
+
+    companion object {
+        val GUEST = AuthenticationContext.guest().toAuthentication()
+        val ANONYMOUS = AuthenticationContext.anonymous().toAuthentication()
+
+        private fun AuthenticationContext.toAuthentication(): Authentication =
+            Authentication(username, password.concatToString(), domain)
+    }
 }

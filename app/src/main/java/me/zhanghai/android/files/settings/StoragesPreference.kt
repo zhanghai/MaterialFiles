@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
@@ -15,13 +15,15 @@ import androidx.lifecycle.Observer
 import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import me.zhanghai.android.files.compat.ListFormatterCompat
-import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData
-import me.zhanghai.android.files.navigation.StandardDirectory
+import me.zhanghai.android.files.storage.Storage
+import me.zhanghai.android.files.storage.StorageListActivity
 import me.zhanghai.android.files.util.createIntent
+import me.zhanghai.android.files.util.startActivitySafe
 
-class StandardDirectoriesPreference : Preference {
-    private val observer = Observer<List<StandardDirectory>> { onStandardDirectoriesChanged(it) }
+class StoragesPreference : Preference {
     private var emptySummary = summary
+
+    private val observer = Observer<List<Storage>> { onStorageListChanged(it) }
 
     constructor(context: Context) : super(context)
 
@@ -45,19 +47,18 @@ class StandardDirectoriesPreference : Preference {
     override fun onAttached() {
         super.onAttached()
 
-        StandardDirectoriesLiveData.observeForever(observer)
+        Settings.STORAGES.observeForever(observer)
     }
 
     override fun onDetached() {
         super.onDetached()
 
-        StandardDirectoriesLiveData.removeObserver(observer)
+        Settings.STORAGES.removeObserver(observer)
     }
 
-    private fun onStandardDirectoriesChanged(standardDirectories: List<StandardDirectory>) {
-        val context = context
-        val titles = standardDirectories.filter { it.isEnabled }.map { it.getTitle(context) }
-        val summary = if (titles.isNotEmpty()) ListFormatterCompat.format(titles) else emptySummary
+    private fun onStorageListChanged(storages: List<Storage>) {
+        val names = storages.map { it.name }
+        val summary = if (names.isNotEmpty()) ListFormatterCompat.format(names) else emptySummary
         setSummary(summary)
     }
 
@@ -70,6 +71,6 @@ class StandardDirectoriesPreference : Preference {
     }
 
     override fun onClick() {
-        context.startActivity(StandardDirectoryListActivity::class.createIntent())
+        context.startActivitySafe(StorageListActivity::class.createIntent())
     }
 }

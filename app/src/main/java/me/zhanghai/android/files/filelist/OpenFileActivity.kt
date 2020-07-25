@@ -14,6 +14,7 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.file.fileProviderUri
 import me.zhanghai.android.files.filejob.FileJobService
+import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.util.createViewIntent
@@ -34,13 +35,13 @@ class OpenFileActivity : AppActivity() {
     }
 
     private fun openFile(path: Path, mimeType: MimeType) {
-        if (path.isLinuxPath || path.isDocumentPath) {
+        if (path.isArchivePath) {
+            FileJobService.open(path, mimeType, false, this)
+        } else {
             val intent = path.fileProviderUri.createViewIntent(mimeType)
                 .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 .apply { extraPath = path }
             startActivitySafe(intent)
-        } else {
-            FileJobService.open(path, mimeType, false, this)
         }
     }
 

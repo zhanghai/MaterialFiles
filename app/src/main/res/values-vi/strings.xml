@@ -369,8 +369,7 @@
 
     <string name="navigation_root_directory">Gốc</string>
     <string name="navigation_root_subtitle_format">Còn trống %1$s trên %2$s</string>
-    <string name="navigation_add_document_tree">Thêm vùng lưu trữ ngoài…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Gỡ bỏ vùng lưu trữ ngoài “%1$s”?</string>
+    <string name="navigation_add_storage">Thêm vùng lưu trữ ngoài…</string>
     <string name="navigation_standard_directory_alarms">Âm báo thức</string>
     <string name="navigation_standard_directory_dcim">Máy ảnh</string>
     <string name="navigation_standard_directory_documents">Tài liệu</string>
@@ -439,7 +438,7 @@
     <string name="settings_bookmark_directory_screenshots">Ảnh chụp màn hình</string>
     <string name="settings_bookmark_directories_title">Đánh dấu thư mục</string>
     <string name="settings_bookmark_directories_summary_empty">Không có thư mục nào được đánh dấu</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Chế độ truy cập root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="other">Bạn có %1$,d thao tác đang chạy, thay đổi chế độ root có thể gây ra lỗi. Bạn có chắc chắn muốn thay đổi ngay không?</item>

@@ -51,6 +51,10 @@
             android:title="@string/settings_default_directory_title"
             app:useSimpleSummaryProvider="true" />
 
+        <me.zhanghai.android.files.settings.StoragesPreference
+            android:title="@string/settings_storages_title"
+            android:summary="@string/settings_storages_summary_empty" />
+
         <me.zhanghai.android.files.settings.StandardDirectoriesPreference
             android:title="@string/settings_standard_directories_title"
             android:summary="@string/settings_standard_directories_summary_empty" />

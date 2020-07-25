@@ -12,10 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import me.zhanghai.android.files.databinding.StandardDirectoriesFragmentBinding
+import me.zhanghai.android.files.databinding.StandardDirectoryListFragmentBinding
 
-class StandardDirectoriesFragment : Fragment() {
-    private lateinit var binding: StandardDirectoriesFragmentBinding
+class StandardDirectoryListFragment : Fragment() {
+    private lateinit var binding: StandardDirectoryListFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class StandardDirectoriesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View =
-        StandardDirectoriesFragmentBinding.inflate(inflater, container, false)
+        StandardDirectoryListFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root
 

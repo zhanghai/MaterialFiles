@@ -344,8 +344,7 @@
 
     <string name="navigation_root_directory">Erroa</string>
     <string name="navigation_root_subtitle_format">%1$s libre %2$s guztira</string>
-    <string name="navigation_add_document_tree">Gehitu kanpoko biltegiratzea…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Kendu \"%1$s\" kanpo biltegia?</string>
+    <string name="navigation_add_storage">Gehitu kanpoko biltegiratzea…</string>
     <string name="navigation_standard_directory_alarms">Alarmak</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumentuak</string>
@@ -414,7 +413,7 @@
     <string name="settings_bookmark_directory_screenshots">Pantaila-argazkiak</string>
     <string name="settings_bookmark_directories_title">Karpeten laster-markak</string>
     <string name="settings_bookmark_directories_summary_empty">Karpeten laster-markarik ez</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root sarbidea modua</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Eragiketa %1$,d duzu abian eta root sarbide modua orain aldatzeak ustekabeko errorea sortu dezake. Ziur orain aldatu nahi duzula?</item>

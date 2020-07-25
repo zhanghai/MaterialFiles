@@ -5,14 +5,20 @@
 
 package me.zhanghai.android.files.file
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
+import android.os.storage.StorageVolume
 import android.provider.DocumentsContract
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.app.contentResolver
+import me.zhanghai.android.files.app.storageManager
 import me.zhanghai.android.files.compat.DocumentsContractCompat
-import me.zhanghai.android.files.navigation.DocumentTreesLiveData
+import me.zhanghai.android.files.compat.createOpenDocumentTreeIntentCompat
+import me.zhanghai.android.files.compat.getDescriptionCompat
+import me.zhanghai.android.files.compat.storageVolumesCompat
+import me.zhanghai.android.files.util.getParcelableExtraSafe
 import me.zhanghai.android.files.util.releasePersistablePermission
 import me.zhanghai.android.files.util.takePersistablePermission
 
@@ -37,9 +43,7 @@ data class DocumentTreeUri(val value: Uri): Parcelable {
 }
 
 fun Uri.asDocumentTreeUriOrNull(): DocumentTreeUri? =
-    if (isDocumentTreeUri) DocumentTreeUri(
-        this
-    ) else null
+    if (isDocumentTreeUri) DocumentTreeUri(this) else null
 
 fun Uri.asDocumentTreeUri(): DocumentTreeUri {
     check(isDocumentTreeUri)
@@ -55,25 +59,28 @@ fun DocumentTreeUri.buildDocumentUri(documentId: String): DocumentUri =
 val DocumentTreeUri.displayName: String?
     get() = buildDocumentUri(documentId).displayName
 
-val DocumentTreeUri.displayNameOrUri: String
-    get() = displayName ?: value.toString()
-
 fun DocumentTreeUri.takePersistablePermission(): Boolean =
-    if (value.takePersistablePermission(
-            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        ) || value.takePersistablePermission(Intent.FLAG_GRANT_READ_URI_PERMISSION)) {
-        DocumentTreesLiveData.loadValue()
-        true
-    } else {
-        false
-    }
+    value.takePersistablePermission(
+        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+    ) || value.takePersistablePermission(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
 fun DocumentTreeUri.releasePersistablePermission(): Boolean =
-    if (value.releasePersistablePermission(
-            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-        )) {
-        DocumentTreesLiveData.loadValue()
-        true
-    } else {
-        false
+    value.releasePersistablePermission(
+        Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+    )
+
+val StorageVolume.documentTreeUri: DocumentTreeUri
+    get() {
+        val intent = createOpenDocumentTreeIntentCompat()
+        val rootUri = intent.getParcelableExtraSafe<Uri>(
+            DocumentsContractCompat.EXTRA_INITIAL_URI
+        )!!
+        // @see com.android.externalstorage.ExternalStorageProvider#getDocIdForFile(File)
+        // @see com.android.documentsui.picker.ConfirmFragment#onCreateDialog(Bundle)
+        return DocumentsContract.buildTreeDocumentUri(
+            rootUri.authority, "${DocumentsContract.getRootId(rootUri)}:"
+        ).asDocumentTreeUri()
     }
+
+val DocumentTreeUri.storageVolume: StorageVolume?
+    get() = storageManager.storageVolumesCompat.find { it.documentTreeUri == this }

@@ -1035,18 +1035,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override fun installApk(file: FileItem) {
         val path = file.path
         val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (path.isLinuxPath || path.isDocumentPath) {
-                path.fileProviderUri
-            } else {
-                null
-            }
+            if (!path.isArchivePath) path.fileProviderUri else null
         } else {
             // PackageInstaller only supports file URI before N.
-            if (path.isLinuxPath) {
-                Uri.fromFile(path.toFile())
-            } else {
-                null
-            }
+            if (path.isLinuxPath) Uri.fromFile(path.toFile()) else null
         }
         if (uri != null) {
             startActivitySafe(uri.createInstallPackageIntent())
@@ -1066,7 +1058,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun openFileWithIntent(file: FileItem, withChooser: Boolean) {
         val path = file.path
         val mimeType = file.mimeType
-        if (path.isLinuxPath || path.isDocumentPath) {
+        if (path.isArchivePath) {
+            FileJobService.open(path, mimeType, withChooser, requireContext())
+        } else {
             val intent = path.fileProviderUri.createViewIntent(mimeType)
                 .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 .apply {
@@ -1084,8 +1078,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     }
                 }
             startActivitySafe(intent)
-        } else {
-            FileJobService.open(path, mimeType, withChooser, requireContext())
         }
     }
 
