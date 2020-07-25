@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.smb.client
 
-object Authenticator {
-    // TODO
-    fun getAuthentication(authority: Authority): Authentication? = null
+interface Authenticator {
+    fun getAuthentication(authority: Authority): Authentication?
 }

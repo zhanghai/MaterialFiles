@@ -54,6 +54,7 @@ internal class SmbWatchService : AbstractWatchService() {
             } else {
                 notifier = Notifier(this, path, kindSet)
                 notifiers[path] = notifier
+                notifier.start()
             }
             return notifier.key
         }
@@ -129,16 +130,16 @@ internal class SmbWatchService : AbstractWatchService() {
                         NtStatus.STATUS_SUCCESS.value -> {
                             if (FileSystemProviders.overflowWatchEvents) {
                                 key.addEvent(StandardWatchEventKinds.OVERFLOW, null)
-                                continue@loop
-                            }
-                            for (fileNotifyInfo in response.fileNotifyInfoList) {
-                                val kind = fileNotifyInfo.action.toEventKind()
-                                if (kind !in kinds) {
-                                    continue
+                            } else {
+                                for (fileNotifyInfo in response.fileNotifyInfoList) {
+                                    val kind = fileNotifyInfo.action.toEventKind()
+                                    if (kind !in kinds) {
+                                        continue
+                                    }
+                                    val name = key.watchable().fileSystem
+                                        .getPath(fileNotifyInfo.fileName)
+                                    key.addEvent(kind, name)
                                 }
-                                val name = key.watchable().fileSystem
-                                    .getPath(fileNotifyInfo.fileName)
-                                key.addEvent(kind, name)
                             }
                         }
                         else ->
@@ -156,7 +157,11 @@ internal class SmbWatchService : AbstractWatchService() {
                 }
                 watchService.removeNotifier(this)
             } finally {
-                future.cancel(true)
+                // FIXME: We should cancel the CHANGE_NOTIFY request, but it currently crashes SMBJ.
+                // https://github.com/hierynomus/smbj/issues/572
+                // com.hierynomus.smbj.common.SMBRuntimeException:
+                // Unknown SMB2 Message Command type: SMB2_CANCEL
+                //future.cancel(true)
                 directory.closeSafe()
             }
         }
@@ -179,7 +184,8 @@ internal class SmbWatchService : AbstractWatchService() {
                 SMB2CompletionFilter.FILE_NOTIFY_CHANGE_ATTRIBUTES,
                 SMB2CompletionFilter.FILE_NOTIFY_CHANGE_SIZE,
                 SMB2CompletionFilter.FILE_NOTIFY_CHANGE_LAST_WRITE,
-                SMB2CompletionFilter.FILE_NOTIFY_CHANGE_LAST_ACCESS,
+                // We don't care about last access time and it might change too frequently.
+                //SMB2CompletionFilter.FILE_NOTIFY_CHANGE_LAST_ACCESS,
                 SMB2CompletionFilter.FILE_NOTIFY_CHANGE_CREATION,
                 SMB2CompletionFilter.FILE_NOTIFY_CHANGE_EA,
                 SMB2CompletionFilter.FILE_NOTIFY_CHANGE_SECURITY

@@ -46,6 +46,9 @@ import java.util.WeakHashMap
 import java.util.concurrent.Future
 
 object Client {
+    @Volatile
+    lateinit var authenticator: Authenticator
+
     private val client = SMBClient()
 
     private val sessions = mutableMapOf<Authority, Session>()
@@ -91,13 +94,17 @@ object Client {
             }
             val serverService = ServerService(transport)
             val netShareInfos = try {
-                serverService.shares0
+                serverService.shares1
             } catch (e: IOException) {
                 throw ClientException(e)
             } catch (e: SMBRuntimeException) {
                 throw ClientException(e)
             }
-            val sharePaths = netShareInfos.map { path.resolve(it.netName) }
+            val sharePaths = netShareInfos.mapNotNull {
+                if (!it.type.hasBits(ShareTypes.STYPE_IPC.value)) path.resolve(it.netName) else {
+                    null
+                }
+            }
             return object : CloseableIterator<Path>, Iterator<Path> by sharePaths.iterator() {
                 override fun close() {}
             }
@@ -108,7 +115,7 @@ object Client {
                     sharePath.path, EnumSet.of(
                         AccessMask.FILE_LIST_DIRECTORY, AccessMask.FILE_READ_ATTRIBUTES,
                         AccessMask.FILE_READ_EA
-                    ), emptySet(), SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, emptySet()
+                    ), null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, null
                 )
             } catch (e: SMBRuntimeException) {
                 throw ClientException(e)
@@ -132,7 +139,7 @@ object Client {
     // @see https://gitlab.com/samba-team/devel/samba/-/blob/master/source3/libsmb/cli_smb2_fnum.c
     // cli_smb2_mkdir_send
     @Throws(ClientException::class)
-    fun createDirectory(path: Path, fileAttributes: Set<FileAttributes> = emptySet()) {
+    fun createDirectory(path: Path, fileAttributes: Set<FileAttributes>? = null) {
         val sharePath = path.sharePath ?: throw ClientException("$path does not have a share path")
         val session = getSession(path.authority)
         val share = getDiskShare(session, sharePath.name)
@@ -141,10 +148,9 @@ object Client {
                 sharePath.path,
                 EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA),
                 EnumSet.of(FileAttributes.FILE_ATTRIBUTE_DIRECTORY)
-                    .apply { addAll(fileAttributes) }, SMB2ShareAccess.ALL,
-                SMB2CreateDisposition.FILE_CREATE, EnumSet.of(
-                    SMB2CreateOptions.FILE_OPEN_REPARSE_POINT
-                )
+                    .apply { fileAttributes?.let { addAll(it) } }, SMB2ShareAccess.ALL,
+                SMB2CreateDisposition.FILE_CREATE,
+                EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
             )
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
@@ -162,7 +168,7 @@ object Client {
     fun createSymbolicLink(
         path: Path,
         reparseData: SymbolicLinkReparseData,
-        fileAttributes: Set<FileAttributes> = emptySet()
+        fileAttributes: Set<FileAttributes>? = null
     ) {
         val sharePath = path.sharePath ?: throw ClientException("$path does not have a share path")
         val session = getSession(path.authority)
@@ -173,13 +179,13 @@ object Client {
                     AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_WRITE_ATTRIBUTES,
                     AccessMask.FILE_READ_EA, AccessMask.FILE_WRITE_EA, AccessMask.DELETE,
                     AccessMask.SYNCHRONIZE
-                ),
-                EnumSet.copyOf(fileAttributes).apply {
-                    remove(FileAttributes.FILE_ATTRIBUTE_REPARSE_POINT)
+                ), EnumSet.noneOf(FileAttributes::class.java).apply {
+                    fileAttributes?.let { addAll(it) }
+                    this -= FileAttributes.FILE_ATTRIBUTE_REPARSE_POINT
                     if (isEmpty()) {
-                        add(FileAttributes.FILE_ATTRIBUTE_NORMAL)
+                        this += FileAttributes.FILE_ATTRIBUTE_NORMAL
                     }
-                }, emptySet(), SMB2CreateDisposition.FILE_CREATE, EnumSet.of(
+                }, null, SMB2CreateDisposition.FILE_CREATE, EnumSet.of(
                     SMB2CreateOptions.FILE_NON_DIRECTORY_FILE,
                     SMB2CreateOptions.FILE_OPEN_REPARSE_POINT
                 )
@@ -229,7 +235,7 @@ object Client {
             share.open(
                 sharePath.path,
                 EnumSet.of(AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.FILE_WRITE_EA),
-                emptySet(), SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
+                null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 // CreateHardLink doesn't work for directories.
                 EnumSet.of(SMB2CreateOptions.FILE_NON_DIRECTORY_FILE).apply {
                     if (openReparsePoint) {
@@ -254,7 +260,7 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         val diskEntry = try {
             share.open(
-                sharePath.path, EnumSet.of(AccessMask.DELETE), emptySet(), SMB2ShareAccess.ALL,
+                sharePath.path, EnumSet.of(AccessMask.DELETE), null, SMB2ShareAccess.ALL,
                 SMB2CreateDisposition.FILE_OPEN, EnumSet.of(
                     SMB2CreateOptions.FILE_DELETE_ON_CLOSE,
                     SMB2CreateOptions.FILE_OPEN_REPARSE_POINT
@@ -283,7 +289,7 @@ object Client {
         val diskEntry = try {
             share.open(
                 sharePath.path,
-                EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA), emptySet(),
+                EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA), null,
                 SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
             )
@@ -320,11 +326,11 @@ object Client {
                 sourceSharePath.path, EnumSet.of(
                     AccessMask.FILE_READ_DATA, AccessMask.FILE_READ_ATTRIBUTES,
                     AccessMask.FILE_READ_EA
-                ), emptySet(), SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
+                ), null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 if (openReparsePoint) {
                     EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                 } else {
-                    emptySet()
+                    null
                 }
             )
         } catch (e: SMBRuntimeException) {
@@ -414,7 +420,7 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         val diskEntry = try {
             share.open(
-                sharePath.path, EnumSet.of(AccessMask.DELETE), emptySet(), SMB2ShareAccess.ALL,
+                sharePath.path, EnumSet.of(AccessMask.DELETE), null, SMB2ShareAccess.ALL,
                 SMB2CreateDisposition.FILE_OPEN,
                 EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
             )
@@ -467,11 +473,11 @@ object Client {
                 share.open(
                     sharePath.path,
                     EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA),
-                    emptySet(), SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
+                    null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                     if (openReparsePoint) {
                         EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                     } else {
-                        emptySet()
+                        null
                     }
                 )
             } catch (e: SMBRuntimeException) {
@@ -499,11 +505,11 @@ object Client {
             share.open(
                 sharePath.path,
                 EnumSet.of(AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.FILE_WRITE_EA),
-                emptySet(), SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
+                null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 if (openReparsePoint) {
                     EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                 } else {
-                    emptySet()
+                    null
                 }
             )
         } catch (e: SMBRuntimeException) {
@@ -524,11 +530,11 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         val diskEntry = try {
             share.open(
-                sharePath.path, desiredAccess, emptySet(), SMB2ShareAccess.ALL,
+                sharePath.path, desiredAccess, null, SMB2ShareAccess.ALL,
                 SMB2CreateDisposition.FILE_OPEN, if (openReparsePoint) {
                     EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                 } else {
-                    emptySet()
+                    null
                 }
             )
         } catch (e: SMBRuntimeException) {
@@ -549,8 +555,8 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         return try {
             share.openDirectory(
-                sharePath.path, EnumSet.of(AccessMask.FILE_LIST_DIRECTORY), emptySet(),
-                SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, emptySet()
+                sharePath.path, EnumSet.of(AccessMask.FILE_LIST_DIRECTORY), null,
+                SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, null
             )
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
@@ -563,7 +569,7 @@ object Client {
         completionFilter: Set<SMB2CompletionFilter>
     ): Future<SMB2ChangeNotifyResponse> {
         return try {
-            directory.changeNotifyAsync(emptySet(), completionFilter)
+            directory.changeNotifyAsync(false, completionFilter)
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
         }
@@ -583,7 +589,7 @@ object Client {
                     sessions -= authority
                 }
             }
-            val authentication = Authenticator.getAuthentication(authority)
+            val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
             val connection = try {
                 client.connect(authority.host, authority.port)

@@ -22,16 +22,16 @@ import java.util.concurrent.Future
 
 @Throws(SMBRuntimeException::class)
 fun Directory.changeNotifyAsync(
-    flags: Set<SMB2ChangeNotifyFlags>,
+    watchTree: Boolean,
     completionFilter: Set<SMB2CompletionFilter>
 ): Future<SMB2ChangeNotifyResponse> {
-    return diskShare.changeNotifyAsync(fileId, flags, completionFilter)
+    return diskShare.changeNotifyAsync(fileId, watchTree, completionFilter)
 }
 
 @Throws(SMBRuntimeException::class)
 private fun Share.changeNotifyAsync(
     fileId: SMB2FileId,
-    flags: Set<SMB2ChangeNotifyFlags>,
+    watchTree: Boolean,
     completionFilter: Set<SMB2CompletionFilter>
 ): Future<SMB2ChangeNotifyResponse> {
     val treeConnect = treeConnect
@@ -44,10 +44,12 @@ private fun Share.changeNotifyAsync(
     val transactBufferSize = connection.config.transactBufferSize
         .coerceAtMost(negotiatedProtocol.maxTransactSize)
     val request = SMB2ChangeNotifyRequest(
-        dialect, sessionId, treeId, fileId, flags, completionFilter, transactBufferSize
+        dialect, sessionId, treeId, fileId, watchTree, completionFilter, transactBufferSize
     )
     return send(request)
 }
+
+private val SMB2_WATCH_TREE = 0x0001
 
 // com.hierynomus.mssmb2.messages.SMB2ChangeNotifyRequest is not a SMB2MultiCreditPacket.
 class SMB2ChangeNotifyRequest(
@@ -55,7 +57,7 @@ class SMB2ChangeNotifyRequest(
     sessionId: Long,
     treeId: Long,
     private val fileId: SMB2FileId,
-    private val flags: Set<SMB2ChangeNotifyFlags>,
+    private val watchTree: Boolean,
     private val completionFilter: Set<SMB2CompletionFilter>,
     maxBufferSize: Int
 ) : SMB2MultiCreditPacket(
@@ -65,12 +67,9 @@ class SMB2ChangeNotifyRequest(
         // StructureSize (2 bytes)
         buffer.putUInt16(structureSize)
         // Flags (2 bytes)
-        buffer.putUInt16(EnumWithValue.EnumUtils.toLong(flags).toInt())
+        buffer.putUInt16(if (watchTree) SMB2_WATCH_TREE else 0)
         // OutputBufferLength (4 bytes)
-        buffer.putUInt32(
-            maxPayloadSize.toLong()
-                .coerceAtMost(SMB2Packet.SINGLE_CREDIT_PAYLOAD_SIZE.toLong() * creditsAssigned)
-        )
+        buffer.putUInt32(payloadSize.toLong())
         // FileId (16 bytes)
         fileId.write(buffer)
         // CompletionFilter (4 bytes)
@@ -78,12 +77,6 @@ class SMB2ChangeNotifyRequest(
         // Reserved (4 bytes)
         buffer.putReserved4()
     }
-}
-
-enum class SMB2ChangeNotifyFlags(private val value: Long) : EnumWithValue<SMB2ChangeNotifyFlags> {
-    SMB2_WATCH_TREE(0x0001);
-
-    override fun getValue(): Long = value
 }
 
 // @see com.hierynomus.smbj.share.Share.send

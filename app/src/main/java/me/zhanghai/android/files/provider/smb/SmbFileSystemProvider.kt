@@ -62,7 +62,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.port)
+        val authority = Authority(uri.host, uri.portOrDefaultPort)
         synchronized(lock) {
             if (fileSystems[authority] != null) {
                 throw FileSystemAlreadyExistsException(authority.toString())
@@ -82,7 +82,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun getFileSystem(uri: URI): FileSystem {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.port)
+        val authority = Authority(uri.host, uri.portOrDefaultPort)
         return synchronized(lock) { fileSystems[authority] }
             ?: throw FileSystemNotFoundException(authority.toString())
     }
@@ -94,7 +94,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun getPath(uri: URI): Path {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.port)
+        val authority = Authority(uri.host, uri.portOrDefaultPort)
         val path = uri.decodedPathByteString
             ?: throw IllegalArgumentException("URI must have a path")
         return getOrNewFileSystem(authority).getPath(path)
@@ -104,6 +104,9 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         val scheme = scheme
         require(scheme == SCHEME) { "URI scheme $scheme must be $SCHEME" }
     }
+
+    private val URI.portOrDefaultPort: Int
+        get() = if (port != -1) port else SMBClient.DEFAULT_PORT
 
     @Throws(IOException::class)
     override fun newFileChannel(
