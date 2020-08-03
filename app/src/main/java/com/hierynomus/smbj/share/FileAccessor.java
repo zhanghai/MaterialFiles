@@ -5,20 +5,20 @@
 
 package com.hierynomus.smbj.share;
 
-import com.hierynomus.mserref.NtStatus;
 import com.hierynomus.mssmb2.messages.SMB2ReadResponse;
 import com.hierynomus.smbj.common.SMBRuntimeException;
 
+import java.util.concurrent.Future;
+
+import androidx.annotation.NonNull;
+
 public class FileAccessor {
     /**
-     * @see File#read(byte[], long, int, int)
+     * @see File#readAsync(long, int)
      */
-    public static byte[] read(File file, long offset, int length) throws SMBRuntimeException {
-        SMB2ReadResponse response = file.share.read(file.fileId, offset, length);
-        if (response.getHeader().getStatusCode() == NtStatus.STATUS_END_OF_FILE.getValue()) {
-            return null;
-        } else {
-            return response.getData();
-        }
+    @NonNull
+    public static Future<SMB2ReadResponse> readAsync(@NonNull File file, long offset, int length)
+            throws SMBRuntimeException {
+        return file.readAsync(offset, length);
     }
 }
