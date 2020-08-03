@@ -245,13 +245,20 @@ class FileProvider : ContentProvider() {
                 this.offset = offset
             }
             val buffer = ByteBuffer.wrap(data, 0, size)
-            return try {
-                // ReadableByteChannel returns -1 upon end-of-stream, however read(2) returns 0 in
-                // this case.
-                channel.read(buffer).let { if (it == -1) 0 else it }
-            } catch (e: IOException) {
-                throw e.toErrnoException()
-            }.also { this.offset += it.toLong() }
+            // Unlike ReadableByteChannel which may not fill the buffer and returns -1 upon
+            // end-of-stream, we need to read as much as we can unless end-of-stream is reached.
+            while (buffer.hasRemaining()) {
+                val channelSize = try {
+                    channel.read(buffer)
+                } catch (e: IOException) {
+                    throw e.toErrnoException()
+                }
+                if (channelSize == -1) {
+                    break
+                }
+                this.offset += channelSize
+            }
+            return (this.offset - offset).toInt()
         }
 
         @Throws(ErrnoException::class)
