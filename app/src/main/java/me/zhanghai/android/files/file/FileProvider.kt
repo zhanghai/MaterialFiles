@@ -16,6 +16,7 @@ import android.net.Uri
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.ParcelFileDescriptor
+import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.system.ErrnoException
@@ -36,6 +37,7 @@ import me.zhanghai.android.files.compat.openProxyFileDescriptorCompat
 import me.zhanghai.android.files.provider.common.InvalidFileNameException
 import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.force
+import me.zhanghai.android.files.provider.common.getLastModifiedTime
 import me.zhanghai.android.files.provider.common.isForceable
 import me.zhanghai.android.files.provider.common.newByteChannel
 import me.zhanghai.android.files.provider.common.size
@@ -101,7 +103,7 @@ class FileProvider : ContentProvider() {
                         path.size()
                     } catch (e: IOException) {
                         e.printStackTrace()
-                        0
+                        null
                     }
                     columns += column
                     values += size
@@ -114,6 +116,22 @@ class FileProvider : ContentProvider() {
                     }
                     columns += column
                     values += file.absolutePath
+                }
+                // TODO: We should actually implement a DocumentsProvider since we are handling
+                //  ACTION_OPEN_DOCUMENT.
+                DocumentsContract.Document.COLUMN_MIME_TYPE -> {
+                    columns += column
+                    values += MimeType.guessFromPath(path.toString()).value
+                }
+                DocumentsContract.Document.COLUMN_LAST_MODIFIED -> {
+                    val lastModified = try {
+                        path.getLastModifiedTime().toMillis()
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        null
+                    }
+                    columns += column
+                    values += lastModified
                 }
             }
         }
