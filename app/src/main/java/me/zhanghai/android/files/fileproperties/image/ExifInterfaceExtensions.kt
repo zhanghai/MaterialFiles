@@ -31,7 +31,7 @@ fun ExifInterface.getAttributeIntOrNull(tag: String): Int? =
 val ExifInterface.gpsAltitude: Double?
     get() = getAltitude(Double.NaN).takeIf { !it.isNaN() }
 
-val ExifInterface.dateTimeOriginalCompat: Long
+val ExifInterface.dateTimeOriginalCompat: Long?
     get() =
         parseDateTime(
             ExifInterface.TAG_DATETIME_ORIGINAL, ExifInterface.TAG_OFFSET_TIME_ORIGINAL,
@@ -47,15 +47,15 @@ private fun ExifInterface.parseDateTime(
     dateTimeTag: String,
     offsetTimeTag: String,
     subSecTimeTag: String
-): Long {
+): Long? {
     val dateTimeString = getAttributeNotBlank(dateTimeTag)
     if (dateTimeString == null || !dateTimeString.matches(nonZeroTimeRegex)) {
-        return -1
+        return null
     }
-    val date = dateFormat.parse(dateTimeString, ParsePosition(0)) ?: return -1
+    val date = dateFormat.parse(dateTimeString, ParsePosition(0)) ?: return null
     val offsetTimeString = getAttributeNotBlank(offsetTimeTag)
     if (offsetTimeString != null) {
-        val offsetTime = parseOffsetTime(offsetTimeString) ?: return -1
+        val offsetTime = parseOffsetTime(offsetTimeString) ?: return null
         // We need to subtract the offset from UTC to get time in UTC from local time.
         date.time = date.time - offsetTime.time
     }
@@ -110,12 +110,11 @@ private fun parseOffsetTime(offsetTimeString: String): Date? {
 
 /* @see com.android.providers.media.scan.ModernMediaScanner.parseOptionalDateTaken */
 fun ExifInterface.inferDateTimeOriginal(lastModifiedTime: Instant): Instant? {
-    val dateTimeOriginal = dateTimeOriginalCompat.takeIf { it != -1L }
-        ?.let { Instant.ofEpochMilli(it) } ?: return null
+    val dateTimeOriginal = dateTimeOriginalCompat?.let { Instant.ofEpochMilli(it) } ?: return null
     if (getAttributeNotBlank(ExifInterface.TAG_OFFSET_TIME_ORIGINAL) != null) {
         return dateTimeOriginal
     }
-    val gpsDateTime = gpsDateTime.takeIf { it != -1L }?.let { Instant.ofEpochMilli(it) }
+    val gpsDateTime = gpsDateTime?.let { Instant.ofEpochMilli(it) }
     if (gpsDateTime != null) {
         dateTimeOriginal.withTimezoneInferredFrom(gpsDateTime)?.let { return it }
     }
