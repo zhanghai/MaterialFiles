@@ -128,12 +128,7 @@ dependencies {
     debugImplementation 'com.facebook.stetho:stetho:1.5.1'
     // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
     //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
-    implementation ('com.github.junrar:junrar:4.0.0') {
-        exclude group: 'commons-logging', module: 'commons-logging'
-    }
-    // As a replacement for commons-logging, to avoid the DuplicatePlatformClasses error due to
-    // httpclient depending on commons-logging and being removed in Android 6.0.
-    implementation 'org.slf4j:jcl-over-slf4j:1.7.30'
+    implementation 'com.github.junrar:junrar:7.3.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation 'com.hierynomus:smbj:0.10.0'
@@ -164,6 +159,7 @@ dependencies {
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
+    // Also a dependency of Junrar.
     implementation 'org.slf4j:slf4j-android:1.7.30'
 
 //#ifdef NONFREE

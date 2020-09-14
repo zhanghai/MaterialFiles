@@ -20,7 +20,7 @@ import kotlin.math.max
 internal class RarFile(file: File, encoding: String?) : Closeable {
     private var archive =
         try {
-            Archive(file, null)
+            Archive(file)
         } catch (e: RarException) {
             throw ArchiveException(e)
         }
