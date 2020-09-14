@@ -8,7 +8,7 @@ package me.zhanghai.android.files.coil
 import android.content.Context
 import android.content.pm.ApplicationInfo
 import androidx.core.graphics.drawable.toDrawable
-import coil.bitmappool.BitmapPool
+import coil.bitmap.BitmapPool
 import coil.decode.DataSource
 import coil.decode.Options
 import coil.fetch.DrawableResult

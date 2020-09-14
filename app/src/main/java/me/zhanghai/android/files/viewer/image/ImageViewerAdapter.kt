@@ -11,8 +11,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import coil.api.clear
-import coil.api.loadAny
+import coil.clear
+import coil.loadAny
 import coil.size.OriginalSize
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView

@@ -21,8 +21,8 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import coil.api.clear
-import coil.api.loadAny
+import coil.clear
+import coil.loadAny
 import kotlinx.android.parcel.Parceler
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.WriteWith
