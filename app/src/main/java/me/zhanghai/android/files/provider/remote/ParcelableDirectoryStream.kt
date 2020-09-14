@@ -19,7 +19,7 @@ class ParcelableDirectoryStream : Parcelable {
     private val paths: List<Path>
 
     val value: DirectoryStream<Path>
-        get() = PathListDirectoryStream(paths, DirectoryStream.Filter { true })
+        get() = PathListDirectoryStream(paths) { true }
 
     @Throws(IOException::class)
     constructor(value: DirectoryStream<Path>) {
