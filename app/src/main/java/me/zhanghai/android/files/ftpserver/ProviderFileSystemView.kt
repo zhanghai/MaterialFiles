@@ -45,7 +45,7 @@ class ProviderFileSystemView(private val user: User) : FileSystemView {
         if (!filePath.startsWith(homeDirectoryPath)) {
             return homeDirectory
         }
-        return ProviderFtpFile(filePath, filePath.relativize(homeDirectoryPath), user)
+        return ProviderFtpFile(filePath, homeDirectoryPath.relativize(filePath), user)
     }
 
     override fun isRandomAccessible(): Boolean =
