@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import java8.nio.file.Path
 import kotlinx.android.parcel.Parcelize
 import me.zhanghai.android.files.R

@@ -14,7 +14,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import java8.nio.file.Path
 import me.zhanghai.android.files.databinding.NavigationFragmentBinding

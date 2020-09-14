@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.settings
 
 import android.os.Bundle
-import androidx.lifecycle.observe
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
 import me.zhanghai.android.files.compat.getDrawableCompat

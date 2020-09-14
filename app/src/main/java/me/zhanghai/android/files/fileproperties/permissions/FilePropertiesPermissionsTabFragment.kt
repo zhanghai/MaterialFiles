@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.fileproperties.permissions
 
 import android.os.Bundle
-import androidx.lifecycle.observe
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment

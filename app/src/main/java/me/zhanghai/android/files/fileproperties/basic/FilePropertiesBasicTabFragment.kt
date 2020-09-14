@@ -7,7 +7,6 @@ package me.zhanghai.android.files.fileproperties.basic
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import java8.nio.file.FileVisitResult
 import java8.nio.file.FileVisitor
 import java8.nio.file.Files

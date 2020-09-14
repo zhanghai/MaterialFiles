@@ -7,7 +7,6 @@ package me.zhanghai.android.files.fileproperties.apk
 
 import android.os.Build
 import android.os.Bundle
-import androidx.lifecycle.observe
 import java8.nio.file.Path
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.WriteWith

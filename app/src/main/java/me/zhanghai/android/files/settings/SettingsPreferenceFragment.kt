@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.settings
 
 import android.os.Bundle
-import androidx.lifecycle.observe
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.theme.custom.CustomThemeColor

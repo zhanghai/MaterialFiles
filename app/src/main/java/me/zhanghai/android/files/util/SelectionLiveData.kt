@@ -7,7 +7,6 @@ package me.zhanghai.android.files.util
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 
 class SelectionLiveData<Key> : MutableLiveData<Key>() {

@@ -11,7 +11,6 @@ import android.text.Editable
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java8.nio.file.Path
