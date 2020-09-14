@@ -12,6 +12,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegateCompat
+import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.SimpleActivityLifecycleCallbacks
 import me.zhanghai.android.files.util.valueCompat
@@ -62,7 +63,7 @@ object NightModeHelper {
      * @see androidx.appcompat.app.AppCompatDelegateImpl#updateForNightMode(int, boolean)
      */
     private fun getUiModeNight(nightMode: Int, activity: AppCompatActivity): Int =
-        when (AppCompatDelegateCompat.mapNightMode(activity.delegate, nightMode)) {
+        when (AppCompatDelegateCompat.mapNightMode(activity.delegate, application, nightMode)) {
             AppCompatDelegate.MODE_NIGHT_YES -> Configuration.UI_MODE_NIGHT_YES
             AppCompatDelegate.MODE_NIGHT_NO -> Configuration.UI_MODE_NIGHT_NO
             else ->

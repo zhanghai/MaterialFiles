@@ -103,7 +103,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     def androidx_core_version = '1.5.0-alpha02'
     implementation "androidx.core:core:$androidx_core_version"
     implementation "androidx.core:core-ktx:$androidx_core_version"

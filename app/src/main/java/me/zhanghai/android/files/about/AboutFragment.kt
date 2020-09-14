@@ -43,14 +43,7 @@ class AboutFragment : Fragment() {
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
         binding.gitHubLayout.setOnClickListener { startActivitySafe(GITHUB_URI.createViewIntent()) }
-        binding.licensesLayout.setOnClickListener {
-            // @see https://github.com/zhanghai/MaterialFiles/issues/161
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                LicensesDialogFragment.show(this)
-            } else {
-                startActivitySafe(LICENSES_URI.createViewIntent())
-            }
-        }
+        binding.licensesLayout.setOnClickListener { LicensesDialogFragment.show(this) }
         binding.privacyPolicyLayout.setOnClickListener {
             startActivitySafe(PRIVACY_POLICY_URI.createViewIntent())
         }
@@ -83,10 +76,6 @@ class AboutFragment : Fragment() {
 
     companion object {
         private val GITHUB_URI = Uri.parse("https://github.com/zhanghai/MaterialFiles")
-        private val LICENSES_URI = Uri.parse(
-            "https://github.com/zhanghai/MaterialFiles/blob/master/app/src/main/res/raw" +
-                "/licenses.xml"
-        )
         private val PRIVACY_POLICY_URI =
             Uri.parse("https://github.com/zhanghai/MaterialFiles/blob/master/PRIVACY.md")
         private val AUTHOR_RESUME_URI = Uri.parse("https://resume.zhanghai.me/")
