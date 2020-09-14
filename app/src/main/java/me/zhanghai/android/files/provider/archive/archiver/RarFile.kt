@@ -47,8 +47,7 @@ internal class RarFile(file: File, encoding: String?) : Closeable {
         val outputStream = PipedOutputStream(inputStream)
         Thread {
             try {
-                archive.extractFile(entry.header, outputStream)
-                outputStream.close()
+                outputStream.use { archive.extractFile(entry.header, it) }
             } catch (e: IOException) {
                 e.printStackTrace()
             } catch (e: RarException) {
