@@ -5,8 +5,8 @@
   ~ All Rights Reserved.
   -->
 
-<me.zhanghai.android.files.ui.CheckableFrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<me.zhanghai.android.files.ui.CheckableFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,8 +28,9 @@
             android:clipToPadding="false"
             android:padding="@dimen/touch_target_large_icon_padding">
 
-            <me.zhanghai.android.files.ui.DisabledAlphaImageView
+            <me.zhanghai.android.files.ui.DisabledAlphaShapeImageView
                 android:id="@+id/iconImage"
+                app:shapeAppearance="@style/ShapeAppearance.RoundedFile"
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
                 android:duplicateParentState="true"
