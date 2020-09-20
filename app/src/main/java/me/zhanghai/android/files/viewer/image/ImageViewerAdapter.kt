@@ -156,6 +156,10 @@ class ImageViewerAdapter(
             if (width <= 0 || height <= 0) {
                 return false
             }
+            // 4 bytes per pixel for ARGB_8888.
+            if (width * height * 4 > MAX_BITMAP_SIZE) {
+                return true
+            }
             if (width > 2048 || height > 2048) {
                 val ratio = width.toFloat() / height
                 if (ratio < 0.5 || ratio > 2) {
@@ -181,6 +185,11 @@ class ImageViewerAdapter(
         binding.errorText.text = throwable.toString()
         binding.progress.fadeOutUnsafe()
         binding.errorText.fadeInUnsafe()
+    }
+
+    companion object {
+        // @see android.graphics.RecordingCanvas#MAX_BITMAP_SIZE
+        private const val MAX_BITMAP_SIZE = 100 * 1024 * 1024
     }
 
     private class ImageInfo(
