@@ -110,7 +110,7 @@ class ImageViewerAdapter(
         path: Path,
         imageInfo: ImageInfo
     ) {
-        if (!imageInfo.isLargeImageViewPreferred) {
+        if (!imageInfo.shouldUseLargeImageView) {
             binding.image.apply {
                 isVisible = true
                 loadAny(path to imageInfo.attributes) {
@@ -147,7 +147,7 @@ class ImageViewerAdapter(
         }
     }
 
-    private val ImageInfo.isLargeImageViewPreferred: Boolean
+    private val ImageInfo.shouldUseLargeImageView: Boolean
         get() {
             // See BitmapFactory.cpp encodedFormatToString()
             if (mimeType == MimeType.IMAGE_GIF) {
