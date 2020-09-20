@@ -5,9 +5,7 @@
 
 package me.zhanghai.android.files.util
 
-import java.io.Serializable
-
-open class MapSet<K, V> : AbstractMutableSet<V>, Serializable {
+open class MapSet<K, V> : AbstractMutableSet<V> {
     private val keyExtractor: (V) -> K
 
     private val map: MutableMap<K, V>
