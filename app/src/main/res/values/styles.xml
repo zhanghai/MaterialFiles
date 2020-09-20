@@ -9,4 +9,9 @@
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small">
         <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
     </style>
+    <style name="ShapeAppearance.RoundedFile" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
 </resources>
