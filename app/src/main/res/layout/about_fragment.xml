@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/screen_edge_margin"
                 android:clipToPadding="false"
-                android:divider="@drawable/transparent_divider_horizontal_16dp"
+                android:divider="@drawable/transparent_divider_vertical_16dp"
                 android:orientation="vertical"
                 android:showDividers="middle">
 

@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="?dialogPreferredPadding"
-                android:divider="@drawable/transparent_divider_horizontal_16dp"
+                android:divider="@drawable/transparent_divider_vertical_16dp"
                 android:orientation="vertical"
                 android:showDividers="middle" />
         </androidx.core.widget.NestedScrollView>
