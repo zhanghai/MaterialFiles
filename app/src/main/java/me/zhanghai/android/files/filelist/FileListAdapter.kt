@@ -32,9 +32,7 @@ import java.util.Locale
 
 class FileListAdapter(
     private val listener: Listener
-) : AnimatedListAdapter<FileItem, FileListAdapter.ViewHolder>(
-    CALLBACK
-), PopupTextProvider {
+) : AnimatedListAdapter<FileItem, FileListAdapter.ViewHolder>(CALLBACK), PopupTextProvider {
     private var isSearching = false
 
     private lateinit var _comparator: Comparator<FileItem>
