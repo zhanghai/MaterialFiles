@@ -48,7 +48,7 @@ data class MimeType (val value: String) : Parcelable {
 
     fun match(mimeType: MimeType): Boolean =
         type.let { it == "*" || mimeType.type == it }
-            && subtype.let { it == "*" || mimeType.type == it }
+            && subtype.let { it == "*" || mimeType.subtype == it }
             && parameters.let { it == null || mimeType.parameters == it }
 
     companion object {
