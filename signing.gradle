@@ -1,7 +1,6 @@
 android {
     signingConfigs {
         release {
-
             def properties
             def propertiesFile = rootProject.file('signing.properties')
             if (propertiesFile.exists()) {
