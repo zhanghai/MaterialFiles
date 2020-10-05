@@ -26,6 +26,7 @@ import androidx.annotation.AnimRes
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
+import androidx.annotation.ColorInt
 import androidx.annotation.DimenRes
 import androidx.annotation.Dimension
 import androidx.annotation.IntegerRes
@@ -83,6 +84,7 @@ fun Context.getStringArray(@ArrayRes id: Int): Array<String> = resources.getStri
 fun Context.getBooleanByAttr(@AttrRes attr: Int): Boolean =
     obtainStyledAttributesCompat(attrs = intArrayOf(attr)).use { it.getBoolean(0, false) }
 
+@ColorInt
 fun Context.getColorByAttr(@AttrRes attr: Int): Int =
     getColorStateListByAttr(attr).defaultColor
 

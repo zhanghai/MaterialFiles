@@ -13,6 +13,7 @@ import androidx.annotation.AnimRes
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.Dimension
@@ -30,6 +31,7 @@ fun Fragment.getAnimation(@AnimRes id: Int) = requireContext().getAnimation(id)
 
 fun Fragment.getBoolean(@BoolRes id: Int) = requireContext().getBoolean(id)
 
+@ColorInt
 fun Fragment.getColor(@ColorRes id: Int) = requireContext().getColorCompat(id)
 
 fun Fragment.getColorStateList(@ColorRes id: Int) = requireContext().getColorStateListCompat(id)
@@ -65,6 +67,7 @@ fun Fragment.getStringArray(@ArrayRes id: Int) = requireContext().getStringArray
 
 fun Fragment.getBooleanByAttr(@AttrRes attr: Int) = requireContext().getBooleanByAttr(attr)
 
+@ColorInt
 fun Fragment.getColorByAttr(@AttrRes attr: Int) = requireContext().getColorByAttr(attr)
 
 fun Fragment.getColorStateListByAttr(@AttrRes attr: Int) =

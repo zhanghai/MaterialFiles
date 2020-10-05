@@ -11,6 +11,7 @@ import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
@@ -24,6 +25,7 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+@ColorInt
 fun Context.getColorCompat(@ColorRes id: Int): Int = getColorStateListCompat(id).defaultColor
 
 fun Context.getColorStateListCompat(@ColorRes id: Int): ColorStateList =
