@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -16,7 +14,7 @@
    version="1.1"
    id="svg8"
    sodipodi:docname="launcher_icon.svg"
-   inkscape:version="0.92.4 5da689c313, 2019-01-14">
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -48,7 +46,8 @@
      inkscape:snap-smooth-nodes="true"
      inkscape:snap-midpoints="true"
      inkscape:snap-object-midpoints="true"
-     inkscape:snap-center="true" />
+     inkscape:snap-center="true"
+     inkscape:document-rotation="0" />
   <defs
      id="defs2">
     <linearGradient
@@ -270,7 +269,7 @@
        clip-path="url(#clipPath843)">
       <path
          d="m 37.199219,366.19997 c -2.31,0 -4.199219,1.88922 -4.199219,4.19922 v 27.60156 c 0,1.16716 0.482427,2.22714 1.257812,2.99024 L 110.625,477.35817 c 0.75923,0.7472 1.80052,1.20899 2.94336,1.20899 h 33.59961 c 2.31,0 4.19922,-1.88922 4.19922,-4.19922 v -23.40039 c 0,-1.16716 -0.48243,-2.22714 -1.25781,-2.99024 L 73.742188,371.61013 c -0.759232,-0.7472 -1.798565,-1.21094 -2.941407,-1.21094 H 54 l -4.199219,-4.19922 z"
-         id="folder-long-shadow"
+         id="long-shadow"
          inkscape:connector-curvature="0"
          style="fill:url(#linearGradient845);fill-opacity:1;stroke:none;stroke-width:2.09999967"
          sodipodi:nodetypes="sccccssssccsccs" />
