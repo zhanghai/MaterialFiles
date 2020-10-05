@@ -16,13 +16,12 @@ object NioUtilsCompat {
     @RestrictedHiddenApi
     private val newFileChannelMethod = ReflectedMethod<Nothing>(
         "java.nio.NioUtils", "newFileChannel", Closeable::class.java, FileDescriptor::class.java,
-        Int::class.javaPrimitiveType
+        Int::class.java
     )
     @RestrictedHiddenApi
     private val fileChannelImplOpenMethod = ReflectedMethod<Nothing>(
         "sun.nio.ch.FileChannelImpl", "open", FileDescriptor::class.java, String::class.java,
-        Boolean::class.javaPrimitiveType, Boolean::class.javaPrimitiveType,
-        Boolean::class.javaPrimitiveType, Any::class.java
+        Boolean::class.java, Boolean::class.java, Boolean::class.java, Any::class.java
     )
 
     fun newFileChannel(ioObject: Closeable, fd: FileDescriptor, flags: Int): FileChannel =

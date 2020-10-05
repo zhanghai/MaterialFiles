@@ -12,8 +12,8 @@ import me.zhanghai.java.reflected.ReflectedMethod
 
 @RestrictedHiddenApi
 private val isTransformedTouchPointInViewMethod = ReflectedMethod(
-    ViewGroup::class.java, "isTransformedTouchPointInView", Float::class.javaPrimitiveType,
-    Float::class.javaPrimitiveType, View::class.java, PointF::class.java
+    ViewGroup::class.java, "isTransformedTouchPointInView", Float::class.java, Float::class.java,
+    View::class.java, PointF::class.java
 )
 
 fun ViewGroup.isTransformedTouchPointInViewCompat(

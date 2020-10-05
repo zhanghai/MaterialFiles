@@ -40,15 +40,14 @@ object SELinuxCompat {
         ReflectedMethod(seLinuxClass, "getFileContext", FileDescriptor::class.java)
     private val getContextMethod = ReflectedMethod(seLinuxClass, "getContext")
     private val getPidContextMethod =
-        ReflectedMethod(seLinuxClass, "getPidContext", Int::class.javaPrimitiveType)
+        ReflectedMethod(seLinuxClass, "getPidContext", Int::class.java)
     private val checkSELinuxAccessMethod = ReflectedMethod(
         seLinuxClass, "checkSELinuxAccess", String::class.java, String::class.java,
         String::class.java, String::class.java
     )
     @RestrictedHiddenApi
-    private val nativeRestoreconMethod = ReflectedMethod(
-        seLinuxClass, "native_restorecon", String::class.java, Int::class.javaPrimitiveType
-    )
+    private val nativeRestoreconMethod =
+        ReflectedMethod(seLinuxClass, "native_restorecon", String::class.java, Int::class.java)
     @RestrictedHiddenApi
     private val restoreconStringMethod =
         ReflectedMethod(seLinuxClass, "restorecon", String::class.java)

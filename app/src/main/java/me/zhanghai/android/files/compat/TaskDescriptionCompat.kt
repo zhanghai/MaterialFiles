@@ -11,7 +11,7 @@ import me.zhanghai.java.reflected.ReflectedMethod
 
 @RestrictedHiddenApi
 private val setPrimaryColorMethod =
-    ReflectedMethod(TaskDescription::class.java, "setPrimaryColor", Int::class.javaPrimitiveType)
+    ReflectedMethod(TaskDescription::class.java, "setPrimaryColor", Int::class.java)
 
 fun TaskDescription.setPrimaryColorCompat(@ColorInt primaryColor: Int) {
     setPrimaryColorMethod.invoke<Unit>(this, primaryColor)
