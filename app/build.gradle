@@ -140,7 +140,7 @@ dependencies {
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
     implementation 'eu.chainfire:librootjava:1.3.0'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
-    def coil_version = '0.13.0'
+    def coil_version = '1.0.0'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
