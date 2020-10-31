@@ -31,6 +31,7 @@
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialFiles"
+        android:resizeableActivity="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
