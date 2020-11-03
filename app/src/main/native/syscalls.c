@@ -53,13 +53,13 @@
 
 static jclass findClass(JNIEnv *env, const char *name) {
     jclass localClass = (*env)->FindClass(env, name);
-    jclass result = (*env)->NewGlobalRef(env, localClass);
+    jclass globalClass = (*env)->NewGlobalRef(env, localClass);
     (*env)->DeleteLocalRef(env, localClass);
-    if (!result) {
+    if (!globalClass) {
         ALOGE("Failed to find class '%s'", name);
         abort();
     }
-    return result;
+    return globalClass;
 }
 
 static jfieldID findField(JNIEnv *env, jclass clazz, const char *name, const char *signature) {
@@ -98,7 +98,7 @@ static jclass getByteStringClass(JNIEnv *env) {
 }
 
 static jfieldID getByteStringBytesField(JNIEnv *env) {
-    static jclass byteStringBytesField = NULL;
+    static jfieldID byteStringBytesField = NULL;
     if (!byteStringBytesField) {
         byteStringBytesField = findField(env, getByteStringClass(env), "bytes", "[B");
     }
@@ -114,7 +114,7 @@ static jclass getFileDescriptorClass(JNIEnv *env) {
 }
 
 static jfieldID getFileDescriptorDescriptorField(JNIEnv *env) {
-    static jclass fileDescriptorDescriptorField = NULL;
+    static jfieldID fileDescriptorDescriptorField = NULL;
     if (!fileDescriptorDescriptorField) {
         fileDescriptorDescriptorField = findField(env, getFileDescriptorClass(env), "descriptor",
                                                   "I");
@@ -131,7 +131,7 @@ static jclass getInt32RefClass(JNIEnv *env) {
 }
 
 static jfieldID getInt32RefValueField(JNIEnv *env) {
-    static jclass int32RefValueField = NULL;
+    static jfieldID int32RefValueField = NULL;
     if (!int32RefValueField) {
         int32RefValueField = findField(env, getInt32RefClass(env), "value", "I");
     }
@@ -147,7 +147,7 @@ static jclass getInt64RefClass(JNIEnv *env) {
 }
 
 static jfieldID getInt64RefValueField(JNIEnv *env) {
-    static jclass int64RefValueField = NULL;
+    static jfieldID int64RefValueField = NULL;
     if (!int64RefValueField) {
         int64RefValueField = findField(env, getInt64RefClass(env), "value", "J");
     }
@@ -191,7 +191,7 @@ static jclass getStructMntentClass(JNIEnv *env) {
 }
 
 static jfieldID getStructMntentMntOptsField(JNIEnv *env) {
-    static jclass structMntentMntOptsField = NULL;
+    static jfieldID structMntentMntOptsField = NULL;
     if (!structMntentMntOptsField) {
         structMntentMntOptsField = findField(env, getStructMntentClass(env), "mnt_opts",
                 "Lme/zhanghai/android/files/provider/common/ByteString;");
@@ -235,7 +235,7 @@ static jclass getStructTimespecClass(JNIEnv *env) {
 }
 
 static jfieldID getStructTimespecTvSecField(JNIEnv *env) {
-    static jclass structTimespecTvSecField = NULL;
+    static jfieldID structTimespecTvSecField = NULL;
     if (!structTimespecTvSecField) {
         structTimespecTvSecField = findField(env, getStructTimespecClass(env), "tv_sec", "J");
     }
@@ -243,7 +243,7 @@ static jfieldID getStructTimespecTvSecField(JNIEnv *env) {
 }
 
 static jfieldID getStructTimespecTvNsecField(JNIEnv *env) {
-    static jclass structTimespecTvNsecField = NULL;
+    static jfieldID structTimespecTvNsecField = NULL;
     if (!structTimespecTvNsecField) {
         structTimespecTvNsecField = findField(env, getStructTimespecClass(env), "tv_nsec", "J");
     }
@@ -266,7 +266,7 @@ static void throwException(JNIEnv *env, jclass exceptionClass, jmethodID constru
     jobject exception;
     if (cause) {
         exception = (*env)->NewObject(env, exceptionClass, constructor3, detailMessage, error,
-                                      cause);
+                cause);
     } else {
         exception = (*env)->NewObject(env, exceptionClass, constructor2, detailMessage, error);
     }
@@ -281,12 +281,12 @@ static void throwSyscallException(JNIEnv* env, const char* functionName) {
     static jmethodID constructor3 = NULL;
     if (!constructor3) {
         constructor3 = findMethod(env, getSyscallExceptionClass(env), "<init>",
-                                  "(Ljava/lang/String;ILjava/lang/Throwable;)V");
+                "(Ljava/lang/String;ILjava/lang/Throwable;)V");
     }
     static jmethodID constructor2 = NULL;
     if (!constructor2) {
         constructor2 = findMethod(env, getSyscallExceptionClass(env), "<init>",
-                                  "(Ljava/lang/String;I)V");
+                "(Ljava/lang/String;I)V");
     }
     throwException(env, getSyscallExceptionClass(env), constructor3, constructor2, functionName,
                    error);
