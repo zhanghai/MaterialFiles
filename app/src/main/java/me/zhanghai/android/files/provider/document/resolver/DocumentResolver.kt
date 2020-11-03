@@ -172,7 +172,9 @@ object DocumentResolver {
         val parentUri = getDocumentUri(path.requireParent())
         // The display name might have been changed so we cannot add the new URI to cache.
         return try {
-            DocumentsContract.createDocument(contentResolver, parentUri, mimeType, path.displayName)
+            DocumentsContract.createDocument(
+                contentResolver, parentUri, mimeType, path.displayName!!
+            )
         } catch (e: Exception) {
             throw ResolverException(e)
         } ?: throw ResolverException(
