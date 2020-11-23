@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">ファイル</string>
+    <string name="file_type_name_apk">Android パッケージ</string>
+    <string name="file_type_name_archive">%1$s アーカイブ</string>
+    <string name="file_type_name_audio">%1$s オーディオ</string>
+    <string name="file_type_name_calendar">%1$s カレンダー</string>
+    <string name="file_type_name_certificate">%1$s 証明書</string>
+    <string name="file_type_name_code">%1$s ドキュメント</string>
+    <string name="file_type_name_contact">電子名刺</string>
+    <string name="file_type_name_directory">フォルダ</string>
+    <string name="file_type_name_document">%1$s ドキュメント</string>
+    <string name="file_type_name_ebook">%1$s 電子書籍</string>
+    <string name="file_type_name_email">%1$s 電子メールメッセージ</string>
+    <string name="file_type_name_font">%1$s フォント</string>
+    <string name="file_type_name_generic">%1$s ファイル</string>
+    <string name="file_type_name_image">%1$s 画像</string>
+    <string name="file_type_name_pdf">PDF 文書</string>
+    <string name="file_type_name_presentation">%1$s プレゼンテーション</string>
+    <string name="file_type_name_spreadsheet">%1$s スプレッドシート</string>
+    <string name="file_type_name_text">%1$s ドキュメント</string>
+    <string name="file_type_name_text_plain">テキストファイル</string>
+    <string name="file_type_name_video">%1$s ビデオ</string>
+    <string name="file_type_name_word">Word 文書</string>
+    <string name="file_type_name_powerpoint">PowerPoint プレゼンテーション</string>
+    <string name="file_type_name_excel">Excel スプレッドシート</string>
+    <string name="file_type_name_posix_character_device">キャラクタデバイス</string>
+    <string name="file_type_name_posix_block_device">ブロックデバイス</string>
+    <string name="file_type_name_posix_fifo">パイプ</string>
+    <string name="file_type_name_posix_symbolic_link">リンク</string>
+    <string name="file_type_name_posix_socket">ソケット</string>
+    <string name="file_type_name_posix_symbolic_link_broken">破損リンク</string>
+</resources>

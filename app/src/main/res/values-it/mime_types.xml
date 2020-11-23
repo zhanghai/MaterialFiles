@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">File</string>
+    <string name="file_type_name_apk">Pacchetto Android</string>
+    <string name="file_type_name_archive">Archivio %1$s</string>
+    <string name="file_type_name_audio">Audio %1$s</string>
+    <string name="file_type_name_calendar">Calendario %1$s</string>
+    <string name="file_type_name_certificate">Certificato %1$s</string>
+    <string name="file_type_name_code">Documento %1$s</string>
+    <string name="file_type_name_contact">Biglietto da visita elettronico</string>
+    <string name="file_type_name_directory">Cartella</string>
+    <string name="file_type_name_document">Documento %1$s</string>
+    <string name="file_type_name_ebook">E-book %1$s</string>
+    <string name="file_type_name_email">Messaggio email %1$s</string>
+    <string name="file_type_name_font">Font %1$s</string>
+    <string name="file_type_name_generic">File %1$s</string>
+    <string name="file_type_name_image">Immagine %1$s</string>
+    <string name="file_type_name_pdf">Documento PDF</string>
+    <string name="file_type_name_presentation">Presentazione %1$s</string>
+    <string name="file_type_name_spreadsheet">Foglio elettronico %1$s</string>
+    <string name="file_type_name_text">Documento %1$s</string>
+    <string name="file_type_name_text_plain">Documento di testo</string>
+    <string name="file_type_name_video">Video %1$s</string>
+    <string name="file_type_name_word">Documento Word</string>
+    <string name="file_type_name_powerpoint">Presentazione PowerPoint</string>
+    <string name="file_type_name_excel">Foglio elettronico Excel</string>
+    <string name="file_type_name_posix_character_device">Dispositivo a caratteri</string>
+    <string name="file_type_name_posix_block_device">Dispositivo a blocchi</string>
+    <string name="file_type_name_posix_fifo">Pipe</string>
+    <string name="file_type_name_posix_symbolic_link">Collegamento</string>
+    <string name="file_type_name_posix_socket">Socket</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Collegamento (rotto)</string>
+</resources>
