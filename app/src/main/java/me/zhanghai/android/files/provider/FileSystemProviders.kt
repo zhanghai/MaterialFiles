@@ -13,7 +13,6 @@ import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector
 import me.zhanghai.android.files.provider.content.ContentFileSystemProvider
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider
 import me.zhanghai.android.files.provider.linux.LinuxFileSystemProvider
-import me.zhanghai.android.files.provider.smb.SmbFileSystemProvider
 
 object FileSystemProviders {
     /**
@@ -31,7 +30,6 @@ object FileSystemProviders {
         FileSystemProvider.installProvider(ArchiveFileSystemProvider)
         FileSystemProvider.installProvider(ContentFileSystemProvider)
         FileSystemProvider.installProvider(DocumentFileSystemProvider)
-        FileSystemProvider.installProvider(SmbFileSystemProvider)
         Files.installFileTypeDetector(AndroidFileTypeDetector)
     }
 

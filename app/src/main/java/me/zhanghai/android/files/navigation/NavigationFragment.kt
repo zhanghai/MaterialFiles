@@ -24,8 +24,7 @@ import me.zhanghai.android.files.file.releasePersistablePermission
 import me.zhanghai.android.files.file.takePersistablePermission
 import me.zhanghai.android.files.provider.document.documentTreeUri
 import me.zhanghai.android.files.provider.document.isDocumentPath
-import me.zhanghai.android.files.storage.AddSmbServerActivity
-import me.zhanghai.android.files.util.createIntent
+import me.zhanghai.android.files.util.startActivityForResultSafe
 
 class NavigationFragment : Fragment(), NavigationItem.Listener,
     ConfirmRemoveDocumentTreeDialogFragment.Listener, EditBookmarkDirectoryDialogFragment.Listener {
@@ -90,10 +89,9 @@ class NavigationFragment : Fragment(), NavigationItem.Listener,
     }
 
     override fun onAddDocumentTree() {
-        startActivity(AddSmbServerActivity::class.createIntent())
-//        startActivityForResultSafe(
-//            DocumentTreeUri.createOpenIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE
-//        )
+        startActivityForResultSafe(
+            DocumentTreeUri.createOpenIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE
+        )
     }
 
     private fun addDocumentTree(treeUri: DocumentTreeUri) {
