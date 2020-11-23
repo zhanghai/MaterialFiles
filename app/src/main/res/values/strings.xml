@@ -10,6 +10,7 @@
     <string name="app_name">Material Files</string>
 
     <string name="close">Close</string>
+    <string name="connect">Connect</string>
     <string name="copy">Copy</string>
     <string name="cut">Cut</string>
     <string name="default_">Default</string>
@@ -464,6 +465,16 @@
     </string-array>
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_past_signature_digests">Old signatures</string>
+
+    <string name="storage_add_smb_server_title">Add SMB server</string>
+    <string name="storage_add_smb_server_hostname">Hostname</string>
+    <string name="storage_add_smb_server_port">Port</string>
+    <string name="storage_add_smb_server_port_default_value" translatable="false">445</string>
+    <string name="storage_add_smb_server_name">Name</string>
+    <string name="storage_add_smb_server_username">Username</string>
+    <string name="storage_add_smb_server_password">Password</string>
+    <string name="storage_add_smb_server_domain">Domain</string>
+    <string name="storage_add_smb_server_share">Share</string>
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>
