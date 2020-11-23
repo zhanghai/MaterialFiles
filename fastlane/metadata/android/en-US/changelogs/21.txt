@@ -1,0 +1,5 @@
+- The Material Design 1 theme has been deprecated and will be removed in the next major release. This reduces code complexity and maintenance burden, meanwhile allows new features including AMOLED dark theme, alternative colors for the MD2 theme and outlined icons.
+- Fixed crash when viewing large images.
+- Fixed certain issues when picking files.
+- Fixed certain issues in FTP server.
+- Other bug fixes and improvements.
