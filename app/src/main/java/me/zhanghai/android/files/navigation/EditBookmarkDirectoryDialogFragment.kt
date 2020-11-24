@@ -17,8 +17,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import java8.nio.file.Path
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.EditBookmarkDirectoryDialogBinding

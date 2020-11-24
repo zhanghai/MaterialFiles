@@ -9,7 +9,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
 import android.provider.DocumentsContract
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.navigation.DocumentTreesLiveData

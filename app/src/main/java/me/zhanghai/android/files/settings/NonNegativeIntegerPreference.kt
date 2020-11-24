@@ -13,7 +13,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.preference.EditTextPreference.OnBindEditTextListener
 import com.takisoft.preferencex.EditTextPreference
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.compat.DigitsKeyListenerCompat
 import me.zhanghai.android.files.util.ParcelableState
 

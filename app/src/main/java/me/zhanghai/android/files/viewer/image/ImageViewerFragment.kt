@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import java8.nio.file.Path
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.ImageViewerFragmentBinding
 import me.zhanghai.android.files.file.fileProviderUri

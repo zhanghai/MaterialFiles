@@ -5,11 +5,11 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 kapt {
     correctErrorTypes = true
 }
+apply plugin: 'kotlin-parcelize'
 
 apply from: '../signing.gradle'
 

@@ -14,7 +14,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java8.nio.file.Path
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.SetPrincipalDialogBinding
 import me.zhanghai.android.files.file.FileItem

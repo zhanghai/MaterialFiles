@@ -7,7 +7,7 @@ package me.zhanghai.android.files.file
 
 import android.os.Parcelable
 import android.provider.DocumentsContract
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 // TODO: https://youtrack.jetbrains.com/issue/KT-28512
 //inline class MimeType (val value: String) {

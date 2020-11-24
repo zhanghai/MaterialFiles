@@ -11,7 +11,7 @@ import android.util.AttributeSet
 import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.ImageViewState
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.util.ParcelableState
 
 class SaveStateSubsamplingScaleImageView : SubsamplingScaleImageView {

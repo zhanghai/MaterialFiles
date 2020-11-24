@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.toByteString
 import java.text.CollationKey

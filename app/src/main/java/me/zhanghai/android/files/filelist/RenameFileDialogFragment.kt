@@ -9,7 +9,7 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.util.ParcelableArgs

@@ -45,7 +45,7 @@ import com.leinardi.android.speeddial.SpeedDialView
 import java8.nio.file.AccessDeniedException
 import java8.nio.file.Path
 import java8.nio.file.Paths
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.effortlesspermissions.AfterPermissionDenied
 import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import me.zhanghai.android.effortlesspermissions.OpenAppDetailsDialogFragment

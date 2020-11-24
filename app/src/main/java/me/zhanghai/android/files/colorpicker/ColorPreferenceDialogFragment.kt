@@ -13,7 +13,7 @@ import android.widget.GridView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.preference.PreferenceDialogFragmentCompat
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.getState

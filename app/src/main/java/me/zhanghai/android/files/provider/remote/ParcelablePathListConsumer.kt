@@ -9,8 +9,8 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import java8.nio.file.Path
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableListParceler
 import me.zhanghai.android.files.util.RemoteCallback

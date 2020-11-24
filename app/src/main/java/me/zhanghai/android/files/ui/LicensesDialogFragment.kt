@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import de.psdev.licensesdialog.LicensesDialog
 import de.psdev.licensesdialog.NoticesXmlParser
 import de.psdev.licensesdialog.model.Notices
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.ParcelableState

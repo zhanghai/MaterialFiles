@@ -13,7 +13,7 @@ import androidx.annotation.AttrRes
 import com.leinardi.android.speeddial.FabWithLabelView
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.getColorByAttr

@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.provider.linux.syscall
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * @see android.system.StructTimespec

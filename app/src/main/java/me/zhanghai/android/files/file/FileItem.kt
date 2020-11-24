@@ -10,8 +10,8 @@ import androidx.annotation.WorkerThread
 import java8.nio.file.LinkOption
 import java8.nio.file.Path
 import java8.nio.file.attribute.BasicFileAttributes
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.filelist.getCollationKeyForFileName
 import me.zhanghai.android.files.filelist.name
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector

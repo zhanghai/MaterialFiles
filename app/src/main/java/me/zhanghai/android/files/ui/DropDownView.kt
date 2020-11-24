@@ -17,7 +17,7 @@ import androidx.appcompat.widget.FixPaddingListPopupWindow
 import androidx.appcompat.widget.ListPopupWindow
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.doOnGlobalLayout

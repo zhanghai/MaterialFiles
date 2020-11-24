@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.compat.reversedCompat
 import me.zhanghai.android.files.file.FileItem
 import java.util.Comparator

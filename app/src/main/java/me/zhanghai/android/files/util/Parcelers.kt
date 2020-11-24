@@ -8,7 +8,7 @@ package me.zhanghai.android.files.util
 import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.android.parcel.Parceler
+import kotlinx.parcelize.Parceler
 import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.compat.writeParcelableListCompat
 

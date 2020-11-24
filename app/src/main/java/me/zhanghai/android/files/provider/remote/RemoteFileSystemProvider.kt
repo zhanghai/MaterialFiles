@@ -21,7 +21,7 @@ import java8.nio.file.Path
 import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileAttribute
 import java8.nio.file.spi.FileSystemProvider
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.files.provider.common.PathObservable
 import me.zhanghai.android.files.provider.common.PathObservableProvider

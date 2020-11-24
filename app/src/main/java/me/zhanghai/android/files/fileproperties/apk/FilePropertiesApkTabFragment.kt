@@ -8,8 +8,8 @@ package me.zhanghai.android.files.fileproperties.apk
 import android.os.Build
 import android.os.Bundle
 import java8.nio.file.Path
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.longVersionCodeCompat
 import me.zhanghai.android.files.file.FileItem

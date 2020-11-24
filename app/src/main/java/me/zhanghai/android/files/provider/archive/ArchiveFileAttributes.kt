@@ -8,8 +8,8 @@ package me.zhanghai.android.files.provider.archive
 import android.os.Parcelable
 import java8.nio.file.Path
 import java8.nio.file.attribute.FileTime
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.provider.common.AbstractPosixFileAttributes
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.FileTimeParceler

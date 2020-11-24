@@ -23,9 +23,9 @@ import androidx.core.widget.NestedScrollView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import coil.clear
 import coil.loadAny
-import kotlinx.android.parcel.Parceler
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parceler
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.coil.ignoreError
 import me.zhanghai.android.files.compat.AlertDialogBuilderCompat

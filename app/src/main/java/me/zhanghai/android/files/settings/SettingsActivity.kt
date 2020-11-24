@@ -13,8 +13,8 @@ import android.view.View
 import androidx.annotation.StyleRes
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.WriteWith
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.app.AppActivity
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper.OnThemeChangedListener
 import me.zhanghai.android.files.theme.night.NightModeHelper.OnNightModeChangedListener
