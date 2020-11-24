@@ -12,7 +12,10 @@ fun AppBarLayout.updateLiftOnScrollOnPreDraw() {
     val consumed = IntArray(2)
     viewTreeObserver.addOnPreDrawListener {
         // Call AppBarLayout.Behavior.onNestedPreScroll() with dy == 0 to update lifted state.
-        val behavior = (layoutParams as CoordinatorLayout.LayoutParams).behavior!!
+        val behavior = (layoutParams as CoordinatorLayout.LayoutParams).behavior
+            // onPreDraw() somehow may be called before onMeasure() (where
+            // AppBarLayout.getBehavior() is called) during activity recreation.
+            ?: return@addOnPreDrawListener true
         val coordinatorLayout = parent as CoordinatorLayout
         behavior.onNestedPreScroll(coordinatorLayout, this, coordinatorLayout, 0, 0, consumed, 0)
         true
