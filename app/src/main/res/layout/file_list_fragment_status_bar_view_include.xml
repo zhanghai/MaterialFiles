@@ -7,7 +7,8 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <me.zhanghai.android.files.ui.StatusBarBackgroundView
+    <me.zhanghai.android.files.ui.MaterialStatusBarView
+        android:id="@+id/statusBarView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="fill" />
