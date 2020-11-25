@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.provider.smb
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.util.hash
 
 @Parcelize
