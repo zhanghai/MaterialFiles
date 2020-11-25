@@ -123,8 +123,8 @@ cat >"${CUSTOM_THEMES_XML}" <<EOF
 <resources>
 
 EOF
-for theme_suffix in "${THEME_SUFFIXES[@]}"; do
-    for color_index in "${!CUSTOM_COLORS[@]}"; do
+for color_index in "${!CUSTOM_COLORS[@]}"; do
+    for theme_suffix in "${THEME_SUFFIXES[@]}"; do
         color="${CUSTOM_COLORS[color_index]}"
         if [[ "${theme_suffix}" == '.Immersive' ]]; then
             primary_color="${CUSTOM_COLORS_DARK[color_index]}"
@@ -141,8 +141,8 @@ done
 cat >>"${CUSTOM_THEMES_XML}" <<EOF
 
 EOF
-for theme_suffix in "${THEME_SUFFIXES[@]}"; do
-    for color_index in "${!CUSTOM_COLORS[@]}"; do
+for color_index in "${!CUSTOM_COLORS[@]}"; do
+    for theme_suffix in "${THEME_SUFFIXES[@]}"; do
         color="${CUSTOM_COLORS[color_index]}"
         cat >>"${CUSTOM_THEMES_XML}" <<EOF
     <style name="Theme.MaterialFiles${theme_suffix}.${color}.Black" />
@@ -159,8 +159,8 @@ cat >"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
 <resources>
 
 EOF
-for theme_suffix in "${THEME_SUFFIXES[@]}"; do
-    for color_index in "${!CUSTOM_COLORS[@]}"; do
+for color_index in "${!CUSTOM_COLORS[@]}"; do
+    for theme_suffix in "${THEME_SUFFIXES[@]}"; do
         color="${CUSTOM_COLORS[color_index]}"
         cat >>"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
     <style name="Theme.MaterialFiles${theme_suffix}.${color}.Black">
