@@ -27,7 +27,7 @@
         <animated-selector
             android:enterFadeDuration="@android:integer/config_shortAnimTime"
             android:exitFadeDuration="@android:integer/config_shortAnimTime">
-            <item android:state_checked="true" android:drawable="@drawable/check_icon_white_36dp" />
+            <item android:state_checked="true" android:drawable="@drawable/check_icon_on_primary_36dp" />
             <item>
                 <shape android:shape="oval">
                     <size android:width="36dp" android:height="36dp" />
@@ -36,5 +36,13 @@
         </animated-selector>
     </item>
 
-    <item android:drawable="@drawable/selectable_item_background_oval" />
+    <item>
+        <ripple android:color="@color/mtrl_btn_ripple_color">
+            <item android:id="@android:id/mask">
+                <shape android:shape="oval">
+                    <solid android:color="@android:color/white" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
 </layer-list>
