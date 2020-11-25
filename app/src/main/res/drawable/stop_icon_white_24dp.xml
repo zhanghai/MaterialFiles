@@ -14,5 +14,5 @@
 
     <path
         android:fillColor="@android:color/white"
-        android:pathData="M6 6h12v12H6z" />
+        android:pathData="M16 8v8H8V8h8m2-2H6v12h12V6z" />
 </vector>
