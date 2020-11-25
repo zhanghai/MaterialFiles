@@ -71,7 +71,6 @@ CUSTOM_COLORS_XML='../app/src/main/res/values/colors_custom.xml'
 CUSTOM_COLORS_NIGHT_XML='../app/src/main/res/values-night/colors_custom.xml'
 THEME_SUFFIXES=(
     ''
-    .TransparentStatusBar
     .Translucent
     .Immersive
 )
@@ -164,6 +163,7 @@ for color_index in "${!CUSTOM_COLORS[@]}"; do
         color="${CUSTOM_COLORS[color_index]}"
         cat >>"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
     <style name="Theme.MaterialFiles${theme_suffix}.${color}.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
 EOF

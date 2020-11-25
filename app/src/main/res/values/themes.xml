@@ -7,9 +7,7 @@
 
 <resources>
 
-    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight">
-        <item name="colorPrimaryDark">@color/status_bar_background_compat</item>
-    </style>
+    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight" />
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles" />
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
 
@@ -20,6 +18,7 @@
 
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorPrimaryDark">@color/system_window_scrim</item>
         <item name="colorSecondary">?colorPrimary</item>
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
@@ -29,16 +28,8 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
-        <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
     </style>
     <style name="Theme.MaterialFiles" parent="Base.Theme.MaterialFiles" />
-
-    <style name="Platform.V21.Theme.MaterialFiles.TransparentStatusBar" parent="Theme.MaterialFiles">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
-    <style name="Platform.Theme.MaterialFiles.TransparentStatusBar" parent="Platform.V21.Theme.MaterialFiles.TransparentStatusBar" />
-    <style name="Base.Theme.MaterialFiles.TransparentStatusBar" parent="Platform.Theme.MaterialFiles.TransparentStatusBar" />
-    <style name="Theme.MaterialFiles.TransparentStatusBar" parent="Base.Theme.MaterialFiles.TransparentStatusBar" />
 
     <style name="Platform.V21.Theme.MaterialFiles.Translucent" parent="Theme.MaterialFiles">
         <item name="android:navigationBarColor">@android:color/transparent</item>
@@ -57,14 +48,12 @@
     <style name="Theme.MaterialFiles.Translucent" parent="Base.Theme.MaterialFiles.Translucent" />
 
     <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.MaterialComponents">
-        <item name="android:navigationBarColor">@color/dark_70_percent</item>
-        <item name="android:statusBarColor">@color/dark_70_percent</item>
+        <item name="android:navigationBarColor">?colorPrimaryDark</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V21.Theme.MaterialFiles.Immersive" />
     <style name="Base.Theme.MaterialFiles.Immersive" parent="Platform.Theme.MaterialFiles.Immersive">
 
         <item name="android:colorBackground">?colorSurface</item>
-        <item name="colorPrimaryDark">?colorPrimaryVariant</item>
         <item name="dropDownListViewStyle">@style/Widget.Material.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
@@ -72,6 +61,7 @@
 
         <item name="colorPrimary">@color/color_primary_dark</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorPrimaryDark">@color/dark_70_percent</item>
         <item name="colorSecondary">?colorPrimary</item>
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
@@ -81,7 +71,6 @@
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
-        <item name="colorSystemWindowScrim">@color/system_window_scrim_dark</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive" parent="Base.Theme.MaterialFiles.Immersive" />
 </resources>

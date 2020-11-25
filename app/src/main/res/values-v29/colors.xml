@@ -6,5 +6,6 @@
   -->
 
 <resources>
-    <attr name="colorAppBarSurface" format="color" />
+
+    <color name="system_window_scrim">@android:color/transparent</color>
 </resources>

@@ -11,14 +11,11 @@
     <color name="dark_50_percent">#80000000</color>
     <color name="dark_70_percent">#B3000000</color>
 
-    <color name="status_bar_background_compat_light">#BBBBBB</color>
-    <color name="status_bar_background_compat_dark">@color/color_surface_dark</color>
-    <color name="status_bar_background_compat">@color/status_bar_background_compat_light</color>
-
-    <color name="system_window_scrim_compat">#44000000</color>
+    <color name="system_window_scrim_light_compat">#44000000</color>
     <color name="system_window_scrim_light">#99FFFFFF</color>
-    <color name="system_window_scrim_dark">#52000000</color>
-    <color name="system_window_scrim">@color/system_window_scrim_compat</color>
+    <color name="system_window_scrim_dark">#66202124</color>
+    <color name="system_window_scrim_black">#66000000</color>
+    <color name="system_window_scrim">@color/system_window_scrim_light_compat</color>
 
     <color name="color_primary_classic">@color/material_blue_700</color>
     <color name="color_primary_light">@color/google_blue_500</color>

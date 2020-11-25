@@ -3,243 +3,243 @@
 <resources>
 
     <style name="Theme.MaterialFiles.color_primary.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.color_primary.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.color_primary.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.color_primary.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_red.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_red.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_red.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_red.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_pink.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_pink.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_pink.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_pink.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_purple.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_purple.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_purple.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_purple.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_deep_purple.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_deep_purple.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_deep_purple.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_deep_purple.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_indigo.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_indigo.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_indigo.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_indigo.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_blue.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_blue.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_blue.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_blue.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_light_blue.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_light_blue.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_light_blue.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_light_blue.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_cyan.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_cyan.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_cyan.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_cyan.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_teal.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_teal.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_teal.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_teal.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_green.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_green.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_green.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_green.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_light_green.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_light_green.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_light_green.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_light_green.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_lime.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_lime.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_lime.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_lime.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_yellow.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_yellow.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_yellow.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_yellow.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_amber.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_amber.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_amber.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_amber.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_orange.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_orange.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_orange.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_orange.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_deep_orange.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_deep_orange.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_deep_orange.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_deep_orange.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_brown.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_brown.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_brown.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_brown.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_grey.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_grey.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_grey.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_grey.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.material_blue_grey.Black">
-        <item name="colorSurface">@android:color/black</item>
-    </style>
-    <style name="Theme.MaterialFiles.TransparentStatusBar.material_blue_grey.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Translucent.material_blue_grey.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive.material_blue_grey.Black">
+        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
 </resources>

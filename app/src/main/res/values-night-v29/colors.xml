@@ -7,5 +7,5 @@
 
 <resources>
 
-    <color name="system_window_scrim">@color/system_window_scrim_dark</color>
+    <color name="system_window_scrim">@android:color/transparent</color>
 </resources>

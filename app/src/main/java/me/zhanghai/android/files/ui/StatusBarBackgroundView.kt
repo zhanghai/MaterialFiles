@@ -19,7 +19,7 @@ import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.getDimension
 
 class StatusBarBackgroundView : View {
-    private var statusBarBackground = ColorDrawable(context.getColorByAttr(R.attr.colorPrimaryDark))
+    private var statusBarBackground = ColorDrawable(context.getColorByAttr(R.attr.colorSurface))
 
     private var insets: WindowInsets? = null
 

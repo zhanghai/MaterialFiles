@@ -124,8 +124,8 @@ class CoordinatorScrollingFrameLayout : FrameLayout, AttachedBehavior {
             @SuppressLint("RestrictedApi")
             val parentInsets = parent.lastWindowInsets
             if (parentInsets != null) {
-                var parentHeightSize = MeasureSpec.getSize(parentHeightMeasureSpec)
-                parentHeightSize -= parentInsets.systemWindowInsetTop
+                val parentHeightSize = (MeasureSpec.getSize(parentHeightMeasureSpec)
+                    - parentInsets.systemWindowInsetTop - parentInsets.systemWindowInsetBottom)
                 val parentHeightMode = MeasureSpec.getMode(parentHeightMeasureSpec)
                 parentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
                     parentHeightSize, parentHeightMode
