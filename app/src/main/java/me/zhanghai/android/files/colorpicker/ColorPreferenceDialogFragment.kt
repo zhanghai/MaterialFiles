@@ -12,15 +12,18 @@ import android.view.View
 import android.widget.GridView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
-import androidx.preference.PreferenceDialogFragmentCompat
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.MaterialPreferenceDialogFragmentCompat
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.putState
 import me.zhanghai.android.files.util.withTheme
 
-class ColorPreferenceDialogFragment : PreferenceDialogFragmentCompat() {
+class ColorPreferenceDialogFragment : MaterialPreferenceDialogFragmentCompat() {
+    override val preference: BaseColorPreference
+        get() = super.preference as BaseColorPreference
+
     private lateinit var colors: IntArray
     private var checkedColor = 0
     private var defaultColor = 0
@@ -96,8 +99,6 @@ class ColorPreferenceDialogFragment : PreferenceDialogFragmentCompat() {
         val checkedColor = colors[checkedPosition]
         preference.value = checkedColor
     }
-
-    override fun getPreference(): BaseColorPreference = super.getPreference() as BaseColorPreference
 
     @Parcelize
     private class State(
