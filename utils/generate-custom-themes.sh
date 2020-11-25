@@ -76,6 +76,7 @@ THEME_SUFFIXES=(
     .Immersive
 )
 CUSTOM_THEMES_XML='../app/src/main/res/values/themes_custom.xml'
+CUSTOM_THEMES_NIGHT_XML='../app/src/main/res/values-night/themes_custom.xml'
 CUSTOM_THEME_COLOR_KT='../app/src/main/java/me/zhanghai/android/files/theme/custom/ThemeColor.kt'
 
 cat >"${CUSTOM_COLORS_XML}" <<EOF
@@ -120,6 +121,7 @@ cat >"${CUSTOM_THEMES_XML}" <<EOF
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
 EOF
 for theme_suffix in "${THEME_SUFFIXES[@]}"; do
     for color_index in "${!CUSTOM_COLORS[@]}"; do
@@ -130,7 +132,6 @@ for theme_suffix in "${THEME_SUFFIXES[@]}"; do
             primary_color="${color}"
         fi
         cat >>"${CUSTOM_THEMES_XML}" <<EOF
-
     <style name="Theme.MaterialFiles${theme_suffix}.${color}">
         <item name="colorPrimary">@color/${primary_color}</item>
     </style>
@@ -138,6 +139,37 @@ EOF
     done
 done
 cat >>"${CUSTOM_THEMES_XML}" <<EOF
+
+EOF
+for theme_suffix in "${THEME_SUFFIXES[@]}"; do
+    for color_index in "${!CUSTOM_COLORS[@]}"; do
+        color="${CUSTOM_COLORS[color_index]}"
+        cat >>"${CUSTOM_THEMES_XML}" <<EOF
+    <style name="Theme.MaterialFiles${theme_suffix}.${color}.Black" />
+EOF
+    done
+done
+cat >>"${CUSTOM_THEMES_XML}" <<EOF
+</resources>
+EOF
+
+cat >"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+EOF
+for theme_suffix in "${THEME_SUFFIXES[@]}"; do
+    for color_index in "${!CUSTOM_COLORS[@]}"; do
+        color="${CUSTOM_COLORS[color_index]}"
+        cat >>"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
+    <style name="Theme.MaterialFiles${theme_suffix}.${color}.Black">
+        <item name="colorSurface">@android:color/black</item>
+    </style>
+EOF
+    done
+done
+cat >>"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
 </resources>
 EOF
 

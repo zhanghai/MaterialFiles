@@ -25,8 +25,10 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
         // https://stackoverflow.com/a/27524543
         //Settings.THEME_COLOR.observe(viewLifecycleOwner) { CustomThemeHelper.sync() }
         //Settings.NIGHT_MODE.observe(viewLifecycleOwner) { NightModeHelper.sync() }
+        //Settings.BLACK_NIGHT_MODE.observe(viewLifecycleOwner) { CustomThemeHelper.sync() }
         Settings.THEME_COLOR.observe(viewLifecycleOwner, this::onThemeColorChanged)
         Settings.NIGHT_MODE.observe(viewLifecycleOwner, this::onNightModeChanged)
+        Settings.BLACK_NIGHT_MODE.observe(viewLifecycleOwner, this::onBlackNightModeChanged)
     }
 
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
@@ -39,5 +41,9 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
     private fun onNightModeChanged(nightMode: NightMode) {
         NightModeHelper.sync()
+    }
+
+    private fun onBlackNightModeChanged(blackNightMode: Boolean) {
+        CustomThemeHelper.sync()
     }
 }

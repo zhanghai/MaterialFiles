@@ -61,7 +61,8 @@ object CustomThemeHelper {
         val themeColorName = resources.getResourceEntryName(
             Settings.THEME_COLOR.valueCompat.resourceId
         )
-        val customThemeName = "$baseThemeName.$themeColorName"
+        val blackThemeSuffix = if (Settings.BLACK_NIGHT_MODE.valueCompat) ".Black" else ""
+        val customThemeName = "$baseThemeName.$themeColorName$blackThemeSuffix"
         return resources.getIdentifier(customThemeName, null, null)
     }
 

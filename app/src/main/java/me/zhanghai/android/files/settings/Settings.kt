@@ -92,6 +92,11 @@ object Settings {
             NightMode::class.java
         )
 
+    val BLACK_NIGHT_MODE: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_black_night_mode, R.bool.pref_default_value_black_night_mode
+        )
+
     val FILE_LIST_ANIMATION: SettingLiveData<Boolean> =
         BooleanSettingLiveData(
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation

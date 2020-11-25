@@ -435,6 +435,7 @@
         <item>基於時間</item>
         <item>基於省電模式</item>
     </string-array>
+    <string name="settings_black_night_mode">黑色夜間模式</string>
     <string name="settings_file_list_animation_title">檔案列表動畫</string>
     <string name="settings_behavior_title">行為</string>
     <string name="settings_default_directory_title">預設資料夾</string>

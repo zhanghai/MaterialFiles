@@ -542,6 +542,7 @@
         <item>Based on time</item>
         <item>Based on battery saver</item>
     </string-array>
+    <string name="settings_black_night_mode">Black night mode</string>
     <string name="settings_file_list_animation_title">File list animation</string>
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_default_directory_title">Default folder</string>

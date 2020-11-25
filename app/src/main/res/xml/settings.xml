@@ -26,6 +26,11 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            android:key="@string/pref_key_black_night_mode"
+            android:title="@string/settings_black_night_mode"
+            android:defaultValue="@bool/pref_default_value_black_night_mode" />
+
+        <SwitchPreferenceCompat
             android:key="@string/pref_key_file_list_animation"
             android:title="@string/settings_file_list_animation_title"
             android:defaultValue="@bool/pref_default_value_file_list_animation" />
