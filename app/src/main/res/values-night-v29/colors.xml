@@ -8,4 +8,6 @@
 <resources>
 
     <color name="system_window_scrim">@android:color/transparent</color>
+
+    <color name="system_window_scrim_black">@android:color/transparent</color>
 </resources>

@@ -9,6 +9,8 @@
 
     <color name="system_window_scrim">@color/system_window_scrim_dark</color>
 
+    <color name="system_window_scrim_black">@color/system_window_scrim_black_dark</color>
+
     <color name="color_primary">@color/color_primary_dark</color>
 
     <color name="color_surface">@color/color_surface_dark</color>
