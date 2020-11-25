@@ -45,8 +45,7 @@ object NightModeHelper {
         for (activity in activities) {
             val nightMode = nightMode
             if (activity is OnNightModeChangedListener) {
-                val localNightMode = activity.delegate.localNightMode
-                if (getUiModeNight(localNightMode, activity)
+                if (getUiModeNight(activity.delegate.localNightMode, activity)
                     != getUiModeNight(nightMode, activity)) {
                     activity.onNightModeChangedFromHelper(nightMode)
                 }
@@ -70,6 +69,10 @@ object NightModeHelper {
                 (activity.applicationContext.resources.configuration.uiMode
                     and Configuration.UI_MODE_NIGHT_MASK)
         }
+
+    fun isInNightMode(activity: AppCompatActivity): Boolean =
+        (getUiModeNight(activity.delegate.localNightMode, activity)
+            == Configuration.UI_MODE_NIGHT_YES)
 
     interface OnNightModeChangedListener {
         fun onNightModeChangedFromHelper(nightMode: Int)
