@@ -24,7 +24,6 @@ import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.io.IOException
-import java.lang.StringBuilder
 
 internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
     private val fileSystem: SmbFileSystem

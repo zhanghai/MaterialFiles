@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.navigation
 
 import androidx.lifecycle.MediatorLiveData
-import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData.addSource
 import me.zhanghai.android.files.settings.Settings
 
 object StandardDirectoriesLiveData : MediatorLiveData<List<StandardDirectory>>() {

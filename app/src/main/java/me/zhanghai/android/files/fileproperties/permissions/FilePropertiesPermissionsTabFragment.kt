@@ -8,8 +8,8 @@ package me.zhanghai.android.files.fileproperties.permissions
 import android.os.Bundle
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.file.FileItem
-import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.fileproperties.FilePropertiesFileViewModel
+import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
 import me.zhanghai.android.files.provider.common.PosixPrincipal
 import me.zhanghai.android.files.provider.common.isNullOrEmpty

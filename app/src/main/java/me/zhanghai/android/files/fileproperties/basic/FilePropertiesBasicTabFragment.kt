@@ -19,15 +19,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.app.mainExecutor
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.asFileSize
 import me.zhanghai.android.files.file.fileSize
 import me.zhanghai.android.files.file.formatLong
 import me.zhanghai.android.files.filelist.getMimeTypeName
 import me.zhanghai.android.files.filelist.name
-import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.fileproperties.FilePropertiesFileViewModel
+import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes
 import me.zhanghai.android.files.provider.archive.archiveFile
 import me.zhanghai.android.files.provider.archive.isArchivePath

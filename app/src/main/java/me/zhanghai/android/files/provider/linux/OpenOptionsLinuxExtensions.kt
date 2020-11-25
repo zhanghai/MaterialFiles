@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.linux
 
 import android.system.OsConstants
-import java8.nio.file.StandardOpenOption
 import me.zhanghai.android.files.provider.common.OpenOptions
 import me.zhanghai.android.files.provider.linux.syscall.Constants
 

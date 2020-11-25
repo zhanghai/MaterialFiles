@@ -16,7 +16,6 @@ import java8.nio.file.FileStore
 import java8.nio.file.FileSystem
 import java8.nio.file.FileSystemAlreadyExistsException
 import java8.nio.file.LinkOption
-import java8.nio.file.NotLinkException
 import java8.nio.file.OpenOption
 import java8.nio.file.Path
 import java8.nio.file.ProviderMismatchException

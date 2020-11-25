@@ -8,7 +8,6 @@ package me.zhanghai.android.files.provider.common
 import java8.nio.file.LinkOption
 import java8.nio.file.OpenOption
 import java8.nio.file.StandardOpenOption
-import java.lang.IllegalArgumentException
 
 class OpenOptions(
     val read: Boolean,

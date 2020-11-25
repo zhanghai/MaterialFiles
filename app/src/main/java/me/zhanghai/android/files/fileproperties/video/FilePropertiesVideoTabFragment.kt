@@ -10,11 +10,11 @@ import android.location.Geocoder
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import java8.nio.file.Path
-import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.WriteWith
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.format

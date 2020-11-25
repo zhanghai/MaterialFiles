@@ -9,7 +9,6 @@ import com.hierynomus.msdtyp.AccessMask
 import com.hierynomus.smbj.SMBClient
 import java8.nio.channels.FileChannel
 import java8.nio.channels.SeekableByteChannel
-import java8.nio.file.AccessDeniedException
 import java8.nio.file.AccessMode
 import java8.nio.file.CopyOption
 import java8.nio.file.DirectoryStream

@@ -7,7 +7,6 @@ package me.zhanghai.android.files.navigation
 
 import androidx.lifecycle.MediatorLiveData
 import java8.nio.file.Path
-import me.zhanghai.android.files.navigation.NavigationRootMapLiveData.addSource
 import me.zhanghai.android.files.util.valueCompat
 
 object NavigationRootMapLiveData : MediatorLiveData<Map<Path, NavigationRoot>>() {

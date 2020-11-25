@@ -8,8 +8,8 @@ package me.zhanghai.android.files.settings
 import android.os.Bundle
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.theme.custom.ThemeColor
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper
+import me.zhanghai.android.files.theme.custom.ThemeColor
 import me.zhanghai.android.files.theme.night.NightMode
 import me.zhanghai.android.files.theme.night.NightModeHelper
 
