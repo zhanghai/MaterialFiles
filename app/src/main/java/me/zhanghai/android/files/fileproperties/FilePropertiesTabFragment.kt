@@ -12,21 +12,17 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.core.view.ViewCompat
 import androidx.core.view.get
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
-import me.zhanghai.android.files.compat.scrollIndicatorsCompat
 import me.zhanghai.android.files.databinding.FilePropertiesTabFragmentBinding
 import me.zhanghai.android.files.databinding.FilePropertiesTabItemBinding
-import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.showToast
-import me.zhanghai.android.files.util.valueCompat
 
 abstract class FilePropertiesTabFragment : Fragment() {
     protected lateinit var binding: FilePropertiesTabFragmentBinding
@@ -43,13 +39,6 @@ abstract class FilePropertiesTabFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.swipeRefreshLayout.setOnRefreshListener { refresh() }
-        if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-            binding.scrollView.scrollIndicatorsCompat =
-                ViewCompat.SCROLL_INDICATOR_TOP or ViewCompat.SCROLL_INDICATOR_BOTTOM
-        } else {
-            binding.linearLayout.clipChildren = false
-            binding.linearLayout.clipToPadding = false
-        }
     }
 
     abstract fun refresh()

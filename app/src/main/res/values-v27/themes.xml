@@ -7,9 +7,8 @@
 
 <resources>
 
-    <style name="Platform.V27.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles">
-        <item name="android:navigationBarColor">?android:colorBackground</item>
-        <item name="android:navigationBarDividerColor">?colorControlHighlight</item>
+    <style name="Platform.V27.Theme.MaterialFiles" parent="Platform.V23.Theme.MaterialFiles">
+        <item name="android:navigationBarColor">?colorSystemWindowScrim</item>
         <item name="android:windowLightNavigationBar">?isLightTheme</item>
     </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V27.Theme.MaterialFiles" />

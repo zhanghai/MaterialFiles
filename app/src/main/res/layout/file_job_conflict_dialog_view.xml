@@ -196,9 +196,9 @@
                 android:layout_width="wrap_content"
                 android:minWidth="64dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="?textButtonHorizontalPaddingNegative"
+                android:layout_marginEnd="-8dp"
                 android:text="@string/reset"
-                style="?textButtonStyle" />
+                style="?borderlessButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 

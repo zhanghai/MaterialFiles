@@ -10,9 +10,9 @@ import android.os.Bundle
 import android.os.storage.StorageVolume
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.compat.getDescriptionCompat
 import me.zhanghai.android.files.file.DocumentTreeUri
 import me.zhanghai.android.files.file.displayNameOrUri
@@ -28,7 +28,7 @@ class ConfirmRemoveDocumentTreeDialogFragment : AppCompatDialogFragment() {
         get() = requireParentFragment() as Listener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialogBuilderCompat.create(requireContext(), theme)
+        return MaterialAlertDialogBuilder(requireContext(), theme)
             .apply {
                 val name = args.storageVolume?.getDescriptionCompat(context)
                     ?: args.treeUri.displayNameOrUri

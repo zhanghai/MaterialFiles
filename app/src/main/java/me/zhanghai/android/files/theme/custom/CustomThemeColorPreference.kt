@@ -12,7 +12,6 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.StyleRes
 import com.takisoft.preferencex.PreferenceFragmentCompat
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.colorpicker.BaseColorPreference
 import me.zhanghai.android.files.colorpicker.ColorPreferenceDialogFragment
 import me.zhanghai.android.files.compat.getColorCompat
@@ -71,14 +70,8 @@ class CustomThemeColorPreference : BaseColorPreference {
 
     init {
         val context = context
-        // TODO: kotlinc: Unresolved reference: resourceId
-        //val colors = when (val key = key) {
-        val colors: Array<out CustomThemeColor> = when (val key = key) {
-            context.getString(R.string.pref_key_primary_color) -> CustomThemePrimaryColor.values()
-            context.getString(R.string.pref_key_accent_color) -> CustomThemeAccentColor.values()
-            else -> throw IllegalArgumentException("Unknown key: $key")
-        }
-        entryValues = colors.map { context.getColorCompat(it.resourceId) }.toIntArray()
+        entryValues = CustomThemeColor.values().map { context.getColorCompat(it.resourceId) }
+            .toIntArray()
     }
 
     override fun onGetDefaultValue(a: TypedArray, index: Int): Any? =

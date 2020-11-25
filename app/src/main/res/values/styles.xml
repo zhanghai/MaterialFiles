@@ -6,7 +6,25 @@
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small">
         <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
+    </style>
+
+    <!--
+      ~ See also drawable-v21/mtrl_popupmenu_background.xml and
+      ~ drawable-v23/mtrl_popupmenu_background_dark.xml which are overridden.
+      -->
+    <style name="Widget.Material.ListView.DropDown" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="Widget.MaterialFiles.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="android:stateListAnimator">@null</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/mtrl_btn_stroke_color_selector</item>
+        <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
     </style>
 </resources>

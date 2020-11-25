@@ -9,11 +9,11 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.args
@@ -27,7 +27,7 @@ class ConfirmDeleteDialogFragment : AppCompatDialogFragment() {
         get() = requireParentFragment() as Listener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return AlertDialogBuilderCompat.create(requireContext(), theme)
+        return MaterialAlertDialogBuilder(requireContext(), theme)
             .setMessage(getString(R.string.image_viewer_delete_message_format, args.path.fileName))
             .setPositiveButton(android.R.string.ok) { _, _ -> listener.delete(args.path) }
             .setNegativeButton(android.R.string.cancel, null)

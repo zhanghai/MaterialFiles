@@ -17,15 +17,12 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getColorStateListCompat
-import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.NavigationDividerItemBinding
 import me.zhanghai.android.files.databinding.NavigationItemBinding
-import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.dpToDimensionPixelSize
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.layoutInflater
-import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.foregroundcompat.ForegroundCompat
 
 class NavigationListAdapter(
@@ -52,18 +49,11 @@ class NavigationListAdapter(
                 ItemHolder(
                     NavigationItemBinding.inflate(parent.context.layoutInflater, parent, false)
                 ).apply {
-                    if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-                        val context = binding.itemLayout.context
-                        binding.itemLayout.background = createItemBackgroundMd2(context)
-                        ForegroundCompat.setForeground(
-                            binding.itemLayout, createItemForegroundMd2(context)
-                        )
-                    } else {
-                        binding.itemLayout.background =
-                            binding.itemLayout.context.getDrawableCompat(
-                                R.drawable.navigation_item_background
-                            )
-                    }
+                    val context = binding.itemLayout.context
+                    binding.itemLayout.background = createItemBackground(context)
+                    ForegroundCompat.setForeground(
+                        binding.itemLayout, createItemForeground(context)
+                    )
                     binding.iconImage.imageTintList = NavigationItemColor.create(
                         binding.iconImage.imageTintList!!, binding.iconImage.context
                     )
@@ -88,23 +78,19 @@ class NavigationListAdapter(
     }
 
     // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
-    private fun createItemBackgroundMd2(context: Context): Drawable =
-        createItemShapeDrawableMd2(
-            context.getColorStateListCompat(R.color.mtrl_navigation_item_background_color),
-            context
+    private fun createItemBackground(context: Context): Drawable =
+        createItemShapeDrawable(
+            context.getColorStateListCompat(R.color.mtrl_navigation_item_background_color), context
         )
 
-    private fun createItemForegroundMd2(context: Context): Drawable {
-        val mask = createItemShapeDrawableMd2(ColorStateList.valueOf(Color.WHITE), context)
+    private fun createItemForeground(context: Context): Drawable {
+        val mask = createItemShapeDrawable(ColorStateList.valueOf(Color.WHITE), context)
         val controlHighlightColor = context.getColorByAttr(R.attr.colorControlHighlight)
         return RippleDrawable(ColorStateList.valueOf(controlHighlightColor), null, mask)
     }
 
     // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
-    private fun createItemShapeDrawableMd2(
-        fillColor: ColorStateList,
-        context: Context
-    ): Drawable {
+    private fun createItemShapeDrawable(fillColor: ColorStateList, context: Context): Drawable {
         val materialShapeDrawable = MaterialShapeDrawable(
             ShapeAppearanceModel.builder(context, R.style.ShapeAppearance_Google_Navigation, 0)
                 .build()

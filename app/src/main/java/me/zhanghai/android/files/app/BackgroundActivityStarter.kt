@@ -27,7 +27,7 @@ val backgroundActivityStartNotificationTemplate: NotificationTemplate =
             descriptionRes = R.string.notification_channel_background_activity_start_description,
             showBadge = false
         ),
-        colorRes = R.color.color_primary,
+        colorRes = R.color.color_primary_classic,
         smallIcon = R.drawable.notification_icon,
         ongoing = true,
         autoCancel = true,

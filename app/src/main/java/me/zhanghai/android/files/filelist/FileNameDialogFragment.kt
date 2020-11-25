@@ -14,19 +14,15 @@ import android.widget.EditText
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.FileNameDialogBinding
-import me.zhanghai.android.files.databinding.FileNameDialogMd2Binding
 import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
-import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeMd2Binding
-import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileNameOrNull
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.setOnEditorConfirmActionListener
-import me.zhanghai.android.files.util.valueCompat
 
 abstract class FileNameDialogFragment : AppCompatDialogFragment() {
     private lateinit var _binding: Binding
@@ -37,7 +33,7 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
         get() = requireParentFragment() as Listener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        AlertDialogBuilderCompat.create(requireContext(), theme)
+        MaterialAlertDialogBuilder(requireContext(), theme)
             .setTitle(titleRes)
             .apply {
                 _binding = onInflateBinding(context.layoutInflater)
@@ -98,18 +94,12 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
         val nameEdit: EditText
     ) {
         companion object {
-            fun inflate(inflater: LayoutInflater): Binding =
-                if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-                    val binding = FileNameDialogMd2Binding.inflate(inflater)
-                    val bindingRoot = binding.root
-                    val nameBinding = FileNameDialogNameIncludeMd2Binding.bind(bindingRoot)
-                    Binding(bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit)
-                } else {
-                    val binding = FileNameDialogBinding.inflate(inflater)
-                    val bindingRoot = binding.root
-                    val nameBinding = FileNameDialogNameIncludeBinding.bind(bindingRoot)
-                    Binding(bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit)
-                }
+            fun inflate(inflater: LayoutInflater): Binding {
+                val binding = FileNameDialogBinding.inflate(inflater)
+                val bindingRoot = binding.root
+                val nameBinding = FileNameDialogNameIncludeBinding.bind(bindingRoot)
+                return Binding(bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit)
+            }
         }
     }
 

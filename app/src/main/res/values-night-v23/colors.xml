@@ -7,5 +7,5 @@
 
 <resources>
 
-    <bool name="file_list_app_bar_lift_on_scroll_md2">true</bool>
+    <color name="system_window_scrim">@color/system_window_scrim_dark</color>
 </resources>

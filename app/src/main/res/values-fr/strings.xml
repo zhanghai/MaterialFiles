@@ -451,9 +451,6 @@
     <string name="settings_interface_title">Interface</string>
     <string name="settings_primary_color_title">Couleur primaire</string>
     <string name="settings_primary_color_summary">Couleur qui apparaît le plus souvent dans l’application</string>
-    <string name="settings_accent_color_title">Couleur d\'accent</string>
-    <string name="settings_accent_color_summary">Couleur utilisée pour accentuer les parties clés de l’interface utilisateur</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Mode nuit</string>
     <string-array name="settings_night_mode_entries">
         <item>Système de suivi</item>

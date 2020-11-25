@@ -14,12 +14,10 @@ import de.psdev.licensesdialog.NoticesXmlParser
 import de.psdev.licensesdialog.model.Notices
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.putState
 import me.zhanghai.android.files.util.show
-import me.zhanghai.android.files.util.valueCompat
 
 class LicensesDialogFragment : AppCompatDialogFragment() {
     private lateinit var notices: Notices
@@ -44,13 +42,7 @@ class LicensesDialogFragment : AppCompatDialogFragment() {
             // setIncludeOwnLicense(true) will modify our notices instance.
             .setNotices(notices.copy())
             .setIncludeOwnLicense(true)
-            .setNoticesCssStyle(
-                if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-                    R.string.about_licenses_html_style_md2
-                } else {
-                    R.string.about_licenses_html_style
-                }
-            )
+            .setNoticesCssStyle(R.string.about_licenses_html_style)
             .setCloseText(R.string.close)
             .build()
             .create()

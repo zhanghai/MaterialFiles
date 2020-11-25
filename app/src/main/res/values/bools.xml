@@ -7,6 +7,5 @@
 
 <resources>
 
-    <color name="system_window_scrim_md2_light">#99FFFFFF</color>
-    <color name="system_window_scrim_md2_dark">#52000000</color>
+    <bool name="file_list_app_bar_lift_on_scroll">true</bool>
 </resources>

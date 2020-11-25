@@ -12,10 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import me.zhanghai.android.files.databinding.AddSmbServerFragmentMd2Binding
+import me.zhanghai.android.files.databinding.AddSmbServerFragmentBinding
 
 class AddSmbServerFragment : Fragment() {
-    private lateinit var binding: AddSmbServerFragmentMd2Binding
+    private lateinit var binding: AddSmbServerFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class AddSmbServerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        AddSmbServerFragmentMd2Binding.inflate(inflater, container, false)
+        AddSmbServerFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root;
 

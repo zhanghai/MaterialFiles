@@ -534,9 +534,6 @@
     <string name="settings_interface_title">Interface</string>
     <string name="settings_primary_color_title">Primary color</string>
     <string name="settings_primary_color_summary">Color that appears most frequently in the app</string>
-    <string name="settings_accent_color_title">Accent color</string>
-    <string name="settings_accent_color_summary">Color used to accent key parts of the UI</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Night mode</string>
     <string-array name="settings_night_mode_entries">
         <item>Follow system</item>
@@ -579,24 +576,6 @@
     <string name="about_github_title">View on GitHub</string>
     <string name="about_licenses_title">Licenses</string>
     <string name="about_licenses_html_style" translatable="false">
-        body {
-            background: white;
-            color: black;
-            font-family: sans-serif;
-            margin: 0;
-            overflow-wrap: break-word;
-            padding: 12px;
-        }
-        pre {
-            background: #eeeeee;
-            padding: 12px;
-            white-space: pre-wrap;
-        }
-        a, a:link, a:visited, a:hover, a:focus, a:active {
-            color: #e91e63;
-        }
-    </string>
-    <string name="about_licenses_html_style_md2" translatable="false">
         body {
             background: white;
             color: black;

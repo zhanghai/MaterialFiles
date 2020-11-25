@@ -503,9 +503,6 @@
     <string name="settings_interface_title">Интерфейс</string>
     <string name="settings_primary_color_title">Основной цвет</string>
     <string name="settings_primary_color_summary">Цвет, который чаще всего используется в приложении</string>
-    <string name="settings_accent_color_title">Цвет акцента</string>
-    <string name="settings_accent_color_summary">Цвет, используемый для выделения ключевых частей пользовательского интерфейса</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Ночной режим</string>
     <string-array name="settings_night_mode_entries">
         <item>Использовать системную тему</item>

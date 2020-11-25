@@ -7,9 +7,9 @@
 
 <resources>
 
-    <style name="Platform.V23.Theme.MaterialFiles.Md2" parent="Platform.V21.Theme.MaterialFiles.Md2">
+    <style name="Platform.V23.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles">
         <item name="colorPrimaryDark">?colorSurface</item>
         <item name="android:windowLightStatusBar">?isLightTheme</item>
     </style>
-    <style name="Platform.Theme.MaterialFiles.Md2" parent="Platform.V23.Theme.MaterialFiles.Md2" />
+    <style name="Platform.Theme.MaterialFiles" parent="Platform.V23.Theme.MaterialFiles" />
 </resources>

@@ -12,26 +12,23 @@
     android:paddingStart="?dialogPreferredPadding"
     android:paddingEnd="?dialogPreferredPadding"
     android:paddingTop="16dp"
-    android:clipChildren="false"
-    android:clipToPadding="false"
+    android:paddingBottom="16dp"
     android:orientation="vertical">
 
-    <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-4dp"
-        android:layout_marginEnd="-4dp"
         android:hint="@string/navigation_edit_bookmark_directory_name">
 
-        <me.zhanghai.android.materialedittext.MaterialEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="text">
             <requestFocus />
-        </me.zhanghai.android.materialedittext.MaterialEditText>
-    </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
         android:layout_width="match_parent"

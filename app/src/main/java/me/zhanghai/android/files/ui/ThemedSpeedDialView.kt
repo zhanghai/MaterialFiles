@@ -34,8 +34,8 @@ class ThemedSpeedDialView : SpeedDialView {
         animate: Boolean
     ): FabWithLabelView? {
         val context = context
-        val fabImageTintColor = context.getColorByAttr(R.attr.colorOnSpeedDialSurface)
-        val fabBackgroundColor = context.getColorByAttr(R.attr.colorSpeedDialSurface)
+        val fabImageTintColor = context.getColorByAttr(R.attr.colorOnSurface)
+        val fabBackgroundColor = context.getColorByAttr(R.attr.colorSurface)
         val labelColor = context.getColorByAttr(android.R.attr.textColorSecondary)
         // Label view doesn't have enough elevation (only 1dp) for elevation overlay to work well.
         val labelBackgroundColor = context.getColorByAttr(R.attr.colorBackgroundFloating)

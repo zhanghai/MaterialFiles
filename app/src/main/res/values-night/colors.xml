@@ -6,5 +6,12 @@
   -->
 
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="sd_overlay_color" tools:ignore="MissingDefaultResource">#aa000000</color>
+
+    <color name="status_bar_background_compat">@color/status_bar_background_compat_dark</color>
+
+    <color name="color_primary">@color/color_primary_dark</color>
+
+    <color name="color_surface">@color/color_surface_dark</color>
+
+    <color name="sd_overlay_color" tools:ignore="MissingDefaultResource">#AA000000</color>
 </resources>

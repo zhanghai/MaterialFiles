@@ -15,21 +15,8 @@
             android:key="@string/pref_key_primary_color"
             android:title="@string/settings_primary_color_title"
             android:defaultValue="@string/pref_default_value_primary_color"
-            android:dependency="@string/pref_key_material_design_2"
+            android:enabled="false"
             android:summary="@string/settings_primary_color_summary" />
-
-        <me.zhanghai.android.files.theme.custom.CustomThemeColorPreference
-            android:key="@string/pref_key_accent_color"
-            android:title="@string/settings_accent_color_title"
-            android:defaultValue="@string/pref_default_value_accent_color"
-            android:dependency="@string/pref_key_material_design_2"
-            android:summary="@string/settings_accent_color_summary" />
-
-        <SwitchPreferenceCompat
-            android:key="@string/pref_key_material_design_2"
-            android:title="@string/settings_material_design_2_title"
-            android:defaultValue="@bool/pref_default_value_material_design_2"
-            android:disableDependentsState="true" />
 
         <com.takisoft.preferencex.SimpleMenuPreference
             android:key="@string/pref_key_night_mode"

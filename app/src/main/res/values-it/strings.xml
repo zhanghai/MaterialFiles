@@ -451,9 +451,6 @@
     <string name="settings_interface_title">Interfaccia</string>
     <string name="settings_primary_color_title">Colore primario</string>
     <string name="settings_primary_color_summary">Colore che appare più spesso nell\'app</string>
-    <string name="settings_accent_color_title">Colore secondario</string>
-    <string name="settings_accent_color_summary">Colore usato per accentuare le parti importanti dell\'UI</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Modalità notte</string>
     <string-array name="settings_night_mode_entries">
         <item>Segui il sistema</item>

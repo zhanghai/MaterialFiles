@@ -13,5 +13,5 @@
         android:width="18dp"
         android:height="18dp" />
 
-    <solid android:color="?colorFloatingSurface" />
+    <solid android:color="?colorSurface" />
 </shape>

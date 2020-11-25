@@ -400,9 +400,6 @@
     <string name="settings_interface_title">Interface</string>
     <string name="settings_primary_color_title">Cor primaria</string>
     <string name="settings_primary_color_summary">Cor que aparece com mais frequência na aplicação</string>
-    <string name="settings_accent_color_title">Cor de destaque</string>
-    <string name="settings_accent_color_summary">Cor usada para destacar as principais partes da interface</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Modo noturno</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir sistema</item>

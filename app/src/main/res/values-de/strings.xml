@@ -451,9 +451,6 @@
     <string name="settings_interface_title">Benutzeroberfläche</string>
     <string name="settings_primary_color_title">Primäre Farbe</string>
     <string name="settings_primary_color_summary">Die Farbe, die in der App am häufigsten vorkommt</string>
-    <string name="settings_accent_color_title">Akzentfarbe</string>
-    <string name="settings_accent_color_summary">Diese Farbe wird verwendet um wichtige Teile der Benutzeroberfläche hervorzuheben</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Nutze Systemeinstellung</item>

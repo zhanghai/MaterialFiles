@@ -6,6 +6,6 @@
   -->
 
 <resources>
-    <attr name="colorAppBarSurface" format="color" />
-    <attr name="colorSystemWindowScrim" format="color" />
+
+    <color name="system_window_scrim">@color/system_window_scrim_light</color>
 </resources>

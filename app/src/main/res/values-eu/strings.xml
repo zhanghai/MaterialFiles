@@ -400,9 +400,6 @@
     <string name="settings_interface_title">Interfazea</string>
     <string name="settings_primary_color_title">Kolore primarioa</string>
     <string name="settings_primary_color_summary">Aplikazioan gehien agertzen den kolorea</string>
-    <string name="settings_accent_color_title">Nabarmentze kolorea</string>
-    <string name="settings_accent_color_summary">Interfazearen atalak nabarmentzeko kolorea</string>
-    <string name="settings_material_design_2_title">Material Design 2</string>
     <string name="settings_night_mode_title">Gauerako modua</string>
     <string-array name="settings_night_mode_entries">
         <item>Jarraitu sistemari</item>

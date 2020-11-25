@@ -14,11 +14,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.compat.requireViewByIdCompat
 import me.zhanghai.android.files.databinding.FileJobActionDialogViewBinding
 import me.zhanghai.android.files.provider.common.PosixFileStore
@@ -54,7 +54,7 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        AlertDialogBuilderCompat.create(requireContext(), theme)
+        MaterialAlertDialogBuilder(requireContext(), theme)
             .setTitle(args.title)
             .setMessage(args.message)
             .apply {

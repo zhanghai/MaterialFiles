@@ -16,8 +16,7 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
 import me.zhanghai.android.files.provider.root.RootStrategy
-import me.zhanghai.android.files.theme.custom.CustomThemeAccentColor
-import me.zhanghai.android.files.theme.custom.CustomThemePrimaryColor
+import me.zhanghai.android.files.theme.custom.CustomThemeColor
 import me.zhanghai.android.files.theme.night.NightMode
 import java.io.File
 
@@ -81,21 +80,10 @@ object Settings {
             R.string.pref_key_ftp_server_writable, R.bool.pref_default_value_ftp_server_writable
         )
 
-    val PRIMARY_COLOR: SettingLiveData<CustomThemePrimaryColor> =
+    val PRIMARY_COLOR: SettingLiveData<CustomThemeColor> =
         EnumSettingLiveData(
             R.string.pref_key_primary_color, R.string.pref_default_value_primary_color,
-            CustomThemePrimaryColor::class.java
-        )
-
-    val ACCENT_COLOR: SettingLiveData<CustomThemeAccentColor> =
-        EnumSettingLiveData(
-            R.string.pref_key_accent_color, R.string.pref_default_value_accent_color,
-            CustomThemeAccentColor::class.java
-        )
-
-    val MATERIAL_DESIGN_2: SettingLiveData<Boolean> =
-        BooleanSettingLiveData(
-            R.string.pref_key_material_design_2, R.bool.pref_default_value_material_design_2
+            CustomThemeColor::class.java
         )
 
     val NIGHT_MODE: SettingLiveData<NightMode> =

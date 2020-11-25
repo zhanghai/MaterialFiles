@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?colorFloatingSurface"
+        android:background="?colorSurface"
         android:elevation="@dimen/design_appbar_elevation"
         android:fitsSystemWindows="true">
 

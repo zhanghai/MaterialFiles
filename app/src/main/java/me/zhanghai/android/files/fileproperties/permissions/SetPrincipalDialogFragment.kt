@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
-import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.SetPrincipalDialogBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
@@ -46,7 +46,7 @@ abstract class SetPrincipalDialogFragment : AppCompatDialogFragment() {
     private var pendingScrollToId: Int? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        AlertDialogBuilderCompat.create(requireContext(), theme)
+        MaterialAlertDialogBuilder(requireContext(), theme)
             .setTitle(titleRes)
             .apply {
                 val selectionLiveData = viewModel.selectionLiveData

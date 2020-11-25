@@ -9,23 +9,17 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.AlertDialogBuilderCompat
 import me.zhanghai.android.files.databinding.EditBookmarkDirectoryDialogBinding
-import me.zhanghai.android.files.databinding.EditBookmarkDirectoryDialogMd2Binding
 import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.filelist.userFriendlyString
-import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.ParcelableState
@@ -38,14 +32,13 @@ import me.zhanghai.android.files.util.putState
 import me.zhanghai.android.files.util.setTextWithSelection
 import me.zhanghai.android.files.util.show
 import me.zhanghai.android.files.util.takeIfNotEmpty
-import me.zhanghai.android.files.util.valueCompat
 
 class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     private val args by args<Args>()
 
     private lateinit var path: Path
 
-    private lateinit var binding: Binding
+    private lateinit var binding: EditBookmarkDirectoryDialogBinding
 
     private val listener: Listener
         get() = requireParentFragment() as Listener
@@ -57,10 +50,10 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        AlertDialogBuilderCompat.create(requireContext(), theme)
+        MaterialAlertDialogBuilder(requireContext(), theme)
             .setTitle(R.string.navigation_edit_bookmark_directory_title)
             .apply {
-                binding = Binding.inflate(context.layoutInflater)
+                binding = EditBookmarkDirectoryDialogBinding.inflate(context.layoutInflater)
                 if (savedInstanceState == null) {
                     binding.nameEdit.setTextWithSelection(args.bookmarkDirectory.name)
                 }
@@ -107,7 +100,7 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun updatePathButton() {
-        binding.pathText.text = path.userFriendlyString
+        binding.pathText.setText(path.userFriendlyString)
     }
 
     companion object {
@@ -120,23 +113,6 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
 
     @Parcelize
     class Args(val bookmarkDirectory: BookmarkDirectory) : ParcelableArgs
-
-    private class Binding private constructor(
-        val root: View,
-        val nameEdit: EditText,
-        val pathText: TextView
-    ) {
-        companion object {
-            fun inflate(inflater: LayoutInflater): Binding =
-                if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-                    val binding = EditBookmarkDirectoryDialogMd2Binding.inflate(inflater)
-                    Binding(binding.root, binding.nameEdit, binding.pathText)
-                } else {
-                    val binding = EditBookmarkDirectoryDialogBinding.inflate(inflater)
-                    Binding(binding.root, binding.nameEdit, binding.pathText)
-                }
-        }
-    }
 
     @Parcelize
     private class State(var path: @WriteWith<ParcelableParceler> Path) : ParcelableState

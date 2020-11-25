@@ -74,7 +74,6 @@ class ColorPreferenceDialogFragment : PreferenceDialogFragmentCompat() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        // FIXME: Use AlertDialogBuilderCompat for MaterialAlertDialogBuilder.
         (super.onCreateDialog(savedInstanceState) as AlertDialog).apply {
             if (defaultColor in colors) {
                 // Override the listener here so that we won't close the dialog.

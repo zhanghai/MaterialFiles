@@ -7,20 +7,22 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <me.zhanghai.android.materialedittext.MaterialTextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/dialog_padding_minus_4dp"
-        android:paddingEnd="@dimen/dialog_padding_minus_4dp">
+        android:paddingStart="?dialogPreferredPadding"
+        android:paddingEnd="?dialogPreferredPadding"
+        android:paddingTop="8dp"
+        android:paddingBottom="16dp">
 
-        <me.zhanghai.android.materialedittext.MaterialEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:importantForAutofill="no"
             android:inputType="text">
             <requestFocus />
-        </me.zhanghai.android.materialedittext.MaterialEditText>
-    </me.zhanghai.android.materialedittext.MaterialTextInputLayout>
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
 </merge>

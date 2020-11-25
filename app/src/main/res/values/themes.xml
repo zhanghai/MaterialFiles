@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
   ~ All Rights Reserved.
   -->
 
 <resources>
 
-    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" />
+    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimaryDark">@color/status_bar_background_compat</item>
+    </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles" />
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
 
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:colorBackground">?colorSurface</item>
+        <item name="dropDownListViewStyle">@style/Widget.Material.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
-        <item name="colorAppBarSurface">?colorPrimary</item>
-        <item name="colorFloatingSurface">?colorBackgroundFloating</item>
-        <item name="colorSpeedDialSurface">?colorPrimary</item>
-        <item name="colorOnSpeedDialSurface">@android:color/white</item>
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorSecondary">?colorPrimary</item>
+        <item name="colorOnSecondary">?colorOnPrimary</item>
+        <item name="colorSecondaryVariant">?colorSecondary</item>
+        <item name="colorSurface">@color/color_surface</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="minTouchTargetSize">0dp</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+
+        <item name="colorAppBarSurface">?colorSurface</item>
         <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
-        <item name="appBarLiftOnScroll">false</item>
-        <item name="fileListAppBarLiftOnScroll">?appBarLiftOnScroll</item>
-        <item name="dividerVisibility">@integer/visibility_visible</item>
-        <item name="textButtonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
-        <item name="textButtonHorizontalPaddingNegative">-12dp</item>
     </style>
     <style name="Theme.MaterialFiles" parent="Base.Theme.MaterialFiles" />
 
@@ -53,30 +56,32 @@
     </style>
     <style name="Theme.MaterialFiles.Translucent" parent="Base.Theme.MaterialFiles.Translucent" />
 
-    <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.MaterialComponents.Bridge">
+    <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.MaterialComponents">
         <item name="android:navigationBarColor">@color/dark_70_percent</item>
         <item name="android:statusBarColor">@color/dark_70_percent</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V21.Theme.MaterialFiles.Immersive" />
     <style name="Base.Theme.MaterialFiles.Immersive" parent="Platform.Theme.MaterialFiles.Immersive">
 
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:colorBackground">?colorSurface</item>
+        <item name="colorPrimaryDark">?colorPrimaryVariant</item>
+        <item name="dropDownListViewStyle">@style/Widget.Material.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="windowNoTitle">true</item>
 
+        <item name="colorPrimary">@color/color_primary_dark</item>
+        <item name="colorPrimaryVariant">?colorPrimary</item>
+        <item name="colorSecondary">?colorPrimary</item>
+        <item name="colorOnSecondary">?colorOnPrimary</item>
+        <item name="colorSecondaryVariant">?colorSecondary</item>
+        <item name="colorSurface">@color/color_surface_dark</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="minTouchTargetSize">0dp</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
-        <item name="colorFloatingSurface">?colorBackgroundFloating</item>
-        <item name="colorSpeedDialSurface">?colorPrimary</item>
-        <item name="colorOnSpeedDialSurface">@android:color/white</item>
-        <item name="colorSystemWindowScrim">@color/system_window_scrim</item>
-        <item name="appBarLiftOnScroll">false</item>
-        <item name="fileListAppBarLiftOnScroll">?appBarLiftOnScroll</item>
-        <item name="dividerVisibility">@integer/visibility_visible</item>
-        <item name="textButtonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
-        <item name="textButtonHorizontalPaddingNegative">-12dp</item>
+        <item name="colorSystemWindowScrim">@color/system_window_scrim_dark</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive" parent="Base.Theme.MaterialFiles.Immersive" />
 </resources>

@@ -58,13 +58,12 @@ object CustomThemeHelper {
     private fun getCustomTheme(@StyleRes baseThemeRes: Int, context: Context): Int {
         val resources = context.resources
         val baseThemeName = resources.getResourceName(baseThemeRes)
-        val customThemeName = if (Settings.MATERIAL_DESIGN_2.valueCompat) {
-            "$baseThemeName.Md2"
-        } else {
-            val primaryColorEntryName = Settings.PRIMARY_COLOR.valueCompat.resourceEntryName
-            val accentColorEntryName = Settings.ACCENT_COLOR.valueCompat.resourceEntryName
-            "$baseThemeName.$primaryColorEntryName.$accentColorEntryName"
-        }
+        val customThemeName = baseThemeName
+//        } else {
+//            val primaryColorEntryName = Settings.PRIMARY_COLOR.valueCompat.resourceEntryName
+//            val accentColorEntryName = Settings.ACCENT_COLOR.valueCompat.resourceEntryName
+//            "$baseThemeName.$primaryColorEntryName.$accentColorEntryName"
+//        }
         return resources.getIdentifier(customThemeName, null, null)
     }
 

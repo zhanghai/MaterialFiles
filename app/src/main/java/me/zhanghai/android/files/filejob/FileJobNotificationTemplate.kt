@@ -20,7 +20,7 @@ val fileJobNotificationTemplate: NotificationTemplate =
             descriptionRes = R.string.notification_channel_file_job_description,
             showBadge = false
         ),
-        colorRes = R.color.color_primary,
+        colorRes = R.color.color_primary_classic,
         smallIcon = R.drawable.notification_icon,
         ongoing = true,
         category = NotificationCompat.CATEGORY_PROGRESS,
