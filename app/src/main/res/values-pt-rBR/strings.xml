@@ -449,8 +449,6 @@
 
     <string name="settings_title">Configurações</string>
     <string name="settings_interface_title">Interface</string>
-    <string name="settings_primary_color_title">Cor primária</string>
-    <string name="settings_primary_color_summary">Cor que aparece com mais frequência no aplicativo</string>
     <string name="settings_night_mode_title">Modo noturno</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir o sistema</item>

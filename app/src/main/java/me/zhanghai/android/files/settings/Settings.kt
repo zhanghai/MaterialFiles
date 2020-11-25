@@ -16,7 +16,7 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
 import me.zhanghai.android.files.provider.root.RootStrategy
-import me.zhanghai.android.files.theme.custom.CustomThemeColor
+import me.zhanghai.android.files.theme.custom.ThemeColor
 import me.zhanghai.android.files.theme.night.NightMode
 import java.io.File
 
@@ -80,10 +80,10 @@ object Settings {
             R.string.pref_key_ftp_server_writable, R.bool.pref_default_value_ftp_server_writable
         )
 
-    val PRIMARY_COLOR: SettingLiveData<CustomThemeColor> =
+    val THEME_COLOR: SettingLiveData<ThemeColor> =
         EnumSettingLiveData(
-            R.string.pref_key_primary_color, R.string.pref_default_value_primary_color,
-            CustomThemeColor::class.java
+            R.string.pref_key_theme_color, R.string.pref_default_value_theme_color,
+            ThemeColor::class.java
         )
 
     val NIGHT_MODE: SettingLiveData<NightMode> =

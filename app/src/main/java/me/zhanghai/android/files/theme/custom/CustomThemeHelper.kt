@@ -37,14 +37,14 @@ object CustomThemeHelper {
     fun apply(activity: Activity) {
         val baseThemeRes = activity.themeResIdCompat
         activityBaseThemes[activity] = baseThemeRes
-        val customThemeRes = getCustomTheme(baseThemeRes, activity)
+        val customThemeRes = getCustomThemeRes(baseThemeRes, activity)
         activity.setThemeCompat(customThemeRes)
     }
 
     fun sync() {
         for ((activity, baseThemeRes) in activityBaseThemes) {
             val currentThemeRes = activity.themeResIdCompat
-            val customThemeRes = getCustomTheme(baseThemeRes, activity)
+            val customThemeRes = getCustomThemeRes(baseThemeRes, activity)
             if (currentThemeRes != customThemeRes) {
                 if (activity is OnThemeChangedListener) {
                     (activity as OnThemeChangedListener).onThemeChanged(customThemeRes)
@@ -55,15 +55,13 @@ object CustomThemeHelper {
         }
     }
 
-    private fun getCustomTheme(@StyleRes baseThemeRes: Int, context: Context): Int {
+    private fun getCustomThemeRes(@StyleRes baseThemeRes: Int, context: Context): Int {
         val resources = context.resources
         val baseThemeName = resources.getResourceName(baseThemeRes)
-        val customThemeName = baseThemeName
-//        } else {
-//            val primaryColorEntryName = Settings.PRIMARY_COLOR.valueCompat.resourceEntryName
-//            val accentColorEntryName = Settings.ACCENT_COLOR.valueCompat.resourceEntryName
-//            "$baseThemeName.$primaryColorEntryName.$accentColorEntryName"
-//        }
+        val themeColorName = resources.getResourceEntryName(
+            Settings.THEME_COLOR.valueCompat.resourceId
+        )
+        val customThemeName = "$baseThemeName.$themeColorName"
         return resources.getIdentifier(customThemeName, null, null)
     }
 

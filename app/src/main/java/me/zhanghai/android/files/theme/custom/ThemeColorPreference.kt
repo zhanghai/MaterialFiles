@@ -16,7 +16,7 @@ import me.zhanghai.android.files.colorpicker.BaseColorPreference
 import me.zhanghai.android.files.colorpicker.ColorPreferenceDialogFragment
 import me.zhanghai.android.files.compat.getColorCompat
 
-class CustomThemeColorPreference : BaseColorPreference {
+class ThemeColorPreference : BaseColorPreference {
     private lateinit var _stringValue: String
     var stringValue: String
         get() = _stringValue
@@ -70,7 +70,7 @@ class CustomThemeColorPreference : BaseColorPreference {
 
     init {
         val context = context
-        entryValues = CustomThemeColor.values().map { context.getColorCompat(it.resourceId) }
+        entryValues = ThemeColor.values().map { context.getColorCompat(it.resourceId) }
             .toIntArray()
     }
 
@@ -84,7 +84,7 @@ class CustomThemeColorPreference : BaseColorPreference {
     companion object {
         init {
             PreferenceFragmentCompat.registerPreferenceFragment(
-                CustomThemeColorPreference::class.java, ColorPreferenceDialogFragment::class.java
+                ThemeColorPreference::class.java, ColorPreferenceDialogFragment::class.java
             )
         }
     }

@@ -449,8 +449,6 @@
 
     <string name="settings_title">Ajustes</string>
     <string name="settings_interface_title">Interfaz</string>
-    <string name="settings_primary_color_title">Color primario</string>
-    <string name="settings_primary_color_summary">Color que aparece más seguido en la aplicación</string>
     <string name="settings_night_mode_title">Modo nocturno</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir sistema</item>

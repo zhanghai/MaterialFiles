@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <style name="Theme.MaterialFiles.color_primary">
+        <item name="colorPrimary">@color/color_primary</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_red">
+        <item name="colorPrimary">@color/material_red</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_pink">
+        <item name="colorPrimary">@color/material_pink</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_purple">
+        <item name="colorPrimary">@color/material_purple</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_deep_purple">
+        <item name="colorPrimary">@color/material_deep_purple</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_indigo">
+        <item name="colorPrimary">@color/material_indigo</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_blue">
+        <item name="colorPrimary">@color/material_blue</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_light_blue">
+        <item name="colorPrimary">@color/material_light_blue</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_cyan">
+        <item name="colorPrimary">@color/material_cyan</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_teal">
+        <item name="colorPrimary">@color/material_teal</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_green">
+        <item name="colorPrimary">@color/material_green</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_light_green">
+        <item name="colorPrimary">@color/material_light_green</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_lime">
+        <item name="colorPrimary">@color/material_lime</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_yellow">
+        <item name="colorPrimary">@color/material_yellow</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_amber">
+        <item name="colorPrimary">@color/material_amber</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_orange">
+        <item name="colorPrimary">@color/material_orange</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_deep_orange">
+        <item name="colorPrimary">@color/material_deep_orange</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_brown">
+        <item name="colorPrimary">@color/material_brown</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_grey">
+        <item name="colorPrimary">@color/material_grey</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.material_blue_grey">
+        <item name="colorPrimary">@color/material_blue_grey</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.color_primary">
+        <item name="colorPrimary">@color/color_primary</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_red">
+        <item name="colorPrimary">@color/material_red</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_pink">
+        <item name="colorPrimary">@color/material_pink</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_purple">
+        <item name="colorPrimary">@color/material_purple</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_deep_purple">
+        <item name="colorPrimary">@color/material_deep_purple</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_indigo">
+        <item name="colorPrimary">@color/material_indigo</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_blue">
+        <item name="colorPrimary">@color/material_blue</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_light_blue">
+        <item name="colorPrimary">@color/material_light_blue</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_cyan">
+        <item name="colorPrimary">@color/material_cyan</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_teal">
+        <item name="colorPrimary">@color/material_teal</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_green">
+        <item name="colorPrimary">@color/material_green</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_light_green">
+        <item name="colorPrimary">@color/material_light_green</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_lime">
+        <item name="colorPrimary">@color/material_lime</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_yellow">
+        <item name="colorPrimary">@color/material_yellow</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_amber">
+        <item name="colorPrimary">@color/material_amber</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_orange">
+        <item name="colorPrimary">@color/material_orange</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_deep_orange">
+        <item name="colorPrimary">@color/material_deep_orange</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_brown">
+        <item name="colorPrimary">@color/material_brown</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_grey">
+        <item name="colorPrimary">@color/material_grey</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.TransparentStatusBar.material_blue_grey">
+        <item name="colorPrimary">@color/material_blue_grey</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.color_primary">
+        <item name="colorPrimary">@color/color_primary</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_red">
+        <item name="colorPrimary">@color/material_red</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_pink">
+        <item name="colorPrimary">@color/material_pink</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_purple">
+        <item name="colorPrimary">@color/material_purple</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_deep_purple">
+        <item name="colorPrimary">@color/material_deep_purple</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_indigo">
+        <item name="colorPrimary">@color/material_indigo</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_blue">
+        <item name="colorPrimary">@color/material_blue</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_light_blue">
+        <item name="colorPrimary">@color/material_light_blue</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_cyan">
+        <item name="colorPrimary">@color/material_cyan</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_teal">
+        <item name="colorPrimary">@color/material_teal</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_green">
+        <item name="colorPrimary">@color/material_green</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_light_green">
+        <item name="colorPrimary">@color/material_light_green</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_lime">
+        <item name="colorPrimary">@color/material_lime</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_yellow">
+        <item name="colorPrimary">@color/material_yellow</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_amber">
+        <item name="colorPrimary">@color/material_amber</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_orange">
+        <item name="colorPrimary">@color/material_orange</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_deep_orange">
+        <item name="colorPrimary">@color/material_deep_orange</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_brown">
+        <item name="colorPrimary">@color/material_brown</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_grey">
+        <item name="colorPrimary">@color/material_grey</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Translucent.material_blue_grey">
+        <item name="colorPrimary">@color/material_blue_grey</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.color_primary">
+        <item name="colorPrimary">@color/color_primary_dark</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_red">
+        <item name="colorPrimary">@color/material_red_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_pink">
+        <item name="colorPrimary">@color/material_pink_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_purple">
+        <item name="colorPrimary">@color/material_purple_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_deep_purple">
+        <item name="colorPrimary">@color/material_deep_purple_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_indigo">
+        <item name="colorPrimary">@color/material_indigo_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_blue">
+        <item name="colorPrimary">@color/material_blue_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_light_blue">
+        <item name="colorPrimary">@color/material_light_blue_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_cyan">
+        <item name="colorPrimary">@color/material_cyan_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_teal">
+        <item name="colorPrimary">@color/material_teal_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_green">
+        <item name="colorPrimary">@color/material_green_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_light_green">
+        <item name="colorPrimary">@color/material_light_green_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_lime">
+        <item name="colorPrimary">@color/material_lime_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_yellow">
+        <item name="colorPrimary">@color/material_yellow_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_amber">
+        <item name="colorPrimary">@color/material_amber_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_orange">
+        <item name="colorPrimary">@color/material_orange_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_deep_orange">
+        <item name="colorPrimary">@color/material_deep_orange_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_brown">
+        <item name="colorPrimary">@color/material_brown_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_grey">
+        <item name="colorPrimary">@color/material_grey_300</item>
+    </style>
+
+    <style name="Theme.MaterialFiles.Immersive.material_blue_grey">
+        <item name="colorPrimary">@color/material_blue_grey_300</item>
+    </style>
+</resources>

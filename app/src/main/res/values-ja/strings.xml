@@ -423,8 +423,6 @@
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">外観</string>
-    <string name="settings_primary_color_title">基本色</string>
-    <string name="settings_primary_color_summary">アプリで最も頻繁に表示する色</string>
     <string name="settings_night_mode_title">夜間モード</string>
     <string-array name="settings_night_mode_entries">
         <item>システム設定に従う</item>

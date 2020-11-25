@@ -29,8 +29,8 @@
     <string name="pref_key_ftp_server_writable">key_ftp_server_writable</string>
     <bool name="pref_default_value_ftp_server_writable">true</bool>
 
-    <string name="pref_key_primary_color">key_primary_color</string>
-    <string name="pref_default_value_primary_color">0</string>
+    <string name="pref_key_theme_color">key_theme_color</string>
+    <string name="pref_default_value_theme_color">0</string>
     <string name="pref_key_night_mode">key_night_mode</string>
     <string name="pref_default_value_night_mode">0</string>
     <string-array name="pref_entry_values_night_mode">
