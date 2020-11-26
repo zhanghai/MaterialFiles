@@ -87,7 +87,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                 )
                 bindFileItem(
                     targetFile, binding.targetIconImage, binding.targetBadgeImage,
-                    binding.targetDescriptionText
+                    binding.targetThumbnailImage, binding.targetDescriptionText
                 )
                 binding.sourceNameText.setText(
                     if (isMerge) {
@@ -98,7 +98,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                 )
                 bindFileItem(
                     sourceFile, binding.sourceIconImage, binding.sourceBadgeImage,
-                    binding.sourceDescriptionText
+                    binding.sourceThumbnailImage, binding.sourceDescriptionText
                 )
                 binding.showNameLayout.setOnClickListener {
                     val visible = !binding.nameLayout.isVisible
@@ -147,20 +147,20 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
     private fun bindFileItem(
         file: FileItem,
         iconImage: ImageView,
+        thumbnailImage: ImageView,
         badgeImage: ImageView,
         descriptionText: TextView
     ) {
         val path = file.path
+        iconImage.setImageResource(file.mimeType.iconRes)
+        iconImage.isVisible = true
+        thumbnailImage.clear()
+        thumbnailImage.setImageDrawable(null)
         val attributes = file.attributes
-        val icon = iconImage.context.getDrawableCompat(file.mimeType.iconRes)
         if (file.supportsThumbnail) {
-            iconImage.loadAny(path to attributes) {
-                placeholder(icon)
-                ignoreError()
+            thumbnailImage.loadAny(path to attributes) {
+                listener { _, _ -> iconImage.isVisible = false }
             }
-        } else {
-            iconImage.clear()
-            iconImage.setImageDrawable(icon)
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {

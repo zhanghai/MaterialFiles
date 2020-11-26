@@ -15,5 +15,18 @@
 
     <color name="color_surface">@color/color_surface_dark</color>
 
+    <color name="file_icon_light_blue">#6F9EF3</color>
+    <color name="file_icon_blue">#4285F4</color>
+    <color name="file_icon_cyan">#78D9EC</color>
+    <color name="file_icon_light_green">#81C995</color>
+    <color name="file_icon_green">#4FB885</color>
+    <color name="file_icon_deep_green">#3FB179</color>
+    <color name="file_icon_grey">#9AA0A6</color>
+    <color name="file_icon_orange">#FD9167</color>
+    <color name="file_icon_purple">#C58AF9</color>
+    <color name="file_icon_red">#F28B82</color>
+    <color name="file_icon_deep_red">#E8877F</color>
+    <color name="file_icon_yellow">#F8CF5C</color>
+
     <color name="sd_overlay_color" tools:ignore="MissingDefaultResource">#AA000000</color>
 </resources>

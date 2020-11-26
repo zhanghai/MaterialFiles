@@ -15,7 +15,6 @@ import coil.loadAny
 import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.coil.ignoreError
 import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.FileItemBinding
 import me.zhanghai.android.files.file.FileItem
@@ -186,16 +185,17 @@ class FileListAdapter(
             true
         }
         binding.iconLayout.setOnClickListener { selectFile(file) }
+        binding.iconImage.setImageResource(file.mimeType.iconRes)
+        binding.iconImage.isVisible = true
+        binding.thumbnailImage.clear()
+        binding.thumbnailImage.setImageDrawable(null)
+        val supportsThumbnail = file.supportsThumbnail
+        binding.thumbnailImage.isVisible = supportsThumbnail
         val attributes = file.attributes
-        val icon = binding.iconImage.context.getDrawableCompat(file.mimeType.iconRes)
-        if (file.supportsThumbnail) {
-            binding.iconImage.loadAny(path to attributes) {
-                placeholder(icon)
-                ignoreError()
+        if (supportsThumbnail) {
+            binding.thumbnailImage.loadAny(path to attributes) {
+                listener { _, _ -> binding.iconImage.isVisible = false }
             }
-        } else {
-            binding.iconImage.clear()
-            binding.iconImage.setImageDrawable(icon)
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {

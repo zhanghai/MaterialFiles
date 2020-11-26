@@ -31,9 +31,16 @@
 
     <color name="shortcut_background">#F5F5F5</color>
 
-    <color name="file_icon_blue">#4883F3</color>
-    <color name="file_icon_green">#16A765</color>
-    <color name="file_icon_orange">#FF7537</color>
-    <color name="file_icon_red">#DB4437</color>
+    <color name="file_icon_light_blue">#4B86F0</color>
+    <color name="file_icon_blue">#4285F4</color>
+    <color name="file_icon_cyan">#24C1E0</color>
+    <color name="file_icon_light_green">#34A853</color>
+    <color name="file_icon_green">#22A667</color>
+    <color name="file_icon_deep_green">#0F9D58</color>
+    <color name="file_icon_grey">#5F6368</color>
+    <color name="file_icon_orange">#FD7541</color>
+    <color name="file_icon_purple">#A142F4</color>
+    <color name="file_icon_red">#EA4335</color>
+    <color name="file_icon_deep_red">#DB4437</color>
     <color name="file_icon_yellow">#F4B400</color>
 </resources>

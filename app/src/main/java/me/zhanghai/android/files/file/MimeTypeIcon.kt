@@ -8,28 +8,28 @@ package me.zhanghai.android.files.file
 import me.zhanghai.android.files.R
 
 enum class MimeTypeIcon(val resourceId: Int) {
-    APK(R.drawable.file_apk_icon_40dp),
-    ARCHIVE(R.drawable.file_archive_icon_40dp),
-    AUDIO(R.drawable.file_audio_icon_40dp),
-    CALENDAR(R.drawable.file_calendar_icon_40dp),
-    CERTIFICATE(R.drawable.file_certificate_icon_40dp),
-    CODE(R.drawable.file_code_icon_40dp),
-    CONTACT(R.drawable.file_contact_icon_40dp),
-    DIRECTORY(R.drawable.directory_icon_40dp),
-    DOCUMENT(R.drawable.file_document_icon_40dp),
+    APK(R.drawable.file_apk_icon),
+    ARCHIVE(R.drawable.file_archive_icon),
+    AUDIO(R.drawable.file_audio_icon),
+    CALENDAR(R.drawable.file_calendar_icon),
+    CERTIFICATE(R.drawable.file_certificate_icon),
+    CODE(R.drawable.file_code_icon),
+    CONTACT(R.drawable.file_contact_icon),
+    DIRECTORY(R.drawable.file_directory_icon),
+    DOCUMENT(R.drawable.file_document_icon),
     EBOOK(R.drawable.file_ebook_icon_40dp),
     EMAIL(R.drawable.file_email_icon_40dp),
-    FONT(R.drawable.file_font_icon_40dp),
-    GENERIC(R.drawable.file_icon_40dp),
-    IMAGE(R.drawable.file_image_icon_40dp),
-    PDF(R.drawable.file_pdf_icon_40dp),
-    PRESENTATION(R.drawable.file_presentation_icon_40dp),
-    SPREADSHEET(R.drawable.file_spreadsheet_icon_40dp),
-    TEXT(R.drawable.file_text_icon_40dp),
-    VIDEO(R.drawable.file_video_icon_40dp),
-    WORD(R.drawable.file_word_icon_40dp),
-    EXCEL(R.drawable.file_excel_icon_40dp),
-    POWERPOINT(R.drawable.file_powerpoint_icon_40dp)
+    FONT(R.drawable.file_font_icon),
+    GENERIC(R.drawable.file_generic_icon),
+    IMAGE(R.drawable.file_image_icon),
+    PDF(R.drawable.file_pdf_icon),
+    PRESENTATION(R.drawable.file_presentation_icon),
+    SPREADSHEET(R.drawable.file_spreadsheet_icon),
+    TEXT(R.drawable.file_text_icon),
+    VIDEO(R.drawable.file_video_icon),
+    WORD(R.drawable.file_word_icon),
+    EXCEL(R.drawable.file_excel_icon),
+    POWERPOINT(R.drawable.file_powerpoint_icon)
 }
 
 // See also https://android.googlesource.com/platform/frameworks/base.git/+/master/core/java/com/android/internal/util/MimeIconUtils.java

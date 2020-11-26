@@ -15,15 +15,11 @@ import androidx.appcompat.widget.AppCompatImageView
 import me.zhanghai.android.files.util.getFloatByAttr
 import kotlin.math.roundToInt
 
-class DisabledAlphaImageView : AppCompatImageView {
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet?, @AttrRes defStyleAttr: Int) : super(
-        context, attrs, defStyleAttr
-    )
-
+class DisabledAlphaImageView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    @AttrRes defStyleAttr: Int = 0
+) : AppCompatImageView(context, attrs, defStyleAttr) {
     override fun setImageDrawable(drawable: Drawable?) {
         super.setImageDrawable(drawable)
 
