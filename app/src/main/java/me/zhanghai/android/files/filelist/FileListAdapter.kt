@@ -81,11 +81,12 @@ class FileListAdapter(
         if (!isFileSelectable(file)) {
             return
         }
+        val selected = file in selectedFiles
         val pickOptions = pickOptions
-        if (pickOptions != null && !pickOptions.allowMultiple) {
+        if (!selected && pickOptions != null && !pickOptions.allowMultiple) {
             listener.clearSelectedFiles()
         }
-        listener.selectFile(file, file !in selectedFiles)
+        listener.selectFile(file, !selected)
     }
 
     fun selectAllFiles() {
