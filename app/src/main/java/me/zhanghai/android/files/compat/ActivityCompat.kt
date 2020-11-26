@@ -21,10 +21,10 @@ fun Activity.recreateCompat() {
 fun Activity.setThemeCompat(@StyleRes resid: Int) {
     setTheme(resid)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        val appBarSurfaceColor = getColorByAttr(R.attr.colorAppBarSurface)
-        if (appBarSurfaceColor != 0 && Color.alpha(appBarSurfaceColor) == 0xFF) {
+        val surfaceColor = getColorByAttr(R.attr.colorSurface)
+        if (surfaceColor != 0 && Color.alpha(surfaceColor) == 0xFF) {
             @Suppress("DEPRECATION")
-            setTaskDescription(TaskDescription(null, null, appBarSurfaceColor))
+            setTaskDescription(TaskDescription(null, null, surfaceColor))
         }
     }
 }

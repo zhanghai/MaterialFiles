@@ -11,10 +11,12 @@
     <color name="dark_50_percent">#80000000</color>
     <color name="dark_70_percent">#B3000000</color>
 
-    <color name="system_window_scrim_light_compat">#44000000</color>
     <color name="system_window_scrim_light">#99FFFFFF</color>
     <color name="system_window_scrim_dark">#66202124</color>
     <color name="system_window_scrim">@color/system_window_scrim_light_compat</color>
+
+    <color name="system_window_scrim_light_compat">#44000000</color>
+    <color name="system_window_scrim_compat">@color/system_window_scrim_light_compat</color>
 
     <color name="system_window_scrim_black_dark">#66000000</color>
     <!-- Make lint happy, although actually we never use this in a non-night configuration. -->

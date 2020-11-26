@@ -27,7 +27,7 @@ class NavigationRecyclerView : RecyclerView {
         context.getDimensionPixelSize(R.dimen.design_navigation_padding_bottom)
     private val actionBarSize = context.getDimensionPixelSizeByAttr(R.attr.actionBarSize)
     private val maxWidth = context.getDimensionPixelSize(R.dimen.design_navigation_max_width)
-    private var scrim = context.getDrawableByAttr(R.attr.colorPrimaryDark)
+    private var scrim = context.getDrawableByAttr(android.R.attr.statusBarColor)
 
     private var insetTop = 0
 

@@ -7,7 +7,9 @@
 
 <resources>
 
-    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight" />
+    <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:statusBarColor">@color/system_window_scrim_compat</item>
+    </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles" />
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
 

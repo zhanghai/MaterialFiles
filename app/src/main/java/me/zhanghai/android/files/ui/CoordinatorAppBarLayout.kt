@@ -15,11 +15,10 @@ import androidx.annotation.AttrRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.graphics.ColorUtils
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.MaterialShapeUtils
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.activity
-import me.zhanghai.android.files.util.getColorByAttr
 
 class CoordinatorAppBarLayout : AppBarLayout {
     private val tempConsumed = IntArray(2)
@@ -42,11 +41,15 @@ class CoordinatorAppBarLayout : AppBarLayout {
     init {
         fitsSystemWindows = true
 
-        val appBarSurfaceColor = context.getColorByAttr(R.attr.colorAppBarSurface)
-        val primaryDarkColor = context.getColorByAttr(R.attr.colorPrimaryDark)
-        if (primaryDarkColor == appBarSurfaceColor
-            || ColorUtils.setAlphaComponent(primaryDarkColor, 255) == appBarSurfaceColor) {
-            context.activity!!.window.statusBarColor = Color.TRANSPARENT
+        val background = background
+        val backgroundColor = (background as? MaterialShapeDrawable)?.fillColor?.defaultColor
+        if (backgroundColor != null) {
+            val window = context.activity!!.window
+            val statusBarColor = window.statusBarColor
+            if (backgroundColor == statusBarColor
+                || backgroundColor == ColorUtils.setAlphaComponent(statusBarColor, 255)) {
+                window.statusBarColor = Color.TRANSPARENT
+            }
         }
 
         addOnOffsetChangedListener(OnOffsetChangedListener { _, offset ->
@@ -54,7 +57,6 @@ class CoordinatorAppBarLayout : AppBarLayout {
             updateFirstChildClipBounds()
         })
 
-        val background = background
         if (background is MaterialShapeDrawable) {
             this.background = OnElevationChangedMaterialShapeDrawable(
                 background, context, this::onBackgroundElevationChanged
