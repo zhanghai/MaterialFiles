@@ -83,6 +83,11 @@ android {
         // Referenced from org.apache.mina.proxy.ProxyAuthException."
         warning 'InvalidPackage'
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${parent.name}-${variant.name}-${variant.versionName}.apk"
+        }
+    }
 }
 
 repositories {
