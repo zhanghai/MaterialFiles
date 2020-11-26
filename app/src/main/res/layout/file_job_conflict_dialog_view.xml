@@ -46,9 +46,8 @@
                 android:layout_width="@dimen/badge_size"
                 android:layout_height="@dimen/badge_size"
                 android:layout_gravity="end|bottom"
-                android:padding="@dimen/badge_icon_padding"
-                android:background="@drawable/badge_background_18dp"
-                android:elevation="@dimen/badge_elevation" />
+                android:padding="@dimen/badge_padding"
+                android:background="@drawable/badge_background_18dp" />
         </FrameLayout>
 
         <LinearLayout
@@ -113,9 +112,8 @@
                 android:layout_width="@dimen/badge_size"
                 android:layout_height="@dimen/badge_size"
                 android:layout_gravity="end|bottom"
-                android:padding="@dimen/badge_icon_padding"
-                android:background="@drawable/badge_background_18dp"
-                android:elevation="@dimen/badge_elevation" />
+                android:padding="@dimen/badge_padding"
+                android:background="@drawable/badge_background_18dp" />
         </FrameLayout>
 
         <LinearLayout

@@ -28,8 +28,6 @@ import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.coil.ignoreError
-import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.compat.requireViewByIdCompat
 import me.zhanghai.android.files.databinding.FileJobConflictDialogViewBinding
 import me.zhanghai.android.files.file.FileItem
@@ -164,9 +162,9 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {
-                R.drawable.error_badge_icon_18dp
+                R.drawable.error_badge_icon_16dp
             } else {
-                R.drawable.symbolic_link_badge_icon_18dp
+                R.drawable.symbolic_link_badge_icon_16dp
             }
         } else {
             null
