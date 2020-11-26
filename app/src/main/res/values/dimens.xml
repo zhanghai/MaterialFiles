@@ -40,5 +40,7 @@
     <dimen name="badge_icon_padding">1dp</dimen>
     <dimen name="badge_elevation">1dp</dimen>
 
-    <dimen name="toolbar_padding_end_no_overflow">4dp</dimen>
+    <dimen name="file_list_toolbar_padding_start">8dp</dimen>
+    <dimen name="file_list_toolbar_padding_end_no_overflow">14dp</dimen>
+    <dimen name="file_list_toolbar_padding_end_with_overflow">10dp</dimen>
 </resources>
