@@ -55,7 +55,6 @@ import me.zhanghai.android.files.databinding.FileListFragmentBottomBarIncludeBin
 import me.zhanghai.android.files.databinding.FileListFragmentContentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentSpeedDialIncludeBinding
-import me.zhanghai.android.files.databinding.FileListFragmentStatusBarViewIncludeBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
@@ -187,7 +186,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 )
             }
         )
-        binding.appBarLayout.syncBackgroundElevationTo(binding.statusBarView)
         binding.appBarLayout.syncBackgroundElevationTo(binding.overlayToolbar)
         binding.breadcrumbLayout.setListener(this)
         binding.swipeRefreshLayout.setOnRefreshListener { this.refresh() }
@@ -1277,7 +1275,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val emptyView: View,
         val swipeRefreshLayout: SwipeRefreshLayout,
         val recyclerView: RecyclerView,
-        val statusBarView: View,
         val bottomBarLayout: ViewGroup,
         val bottomToolbar: Toolbar,
         val speedDialView: SpeedDialView
@@ -1293,9 +1290,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 val includeBinding = FileListFragmentIncludeBinding.bind(bindingRoot)
                 val appBarBinding = FileListFragmentAppBarIncludeBinding.bind(bindingRoot)
                 val contentBinding = FileListFragmentContentIncludeBinding.bind(bindingRoot)
-                val statusBarViewBinding = FileListFragmentStatusBarViewIncludeBinding.bind(
-                    bindingRoot
-                )
                 val bottomBarBinding = FileListFragmentBottomBarIncludeBinding.bind(bindingRoot)
                 val speedDialBinding = FileListFragmentSpeedDialIncludeBinding.bind(bindingRoot)
                 return Binding(
@@ -1305,8 +1299,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     appBarBinding.breadcrumbLayout, contentBinding.contentLayout,
                     contentBinding.progress, contentBinding.errorText, contentBinding.emptyView,
                     contentBinding.swipeRefreshLayout, contentBinding.recyclerView,
-                    statusBarViewBinding.statusBarView, bottomBarBinding.bottomBarLayout,
-                    bottomBarBinding.bottomToolbar, speedDialBinding.speedDialView
+                    bottomBarBinding.bottomBarLayout, bottomBarBinding.bottomToolbar,
+                    speedDialBinding.speedDialView
                 )
             }
         }

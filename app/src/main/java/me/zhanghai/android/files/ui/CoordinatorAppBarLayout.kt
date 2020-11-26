@@ -8,6 +8,7 @@ package me.zhanghai.android.files.ui
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.AttrRes
@@ -22,6 +23,9 @@ import me.zhanghai.android.files.util.getColorByAttr
 
 class CoordinatorAppBarLayout : AppBarLayout {
     private val tempConsumed = IntArray(2)
+
+    private var offset = 0
+    private val tempClipBounds = Rect()
 
     private val syncBackgroundElevationViews = mutableListOf<View>()
 
@@ -45,11 +49,26 @@ class CoordinatorAppBarLayout : AppBarLayout {
             context.activity!!.window.statusBarColor = Color.TRANSPARENT
         }
 
+        addOnOffsetChangedListener(OnOffsetChangedListener { _, offset ->
+            this.offset = offset
+            updateFirstChildClipBounds()
+        })
+
         val background = background
         if (background is MaterialShapeDrawable) {
             this.background = OnElevationChangedMaterialShapeDrawable(
                 background, context, this::onBackgroundElevationChanged
             )
+        }
+    }
+
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+
+        getChildAt(0)?.let {
+            it.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                updateFirstChildClipBounds()
+            }
         }
     }
 
@@ -67,6 +86,12 @@ class CoordinatorAppBarLayout : AppBarLayout {
         }
 
         super.draw(canvas)
+    }
+
+    private fun updateFirstChildClipBounds() {
+        val firstChild = getChildAt(0) ?: return
+        tempClipBounds.set(0, -offset, firstChild.width, firstChild.height)
+        firstChild.clipBounds = tempClipBounds
     }
 
     fun syncBackgroundElevationTo(view: View) {

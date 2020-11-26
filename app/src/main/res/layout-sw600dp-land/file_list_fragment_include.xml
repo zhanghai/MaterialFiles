@@ -38,8 +38,6 @@
             </me.zhanghai.android.files.ui.PersistentDrawerLayout>
         </LinearLayout>
 
-        <include layout="@layout/file_list_fragment_status_bar_view_include" />
-
         <include layout="@layout/file_list_fragment_bottom_bar_include"/>
 
         <include layout="@layout/file_list_fragment_speed_dial_include" />
