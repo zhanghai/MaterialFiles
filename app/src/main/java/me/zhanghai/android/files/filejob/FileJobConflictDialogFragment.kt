@@ -162,9 +162,9 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {
-                R.drawable.error_badge_icon_16dp
+                R.drawable.error_badge_icon_18dp
             } else {
-                R.drawable.symbolic_link_badge_icon_16dp
+                R.drawable.symbolic_link_badge_icon_18dp
             }
         } else {
             null
