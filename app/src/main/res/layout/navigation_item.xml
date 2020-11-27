@@ -7,6 +7,7 @@
 
 <me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
@@ -21,7 +22,7 @@
         android:layout_height="@dimen/icon_size"
         android:duplicateParentState="true"
         android:scaleType="centerCrop"
-        android:tint="?android:textColorSecondary" />
+        app:tint="?android:textColorSecondary" />
 
     <LinearLayout
         android:layout_width="0dp"

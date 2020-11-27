@@ -102,7 +102,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/information_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -146,7 +146,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/github_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/text_file_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/lock_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -261,7 +261,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/person_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -288,7 +288,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/github_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -315,7 +315,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/google_plus_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -342,7 +342,7 @@
                                 android:layout_height="@dimen/icon_size"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/twitter_icon_white_24dp"
-                                android:tint="?android:textColorSecondary" />
+                                app:tint="?android:textColorSecondary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
