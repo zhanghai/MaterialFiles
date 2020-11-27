@@ -7,6 +7,7 @@
 
 <me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/two_line_list_item_height"
@@ -84,5 +85,5 @@
         android:padding="@dimen/touch_target_icon_padding"
         android:background="@drawable/selectable_item_background_oval"
         android:src="@drawable/more_vertical_icon_white_24dp"
-        android:tint="?colorControlNormal" />
+        app:tint="?colorControlNormal" />
 </me.zhanghai.android.files.ui.CheckableForegroundLinearLayout>
