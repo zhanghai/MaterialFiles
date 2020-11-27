@@ -6,8 +6,10 @@
 package me.zhanghai.android.files.app
 
 import android.os.Build
+import android.webkit.WebView
 import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
+import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.coil.initializeCoil
 import me.zhanghai.android.files.compat.RestrictedHiddenApiAccess
 import me.zhanghai.android.files.filejob.fileJobNotificationTemplate
@@ -19,9 +21,9 @@ import me.zhanghai.android.files.theme.night.NightModeHelper
 
 val appInitializers = listOf(
     ::initializeCrashlytics, ::allowRestrictedHiddenApiAccess, ::initializeThreeTen,
-    ::initializeStetho, ::initializeCoil, ::initializeFileSystemProviders, ::upgradeApp,
-    ::initializeSettings, ::initializeCustomTheme, ::initializeNightMode,
-    ::createNotificationChannels
+    ::initializeWebViewDebugging, ::initializeStetho, ::initializeCoil,
+    ::initializeFileSystemProviders, ::upgradeApp, ::initializeSettings, ::initializeCustomTheme,
+    ::initializeNightMode, ::createNotificationChannels
 )
 
 private fun initializeCrashlytics() {
@@ -36,6 +38,12 @@ private fun allowRestrictedHiddenApiAccess() {
 
 private fun initializeThreeTen() {
     AndroidThreeTen.init(application)
+}
+
+private fun initializeWebViewDebugging() {
+    if (BuildConfig.DEBUG) {
+        WebView.setWebContentsDebuggingEnabled(true)
+    }
 }
 
 private fun initializeStetho() {

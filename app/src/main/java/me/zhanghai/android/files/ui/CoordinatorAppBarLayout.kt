@@ -47,7 +47,7 @@ class CoordinatorAppBarLayout : AppBarLayout {
             val window = context.activity!!.window
             val statusBarColor = window.statusBarColor
             if (backgroundColor == statusBarColor
-                || backgroundColor == ColorUtils.setAlphaComponent(statusBarColor, 255)) {
+                || backgroundColor == ColorUtils.setAlphaComponent(statusBarColor, 0xFF)) {
                 window.statusBarColor = Color.TRANSPARENT
             }
         }

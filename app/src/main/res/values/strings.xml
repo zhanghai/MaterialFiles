@@ -576,24 +576,6 @@
     <string name="about_version_title">Version</string>
     <string name="about_github_title">View on GitHub</string>
     <string name="about_licenses_title">Licenses</string>
-    <string name="about_licenses_html_style" translatable="false">
-        body {
-            background: white;
-            color: black;
-            font-family: sans-serif;
-            margin: 0;
-            overflow-wrap: break-word;
-            padding: 12px;
-        }
-        pre {
-            background: #eeeeee;
-            padding: 12px;
-            white-space: pre-wrap;
-        }
-        a, a:link, a:visited, a:hover, a:focus, a:active {
-            color: #4285f4;
-        }
-    </string>
     <string name="about_privacy_policy_title">Privacy policy</string>
     <string name="about_author_title">Author</string>
     <string name="about_author_name_title">Hai Zhang</string>

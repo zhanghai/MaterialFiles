@@ -9,11 +9,13 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import de.psdev.licensesdialog.LicensesDialog
 import de.psdev.licensesdialog.NoticesXmlParser
 import de.psdev.licensesdialog.model.Notices
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.setLicensesView
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.putState
@@ -25,8 +27,12 @@ class LicensesDialogFragment : AppCompatDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        notices = savedInstanceState?.getState<State>()?.notices
-            ?: NoticesXmlParser.parse(resources.openRawResource(R.raw.licenses))
+        notices = if (savedInstanceState != null) {
+            savedInstanceState.getState<State>().notices
+        } else {
+            NoticesXmlParser.parse(resources.openRawResource(R.raw.licenses))
+                .apply { addNotice(LicensesDialog.LICENSES_DIALOG_NOTICE) }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -36,19 +42,11 @@ class LicensesDialogFragment : AppCompatDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
-        LicensesDialog.Builder(requireContext())
-            .setThemeResourceId(theme)
+        MaterialAlertDialogBuilder(requireContext(), theme)
             .setTitle(R.string.about_licenses_title)
-            // setIncludeOwnLicense(true) will modify our notices instance.
-            .setNotices(notices.copy())
-            .setIncludeOwnLicense(true)
-            .setNoticesCssStyle(R.string.about_licenses_html_style)
-            .setCloseText(R.string.close)
-            .build()
+            .apply { setLicensesView(notices) }
+            .setNegativeButton(R.string.close, null)
             .create()
-
-    private fun Notices.copy(): Notices =
-        Notices().apply { this@copy.notices.forEach { addNotice(it) } }
 
     companion object {
         fun show(fragment: Fragment) {
