@@ -12,8 +12,8 @@ import androidx.annotation.StyleRes
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import com.takisoft.preferencex.SimpleMenuPreference
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.MaterialPreferenceDialogFragmentCompat
 import me.zhanghai.android.files.filejob.FileJobService
+import me.zhanghai.android.files.ui.MaterialPreferenceDialogFragmentCompat
 
 class RootStrategyPreference : SimpleMenuPreference {
     constructor(context: Context) : super(context)

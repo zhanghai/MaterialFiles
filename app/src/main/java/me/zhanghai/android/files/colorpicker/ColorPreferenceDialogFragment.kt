@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.MaterialPreferenceDialogFragmentCompat
+import me.zhanghai.android.files.ui.MaterialPreferenceDialogFragmentCompat
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.putState

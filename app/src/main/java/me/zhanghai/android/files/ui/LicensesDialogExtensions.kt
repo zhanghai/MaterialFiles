@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.compat
+package me.zhanghai.android.files.ui
 
 import android.content.Context
 import android.graphics.Color
@@ -18,6 +18,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.view.ViewCompat
 import de.psdev.licensesdialog.model.Notices
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.scrollIndicatorsCompat
 import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.getDimensionPixelSize

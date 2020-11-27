@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.compat
+package me.zhanghai.android.files.ui
 
 import android.app.Dialog
 import android.content.Context
