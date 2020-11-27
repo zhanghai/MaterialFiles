@@ -12,7 +12,6 @@
     android:layout_height="?listPreferredItemHeightSmall"
     android:paddingStart="?android:listPreferredItemPaddingStart"
     android:paddingEnd="?android:listPreferredItemPaddingEnd"
-    android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 

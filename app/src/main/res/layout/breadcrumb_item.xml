@@ -5,13 +5,12 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:paddingStart="12dp"
     android:paddingEnd="4dp"
-    android:background="?selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -32,4 +31,4 @@
         android:layout_marginStart="-4dp"
         android:duplicateParentState="true"
         android:src="@drawable/arrow_end_icon_white_24dp" />
-</LinearLayout>
+</me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
