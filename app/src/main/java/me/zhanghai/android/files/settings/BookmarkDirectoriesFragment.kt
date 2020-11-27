@@ -50,7 +50,7 @@ class BookmarkDirectoriesFragment : Fragment(), BookmarkDirectoryAdapter.Listene
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         BookmarkDirectoriesFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root

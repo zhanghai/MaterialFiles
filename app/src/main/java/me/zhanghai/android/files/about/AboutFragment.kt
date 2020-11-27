@@ -31,7 +31,7 @@ class AboutFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         AboutFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root

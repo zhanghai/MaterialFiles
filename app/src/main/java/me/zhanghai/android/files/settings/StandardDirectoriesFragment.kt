@@ -27,7 +27,7 @@ class StandardDirectoriesFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         StandardDirectoriesFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root

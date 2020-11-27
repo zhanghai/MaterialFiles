@@ -39,7 +39,7 @@ class NavigationFragment : Fragment(), NavigationItem.Listener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         NavigationFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root

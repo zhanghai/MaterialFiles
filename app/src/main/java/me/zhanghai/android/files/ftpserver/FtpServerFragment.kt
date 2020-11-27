@@ -27,7 +27,7 @@ class FtpServerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         FtpServerFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root

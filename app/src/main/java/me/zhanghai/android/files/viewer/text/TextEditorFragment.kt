@@ -59,7 +59,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         TextEditorFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root

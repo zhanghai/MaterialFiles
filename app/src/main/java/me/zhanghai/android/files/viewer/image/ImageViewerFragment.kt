@@ -65,7 +65,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         ImageViewerFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root
