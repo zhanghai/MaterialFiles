@@ -92,8 +92,9 @@ class NavigationListAdapter(
     // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
     private fun createItemShapeDrawable(fillColor: ColorStateList, context: Context): Drawable {
         val materialShapeDrawable = MaterialShapeDrawable(
-            ShapeAppearanceModel.builder(context, R.style.ShapeAppearance_Google_Navigation, 0)
-                .build()
+            ShapeAppearanceModel.builder(
+                context, R.style.ShapeAppearance_MaterialFiles_Navigation, 0
+            ).build()
         ).apply { this.fillColor = fillColor }
         val insetRight = context.dpToDimensionPixelSize(8)
         return InsetDrawable(materialShapeDrawable, 0, 0, insetRight, 0)

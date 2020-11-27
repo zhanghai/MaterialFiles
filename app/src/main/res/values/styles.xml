@@ -15,10 +15,22 @@
       ~ See also drawable-v21/mtrl_popupmenu_background.xml and
       ~ drawable-v23/mtrl_popupmenu_background_dark.xml which are overridden.
       -->
-    <style name="Widget.Material.ListView.DropDown" parent="Widget.AppCompat.ListView.DropDown">
+    <style name="Widget.MaterialFiles.ListView.DropDown" parent="Widget.AppCompat.ListView.DropDown">
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:clipToPadding">false</item>
+    </style>
+
+    <style name="ShapeAppearance.MaterialFiles.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ShapeAppearance.MaterialFiles.Navigation" parent="">
+        <item name="cornerFamily">rounded</item>
+        <!-- Half of ?listPreferredItemHeightSmall -->
+        <item name="cornerSize">24dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
     <style name="Widget.MaterialFiles.CardView" parent="Widget.MaterialComponents.CardView">

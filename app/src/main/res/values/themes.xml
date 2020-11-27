@@ -14,7 +14,7 @@
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
 
         <item name="android:colorBackground">?colorSurface</item>
-        <item name="dropDownListViewStyle">@style/Widget.Material.ListView.DropDown</item>
+        <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
@@ -25,6 +25,7 @@
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
         <item name="colorSurface">@color/color_surface</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.MediumComponent</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
@@ -56,7 +57,7 @@
     <style name="Base.Theme.MaterialFiles.Immersive" parent="Platform.Theme.MaterialFiles.Immersive">
 
         <item name="android:colorBackground">?colorSurface</item>
-        <item name="dropDownListViewStyle">@style/Widget.Material.ListView.DropDown</item>
+        <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="windowNoTitle">true</item>
@@ -68,6 +69,7 @@
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
         <item name="colorSurface">@color/color_surface_dark</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.MediumComponent</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
