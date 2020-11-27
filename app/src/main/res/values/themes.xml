@@ -29,6 +29,7 @@
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="viewInflaterClass">me.zhanghai.android.files.theme.typeface.GoogleSansViewInflater</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
     </style>
@@ -73,6 +74,7 @@
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="viewInflaterClass">me.zhanghai.android.files.theme.typeface.GoogleSansViewInflater</item>
 
         <item name="colorAppBarSurface">?colorPrimaryDark</item>
     </style>
