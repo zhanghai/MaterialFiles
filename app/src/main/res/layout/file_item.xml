@@ -83,5 +83,6 @@
         android:layout_marginEnd="@dimen/screen_edge_margin_minus_12dp_at_least_8dp"
         android:padding="@dimen/touch_target_icon_padding"
         android:background="@drawable/selectable_item_background_oval"
-        android:src="@drawable/more_vertical_icon_control_normal_24dp" />
+        android:src="@drawable/more_vertical_icon_white_24dp"
+        android:tint="?colorControlNormal" />
 </me.zhanghai.android.files.ui.CheckableForegroundLinearLayout>
