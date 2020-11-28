@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.ui
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
@@ -53,16 +52,21 @@ class CoordinatorAppBarLayout : AppBarLayout {
             }
         }
 
-        addOnOffsetChangedListener(OnOffsetChangedListener { _, offset ->
-            this.offset = offset
-            updateFirstChildClipBounds()
-        })
+        viewTreeObserver.addOnPreDrawListener {
+            updateLiftedState()
+            true
+        }
 
         if (background is MaterialShapeDrawable) {
             this.background = OnElevationChangedMaterialShapeDrawable(
                 background, context, this::onBackgroundElevationChanged
             )
         }
+
+        addOnOffsetChangedListener(OnOffsetChangedListener { _, offset ->
+            this.offset = offset
+            updateFirstChildClipBounds()
+        })
     }
 
     override fun onFinishInflate() {
@@ -75,20 +79,24 @@ class CoordinatorAppBarLayout : AppBarLayout {
         }
     }
 
-    override fun draw(canvas: Canvas) {
-        if (isLiftOnScroll) {
-            val coordinatorLayout = parent as? CoordinatorLayout
-            if (coordinatorLayout != null) {
-                // Call AppBarLayout.Behavior.onNestedPreScroll() with dy == 0 to update lifted
-                // state.
-                val behavior = (layoutParams as CoordinatorLayout.LayoutParams).behavior!!
-                behavior.onNestedPreScroll(
-                    coordinatorLayout, this, coordinatorLayout, 0, 0, tempConsumed, 0
-                )
-            }
-        }
+    fun syncBackgroundElevationTo(view: View) {
+        syncBackgroundElevationViews += view
+    }
 
-        super.draw(canvas)
+    private fun onBackgroundElevationChanged(elevation: Float) {
+        syncBackgroundElevationViews.forEach { MaterialShapeUtils.setElevation(it, elevation) }
+    }
+
+    private fun updateLiftedState() {
+        if (!isLiftOnScroll) {
+            return
+        }
+        val coordinatorLayout = parent as? CoordinatorLayout ?: return
+        // Call AppBarLayout.Behavior.onNestedPreScroll() with dy == 0 to update lifted state.
+        val behavior = (layoutParams as CoordinatorLayout.LayoutParams).behavior ?: return
+        behavior.onNestedPreScroll(
+            coordinatorLayout, this, coordinatorLayout, 0, 0, tempConsumed, 0
+        )
     }
 
     private fun updateFirstChildClipBounds() {
@@ -103,14 +111,6 @@ class CoordinatorAppBarLayout : AppBarLayout {
             }
         }
         firstChild.clipBounds = tempClipBounds
-    }
-
-    fun syncBackgroundElevationTo(view: View) {
-        syncBackgroundElevationViews += view
-    }
-
-    private fun onBackgroundElevationChanged(elevation: Float) {
-        syncBackgroundElevationViews.forEach { MaterialShapeUtils.setElevation(it, elevation) }
     }
 
     private class OnElevationChangedMaterialShapeDrawable(
