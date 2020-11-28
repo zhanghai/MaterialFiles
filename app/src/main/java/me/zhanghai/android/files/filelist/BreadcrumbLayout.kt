@@ -7,9 +7,6 @@ package me.zhanghai.android.files.filelist
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.RippleDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.widget.HorizontalScrollView
@@ -18,14 +15,10 @@ import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.shape.ShapeAppearanceModel
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.databinding.BreadcrumbItemBinding
 import me.zhanghai.android.files.util.getColorByAttr
-import me.zhanghai.android.files.util.getColorStateListByAttr
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import me.zhanghai.android.files.util.getResourceIdByAttr
 import me.zhanghai.android.files.util.layoutInflater
@@ -148,7 +141,6 @@ class BreadcrumbLayout : HorizontalScrollView {
         }
         for (index in itemsLayout.childCount until data.paths.size) {
             val binding = BreadcrumbItemBinding.inflate(context.layoutInflater, itemsLayout, false)
-            binding.root.foregroundCompat = createItemForeground(binding.root.context)
             val menu = PopupMenu(popupContext, binding.root)
                 .apply { inflate(R.menu.file_list_breadcrumb) }
             binding.root.setOnLongClickListener {
@@ -160,16 +152,6 @@ class BreadcrumbLayout : HorizontalScrollView {
             binding.root.tag = binding to menu
             itemsLayout.addView(binding.root, 0)
         }
-    }
-
-    private fun createItemForeground(context: Context): Drawable {
-        val controlHighlightColor = context.getColorStateListByAttr(R.attr.colorControlHighlight)
-        val mask = MaterialShapeDrawable(
-            ShapeAppearanceModel.builder(
-                context, R.style.ShapeAppearance_MaterialFiles_Breadcrumb, 0
-            ).build()
-        ).apply { fillColor = ColorStateList.valueOf(Color.WHITE) }
-        return RippleDrawable(controlHighlightColor, null, mask)
     }
 
     private fun bindItemViews() {
