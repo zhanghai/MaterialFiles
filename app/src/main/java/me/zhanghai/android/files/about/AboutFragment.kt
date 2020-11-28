@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.AboutFragmentBinding
 import me.zhanghai.android.files.ui.LicensesDialogFragment
@@ -43,9 +44,12 @@ class AboutFragment : Fragment() {
         activity.setSupportActionBar(binding.toolbar)
         binding.gitHubLayout.setOnClickListener { startActivitySafe(GITHUB_URI.createViewIntent()) }
         binding.licensesLayout.setOnClickListener { LicensesDialogFragment.show(this) }
+//#ifdef NONFREE
+        binding.privacyPolicyLayout.isVisible = true
         binding.privacyPolicyLayout.setOnClickListener {
             startActivitySafe(PRIVACY_POLICY_URI.createViewIntent())
         }
+//#endif
         binding.authorNameLayout.setOnClickListener {
             startActivitySafe(AUTHOR_RESUME_URI.createViewIntent())
         }

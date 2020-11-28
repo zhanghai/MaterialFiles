@@ -193,7 +193,8 @@
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
                             android:background="?selectableItemBackground"
                             android:gravity="center_vertical"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="@dimen/icon_size"
