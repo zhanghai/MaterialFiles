@@ -8,7 +8,7 @@
 <resources>
 
     <style name="Platform.V21.Theme.MaterialFiles" parent="Theme.MaterialComponents.DayNight">
-        <item name="android:statusBarColor">@color/system_window_scrim_compat</item>
+        <item name="colorPrimaryDark">@color/system_window_scrim_compat</item>
     </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles" />
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
@@ -20,7 +20,6 @@
 
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
-        <item name="colorPrimaryDark">@color/system_window_scrim</item>
         <item name="colorSecondary">?colorPrimary</item>
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
@@ -52,6 +51,8 @@
 
     <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.MaterialComponents">
         <item name="android:navigationBarColor">?colorPrimaryDark</item>
+
+        <item name="colorPrimaryDark">@color/dark_50_percent</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V21.Theme.MaterialFiles.Immersive" />
     <style name="Base.Theme.MaterialFiles.Immersive" parent="Platform.Theme.MaterialFiles.Immersive">
@@ -64,7 +65,6 @@
 
         <item name="colorPrimary">@color/color_primary_dark</item>
         <item name="colorPrimaryVariant">?colorPrimary</item>
-        <item name="colorPrimaryDark">@color/dark_50_percent</item>
         <item name="colorSecondary">?colorPrimary</item>
         <item name="colorOnSecondary">?colorOnPrimary</item>
         <item name="colorSecondaryVariant">?colorSecondary</item>
