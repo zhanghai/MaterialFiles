@@ -97,8 +97,10 @@ class CoordinatorAppBarLayout : AppBarLayout {
         // Work around a bug before Android N that an empty clip bounds doesn't clip.
         // Making the clip bounds somewhere outside view bounds doesn't work, so as a hack we just
         // assume that the first child won't draw anything in its top-left pixel.
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N && tempClipBounds.isEmpty) {
-            tempClipBounds.set(0, 0, 1, 1)
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            if (tempClipBounds.isEmpty) {
+                tempClipBounds.set(0, 0, 1, 1)
+            }
         }
         firstChild.clipBounds = tempClipBounds
     }
