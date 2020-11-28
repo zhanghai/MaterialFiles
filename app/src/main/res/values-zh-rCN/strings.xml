@@ -437,6 +437,12 @@
     </string-array>
     <string name="settings_black_night_mode">黑色夜间模式</string>
     <string name="settings_file_list_animation_title">文件列表动画</string>
+    <string name="settings_long_filename_ellipsize_style_title">长文件名省略样式</string>
+    <string-array name="settings_long_filename_ellipsize_style_entries">
+        <item>中间</item>
+        <item>末尾</item>
+        <item>跑马灯</item>
+    </string-array>
     <string name="settings_behavior_title">行为</string>
     <string name="settings_default_directory_title">默认文件夹</string>
     <string name="settings_standard_directories_title">标准文件夹</string>

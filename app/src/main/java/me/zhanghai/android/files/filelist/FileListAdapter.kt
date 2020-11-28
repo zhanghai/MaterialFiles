@@ -213,6 +213,11 @@ class FileListAdapter(
             binding.badgeImage.setImageResource(badgeIconRes!!)
         }
         binding.nameText.text = file.name
+        val longFilenameEllipsizeStyle = Settings.LONG_FILENAME_ELLIPSIZE_STYLE.valueCompat
+        binding.nameText.ellipsize = longFilenameEllipsizeStyle.value
+        if(longFilenameEllipsizeStyle == LongFilenameEllipsizeStyle.MARQUEE){
+            binding.nameText.isSelected = true  // Make marquee style available
+        }
         binding.descriptionText.text = if (isDirectory) {
             null
         } else {

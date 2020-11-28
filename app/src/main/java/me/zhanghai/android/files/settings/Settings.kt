@@ -12,6 +12,7 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.compat.EnvironmentCompat2
 import me.zhanghai.android.files.filelist.FileSortOptions
+import me.zhanghai.android.files.filelist.LongFilenameEllipsizeStyle
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
@@ -100,6 +101,12 @@ object Settings {
     val FILE_LIST_ANIMATION: SettingLiveData<Boolean> =
         BooleanSettingLiveData(
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation
+        )
+
+    val LONG_FILENAME_ELLIPSIZE_STYLE:SettingLiveData<LongFilenameEllipsizeStyle> =
+        EnumSettingLiveData(
+            R.string.pref_key_long_filename_ellipsize_style,R.string.pref_default_value_long_filename_ellipsize_style,
+            LongFilenameEllipsizeStyle::class.java
         )
 
     val STANDARD_DIRECTORY_SETTINGS: SettingLiveData<List<StandardDirectorySettings>> =

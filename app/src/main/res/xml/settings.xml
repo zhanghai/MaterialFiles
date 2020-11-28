@@ -34,6 +34,14 @@
             android:key="@string/pref_key_file_list_animation"
             android:title="@string/settings_file_list_animation_title"
             android:defaultValue="@bool/pref_default_value_file_list_animation" />
+
+        <com.takisoft.preferencex.SimpleMenuPreference
+            android:key="@string/pref_key_long_filename_ellipsize_style"
+            android:title="@string/settings_long_filename_ellipsize_style_title"
+            android:defaultValue="@string/pref_default_value_long_filename_ellipsize_style"
+            android:entries="@array/settings_long_filename_ellipsize_style_entries"
+            android:entryValues="@array/pref_entry_values_long_filename_ellipsize_style"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_behavior_title">

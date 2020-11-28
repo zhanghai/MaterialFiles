@@ -432,6 +432,12 @@
         <item>バッテリーセーバーに依存</item>
     </string-array>
     <string name="settings_file_list_animation_title">ファイル一覧のアニメーション</string>
+    <string name="settings_long_filename_ellipsize_style_title">長いファイル名の略し方</string>
+    <string-array name="settings_long_filename_ellipsize_style_entries">
+        <item>中</item>
+        <item>後ろ</item>
+        <item>走馬灯</item>
+    </string-array>
     <string name="settings_behavior_title">動作</string>
     <string name="settings_default_directory_title">既定フォルダ</string>
     <string name="settings_standard_directories_title">標準フォルダ</string>
