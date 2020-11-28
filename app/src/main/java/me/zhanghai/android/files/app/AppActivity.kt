@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper
 import me.zhanghai.android.files.theme.night.NightModeHelper
-import me.zhanghai.android.files.theme.typeface.TypefaceHelper
 
 abstract class AppActivity : AppCompatActivity() {
     private var isDelegateCreated = false
@@ -27,7 +26,6 @@ abstract class AppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         CustomThemeHelper.apply(this)
-        TypefaceHelper.apply(this)
 
         super.onCreate(savedInstanceState)
     }
