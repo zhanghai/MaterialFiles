@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
+import androidx.viewpager2.widget.ViewPager2
 import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
@@ -103,8 +104,8 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         binding.viewPager.adapter = adapter
         // ViewPager saves its position and will restore it later.
         binding.viewPager.currentItem = args.position
-        binding.viewPager.setPageTransformer(true, DepthPageTransformer)
-        binding.viewPager.addOnPageChangeListener(object : SimpleOnPageChangeListener() {
+        binding.viewPager.setPageTransformer(DepthPageTransformer)
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateTitle()
             }
