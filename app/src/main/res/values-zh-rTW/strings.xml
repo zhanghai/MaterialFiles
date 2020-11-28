@@ -203,8 +203,8 @@
     <string name="file_install_apk_from_background_text">輕觸即可安裝</string>
     <string name="file_open_from_background_title_format">「%1$s」已可供開啟</string>
     <string name="file_open_from_background_text">輕觸即可開啟</string>
-    <string name="file_name_error_empty">檔案名不能為空</string>
-    <string name="file_name_error_invalid">檔案名無效</string>
+    <string name="file_name_error_empty">檔案名稱不能為空</string>
+    <string name="file_name_error_invalid">檔案名稱無效</string>
     <string name="file_name_error_already_exists">已存在同名的檔案</string>
     <string name="file_delete_message_file_format">刪除「%1$s」?</string>
     <string name="file_delete_message_directory_format">刪除資料夾「%1$s」和它的內容？</string>
@@ -285,8 +285,8 @@
     </plurals>
     <string name="file_properties_basic_last_modification_time">最後修改</string>
     <string name="file_properties_basic_parent_directory">父資料夾</string>
-    <string name="file_properties_basic_archive_file">歸檔檔案</string>
-    <string name="file_properties_basic_archive_entry">歸檔條目</string>
+    <string name="file_properties_basic_archive_file">封存檔案</string>
+    <string name="file_properties_basic_archive_entry">封存條目</string>
     <string name="file_properties_basic_free_space">可用空間</string>
     <string name="file_properties_permissions">權限</string>
     <string name="file_properties_permissions_owner">擁有者</string>
@@ -455,7 +455,7 @@
     <plurals name="settings_root_strategy_message_format">
         <item quantity="other">您有 %1$,d 個正在執行的檔案作業，因此現在變更 root 存取模式可能會導致未預期的錯誤。您確定要現在變更它嗎？</item>
     </plurals>
-    <string name="settings_archive_file_name_encoding_title">歸檔檔案名編碼</string>
+    <string name="settings_archive_file_name_encoding_title">封存檔案名稱編碼</string>
     <string name="settings_open_apk_default_action_title">開啟 Android 安裝包</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>安裝</item>
