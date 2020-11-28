@@ -18,13 +18,12 @@ import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper
 import me.zhanghai.android.files.theme.night.NightModeHelper
-import me.zhanghai.android.files.theme.typeface.GoogleSansHelper
 
 val appInitializers = listOf(
     ::initializeCrashlytics, ::allowRestrictedHiddenApiAccess, ::initializeThreeTen,
     ::initializeWebViewDebugging, ::initializeStetho, ::initializeCoil,
-    ::initializeFileSystemProviders, ::upgradeApp, ::initializeSettings, ::initializeGoogleSans,
-    ::initializeCustomTheme, ::initializeNightMode, ::createNotificationChannels
+    ::initializeFileSystemProviders, ::upgradeApp, ::initializeSettings, ::initializeCustomTheme,
+    ::initializeNightMode, ::createNotificationChannels
 )
 
 private fun initializeCrashlytics() {
@@ -59,10 +58,6 @@ private fun initializeFileSystemProviders() {
 private fun initializeSettings() {
     // Force initialization of Settings so that it won't happen on a background thread.
     Settings.FILE_LIST_DEFAULT_DIRECTORY.value
-}
-
-private fun initializeGoogleSans() {
-    GoogleSansHelper.initialize()
 }
 
 private fun initializeCustomTheme() {
