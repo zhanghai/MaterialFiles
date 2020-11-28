@@ -11,4 +11,9 @@
         <item name="colorPrimaryDark">@android:color/transparent</item>
     </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V29.Theme.MaterialFiles" />
+
+    <style name="Platform.V29.Theme.MaterialFiles.Immersive" parent="Platform.V28.Theme.MaterialFiles.Immersive">
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V29.Theme.MaterialFiles.Immersive" />
 </resources>

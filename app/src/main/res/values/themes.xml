@@ -74,7 +74,7 @@
         <item name="minTouchTargetSize">0dp</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
 
-        <item name="colorAppBarSurface">?colorPrimaryDark</item>
+        <item name="colorAppBarSurface">@color/dark_50_percent</item>
     </style>
     <style name="Theme.MaterialFiles.Immersive" parent="Base.Theme.MaterialFiles.Immersive" />
 </resources>

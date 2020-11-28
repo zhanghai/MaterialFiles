@@ -78,6 +78,13 @@
     </notice>
 
     <notice>
+        <name>Insetter</name>
+        <url>https://github.com/chrisbanes/insetter</url>
+        <copyright>Copyright 2019 Google LLC</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>librootjava</name>
         <url>https://github.com/Chainfire/librootjava</url>
         <copyright>Copyright 2018 Jorrit "Chainfire" Jongma</copyright>

@@ -16,17 +16,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <!-- This layout also clips the toolbar in order to avoid overlap with status bar. -->
     <FrameLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:background="?colorAppBarSurface">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="?colorAppBarSurface"
             android:theme="?actionBarTheme"
             app:navigationIcon="@drawable/back_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
