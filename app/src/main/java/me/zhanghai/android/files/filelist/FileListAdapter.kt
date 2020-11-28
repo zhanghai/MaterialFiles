@@ -217,6 +217,7 @@ class FileListAdapter(
         binding.nameText.ellipsize = longFilenameEllipsizeStyle.value
         if(longFilenameEllipsizeStyle == LongFilenameEllipsizeStyle.MARQUEE){
             binding.nameText.isSelected = true  // Make marquee style available
+            binding.nameText.marqueeRepeatLimit = -1
         }
         binding.descriptionText.text = if (isDirectory) {
             null
