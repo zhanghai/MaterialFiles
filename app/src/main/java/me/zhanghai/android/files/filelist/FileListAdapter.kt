@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.filelist
 
+import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
@@ -54,6 +55,14 @@ class FileListAdapter(
     private val selectedFiles = fileItemSetOf()
 
     private val filePositionMap = mutableMapOf<Path, Int>()
+
+    private lateinit var _nameEllipsize: TextUtils.TruncateAt
+    var nameEllipsize: TextUtils.TruncateAt
+        get() = _nameEllipsize
+        set(value) {
+            _nameEllipsize = value
+            notifyItemRangeChanged(0, itemCount, PAYLOAD_STATE_CHANGED)
+        }
 
     fun replaceSelectedFiles(files: FileItemSet) {
         val changedFiles = fileItemSetOf()
@@ -166,6 +175,9 @@ class FileListAdapter(
         menu.findItem(R.id.action_copy).isVisible = !hasPickOptions
         val checked = file in selectedFiles
         binding.itemLayout.isChecked = checked
+        val nameEllipsize = nameEllipsize
+        binding.nameText.ellipsize = nameEllipsize
+        binding.nameText.isSelected = nameEllipsize == TextUtils.TruncateAt.MARQUEE
         if (payloads.isNotEmpty()) {
             return
         }

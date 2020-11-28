@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.settings
 
 import android.os.Environment
+import android.text.TextUtils
 import java8.nio.file.Path
 import java8.nio.file.Paths
 import me.zhanghai.android.files.R
@@ -100,6 +101,12 @@ object Settings {
     val FILE_LIST_ANIMATION: SettingLiveData<Boolean> =
         BooleanSettingLiveData(
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation
+        )
+
+    val FILE_NAME_ELLIPSIZE: SettingLiveData<TextUtils.TruncateAt> =
+        EnumSettingLiveData(
+            R.string.pref_key_file_name_ellipsize, R.string.pref_default_value_file_name_ellipsize,
+            TextUtils.TruncateAt::class.java
         )
 
     val STANDARD_DIRECTORY_SETTINGS: SettingLiveData<List<StandardDirectorySettings>> =

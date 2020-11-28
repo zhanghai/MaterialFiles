@@ -544,6 +544,13 @@
     </string-array>
     <string name="settings_black_night_mode">Black night mode</string>
     <string name="settings_file_list_animation_title">File list animation</string>
+    <string name="settings_file_name_ellipsize_title">Display long file name</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Ellipsize the beginning</item>
+        <item>Ellipsize the middle</item>
+        <item>Ellipsize the end</item>
+        <item>Marquee</item>
+    </string-array>
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_default_directory_title">Default folder</string>
     <string name="settings_standard_directories_title">Standard folders</string>
