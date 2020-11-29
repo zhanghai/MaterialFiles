@@ -16,7 +16,6 @@ import coil.loadAny
 import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.FileItemBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.fileSize
@@ -25,6 +24,7 @@ import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.AnimatedListAdapter
+import me.zhanghai.android.files.ui.CheckableItemBackground
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
 import java.util.Comparator
@@ -148,8 +148,8 @@ class FileListAdapter(
         ViewHolder(
             FileItemBinding.inflate(parent.context.layoutInflater, parent, false)
         ).apply {
-            binding.itemLayout.background = binding.itemLayout.context
-                .getDrawableCompat(R.drawable.checkable_item_background)
+            binding.itemLayout.background =
+                CheckableItemBackground.create(binding.itemLayout.context)
             popupMenu = PopupMenu(binding.menuButton.context, binding.menuButton)
                 .apply { inflate(R.menu.file_item) }
             binding.menuButton.setOnClickListener { popupMenu.show() }
