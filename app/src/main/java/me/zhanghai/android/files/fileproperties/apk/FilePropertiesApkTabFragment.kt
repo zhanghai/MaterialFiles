@@ -25,7 +25,6 @@ import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.getStringArray
 import me.zhanghai.android.files.util.viewModels
 import java.text.Collator
-import java.util.*
 
 
 class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
@@ -85,7 +84,7 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                     val label = getPermissionLabel(it, packageManager)
                     if (label.isNullOrEmpty()) rawPermissions.add(it) else localizedPermissions.add(label)
                 }
-                localizedPermissions.sortWith { a, b -> Collator.getInstance(Locale.getDefault()).compare(a, b) }
+                localizedPermissions.sortWith { a, b -> Collator.getInstance().compare(a, b) }
                 rawPermissions.sort()
                 addItemView(
                     R.string.file_properties_apk_permissions,
