@@ -5,12 +5,14 @@
 
 package me.zhanghai.android.files.fileproperties.apk
 
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.app.packageManager
 import me.zhanghai.android.files.compat.longVersionCodeCompat
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.isApk
@@ -22,6 +24,9 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.getStringArray
 import me.zhanghai.android.files.util.viewModels
+import java.text.Collator
+import java.util.*
+
 
 class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
     private val args by args<Args>()
@@ -72,6 +77,21 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                     apkInfo.pastSigningCertificateDigests.joinToString("\n")
                 )
             }
+            if (packageInfo.requestedPermissions != null
+                    && packageInfo.requestedPermissions.isNotEmpty()) {
+                val localizedPermissions = mutableListOf<String>()
+                val rawPermissions = mutableListOf<String>()
+                packageInfo.requestedPermissions.forEach {
+                    val label = getPermissionLabel(it, packageManager)
+                    if (label.isNullOrEmpty()) rawPermissions.add(it) else localizedPermissions.add(label)
+                }
+                localizedPermissions.sortWith { a, b -> Collator.getInstance(Locale.getDefault()).compare(a, b) }
+                rawPermissions.sort()
+                addItemView(
+                    R.string.file_properties_apk_permissions,
+                    (localizedPermissions + rawPermissions).joinToString(System.lineSeparator())
+                )
+            }
         }
     }
 
@@ -83,6 +103,16 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
             names[sdkVersion.coerceIn(names.indices)],
             codeNames[sdkVersion.coerceIn(codeNames.indices)], sdkVersion
         )
+    }
+
+    private fun getPermissionLabel(name: String, packageManager: PackageManager): String? {
+        return try {
+            val permissionInfo = packageManager.getPermissionInfo(name, 0)
+            val label = permissionInfo.loadLabel(packageManager)
+            return label.toString()
+        } catch (e: Throwable) {
+            null
+        }
     }
 
     companion object {

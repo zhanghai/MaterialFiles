@@ -368,6 +368,7 @@
     <string name="file_properites_apk_sdk_version_format">%1$s（%2$s，%3$d）</string>
     <string name="file_properties_apk_signature_digests">簽章</string>
     <string name="file_properties_apk_past_signature_digests">舊簽章</string>
+    <string name="file_properties_apk_permissions">權限</string>
 
     <string name="navigation_root_directory">根目錄</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩餘 %1$s</string>

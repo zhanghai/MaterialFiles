@@ -36,7 +36,7 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                 // PackageManager.getPackageArchiveInfo() to call
                 // PackageParser.collectCertificates().
                 @Suppress("DEPRECATION")
-                var packageInfoFlags = PackageManager.GET_SIGNATURES
+                var packageInfoFlags = PackageManager.GET_SIGNATURES or PackageManager.GET_PERMISSIONS
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     packageInfoFlags = packageInfoFlags or PackageManager.GET_SIGNING_CERTIFICATES
                 }
