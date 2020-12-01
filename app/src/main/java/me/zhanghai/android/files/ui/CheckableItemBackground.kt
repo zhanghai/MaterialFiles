@@ -10,13 +10,12 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import androidx.annotation.ColorInt
-import androidx.annotation.FloatRange
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.util.asColor
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.shortAnimTime
-import kotlin.math.roundToInt
+import me.zhanghai.android.files.util.withModulatedAlpha
 
 object CheckableItemBackground {
     // We need an <animated-selector> (AnimatedStateListDrawable) with an item drawable referencing
@@ -32,17 +31,8 @@ object CheckableItemBackground {
             setEnterFadeDuration(shortAnimTime)
             setExitFadeDuration(shortAnimTime)
             val primaryColor = context.getColorByAttr(R.attr.colorPrimary)
-            val checkedColor = modulateColorAlpha(primaryColor, 0.12f)
+            val checkedColor = primaryColor.asColor().withModulatedAlpha(0.12f).value
             addState(intArrayOf(android.R.attr.state_checked), ColorDrawable(checkedColor))
             addState(intArrayOf(), ColorDrawable(Color.TRANSPARENT))
         }
-
-    @ColorInt
-    private fun modulateColorAlpha(
-        @ColorInt color: Int,
-        @FloatRange(from = 0.0, to = 1.0) alphaMod: Float
-    ): Int {
-        val alpha = (Color.alpha(color) * alphaMod).roundToInt()
-        return (alpha shl 24) or (color and 0x00FFFFFF)
-    }
 }

@@ -29,6 +29,4 @@
     <color name="file_icon_red">#F28B82</color>
     <color name="file_icon_deep_red">#E8877F</color>
     <color name="file_icon_yellow">#F8CF5C</color>
-
-    <color name="sd_overlay_color" tools:ignore="MissingDefaultResource">#AA000000</color>
 </resources>
