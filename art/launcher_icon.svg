@@ -23,10 +23,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="8"
-     inkscape:cx="24.715376"
-     inkscape:cy="51.173315"
+     inkscape:cx="52.237581"
+     inkscape:cy="54.819176"
      inkscape:document-units="px"
-     inkscape:current-layer="layer"
+     inkscape:current-layer="circle-clip-group"
      showgrid="false"
      units="px"
      inkscape:pagecheckerboard="false"
@@ -50,18 +50,6 @@
      inkscape:document-rotation="0" />
   <defs
      id="defs2">
-    <linearGradient
-       inkscape:collect="always"
-       id="linearGradient843">
-      <stop
-         style="stop-color:#000000;stop-opacity:0.1"
-         offset="0"
-         id="stop839" />
-      <stop
-         style="stop-color:#000000;stop-opacity:0"
-         offset="1"
-         id="stop841" />
-    </linearGradient>
     <linearGradient
        id="linearGradient874"
        inkscape:collect="always">
@@ -89,15 +77,6 @@
        id="radialGradient876"
        xlink:href="#linearGradient874"
        inkscape:collect="always" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient843"
-       id="linearGradient845"
-       x1="33"
-       y1="363.19995"
-       x2="108"
-       y2="438.19998"
-       gradientUnits="userSpaceOnUse" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath843">
@@ -268,11 +247,10 @@
        id="circle-clip-group"
        clip-path="url(#clipPath843)">
       <path
-         d="m 37.199219,366.19997 c -2.31,0 -4.199219,1.88922 -4.199219,4.19922 v 27.60156 c 0,1.16716 0.482427,2.22714 1.257812,2.99024 L 110.625,477.35817 c 0.75923,0.7472 1.80052,1.20899 2.94336,1.20899 h 33.59961 c 2.31,0 4.19922,-1.88922 4.19922,-4.19922 v -23.40039 c 0,-1.16716 -0.48243,-2.22714 -1.25781,-2.99024 L 73.742188,371.61013 c -0.759232,-0.7472 -1.798565,-1.21094 -2.941407,-1.21094 H 54 l -4.199219,-4.19922 z"
-         id="long-shadow"
-         inkscape:connector-curvature="0"
-         style="fill:url(#linearGradient845);fill-opacity:1;stroke:none;stroke-width:2.09999967"
-         sodipodi:nodetypes="sccccssssccsccs" />
+         id="folder-edge-bottom"
+         style="fill:#000000;fill-opacity:0.2;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 33 67.800781 L 33 68.800781 C 33 71.110781 34.889219 73 37.199219 73 L 70.800781 73 C 73.110781 73 75 71.110781 75 68.800781 L 75 67.800781 C 75 70.110781 73.110781 72 70.800781 72 L 37.199219 72 C 34.889219 72 33 70.110781 33 67.800781 z "
+         transform="translate(0,330.19997)" />
       <path
          inkscape:connector-curvature="0"
          d="M 49.8,366.19997 H 37.2 c -2.31,0 -4.2,1.89 -4.2,4.2 v 27.6 c 0,2.31 1.89,4.2 4.2,4.2 h 33.6 c 2.31,0 4.2,-1.89 4.2,-4.2 v -23.4 c 0,-2.31 -1.89,-4.2 -4.2,-4.2 H 54 Z"

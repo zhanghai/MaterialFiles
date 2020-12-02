@@ -468,11 +468,15 @@
 
     <string name="storage_add_smb_server_title">Add SMB server</string>
     <string name="storage_add_smb_server_hostname">Hostname</string>
+    <string name="storage_add_smb_server_hostname_empty_error">Enter a hostname</string>
     <string name="storage_add_smb_server_port">Port</string>
     <string name="storage_add_smb_server_port_default_value" translatable="false">445</string>
+    <string name="storage_add_smb_server_port_error">Invalid port</string>
     <string name="storage_add_smb_server_name">Name</string>
     <string name="storage_add_smb_server_username">Username</string>
+    <string name="storage_add_smb_server_username_empty_error">Enter a username</string>
     <string name="storage_add_smb_server_password">Password</string>
+    <string name="storage_add_smb_server_password_empty_error">Enter a password</string>
     <string name="storage_add_smb_server_domain">Domain</string>
     <string name="storage_add_smb_server_share">Share</string>
 
