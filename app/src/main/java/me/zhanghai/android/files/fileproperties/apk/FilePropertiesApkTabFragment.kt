@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.fileproperties.apk
 
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import java8.nio.file.Path
@@ -81,7 +80,12 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                 val localizedPermissions = mutableListOf<String>()
                 val rawPermissions = mutableListOf<String>()
                 packageInfo.requestedPermissions.forEach {
-                    val label = getPermissionLabel(it, packageManager)
+                    val label: String? = try {
+                        val permissionInfo = packageManager.getPermissionInfo(it, 0)
+                        permissionInfo.loadLabel(packageManager).toString()
+                    } catch (e: Throwable) {
+                        null
+                    }
                     if (label.isNullOrEmpty()) rawPermissions.add(it) else localizedPermissions.add(label)
                 }
                 localizedPermissions.sortWith { a, b -> Collator.getInstance().compare(a, b) }
@@ -102,16 +106,6 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
             names[sdkVersion.coerceIn(names.indices)],
             codeNames[sdkVersion.coerceIn(codeNames.indices)], sdkVersion
         )
-    }
-
-    private fun getPermissionLabel(name: String, packageManager: PackageManager): String? {
-        return try {
-            val permissionInfo = packageManager.getPermissionInfo(name, 0)
-            val label = permissionInfo.loadLabel(packageManager)
-            return label.toString()
-        } catch (e: Throwable) {
-            null
-        }
     }
 
     companion object {
