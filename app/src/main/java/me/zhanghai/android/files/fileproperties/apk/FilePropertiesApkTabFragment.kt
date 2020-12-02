@@ -75,11 +75,11 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                     apkInfo.pastSigningCertificateDigests.joinToString("\n")
                 )
             }
-            if (packageInfo.requestedPermissions != null
-                    && packageInfo.requestedPermissions.isNotEmpty()) {
+            val requestedPermissions = packageInfo.requestedPermissions
+            if (!requestedPermissions.isNullOrEmpty()) {
                 val localizedPermissions = mutableListOf<String>()
                 val rawPermissions = mutableListOf<String>()
-                packageInfo.requestedPermissions.forEach {
+                requestedPermissions.forEach {
                     val label: String? = try {
                         val permissionInfo = packageManager.getPermissionInfo(it, 0)
                         permissionInfo.loadLabel(packageManager).toString()
