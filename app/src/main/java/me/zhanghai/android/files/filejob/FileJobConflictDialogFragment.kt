@@ -10,7 +10,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Parcel
-import android.text.Editable
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
@@ -20,6 +19,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.core.widget.doAfterTextChanged
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import coil.clear
 import coil.loadAny
@@ -39,7 +39,6 @@ import me.zhanghai.android.files.filelist.supportsThumbnail
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
-import me.zhanghai.android.files.util.SimpleTextWatcher
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.getArgs
 import me.zhanghai.android.files.util.getState
@@ -113,20 +112,16 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                 }
                 val targetFileName = targetFile.path.fileName.toString()
                 binding.nameEdit.setTextWithSelection(targetFileName)
-                binding.nameEdit.addTextChangedListener(object : SimpleTextWatcher {
-                    override fun afterTextChanged(text: Editable) {
-                        val hasNewName = hasNewName()
-                        binding.allCheck.isEnabled = !hasNewName
-                        if (hasNewName) {
-                            binding.allCheck.isChecked = false
-                        }
-                        val positiveButton = requireDialog()
-                            .requireViewByIdCompat<Button>(android.R.id.button1)
-                        positiveButton.setText(
-                            if (hasNewName) R.string.rename else positiveButtonRes
-                        )
+                binding.nameEdit.doAfterTextChanged {
+                    val hasNewName = hasNewName()
+                    binding.allCheck.isEnabled = !hasNewName
+                    if (hasNewName) {
+                        binding.allCheck.isChecked = false
                     }
-                })
+                    val positiveButton = requireDialog()
+                        .requireViewByIdCompat<Button>(android.R.id.button1)
+                    positiveButton.setText(if (hasNewName) R.string.rename else positiveButtonRes)
+                }
                 binding.resetNameButton.setOnClickListener {
                     binding.nameEdit.setTextWithSelection(targetFileName)
                 }
