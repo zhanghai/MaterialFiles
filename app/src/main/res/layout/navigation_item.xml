@@ -11,8 +11,8 @@
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
-    android:paddingStart="?android:listPreferredItemPaddingStart"
-    android:paddingEnd="?android:listPreferredItemPaddingEnd"
+    android:paddingStart="@dimen/navigation_item_horizontal_padding"
+    android:paddingEnd="@dimen/navigation_item_horizontal_padding"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -28,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/design_navigation_icon_padding"
+        android:layout_marginStart="@dimen/navigation_item_icon_padding"
         android:duplicateParentState="true"
         android:orientation="vertical">
 
