@@ -20,6 +20,7 @@ import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.databinding.NavigationDividerItemBinding
 import me.zhanghai.android.files.databinding.NavigationItemBinding
+import me.zhanghai.android.files.ui.AutoMirrorDrawable
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.dpToDimensionPixelSize
 import me.zhanghai.android.files.util.getColorStateListByAttr
@@ -95,7 +96,7 @@ class NavigationListAdapter(
             ).build()
         ).apply { this.fillColor = fillColor }
         val rightInset = context.dpToDimensionPixelSize(8)
-        return InsetDrawable(materialShapeDrawable, 0, 0, rightInset, 0)
+        return AutoMirrorDrawable(InsetDrawable(materialShapeDrawable, 0, 0, rightInset, 0))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
