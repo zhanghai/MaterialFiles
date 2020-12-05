@@ -206,11 +206,11 @@
     <string name="file_name_error_empty">檔案名稱不能為空</string>
     <string name="file_name_error_invalid">檔案名稱無效</string>
     <string name="file_name_error_already_exists">已存在同名的檔案</string>
-    <string name="file_delete_message_file_format">刪除「%1$s」?</string>
+    <string name="file_delete_message_file_format">刪除「%1$s」？</string>
     <string name="file_delete_message_directory_format">刪除資料夾「%1$s」和它的內容？</string>
     <string name="file_delete_message_multiple_files_format">刪除 %1$,d 個檔案？</string>
     <string name="file_delete_message_multiple_directories_format">刪除 %1$,d 個資料夾和它們的內容？</string>
-    <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾?</string>
+    <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾？</string>
     <string name="file_create_archive_title">建立壓縮檔案</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
