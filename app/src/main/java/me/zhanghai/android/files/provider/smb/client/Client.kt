@@ -32,6 +32,7 @@ import com.hierynomus.smbj.share.Share
 import com.rapid7.client.dcerpc.mssrvs.ServerService
 import com.rapid7.client.dcerpc.transport.SMBTransportFactories
 import java8.nio.channels.SeekableByteChannel
+import jcifs.context.SingletonContext
 import me.zhanghai.android.files.provider.common.CloseableIterator
 import me.zhanghai.android.files.provider.common.copyTo
 import me.zhanghai.android.files.provider.common.newInputStream
@@ -40,6 +41,7 @@ import me.zhanghai.android.files.util.closeSafe
 import me.zhanghai.android.files.util.hasBits
 import java.io.Closeable
 import java.io.IOException
+import java.net.UnknownHostException
 import java.util.Collections
 import java.util.EnumSet
 import java.util.WeakHashMap
@@ -591,8 +593,9 @@ object Client {
             }
             val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
+            val hostAddress = resolveHostName(authority.host)
             val connection = try {
-                client.connect(authority.host, authority.port)
+                client.connect(hostAddress, authority.port)
             } catch (e: IOException) {
                 throw ClientException(e)
             } catch (e: SMBRuntimeException) {
@@ -602,6 +605,17 @@ object Client {
             sessions[authority] = session
             return session
         }
+    }
+
+    @Throws(ClientException::class)
+    private fun resolveHostName(hostName: String): String {
+        val nameServiceClient = SingletonContext.getInstance().nameServiceClient
+        val uniAddress = try {
+            nameServiceClient.getByName(hostName)
+        } catch (e: UnknownHostException) {
+            throw ClientException(e)
+        }
+        return uniAddress.hostAddress
     }
 
     @Throws(ClientException::class)

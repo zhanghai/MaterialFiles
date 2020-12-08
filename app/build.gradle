@@ -135,6 +135,11 @@ dependencies {
     implementation "dev.chrisbanes:insetter-ktx:0.3.1"
     implementation 'eu.chainfire:librootjava:1.3.0'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
+    implementation ('eu.agno3.jcifs:jcifs-ng:2.1.5') {
+        // We are only using jCIFS-NG's name resolution, and org.bouncycastle:bcprov-jdk15on:1.66
+        // breaks Jetifier, while the 1.60 version pulled in by SMBJ doesn't.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    }
     def coil_version = '1.1.0'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
@@ -154,7 +159,7 @@ dependencies {
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.8'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
-    // Also a dependency of Junrar.
+    // Also a dependency of jCIFS-NG and Junrar.
     implementation 'org.slf4j:slf4j-android:1.7.30'
 
 //#ifdef NONFREE

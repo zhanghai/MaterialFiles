@@ -99,6 +99,13 @@
     </notice>
 
     <notice>
+        <name>jcifs-ng</name>
+        <url>https://github.com/AgNO3/jcifs-ng</url>
+        <copyright>Copyright 2016 AgNO3 Gmbh &amp; Co. KG</copyright>
+        <license>GNU Lesser General Public License 2.1</license>
+    </notice>
+
+    <notice>
         <name>Coil</name>
         <url>https://github.com/coil-kt/coil</url>
         <copyright>Copyright 2020 Coil Contributors</copyright>
