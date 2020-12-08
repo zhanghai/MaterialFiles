@@ -16,7 +16,7 @@ import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
 
-class ConnectSmbServerStateLiveData : StatefulLiveData<SmbServer>() {
+class ConnectSmbServerStatefulLiveData : StatefulLiveData<SmbServer>() {
     fun connect(server: SmbServer) {
         check(isReady)
         value = Loading(server)

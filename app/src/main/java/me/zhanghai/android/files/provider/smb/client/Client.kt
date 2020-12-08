@@ -594,14 +594,17 @@ object Client {
             val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
             val hostAddress = resolveHostName(authority.host)
-            val connection = try {
-                client.connect(hostAddress, authority.port)
+            session = try {
+                val connection = client.connect(hostAddress, authority.port)
+                connection.authenticate(authentication.toContext())
             } catch (e: IOException) {
                 throw ClientException(e)
             } catch (e: SMBRuntimeException) {
                 throw ClientException(e)
-            }
-            session = connection.authenticate(authentication.toContext())
+            // TODO: kotlinc: Type mismatch: inferred type is Session? but TypeVariable(V) was
+            //  expected
+            //}
+            }!!
             sessions[authority] = session
             return session
         }

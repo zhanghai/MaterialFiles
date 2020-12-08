@@ -8,5 +8,5 @@ package me.zhanghai.android.files.storage
 import androidx.lifecycle.ViewModel
 
 class EditSmbServerViewModel : ViewModel() {
-    val connectStatefulLiveData = ConnectSmbServerStateLiveData()
+    val connectStatefulLiveData = ConnectSmbServerStatefulLiveData()
 }
