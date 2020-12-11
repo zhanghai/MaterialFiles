@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <color name="system_window_scrim">@color/system_window_scrim_dark</color>
 
