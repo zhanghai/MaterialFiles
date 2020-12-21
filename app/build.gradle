@@ -133,7 +133,7 @@ dependencies {
     implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.1.0'
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
     implementation "dev.chrisbanes:insetter-ktx:0.3.1"
-    implementation 'eu.chainfire:librootjava:1.3.0'
+    implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation ('eu.agno3.jcifs:jcifs-ng:2.1.5') {
         // We are only using jCIFS-NG's name resolution, and org.bouncycastle:bcprov-jdk15on:1.66
