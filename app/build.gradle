@@ -161,6 +161,7 @@ dependencies {
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
     // Also a dependency of jCIFS-NG and Junrar.
     implementation 'org.slf4j:slf4j-android:1.7.30'
+    implementation 'com.drakeet.drawer:drawer:1.0.2'
 
 //#ifdef NONFREE
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
