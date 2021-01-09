@@ -13,27 +13,33 @@
         android:layout_width="match_parent"
         android:fitsSystemWindows="true">
 
-        <me.zhanghai.android.files.ui.PersistentBarLayout
-            android:id="@+id/persistentBarLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
+        <com.drakeet.drawer.FullDraggableContainer
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
+            <me.zhanghai.android.files.ui.PersistentBarLayout
+                android:id="@+id/persistentBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true">
 
-                <include layout="@layout/file_list_fragment_app_bar_include" />
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true">
 
-                <include layout="@layout/file_list_fragment_content_include" />
+                    <include layout="@layout/file_list_fragment_app_bar_include" />
 
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    <include layout="@layout/file_list_fragment_content_include" />
 
-            <include layout="@layout/file_list_fragment_bottom_bar_include"/>
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-            <include layout="@layout/file_list_fragment_speed_dial_include" />
-        </me.zhanghai.android.files.ui.PersistentBarLayout>
+                <include layout="@layout/file_list_fragment_bottom_bar_include"/>
+
+                <include layout="@layout/file_list_fragment_speed_dial_include" />
+            </me.zhanghai.android.files.ui.PersistentBarLayout>
+
+        </com.drakeet.drawer.FullDraggableContainer>
 
         <me.zhanghai.android.files.ui.NavigationFrameLayout
             android:id="@+id/navigationFragment"
