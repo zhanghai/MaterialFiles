@@ -11,21 +11,21 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
-import android.widget.FrameLayout
 import androidx.annotation.AttrRes
+import androidx.annotation.StyleRes
 import androidx.core.content.res.use
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.customview.widget.ViewDragHelper
-import com.drakeet.drawer.FullDraggableContainer
 import me.zhanghai.android.files.util.layoutInStatusBar
 
 /**
  * @see PersistentDrawerLayout
  */
 class PersistentBarLayout @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, @AttrRes defStyleAttr: Int = 0
-) : FullDraggableContainer(context, attrs, defStyleAttr) {
+    context: Context, attrs: AttributeSet? = null,
+    @AttrRes defStyleAttr: Int = 0, @StyleRes defStyleRes: Int = 0
+) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
     private val topDragger = ViewDragHelper.create(this, ViewDragCallback(Gravity.TOP))
     private val bottomDragger = ViewDragHelper.create(this, ViewDragCallback(Gravity.BOTTOM))
 
@@ -291,7 +291,7 @@ class PersistentBarLayout @JvmOverloads constructor(
         }
     }
 
-    override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams =
+    override fun generateLayoutParams(attrs: AttributeSet?): ViewGroup.LayoutParams =
         LayoutParams(context, attrs)
 
     override fun generateLayoutParams(
@@ -303,7 +303,7 @@ class PersistentBarLayout @JvmOverloads constructor(
             else -> LayoutParams(layoutParams)
         }
 
-    override fun generateDefaultLayoutParams(): LayoutParams =
+    override fun generateDefaultLayoutParams(): ViewGroup.LayoutParams =
         LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
     override fun checkLayoutParams(layoutParams: ViewGroup.LayoutParams): Boolean =
@@ -500,7 +500,8 @@ class PersistentBarLayout @JvmOverloads constructor(
             }
     }
 
-    class LayoutParams : FrameLayout.LayoutParams {
+    class LayoutParams : MarginLayoutParams {
+        var gravity = Gravity.NO_GRAVITY
         var offset = 0f
         var isShown = false
 
