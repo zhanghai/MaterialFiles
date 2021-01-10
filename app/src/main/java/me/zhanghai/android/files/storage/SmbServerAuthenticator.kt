@@ -15,11 +15,11 @@ object SmbServerAuthenticator : Authenticator {
     private val transientServers = mutableSetOf<SmbServer>()
 
     override fun getAuthentication(authority: Authority): Authentication? {
-        val server = Settings.STORAGES.valueCompat.find {
-            it is SmbServer && it.authority == authority
-        } as SmbServer? ?: synchronized(transientServers) {
+        val server = synchronized(transientServers) {
             transientServers.find { it.authority == authority }
-        }
+        } ?: Settings.STORAGES.valueCompat.find {
+            it is SmbServer && it.authority == authority
+        } as SmbServer?
         return server?.authentication
     }
 
