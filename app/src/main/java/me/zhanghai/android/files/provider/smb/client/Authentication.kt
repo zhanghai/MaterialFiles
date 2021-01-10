@@ -12,8 +12,8 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Authentication(
     val username: String,
-    val password: String,
-    val domain: String?
+    val domain: String?,
+    val password: String
 ) : Parcelable {
     fun toContext(): AuthenticationContext =
         AuthenticationContext(username, password.toCharArray(), domain)
@@ -23,6 +23,6 @@ data class Authentication(
         val ANONYMOUS = AuthenticationContext.anonymous().toAuthentication()
 
         private fun AuthenticationContext.toAuthentication(): Authentication =
-            Authentication(username, password.concatToString(), domain)
+            Authentication(username, domain, password.concatToString())
     }
 }

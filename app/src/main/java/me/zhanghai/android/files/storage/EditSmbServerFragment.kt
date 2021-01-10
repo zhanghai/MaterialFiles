@@ -128,8 +128,8 @@ class EditSmbServerFragment : Fragment() {
                     else -> {
                         authenticationType = AuthenticationType.PASSWORD
                         binding.usernameEdit.setText(authentication.username)
-                        binding.passwordEdit.setText(authentication.password)
                         binding.domainEdit.setText(authentication.domain)
+                        binding.passwordEdit.setText(authentication.password)
                     }
                 }
             }
@@ -256,6 +256,7 @@ class EditSmbServerFragment : Fragment() {
                         errorEdit = binding.usernameEdit
                     }
                 }
+                val domain = binding.domainEdit.text.toString().takeIfNotEmpty()
                 val password = binding.passwordEdit.text.toString().takeIfNotEmpty()
                 if (password == null) {
                     binding.passwordLayout.error =
@@ -264,8 +265,7 @@ class EditSmbServerFragment : Fragment() {
                         errorEdit = binding.passwordEdit
                     }
                 }
-                val domain = binding.domainEdit.text.toString().takeIfNotEmpty()
-                if (errorEdit == null) Authentication(username!!, password!!, domain) else null
+                if (errorEdit == null) Authentication(username!!, domain, password!!) else null
             }
             AuthenticationType.GUEST -> Authentication.GUEST
             AuthenticationType.ANONYMOUS -> Authentication.ANONYMOUS

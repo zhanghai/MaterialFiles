@@ -54,7 +54,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/screen_edge_margin"
+                    android:paddingStart="@dimen/screen_edge_margin"
+                    android:paddingEnd="@dimen/screen_edge_margin"
+                    android:paddingTop="@dimen/screen_edge_margin"
+                    android:paddingBottom="@dimen/screen_edge_margin_minus_16dp"
                     android:animateLayoutChanges="true"
                     android:orientation="vertical">
 
@@ -144,6 +147,19 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/storage_edit_smb_server_domain"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/domainEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/passwordLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -156,18 +172,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="textPassword" />
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/storage_edit_smb_server_domain">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/domainEdit"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="text" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                 </LinearLayout>
