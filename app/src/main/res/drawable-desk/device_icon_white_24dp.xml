@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<!-- computer_icon_white_24dp.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M20 18c1.1 0 1.99-0.9 1.99-2L22 6c0-1.1-0.9-2-2-2H4c-1.1 0-2 0.9-2 2v10c0 1.1 0.9 2 2 2M4 6h16v10H4V6zm0.67 13H1v2h22v-2h-3.67" />
+</vector>
