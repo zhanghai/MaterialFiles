@@ -77,15 +77,15 @@ class FtpServerUrlPreference : Preference {
     }
 
     private fun updateSummary() {
-        val inetAddress = InetAddress::class.getLocalAddress()
+        val localAddress = InetAddress::class.getLocalAddress()
         val summary: String
-        if (inetAddress != null) {
+        if (localAddress != null) {
             val username = if (!Settings.FTP_SERVER_ANONYMOUS_LOGIN.valueCompat) {
                 Settings.FTP_SERVER_USERNAME.valueCompat
             } else {
                 null
             }
-            val host = inetAddress.hostAddress
+            val host = localAddress.hostAddress
             val port = Settings.FTP_SERVER_PORT.valueCompat
             summary = "ftp://${if (username != null) "$username@" else ""}$host:$port/"
             hasUrl = true
