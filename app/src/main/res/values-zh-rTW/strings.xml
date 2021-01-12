@@ -376,6 +376,9 @@
     <string name="storage_add_storage_smb_server">SMB 伺服器</string>
     <string name="storage_add_document_tree_title">新增外部儲存空間</string>
     <string name="storage_confirm_remove_document_tree_format">移除「%1$s」？</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">正在搜尋 SMB 伺服器…</string>
+    <string name="storage_add_lan_smb_server_add">手動新增</string>
     <string name="storage_edit_smb_server_title_edit">編輯 SMB 伺服器</string>
     <string name="storage_edit_smb_server_title_add">新增 SMB 伺服器</string>
     <string name="storage_edit_smb_server_host">主機名稱</string>

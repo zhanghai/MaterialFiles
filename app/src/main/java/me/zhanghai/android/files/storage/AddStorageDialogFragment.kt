@@ -13,7 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.finish
-import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.startActivitySafe
 
 class AddStorageDialogFragment : AppCompatDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
@@ -22,7 +22,7 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
             .apply {
                 val items = STORAGE_TYPES.map { getString(it.first) }.toTypedArray<CharSequence>()
                 setItems(items) { _, which ->
-                    startActivity(STORAGE_TYPES[which].second)
+                    startActivitySafe(STORAGE_TYPES[which].second)
                     dismiss()
                 }
             }
@@ -39,8 +39,7 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
             R.string.storage_add_storage_document_tree
                 to AddDocumentTreeActivity::class.createIntent(),
             R.string.storage_add_storage_smb_server
-                to EditSmbServerActivity::class.createIntent()
-                    .putArgs(EditSmbServerFragment.Args(null))
+                to AddLanSmbServerActivity::class.createIntent()
         )
     }
 }

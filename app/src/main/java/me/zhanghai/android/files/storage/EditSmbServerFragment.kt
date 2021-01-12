@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.storage
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -29,8 +30,10 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getTextArray
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
+import me.zhanghai.android.files.util.setResult
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
@@ -132,6 +135,8 @@ class EditSmbServerFragment : Fragment() {
                         binding.passwordEdit.setText(authentication.password)
                     }
                 }
+            } else {
+                args.host?.let { binding.hostEdit.setText(it) }
             }
         }
 
@@ -147,7 +152,7 @@ class EditSmbServerFragment : Fragment() {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -189,6 +194,7 @@ class EditSmbServerFragment : Fragment() {
     private fun saveOrAdd() {
         val server = getServerOrSetError() ?: return
         Storages.addOrReplace(server)
+        setResult(Activity.RESULT_OK)
         finish()
     }
 
@@ -211,6 +217,7 @@ class EditSmbServerFragment : Fragment() {
             }
             is Success -> {
                 Storages.addOrReplace(connectStateful.value)
+                setResult(Activity.RESULT_OK)
                 finish()
                 return
             }
@@ -224,6 +231,7 @@ class EditSmbServerFragment : Fragment() {
 
     private fun remove() {
         Storages.remove(args.server!!)
+        setResult(Activity.RESULT_OK)
         finish()
     }
 
@@ -278,12 +286,11 @@ class EditSmbServerFragment : Fragment() {
         return SmbServer(args.server?.id, name ?: authority.toString(), authority, authentication!!)
     }
 
-    private fun finish() {
-        requireActivity().finish()
-    }
-
     @Parcelize
-    class Args(val server: SmbServer?) : ParcelableArgs
+    class Args(
+        val server: SmbServer? = null,
+        val host: String? = null
+    ) : ParcelableArgs
 
     private enum class AuthenticationType {
         PASSWORD,

@@ -472,6 +472,9 @@
     <string name="storage_add_storage_smb_server">SMB server</string>
     <string name="storage_add_document_tree_title">Add external storage</string>
     <string name="storage_confirm_remove_document_tree_format">Remove “%1$s”?</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Searching for SMB servers…</string>
+    <string name="storage_add_lan_smb_server_add">Add manually</string>
     <string name="storage_edit_smb_server_title_edit">Edit SMB server</string>
     <string name="storage_edit_smb_server_title_add">Add SMB server</string>
     <string name="storage_edit_smb_server_host">Hostname</string>

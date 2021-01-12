@@ -174,7 +174,7 @@ private class StorageRootItem(private val storage: Storage) : RootItem(storage.p
     private val title: String = storage.name
 
     @DrawableRes
-    override val iconRes: Int? = R.drawable.directory_icon_white_24dp
+    override val iconRes: Int? = storage.iconRes
 
     override fun getTitle(context: Context): String = title
 

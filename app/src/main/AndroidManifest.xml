@@ -155,6 +155,11 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
+            android:name="me.zhanghai.android.files.storage.AddLanSmbServerActivity"
+            android:label="@string/storage_add_lan_smb_server_title"
+            android:theme="@style/Theme.MaterialFiles" />
+
+        <activity
             android:name="me.zhanghai.android.files.storage.EditSmbServerActivity"
             android:label="@string/storage_edit_smb_server_title_edit"
             android:theme="@style/Theme.MaterialFiles" />

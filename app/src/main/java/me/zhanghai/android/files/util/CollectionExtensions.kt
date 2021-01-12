@@ -7,6 +7,8 @@ package me.zhanghai.android.files.util
 
 import java.util.EnumSet
 
+fun <T> Iterable<T>.toLinkedSet(): LinkedHashSet<T> = toCollection(LinkedHashSet())
+
 fun <T : Enum<T>> Collection<T>.toEnumSet(): EnumSet<T> = EnumSet.copyOf(this)
 
 fun <T: Collection<*>> T.takeIfNotEmpty(): T? = if (isNotEmpty()) this else null

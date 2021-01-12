@@ -114,6 +114,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
     implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.google.android.material:material:1.3.0-beta01'
 
@@ -126,10 +127,20 @@ dependencies {
     implementation 'com.github.junrar:junrar:7.4.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation 'com.hierynomus:smbj:0.10.0'
+    implementation ('com.hierynomus:smbj:0.10.0') {
+        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
+        // Jetifier, but the newer version is required by jCIFS-NG, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
     implementation 'com.leinardi.android:speed-dial:3.1.1'
-    implementation 'com.rapid7.client:dcerpc:0.10.0'
+    implementation ('com.rapid7.client:dcerpc:0.10.0') {
+        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
+        // Jetifier, but the newer version is required by jCIFS-NG, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    }
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     implementation 'com.takisoft.preferencex:preferencex-simplemenu:1.1.0'
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
@@ -137,10 +148,13 @@ dependencies {
     implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation ('eu.agno3.jcifs:jcifs-ng:2.1.5') {
-        // We are only using jCIFS-NG's name resolution, and org.bouncycastle:bcprov-jdk15on:1.66
-        // breaks Jetifier, while the 1.60 version pulled in by SMBJ doesn't.
+        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
+        // Jetifier, but the newer version is required by jCIFS-NG, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
+    // Substitute dependency of jCIFS-NG.
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.66'
     def coil_version = '1.1.1'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
