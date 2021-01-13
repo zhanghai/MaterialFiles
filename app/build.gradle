@@ -140,7 +140,7 @@ dependencies {
         // breaks Jetifier, while the 1.60 version pulled in by SMBJ doesn't.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    def coil_version = '1.1.0'
+    def coil_version = '1.1.1'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
