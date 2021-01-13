@@ -21,6 +21,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
+    <!--
+      ~ Samsung DeX requires explicitly setting android:resizeableActivity="true" for the app to be
+      ~ resizable.
+      ~ TODO: Remove this attribute once Samsung respects the default value for it.
+      -->
     <application
         android:allowBackup="true"
         android:extractNativeLibs="true"
@@ -28,6 +33,7 @@
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
+        android:resizeableActivity="true"
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialFiles"
