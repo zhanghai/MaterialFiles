@@ -28,6 +28,7 @@ import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
 import me.zhanghai.android.files.util.StateData
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getArgs
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.layoutInflater
@@ -126,7 +127,7 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
             else -> throw AssertionError(which)
         }
         notifyListenerOnce(action, args.showAll && binding.allCheck.isChecked)
-        requireActivity().finish()
+        finish()
     }
 
     override fun onStart() {
@@ -144,7 +145,7 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
         super.onCancel(dialog)
 
         notifyListenerOnce(FileJobAction.CANCELED, false)
-        requireActivity().finish()
+        finish()
     }
 
     fun onFinish() {

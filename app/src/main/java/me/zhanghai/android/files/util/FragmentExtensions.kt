@@ -27,6 +27,11 @@ import me.zhanghai.android.files.compat.getColorCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
 
+fun Fragment.finish() = requireActivity().finish()
+
+fun Fragment.setResult(resultCode: Int, resultData: Intent? = null) =
+    requireActivity().setResult(resultCode, resultData)
+
 fun Fragment.getAnimation(@AnimRes id: Int) = requireContext().getAnimation(id)
 
 fun Fragment.getBoolean(@BoolRes id: Int) = requireContext().getBoolean(id)

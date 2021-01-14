@@ -22,6 +22,7 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.StorageListFragmentBinding
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
 
 class StorageListFragment : Fragment(), StorageAdapter.Listener {
@@ -89,7 +90,7 @@ class StorageListFragment : Fragment(), StorageAdapter.Listener {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)

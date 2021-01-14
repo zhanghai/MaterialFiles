@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.AboutFragmentBinding
 import me.zhanghai.android.files.ui.LicensesDialogFragment
 import me.zhanghai.android.files.util.createViewIntent
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.startActivitySafe
 
 class AboutFragment : Fragment() {
@@ -71,7 +72,7 @@ class AboutFragment : Fragment() {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)

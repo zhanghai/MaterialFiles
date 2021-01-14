@@ -40,6 +40,7 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getArgs
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.layoutInflater
@@ -204,7 +205,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
             else -> throw AssertionError(which)
         }
         notifyListenerOnce(action, name, all)
-        requireActivity().finish()
+        finish()
     }
 
     private fun hasNewName(): Boolean {
@@ -232,7 +233,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         super.onCancel(dialog)
 
         notifyListenerOnce(FileJobConflictAction.CANCELED, null, false)
-        requireActivity().finish()
+        finish()
     }
 
     fun onFinish() {

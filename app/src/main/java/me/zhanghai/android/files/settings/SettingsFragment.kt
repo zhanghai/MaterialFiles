@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.SettingsFragmentBinding
+import me.zhanghai.android.files.util.finish
 
 class SettingsFragment : Fragment() {
     private lateinit var binding: SettingsFragmentBinding
@@ -46,7 +47,7 @@ class SettingsFragment : Fragment() {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)

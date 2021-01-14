@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.StandardDirectoryListFragmentBinding
+import me.zhanghai.android.files.util.finish
 
 class StandardDirectoryListFragment : Fragment() {
     private lateinit var binding: StandardDirectoryListFragmentBinding
@@ -46,7 +47,7 @@ class StandardDirectoryListFragment : Fragment() {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)

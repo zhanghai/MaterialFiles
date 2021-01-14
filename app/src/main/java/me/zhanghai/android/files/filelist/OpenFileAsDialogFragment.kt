@@ -23,6 +23,7 @@ import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.extraPath
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.withChooser
 
@@ -44,13 +45,13 @@ class OpenFileAsDialogFragment : AppCompatDialogFragment() {
             .apply { extraPath = args.path }
             .withChooser()
         startActivitySafe(intent)
-        requireActivity().finish()
+        finish()
     }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
 
-        requireActivity().finish()
+        finish()
     }
 
     companion object {

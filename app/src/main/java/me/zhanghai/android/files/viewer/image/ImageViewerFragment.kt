@@ -34,6 +34,7 @@ import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.createSendImageIntent
 import me.zhanghai.android.files.util.extraPath
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getExtraPathList
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.mediumAnimTime
@@ -141,10 +142,6 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
-    private fun finish() {
-        requireActivity().finish()
-    }
 
     private fun confirmDelete() {
         ConfirmDeleteDialogFragment.show(currentPath, this)

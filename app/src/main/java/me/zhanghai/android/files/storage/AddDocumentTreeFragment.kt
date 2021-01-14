@@ -15,6 +15,7 @@ import me.zhanghai.android.files.file.asDocumentTreeUriOrNull
 import me.zhanghai.android.files.file.displayName
 import me.zhanghai.android.files.file.storageVolume
 import me.zhanghai.android.files.file.takePersistablePermission
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.startActivityForResultSafe
 
 class AddDocumentTreeFragment : Fragment() {
@@ -37,7 +38,7 @@ class AddDocumentTreeFragment : Fragment() {
                         addDocumentTree(documentTreeUri)
                     }
                 }
-                requireActivity().finish()
+                finish()
             }
             else -> super.onActivityResult(requestCode, resultCode, data)
         }
