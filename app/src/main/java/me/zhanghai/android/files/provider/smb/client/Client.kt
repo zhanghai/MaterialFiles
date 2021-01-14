@@ -103,7 +103,11 @@ object Client {
                 throw ClientException(e)
             }
             val sharePaths = netShareInfos.mapNotNull {
-                if (!it.type.hasBits(ShareTypes.STYPE_IPC.value)) path.resolve(it.netName) else {
+                if (!(it.type.hasBits(ShareTypes.STYPE_PRINTQ.value)
+                        || it.type.hasBits(ShareTypes.STYPE_DEVICE.value)
+                        || it.type.hasBits(ShareTypes.STYPE_IPC.value))) {
+                    path.resolve(it.netName)
+                } else {
                     null
                 }
             }
