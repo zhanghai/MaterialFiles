@@ -395,8 +395,7 @@
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s de libre sur %2$s</string>
-    <string name="navigation_add_document_tree">Ajouter un support de stockage externe…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Supprimer le support de stockage externe “%1$s” ?</string>
+    <string name="navigation_add_storage">Ajouter un support de stockage externe…</string>
     <string name="navigation_standard_directory_alarms">Alarmes</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documents</string>
@@ -465,7 +464,7 @@
     <string name="settings_bookmark_directory_screenshots">Captures d\'écran</string>
     <string name="settings_bookmark_directories_title">Dossiers de marque-pages</string>
     <string name="settings_bookmark_directories_summary_empty">Pas de dossiers de marque-pages</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Mode d\'accès root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Vous avez %1$,d opération de fichiers en cours d’exécution et changer maintenant le mode d’accès root peut entraîner une erreur inattendue. Êtes-vous sûr de vouloir changer cela maintenant ?</item>

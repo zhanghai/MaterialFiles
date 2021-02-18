@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?listPreferredItemHeightSmall"
+    android:paddingStart="@dimen/content_start_margin"
+    android:paddingEnd="@dimen/screen_edge_margin"
+    android:background="?selectableItemBackground"
+    android:ellipsize="end"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:text="@string/storage_add_lan_smb_server_loading"
+    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textColor="?android:textColorSecondary" />

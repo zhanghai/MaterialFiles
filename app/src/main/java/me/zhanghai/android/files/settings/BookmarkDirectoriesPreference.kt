@@ -22,7 +22,7 @@ import me.zhanghai.android.files.util.startActivitySafe
 class BookmarkDirectoriesPreference : Preference {
     private var emptySummary = summary
 
-    private val observer = Observer<List<BookmarkDirectory>> { onBookmarkDirectoriesChanged(it) }
+    private val observer = Observer<List<BookmarkDirectory>> { onBookmarkDirectoryListChanged(it) }
 
     constructor(context: Context) : super(context)
 
@@ -55,7 +55,7 @@ class BookmarkDirectoriesPreference : Preference {
         Settings.BOOKMARK_DIRECTORIES.removeObserver(observer)
     }
 
-    private fun onBookmarkDirectoriesChanged(bookmarkDirectories: List<BookmarkDirectory>) {
+    private fun onBookmarkDirectoryListChanged(bookmarkDirectories: List<BookmarkDirectory>) {
         val names = bookmarkDirectories.map { it.name }
         val summary = if (names.isNotEmpty()) ListFormatterCompat.format(names) else emptySummary
         setSummary(summary)
@@ -70,6 +70,6 @@ class BookmarkDirectoriesPreference : Preference {
     }
 
     override fun onClick() {
-        context.startActivitySafe(BookmarkDirectoriesActivity::class.createIntent())
+        context.startActivitySafe(BookmarkDirectoryListActivity::class.createIntent())
     }
 }

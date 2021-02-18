@@ -70,6 +70,6 @@ class StandardDirectoriesPreference : Preference {
     }
 
     override fun onClick() {
-        context.startActivity(StandardDirectoriesActivity::class.createIntent())
+        context.startActivity(StandardDirectoryListActivity::class.createIntent())
     }
 }

@@ -15,6 +15,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -55,7 +56,6 @@ import me.zhanghai.android.files.databinding.FileListFragmentBottomBarIncludeBin
 import me.zhanghai.android.files.databinding.FileListFragmentContentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentSpeedDialIncludeBinding
-import me.zhanghai.android.files.databinding.FileListFragmentStatusBarViewIncludeBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
@@ -156,7 +156,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         Binding.inflate(inflater, container, false)
             .also { binding = it }
             .root
@@ -187,7 +187,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 )
             }
         )
-        binding.appBarLayout.syncBackgroundElevationTo(binding.statusBarView)
         binding.appBarLayout.syncBackgroundElevationTo(binding.overlayToolbar)
         binding.breadcrumbLayout.setListener(this)
         binding.swipeRefreshLayout.setOnRefreshListener { this.refresh() }
@@ -281,6 +280,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.pickOptionsLiveData.observe(viewLifecycleOwner) { onPickOptionsChanged(it) }
         viewModel.selectedFilesLiveData.observe(viewLifecycleOwner) { onSelectedFilesChanged(it) }
         viewModel.pasteStateLiveData.observe(viewLifecycleOwner) { onPasteStateChanged(it) }
+        Settings.FILE_NAME_ELLIPSIZE.observe(viewLifecycleOwner) { onFileNameEllipsizeChanged(it) }
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { onFileListChanged(it) }
         Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(viewLifecycleOwner) {
             onShowHiddenFilesChanged(it)
@@ -983,6 +983,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun makePathListForJob(files: FileItemSet): List<Path> =
         files.map { it.path }.sorted()
 
+    private fun onFileNameEllipsizeChanged(fileNameEllipsize: TextUtils.TruncateAt) {
+        adapter.nameEllipsize = fileNameEllipsize
+    }
+
     override fun clearSelectedFiles() {
         viewModel.clearSelectedFiles()
     }
@@ -1031,18 +1035,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override fun installApk(file: FileItem) {
         val path = file.path
         val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            if (path.isLinuxPath || path.isDocumentPath) {
-                path.fileProviderUri
-            } else {
-                null
-            }
+            if (!path.isArchivePath) path.fileProviderUri else null
         } else {
             // PackageInstaller only supports file URI before N.
-            if (path.isLinuxPath) {
-                Uri.fromFile(path.toFile())
-            } else {
-                null
-            }
+            if (path.isLinuxPath) Uri.fromFile(path.toFile()) else null
         }
         if (uri != null) {
             startActivitySafe(uri.createInstallPackageIntent())
@@ -1062,7 +1058,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun openFileWithIntent(file: FileItem, withChooser: Boolean) {
         val path = file.path
         val mimeType = file.mimeType
-        if (path.isLinuxPath || path.isDocumentPath) {
+        if (path.isArchivePath) {
+            FileJobService.open(path, mimeType, withChooser, requireContext())
+        } else {
             val intent = path.fileProviderUri.createViewIntent(mimeType)
                 .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
                 .apply {
@@ -1080,8 +1078,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     }
                 }
             startActivitySafe(intent)
-        } else {
-            FileJobService.open(path, mimeType, withChooser, requireContext())
         }
     }
 
@@ -1277,7 +1273,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val emptyView: View,
         val swipeRefreshLayout: SwipeRefreshLayout,
         val recyclerView: RecyclerView,
-        val statusBarView: View,
         val bottomBarLayout: ViewGroup,
         val bottomToolbar: Toolbar,
         val speedDialView: SpeedDialView
@@ -1293,9 +1288,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 val includeBinding = FileListFragmentIncludeBinding.bind(bindingRoot)
                 val appBarBinding = FileListFragmentAppBarIncludeBinding.bind(bindingRoot)
                 val contentBinding = FileListFragmentContentIncludeBinding.bind(bindingRoot)
-                val statusBarViewBinding = FileListFragmentStatusBarViewIncludeBinding.bind(
-                    bindingRoot
-                )
                 val bottomBarBinding = FileListFragmentBottomBarIncludeBinding.bind(bindingRoot)
                 val speedDialBinding = FileListFragmentSpeedDialIncludeBinding.bind(bindingRoot)
                 return Binding(
@@ -1305,8 +1297,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     appBarBinding.breadcrumbLayout, contentBinding.contentLayout,
                     contentBinding.progress, contentBinding.errorText, contentBinding.emptyView,
                     contentBinding.swipeRefreshLayout, contentBinding.recyclerView,
-                    statusBarViewBinding.statusBarView, bottomBarBinding.bottomBarLayout,
-                    bottomBarBinding.bottomToolbar, speedDialBinding.speedDialView
+                    bottomBarBinding.bottomBarLayout, bottomBarBinding.bottomToolbar,
+                    speedDialBinding.speedDialView
                 )
             }
         }

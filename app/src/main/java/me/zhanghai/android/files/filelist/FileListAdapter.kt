@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.filelist
 
+import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
@@ -15,7 +16,6 @@ import coil.loadAny
 import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.getDrawableCompat
 import me.zhanghai.android.files.databinding.FileItemBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.fileSize
@@ -24,6 +24,7 @@ import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.AnimatedListAdapter
+import me.zhanghai.android.files.ui.CheckableItemBackground
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
 import java.util.Comparator
@@ -54,6 +55,14 @@ class FileListAdapter(
     private val selectedFiles = fileItemSetOf()
 
     private val filePositionMap = mutableMapOf<Path, Int>()
+
+    private lateinit var _nameEllipsize: TextUtils.TruncateAt
+    var nameEllipsize: TextUtils.TruncateAt
+        get() = _nameEllipsize
+        set(value) {
+            _nameEllipsize = value
+            notifyItemRangeChanged(0, itemCount, PAYLOAD_STATE_CHANGED)
+        }
 
     fun replaceSelectedFiles(files: FileItemSet) {
         val changedFiles = fileItemSetOf()
@@ -139,8 +148,8 @@ class FileListAdapter(
         ViewHolder(
             FileItemBinding.inflate(parent.context.layoutInflater, parent, false)
         ).apply {
-            binding.itemLayout.background = binding.itemLayout.context
-                .getDrawableCompat(R.drawable.checkable_item_background)
+            binding.itemLayout.background =
+                CheckableItemBackground.create(binding.itemLayout.context)
             popupMenu = PopupMenu(binding.menuButton.context, binding.menuButton)
                 .apply { inflate(R.menu.file_item) }
             binding.menuButton.setOnClickListener { popupMenu.show() }
@@ -166,6 +175,9 @@ class FileListAdapter(
         menu.findItem(R.id.action_copy).isVisible = !hasPickOptions
         val checked = file in selectedFiles
         binding.itemLayout.isChecked = checked
+        val nameEllipsize = nameEllipsize
+        binding.nameText.ellipsize = nameEllipsize
+        binding.nameText.isSelected = nameEllipsize == TextUtils.TruncateAt.MARQUEE
         if (payloads.isNotEmpty()) {
             return
         }

@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.viewer.image
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -17,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
+import androidx.viewpager2.widget.ViewPager2
+import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -31,6 +34,7 @@ import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.createSendImageIntent
 import me.zhanghai.android.files.util.extraPath
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getExtraPathList
 import me.zhanghai.android.files.util.getState
 import me.zhanghai.android.files.util.mediumAnimTime
@@ -65,7 +69,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         ImageViewerFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root
@@ -81,12 +85,15 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
 
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        // Our app bar will draw the status bar background.
+        activity.window.statusBarColor = Color.TRANSPARENT
+        binding.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
         systemUiHelper = SystemUiHelper(
             activity, SystemUiHelper.LEVEL_IMMERSIVE, SystemUiHelper.FLAG_IMMERSIVE_STICKY
         ) { visible: Boolean ->
-            binding.toolbar.animate()
+            binding.appBarLayout.animate()
                 .alpha(if (visible) 1f else 0f)
-                .translationY(if (visible) 0f else -binding.toolbar.bottom.toFloat())
+                .translationY(if (visible) 0f else -binding.appBarLayout.bottom.toFloat())
                 .setDuration(mediumAnimTime.toLong())
                 .setInterpolator(FastOutSlowInInterpolator())
                 .start()
@@ -98,8 +105,8 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         binding.viewPager.adapter = adapter
         // ViewPager saves its position and will restore it later.
         binding.viewPager.currentItem = args.position
-        binding.viewPager.setPageTransformer(true, DepthPageTransformer)
-        binding.viewPager.addOnPageChangeListener(object : SimpleOnPageChangeListener() {
+        binding.viewPager.setPageTransformer(DepthPageTransformer)
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateTitle()
             }
@@ -135,10 +142,6 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
-    private fun finish() {
-        requireActivity().finish()
-    }
 
     private fun confirmDelete() {
         ConfirmDeleteDialogFragment.show(currentPath, this)

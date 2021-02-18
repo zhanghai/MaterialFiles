@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.FtpServerFragmentBinding
+import me.zhanghai.android.files.util.finish
 
 class FtpServerFragment : Fragment() {
     private lateinit var binding: FtpServerFragmentBinding
@@ -27,7 +28,7 @@ class FtpServerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         FtpServerFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root
@@ -46,7 +47,7 @@ class FtpServerFragment : Fragment() {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)

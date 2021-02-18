@@ -7,6 +7,7 @@ package me.zhanghai.android.files.util
 
 import androidx.lifecycle.LiveData
 
+@Deprecated("", ReplaceWith("StatefulLiveData"))
 abstract class StateLiveData : LiveData<StateData>() {
     protected fun checkReady() {
         val state = value!!.state

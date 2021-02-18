@@ -447,8 +447,7 @@
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s свободно из %2$s</string>
-    <string name="navigation_add_document_tree">Добавить внешнее хранилище…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Удалить внешнее хранилище “%1$s”?</string>
+    <string name="navigation_add_storage">Добавить внешнее хранилище…</string>
     <string name="navigation_standard_directory_alarms">Будильник</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Документы</string>
@@ -517,7 +516,7 @@
     <string name="settings_bookmark_directory_screenshots">Скриншоты</string>
     <string name="settings_bookmark_directories_title">Закладки папок</string>
     <string name="settings_bookmark_directories_summary_empty">Нет закладок папок</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root-доступ</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">У вас запущена %1$,d файловая операция и изменение режима root-доступа может привести к непредвиденной ошибке. Вы уверены, что хотите изменить сейчас?</item>

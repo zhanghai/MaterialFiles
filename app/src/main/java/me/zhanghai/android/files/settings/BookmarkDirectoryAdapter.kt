@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.settings
 
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder
@@ -35,8 +34,7 @@ class BookmarkDirectoryAdapter(
         val bookmarkDirectory = getItem(position)
         val binding = holder.binding
         // Need to remove the ripple before it's drawn onto the bitmap for dragging.
-        (binding.root as FrameLayout).foreground.mutate()
-            .setVisible(!holder.dragState.isActive, false)
+        binding.root.foreground.mutate().setVisible(!holder.dragState.isActive, false)
         binding.root.setOnClickListener { listener.editBookmarkDirectory(bookmarkDirectory) }
         binding.nameText.text = bookmarkDirectory.name
         binding.pathText.text = bookmarkDirectory.path.userFriendlyString

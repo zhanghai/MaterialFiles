@@ -11,7 +11,7 @@
     android:layout_height="match_parent"
     android:paddingStart="12dp"
     android:paddingEnd="4dp"
-    android:background="?selectableItemBackground"
+    android:background="@drawable/breadcrumb_item_background"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 

@@ -7,10 +7,8 @@ package me.zhanghai.android.files.navigation
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Environment
 import android.os.storage.StorageVolume
-import android.provider.DocumentsContract
 import androidx.annotation.DrawableRes
 import androidx.annotation.Size
 import androidx.annotation.StringRes
@@ -19,23 +17,20 @@ import java8.nio.file.Paths
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.about.AboutActivity
 import me.zhanghai.android.files.app.storageManager
-import me.zhanghai.android.files.compat.DocumentsContractCompat
-import me.zhanghai.android.files.compat.createOpenDocumentTreeIntentCompat
 import me.zhanghai.android.files.compat.getDescriptionCompat
 import me.zhanghai.android.files.compat.isPrimaryCompat
 import me.zhanghai.android.files.compat.pathCompat
 import me.zhanghai.android.files.compat.storageVolumesCompat
-import me.zhanghai.android.files.file.DocumentTreeUri
 import me.zhanghai.android.files.file.JavaFile
-import me.zhanghai.android.files.file.asDocumentTreeUri
 import me.zhanghai.android.files.file.asFileSize
-import me.zhanghai.android.files.file.displayNameOrUri
+import me.zhanghai.android.files.file.documentTreeUri
 import me.zhanghai.android.files.ftpserver.FtpServerActivity
-import me.zhanghai.android.files.provider.document.createDocumentTreeRootPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.settings.SettingsActivity
+import me.zhanghai.android.files.storage.DocumentTree
+import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.util.createIntent
-import me.zhanghai.android.files.util.getParcelableExtraSafe
+import me.zhanghai.android.files.util.removeFirst
 import me.zhanghai.android.files.util.valueCompat
 import java.util.Objects
 
@@ -62,26 +57,22 @@ private val rootItems: List<NavigationItem>
     get() =
         mutableListOf<NavigationItem>().apply {
             add(RootDirectoryRootItem())
-            val storageVolumes = storageManager.storageVolumesCompat
-            for (storageVolume in storageVolumes) {
-                if (storageVolume.isPrimaryCompat) {
-                    add(PrimaryStorageVolumeRootItem(storageVolume))
-                }
+            val storageVolumes = storageManager.storageVolumesCompat.toMutableList()
+            storageVolumes.removeFirst { it.isPrimaryCompat }?.let {
+                add(PrimaryStorageVolumeRootItem(it))
             }
-            val treeUris = DocumentTreesLiveData.valueCompat.toMutableList()
-            for (storageVolume in storageVolumes) {
-                if (storageVolume.isPrimaryCompat) {
-                    continue
+            val documentTreeUriToStorageVolume = storageVolumes.associateBy { it.documentTreeUri }
+            for (storage in Settings.STORAGES.valueCompat) {
+                if (storage is DocumentTree) {
+                    val storageVolume = documentTreeUriToStorageVolume[storage.uri]
+                    if (storageVolume != null) {
+                        add(StorageVolumeRootItem(storage, storageVolume))
+                        continue
+                    }
                 }
-                val treeUri = getStorageVolumeTreeUri(storageVolume)
-                if (treeUris.remove(treeUri)) {
-                    add(DocumentTreeStorageVolumeRootItem(treeUri, storageVolume))
-                }
+                add(StorageRootItem(storage))
             }
-            for (treeUri in treeUris) {
-                add(DocumentTreeRootItem(treeUri))
-            }
-            add(AddDocumentTreeItem())
+            add(AddStorageItem())
         }
 
 private abstract class FileItem(val path: Path) : NavigationItem() {
@@ -164,31 +155,26 @@ private class PrimaryStorageVolumeRootItem(
     override val titleRes: Int? = null
 }
 
-private class DocumentTreeStorageVolumeRootItem(
-    private val treeUri: DocumentTreeUri,
+private class StorageVolumeRootItem(
+    private val storage: Storage,
     private val storageVolume: StorageVolume
-) : LocalRootItem(
-    treeUri.value.createDocumentTreeRootPath(), storageVolume.pathCompat,
-    R.drawable.sd_card_icon_white_24dp
-) {
+) : LocalRootItem(storage.path, storageVolume.pathCompat, R.drawable.sd_card_icon_white_24dp) {
     override fun getTitle(context: Context): String = storageVolume.getDescriptionCompat(context)
 
     @StringRes
     override val titleRes: Int? = null
 
     override fun onLongClick(listener: Listener): Boolean {
-        listener.onRemoveDocumentTree(treeUri, storageVolume)
+        listener.onEditStorage(storage)
         return true
     }
 }
 
-private class DocumentTreeRootItem(private val treeUri: DocumentTreeUri) : RootItem(
-    treeUri.value.createDocumentTreeRootPath()
-) {
-    private val title: String = treeUri.displayNameOrUri
+private class StorageRootItem(private val storage: Storage) : RootItem(storage.path) {
+    private val title: String = storage.name
 
     @DrawableRes
-    override val iconRes: Int? = R.drawable.directory_icon_white_24dp
+    override val iconRes: Int? = storage.iconRes
 
     override fun getTitle(context: Context): String = title
 
@@ -196,34 +182,23 @@ private class DocumentTreeRootItem(private val treeUri: DocumentTreeUri) : RootI
     override val titleRes: Int? = null
 
     override fun onLongClick(listener: Listener): Boolean {
-        listener.onRemoveDocumentTree(treeUri, null)
+        listener.onEditStorage(storage)
         return true
     }
 }
 
-private class AddDocumentTreeItem : NavigationItem() {
-    override val id: Long = R.string.navigation_add_document_tree.toLong()
+private class AddStorageItem : NavigationItem() {
+    override val id: Long = R.string.navigation_add_storage.toLong()
 
     @DrawableRes
     override val iconRes: Int? = R.drawable.add_icon_white_24dp
 
     @StringRes
-    override val titleRes: Int? = R.string.navigation_add_document_tree
+    override val titleRes: Int? = R.string.navigation_add_storage
 
     override fun onClick(listener: Listener) {
-        listener.onAddDocumentTree()
+        listener.onAddStorage()
     }
-}
-
-private fun getStorageVolumeTreeUri(storageVolume: StorageVolume): DocumentTreeUri {
-    val intent = storageVolume.createOpenDocumentTreeIntentCompat()
-    val rootUri = intent.getParcelableExtraSafe<Uri>(DocumentsContractCompat.EXTRA_INITIAL_URI)!!
-    // @see com.android.externalstorage.ExternalStorageProvider#getDocIdForFile(File)
-    // @see com.android.documentsui.picker.ConfirmFragment#onCreateDialog(Bundle)
-    return DocumentsContract.buildTreeDocumentUri(
-        rootUri.authority,
-        DocumentsContract.getRootId(rootUri) + ":"
-    ).asDocumentTreeUri()
 }
 
 private val standardDirectoryItems: List<NavigationItem>

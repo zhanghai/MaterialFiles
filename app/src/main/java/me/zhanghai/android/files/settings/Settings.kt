@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.settings
 
 import android.os.Environment
+import android.text.TextUtils
 import java8.nio.file.Path
 import java8.nio.file.Paths
 import me.zhanghai.android.files.R
@@ -16,11 +17,15 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
 import me.zhanghai.android.files.provider.root.RootStrategy
+import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.theme.custom.ThemeColor
 import me.zhanghai.android.files.theme.night.NightMode
 import java.io.File
 
 object Settings {
+    val STORAGES: SettingLiveData<List<Storage>> =
+        ParcelValueSettingLiveData(R.string.pref_key_storages, emptyList())
+
     val FILE_LIST_DEFAULT_DIRECTORY: SettingLiveData<Path> =
         ParcelValueSettingLiveData(
             R.string.pref_key_file_list_default_directory,
@@ -100,6 +105,12 @@ object Settings {
     val FILE_LIST_ANIMATION: SettingLiveData<Boolean> =
         BooleanSettingLiveData(
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation
+        )
+
+    val FILE_NAME_ELLIPSIZE: SettingLiveData<TextUtils.TruncateAt> =
+        EnumSettingLiveData(
+            R.string.pref_key_file_name_ellipsize, R.string.pref_default_value_file_name_ellipsize,
+            TextUtils.TruncateAt::class.java
         )
 
     val STANDARD_DIRECTORY_SETTINGS: SettingLiveData<List<StandardDirectorySettings>> =

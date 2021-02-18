@@ -267,7 +267,9 @@ class FileByteChannel(
                 buffer.position(newBufferPosition.toInt())
             } else {
                 synchronized(pendingFutureLock) {
-                    pendingFuture?.cancel(true)?.also { pendingFuture = null }
+                    // TransportException: Received response with unknown sequence number
+                    //pendingFuture?.cancel(true)?.also { pendingFuture = null }
+                    pendingFuture = null
                 }
                 buffer.limit(0)
                 bufferedPosition = newPosition
@@ -277,7 +279,9 @@ class FileByteChannel(
         @Throws(IOException::class)
         override fun close() {
             synchronized(pendingFutureLock) {
-                pendingFuture?.cancel(true)?.also { pendingFuture = null }
+                // TransportException: Received response with unknown sequence number
+                //pendingFuture?.cancel(true)?.also { pendingFuture = null }
+                pendingFuture = null
             }
         }
     }

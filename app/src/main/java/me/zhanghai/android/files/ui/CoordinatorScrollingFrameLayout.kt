@@ -66,15 +66,15 @@ class CoordinatorScrollingFrameLayout : FrameLayout, AttachedBehavior {
             val scrollingView = findScrollingView()
             val scrollingChildView = scrollingView?.let { findChildView(it) }
             for (childView in children) {
-                if (childView != scrollingChildView) {
-                    childView.updateLayoutParams<MarginLayoutParams> {
-                        bottomMargin = bottomInsets.systemWindowInsetBottom
-                    }
-                } else {
+                if (childView == scrollingChildView) {
                     if (scrollingView.fitsSystemWindows) {
                         scrollingView.onApplyWindowInsets(bottomInsets)
                     } else {
                         scrollingView.updatePadding(bottom = bottomInsets.systemWindowInsetBottom)
+                    }
+                } else {
+                    childView.updateLayoutParams<MarginLayoutParams> {
+                        bottomMargin = bottomInsets.systemWindowInsetBottom
                     }
                 }
             }

@@ -7,7 +7,6 @@ package me.zhanghai.android.files.provider.smb
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.hierynomus.smbj.SMBClient
 import java8.nio.file.FileSystem
 import java8.nio.file.LinkOption
 import java8.nio.file.Path
@@ -105,9 +104,9 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
         if (isAbsolute) {
             // Port cannot be specified in a Windows UNC path for SMB, or otherwise it is resolved
             // as a WebDAV path.
-            check(authority.port == SMBClient.DEFAULT_PORT) {
+            check(authority.port == Authority.DEFAULT_PORT) {
                 "Path is absolute but uses port ${authority.port} instead of the default port ${
-                SMBClient.DEFAULT_PORT}"
+                Authority.DEFAULT_PORT}"
             }
             StringBuilder()
                 .append("\\\\")

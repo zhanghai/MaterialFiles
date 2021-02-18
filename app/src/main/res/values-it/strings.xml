@@ -395,8 +395,6 @@
 
     <string name="navigation_root_directory">Root</string>
     <string name="navigation_root_subtitle_format">%1$s liberi di %2$s</string>
-    <string name="navigation_add_document_tree">Aggiungi archiviazione esterna…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Rimuovere l\'archiviazione esterna “%1$s”?</string>
     <string name="navigation_standard_directory_alarms">Avvisi</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documenti</string>
@@ -465,7 +463,7 @@
     <string name="settings_bookmark_directory_screenshots">Screenshot</string>
     <string name="settings_bookmark_directories_title">Cartelle segnalibri</string>
     <string name="settings_bookmark_directories_summary_empty">Nessuna cartella per segnalibri</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Modalità di accesso root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">È in corso %1$,d operazione su file e cambiare ora la modalità di accesso root potrebbe causare un errore. Sei sicuro di volere cambiarla ora?</item>

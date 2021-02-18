@@ -395,8 +395,7 @@
 
     <string name="navigation_root_directory">Wurzelverzeichnis</string>
     <string name="navigation_root_subtitle_format">%1$s frei von %2$s</string>
-    <string name="navigation_add_document_tree">Externen Speicher hinzufügen…</string>
-    <string name="navigation_confirm_remove_document_tree_format">Externen Speicher \"%1$s\" entfernen?</string>
+    <string name="navigation_add_storage">Externen Speicher hinzufügen…</string>
     <string name="navigation_standard_directory_alarms">Alarme</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumente</string>
@@ -465,7 +464,7 @@
     <string name="settings_bookmark_directory_screenshots">Screenshots</string>
     <string name="settings_bookmark_directories_title">Lesezeichenordner</string>
     <string name="settings_bookmark_directories_summary_empty">Keine Lesezeichenordner</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root Zugriffsmodus</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Es läuft gerade %1$,d Dateioperation. Ändern des Zugriffsmodus könnte unerwartete Fehler hervorrufen. Zugriffsmodus dennoch ändern?</item>

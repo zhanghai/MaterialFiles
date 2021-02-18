@@ -8,7 +8,7 @@ package me.zhanghai.android.files.file
 import android.os.Build
 
 val MimeType.supportsThumbnail: Boolean
-    get() = isImage || isMedia || isApk
+    get() = isImage || isMedia || isPdf || isApk
 
 val MimeType.isApk: Boolean
     get() = this == MimeType.APK
@@ -53,3 +53,6 @@ val MimeType.isVideo: Boolean
 
 val MimeType.isMedia: Boolean
     get() = isAudio || isVideo
+
+val MimeType.isPdf: Boolean
+    get() = this == MimeType.PDF

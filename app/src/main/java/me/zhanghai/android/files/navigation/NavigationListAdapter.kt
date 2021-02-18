@@ -16,14 +16,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.databinding.NavigationDividerItemBinding
 import me.zhanghai.android.files.databinding.NavigationItemBinding
+import me.zhanghai.android.files.ui.AutoMirrorDrawable
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.dpToDimensionPixelSize
-import me.zhanghai.android.files.util.getColorByAttr
+import me.zhanghai.android.files.util.getColorStateListByAttr
 import me.zhanghai.android.files.util.layoutInflater
-import me.zhanghai.android.foregroundcompat.ForegroundCompat
 
 class NavigationListAdapter(
     private val listener: NavigationItem.Listener
@@ -51,9 +52,7 @@ class NavigationListAdapter(
                 ).apply {
                     val context = binding.itemLayout.context
                     binding.itemLayout.background = createItemBackground(context)
-                    ForegroundCompat.setForeground(
-                        binding.itemLayout, createItemForeground(context)
-                    )
+                    binding.itemLayout.foregroundCompat = createItemForeground(context)
                     binding.iconImage.imageTintList = NavigationItemColor.create(
                         binding.iconImage.imageTintList!!, binding.iconImage.context
                     )
@@ -84,19 +83,20 @@ class NavigationListAdapter(
         )
 
     private fun createItemForeground(context: Context): Drawable {
+        val controlHighlightColor = context.getColorStateListByAttr(R.attr.colorControlHighlight)
         val mask = createItemShapeDrawable(ColorStateList.valueOf(Color.WHITE), context)
-        val controlHighlightColor = context.getColorByAttr(R.attr.colorControlHighlight)
-        return RippleDrawable(ColorStateList.valueOf(controlHighlightColor), null, mask)
+        return RippleDrawable(controlHighlightColor, null, mask)
     }
 
     // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
     private fun createItemShapeDrawable(fillColor: ColorStateList, context: Context): Drawable {
         val materialShapeDrawable = MaterialShapeDrawable(
-            ShapeAppearanceModel.builder(context, R.style.ShapeAppearance_Google_Navigation, 0)
-                .build()
+            ShapeAppearanceModel.builder(
+                context, R.style.ShapeAppearance_MaterialFiles_Navigation, 0
+            ).build()
         ).apply { this.fillColor = fillColor }
-        val insetRight = context.dpToDimensionPixelSize(8)
-        return InsetDrawable(materialShapeDrawable, 0, 0, insetRight, 0)
+        val rightInset = context.dpToDimensionPixelSize(8)
+        return AutoMirrorDrawable(InsetDrawable(materialShapeDrawable, 0, 0, rightInset, 0))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

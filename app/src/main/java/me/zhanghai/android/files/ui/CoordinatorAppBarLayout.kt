@@ -6,22 +6,25 @@
 package me.zhanghai.android.files.ui
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Rect
+import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.AttrRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.graphics.ColorUtils
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.MaterialShapeUtils
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.activity
-import me.zhanghai.android.files.util.getColorByAttr
 
 class CoordinatorAppBarLayout : AppBarLayout {
     private val tempConsumed = IntArray(2)
+
+    private var offset = 0
+    private val tempClipBounds = Rect()
 
     private val syncBackgroundElevationViews = mutableListOf<View>()
 
@@ -38,35 +41,42 @@ class CoordinatorAppBarLayout : AppBarLayout {
     init {
         fitsSystemWindows = true
 
-        val appBarSurfaceColor = context.getColorByAttr(R.attr.colorAppBarSurface)
-        val primaryDarkColor = context.getColorByAttr(R.attr.colorPrimaryDark)
-        if (primaryDarkColor == appBarSurfaceColor
-            || ColorUtils.setAlphaComponent(primaryDarkColor, 255) == appBarSurfaceColor) {
-            context.activity!!.window.statusBarColor = Color.TRANSPARENT
+        val background = background
+        val backgroundColor = (background as? MaterialShapeDrawable)?.fillColor?.defaultColor
+        if (backgroundColor != null) {
+            val window = context.activity!!.window
+            val statusBarColor = window.statusBarColor
+            if (backgroundColor == statusBarColor
+                || backgroundColor == ColorUtils.setAlphaComponent(statusBarColor, 0xFF)) {
+                window.statusBarColor = Color.TRANSPARENT
+            }
         }
 
-        val background = background
+        viewTreeObserver.addOnPreDrawListener {
+            updateLiftedState()
+            true
+        }
+
         if (background is MaterialShapeDrawable) {
             this.background = OnElevationChangedMaterialShapeDrawable(
                 background, context, this::onBackgroundElevationChanged
             )
         }
+
+        addOnOffsetChangedListener(OnOffsetChangedListener { _, offset ->
+            this.offset = offset
+            updateFirstChildClipBounds()
+        })
     }
 
-    override fun draw(canvas: Canvas) {
-        if (isLiftOnScroll) {
-            val coordinatorLayout = parent as? CoordinatorLayout
-            if (coordinatorLayout != null) {
-                // Call AppBarLayout.Behavior.onNestedPreScroll() with dy == 0 to update lifted
-                // state.
-                val behavior = (layoutParams as CoordinatorLayout.LayoutParams).behavior!!
-                behavior.onNestedPreScroll(
-                    coordinatorLayout, this, coordinatorLayout, 0, 0, tempConsumed, 0
-                )
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+
+        getChildAt(0)?.let {
+            it.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+                updateFirstChildClipBounds()
             }
         }
-
-        super.draw(canvas)
     }
 
     fun syncBackgroundElevationTo(view: View) {
@@ -75,6 +85,32 @@ class CoordinatorAppBarLayout : AppBarLayout {
 
     private fun onBackgroundElevationChanged(elevation: Float) {
         syncBackgroundElevationViews.forEach { MaterialShapeUtils.setElevation(it, elevation) }
+    }
+
+    private fun updateLiftedState() {
+        if (!isLiftOnScroll) {
+            return
+        }
+        val coordinatorLayout = parent as? CoordinatorLayout ?: return
+        // Call AppBarLayout.Behavior.onNestedPreScroll() with dy == 0 to update lifted state.
+        val behavior = (layoutParams as CoordinatorLayout.LayoutParams).behavior ?: return
+        behavior.onNestedPreScroll(
+            coordinatorLayout, this, coordinatorLayout, 0, 0, tempConsumed, 0
+        )
+    }
+
+    private fun updateFirstChildClipBounds() {
+        val firstChild = getChildAt(0) ?: return
+        tempClipBounds.set(0, -offset, firstChild.width, firstChild.height)
+        // Work around a bug before Android N that an empty clip bounds doesn't clip.
+        // Making the clip bounds somewhere outside view bounds doesn't work, so as a hack we just
+        // assume that the first child won't draw anything in its top-left pixel.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            if (tempClipBounds.isEmpty) {
+                tempClipBounds.set(0, 0, 1, 1)
+            }
+        }
+        firstChild.clipBounds = tempClipBounds
     }
 
     private class OnElevationChangedMaterialShapeDrawable(

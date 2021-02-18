@@ -203,14 +203,14 @@
     <string name="file_install_apk_from_background_text">輕觸即可安裝</string>
     <string name="file_open_from_background_title_format">「%1$s」已可供開啟</string>
     <string name="file_open_from_background_text">輕觸即可開啟</string>
-    <string name="file_name_error_empty">檔案名不能為空</string>
-    <string name="file_name_error_invalid">檔案名無效</string>
+    <string name="file_name_error_empty">檔案名稱不能為空</string>
+    <string name="file_name_error_invalid">檔案名稱無效</string>
     <string name="file_name_error_already_exists">已存在同名的檔案</string>
-    <string name="file_delete_message_file_format">刪除「%1$s」?</string>
+    <string name="file_delete_message_file_format">刪除「%1$s」？</string>
     <string name="file_delete_message_directory_format">刪除資料夾「%1$s」和它的內容？</string>
     <string name="file_delete_message_multiple_files_format">刪除 %1$,d 個檔案？</string>
     <string name="file_delete_message_multiple_directories_format">刪除 %1$,d 個資料夾和它們的內容？</string>
-    <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾?</string>
+    <string name="file_delete_message_multiple_mixed_format">刪除 %1$,d 個檔案和資料夾？</string>
     <string name="file_create_archive_title">建立壓縮檔案</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -285,8 +285,8 @@
     </plurals>
     <string name="file_properties_basic_last_modification_time">最後修改</string>
     <string name="file_properties_basic_parent_directory">父資料夾</string>
-    <string name="file_properties_basic_archive_file">歸檔檔案</string>
-    <string name="file_properties_basic_archive_entry">歸檔條目</string>
+    <string name="file_properties_basic_archive_file">封存檔案</string>
+    <string name="file_properties_basic_archive_entry">封存條目</string>
     <string name="file_properties_basic_free_space">可用空間</string>
     <string name="file_properties_permissions">權限</string>
     <string name="file_properties_permissions_owner">擁有者</string>
@@ -369,10 +369,42 @@
     <string name="file_properties_apk_signature_digests">簽章</string>
     <string name="file_properties_apk_past_signature_digests">舊簽章</string>
 
+    <string name="storage_list_title">儲存空間</string>
+    <string name="storage_list_empty">無儲存空間</string>
+    <string name="storage_add_storage_title">新增儲存空間</string>
+    <string name="storage_add_storage_document_tree">外部儲存空間</string>
+    <string name="storage_add_storage_smb_server">SMB 伺服器</string>
+    <string name="storage_add_document_tree_title">新增外部儲存空間</string>
+    <string name="storage_confirm_remove_document_tree_format">移除「%1$s」？</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">正在搜尋 SMB 伺服器…</string>
+    <string name="storage_add_lan_smb_server_add">手動新增</string>
+    <string name="storage_edit_smb_server_title_edit">編輯 SMB 伺服器</string>
+    <string name="storage_edit_smb_server_title_add">新增 SMB 伺服器</string>
+    <string name="storage_edit_smb_server_host">主機名稱</string>
+    <string name="storage_edit_smb_server_host_empty_error">輸入主機名稱</string>
+    <string name="storage_edit_smb_server_port">連接埠</string>
+    <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
+    <string name="storage_edit_smb_server_port_error">無效的連接埠</string>
+    <string name="storage_edit_smb_server_name">名稱</string>
+    <string name="storage_edit_smb_server_name_placeholder">使用主機名稱</string>
+    <string name="storage_edit_smb_server_authentication_type">驗證</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>密碼</item>
+        <item>來賓</item>
+        <item>匿名</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">使用者名稱</string>
+    <string name="storage_edit_smb_server_username_empty_error">輸入使用者名稱</string>
+    <string name="storage_edit_smb_server_password">密碼</string>
+    <string name="storage_edit_smb_server_password_empty_error">輸入密碼</string>
+    <string name="storage_edit_smb_server_domain">網域</string>
+    <string name="storage_edit_smb_server_connect_and_add">連線並新增</string>
+    <string name="storage_edit_smb_server_add">直接新增</string>
+
     <string name="navigation_root_directory">根目錄</string>
     <string name="navigation_root_subtitle_format">共 %2$s，剩餘 %1$s</string>
-    <string name="navigation_add_document_tree">新增外部儲存…</string>
-    <string name="navigation_confirm_remove_document_tree_format">移除外部儲存「%1$s」？</string>
+    <string name="navigation_add_storage">新增儲存…</string>
     <string name="navigation_standard_directory_alarms">鬧鐘</string>
     <string name="navigation_standard_directory_dcim">相片</string>
     <string name="navigation_standard_directory_documents">檔案</string>
@@ -437,6 +469,13 @@
     </string-array>
     <string name="settings_black_night_mode">黑色夜間模式</string>
     <string name="settings_file_list_animation_title">檔案列表動畫</string>
+    <string name="settings_file_name_ellipsize_title">顯示長檔案名稱</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>省略開頭</item>
+        <item>省略中間</item>
+        <item>省略結尾</item>
+        <item>滾動</item>
+    </string-array>
     <string name="settings_behavior_title">行為</string>
     <string name="settings_default_directory_title">預設資料夾</string>
     <string name="settings_standard_directories_title">標準資料夾</string>
@@ -444,7 +483,7 @@
     <string name="settings_bookmark_directory_screenshots">螢幕擷取畫面</string>
     <string name="settings_bookmark_directories_title">書籤資料夾</string>
     <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
-    <string name="settings_bookmark_directories_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
     <string-array name="settings_root_strategy_entries">
         <item>僅普通存取</item>
@@ -455,7 +494,7 @@
     <plurals name="settings_root_strategy_message_format">
         <item quantity="other">您有 %1$,d 個正在執行的檔案作業，因此現在變更 root 存取模式可能會導致未預期的錯誤。您確定要現在變更它嗎？</item>
     </plurals>
-    <string name="settings_archive_file_name_encoding_title">歸檔檔案名編碼</string>
+    <string name="settings_archive_file_name_encoding_title">封存檔案名稱編碼</string>
     <string name="settings_open_apk_default_action_title">開啟 Android 安裝包</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>安裝</item>

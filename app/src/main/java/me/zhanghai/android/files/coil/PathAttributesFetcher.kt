@@ -7,6 +7,7 @@ package me.zhanghai.android.files.coil
 
 import android.content.Context
 import android.media.MediaMetadataRetriever
+import android.os.ParcelFileDescriptor
 import androidx.core.graphics.drawable.toDrawable
 import coil.bitmap.BitmapPool
 import coil.decode.DataSource
@@ -28,6 +29,7 @@ import me.zhanghai.android.files.file.asMimeType
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.file.isMedia
+import me.zhanghai.android.files.file.isPdf
 import me.zhanghai.android.files.file.isVideo
 import me.zhanghai.android.files.file.lastModifiedInstant
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector
@@ -58,12 +60,27 @@ class PathAttributesFetcher(
         }
     }
 
+    private val pdfPageFetcher = object : PdfPageFetcher<Path>(context) {
+        override fun key(data: Path): String? {
+            throw AssertionError(data)
+        }
+
+        override fun openParcelFileDescriptor(data: Path): ParcelFileDescriptor =
+            when {
+                data.isLinuxPath ->
+                    ParcelFileDescriptor.open(data.toFile(), ParcelFileDescriptor.MODE_READ_ONLY)
+                data.isDocumentPath ->
+                    DocumentResolver.openParcelFileDescriptor(data as DocumentResolver.Path, "r")
+                else -> throw IllegalArgumentException(data.toString())
+            }
+    }
+
     private val appIconLoader = AppIconLoader(
         // This is used by FileListAdapter.
         context.getDimensionPixelSize(R.dimen.large_icon_size), false, context
     )
 
-    override fun key(data: Pair<Path, BasicFileAttributes>): String? {
+    override fun key(data: Pair<Path, BasicFileAttributes>): String {
         val (path, attributes) = data
         return "$path:${attributes.lastModifiedInstant.toEpochMilli()}"
     }
@@ -115,6 +132,13 @@ class PathAttributesFetcher(
             if (mimeType.isVideo) {
                 try {
                     return videoFrameFetcher.fetch(pool, path, size, options)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+            if (mimeType.isPdf) {
+                try {
+                    return pdfPageFetcher.fetch(pool, path, size, options)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

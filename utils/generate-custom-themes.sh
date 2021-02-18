@@ -163,7 +163,7 @@ for color_index in "${!CUSTOM_COLORS[@]}"; do
         color="${CUSTOM_COLORS[color_index]}"
         cat >>"${CUSTOM_THEMES_NIGHT_XML}" <<EOF
     <style name="Theme.MaterialFiles${theme_suffix}.${color}.Black">
-        <item name="colorPrimaryDark">@color/system_window_scrim_black</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark_black</item>
         <item name="colorSurface">@android:color/black</item>
     </style>
 EOF

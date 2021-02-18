@@ -14,5 +14,9 @@ data class Authority(
     val host: String,
     val port: Int
 ) : Parcelable {
-    override fun toString(): String = if (port != SMBClient.DEFAULT_PORT) "$host:$port" else host
+    override fun toString(): String = if (port != DEFAULT_PORT) "$host:$port" else host
+
+    companion object {
+        const val DEFAULT_PORT = SMBClient.DEFAULT_PORT
+    }
 }

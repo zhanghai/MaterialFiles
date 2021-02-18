@@ -27,6 +27,11 @@ import me.zhanghai.android.files.compat.getColorCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
 
+fun Fragment.finish() = requireActivity().finish()
+
+fun Fragment.setResult(resultCode: Int, resultData: Intent? = null) =
+    requireActivity().setResult(resultCode, resultData)
+
 fun Fragment.getAnimation(@AnimRes id: Int) = requireContext().getAnimation(id)
 
 fun Fragment.getBoolean(@BoolRes id: Int) = requireContext().getBoolean(id)
@@ -64,6 +69,9 @@ fun Fragment.getQuantityText(@PluralsRes id: Int, quantity: Int): CharSequence =
     requireContext().getQuantityText(id, quantity)
 
 fun Fragment.getStringArray(@ArrayRes id: Int) = requireContext().getStringArray(id)
+
+fun Fragment.getTextArray(@ArrayRes id: Int): Array<CharSequence> =
+    requireContext().getTextArray(id)
 
 fun Fragment.getBooleanByAttr(@AttrRes attr: Int) = requireContext().getBooleanByAttr(attr)
 

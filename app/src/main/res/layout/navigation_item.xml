@@ -7,12 +7,12 @@
 
 <me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
-    android:paddingStart="?android:listPreferredItemPaddingStart"
-    android:paddingEnd="?android:listPreferredItemPaddingEnd"
-    android:foreground="?selectableItemBackground"
+    android:paddingStart="@dimen/navigation_item_horizontal_padding"
+    android:paddingEnd="@dimen/navigation_item_horizontal_padding"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -22,20 +22,20 @@
         android:layout_height="@dimen/icon_size"
         android:duplicateParentState="true"
         android:scaleType="centerCrop"
-        android:tint="?android:textColorSecondary" />
+        app:tint="?android:textColorSecondary" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/design_navigation_icon_padding"
+        android:layout_marginStart="@dimen/navigation_item_icon_padding"
         android:duplicateParentState="true"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:duplicateParentState="true"
             android:ellipsize="end"
             android:maxLines="1"
@@ -44,7 +44,7 @@
         <me.zhanghai.android.files.ui.AutoGoneTextView
             android:id="@+id/subtitleText"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:duplicateParentState="true"
             android:ellipsize="end"
             android:maxLines="1"

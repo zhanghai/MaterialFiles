@@ -40,30 +40,31 @@ fun Intent.getExtraPath(allowDataContentUri: Boolean): Path? {
     }
     val data = data
     if (data != null) {
-        val dataScheme = data.scheme
-        when {
-            dataScheme == ContentResolver.SCHEME_FILE -> {
+        when (data.scheme) {
+            ContentResolver.SCHEME_FILE, null -> {
                 val path = data.path?.takeIfNotEmpty()
                 path?.let { return Paths.get(it) }
             }
-            allowDataContentUri && dataScheme == ContentResolver.SCHEME_CONTENT -> {
-                val dataUri = try {
-                    URI(data.toString())
-                } catch (e: URISyntaxException) {
-                    e.printStackTrace()
-                    // Some people use Uri.parse() without encoding their path. Let's try save them
-                    // by calling the other URI constructor that encodes everything.
-                    try {
-                        URI(
-                            data.scheme, data.userInfo, data.host, data.port, data.path, data.query,
-                            data.fragment
-                        )
-                    } catch (e2: URISyntaxException) {
-                        e2.printStackTrace()
-                        null
+            ContentResolver.SCHEME_CONTENT -> {
+                if (allowDataContentUri) {
+                    val dataUri = try {
+                        URI(data.toString())
+                    } catch (e: URISyntaxException) {
+                        e.printStackTrace()
+                        // Some people use Uri.parse() without encoding their path. Let's try saving
+                        // them by calling the other URI constructor that encodes everything.
+                        try {
+                            URI(
+                                data.scheme, data.userInfo, data.host, data.port, data.path,
+                                data.query, data.fragment
+                            )
+                        } catch (e2: URISyntaxException) {
+                            e2.printStackTrace()
+                            null
+                        }
                     }
+                    dataUri?.let { return Paths.get(it) }
                 }
-                dataUri?.let { return Paths.get(it) }
             }
         }
     }

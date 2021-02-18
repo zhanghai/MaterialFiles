@@ -16,8 +16,10 @@ import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.ParcelableState
+import me.zhanghai.android.files.util.asColor
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.getParcelableSafe
+import me.zhanghai.android.files.util.withModulatedAlpha
 
 class ThemedSpeedDialView : SpeedDialView {
     constructor(context: Context?) : super(context)
@@ -27,6 +29,17 @@ class ThemedSpeedDialView : SpeedDialView {
     constructor(context: Context?, attrs: AttributeSet?, @AttrRes defStyleAttr: Int) : super(
         context, attrs, defStyleAttr
     )
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+
+        val overlayLayout = overlayLayout
+        if (overlayLayout != null) {
+            val surfaceColor = context.getColorByAttr(R.attr.colorSurface)
+            val overlayColor = surfaceColor.asColor().withModulatedAlpha(0.6f).value
+            overlayLayout.setBackgroundColor(overlayColor)
+        }
+    }
 
     override fun addActionItem(
         actionItem: SpeedDialActionItem,
@@ -55,7 +68,7 @@ class ThemedSpeedDialView : SpeedDialView {
         return super.addActionItem(actionItem, position, animate)
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val superState = (super.onSaveInstanceState() as Bundle)
             .getParcelableSafe<Parcelable>("superState")
         return State(superState, isOpen)

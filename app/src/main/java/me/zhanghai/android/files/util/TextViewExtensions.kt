@@ -6,18 +6,14 @@
 package me.zhanghai.android.files.util
 
 import android.graphics.Typeface
-import android.text.Editable
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
 
 fun TextView.hideTextInputLayoutErrorOnTextChange(textInputLayout: TextInputLayout) {
-    addTextChangedListener(object : SimpleTextWatcher {
-        override fun afterTextChanged(text: Editable) {
-            textInputLayout.error = null
-        }
-    })
+    doAfterTextChanged { textInputLayout.error = null }
 }
 
 var TextView.isBold: Boolean

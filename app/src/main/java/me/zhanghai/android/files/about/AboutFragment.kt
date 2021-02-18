@@ -12,10 +12,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.AboutFragmentBinding
 import me.zhanghai.android.files.ui.LicensesDialogFragment
 import me.zhanghai.android.files.util.createViewIntent
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.startActivitySafe
 
 class AboutFragment : Fragment() {
@@ -31,7 +33,7 @@ class AboutFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
+    ): View =
         AboutFragmentBinding.inflate(inflater, container, false)
             .also { binding = it }
             .root
@@ -43,9 +45,12 @@ class AboutFragment : Fragment() {
         activity.setSupportActionBar(binding.toolbar)
         binding.gitHubLayout.setOnClickListener { startActivitySafe(GITHUB_URI.createViewIntent()) }
         binding.licensesLayout.setOnClickListener { LicensesDialogFragment.show(this) }
+//#ifdef NONFREE
+        binding.privacyPolicyLayout.isVisible = true
         binding.privacyPolicyLayout.setOnClickListener {
             startActivitySafe(PRIVACY_POLICY_URI.createViewIntent())
         }
+//#endif
         binding.authorNameLayout.setOnClickListener {
             startActivitySafe(AUTHOR_RESUME_URI.createViewIntent())
         }
@@ -67,7 +72,7 @@ class AboutFragment : Fragment() {
                 // with document launch mode.
                 //AppCompatActivity activity = (AppCompatActivity) requireActivity();
                 //activity.onSupportNavigateUp();
-                requireActivity().finish()
+                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)

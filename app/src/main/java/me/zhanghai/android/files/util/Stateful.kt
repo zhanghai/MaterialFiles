@@ -5,13 +5,12 @@
 
 package me.zhanghai.android.files.util
 
-sealed class Stateful<T>(open val value: T?)
-
-class Loading<T>(value: T?) : Stateful<T>(value)
-
-class Failure<T>(value: T?, val throwable: Throwable) : Stateful<T>(value)
-
-class Success<T>(value: T) : Stateful<T>(value) {
-    override val value: T
-        get() = super.value!!
+sealed class Stateful<T> {
+    abstract val value: T?
 }
+
+data class Loading<T>(override val value: T?) : Stateful<T>()
+
+data class Failure<T>(override val value: T?, val throwable: Throwable) : Stateful<T>()
+
+data class Success<T>(override val value: T) : Stateful<T>()

@@ -8,7 +8,7 @@
 <resources>
     <string name="file_type_name_unknown">檔案</string>
     <string name="file_type_name_apk">Android 安裝包</string>
-    <string name="file_type_name_archive">%1$s 歸檔檔案</string>
+    <string name="file_type_name_archive">%1$s 封存檔案</string>
     <string name="file_type_name_audio">%1$s 音訊</string>
     <string name="file_type_name_calendar">%1$s 日曆</string>
     <string name="file_type_name_certificate">%1$s 證書</string>

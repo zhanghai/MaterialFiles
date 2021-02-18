@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.smb
 
 import com.hierynomus.msdtyp.AccessMask
-import com.hierynomus.smbj.SMBClient
 import java8.nio.channels.FileChannel
 import java8.nio.channels.SeekableByteChannel
 import java8.nio.file.AccessMode
@@ -105,7 +104,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
     }
 
     private val URI.portOrDefaultPort: Int
-        get() = if (port != -1) port else SMBClient.DEFAULT_PORT
+        get() = if (port != -1) port else Authority.DEFAULT_PORT
 
     @Throws(IOException::class)
     override fun newFileChannel(
@@ -177,11 +176,11 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         val isRelative: Boolean
         when (target) {
             is SmbPath -> {
-                if(target.isAbsolute && target.authority.port != SMBClient.DEFAULT_PORT) {
+                if(target.isAbsolute && target.authority.port != Authority.DEFAULT_PORT) {
                     throw InvalidFileNameException(
                         target.toString(), null, "Path is absolute but uses port ${
                         target.authority.port} instead of the default port ${
-                        SMBClient.DEFAULT_PORT}"
+                        Authority.DEFAULT_PORT}"
                     )
                 }
                 targetString = target.toWindowsPath()

@@ -11,17 +11,18 @@
     <color name="dark_50_percent">#80000000</color>
     <color name="dark_70_percent">#B3000000</color>
 
-    <color name="system_window_scrim_light_compat">#44000000</color>
     <color name="system_window_scrim_light">#99FFFFFF</color>
     <color name="system_window_scrim_dark">#66202124</color>
-    <color name="system_window_scrim">@color/system_window_scrim_light_compat</color>
+    <color name="system_window_scrim">@color/system_window_scrim_light</color>
 
-    <color name="system_window_scrim_black_dark">#66000000</color>
+    <color name="system_window_scrim_light_compat">#44000000</color>
+    <color name="system_window_scrim_compat">@color/system_window_scrim_light_compat</color>
+
+    <color name="system_window_scrim_dark_black">#66000000</color>
     <!-- Make lint happy, although actually we never use this in a non-night configuration. -->
-    <color name="system_window_scrim_black">@android:color/transparent</color>
+    <color name="color_primary_dark_black">@android:color/transparent</color>
 
-    <color name="color_primary_classic">@color/material_blue_700</color>
-    <color name="color_primary_light">@color/google_blue_500</color>
+    <color name="color_primary_light">@color/google_blue_600</color>
     <color name="color_primary_dark">@color/google_blue_300</color>
     <color name="color_primary">@color/color_primary_light</color>
 

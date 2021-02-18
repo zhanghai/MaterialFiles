@@ -58,18 +58,18 @@ class FilePropertiesBasicTabFragment : FilePropertiesTabFragment() {
         bindView(stateful) { file ->
             addItemView(R.string.file_properties_basic_name, file.name)
             val path = file.path
-            if (path.isLinuxPath || path.isDocumentPath) {
+            if (path.isArchivePath) {
+                val archiveFile = path.archiveFile
+                addItemView(R.string.file_properties_basic_archive_file, archiveFile.toFile().path)
+                val attributes = file.attributes as ArchiveFileAttributes
+                addItemView(R.string.file_properties_basic_archive_entry, attributes.entryName())
+            } else {
                 val parentPath = path.parent
                 if (parentPath != null) {
                     addItemView(
                         R.string.file_properties_basic_parent_directory, parentPath.toString()
                     )
                 }
-            } else if (path.isArchivePath) {
-                val archiveFile = path.archiveFile
-                addItemView(R.string.file_properties_basic_archive_file, archiveFile.toFile().path)
-                val attributes = file.attributes as ArchiveFileAttributes
-                addItemView(R.string.file_properties_basic_archive_entry, attributes.entryName())
             }
             addItemView(R.string.file_properties_basic_type, getTypeText(file))
             val symbolicLinkTarget = file.symbolicLinkTarget

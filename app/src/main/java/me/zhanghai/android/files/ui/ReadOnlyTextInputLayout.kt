@@ -25,7 +25,7 @@ class ReadOnlyTextInputLayout : TextInputLayout {
     )
 
     init {
-        isHintAnimationEnabled = false
+        isExpandedHintEnabled = false
     }
 
     override fun addView(child: View, index: Int, params: ViewGroup.LayoutParams) {
