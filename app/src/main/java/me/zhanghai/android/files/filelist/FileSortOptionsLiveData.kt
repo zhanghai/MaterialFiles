@@ -23,7 +23,7 @@ class FileSortOptionsLiveData(pathLiveData: LiveData<Path>) : MediatorLiveData<F
             // Not yet initialized.
             return
         }
-        val value = pathSortOptionsLiveData.value ?: Settings.FILE_LIST_SORT_OPTIONS.value
+        val value = pathSortOptionsLiveData.value ?: Settings.FILE_LIST_SORT_OPTIONS.valueCompat
         if (this.value != value) {
             this.value = value
         }
