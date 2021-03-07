@@ -72,7 +72,6 @@ import me.zhanghai.android.files.navigation.NavigationFragment
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData
 import me.zhanghai.android.files.provider.archive.createArchiveRootPath
 import me.zhanghai.android.files.provider.archive.isArchivePath
-import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.terminal.Terminal
