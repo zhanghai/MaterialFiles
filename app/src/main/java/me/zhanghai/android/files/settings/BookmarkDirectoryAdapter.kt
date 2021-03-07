@@ -16,10 +16,10 @@ import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.layoutInflater
 
-class BookmarkDirectoryAdapter(
+class BookmarkDirectoryListAdapter(
     private val listener: Listener
-) : SimpleAdapter<BookmarkDirectory, BookmarkDirectoryAdapter.ViewHolder>(),
-    DraggableItemAdapter<BookmarkDirectoryAdapter.ViewHolder> {
+) : SimpleAdapter<BookmarkDirectory, BookmarkDirectoryListAdapter.ViewHolder>(),
+    DraggableItemAdapter<BookmarkDirectoryListAdapter.ViewHolder> {
     override val hasStableIds: Boolean
         get() = true
 

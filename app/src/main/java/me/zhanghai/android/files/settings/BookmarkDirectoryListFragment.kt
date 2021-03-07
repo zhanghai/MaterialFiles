@@ -30,7 +30,7 @@ import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
 import me.zhanghai.android.files.util.launchSafe
 
-class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Listener,
+class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.Listener,
     EditBookmarkDirectoryDialogFragment.Listener {
     private val pickPathLauncher = registerForActivityResult(
         FileListActivity.PickDirectoryContract(), this::onPickPathResult
@@ -38,7 +38,7 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Liste
 
     private lateinit var binding: BookmarkDirectoryListFragmentBinding
 
-    private lateinit var adapter: BookmarkDirectoryAdapter
+    private lateinit var adapter: BookmarkDirectoryListAdapter
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
 
@@ -65,7 +65,7 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Liste
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        adapter = BookmarkDirectoryAdapter(this)
+        adapter = BookmarkDirectoryListAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
                 getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable
