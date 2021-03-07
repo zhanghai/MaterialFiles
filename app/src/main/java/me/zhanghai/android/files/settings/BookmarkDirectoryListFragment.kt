@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.settings
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.drawable.NinePatchDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,14 +25,17 @@ import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.navigation.BookmarkDirectories
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
-import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
-import me.zhanghai.android.files.util.startActivityForResultSafe
+import me.zhanghai.android.files.util.launchSafe
 
 class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Listener,
     EditBookmarkDirectoryDialogFragment.Listener {
+    private val pickPathLauncher = registerForActivityResult(
+        FileListActivity.PickDirectoryContract(), this::onPickPathResult
+    )
+
     private lateinit var binding: BookmarkDirectoryListFragmentBinding
 
     private lateinit var adapter: BookmarkDirectoryAdapter
@@ -107,28 +108,20 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Liste
             else -> super.onOptionsItemSelected(item)
         }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_PICK_DIRECTORY ->
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.extraPath?.let { addBookmarkDirectory(it) }
-                }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun onBookmarkDirectoryListChanged(bookmarkDirectories: List<BookmarkDirectory>) {
         binding.emptyView.fadeToVisibilityUnsafe(bookmarkDirectories.isEmpty())
         adapter.replace(bookmarkDirectories)
     }
 
     private fun onAddBookmarkDirectory() {
-        val intent = FileListActivity.createPickDirectoryIntent(null)
-        startActivityForResultSafe(intent, REQUEST_CODE_PICK_DIRECTORY)
+        pickPathLauncher.launchSafe(null, this)
     }
 
-    private fun addBookmarkDirectory(path: Path) {
-        BookmarkDirectories.add(BookmarkDirectory(null, path))
+    private fun onPickPathResult(result: Path?) {
+        if (result == null) {
+            return
+        }
+        BookmarkDirectories.add(BookmarkDirectory(null, result))
     }
 
     override fun editBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
@@ -145,9 +138,5 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Liste
 
     override fun removeBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
         BookmarkDirectories.remove(bookmarkDirectory)
-    }
-
-    companion object {
-        private const val REQUEST_CODE_PICK_DIRECTORY = 1
     }
 }

@@ -5,9 +5,11 @@
 
 package me.zhanghai.android.files.filelist
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.commit
 import java8.nio.file.Path
 import me.zhanghai.android.files.app.AppActivity
@@ -44,10 +46,15 @@ class FileListActivity : AppActivity() {
             FileListActivity::class.createIntent()
                 .setAction(Intent.ACTION_VIEW)
                 .apply { extraPath = path }
+    }
 
-        fun createPickDirectoryIntent(initialPath: Path?): Intent =
+    class PickDirectoryContract : ActivityResultContract<Path?, Path?>() {
+        override fun createIntent(context: Context, input: Path?): Intent =
             FileListActivity::class.createIntent()
                 .setAction(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                .apply { initialPath?.let { extraPath = it } }
+                .apply { input?.let { extraPath = it } }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Path? =
+            if (resultCode == RESULT_OK) intent?.extraPath else null
     }
 }

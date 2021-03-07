@@ -5,9 +5,7 @@
 
 package me.zhanghai.android.files.navigation
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDialogFragment
@@ -24,8 +22,8 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.args
-import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.getState
+import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.putState
@@ -34,6 +32,10 @@ import me.zhanghai.android.files.util.show
 import me.zhanghai.android.files.util.takeIfNotEmpty
 
 class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
+    private val pickPathLauncher = registerForActivityResult(
+        FileListActivity.PickDirectoryContract(), this::onPickPathResult
+    )
+
     private val args by args<Args>()
 
     private lateinit var path: Path
@@ -58,10 +60,7 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
                     binding.nameEdit.setTextWithSelection(args.bookmarkDirectory.name)
                 }
                 updatePathButton()
-                binding.pathText.setOnClickListener {
-                    val intent = FileListActivity.createPickDirectoryIntent(path)
-                    startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY)
-                }
+                binding.pathText.setOnClickListener { onEditPath() }
                 setView(binding.root)
             }
             .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -86,17 +85,16 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
         outState.putState(State(path))
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_PICK_DIRECTORY ->
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.extraPath?.let {
-                        path = it
-                        updatePathButton()
-                    }
-                }
-            else -> super.onActivityResult(requestCode, resultCode, data)
+    private fun onEditPath() {
+        pickPathLauncher.launchSafe(path, this)
+    }
+
+    private fun onPickPathResult(result: Path?) {
+        if (result == null) {
+            return
         }
+        path = result
+        updatePathButton()
     }
 
     private fun updatePathButton() {
@@ -104,8 +102,6 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     }
 
     companion object {
-        private const val REQUEST_CODE_PICK_DIRECTORY = 1
-
         fun show(bookmarkDirectory: BookmarkDirectory, fragment: Fragment) {
             EditBookmarkDirectoryDialogFragment().putArgs(Args(bookmarkDirectory)).show(fragment)
         }

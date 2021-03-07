@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.storage
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -22,14 +20,16 @@ import me.zhanghai.android.files.ui.StaticAdapter
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
-import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
-import me.zhanghai.android.files.util.putArgs
-import me.zhanghai.android.files.util.startActivityForResultSafe
+import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.viewModels
 
 class AddLanSmbServerFragment : Fragment() {
+    private val addSmbServerLauncher = registerForActivityResult(
+        EditSmbServerActivity.Contract(), this::onAddSmbServerResult
+    )
+
     private val viewModel by viewModels { { AddLanSmbServerViewModel() } }
 
     private lateinit var binding: AddLanSmbServerFragmentBinding
@@ -88,17 +88,6 @@ class AddLanSmbServerFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_ADD_SMB_SERVER -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    finish()
-                }
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun onLanSmbServerListChanged(stateful: Stateful<List<LanSmbServer>>) {
         if (stateful is Failure) {
             stateful.throwable.printStackTrace()
@@ -113,14 +102,12 @@ class AddLanSmbServerFragment : Fragment() {
     }
 
     private fun addSmbServer(server: LanSmbServer?) {
-        startActivityForResultSafe(
-            EditSmbServerActivity::class.createIntent()
-                .putArgs(EditSmbServerFragment.Args(host = server?.host)),
-            REQUEST_CODE_ADD_SMB_SERVER
-        )
+        addSmbServerLauncher.launchSafe(EditSmbServerFragment.Args(host = server?.host), this)
     }
 
-    companion object {
-        private const val REQUEST_CODE_ADD_SMB_SERVER = 1
+    private fun onAddSmbServerResult(result: Boolean) {
+        if (result) {
+            finish()
+        }
     }
 }

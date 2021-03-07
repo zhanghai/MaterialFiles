@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.settings
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.AttributeSet
@@ -22,11 +21,12 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.filelist.userFriendlyString
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData
-import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.startActivityForResultSafe
 import me.zhanghai.android.files.util.valueCompat
 
 abstract class PathPreference : Preference, PreferenceActivityResultListener {
+    private val pickDirectoryContract = FileListActivity.PickDirectoryContract()
+
     var path: Path = persistedPath
         set(value) {
             if (field == value) {
@@ -76,13 +76,17 @@ abstract class PathPreference : Preference, PreferenceActivityResultListener {
     }
 
     override fun onPreferenceClick(fragment: PreferenceFragmentCompat, preference: Preference) {
-        val intent = FileListActivity.createPickDirectoryIntent(path)
-        fragment.startActivityForResultSafe(intent, requestCode)
+        fragment.startActivityForResultSafe(
+            pickDirectoryContract.createIntent(fragment.requireContext(), path), requestCode
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == this.requestCode && resultCode == Activity.RESULT_OK) {
-            data?.extraPath?.let { path = it }
+        if (requestCode == this.requestCode) {
+            val result = pickDirectoryContract.parseResult(resultCode, data)
+            if (result != null) {
+                path = result
+            }
         }
     }
 
