@@ -342,8 +342,9 @@
     <string name="file_properties_permissions_set_selinux_context_restore">Berrezarri</string>
     <string name="file_properties_permissions_recursive">Aplikatu bildutako fitxategiei</string>
 
-    <string name="navigation_root_directory">Erroa</string>
-    <string name="navigation_root_subtitle_format">%1$s libre %2$s guztira</string>
+    <string name="storage_file_system_root_title">Erroa</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s libre %2$s guztira</string>
     <string name="navigation_add_storage">Gehitu kanpoko biltegiratzea…</string>
     <string name="navigation_standard_directory_alarms">Alarmak</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>

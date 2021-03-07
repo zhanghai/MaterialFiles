@@ -9,15 +9,15 @@ import androidx.lifecycle.MediatorLiveData
 import me.zhanghai.android.files.settings.Settings
 
 object NavigationItemListLiveData : MediatorLiveData<List<NavigationItem?>>() {
-    private fun loadValue() {
-        value = navigationItems
-    }
-
     init {
         // Initialize value before we have any active observer.
         loadValue()
         addSource(Settings.STORAGES) { loadValue() }
         addSource(StandardDirectoriesLiveData) { loadValue() }
         addSource(Settings.BOOKMARK_DIRECTORIES) { loadValue() }
+    }
+
+    private fun loadValue() {
+        value = navigationItems
     }
 }

@@ -12,13 +12,13 @@ import android.os.storage.StorageVolume
 import android.provider.DocumentsContract
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.app.contentResolver
-import me.zhanghai.android.files.app.storageManager
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.compat.createOpenDocumentTreeIntentCompat
-import me.zhanghai.android.files.compat.storageVolumesCompat
+import me.zhanghai.android.files.storage.StorageVolumeListLiveData
 import me.zhanghai.android.files.util.getParcelableExtraSafe
 import me.zhanghai.android.files.util.releasePersistablePermission
 import me.zhanghai.android.files.util.takePersistablePermission
+import me.zhanghai.android.files.util.valueCompat
 
 // TODO: https://youtrack.jetbrains.com/issue/KT-37384
 //inline class DocumentTreeUri(val value: Uri) {
@@ -78,4 +78,4 @@ val StorageVolume.documentTreeUri: DocumentTreeUri
     }
 
 val DocumentTreeUri.storageVolume: StorageVolume?
-    get() = storageManager.storageVolumesCompat.find { it.documentTreeUri == this }
+    get() = StorageVolumeListLiveData.valueCompat.find { it.documentTreeUri == this }

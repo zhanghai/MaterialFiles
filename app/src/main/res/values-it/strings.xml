@@ -393,8 +393,9 @@
     <string name="file_properties_apk_signature_digests">Firme</string>
     <string name="file_properties_apk_past_signature_digests">Vecchie firme</string>
 
-    <string name="navigation_root_directory">Root</string>
-    <string name="navigation_root_subtitle_format">%1$s liberi di %2$s</string>
+    <string name="storage_file_system_root_title">Root</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s liberi di %2$s</string>
     <string name="navigation_standard_directory_alarms">Avvisi</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documenti</string>

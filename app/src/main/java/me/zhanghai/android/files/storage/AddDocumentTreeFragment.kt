@@ -41,11 +41,6 @@ class AddDocumentTreeFragment : Fragment() {
 
     private fun addDocumentTree(treeUri: DocumentTreeUri) {
         treeUri.takePersistablePermission()
-        Storages.addOrReplace(
-            DocumentTree(
-                null, treeUri.storageVolume?.getDescriptionCompat(requireContext())
-                    ?: treeUri.displayName ?: treeUri.value.toString(), treeUri
-            )
-        )
+        Storages.addOrReplace(DocumentTree(null, null, treeUri))
     }
 }

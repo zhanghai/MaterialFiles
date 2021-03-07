@@ -8,7 +8,6 @@ package me.zhanghai.android.files.navigation
 import android.content.Context
 import android.content.Intent
 import android.os.Environment
-import android.os.storage.StorageVolume
 import androidx.annotation.DrawableRes
 import androidx.annotation.Size
 import androidx.annotation.StringRes
@@ -16,28 +15,21 @@ import java8.nio.file.Path
 import java8.nio.file.Paths
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.about.AboutActivity
-import me.zhanghai.android.files.app.storageManager
-import me.zhanghai.android.files.compat.getDescriptionCompat
-import me.zhanghai.android.files.compat.isPrimaryCompat
-import me.zhanghai.android.files.compat.pathCompat
-import me.zhanghai.android.files.compat.storageVolumesCompat
 import me.zhanghai.android.files.file.JavaFile
 import me.zhanghai.android.files.file.asFileSize
-import me.zhanghai.android.files.file.documentTreeUri
 import me.zhanghai.android.files.ftpserver.FtpServerActivity
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.settings.SettingsActivity
-import me.zhanghai.android.files.storage.DocumentTree
+import me.zhanghai.android.files.storage.FileSystemRoot
 import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.util.createIntent
-import me.zhanghai.android.files.util.removeFirst
 import me.zhanghai.android.files.util.valueCompat
-import java.util.Objects
 
 val navigationItems: List<NavigationItem?>
     get() =
         mutableListOf<NavigationItem?>().apply {
-            addAll(rootItems)
+            addAll(storageItems)
+            add(AddStorageItem())
             val standardDirectoryItems = standardDirectoryItems
             if (standardDirectoryItems.isNotEmpty()) {
                 add(null)
@@ -52,149 +44,78 @@ val navigationItems: List<NavigationItem?>
             addAll(menuItems)
         }
 
-private val rootItems: List<NavigationItem>
-    @Size(min = 1)
-    get() =
-        mutableListOf<NavigationItem>().apply {
-            add(RootDirectoryRootItem())
-            val storageVolumes = storageManager.storageVolumesCompat.toMutableList()
-            storageVolumes.removeFirst { it.isPrimaryCompat }?.let {
-                add(PrimaryStorageVolumeRootItem(it))
-            }
-            val documentTreeUriToStorageVolume = storageVolumes.associateBy { it.documentTreeUri }
-            for (storage in Settings.STORAGES.valueCompat) {
-                if (storage is DocumentTree) {
-                    val storageVolume = documentTreeUriToStorageVolume[storage.uri]
-                    if (storageVolume != null) {
-                        add(StorageVolumeRootItem(storage, storageVolume))
-                        continue
-                    }
-                }
-                add(StorageRootItem(storage))
-            }
-            add(AddStorageItem())
-        }
+private val storageItems: List<NavigationItem>
+    @Size(min = 0)
+    get() = Settings.STORAGES.valueCompat.filter { it.isVisible }.map { StorageItem(it) }
 
-private abstract class FileItem(val path: Path) : NavigationItem() {
-    // Items of different types may point to the same file.
-    override val id: Long = Objects.hash(javaClass, path).toLong()
-
+private abstract class PathItem(val path: Path) : NavigationItem() {
     override fun isChecked(listener: Listener): Boolean = listener.currentPath == path
 
     override fun onClick(listener: Listener) {
-        listener.navigateTo(path)
+        if (this is NavigationRoot) {
+            listener.navigateToRoot(path)
+        } else {
+            listener.navigateTo(path)
+        }
         listener.closeNavigationDrawer()
     }
 }
 
-private abstract class RootItem(path: Path) : FileItem(path), NavigationRoot {
-    override fun onClick(listener: Listener) {
-        listener.navigateToRoot(path)
-        listener.closeNavigationDrawer()
-    }
+private class StorageItem(
+    private val storage: Storage
+) : PathItem(storage.path), NavigationRoot {
+    override val id: Long
+        get() = storage.id
 
-    override fun getName(context: Context): String = getTitle(context)
-}
+    override val iconRes: Int
+        @DrawableRes
+        get() = storage.iconRes
 
-private const val PATH_ROOT = "/"
+    override fun getTitle(context: Context): String = storage.getName(context)
 
-private abstract class LocalRootItem(
-    path: Path,
-    pathString: String,
-    @DrawableRes override val iconRes: Int
-) : RootItem(path) {
-    private var freeSpace: Long
-    private var totalSpace: Long
-
-    constructor(path: String, @DrawableRes iconRes: Int) : this(Paths.get(path), path, iconRes)
-
-    init {
-        val totalSpace = JavaFile.getTotalSpace(pathString)
+    override fun getSubtitle(context: Context): String? {
+        val linuxPath = storage.linuxPath ?: return null
+        var totalSpace = JavaFile.getTotalSpace(linuxPath)
+        val freeSpace: Long
         when {
-            totalSpace != 0L -> {
-                freeSpace = JavaFile.getFreeSpace(pathString)
-                this.totalSpace = totalSpace
-            }
-            pathString == PATH_ROOT -> {
+            totalSpace != 0L -> freeSpace = JavaFile.getFreeSpace(linuxPath)
+            linuxPath == FileSystemRoot.LINUX_PATH -> {
                 // Root directory may not be an actual partition on legacy Android versions (can be
                 // a ramdisk instead). On modern Android the system partition will be mounted as
                 // root instead so let's try with the system partition again.
                 // @see https://source.android.com/devices/bootloader/system-as-root
                 val systemPath = Environment.getRootDirectory().path
+                totalSpace = JavaFile.getTotalSpace(systemPath)
                 freeSpace = JavaFile.getFreeSpace(systemPath)
-                this.totalSpace = JavaFile.getTotalSpace(systemPath)
             }
-            else -> {
-                freeSpace = 0
-                this.totalSpace = 0
-            }
+            else -> freeSpace = 0
         }
-    }
-
-    override fun getSubtitle(context: Context): String? {
         if (totalSpace == 0L) {
             return null
         }
-        val freeSpace = freeSpace.asFileSize().formatHumanReadable(context)
-        val totalSpace = totalSpace.asFileSize().formatHumanReadable(context)
-        return context.getString(R.string.navigation_root_subtitle_format, freeSpace, totalSpace)
+        val freeSpaceString = freeSpace.asFileSize().formatHumanReadable(context)
+        val totalSpaceString = totalSpace.asFileSize().formatHumanReadable(context)
+        return context.getString(
+            R.string.navigation_storage_subtitle_format, freeSpaceString, totalSpaceString
+        )
     }
-}
-
-private class RootDirectoryRootItem : LocalRootItem(PATH_ROOT, R.drawable.device_icon_white_24dp) {
-    @StringRes
-    override val titleRes: Int? = R.string.navigation_root_directory
-}
-
-private class PrimaryStorageVolumeRootItem(
-    private val storageVolume: StorageVolume
-) : LocalRootItem(storageVolume.pathCompat, R.drawable.sd_card_icon_white_24dp) {
-    override fun getTitle(context: Context): String = storageVolume.getDescriptionCompat(context)
-
-    @StringRes
-    override val titleRes: Int? = null
-}
-
-private class StorageVolumeRootItem(
-    private val storage: Storage,
-    private val storageVolume: StorageVolume
-) : LocalRootItem(storage.path, storageVolume.pathCompat, R.drawable.sd_card_icon_white_24dp) {
-    override fun getTitle(context: Context): String = storageVolume.getDescriptionCompat(context)
-
-    @StringRes
-    override val titleRes: Int? = null
 
     override fun onLongClick(listener: Listener): Boolean {
         listener.onEditStorage(storage)
         return true
     }
-}
 
-private class StorageRootItem(private val storage: Storage) : RootItem(storage.path) {
-    private val title: String = storage.name
-
-    @DrawableRes
-    override val iconRes: Int? = storage.iconRes
-
-    override fun getTitle(context: Context): String = title
-
-    @StringRes
-    override val titleRes: Int? = null
-
-    override fun onLongClick(listener: Listener): Boolean {
-        listener.onEditStorage(storage)
-        return true
-    }
+    override fun getName(context: Context): String = getTitle(context)
 }
 
 private class AddStorageItem : NavigationItem() {
     override val id: Long = R.string.navigation_add_storage.toLong()
 
     @DrawableRes
-    override val iconRes: Int? = R.drawable.add_icon_white_24dp
+    override val iconRes: Int = R.drawable.add_icon_white_24dp
 
-    @StringRes
-    override val titleRes: Int? = R.string.navigation_add_storage
+    override fun getTitle(context: Context): String =
+        context.getString(R.string.navigation_add_storage)
 
     override fun onClick(listener: Listener) {
         listener.onAddStorage()
@@ -208,27 +129,28 @@ private val standardDirectoryItems: List<NavigationItem>
             .filter { it.isEnabled }
             .map { StandardDirectoryItem(it) }
 
-private class StandardDirectoryItem(private val standardDirectory: StandardDirectory) : FileItem(
-    Paths.get(getExternalStorageDirectory(standardDirectory.relativePath))
-) {
+private class StandardDirectoryItem(
+    private val standardDirectory: StandardDirectory
+) : PathItem(Paths.get(getExternalStorageDirectory(standardDirectory.relativePath))) {
     init {
         require(standardDirectory.isEnabled) { "StandardDirectory should be enabled" }
     }
 
-    @DrawableRes
-    override val iconRes: Int? = standardDirectory.iconRes
+    override val id: Long
+        get() = standardDirectory.id
+
+    override val iconRes: Int
+        @DrawableRes
+        get() = standardDirectory.iconRes
 
     override fun getTitle(context: Context): String = standardDirectory.getTitle(context)
-
-    @StringRes
-    override val titleRes: Int? = null
 }
 
 val standardDirectories: List<StandardDirectory>
     get() {
         val settingsMap = Settings.STANDARD_DIRECTORY_SETTINGS.valueCompat.associateBy { it.id }
         return defaultStandardDirectories.map {
-            val settings = settingsMap[it.id]
+            val settings = settingsMap[it.key]
             if (settings != null) it.withSettings(settings) else it
         }
     }
@@ -321,20 +243,18 @@ private val bookmarkDirectoryItems: List<NavigationItem>
     @Size(min = 0)
     get() = Settings.BOOKMARK_DIRECTORIES.valueCompat.map { BookmarkDirectoryItem(it) }
 
-private class BookmarkDirectoryItem(private val bookmarkDirectory: BookmarkDirectory) : FileItem(
-    bookmarkDirectory.path
-) {
+private class BookmarkDirectoryItem(
+    private val bookmarkDirectory: BookmarkDirectory
+) : PathItem(bookmarkDirectory.path) {
     // We cannot simply use super.getId() because different bookmark directories may have
     // the same path.
-    override val id: Long = bookmarkDirectory.id
+    override val id: Long
+        get() = bookmarkDirectory.id
 
     @DrawableRes
-    override val iconRes: Int? = R.drawable.directory_icon_white_24dp
+    override val iconRes: Int = R.drawable.directory_icon_white_24dp
 
     override fun getTitle(context: Context): String = bookmarkDirectory.name
-
-    @StringRes
-    override val titleRes: Int? = null
 
     override fun onLongClick(listener: Listener): Boolean {
         listener.onEditBookmarkDirectory(bookmarkDirectory)
@@ -361,8 +281,10 @@ private val menuItems: List<NavigationItem>
 
 private abstract class MenuItem(
     @DrawableRes override val iconRes: Int,
-    @StringRes override val titleRes: Int
-) : NavigationItem()
+    @StringRes val titleRes: Int
+) : NavigationItem() {
+    override fun getTitle(context: Context): String = context.getString(titleRes)
+}
 
 private class ActivityMenuItem(
     @DrawableRes iconRes: Int,

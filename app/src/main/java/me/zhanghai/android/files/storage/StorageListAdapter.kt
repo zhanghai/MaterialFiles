@@ -14,10 +14,10 @@ import me.zhanghai.android.files.databinding.StorageItemBinding
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.layoutInflater
 
-class StorageAdapter(
+class StorageListAdapter(
     private val listener: Listener
-) : SimpleAdapter<Storage, StorageAdapter.ViewHolder>(),
-    DraggableItemAdapter<StorageAdapter.ViewHolder> {
+) : SimpleAdapter<Storage, StorageListAdapter.ViewHolder>(),
+    DraggableItemAdapter<StorageListAdapter.ViewHolder> {
     override val hasStableIds: Boolean
         get() = true
 
@@ -34,7 +34,8 @@ class StorageAdapter(
         // Need to remove the ripple before it's drawn onto the bitmap for dragging.
         binding.root.foreground.mutate().setVisible(!holder.dragState.isActive, false)
         binding.root.setOnClickListener { listener.editStorage(storage) }
-        binding.nameText.text = storage.name
+        binding.iconImage.setImageResource(storage.iconRes)
+        binding.nameText.text = storage.getName(binding.nameText.context)
         binding.descriptionText.text = storage.description
     }
 

@@ -367,8 +367,9 @@
     <string name="file_properties_apk_signature_digests">Chữ kí</string>
     <string name="file_properties_apk_past_signature_digests">Chữ kí cũ</string>
 
-    <string name="navigation_root_directory">Gốc</string>
-    <string name="navigation_root_subtitle_format">Còn trống %1$s trên %2$s</string>
+    <string name="storage_file_system_root_title">Gốc</string>
+
+    <string name="navigation_storage_subtitle_format">Còn trống %1$s trên %2$s</string>
     <string name="navigation_add_storage">Thêm vùng lưu trữ ngoài…</string>
     <string name="navigation_standard_directory_alarms">Âm báo thức</string>
     <string name="navigation_standard_directory_dcim">Máy ảnh</string>

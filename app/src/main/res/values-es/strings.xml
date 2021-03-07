@@ -393,8 +393,9 @@
     <string name="file_properties_apk_signature_digests">Firmas</string>
     <string name="file_properties_apk_past_signature_digests">Firmas antiguas</string>
 
-    <string name="navigation_root_directory">Raíz</string>
-    <string name="navigation_root_subtitle_format">%1$slibre de %2$s</string>
+    <string name="storage_file_system_root_title">Raíz</string>
+
+    <string name="navigation_storage_subtitle_format">%1$slibre de %2$s</string>
     <string name="navigation_add_storage">Agregar almacenamiento externo…</string>
     <string name="navigation_standard_directory_alarms">Alarmas</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>

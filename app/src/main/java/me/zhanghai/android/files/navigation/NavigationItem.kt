@@ -24,10 +24,7 @@ abstract class NavigationItem {
     @get:DrawableRes
     protected abstract val iconRes: Int?
 
-    open fun getTitle(context: Context): String = context.getString(titleRes!!)
-
-    @get:StringRes
-    protected abstract val titleRes: Int?
+    abstract fun getTitle(context: Context): String
 
     open fun getSubtitle(context: Context): String? = null
 

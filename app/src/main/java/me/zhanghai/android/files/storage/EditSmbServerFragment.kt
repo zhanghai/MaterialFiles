@@ -283,7 +283,7 @@ class EditSmbServerFragment : Fragment() {
             return null
         }
         val authority = Authority(host!!, port!!)
-        return SmbServer(args.server?.id, name ?: authority.toString(), authority, authentication!!)
+        return SmbServer(args.server?.id, name, authority, authentication!!)
     }
 
     @Parcelize

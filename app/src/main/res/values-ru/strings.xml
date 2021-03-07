@@ -445,8 +445,9 @@
     <string name="file_properties_apk_signature_digests">Подписи</string>
     <string name="file_properties_apk_past_signature_digests">Старые подписи</string>
 
-    <string name="navigation_root_directory">Root</string>
-    <string name="navigation_root_subtitle_format">%1$s свободно из %2$s</string>
+    <string name="storage_file_system_root_title">Root</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s свободно из %2$s</string>
     <string name="navigation_add_storage">Добавить внешнее хранилище…</string>
     <string name="navigation_standard_directory_alarms">Будильник</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>

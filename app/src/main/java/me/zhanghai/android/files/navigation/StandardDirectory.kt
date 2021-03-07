@@ -23,7 +23,10 @@ data class StandardDirectory internal constructor(
         enabled: Boolean
     ) : this(iconRes, titleRes, null, relativePath, enabled)
 
-    val id: String
+    val id: Long
+        get() = relativePath.hashCode().toLong()
+
+    val key: String
         get() = relativePath
 
     fun getTitle(context: Context): String =

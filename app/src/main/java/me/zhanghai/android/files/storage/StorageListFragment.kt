@@ -27,10 +27,10 @@ import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
 import me.zhanghai.android.files.util.startActivitySafe
 
-class StorageListFragment : Fragment(), StorageAdapter.Listener {
+class StorageListFragment : Fragment(), StorageListAdapter.Listener {
     private lateinit var binding: StorageListFragmentBinding
 
-    private lateinit var adapter: StorageAdapter
+    private lateinit var adapter: StorageListAdapter
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
 
@@ -57,7 +57,7 @@ class StorageListFragment : Fragment(), StorageAdapter.Listener {
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        adapter = StorageAdapter(this)
+        adapter = StorageListAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
                 getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable

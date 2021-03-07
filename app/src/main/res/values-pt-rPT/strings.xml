@@ -342,8 +342,9 @@
     <string name="file_properties_permissions_set_selinux_context_restore">Restaurar</string>
     <string name="file_properties_permissions_recursive">Aplicar aos ficheiros anexos</string>
 
-    <string name="navigation_root_directory">Root</string>
-    <string name="navigation_root_subtitle_format">%1$s livre de %2$s</string>
+    <string name="storage_file_system_root_title">Root</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s livre de %2$s</string>
     <string name="navigation_add_storage">Adicionar armazenamento externo…</string>
     <string name="navigation_standard_directory_alarms">Alarmes</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
