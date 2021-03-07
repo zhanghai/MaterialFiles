@@ -2123,8 +2123,8 @@ class WriteFileJob(
 ) : FileJob() {
     @Throws(IOException::class)
     override fun run() {
-        val success = write(file, content)
-        listener?.let { mainExecutor.execute { it(success) } }
+        val successful = write(file, content)
+        listener?.let { mainExecutor.execute { it(successful) } }
     }
 }
 
