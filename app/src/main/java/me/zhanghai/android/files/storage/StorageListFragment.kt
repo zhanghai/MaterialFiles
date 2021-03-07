@@ -21,9 +21,11 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.StorageListFragmentBinding
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
+import me.zhanghai.android.files.util.startActivitySafe
 
 class StorageListFragment : Fragment(), StorageAdapter.Listener {
     private lateinit var binding: StorageListFragmentBinding
@@ -102,9 +104,7 @@ class StorageListFragment : Fragment(), StorageAdapter.Listener {
     }
 
     private fun onAddStorage() {
-        // TODO
-        //val intent = FileListActivity.createPickDirectoryIntent(null)
-        //startActivityForResultSafe(intent, REQUEST_CODE_ADD_STORAGE)
+        startActivitySafe(AddStorageDialogActivity::class.createIntent())
     }
 
     override fun editStorage(storage: Storage) {
