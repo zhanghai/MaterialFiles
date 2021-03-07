@@ -82,7 +82,7 @@ abstract class FileNameDialogFragment : AppCompatDialogFragment() {
     }
 
     protected open val name: String
-        get() = binding.nameEdit.text.toString()
+        get() = binding.nameEdit.text.toString().trim()
 
     protected open fun isNameUnchanged(name: String): Boolean = false
 
