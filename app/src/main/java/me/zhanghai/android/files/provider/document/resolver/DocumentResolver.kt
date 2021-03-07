@@ -6,8 +6,6 @@
 package me.zhanghai.android.files.provider.document.resolver
 
 import android.database.Cursor
-import android.database.MatrixCursor
-import android.database.MergeCursor
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
@@ -383,91 +381,25 @@ object DocumentResolver {
             parentPath.treeUri, parentDocumentId
         )
         val childrenPaths = mutableListOf<Path>()
-        query(childrenUri, CHILDREN_CURSOR_COLUMN_NAMES, null)
-            .withHiddenChildrenRows(childrenUri)
-            .use { cursor ->
-                while (cursor.moveToNext()) {
-                    val childDocumentId = cursor.requireString(
-                        DocumentsContract.Document.COLUMN_DOCUMENT_ID
-                    )
-                    val childDisplayName = cursor.requireString(
-                        DocumentsContract.Document.COLUMN_DISPLAY_NAME
-                    )
-                    val childPath = parentPath.resolve(childDisplayName)
-                    pathDocumentIdCache[childPath] = childDocumentId
-                    childrenPaths += childPath
-                }
+        query(
+            childrenUri, arrayOf(
+                DocumentsContract.Document.COLUMN_DOCUMENT_ID,
+                DocumentsContract.Document.COLUMN_DISPLAY_NAME
+            ), null
+        ).use { cursor ->
+            while (cursor.moveToNext()) {
+                val childDocumentId = cursor.requireString(
+                    DocumentsContract.Document.COLUMN_DOCUMENT_ID
+                )
+                val childDisplayName = cursor.requireString(
+                    DocumentsContract.Document.COLUMN_DISPLAY_NAME
+                )
+                val childPath = parentPath.resolve(childDisplayName)
+                pathDocumentIdCache[childPath] = childDocumentId
+                childrenPaths += childPath
             }
-        return childrenPaths
-    }
-
-    private val CHILDREN_CURSOR_COLUMN_NAMES = arrayOf(
-        DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-        DocumentsContract.Document.COLUMN_DISPLAY_NAME
-    )
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DOCUMENT_ID = "primary:Android"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID =
-        "primary:Android/data"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DISPLAY_NAME = "data"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID =
-        "primary:Android/obb"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DISPLAY_NAME = "obb"
-
-    // On Android 11, ExternalStorageProvider no longer returns Android/data and Android/obb as
-    // children of the Android directory on primary storage. However, the two child directories are
-    // actually still accessible.
-    private fun Cursor.withHiddenChildrenRows(childrenUri: Uri): Cursor {
-        when {
-            childrenUri.authority == DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY
-                && DocumentsContract.getDocumentId(childrenUri)
-                == EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DOCUMENT_ID -> {
-                var hasDataRow = false
-                var hasObbRow = false
-                try {
-                    while (moveToNext()) {
-                        when (requireString(DocumentsContract.Document.COLUMN_DOCUMENT_ID)) {
-                            EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID ->
-                                hasDataRow = true
-                            EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID ->
-                                hasObbRow = true
-                        }
-                        if (hasDataRow && hasObbRow) {
-                            break
-                        }
-                    }
-                } finally {
-                    moveToPosition(-1)
-                }
-                if (hasDataRow && hasObbRow) {
-                    return this
-                }
-                val hiddenCursor = MatrixCursor(CHILDREN_CURSOR_COLUMN_NAMES)
-                if (!hasDataRow) {
-                    hiddenCursor.newRow()
-                        .add(
-                            DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-                            EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID
-                        )
-                        .add(
-                            DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-                            EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DISPLAY_NAME
-                        )
-                }
-                if (!hasObbRow) {
-                    hiddenCursor.newRow()
-                        .add(
-                            DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-                            EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID
-                        )
-                        .add(
-                            DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-                            EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DISPLAY_NAME
-                        )
-                }
-                return MergeCursor(arrayOf(this, hiddenCursor))
-            }
-            else -> return this
         }
+        return childrenPaths
     }
 
     @Throws(ResolverException::class)
@@ -605,9 +537,12 @@ object DocumentResolver {
     }
 
     @Throws(ResolverException::class)
-    fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor =
+    fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor {
         // DocumentsProvider doesn't support selection and selectionArgs.
-        Resolver.query(uri, projection, null, null, sortOrder)
+        var cursor = Resolver.query(uri, projection, null, null, sortOrder)
+        cursor = ExternalStorageProviderHack.transformQueryResult(uri, cursor)
+        return cursor
+    }
 
     @Throws(ResolverException::class)
     private fun Path.requireParent(): Path =
