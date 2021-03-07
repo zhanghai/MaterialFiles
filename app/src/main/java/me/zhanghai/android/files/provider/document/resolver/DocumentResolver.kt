@@ -16,6 +16,7 @@ import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import androidx.annotation.RequiresApi
 import me.zhanghai.android.files.app.contentResolver
+import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.provider.common.copyTo
 import me.zhanghai.android.files.provider.content.resolver.Resolver.openInputStream
@@ -37,19 +38,17 @@ import java.util.WeakHashMap
 object DocumentResolver {
     // @see com.android.shell.BugreportStorageProvider#AUTHORITY
     private const val BUGREPORT_STORAGE_PROVIDER_AUTHORITY = "com.android.shell.documents"
-    // @see com.android.externalstorage.ExternalStorageProvider#AUTHORITY
-    private const val EXTERNAL_STORAGE_PROVIDER_AUTHORITY = "com.android.externalstorage.documents"
     // @see com.android.mtp.MtpDocumentsProvider#AUTHORITY
     private const val MTP_DOCUMENTS_PROVIDER_AUTHORITY = "com.android.mtp.documents"
 
     private val LOCAL_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
     )
     private val COPY_UNSUPPORTED_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
     )
     private val MOVE_UNSUPPORTED_AUTHORITIES = setOf(
@@ -57,7 +56,7 @@ object DocumentResolver {
     )
     private val REMOVE_UNSUPPORTED_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
     )
 
@@ -422,7 +421,7 @@ object DocumentResolver {
     // actually still accessible.
     private fun Cursor.withHiddenChildrenRows(childrenUri: Uri): Cursor {
         when {
-            childrenUri.authority == EXTERNAL_STORAGE_PROVIDER_AUTHORITY
+            childrenUri.authority == DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY
                 && DocumentsContract.getDocumentId(childrenUri)
                 == EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DOCUMENT_ID -> {
                 var hasDataRow = false
