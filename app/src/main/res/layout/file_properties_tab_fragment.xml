@@ -43,7 +43,10 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="?dialogPreferredPadding"
+                android:paddingStart="?dialogPreferredPadding"
+                android:paddingEnd="?dialogPreferredPadding"
+                android:paddingTop="16dp"
+                android:paddingBottom="8dp"
                 android:divider="@drawable/transparent_divider_vertical_16dp"
                 android:orientation="vertical"
                 android:showDividers="middle" />
