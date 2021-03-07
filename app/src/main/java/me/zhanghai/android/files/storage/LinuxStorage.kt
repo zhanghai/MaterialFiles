@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.storage
 
+import android.content.Intent
 import java8.nio.file.Path
 import java8.nio.file.Paths
 
@@ -16,4 +17,8 @@ abstract class LinuxStorage : Storage() {
         get() = Paths.get(linuxPath)
 
     abstract override val linuxPath: String
+
+    override fun createEditIntent(): Intent {
+        TODO("Not yet implemented")
+    }
 }

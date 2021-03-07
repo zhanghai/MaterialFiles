@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.storage
 
 import android.content.Context
+import android.content.Intent
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
@@ -53,4 +54,8 @@ class DocumentTree(
 
     override val linuxPath: String?
         get() = uri.storageVolume?.pathCompat
+
+    override fun createEditIntent(): Intent {
+        TODO("Not yet implemented")
+    }
 }

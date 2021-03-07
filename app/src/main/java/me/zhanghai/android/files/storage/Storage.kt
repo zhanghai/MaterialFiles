@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.storage
 
 import android.content.Context
+import android.content.Intent
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
@@ -32,4 +33,6 @@ abstract class Storage : Parcelable {
     open val linuxPath: String? = null
 
     open val isVisible: Boolean = true
+
+    abstract fun createEditIntent(): Intent
 }
