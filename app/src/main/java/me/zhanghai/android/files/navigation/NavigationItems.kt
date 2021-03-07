@@ -64,6 +64,10 @@ private abstract class PathItem(val path: Path) : NavigationItem() {
 private class StorageItem(
     private val storage: Storage
 ) : PathItem(storage.path), NavigationRoot {
+    init {
+        require(storage.isVisible)
+    }
+
     override val id: Long
         get() = storage.id
 
@@ -133,7 +137,7 @@ private class StandardDirectoryItem(
     private val standardDirectory: StandardDirectory
 ) : PathItem(Paths.get(getExternalStorageDirectory(standardDirectory.relativePath))) {
     init {
-        require(standardDirectory.isEnabled) { "StandardDirectory should be enabled" }
+        require(standardDirectory.isEnabled)
     }
 
     override val id: Long
