@@ -19,10 +19,7 @@ import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.provider.common.copyTo
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openInputStream
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openOutputStream
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openParcelFileDescriptor
-import me.zhanghai.android.files.provider.content.resolver.Resolver.query
+import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
 import me.zhanghai.android.files.provider.content.resolver.getLong
 import me.zhanghai.android.files.provider.content.resolver.getString
@@ -148,8 +145,8 @@ object DocumentResolver {
         }
         val targetUri = create(targetPath, mimeType)
         try {
-            openInputStream(sourceUri, "r").use { inputStream ->
-                openOutputStream(targetUri, "w").use { outputStream ->
+            Resolver.openInputStream(sourceUri, "r").use { inputStream ->
+                Resolver.openOutputStream(targetUri, "w").use { outputStream ->
                     inputStream.copyTo(outputStream, intervalMillis, listener)
                 }
             }
@@ -361,13 +358,13 @@ object DocumentResolver {
     @Throws(ResolverException::class)
     fun openInputStream(path: Path, mode: String): InputStream {
         val uri = getDocumentUri(path)
-        return openInputStream(uri, mode)
+        return Resolver.openInputStream(uri, mode)
     }
 
     @Throws(ResolverException::class)
     fun openOutputStream(path: Path, mode: String): OutputStream {
         val uri = getDocumentUri(path)
-        return openOutputStream(uri, mode)
+        return Resolver.openOutputStream(uri, mode)
     }
 
     @Throws(ResolverException::class)
@@ -376,7 +373,7 @@ object DocumentResolver {
         mode: String
     ): ParcelFileDescriptor {
         val uri = getDocumentUri(path)
-        return openParcelFileDescriptor(uri, mode)
+        return Resolver.openParcelFileDescriptor(uri, mode)
     }
 
     @Throws(ResolverException::class)
@@ -610,7 +607,7 @@ object DocumentResolver {
     @Throws(ResolverException::class)
     fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor =
         // DocumentsProvider doesn't support selection and selectionArgs.
-        query(uri, projection, null, null, sortOrder)
+        Resolver.query(uri, projection, null, null, sortOrder)
 
     @Throws(ResolverException::class)
     private fun Path.requireParent(): Path =
