@@ -35,6 +35,7 @@ class StorageListAdapter(
         binding.root.foreground.mutate().setVisible(!holder.dragState.isActive, false)
         binding.root.setOnClickListener { listener.editStorage(storage) }
         binding.iconImage.setImageResource(storage.iconRes)
+        binding.nameText.isActivated = storage.isVisible
         binding.nameText.text = storage.getName(binding.nameText.context)
         binding.descriptionText.text = storage.description
     }

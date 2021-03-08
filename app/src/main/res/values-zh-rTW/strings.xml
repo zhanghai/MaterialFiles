@@ -18,6 +18,7 @@
     <string name="empty">空</string>
     <string name="empty_placeholder">（空）</string>
     <string name="error">錯誤</string>
+    <string name="hide">隱藏</string>
     <string name="install">安裝</string>
     <string name="keep_editing">繼續編輯</string>
     <string name="loading">正在載入…</string>
@@ -38,6 +39,7 @@
     <string name="select">選取</string>
     <string name="select_all">全選</string>
     <string name="share">分享</string>
+    <string name="show">顯示</string>
     <string name="skip">跳過</string>
     <string name="sort">排序</string>
     <string name="stop">停止</string>
@@ -375,6 +377,9 @@
     <string name="storage_add_storage_title">新增儲存空間</string>
     <string name="storage_add_storage_document_tree">外部儲存空間</string>
     <string name="storage_add_storage_smb_server">SMB 伺服器</string>
+    <string name="storage_edit_device_storage_title">編輯裝置儲存空間</string>
+    <string name="storage_edit_device_storage_name">名稱</string>
+    <string name="storage_edit_device_storage_path">路徑</string>
     <string name="storage_add_document_tree_title">新增外部儲存空間</string>
     <string name="storage_confirm_remove_document_tree_format">移除「%1$s」？</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>

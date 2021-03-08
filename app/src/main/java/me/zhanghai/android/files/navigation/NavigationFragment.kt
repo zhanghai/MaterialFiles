@@ -21,7 +21,6 @@ import me.zhanghai.android.files.provider.document.documentTreeUri
 import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.storage.AddStorageDialogActivity
 import me.zhanghai.android.files.storage.Storage
-import me.zhanghai.android.files.storage.Storages
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.startActivitySafe
 
@@ -82,10 +81,7 @@ class NavigationFragment : Fragment(), NavigationItem.Listener,
     }
 
     override fun onEditStorage(storage: Storage) {
-        // TODO
-        //ConfirmRemoveDocumentTreeDialogFragment.show(treeUri, storageVolume, this)
-        // For debugging
-        Storages.remove(storage)
+        startActivitySafe(storage.createEditIntent())
     }
 
     // TODO

@@ -11,7 +11,7 @@ import me.zhanghai.android.files.util.valueCompat
 
 object Storages {
     fun addOrReplace(storage: Storage) {
-        val bookmarkDirectories = Settings.STORAGES.valueCompat.toMutableList().apply {
+        val storages = Settings.STORAGES.valueCompat.toMutableList().apply {
             val index = indexOfFirst { it.id == storage.id }
             if (index != -1) {
                 this[index] = storage
@@ -19,7 +19,13 @@ object Storages {
                 this += storage
             }
         }
-        Settings.STORAGES.putValue(bookmarkDirectories)
+        Settings.STORAGES.putValue(storages)
+    }
+
+    fun replace(storage: Storage) {
+        val storages = Settings.STORAGES.valueCompat.toMutableList()
+            .apply { this[indexOfFirst { it.id == storage.id }] = storage }
+        Settings.STORAGES.putValue(storages)
     }
 
     fun move(fromPosition: Int, toPosition: Int) {

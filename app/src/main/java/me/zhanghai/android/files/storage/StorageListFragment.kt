@@ -108,8 +108,7 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
     }
 
     override fun editStorage(storage: Storage) {
-        // TODO
-        //EditStorageDialogFragment.show(storage, this)
+        startActivitySafe(storage.createEditIntent())
     }
 
     override fun moveStorage(fromPosition: Int, toPosition: Int) {

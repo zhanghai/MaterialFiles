@@ -18,6 +18,7 @@
     <string name="empty">Empty</string>
     <string name="empty_placeholder">(Empty)</string>
     <string name="error">Error</string>
+    <string name="hide">Hide</string>
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>
     <string name="loading">Loading…</string>
@@ -38,6 +39,7 @@
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
     <string name="share">Share</string>
+    <string name="show">Show</string>
     <string name="skip">Skip</string>
     <string name="sort">Sort</string>
     <string name="stop">Stop</string>
@@ -471,6 +473,9 @@
     <string name="storage_add_storage_title">Add storage</string>
     <string name="storage_add_storage_document_tree">External storage</string>
     <string name="storage_add_storage_smb_server">SMB server</string>
+    <string name="storage_edit_device_storage_title">Edit device storage</string>
+    <string name="storage_edit_device_storage_name">Name</string>
+    <string name="storage_edit_device_storage_path">Path</string>
     <string name="storage_add_document_tree_title">Add external storage</string>
     <string name="storage_confirm_remove_document_tree_format">Remove “%1$s”?</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>

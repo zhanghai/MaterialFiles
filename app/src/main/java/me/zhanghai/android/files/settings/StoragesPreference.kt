@@ -58,7 +58,7 @@ class StoragesPreference : Preference {
 
     private fun onStorageListChanged(storages: List<Storage>) {
         val context = context
-        val names = storages.map { it.getName(context) }
+        val names = storages.filter { it.isVisible }.map { it.getName(context) }
         val summary = if (names.isNotEmpty()) ListFormatterCompat.format(names) else emptySummary
         setSummary(summary)
     }

@@ -150,6 +150,11 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
+            android:name="me.zhanghai.android.files.storage.EditDeviceStorageDialogActivity"
+            android:label="@string/storage_edit_device_storage_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
             android:name="me.zhanghai.android.files.storage.AddDocumentTreeActivity"
             android:label="@string/storage_add_document_tree_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
