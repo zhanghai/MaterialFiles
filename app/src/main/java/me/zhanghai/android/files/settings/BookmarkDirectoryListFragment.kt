@@ -24,14 +24,17 @@ import me.zhanghai.android.files.databinding.BookmarkDirectoryListFragmentBindin
 import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.navigation.BookmarkDirectories
 import me.zhanghai.android.files.navigation.BookmarkDirectory
+import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
+import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
 import me.zhanghai.android.files.util.launchSafe
+import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.startActivitySafe
 
-class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.Listener,
-    EditBookmarkDirectoryDialogFragment.Listener {
+class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.Listener {
     private val pickPathLauncher = registerForActivityResult(
         FileListActivity.PickDirectoryContract(), this::onPickPathResult
     )
@@ -125,18 +128,13 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
     }
 
     override fun editBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        EditBookmarkDirectoryDialogFragment.show(bookmarkDirectory, this)
+        startActivitySafe(
+            EditBookmarkDirectoryDialogActivity::class.createIntent()
+                .putArgs(EditBookmarkDirectoryDialogFragment.Args(bookmarkDirectory))
+        )
     }
 
     override fun moveBookmarkDirectory(fromPosition: Int, toPosition: Int) {
         BookmarkDirectories.move(fromPosition, toPosition)
-    }
-
-    override fun replaceBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        BookmarkDirectories.replace(bookmarkDirectory)
-    }
-
-    override fun removeBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        BookmarkDirectories.remove(bookmarkDirectory)
     }
 }

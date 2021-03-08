@@ -23,8 +23,7 @@ abstract class Storage : Parcelable {
 
     abstract fun getDefaultName(context: Context): String
 
-    fun getName(context: Context): String =
-        customName?.takeIfNotEmpty() ?: getDefaultName(context)
+    fun getName(context: Context): String = customName?.takeIfNotEmpty() ?: getDefaultName(context)
 
     abstract val description: String
 

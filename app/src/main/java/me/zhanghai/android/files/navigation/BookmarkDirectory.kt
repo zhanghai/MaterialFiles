@@ -11,6 +11,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.filelist.name
 import me.zhanghai.android.files.util.ParcelableParceler
+import me.zhanghai.android.files.util.takeIfNotEmpty
 import java.util.Random
 
 @Parcelize
@@ -18,13 +19,16 @@ import java.util.Random
 // @Parcelize throws IllegalAccessError if the primary constructor is private.
 data class BookmarkDirectory internal constructor(
     val id: Long,
-    private val customName: String?,
+    val customName: String?,
     val path: @WriteWith<ParcelableParceler> Path
 ) : Parcelable {
     // We cannot simply use path.hashCode() as ID because different bookmark directories may have
     // the same path.
     constructor(customName: String?, path: Path) : this(Random().nextLong(), customName, path)
 
+    val defaultName: String
+        get() = path.name
+
     val name: String
-        get() = if (!customName.isNullOrEmpty()) customName else path.name
+        get() = customName?.takeIfNotEmpty() ?: defaultName
 }
