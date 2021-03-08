@@ -477,7 +477,10 @@
     <string name="storage_edit_device_storage_name">Name</string>
     <string name="storage_edit_device_storage_path">Path</string>
     <string name="storage_add_document_tree_title">Add external storage</string>
-    <string name="storage_confirm_remove_document_tree_format">Remove “%1$s”?</string>
+    <string name="storage_edit_document_tree_title">Edit external storage</string>
+    <string name="storage_edit_document_tree_name">Name</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Path</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Searching for SMB servers…</string>
     <string name="storage_add_lan_smb_server_add">Add manually</string>

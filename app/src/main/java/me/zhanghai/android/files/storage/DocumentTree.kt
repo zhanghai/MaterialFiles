@@ -18,10 +18,12 @@ import me.zhanghai.android.files.file.DocumentTreeUri
 import me.zhanghai.android.files.file.displayName
 import me.zhanghai.android.files.file.storageVolume
 import me.zhanghai.android.files.provider.document.createDocumentTreeRootPath
+import me.zhanghai.android.files.util.createIntent
+import me.zhanghai.android.files.util.putArgs
 import kotlin.random.Random
 
 @Parcelize
-class DocumentTree(
+data class DocumentTree(
     override val id: Long,
     override val customName: String?,
     val uri: DocumentTreeUri
@@ -55,7 +57,7 @@ class DocumentTree(
     override val linuxPath: String?
         get() = uri.storageVolume?.pathCompat
 
-    override fun createEditIntent(): Intent {
-        TODO("Not yet implemented")
-    }
+    override fun createEditIntent(): Intent =
+        EditDocumentTreeDialogActivity::class.createIntent()
+            .putArgs(EditDocumentTreeDialogFragment.Args(this))
 }

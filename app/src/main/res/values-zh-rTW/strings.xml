@@ -381,7 +381,10 @@
     <string name="storage_edit_device_storage_name">名稱</string>
     <string name="storage_edit_device_storage_path">路徑</string>
     <string name="storage_add_document_tree_title">新增外部儲存空間</string>
-    <string name="storage_confirm_remove_document_tree_format">移除「%1$s」？</string>
+    <string name="storage_edit_document_tree_title">編輯外部儲存空間</string>
+    <string name="storage_edit_document_tree_name">名稱</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">路徑</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">正在搜尋 SMB 伺服器…</string>
     <string name="storage_add_lan_smb_server_add">手動新增</string>

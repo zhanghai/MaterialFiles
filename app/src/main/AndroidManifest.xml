@@ -160,6 +160,11 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
+            android:name="me.zhanghai.android.files.storage.EditDocumentTreeDialogActivity"
+            android:label="@string/storage_edit_document_tree_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
             android:name="me.zhanghai.android.files.storage.AddLanSmbServerActivity"
             android:label="@string/storage_add_lan_smb_server_title"
             android:theme="@style/Theme.MaterialFiles" />
