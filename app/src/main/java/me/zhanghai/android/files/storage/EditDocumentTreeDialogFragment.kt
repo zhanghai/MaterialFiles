@@ -48,7 +48,7 @@ class EditDocumentTreeDialogFragment : AppCompatDialogFragment() {
                 setView(binding.root)
             }
             .setPositiveButton(android.R.string.ok) { _, _ -> save() }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
             .setNeutralButton(R.string.remove) { _, _ -> remove() }
             .create()
             .apply {

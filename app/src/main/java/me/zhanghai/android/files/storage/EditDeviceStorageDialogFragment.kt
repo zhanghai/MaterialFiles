@@ -43,7 +43,7 @@ class EditDeviceStorageDialogFragment : AppCompatDialogFragment() {
                 setView(binding.root)
             }
             .setPositiveButton(android.R.string.ok) { _, _ -> save() }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
             .setNeutralButton(
                 if (deviceStorage.isVisible) R.string.hide else R.string.show
             ) { _, _ -> toggleVisibility() }
