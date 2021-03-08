@@ -368,6 +368,11 @@
     <string name="file_properties_apk_min_sdk_version">最低系统版本</string>
     <string name="file_properties_apk_target_sdk_version">目标系统版本</string>
     <string name="file_properites_apk_sdk_version_format">%1$s（%2$s，%3$d）</string>
+    <string name="file_properties_apk_requested_permissions">权限</string>
+    <string name="file_properties_apk_requested_permissions_zero">未请求任何权限</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="other">已请求 %1$,d 项权限</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">签名</string>
     <string name="file_properties_apk_past_signature_digests">旧签名</string>
 

@@ -12,6 +12,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
+import me.zhanghai.android.files.util.getPackageInfoSafe
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -35,12 +36,9 @@ object CrashlyticsInitializer {
 
     @SuppressLint("PackageManagerGetSignatures")
     private fun verifySignature(): Boolean {
-        val packageInfo = try {
-            packageManager.getPackageInfo(application.packageName, PackageManager.GET_SIGNATURES)
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            return false
-        }
+        val packageInfo = packageManager.getPackageInfoSafe(
+            application.packageName, PackageManager.GET_SIGNATURES
+        ) ?: return false
         return packageInfo.signatures.size == 1
             && computeCertificateFingerprint(packageInfo.signatures[0]) == ("87:3B:9B:60:C7:7C:F7"
             + ":F3:CD:5F:AE:66:D0:FE:11:2C:4A:86:97:3E:11:8E:E8:A2:9C:34:6C:4C:67:3C:97:F0")

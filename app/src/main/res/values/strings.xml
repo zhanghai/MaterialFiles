@@ -464,6 +464,12 @@
         <item>R</item>
         <item>\?</item>
     </string-array>
+    <string name="file_properties_apk_requested_permissions">Permissions</string>
+    <string name="file_properties_apk_requested_permissions_zero">No permissions requested</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d permission requested</item>
+        <item quantity="other">%1$,d permissions requested</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_past_signature_digests">Old signatures</string>
 

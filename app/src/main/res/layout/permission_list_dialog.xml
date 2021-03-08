@@ -1,36 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/abc_dialog_title_divider_material"
-    android:orientation="vertical">
-
-    <EditText
-        android:id="@+id/filterEdit"
-        android:layout_width="match_parent"
-        android:layout_height="?listPreferredItemHeightSmall"
-        android:paddingStart="?dialogPreferredPadding"
-        android:paddingEnd="?dialogPreferredPadding"
-        android:background="@null"
-        android:drawablePadding="24dp"
-        android:drawableStart="@drawable/filter_icon_control_normal_24dp"
-        android:hint="@string/file_properties_permissions_set_principal_filter_hint"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+    android:paddingTop="@dimen/abc_dialog_title_divider_material">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:minHeight="?listPreferredItemHeight"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:minHeight="?listPreferredItemHeight">
 
         <ProgressBar
             android:id="@+id/progress"
@@ -66,17 +50,4 @@
             android:scrollIndicators="top|bottom"
             android:scrollbars="vertical" />
     </FrameLayout>
-
-    <CheckBox
-        android:id="@+id/recursiveCheck"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?listPreferredItemHeightSmall"
-        android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
-        android:paddingStart="@dimen/dialog_padding_minus_4dp"
-        android:paddingEnd="?dialogPreferredPadding"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:text="@string/file_properties_permissions_recursive"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-</LinearLayout>
+</FrameLayout>
