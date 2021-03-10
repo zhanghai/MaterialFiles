@@ -7,6 +7,7 @@ package me.zhanghai.android.files.provider.root
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Process
 import android.util.Log
 import eu.chainfire.librootjava.Debugger
@@ -45,7 +46,9 @@ object RootFileService : RemoteFileService(
 
     init {
         Debug.setDebug(BuildConfig.DEBUG)
-        Debugger.setEnabled(BuildConfig.DEBUG)
+        // Work around https://github.com/Chainfire/librootjava/issues/23
+        //Debugger.setEnabled(BuildConfig.DEBUG)
+        Debugger.setEnabled(BuildConfig.DEBUG && Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
     }
 
     @Throws(RemoteFileSystemException::class)
