@@ -17,7 +17,7 @@
             android:defaultValue="@string/pref_default_value_theme_color"
             android:summary="@string/settings_theme_color_summary" />
 
-        <com.takisoft.preferencex.SimpleMenuPreference
+        <rikka.preference.SimpleMenuPreference
             android:key="@string/pref_key_night_mode"
             android:title="@string/settings_night_mode_title"
             android:defaultValue="@string/pref_default_value_night_mode"
@@ -35,7 +35,7 @@
             android:title="@string/settings_file_list_animation_title"
             android:defaultValue="@bool/pref_default_value_file_list_animation" />
 
-        <com.takisoft.preferencex.SimpleMenuPreference
+        <rikka.preference.SimpleMenuPreference
             android:key="@string/pref_key_file_name_ellipsize"
             android:title="@string/settings_file_name_ellipsize_title"
             android:defaultValue="@string/pref_default_value_file_name_ellipsize"
@@ -77,7 +77,7 @@
             android:defaultValue="@string/pref_default_value_archive_file_name_encoding"
             app:useSimpleSummaryProvider="true" />
 
-        <com.takisoft.preferencex.SimpleMenuPreference
+        <rikka.preference.SimpleMenuPreference
             android:key="@string/pref_key_open_apk_default_action"
             android:title="@string/settings_open_apk_default_action_title"
             android:defaultValue="@string/pref_default_value_open_apk_default_action"
