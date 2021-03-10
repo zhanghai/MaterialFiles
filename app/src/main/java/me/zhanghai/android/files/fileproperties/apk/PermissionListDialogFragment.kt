@@ -53,12 +53,11 @@ class PermissionListDialogFragment : AppCompatDialogFragment() {
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 adapter = PermissionListAdapter()
                 binding.recyclerView.adapter = adapter
+                setView(binding.root)
 
                 viewModel.permissionListLiveData.observe(this@PermissionListDialogFragment) {
                     onPermissionListChanged(it)
                 }
-
-                setView(binding.root)
             }
             .setPositiveButton(android.R.string.ok, null)
             .create()

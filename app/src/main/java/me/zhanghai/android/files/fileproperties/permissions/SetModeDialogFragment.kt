@@ -90,10 +90,9 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
                     binding.uppercaseXCheck.isEnabled = false
                     binding.uppercaseXCheck.isChecked = true
                 }
+                setView(binding.root)
 
                 viewModel.modeLiveData.observe(this@SetModeDialogFragment) { onModeChanged(it) }
-
-                setView(binding.root)
             }
             .setPositiveButton(android.R.string.ok) { _, _ -> setMode() }
             .setNegativeButton(android.R.string.cancel, null)
