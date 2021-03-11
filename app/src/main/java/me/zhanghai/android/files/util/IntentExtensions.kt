@@ -15,6 +15,7 @@ import androidx.core.app.ShareCompat
 import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
+import me.zhanghai.android.files.compat.removeFlagsCompat
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.intentType
 import kotlin.reflect.KClass
@@ -29,6 +30,11 @@ fun CharSequence.createSendTextIntent(htmlText: String? = null): Intent =
         .setText(this)
         .apply { htmlText?.let { setHtmlText(it) } }
         .intent
+        // FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET is unnecessarily added by ShareCompat.IntentBuilder.
+        .apply {
+            @Suppress("DEPRECATION")
+            removeFlagsCompat(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        }
 
 fun KClass<Intent>.createLaunchApp(packageName: String): Intent? =
     packageManager.getLaunchIntentForPackage(packageName)
@@ -132,9 +138,14 @@ fun Collection<Uri>.createSendStreamIntent(mimeTypes: Collection<MimeType>): Int
     // The context parameter here is only used for passing calling activity information and starting
     // chooser activity, neither of which we care about.
     ShareCompat.IntentBuilder(application)
-        .apply { forEach { addStream(it) } }
         .setType(mimeTypes.intentType)
+        .apply { forEach { addStream(it) } }
         .intent
+        // FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET is unnecessarily added by ShareCompat.IntentBuilder.
+        .apply {
+            @Suppress("DEPRECATION")
+            removeFlagsCompat(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        }
 
 fun Uri.createViewIntent(): Intent = Intent(Intent.ACTION_VIEW, this)
 
