@@ -82,6 +82,8 @@ android {
         // For "Invalid package reference in library; not included in Android: javax.security.sasl.
         // Referenced from org.apache.mina.proxy.ProxyAuthException."
         warning 'InvalidPackage'
+        // Work around androidx-fragment 1.3.1 bug: https://issuetracker.google.com/issues/182388985
+        ignore 'InvalidFragmentVersionForActivityResult'
     }
 }
 
