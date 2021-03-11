@@ -18,11 +18,7 @@ class ScrollingChildEditText : AppCompatEditText {
         context, attrs, defStyleAttr
     )
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-        // onMeasure() calls registerForPreDraw() and onPreDraw() calls bringPointIntoView(), which
-        // results in unwanted scroll when IME is hidden.
-        viewTreeObserver.removeOnPreDrawListener(this)
-    }
+    // onMeasure() calls registerForPreDraw() and onPreDraw() calls bringPointIntoView(), which
+    // results in unwanted scroll when IME is toggled.
+    override fun onPreDraw(): Boolean = true
 }
