@@ -12,7 +12,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
-import me.zhanghai.android.files.util.getPackageInfoSafe
+import me.zhanghai.android.files.util.getPackageInfoOrNull
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -36,7 +36,7 @@ object CrashlyticsInitializer {
 
     @SuppressLint("PackageManagerGetSignatures")
     private fun verifySignature(): Boolean {
-        val packageInfo = packageManager.getPackageInfoSafe(
+        val packageInfo = packageManager.getPackageInfoOrNull(
             application.packageName, PackageManager.GET_SIGNATURES
         ) ?: return false
         return packageInfo.signatures.size == 1

@@ -12,7 +12,7 @@ import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
-import me.zhanghai.android.files.util.getPermissionInfoSafe
+import me.zhanghai.android.files.util.getPermissionInfoOrNull
 import me.zhanghai.android.files.util.valueCompat
 
 class PermissionListLiveData(
@@ -28,7 +28,7 @@ class PermissionListLiveData(
             val value = try {
                 val permissions = permissionNames.map { name ->
                     val packageManager = packageManager
-                    val permissionInfo = packageManager.getPermissionInfoSafe(name, 0)
+                    val permissionInfo = packageManager.getPermissionInfoOrNull(name, 0)
                     val label = permissionInfo?.loadLabel(packageManager)?.toString()
                         .takeIf { it != name }
                     val description = permissionInfo?.loadDescription(packageManager)?.toString()

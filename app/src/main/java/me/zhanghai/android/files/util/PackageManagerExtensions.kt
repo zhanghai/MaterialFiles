@@ -12,14 +12,14 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
-fun PackageManager.getPackageInfoSafe(packageName: String, flags: Int): PackageInfo? =
-    getPackageManagerInfoSafe { getPackageInfo(packageName, flags) }
+fun PackageManager.getPackageInfoOrNull(packageName: String, flags: Int): PackageInfo? =
+    getPackageManagerInfoOrNull { getPackageInfo(packageName, flags) }
 
-fun PackageManager.getPermissionInfoSafe(permissionName: String, flags: Int): PermissionInfo? =
-    getPackageManagerInfoSafe { getPermissionInfo(permissionName, flags) }
+fun PackageManager.getPermissionInfoOrNull(permissionName: String, flags: Int): PermissionInfo? =
+    getPackageManagerInfoOrNull { getPermissionInfo(permissionName, flags) }
 
 @OptIn(ExperimentalContracts::class)
-private inline fun <T> getPackageManagerInfoSafe(block: () -> T): T? {
+private inline fun <T> getPackageManagerInfoOrNull(block: () -> T): T? {
     contract {
         callsInPlace(block, InvocationKind.EXACTLY_ONCE)
     }
