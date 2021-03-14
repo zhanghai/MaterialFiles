@@ -16,10 +16,11 @@ import me.zhanghai.android.files.util.ParcelableListParceler
 import me.zhanghai.android.files.util.RemoteCallback
 import me.zhanghai.android.files.util.getArgs
 import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.readParcelable
 
 class ParcelablePathListConsumer(val value: (List<Path>) -> Unit) : Parcelable {
-    private constructor(source: Parcel, loader: ClassLoader?) : this(
-        source.readParcelable<RemoteCallback>(loader)!!.let<RemoteCallback, (List<Path>) -> Unit> {
+    private constructor(source: Parcel) : this(
+        source.readParcelable<RemoteCallback>()!!.let<RemoteCallback, (List<Path>) -> Unit> {
             { paths -> it.sendResult(Bundle().putArgs(ListenerArgs(paths))) }
         }
     )
@@ -32,14 +33,9 @@ class ParcelablePathListConsumer(val value: (List<Path>) -> Unit) : Parcelable {
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ParcelablePathListConsumer> {
+        val CREATOR = object : Parcelable.Creator<ParcelablePathListConsumer> {
             override fun createFromParcel(source: Parcel): ParcelablePathListConsumer =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): ParcelablePathListConsumer = ParcelablePathListConsumer(source, loader)
+                ParcelablePathListConsumer(source)
 
             override fun newArray(size: Int): Array<ParcelablePathListConsumer?> =
                 arrayOfNulls(size)

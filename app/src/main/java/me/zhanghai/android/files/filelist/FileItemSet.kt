@@ -14,21 +14,18 @@ import me.zhanghai.android.files.util.LinkedMapSet
 import me.zhanghai.android.files.util.readParcelableListCompat
 
 class FileItemSet() : LinkedMapSet<Path, FileItem>(FileItem::path), Parcelable {
-    private constructor(source: Parcel, loader: ClassLoader?) : this() {
-        addAll(source.readParcelableListCompat(loader))
+    constructor(parcel: Parcel) : this() {
+        addAll(parcel.readParcelableListCompat())
     }
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeParcelableListCompat(toList(), flags)
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeParcelableListCompat(toList(), flags)
     }
 
     override fun describeContents(): Int = 0
 
-    companion object CREATOR : Parcelable.ClassLoaderCreator<FileItemSet> {
-        override fun createFromParcel(source: Parcel): FileItemSet = createFromParcel(source, null)
-
-        override fun createFromParcel(source: Parcel, loader: ClassLoader?): FileItemSet =
-            FileItemSet(source, loader)
+    companion object CREATOR : Parcelable.Creator<FileItemSet> {
+        override fun createFromParcel(parcel: Parcel): FileItemSet = FileItemSet(parcel)
 
         override fun newArray(size: Int): Array<FileItemSet?> = arrayOfNulls(size)
     }

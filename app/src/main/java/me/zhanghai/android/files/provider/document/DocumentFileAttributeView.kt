@@ -17,6 +17,7 @@ import me.zhanghai.android.files.provider.content.resolver.getLong
 import me.zhanghai.android.files.provider.content.resolver.getString
 import me.zhanghai.android.files.provider.content.resolver.moveToFirstOrThrow
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
+import me.zhanghai.android.files.util.readParcelable
 import java.io.IOException
 
 internal class DocumentFileAttributeView(
@@ -66,10 +67,7 @@ internal class DocumentFileAttributeView(
         throw UnsupportedOperationException()
     }
 
-    private constructor(
-        source: Parcel,
-        loader: ClassLoader?
-    ) : this(source.readParcelable(loader)!!)
+    private constructor(source: Parcel) : this(source.readParcelable<DocumentPath>()!!)
 
     override fun describeContents(): Int = 0
 
@@ -83,14 +81,9 @@ internal class DocumentFileAttributeView(
         val SUPPORTED_NAMES = setOf("basic", NAME)
 
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<DocumentFileAttributeView> {
+        val CREATOR = object : Parcelable.Creator<DocumentFileAttributeView> {
             override fun createFromParcel(source: Parcel): DocumentFileAttributeView =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): DocumentFileAttributeView = DocumentFileAttributeView(source, loader)
+                DocumentFileAttributeView(source)
 
             override fun newArray(size: Int): Array<DocumentFileAttributeView?> = arrayOfNulls(size)
         }

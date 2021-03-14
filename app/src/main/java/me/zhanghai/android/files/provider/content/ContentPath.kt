@@ -20,6 +20,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
+import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.net.URI
 
@@ -121,9 +122,9 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
         return uri?.hashCode() ?: super.hashCode()
     }
 
-    private constructor(source: Parcel, loader: ClassLoader?) : super(source, loader) {
-        fileSystem = source.readParcelable(loader)!!
-        uri = source.readParcelable(loader)
+    private constructor(source: Parcel) : super(source) {
+        fileSystem = source.readParcelable()!!
+        uri = source.readParcelable()
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -144,12 +145,8 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
                 } ?: lastPathSegment ?: toString()).toByteString()
 
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ContentPath> {
-            override fun createFromParcel(source: Parcel): ContentPath =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(source: Parcel, loader: ClassLoader?): ContentPath =
-                ContentPath(source, loader)
+        val CREATOR = object : Parcelable.Creator<ContentPath> {
+            override fun createFromParcel(source: Parcel): ContentPath = ContentPath(source)
 
             override fun newArray(size: Int): Array<ContentPath?> = arrayOfNulls(size)
         }

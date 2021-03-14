@@ -18,11 +18,11 @@ fun Parcel.writeBooleanCompat(value: Boolean) {
 
 fun <E : Parcelable?, L : MutableList<E>> Parcel.readParcelableListCompat(
     list: L,
-    loader: ClassLoader?
+    classLoader: ClassLoader?
 ): L {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         @Suppress("UNCHECKED_CAST")
-        return readParcelableList(list, loader) as L
+        return readParcelableList(list, classLoader) as L
     } else {
         val size = readInt()
         if (size == -1) {
@@ -32,7 +32,7 @@ fun <E : Parcelable?, L : MutableList<E>> Parcel.readParcelableListCompat(
         val listSize = list.size
         for (index in 0 until size) {
             @Suppress("UNCHECKED_CAST")
-            val element = readParcelable<E>(loader) as E
+            val element = readParcelable<E>(classLoader) as E
             if (index < listSize) {
                 list[index] = element
             } else {

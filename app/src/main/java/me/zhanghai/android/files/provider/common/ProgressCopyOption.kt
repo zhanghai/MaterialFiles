@@ -14,14 +14,15 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.RemoteCallback
 import me.zhanghai.android.files.util.getArgs
 import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.readParcelable
 
 class ProgressCopyOption(
     val intervalMillis: Long,
     val listener: (Long) -> Unit
 ) : CopyOption, Parcelable {
-    private constructor(source: Parcel, loader: ClassLoader?) : this(
+    private constructor(source: Parcel) : this(
         source.readLong(),
-        source.readParcelable<RemoteCallback>(loader)!!.let {
+        source.readParcelable<RemoteCallback>()!!.let {
             // TODO: kotlinc: Cannot infer a type for this parameter. Please specify it explicitly.
             //{ copiedSize -> it.sendResult(Bundle().putArgs(ListenerArgs(copiedSize))) }
             { copiedSize: Long -> it.sendResult(Bundle().putArgs(ListenerArgs(copiedSize))) }
@@ -39,14 +40,9 @@ class ProgressCopyOption(
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ProgressCopyOption> {
+        val CREATOR = object : Parcelable.Creator<ProgressCopyOption> {
             override fun createFromParcel(source: Parcel): ProgressCopyOption =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): ProgressCopyOption = ProgressCopyOption(source, loader)
+                ProgressCopyOption(source)
 
             override fun newArray(size: Int): Array<ProgressCopyOption?> = arrayOfNulls(size)
         }

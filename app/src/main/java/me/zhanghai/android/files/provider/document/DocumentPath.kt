@@ -19,6 +19,7 @@ import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
+import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.io.IOException
 
@@ -88,8 +89,8 @@ internal class DocumentPath : ByteStringListPath<DocumentPath>, DocumentResolver
     override val parent: DocumentPath?
         get() = getParent()
 
-    private constructor(source: Parcel, loader: ClassLoader?) : super(source, loader) {
-        fileSystem = source.readParcelable(loader)!!
+    private constructor(source: Parcel) : super(source) {
+        fileSystem = source.readParcelable()!!
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -100,12 +101,8 @@ internal class DocumentPath : ByteStringListPath<DocumentPath>, DocumentResolver
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<DocumentPath> {
-            override fun createFromParcel(source: Parcel): DocumentPath =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(source: Parcel, loader: ClassLoader?): DocumentPath =
-                DocumentPath(source, loader)
+        val CREATOR = object : Parcelable.Creator<DocumentPath> {
+            override fun createFromParcel(source: Parcel): DocumentPath = DocumentPath(source)
 
             override fun newArray(size: Int): Array<DocumentPath?> = arrayOfNulls(size)
         }

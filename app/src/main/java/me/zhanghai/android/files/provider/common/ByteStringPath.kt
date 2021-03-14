@@ -13,6 +13,7 @@ import java8.nio.file.Path
 import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
+import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.net.URI
 
@@ -129,10 +130,7 @@ class ByteStringPath(private val byteString: ByteString) : Parcelable, Path {
         throw UnsupportedOperationException()
     }
 
-    private constructor(
-        source: Parcel,
-        loader: ClassLoader?
-    ) : this(source.readParcelable(loader)!!)
+    private constructor(source: Parcel) : this(source.readParcelable<ByteString>()!!)
 
     override fun describeContents(): Int = 0
 
@@ -142,12 +140,8 @@ class ByteStringPath(private val byteString: ByteString) : Parcelable, Path {
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ByteStringPath> {
-            override fun createFromParcel(source: Parcel): ByteStringPath =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(source: Parcel, loader: ClassLoader?): ByteStringPath =
-                ByteStringPath(source, loader)
+        val CREATOR = object : Parcelable.Creator<ByteStringPath> {
+            override fun createFromParcel(source: Parcel): ByteStringPath = ByteStringPath(source)
 
             override fun newArray(size: Int): Array<ByteStringPath?> = arrayOfNulls(size)
         }

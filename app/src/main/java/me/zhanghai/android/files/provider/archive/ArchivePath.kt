@@ -17,6 +17,7 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.root.RootStrategy
 import me.zhanghai.android.files.provider.root.RootablePath
+import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.io.IOException
 
@@ -98,8 +99,8 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
             return rootablePath.rootStrategy
         }
 
-    private constructor(source: Parcel, loader: ClassLoader?) : super(source, loader) {
-        fileSystem = source.readParcelable(loader)!!
+    private constructor(source: Parcel) : super(source) {
+        fileSystem = source.readParcelable()!!
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -110,12 +111,8 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ArchivePath> {
-            override fun createFromParcel(source: Parcel): ArchivePath =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(source: Parcel, loader: ClassLoader?): ArchivePath =
-                ArchivePath(source, loader)
+        val CREATOR = object : Parcelable.Creator<ArchivePath> {
+            override fun createFromParcel(source: Parcel): ArchivePath = ArchivePath(source)
 
             override fun newArray(size: Int): Array<ArchivePath?> = arrayOfNulls(size)
         }

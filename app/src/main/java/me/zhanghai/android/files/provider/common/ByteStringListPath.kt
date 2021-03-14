@@ -290,10 +290,10 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
 
     protected abstract val defaultDirectory: T
 
-    protected constructor(source: Parcel, loader: ClassLoader?) {
+    protected constructor(source: Parcel) {
         separator = source.readByte()
         isAbsolute = source.readBooleanCompat()
-        segments = source.readParcelableListCompat(loader)
+        segments = source.readParcelableListCompat()
     }
 
     override fun describeContents(): Int = 0

@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.common
 import android.os.Parcel
 import android.os.Parcelable
 import me.zhanghai.android.files.util.hash
+import me.zhanghai.android.files.util.readParcelable
 import java.security.Principal
 
 abstract class PosixPrincipal(val id: Int, name: ByteString?) : Parcelable, Principal {
@@ -28,10 +29,7 @@ abstract class PosixPrincipal(val id: Int, name: ByteString?) : Parcelable, Prin
 
     override fun hashCode(): Int = hash(id, nameByteString)
 
-    protected constructor(
-        source: Parcel,
-        loader: ClassLoader?
-    ) : this(source.readInt(), source.readParcelable(loader))
+    protected constructor(source: Parcel) : this(source.readInt(), source.readParcelable())
 
     override fun describeContents(): Int = 0
 

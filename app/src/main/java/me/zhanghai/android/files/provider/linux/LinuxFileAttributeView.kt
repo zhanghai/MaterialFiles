@@ -11,6 +11,7 @@ import me.zhanghai.android.files.compat.readBooleanCompat
 import me.zhanghai.android.files.compat.writeBooleanCompat
 import me.zhanghai.android.files.provider.root.RootPosixFileAttributeView
 import me.zhanghai.android.files.provider.root.RootablePosixFileAttributeView
+import me.zhanghai.android.files.util.readParcelable
 
 internal class LinuxFileAttributeView constructor(
     private val path: LinuxPath,
@@ -19,8 +20,8 @@ internal class LinuxFileAttributeView constructor(
     path, LocalLinuxFileAttributeView(path.toByteString(), noFollowLinks),
     { RootPosixFileAttributeView(it) }
 ) {
-    private constructor(source: Parcel, loader: ClassLoader?) : this(
-        source.readParcelable(loader)!!, source.readBooleanCompat()
+    private constructor(source: Parcel) : this(
+        source.readParcelable()!!, source.readBooleanCompat()
     )
 
     override fun describeContents(): Int = 0
@@ -34,14 +35,9 @@ internal class LinuxFileAttributeView constructor(
         val SUPPORTED_NAMES = LocalLinuxFileAttributeView.SUPPORTED_NAMES
 
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<LinuxFileAttributeView> {
+        val CREATOR = object : Parcelable.Creator<LinuxFileAttributeView> {
             override fun createFromParcel(source: Parcel): LinuxFileAttributeView =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): LinuxFileAttributeView = LinuxFileAttributeView(source, loader)
+                LinuxFileAttributeView(source)
 
             override fun newArray(size: Int): Array<LinuxFileAttributeView?> = arrayOfNulls(size)
         }

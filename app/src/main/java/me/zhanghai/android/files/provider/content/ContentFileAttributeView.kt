@@ -11,6 +11,7 @@ import java8.nio.file.attribute.BasicFileAttributeView
 import java8.nio.file.attribute.FileTime
 import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
+import me.zhanghai.android.files.util.readParcelable
 import java.io.IOException
 
 internal class ContentFileAttributeView(
@@ -42,10 +43,7 @@ internal class ContentFileAttributeView(
         throw UnsupportedOperationException()
     }
 
-    private constructor(
-        source: Parcel,
-        loader: ClassLoader?
-    ) : this(source.readParcelable(loader)!!)
+    private constructor(source: Parcel) : this(source.readParcelable<ContentPath>()!!)
 
     override fun describeContents(): Int = 0
 
@@ -59,14 +57,9 @@ internal class ContentFileAttributeView(
         val SUPPORTED_NAMES = setOf("basic", NAME)
 
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ContentFileAttributeView> {
+        val CREATOR = object : Parcelable.Creator<ContentFileAttributeView> {
             override fun createFromParcel(source: Parcel): ContentFileAttributeView =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): ContentFileAttributeView = ContentFileAttributeView(source, loader)
+                ContentFileAttributeView(source)
 
             override fun newArray(size: Int): Array<ContentFileAttributeView?> = arrayOfNulls(size)
         }

@@ -13,10 +13,12 @@ import me.zhanghai.android.files.compat.readSerializableCompat
 import java.io.Serializable
 
 class ParcelableCopyOptions(val value: Array<out CopyOption>) : Parcelable {
-    private constructor(source: Parcel, loader: ClassLoader?) : this(
+    private constructor(source: Parcel) : this(
         Array(source.readInt()) {
             when (val type = source.readInt()) {
-                0 -> source.readParcelable<Parcelable>(loader)!! as CopyOption
+                0 ->
+                    source.readParcelable<Parcelable>(CopyOption::class.java.classLoader)!!
+                        as CopyOption
                 1 -> source.readSerializableCompat()!!
                 else -> throw AssertionError(type)
             }
@@ -44,14 +46,9 @@ class ParcelableCopyOptions(val value: Array<out CopyOption>) : Parcelable {
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ParcelableCopyOptions> {
+        val CREATOR = object : Parcelable.Creator<ParcelableCopyOptions> {
             override fun createFromParcel(source: Parcel): ParcelableCopyOptions =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): ParcelableCopyOptions = ParcelableCopyOptions(source, loader)
+                ParcelableCopyOptions(source)
 
             override fun newArray(size: Int): Array<ParcelableCopyOptions?> = arrayOfNulls(size)
         }

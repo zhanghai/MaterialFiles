@@ -10,8 +10,10 @@ import android.os.Parcelable
 import java8.nio.file.DirectoryIteratorException
 import java8.nio.file.DirectoryStream
 import java8.nio.file.Path
+import me.zhanghai.android.files.compat.writeParcelableListCompat
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream
 import me.zhanghai.android.files.util.ParcelSlicedList
+import me.zhanghai.android.files.util.readParcelableListCompat
 import java.io.IOException
 
 class ParcelableDirectoryStream : Parcelable {
@@ -29,11 +31,6 @@ class ParcelableDirectoryStream : Parcelable {
         }
     }
 
-    private constructor(source: Parcel, loader: ClassLoader?) {
-        @Suppress("UNCHECKED_CAST")
-        paths = source.readParcelable<ParcelSlicedList<Parcelable>>(loader)!!.list as List<Path>
-    }
-
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -41,16 +38,17 @@ class ParcelableDirectoryStream : Parcelable {
         dest.writeParcelable(ParcelSlicedList(paths as List<Parcelable>), flags)
     }
 
+    private constructor(source: Parcel) {
+        @Suppress("UNCHECKED_CAST")
+        paths = source.readParcelable<ParcelSlicedList<Parcelable>>(Path::class.java.classLoader)!!
+            .list as List<Path>
+    }
+
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.ClassLoaderCreator<ParcelableDirectoryStream> {
+        val CREATOR = object : Parcelable.Creator<ParcelableDirectoryStream> {
             override fun createFromParcel(source: Parcel): ParcelableDirectoryStream =
-                createFromParcel(source, null)
-
-            override fun createFromParcel(
-                source: Parcel,
-                loader: ClassLoader?
-            ): ParcelableDirectoryStream = ParcelableDirectoryStream(source, loader)
+                ParcelableDirectoryStream(source)
 
             override fun newArray(size: Int): Array<ParcelableDirectoryStream?> = arrayOfNulls(size)
         }
