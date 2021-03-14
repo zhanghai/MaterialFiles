@@ -6,7 +6,8 @@ Features:
 - Breadcrumbs: Navigate in the filesystem with ease.
 - Root support: View and manage files with root access.
 - Archive support: View, extract and create common compressed files.
-- Themes: Customizable UI colors for classic theme, plus night mode.
+- SMB support: View and manage files on SMB servers.
+- Themes: Customizable UI colors, plus night mode with optional true black.
 - Linux-aware: Knows symbolic links, file permissions and SELinux context.
 - Robust: Uses Linux system calls under the hood, not yet another ls parser.
 - Well-implemented: Built upon the right things, including Java NIO2 File API and LiveData.
