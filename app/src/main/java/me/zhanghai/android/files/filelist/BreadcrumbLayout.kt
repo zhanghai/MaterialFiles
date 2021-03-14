@@ -26,6 +26,8 @@ import me.zhanghai.android.files.util.withTheme
 
 class BreadcrumbLayout : HorizontalScrollView {
     private val tabLayoutHeight = context.getDimensionPixelSize(R.dimen.tab_layout_height)
+    // Using a color state list resource somehow results in red color in dark mode on API 21.
+    // Run `git revert 5bb2fd1` once we no longer support API 21.
     private val itemColor =
         ColorStateList(
             arrayOf(intArrayOf(android.R.attr.state_activated), intArrayOf()),
