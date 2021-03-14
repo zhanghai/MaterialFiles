@@ -414,7 +414,7 @@
     <string name="storage_edit_smb_server_password_empty_error">輸入密碼</string>
     <string name="storage_edit_smb_server_domain">網域</string>
     <string name="storage_edit_smb_server_connect_and_add">連線並新增</string>
-    <string name="storage_edit_smb_server_add">直接新增</string>
+    <string name="storage_edit_smb_server_add">新增</string>
 
     <string name="navigation_storage_subtitle_format">共 %2$s，剩餘 %1$s</string>
     <string name="navigation_add_storage">新增儲存…</string>

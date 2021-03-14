@@ -511,7 +511,7 @@
     <string name="storage_edit_smb_server_password_empty_error">Enter a password</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Connect and add</string>
-    <string name="storage_edit_smb_server_add">Add directly</string>
+    <string name="storage_edit_smb_server_add">Add</string>
 
     <string name="navigation_storage_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_storage">Add storage…</string>
