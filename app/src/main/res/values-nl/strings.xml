@@ -65,100 +65,100 @@
     <string name="notification_channel_ftp_server_name">FTP-server</string>
     <string name="notification_channel_ftp_server_description">Toon en beheer de FTP-server</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">Bezig met toevoegen van \'%1$s\' aan \'%2$s\'</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">Bezig met toevoegen van \'%1$s\' aan \'%2$s\'</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Bezig met toevoegen van %1$,d bestand aan \'%2$s\'</item>
         <item quantity="other">Bezig met toevoegen van %1$,d bestanden aan \'%2$s\'</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Bezig met kopiëren van \'%1$s\' naar \'%2$s\'</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">Bezig met kopiëren van \'%1$s\' naar \'%2$s\'</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Bezig met kopiëren van %1$,d bestand naar \'%2$s\'</item>
         <item quantity="other">Bezig met kopiëren van %1$,d bestanden naar \'%2$s\'</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">Bezig met uitpakken van \'%1$s\' naar \'%2$s\'</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">Bezig met uitpakken van \'%1$s\' naar \'%2$s\'</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Bezig met uitpakken van %1$,d bestand naar \'%2$s\'</item>
         <item quantity="other">Bezig met uitpakken van %1$,d bestanden naar \'%2$s\'</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Bezig met verplaatsen van \'%1$s\' naar \'%2$s\'</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">Bezig met verplaatsen van \'%1$s\' naar \'%2$s\'</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Bezig met verplaatsen van %1$,d bestand naar \'%2$s\'</item>
         <item quantity="other">Bezig met verplaatsen van %1$,d bestanden naar \'%2$s\'</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Bezig met verwijderen van \'%1$s\'</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">Bezig met verwijderen van \'%1$s\'</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Bezig met verwijderen van %1$,d bestand</item>
         <item quantity="other">Bezig met verwijderen van %1$,d bestanden</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">Bezig met veranderen van eigenaar van \'%1$s\'</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">Bezig met veranderen van eigenaar van \'%1$s\'</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Bezig met veranderen van eigenaar van %1$,d bestand</item>
         <item quantity="other">Bezig met veranderen van eigenaar van %1$,d bestanden</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">Bezig met veranderen van groep van \'%1$s\'</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">Bezig met veranderen van groep van \'%1$s\'</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Bezig met veranderen van groep van %1$,d bestand</item>
         <item quantity="other">Bezig met veranderen van groep van %1$,d bestanden</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">Bezig met aanpassen van modus van \'%1$s\'</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">Bezig met aanpassen van modus van \'%1$s\'</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Bezig met aanpassen van modus van %1$,d bestand</item>
         <item quantity="other">Bezig met aanpassen van modus van %1$,d bestanden</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">Bezig met aanpassen van SELinux-context van \'%1$s\'</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">Bezig met aanpassen van SELinux-context van \'%1$s\'</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Bezig met aanpassen van SELinux-context van %1$,d bestand</item>
         <item quantity="other">Bezig met aanpassen van SELinux-context van %1$,d bestanden</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">Bezig met herstellen van SELinux-context van \'%1$s\'</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Bezig met herstellen van SELinux-context van \'%1$s\'</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Bezig met herstellen van SELinux-context van %1$,d bestand</item>
         <item quantity="other">Bezig met herstellen van SELinux-context van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">Bezig met wegschrijven van \'%1$s\'</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Bezig met wegschrijven van \'%1$s\'</string>
     <string name="file_job_create_error_title">Fout tijdens aanmaken</string>
     <string name="file_job_create_error_message_format">Er is een fout opgetreden tijdens het aanmaken van \'%1$s\'.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Een map kan niet naar zichzelf worden gekopieerd</string>

@@ -65,100 +65,100 @@
     <string name="notification_channel_ftp_server_name">FTP-Server</string>
     <string name="notification_channel_ftp_server_description">Anzeigen und Steuern des FTP-Servers</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Bereite Komprimierung für %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Komprimierung für %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">Komprimiere \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">Komprimiere \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Komprimiere %1$,d Datei nach \"%2$s\"</item>
         <item quantity="other">Komprimiere %1$,d Dateien nach \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Bereite Kopieren von %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Kopieren von %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Kopiere \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">Kopiere \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Kopiere %1$,d Datei nach \"%2$s\"</item>
         <item quantity="other">Kopiere %1$,d Dateien nach \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Bereite Extrahieren für %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Extrahieren für %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">Extrahiere \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">Extrahiere \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Extrahiere %1$,d Datei nach \"%2$s”</item>
         <item quantity="other">Extrahiere %1$,d Dateien nach \"%2$s”</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Bereite Verschieben von %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Verschieben von %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Verschiebe \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">Verschiebe \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Verschiebe %1$,d Datei nach \"%2$s\"</item>
         <item quantity="other">Verschiebe %1$,d Dateien nach \"%2$s\"</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Bereite Löschen von %1$,d Datei vor</item>
         <item quantity="other">Bereite Löschen von %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Lösche \"%1$s\"</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">Lösche \"%1$s\"</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Lösche %1$,d Datei</item>
         <item quantity="other">Lösche %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Bereite Änderung des Besitzers für %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung des Besitzers für %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">Ändere Besitzer für \"%1$s\"</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">Ändere Besitzer für \"%1$s\"</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Ändere Besitzer für %1$,d Datei</item>
         <item quantity="other">Ändere Besitzer für %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Bereite Änderung der Gruppe für %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung der Gruppe für %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">Ändere Gruppe für \"%1$s\"</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">Ändere Gruppe für \"%1$s\"</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Ändere Gruppe für %1$,d Datei</item>
         <item quantity="other">Ändere Gruppe für %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Bereite Änderung des Modus für %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung des Modus für %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">Ändere Modus für \"%1$s\"</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">Ändere Modus für \"%1$s\"</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Ändere Modus für %1$,d Datei</item>
         <item quantity="other">Ändere Modus für %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Bereite Änderung des SELinux Kontexts von %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung des SELinux Kontexts von %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">Ändere SELinux Kontext von \"%1$s\"</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">Ändere SELinux Kontext von \"%1$s\"</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Ändere SELinux Kontext von %1$,d Datei</item>
         <item quantity="other">Ändere SELinux Kontext von %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Bereite Wiederherstellung des SELinux Kontexts von %1$,d Datei vor</item>
         <item quantity="other">Bereite Wiederherstellung des SELinux Kontexts von %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">Stelle SELinux Kontext von \"%1$s\" wieder her</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Stelle SELinux Kontext von \"%1$s\" wieder her</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Stelle SELinux Kontext von %1$,d Datei wieder her</item>
         <item quantity="other">Stelle SELinux Kontext von %1$,d Dateien wieder her</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">Schreibe \"%1$s\"</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Schreibe \"%1$s\"</string>
     <string name="file_job_create_error_title">Fehler beim Erstellen</string>
     <string name="file_job_create_error_message_format">Es ist ein Fehler beim Erstellen der Datei \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Es ist nicht möglich, einen Ordner in sich selbst zu kopieren</string>

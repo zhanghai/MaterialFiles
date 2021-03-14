@@ -65,100 +65,100 @@
     <string name="notification_channel_ftp_server_name">FTP zerbitzaria</string>
     <string name="notification_channel_ftp_server_description">Erakutsi eta kontrolatu FTP zerbitzaria</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,d konprimitzeko prestatzen (%2$s)</item>
         <item quantity="other">%1$,d fitxategi konprimitzeko prestatzen (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">\"%1$s\" konprimitzen hona: \"%2$s\"</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">\"%1$s\" konprimitzen hona: \"%2$s\"</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,d konprimitzen hona: \"%2$s\"</item>
         <item quantity="other">%1$,d fitxategi konprimitzen hona: \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,d kopiatzeko prestatzen (%2$s)</item>
         <item quantity="other">%1$,d fitxategi kopiatzeko prestatzen (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">\"%1$s\" hona kopiatzen: \"%2$s\"</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">\"%1$s\" hona kopiatzen: \"%2$s\"</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,d hona kopiatzen: \"%2$s\"</item>
         <item quantity="other">%1$,d fitxategi hona kopiatzen: \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$ erauzteko prestatzen (%2$s)</item>
         <item quantity="other">%1$ fitxategi erauzteko prestatzen (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">%1$s\" hona erauzten: \"%2$s</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">%1$s\" hona erauzten: \"%2$s</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,d hona erauzten: \"%2$s\"</item>
         <item quantity="other">%1$,d fitxategi hona erauzten: \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,d mugitzeko prestatzen (%2$s)</item>
         <item quantity="other">%1$,d fitxategi mugitzeko prestatzen (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">%1$s\" hona mugitzen: \"%2$s</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">%1$s\" hona mugitzen: \"%2$s</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,d hona mugitzen: \"%2$s\"</item>
         <item quantity="other">%1$,d fitxategi hona mugitzen: \"%2$s\"</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,d ezabatzeko prestatzen</item>
         <item quantity="other">%1$,d fitxategi ezabatzeko prestatzen</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one"> “%1$s” ezabatzen</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format"> “%1$s” ezabatzen</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,d ezabatzen</item>
         <item quantity="other">%1$,d fitxategi ezabatzen</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,den jabetza aldatzeko prestatzen</item>
         <item quantity="other">%1$,d fitxategien jabetza aldatzeko prestatzen</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">\"%1$s\"-ren jabetza aldatzen</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">\"%1$s\"-ren jabetza aldatzen</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,den jabetza aldatzen</item>
         <item quantity="other">%1$,d fitxategien jabetza aldatzen</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,den taldea aldatzeko prestatzen</item>
         <item quantity="other">%1$,d fitxategien taldea aldatzeko prestatzen</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">\"%1$s\"-ren taldea aldatzen</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">\"%1$s\"-ren taldea aldatzen</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,den taldea aldatzen</item>
         <item quantity="other">%1$,d fitxategien taldea aldatzen</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,den modua aldatzeko prestatzen</item>
         <item quantity="other">%1$,d fitxategien modua aldatzeko prestatzen</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">\"%1$s\"-ren modua aldatzen</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">\"%1$s\"-ren modua aldatzen</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,den modua aldatzen</item>
         <item quantity="other">%1$,d fitxategien modua aldatzen</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,den SELinux testuingurua aldatzeko prestatzen</item>
         <item quantity="other">%1$,d fitxategien SELinux testuingurua aldatzeko prestatzen</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">\"%1$s\"-ren SELinux testuingurua aldatzen</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">\"%1$s\"-ren SELinux testuingurua aldatzen</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,den SELinux testuingurua aldatzen</item>
         <item quantity="other">%1$,d fitxategien SELinux testuingurua aldatzen</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Fitxategi %1$,den SELinux testuingurua berrezartzeko prestatzen</item>
         <item quantity="other">%1$,d fitxategien SELinux testuingurua berrezartzeko prestatzen</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">\"%1$s\"-ren SELinux testuingurua berrezartzen</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">\"%1$s\"-ren SELinux testuingurua berrezartzen</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Fitxategi %1$,den SELinux testuingurua aldatzen</item>
         <item quantity="other">%1$,d fitxategien SELinux testuingurua aldatzen</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">“%1$s” idazten</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">“%1$s” idazten</string>
     <string name="file_job_create_error_title">Errorea sortzean</string>
     <string name="file_job_create_error_message_format">Errorea gertatu da “%1$s” sortzean.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Ezin da karpeta bat bere gainean kopiatu</string>

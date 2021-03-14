@@ -67,100 +67,100 @@
     <string name="notification_channel_ftp_server_name">FTP server</string>
     <string name="notification_channel_ftp_server_description">Display and control the FTP server</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparing to compress %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to compress %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">Compressing “%1$s” into “%2$s”</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">Compressing “%1$s” into “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Compressing %1$,d file into “%2$s”</item>
         <item quantity="other">Compressing %1$,d files into “%2$s”</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Preparing to copy %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to copy %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Copying “%1$s” to “%2$s”</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">Copying “%1$s” to “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Copying %1$,d file to “%2$s”</item>
         <item quantity="other">Copying %1$,d files to “%2$s”</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Preparing to extract %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to extract %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">Extracting “%1$s” to “%2$s”</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">Extracting “%1$s” to “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Extracting %1$,d file to “%2$s”</item>
         <item quantity="other">Extracting %1$,d files to “%2$s”</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Preparing to move %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to move %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Moving “%1$s” to “%2$s”</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">Moving “%1$s” to “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Moving %1$,d file to “%2$s”</item>
         <item quantity="other">Moving %1$,d files to “%2$s”</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Preparing to delete %1$,d file</item>
         <item quantity="other">Preparing to delete %1$,d files</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Deleting “%1$s”</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">Deleting “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Deleting %1$,d file</item>
         <item quantity="other">Deleting %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Preparing to change owner for %1$,d file</item>
         <item quantity="other">Preparing to change owner for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">Changing owner for “%1$s”</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">Changing owner for “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Changing owner for %1$,d file</item>
         <item quantity="other">Changing owner for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Preparing to change group for %1$,d file</item>
         <item quantity="other">Preparing to change group for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">Changing group for “%1$s”</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">Changing group for “%1$s”</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Changing group for %1$,d file</item>
         <item quantity="other">Changing group for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Preparing to change mode for %1$,d file</item>
         <item quantity="other">Preparing to change mode for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">Changing mode for “%1$s”</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">Changing mode for “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Changing mode for %1$,d file</item>
         <item quantity="other">Changing mode for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparing to change SELinux context for %1$,d file</item>
         <item quantity="other">Preparing to change SELinux context for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">Changing SELinux context for “%1$s”</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">Changing SELinux context for “%1$s”</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Changing SELinux context for %1$,d file</item>
         <item quantity="other">Changing SELinux context for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparing to restore SELinux context for %1$,d file</item>
         <item quantity="other">Preparing to restore SELinux context for %1$,d files</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">Restoring SELinux context for “%1$s”</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Restoring SELinux context for “%1$s”</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Restoring SELinux context for %1$,d file</item>
         <item quantity="other">Restoring SELinux context for %1$,d files</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">Writing “%1$s”</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Writing “%1$s”</string>
     <string name="file_job_create_error_title">Error while creating</string>
     <string name="file_job_create_error_message_format">There was an error creating “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
@@ -193,7 +193,7 @@
     <string name="file_job_move_error_message_format">There was an error moving the file into “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Error while deleting</string>
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
-    <string name="file_job_rename_error_title">Error while renaming “%1$s”</string>
+    <string name="file_job_rename_error_title_format">Error while renaming “%1$s”</string>
     <string name="file_job_rename_error_message_format">There was an error renaming the file to “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Error while changing owner for “%1$s”</string>
     <string name="file_job_set_owner_error_message_format">There was an error changing the owner to “%1$s”.\n%2$s</string>

@@ -64,80 +64,80 @@
     <string name="notification_channel_ftp_server_name">Máy chủ FTP</string>
     <string name="notification_channel_ftp_server_description">Hiển thị và điều khiển máy chủ FTP</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">Chuẩn bị nén %1$,d tập tin (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">Đang nén  “%1$s” thành “%2$s”</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">Đang nén  “%1$s” thành “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="other">Đang nén %1$,d tập tin thành “%2$s”</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="other">Chuẩn bị sao chép %1$,d tập tin (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Đang sao chép “%1$s” vào “%2$s”</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">Đang sao chép “%1$s” vào “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="other">Đang sao chép %1$,d tập tin vào “%2$s”</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="other">Chuẩn bị giải nén %1$,d tập tin (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">Đang giải nén “%1$s” vào “%2$s”</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">Đang giải nén “%1$s” vào “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="other">Đang giải nén %1$,d tập tin vào “%2$s”</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="other">Chuẩn bị di chuyển %1$,d tập tin (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Đang di chuyển  “%1$s” vào “%2$s”</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">Đang di chuyển  “%1$s” vào “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="other">Đang di chuyển %1$,d tập tin vào “%2$s”</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s/%2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s/%2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="other">Chuẩn bị xoá %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Đang xoá “%1$s”</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">Đang xoá “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="other">Đang xoá %1$,d tập tin</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="other">Chuẩn bị thay đổi chủ sở hữu của %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">Đang thay đổi chủ sở hữu của “%1$s”</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">Đang thay đổi chủ sở hữu của “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="other">Đang thay đổi chủ sở hữu của %1$,d tập tin</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="other">Chuẩn bị thay đổi nhóm người dùng của %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">Thay đổi nhóm người dùng của “%1$s”</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">Thay đổi nhóm người dùng của “%1$s”</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="other">Thay đổi nhóm người dùng của %1$,d tập tin</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="other">Chuẩn bị thay đổi chế độ của %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">Đang thay đổi chế độ của “%1$s”</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">Đang thay đổi chế độ của “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="other">Đang thay đổi chế độ của %1$,d tập tin</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="other">Chuẩn bị thay đổi hoàn cảnh SELinux của %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">Đang thay đổi hoàn cảnh SELinux của “%1$s”</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">Đang thay đổi hoàn cảnh SELinux của “%1$s”</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="other">Đang thay đổi hoàn cảnh SELinux của %1$,d tập tin</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="other">Chuẩn bị khôi phục hoàn cảnh SELinux của %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">Đang khôi phục hoàn cảnh SELinux của “%1$s”</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Đang khôi phục hoàn cảnh SELinux của “%1$s”</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="other">Đang khôi phục hoàn cảnh SELinux của %1$,d tập tin</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">Đang ghi “%1$s”</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Đang ghi “%1$s”</string>
     <string name="file_job_create_error_title">Lỗi khi tạo</string>
     <string name="file_job_create_error_message_format">Xảy ra lỗi khi tạo “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Không thể sao chép thư mục vào trong chính nó</string>

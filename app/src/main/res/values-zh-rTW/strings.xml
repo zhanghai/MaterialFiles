@@ -66,80 +66,80 @@
     <string name="notification_channel_ftp_server_name">FTP 伺服器</string>
     <string name="notification_channel_ftp_server_description">顯示和控制 FTP 伺服器</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">正在將「%1$s」壓縮進「%2$s」</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">正在將「%1$s」壓縮進「%2$s」</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="other">正在將 %1$,d 個檔案壓縮進「%2$s」</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="other">正在準備複製 %1$,d 個檔案（%2$s）</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">正在將「%1$s」複製到「%2$s」</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">正在將「%1$s」複製到「%2$s」</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="other">正在將 %1$,d 個檔案複製到「%2$s」</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="other">正在準備解開 %1$,d 個檔案（%2$s）</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">正在將「%1$s」解開到「%2$s」</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">正在將「%1$s」解開到「%2$s」</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="other">正在將 %1$,d 個檔案解開到「%2$s」</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="other">正在準備移動 %1$,d 個檔案（%2$s）</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">正在將「%1$s」移動到「%2$s」</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">正在將「%1$s」移動到「%2$s」</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="other">正在準備刪除 %1$,d 個檔案</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">正在刪除「%1$s」</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">正在刪除「%1$s」</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="other">正在刪除 %1$,d 個檔案</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="other">正在準備變更 %1$,d 個檔案的擁有者</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">正在變更「%1$s」的擁有者</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">正在變更「%1$s」的擁有者</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="other">正在變更 %1$,d 個檔案的擁有者</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="other">正在準備變更 %1$,d 個檔案的群組</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">正在變更「%1$s」的群組</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">正在變更「%1$s」的群組</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="other">正在變更 %1$,d 個檔案的群組</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="other">正在準備變更 %1$,d 個檔案的模式</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">正在變更「%1$s」的模式</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">正在變更「%1$s」的模式</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="other">正在變更 %1$,d 個檔案的模式</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="other">正在準備變更 %1$,d 個檔案的 SELinux 上下文</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">正在變更「%1$s」的 SELinux 上下文</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">正在變更「%1$s」的 SELinux 上下文</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="other">正在變更 %1$,d 個檔案的 SELinux 上下文</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="other">正在準備還原 %1$,d 個檔案的 SELinux 上下文</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">正在還原「%1$s」的 SELinux 上下文</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">正在還原「%1$s」的 SELinux 上下文</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="other">正在還原 %1$,d 個檔案的 SELinux 上下文</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">正在寫入「%1$s」</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">正在寫入「%1$s」</string>
     <string name="file_job_create_error_title">建立時發生錯誤</string>
     <string name="file_job_create_error_message_format">在建立「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
@@ -172,7 +172,7 @@
     <string name="file_job_move_error_message_format">將檔案移動到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
     <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_rename_error_title">重新命名「%1$s」時發生錯誤</string>
+    <string name="file_job_rename_error_title_format">重新命名「%1$s」時發生錯誤</string>
     <string name="file_job_rename_error_message_format">將檔案重新命名為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">變更「%1$s」的擁有者時發生錯誤</string>
     <string name="file_job_set_owner_error_message_format">將擁有者變更為「%1$s」時發生錯誤。\n%2$s</string>
