@@ -144,7 +144,7 @@ object DocumentResolver {
         val targetUri = create(targetPath, mimeType)
         try {
             Resolver.openInputStream(sourceUri, "r").use { inputStream ->
-                Resolver.openOutputStream(targetUri, "w").use { outputStream ->
+                Resolver.openOutputStream(targetUri, "wt").use { outputStream ->
                     inputStream.copyTo(outputStream, intervalMillis, listener)
                 }
             }
