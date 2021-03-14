@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.document
 
 import android.net.Uri
+import android.os.Build
 import android.os.ParcelFileDescriptor
 import androidx.core.net.toUri
 import java8.nio.channels.FileChannel
@@ -350,8 +351,11 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
             throw AccessDeniedException(path.toString())
         }
         if (accessModes.write) {
+            // Before Android 10, ParcelFileDescriptor.parseMode() parses "w" as "wt", and we would
+            // truncate the file to empty. So work around that with "wa" on older platforms.
+            val mode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) "w" else "wa"
             try {
-                DocumentResolver.openOutputStream(path, "w").use {}
+                DocumentResolver.openOutputStream(path, mode).use {}
             } catch (e: ResolverException) {
                 throw e.toFileSystemException(path.toString())
             }
