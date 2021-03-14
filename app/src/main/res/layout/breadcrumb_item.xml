@@ -25,7 +25,6 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textAppearance="@style/TextAppearance.Design.Tab"
-        android:textColor="@color/breadcrumb_item"
         app:textAllCaps="false" />
 
     <ImageView
@@ -34,6 +33,5 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="-4dp"
         android:duplicateParentState="true"
-        android:src="@drawable/arrow_end_icon_white_24dp"
-        app:tint="@color/breadcrumb_item" />
+        android:src="@drawable/arrow_end_icon_white_24dp" />
 </LinearLayout>

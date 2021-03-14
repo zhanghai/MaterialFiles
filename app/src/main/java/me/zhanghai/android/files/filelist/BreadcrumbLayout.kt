@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.View
 import android.widget.HorizontalScrollView
@@ -17,6 +18,7 @@ import androidx.core.view.isVisible
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.BreadcrumbItemBinding
+import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import me.zhanghai.android.files.util.getResourceIdByAttr
 import me.zhanghai.android.files.util.layoutInflater
@@ -24,6 +26,14 @@ import me.zhanghai.android.files.util.withTheme
 
 class BreadcrumbLayout : HorizontalScrollView {
     private val tabLayoutHeight = context.getDimensionPixelSize(R.dimen.tab_layout_height)
+    private val itemColor =
+        ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_activated), intArrayOf()),
+            intArrayOf(
+                context.getColorByAttr(android.R.attr.textColorPrimary),
+                context.getColorByAttr(android.R.attr.textColorSecondary)
+            )
+        )
     private val popupContext =
         context.withTheme(context.getResourceIdByAttr(R.attr.actionBarPopupTheme))
 
@@ -137,6 +147,8 @@ class BreadcrumbLayout : HorizontalScrollView {
                 menu.show()
                 true
             }
+            binding.textText.setTextColor(itemColor)
+            binding.arrowImage.imageTintList = itemColor
             binding.root.tag = binding to menu
             itemsLayout.addView(binding.root, 0)
         }
