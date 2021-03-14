@@ -24,7 +24,6 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.root.RootStrategy
 import me.zhanghai.android.files.provider.root.RootablePath
-import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.io.IOException
 
@@ -99,8 +98,8 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
             return strategy
         }
 
-    private constructor(source: Parcel) : super(source) {
-        fileSystem = source.readParcelable()!!
+    private constructor(source: Parcel, loader: ClassLoader?) : super(source, loader) {
+        fileSystem = source.readParcelable(loader)!!
         isRootPreferred = source.readBooleanCompat()
     }
 
@@ -115,8 +114,12 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
         private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
 
         @JvmField
-        val CREATOR = object : Parcelable.Creator<LinuxPath> {
-            override fun createFromParcel(source: Parcel): LinuxPath = LinuxPath(source)
+        val CREATOR = object : Parcelable.ClassLoaderCreator<LinuxPath> {
+            override fun createFromParcel(source: Parcel): LinuxPath =
+                createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): LinuxPath =
+                LinuxPath(source, loader)
 
             override fun newArray(size: Int): Array<LinuxPath?> = arrayOfNulls(size)
         }

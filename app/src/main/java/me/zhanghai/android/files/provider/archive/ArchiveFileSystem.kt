@@ -74,10 +74,12 @@ internal class ArchiveFileSystem(
         const val SEPARATOR: Byte = LocalArchiveFileSystem.SEPARATOR
 
         @JvmField
-        val CREATOR = object : Parcelable.Creator<ArchiveFileSystem> {
-            override fun createFromParcel(source: Parcel): ArchiveFileSystem {
-                val archiveFile = source.readParcelable<Parcelable>(Path::class.java.classLoader)
-                    as Path
+        val CREATOR = object : Parcelable.ClassLoaderCreator<ArchiveFileSystem> {
+            override fun createFromParcel(source: Parcel): ArchiveFileSystem =
+                createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): ArchiveFileSystem {
+                val archiveFile = source.readParcelable<Parcelable>(loader) as Path
                 return ArchiveFileSystemProvider.getOrNewFileSystem(archiveFile)
             }
 

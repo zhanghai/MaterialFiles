@@ -19,7 +19,6 @@ import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPathCreator
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.smb.client.Authority
-import me.zhanghai.android.files.util.readParcelable
 import java.io.IOException
 
 internal class SmbFileSystem(
@@ -122,9 +121,12 @@ internal class SmbFileSystem(
         private const val SEPARATOR_STRING = SEPARATOR.toChar().toString()
 
         @JvmField
-        val CREATOR = object : Parcelable.Creator<SmbFileSystem> {
-            override fun createFromParcel(source: Parcel): SmbFileSystem {
-                val authority = source.readParcelable<Authority>()!!
+        val CREATOR = object : Parcelable.ClassLoaderCreator<SmbFileSystem> {
+            override fun createFromParcel(source: Parcel): SmbFileSystem =
+                createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): SmbFileSystem {
+                val authority = source.readParcelable<Authority>(loader)!!
                 return SmbFileSystemProvider.getOrNewFileSystem(authority)
             }
 

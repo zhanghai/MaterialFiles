@@ -19,7 +19,6 @@ import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPathCreator
 import me.zhanghai.android.files.provider.common.toByteString
-import me.zhanghai.android.files.util.readParcelable
 import java.io.IOException
 
 internal class DocumentFileSystem(
@@ -125,9 +124,15 @@ internal class DocumentFileSystem(
         private const val SEPARATOR_STRING = SEPARATOR.toChar().toString()
 
         @JvmField
-        val CREATOR = object : Parcelable.Creator<DocumentFileSystem> {
-            override fun createFromParcel(source: Parcel): DocumentFileSystem {
-                val treeUri = source.readParcelable<Uri>()!!
+        val CREATOR = object : Parcelable.ClassLoaderCreator<DocumentFileSystem> {
+            override fun createFromParcel(source: Parcel): DocumentFileSystem =
+                createFromParcel(source, null)
+
+            override fun createFromParcel(
+                source: Parcel,
+                loader: ClassLoader?
+            ): DocumentFileSystem {
+                val treeUri = source.readParcelable<Uri>(loader)!!
                 return DocumentFileSystemProvider.getOrNewFileSystem(treeUri)
             }
 

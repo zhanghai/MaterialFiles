@@ -20,7 +20,6 @@ import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.provider.smb.client.Client
-import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.io.IOException
 
@@ -125,8 +124,8 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
             nameByteStrings.joinToString("\\")
         }
 
-    private constructor(source: Parcel) : super(source) {
-        fileSystem = source.readParcelable()!!
+    private constructor(source: Parcel, loader: ClassLoader?) : super(source, loader) {
+        fileSystem = source.readParcelable(loader)!!
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -139,8 +138,11 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
         private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
 
         @JvmField
-        val CREATOR = object : Parcelable.Creator<SmbPath> {
-            override fun createFromParcel(source: Parcel): SmbPath = SmbPath(source)
+        val CREATOR = object : Parcelable.ClassLoaderCreator<SmbPath> {
+            override fun createFromParcel(source: Parcel): SmbPath = createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): SmbPath =
+                SmbPath(source, loader)
 
             override fun newArray(size: Int): Array<SmbPath?> = arrayOfNulls(size)
         }

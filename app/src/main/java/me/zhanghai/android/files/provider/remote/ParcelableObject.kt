@@ -8,29 +8,33 @@ package me.zhanghai.android.files.provider.remote
 import android.os.Parcel
 import android.os.Parcelable
 
-class ParcelableObject(val value: Any) : Parcelable {
+class ParcelableObject(val value: Any?) : Parcelable {
     @Suppress("UNCHECKED_CAST")
-    fun <T : Any> value(): T = value as T
+    fun <T> value(): T = value as T
 
-    private constructor(source: Parcel) : this(
-        source.readParcelable<Parcelable>(ParcelableObject::class.java.classLoader) as Any
-    )
+    private constructor(
+        source: Parcel,
+        loader: ClassLoader?
+    ) : this(source.readParcelable<Parcelable>(loader))
 
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeParcelable(value as Parcelable, flags)
+        dest.writeParcelable(value as Parcelable?, flags)
     }
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.Creator<ParcelableObject> {
+        val CREATOR = object : Parcelable.ClassLoaderCreator<ParcelableObject> {
             override fun createFromParcel(source: Parcel): ParcelableObject =
-                ParcelableObject(source)
+                createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): ParcelableObject =
+                ParcelableObject(source, loader)
 
             override fun newArray(size: Int): Array<ParcelableObject?> = arrayOfNulls(size)
         }
     }
 }
 
-fun Any.toParcelable(): ParcelableObject = ParcelableObject(this)
+fun Any?.toParcelable(): ParcelableObject = ParcelableObject(this)

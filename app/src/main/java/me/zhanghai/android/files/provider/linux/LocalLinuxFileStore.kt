@@ -22,7 +22,6 @@ import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls
 import me.zhanghai.android.files.util.andInv
 import me.zhanghai.android.files.util.hasBits
-import me.zhanghai.android.files.util.readParcelable
 import java.io.IOException
 
 internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
@@ -178,9 +177,9 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
     override fun supportsFileAttributeView(name: String): Boolean =
         name in LinuxFileAttributeView.SUPPORTED_NAMES
 
-    private constructor(source: Parcel) {
-        path = source.readParcelable()!!
-        mntent = source.readParcelable()!!
+    private constructor(source: Parcel, loader: ClassLoader?) {
+        path = source.readParcelable(loader)!!
+        mntent = source.readParcelable(loader)!!
     }
 
     override fun describeContents(): Int = 0
@@ -286,9 +285,14 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
         }
 
         @JvmField
-        val CREATOR = object : Parcelable.Creator<LocalLinuxFileStore> {
+        val CREATOR = object : Parcelable.ClassLoaderCreator<LocalLinuxFileStore> {
             override fun createFromParcel(source: Parcel): LocalLinuxFileStore =
-                LocalLinuxFileStore(source)
+                createFromParcel(source, null)
+
+            override fun createFromParcel(
+                source: Parcel,
+                loader: ClassLoader?
+            ): LocalLinuxFileStore = LocalLinuxFileStore(source, loader)
 
             override fun newArray(size: Int): Array<LocalLinuxFileStore?> = arrayOfNulls(size)
         }

@@ -14,9 +14,10 @@ import me.zhanghai.android.files.provider.root.RootablePosixFileStore
 internal class ArchiveFileStore(private val archiveFile: Path) : RootablePosixFileStore(
     archiveFile, LocalArchiveFileStore(archiveFile), { RootPosixFileStore(it) }
 ) {
-    private constructor(source: Parcel) : this(
-        source.readParcelable<Parcelable>(Path::class.java.classLoader) as Path
-    )
+    private constructor(
+        source: Parcel,
+        loader: ClassLoader?
+    ) : this(source.readParcelable<Parcelable>(loader) as Path)
 
     override fun describeContents(): Int = 0
 
@@ -26,9 +27,12 @@ internal class ArchiveFileStore(private val archiveFile: Path) : RootablePosixFi
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.Creator<ArchiveFileStore> {
+        val CREATOR = object : Parcelable.ClassLoaderCreator<ArchiveFileStore> {
             override fun createFromParcel(source: Parcel): ArchiveFileStore =
-                ArchiveFileStore(source)
+                createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): ArchiveFileStore =
+                ArchiveFileStore(source, loader)
 
             override fun newArray(size: Int): Array<ArchiveFileStore?> = arrayOfNulls(size)
         }

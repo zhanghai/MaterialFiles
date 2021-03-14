@@ -12,12 +12,16 @@ import java8.nio.file.attribute.UserPrincipal
 class PosixUser : PosixPrincipal, UserPrincipal {
     constructor(id: Int, name: ByteString?) : super(id, name)
 
-    private constructor(source: Parcel) : super(source)
+    private constructor(source: Parcel, loader: ClassLoader?) : super(source, loader)
 
     companion object {
         @JvmField
-        val CREATOR = object : Parcelable.Creator<PosixUser> {
-            override fun createFromParcel(source: Parcel): PosixUser = PosixUser(source)
+        val CREATOR = object : Parcelable.ClassLoaderCreator<PosixUser> {
+            override fun createFromParcel(source: Parcel): PosixUser =
+                createFromParcel(source, null)
+
+            override fun createFromParcel(source: Parcel, loader: ClassLoader?): PosixUser =
+                PosixUser(source, loader)
 
             override fun newArray(size: Int): Array<PosixUser?> = arrayOfNulls(size)
         }
