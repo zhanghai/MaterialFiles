@@ -346,6 +346,17 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
     @Throws(IOException::class)
     override fun checkAccess(path: Path, vararg modes: AccessMode) {
         path as? DocumentPath ?: throw ProviderMismatchException(path.toString())
+        // This checks existence as well.
+        val mimeType = try {
+            DocumentResolver.getMimeType(path)
+        } catch (e: ResolverException) {
+            throw e.toFileSystemException(path.toString())
+        }
+        val isDirectory = mimeType == MimeType.DIRECTORY.value
+        if (isDirectory) {
+            // There's no elegant way to check access to a directory beyond its existence.
+            return
+        }
         val accessModes = modes.toAccessModes()
         if (accessModes.execute) {
             throw AccessDeniedException(path.toString())
@@ -363,13 +374,6 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
         if (accessModes.read) {
             try {
                 DocumentResolver.openInputStream(path, "r").use {}
-            } catch (e: ResolverException) {
-                throw e.toFileSystemException(path.toString())
-            }
-        }
-        if (!(accessModes.read || accessModes.write)) {
-            try {
-                DocumentResolver.checkExistence(path)
             } catch (e: ResolverException) {
                 throw e.toFileSystemException(path.toString())
             }

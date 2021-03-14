@@ -25,6 +25,7 @@ import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileAttribute
 import java8.nio.file.attribute.FileAttributeView
 import java8.nio.file.spi.FileSystemProvider
+import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.provider.common.ByteStringPath
 import me.zhanghai.android.files.provider.common.open
 import me.zhanghai.android.files.provider.common.toAccessModes
@@ -204,6 +205,17 @@ object ContentFileSystemProvider : FileSystemProvider() {
     override fun checkAccess(path: Path, vararg modes: AccessMode) {
         path as? ContentPath ?: throw ProviderMismatchException(path.toString())
         val uri = path.uri!!
+        // This checks existence as well.
+        val mimeType = try {
+            Resolver.getMimeType(uri)
+        } catch (e: ResolverException) {
+            throw e.toFileSystemException(path.toString())
+        }
+        val isDirectory = mimeType == MimeType.DIRECTORY.value
+        if (isDirectory) {
+            // There's no elegant way to check access to a directory beyond its existence.
+            return
+        }
         val accessModes = modes.toAccessModes()
         if (accessModes.execute) {
             throw AccessDeniedException(path.toString())
@@ -221,13 +233,6 @@ object ContentFileSystemProvider : FileSystemProvider() {
         if (accessModes.read) {
             try {
                 Resolver.openInputStream(uri, "r").use {}
-            } catch (e: ResolverException) {
-                throw e.toFileSystemException(path.toString())
-            }
-        }
-        if (!(accessModes.read || accessModes.write)) {
-            try {
-                Resolver.checkExistence(uri)
             } catch (e: ResolverException) {
                 throw e.toFileSystemException(path.toString())
             }
