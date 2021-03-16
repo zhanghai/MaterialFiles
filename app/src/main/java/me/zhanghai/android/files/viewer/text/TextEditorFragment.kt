@@ -76,6 +76,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // TODO: Move reload-prevent here so that we can also handle save-as, etc. Or maybe just get
         //  rid of the mPathLiveData in TextEditorViewModel.
         viewModel.path = argsPath
@@ -121,12 +122,6 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
-            android.R.id.home -> {
-                if (!onFinish()) {
-                    finish()
-                }
-                true
-            }
             R.id.action_save -> {
                 save()
                 true
@@ -138,9 +133,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             else -> super.onOptionsItemSelected(item)
         }
 
-    fun onBackPressed(): Boolean = onFinish()
-
-    private fun onFinish(): Boolean {
+    fun onFinish(): Boolean {
         if (viewModel.isTextChanged) {
             ConfirmCloseDialogFragment.show(this)
             return true

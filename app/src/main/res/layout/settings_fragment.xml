@@ -24,7 +24,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/back_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
     </me.zhanghai.android.files.ui.CoordinatorAppBarLayout>
 

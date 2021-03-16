@@ -195,9 +195,6 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.filelist.FileListActivity" />
         </activity>
 
         <activity
@@ -209,50 +206,31 @@
                 <action android:name="android.intent.action.APPLICATION_PREFERENCES" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.filelist.FileListActivity" />
         </activity>
 
         <activity
             android:name="me.zhanghai.android.files.storage.StorageListActivity"
             android:label="@string/storage_list_title"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.MaterialFiles">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.settings.SettingsActivity" />
-        </activity>
+            android:theme="@style/Theme.MaterialFiles" />
 
         <activity
             android:name="me.zhanghai.android.files.settings.StandardDirectoryListActivity"
             android:label="@string/settings_standard_directory_list_title"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.MaterialFiles">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.settings.SettingsActivity" />
-        </activity>
+            android:theme="@style/Theme.MaterialFiles" />
 
         <activity
             android:name="me.zhanghai.android.files.settings.BookmarkDirectoryListActivity"
             android:label="@string/settings_bookmark_directory_list_title"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.MaterialFiles">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.settings.SettingsActivity" />
-        </activity>
+            android:theme="@style/Theme.MaterialFiles" />
 
         <activity
             android:name="me.zhanghai.android.files.about.AboutActivity"
             android:label="@string/about_title"
             android:launchMode="singleTop"
-            android:theme="@style/Theme.MaterialFiles">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.zhanghai.android.files.filelist.FileListActivity" />
-        </activity>
+            android:theme="@style/Theme.MaterialFiles" />
 
         <activity
             android:name="me.zhanghai.android.files.filejob.FileJobActionDialogActivity"

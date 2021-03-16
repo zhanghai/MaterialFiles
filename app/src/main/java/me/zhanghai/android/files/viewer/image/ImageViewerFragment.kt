@@ -85,6 +85,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
 
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // Our app bar will draw the status bar background.
         activity.window.statusBarColor = Color.TRANSPARENT
         binding.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
@@ -128,10 +129,6 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
             R.id.action_delete -> {
                 confirmDelete()
                 true

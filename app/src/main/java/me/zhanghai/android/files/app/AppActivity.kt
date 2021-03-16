@@ -29,4 +29,11 @@ abstract class AppActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (!super.onSupportNavigateUp()) {
+            finish()
+        }
+        return true
+    }
 }

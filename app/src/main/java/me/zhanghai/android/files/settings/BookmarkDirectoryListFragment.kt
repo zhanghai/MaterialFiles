@@ -8,7 +8,6 @@ package me.zhanghai.android.files.settings
 import android.graphics.drawable.NinePatchDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +27,6 @@ import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
-import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
 import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.putArgs
@@ -45,12 +43,6 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,6 +57,7 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
@@ -97,19 +90,6 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
         dragDropManager.release()
         WrapperAdapterUtils.releaseAll(wrappedAdapter)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                // This recreates MainActivity but we cannot have singleTop as launch mode along
-                // with document launch mode.
-                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                //activity.onSupportNavigateUp();
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
 
     private fun onBookmarkDirectoryListChanged(bookmarkDirectories: List<BookmarkDirectory>) {
         binding.emptyView.fadeToVisibilityUnsafe(bookmarkDirectories.isEmpty())

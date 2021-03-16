@@ -8,7 +8,6 @@ package me.zhanghai.android.files.storage
 import android.graphics.drawable.NinePatchDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -23,7 +22,6 @@ import me.zhanghai.android.files.databinding.StorageListFragmentBinding
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
-import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
 import me.zhanghai.android.files.util.startActivitySafe
 
@@ -33,12 +31,6 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
     private lateinit var adapter: StorageListAdapter
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +46,7 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
@@ -84,19 +77,6 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
         dragDropManager.release()
         WrapperAdapterUtils.releaseAll(wrappedAdapter)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                // This recreates MainActivity but we cannot have singleTop as launch mode along
-                // with document launch mode.
-                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                //activity.onSupportNavigateUp();
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
 
     private fun onStorageListChanged(storages: List<Storage>) {
         binding.emptyView.fadeToVisibilityUnsafe(storages.isEmpty())

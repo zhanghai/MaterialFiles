@@ -9,7 +9,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -45,12 +44,6 @@ class EditSmbServerFragment : Fragment() {
 
     private lateinit var binding: EditSmbServerFragmentBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,6 +58,7 @@ class EditSmbServerFragment : Fragment() {
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         activity.setTitle(
             if (args.server != null) {
                 R.string.storage_edit_smb_server_title_edit
@@ -144,19 +138,6 @@ class EditSmbServerFragment : Fragment() {
             onConnectStatefulChanged(it)
         }
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                // This recreates MainActivity but we cannot have singleTop as launch mode along
-                // with document launch mode.
-                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                //activity.onSupportNavigateUp();
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
 
     private fun updateNamePlaceholder() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
