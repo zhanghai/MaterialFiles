@@ -21,7 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.5'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.0'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.5.1'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -175,13 +175,13 @@ dependencies {
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.3'
     implementation 'org.apache.commons:commons-compress:1.20'
     // Optional dependency of Commons Compress for 7Z LZMA.
-    implementation 'org.tukaani:xz:1.8'
+    implementation 'org.tukaani:xz:1.9'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
     // Also a dependency of jCIFS-NG and Junrar.
     implementation 'org.slf4j:slf4j-android:1.7.30'
 
 //#ifdef NONFREE
     implementation 'com.google.firebase:firebase-analytics:18.0.2'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.3.1'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:17.4.0'
 //#endif
 }
