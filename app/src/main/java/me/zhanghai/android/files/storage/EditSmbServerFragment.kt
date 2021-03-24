@@ -82,7 +82,6 @@ class EditSmbServerFragment : Fragment() {
             onAuthenticationTypeChanged(authenticationType)
         }
         binding.usernameEdit.hideTextInputLayoutErrorOnTextChange(binding.usernameLayout)
-        binding.passwordEdit.hideTextInputLayoutErrorOnTextChange(binding.passwordLayout)
         binding.saveOrConnectAndAddButton.setText(
             if (args.server != null) {
                 R.string.save
@@ -246,15 +245,8 @@ class EditSmbServerFragment : Fragment() {
                     }
                 }
                 val domain = binding.domainEdit.text.toString().takeIfNotEmpty()
-                val password = binding.passwordEdit.text.toString().takeIfNotEmpty()
-                if (password == null) {
-                    binding.passwordLayout.error =
-                        getString(R.string.storage_edit_smb_server_password_empty_error)
-                    if (errorEdit == null) {
-                        errorEdit = binding.passwordEdit
-                    }
-                }
-                if (errorEdit == null) Authentication(username!!, domain, password!!) else null
+                val password = binding.passwordEdit.text.toString()
+                if (errorEdit == null) Authentication(username!!, domain, password) else null
             }
             AuthenticationType.GUEST -> Authentication.GUEST
             AuthenticationType.ANONYMOUS -> Authentication.ANONYMOUS

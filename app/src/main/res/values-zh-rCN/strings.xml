@@ -411,7 +411,6 @@
     <string name="storage_edit_smb_server_username">用户名</string>
     <string name="storage_edit_smb_server_username_empty_error">输入用户名</string>
     <string name="storage_edit_smb_server_password">密码</string>
-    <string name="storage_edit_smb_server_password_empty_error">输入密码</string>
     <string name="storage_edit_smb_server_domain">域</string>
     <string name="storage_edit_smb_server_connect_and_add">连接并添加</string>
     <string name="storage_edit_smb_server_add">添加</string>
