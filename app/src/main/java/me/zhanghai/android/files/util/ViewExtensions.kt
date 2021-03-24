@@ -102,8 +102,8 @@ var View.layoutInNavigation: Boolean
 suspend fun View.fadeIn(force: Boolean = false) {
     if (!isVisible) {
         alpha = 0f
+        isVisible = true
     }
-    isVisible = true
     animate().run {
         alpha(1f)
         if (!(isLaidOut || force) || (isVisible && alpha == 1f)) {
