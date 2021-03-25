@@ -105,13 +105,18 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         adapter.replace(paths)
         binding.viewPager.adapter = adapter
         // ViewPager saves its position and will restore it later.
-        binding.viewPager.currentItem = args.position
+        binding.viewPager.setCurrentItem(args.position, false)
         binding.viewPager.setPageTransformer(DepthPageTransformer)
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateTitle()
             }
         })
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
         updateTitle()
     }
 
