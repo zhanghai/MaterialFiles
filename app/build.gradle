@@ -106,17 +106,17 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.core:core-ktx:1.5.0-beta03'
+    implementation 'androidx.core:core-ktx:1.5.0-rc01'
     implementation 'androidx.exifinterface:exifinterface:1.3.2'
-    implementation 'androidx.fragment:fragment-ktx:1.3.1'
-    def androidx_lifecycle_version = '2.3.0'
+    implementation 'androidx.fragment:fragment-ktx:1.3.2'
+    def androidx_lifecycle_version = '2.3.1'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0-beta02'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-rc01'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.google.android.material:material:1.3.0'
 

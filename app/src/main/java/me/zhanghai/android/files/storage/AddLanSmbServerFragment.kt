@@ -59,7 +59,6 @@ class AddLanSmbServerFragment : Fragment() {
         val addAdapter = StaticAdapter(R.layout.lan_smb_server_add_item) { addSmbServer(null) }
         binding.recyclerView.adapter = ConcatAdapter(
             ConcatAdapter.Config.Builder()
-                .setIsolateViewTypes(true)
                 .setStableIdMode(ConcatAdapter.Config.StableIdMode.ISOLATED_STABLE_IDS)
                 .build(), loadingAdapter, serverListAdapter, addAdapter
         )
