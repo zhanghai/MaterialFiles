@@ -1084,7 +1084,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (!mimeType.isImage) {
             return
         }
-        val paths = mutableListOf<Path>()
+        var paths = mutableListOf<Path>()
         // We need the ordered list from our adapter instead of the list from FileListLiveData.
         for (index in 0 until adapter.itemCount) {
             val file = adapter.getItem(index)
@@ -1093,9 +1093,16 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 paths.add(filePath)
             }
         }
-        val position = paths.indexOf(path)
+        var position = paths.indexOf(path)
         if (position == -1) {
             return
+        }
+        // HACK: Don't send too many paths to avoid TransactionTooLargeException.
+        if (paths.size > IMAGE_VIEWER_ACTIVITY_PATH_LIST_SIZE_MAX) {
+            val start = (position - IMAGE_VIEWER_ACTIVITY_PATH_LIST_SIZE_MAX / 2)
+                .coerceIn(0, paths.size - IMAGE_VIEWER_ACTIVITY_PATH_LIST_SIZE_MAX)
+            paths = paths.subList(start, start + IMAGE_VIEWER_ACTIVITY_PATH_LIST_SIZE_MAX)
+            position -= start
         }
         ImageViewerActivity.putExtras(intent, paths, position)
     }
@@ -1252,6 +1259,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         private const val REQUEST_CODE_STORAGE_PERMISSIONS = 1
 
         private val STORAGE_PERMISSIONS = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        private const val IMAGE_VIEWER_ACTIVITY_PATH_LIST_SIZE_MAX = 1000
     }
 
     @Parcelize
