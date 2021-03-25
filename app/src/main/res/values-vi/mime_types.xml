@@ -6,7 +6,7 @@
   -->
 
 <resources>
-    <string name="file_type_name_unknown">Tập tin</string>
+    <string name="file_type_name_unknown">Tệp</string>
     <string name="file_type_name_apk">Gói cài đặt Android</string>
     <string name="file_type_name_archive">Tập tin nén %1$s</string>
     <string name="file_type_name_audio">Âm thanh %1$s</string>

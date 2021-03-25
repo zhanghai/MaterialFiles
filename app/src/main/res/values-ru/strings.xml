@@ -18,6 +18,7 @@
     <string name="empty">Пусто</string>
     <string name="empty_placeholder">(Пусто)</string>
     <string name="error">Ошибка</string>
+    <string name="hide">Скрыть</string>
     <string name="install">Установить</string>
     <string name="keep_editing">Продолжить редактирование</string>
     <string name="loading">Загрузка…</string>
@@ -38,6 +39,7 @@
     <string name="select">Выбрать</string>
     <string name="select_all">Выбрать всё</string>
     <string name="share">Поделиться</string>
+    <string name="show">Показать</string>
     <string name="skip">Пропустить</string>
     <string name="sort">Сортировка</string>
     <string name="stop">Остановить</string>
@@ -135,49 +137,49 @@
         <item quantity="other">Удаление %1$,d файлов</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
-        <item quantity="one">Подготовка к изменению владельца для %1$,d файла</item>
-        <item quantity="few">Подготовка к изменению владельца для %1$,d файлов</item>
-        <item quantity="many">Подготовка к изменению владельца для %1$,d файлов</item>
-        <item quantity="other">Подготовка к изменению владельца для %1$,d файлов</item>
+        <item quantity="one">Подготовка к смене владельца для %1$,d файла</item>
+        <item quantity="few">Подготовка к смене владельца для %1$,d файлов</item>
+        <item quantity="many">Подготовка к смене владельца для %1$,d файлов</item>
+        <item quantity="other">Подготовка к смене владельца для %1$,d файлов</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one_format">Изменение владельца для “%1$s”</string>
+    <string name="file_job_set_owner_notification_title_one_format">Смена владельца для “%1$s”</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
-        <item quantity="one">Изменение владельца для %1$,d файла</item>
-        <item quantity="few">Изменение владельца для %1$,d файлов</item>
-        <item quantity="many">Изменение владельца для %1$,d файлов</item>
-        <item quantity="other">Изменение владельца для %1$,d файлов</item>
+        <item quantity="one">Смена владельца для %1$,d файла</item>
+        <item quantity="few">Смена владельца для %1$,d файлов</item>
+        <item quantity="many">Смена владельца для %1$,d файлов</item>
+        <item quantity="other">Смена владельца для %1$,d файлов</item>
     </plurals>
     <plurals name="file_job_set_group_scan_notification_title_format">
-        <item quantity="one">Подготовка изменения группы для %1$,d файла</item>
-        <item quantity="few">Подготовка изменения группы для %1$,d файлов</item>
-        <item quantity="many">Подготовка изменения группы для %1$,d файлов</item>
-        <item quantity="other">Подготовка изменения группы для %1$,d файлов</item>
+        <item quantity="one">Подготовка к смене группы для %1$,d файла</item>
+        <item quantity="few">Подготовка к смене группы для %1$,d файлов</item>
+        <item quantity="many">Подготовка к смене группы для %1$,d файлов</item>
+        <item quantity="other">Подготовка к смене группы для %1$,d файлов</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one_format">Изменение группы для “%1$s”</string>
+    <string name="file_job_set_group_notification_title_one_format">Смена группы для “%1$s”</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
-        <item quantity="one">Изменение группы для %1$,d файла</item>
-        <item quantity="few">Изменение группы для %1$,d файлов</item>
-        <item quantity="many">Изменение группы для %1$,d файлов</item>
-        <item quantity="other">Изменение группы для %1$,d файлов</item>
+        <item quantity="one">Смена группы для %1$,d файла</item>
+        <item quantity="few">Смена группы для %1$,d файлов</item>
+        <item quantity="many">Смена группы для %1$,d файлов</item>
+        <item quantity="other">Смена группы для %1$,d файлов</item>
     </plurals>
     <plurals name="file_job_set_mode_scan_notification_title_format">
-        <item quantity="one">Подготовка изменения режима для %1$,d файла</item>
-        <item quantity="few">Подготовка изменения режима для %1$,d файлов</item>
-        <item quantity="many">Подготовка изменения режима для %1$,d файлов</item>
-        <item quantity="other">Подготовка изменения режима для %1$,d файлов</item>
+        <item quantity="one">Подготовка к изменению прав доступа для %1$,d файла</item>
+        <item quantity="few">Подготовка к изменению прав доступа для %1$,d файлов</item>
+        <item quantity="many">Подготовка к изменению прав доступа для %1$,d файлов</item>
+        <item quantity="other">Подготовка к изменению прав доступа для %1$,d файлов</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one_format">Изменение режима “%1$s”</string>
+    <string name="file_job_set_mode_notification_title_one_format">Изменение прав доступа для “%1$s”</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
-        <item quantity="one">Изменение режима для %1$,d файла</item>
-        <item quantity="few">Изменение режима для %1$,d файлов</item>
-        <item quantity="many">Изменение режима для %1$,d файлов</item>
-        <item quantity="other">Изменение режима для %1$,d файлов</item>
+        <item quantity="one">Изменение прав доступа для %1$,d файла</item>
+        <item quantity="few">Изменение прав доступа для %1$,d файлов</item>
+        <item quantity="many">Изменение прав доступа для %1$,d файлов</item>
+        <item quantity="other">Изменение прав доступа для %1$,d файлов</item>
     </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
-        <item quantity="one">Подготовка изменения контекста SELinux для %1$,d файла</item>
-        <item quantity="few">Подготовка изменения контекста SELinux для %1$,d файлов</item>
-        <item quantity="many">Подготовка изменения контекста SELinux для %1$,d файлов</item>
-        <item quantity="other">Подготовка изменения контекста SELinux для %1$,d файлов</item>
+        <item quantity="one">Подготовка к изменению контекста SELinux для %1$,d файла</item>
+        <item quantity="few">Подготовка к изменению контекста SELinux для %1$,d файлов</item>
+        <item quantity="many">Подготовка к изменению контекста SELinux для %1$,d файлов</item>
+        <item quantity="other">Подготовка к изменению контекста SELinux для %1$,d файлов</item>
     </plurals>
     <string name="file_job_set_selinux_context_notification_title_one_format">Изменение контекста SELinux для “%1$s”</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
@@ -187,10 +189,10 @@
         <item quantity="other">Изменение контекста SELinux для %1$,d файлов</item>
     </plurals>
     <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
-        <item quantity="one">Подготовка восстановления контекста SELinux для %1$,d файла</item>
-        <item quantity="few">Подготовка восстановления контекста SELinux для %1$,d файлов</item>
-        <item quantity="many">Подготовка восстановления контекста SELinux для %1$,d файлов</item>
-        <item quantity="other">Подготовка восстановления контекста SELinux для %1$,d файлов</item>
+        <item quantity="one">Подготовка к восстановлению контекста SELinux для %1$,d файла</item>
+        <item quantity="few">Подготовка к восстановлению контекста SELinux для %1$,d файлов</item>
+        <item quantity="many">Подготовка к восстановлению контекста SELinux для %1$,d файлов</item>
+        <item quantity="other">Подготовка к восстановлению контекста SELinux для %1$,d файлов</item>
     </plurals>
     <string name="file_job_restore_selinux_context_notification_title_one_format">Восстановление контекста SELinux для “%1$s”</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
@@ -233,6 +235,8 @@
     <string name="file_job_move_error_message_format">При перемещении файла в “%1$s” произошла ошибка.\n%2$s</string>
     <string name="file_job_delete_error_title">Ошибка при удалении</string>
     <string name="file_job_delete_error_message_format">Произошла ошибка при удалении “%1$s”.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Ошибка переименования “%1$s”</string>
+    <string name="file_job_rename_error_message_format">Произошла ошибка при переименовании файла в “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Ошибка при смене владельца для “%1$s”</string>
     <string name="file_job_set_owner_error_message_format">Произошла ошибка при смене владельца на “%1$s”.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Ошибка при изменении группы для “%1$s”</string>
@@ -442,13 +446,57 @@
     <string name="file_properties_apk_min_sdk_version">Минимальная версия системы</string>
     <string name="file_properties_apk_target_sdk_version">Целевая версия системы</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Разрешения</string>
+    <string name="file_properties_apk_requested_permissions_zero">Разрешения не запрашиваются</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">Запрошено %1$,d разрешение</item>
+        <item quantity="few">Запрошено %1$,d разрешения</item>
+        <item quantity="many">Запрошено %1$,d разрешений</item>
+        <item quantity="other">Запрошено %1$,d разрешений</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Подписи</string>
     <string name="file_properties_apk_past_signature_digests">Старые подписи</string>
 
     <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_list_title">Накопитель</string>
+    <string name="storage_list_empty">Нет накопителей</string>
+    <string name="storage_add_storage_title">Добавить накопитель</string>
+    <string name="storage_add_storage_document_tree">Внешний накопитель</string>
+    <string name="storage_add_storage_smb_server">SMB-сервер</string>
+    <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
+    <string name="storage_edit_device_storage_name">Имя</string>
+    <string name="storage_edit_device_storage_path">Путь</string>
+    <string name="storage_add_document_tree_title">Добавить внешний накопитель</string>
+    <string name="storage_edit_document_tree_title">Редактировать внешний накопитель</string>
+    <string name="storage_edit_document_tree_name">Имя</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Путь</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Поиск SMB-серверов…</string>
+    <string name="storage_add_lan_smb_server_add">Добавить вручную</string>
+    <string name="storage_edit_smb_server_title_edit">Редактировать SMB-сервер</string>
+    <string name="storage_edit_smb_server_title_add">Добавить SMB-сервер</string>
+    <string name="storage_edit_smb_server_host">Имя хоста</string>
+    <string name="storage_edit_smb_server_host_empty_error">Введите имя хоста</string>
+    <string name="storage_edit_smb_server_port">Порт</string>
+    <string name="storage_edit_smb_server_port_error">Неверный порт</string>
+    <string name="storage_edit_smb_server_name">Имя</string>
+    <string name="storage_edit_smb_server_name_placeholder">Используйте имя хоста</string>
+    <string name="storage_edit_smb_server_authentication_type">Авторизация</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Пароль</item>
+        <item>Гость</item>
+        <item>Анонимно</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Имя пользователя</string>
+    <string name="storage_edit_smb_server_username_empty_error">Введите имя пользователя</string>
+    <string name="storage_edit_smb_server_password">Пароль</string>
+    <string name="storage_edit_smb_server_domain">Домен</string>
+    <string name="storage_edit_smb_server_connect_and_add">Добавить и соединиться</string>
+    <string name="storage_edit_smb_server_add">Добавить</string>
 
     <string name="navigation_storage_subtitle_format">%1$s свободно из %2$s</string>
-    <string name="navigation_add_storage">Добавить внешнее хранилище…</string>
+    <string name="navigation_add_storage">Добавить накопитель…</string>
     <string name="navigation_standard_directory_alarms">Будильник</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Документы</string>
@@ -501,6 +549,8 @@
 
     <string name="settings_title">Настройки</string>
     <string name="settings_interface_title">Интерфейс</string>
+    <string name="settings_theme_color_title">Цвет темы</string>
+    <string name="settings_theme_color_summary">Цвет который чаще всего используется в приложении</string>
     <string name="settings_night_mode_title">Ночной режим</string>
     <string-array name="settings_night_mode_entries">
         <item>Использовать системную тему</item>
@@ -509,14 +559,26 @@
         <item>На основе времени</item>
         <item>На основе энергосберегающего режима</item>
     </string-array>
+    <string name="settings_black_night_mode">Ночная тема</string>
     <string name="settings_file_list_animation_title">Анимация списка файлов</string>
+    <string name="settings_file_name_ellipsize_title">Отображать длинные имена файлов</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Многоточие в начале</item>
+        <item>Многоточие в середине</item>
+        <item>Многоточие в конце</item>
+        <item>Бегущая строка</item>
+    </string-array>
     <string name="settings_behavior_title">Поведение</string>
     <string name="settings_default_directory_title">Папка по умолчанию</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Стандартные папки</string>
     <string name="settings_standard_directories_summary_empty">Стандартные папки не включены</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Скриншоты</string>
     <string name="settings_bookmark_directories_title">Закладки папок</string>
     <string name="settings_bookmark_directories_summary_empty">Нет закладок папок</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root-доступ</string>
     <plurals name="settings_root_strategy_message_format">

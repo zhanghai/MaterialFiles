@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Plik</string>
+    <string name="file_type_name_apk">Pakiet aplikacji systemu Android</string>
+    <string name="file_type_name_archive">%1$s archiwum</string>
+    <string name="file_type_name_audio">%1$s audio</string>
+    <string name="file_type_name_calendar">%1$s kalendarz</string>
+    <string name="file_type_name_certificate">%1$s certyfikat</string>
+    <string name="file_type_name_code">%1$s dokument</string>
+    <string name="file_type_name_contact">Elektroniczna wizytówka</string>
+    <string name="file_type_name_directory">Folder</string>
+    <string name="file_type_name_document">%1$s dokument</string>
+    <string name="file_type_name_ebook">%1$s e-book</string>
+    <string name="file_type_name_email">%1$s wiadomość email</string>
+    <string name="file_type_name_font">%1$s czcionka</string>
+    <string name="file_type_name_generic">%1$s plik</string>
+    <string name="file_type_name_image">%1$s obraz</string>
+    <string name="file_type_name_pdf">Dokument PDF</string>
+    <string name="file_type_name_presentation">%1$s prezentacja</string>
+    <string name="file_type_name_spreadsheet">%1$s arkusz kalkulacyjny</string>
+    <string name="file_type_name_text">%1$s dokument</string>
+    <string name="file_type_name_text_plain">Zwykły dokument tekstowy</string>
+    <string name="file_type_name_video">%1$s wideo</string>
+    <string name="file_type_name_word">dokument Word</string>
+    <string name="file_type_name_powerpoint">prezentacja PowerPoint</string>
+    <string name="file_type_name_excel">arkusz kalkulacyjny Excel</string>
+    <string name="file_type_name_posix_character_device">Urządzenie znakowe</string>
+    <string name="file_type_name_posix_block_device">Urządzenie blokowe</string>
+    <string name="file_type_name_posix_fifo">Potok</string>
+    <string name="file_type_name_posix_symbolic_link">Łącze</string>
+    <string name="file_type_name_posix_socket">Gniazdo</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Łącze (uszkodzone)</string>
+</resources>

@@ -343,9 +343,10 @@
     <string name="file_properties_permissions_recursive">Aplikatu bildutako fitxategiei</string>
 
     <string name="storage_file_system_root_title">Erroa</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
 
     <string name="navigation_storage_subtitle_format">%1$s libre %2$s guztira</string>
-    <string name="navigation_add_storage">Gehitu kanpoko biltegiratzea…</string>
+    <string name="navigation_add_storage">Gehitu biltegia…</string>
     <string name="navigation_standard_directory_alarms">Alarmak</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumentuak</string>
@@ -409,11 +410,15 @@
     <string name="settings_file_list_animation_title">Fitxategien zerrendaren animazioa</string>
     <string name="settings_behavior_title">Portaera</string>
     <string name="settings_default_directory_title">Lehenetsitako karpeta</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Karpeta estandarrak</string>
     <string name="settings_standard_directories_summary_empty">Ez da karpeta estandarrik gaitu</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Pantaila-argazkiak</string>
     <string name="settings_bookmark_directories_title">Karpeten laster-markak</string>
     <string name="settings_bookmark_directories_summary_empty">Karpeten laster-markarik ez</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root sarbidea modua</string>
     <plurals name="settings_root_strategy_message_format">

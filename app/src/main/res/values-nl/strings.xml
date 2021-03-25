@@ -18,6 +18,7 @@
     <string name="empty">Leeg</string>
     <string name="empty_placeholder">(leeg)</string>
     <string name="error">Fout</string>
+    <string name="hide">Verbergen</string>
     <string name="install">Installeren</string>
     <string name="keep_editing">Doorgaan met bewerken</string>
     <string name="loading">Bezig met laden…</string>
@@ -38,6 +39,7 @@
     <string name="select">Selecteren</string>
     <string name="select_all">Alles selecteren</string>
     <string name="share">Delen</string>
+    <string name="show">Tonen</string>
     <string name="skip">Overslaan</string>
     <string name="sort">Sorteren</string>
     <string name="stop">Stoppen</string>
@@ -56,7 +58,7 @@
     </plurals>
 
     <string name="storage_permission_request_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op \'TOESTAAN\'.</string>
-    <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen de machtiging \'Opslag\' in de systeeminstellingen.</string>
+    <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht \'Opslag\' in de systeeminstellingen.</string>
 
     <string name="notification_channel_background_activity_start_name">Achtergrondtaken</string>
     <string name="notification_channel_background_activity_start_description">Neem taken aan terwijl de app op de achtergrond draait</string>
@@ -191,6 +193,8 @@
     <string name="file_job_move_error_message_format">Er is een fout opgetreden tijdens het verplaatsen naar \'%1$s\'.\n%2$s</string>
     <string name="file_job_delete_error_title">Fout tijdens verwijderen</string>
     <string name="file_job_delete_error_message_format">Er is een fout opgetreden tijdens het verwijderen van \'%1$s\'.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Fout tijdens verplaatsen van \'%1$s\'</string>
+    <string name="file_job_rename_error_message_format">Er is een fout opgetreden tijdens het wijzigen van de naam in \'%1$s\'.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Fout tijdens veranderen van eigenaar van \'%1$s\'</string>
     <string name="file_job_set_owner_error_message_format">Er is een fout opgetreden tijdens het veranderen van de eigenaar naar \'%1$s\'.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Fout tijdens veranderen van groep van \'%1$s\'</string>
@@ -312,7 +316,7 @@
     <string name="file_properties_basic_archive_file">Archiefbestand</string>
     <string name="file_properties_basic_archive_entry">Archiefitem</string>
     <string name="file_properties_basic_free_space">Vrije ruimte</string>
-    <string name="file_properties_permissions">Machtigingen</string>
+    <string name="file_properties_permissions">Rechten</string>
     <string name="file_properties_permissions_owner">Eigenaar</string>
     <string name="file_properties_permissions_group">Groep</string>
     <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
@@ -340,7 +344,7 @@
         <item>GID instellen</item>
         <item>Vastgemaakt</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Uitvoermachtiging niet toepassen op bijgesloten bestanden</string>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Uitvoerrecht niet toepassen op bijgesloten bestanden</string>
     <string name="file_properties_permissions_selinux_context">SELinux-context</string>
     <string name="file_properties_permissions_set_selinux_context_title">SELinux-context aanpassen</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Herstellen</string>
@@ -390,13 +394,55 @@
     <string name="file_properties_apk_min_sdk_version">Minimale systeemvereiste</string>
     <string name="file_properties_apk_target_sdk_version">Doel-systeemvereiste</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Rechten</string>
+    <string name="file_properties_apk_requested_permissions_zero">Geen rechten vereist</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d recht vereist</item>
+        <item quantity="other">%1$,d rechten vereist</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Ondertekeningen</string>
     <string name="file_properties_apk_past_signature_digests">Oude ondertekeningen</string>
 
     <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_list_title">Opslag</string>
+    <string name="storage_list_empty">Geen opslag</string>
+    <string name="storage_add_storage_title">Opslagmedium toevoegen</string>
+    <string name="storage_add_storage_document_tree">Externe opslag</string>
+    <string name="storage_add_storage_smb_server">SMB-server</string>
+    <string name="storage_edit_device_storage_title">Apparaatopslag bewerken</string>
+    <string name="storage_edit_device_storage_name">Naam</string>
+    <string name="storage_edit_device_storage_path">Pad</string>
+    <string name="storage_add_document_tree_title">Externe opslag toevoegen</string>
+    <string name="storage_edit_document_tree_title">Externe opslag bewerken</string>
+    <string name="storage_edit_document_tree_name">Naam</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Pad</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Bezig met zoeken naar smb-servers…</string>
+    <string name="storage_add_lan_smb_server_add">Handmatig toevoegen</string>
+    <string name="storage_edit_smb_server_title_edit">SMB-server bewerken</string>
+    <string name="storage_edit_smb_server_title_add">SMB-server toevoegen</string>
+    <string name="storage_edit_smb_server_host">Hostnaam</string>
+    <string name="storage_edit_smb_server_host_empty_error">Voer een hostnaam in</string>
+    <string name="storage_edit_smb_server_port">Poort</string>
+    <string name="storage_edit_smb_server_port_error">Ongeldig poortnummer</string>
+    <string name="storage_edit_smb_server_name">Naam</string>
+    <string name="storage_edit_smb_server_name_placeholder">Hostnaam gebruiken</string>
+    <string name="storage_edit_smb_server_authentication_type">Authenticatie</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Wachtwoord</item>
+        <item>Gast</item>
+        <item>Anoniem</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Gebruikersnaam</string>
+    <string name="storage_edit_smb_server_username_empty_error">Voer een gebruikersnaam in</string>
+    <string name="storage_edit_smb_server_password">Wachtwoord</string>
+    <string name="storage_edit_smb_server_domain">Domein</string>
+    <string name="storage_edit_smb_server_connect_and_add">Verbinden en toevoegen</string>
+    <string name="storage_edit_smb_server_add">Toevoegen</string>
 
     <string name="navigation_storage_subtitle_format">%1$s van %2$s vrij</string>
-    <string name="navigation_add_storage">Externe opslag toevoegen…</string>
+    <string name="navigation_add_storage">Opslagmedium toevoegen…</string>
     <string name="navigation_standard_directory_alarms">Wekkers</string>
     <string name="navigation_standard_directory_dcim">Camerafoto\'s</string>
     <string name="navigation_standard_directory_documents">Documenten</string>
@@ -449,6 +495,8 @@
 
     <string name="settings_title">Instellingen</string>
     <string name="settings_interface_title">Uiterlijk</string>
+    <string name="settings_theme_color_title">Themakleur</string>
+    <string name="settings_theme_color_summary">De kleur die het vaakst wordt gebruikt in de app</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Systeeminstellingen gebruiken</item>
@@ -457,14 +505,26 @@
         <item>Op een bepaald tijdstip</item>
         <item>Ingesteld door batterijbesparing</item>
     </string-array>
+    <string name="settings_black_night_mode">Nachtmodus</string>
     <string name="settings_file_list_animation_title">Animatie tonen in bestandslijst</string>
+    <string name="settings_file_name_ellipsize_title">Lange bestandsnamen tonen</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Ellips toevoegen aan begin van naam</item>
+        <item>Ellips toevoegen middenin de naam</item>
+        <item>Ellips toevoegen aan einde van naam</item>
+        <item>Marquee</item>
+    </string-array>
     <string name="settings_behavior_title">Gedrag</string>
     <string name="settings_default_directory_title">Standaardmap</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Standaardmappen</string>
     <string name="settings_standard_directories_summary_empty">Geen standaardmappen ingesteld</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Schermfoto\'s</string>
     <string name="settings_bookmark_directories_title">Bladwijzermappen</string>
     <string name="settings_bookmark_directories_summary_empty">Geen bladwijzermappen</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Roottoegangsmodus</string>
     <plurals name="settings_root_strategy_message_format">

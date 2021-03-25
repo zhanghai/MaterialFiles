@@ -368,6 +368,7 @@
     <string name="file_properties_apk_past_signature_digests">古い署名</string>
 
     <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
 
     <string name="navigation_storage_subtitle_format">%1$s 空き / %2$s</string>
     <string name="navigation_standard_directory_alarms">アラーム</string>
@@ -433,11 +434,15 @@
     <string name="settings_file_list_animation_title">ファイル一覧のアニメーション</string>
     <string name="settings_behavior_title">動作</string>
     <string name="settings_default_directory_title">既定フォルダ</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">標準フォルダ</string>
     <string name="settings_standard_directories_summary_empty">標準フォルダが有効化されていません</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">スクリーンショット</string>
     <string name="settings_bookmark_directories_title">ブックマークフォルダ</string>
     <string name="settings_bookmark_directories_summary_empty">ブックマークフォルダがありません</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root アクセスモード</string>
     <plurals name="settings_root_strategy_message_format">

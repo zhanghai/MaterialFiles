@@ -18,6 +18,7 @@
     <string name="empty">Leer</string>
     <string name="empty_placeholder">(Leer)</string>
     <string name="error">Fehler</string>
+    <string name="hide">Ausblenden</string>
     <string name="install">Installieren</string>
     <string name="keep_editing">Weiter bearbeiten</string>
     <string name="loading">Laden…</string>
@@ -38,6 +39,7 @@
     <string name="select">Auswählen</string>
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
+    <string name="show">Anzeigen</string>
     <string name="skip">Überspringen</string>
     <string name="sort">Sortieren</string>
     <string name="stop">Stopp</string>
@@ -191,6 +193,8 @@
     <string name="file_job_move_error_message_format">Es ist ein Fehler beim Verschieben der Datei nach \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_delete_error_title">Fehler beim Löschen</string>
     <string name="file_job_delete_error_message_format">Es ist ein Fehler beim Löschen von \"%1$s\" aufgetreten.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Fehler beim Umbenennen von \"%1$s\"</string>
+    <string name="file_job_rename_error_message_format">Es ist ein Fehler beim Umbenennen der Datei nach \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Fehler beim Ändern des Besitzers von \"%1$s\"</string>
     <string name="file_job_set_owner_error_message_format">Es ist ein Fehler beim Ändern des Besitzers nach \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Fehler beim Ändern der Gruppe \"%1$s\"</string>
@@ -390,13 +394,55 @@
     <string name="file_properties_apk_min_sdk_version">Minimale Systemversion</string>
     <string name="file_properties_apk_target_sdk_version">Ziel-Systemversion</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Berechtigungen</string>
+    <string name="file_properties_apk_requested_permissions_zero">Keine Berechtigungen angefordert</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d Berechtigung angefordert</item>
+        <item quantity="other">%1$,d Berechtigungen angefordert</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Signaturen</string>
     <string name="file_properties_apk_past_signature_digests">Alte Signaturen</string>
 
-    <string name="storage_file_system_root_title">Wurzelverzeichnis</string>
+    <string name="storage_file_system_root_title">Wurzel</string>
+    <string name="storage_list_title">Speicher</string>
+    <string name="storage_list_empty">Kein Speicher</string>
+    <string name="storage_add_storage_title">Speicher hinzufügen</string>
+    <string name="storage_add_storage_document_tree">Externer Speicher</string>
+    <string name="storage_add_storage_smb_server">SMB-Server</string>
+    <string name="storage_edit_device_storage_title">Gerätespeicher bearbeiten</string>
+    <string name="storage_edit_device_storage_name">Name</string>
+    <string name="storage_edit_device_storage_path">Pfad</string>
+    <string name="storage_add_document_tree_title">Externen Speicher hinzufügen</string>
+    <string name="storage_edit_document_tree_title">Externen Speicher bearbeiten</string>
+    <string name="storage_edit_document_tree_name">Name</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Pfad</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Suche nach SMB-Servern…</string>
+    <string name="storage_add_lan_smb_server_add">Manuell hinzufügen</string>
+    <string name="storage_edit_smb_server_title_edit">SMB-Server bearbeiten</string>
+    <string name="storage_edit_smb_server_title_add">SMB-Server hinzufügen</string>
+    <string name="storage_edit_smb_server_host">Hostname</string>
+    <string name="storage_edit_smb_server_host_empty_error">Hostname eingeben</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_error">Ungültiger Port</string>
+    <string name="storage_edit_smb_server_name">Name</string>
+    <string name="storage_edit_smb_server_name_placeholder">Benutze einen Hostnamen</string>
+    <string name="storage_edit_smb_server_authentication_type">Authentifizierung</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Passwort</item>
+        <item>Gast</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Benutzername</string>
+    <string name="storage_edit_smb_server_username_empty_error">Benutzernamen eingeben</string>
+    <string name="storage_edit_smb_server_password">Passwort</string>
+    <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_connect_and_add">Verbinden und hinzufügen</string>
+    <string name="storage_edit_smb_server_add">Hinzufügen</string>
 
     <string name="navigation_storage_subtitle_format">%1$s frei von %2$s</string>
-    <string name="navigation_add_storage">Externen Speicher hinzufügen…</string>
+    <string name="navigation_add_storage">Speicher hinzufügen…</string>
     <string name="navigation_standard_directory_alarms">Alarme</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumente</string>
@@ -449,6 +495,8 @@
 
     <string name="settings_title">Einstellungen</string>
     <string name="settings_interface_title">Benutzeroberfläche</string>
+    <string name="settings_theme_color_title">Thema Farbe</string>
+    <string name="settings_theme_color_summary">Die am häufigsten vorkommende Farbe in der App</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Nutze Systemeinstellung</item>
@@ -457,14 +505,26 @@
         <item>Zeitbasiert</item>
         <item>Basierend auf dem Batteriesparmodus</item>
     </string-array>
+    <string name="settings_black_night_mode">Schwarzer Nachtmodus</string>
     <string name="settings_file_list_animation_title">Dateiliste animieren</string>
+    <string name="settings_file_name_ellipsize_title">Langen Dateinamen anzeigen</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Den Anfang kürzen</item>
+        <item>Die Mitte kürzen</item>
+        <item>Das Ende kürzen</item>
+        <item>Kennzeichen</item>
+    </string-array>
     <string name="settings_behavior_title">Verhalten</string>
     <string name="settings_default_directory_title">Startordner</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Standardordner</string>
     <string name="settings_standard_directories_summary_empty">Keine Standardordner aktiviert</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Screenshots</string>
     <string name="settings_bookmark_directories_title">Lesezeichenordner</string>
     <string name="settings_bookmark_directories_summary_empty">Keine Lesezeichenordner</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root Zugriffsmodus</string>
     <plurals name="settings_root_strategy_message_format">

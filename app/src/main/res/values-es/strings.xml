@@ -394,9 +394,10 @@
     <string name="file_properties_apk_past_signature_digests">Firmas antiguas</string>
 
     <string name="storage_file_system_root_title">Raíz</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
 
     <string name="navigation_storage_subtitle_format">%1$slibre de %2$s</string>
-    <string name="navigation_add_storage">Agregar almacenamiento externo…</string>
+    <string name="navigation_add_storage">Agregar almacenamiento…</string>
     <string name="navigation_standard_directory_alarms">Alarmas</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documentos</string>
@@ -460,11 +461,15 @@
     <string name="settings_file_list_animation_title">Animación de la lista de archivos</string>
     <string name="settings_behavior_title">Comportamiento</string>
     <string name="settings_default_directory_title">Carpeta por defecto</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Carpetas estándar</string>
     <string name="settings_standard_directories_summary_empty">Ninguna carpeta estándar habilitada</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Capturas de pantalla</string>
     <string name="settings_bookmark_directories_title">Carpeta de marcador</string>
     <string name="settings_bookmark_directories_summary_empty">Sin carpetas de marcador</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Modo de acceso administrativo</string>
     <plurals name="settings_root_strategy_message_format">
