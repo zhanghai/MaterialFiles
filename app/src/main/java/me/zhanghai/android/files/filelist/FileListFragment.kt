@@ -765,7 +765,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             menu.findItem(R.id.action_copy)
                 .setIcon(
                     if (isExtract) {
-                        R.drawable.extract_icon_white_24dp
+                        R.drawable.extract_icon_control_normal_24dp
                     } else {
                         R.drawable.copy_icon_control_normal_24dp
                     }
