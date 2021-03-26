@@ -72,6 +72,7 @@ class CrossfadeSubtitleToolbar : Toolbar {
         // HACK: Prevent setText() from calling requestLayout() during animation which triggers
         // re-layout of the entire view hierarchy and breaks the ripple of BreadcrumbLayout.
         subtitleTextView.updateLayoutParams { width = LayoutParams.MATCH_PARENT }
+        subtitleTextView.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_START
         subtitleAnimator.target = subtitleTextView
     }
 
