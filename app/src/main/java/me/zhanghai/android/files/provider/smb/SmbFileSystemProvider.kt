@@ -260,7 +260,6 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         if (path2 !is SmbPath) {
             return false
         }
-        path2 as? SmbPath ?: throw ProviderMismatchException(path2.toString())
         if (path.authority != path2.authority) {
             return false
         }
