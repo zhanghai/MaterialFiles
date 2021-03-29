@@ -133,6 +133,12 @@ dependencies {
         // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
+    implementation ('com.hierynomus:sshj:0.31.0') {
+        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
+        // Jetifier, but the newer version is required by jCIFS-NG, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
     implementation 'com.leinardi.android:speed-dial:3.1.1'
     implementation ('com.rapid7.client:dcerpc:0.10.0') {
@@ -155,7 +161,7 @@ dependencies {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     // Substitute dependency of jCIFS-NG.
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.66'
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
     def coil_version = '1.1.1'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
