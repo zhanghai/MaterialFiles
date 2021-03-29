@@ -102,7 +102,7 @@ internal class SmbWatchService : AbstractWatchService() {
         path: SmbPath,
         @Volatile
         var kinds: Set<WatchEvent.Kind<*>>
-    ) : Thread("SmbWatchService.Notifier-" + id.getAndIncrement()) {
+    ) : Thread("SmbWatchService.Notifier-${id.getAndIncrement()}") {
         val key = SmbWatchKey(watchService, path)
 
         private val directory: Directory

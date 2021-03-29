@@ -176,7 +176,7 @@ internal object LinuxCopyMove {
             }
             copyOptions.progressListener?.invoke(sourceStat.st_size)
         } else {
-            throw FileSystemException(source.toString(), null, "st_mode " + sourceStat.st_mode)
+            throw FileSystemException(source.toString(), null, "st_mode ${sourceStat.st_mode}")
         }
         // We don't take error when copying attribute fatal, so errors will only be logged from now
         // on.
