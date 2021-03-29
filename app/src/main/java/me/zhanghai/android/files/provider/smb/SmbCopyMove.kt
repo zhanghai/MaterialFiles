@@ -17,9 +17,9 @@ import me.zhanghai.android.files.provider.common.CopyOptions
 import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.provider.smb.client.ClientException
 import me.zhanghai.android.files.provider.smb.client.FileInformation
+import me.zhanghai.android.files.util.enumSetOf
 import me.zhanghai.android.files.util.hasBits
 import java.io.IOException
-import java.util.EnumSet
 
 internal object SmbCopyMove {
     @Throws(IOException::class)
@@ -67,7 +67,7 @@ internal object SmbCopyMove {
                 sourceInformation.fileAttributes, FileAttributes::class.java
             )
         } else {
-            EnumSet.of(FileAttributes.FILE_ATTRIBUTE_NORMAL)
+            enumSetOf(FileAttributes.FILE_ATTRIBUTE_NORMAL)
         }
         if (sourceIsRegularFile) {
             if (targetInformation != null) {

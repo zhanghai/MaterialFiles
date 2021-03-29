@@ -8,8 +8,8 @@ package me.zhanghai.android.files.provider.common
 import android.system.OsConstants
 import java8.nio.file.attribute.FileAttribute
 import java8.nio.file.attribute.PosixFilePermission
+import me.zhanghai.android.files.util.enumSetOf
 import me.zhanghai.android.files.util.hasBits
-import java.util.EnumSet
 
 enum class PosixFileModeBit {
     SET_USER_ID,
@@ -55,7 +55,7 @@ object PosixFileMode {
     }
 
     fun fromInt(modeInt: Int): Set<PosixFileModeBit> =
-        EnumSet.noneOf(PosixFileModeBit::class.java).apply {
+        enumSetOf<PosixFileModeBit>().apply {
             if (modeInt.hasBits(OsConstants.S_ISUID)) {
                 this += PosixFileModeBit.SET_USER_ID
             }
@@ -96,7 +96,7 @@ object PosixFileMode {
 }
 
 fun Set<PosixFilePermission>.toMode(): Set<PosixFileModeBit> =
-    EnumSet.noneOf(PosixFileModeBit::class.java).apply {
+    enumSetOf<PosixFileModeBit>().apply {
         for (permission in this@toMode) {
             this += when (permission) {
                 PosixFilePermission.OWNER_READ -> PosixFileModeBit.OWNER_READ
@@ -143,7 +143,7 @@ fun Set<PosixFileModeBit>.toInt(): Int =
         or (if (contains(PosixFileModeBit.OTHERS_EXECUTE)) OsConstants.S_IXOTH else 0))
 
 fun Set<PosixFileModeBit>.toPermissions(): Set<PosixFilePermission> =
-    EnumSet.noneOf(PosixFilePermission::class.java).apply {
+    enumSetOf<PosixFilePermission>().apply {
         for (modeBit in this@toPermissions) {
             this += when (modeBit) {
                 PosixFileModeBit.OWNER_READ -> PosixFilePermission.OWNER_READ

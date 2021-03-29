@@ -43,9 +43,9 @@ import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.provider.smb.client.ClientException
 import me.zhanghai.android.files.provider.smb.client.FileInformation
 import me.zhanghai.android.files.provider.smb.client.SymbolicLinkReparseData
+import me.zhanghai.android.files.util.enumSetOf
 import java.io.IOException
 import java.net.URI
-import java.util.EnumSet
 
 object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Searchable {
     private const val SCHEME = "smb"
@@ -298,7 +298,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
     override fun checkAccess(path: Path, vararg modes: AccessMode) {
         path as? SmbPath ?: throw ProviderMismatchException(path.toString())
         val accessModes = modes.toAccessModes()
-        val desiredAccess = EnumSet.noneOf(AccessMask::class.java)
+        val desiredAccess = enumSetOf<AccessMask>()
         if (accessModes.read) {
             desiredAccess += AccessMask.GENERIC_READ
         }

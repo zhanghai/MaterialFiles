@@ -7,6 +7,28 @@ package me.zhanghai.android.files.util
 
 import java.util.EnumSet
 
+inline fun <reified T : Enum<T>> enumSetOf(): EnumSet<T> = EnumSet.noneOf(T::class.java)
+
+fun <T : Enum<T>> enumSetOf(element: T): EnumSet<T> = EnumSet.of(element)
+
+fun <T : Enum<T>> enumSetOf(element1: T, element2: T): EnumSet<T> = EnumSet.of(element1, element2)
+
+fun <T : Enum<T>> enumSetOf(element1: T, element2: T, element3: T): EnumSet<T> =
+    EnumSet.of(element1, element2, element3)
+
+fun <T : Enum<T>> enumSetOf(element1: T, element2: T, element3: T, element4: T): EnumSet<T> =
+    EnumSet.of(element1, element2, element3, element4)
+
+fun <T : Enum<T>> enumSetOf(
+    element1: T,
+    element2: T,
+    element3: T,
+    element4: T,
+    element5: T
+): EnumSet<T> = EnumSet.of(element1, element2, element3, element4, element5)
+
+fun <T : Enum<T>> enumSetOf(first: T, vararg rest: T): EnumSet<T> = EnumSet.of(first, *rest)
+
 fun <T> Iterable<T>.toLinkedSet(): LinkedHashSet<T> = toCollection(LinkedHashSet())
 
 fun <T : Enum<T>> Collection<T>.toEnumSet(): EnumSet<T> = EnumSet.copyOf(this)
