@@ -283,6 +283,7 @@ object Client {
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
         }
+        directoryFileInformationCache -= path
     }
 
     // @see https://gitlab.com/samba-team/devel/samba/-/blob/master/source3/libsmb/clisymlink.c
@@ -438,6 +439,8 @@ object Client {
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
         }
+        directoryFileInformationCache -= path
+        directoryFileInformationCache -= newPath
     }
 
     @Throws(ClientException::class)
