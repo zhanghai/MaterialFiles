@@ -129,7 +129,10 @@ class EditSmbServerFragment : Fragment() {
                     }
                 }
             } else {
-                args.host?.let { binding.hostEdit.setText(it) }
+                val host = args.host
+                if (host != null) {
+                    binding.hostEdit.setText(host)
+                }
             }
         }
 
@@ -163,6 +166,7 @@ class EditSmbServerFragment : Fragment() {
             val adapter = binding.authenticationTypeEdit.adapter
             val item = adapter.getItem(value.ordinal) as CharSequence
             binding.authenticationTypeEdit.setText(item, false)
+            onAuthenticationTypeChanged(value)
         }
 
     private fun onAuthenticationTypeChanged(authenticationType: AuthenticationType) {
