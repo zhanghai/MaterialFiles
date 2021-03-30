@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
 import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
 import java8.nio.file.Path
@@ -163,6 +162,11 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             return
         }
         adapter.replace(paths)
+        // ViewPager only asynchronously sets current item to 0, which isn't a desirable behavior
+        // for us and will make updateTitle() crash for index out of bounds.
+        if (binding.viewPager.currentItem > paths.lastIndex) {
+            binding.viewPager.currentItem = paths.lastIndex
+        }
         updateTitle()
     }
 
