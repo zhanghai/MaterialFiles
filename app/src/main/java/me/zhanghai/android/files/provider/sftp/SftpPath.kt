@@ -90,7 +90,8 @@ internal class SftpPath : ByteStringListPath<SftpPath>, Client.Path {
     override val authority: Authority
         get() = fileSystem.authority
 
-    override val remotePath: String = toString()
+    override val remotePath: String
+        get() = toString()
 
     private constructor(source: Parcel) : super(source) {
         fileSystem = source.readParcelable()!!
