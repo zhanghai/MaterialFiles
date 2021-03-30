@@ -396,9 +396,9 @@
     <string name="storage_edit_smb_server_title_edit">Sunting server SMB</string>
     <string name="storage_edit_smb_server_title_add">Tambah server SMB</string>
     <string name="storage_edit_smb_server_host">Nama hos</string>
-    <string name="storage_edit_smb_server_host_empty_error">Masukkan nama hos</string>
+    <string name="storage_edit_smb_server_host_error_empty">Masukkan nama hos</string>
     <string name="storage_edit_smb_server_port">Porta</string>
-    <string name="storage_edit_smb_server_port_error">Porta tidak valid</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Porta tidak valid</string>
     <string name="storage_edit_smb_server_name">Nama</string>
     <string name="storage_edit_smb_server_name_placeholder">Gunakan nama hos</string>
     <string name="storage_edit_smb_server_authentication_type">Otentikasi</string>
@@ -408,7 +408,7 @@
         <item>Anonim</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Nama pengguna</string>
-    <string name="storage_edit_smb_server_username_empty_error">Masukkan nama pengguna</string>
+    <string name="storage_edit_smb_server_username_error_empty">Masukkan nama pengguna</string>
     <string name="storage_edit_smb_server_password">Sandi</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Sambung dan tambah</string>

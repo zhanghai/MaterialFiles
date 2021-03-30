@@ -423,9 +423,9 @@
     <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
     <string name="storage_edit_smb_server_title_add">Adicionar servidor SMB</string>
     <string name="storage_edit_smb_server_host">Nome do servidor</string>
-    <string name="storage_edit_smb_server_host_empty_error">Introduza um nome</string>
+    <string name="storage_edit_smb_server_host_error_empty">Introduza um nome</string>
     <string name="storage_edit_smb_server_port">Porta</string>
-    <string name="storage_edit_smb_server_port_error">Porta inválida</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Porta inválida</string>
     <string name="storage_edit_smb_server_name">Nome</string>
     <string name="storage_edit_smb_server_name_placeholder">Utilizar nome do servidor</string>
     <string name="storage_edit_smb_server_authentication_type">Autenticação</string>
@@ -435,7 +435,7 @@
         <item>Anónimo</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Nome de utilizador</string>
-    <string name="storage_edit_smb_server_username_empty_error">Introduza um nome de utilizador</string>
+    <string name="storage_edit_smb_server_username_error_empty">Introduza um nome de utilizador</string>
     <string name="storage_edit_smb_server_password">Palavra-passe</string>
     <string name="storage_edit_smb_server_domain">Domínio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectar e adicionar</string>

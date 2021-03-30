@@ -423,9 +423,9 @@
     <string name="storage_edit_smb_server_title_edit">SMB-kiszolgáló szerkesztése</string>
     <string name="storage_edit_smb_server_title_add">SMB-kiszolgáló hozzáadása</string>
     <string name="storage_edit_smb_server_host">Gépnév</string>
-    <string name="storage_edit_smb_server_host_empty_error">Adjon meg egy gépnevet</string>
+    <string name="storage_edit_smb_server_host_error_empty">Adjon meg egy gépnevet</string>
     <string name="storage_edit_smb_server_port">Port</string>
-    <string name="storage_edit_smb_server_port_error">Érvénytelen port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Érvénytelen port</string>
     <string name="storage_edit_smb_server_name">Név</string>
     <string name="storage_edit_smb_server_name_placeholder">Gépnév használata</string>
     <string name="storage_edit_smb_server_authentication_type">Hitelesítés</string>
@@ -435,7 +435,7 @@
         <item>Névtelen</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Felhasználónév</string>
-    <string name="storage_edit_smb_server_username_empty_error">Adjon meg egy felhasználónevet</string>
+    <string name="storage_edit_smb_server_username_error_empty">Adjon meg egy felhasználónevet</string>
     <string name="storage_edit_smb_server_password">Jelszót</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Kapcsolódás és hozzáadás</string>

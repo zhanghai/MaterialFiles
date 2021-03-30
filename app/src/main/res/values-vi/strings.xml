@@ -396,9 +396,9 @@
     <string name="storage_edit_smb_server_title_edit">Chỉnh sửa máy chủ SMB</string>
     <string name="storage_edit_smb_server_title_add">Thêm máy chủ SMB</string>
     <string name="storage_edit_smb_server_host">Tên máy chủ</string>
-    <string name="storage_edit_smb_server_host_empty_error">Nhập tên máy chủ</string>
+    <string name="storage_edit_smb_server_host_error_empty">Nhập tên máy chủ</string>
     <string name="storage_edit_smb_server_port">Cổng</string>
-    <string name="storage_edit_smb_server_port_error">Cổng không hợp lệ</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Cổng không hợp lệ</string>
     <string name="storage_edit_smb_server_name">Tên</string>
     <string name="storage_edit_smb_server_name_placeholder">Sử dụng tên máy chủ</string>
     <string name="storage_edit_smb_server_authentication_type">Xác thực</string>
@@ -408,7 +408,7 @@
         <item>Nặc danh</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Tên người dùng</string>
-    <string name="storage_edit_smb_server_username_empty_error">Nhập tên người dùng</string>
+    <string name="storage_edit_smb_server_username_error_empty">Nhập tên người dùng</string>
     <string name="storage_edit_smb_server_password">Mật khẩu</string>
     <string name="storage_edit_smb_server_domain">Miền</string>
     <string name="storage_edit_smb_server_connect_and_add">Kết nối và thêm</string>

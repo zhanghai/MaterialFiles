@@ -477,9 +477,9 @@
     <string name="storage_edit_smb_server_title_edit">Редактировать SMB-сервер</string>
     <string name="storage_edit_smb_server_title_add">Добавить SMB-сервер</string>
     <string name="storage_edit_smb_server_host">Имя хоста</string>
-    <string name="storage_edit_smb_server_host_empty_error">Введите имя хоста</string>
+    <string name="storage_edit_smb_server_host_error_empty">Введите имя хоста</string>
     <string name="storage_edit_smb_server_port">Порт</string>
-    <string name="storage_edit_smb_server_port_error">Неверный порт</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_smb_server_name">Имя</string>
     <string name="storage_edit_smb_server_name_placeholder">Используйте имя хоста</string>
     <string name="storage_edit_smb_server_authentication_type">Авторизация</string>
@@ -489,7 +489,7 @@
         <item>Анонимно</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Имя пользователя</string>
-    <string name="storage_edit_smb_server_username_empty_error">Введите имя пользователя</string>
+    <string name="storage_edit_smb_server_username_error_empty">Введите имя пользователя</string>
     <string name="storage_edit_smb_server_password">Пароль</string>
     <string name="storage_edit_smb_server_domain">Домен</string>
     <string name="storage_edit_smb_server_connect_and_add">Добавить и соединиться</string>

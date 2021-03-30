@@ -224,7 +224,7 @@ class EditSmbServerFragment : Fragment() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
         if (host == null) {
             binding.hostLayout.error =
-                getString(R.string.storage_edit_smb_server_host_empty_error)
+                getString(R.string.storage_edit_smb_server_host_error_empty)
             if (errorEdit == null) {
                 errorEdit = binding.hostEdit
             }
@@ -232,7 +232,7 @@ class EditSmbServerFragment : Fragment() {
         val port = binding.portEdit.text.toString().takeIfNotEmpty()
             .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
         if (port == null) {
-            binding.portLayout.error = getString(R.string.storage_edit_smb_server_port_error)
+            binding.portLayout.error = getString(R.string.storage_edit_smb_server_port_error_invalid)
             if (errorEdit == null) {
                 errorEdit = binding.portEdit
             }
@@ -243,7 +243,7 @@ class EditSmbServerFragment : Fragment() {
                 val username = binding.usernameEdit.text.toString().takeIfNotEmpty()
                 if (username == null) {
                     binding.usernameLayout.error =
-                        getString(R.string.storage_edit_smb_server_username_empty_error)
+                        getString(R.string.storage_edit_smb_server_username_error_empty)
                     if (errorEdit == null) {
                         errorEdit = binding.usernameEdit
                     }

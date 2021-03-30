@@ -423,9 +423,9 @@
     <string name="storage_edit_smb_server_title_edit">SMB-server bewerken</string>
     <string name="storage_edit_smb_server_title_add">SMB-server toevoegen</string>
     <string name="storage_edit_smb_server_host">Hostnaam</string>
-    <string name="storage_edit_smb_server_host_empty_error">Voer een hostnaam in</string>
+    <string name="storage_edit_smb_server_host_error_empty">Voer een hostnaam in</string>
     <string name="storage_edit_smb_server_port">Poort</string>
-    <string name="storage_edit_smb_server_port_error">Ongeldig poortnummer</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Ongeldig poortnummer</string>
     <string name="storage_edit_smb_server_name">Naam</string>
     <string name="storage_edit_smb_server_name_placeholder">Hostnaam gebruiken</string>
     <string name="storage_edit_smb_server_authentication_type">Authenticatie</string>
@@ -435,7 +435,7 @@
         <item>Anoniem</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Gebruikersnaam</string>
-    <string name="storage_edit_smb_server_username_empty_error">Voer een gebruikersnaam in</string>
+    <string name="storage_edit_smb_server_username_error_empty">Voer een gebruikersnaam in</string>
     <string name="storage_edit_smb_server_password">Wachtwoord</string>
     <string name="storage_edit_smb_server_domain">Domein</string>
     <string name="storage_edit_smb_server_connect_and_add">Verbinden en toevoegen</string>

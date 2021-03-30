@@ -396,10 +396,10 @@
     <string name="storage_edit_smb_server_title_edit">编辑 SMB 服务器</string>
     <string name="storage_edit_smb_server_title_add">添加 SMB 服务器</string>
     <string name="storage_edit_smb_server_host">主机名</string>
-    <string name="storage_edit_smb_server_host_empty_error">输入主机名</string>
+    <string name="storage_edit_smb_server_host_error_empty">输入主机名</string>
     <string name="storage_edit_smb_server_port">端口</string>
     <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
-    <string name="storage_edit_smb_server_port_error">无效端口</string>
+    <string name="storage_edit_smb_server_port_error_invalid">无效端口</string>
     <string name="storage_edit_smb_server_name">名称</string>
     <string name="storage_edit_smb_server_name_placeholder">使用主机名</string>
     <string name="storage_edit_smb_server_authentication_type">验证</string>
@@ -409,7 +409,7 @@
         <item>匿名</item>
     </string-array>
     <string name="storage_edit_smb_server_username">用户名</string>
-    <string name="storage_edit_smb_server_username_empty_error">输入用户名</string>
+    <string name="storage_edit_smb_server_username_error_empty">输入用户名</string>
     <string name="storage_edit_smb_server_password">密码</string>
     <string name="storage_edit_smb_server_domain">域</string>
     <string name="storage_edit_smb_server_connect_and_add">连接并添加</string>

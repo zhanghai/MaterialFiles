@@ -531,9 +531,9 @@
     <string name="storage_edit_smb_server_title_edit">تحرير خادم SMB</string>
     <string name="storage_edit_smb_server_title_add">إضافة خادم SMB</string>
     <string name="storage_edit_smb_server_host">اسم المضيف</string>
-    <string name="storage_edit_smb_server_host_empty_error">أدخل اسم مضيف</string>
+    <string name="storage_edit_smb_server_host_error_empty">أدخل اسم مضيف</string>
     <string name="storage_edit_smb_server_port">منفذ</string>
-    <string name="storage_edit_smb_server_port_error">منفذ غير صالح</string>
+    <string name="storage_edit_smb_server_port_error_invalid">منفذ غير صالح</string>
     <string name="storage_edit_smb_server_name">الاسم</string>
     <string name="storage_edit_smb_server_name_placeholder">استخدم اسم المضيف</string>
     <string name="storage_edit_smb_server_authentication_type">المصادقة</string>
@@ -543,7 +543,7 @@
         <item>مجهول</item>
     </string-array>
     <string name="storage_edit_smb_server_username">اسم المستخدم</string>
-    <string name="storage_edit_smb_server_username_empty_error">أدخل اسم مستخدم</string>
+    <string name="storage_edit_smb_server_username_error_empty">أدخل اسم مستخدم</string>
     <string name="storage_edit_smb_server_password">كلمة المرور</string>
     <string name="storage_edit_smb_server_domain">دومين</string>
     <string name="storage_edit_smb_server_connect_and_add">قم بالاتصال والإضافة</string>
