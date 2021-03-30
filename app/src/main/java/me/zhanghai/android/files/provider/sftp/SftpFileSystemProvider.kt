@@ -39,6 +39,7 @@ import me.zhanghai.android.files.provider.common.toOpenOptions
 import me.zhanghai.android.files.provider.sftp.client.Authority
 import me.zhanghai.android.files.provider.sftp.client.Client
 import me.zhanghai.android.files.provider.sftp.client.ClientException
+import me.zhanghai.android.files.provider.sftp.client.SecurityProviderHelper
 import me.zhanghai.android.files.util.enumSetOf
 import net.schmizz.sshj.sftp.FileAttributes
 import net.schmizz.sshj.sftp.OpenMode
@@ -53,6 +54,10 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
     private val fileSystems = mutableMapOf<Authority, SftpFileSystem>()
 
     private val lock = Any()
+
+    init {
+        SecurityProviderHelper.init()
+    }
 
     override fun getScheme(): String = SCHEME
 
