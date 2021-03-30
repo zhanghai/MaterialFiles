@@ -17,12 +17,14 @@ import me.zhanghai.android.files.compat.RestrictedHiddenApiAccess
 import me.zhanghai.android.files.filejob.fileJobNotificationTemplate
 import me.zhanghai.android.files.ftpserver.ftpServerServiceNotificationTemplate
 import me.zhanghai.android.files.provider.FileSystemProviders
-import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.storage.SftpServerAuthenticator
 import me.zhanghai.android.files.storage.SmbServerAuthenticator
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper
 import me.zhanghai.android.files.theme.night.NightModeHelper
 import java.util.Properties
+import me.zhanghai.android.files.provider.sftp.client.Client as SftpClient
+import me.zhanghai.android.files.provider.smb.client.Client as SmbClient
 
 val appInitializers = listOf(
     ::initializeCrashlytics, ::allowRestrictedHiddenApiAccess, ::initializeThreeTen,
@@ -67,7 +69,8 @@ private fun initializeFileSystemProviders() {
             }
         )
     }
-    Client.authenticator = SmbServerAuthenticator
+    SftpClient.authenticator = SftpServerAuthenticator
+    SmbClient.authenticator = SmbServerAuthenticator
 }
 
 private fun initializeSettings() {
