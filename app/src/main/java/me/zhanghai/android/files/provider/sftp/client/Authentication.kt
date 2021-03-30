@@ -40,24 +40,28 @@ data class PublicKeyAuthentication(
     override fun toAuthMethod(): AuthMethod =
         AuthPublickey(privateKey.toKeyProvider())
 
-    @Throws(IOException::class)
-    fun validate() {
-        privateKey.toKeyProvider().private
-    }
-
-    /**
-     * @see net.schmizz.sshj.SSHClient.loadKeys
-     */
-    @Throws(IOException::class)
-    private fun String.toKeyProvider(): KeyProvider {
-        val format = KeyProviderUtil.detectKeyFileFormat(this, false)
-        val keyProvider = Factory.Named.Util.create(KEY_PROVIDER_FACTORIES, format.toString())
-            ?: throw IOException("No key provider factory found for $format")
-        keyProvider.init(this, null)
-        return keyProvider
-    }
-
     companion object {
         private val KEY_PROVIDER_FACTORIES = DefaultConfig().fileKeyProviderFactories
+
+        fun validatePrivateKey(privateKey: String): Boolean =
+            try {
+                privateKey.toKeyProvider().private
+                true
+            } catch (e: IOException) {
+                e.printStackTrace()
+                false
+            }
+
+        /**
+         * @see net.schmizz.sshj.SSHClient.loadKeys
+         */
+        @Throws(IOException::class)
+        private fun String.toKeyProvider(): KeyProvider {
+            val format = KeyProviderUtil.detectKeyFileFormat(this, false)
+            val keyProvider = Factory.Named.Util.create(KEY_PROVIDER_FACTORIES, format.toString())
+                ?: throw IOException("No key provider factory found for $format")
+            keyProvider.init(this, null)
+            return keyProvider
+        }
     }
 }
