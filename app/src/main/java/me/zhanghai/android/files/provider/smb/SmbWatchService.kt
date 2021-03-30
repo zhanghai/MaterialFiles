@@ -25,7 +25,7 @@ import java.util.concurrent.Future
 import java.util.concurrent.atomic.AtomicInteger
 
 // @see https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/05869c32-39f0-4726-afc9-671b76ae5ca7
-internal class SmbWatchService : AbstractWatchService() {
+internal class SmbWatchService : AbstractWatchService<SmbWatchKey>() {
     private val notifiers = mutableMapOf<SmbPath, Notifier>()
 
     @Throws(IOException::class)
@@ -64,7 +64,7 @@ internal class SmbWatchService : AbstractWatchService() {
         synchronized(notifiers) { notifiers -= notifier.key.watchable() }
     }
 
-    fun cancel(key: SmbWatchKey) {
+    override fun cancel(key: SmbWatchKey) {
         val notifier = synchronized(notifiers) { notifiers.remove(key.watchable())!! }
         notifier.interrupt()
         try {

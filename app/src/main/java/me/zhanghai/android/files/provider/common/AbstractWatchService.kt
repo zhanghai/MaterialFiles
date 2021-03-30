@@ -14,7 +14,7 @@ import java.io.IOException
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 
-abstract class AbstractWatchService : WatchService {
+abstract class AbstractWatchService<K : AbstractWatchKey<K, *>> : WatchService {
     private val queue = LinkedBlockingQueue<WatchKey>()
 
     @Volatile
@@ -22,9 +22,11 @@ abstract class AbstractWatchService : WatchService {
 
     private val lock = Any()
 
-    fun enqueue(key: AbstractWatchKey) {
+    fun enqueue(key: K) {
         queue.offer(key)
     }
+
+    abstract fun cancel(key: K)
 
     override fun poll(): WatchKey? {
         ensureOpen()

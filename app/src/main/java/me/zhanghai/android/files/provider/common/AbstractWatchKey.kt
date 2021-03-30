@@ -10,15 +10,25 @@ import java8.nio.file.StandardWatchEventKinds
 import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 
-abstract class AbstractWatchKey(
-    protected open val watchService: AbstractWatchService,
-    private val path: Path
+abstract class AbstractWatchKey<K : AbstractWatchKey<K, P>, P : Path>(
+    private val watchService: AbstractWatchService<K>,
+    private val path: P
 ) : WatchKey {
+    private var isValid = true
+
     private var isSignaled = false
 
     private var events = mutableListOf<Event<*>>()
 
     protected val lock = Any()
+
+    override fun isValid(): Boolean {
+        synchronized(lock) { return isValid }
+    }
+
+    fun setInvalid() {
+        synchronized(lock) { isValid = false }
+    }
 
     fun <T> addEvent(kind: WatchEvent.Kind<T>, context: T?) {
         synchronized(lock) {
@@ -45,7 +55,8 @@ abstract class AbstractWatchKey(
         synchronized(lock) {
             if (!isSignaled) {
                 isSignaled = true
-                watchService.enqueue(this)
+                @Suppress("UNCHECKED_CAST")
+                watchService.enqueue(this as K)
             }
         }
     }
@@ -65,14 +76,24 @@ abstract class AbstractWatchKey(
                 if (events.isEmpty()) {
                     isSignaled = false
                 } else {
-                    watchService.enqueue(this)
+                    @Suppress("UNCHECKED_CAST")
+                    watchService.enqueue(this as K)
                 }
             }
             return isValid
         }
     }
 
-    override fun watchable(): Path = path
+    override fun cancel() {
+        synchronized(lock) {
+            if (isValid) {
+                @Suppress("UNCHECKED_CAST")
+                watchService.cancel(this as K)
+            }
+        }
+    }
+
+    override fun watchable(): P = path
 
     private class Event<T> constructor(
         private val kind: WatchEvent.Kind<T>,
