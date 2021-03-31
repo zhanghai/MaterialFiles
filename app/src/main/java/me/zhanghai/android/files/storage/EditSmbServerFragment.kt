@@ -15,18 +15,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.flow.collect
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditSmbServerFragmentBinding
 import me.zhanghai.android.files.provider.smb.client.Authentication
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.ui.UnfilteredArrayAdapter
-import me.zhanghai.android.files.util.Failure
-import me.zhanghai.android.files.util.Loading
+import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.ParcelableArgs
-import me.zhanghai.android.files.util.Stateful
-import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
@@ -44,6 +43,14 @@ class EditSmbServerFragment : Fragment() {
 
     private lateinit var binding: EditSmbServerFragmentBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.connectState.collect { onConnectStateChanged(it) }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,19 +60,21 @@ class EditSmbServerFragment : Fragment() {
             .also { binding = it }
             .root
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        activity.setTitle(
-            if (args.server != null) {
-                R.string.storage_edit_smb_server_title_edit
-            } else {
-                R.string.storage_edit_smb_server_title_add
-            }
-        )
+        activity.lifecycleScope.launchWhenCreated {
+            activity.setSupportActionBar(binding.toolbar)
+            activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            activity.setTitle(
+                if (args.server != null) {
+                    R.string.storage_edit_smb_server_title_edit
+                } else {
+                    R.string.storage_edit_smb_server_title_add
+                }
+            )
+        }
 
         binding.hostEdit.hideTextInputLayoutErrorOnTextChange(binding.hostLayout)
         binding.hostEdit.doAfterTextChanged { updateNamePlaceholder() }
@@ -135,10 +144,6 @@ class EditSmbServerFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.connectStatefulLiveData.observe(viewLifecycleOwner) {
-            onConnectStatefulChanged(it)
-        }
     }
 
     private fun updateNamePlaceholder() {
@@ -183,34 +188,34 @@ class EditSmbServerFragment : Fragment() {
     }
 
     private fun connectAndAdd() {
-        if (!viewModel.connectStatefulLiveData.isReady) {
+        if (viewModel.connectState.value !is ActionState.Ready) {
             return
         }
         val server = getServerOrSetError() ?: return
-        viewModel.connectStatefulLiveData.connect(server)
+        viewModel.connect(server)
     }
 
-    private fun onConnectStatefulChanged(connectStateful: Stateful<SmbServer>) {
-        val liveData = viewModel.connectStatefulLiveData
-        when (connectStateful) {
-            is Loading -> {}
-            is Failure -> {
-                connectStateful.throwable.printStackTrace()
-                showToast(connectStateful.throwable.toString())
-                liveData.reset()
+    private fun onConnectStateChanged(state: ActionState<SmbServer, Unit>) {
+        when (state) {
+            is ActionState.Ready, is ActionState.Running -> {
+                val isConnecting = state is ActionState.Running
+                binding.progress.fadeToVisibilityUnsafe(isConnecting)
+                binding.scrollView.fadeToVisibilityUnsafe(!isConnecting)
+                binding.saveOrConnectAndAddButton.isEnabled = !isConnecting
+                binding.removeOrAddButton.isEnabled = !isConnecting
             }
-            is Success -> {
-                Storages.addOrReplace(connectStateful.value)
+            is ActionState.Success -> {
+                Storages.addOrReplace(state.argument)
                 setResult(Activity.RESULT_OK)
                 finish()
-                return
+            }
+            is ActionState.Error -> {
+                val throwable = state.throwable
+                throwable.printStackTrace()
+                showToast(throwable.toString())
+                viewModel.finishConnecting()
             }
         }
-        val isConnecting = !liveData.isReady
-        binding.progress.fadeToVisibilityUnsafe(isConnecting)
-        binding.scrollView.fadeToVisibilityUnsafe(!isConnecting)
-        binding.saveOrConnectAndAddButton.isEnabled = !isConnecting
-        binding.removeOrAddButton.isEnabled = !isConnecting
     }
 
     private fun remove() {
