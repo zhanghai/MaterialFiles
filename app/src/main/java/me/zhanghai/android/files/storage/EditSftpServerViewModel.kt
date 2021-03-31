@@ -13,14 +13,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.zhanghai.android.files.provider.common.newDirectoryStream
 import me.zhanghai.android.files.provider.common.readAllBytes
 import me.zhanghai.android.files.provider.common.size
 import me.zhanghai.android.files.util.ActionState
 import java.io.IOException
 
 class EditSftpServerViewModel : ViewModel() {
-    val connectStatefulLiveData = ConnectSftpServerStatefulLiveData()
-
     private val _readPrivateKeyFileState =
         MutableStateFlow<ActionState<Path, String>>(ActionState.Ready())
     val readPrivateKeyFileState = _readPrivateKeyFileState.asStateFlow()
@@ -50,6 +49,40 @@ class EditSftpServerViewModel : ViewModel() {
     fun finishReadingPrivateKeyFile() {
         viewModelScope.launch {
             _readPrivateKeyFileState.value = ActionState.Ready()
+        }
+    }
+
+    private val _connectState = MutableStateFlow<ActionState<SftpServer, Unit>>(ActionState.Ready())
+    val connectState = _connectState.asStateFlow()
+
+    fun connect(server: SftpServer) {
+        viewModelScope.launch {
+            if (_connectState.value !is ActionState.Ready) {
+                return@launch
+            }
+            _connectState.value = ActionState.Running(server)
+            try {
+                withContext(Dispatchers.IO) {
+                    SftpServerAuthenticator.addTransientServer(server)
+                    try {
+                        val path = server.path
+                        path.fileSystem.use {
+                            path.newDirectoryStream().toList()
+                        }
+                    } finally {
+                        SftpServerAuthenticator.removeTransientServer(server)
+                    }
+                }
+                _connectState.value = ActionState.Success(server, Unit)
+            } catch (e: Exception) {
+                _connectState.value = ActionState.Error(server, e)
+            }
+        }
+    }
+
+    fun finishConnecting() {
+        viewModelScope.launch {
+            _connectState.value = ActionState.Ready()
         }
     }
 
