@@ -52,6 +52,12 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         super.onCreate(savedInstanceState)
 
         setHasOptionsMenu(true)
+
+        lifecycleScope.launchWhenStarted {
+            launch { viewModel.textState.collect { onTextStateChanged(it) } }
+            launch { viewModel.isTextChanged.collect { onIsTextChangedChanged(it) } }
+            launch { viewModel.writeFileState.collect { onWriteFileStateChanged(it) } }
+        }
     }
 
     override fun onCreateView(
@@ -63,8 +69,8 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             .also { binding = it }
             .root
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val argsFile = args.intent.getExtraPath(true)
         if (argsFile == null) {
@@ -75,8 +81,11 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         this.argsFile = argsFile
 
         val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        activity.lifecycleScope.launchWhenCreated {
+            activity.setSupportActionBar(binding.toolbar)
+            activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        }
+
         // TODO: Move reload-prevent here so that we can also handle save-as, etc. Or maybe just get
         //  rid of the mPathLiveData in TextEditorViewModel.
         ThemedFastScroller.create(binding.scrollView)
@@ -95,12 +104,6 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                 return@doAfterTextChanged
             }
             viewModel.isTextChanged.value = true
-        }
-
-        lifecycleScope.launchWhenStarted {
-            launch { viewModel.textState.collect { onTextStateChanged(it) } }
-            launch { viewModel.isTextChanged.collect { onIsTextChangedChanged(it) } }
-            launch { viewModel.writeFileState.collect { onWriteFileStateChanged(it) } }
         }
 
         // TODO: Request storage permission if not granted.
