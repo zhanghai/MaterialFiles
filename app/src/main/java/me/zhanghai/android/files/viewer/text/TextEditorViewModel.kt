@@ -114,15 +114,18 @@ class TextEditorViewModel(file: Path) : ViewModel() {
     val isTextChanged = MutableStateFlow(false)
 
     private val _writeFileState =
-        MutableStateFlow<ActionState<Pair<Path, ByteArray>, Unit>>(ActionState.Ready())
+        MutableStateFlow<ActionState<Pair<Path, String>, Unit>>(ActionState.Ready())
     val writeFileState = _writeFileState.asStateFlow()
 
-    fun writeFile(path: Path, content: ByteArray, context: Context) {
+    fun writeFile(path: Path, text: String, context: Context) {
         viewModelScope.launch {
             check(_writeFileState.value.isReady)
-            val argument = path to content
+            val argument = path to text
             _writeFileState.value = ActionState.Running(argument)
-            FileJobService.write(path, content, context) {
+            val bytes = withContext(Dispatchers.Default) {
+                text.toByteArray(encoding.value)
+            }
+            FileJobService.write(path, bytes, context) {
                 _writeFileState.value = if (it) {
                     ActionState.Success(argument, Unit)
                 } else {

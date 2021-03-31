@@ -212,12 +212,11 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     }
 
     private fun save() {
-        // TODO: Charset
-        val content = binding.textEdit.text.toString().toByteArray()
-        viewModel.writeFile(argsFile, content, requireContext())
+        val text = binding.textEdit.text.toString()
+        viewModel.writeFile(argsFile, text, requireContext())
     }
 
-    private fun onWriteFileStateChanged(state: ActionState<Pair<Path, ByteArray>, Unit>) {
+    private fun onWriteFileStateChanged(state: ActionState<Pair<Path, String>, Unit>) {
         when (state) {
             is ActionState.Ready, is ActionState.Running -> updateSaveMenuItem()
             is ActionState.Success -> {
