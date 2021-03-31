@@ -14,7 +14,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -22,21 +25,22 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.requireViewByIdCompat
 import me.zhanghai.android.files.databinding.FileJobActionDialogViewBinding
 import me.zhanghai.android.files.provider.common.PosixFileStore
+import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
-import me.zhanghai.android.files.util.StateData
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getArgs
 import me.zhanghai.android.files.util.getState
+import me.zhanghai.android.files.util.isReady
+import me.zhanghai.android.files.util.isRunning
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.putState
 import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.showToast
-import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 
 class FileJobActionDialogFragment : AppCompatDialogFragment() {
@@ -73,8 +77,8 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
                 }
 
                 if (hasReadOnlyFileStore) {
-                    viewModel.remountStateLiveData.observe(this@FileJobActionDialogFragment) {
-                        onRemountStateChanged(it)
+                    lifecycleScope.launchWhenStarted {
+                        launch { viewModel.remountState.collect { onRemountStateChanged(it) } }
                     }
                 }
             }
@@ -85,34 +89,28 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
             .apply { setCanceledOnTouchOutside(false) }
 
     private fun remount() {
-        if (viewModel.remountStateLiveData.valueCompat.state != StateData.State.READY
-            || !args.readOnlyFileStore!!.isReadOnly) {
+        if (!viewModel.remountState.value.isReady || !args.readOnlyFileStore!!.isReadOnly) {
             return
         }
-        viewModel.remountStateLiveData.remount(args.readOnlyFileStore!!)
+        viewModel.remount(args.readOnlyFileStore!!)
     }
 
-    private fun onRemountStateChanged(stateData: StateData) {
-        val liveData = viewModel.remountStateLiveData
-        when (stateData.state) {
-            StateData.State.READY, StateData.State.LOADING -> updateRemountButton()
-            StateData.State.ERROR -> {
-                stateData.exception!!.printStackTrace()
-                showToast(stateData.exception.toString())
-                liveData.reset()
-                updateRemountButton()
-            }
-            StateData.State.SUCCESS -> {
-                liveData.reset()
-                updateRemountButton()
+    private fun onRemountStateChanged(state: ActionState<PosixFileStore, Unit>) {
+        when (state) {
+            is ActionState.Ready, is ActionState.Running -> updateRemountButton()
+            is ActionState.Success -> viewModel.finishRemounting()
+            is ActionState.Error -> {
+                val throwable = state.throwable
+                throwable.printStackTrace()
+                showToast(throwable.toString())
+                viewModel.finishRemounting()
             }
         }
     }
 
     private fun updateRemountButton() {
         val textRes = when {
-            viewModel.remountStateLiveData.valueCompat.state == StateData.State.LOADING ->
-                R.string.file_job_remount_loading_format
+            viewModel.remountState.value.isRunning -> R.string.file_job_remount_loading_format
             args.readOnlyFileStore!!.isReadOnly -> R.string.file_job_remount_format
             else -> R.string.file_job_remount_success_format
         }
