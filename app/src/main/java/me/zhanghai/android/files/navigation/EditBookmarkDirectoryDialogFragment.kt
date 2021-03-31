@@ -79,9 +79,7 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun onPickPathResult(result: Path?) {
-        if (result == null) {
-            return
-        }
+        result ?: return
         path = result
         updatePathText()
     }

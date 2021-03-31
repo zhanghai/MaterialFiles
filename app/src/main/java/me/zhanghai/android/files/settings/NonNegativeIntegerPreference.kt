@@ -64,9 +64,7 @@ class NonNegativeIntegerPreference : EditTextPreference {
     }
 
     override fun setText(text: String?) {
-        if (text == null) {
-            return
-        }
+        text ?: return
         integer = try {
             text.toInt()
         } catch (e: NumberFormatException) {

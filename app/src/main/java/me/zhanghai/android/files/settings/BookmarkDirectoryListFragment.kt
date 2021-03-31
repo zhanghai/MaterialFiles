@@ -101,9 +101,7 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
     }
 
     private fun onPickPathResult(result: Path?) {
-        if (result == null) {
-            return
-        }
+        result ?: return
         BookmarkDirectories.add(BookmarkDirectory(null, result))
     }
 
