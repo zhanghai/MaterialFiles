@@ -30,7 +30,7 @@ class EditSftpServerViewModel : ViewModel() {
         viewModelScope.launch {
             check(_readPrivateKeyFileState.value.isReady)
             _readPrivateKeyFileState.value = ActionState.Running(file)
-            try {
+            _readPrivateKeyFileState.value = try {
                 val text = runInterruptible(Dispatchers.IO) {
                     val size = file.size()
                     if (size > MAX_PRIVATE_KEY_FILE_SIZE) {
@@ -39,9 +39,9 @@ class EditSftpServerViewModel : ViewModel() {
                     val bytes = file.readAllBytes()
                     String(bytes)
                 }
-                _readPrivateKeyFileState.value = ActionState.Success(file, text)
+                ActionState.Success(file, text)
             } catch (e: Exception) {
-                _readPrivateKeyFileState.value = ActionState.Error(file, e)
+                ActionState.Error(file, e)
             }
         }
     }
@@ -60,7 +60,7 @@ class EditSftpServerViewModel : ViewModel() {
         viewModelScope.launch {
             check(_connectState.value.isReady)
             _connectState.value = ActionState.Running(server)
-            try {
+            _connectState.value = try {
                 runInterruptible(Dispatchers.IO) {
                     SftpServerAuthenticator.addTransientServer(server)
                     try {
@@ -72,9 +72,9 @@ class EditSftpServerViewModel : ViewModel() {
                         SftpServerAuthenticator.removeTransientServer(server)
                     }
                 }
-                _connectState.value = ActionState.Success(server, Unit)
+                ActionState.Success(server, Unit)
             } catch (e: Exception) {
-                _connectState.value = ActionState.Error(server, e)
+                ActionState.Error(server, e)
             }
         }
     }

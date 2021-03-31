@@ -25,7 +25,7 @@ class EditSmbServerViewModel : ViewModel() {
         viewModelScope.launch {
             check(_connectState.value.isReady)
             _connectState.value = ActionState.Running(server)
-            try {
+            _connectState.value = try {
                 runInterruptible(Dispatchers.IO) {
                     SmbServerAuthenticator.addTransientServer(server)
                     try {
@@ -37,9 +37,9 @@ class EditSmbServerViewModel : ViewModel() {
                         SmbServerAuthenticator.removeTransientServer(server)
                     }
                 }
-                _connectState.value = ActionState.Success(server, Unit)
+                ActionState.Success(server, Unit)
             } catch (e: Exception) {
-                _connectState.value = ActionState.Error(server, e)
+                ActionState.Error(server, e)
             }
         }
     }
