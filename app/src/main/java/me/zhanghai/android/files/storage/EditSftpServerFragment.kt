@@ -198,7 +198,14 @@ class EditSftpServerFragment : Fragment() {
 
     private fun onReadPrivateKeyFileStateChanged(state: ActionState<Path, String>) {
         when (state) {
-            is ActionState.Ready, is ActionState.Running -> {}
+            is ActionState.Ready, is ActionState.Running -> {
+                val isReading = state is ActionState.Running
+                binding.privateKeyLayout.placeholderText =
+                    if (isReading) getString(R.string.loading) else null
+                if (isReading) {
+                    binding.privateKeyEdit.text = null
+                }
+            }
             is ActionState.Success -> {
                 binding.privateKeyEdit.setText(state.result)
                 viewModel.finishReadingPrivateKeyFile()
