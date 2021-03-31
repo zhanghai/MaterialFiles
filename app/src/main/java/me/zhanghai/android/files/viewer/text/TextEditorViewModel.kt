@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runInterruptible
 import kotlinx.coroutines.withContext
@@ -41,22 +42,34 @@ class TextEditorViewModel(file: Path) : ViewModel() {
     private val _bytesState = MutableStateFlow<DataState<ByteArray>>(DataState.Loading())
     val bytesState = _bytesState.asStateFlow()
 
+    private var loadJob: Job? = null
+    private var reloadJob: Job? = null
+
     init {
         viewModelScope.launch {
             _file.collectLatest {
-                reloadJob?.cancel()
-                reloadJob = null
-                mapFileToBytesState(it)
+                loadJob?.cancel()?.also { loadJob = null }
+                reloadJob?.cancel()?.also { reloadJob = null }
+                loadJob = launch {
+                    mapFileToBytesState(it)
+                    if (isActive) {
+                        loadJob = null
+                    }
+                }
             }
         }
     }
 
-    private var reloadJob: Job? = null
-
     fun reload() {
-        reloadJob?.cancel()
-        reloadJob = viewModelScope.launch {
-            mapFileToBytesState(_file.value)
+        viewModelScope.launch {
+            loadJob?.cancel()?.also { loadJob = null }
+            reloadJob?.cancel()?.also { reloadJob = null }
+            reloadJob = launch {
+                mapFileToBytesState(_file.value)
+                if (isActive) {
+                    reloadJob = null
+                }
+            }
         }
     }
 
@@ -125,8 +138,13 @@ class TextEditorViewModel(file: Path) : ViewModel() {
             val bytes = withContext(Dispatchers.Default) {
                 text.toByteArray(encoding.value)
             }
-            FileJobService.write(path, bytes, context) {
-                _writeFileState.value = if (it) {
+            FileJobService.write(path, bytes, context) { successful ->
+                if (successful) {
+                    loadJob?.cancel()?.also { loadJob = null }
+                    reloadJob?.cancel()?.also { reloadJob = null }
+                    _bytesState.value = DataState.Success(bytes)
+                }
+                _writeFileState.value = if (successful) {
                     ActionState.Success(argument, Unit)
                 } else {
                     // The error will be toasted by service so we should never show it in UI, but we
