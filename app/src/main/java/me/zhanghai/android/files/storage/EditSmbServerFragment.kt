@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditSmbServerFragmentBinding
@@ -48,7 +49,7 @@ class EditSmbServerFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenStarted {
-            viewModel.connectState.collect { onConnectStateChanged(it) }
+            launch { viewModel.connectState.collect { onConnectStateChanged(it) } }
         }
     }
 

@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import java8.nio.file.Path
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditSftpServerFragmentBinding
@@ -55,8 +56,10 @@ class EditSftpServerFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launchWhenStarted {
-            viewModel.readPrivateKeyFileState.collect { onReadPrivateKeyFileStateChanged(it) }
-            viewModel.connectState.collect { onConnectStateChanged(it) }
+            launch {
+                viewModel.readPrivateKeyFileState.collect { onReadPrivateKeyFileStateChanged(it) }
+            }
+            launch { viewModel.connectState.collect { onConnectStateChanged(it) } }
         }
     }
 
