@@ -16,23 +16,25 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import java8.nio.file.Path
+import kotlinx.coroutines.flow.collect
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.TextEditorFragmentBinding
 import me.zhanghai.android.files.ui.ThemedFastScroller
+import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.ParcelableArgs
-import me.zhanghai.android.files.util.StateData
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 import me.zhanghai.android.files.util.getExtraPath
+import me.zhanghai.android.files.util.isReady
 import me.zhanghai.android.files.util.showToast
-import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 
 class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
@@ -97,7 +99,9 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         val viewLifecycleOwner = viewLifecycleOwner
         viewModel.fileContentLiveData.observe(viewLifecycleOwner) { onFileContentChanged(it) }
         viewModel.textChangedLiveData.observe(viewLifecycleOwner) { onTextChangedChanged(it) }
-        viewModel.writeFileStateLiveData.observe(viewLifecycleOwner) { onWriteFileStateChanged(it) }
+        lifecycleScope.launchWhenStarted {
+            viewModel.writeFileState.collect { onWriteFileStateChanged(it) }
+        }
 
         // TODO: Request storage permission if not granted.
     }
@@ -211,19 +215,19 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     private fun save() {
         // TODO: Charset
         val content = binding.textEdit.text.toString().toByteArray()
-        viewModel.writeFileStateLiveData.write(argsPath, content, requireContext())
+        viewModel.writeFile(argsPath, content, requireContext())
     }
 
-    private fun onWriteFileStateChanged(stateData: StateData) {
-        val liveData = viewModel.writeFileStateLiveData
-        when (stateData.state) {
-            StateData.State.READY, StateData.State.LOADING -> updateSaveMenuItem()
-            StateData.State.ERROR -> liveData.reset()
-            StateData.State.SUCCESS -> {
+    private fun onWriteFileStateChanged(state: ActionState<Pair<Path, ByteArray>, Unit>) {
+        when (state) {
+            is ActionState.Ready, is ActionState.Running -> updateSaveMenuItem()
+            is ActionState.Success -> {
                 showToast(R.string.text_editor_save_success)
-                liveData.reset()
+                viewModel.finishWritingFile()
                 viewModel.isTextChanged = false
             }
+            // The error will be toasted by service so we should never show it in UI.
+            is ActionState.Error -> viewModel.finishWritingFile()
         }
     }
 
@@ -231,8 +235,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         if (!this::menuBinding.isInitialized) {
             return
         }
-        val liveData = viewModel.writeFileStateLiveData
-        menuBinding.saveItem.isEnabled = liveData.valueCompat.state === StateData.State.READY
+        menuBinding.saveItem.isEnabled = viewModel.writeFileState.value.isReady
     }
 
     @Parcelize
