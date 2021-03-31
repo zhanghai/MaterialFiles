@@ -21,9 +21,7 @@ class EditSmbServerViewModel : ViewModel() {
 
     fun connect(server: SmbServer) {
         viewModelScope.launch {
-            if (_connectState.value !is ActionState.Ready) {
-                return@launch
-            }
+            check(_connectState.value is ActionState.Ready)
             _connectState.value = ActionState.Running(server)
             try {
                 runInterruptible(Dispatchers.IO) {

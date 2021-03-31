@@ -26,9 +26,7 @@ class EditSftpServerViewModel : ViewModel() {
 
     fun readPrivateKeyFile(file: Path) {
         viewModelScope.launch {
-            if (_readPrivateKeyFileState.value !is ActionState.Ready) {
-                return@launch
-            }
+            check(_readPrivateKeyFileState.value is ActionState.Ready)
             _readPrivateKeyFileState.value = ActionState.Running(file)
             try {
                 val text = runInterruptible(Dispatchers.IO) {
@@ -57,9 +55,7 @@ class EditSftpServerViewModel : ViewModel() {
 
     fun connect(server: SftpServer) {
         viewModelScope.launch {
-            if (_connectState.value !is ActionState.Ready) {
-                return@launch
-            }
+            check(_connectState.value is ActionState.Ready)
             _connectState.value = ActionState.Running(server)
             try {
                 runInterruptible(Dispatchers.IO) {
