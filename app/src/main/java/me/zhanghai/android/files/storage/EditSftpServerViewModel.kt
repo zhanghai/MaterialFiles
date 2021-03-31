@@ -17,6 +17,8 @@ import me.zhanghai.android.files.provider.common.newDirectoryStream
 import me.zhanghai.android.files.provider.common.readAllBytes
 import me.zhanghai.android.files.provider.common.size
 import me.zhanghai.android.files.util.ActionState
+import me.zhanghai.android.files.util.isFinished
+import me.zhanghai.android.files.util.isReady
 import java.io.IOException
 
 class EditSftpServerViewModel : ViewModel() {
@@ -26,7 +28,7 @@ class EditSftpServerViewModel : ViewModel() {
 
     fun readPrivateKeyFile(file: Path) {
         viewModelScope.launch {
-            check(_readPrivateKeyFileState.value is ActionState.Ready)
+            check(_readPrivateKeyFileState.value.isReady)
             _readPrivateKeyFileState.value = ActionState.Running(file)
             try {
                 val text = runInterruptible(Dispatchers.IO) {
@@ -46,6 +48,7 @@ class EditSftpServerViewModel : ViewModel() {
 
     fun finishReadingPrivateKeyFile() {
         viewModelScope.launch {
+            check(_readPrivateKeyFileState.value.isFinished)
             _readPrivateKeyFileState.value = ActionState.Ready()
         }
     }
@@ -55,7 +58,7 @@ class EditSftpServerViewModel : ViewModel() {
 
     fun connect(server: SftpServer) {
         viewModelScope.launch {
-            check(_connectState.value is ActionState.Ready)
+            check(_connectState.value.isReady)
             _connectState.value = ActionState.Running(server)
             try {
                 runInterruptible(Dispatchers.IO) {
@@ -78,6 +81,7 @@ class EditSftpServerViewModel : ViewModel() {
 
     fun finishConnecting() {
         viewModelScope.launch {
+            check(_connectState.value.isFinished)
             _connectState.value = ActionState.Ready()
         }
     }

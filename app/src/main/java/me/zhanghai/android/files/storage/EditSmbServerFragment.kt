@@ -31,6 +31,7 @@ import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getTextArray
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
+import me.zhanghai.android.files.util.isReady
 import me.zhanghai.android.files.util.setResult
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
@@ -188,7 +189,7 @@ class EditSmbServerFragment : Fragment() {
     }
 
     private fun connectAndAdd() {
-        if (viewModel.connectState.value !is ActionState.Ready) {
+        if (!viewModel.connectState.value.isReady) {
             return
         }
         val server = getServerOrSetError() ?: return

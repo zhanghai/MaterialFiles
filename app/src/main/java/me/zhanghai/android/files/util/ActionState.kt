@@ -14,3 +14,9 @@ sealed class ActionState<A, R> {
 
     class Error<A, R>(val argument: A, val throwable: Throwable) : ActionState<A, R>()
 }
+
+val ActionState<*, *>.isReady: Boolean
+    get() = this is ActionState.Ready
+
+val ActionState<*, *>.isFinished: Boolean
+    get() = when (this) { is ActionState.Success, is ActionState.Error -> true else -> false }

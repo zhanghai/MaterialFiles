@@ -34,6 +34,7 @@ import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getTextArray
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
+import me.zhanghai.android.files.util.isReady
 import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
@@ -185,7 +186,7 @@ class EditSftpServerFragment : Fragment() {
     }
 
     private fun onOpenPrivateKeyFile() {
-        if (viewModel.readPrivateKeyFileState.value !is ActionState.Ready) {
+        if (!viewModel.readPrivateKeyFileState.value.isReady) {
             return
         }
         pickPrivateKeyFileLauncher.launchSafe(listOf(MimeType.ANY), this)
@@ -226,7 +227,7 @@ class EditSftpServerFragment : Fragment() {
     }
 
     private fun connectAndAdd() {
-        if (viewModel.connectState.value !is ActionState.Ready) {
+        if (!viewModel.connectState.value.isReady) {
             return
         }
         val server = getServerOrSetError() ?: return

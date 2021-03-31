@@ -14,6 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runInterruptible
 import me.zhanghai.android.files.provider.common.newDirectoryStream
 import me.zhanghai.android.files.util.ActionState
+import me.zhanghai.android.files.util.isFinished
+import me.zhanghai.android.files.util.isReady
 
 class EditSmbServerViewModel : ViewModel() {
     private val _connectState = MutableStateFlow<ActionState<SmbServer, Unit>>(ActionState.Ready())
@@ -21,7 +23,7 @@ class EditSmbServerViewModel : ViewModel() {
 
     fun connect(server: SmbServer) {
         viewModelScope.launch {
-            check(_connectState.value is ActionState.Ready)
+            check(_connectState.value.isReady)
             _connectState.value = ActionState.Running(server)
             try {
                 runInterruptible(Dispatchers.IO) {
@@ -44,6 +46,7 @@ class EditSmbServerViewModel : ViewModel() {
 
     fun finishConnecting() {
         viewModelScope.launch {
+            check(_connectState.value.isFinished)
             _connectState.value = ActionState.Ready()
         }
     }
