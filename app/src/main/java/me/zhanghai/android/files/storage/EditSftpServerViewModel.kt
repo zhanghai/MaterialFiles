@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.runInterruptible
 import me.zhanghai.android.files.provider.common.newDirectoryStream
 import me.zhanghai.android.files.provider.common.readAllBytes
 import me.zhanghai.android.files.provider.common.size
@@ -31,7 +31,7 @@ class EditSftpServerViewModel : ViewModel() {
             }
             _readPrivateKeyFileState.value = ActionState.Running(file)
             try {
-                val text = withContext(Dispatchers.IO) {
+                val text = runInterruptible(Dispatchers.IO) {
                     val size = file.size()
                     if (size > MAX_PRIVATE_KEY_FILE_SIZE) {
                         throw IOException("Private key file size $size is too large")
@@ -62,7 +62,7 @@ class EditSftpServerViewModel : ViewModel() {
             }
             _connectState.value = ActionState.Running(server)
             try {
-                withContext(Dispatchers.IO) {
+                runInterruptible(Dispatchers.IO) {
                     SftpServerAuthenticator.addTransientServer(server)
                     try {
                         val path = server.path
