@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.util
 
+@Deprecated("", ReplaceWith("ActionState"))
 class StateData private constructor(
     val state: State,
     val exception: Exception?
@@ -18,17 +19,17 @@ class StateData private constructor(
             return StateData(State.READY, null)
         }
 
-        @kotlin.jvm.JvmStatic
+        @JvmStatic
         fun ofLoading(): StateData {
             return StateData(State.LOADING, null)
         }
 
-        @kotlin.jvm.JvmStatic
+        @JvmStatic
         fun ofError(exception: Exception?): StateData {
             return StateData(State.ERROR, exception)
         }
 
-        @kotlin.jvm.JvmStatic
+        @JvmStatic
         fun ofSuccess(): StateData {
             return StateData(State.SUCCESS, null)
         }

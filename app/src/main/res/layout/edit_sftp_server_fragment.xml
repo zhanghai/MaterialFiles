@@ -159,6 +159,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/storage_edit_sftp_server_private_key"
+                        app:endIconContentDescription="@string/storage_edit_sftp_server_private_key_open_file"
+                        app:endIconDrawable="@drawable/file_icon_white_24dp"
+                        app:endIconMode="custom"
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText

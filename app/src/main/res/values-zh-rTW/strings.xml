@@ -409,6 +409,7 @@
     <string name="storage_edit_sftp_server_username_error_empty">輸入使用者名稱</string>
     <string name="storage_edit_sftp_server_password">密碼</string>
     <string name="storage_edit_sftp_server_private_key">私密金鑰</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">開啟檔案</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">輸入私密金鑰</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">無效的私密金鑰</string>
     <string name="storage_edit_sftp_server_connect_and_add">連線並新增</string>

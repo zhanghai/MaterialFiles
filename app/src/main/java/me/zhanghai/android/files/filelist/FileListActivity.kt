@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.fragment.app.commit
 import java8.nio.file.Path
 import me.zhanghai.android.files.app.AppActivity
+import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.putArgs
@@ -53,6 +54,17 @@ class FileListActivity : AppActivity() {
             FileListActivity::class.createIntent()
                 .setAction(Intent.ACTION_OPEN_DOCUMENT_TREE)
                 .apply { input?.let { extraPath = it } }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Path? =
+            if (resultCode == RESULT_OK) intent?.extraPath else null
+    }
+
+    class PickFileContract : ActivityResultContract<List<MimeType>, Path?>() {
+        override fun createIntent(context: Context, input: List<MimeType>): Intent =
+            FileListActivity::class.createIntent()
+                .setAction(Intent.ACTION_OPEN_DOCUMENT)
+                .setType(MimeType.ANY.value)
+                .putExtra(Intent.EXTRA_MIME_TYPES, input.map { it.value }.toTypedArray())
 
         override fun parseResult(resultCode: Int, intent: Intent?): Path? =
             if (resultCode == RESULT_OK) intent?.extraPath else null

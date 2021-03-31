@@ -14,14 +14,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
+import java8.nio.file.Path
+import kotlinx.coroutines.flow.collect
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditSftpServerFragmentBinding
+import me.zhanghai.android.files.file.MimeType
+import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.provider.sftp.client.Authority
 import me.zhanghai.android.files.provider.sftp.client.PasswordAuthentication
 import me.zhanghai.android.files.provider.sftp.client.PublicKeyAuthentication
 import me.zhanghai.android.files.ui.UnfilteredArrayAdapter
+import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.ParcelableArgs
@@ -32,6 +38,7 @@ import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getTextArray
 import me.zhanghai.android.files.util.hideTextInputLayoutErrorOnTextChange
+import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
@@ -39,9 +46,24 @@ import me.zhanghai.android.files.util.viewModels
 class EditSftpServerFragment : Fragment() {
     private val args by args<Args>()
 
+    private val pickPrivateKeyFileLauncher = registerForActivityResult(
+        FileListActivity.PickFileContract(), this::onPickPrivateKeyFileResult
+    )
+
     private val viewModel by viewModels { { EditSftpServerViewModel() } }
 
     private lateinit var binding: EditSftpServerFragmentBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.readPrivateKeyFileState.collect { onReadPrivateKeyFileStateChanged(it) }
+            viewModel.connectStatefulLiveData.observe(viewLifecycleOwner) {
+                onConnectStatefulChanged(it)
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,19 +74,21 @@ class EditSftpServerFragment : Fragment() {
             .also { binding = it }
             .root
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val activity = requireActivity() as AppCompatActivity
-        activity.setSupportActionBar(binding.toolbar)
-        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        activity.setTitle(
-            if (args.server != null) {
-                R.string.storage_edit_sftp_server_title_edit
-            } else {
-                R.string.storage_edit_sftp_server_title_add
-            }
-        )
+        activity.lifecycleScope.launchWhenCreated {
+            activity.setSupportActionBar(binding.toolbar)
+            activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            activity.setTitle(
+                if (args.server != null) {
+                    R.string.storage_edit_sftp_server_title_edit
+                } else {
+                    R.string.storage_edit_sftp_server_title_add
+                }
+            )
+        }
 
         binding.hostEdit.hideTextInputLayoutErrorOnTextChange(binding.hostLayout)
         binding.hostEdit.doAfterTextChanged { updateNamePlaceholder() }
@@ -81,6 +105,7 @@ class EditSftpServerFragment : Fragment() {
             onAuthenticationTypeChanged(authenticationType)
         }
         binding.usernameEdit.hideTextInputLayoutErrorOnTextChange(binding.usernameLayout)
+        binding.privateKeyLayout.setEndIconOnClickListener { onOpenPrivateKeyFile() }
         binding.privateKeyEdit.hideTextInputLayoutErrorOnTextChange(binding.privateKeyLayout)
         binding.saveOrConnectAndAddButton.setText(
             if (args.server != null) {
@@ -130,10 +155,6 @@ class EditSftpServerFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.connectStatefulLiveData.observe(viewLifecycleOwner) {
-            onConnectStatefulChanged(it)
-        }
     }
 
     private fun updateNamePlaceholder() {
@@ -167,6 +188,34 @@ class EditSftpServerFragment : Fragment() {
     private fun onAuthenticationTypeChanged(authenticationType: AuthenticationType) {
         binding.passwordLayout.isVisible = authenticationType == AuthenticationType.PASSWORD
         binding.privateKeyLayout.isVisible = authenticationType == AuthenticationType.PUBLIC_KEY
+    }
+
+    private fun onOpenPrivateKeyFile() {
+        if (viewModel.readPrivateKeyFileState.value !is ActionState.Ready) {
+            return
+        }
+        pickPrivateKeyFileLauncher.launchSafe(listOf(MimeType.ANY), this)
+    }
+
+    private fun onPickPrivateKeyFileResult(result: Path?) {
+        result ?: return
+        viewModel.readPrivateKeyFile(result)
+    }
+
+    private fun onReadPrivateKeyFileStateChanged(state: ActionState<Path, String>) {
+        when (state) {
+            is ActionState.Ready, is ActionState.Running -> {}
+            is ActionState.Success -> {
+                binding.privateKeyEdit.setText(state.result)
+                viewModel.finishReadingPrivateKeyFile()
+            }
+            is ActionState.Error -> {
+                val throwable = state.throwable
+                throwable.printStackTrace()
+                showToast(throwable.toString())
+                viewModel.finishReadingPrivateKeyFile()
+            }
+        }
     }
 
     private fun saveOrAdd() {
