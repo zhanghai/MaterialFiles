@@ -8,11 +8,11 @@ package me.zhanghai.android.files.util
 sealed class DataState<T> {
     abstract val data: T?
 
-    class Loading<T>(override val data: T? = null) : DataState<T>()
+    data class Loading<T>(override val data: T? = null) : DataState<T>()
 
-    class Success<T>(override val data: T) : DataState<T>()
+    data class Success<T>(override val data: T) : DataState<T>()
 
-    class Error<T>(override val data: T?, val throwable: Throwable) : DataState<T>()
+    data class Error<T>(override val data: T?, val throwable: Throwable) : DataState<T>()
 }
 
 fun <T> DataState<T>.toLoading(): DataState.Loading<T> =
