@@ -86,6 +86,13 @@
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
+            android:key="@string/pref_key_show_pdf_thumbnail_pre_28"
+            android:title="@string/settings_show_pdf_thumbnail_pre_28_title"
+            android:defaultValue="@bool/pref_default_value_show_pdf_thumbnail_pre_28"
+            android:summary="@string/settings_show_pdf_thumbnail_pre_28_summary"
+            app:isPreferenceVisible="@bool/pref_visible_show_pdf_thumbnail_pre_28" />
+
+        <SwitchPreferenceCompat
             android:key="@string/pref_key_read_remote_files_for_thumbnail"
             android:title="@string/settings_read_remote_files_for_thumbnail_title"
             android:defaultValue="@bool/pref_default_value_read_remote_files_for_thumbnail" />

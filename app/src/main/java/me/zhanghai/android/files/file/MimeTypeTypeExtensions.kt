@@ -6,9 +6,16 @@
 package me.zhanghai.android.files.file
 
 import android.os.Build
+import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.util.valueCompat
+
+private val showPdfThumbnail: Boolean
+    get() =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+            || Settings.SHOW_PDF_THUMBNAIL_PRE_28.valueCompat
 
 val MimeType.supportsThumbnail: Boolean
-    get() = isImage || isMedia || isPdf || isApk
+    get() = isImage || isMedia || (showPdfThumbnail && isPdf) || isApk
 
 val MimeType.isApk: Boolean
     get() = this == MimeType.APK
