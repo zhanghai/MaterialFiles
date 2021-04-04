@@ -469,6 +469,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">已儲存</string>
     <string name="text_editor_reload_message">您確定要重新載入嗎？對此文件未儲存的變更將丟失。</string>
+    <string name="text_editor_encoding">編碼</string>
     <string name="text_editor_close_message">您確定要捨棄對此文件未儲存的變更嗎？</string>
 
     <string name="ftp_server_title">FTP 伺服器</string>

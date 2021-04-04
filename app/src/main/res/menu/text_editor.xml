@@ -23,4 +23,12 @@
         android:orderInCategory="100"
         android:title="@string/reload"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_encoding"
+        android:orderInCategory="100"
+        android:title="@string/text_editor_encoding"
+        app:showAsAction="never">
+        <menu />
+    </item>
 </menu>

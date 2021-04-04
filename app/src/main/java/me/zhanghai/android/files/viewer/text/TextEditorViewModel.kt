@@ -40,7 +40,6 @@ class TextEditorViewModel(file: Path) : ViewModel() {
     val file = _file.asStateFlow()
 
     private val _bytesState = MutableStateFlow<DataState<ByteArray>>(DataState.Loading())
-    val bytesState = _bytesState.asStateFlow()
 
     private var loadJob: Job? = null
     private var reloadJob: Job? = null

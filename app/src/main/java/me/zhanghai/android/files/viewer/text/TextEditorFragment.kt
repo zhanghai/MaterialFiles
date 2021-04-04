@@ -11,9 +11,11 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.SubMenu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -34,6 +36,7 @@ import me.zhanghai.android.files.util.getExtraPath
 import me.zhanghai.android.files.util.isReady
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.viewModels
+import java.nio.charset.Charset
 
 class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     ConfirmCloseDialogFragment.Listener {
@@ -54,6 +57,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         setHasOptionsMenu(true)
 
         lifecycleScope.launchWhenStarted {
+            launch { viewModel.encoding.collect { onEncodingChanged(it) } }
             launch { viewModel.textState.collect { onTextStateChanged(it) } }
             launch { viewModel.isTextChanged.collect { onIsTextChangedChanged(it) } }
             launch { viewModel.writeFileState.collect { onWriteFileStateChanged(it) } }
@@ -125,6 +129,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         super.onPrepareOptionsMenu(menu)
 
         updateSaveMenuItem()
+        updateEncodingMenuItems()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -135,6 +140,10 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             }
             R.id.action_reload -> {
                 onReload()
+                true
+            }
+            Menu.FIRST -> {
+                viewModel.encoding.value = Charset.forName(item.titleCondensed.toString())
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -150,6 +159,20 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
     override fun finish() {
         requireActivity().finish()
+    }
+
+    private fun onEncodingChanged(encoding: Charset) {
+        updateEncodingMenuItems()
+    }
+
+    private fun updateEncodingMenuItems() {
+        if (!this::menuBinding.isInitialized) {
+            return
+        }
+        val charsetName = viewModel.encoding.value.name()
+        val charsetItem = menuBinding.encodingSubMenu.children
+            .find { it.titleCondensed == charsetName }!!
+        charsetItem.isChecked = true
     }
 
     private fun onTextStateChanged(state: DataState<String>) {
@@ -244,12 +267,20 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
     private class MenuBinding private constructor(
         val menu: Menu,
-        val saveItem: MenuItem
+        val saveItem: MenuItem,
+        val encodingSubMenu: SubMenu
     ) {
         companion object {
             fun inflate(menu: Menu, inflater: MenuInflater): MenuBinding {
                 inflater.inflate(R.menu.text_editor, menu)
-                return MenuBinding(menu, menu.findItem(R.id.action_save))
+                val encodingSubMenu = menu.findItem(R.id.action_encoding).subMenu
+                for ((charsetName, charset) in Charset.availableCharsets()) {
+                    // HACK: Use titleCondensed to store charset name.
+                    encodingSubMenu.add(Menu.NONE, Menu.FIRST, Menu.NONE, charset.displayName())
+                        .titleCondensed = charsetName
+                }
+                encodingSubMenu.setGroupCheckable(Menu.NONE, true, true)
+                return MenuBinding(menu, menu.findItem(R.id.action_save), encodingSubMenu)
             }
         }
     }

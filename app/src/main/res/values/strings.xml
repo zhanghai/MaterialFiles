@@ -566,6 +566,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Saved</string>
     <string name="text_editor_reload_message">Are you sure you want to reload? Unsaved changes to this document will be lost.</string>
+    <string name="text_editor_encoding">Encoding</string>
     <string name="text_editor_close_message">Are you sure you want to discard unsaved changes to this document?</string>
 
     <string name="ftp_server_title">FTP server</string>
