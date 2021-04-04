@@ -30,9 +30,7 @@ class CharsetPreference : ListPreference {
 
     init {
         val charsets = Charset.availableCharsets()
-        val entries = charsets.keys.toTypedArray<CharSequence>()
-        setEntries(entries)
-        val entryValues = charsets.values.map { it.displayName() }.toTypedArray<CharSequence>()
-        setEntryValues(entryValues)
+        entries = charsets.values.map { it.displayName() }.toTypedArray<CharSequence>()
+        entryValues = charsets.keys.toTypedArray<CharSequence>()
     }
 }
