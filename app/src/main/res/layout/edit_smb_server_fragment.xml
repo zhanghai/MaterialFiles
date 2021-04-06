@@ -24,7 +24,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/back_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
     </me.zhanghai.android.files.ui.CoordinatorAppBarLayout>
 
@@ -42,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollView"

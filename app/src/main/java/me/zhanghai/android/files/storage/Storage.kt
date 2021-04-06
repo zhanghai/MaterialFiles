@@ -5,15 +5,33 @@
 
 package me.zhanghai.android.files.storage
 
+import android.content.Context
+import android.content.Intent
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.util.takeIfNotEmpty
 
-interface Storage : Parcelable {
-    val id: Long
-    val iconRes: Int
-        get() = R.drawable.directory_icon_white_24dp
-    val name: String
-    val description: String
-    val path: Path
+abstract class Storage : Parcelable {
+    abstract val id: Long
+
+    @DrawableRes
+    open val iconRes: Int = R.drawable.directory_icon_white_24dp
+
+    abstract val customName: String?
+
+    abstract fun getDefaultName(context: Context): String
+
+    fun getName(context: Context): String = customName?.takeIfNotEmpty() ?: getDefaultName(context)
+
+    abstract val description: String
+
+    abstract val path: Path
+
+    open val linuxPath: String? = null
+
+    open val isVisible: Boolean = true
+
+    abstract fun createEditIntent(): Intent
 }

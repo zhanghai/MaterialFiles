@@ -18,6 +18,7 @@
     <string name="empty">Empty</string>
     <string name="empty_placeholder">(Empty)</string>
     <string name="error">Error</string>
+    <string name="hide">Hide</string>
     <string name="install">Install</string>
     <string name="keep_editing">Keep editing</string>
     <string name="loading">Loading…</string>
@@ -38,6 +39,7 @@
     <string name="select">Select</string>
     <string name="select_all">Select all</string>
     <string name="share">Share</string>
+    <string name="show">Show</string>
     <string name="skip">Skip</string>
     <string name="sort">Sort</string>
     <string name="stop">Stop</string>
@@ -65,100 +67,100 @@
     <string name="notification_channel_ftp_server_name">FTP server</string>
     <string name="notification_channel_ftp_server_description">Display and control the FTP server</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparing to compress %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to compress %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">Compressing “%1$s” into “%2$s”</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">Compressing “%1$s” into “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Compressing %1$,d file into “%2$s”</item>
         <item quantity="other">Compressing %1$,d files into “%2$s”</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Preparing to copy %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to copy %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Copying “%1$s” to “%2$s”</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">Copying “%1$s” to “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Copying %1$,d file to “%2$s”</item>
         <item quantity="other">Copying %1$,d files to “%2$s”</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Preparing to extract %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to extract %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">Extracting “%1$s” to “%2$s”</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">Extracting “%1$s” to “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Extracting %1$,d file to “%2$s”</item>
         <item quantity="other">Extracting %1$,d files to “%2$s”</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Preparing to move %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to move %1$,d files (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Moving “%1$s” to “%2$s”</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">Moving “%1$s” to “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Moving %1$,d file to “%2$s”</item>
         <item quantity="other">Moving %1$,d files to “%2$s”</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Preparing to delete %1$,d file</item>
         <item quantity="other">Preparing to delete %1$,d files</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Deleting “%1$s”</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">Deleting “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Deleting %1$,d file</item>
         <item quantity="other">Deleting %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Preparing to change owner for %1$,d file</item>
         <item quantity="other">Preparing to change owner for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">Changing owner for “%1$s”</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">Changing owner for “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Changing owner for %1$,d file</item>
         <item quantity="other">Changing owner for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Preparing to change group for %1$,d file</item>
         <item quantity="other">Preparing to change group for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">Changing group for “%1$s”</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">Changing group for “%1$s”</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Changing group for %1$,d file</item>
         <item quantity="other">Changing group for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Preparing to change mode for %1$,d file</item>
         <item quantity="other">Preparing to change mode for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">Changing mode for “%1$s”</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">Changing mode for “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Changing mode for %1$,d file</item>
         <item quantity="other">Changing mode for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparing to change SELinux context for %1$,d file</item>
         <item quantity="other">Preparing to change SELinux context for %1$,d files</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">Changing SELinux context for “%1$s”</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">Changing SELinux context for “%1$s”</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Changing SELinux context for %1$,d file</item>
         <item quantity="other">Changing SELinux context for %1$,d files</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparing to restore SELinux context for %1$,d file</item>
         <item quantity="other">Preparing to restore SELinux context for %1$,d files</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">Restoring SELinux context for “%1$s”</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Restoring SELinux context for “%1$s”</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Restoring SELinux context for %1$,d file</item>
         <item quantity="other">Restoring SELinux context for %1$,d files</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">Writing “%1$s”</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Writing “%1$s”</string>
     <string name="file_job_create_error_title">Error while creating</string>
     <string name="file_job_create_error_message_format">There was an error creating “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Cannot copy a folder into itself</string>
@@ -191,7 +193,7 @@
     <string name="file_job_move_error_message_format">There was an error moving the file into “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Error while deleting</string>
     <string name="file_job_delete_error_message_format">There was an error deleting “%1$s”.\n%2$s</string>
-    <string name="file_job_rename_error_title">Error while renaming “%1$s”</string>
+    <string name="file_job_rename_error_title_format">Error while renaming “%1$s”</string>
     <string name="file_job_rename_error_message_format">There was an error renaming the file to “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Error while changing owner for “%1$s”</string>
     <string name="file_job_set_owner_error_message_format">There was an error changing the owner to “%1$s”.\n%2$s</string>
@@ -462,26 +464,63 @@
         <item>R</item>
         <item>\?</item>
     </string-array>
+    <string name="file_properties_apk_requested_permissions">Permissions</string>
+    <string name="file_properties_apk_requested_permissions_zero">No permissions requested</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d permission requested</item>
+        <item quantity="other">%1$,d permissions requested</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_past_signature_digests">Old signatures</string>
 
+    <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Storage</string>
     <string name="storage_list_empty">No storage</string>
     <string name="storage_add_storage_title">Add storage</string>
     <string name="storage_add_storage_document_tree">External storage</string>
+    <string name="storage_add_storage_sftp_server">SFTP server</string>
     <string name="storage_add_storage_smb_server">SMB server</string>
+    <string name="storage_edit_device_storage_title">Edit device storage</string>
+    <string name="storage_edit_device_storage_name">Name</string>
+    <string name="storage_edit_device_storage_path">Path</string>
     <string name="storage_add_document_tree_title">Add external storage</string>
-    <string name="storage_confirm_remove_document_tree_format">Remove “%1$s”?</string>
+    <string name="storage_edit_document_tree_title">Edit external storage</string>
+    <string name="storage_edit_document_tree_name">Name</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Path</string>
+    <string name="storage_edit_sftp_server_title_edit">Edit SFTP server</string>
+    <string name="storage_edit_sftp_server_title_add">Add SFTP server</string>
+    <string name="storage_edit_sftp_server_host">Hostname</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Enter a hostname</string>
+    <string name="storage_edit_sftp_server_port">Port</string>
+    <string name="storage_edit_sftp_server_port_placeholder" translatable="false">22</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Invalid port</string>
+    <string name="storage_edit_sftp_server_name">Name</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Use hostname</string>
+    <string name="storage_edit_sftp_server_authentication_type">Authentication</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Password</item>
+        <item>Public key</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Username</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Enter a username</string>
+    <string name="storage_edit_sftp_server_password">Password</string>
+    <string name="storage_edit_sftp_server_private_key">Private key</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Open file</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Enter a private way</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Invalid private key</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Connect and add</string>
+    <string name="storage_edit_sftp_server_add">Add</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Searching for SMB servers…</string>
     <string name="storage_add_lan_smb_server_add">Add manually</string>
     <string name="storage_edit_smb_server_title_edit">Edit SMB server</string>
     <string name="storage_edit_smb_server_title_add">Add SMB server</string>
     <string name="storage_edit_smb_server_host">Hostname</string>
-    <string name="storage_edit_smb_server_host_empty_error">Enter a hostname</string>
+    <string name="storage_edit_smb_server_host_error_empty">Enter a hostname</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
-    <string name="storage_edit_smb_server_port_error">Invalid port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Invalid port</string>
     <string name="storage_edit_smb_server_name">Name</string>
     <string name="storage_edit_smb_server_name_placeholder">Use hostname</string>
     <string name="storage_edit_smb_server_authentication_type">Authentication</string>
@@ -491,15 +530,13 @@
         <item>Anonymous</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Username</string>
-    <string name="storage_edit_smb_server_username_empty_error">Enter a username</string>
+    <string name="storage_edit_smb_server_username_error_empty">Enter a username</string>
     <string name="storage_edit_smb_server_password">Password</string>
-    <string name="storage_edit_smb_server_password_empty_error">Enter a password</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Connect and add</string>
-    <string name="storage_edit_smb_server_add">Add directly</string>
+    <string name="storage_edit_smb_server_add">Add</string>
 
-    <string name="navigation_root_directory">Root</string>
-    <string name="navigation_root_subtitle_format">%1$s free of %2$s</string>
+    <string name="navigation_storage_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_storage">Add storage…</string>
     <string name="navigation_standard_directory_alarms">Alarms</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
@@ -529,6 +566,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Saved</string>
     <string name="text_editor_reload_message">Are you sure you want to reload? Unsaved changes to this document will be lost.</string>
+    <string name="text_editor_encoding">Encoding</string>
     <string name="text_editor_close_message">Are you sure you want to discard unsaved changes to this document?</string>
 
     <string name="ftp_server_title">FTP server</string>
@@ -602,6 +640,8 @@
         <item>View contents</item>
         <item>Ask what to do</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Show thumbnail for PDF files</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Might make the app unstable on older versions of Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Read remote files for thumbnail</string>
 
     <string name="about_title">About</string>

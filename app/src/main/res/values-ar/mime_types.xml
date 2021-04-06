@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">ملف</string>
+    <string name="file_type_name_apk">حزمة Android</string>
+    <string name="file_type_name_archive">%1$s أرشيف</string>
+    <string name="file_type_name_audio">%1$s صوت</string>
+    <string name="file_type_name_calendar">%1$s تقويم</string>
+    <string name="file_type_name_certificate">%1$s شهادة</string>
+    <string name="file_type_name_code">%1$s مستند</string>
+    <string name="file_type_name_contact">بطاقة عمل إلكترونية</string>
+    <string name="file_type_name_directory">مجلد</string>
+    <string name="file_type_name_document">%1$s مستند</string>
+    <string name="file_type_name_ebook">%1$s كتاب إلكتروني e-book</string>
+    <string name="file_type_name_email">%1$s رسالة الكترونية</string>
+    <string name="file_type_name_font">%1$s خط</string>
+    <string name="file_type_name_generic">%1$s ملف</string>
+    <string name="file_type_name_image">%1$s صورة</string>
+    <string name="file_type_name_pdf">مستند PDF</string>
+    <string name="file_type_name_presentation">%1$s عرض تقديمي</string>
+    <string name="file_type_name_spreadsheet">%1$s جداول</string>
+    <string name="file_type_name_text">%1$s نصي</string>
+    <string name="file_type_name_text_plain">مستند نص عادي</string>
+    <string name="file_type_name_video">%1$s فيديو</string>
+    <string name="file_type_name_word">مستند وورد</string>
+    <string name="file_type_name_powerpoint">عرض باور بوينت</string>
+    <string name="file_type_name_excel">جداول إكسل</string>
+    <string name="file_type_name_posix_character_device">جهاز الصفة</string>
+    <string name="file_type_name_posix_block_device">جهاز الحظر</string>
+    <string name="file_type_name_posix_fifo">يضخ</string>
+    <string name="file_type_name_posix_symbolic_link">الارتباط</string>
+    <string name="file_type_name_posix_socket">قابس</string>
+    <string name="file_type_name_posix_symbolic_link_broken">الارتباط (معطل)</string>
+</resources>

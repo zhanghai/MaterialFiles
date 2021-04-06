@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">Bezárás</string>
+    <string name="copy">Másolás</string>
+    <string name="cut">Kivágás</string>
+    <string name="default_">Alapértelmezett</string>
+    <string name="delete">Törlés</string>
+    <string name="discard">Elvetés</string>
+    <string name="empty">Ürítés</string>
+    <string name="empty_placeholder">(Üres)</string>
+    <string name="error">Hiba</string>
+    <string name="hide">Elrejtés</string>
+    <string name="install">Telepítés</string>
+    <string name="keep_editing">Szerkesztés folytatása</string>
+    <string name="loading">Betöltés…</string>
+    <string name="maybe_later">Talán később</string>
+    <string name="merge">Egyesítés</string>
+    <string name="none">Nincs</string>
+    <string name="paste">Beillesztés</string>
+    <string name="pick">@string/select</string>
+    <string name="refresh">Frissítés</string>
+    <string name="reload">Újratöltés</string>
+    <string name="remove">Eltávolítás</string>
+    <string name="rename">Átnevezés</string>
+    <string name="replace">Csere</string>
+    <string name="reset">Visszaállítás</string>
+    <string name="retry">Újra</string>
+    <string name="save">Mentés</string>
+    <string name="search">Keresés</string>
+    <string name="select">Kiválasztás</string>
+    <string name="select_all">Összes kiválasztása</string>
+    <string name="share">Megosztás</string>
+    <string name="show">Megjelenítés</string>
+    <string name="skip">Kihagyás</string>
+    <string name="sort">Rendezés</string>
+    <string name="stop">Leállítás</string>
+    <string name="unknown">Ismeretlen</string>
+    <string name="view">Nézet</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Nincs olyan alkalmazás, amely kezelné ezt a műveletet</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="open_settings">Beállítások megnyitása</string>
+    <string name="shortcut_created">Parancsikon létrehozva</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d bájt</item>
+        <item quantity="other">%1$,d bájt</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Kattintson az „Engedélyezésre” a következő rendszerüzeneten.</string>
+    <string name="storage_permission_permanently_denied_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Adja meg a „Tároló” engedélyt a rendszerbeállításokban.</string>
+
+    <string name="notification_channel_background_activity_start_name">Műveletek a háttérben</string>
+    <string name="notification_channel_background_activity_start_description">Műveletek elvégzése, míg az alkalmazás a háttérben van</string>
+    <string name="notification_channel_file_job_name">Fájlműveletek</string>
+    <string name="notification_channel_file_job_description">Fájlműveletek megjelenítése és vezérlése</string>
+    <string name="notification_channel_ftp_server_name">FTP-kiszolgáló</string>
+    <string name="notification_channel_ftp_server_description">FTP-kiszolgáló megjelenítése és vezérlése</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl tömörítésére (%2$s)</item>
+        <item quantity="other">Felkészülés %1$,d fájl tömörítésére (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">A(z) „%1$s” tömörítése ebbe: „%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl tömörítése ebbe: „%2$s”</item>
+        <item quantity="other">%1$,d fájl tömörítése ebbe: „%2$s”</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl másolására (%2$s)</item>
+        <item quantity="other">Felkészülés %1$,d fájl másolására (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">A(z) „%1$s” másolása ide: „%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl másolása ide: „%2$s”</item>
+        <item quantity="other">%1$,d fájl másolása ide: „%2$s”</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl kibontására (%2$s)</item>
+        <item quantity="other">Felkészülés %1$,d fájl kibontására (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">A(z) „%1$s” kibontása ide: „%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl kibontása ide: „%2$s”</item>
+        <item quantity="other">%1$,d fájl kibontása ide: „%2$s”</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl áthelyezésére (%2$s)</item>
+        <item quantity="other">Felkészülés %1$,d fájl áthelyezésére (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">A(z) „%1$s” áthelyezése ide: „%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl áthelyezése ide: „%2$s”</item>
+        <item quantity="other">%1$,d fájl áthelyezése ide: „%2$s”</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl törlésére</item>
+        <item quantity="other">Felkészülés %1$,d fájl törlésére</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">A(z) „%1$s” törlése</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl törlése</item>
+        <item quantity="other">%1$,d fájl törlése</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl tulajdonosának módosítására</item>
+        <item quantity="other">Felkészülés %1$,d fájl tulajdonosának módosítására</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">A(z) „%1$s” tulajdonosának módosítása</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl tulajdonosának módosítása</item>
+        <item quantity="other">%1$,d fájl tulajdonosának módosítása</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="one">%1$,d fájl csoportjának módosítása</item>
+        <item quantity="other">%1$,d fájl csoportjának módosítása</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">A(z) „%1$s” csoportjának módosítása</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl csoportjának módosítása</item>
+        <item quantity="other">%1$,d fájl csoportjának módosítása</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl módjának módosítására</item>
+        <item quantity="other">Felkészülés %1$,d fájl módjának módosítására</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">A(z) „%1$s” módjának módosítása</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl módjának módosítása</item>
+        <item quantity="other">%1$,d fájl módjának módosítása</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl SELinux környezetének módosítására</item>
+        <item quantity="other">Felkészülés %1$,d fájl SELinux környezetének módosítására</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">A(z) „%1$s” SELinux környezetének módosítása</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl SELinux környezetének módosítása</item>
+        <item quantity="other">%1$,d fájl SELinux környezetének módosítása</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="one">Felkészülés %1$,d fájl SELinux környezetének helyreállítására</item>
+        <item quantity="other">Felkészülés %1$,d fájl SELinux környezetének helyreállítására</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">A(z) „%1$s” SELinux környezetének helyreállítása</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="one">%1$,d fájl SELinux környezetének helyreállítása</item>
+        <item quantity="other">%1$,d fájl SELinux környezetének helyreállítása</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">A(z) „%1$s” írása</string>
+    <string name="file_job_create_error_title">Hiba a létrehozáskor</string>
+    <string name="file_job_create_error_message_format">Hiba történt a(z) „%1$s” létrehozásakor.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">A mappa nem másolható saját magába</string>
+    <string name="file_job_cannot_extract_into_itself_title">A mappa nem bontható ki saját magába</string>
+    <string name="file_job_cannot_move_into_itself_title">A mappa nem helyezhető át saját magába</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">A célmappa a forrásmappán belül van.</string>
+    <string name="file_job_cannot_copy_over_itself_title">A fájl nem másolható saját magára</string>
+    <string name="file_job_cannot_extract_over_itself_title">A fájl nem bontható ki saját magára</string>
+    <string name="file_job_cannot_move_over_itself_title">A fájl nem helyezhető át saját magára</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">A forrásfájlt felülírná a cél</string>
+    <string name="file_job_replace_title_format">Lecseréli a(z) „%1$s” fájlt?</string>
+    <string name="file_job_replace_message_format">Már létezik egy azonos nevű fájl itt: „%1$s”.\nA csere felülírja a tartalmát.</string>
+    <string name="file_job_replace_target_name">Eredeti fájl</string>
+    <string name="file_job_replace_source_name">Csere ezzel:</string>
+    <string name="file_job_merge_title_format">Egyesíti a(z) „%1$s” mappát?</string>
+    <string name="file_job_merge_copy_message_format">Az egyesítés a másolt fájlok a mappában lévő fájlokkal történő ütközése esetén megerősítést fog kérni a cseréhez.</string>
+    <string name="file_job_merge_extract_message_format">Az egyesítés a kibontott fájlok a mappában lévő fájlokkal történő ütközése esetén megerősítést fog kérni a cseréhez.</string>
+    <string name="file_job_merge_move_message_format">Az egyesítés az áthelyezett fájlok a mappában lévő fájlokkal történő ütközése esetén megerősítést fog kérni a cseréhez.</string>
+    <string name="file_job_merge_target_name">Eredeti mappa</string>
+    <string name="file_job_merge_source_name">Egyesítés ezzel:</string>
+    <string name="file_job_conflict_show_name">Válasszon új nevet a célhoz</string>
+    <string name="file_job_conflict_name_hint">Új név</string>
+    <string name="file_job_archive_error_title_format">Hiba a(z) „%1$s” tömörítésekor</string>
+    <string name="file_job_archive_error_message_format">Hiba történt a(z) „%1$s” létrehozásakor.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Hiba a(z) „%1$s” másolásakor</string>
+    <string name="file_job_copy_error_message_format">Hiba történt a fájl ide másolásakor: „%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Hiba a(z) „%1$s” kibontásakor</string>
+    <string name="file_job_extract_error_message_format">Hiba történt a fájl ide kibontásakor: „%1$s”.\n%2$s</string>
+    <string name="file_job_move_error_title_format">Hiba a(z) „%1$s” áthelyezésekor</string>
+    <string name="file_job_move_error_message_format">Hiba történt a fájl ide áthelyezésekor: „%1$s”.\n%2$s</string>
+    <string name="file_job_delete_error_title">Hiba a törléskor</string>
+    <string name="file_job_delete_error_message_format">Hiba történt a(z) „%1$s” törlésekor.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Hiba a(z) „%1$s” átnevezésekor</string>
+    <string name="file_job_rename_error_message_format">Hiba történt a fájl erre átnevezésekor: „%1$s”.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Hiba a(z) „%1$s” tulajdonosának módosításakor</string>
+    <string name="file_job_set_owner_error_message_format">Hiba történt a fájl tulajdonosának erre módosításakor: „%1$s”.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Hiba a(z) „%1$s” csoportjának módosításakor</string>
+    <string name="file_job_set_group_error_message_format">Hiba történt a fájl csoportjának erre módosításakor: „%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Hiba a(z) „%1$s” módjának módosításakor</string>
+    <string name="file_job_set_mode_error_message_format">Hiba történt a fájl módjának erre módosításakor: „%1$s”.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Hiba a(z) „%1$s” SELinux környezetének módosításakor</string>
+    <string name="file_job_set_selinux_context_error_message_format">Hiba történt a fájl SELinux környezetének erre módosításakor: „%1$s”.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Hiba az SELinux környezet helyreállításakor</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Hiba történt a(z) „%1$s” SELinux környezetének helyreállításakor.\n%2$s</string>
+    <string name="file_job_write_error_title">Hiba az íráskor</string>
+    <string name="file_job_write_error_message_format">Hiba történt a(z) „%1$s” írásakor.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Hiba történt a(z) „%1$s” információinak lekérésekor.</string>
+    <string name="file_job_remount_format">A(z) „%1$s” újracsatolása írhatóként</string>
+    <string name="file_job_remount_loading_format">A(z) „%1$s” újracsatolása írhatóként…</string>
+    <string name="file_job_remount_success_format">A(z) „%1$s” újra lett csatolva írhatóként</string>
+    <string name="file_job_action_all">E művelet alkalmazása az összes fájlra</string>
+
+    <string name="file_open_apk_message">Ez a fájl egy androidos csomag. Telepíteni szeretné, vagy megtekinti a tartalmát?</string>
+    <string name="file_open_as_title">Megnyitás másként…</string>
+    <string name="file_open_as_title_format">A(z) „%1$s” megnyitása másként</string>
+    <string name="file_open_as_type_text">Szöveg</string>
+    <string name="file_open_as_type_image">Ké</string>
+    <string name="file_open_as_type_audio">Hang</string>
+    <string name="file_open_as_type_video">Videó</string>
+    <string name="file_open_as_type_directory">Mappa</string>
+    <string name="file_open_as_type_any">Egyéb</string>
+    <string name="file_install_apk_from_background_title_format">A(z) „%1$s” telepítésre kész</string>
+    <string name="file_install_apk_from_background_text">Koppintson a telepítéshez</string>
+    <string name="file_open_from_background_title_format">A(z) „%1$s” megnyitásra kész</string>
+    <string name="file_open_from_background_text">Koppintson a megnyitáshoz</string>
+    <string name="file_name_error_empty">A fájlnév nem lehet üres</string>
+    <string name="file_name_error_invalid">Érvénytelen fájlnév</string>
+    <string name="file_name_error_already_exists">Már létezik egy fájl ezzel a névvel</string>
+    <string name="file_delete_message_file_format">Törli a(z) „%1$s” fájlt?</string>
+    <string name="file_delete_message_directory_format">Törli a(z) „%1$s” mappát és a tartalmát?</string>
+    <string name="file_delete_message_multiple_files_format">Töröl %1$,d fájlt?</string>
+    <string name="file_delete_message_multiple_directories_format">Töröl %1$,d mappát és azok tartalmát?</string>
+    <string name="file_delete_message_multiple_mixed_format">Töröl %1$,d elemet?</string>
+    <string name="file_create_archive_title">Archívum létrehozása</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Könyvjelző hozzáadva</string>
+    <string name="file_create_file_title">Új fájl</string>
+    <string name="file_create_directory_title">Új mappa</string>
+
+    <string name="file_list_title">Fájlok</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="one">Fájl kiválasztása</item>
+        <item quantity="other">Fájlok kiválasztása</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="one">Mappa kiválasztása</item>
+        <item quantity="other">Mappák kiválasztása</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d mappa</item>
+        <item quantity="other">%1$,d mappa</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d fájl</item>
+        <item quantity="other">%1$,d fájl</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_action_sort_by_name">Név</string>
+    <string name="file_list_action_sort_by_type">Típus</string>
+    <string name="file_list_action_sort_by_size">Méret</string>
+    <string name="file_list_action_sort_by_last_modified">Utoljára módosítva</string>
+    <string name="file_list_action_sort_order_ascending">Növekvő</string>
+    <string name="file_list_action_sort_directories_first">Mappák elöl</string>
+    <string name="file_list_action_sort_path_specific">Csak ennél a mappánál</string>
+    <string name="file_list_action_new_task">Új ablak</string>
+    <string name="file_list_action_navigate_up">Ugrás fel</string>
+    <string name="file_list_action_show_hidden_files">Rejtett fájlok megjelenítése</string>
+    <string name="file_list_action_copy_path">Útvonal másolása</string>
+    <string name="file_list_action_open_in_terminal">Megnyitás terminálban</string>
+    <string name="file_list_action_add_bookmark">Könyvjelző hozzáadása</string>
+    <string name="file_list_action_create_shortcut">Parancsikon létrehozása</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Megnyitás új ablakban</string>
+    <string name="file_list_select_title_format">%1$,d kiválasztva</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">„%1$s” kiválasztása</string>
+    <string name="file_list_paste_move_title_format">%1$,d áthelyezése</string>
+    <string name="file_list_paste_copy_title_format">%1$,d másolása</string>
+    <string name="file_list_paste_extract_title_format">%1$,d fájl kibontása</string>
+    <string name="file_list_paste_action_extract_here">Kibontás ide</string>
+    <string name="file_list_empty">Nincsenek fájlok</string>
+    <string name="file_list_action_create_file">Fájl</string>
+    <string name="file_list_action_create_directory">Mappa</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Megnyitás ezzel:</string>
+    <string name="file_item_action_extract">Kibontás</string>
+    <string name="file_item_action_archive">Tömörítés</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
+    <string name="file_item_action_properties">Tulajdonságok</string>
+
+    <string name="file_properties_title_format">„%1$s” tulajdonságai</string>
+    <string name="file_properties_basic">Alapvető</string>
+    <string name="file_properties_basic_name">Név</string>
+    <string name="file_properties_basic_type">Típus</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Link erre: %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Link célja</string>
+    <string name="file_properties_basic_size">Méret</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Tartalom</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d elem, mérete %2$s</item>
+        <item quantity="other">%1$,d elem, összesen %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Utoljára módosítva</string>
+    <string name="file_properties_basic_parent_directory"> Szülőmappa</string>
+    <string name="file_properties_basic_archive_file">Fájl archiválása</string>
+    <string name="file_properties_basic_archive_entry">Bejegyzés archiválása</string>
+    <string name="file_properties_basic_free_space">Szabad hely</string>
+    <string name="file_properties_permissions">Jogosultságok</string>
+    <string name="file_properties_permissions_owner">Tulajdonos</string>
+    <string name="file_properties_permissions_group">Csoport</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Tulajdonos módosítása</string>
+    <string name="file_properties_permissions_set_group_title">Csoport módosítása</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Adjon meg egy nevet vagy azonosítót</string>
+    <string name="file_properties_permissions_set_principal_system">Rendszer</string>
+    <string name="file_properties_permissions_mode">Mód</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Mód módosítása</string>
+    <string name="file_properties_permissions_set_mode_others">Mások</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Olvasás</item>
+        <item>Írás</item>
+        <item>Végrehajtás</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Olvasás</item>
+        <item>Írás</item>
+        <item>Keresés</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Különleges</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Set UID</item>
+        <item>Set GID</item>
+        <item>Ragadós bit</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Ne adja hozzá a „Végrehajtást” a tartalmazott fájlokhoz</string>
+    <string name="file_properties_permissions_selinux_context">SELinux környezet</string>
+    <string name="file_properties_permissions_set_selinux_context_title">SELinux környezet módosítása</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Visszaállítás</string>
+    <string name="file_properties_permissions_recursive">Alkalmazás a tartalmazott fájlokra</string>
+    <string name="file_properties_image">Kép</string>
+    <string name="file_properties_media_dimensions">Méretek</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Készítés ideje</string>
+    <string name="file_properties_media_coordinates">Koordináták</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Hely</string>
+    <string name="file_properties_image_gps_altitude">Magasság</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Kamera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Apertúra</string>
+    <string name="file_properties_image_shutter_speed">Zársebesség</string>
+    <string name="file_properties_image_focal_length">Gyújtótávolság</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO megfelelő</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Szoftver</string>
+    <string name="file_properties_image_description">Leírás</string>
+    <string name="file_properties_image_artist">Készítő</string>
+    <string name="file_properties_image_copyright">Jogi információ</string>
+    <string name="file_properties_audio">Hang</string>
+    <string name="file_properties_media_title">Cí</string>
+    <string name="file_properties_audio_artist">Előadó</string>
+    <string name="file_properties_audio_album">Album</string>
+    <string name="file_properties_audio_album_artist">Album előadója</string>
+    <string name="file_properties_audio_composer">Zeneszerző</string>
+    <string name="file_properties_audio_disc_number">Lemez</string>
+    <string name="file_properties_audio_track_number">Szám</string>
+    <string name="file_properties_audio_year">Év</string>
+    <string name="file_properties_audio_genre">Műfaj</string>
+    <string name="file_properties_media_duration">Hossz</string>
+    <string name="file_properties_media_bit_rate">Bitsebesség</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">Mintavételi arány</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Videó</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Név</string>
+    <string name="file_properties_apk_package_name">Csomag neve</string>
+    <string name="file_properties_apk_version">Verzió</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Minimális rendszerverzi</string>
+    <string name="file_properties_apk_target_sdk_version">Célrendszer verziója</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Engedélyek</string>
+    <string name="file_properties_apk_requested_permissions_zero">Nem kér engedélyeket</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d engedélyt kér</item>
+        <item quantity="other">%1$,d engedélyt kér</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">Aláírások</string>
+    <string name="file_properties_apk_past_signature_digests">Régi aláírások</string>
+
+    <string name="storage_file_system_root_title">Gyökér</string>
+    <string name="storage_list_title">Tároló</string>
+    <string name="storage_list_empty">Nincs tároló</string>
+    <string name="storage_add_storage_title">Tároló hozzáadása</string>
+    <string name="storage_add_storage_document_tree">Külső tároló</string>
+    <string name="storage_add_storage_smb_server">SMB-kiszolgáló</string>
+    <string name="storage_edit_device_storage_title">Tárolóeszköz szerkesztése</string>
+    <string name="storage_edit_device_storage_name">Név</string>
+    <string name="storage_edit_device_storage_path">Útvonal</string>
+    <string name="storage_add_document_tree_title">Külső tároló hozzáadása</string>
+    <string name="storage_edit_document_tree_title">Külső tároló szerkesztése</string>
+    <string name="storage_edit_document_tree_name">Név</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Útvonal</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">SMB-kiszolgálók keresése…</string>
+    <string name="storage_add_lan_smb_server_add">Hozzáadás kézzel</string>
+    <string name="storage_edit_smb_server_title_edit">SMB-kiszolgáló szerkesztése</string>
+    <string name="storage_edit_smb_server_title_add">SMB-kiszolgáló hozzáadása</string>
+    <string name="storage_edit_smb_server_host">Gépnév</string>
+    <string name="storage_edit_smb_server_host_error_empty">Adjon meg egy gépnevet</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Érvénytelen port</string>
+    <string name="storage_edit_smb_server_name">Név</string>
+    <string name="storage_edit_smb_server_name_placeholder">Gépnév használata</string>
+    <string name="storage_edit_smb_server_authentication_type">Hitelesítés</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Jelszó</item>
+        <item>Vendég</item>
+        <item>Névtelen</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Felhasználónév</string>
+    <string name="storage_edit_smb_server_username_error_empty">Adjon meg egy felhasználónevet</string>
+    <string name="storage_edit_smb_server_password">Jelszót</string>
+    <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_connect_and_add">Kapcsolódás és hozzáadás</string>
+    <string name="storage_edit_smb_server_add">Hozzáadás</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s szabad ennyiből: %2$s</string>
+    <string name="navigation_add_storage">Tároló hozzáadása…</string>
+    <string name="navigation_standard_directory_alarms">Riasztások</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Dokumentumok</string>
+    <string name="navigation_standard_directory_downloads">Letöltések</string>
+    <string name="navigation_standard_directory_movies">Filmek</string>
+    <string name="navigation_standard_directory_music">Zenék</string>
+    <string name="navigation_standard_directory_notifications">Értesítések</string>
+    <string name="navigation_standard_directory_pictures">Képek</string>
+    <string name="navigation_standard_directory_podcasts">Podcastok</string>
+    <string name="navigation_standard_directory_ringtones">Csengőhangok</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Mappa könyvjelzőzése</string>
+    <string name="navigation_edit_bookmark_directory_name">Név</string>
+    <string name="navigation_edit_bookmark_directory_path">Útvonal</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="image_viewer_title">Képmegjelenítő</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
+    <string name="text_editor_title">Szövegszerkesztő</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">Mentve</string>
+    <string name="text_editor_reload_message">Biztos, hogy újratölti? A dokumentum összes mentetlen módosítása elvész.</string>
+    <string name="text_editor_close_message">Biztos, hogy elveti a dokumentum mentetlen módosításait?</string>
+
+    <string name="ftp_server_title">FTP-kiszolgáló</string>
+    <string name="ftp_server_state_title">Állapot</string>
+    <string name="ftp_server_state_summary_starting">Indítás…</string>
+    <string name="ftp_server_state_summary_running">Fut</string>
+    <string name="ftp_server_state_summary_stopping">Leállítás…</string>
+    <string name="ftp_server_state_summary_stopped">Nem fut</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">A helyi IP-cím nem kérhető le</string>
+    <string name="ftp_server_url_menu_copy_url">URL másolása</string>
+    <string name="ftp_server_url_menu_copy_password">Jelszó másolása</string>
+    <string name="ftp_server_configuration_title">Beállítás</string>
+    <string name="ftp_server_anonymous_login_title">Névtelen bejelentkezés</string>
+    <string name="ftp_server_username_title">Felhasználónév</string>
+    <string name="ftp_server_password_title">Jelszó</string>
+    <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_home_directory_title">Gyökérmappa</string>
+    <string name="ftp_server_writable_title">Írás engedélyezése</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">Az FTP-kiszolgáló fut</string>
+
+    <string name="settings_title">Beállításo</string>
+    <string name="settings_interface_title">Felület</string>
+    <string name="settings_theme_color_title">Téma színe</string>
+    <string name="settings_theme_color_summary">A szín, amely a leggyakrabban megjelenik az alkalmazásban</string>
+    <string name="settings_night_mode_title">Éjszakai mód</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Rendszertéma követése</item>
+        <item>Ki</item>
+        <item>Be</item>
+        <item>Idő alapján</item>
+        <item>Akkumulátortöltöttség alapján</item>
+    </string-array>
+    <string name="settings_black_night_mode">Fekete éjszakai mód</string>
+    <string name="settings_file_list_animation_title">Fájllista animáció</string>
+    <string name="settings_file_name_ellipsize_title">Hosszú fájlnév megjelenítése</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Kipontozás az elején</item>
+        <item>Kipontozás a közepén</item>
+        <item>Kipontozás a végén</item>
+        <item>Futó szöveg</item>
+    </string-array>
+    <string name="settings_behavior_title">Viselkedés</string>
+    <string name="settings_default_directory_title">Alapértelmezett mappa</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
+    <string name="settings_standard_directories_title">Szokásos mappák</string>
+    <string name="settings_standard_directories_summary_empty">A szokásos mappák nem engedélyezettek</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
+    <string name="settings_bookmark_directory_screenshots">Képernyőképek</string>
+    <string name="settings_bookmark_directories_title">Mappák könyvjelzőzése</string>
+    <string name="settings_bookmark_directories_summary_empty">Nincsenek könyvjelzőzött mappák</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_root_strategy_title">Root hozzáférési mód</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">%1$,d fájlművelet fut, és a root hozzáférési mód átváltása váratlan hibát okozhat. Biztos, hogy most módosítja?</item>
+        <item quantity="other">%1$,d fájlművelet fut, és a root hozzáférési mód átváltása váratlan hibát okozhat. Biztos, hogy most módosítja?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Csak normál hozzáférés</item>
+        <item>Normál hozzáférés előnyben részesítése</item>
+        <item>Root hozzáférés előnyben részesítése</item>
+        <item>Csak root hozzéférés</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Archívum fájlnévkódolása</string>
+    <string name="settings_open_apk_default_action_title">Androidos csomag megnyitása</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Telepítés</item>
+        <item>Tartalom megtekintése</item>
+        <item>Kérdezze meg, hogy mit tegyen</item>
+    </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">Távoli fájlok olvasása a bélyegképekhez</string>
+
+    <string name="about_title">Névjegy</string>
+    <string name="about_version_title">Verzió</string>
+    <string name="about_github_title">Megtekintés a GitHubon</string>
+    <string name="about_licenses_title">Licencek</string>
+    <string name="about_privacy_policy_title">Adatvédelmi nyilatkozat</string>
+    <string name="about_author_title">Szerző</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Követés a GitHubon</string>
+    <string name="about_author_google_plus_title">Hozzáadás a Google+ körökhöz</string>
+    <string name="about_author_twitter_title">Követés Twitteren</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
+</resources>

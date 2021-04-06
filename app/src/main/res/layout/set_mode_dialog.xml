@@ -5,99 +5,116 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="?dialogPreferredPadding"
-    android:paddingEnd="?dialogPreferredPadding"
-    android:paddingTop="16dp"
-    android:clipToPadding="false"
-    android:orientation="vertical">
+    android:paddingTop="@dimen/abc_dialog_title_divider_material">
 
-    <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/file_properties_permissions_owner">
+        android:scrollbars="vertical"
+        android:scrollIndicators="top|bottom">
 
-        <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
-            android:id="@+id/ownerText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:paddingStart="?dialogPreferredPadding"
+            android:paddingEnd="?dialogPreferredPadding"
+            android:paddingTop="8dp"
+            android:clipToPadding="false"
+            android:orientation="vertical">
 
-        <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/ownerDropDown"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-    </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
+            <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/file_properties_permissions_owner">
 
-    <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/file_properties_permissions_group">
+                <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
+                    android:id="@+id/ownerText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
-            android:id="@+id/groupText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <me.zhanghai.android.files.ui.DropDownView
+                    android:id="@+id/ownerDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+            </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
 
-        <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/groupDropDown"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-    </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
+            <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_permissions_group">
 
-    <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/file_properties_permissions_set_mode_others">
+                <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
+                    android:id="@+id/groupText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
-            android:id="@+id/othersText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <me.zhanghai.android.files.ui.DropDownView
+                    android:id="@+id/groupDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+            </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
 
-        <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/othersDropDown"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-    </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
+            <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_permissions_set_mode_others">
 
-    <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/file_properties_permissions_set_mode_special">
+                <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
+                    android:id="@+id/othersText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-        <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
-            android:id="@+id/specialText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <me.zhanghai.android.files.ui.DropDownView
+                    android:id="@+id/othersDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+            </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
 
-        <me.zhanghai.android.files.ui.DropDownView
-            android:id="@+id/specialDropDown"
-            android:layout_width="match_parent"
-            android:layout_height="0dp" />
-    </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
+            <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/file_properties_permissions_set_mode_special">
 
-    <CheckBox
-        android:id="@+id/recursiveCheck"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-7dp"
-        android:layout_marginTop="12dp"
-        android:paddingStart="5dp"
-        android:text="@string/file_properties_permissions_recursive"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
+                    android:id="@+id/specialText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    <CheckBox
-        android:id="@+id/uppercaseXCheck"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-7dp"
-        android:paddingStart="5dp"
-        android:text="@string/file_properties_permissions_set_mode_uppercase_x"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-</LinearLayout>
+                <me.zhanghai.android.files.ui.DropDownView
+                    android:id="@+id/specialDropDown"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp" />
+            </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
+
+            <CheckBox
+                android:id="@+id/recursiveCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="8dp"
+                android:paddingStart="@dimen/dialog_padding_minus_7dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/file_properties_permissions_recursive"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+            <CheckBox
+                android:id="@+id/uppercaseXCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="-7dp"
+                android:paddingStart="@dimen/dialog_padding_minus_7dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/file_properties_permissions_set_mode_uppercase_x"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

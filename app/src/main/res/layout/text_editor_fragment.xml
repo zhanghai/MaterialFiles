@@ -24,7 +24,6 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:navigationIcon="@drawable/back_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
     </me.zhanghai.android.files.ui.CoordinatorAppBarLayout>
 
@@ -60,7 +59,7 @@
             android:clipToPadding="false"
             android:fillViewport="true">
 
-            <EditText
+            <me.zhanghai.android.files.ui.ScrollingChildEditText
                 android:id="@+id/textEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +70,7 @@
                 android:inputType="textMultiLine"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1">
                 <requestFocus />
-            </EditText>
+            </me.zhanghai.android.files.ui.ScrollingChildEditText>
         </me.zhanghai.android.fastscroll.FastScrollNestedScrollView>
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

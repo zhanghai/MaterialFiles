@@ -18,6 +18,7 @@
     <string name="empty">空</string>
     <string name="empty_placeholder">（空）</string>
     <string name="error">错误</string>
+    <string name="hide">隐藏</string>
     <string name="install">安装</string>
     <string name="keep_editing">继续编辑</string>
     <string name="loading">正在加载…</string>
@@ -38,6 +39,7 @@
     <string name="select">选择</string>
     <string name="select_all">全选</string>
     <string name="share">分享</string>
+    <string name="show">显示</string>
     <string name="skip">跳过</string>
     <string name="sort">排序</string>
     <string name="stop">停止</string>
@@ -64,80 +66,80 @@
     <string name="notification_channel_ftp_server_name">FTP 服务器</string>
     <string name="notification_channel_ftp_server_description">显示和控制 FTP 服务器</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">正在准备压缩 %1$,d 个文件（%2$s）</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">正在将“%1$s”压缩进“%2$s”</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">正在将“%1$s”压缩进“%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="other">正在将 %1$,d 个文件压缩进“%2$s”</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="other">正在准备复制 %1$,d 个文件（%2$s）</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">正在将“%1$s”复制到“%2$s”</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">正在将“%1$s”复制到“%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="other">正在将 %1$,d 个文件复制到“%2$s”</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="other">正在准备提取 %1$,d 个文件（%2$s）</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">正在将“%1$s”提取到“%2$s”</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">正在将“%1$s”提取到“%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="other">正在将 %1$,d 个文件提取到“%2$s”</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="other">正在准备移动 %1$,d 个文件（%2$s）</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">正在将“%1$s”移动到“%2$s”</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">正在将“%1$s”移动到“%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="other">正在将 %1$,d 个文件移动到“%2$s”</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="other">正在准备删除 %1$,d 个文件</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">正在删除“%1$s”</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">正在删除“%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="other">正在删除 %1$,d 个文件</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="other">正在准备更改 %1$,d 个文件的所有者</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">正在更改“%1$s”的所有者</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">正在更改“%1$s”的所有者</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="other">正在更改 %1$,d 个文件的所有者</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="other">正在准备更改 %1$,d 个文件的组</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">正在更改“%1$s”的组</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">正在更改“%1$s”的组</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="other">正在更改 %1$,d 个文件的组</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="other">正在准备更改 %1$,d 个文件的模式</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">正在更改“%1$s”的模式</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">正在更改“%1$s”的模式</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="other">正在更改 %1$,d 个文件的模式</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="other">正在准备更改 %1$,d 个文件的 SELinux 上下文</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">正在更改“%1$s”的 SELinux 上下文</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">正在更改“%1$s”的 SELinux 上下文</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="other">正在更改 %1$,d 个文件的 SELinux 上下文</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="other">正在准备还原 %1$,d 个文件的 SELinux 上下文</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">正在还原“%1$s”的 SELinux 上下文</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">正在还原“%1$s”的 SELinux 上下文</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="other">正在还原 %1$,d 个文件的 SELinux 上下文</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">正在写入“%1$s”</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">正在写入“%1$s”</string>
     <string name="file_job_create_error_title">创建时发生错误</string>
     <string name="file_job_create_error_message_format">在创建“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">无法将文件夹复制到自身</string>
@@ -170,7 +172,7 @@
     <string name="file_job_move_error_message_format">将文件移动到“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_delete_error_title">删除时发生错误</string>
     <string name="file_job_delete_error_message_format">在删除“%1$s”时发生错误。\n%2$s</string>
-    <string name="file_job_rename_error_title">重命名“%1$s”时发生错误</string>
+    <string name="file_job_rename_error_title_format">重命名“%1$s”时发生错误</string>
     <string name="file_job_rename_error_message_format">将文件重命名为“%1$s”时发生错误。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">更改“%1$s”的所有者时发生错误</string>
     <string name="file_job_set_owner_error_message_format">将所有者更改为“%1$s”时发生错误。\n%2$s</string>
@@ -366,26 +368,62 @@
     <string name="file_properties_apk_min_sdk_version">最低系统版本</string>
     <string name="file_properties_apk_target_sdk_version">目标系统版本</string>
     <string name="file_properites_apk_sdk_version_format">%1$s（%2$s，%3$d）</string>
+    <string name="file_properties_apk_requested_permissions">权限</string>
+    <string name="file_properties_apk_requested_permissions_zero">未请求任何权限</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="other">已请求 %1$,d 项权限</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">签名</string>
     <string name="file_properties_apk_past_signature_digests">旧签名</string>
 
+    <string name="storage_file_system_root_title">根目录</string>
     <string name="storage_list_title">存储</string>
     <string name="storage_list_empty">无存储</string>
     <string name="storage_add_storage_title">添加存储</string>
     <string name="storage_add_storage_document_tree">外部存储</string>
+    <string name="storage_add_storage_sftp_server">SFTP 服务器</string>
     <string name="storage_add_storage_smb_server">SMB 服务器</string>
+    <string name="storage_edit_device_storage_title">编辑设备存储</string>
+    <string name="storage_edit_device_storage_name">名称</string>
+    <string name="storage_edit_device_storage_path">路径</string>
     <string name="storage_add_document_tree_title">添加外部存储</string>
-    <string name="storage_confirm_remove_document_tree_format">移除“%1$s”？</string>
+    <string name="storage_edit_document_tree_title">编辑外部存储</string>
+    <string name="storage_edit_document_tree_name">名称</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">路径</string>
+    <string name="storage_edit_sftp_server_title_edit">编辑 SFTP 服务器</string>
+    <string name="storage_edit_sftp_server_title_add">添加 SFTP 服务器</string>
+    <string name="storage_edit_sftp_server_host">主机名</string>
+    <string name="storage_edit_sftp_server_host_error_empty">输入主机名</string>
+    <string name="storage_edit_sftp_server_port">端口</string>
+    <string name="storage_edit_sftp_server_port_placeholder" translatable="false">445</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">无效端口</string>
+    <string name="storage_edit_sftp_server_name">名称</string>
+    <string name="storage_edit_sftp_server_name_placeholder">使用主机名</string>
+    <string name="storage_edit_sftp_server_authentication_type">验证</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>密码</item>
+        <item>公钥</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">用户名</string>
+    <string name="storage_edit_sftp_server_username_error_empty">输入用户名</string>
+    <string name="storage_edit_sftp_server_password">密码</string>
+    <string name="storage_edit_sftp_server_private_key">私钥</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">打开文件</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">输入私钥</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">私钥无效</string>
+    <string name="storage_edit_sftp_server_connect_and_add">连接并添加</string>
+    <string name="storage_edit_sftp_server_add">添加</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">正在搜索 SMB 服务器…</string>
     <string name="storage_add_lan_smb_server_add">手动添加</string>
     <string name="storage_edit_smb_server_title_edit">编辑 SMB 服务器</string>
     <string name="storage_edit_smb_server_title_add">添加 SMB 服务器</string>
     <string name="storage_edit_smb_server_host">主机名</string>
-    <string name="storage_edit_smb_server_host_empty_error">输入主机名</string>
+    <string name="storage_edit_smb_server_host_error_empty">输入主机名</string>
     <string name="storage_edit_smb_server_port">端口</string>
     <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
-    <string name="storage_edit_smb_server_port_error">无效端口</string>
+    <string name="storage_edit_smb_server_port_error_invalid">无效端口</string>
     <string name="storage_edit_smb_server_name">名称</string>
     <string name="storage_edit_smb_server_name_placeholder">使用主机名</string>
     <string name="storage_edit_smb_server_authentication_type">验证</string>
@@ -395,15 +433,13 @@
         <item>匿名</item>
     </string-array>
     <string name="storage_edit_smb_server_username">用户名</string>
-    <string name="storage_edit_smb_server_username_empty_error">输入用户名</string>
+    <string name="storage_edit_smb_server_username_error_empty">输入用户名</string>
     <string name="storage_edit_smb_server_password">密码</string>
-    <string name="storage_edit_smb_server_password_empty_error">输入密码</string>
     <string name="storage_edit_smb_server_domain">域</string>
     <string name="storage_edit_smb_server_connect_and_add">连接并添加</string>
-    <string name="storage_edit_smb_server_add">直接添加</string>
+    <string name="storage_edit_smb_server_add">添加</string>
 
-    <string name="navigation_root_directory">根目录</string>
-    <string name="navigation_root_subtitle_format">共 %2$s，剩余 %1$s</string>
+    <string name="navigation_storage_subtitle_format">共 %2$s，剩余 %1$s</string>
     <string name="navigation_add_storage">添加存储…</string>
     <string name="navigation_standard_directory_alarms">闹钟</string>
     <string name="navigation_standard_directory_dcim">相片</string>
@@ -433,6 +469,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">已保存</string>
     <string name="text_editor_reload_message">您确定要重新加载吗？对此文档未保存的变更将丢失。</string>
+    <string name="text_editor_encoding">编码</string>
     <string name="text_editor_close_message">您确定要舍弃对此文档未保存的变更吗？</string>
 
     <string name="ftp_server_title">FTP 服务器</string>
@@ -501,7 +538,9 @@
         <item>查看内容</item>
         <item>询问操作</item>
     </string-array>
-    <string name="settings_read_remote_files_for_thumbnail_title">读取远程文件以加载缩略图</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">显示 PDF 文件缩略图</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">可能导致应用在旧版 Android 上不稳定</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">读取远程文件以显示缩略图</string>
 
     <string name="about_title">关于</string>
     <string name="about_version_title">版本</string>

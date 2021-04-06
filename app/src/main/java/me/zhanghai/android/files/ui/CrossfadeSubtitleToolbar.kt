@@ -16,7 +16,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.AttrRes
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.updateLayoutParams
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import me.zhanghai.android.files.util.shortAnimTime
 
@@ -69,9 +68,6 @@ class CrossfadeSubtitleToolbar : Toolbar {
             e.printStackTrace()
             null
         } ?: return
-        // HACK: Prevent setText() from calling requestLayout() during animation which triggers
-        // re-layout of the entire view hierarchy and breaks the ripple of BreadcrumbLayout.
-        subtitleTextView.updateLayoutParams { width = LayoutParams.MATCH_PARENT }
         subtitleAnimator.target = subtitleTextView
     }
 

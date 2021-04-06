@@ -48,11 +48,11 @@ class StandardDirectoryListPreferenceFragment : PreferenceFragmentCompatFixIssue
         }
         val secondaryTextColor = context.getColorByAttr(android.R.attr.textColorSecondary)
         for (standardDirectory in standardDirectories) {
-            val id = standardDirectory.id
-            var preference = oldPreferences[id] as SwitchPreferenceCompat?
+            val key = standardDirectory.key
+            var preference = oldPreferences[key] as SwitchPreferenceCompat?
             if (preference == null) {
                 preference = SwitchPreferenceCompat(context).apply {
-                    key = id
+                    this.key = key
                     isPersistent = false
                     onPreferenceClickListener = this@StandardDirectoryListPreferenceFragment
                 }
@@ -79,7 +79,7 @@ class StandardDirectoryListPreferenceFragment : PreferenceFragmentCompatFixIssue
         if (index != -1) {
             settingsList[index] = settingsList[index].copy(isEnabled = isEnabled)
         } else {
-            val standardDirectory = StandardDirectoriesLiveData.valueCompat.find { it.id == id }!!
+            val standardDirectory = StandardDirectoriesLiveData.valueCompat.find { it.key == id }!!
             settingsList += standardDirectory.toSettings().copy(isEnabled = isEnabled)
         }
         Settings.STANDARD_DIRECTORY_SETTINGS.putValue(settingsList)

@@ -33,7 +33,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-internal class LocalLinuxWatchService : AbstractWatchService() {
+internal class LocalLinuxWatchService : AbstractWatchService<LocalLinuxWatchKey>() {
     private val poller = Poller(this)
 
     init {
@@ -62,7 +62,7 @@ internal class LocalLinuxWatchService : AbstractWatchService() {
         return poller.register(path, kindSet)
     }
 
-    fun cancel(key: LocalLinuxWatchKey) {
+    override fun cancel(key: LocalLinuxWatchKey) {
         poller.cancel(key)
     }
 
@@ -73,7 +73,7 @@ internal class LocalLinuxWatchService : AbstractWatchService() {
 
     private class Poller(
         private val watchService: LocalLinuxWatchService
-    ) : Thread("LocalLinuxWatchService.Poller-" + id.getAndIncrement()), Closeable {
+    ) : Thread("LocalLinuxWatchService.Poller-${id.getAndIncrement()}"), Closeable {
         private val socketFds: Array<FileDescriptor>
 
         private var inotifyFd: FileDescriptor

@@ -17,7 +17,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import androidx.viewpager.widget.ViewPager.SimpleOnPageChangeListener
 import androidx.viewpager2.widget.ViewPager2
 import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
 import java8.nio.file.Path
@@ -85,6 +84,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
 
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // Our app bar will draw the status bar background.
         activity.window.statusBarColor = Color.TRANSPARENT
         binding.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
@@ -104,13 +104,18 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         adapter.replace(paths)
         binding.viewPager.adapter = adapter
         // ViewPager saves its position and will restore it later.
-        binding.viewPager.currentItem = args.position
+        binding.viewPager.setCurrentItem(args.position, false)
         binding.viewPager.setPageTransformer(DepthPageTransformer)
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 updateTitle()
             }
         })
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+
         updateTitle()
     }
 
@@ -128,10 +133,6 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
             R.id.action_delete -> {
                 confirmDelete()
                 true
@@ -161,6 +162,11 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             return
         }
         adapter.replace(paths)
+        // ViewPager only asynchronously sets current item to 0, which isn't a desirable behavior
+        // for us and will make updateTitle() crash for index out of bounds.
+        if (binding.viewPager.currentItem > paths.lastIndex) {
+            binding.viewPager.currentItem = paths.lastIndex
+        }
         updateTitle()
     }
 

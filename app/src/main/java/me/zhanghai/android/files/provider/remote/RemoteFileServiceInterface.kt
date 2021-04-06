@@ -9,7 +9,7 @@ import java8.nio.file.FileSystem
 import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.provider.archive.archiveRefresh
 
-class RemoteFileServiceInterface : IRemoteFileService.Stub() {
+open class RemoteFileServiceInterface : IRemoteFileService.Stub() {
     override fun getRemoteFileSystemProviderInterface(scheme: String): IRemoteFileSystemProvider =
         RemoteFileSystemProviderInterface(FileSystemProviders[scheme])
 

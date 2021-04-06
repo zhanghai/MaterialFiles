@@ -14,12 +14,10 @@ import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import androidx.annotation.RequiresApi
 import me.zhanghai.android.files.app.contentResolver
+import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.provider.common.copyTo
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openInputStream
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openOutputStream
-import me.zhanghai.android.files.provider.content.resolver.Resolver.openParcelFileDescriptor
-import me.zhanghai.android.files.provider.content.resolver.Resolver.query
+import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
 import me.zhanghai.android.files.provider.content.resolver.getLong
 import me.zhanghai.android.files.provider.content.resolver.getString
@@ -35,19 +33,17 @@ import java.util.WeakHashMap
 object DocumentResolver {
     // @see com.android.shell.BugreportStorageProvider#AUTHORITY
     private const val BUGREPORT_STORAGE_PROVIDER_AUTHORITY = "com.android.shell.documents"
-    // @see com.android.externalstorage.ExternalStorageProvider#AUTHORITY
-    private const val EXTERNAL_STORAGE_PROVIDER_AUTHORITY = "com.android.externalstorage.documents"
     // @see com.android.mtp.MtpDocumentsProvider#AUTHORITY
     private const val MTP_DOCUMENTS_PROVIDER_AUTHORITY = "com.android.mtp.documents"
 
     private val LOCAL_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
     )
     private val COPY_UNSUPPORTED_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
     )
     private val MOVE_UNSUPPORTED_AUTHORITIES = setOf(
@@ -55,7 +51,7 @@ object DocumentResolver {
     )
     private val REMOVE_UNSUPPORTED_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
     )
 
@@ -147,8 +143,8 @@ object DocumentResolver {
         }
         val targetUri = create(targetPath, mimeType)
         try {
-            openInputStream(sourceUri, "r").use { inputStream ->
-                openOutputStream(targetUri, "w").use { outputStream ->
+            Resolver.openInputStream(sourceUri, "r").use { inputStream ->
+                Resolver.openOutputStream(targetUri, "wt").use { outputStream ->
                     inputStream.copyTo(outputStream, intervalMillis, listener)
                 }
             }
@@ -360,13 +356,13 @@ object DocumentResolver {
     @Throws(ResolverException::class)
     fun openInputStream(path: Path, mode: String): InputStream {
         val uri = getDocumentUri(path)
-        return openInputStream(uri, mode)
+        return Resolver.openInputStream(uri, mode)
     }
 
     @Throws(ResolverException::class)
     fun openOutputStream(path: Path, mode: String): OutputStream {
         val uri = getDocumentUri(path)
-        return openOutputStream(uri, mode)
+        return Resolver.openOutputStream(uri, mode)
     }
 
     @Throws(ResolverException::class)
@@ -375,7 +371,7 @@ object DocumentResolver {
         mode: String
     ): ParcelFileDescriptor {
         val uri = getDocumentUri(path)
-        return openParcelFileDescriptor(uri, mode)
+        return Resolver.openParcelFileDescriptor(uri, mode)
     }
 
     @Throws(ResolverException::class)
@@ -541,9 +537,12 @@ object DocumentResolver {
     }
 
     @Throws(ResolverException::class)
-    fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor =
+    fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor {
         // DocumentsProvider doesn't support selection and selectionArgs.
-        query(uri, projection, null, null, sortOrder)
+        var cursor = Resolver.query(uri, projection, null, null, sortOrder)
+        cursor = ExternalStorageProviderHack.transformQueryResult(uri, cursor)
+        return cursor
+    }
 
     @Throws(ResolverException::class)
     private fun Path.requireParent(): Path =

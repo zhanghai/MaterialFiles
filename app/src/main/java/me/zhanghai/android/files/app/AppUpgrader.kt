@@ -12,7 +12,7 @@ private const val KEY_VERSION_CODE = "key_version_code"
 
 private const val VERSION_CODE_BELOW_1_1_0 = 17
 private const val VERSION_CODE_1_1_0 = 18
-private const val VERSION_CODE_1_2_0 = 21
+private const val VERSION_CODE_1_2_0 = 22
 private const val VERSION_CODE_LATEST = BuildConfig.VERSION_CODE
 
 private var lastVersionCode: Int

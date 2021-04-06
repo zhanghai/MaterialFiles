@@ -25,6 +25,7 @@ import java.nio.ByteBuffer
 import java.nio.channels.AsynchronousCloseException
 import java.nio.channels.ClosedByInterruptException
 import java.nio.channels.ClosedChannelException
+import java.nio.channels.NonReadableChannelException
 import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
@@ -43,6 +44,9 @@ class FileByteChannel(
     @Throws(IOException::class)
     override fun read(destination: ByteBuffer): Int {
         ensureOpen()
+        if (isAppend) {
+            throw NonReadableChannelException()
+        }
         val remaining = destination.remaining()
         if (remaining == 0) {
             return 0
@@ -59,16 +63,12 @@ class FileByteChannel(
     @Throws(IOException::class)
     override fun write(source: ByteBuffer): Int {
         ensureOpen()
+        if (!source.hasRemaining()) {
+            return 0
+        }
         synchronized(ioLock) {
             if (isAppend) {
-                position = try {
-                    file.getFileInformation(FileStandardInformation::class.java).endOfFile
-                } catch (e: SMBRuntimeException) {
-                    throw e.toIOException()
-                }
-            }
-            if (!source.hasRemaining()) {
-                return 0
+                position = getSize()
             }
             val length = try {
                 file.write(ByteBufferChunkProvider(source, position))
@@ -80,15 +80,23 @@ class FileByteChannel(
         }
     }
 
+    @Throws(IOException::class)
     override fun position(): Long {
         ensureOpen()
         synchronized(ioLock) {
+            if (isAppend) {
+                position = getSize()
+            }
             return position
         }
     }
 
     override fun position(newPosition: Long): SeekableByteChannel {
         ensureOpen()
+        if (isAppend) {
+            // Ignored.
+            return this
+        }
         synchronized(ioLock) {
             readBuffer.reposition(position, newPosition)
             position = newPosition
@@ -99,26 +107,18 @@ class FileByteChannel(
     @Throws(IOException::class)
     override fun size(): Long {
         ensureOpen()
-        return try {
-            file.getFileInformation(FileStandardInformation::class.java).endOfFile
-        } catch (e: SMBRuntimeException) {
-            throw e.toIOException()
-        }
+        return getSize()
     }
 
     @Throws(IOException::class)
     override fun truncate(size: Long): SeekableByteChannel {
         ensureOpen()
         require(size >= 0)
-        val currentSize = try {
-            file.getFileInformation(FileStandardInformation::class.java).endOfFile
-        } catch (e: SMBRuntimeException) {
-            throw e.toIOException()
-        }
-        if (size >= currentSize) {
-            return this
-        }
         synchronized(ioLock) {
+            val currentSize = getSize()
+            if (size >= currentSize) {
+                return this
+            }
             try {
                 file.setLength(size)
             } catch (e: SMBRuntimeException) {
@@ -128,6 +128,14 @@ class FileByteChannel(
         }
         return this
     }
+
+    @Throws(IOException::class)
+    private fun getSize(): Long =
+        try {
+            file.getFileInformation(FileStandardInformation::class.java).endOfFile
+        } catch (e: SMBRuntimeException) {
+            throw e.toIOException()
+        }
 
     @Throws(IOException::class)
     override fun force(metaData: Boolean) {
@@ -276,7 +284,6 @@ class FileByteChannel(
             }
         }
 
-        @Throws(IOException::class)
         override fun close() {
             synchronized(pendingFutureLock) {
                 // TransportException: Received response with unknown sequence number

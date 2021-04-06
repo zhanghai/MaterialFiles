@@ -54,19 +54,19 @@ abstract class SetPrincipalDialogFragment : AppCompatDialogFragment() {
                     selectionLiveData.value = id
                     pendingScrollToId = id
                 }
+
                 binding = SetPrincipalDialogBinding.inflate(context.layoutInflater)
                 binding.filterEdit.doAfterTextChanged { viewModel.filter = it.toString() }
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 adapter = createAdapter(selectionLiveData)
                 binding.recyclerView.adapter = adapter
                 binding.recursiveCheck.isVisible = args.file.attributes.isDirectory
+                setView(binding.root)
 
                 viewModel.filteredPrincipalListLiveData.observe(this@SetPrincipalDialogFragment) {
                     onFilteredPrincipalListChanged(it)
                 }
                 selectionLiveData.observe(this@SetPrincipalDialogFragment, adapter)
-
-                setView(binding.root)
             }
             .setPositiveButton(android.R.string.ok) { _, _ -> setPrincipal() }
             .setNegativeButton(android.R.string.cancel, null)

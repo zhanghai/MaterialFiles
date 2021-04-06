@@ -27,9 +27,10 @@ import java.io.IOException
 internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
     private val fileSystem: SmbFileSystem
 
-    constructor(fileSystem: SmbFileSystem, path: ByteString) : super(
-        SmbFileSystem.SEPARATOR, path
-    ) {
+    constructor(
+        fileSystem: SmbFileSystem,
+        path: ByteString
+    ) : super(SmbFileSystem.SEPARATOR, path) {
         this.fileSystem = fileSystem
     }
 

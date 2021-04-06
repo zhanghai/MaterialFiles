@@ -5,10 +5,10 @@
 
 package me.zhanghai.android.files.file
 
-import android.content.ContentResolver
 import android.net.Uri
 import android.provider.DocumentsContract
 import me.zhanghai.android.files.app.contentResolver
+import me.zhanghai.android.files.compat.DocumentsContractCompat
 
 inline class DocumentUri(val value: Uri) {
     val documentId: String
@@ -24,18 +24,7 @@ fun Uri.asDocumentUri(): DocumentUri {
 }
 
 private val Uri.isDocumentUri: Boolean
-    /** @see DocumentsContract.isDocumentUri */
-    get() {
-        if (scheme != ContentResolver.SCHEME_CONTENT) {
-            return false
-        }
-        val paths = pathSegments
-        return when (paths.size) {
-            2 -> paths[0] == "document"
-            4 -> paths[0] == "tree" && paths[2] == "document"
-            else -> false
-        }
-    }
+    get() = DocumentsContractCompat.isDocumentUri(this)
 
 val DocumentUri.displayName: String?
     get() {

@@ -20,12 +20,12 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/iconImage"
             android:layout_width="@dimen/icon_size"
             android:layout_height="@dimen/icon_size"
             android:layout_marginStart="@dimen/screen_edge_margin"
             android:layout_marginEnd="@dimen/content_start_from_screen_edge_margin_minus_24dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/directory_icon_white_24dp"
             app:tint="?colorControlNormal"/>
 
         <LinearLayout
@@ -41,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                android:textColor="@color/storage_name" />
 
             <TextView
                 android:id="@+id/descriptionText"

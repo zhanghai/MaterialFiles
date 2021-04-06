@@ -5,9 +5,9 @@
 
 package me.zhanghai.android.files.storage
 
-import android.app.Activity
-import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.compat.getDescriptionCompat
 import me.zhanghai.android.files.file.DocumentTreeUri
@@ -16,45 +16,31 @@ import me.zhanghai.android.files.file.displayName
 import me.zhanghai.android.files.file.storageVolume
 import me.zhanghai.android.files.file.takePersistablePermission
 import me.zhanghai.android.files.util.finish
-import me.zhanghai.android.files.util.startActivityForResultSafe
+import me.zhanghai.android.files.util.launchSafe
 
 class AddDocumentTreeFragment : Fragment() {
+    private val openDocumentTreeLauncher = registerForActivityResult(
+        ActivityResultContracts.OpenDocumentTree(), this::onOpenDocumentTreeResult
+    )
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         if (savedInstanceState == null) {
-            startActivityForResultSafe(
-                DocumentTreeUri.createOpenIntent(), REQUEST_CODE_OPEN_DOCUMENT_TREE
-            )
+            openDocumentTreeLauncher.launchSafe(null, this)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_OPEN_DOCUMENT_TREE -> {
-                if (resultCode == Activity.RESULT_OK) {
-                    val documentTreeUri = data?.data?.asDocumentTreeUriOrNull()
-                    if (documentTreeUri != null) {
-                        addDocumentTree(documentTreeUri)
-                    }
-                }
-                finish()
-            }
-            else -> super.onActivityResult(requestCode, resultCode, data)
+    private fun onOpenDocumentTreeResult(result: Uri?) {
+        val documentTreeUri = result?.asDocumentTreeUriOrNull()
+        if (documentTreeUri != null) {
+            addDocumentTree(documentTreeUri)
         }
+        finish()
     }
 
     private fun addDocumentTree(treeUri: DocumentTreeUri) {
         treeUri.takePersistablePermission()
-        Storages.addOrReplace(
-            DocumentTree(
-                null, treeUri.storageVolume?.getDescriptionCompat(requireContext())
-                    ?: treeUri.displayName ?: treeUri.value.toString(), treeUri
-            )
-        )
-    }
-
-    companion object {
-        private const val REQUEST_CODE_OPEN_DOCUMENT_TREE = 1
+        Storages.addOrReplace(DocumentTree(null, null, treeUri))
     }
 }

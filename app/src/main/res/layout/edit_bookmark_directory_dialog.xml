@@ -5,40 +5,54 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="?dialogPreferredPadding"
-    android:paddingEnd="?dialogPreferredPadding"
-    android:paddingTop="16dp"
-    android:paddingBottom="16dp"
-    android:orientation="vertical">
+    android:paddingTop="@dimen/abc_dialog_title_divider_material">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/navigation_edit_bookmark_directory_name">
+        android:scrollbars="vertical"
+        android:scrollIndicators="top|bottom">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameEdit"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:importantForAutofill="no"
-            android:inputType="text">
-            <requestFocus />
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:paddingStart="?dialogPreferredPadding"
+            android:paddingEnd="?dialogPreferredPadding"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:orientation="vertical">
 
-    <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/navigation_edit_bookmark_directory_path">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/navigation_edit_bookmark_directory_name">
 
-        <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
-            android:id="@+id/pathText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
-</LinearLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="text">
+                    <requestFocus />
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="@string/navigation_edit_bookmark_directory_path">
+
+                <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
+                    android:id="@+id/pathText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

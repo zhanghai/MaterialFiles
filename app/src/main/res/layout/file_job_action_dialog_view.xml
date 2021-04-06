@@ -25,14 +25,16 @@
     <Space
         android:id="@+id/allSpace"
         android:layout_width="0dp"
-        android:layout_height="12dp" />
+        android:layout_height="8dp" />
 
     <CheckBox
         android:id="@+id/allCheck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="-7dp"
-        android:paddingStart="7dp"
+        android:paddingStart="@dimen/dialog_padding_minus_7dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:text="@string/file_job_action_all"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>

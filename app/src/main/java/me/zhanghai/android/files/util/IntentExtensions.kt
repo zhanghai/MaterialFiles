@@ -11,22 +11,30 @@ import android.net.Uri
 import android.os.Parcelable
 import android.provider.MediaStore
 import android.provider.Settings
+import androidx.core.app.ShareCompat
 import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
+import me.zhanghai.android.files.compat.removeFlagsCompat
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.intentType
 import kotlin.reflect.KClass
 
 fun <T : Activity> KClass<T>.createIntent(): Intent = Intent(application, java)
 
-// TODO: Use androidx.core.app.ShareCompat?
 fun CharSequence.createSendTextIntent(htmlText: String? = null): Intent =
-    Intent()
-        .setAction(Intent.ACTION_SEND)
+    // The context parameter here is only used for passing calling activity information and starting
+    // chooser activity, neither of which we care about.
+    ShareCompat.IntentBuilder(application)
         .setType(MimeType.TEXT_PLAIN.value)
-        .putExtra(Intent.EXTRA_TEXT, this)
-        .apply { htmlText?.let { putExtra(Intent.EXTRA_HTML_TEXT, it) } }
+        .setText(this)
+        .apply { htmlText?.let { setHtmlText(it) } }
+        .intent
+        // FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET is unnecessarily added by ShareCompat.IntentBuilder.
+        .apply {
+            @Suppress("DEPRECATION")
+            removeFlagsCompat(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        }
 
 fun KClass<Intent>.createLaunchApp(packageName: String): Intent? =
     packageManager.getLaunchIntentForPackage(packageName)
@@ -121,18 +129,23 @@ fun Uri.createSendImageIntent(text: CharSequence? = null): Intent =
     }
 
 fun Uri.createSendStreamIntent(mimeType: MimeType): Intent =
-    Intent(Intent.ACTION_SEND)
-        .putExtra(Intent.EXTRA_STREAM, this)
-        .setType(mimeType.intentType)
+    listOf(this).createSendStreamIntent(listOf(mimeType))
 
-fun Collection<Uri>.createSendStreamIntent(types: Collection<MimeType>): Intent =
-    if (size == 1) {
-        first().createSendStreamIntent(types.single())
-    } else {
-        Intent(Intent.ACTION_SEND_MULTIPLE)
-            .setType(types.intentType)
-            .putParcelableArrayListExtra(Intent.EXTRA_STREAM, ArrayList(this))
-    }
+fun Collection<Uri>.createSendStreamIntent(mimeTypes: Collection<MimeType>): Intent =
+    // Use ShareCompat.IntentBuilder for its migrateExtraStreamToClipData() because
+    // Intent.migrateExtraStreamToClipData() won't promote child ClipData and flags to the chooser
+    // intent, breaking third party share sheets.
+    // The context parameter here is only used for passing calling activity information and starting
+    // chooser activity, neither of which we care about.
+    ShareCompat.IntentBuilder(application)
+        .setType(mimeTypes.intentType)
+        .apply { forEach { addStream(it) } }
+        .intent
+        // FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET is unnecessarily added by ShareCompat.IntentBuilder.
+        .apply {
+            @Suppress("DEPRECATION")
+            removeFlagsCompat(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        }
 
 fun Uri.createViewIntent(): Intent = Intent(Intent.ACTION_VIEW, this)
 

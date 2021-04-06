@@ -11,10 +11,10 @@ import com.hierynomus.mssmb2.SMB2CreateDisposition
 import com.hierynomus.mssmb2.SMB2CreateOptions
 import com.hierynomus.mssmb2.SMB2ShareAccess
 import me.zhanghai.android.files.provider.common.OpenOptions
-import java.util.EnumSet
+import me.zhanghai.android.files.util.enumSetOf
 
 internal fun OpenOptions.toSmbDesiredAccess(): Set<AccessMask> =
-    EnumSet.noneOf(AccessMask::class.java).apply {
+    enumSetOf<AccessMask>().apply {
         if (read) {
             this += AccessMask.GENERIC_READ
         }
@@ -24,7 +24,7 @@ internal fun OpenOptions.toSmbDesiredAccess(): Set<AccessMask> =
     }
 
 internal fun OpenOptions.toSmbFileAttributes(): Set<FileAttributes> =
-    EnumSet.noneOf(FileAttributes::class.java).apply {
+    enumSetOf<FileAttributes>().apply {
         if (sparse) {
             this += FileAttributes.FILE_ATTRIBUTE_SPARSE_FILE
         }
@@ -42,7 +42,7 @@ internal fun OpenOptions.toSmbCreateDisposition(): SMB2CreateDisposition =
     }
 
 internal fun OpenOptions.toSmbCreateOptions(): Set<SMB2CreateOptions> =
-    EnumSet.noneOf(SMB2CreateOptions::class.java).apply {
+    enumSetOf<SMB2CreateOptions>().apply {
         if (sync || dsync) {
             this += SMB2CreateOptions.FILE_WRITE_THROUGH
         }

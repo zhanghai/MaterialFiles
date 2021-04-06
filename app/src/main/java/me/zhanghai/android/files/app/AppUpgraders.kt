@@ -29,6 +29,8 @@ import me.zhanghai.android.files.provider.content.ContentFileSystem
 import me.zhanghai.android.files.provider.document.DocumentFileSystem
 import me.zhanghai.android.files.provider.linux.LinuxFileSystem
 import me.zhanghai.android.files.storage.DocumentTree
+import me.zhanghai.android.files.storage.FileSystemRoot
+import me.zhanghai.android.files.storage.PrimaryStorageVolume
 import me.zhanghai.android.files.util.asBase64
 import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.toBase64
@@ -225,12 +227,13 @@ internal fun upgradeAppTo1_2_0(lastVersionCode: Int) {
 
 private fun migrateStoragesSetting() {
     val key = application.getString(R.string.pref_key_storages)
-    val storages = DocumentTreeUri.persistedUris.map {
-        DocumentTree(
-            null, it.storageVolume?.getDescriptionCompat(application) ?: it.displayName
-                ?: it.value.toString(), it
-        )
-    }
+    val storages = (listOf(FileSystemRoot(null, true), PrimaryStorageVolume(null, true))
+        + DocumentTreeUri.persistedUris.map {
+            DocumentTree(
+                null, it.storageVolume?.getDescriptionCompat(application) ?: it.displayName
+                    ?: it.value.toString(), it
+            )
+        })
     val bytes = Parcel.obtain().use { parcel ->
         parcel.writeValue(storages)
         parcel.marshall()

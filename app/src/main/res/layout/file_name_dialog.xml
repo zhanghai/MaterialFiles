@@ -8,7 +8,21 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/abc_dialog_title_divider_material">
 
-    <include layout="@layout/file_name_dialog_name_include" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:scrollIndicators="top|bottom">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <include layout="@layout/file_name_dialog_name_include" />
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

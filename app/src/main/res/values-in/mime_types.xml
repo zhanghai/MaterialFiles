@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Berkas</string>
+    <string name="file_type_name_apk">Paket Android</string>
+    <string name="file_type_name_archive">%1$s arsip</string>
+    <string name="file_type_name_audio">%1$s audio</string>
+    <string name="file_type_name_calendar">%1$s kalender</string>
+    <string name="file_type_name_certificate">%1$s sertifikat</string>
+    <string name="file_type_name_code">%1$s dokumen</string>
+    <string name="file_type_name_contact">Kartu bisnis elektronik</string>
+    <string name="file_type_name_directory">Folder</string>
+    <string name="file_type_name_document">%1$s dokumen</string>
+    <string name="file_type_name_ebook">%1$s e-book</string>
+    <string name="file_type_name_email">%1$s pesan surel</string>
+    <string name="file_type_name_font">%1$s fon</string>
+    <string name="file_type_name_generic">%1$s berkas</string>
+    <string name="file_type_name_image">%1$s gambar</string>
+    <string name="file_type_name_pdf">Dokumen PDF</string>
+    <string name="file_type_name_presentation">Presentasi %1$s</string>
+    <string name="file_type_name_spreadsheet">Spreadsheet %1$s</string>
+    <string name="file_type_name_text">Dokumen %1$s</string>
+    <string name="file_type_name_text_plain">Dokumen teks biasa</string>
+    <string name="file_type_name_video">Video %1$s</string>
+    <string name="file_type_name_word">Dokumen Word</string>
+    <string name="file_type_name_powerpoint">Presentasi PowerPoint</string>
+    <string name="file_type_name_excel">Spreadsheet Excel</string>
+    <string name="file_type_name_posix_symbolic_link">Tautan</string>
+    <string name="file_type_name_posix_socket">Soket</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Tautan (rusak)</string>
+</resources>

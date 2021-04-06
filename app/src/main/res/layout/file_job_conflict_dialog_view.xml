@@ -144,36 +144,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-4dp"
+        android:layout_marginTop="-8dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/showNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/dense_single_line_list_item_height"
             android:paddingStart="?dialogPreferredPadding"
             android:paddingEnd="?dialogPreferredPadding"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:background="?selectableItemBackground"
-            android:clipToPadding="false"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <!-- NOTE: Somehow android:layout_margin="-3dp" doesn't work. -->
             <ImageView
                 android:id="@+id/showNameArrowImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="-3dp"
+                android:layout_marginEnd="-3dp"
+                android:layout_marginTop="-3dp"
+                android:layout_marginBottom="-3dp"
                 android:src="@drawable/arrow_end_icon_white_24dp"
                 app:tint="?android:textColorSecondary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="11dp"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
+                android:layout_marginStart="?dialogPreferredPadding"
                 android:text="@string/file_job_conflict_show_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
         </LinearLayout>
@@ -183,9 +184,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-4dp"
-            android:layout_marginBottom="-4dp"
-            android:paddingStart="?dialogPreferredPadding"
-            android:paddingEnd="?dialogPreferredPadding"
             android:clipToPadding="false"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -196,7 +194,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginStart="-4dp"
+                android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
                 android:hint="@string/file_job_conflict_name_hint"
                 android:importantForAutofill="no"
                 android:inputType="text"
@@ -205,11 +203,11 @@
             <Button
                 android:id="@+id/resetNameButton"
                 android:layout_width="wrap_content"
-                android:minWidth="64dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-8dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="@dimen/dialog_padding_minus_16dp"
                 android:text="@string/reset"
-                style="?borderlessButtonStyle" />
+                style="?buttonBarButtonStyle" />
         </LinearLayout>
     </LinearLayout>
 
@@ -219,8 +217,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dialog_padding_minus_7dp"
         android:layout_marginEnd="?dialogPreferredPadding"
-        android:layout_marginTop="12dp"
-        android:paddingStart="7dp"
+        android:paddingStart="@dimen/dialog_padding_minus_7dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:text="@string/file_job_action_all"
         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 </LinearLayout>

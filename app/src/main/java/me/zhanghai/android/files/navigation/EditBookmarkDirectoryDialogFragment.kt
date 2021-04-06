@@ -5,13 +5,11 @@
 
 package me.zhanghai.android.files.navigation
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
@@ -24,24 +22,23 @@ import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.args
-import me.zhanghai.android.files.util.extraPath
+import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getState
+import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.layoutInflater
-import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.putState
 import me.zhanghai.android.files.util.setTextWithSelection
-import me.zhanghai.android.files.util.show
-import me.zhanghai.android.files.util.takeIfNotEmpty
 
 class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
+    private val pickPathLauncher = registerForActivityResult(
+        FileListActivity.PickDirectoryContract(), this::onPickPathResult
+    )
+
     private val args by args<Args>()
 
     private lateinit var path: Path
 
     private lateinit var binding: EditBookmarkDirectoryDialogBinding
-
-    private val listener: Listener
-        get() = requireParentFragment() as Listener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,27 +51,18 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
             .setTitle(R.string.navigation_edit_bookmark_directory_title)
             .apply {
                 binding = EditBookmarkDirectoryDialogBinding.inflate(context.layoutInflater)
+                val bookmarkDirectory = args.bookmarkDirectory
+                binding.nameLayout.placeholderText = bookmarkDirectory.defaultName
                 if (savedInstanceState == null) {
-                    binding.nameEdit.setTextWithSelection(args.bookmarkDirectory.name)
+                    binding.nameEdit.setTextWithSelection(bookmarkDirectory.name)
                 }
-                updatePathButton()
-                binding.pathText.setOnClickListener {
-                    val intent = FileListActivity.createPickDirectoryIntent(path)
-                    startActivityForResult(intent, REQUEST_CODE_PICK_DIRECTORY)
-                }
+                updatePathText()
+                binding.pathText.setOnClickListener { onEditPath() }
                 setView(binding.root)
             }
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                val customName = binding.nameEdit.text.toString().takeIfNotEmpty()
-                val bookmarkDirectory = args.bookmarkDirectory.copy(
-                    customName = customName, path = path
-                )
-                listener.replaceBookmarkDirectory(bookmarkDirectory)
-            }
-            .setNegativeButton(android.R.string.cancel, null)
-            .setNeutralButton(R.string.remove) { _, _ ->
-                listener.removeBookmarkDirectory(args.bookmarkDirectory)
-            }
+            .setPositiveButton(android.R.string.ok) { _, _ -> save() }
+            .setNegativeButton(android.R.string.cancel) { dialog, _ -> dialog.cancel() }
+            .setNeutralButton(R.string.remove) { _, _ -> remove() }
             .create()
             .apply {
                 window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
@@ -86,29 +74,37 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
         outState.putState(State(path))
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_PICK_DIRECTORY ->
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.extraPath?.let {
-                        path = it
-                        updatePathButton()
-                    }
-                }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
+    private fun onEditPath() {
+        pickPathLauncher.launchSafe(path, this)
     }
 
-    private fun updatePathButton() {
+    private fun onPickPathResult(result: Path?) {
+        result ?: return
+        path = result
+        updatePathText()
+    }
+
+    private fun updatePathText() {
         binding.pathText.setText(path.userFriendlyString)
     }
 
-    companion object {
-        private const val REQUEST_CODE_PICK_DIRECTORY = 1
+    private fun save() {
+        val customName = binding.nameEdit.text.toString()
+            .takeIf { it.isNotEmpty() && it != binding.nameLayout.placeholderText }
+        val bookmarkDirectory = args.bookmarkDirectory.copy(customName = customName, path = path)
+        BookmarkDirectories.replace(bookmarkDirectory)
+        finish()
+    }
 
-        fun show(bookmarkDirectory: BookmarkDirectory, fragment: Fragment) {
-            EditBookmarkDirectoryDialogFragment().putArgs(Args(bookmarkDirectory)).show(fragment)
-        }
+    private fun remove() {
+        BookmarkDirectories.remove(args.bookmarkDirectory)
+        finish()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+
+        finish()
     }
 
     @Parcelize
@@ -116,9 +112,4 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
 
     @Parcelize
     private class State(var path: @WriteWith<ParcelableParceler> Path) : ParcelableState
-
-    interface Listener {
-        fun replaceBookmarkDirectory(bookmarkDirectory: BookmarkDirectory)
-        fun removeBookmarkDirectory(bookmarkDirectory: BookmarkDirectory)
-    }
 }

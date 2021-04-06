@@ -13,6 +13,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.finish
+import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.startActivitySafe
 
 class AddStorageDialogFragment : AppCompatDialogFragment() {
@@ -38,8 +39,9 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
         private val STORAGE_TYPES = listOf(
             R.string.storage_add_storage_document_tree
                 to AddDocumentTreeActivity::class.createIntent(),
-            R.string.storage_add_storage_smb_server
-                to AddLanSmbServerActivity::class.createIntent()
+            R.string.storage_add_storage_sftp_server to EditSftpServerActivity::class.createIntent()
+                .putArgs(EditSftpServerFragment.Args()),
+            R.string.storage_add_storage_smb_server to AddLanSmbServerActivity::class.createIntent()
         )
     }
 }

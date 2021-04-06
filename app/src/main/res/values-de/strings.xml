@@ -18,6 +18,7 @@
     <string name="empty">Leer</string>
     <string name="empty_placeholder">(Leer)</string>
     <string name="error">Fehler</string>
+    <string name="hide">Ausblenden</string>
     <string name="install">Installieren</string>
     <string name="keep_editing">Weiter bearbeiten</string>
     <string name="loading">Laden…</string>
@@ -38,6 +39,7 @@
     <string name="select">Auswählen</string>
     <string name="select_all">Alles auswählen</string>
     <string name="share">Teilen</string>
+    <string name="show">Anzeigen</string>
     <string name="skip">Überspringen</string>
     <string name="sort">Sortieren</string>
     <string name="stop">Stopp</string>
@@ -65,100 +67,100 @@
     <string name="notification_channel_ftp_server_name">FTP-Server</string>
     <string name="notification_channel_ftp_server_description">Anzeigen und Steuern des FTP-Servers</string>
 
-    <plurals name="file_job_archive_scan_notification_title">
+    <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Bereite Komprimierung für %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Komprimierung für %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one">Komprimiere \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_archive_notification_title_multiple">
+    <string name="file_job_archive_notification_title_one_format">Komprimiere \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Komprimiere %1$,d Datei nach \"%2$s\"</item>
         <item quantity="other">Komprimiere %1$,d Dateien nach \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_copy_scan_notification_title">
+    <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Bereite Kopieren von %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Kopieren von %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one">Kopiere \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_copy_notification_title_multiple">
+    <string name="file_job_copy_notification_title_one_format">Kopiere \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Kopiere %1$,d Datei nach \"%2$s\"</item>
         <item quantity="other">Kopiere %1$,d Dateien nach \"%2$s\"</item>
     </plurals>
-    <plurals name="file_job_extract_scan_notification_title">
+    <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Bereite Extrahieren für %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Extrahieren für %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one">Extrahiere \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_extract_notification_title_multiple">
+    <string name="file_job_extract_notification_title_one_format">Extrahiere \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Extrahiere %1$,d Datei nach \"%2$s”</item>
         <item quantity="other">Extrahiere %1$,d Dateien nach \"%2$s”</item>
     </plurals>
-    <plurals name="file_job_move_scan_notification_title">
+    <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Bereite Verschieben von %1$,d Datei vor (%2$s)</item>
         <item quantity="other">Bereite Verschieben von %1$,d Dateien vor (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one">Verschiebe \"%1$s\" nach \"%2$s\"</string>
-    <plurals name="file_job_move_notification_title_multiple">
+    <string name="file_job_move_notification_title_one_format">Verschiebe \"%1$s\" nach \"%2$s\"</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Verschiebe %1$,d Datei nach \"%2$s\"</item>
         <item quantity="other">Verschiebe %1$,d Dateien nach \"%2$s\"</item>
     </plurals>
-    <string name="file_job_transfer_size_notification_text_one">%1$s / %2$s</string>
-    <string name="file_job_transfer_size_notification_text_multiple">%1$,d / %2$,d</string>
-    <plurals name="file_job_delete_scan_notification_title">
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Bereite Löschen von %1$,d Datei vor</item>
         <item quantity="other">Bereite Löschen von %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one">Lösche \"%1$s\"</string>
-    <plurals name="file_job_delete_notification_title_multiple">
+    <string name="file_job_delete_notification_title_one_format">Lösche \"%1$s\"</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Lösche %1$,d Datei</item>
         <item quantity="other">Lösche %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_owner_scan_notification_title">
+    <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Bereite Änderung des Besitzers für %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung des Besitzers für %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one">Ändere Besitzer für \"%1$s\"</string>
-    <plurals name="file_job_set_owner_notification_title_multiple">
+    <string name="file_job_set_owner_notification_title_one_format">Ändere Besitzer für \"%1$s\"</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Ändere Besitzer für %1$,d Datei</item>
         <item quantity="other">Ändere Besitzer für %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_group_scan_notification_title">
+    <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Bereite Änderung der Gruppe für %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung der Gruppe für %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one">Ändere Gruppe für \"%1$s\"</string>
-    <plurals name="file_job_set_group_notification_title_multiple">
+    <string name="file_job_set_group_notification_title_one_format">Ändere Gruppe für \"%1$s\"</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Ändere Gruppe für %1$,d Datei</item>
         <item quantity="other">Ändere Gruppe für %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_mode_scan_notification_title">
+    <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Bereite Änderung des Modus für %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung des Modus für %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one">Ändere Modus für \"%1$s\"</string>
-    <plurals name="file_job_set_mode_notification_title_multiple">
+    <string name="file_job_set_mode_notification_title_one_format">Ändere Modus für \"%1$s\"</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Ändere Modus für %1$,d Datei</item>
         <item quantity="other">Ändere Modus für %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_set_selinux_context_scan_notification_title">
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Bereite Änderung des SELinux Kontexts von %1$,d Datei vor</item>
         <item quantity="other">Bereite Änderung des SELinux Kontexts von %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one">Ändere SELinux Kontext von \"%1$s\"</string>
-    <plurals name="file_job_set_selinux_context_notification_title_multiple">
+    <string name="file_job_set_selinux_context_notification_title_one_format">Ändere SELinux Kontext von \"%1$s\"</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Ändere SELinux Kontext von %1$,d Datei</item>
         <item quantity="other">Ändere SELinux Kontext von %1$,d Dateien</item>
     </plurals>
-    <plurals name="file_job_restore_selinux_context_scan_notification_title">
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Bereite Wiederherstellung des SELinux Kontexts von %1$,d Datei vor</item>
         <item quantity="other">Bereite Wiederherstellung des SELinux Kontexts von %1$,d Dateien vor</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one">Stelle SELinux Kontext von \"%1$s\" wieder her</string>
-    <plurals name="file_job_restore_selinux_context_notification_title_multiple">
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Stelle SELinux Kontext von \"%1$s\" wieder her</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Stelle SELinux Kontext von %1$,d Datei wieder her</item>
         <item quantity="other">Stelle SELinux Kontext von %1$,d Dateien wieder her</item>
     </plurals>
-    <string name="file_job_transfer_count_notification_text_multiple">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title">Schreibe \"%1$s\"</string>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Schreibe \"%1$s\"</string>
     <string name="file_job_create_error_title">Fehler beim Erstellen</string>
     <string name="file_job_create_error_message_format">Es ist ein Fehler beim Erstellen der Datei \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Es ist nicht möglich, einen Ordner in sich selbst zu kopieren</string>
@@ -191,6 +193,8 @@
     <string name="file_job_move_error_message_format">Es ist ein Fehler beim Verschieben der Datei nach \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_delete_error_title">Fehler beim Löschen</string>
     <string name="file_job_delete_error_message_format">Es ist ein Fehler beim Löschen von \"%1$s\" aufgetreten.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Fehler beim Umbenennen von \"%1$s\"</string>
+    <string name="file_job_rename_error_message_format">Es ist ein Fehler beim Umbenennen der Datei nach \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Fehler beim Ändern des Besitzers von \"%1$s\"</string>
     <string name="file_job_set_owner_error_message_format">Es ist ein Fehler beim Ändern des Besitzers nach \"%1$s\" aufgetreten.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Fehler beim Ändern der Gruppe \"%1$s\"</string>
@@ -390,12 +394,55 @@
     <string name="file_properties_apk_min_sdk_version">Minimale Systemversion</string>
     <string name="file_properties_apk_target_sdk_version">Ziel-Systemversion</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Berechtigungen</string>
+    <string name="file_properties_apk_requested_permissions_zero">Keine Berechtigungen angefordert</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d Berechtigung angefordert</item>
+        <item quantity="other">%1$,d Berechtigungen angefordert</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Signaturen</string>
     <string name="file_properties_apk_past_signature_digests">Alte Signaturen</string>
 
-    <string name="navigation_root_directory">Wurzelverzeichnis</string>
-    <string name="navigation_root_subtitle_format">%1$s frei von %2$s</string>
-    <string name="navigation_add_storage">Externen Speicher hinzufügen…</string>
+    <string name="storage_file_system_root_title">Wurzel</string>
+    <string name="storage_list_title">Speicher</string>
+    <string name="storage_list_empty">Kein Speicher</string>
+    <string name="storage_add_storage_title">Speicher hinzufügen</string>
+    <string name="storage_add_storage_document_tree">Externer Speicher</string>
+    <string name="storage_add_storage_smb_server">SMB-Server</string>
+    <string name="storage_edit_device_storage_title">Gerätespeicher bearbeiten</string>
+    <string name="storage_edit_device_storage_name">Name</string>
+    <string name="storage_edit_device_storage_path">Pfad</string>
+    <string name="storage_add_document_tree_title">Externen Speicher hinzufügen</string>
+    <string name="storage_edit_document_tree_title">Externen Speicher bearbeiten</string>
+    <string name="storage_edit_document_tree_name">Name</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Pfad</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Suche nach SMB-Servern…</string>
+    <string name="storage_add_lan_smb_server_add">Manuell hinzufügen</string>
+    <string name="storage_edit_smb_server_title_edit">SMB-Server bearbeiten</string>
+    <string name="storage_edit_smb_server_title_add">SMB-Server hinzufügen</string>
+    <string name="storage_edit_smb_server_host">Hostname</string>
+    <string name="storage_edit_smb_server_host_error_empty">Hostname eingeben</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Ungültiger Port</string>
+    <string name="storage_edit_smb_server_name">Name</string>
+    <string name="storage_edit_smb_server_name_placeholder">Benutze einen Hostnamen</string>
+    <string name="storage_edit_smb_server_authentication_type">Authentifizierung</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Passwort</item>
+        <item>Gast</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Benutzername</string>
+    <string name="storage_edit_smb_server_username_error_empty">Benutzernamen eingeben</string>
+    <string name="storage_edit_smb_server_password">Passwort</string>
+    <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_connect_and_add">Verbinden und hinzufügen</string>
+    <string name="storage_edit_smb_server_add">Hinzufügen</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s frei von %2$s</string>
+    <string name="navigation_add_storage">Speicher hinzufügen…</string>
     <string name="navigation_standard_directory_alarms">Alarme</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumente</string>
@@ -448,6 +495,8 @@
 
     <string name="settings_title">Einstellungen</string>
     <string name="settings_interface_title">Benutzeroberfläche</string>
+    <string name="settings_theme_color_title">Thema Farbe</string>
+    <string name="settings_theme_color_summary">Die am häufigsten vorkommende Farbe in der App</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Nutze Systemeinstellung</item>
@@ -456,14 +505,26 @@
         <item>Zeitbasiert</item>
         <item>Basierend auf dem Batteriesparmodus</item>
     </string-array>
+    <string name="settings_black_night_mode">Schwarzer Nachtmodus</string>
     <string name="settings_file_list_animation_title">Dateiliste animieren</string>
+    <string name="settings_file_name_ellipsize_title">Langen Dateinamen anzeigen</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Den Anfang kürzen</item>
+        <item>Die Mitte kürzen</item>
+        <item>Das Ende kürzen</item>
+        <item>Kennzeichen</item>
+    </string-array>
     <string name="settings_behavior_title">Verhalten</string>
     <string name="settings_default_directory_title">Startordner</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Standardordner</string>
     <string name="settings_standard_directories_summary_empty">Keine Standardordner aktiviert</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Screenshots</string>
     <string name="settings_bookmark_directories_title">Lesezeichenordner</string>
     <string name="settings_bookmark_directories_summary_empty">Keine Lesezeichenordner</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root Zugriffsmodus</string>
     <plurals name="settings_root_strategy_message_format">

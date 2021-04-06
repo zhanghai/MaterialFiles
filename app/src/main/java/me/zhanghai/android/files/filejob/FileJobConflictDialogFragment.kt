@@ -84,8 +84,8 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                     }
                 )
                 bindFileItem(
-                    targetFile, binding.targetIconImage, binding.targetBadgeImage,
-                    binding.targetThumbnailImage, binding.targetDescriptionText
+                    targetFile, binding.targetIconImage, binding.targetThumbnailImage,
+                    binding.targetBadgeImage, binding.targetDescriptionText
                 )
                 binding.sourceNameText.setText(
                     if (isMerge) {
@@ -95,8 +95,8 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                     }
                 )
                 bindFileItem(
-                    sourceFile, binding.sourceIconImage, binding.sourceBadgeImage,
-                    binding.sourceThumbnailImage, binding.sourceDescriptionText
+                    sourceFile, binding.sourceIconImage, binding.sourceThumbnailImage,
+                    binding.sourceBadgeImage, binding.sourceDescriptionText
                 )
                 binding.showNameLayout.setOnClickListener {
                     val visible = !binding.nameLayout.isVisible

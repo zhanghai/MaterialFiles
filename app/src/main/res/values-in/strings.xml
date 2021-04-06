@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">Tutup</string>
+    <string name="copy">Salin</string>
+    <string name="cut">Potong</string>
+    <string name="default_">Bawaan</string>
+    <string name="delete">Hapus</string>
+    <string name="discard">Batal</string>
+    <string name="empty">Kosong</string>
+    <string name="empty_placeholder">(Kosong)</string>
+    <string name="error">Galat</string>
+    <string name="hide">Sembunyikan</string>
+    <string name="install">Pasang</string>
+    <string name="keep_editing">Tetap menyunting</string>
+    <string name="loading">Memuat…</string>
+    <string name="maybe_later">Mungkin nanti</string>
+    <string name="merge">Gabung</string>
+    <string name="none">Nihil</string>
+    <string name="paste">Tempel</string>
+    <string name="pick">@string/select</string>
+    <string name="refresh">Segarkan</string>
+    <string name="reload">Muat ulang</string>
+    <string name="remove">Buang</string>
+    <string name="rename">Ubah nama</string>
+    <string name="replace">Ganti</string>
+    <string name="reset">Setel ulang</string>
+    <string name="retry">Ulangi</string>
+    <string name="save">Simpan</string>
+    <string name="search">Cari</string>
+    <string name="select">Pilih</string>
+    <string name="select_all">Pilih semua</string>
+    <string name="share">Bagikan</string>
+    <string name="show">Tampilkan</string>
+    <string name="skip">Lewati</string>
+    <string name="sort">Urutkan</string>
+    <string name="stop">Setop</string>
+    <string name="unknown">Tidak diketahui</string>
+    <string name="view">Lihat</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Tidak ada aplikasi yang bisa memproses tindakan ini</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="open_settings">Buka pengaturan</string>
+    <string name="shortcut_created">Pintasan dibuat</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="other">%1$,d byte</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
+    <string name="storage_permission_permanently_denied_message">Apl membutuhkan izin untuk mengakses berkas. Aktifkan izin \"Penyimpanan\" di dalam pengaturan sistem.</string>
+
+    <string name="notification_channel_background_activity_start_name">Tindakan saat di latar belakang</string>
+    <string name="notification_channel_background_activity_start_description">Ambil tindakan saat apl berada di latar belakang</string>
+    <string name="notification_channel_file_job_name">Tindakan berkas</string>
+    <string name="notification_channel_file_job_description">Tampilkan dan kontrol tindakan berkas</string>
+    <string name="notification_channel_ftp_server_name">Server FTP</string>
+    <string name="notification_channel_ftp_server_description">Tampilkan dan kontrol server FTP</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk mengompres %1$,d berkas (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">Mengompres “%1$s” ke “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="other">Mengompres %1$,d berkas ke “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk menyalin %1$,d berkas (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">Menyalin “%1$s” ke “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="other">Menyalin %1$,d berkas ke “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk mengekstrak %1$,d berkas (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">Mengekstrak “%1$s” ke “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="other">Mengekstrak %1$,d berkas ke “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk memindahkan %1$,d berkas (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">Memindahkan “%1$s” ke “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="other">Memindahkan %1$,d berkas ke “%2$s”</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk menghapus %1$,d berkas</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">Menghapus “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="other">Menghapus %1$,d berkas</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk mengubah kepemilikan untuk %1$,d file</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">Mengganti kepemilikan untuk \"%1$s\"</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="other">Mengganti kepemilikan untuk %1$,d file</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk mengganti grup untuk %1$,d file</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">Mengganti grup untuk \"%1$s\"</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="other">Mengganti grup untuk %1$,d file</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk mengganti mode untuk %1$,d file</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">Mengganti mode untuk \"%1$s\"</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="other">Mengganti mode untuk %1$,d file</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk mengganti konteks SELinux untuk %1$,d file</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">Mengganti konteks SELinux untul \"%1$s\"</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="other">Mengganti konteks SELinux untuk %1$,d file</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="other">Mempersiapkan untuk memulihkan konteks SELinux untuk %1$,d file</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Memulihkan konteks SELinux untuk \"%1$s\"</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="other">Memulihkan konteks SELinux untuk %1$,d file</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Menulis \"%1$s\"</string>
+    <string name="file_job_create_error_title">Terjadi kesalahan saat membuat</string>
+    <string name="file_job_create_error_message_format">Telah terjadi kesalahan saat membuat “%1$s”.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">Tidak bisa menyalin berkas ke dalam dirinya sendiri</string>
+    <string name="file_job_cannot_extract_into_itself_title">Tidak bisa mengekstrak berkas ke dalam dirinya sendiri</string>
+    <string name="file_job_cannot_move_into_itself_title">Tidak bisa memindahkan folder ke dalam dirinya sendiri</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">Folder tujuan berada di dalam folder sumber</string>
+    <string name="file_job_cannot_copy_over_itself_title">Tidak bisa menyalin berkas ke dirinya sendiri</string>
+    <string name="file_job_cannot_extract_over_itself_title">Tidak bisa mengekstrak berkas ke dirinya sendiri</string>
+    <string name="file_job_cannot_move_over_itself_title">Tidak bisa memindahkan berkas ke dirinya sendiri</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">File sumber tujuan akan ditimpa</string>
+    <string name="file_job_replace_title_format">Ganti berkas “%1$s”?</string>
+    <string name="file_job_replace_message_format">Sudah ada berkas dengan nama yang sama di dalam “%1$s”.\nMenggantinya akan menimpa seluruh isinya.</string>
+    <string name="file_job_replace_target_name">Berkas asli</string>
+    <string name="file_job_replace_source_name">Ganti dengan</string>
+    <string name="file_job_merge_title_format">Gabung folder “%1$s”?</string>
+    <string name="file_job_merge_copy_message_format">Menggabungkan akan meminta konfirmasi sebelum mengganti berkas di dalam folder yang sama dengan berkas yang akan disalin.</string>
+    <string name="file_job_merge_extract_message_format">Menggabungkan akan meminta konfirmasi sebelum mengganti berkas di dalam folder yang sama dengan berkas yang akan diekstrak.</string>
+    <string name="file_job_merge_move_message_format">Menggabungkan akan meminta konfirmasi sebelum mengganti berkas di dalam folder yang sama dengan berkas yang akan dipindahkan.</string>
+    <string name="file_job_merge_target_name">Folder asli</string>
+    <string name="file_job_merge_source_name">Gabung dengan</string>
+    <string name="file_job_conflict_show_name">Pilih nama baru</string>
+    <string name="file_job_conflict_name_hint">Nama baru</string>
+    <string name="file_job_archive_error_title_format">Terjadi kesalahan saat mengompres “%1$s”</string>
+    <string name="file_job_archive_error_message_format">Telah terjadi kesalahan saat mengompres berkas ke dalam “%1$s”.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Terjadi kesalahan saat menyalin “%1$s”</string>
+    <string name="file_job_copy_error_message_format">Telah terjadi kesalahan saat menyalin berkas ke dalam “%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Terjadi kesalahan saat mengekstrak “%1$s”</string>
+    <string name="file_job_extract_error_message_format">Telah terjadi kesalahan saat mengekstrak berkas ke dalam “%1$s”.\n%2$s</string>
+    <string name="file_job_move_error_title_format">Terjadi kesalahan saat memindahkan “%1$s”</string>
+    <string name="file_job_move_error_message_format">Telah terjadi kesalahan saat memindahkan berkas ke dalam “%1$s”.\n%2$s</string>
+    <string name="file_job_delete_error_title">Terjadi kesalahan saat menghapus</string>
+    <string name="file_job_delete_error_message_format">Terjadi kesalahan saat menghapus “%1$s”.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Terjadi kesalahan saat mengubah nama “%1$s”</string>
+    <string name="file_job_rename_error_message_format">Telah terjadi kesalahan saat mengubah nama berkas ke “%1$s”.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Terjadi kesalahan saat mengubah pemilik untuk “%1$s”</string>
+    <string name="file_job_set_owner_error_message_format">Telah terjadi kesalahan saat mengubah pemilik ke “%1$s”.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Terjadi kesalahan saat mengubah grup untuk “%1$s”</string>
+    <string name="file_job_set_group_error_message_format">Telah terjadi kesalahan saat mengubah grup ke “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Terjadi kesalahan saat mengubah mode untuk “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">Telah terjadi kesalahan saat mengubah mode ke “%1$s”.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Terjadi kesalahan saat mengubah konteks SELinux untuk “%1$s”</string>
+    <string name="file_job_set_selinux_context_error_message_format">Telah terjadi kesalahan saat mengubah konteks SELinux ke “%1$s”.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Terjadi kesalahan saat memulihkan konteks SELinux</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Telah terjadi kesalahan saat mengembalikan koteks SELinux untuk “%1$s”.\n%2$s</string>
+    <string name="file_job_write_error_title">Terjadi kesalahan saat menyimpan</string>
+    <string name="file_job_write_error_message_format">Telah terjadi kesalahan saat menyimpan “%1$s”.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Telah terjadi kesalahan saat mengambil informasi tentang “%1$s”.</string>
+    <string name="file_job_remount_format">Mount ulang “%1$s” sebagai baca-tulis</string>
+    <string name="file_job_remount_loading_format">Mount ulang “%1$s” sebagai baca-tulis…</string>
+    <string name="file_job_remount_success_format">“%1$s” telah dimount sebagai baca-tulis</string>
+    <string name="file_job_action_all">Terapkan untuk semua berkas</string>
+
+    <string name="file_open_apk_message">Berkas ini adalah paket Android. Apakah Anda ingin memasangnya, atau melihat isinya?</string>
+    <string name="file_open_as_title">Buka sebagai…</string>
+    <string name="file_open_as_title_format">Buka “%1$s” sebagai</string>
+    <string name="file_open_as_type_text">Teks</string>
+    <string name="file_open_as_type_image">Gambar</string>
+    <string name="file_open_as_type_audio">Audio</string>
+    <string name="file_open_as_type_video">Video</string>
+    <string name="file_open_as_type_directory">Folder</string>
+    <string name="file_open_as_type_any">Lainnya</string>
+    <string name="file_install_apk_from_background_title_format">“%1$s” siap untuk dipasang</string>
+    <string name="file_install_apk_from_background_text">Ketuk untuk memasang</string>
+    <string name="file_open_from_background_title_format">“%1$s” siap untuk dibuka</string>
+    <string name="file_open_from_background_text">Ketuk untuk membuka</string>
+    <string name="file_name_error_empty">Nama berkas tidak boleh kosong</string>
+    <string name="file_name_error_invalid">Nama berkas tidak valid</string>
+    <string name="file_name_error_already_exists">Berkas dengan nama ini sudah ada</string>
+    <string name="file_delete_message_file_format">Hapus “%1$s”?</string>
+    <string name="file_delete_message_directory_format">Hapus folder “%1$s” dan isinya?</string>
+    <string name="file_delete_message_multiple_files_format">Hapus %1$,d berkas?</string>
+    <string name="file_delete_message_multiple_directories_format">Hapus %1$,d folder dan semua isinya?</string>
+    <string name="file_delete_message_multiple_mixed_format">Hapus %1$,d item?</string>
+    <string name="file_create_archive_title">Buat arsip</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Markah ditambahkan</string>
+    <string name="file_create_file_title">Berkas baru</string>
+    <string name="file_create_directory_title">Folder baru</string>
+
+    <string name="file_list_title">File</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="other">Pilih berkas</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="other">Pilih folder</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="other">%1$,d folder</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="other">%1$,d berkas</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_action_sort_by_name">Nama</string>
+    <string name="file_list_action_sort_by_type">Tipe</string>
+    <string name="file_list_action_sort_by_size">Ukuran</string>
+    <string name="file_list_action_sort_by_last_modified">Terakhir diubah</string>
+    <string name="file_list_action_sort_order_ascending">Naik</string>
+    <string name="file_list_action_sort_directories_first">Folder di atas</string>
+    <string name="file_list_action_sort_path_specific">Hanya untuk folder ini</string>
+    <string name="file_list_action_new_task">Jendela baru</string>
+    <string name="file_list_action_navigate_up">Ke atas</string>
+    <string name="file_list_action_show_hidden_files">Tampilkan berkas tersembunyi</string>
+    <string name="file_list_action_copy_path">Salin jalur</string>
+    <string name="file_list_action_open_in_terminal">Buka di terminal</string>
+    <string name="file_list_action_add_bookmark">Tambahkan markah</string>
+    <string name="file_list_action_create_shortcut">Buat pintasan</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Buka di jendela baru</string>
+    <string name="file_list_select_title_format">%1$,d dipilih</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">Pilih “%1$s”</string>
+    <string name="file_list_paste_move_title_format">Memindahkan %1$,d</string>
+    <string name="file_list_paste_copy_title_format">Menyalin %1$,d</string>
+    <string name="file_list_paste_extract_title_format">Mengekstrak %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Ekstrak di sini</string>
+    <string name="file_list_empty">Tidak ada berkas</string>
+    <string name="file_list_action_create_file">Berkas</string>
+    <string name="file_list_action_create_directory">Folder</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Buka dengan</string>
+    <string name="file_item_action_extract">Ekstrak</string>
+    <string name="file_item_action_archive">Kompres</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
+    <string name="file_item_action_properties">Properti</string>
+
+    <string name="file_properties_title_format">Properti “%1$s”</string>
+    <string name="file_properties_basic">Dasar</string>
+    <string name="file_properties_basic_name">Nama</string>
+    <string name="file_properties_basic_type">Tipe</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Tautan ke %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Target Tautan</string>
+    <string name="file_properties_basic_size">Ukuran</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Konten</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="other">%1$,d item, total %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Terakhir Diubah</string>
+    <string name="file_properties_basic_parent_directory">Folder Induk</string>
+    <string name="file_properties_basic_archive_file">Berkas Arsip</string>
+    <string name="file_properties_basic_archive_entry">Entri Arsip</string>
+    <string name="file_properties_basic_free_space">Ruang Kosong</string>
+    <string name="file_properties_permissions">Perizinan</string>
+    <string name="file_properties_permissions_owner">Pemilik</string>
+    <string name="file_properties_permissions_group">Grup</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Ubah pemilik</string>
+    <string name="file_properties_permissions_set_group_title">Ubah grup</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Masukkan nama atau ID</string>
+    <string name="file_properties_permissions_set_principal_system">Sistem</string>
+    <string name="file_properties_permissions_mode">Mode</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Ubah mode</string>
+    <string name="file_properties_permissions_set_mode_others">Lainnya</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Baca</item>
+        <item>Tulis</item>
+        <item>Jalankan</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Baca</item>
+        <item>Tulis</item>
+        <item>Cari</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Spesial</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Atur UID</item>
+        <item>Atur GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Jangan tambah \"Eksekusi\" untuk seluruh rekursi berkas</string>
+    <string name="file_properties_permissions_selinux_context">Konteks SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Ubah konteks SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Kembalikan</string>
+    <string name="file_properties_permissions_recursive">Terapkan ke seluruh rekursi berkas</string>
+    <string name="file_properties_image">Gambar</string>
+    <string name="file_properties_media_dimensions">Dimensi</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Diambil pada</string>
+    <string name="file_properties_media_coordinates">Koordinat</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Lokasi</string>
+    <string name="file_properties_image_gps_altitude">Ketinggian</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Kamera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Tingkap</string>
+    <string name="file_properties_image_shutter_speed">Kecepatan rana</string>
+    <string name="file_properties_image_focal_length">Jarak fokus</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">Keselarasan ISO</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Perangkat lunak</string>
+    <string name="file_properties_image_description">Deskripsi</string>
+    <string name="file_properties_image_artist">Pembuat</string>
+    <string name="file_properties_image_copyright">Hak cipta</string>
+    <string name="file_properties_audio">Audio</string>
+    <string name="file_properties_media_title">Judul</string>
+    <string name="file_properties_audio_artist">Artis</string>
+    <string name="file_properties_audio_album">Album</string>
+    <string name="file_properties_audio_album_artist">Artis album</string>
+    <string name="file_properties_audio_composer">Komposer</string>
+    <string name="file_properties_audio_disc_number">Diska</string>
+    <string name="file_properties_audio_track_number">Trek</string>
+    <string name="file_properties_audio_year">Tahun</string>
+    <string name="file_properties_audio_genre">Genre</string>
+    <string name="file_properties_media_duration">Durasi</string>
+    <string name="file_properties_media_bit_rate">Laju bit</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">Laju sampel</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Video</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Nama</string>
+    <string name="file_properties_apk_package_name">Nama paket</string>
+    <string name="file_properties_apk_version">Versi</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Minimum versi sistem</string>
+    <string name="file_properties_apk_target_sdk_version">Target versi sistem</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Perizinan</string>
+    <string name="file_properties_apk_requested_permissions_zero">Tidak ada izin yang diminta</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="other">%1$,d izin diminta</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">Tanda tangan</string>
+    <string name="file_properties_apk_past_signature_digests">Tanda tangan lama</string>
+
+    <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_list_title">Penyimpanan</string>
+    <string name="storage_list_empty">Tidak ada penyimpanan</string>
+    <string name="storage_add_storage_title">Tambah penyimpanan</string>
+    <string name="storage_add_storage_document_tree">Penyimpanan eksternal</string>
+    <string name="storage_add_storage_smb_server">Server SMB</string>
+    <string name="storage_edit_device_storage_title">Sunting penyimpanan perangkat</string>
+    <string name="storage_edit_device_storage_name">Nama</string>
+    <string name="storage_edit_device_storage_path">Jalur</string>
+    <string name="storage_add_document_tree_title">Tambah penyimpanan eksternal</string>
+    <string name="storage_edit_document_tree_title">Sunting penyimpanan eksternal</string>
+    <string name="storage_edit_document_tree_name">Nama</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Jalur</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Mencari server SMB…</string>
+    <string name="storage_add_lan_smb_server_add">Tambah secara manual</string>
+    <string name="storage_edit_smb_server_title_edit">Sunting server SMB</string>
+    <string name="storage_edit_smb_server_title_add">Tambah server SMB</string>
+    <string name="storage_edit_smb_server_host">Nama hos</string>
+    <string name="storage_edit_smb_server_host_error_empty">Masukkan nama hos</string>
+    <string name="storage_edit_smb_server_port">Porta</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Porta tidak valid</string>
+    <string name="storage_edit_smb_server_name">Nama</string>
+    <string name="storage_edit_smb_server_name_placeholder">Gunakan nama hos</string>
+    <string name="storage_edit_smb_server_authentication_type">Otentikasi</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Sandi</item>
+        <item>Tamu</item>
+        <item>Anonim</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Nama pengguna</string>
+    <string name="storage_edit_smb_server_username_error_empty">Masukkan nama pengguna</string>
+    <string name="storage_edit_smb_server_password">Sandi</string>
+    <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_connect_and_add">Sambung dan tambah</string>
+    <string name="storage_edit_smb_server_add">Tambah</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s kosong dari %2$s</string>
+    <string name="navigation_add_storage">Tambah penyimpanan…</string>
+    <string name="navigation_standard_directory_alarms">Alarm</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Dokumen</string>
+    <string name="navigation_standard_directory_downloads">Unduhan</string>
+    <string name="navigation_standard_directory_movies">Movie</string>
+    <string name="navigation_standard_directory_music">Musik</string>
+    <string name="navigation_standard_directory_notifications">Notifikasi</string>
+    <string name="navigation_standard_directory_pictures">Gambar</string>
+    <string name="navigation_standard_directory_podcasts">Podcast</string>
+    <string name="navigation_standard_directory_ringtones">Nada dering</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Folder markah</string>
+    <string name="navigation_edit_bookmark_directory_name">Nama</string>
+    <string name="navigation_edit_bookmark_directory_path">Jalur</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="image_viewer_title">Penampil gambar</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
+    <string name="text_editor_title">Penyunting teks</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">Disimpan</string>
+    <string name="text_editor_reload_message">Apakah Anda yakin ingin memuat ulang? Perubahan yang belum disimpan pada dokumen ini akan hilang.</string>
+    <string name="text_editor_close_message">Apakah Anda yakin ingin membuang perubahan yang belum disimpan pada dokumen ini?</string>
+
+    <string name="ftp_server_title">Server FTP</string>
+    <string name="ftp_server_state_title">Status</string>
+    <string name="ftp_server_state_summary_starting">Memulai…</string>
+    <string name="ftp_server_state_summary_running">Berjalan</string>
+    <string name="ftp_server_state_summary_stopping">Menghentikan…</string>
+    <string name="ftp_server_state_summary_stopped">Tidak berjalan</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Tidak bisa mengambil alamat IP lokal</string>
+    <string name="ftp_server_url_menu_copy_url">Salin URL</string>
+    <string name="ftp_server_url_menu_copy_password">Salin sandi</string>
+    <string name="ftp_server_configuration_title">Konfigurasi</string>
+    <string name="ftp_server_anonymous_login_title">Masuk secara anonim</string>
+    <string name="ftp_server_username_title">Nama pengguna</string>
+    <string name="ftp_server_password_title">Sandi</string>
+    <string name="ftp_server_port_title">Porta</string>
+    <string name="ftp_server_home_directory_title">Folder root</string>
+    <string name="ftp_server_writable_title">Izinkan menyimpan</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">Server FTP sedang berjalan</string>
+
+    <string name="settings_title">Pengaturan</string>
+    <string name="settings_interface_title">Antarmuka</string>
+    <string name="settings_theme_color_title">Warna tema</string>
+    <string name="settings_theme_color_summary">Warna yang muncul paling sering di dalam apl</string>
+    <string name="settings_night_mode_title">Mode malam</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Ikuti sistem</item>
+        <item>Mati</item>
+        <item>Nyala</item>
+        <item>Berdasarkan waktu</item>
+        <item>Berdasarkan penghemat baterai</item>
+    </string-array>
+    <string name="settings_black_night_mode">Mode malam</string>
+    <string name="settings_file_list_animation_title">Animasi daftar berkas</string>
+    <string name="settings_file_name_ellipsize_title">Tampilkan nama berkas panjang</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Elipsis di awal</item>
+        <item>Elipsis di tengah</item>
+        <item>Elipsis di akhir</item>
+        <item>Marquee</item>
+    </string-array>
+    <string name="settings_behavior_title">Perilaku</string>
+    <string name="settings_default_directory_title">Folder default</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
+    <string name="settings_standard_directories_title">Folder standar</string>
+    <string name="settings_standard_directories_summary_empty">Tidak ada folder standar yang diaktifkan</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
+    <string name="settings_bookmark_directory_screenshots">Screenshot</string>
+    <string name="settings_bookmark_directories_title">Folder markah</string>
+    <string name="settings_bookmark_directories_summary_empty">Tidak ada folder markah</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_root_strategy_title">Mode akses root</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="other">Anda memiliki %1$,d proses berkas yang sedang berjalan dan mengubah mode akses root sekarang bisa mengakibatkan kesalahan yang tidak terduga. Apakah Anda yakin ingin mengubahnya sekarang?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Hanya akses normal</item>
+        <item>Utamakan akses normal</item>
+        <item>Utamakan akses root</item>
+        <item>Hanya akses root</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Enkode nama berkas arsip</string>
+    <string name="settings_open_apk_default_action_title">Buka paket Android</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Pasang</item>
+        <item>Lihat konten</item>
+        <item>Tanyakan yang ingin dilakukan</item>
+    </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">Baca berkas remote untuk thumbnail</string>
+
+    <string name="about_title">Tentang</string>
+    <string name="about_version_title">Versi</string>
+    <string name="about_github_title">Lihat di GitHub</string>
+    <string name="about_licenses_title">Lisensi</string>
+    <string name="about_privacy_policy_title">Kebijakan privasi</string>
+    <string name="about_author_title">Pengembang</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Ikuti di GitHub</string>
+    <string name="about_author_google_plus_title">Tambahkan ke lingkaran Google+</string>
+    <string name="about_author_twitter_title">Ikuti di Twitter</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
+</resources>

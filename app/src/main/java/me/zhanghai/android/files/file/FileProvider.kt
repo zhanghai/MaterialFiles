@@ -176,11 +176,6 @@ class FileProvider : ContentProvider() {
         if (path.canOpenDirectly(modeBits)) {
             return ParcelFileDescriptor.open(path.toFile(), modeBits)
         }
-        // Allowing other apps to write to files that require root access is dangerous.
-        // TODO: Relax this restriction for other cases?
-        if (modeBits != ParcelFileDescriptor.MODE_READ_ONLY) {
-            throw AccessDeniedException(mode).toFileNotFoundException()
-        }
         val options = modeBits.toOpenOptions()
         val channel = try {
             // Strict mode thread policy is passed through binder, but some apps (notably music

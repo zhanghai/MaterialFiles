@@ -17,7 +17,6 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.CreateArchiveDialogBinding
-import me.zhanghai.android.files.databinding.CreateArchiveDialogTypeIncludeBinding
 import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
@@ -113,9 +112,8 @@ class CreateArchiveDialogFragment : FileNameDialogFragment() {
                 val binding = CreateArchiveDialogBinding.inflate(inflater)
                 val bindingRoot = binding.root
                 val nameBinding = FileNameDialogNameIncludeBinding.bind(bindingRoot)
-                val typeBinding = CreateArchiveDialogTypeIncludeBinding.bind(bindingRoot)
                 return Binding(
-                    bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit, typeBinding.typeGroup
+                    bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit, binding.typeGroup
                 )
             }
         }

@@ -52,7 +52,6 @@ internal class SmbFileAttributeView(
         } catch (e: ClientException) {
             throw e.toFileSystemException(path.toString())
         }
-        throw UnsupportedOperationException()
     }
 
     private fun FileTime?.toSmbFileTime(): SmbFileTime =

@@ -22,6 +22,7 @@
     <dimen name="dialog_padding_minus_4dp">20dp</dimen>
     <dimen name="dialog_padding_minus_6dp">18dp</dimen>
     <dimen name="dialog_padding_minus_7dp">17dp</dimen>
+    <dimen name="dialog_padding_minus_16dp">8dp</dimen>
     <dimen name="navigation_max_width">320dp</dimen>
     <dimen name="navigation_header_height">172dp</dimen>
     <dimen name="navigation_item_horizontal_padding">24dp</dimen>

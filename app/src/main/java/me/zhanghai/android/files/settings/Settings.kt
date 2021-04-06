@@ -17,6 +17,8 @@ import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
 import me.zhanghai.android.files.provider.root.RootStrategy
+import me.zhanghai.android.files.storage.FileSystemRoot
+import me.zhanghai.android.files.storage.PrimaryStorageVolume
 import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.theme.custom.ThemeColor
 import me.zhanghai.android.files.theme.night.NightMode
@@ -24,7 +26,10 @@ import java.io.File
 
 object Settings {
     val STORAGES: SettingLiveData<List<Storage>> =
-        ParcelValueSettingLiveData(R.string.pref_key_storages, emptyList())
+        ParcelValueSettingLiveData(
+            R.string.pref_key_storages,
+            listOf(FileSystemRoot(null, true), PrimaryStorageVolume(null, true))
+        )
 
     val FILE_LIST_DEFAULT_DIRECTORY: SettingLiveData<Path> =
         ParcelValueSettingLiveData(
@@ -151,6 +156,11 @@ object Settings {
             R.string.pref_default_value_open_apk_default_action,
             OpenApkDefaultAction::class.java
         )
+
+    val SHOW_PDF_THUMBNAIL_PRE_28: SettingLiveData<Boolean> = BooleanSettingLiveData(
+        R.string.pref_key_show_pdf_thumbnail_pre_28,
+        R.bool.pref_default_value_show_pdf_thumbnail_pre_28
+    )
 
     val READ_REMOTE_FILES_FOR_THUMBNAIL: SettingLiveData<Boolean> =
         BooleanSettingLiveData(

@@ -15,7 +15,7 @@ An open source Material Design file manager, for Android 5.0+.
 ## Preview
 
 <p><img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3.png" width="32%" />
-<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="32%" /></p>
+<img src="fastlane/metadata/android/en-US/images/phoneScreenshots/4.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/5.png" width="32%" /> <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/6.png" width="32%" /></p>
 
 ## Features
 
@@ -24,7 +24,8 @@ An open source Material Design file manager, for Android 5.0+.
 - Breadcrumbs: Navigate in the filesystem with ease.
 - Root support: View and manage files with root access.
 - Archive support: View, extract and create common compressed files.
-- Themes: Customizable UI colors for classic theme, plus night mode.
+- SMB support: View and manage files on SMB servers.
+- Themes: Customizable UI colors, plus night mode with optional true black.
 - Linux-aware: Like [Nautilus](https://wiki.gnome.org/action/show/Apps/Files), knows symbolic links, file permissions and SELinux context.
 - Robust: Uses Linux system calls under the hood, not yet another [`ls` parser](https://news.ycombinator.com/item?id=7994720).
 - Well-implemented: Built upon the right things, including [Java NIO2 File API](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html) and [LiveData](https://developer.android.com/topic/libraries/architecture/livedata).

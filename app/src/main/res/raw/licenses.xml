@@ -92,6 +92,20 @@
     </notice>
 
     <notice>
+        <name>RikkaX</name>
+        <url>https://github.com/RikkaApps/RikkaX</url>
+        <copyright>Copyright 2017 Rikka</copyright>
+        <license>MIT License</license>
+    </notice>
+
+    <notice>
+        <name>Shizuku-API</name>
+        <url>https://github.com/RikkaApps/Shizuku-API</url>
+        <copyright>Copyright 2021 RikkaW</copyright>
+        <license>MIT License</license>
+    </notice>
+
+    <notice>
         <name>librootjava</name>
         <url>https://github.com/Chainfire/librootjava</url>
         <copyright>Copyright 2018 Jorrit "Chainfire" Jongma</copyright>

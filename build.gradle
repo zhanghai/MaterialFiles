@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Zhang Hai <Dreaming.in.Code.ZH@Gmail.com>
+ * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
@@ -7,14 +7,14 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.4.21'
+        kotlin_version = '1.4.32'
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong

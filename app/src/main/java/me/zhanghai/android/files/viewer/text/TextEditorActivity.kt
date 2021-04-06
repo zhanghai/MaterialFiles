@@ -29,9 +29,16 @@ class TextEditorActivity : AppActivity() {
     }
 
     override fun onBackPressed() {
-        if (fragment.onBackPressed()) {
+        if (fragment.onFinish()) {
             return
         }
         super.onBackPressed()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (fragment.onFinish()) {
+            return true
+        }
+        return super.onSupportNavigateUp()
     }
 }

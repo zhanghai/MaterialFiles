@@ -8,7 +8,6 @@ package me.zhanghai.android.files.storage
 import android.graphics.drawable.NinePatchDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -21,22 +20,17 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.StorageListFragmentBinding
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
-import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
+import me.zhanghai.android.files.util.startActivitySafe
 
-class StorageListFragment : Fragment(), StorageAdapter.Listener {
+class StorageListFragment : Fragment(), StorageListAdapter.Listener {
     private lateinit var binding: StorageListFragmentBinding
 
-    private lateinit var adapter: StorageAdapter
+    private lateinit var adapter: StorageListAdapter
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,10 +46,11 @@ class StorageListFragment : Fragment(), StorageAdapter.Listener {
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        adapter = StorageAdapter(this)
+        adapter = StorageListAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
                 getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable
@@ -83,33 +78,17 @@ class StorageListFragment : Fragment(), StorageAdapter.Listener {
         WrapperAdapterUtils.releaseAll(wrappedAdapter)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                // This recreates MainActivity but we cannot have singleTop as launch mode along
-                // with document launch mode.
-                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                //activity.onSupportNavigateUp();
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-
     private fun onStorageListChanged(storages: List<Storage>) {
         binding.emptyView.fadeToVisibilityUnsafe(storages.isEmpty())
         adapter.replace(storages)
     }
 
     private fun onAddStorage() {
-        // TODO
-        //val intent = FileListActivity.createPickDirectoryIntent(null)
-        //startActivityForResultSafe(intent, REQUEST_CODE_ADD_STORAGE)
+        startActivitySafe(AddStorageDialogActivity::class.createIntent())
     }
 
     override fun editStorage(storage: Storage) {
-        // TODO
-        //EditStorageDialogFragment.show(storage, this)
+        startActivitySafe(storage.createEditIntent())
     }
 
     override fun moveStorage(fromPosition: Int, toPosition: Int) {

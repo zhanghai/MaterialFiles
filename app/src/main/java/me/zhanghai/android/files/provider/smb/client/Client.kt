@@ -38,12 +38,12 @@ import me.zhanghai.android.files.provider.common.copyTo
 import me.zhanghai.android.files.provider.common.newInputStream
 import me.zhanghai.android.files.provider.common.newOutputStream
 import me.zhanghai.android.files.util.closeSafe
+import me.zhanghai.android.files.util.enumSetOf
 import me.zhanghai.android.files.util.hasBits
 import java.io.Closeable
 import java.io.IOException
 import java.net.UnknownHostException
 import java.util.Collections
-import java.util.EnumSet
 import java.util.WeakHashMap
 import java.util.concurrent.Future
 
@@ -118,7 +118,7 @@ object Client {
             val share = getDiskShare(session, sharePath.name)
             val directory = try {
                 share.openDirectory(
-                    sharePath.path, EnumSet.of(
+                    sharePath.path, enumSetOf(
                         AccessMask.FILE_LIST_DIRECTORY, AccessMask.FILE_READ_ATTRIBUTES,
                         AccessMask.FILE_READ_EA
                     ), null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, null
@@ -152,11 +152,11 @@ object Client {
         val directory = try {
             share.openDirectory(
                 sharePath.path,
-                EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA),
-                EnumSet.of(FileAttributes.FILE_ATTRIBUTE_DIRECTORY)
+                enumSetOf(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA),
+                enumSetOf(FileAttributes.FILE_ATTRIBUTE_DIRECTORY)
                     .apply { fileAttributes?.let { addAll(it) } }, SMB2ShareAccess.ALL,
                 SMB2CreateDisposition.FILE_CREATE,
-                EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
             )
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
@@ -181,17 +181,17 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         val diskEntry = try {
             share.open(
-                sharePath.path, EnumSet.of(
+                sharePath.path, enumSetOf(
                     AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_WRITE_ATTRIBUTES,
                     AccessMask.FILE_READ_EA, AccessMask.FILE_WRITE_EA, AccessMask.DELETE,
                     AccessMask.SYNCHRONIZE
-                ), EnumSet.noneOf(FileAttributes::class.java).apply {
+                ), enumSetOf<FileAttributes>().apply {
                     fileAttributes?.let { addAll(it) }
                     this -= FileAttributes.FILE_ATTRIBUTE_REPARSE_POINT
                     if (isEmpty()) {
                         this += FileAttributes.FILE_ATTRIBUTE_NORMAL
                     }
-                }, null, SMB2CreateDisposition.FILE_CREATE, EnumSet.of(
+                }, null, SMB2CreateDisposition.FILE_CREATE, enumSetOf(
                     SMB2CreateOptions.FILE_NON_DIRECTORY_FILE,
                     SMB2CreateOptions.FILE_OPEN_REPARSE_POINT
                 )
@@ -240,10 +240,10 @@ object Client {
         val diskEntry = try {
             share.open(
                 sharePath.path,
-                EnumSet.of(AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.FILE_WRITE_EA),
+                enumSetOf(AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.FILE_WRITE_EA),
                 null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 // CreateHardLink doesn't work for directories.
-                EnumSet.of(SMB2CreateOptions.FILE_NON_DIRECTORY_FILE).apply {
+                enumSetOf(SMB2CreateOptions.FILE_NON_DIRECTORY_FILE).apply {
                     if (openReparsePoint) {
                         this += SMB2CreateOptions.FILE_OPEN_REPARSE_POINT
                     }
@@ -266,8 +266,8 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         val diskEntry = try {
             share.open(
-                sharePath.path, EnumSet.of(AccessMask.DELETE), null, SMB2ShareAccess.ALL,
-                SMB2CreateDisposition.FILE_OPEN, EnumSet.of(
+                sharePath.path, enumSetOf(AccessMask.DELETE), null, SMB2ShareAccess.ALL,
+                SMB2CreateDisposition.FILE_OPEN, enumSetOf(
                     SMB2CreateOptions.FILE_DELETE_ON_CLOSE,
                     SMB2CreateOptions.FILE_OPEN_REPARSE_POINT
                 )
@@ -283,6 +283,7 @@ object Client {
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
         }
+        directoryFileInformationCache -= path
     }
 
     // @see https://gitlab.com/samba-team/devel/samba/-/blob/master/source3/libsmb/clisymlink.c
@@ -295,9 +296,9 @@ object Client {
         val diskEntry = try {
             share.open(
                 sharePath.path,
-                EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA), null,
+                enumSetOf(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA), null,
                 SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
-                EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
             )
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
@@ -329,12 +330,12 @@ object Client {
         val targetShare = getDiskShare(targetSession, targetSharePath.name)
         val sourceFile = try {
             sourceShare.openFile(
-                sourceSharePath.path, EnumSet.of(
+                sourceSharePath.path, enumSetOf(
                     AccessMask.FILE_READ_DATA, AccessMask.FILE_READ_ATTRIBUTES,
                     AccessMask.FILE_READ_EA
                 ), null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 if (openReparsePoint) {
-                    EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                    enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                 } else {
                     null
                 }
@@ -352,16 +353,16 @@ object Client {
                     }.fileAttributes
                     EnumWithValue.EnumUtils.toEnumSet(sourceAttributes, FileAttributes::class.java)
                 } else {
-                    EnumSet.of(FileAttributes.FILE_ATTRIBUTE_NORMAL)
+                    enumSetOf(FileAttributes.FILE_ATTRIBUTE_NORMAL)
                 }
                 val targetFile = try {
                     targetShare.openFile(
-                        targetSharePath.path, EnumSet.of(
+                        targetSharePath.path, enumSetOf(
                         AccessMask.FILE_WRITE_DATA, AccessMask.FILE_WRITE_ATTRIBUTES,
                         AccessMask.FILE_WRITE_EA, AccessMask.DELETE
                     ), attributesToCopy, SMB2ShareAccess.ALL,
                         SMB2CreateDisposition.FILE_CREATE,
-                        EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                        enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                     )
                 } catch (e: SMBRuntimeException) {
                     throw ClientException(e)
@@ -426,9 +427,9 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         val diskEntry = try {
             share.open(
-                sharePath.path, EnumSet.of(AccessMask.DELETE), null, SMB2ShareAccess.ALL,
+                sharePath.path, enumSetOf(AccessMask.DELETE), null, SMB2ShareAccess.ALL,
                 SMB2CreateDisposition.FILE_OPEN,
-                EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
             )
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
@@ -438,6 +439,8 @@ object Client {
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
         }
+        directoryFileInformationCache -= path
+        directoryFileInformationCache -= newPath
     }
 
     @Throws(ClientException::class)
@@ -478,10 +481,10 @@ object Client {
             val diskEntry = try {
                 share.open(
                     sharePath.path,
-                    EnumSet.of(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA),
+                    enumSetOf(AccessMask.FILE_READ_ATTRIBUTES, AccessMask.FILE_READ_EA),
                     null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                     if (openReparsePoint) {
-                        EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                        enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                     } else {
                         null
                     }
@@ -510,10 +513,10 @@ object Client {
         val diskEntry = try {
             share.open(
                 sharePath.path,
-                EnumSet.of(AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.FILE_WRITE_EA),
+                enumSetOf(AccessMask.FILE_WRITE_ATTRIBUTES, AccessMask.FILE_WRITE_EA),
                 null, SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN,
                 if (openReparsePoint) {
-                    EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                    enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                 } else {
                     null
                 }
@@ -538,7 +541,7 @@ object Client {
             share.open(
                 sharePath.path, desiredAccess, null, SMB2ShareAccess.ALL,
                 SMB2CreateDisposition.FILE_OPEN, if (openReparsePoint) {
-                    EnumSet.of(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
+                    enumSetOf(SMB2CreateOptions.FILE_OPEN_REPARSE_POINT)
                 } else {
                     null
                 }
@@ -561,7 +564,7 @@ object Client {
         val share = getDiskShare(session, sharePath.name)
         return try {
             share.openDirectory(
-                sharePath.path, EnumSet.of(AccessMask.FILE_LIST_DIRECTORY), null,
+                sharePath.path, enumSetOf(AccessMask.FILE_LIST_DIRECTORY), null,
                 SMB2ShareAccess.ALL, SMB2CreateDisposition.FILE_OPEN, null
             )
         } catch (e: SMBRuntimeException) {

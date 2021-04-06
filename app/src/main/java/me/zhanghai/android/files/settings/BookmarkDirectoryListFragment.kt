@@ -5,12 +5,9 @@
 
 package me.zhanghai.android.files.settings
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.drawable.NinePatchDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -26,26 +23,25 @@ import me.zhanghai.android.files.databinding.BookmarkDirectoryListFragmentBindin
 import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.navigation.BookmarkDirectories
 import me.zhanghai.android.files.navigation.BookmarkDirectory
+import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
-import me.zhanghai.android.files.util.extraPath
+import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
-import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getDrawable
-import me.zhanghai.android.files.util.startActivityForResultSafe
+import me.zhanghai.android.files.util.launchSafe
+import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.startActivitySafe
 
-class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Listener,
-    EditBookmarkDirectoryDialogFragment.Listener {
+class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.Listener {
+    private val pickPathLauncher = registerForActivityResult(
+        FileListActivity.PickDirectoryContract(), this::onPickPathResult
+    )
+
     private lateinit var binding: BookmarkDirectoryListFragmentBinding
 
-    private lateinit var adapter: BookmarkDirectoryAdapter
+    private lateinit var adapter: BookmarkDirectoryListAdapter
     private lateinit var dragDropManager: RecyclerViewDragDropManager
     private lateinit var wrappedAdapter: RecyclerView.Adapter<*>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,10 +57,11 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Liste
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.recyclerView.layoutManager = LinearLayoutManager(
             activity, RecyclerView.VERTICAL, false
         )
-        adapter = BookmarkDirectoryAdapter(this)
+        adapter = BookmarkDirectoryListAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
                 getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable
@@ -94,60 +91,28 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryAdapter.Liste
         WrapperAdapterUtils.releaseAll(wrappedAdapter)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                // This recreates MainActivity but we cannot have singleTop as launch mode along
-                // with document launch mode.
-                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                //activity.onSupportNavigateUp();
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_CODE_PICK_DIRECTORY ->
-                if (resultCode == Activity.RESULT_OK) {
-                    data?.extraPath?.let { addBookmarkDirectory(it) }
-                }
-            else -> super.onActivityResult(requestCode, resultCode, data)
-        }
-    }
-
     private fun onBookmarkDirectoryListChanged(bookmarkDirectories: List<BookmarkDirectory>) {
         binding.emptyView.fadeToVisibilityUnsafe(bookmarkDirectories.isEmpty())
         adapter.replace(bookmarkDirectories)
     }
 
     private fun onAddBookmarkDirectory() {
-        val intent = FileListActivity.createPickDirectoryIntent(null)
-        startActivityForResultSafe(intent, REQUEST_CODE_PICK_DIRECTORY)
+        pickPathLauncher.launchSafe(null, this)
     }
 
-    private fun addBookmarkDirectory(path: Path) {
-        BookmarkDirectories.add(BookmarkDirectory(null, path))
+    private fun onPickPathResult(result: Path?) {
+        result ?: return
+        BookmarkDirectories.add(BookmarkDirectory(null, result))
     }
 
     override fun editBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        EditBookmarkDirectoryDialogFragment.show(bookmarkDirectory, this)
+        startActivitySafe(
+            EditBookmarkDirectoryDialogActivity::class.createIntent()
+                .putArgs(EditBookmarkDirectoryDialogFragment.Args(bookmarkDirectory))
+        )
     }
 
     override fun moveBookmarkDirectory(fromPosition: Int, toPosition: Int) {
         BookmarkDirectories.move(fromPosition, toPosition)
-    }
-
-    override fun replaceBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        BookmarkDirectories.replace(bookmarkDirectory)
-    }
-
-    override fun removeBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        BookmarkDirectories.remove(bookmarkDirectory)
-    }
-
-    companion object {
-        private const val REQUEST_CODE_PICK_DIRECTORY = 1
     }
 }

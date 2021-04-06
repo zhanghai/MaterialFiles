@@ -23,6 +23,7 @@ import java8.nio.file.attribute.BasicFileAttributes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import me.zhanghai.android.files.coil.fadeIn
 import me.zhanghai.android.files.databinding.ImageViewerItemBinding
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeType
@@ -63,10 +64,14 @@ class ImageViewerAdapter(
 
         val binding = holder.binding
         binding.image.clear()
+        binding.largeImage.recycle()
     }
 
     private fun loadImage(binding: ImageViewerItemBinding, path: Path) {
         binding.progress.fadeInUnsafe(true)
+        binding.errorText.fadeOutUnsafe()
+        binding.image.isVisible = false
+        binding.largeImage.isVisible = false
         lifecycleOwner.lifecycleScope.launch {
             val imageInfo = try {
                 withContext(Dispatchers.IO) { path.loadImageInfo() }
@@ -100,8 +105,7 @@ class ImageViewerAdapter(
                 isVisible = true
                 loadAny(path to imageInfo.attributes) {
                     size(OriginalSize)
-                    placeholder(android.R.color.transparent)
-                    crossfade(binding.image.context.shortAnimTime)
+                    fadeIn(context.shortAnimTime)
                     listener(
                         onSuccess = { _, _ -> binding.progress.fadeOutUnsafe() },
                         onError = { _, e -> showError(binding, e) }
@@ -119,7 +123,7 @@ class ImageViewerAdapter(
                     override fun onReady() {
                         setDoubleTapZoomScale(binding.largeImage.cropScale)
                         binding.progress.fadeOutUnsafe()
-                        binding.largeImage.fadeInUnsafe()
+                        binding.largeImage.fadeInUnsafe(true)
                     }
 
                     override fun onImageLoadError(e: Exception) {
@@ -167,9 +171,11 @@ class ImageViewerAdapter(
         }
 
     private fun showError(binding: ImageViewerItemBinding, throwable: Throwable) {
-        binding.errorText.text = throwable.toString()
         binding.progress.fadeOutUnsafe()
-        binding.errorText.fadeInUnsafe()
+        binding.errorText.text = throwable.toString()
+        binding.errorText.fadeInUnsafe(true)
+        binding.image.isVisible = false
+        binding.largeImage.isVisible = false
     }
 
     companion object {

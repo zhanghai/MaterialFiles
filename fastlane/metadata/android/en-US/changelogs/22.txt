@@ -1,0 +1,10 @@
+- Improved the Material Design 2 theme, adding theme color setting and optional true black night mode, and removed the deprecated Material Design 1 theme.
+- Added SMB support.
+- Added storage management.
+- Added Sui support.
+- Added viewing permission info for APK files.
+- Added thumbnail for PDF files.
+- Added setting for displaying file names.
+- Added support for dragging out the navigation drawer from anywhere on screen.
+- Fixed certain issues in FTP server.
+- Other bug fixes and improvements.

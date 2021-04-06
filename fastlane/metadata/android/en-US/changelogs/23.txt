@@ -1,0 +1,3 @@
+- Added Arabic, Hungarian, Indonesian and Polish translations.
+- Fixed issues in image viewer.
+- Other bug fixes and improvements.

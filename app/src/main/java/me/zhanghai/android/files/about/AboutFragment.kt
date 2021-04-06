@@ -8,7 +8,6 @@ package me.zhanghai.android.files.about
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -17,17 +16,10 @@ import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.databinding.AboutFragmentBinding
 import me.zhanghai.android.files.ui.LicensesDialogFragment
 import me.zhanghai.android.files.util.createViewIntent
-import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.startActivitySafe
 
 class AboutFragment : Fragment() {
     private lateinit var binding: AboutFragmentBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +35,7 @@ class AboutFragment : Fragment() {
 
         val activity = requireActivity() as AppCompatActivity
         activity.setSupportActionBar(binding.toolbar)
+        activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.gitHubLayout.setOnClickListener { startActivitySafe(GITHUB_URI.createViewIntent()) }
         binding.licensesLayout.setOnClickListener { LicensesDialogFragment.show(this) }
 //#ifdef NONFREE
@@ -64,19 +57,6 @@ class AboutFragment : Fragment() {
             startActivitySafe(AUTHOR_TWITTER_URI.createViewIntent())
         }
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                // This recreates MainActivity but we cannot have singleTop as launch mode along
-                // with document launch mode.
-                //AppCompatActivity activity = (AppCompatActivity) requireActivity();
-                //activity.onSupportNavigateUp();
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
 
     companion object {
         private val GITHUB_URI = Uri.parse("https://github.com/zhanghai/MaterialFiles")
