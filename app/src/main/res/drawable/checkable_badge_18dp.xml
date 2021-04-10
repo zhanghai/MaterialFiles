@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<animated-selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="@android:integer/config_shortAnimTime"
+    android:exitFadeDuration="@android:integer/config_shortAnimTime">
+
+    <item android:state_checked="true">
+        <layer-list>
+            <item>
+                <shape
+                    android:shape="oval">
+                    <size android:width="18dp" android:height="18dp" />
+                    <solid android:color="?colorPrimary" />
+                </shape>
+            </item>
+            <item android:drawable="@drawable/check_icon_on_primary_16dp" android:gravity="center" />
+        </layer-list>
+    </item>
+
+    <item android:drawable="@android:color/transparent" />
+</animated-selector>

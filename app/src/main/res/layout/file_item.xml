@@ -22,6 +22,7 @@
         android:layout_marginStart="@dimen/screen_edge_margin_minus_4dp"
         android:layout_marginEnd="@dimen/content_start_from_screen_edge_margin_minus_44dp"
         android:clipToPadding="false"
+        android:duplicateParentState="true"
         android:padding="@dimen/touch_target_large_icon_padding">
 
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
@@ -46,6 +47,13 @@
             android:layout_gravity="end|bottom"
             android:background="@drawable/badge_background_18dp"
             android:duplicateParentState="true" />
+
+        <me.zhanghai.android.files.ui.DisabledAlphaImageView
+            android:layout_width="@dimen/badge_size"
+            android:layout_height="@dimen/badge_size"
+            android:layout_gravity="end|bottom"
+            android:duplicateParentState="true"
+            android:src="@drawable/checkable_badge_18dp" />
     </FrameLayout>
 
     <LinearLayout
@@ -76,6 +84,11 @@
             android:textColor="?android:textColorSecondary" />
     </LinearLayout>
 
+    <!--
+      ~ Cannot use android:duplicateParentState="true" because a button needs to have its own
+      ~ pressed state, etc. Necessary states will be duplicated manually in the adapter
+      ~ implementation.
+      -->
     <ImageButton
         android:id="@+id/menuButton"
         android:layout_width="@dimen/touch_target_size"

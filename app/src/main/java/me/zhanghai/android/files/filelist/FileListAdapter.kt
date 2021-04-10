@@ -165,7 +165,6 @@ class FileListAdapter(
         val isDirectory = file.attributes.isDirectory
         val enabled = isFileSelectable(file) || isDirectory
         binding.itemLayout.isEnabled = enabled
-        binding.iconLayout.isEnabled = enabled
         binding.menuButton.isEnabled = enabled
         val menu = holder.popupMenu.menu
         val path = file.path
