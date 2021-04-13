@@ -26,7 +26,7 @@ fun initializeCoil() {
                         GifDecoder()
                     }
                 )
-                add(SvgDecoder(application))
+                add(SvgDecoder(application, false))
             }
             .build()
     )
