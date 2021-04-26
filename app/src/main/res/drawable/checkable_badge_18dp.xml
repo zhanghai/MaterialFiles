@@ -10,18 +10,7 @@
     android:enterFadeDuration="@android:integer/config_shortAnimTime"
     android:exitFadeDuration="@android:integer/config_shortAnimTime">
 
-    <item android:state_checked="true">
-        <layer-list>
-            <item>
-                <shape
-                    android:shape="oval">
-                    <size android:width="18dp" android:height="18dp" />
-                    <solid android:color="?colorPrimary" />
-                </shape>
-            </item>
-            <item android:drawable="@drawable/check_icon_on_primary_16dp" android:gravity="center" />
-        </layer-list>
-    </item>
+    <item android:state_checked="true" android:drawable="@drawable/checkable_badge_icon_18dp" />
 
     <item android:drawable="@android:color/transparent" />
 </animated-selector>
