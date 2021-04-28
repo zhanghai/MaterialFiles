@@ -162,7 +162,7 @@ dependencies {
     }
     // Substitute dependency of jCIFS-NG.
     implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
-    def coil_version = '1.2.0'
+    def coil_version = '1.2.1'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
