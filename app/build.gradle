@@ -30,7 +30,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 30
-    ndkVersion '22.0.7026061'
+    ndkVersion '22.1.7171670'
     buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
