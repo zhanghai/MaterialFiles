@@ -20,10 +20,9 @@ import me.zhanghai.android.files.util.releasePersistablePermission
 import me.zhanghai.android.files.util.takePersistablePermission
 import me.zhanghai.android.files.util.valueCompat
 
-// TODO: https://youtrack.jetbrains.com/issue/KT-37384
-//inline class DocumentTreeUri(val value: Uri) {
 @Parcelize
-data class DocumentTreeUri(val value: Uri): Parcelable {
+@JvmInline
+value class DocumentTreeUri(val value: Uri): Parcelable {
     val documentId: String
         get() = DocumentsContract.getTreeDocumentId(value)
 
