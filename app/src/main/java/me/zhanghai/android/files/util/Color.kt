@@ -12,8 +12,8 @@ import androidx.core.graphics.ColorUtils
 import kotlin.math.roundToInt
 import android.graphics.Color as AndroidColor
 
-
-inline class Color(@ColorInt val value: Int)
+@JvmInline
+value class Color(@ColorInt val value: Int)
 
 fun Int.asColor(): Color = Color(this)
 

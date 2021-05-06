@@ -7,7 +7,8 @@ package me.zhanghai.android.files.util
 
 import android.util.Base64 as AndroidBase64
 
-inline class Base64(val value: String)
+@JvmInline
+value class Base64(val value: String)
 
 fun String.asBase64(): Base64 = Base64(this)
 

@@ -12,7 +12,8 @@ import me.zhanghai.android.files.provider.common.dropLastWhile
 import me.zhanghai.android.files.provider.common.substringAfterLast
 import me.zhanghai.android.files.provider.common.takeIfNotEmpty
 
-inline class BytePathName(val value: ByteString) {
+@JvmInline
+value class BytePathName(val value: ByteString) {
     val fileName: ByteString?
         get() = value.substringAfterLast(SEPARATOR).takeIfNotEmpty()
 
@@ -41,7 +42,8 @@ fun ByteString.asPathNameOrNull(): BytePathName? = if (isValidPathName) BytePath
 private val ByteString.isValidPathName: Boolean
     get() = isNotEmpty() && !contains('\u0000'.toByte())
 
-inline class ByteFileName(val value: ByteString) {
+@JvmInline
+value class ByteFileName(val value: ByteString) {
     val singleExtension: ByteString
         get() = value.substringAfterLast(EXTENSION_SEPARATOR, ByteString.EMPTY)
 

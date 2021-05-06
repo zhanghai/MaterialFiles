@@ -5,7 +5,8 @@
 
 package me.zhanghai.android.files.util
 
-inline class PathName(val value: String) {
+@JvmInline
+value class PathName(val value: String) {
     val fileName: String?
         get() = value.substringAfterLast(SEPARATOR).takeIfNotEmpty()
 
@@ -34,7 +35,8 @@ fun String.asPathNameOrNull(): PathName? = if (isValidPathName) PathName(this) e
 private val String.isValidPathName: Boolean
     get() = isNotEmpty() && !contains('\u0000')
 
-inline class FileName(val value: String) {
+@JvmInline
+value class FileName(val value: String) {
     val singleExtension: String
         get() = value.substringAfterLast(EXTENSION_SEPARATOR, "")
 

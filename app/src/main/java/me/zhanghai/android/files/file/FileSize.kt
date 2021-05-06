@@ -10,7 +10,8 @@ import android.text.format.Formatter
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.getQuantityString
 
-inline class FileSize(val value: Long) {
+@JvmInline
+value class FileSize(val value: Long) {
 
     /* @see android.text.format.Formatter#formatBytes(Resources, long, int) */
     val isHumanReadableInBytes: Boolean
