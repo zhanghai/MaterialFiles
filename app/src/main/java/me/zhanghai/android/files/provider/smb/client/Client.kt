@@ -377,7 +377,11 @@ object Client {
                                 throw ClientException(e)
                             }.endOfFile
                             val progressListener = listener?.let {
-                                ProgressListener { numBytes, _ -> it(numBytes) }
+                                var lastCopiedSize = 0L
+                                ProgressListener { copiedSize, _ ->
+                                    it(copiedSize - lastCopiedSize)
+                                    lastCopiedSize = copiedSize
+                                }
                             }
                             try {
                                 sourceFile.serverCopy(0, targetFile, 0, length, progressListener)
