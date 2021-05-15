@@ -33,7 +33,7 @@ internal fun File.serverCopy(
     var maxNumberOfChunks = 16L
     var maxRequestSize = maxNumberOfChunks * maxChunkSize
     var totalBytesWritten = 0L
-    while (totalBytesWritten < length) {
+    while (true) {
         val chunksSourceOffset = sourceOffset + totalBytesWritten
         val chunksTargetOffset = targetOffset + totalBytesWritten
         val chunksLength = length - totalBytesWritten
@@ -51,6 +51,9 @@ internal fun File.serverCopy(
         } else {
             totalBytesWritten += response.totalBytesWritten
             listener?.onProgressChanged(totalBytesWritten, length)
+            if (totalBytesWritten >= length) {
+                break
+            }
         }
         throwIfInterrupted()
     }
