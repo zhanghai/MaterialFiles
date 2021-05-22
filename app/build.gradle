@@ -139,6 +139,9 @@ dependencies {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.1'
+    // FloatingActionButtonSpeedDial 3.2.0 forces the user out of touch mode upon open and leaves a
+    // strange focus effect on the first mini FAB.
+    //noinspection GradleDependency
     implementation 'com.leinardi.android:speed-dial:3.1.1'
     implementation ('com.rapid7.client:dcerpc:0.10.0') {
         // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
@@ -149,6 +152,7 @@ dependencies {
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
+    //noinspection GradleDependency
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
     implementation 'dev.chrisbanes:insetter-ktx:0.3.1'
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.2'
