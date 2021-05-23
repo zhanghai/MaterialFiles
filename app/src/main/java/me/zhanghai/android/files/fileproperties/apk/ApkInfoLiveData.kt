@@ -6,11 +6,11 @@
 package me.zhanghai.android.files.fileproperties.apk
 
 import android.content.pm.PackageManager
-import android.content.pm.Signature
 import android.os.AsyncTask
 import android.os.Build
 import java8.nio.file.Path
 import me.zhanghai.android.files.app.packageManager
+import me.zhanghai.android.files.compat.getPackageArchiveInfoCompat
 import me.zhanghai.android.files.fileproperties.PathObserverLiveData
 import me.zhanghai.android.files.util.Failure
 import me.zhanghai.android.files.util.Loading
@@ -41,8 +41,9 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     packageInfoFlags = packageInfoFlags or PackageManager.GET_SIGNING_CERTIFICATES
                 }
-                val packageInfo = packageManager.getPackageArchiveInfo(apkPath, packageInfoFlags)
-                    ?: throw IOException("PackageManager.getPackageArchiveInfo() returned null")
+                val packageInfo =
+                    packageManager.getPackageArchiveInfoCompat(apkPath, packageInfoFlags)
+                        ?: throw IOException("PackageManager.getPackageArchiveInfo() returned null")
                 val applicationInfo = packageInfo.applicationInfo
                     ?: throw IOException("PackageInfo.applicationInfo is null")
                 applicationInfo.sourceDir = apkPath
@@ -51,7 +52,7 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                 val signingCertificates = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                     // PackageInfo.signatures returns only the oldest certificate if there are past
                     // certificates on P and above for compatibility.
-                    packageInfo.signingInfo.apkContentsSigners
+                    packageInfo.signingInfo.apkContentsSigners ?: emptyArray()
                 } else {
                     @Suppress("DEPRECATION")
                     packageInfo.signatures
