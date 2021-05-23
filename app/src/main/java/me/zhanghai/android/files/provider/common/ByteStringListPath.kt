@@ -240,10 +240,7 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
         return separator == other.separator
             && segments == other.segments
             && isAbsolute == other.isAbsolute
-            // TODO: kotlinc: Cannot infer type parameter T in val <T : ByteStringListPath<T>>
-            //  ByteStringListPath<T>.fileSystem: FileSystem!
-            //&& fileSystem == other.fileSystem
-            && fileSystem == (other as Path).fileSystem
+            && fileSystem == other.fileSystem
     }
 
     override fun hashCode(): Int = hash(separator, segments, isAbsolute, fileSystem)

@@ -72,10 +72,7 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                     }
                 } else {
                     null
-                // TODO: kotlinc: Type inference failed. Expected type mismatch: inferred type is
-                //  List<???> but MutableList<Signature!> was expected
-                //} ?: emptyList()
-                } ?: emptyList<Signature>()
+                } ?: emptyList()
                 val pastSigningCertificateDigests = pastSigningCertificates
                     .map { it.toByteArray().sha1Digest().toHexString() }
                 val apkInfo = ApkInfo(

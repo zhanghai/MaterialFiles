@@ -19,9 +19,7 @@ class ParcelablePosixFileMode(val value: Set<PosixFileModeBit>) : Parcelable {
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
-        // TODO: kotlinc: Type mismatch: inferred type is Any but Serializable! was expected
-        //val serializable = when (value) {
-        val serializable: Serializable = when (value) {
+        val serializable = when (value) {
             is Serializable -> value
             else -> value.toEnumSet()
         }
