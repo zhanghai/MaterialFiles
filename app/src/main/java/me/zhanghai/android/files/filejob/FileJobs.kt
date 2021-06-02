@@ -160,10 +160,7 @@ private fun FileJob.getTargetFileName(source: Path): Path {
         val archiveFile = source.archiveFile.asByteStringListPath()
         val archiveRoot = archiveFile.createArchiveRootPath()
         if (source == archiveRoot) {
-            // TODO: kotlinc: Cannot infer type parameter T in val <T : ByteStringListPath<T>>
-            //  ByteStringListPath<T>.fileSystem: FileSystem!
-            //return archiveFile.fileSystem.getPath(
-            return (archiveFile as Path).fileSystem.getPath(
+            return archiveFile.fileSystem.getPath(
                 archiveFile.fileNameByteString!!.asFileName().baseName
             )
         }

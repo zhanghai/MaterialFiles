@@ -22,11 +22,11 @@ import me.zhanghai.android.files.util.getParcelableSafe
 import me.zhanghai.android.files.util.withModulatedAlpha
 
 class ThemedSpeedDialView : SpeedDialView {
-    constructor(context: Context?) : super(context)
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-    constructor(context: Context?, attrs: AttributeSet?, @AttrRes defStyleAttr: Int) : super(
+    constructor(context: Context, attrs: AttributeSet?, @AttrRes defStyleAttr: Int) : super(
         context, attrs, defStyleAttr
     )
 

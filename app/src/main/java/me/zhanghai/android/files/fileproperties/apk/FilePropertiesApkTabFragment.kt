@@ -85,7 +85,11 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
             )
             addItemView(
                 R.string.file_properties_apk_signature_digests,
-                apkInfo.signingCertificateDigests.joinToString("\n")
+                if (apkInfo.signingCertificateDigests.isNotEmpty()) {
+                    apkInfo.signingCertificateDigests.joinToString("\n")
+                } else {
+                    getString(R.string.file_properties_apk_signature_digests_empty)
+                }
             )
             if (apkInfo.pastSigningCertificateDigests.isNotEmpty()) {
                 addItemView(

@@ -10,7 +10,8 @@ import android.provider.DocumentsContract
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 
-inline class DocumentUri(val value: Uri) {
+@JvmInline
+value class DocumentUri(val value: Uri) {
     val documentId: String
         get() = DocumentsContract.getDocumentId(value)
 }

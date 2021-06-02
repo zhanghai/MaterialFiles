@@ -9,10 +9,9 @@ import android.os.Parcelable
 import android.provider.DocumentsContract
 import kotlinx.parcelize.Parcelize
 
-// TODO: https://youtrack.jetbrains.com/issue/KT-28512
-//inline class MimeType (val value: String) {
 @Parcelize
-data class MimeType (val value: String) : Parcelable {
+@JvmInline
+value class MimeType(val value: String) : Parcelable {
     val type: String
         get() = value.substring(0, value.indexOf('/'))
 

@@ -57,7 +57,7 @@ internal class DocumentPathObservable(
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 val mimeType = DocumentResolver.getMimeType(this)
                 if (mimeType != MimeType.DIRECTORY.value) {
-                    return DocumentResolver.getDocumentChildrenUri(parent!!)
+                    parent?.let { return DocumentResolver.getDocumentChildrenUri(it) }
                 }
             }
             return DocumentResolver.getDocumentChildrenUri(this)

@@ -374,6 +374,7 @@
         <item quantity="other">已请求 %1$,d 项权限</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">签名</string>
+    <string name="file_properties_apk_signature_digests_empty">无有效签名</string>
     <string name="file_properties_apk_past_signature_digests">旧签名</string>
 
     <string name="storage_file_system_root_title">根目录</string>

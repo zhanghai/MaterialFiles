@@ -317,16 +317,12 @@ fun Path.readSymbolicLinkByteString(): ByteString {
 
 // Can resolve path in a foreign provider.
 fun Path.resolveForeign(other: Path): Path {
-    // TODO: kotlinc: Type mismatch: inferred type is Path but ByteStringListPath<*> was expected
-    //asByteStringListPath()
-    this.asByteStringListPath()
+    asByteStringListPath()
     other.asByteStringListPath()
     if (provider == other.provider) {
         return resolve(other)
     }
-    // TODO: kotlinc: Cannot access 'isAbsolute': it is private in 'ByteStringListPath'
-    //if (otherPath.isAbsolute) {
-    if ((other as Path).isAbsolute) {
+    if (other.isAbsolute) {
         return other
     }
     if (other.isEmpty) {

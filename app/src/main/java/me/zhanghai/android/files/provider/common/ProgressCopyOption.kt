@@ -23,9 +23,7 @@ class ProgressCopyOption(
     private constructor(source: Parcel) : this(
         source.readLong(),
         source.readParcelable<RemoteCallback>()!!.let {
-            // TODO: kotlinc: Cannot infer a type for this parameter. Please specify it explicitly.
-            //{ copiedSize -> it.sendResult(Bundle().putArgs(ListenerArgs(copiedSize))) }
-            { copiedSize: Long -> it.sendResult(Bundle().putArgs(ListenerArgs(copiedSize))) }
+            { copiedSize -> it.sendResult(Bundle().putArgs(ListenerArgs(copiedSize))) }
         }
     )
 

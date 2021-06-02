@@ -12,8 +12,6 @@ import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.asPathName
 import java.util.Locale
 
-// TODO: Use Debian mime.types, as in
-//  https://android.googlesource.com/platform/libcore/+/android10-release/luni/src/main/java/libcore/net/mime.types
 fun MimeType.Companion.guessFromPath(path: String): MimeType {
     val fileName = path.asPathName().fileName ?: return DIRECTORY
     return guessFromExtension(fileName.asFileName().singleExtension)
