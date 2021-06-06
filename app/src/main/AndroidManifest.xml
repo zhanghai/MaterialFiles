@@ -141,6 +141,13 @@
         </activity>
 
         <activity
+            android:name="me.zhanghai.android.files.filelist.EditFileActivity"
+            android:autoRemoveFromRecents="true"
+            android:icon="@drawable/edit_icon"
+            android:label="@string/file_edit_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
             android:name="me.zhanghai.android.files.filelist.OpenFileAsDialogActivity"
             android:autoRemoveFromRecents="true"
             android:icon="@drawable/open_as_icon"

@@ -15,6 +15,7 @@
     <string name="default_">默认</string>
     <string name="delete">删除</string>
     <string name="discard">舍弃</string>
+    <string name="edit">编辑</string>
     <string name="empty">空</string>
     <string name="empty_placeholder">（空）</string>
     <string name="error">错误</string>
@@ -193,6 +194,7 @@
     <string name="file_job_action_all">应用此操作到所有文件</string>
 
     <string name="file_open_apk_message">这个文件是一个 Android 安装包。您想要安装它，还是查看它的内容？</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">打开为…</string>
     <string name="file_open_as_title_format">将“%1$s”打开为</string>
     <string name="file_open_as_type_text">文本</string>

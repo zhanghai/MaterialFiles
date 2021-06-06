@@ -98,6 +98,12 @@ fun Intent.withChooser(title: CharSequence? = null, vararg initialIntents: Inten
 
 fun Intent.withChooser(vararg initialIntents: Intent) = withChooser(null, *initialIntents)
 
+fun Uri.createEditIntent(mimeType: MimeType): Intent =
+    Intent(Intent.ACTION_EDIT)
+        // Calling setType() will clear data.
+        .setDataAndType(this, mimeType.intentType)
+        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
 fun MimeType.createPickFileIntent(allowMultiple: Boolean = false) =
     Intent(Intent.ACTION_OPEN_DOCUMENT)
         .addCategory(Intent.CATEGORY_OPENABLE)
