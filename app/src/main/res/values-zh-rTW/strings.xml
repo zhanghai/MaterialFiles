@@ -401,6 +401,8 @@
     <string name="storage_edit_sftp_server_port">連接埠</string>
     <string name="storage_edit_sftp_server_port_placeholder" translatable="false">445</string>
     <string name="storage_edit_sftp_server_port_error_invalid">無效的連接埠</string>
+    <string name="storage_edit_sftp_server_path">路徑</string>
+    <string name="storage_edit_sftp_server_path_placeholder">可留空</string>
     <string name="storage_edit_sftp_server_name">名稱</string>
     <string name="storage_edit_sftp_server_name_placeholder">使用主機名稱</string>
     <string name="storage_edit_sftp_server_authentication_type">驗證</string>

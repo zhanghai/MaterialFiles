@@ -92,6 +92,7 @@ class EditSftpServerFragment : Fragment() {
         binding.hostEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.portEdit.hideTextInputLayoutErrorOnTextChange(binding.portLayout)
         binding.portEdit.doAfterTextChanged { updateNamePlaceholder() }
+        binding.pathEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.authenticationTypeEdit.setAdapter(
             UnfilteredArrayAdapter(
                 binding.authenticationTypeEdit.context, R.layout.dropdown_item,
@@ -151,6 +152,7 @@ class EditSftpServerFragment : Fragment() {
                         binding.privateKeyEdit.setText(authentication.privateKey)
                     }
                 }
+                binding.pathEdit.setText(server.relativePath)
             }
         }
     }
@@ -159,10 +161,12 @@ class EditSftpServerFragment : Fragment() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
         val port = binding.portEdit.text.toString().takeIfNotEmpty()
             .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
+        val path = binding.pathEdit.text.toString().trim()
         binding.nameLayout.placeholderText = if (host != null && port != null) {
-            Authority(host, port).toString()
+            val authority = Authority(host, port)
+            if (path.isNotEmpty()) "$authority/$path" else authority.toString()
         } else if (host != null) {
-            host
+            if (path.isNotEmpty()) "$host/$path" else host
         } else {
             getString(R.string.storage_edit_sftp_server_name_placeholder)
         }
@@ -282,6 +286,7 @@ class EditSftpServerFragment : Fragment() {
                 errorEdit = binding.portEdit
             }
         }
+        val path = binding.pathEdit.text.toString().trim()
         val name = binding.nameEdit.text.toString().takeIfNotEmpty()
         val username = binding.usernameEdit.text.toString().takeIfNotEmpty()
         if (username == null) {
@@ -319,7 +324,7 @@ class EditSftpServerFragment : Fragment() {
             return null
         }
         val authority = Authority(host!!, port!!)
-        return SftpServer(args.server?.id, name, authority, authentication!!)
+        return SftpServer(args.server?.id, name, authority, authentication!!, path)
     }
 
     @Parcelize

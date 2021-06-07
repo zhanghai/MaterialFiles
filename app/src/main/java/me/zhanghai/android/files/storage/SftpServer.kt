@@ -24,26 +24,29 @@ class SftpServer(
     override val id: Long,
     override val customName: String?,
     val authority: Authority,
-    val authentication: Authentication
+    val authentication: Authentication,
+    val relativePath: String
 ) : Storage() {
     constructor(
         id: Long?,
         customName: String?,
         authority: Authority,
-        authentication: Authentication
-    ) : this(id ?: Random.nextLong(), customName, authority, authentication)
+        authentication: Authentication,
+        relativePath: String
+    ) : this(id ?: Random.nextLong(), customName, authority, authentication, relativePath)
 
     @DrawableRes
     @IgnoredOnParcel
     override val iconRes: Int = R.drawable.computer_icon_white_24dp
 
-    override fun getDefaultName(context: Context): String = authority.toString()
+    override fun getDefaultName(context: Context): String =
+        if (relativePath.isNotEmpty()) "$authority/$relativePath" else authority.toString()
 
     override val description: String
         get() = authority.toString()
 
     override val path: Path
-        get() = authority.createSftpRootPath()
+        get() = authority.createSftpRootPath().resolve(relativePath)
 
     override fun createEditIntent(): Intent =
         EditSftpServerActivity::class.createIntent().putArgs(EditSftpServerFragment.Args(this))

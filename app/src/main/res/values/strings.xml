@@ -498,6 +498,8 @@
     <string name="storage_edit_sftp_server_port">Port</string>
     <string name="storage_edit_sftp_server_port_placeholder" translatable="false">22</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Invalid port</string>
+    <string name="storage_edit_sftp_server_path">Path</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Can be left empty</string>
     <string name="storage_edit_sftp_server_name">Name</string>
     <string name="storage_edit_sftp_server_name_placeholder">Use hostname</string>
     <string name="storage_edit_sftp_server_authentication_type">Authentication</string>
