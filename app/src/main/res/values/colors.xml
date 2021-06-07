@@ -30,6 +30,8 @@
     <color name="color_surface_dark">@color/google_grey_900</color>
     <color name="color_surface">@color/color_surface_light</color>
 
+    <color name="activity_icon_tint">@color/secondary_text_default_material_light</color>
+
     <color name="shortcut_background">#F5F5F5</color>
 
     <color name="file_icon_light_blue">#4B86F0</color>
