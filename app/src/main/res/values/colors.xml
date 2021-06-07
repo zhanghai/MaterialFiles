@@ -32,7 +32,7 @@
 
     <color name="activity_icon_tint">@color/secondary_text_default_material_light</color>
 
-    <color name="shortcut_background">#F5F5F5</color>
+    <color name="shortcut_icon_background">#F5F5F5</color>
 
     <color name="file_icon_light_blue">#4B86F0</color>
     <color name="file_icon_blue">#4285F4</color>
