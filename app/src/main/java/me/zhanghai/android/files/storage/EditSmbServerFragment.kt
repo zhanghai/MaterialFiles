@@ -82,6 +82,7 @@ class EditSmbServerFragment : Fragment() {
         binding.hostEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.portEdit.hideTextInputLayoutErrorOnTextChange(binding.portLayout)
         binding.portEdit.doAfterTextChanged { updateNamePlaceholder() }
+        binding.pathEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.authenticationTypeEdit.setAdapter(
             UnfilteredArrayAdapter(
                 binding.authenticationTypeEdit.context, R.layout.dropdown_item,
@@ -139,6 +140,7 @@ class EditSmbServerFragment : Fragment() {
                         binding.passwordEdit.setText(authentication.password)
                     }
                 }
+                binding.pathEdit.setText(server.relativePath)
             } else {
                 val host = args.host
                 if (host != null) {
@@ -152,10 +154,12 @@ class EditSmbServerFragment : Fragment() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
         val port = binding.portEdit.text.toString().takeIfNotEmpty()
             .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
+        val path = binding.pathEdit.text.toString().trim()
         binding.nameLayout.placeholderText = if (host != null && port != null) {
-            Authority(host, port).toString()
+            val authority = Authority(host, port)
+            if (path.isNotEmpty()) "$authority/$path" else authority.toString()
         } else if (host != null) {
-            host
+            if (path.isNotEmpty()) "$host/$path" else host
         } else {
             getString(R.string.storage_edit_smb_server_name_placeholder)
         }
@@ -244,6 +248,7 @@ class EditSmbServerFragment : Fragment() {
                 errorEdit = binding.portEdit
             }
         }
+        val path = binding.pathEdit.text.toString().trim()
         val name = binding.nameEdit.text.toString().takeIfNotEmpty()
         val authentication = when (authenticationType) {
             AuthenticationType.PASSWORD -> {
@@ -267,7 +272,7 @@ class EditSmbServerFragment : Fragment() {
             return null
         }
         val authority = Authority(host!!, port!!)
-        return SmbServer(args.server?.id, name, authority, authentication!!)
+        return SmbServer(args.server?.id, name, authority, authentication!!, path)
     }
 
     @Parcelize
