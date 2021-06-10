@@ -9,11 +9,8 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import me.zhanghai.android.files.compat.getDescriptionCompat
 import me.zhanghai.android.files.file.DocumentTreeUri
 import me.zhanghai.android.files.file.asDocumentTreeUriOrNull
-import me.zhanghai.android.files.file.displayName
-import me.zhanghai.android.files.file.storageVolume
 import me.zhanghai.android.files.file.takePersistablePermission
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.launchSafe
