@@ -120,6 +120,12 @@ fun Context.getFloatByAttr(@AttrRes attr: Int): Float =
 fun Context.getResourceIdByAttr(@AttrRes attr: Int): Int =
     obtainStyledAttributesCompat(attrs = intArrayOf(attr)).use { it.getResourceId(0, 0) }
 
+val Context.displayWidth: Int
+    get() = resources.displayMetrics.widthPixels
+
+val Context.displayHeight: Int
+    get() = resources.displayMetrics.heightPixels
+
 @Dimension
 fun Context.dpToDimension(@Dimension(unit = Dimension.DP) dp: Float): Float =
     TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics)
@@ -151,21 +157,6 @@ fun Context.dpToDimensionPixelSize(@Dimension(unit = Dimension.DP) dp: Float): I
 fun Context.dpToDimensionPixelSize(@Dimension(unit = Dimension.DP) dp: Int) =
     dpToDimensionPixelSize(dp.toFloat())
 
-val Context.shortAnimTime: Int
-    get() = getInteger(android.R.integer.config_shortAnimTime)
-
-val Context.mediumAnimTime: Int
-    get() = getInteger(android.R.integer.config_mediumAnimTime)
-
-val Context.longAnimTime: Int
-    get() = getInteger(android.R.integer.config_longAnimTime)
-
-val Context.displayWidth: Int
-    get() = resources.displayMetrics.widthPixels
-
-val Context.displayHeight: Int
-    get() = resources.displayMetrics.heightPixels
-
 fun Context.hasSwDp(@Dimension(unit = Dimension.DP) dp: Int): Boolean =
     resources.configuration.smallestScreenWidthDp >= dp
 
@@ -192,6 +183,15 @@ val Context.isLightTheme: Boolean
 
 val Context.layoutInflater: LayoutInflater
     get() = LayoutInflater.from(this)
+
+val Context.shortAnimTime: Int
+    get() = getInteger(android.R.integer.config_shortAnimTime)
+
+val Context.mediumAnimTime: Int
+    get() = getInteger(android.R.integer.config_mediumAnimTime)
+
+val Context.longAnimTime: Int
+    get() = getInteger(android.R.integer.config_longAnimTime)
 
 fun Context.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
     if (Looper.myLooper() != Looper.getMainLooper()) {
