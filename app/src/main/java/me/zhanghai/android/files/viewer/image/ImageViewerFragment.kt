@@ -18,7 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.viewpager2.widget.ViewPager2
-import dev.chrisbanes.insetter.applyInsetter
+import dev.chrisbanes.insetter.applySystemWindowInsetsToPadding
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -87,11 +87,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         // Our app bar will draw the status bar background.
         activity.window.statusBarColor = Color.TRANSPARENT
-        binding.appBarLayout.applyInsetter {
-            type(statusBars = true, navigationBars = true) {
-                padding(left = true, top = true, right = true)
-            }
-        }
+        binding.appBarLayout.applySystemWindowInsetsToPadding(left = true, top = true, right = true)
         systemUiHelper = SystemUiHelper(
             activity, SystemUiHelper.LEVEL_IMMERSIVE, SystemUiHelper.FLAG_IMMERSIVE_STICKY
         ) { visible: Boolean ->
