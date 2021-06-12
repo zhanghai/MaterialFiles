@@ -152,7 +152,7 @@ dependencies {
     // setting colors.
     //noinspection GradleDependency
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
-    implementation 'dev.chrisbanes:insetter-ktx:0.3.1'
+    implementation 'dev.chrisbanes.insetter:insetter:0.6.0'
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.3'
     implementation 'dev.rikka.shizuku:api:11.0.3'
     implementation 'eu.chainfire:librootjava:1.3.1'
