@@ -7,13 +7,15 @@ package me.zhanghai.android.files.compat
 
 import android.content.pm.ApplicationInfo
 import android.os.Build
-import me.zhanghai.java.reflected.ReflectedField
+import me.zhanghai.android.files.util.lazyReflectedField
 
 @RestrictedHiddenApi
-private val versionCodeField = ReflectedField(ApplicationInfo::class.java, "versionCode")
+private val versionCodeField by lazyReflectedField(ApplicationInfo::class.java, "versionCode")
 
 @RestrictedHiddenApi
-private val longVersionCodeField = ReflectedField(ApplicationInfo::class.java, "longVersionCode")
+private val longVersionCodeField by lazyReflectedField(
+    ApplicationInfo::class.java, "longVersionCode"
+)
 
 val ApplicationInfo.longVersionCodeCompat: Long
     get() =

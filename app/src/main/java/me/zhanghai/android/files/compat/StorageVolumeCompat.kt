@@ -11,19 +11,19 @@ import android.content.Intent
 import android.os.Build
 import android.os.storage.StorageVolume
 import android.provider.DocumentsContract
-import androidx.annotation.RequiresApi
-import me.zhanghai.java.reflected.ReflectedMethod
+import me.zhanghai.android.files.util.lazyReflectedMethod
 import java.io.File
 
+// Work around @SuppressLint not applicable to top level property with delegate.
 @SuppressLint("NewApi")
-private val getPathMethod = ReflectedMethod(StorageVolume::class.java, "getPath")
+private val storageVolumeClass = StorageVolume::class.java
+
+private val getPathMethod by lazyReflectedMethod(storageVolumeClass, "getPath")
 
 val StorageVolume.pathCompat: String
-    get() = getPathMethod.invoke(this)
+    get() = getPathMethod.invoke(this) as String
 
-@RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-@SuppressLint("NewApi")
-private val getPathFileMethod = ReflectedMethod(StorageVolume::class.java, "getPathFile")
+private val getPathFileMethod by lazyReflectedMethod(storageVolumeClass, "getPathFile")
 
 val StorageVolume.pathFileCompat: File
     get() = File(pathCompat)

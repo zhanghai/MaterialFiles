@@ -11,21 +11,22 @@ import android.os.ParcelFileDescriptor
 import android.os.storage.StorageManager
 import android.os.storage.StorageVolume
 import kotlinx.coroutines.runBlocking
-import me.zhanghai.java.reflected.ReflectedMethod
+import me.zhanghai.android.files.util.lazyReflectedMethod
 import java.io.IOException
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-private val getVolumeListMethod = ReflectedMethod(StorageManager::class.java, "getVolumeList")
+private val getVolumeListMethod by lazyReflectedMethod(StorageManager::class.java, "getVolumeList")
 
 val StorageManager.storageVolumesCompat: List<StorageVolume>
     get() =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             storageVolumes
         } else {
-            getVolumeListMethod.invoke<Array<StorageVolume>>(this).toList()
+            @Suppress("UNCHECKED_CAST")
+            (getVolumeListMethod.invoke(this) as Array<StorageVolume>).toList()
         }
 
 // Thanks to fython for https://gist.github.com/fython/924f8d9019bca75d22de116bb69a54a1
