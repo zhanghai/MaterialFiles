@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M 6.35,6.35 C 7.8,4.9 9.79,4 12,4 c 4.42,0 7.99,3.58 7.99,8 0,4.42 -3.57,8 -7.99,8 -3.73,0 -6.84,-2.55 -7.73,-6 h 2.08 c 0.82,2.33 3.04,4 5.65,4 3.31,0 6,-2.69 6,-6 C 18,8.69 15.31,6 12,6 10.34,6 8.86,6.69 7.78,7.78 L 11,11 H 4 V 4 Z" />
+</vector>

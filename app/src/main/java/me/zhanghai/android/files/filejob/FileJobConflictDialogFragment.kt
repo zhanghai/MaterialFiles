@@ -123,7 +123,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                         .requireViewByIdCompat<Button>(android.R.id.button1)
                     positiveButton.setText(if (hasNewName) R.string.rename else positiveButtonRes)
                 }
-                binding.resetNameButton.setOnClickListener {
+                binding.nameLayout.setEndIconOnClickListener {
                     binding.nameEdit.setTextWithSelection(targetFileName)
                 }
                 if (savedInstanceState != null) {
