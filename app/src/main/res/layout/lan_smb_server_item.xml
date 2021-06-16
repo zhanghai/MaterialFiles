@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<LinearLayout
+<me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemLayout"
@@ -13,7 +13,7 @@
     android:layout_height="?listPreferredItemHeight"
     android:paddingStart="@dimen/screen_edge_margin"
     android:paddingEnd="@dimen/screen_edge_margin"
-    android:background="?selectableItemBackground"
+    android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -48,4 +48,4 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="?android:textColorSecondary" />
     </LinearLayout>
-</LinearLayout>
+</me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>

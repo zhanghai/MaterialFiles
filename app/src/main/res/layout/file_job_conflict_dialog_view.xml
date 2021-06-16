@@ -147,7 +147,7 @@
         android:layout_marginTop="-8dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
             android:id="@+id/showNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
             android:paddingEnd="?dialogPreferredPadding"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:background="?selectableItemBackground"
+            android:foreground="?selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -177,7 +177,7 @@
                 android:layout_marginStart="?dialogPreferredPadding"
                 android:text="@string/file_job_conflict_show_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-        </LinearLayout>
+        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameLayout"

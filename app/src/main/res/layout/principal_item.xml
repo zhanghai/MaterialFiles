@@ -12,7 +12,7 @@
     android:layout_height="?listPreferredItemHeight"
     android:paddingStart="?dialogPreferredPadding"
     android:paddingEnd="?dialogPreferredPadding"
-    android:background="?selectableItemBackground"
+    android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 

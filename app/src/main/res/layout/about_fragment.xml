@@ -83,16 +83,16 @@
                                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
                         </LinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
                             android:paddingTop="8dp"
                             android:paddingBottom="8dp"
-                            android:background="?selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -128,15 +128,15 @@
                                     android:text="@string/app_version"
                                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
                             </LinearLayout>
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/gitHubLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -155,15 +155,15 @@
                                 android:maxLines="1"
                                 android:text="@string/about_github_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/licensesLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -182,15 +182,15 @@
                                 android:maxLines="1"
                                 android:text="@string/about_licenses_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/privacyPolicyLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
                             android:visibility="gone">
@@ -210,7 +210,7 @@
                                 android:maxLines="1"
                                 android:text="@string/about_privacy_policy_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -244,15 +244,15 @@
                                 android:textColor="?android:textColorSecondary" />
                         </LinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/authorNameLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -271,15 +271,15 @@
                                 android:maxLines="1"
                                 android:text="@string/about_author_name_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/authorGitHubLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -298,15 +298,15 @@
                                 android:maxLines="1"
                                 android:text="@string/about_author_github_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/authorGooglePlusLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -325,15 +325,15 @@
                                 android:maxLines="1"
                                 android:text="@string/about_author_google_plus_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-                        <LinearLayout
+                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/authorTwitterLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"
                             android:paddingStart="?android:listPreferredItemPaddingStart"
                             android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:background="?selectableItemBackground"
+                            android:foreground="?selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
 
@@ -352,7 +352,7 @@
                                 android:maxLines="1"
                                 android:text="@string/about_author_twitter_title"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-                        </LinearLayout>
+                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
