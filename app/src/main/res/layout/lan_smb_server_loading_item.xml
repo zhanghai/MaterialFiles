@@ -5,14 +5,14 @@
   ~ All Rights Reserved.
   -->
 
-<TextView
+<me.zhanghai.android.foregroundcompat.ForegroundTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
     android:paddingStart="@dimen/content_start_margin"
     android:paddingEnd="@dimen/screen_edge_margin"
-    android:background="?selectableItemBackground"
     android:ellipsize="end"
+    android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
     android:maxLines="1"
     android:text="@string/storage_add_lan_smb_server_loading"

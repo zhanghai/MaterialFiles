@@ -149,7 +149,7 @@ class BreadcrumbLayout : HorizontalScrollView {
                 menu.show()
                 true
             }
-            binding.textText.setTextColor(itemColor)
+            binding.text.setTextColor(itemColor)
             binding.arrowImage.imageTintList = itemColor
             binding.root.tag = binding to menu
             itemsLayout.addView(binding.root, 0)
@@ -161,7 +161,7 @@ class BreadcrumbLayout : HorizontalScrollView {
             @Suppress("UNCHECKED_CAST")
             val tag = itemsLayout.getChildAt(index).tag as Pair<BreadcrumbItemBinding, PopupMenu>
             val (binding, menu) = tag
-            binding.textText.text = data.nameProducers[index](binding.textText.context)
+            binding.text.text = data.nameProducers[index](binding.text.context)
             binding.arrowImage.isVisible = index != data.paths.size - 1
             binding.root.isActivated = index == data.selectedIndex
             val path = data.paths[index]

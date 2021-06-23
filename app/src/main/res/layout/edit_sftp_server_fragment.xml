@@ -93,6 +93,21 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/storage_edit_sftp_server_path"
+                        app:errorEnabled="true"
+                        app:expandedHintEnabled="false"
+                        app:placeholderText="@string/storage_edit_sftp_server_path_placeholder">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/pathEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textUri" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/nameLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

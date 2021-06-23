@@ -85,13 +85,13 @@ abstract class FilePropertiesTabFragment : Fragment() {
             }
             itemBinding.textInputLayout.hint = hint
             itemBinding.textInputLayout.setDropDown(onClickListener != null)
-            itemBinding.textText.setText(text)
-            itemBinding.textText.setTextIsSelectable(onClickListener == null)
-            itemBinding.textText.setOnClickListener(
+            itemBinding.text.setText(text)
+            itemBinding.text.setTextIsSelectable(onClickListener == null)
+            itemBinding.text.setOnClickListener(
                 onClickListener?.let { View.OnClickListener(it) }
             )
             ++itemCount
-            return itemBinding.textText
+            return itemBinding.text
         }
 
         fun addItemView(

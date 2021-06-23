@@ -61,7 +61,7 @@ fun TextView.setOnEditorConfirmActionListener(listener: (TextView) -> Unit) {
     setOnEditorActionListener { view, actionId, event ->
         val isConfirmAction = if (event != null) {
             when (event.keyCode) {
-                KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER, KeyEvent.KEYCODE_SPACE,
+                KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER,
                 KeyEvent.KEYCODE_NUMPAD_ENTER -> true
                 else -> false
             } && event.action == KeyEvent.ACTION_DOWN

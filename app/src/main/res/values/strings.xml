@@ -15,6 +15,7 @@
     <string name="default_">Default</string>
     <string name="delete">Delete</string>
     <string name="discard">Discard</string>
+    <string name="edit">Edit</string>
     <string name="empty">Empty</string>
     <string name="empty_placeholder">(Empty)</string>
     <string name="error">Error</string>
@@ -214,6 +215,7 @@
     <string name="file_job_action_all">Apply this action to all files</string>
 
     <string name="file_open_apk_message">This file is an Android package. Do you want to install it, or view its contents?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Open as…</string>
     <string name="file_open_as_title_format">Open “%1$s” as</string>
     <string name="file_open_as_type_text">Text</string>
@@ -496,6 +498,8 @@
     <string name="storage_edit_sftp_server_port">Port</string>
     <string name="storage_edit_sftp_server_port_placeholder" translatable="false">22</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Invalid port</string>
+    <string name="storage_edit_sftp_server_path">Path</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Can be left empty</string>
     <string name="storage_edit_sftp_server_name">Name</string>
     <string name="storage_edit_sftp_server_name_placeholder">Use hostname</string>
     <string name="storage_edit_sftp_server_authentication_type">Authentication</string>
@@ -522,6 +526,8 @@
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
     <string name="storage_edit_smb_server_port_error_invalid">Invalid port</string>
+    <string name="storage_edit_smb_server_path">Path</string>
+    <string name="storage_edit_smb_server_path_placeholder">Can be left empty</string>
     <string name="storage_edit_smb_server_name">Name</string>
     <string name="storage_edit_smb_server_name_placeholder">Use hostname</string>
     <string name="storage_edit_smb_server_authentication_type">Authentication</string>

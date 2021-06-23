@@ -22,7 +22,7 @@ import me.zhanghai.android.files.provider.common.readAttributes
 import me.zhanghai.android.files.provider.common.readSymbolicLinkByteString
 import me.zhanghai.android.files.provider.common.size
 import me.zhanghai.android.files.provider.common.toInt
-import me.zhanghai.java.reflected.ReflectedField
+import me.zhanghai.android.files.util.lazyReflectedField
 import org.apache.commons.compress.archivers.ArchiveEntry
 import org.apache.commons.compress.archivers.ArchiveOutputStream
 import org.apache.commons.compress.archivers.ArchiveStreamFactory
@@ -221,7 +221,7 @@ class ArchiveWriter(
         private val compressorStreamFactory = CompressorStreamFactory()
         private val archiveStreamFactory = ArchiveStreamFactory()
 
-        private val tarArchiveEntryLinkFlagsField = ReflectedField(
+        private val tarArchiveEntryLinkFlagsField by lazyReflectedField(
             TarArchiveEntry::class.java, "linkFlag"
         )
     }

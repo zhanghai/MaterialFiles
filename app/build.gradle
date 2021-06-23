@@ -21,7 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.8'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.6.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.0'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -110,7 +110,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'androidx.core:core-ktx:1.5.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.2'
-    implementation 'androidx.fragment:fragment-ktx:1.3.4'
+    implementation 'androidx.fragment:fragment-ktx:1.3.5'
     def androidx_lifecycle_version = '2.3.1'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
@@ -118,7 +118,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.google.android.material:material:1.3.0'
 
@@ -132,15 +132,13 @@ dependencies {
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation ('com.hierynomus:smbj:0.11.1') {
-        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
-        // Jetifier, but the newer version is required by jCIFS-NG, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
+        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation ('com.hierynomus:sshj:0.31.0') {
-        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
-        // Jetifier, but the newer version is required by jCIFS-NG, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
+        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.1'
@@ -149,53 +147,45 @@ dependencies {
     //noinspection GradleDependency
     implementation 'com.leinardi.android:speed-dial:3.1.1'
     implementation ('com.rapid7.client:dcerpc:0.10.0') {
-        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
-        // Jetifier, but the newer version is required by jCIFS-NG, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
+        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
     //noinspection GradleDependency
     implementation 'de.psdev.licensesdialog:licensesdialog:2.1.0'
+    // dev.chrisbanesinsetter:insetter:0.6.0 makes inset unstable when entering immersive.
     implementation 'dev.chrisbanes:insetter-ktx:0.3.1'
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.3'
-    implementation 'dev.rikka.shizuku:api:11.0.2'
+    implementation 'dev.rikka.shizuku:api:11.0.3'
     implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
-    implementation ('eu.agno3.jcifs:jcifs-ng:2.1.5') {
-        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
-        // Jetifier, but the newer version is required by jCIFS-NG, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
-    }
-    // Substitute dependency of jCIFS-NG.
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
-    def coil_version = '1.2.1'
+    implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
+    def coil_version = '1.2.2'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
     implementation "io.coil-kt:coil-video:$coil_version"
     implementation 'me.zhanghai.android.appiconloader:appiconloader:1.3.1'
     implementation 'me.zhanghai.android.effortlesspermissions:library:1.1.0'
-    implementation 'me.zhanghai.android.fastscroll:library:1.1.5'
-    implementation 'me.zhanghai.android.foregroundcompat:library:1.0.0'
-    implementation 'me.zhanghai.android.libselinux:library:2.0.0'
-    implementation 'me.zhanghai.android.materialedittext:library:1.0.5'
-    implementation 'me.zhanghai.android.retrofile:library:1.1.0'
+    implementation 'me.zhanghai.android.fastscroll:library:1.1.7'
+    implementation 'me.zhanghai.android.foregroundcompat:library:1.0.1'
+    implementation 'me.zhanghai.android.libselinux:library:2.0.1'
+    implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
-    implementation 'me.zhanghai.java.reflected:library:1.0.1'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.3'
     implementation 'org.apache.commons:commons-compress:1.20'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.9'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
     // Also a dependency of jCIFS-NG and Junrar.
-    implementation 'org.slf4j:slf4j-android:1.7.30'
+    implementation 'org.slf4j:slf4j-android:1.7.31'
 
 //#ifdef NONFREE
     implementation 'com.google.firebase:firebase-analytics:19.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.0.1'
 //#endif
 }

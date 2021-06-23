@@ -31,6 +31,7 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystem
 import me.zhanghai.android.files.storage.DocumentTree
 import me.zhanghai.android.files.storage.FileSystemRoot
 import me.zhanghai.android.files.storage.PrimaryStorageVolume
+import me.zhanghai.android.files.storage.SmbServer
 import me.zhanghai.android.files.util.asBase64
 import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.toBase64
@@ -239,4 +240,67 @@ private fun migrateStoragesSetting() {
         parcel.marshall()
     }
     defaultSharedPreferences.edit { putString(key, bytes.toBase64().value) }
+}
+
+internal fun upgradeAppTo1_3_0(lastVersionCode: Int) {
+    migrateSmbServersSetting()
+}
+
+private fun migrateSmbServersSetting() {
+    val key = application.getString(R.string.pref_key_storages)
+    val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
+        ?: return
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            newParcel.writeInt(PARCEL_VAL_LIST)
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                val size = oldParcel.readInt()
+                newParcel.writeInt(size)
+                repeat(size) {
+                    val oldPosition = oldParcel.dataPosition()
+                    oldParcel.readInt()
+                    val className = oldParcel.readString()
+                    if (className == "me.zhanghai.android.files.storage.SmbServer") {
+                        newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                        newParcel.writeString("me.zhanghai.android.files.storage.SmbServer")
+                        val id = oldParcel.readLong()
+                        newParcel.writeLong(id)
+                        val customName = oldParcel.readString()
+                        newParcel.writeString(customName)
+                        oldParcel.readString()
+                        newParcel.writeString(
+                            "me.zhanghai.android.files.provider.smb.client.Authority"
+                        )
+                        val authorityHost = oldParcel.readString()
+                        newParcel.writeString(authorityHost)
+                        val authorityPort = oldParcel.readInt()
+                        newParcel.writeInt(authorityPort)
+                        oldParcel.readString()
+                        newParcel.writeString(
+                            "me.zhanghai.android.files.provider.smb.client.Authentication"
+                        )
+                        val authenticationUsername = oldParcel.readString()
+                        newParcel.writeString(authenticationUsername)
+                        val authenticationDomain = oldParcel.readString()
+                        newParcel.writeString(authenticationDomain)
+                        val authenticationPassword = oldParcel.readString()
+                        newParcel.writeString(authenticationPassword)
+                        val relativePath = ""
+                        newParcel.writeString(relativePath)
+                    } else {
+                        oldParcel.setDataPosition(oldPosition)
+                        val storage = oldParcel.readValue(appClassLoader)
+                        newParcel.writeValue(storage)
+                    }
+                }
+            }
+            newParcel.marshall()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
 }

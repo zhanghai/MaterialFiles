@@ -169,13 +169,6 @@
     </notice>
 
     <notice>
-        <name>MaterialEditText</name>
-        <url>https://github.com/zhanghai/MaterialEditText</url>
-        <copyright>Copyright 2015 Hai Zhang</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
         <name>AndroidRetroFile</name>
         <url>https://github.com/zhanghai/AndroidRetroFile</url>
         <copyright>Copyright 2018 Hai Zhang</copyright>
@@ -186,13 +179,6 @@
         <name>SystemUiHelper</name>
         <url>https://github.com/zhanghai/SystemUiHelper</url>
         <copyright>Copyright 2015 Hai Zhang</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
-        <name>Reflected</name>
-        <url>https://github.com/zhanghai/Reflected</url>
-        <copyright>Copyright 2018 Hai Zhang</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 

@@ -6,10 +6,10 @@
 package me.zhanghai.android.files.compat
 
 import android.system.ErrnoException
-import me.zhanghai.java.reflected.ReflectedField
+import me.zhanghai.android.files.util.lazyReflectedField
 
 @RestrictedHiddenApi
-private val functionNameField = ReflectedField(ErrnoException::class.java, "functionName")
+private val functionNameField by lazyReflectedField(ErrnoException::class.java, "functionName")
 
 val ErrnoException.functionNameCompat: String
-    get() = functionNameField.getObject(this)
+    get() = functionNameField.get(this) as String

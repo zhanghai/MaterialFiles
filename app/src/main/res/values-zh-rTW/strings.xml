@@ -15,6 +15,7 @@
     <string name="default_">預設</string>
     <string name="delete">刪除</string>
     <string name="discard">捨棄</string>
+    <string name="edit">編輯</string>
     <string name="empty">空</string>
     <string name="empty_placeholder">（空）</string>
     <string name="error">錯誤</string>
@@ -193,6 +194,7 @@
     <string name="file_job_action_all">套用此操作到所有檔案</string>
 
     <string name="file_open_apk_message">這個檔案是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">開啟為…</string>
     <string name="file_open_as_title_format">將「%1$s」開啟為</string>
     <string name="file_open_as_type_text">文字</string>
@@ -399,6 +401,8 @@
     <string name="storage_edit_sftp_server_port">連接埠</string>
     <string name="storage_edit_sftp_server_port_placeholder" translatable="false">445</string>
     <string name="storage_edit_sftp_server_port_error_invalid">無效的連接埠</string>
+    <string name="storage_edit_sftp_server_path">路徑</string>
+    <string name="storage_edit_sftp_server_path_placeholder">可留空</string>
     <string name="storage_edit_sftp_server_name">名稱</string>
     <string name="storage_edit_sftp_server_name_placeholder">使用主機名稱</string>
     <string name="storage_edit_sftp_server_authentication_type">驗證</string>
@@ -425,6 +429,8 @@
     <string name="storage_edit_smb_server_port">連接埠</string>
     <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
     <string name="storage_edit_smb_server_port_error_invalid">無效的連接埠</string>
+    <string name="storage_edit_smb_server_path">路徑</string>
+    <string name="storage_edit_smb_server_path_placeholder">可留空</string>
     <string name="storage_edit_smb_server_name">名稱</string>
     <string name="storage_edit_smb_server_name_placeholder">使用主機名稱</string>
     <string name="storage_edit_smb_server_authentication_type">驗證</string>

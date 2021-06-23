@@ -7,8 +7,7 @@ package me.zhanghai.android.files.compat
 
 import android.os.Build
 import me.zhanghai.android.files.java.ArrayOfClasses
-import me.zhanghai.java.reflected.ReflectedAccessor
-import me.zhanghai.java.reflected.ReflectedMethod
+import me.zhanghai.android.files.util.lazyReflectedMethod
 import java.lang.reflect.Method
 
 /*
@@ -16,10 +15,10 @@ import java.lang.reflect.Method
  * @see https://github.com/tiann/FreeReflection/blob/master/library/src/main/java/me/weishu/reflection/Reflection.java
  */
 object RestrictedHiddenApiAccess {
-    private val classForNameMethod = ReflectedMethod(
+    private val classForNameMethod by lazyReflectedMethod(
         Class::class.java, "forName", String::class.java
     )
-    private val classGetDeclaredMethodMethod = ReflectedMethod(
+    private val classGetDeclaredMethodMethod by lazyReflectedMethod(
         Class::class.java, "getDeclaredMethod", String::class.java, ArrayOfClasses.CLASS
     )
 
@@ -32,22 +31,19 @@ object RestrictedHiddenApiAccess {
         }
         synchronized(allowedLock) {
             if (!allowed) {
-                val vmRuntimeClass = classForNameMethod.invoke<Class<*>>(
+                val vmRuntimeClass = classForNameMethod.invoke(
                     null, "dalvik.system.VMRuntime"
-                )
-                val vmRuntimeGetRuntimeMethod = classGetDeclaredMethodMethod.invoke<Method>(
+                ) as Class<*>
+                val vmRuntimeGetRuntimeMethod = classGetDeclaredMethodMethod.invoke(
                     vmRuntimeClass, "getRuntime", arrayOfNulls<Class<*>>(0)
-                )
-                val vmRuntime = ReflectedAccessor.invoke<Any>(vmRuntimeGetRuntimeMethod, null)
+                ) as Method
+                val vmRuntime = vmRuntimeGetRuntimeMethod.invoke(null)
                 val vmRuntimeSetHiddenApiExemptionsMethod =
-                    classGetDeclaredMethodMethod.invoke<Method>(
+                    classGetDeclaredMethodMethod.invoke(
                         vmRuntimeClass, "setHiddenApiExemptions",
                         arrayOf<Class<*>>(Array<String>::class.java)
-                    )
-                ReflectedAccessor.invoke<Any>(
-                    // TODO: Just arrayOf("")? Kotlin has spread operator so it won't be ambiguous.
-                    vmRuntimeSetHiddenApiExemptionsMethod, vmRuntime, arrayOf("") as Any
-                )
+                    ) as Method
+                vmRuntimeSetHiddenApiExemptionsMethod.invoke(vmRuntime, arrayOf(""))
                 allowed = true
             }
         }

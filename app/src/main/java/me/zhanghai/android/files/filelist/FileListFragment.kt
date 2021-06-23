@@ -93,6 +93,7 @@ import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.copyText
 import me.zhanghai.android.files.util.create
+import me.zhanghai.android.files.util.createEditIntent
 import me.zhanghai.android.files.util.createInstallPackageIntent
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.createSendStreamIntent
@@ -1069,6 +1070,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 .let {
                     if (withChooser) {
                         it.withChooser(
+                            EditFileActivity::class.createIntent()
+                                .putArgs(EditFileActivity.Args(path, mimeType)),
                             OpenFileAsDialogActivity::class.createIntent()
                                 .putArgs(OpenFileAsDialogFragment.Args(path))
                         )

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange
 import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemViewHolder
+import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.compat.isTransformedTouchPointInViewCompat
 import me.zhanghai.android.files.databinding.StorageItemBinding
 import me.zhanghai.android.files.ui.SimpleAdapter
@@ -32,7 +33,7 @@ class StorageListAdapter(
         val storage = getItem(position)
         val binding = holder.binding
         // Need to remove the ripple before it's drawn onto the bitmap for dragging.
-        binding.root.foreground.mutate().setVisible(!holder.dragState.isActive, false)
+        binding.root.foregroundCompat!!.mutate().setVisible(!holder.dragState.isActive, false)
         binding.root.setOnClickListener { listener.editStorage(storage) }
         binding.iconImage.setImageResource(storage.iconRes)
         binding.nameText.isActivated = storage.isVisible

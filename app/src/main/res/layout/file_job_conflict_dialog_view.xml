@@ -147,7 +147,7 @@
         android:layout_marginTop="-8dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
             android:id="@+id/showNameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
             android:paddingEnd="?dialogPreferredPadding"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:background="?selectableItemBackground"
+            android:foreground="?selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -177,38 +177,31 @@
                 android:layout_marginStart="?dialogPreferredPadding"
                 android:text="@string/file_job_conflict_show_name"
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-        </LinearLayout>
+        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nameLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-4dp"
-            android:clipToPadding="false"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:layout_marginStart="?dialogPreferredPadding"
+            android:layout_marginEnd="?dialogPreferredPadding"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/reset_icon_white_24dp"
+            app:endIconContentDescription="@string/reset"
+            app:expandedHintEnabled="false"
+            app:placeholderText="@string/file_job_conflict_name_hint">
 
-            <me.zhanghai.android.materialedittext.MaterialEditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/nameEdit"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/dialog_padding_minus_4dp"
-                android:hint="@string/file_job_conflict_name_hint"
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLines="1" />
-
-            <Button
-                android:id="@+id/resetNameButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="@dimen/dialog_padding_minus_16dp"
-                android:text="@string/reset"
-                style="?buttonBarButtonStyle" />
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <CheckBox

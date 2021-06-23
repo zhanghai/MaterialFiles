@@ -12,7 +12,7 @@
     android:layout_height="wrap_content">
 
     <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
-        android:id="@+id/textText"
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </me.zhanghai.android.files.ui.ReadOnlyTextInputLayout>
