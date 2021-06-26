@@ -118,9 +118,9 @@ internal class SftpFileSystem(
     }
 
     companion object {
-        const val SEPARATOR = '/'.toByte()
+        const val SEPARATOR = '/'.code.toByte()
         private val SEPARATOR_BYTE_STRING = SEPARATOR.toByteString()
-        private const val SEPARATOR_STRING = SEPARATOR.toChar().toString()
+        private const val SEPARATOR_STRING = SEPARATOR.toInt().toChar().toString()
 
         @JvmField
         val CREATOR = object : Parcelable.Creator<SftpFileSystem> {

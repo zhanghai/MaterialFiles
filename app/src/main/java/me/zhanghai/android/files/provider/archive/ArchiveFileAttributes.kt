@@ -87,12 +87,16 @@ internal class ArchiveFileAttributes(
             val fileKey = ArchiveFileKey(archiveFile, entry.name)
             val owner = when (entry) {
                 is DumpArchiveEntry -> PosixUser(entry.userId, null)
-                is TarArchiveEntry -> PosixUser(entry.userId, entry.userName?.toByteString())
+                is TarArchiveEntry ->
+                    @Suppress("DEPRECATION")
+                    PosixUser(entry.userId, entry.userName?.toByteString())
                 else -> null
             }
             val group = when (entry) {
                 is DumpArchiveEntry -> PosixGroup(entry.groupId, null)
-                is TarArchiveEntry -> PosixGroup(entry.groupId, entry.groupName?.toByteString())
+                is TarArchiveEntry ->
+                    @Suppress("DEPRECATION")
+                    PosixGroup(entry.groupId, entry.groupName?.toByteString())
                 else -> null
             }
             val mode = when (entry) {

@@ -84,6 +84,7 @@ class LanSmbServerListLiveData : CloseableLiveData<Stateful<List<LanSmbServer>>>
     ): ReceiveChannel<LanSmbServer> =
         produce {
             launch {
+                @Suppress("DEPRECATION")
                 val lan = SmbFile("smb://")
                 val domains = try {
                     lan.listFiles()

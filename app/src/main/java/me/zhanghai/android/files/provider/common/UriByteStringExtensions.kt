@@ -41,9 +41,9 @@ private const val CHARSET_FRAGMENT = "$CHARSET_PCHAR/?"
  * @see java.net.URI#appendSchemeSpecificPart
  */
 private fun encodeSchemeSpecificPart(decoded: ByteString): String =
-    if (decoded.length >= 3 && decoded[0] == '/'.toByte() && decoded[1] == '/'.toByte()
-        && decoded[2] == '['.toByte()) {
-        val ipLiteralLastCharacterIndex = decoded.indexOf(']'.toByte(), 3)
+    if (decoded.length >= 3 && decoded[0] == '/'.code.toByte() && decoded[1] == '/'.code.toByte()
+        && decoded[2] == '['.code.toByte()) {
+        val ipLiteralLastCharacterIndex = decoded.indexOf(']'.code.toByte(), 3)
         require(ipLiteralLastCharacterIndex != -1) { "Incomplete IP literal in URI" }
         val ipLiteralEnd = ipLiteralLastCharacterIndex + 1
         (decoded.substring(0, ipLiteralEnd).toString()
@@ -57,8 +57,8 @@ private fun encodeFragment(decoded: ByteString): String = encode(decoded, CHARSE
 private fun encode(decoded: ByteString, charset: String): String {
     val builder = StringBuilder()
     for (byte in decoded) {
-        if (charset.indexOf(byte.toChar()) != -1) {
-            builder.append(byte.toChar())
+        if (charset.indexOf(byte.toInt().toChar()) != -1) {
+            builder.append(byte.toInt().toChar())
         } else {
             builder
                 .append('%')
@@ -93,7 +93,7 @@ private fun decode(encoded: String): ByteString {
     while (index < length) {
         var byte = getAsciiCharacterAt(encoded, index)
         when (byte) {
-            '%'.toByte() -> {
+            '%'.code.toByte() -> {
                 require(index + 3 <= length) { "Incomplete percent-encoding in URI" }
                 val halfByte1 = decodeHexCharacter(getAsciiCharacterAt(encoded, index + 1))
                 val halfByte2 = decodeHexCharacter(getAsciiCharacterAt(encoded, index + 2))
@@ -112,17 +112,19 @@ private fun decode(encoded: String): ByteString {
 
 private fun getAsciiCharacterAt(string: String, index: Int): Byte {
     val char = string[index]
-    require(char.toInt() == char.toInt() and 0x7F) { "Non-ASCII character $char in URI" }
-    return char.toByte()
+    require(char.code == char.code and 0x7F) { "Non-ASCII character $char in URI" }
+    return char.code.toByte()
 }
 
 private fun decodeHexCharacter(hexCharacter: Byte): Byte =
     when (hexCharacter) {
-        in '0'.toByte()..'9'.toByte() -> (hexCharacter.toChar() - '0').toByte()
-        in 'A'.toByte()..'F'.toByte() -> (10 + (hexCharacter.toChar() - 'A')).toByte()
-        in 'a'.toByte()..'f'.toByte() -> (10 + (hexCharacter.toChar() - 'a')).toByte()
+        in '0'.code.toByte()..'9'.code.toByte() -> (hexCharacter.toInt().toChar() - '0').toByte()
+        in 'A'.code.toByte()..'F'.code.toByte() ->
+            (10 + (hexCharacter.toInt().toChar() - 'A')).toByte()
+        in 'a'.code.toByte()..'f'.code.toByte() ->
+            (10 + (hexCharacter.toInt().toChar() - 'a')).toByte()
         else ->
             throw IllegalArgumentException(
-                "Non-hex-character ${hexCharacter.toChar()} for percent-encoding in URI"
+                "Non-hex-character ${hexCharacter.toInt().toChar()} for percent-encoding in URI"
             )
     }

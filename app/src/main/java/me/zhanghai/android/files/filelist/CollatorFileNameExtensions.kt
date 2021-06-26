@@ -63,7 +63,7 @@ fun Collator.getCollationKeyForFileName(source: String): CollationKey {
                     }
                 }
                 while (digits > 1) {
-                    result.append(':'.toByte())
+                    result.append(':'.code.toByte())
                     --digits
                 }
                 if (leadingZeros > 0) {

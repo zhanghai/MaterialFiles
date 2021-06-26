@@ -28,7 +28,7 @@ value class BytePathName(val value: ByteString) {
     companion object {
         // Not using File.separatorChar so that behavior is consistent and always ready for URIs.
         // Anyway we are on Android. If one day we were moved to Windows, fail-fast is also good.
-        const val SEPARATOR = '/'.toByte()
+        const val SEPARATOR = '/'.code.toByte()
     }
 }
 
@@ -40,7 +40,7 @@ fun ByteString.asPathName(): BytePathName {
 fun ByteString.asPathNameOrNull(): BytePathName? = if (isValidPathName) BytePathName(this) else null
 
 private val ByteString.isValidPathName: Boolean
-    get() = isNotEmpty() && !contains('\u0000'.toByte())
+    get() = isNotEmpty() && !contains('\u0000'.code.toByte())
 
 @JvmInline
 value class ByteFileName(val value: ByteString) {
@@ -72,7 +72,7 @@ value class ByteFileName(val value: ByteString) {
         }
 
     companion object {
-        const val EXTENSION_SEPARATOR = '.'.toByte()
+        const val EXTENSION_SEPARATOR = '.'.code.toByte()
 
         // https://github.com/GNOME/nautilus/blob/c73ad94a72f8e9a989b01858018de74182d17f0e/eel/eel-vfs-extensions.c#L124
         private val DOUBLE_EXTENSIONS = listOf("bz", "bz2", "gz", "sit", "xz", "Z")
@@ -87,4 +87,4 @@ fun ByteString.asFileName(): ByteFileName {
 fun ByteString.asFileNameOrNull(): ByteFileName? = if (isValidFileName) ByteFileName(this) else null
 
 private val ByteString.isValidFileName: Boolean
-    get() = isNotEmpty() && !contains('\u0000'.toByte()) && !contains(BytePathName.SEPARATOR)
+    get() = isNotEmpty() && !contains('\u0000'.code.toByte()) && !contains(BytePathName.SEPARATOR)

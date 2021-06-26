@@ -785,7 +785,7 @@ class CopyFileJob(private val sources: List<Path>, private val targetDirectory: 
             // /(?<=.) \(\d+\)$/
             var index = countEnd - 1
             // \)
-            if (index < 0 || fileName[index] != ')'.toByte()) {
+            if (index < 0 || fileName[index] != ')'.code.toByte()) {
                 break
             }
             --index
@@ -793,7 +793,7 @@ class CopyFileJob(private val sources: List<Path>, private val targetDirectory: 
             val digitsEndInclusive = index
             while (index >= 0) {
                 val b = fileName[index]
-                if (b < '0'.toByte() || b > '9'.toByte()) {
+                if (b < '0'.code.toByte() || b > '9'.code.toByte()) {
                     break
                 }
                 --index
@@ -808,12 +808,12 @@ class CopyFileJob(private val sources: List<Path>, private val targetDirectory: 
                 break
             }
             // \(
-            if (index < 0 || fileName[index] != '('.toByte()) {
+            if (index < 0 || fileName[index] != '('.code.toByte()) {
                 break
             }
             --index
             //
-            if (index < 0 || fileName[index] != ' '.toByte()) {
+            if (index < 0 || fileName[index] != ' '.code.toByte()) {
                 break
             }
             // (?<=.)

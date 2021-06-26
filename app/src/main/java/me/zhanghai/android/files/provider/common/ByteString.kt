@@ -146,7 +146,7 @@ class ByteString internal constructor(
     }
 
     val cstr: ByteArray
-        get() = bytes + '\u0000'.toByte()
+        get() = bytes + '\u0000'.code.toByte()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

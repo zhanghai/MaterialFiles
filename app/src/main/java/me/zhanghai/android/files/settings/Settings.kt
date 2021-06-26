@@ -34,6 +34,7 @@ object Settings {
     val FILE_LIST_DEFAULT_DIRECTORY: SettingLiveData<Path> =
         ParcelValueSettingLiveData(
             R.string.pref_key_file_list_default_directory,
+            @Suppress("DEPRECATION")
             Paths.get(Environment.getExternalStorageDirectory().absolutePath)
         )
 
@@ -82,6 +83,7 @@ object Settings {
     val FTP_SERVER_HOME_DIRECTORY: SettingLiveData<Path> =
         ParcelValueSettingLiveData(
             R.string.pref_key_ftp_server_home_directory,
+            @Suppress("DEPRECATION")
             Paths.get(Environment.getExternalStorageDirectory().absolutePath)
         )
 

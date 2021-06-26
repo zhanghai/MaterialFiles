@@ -21,7 +21,7 @@ fun initializeCoil() {
                 add(PathAttributesFetcher(application))
                 add(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        ImageDecoderDecoder()
+                        ImageDecoderDecoder(application)
                     } else {
                         GifDecoder()
                     }
