@@ -14,6 +14,7 @@ internal class RarArchiveEntry(val header: FileHeader, zipEncoding: ZipEncoding)
     private val name: String
 
     init {
+        @Suppress("DEPRECATION")
         var name = header.fileNameW
         if (name.isNullOrEmpty()) {
             name = zipEncoding.decode(header.fileNameByteArray)

@@ -298,7 +298,7 @@ class FileListAdapter(
 
     override fun getPopupText(position: Int): String {
         val file = getItem(position)
-        return file.name.take(1).toUpperCase(Locale.getDefault())
+        return file.name.take(1).uppercase(Locale.getDefault())
     }
 
     override val isAnimationEnabled: Boolean

@@ -18,7 +18,7 @@ fun MimeType.Companion.guessFromPath(path: String): MimeType {
 }
 
 fun MimeType.Companion.guessFromExtension(extension: String): MimeType {
-    val extension = extension.toLowerCase(Locale.US)
+    val extension = extension.lowercase()
     return extensionToMimeTypeOverrideMap[extension]
         ?: MimeTypeMap.getSingleton().getMimeTypeFromExtensionCompat(extension)?.asMimeTypeOrNull()
         ?: GENERIC

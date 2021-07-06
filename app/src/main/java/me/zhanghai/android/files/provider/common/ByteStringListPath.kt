@@ -29,9 +29,9 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
     private var byteStringCache: ByteString? = null
 
     constructor(separator: Byte, path: ByteString) {
-        require(separator != '\u0000'.toByte()) { "Separator cannot be the nul character" }
+        require(separator != '\u0000'.code.toByte()) { "Separator cannot be the nul character" }
         this.separator = separator
-        if (path.contains('\u0000'.toByte())) {
+        if (path.contains('\u0000'.code.toByte())) {
             throw InvalidPathException(path.toString(), "Path cannot contain nul characters")
         }
         isAbsolute = isPathAbsolute(path)

@@ -12,7 +12,7 @@ import java.util.Locale
 fun MimeType.getName(extension: String, context: Context): String {
     val nameRes = specialPosixFileTypeToNameResMap[this]
         ?: icon.getNameRes(this, extension.isNotEmpty())
-    return context.getString(nameRes, extension.toUpperCase(Locale.US))
+    return context.getString(nameRes, extension.uppercase())
 }
 
 /**

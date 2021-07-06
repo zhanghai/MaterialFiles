@@ -14,8 +14,6 @@ rm launcher_icon-web.svg
 
 cp launcher_icon.svg launcher_icon_foreground.svg
 inkscape --batch-process --actions='select:circle;select:circle-edge-top;select:circle-edge-bottom;EditDelete;select:circle-clip-group;SelectionUnGroup;FileSave;FileQuit' launcher_icon_foreground.svg
-# Work around Inkscape bug changing element order after ungroup.
-inkscape --batch-process --actions='select:long-shadow;SelectionToBack;FileSave;FileQuit' launcher_icon_foreground.svg
 inkscape -o launcher_icon_foreground-mdpi.png -w 108 -h 108 launcher_icon_foreground.svg
 inkscape -o launcher_icon_foreground-hdpi.png -w 162 -h 162 launcher_icon_foreground.svg
 inkscape -o launcher_icon_foreground-xhdpi.png -w 216 -h 216 launcher_icon_foreground.svg
