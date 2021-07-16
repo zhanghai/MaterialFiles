@@ -23,6 +23,7 @@ import me.zhanghai.android.files.provider.content.resolver.getLong
 import me.zhanghai.android.files.provider.content.resolver.getString
 import me.zhanghai.android.files.provider.content.resolver.moveToFirstOrThrow
 import me.zhanghai.android.files.provider.content.resolver.requireString
+import me.zhanghai.android.files.util.AbstractLocalCursor
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
@@ -57,11 +58,13 @@ object DocumentResolver {
 
     private val pathDocumentIdCache = Collections.synchronizedMap(WeakHashMap<Path, String>())
 
+    private val directoryCursorCache = Collections.synchronizedMap(WeakHashMap<Path, Cursor>())
+
     @Throws(ResolverException::class)
     fun checkExistence(path: Path) {
         // Prevent cache from interfering with our check. Cache will be added again if
         // queryDocumentId() succeeds.
-        pathDocumentIdCache.remove(path)
+        pathDocumentIdCache -= path
         queryDocumentId(path)
     }
 
@@ -184,7 +187,8 @@ object DocumentResolver {
         val uri = getDocumentUri(path)
         // Always remove the path from cache, in case a deletion actually succeeded despite
         // exception being thrown.
-        pathDocumentIdCache.remove(path)
+        pathDocumentIdCache -= path
+        directoryCursorCache -= path
         @Suppress("DEPRECATION")
         delete(uri)
     }
@@ -381,12 +385,10 @@ object DocumentResolver {
             parentPath.treeUri, parentDocumentId
         )
         val childrenPaths = mutableListOf<Path>()
-        query(
-            childrenUri, arrayOf(
-                DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-                DocumentsContract.Document.COLUMN_DISPLAY_NAME
-            ), null
-        ).use { cursor ->
+        // A null projection means all supported columns should be included according to
+        // [DocumentsProvider.queryChildDocuments]. This is fine for functionality and performance
+        // as DocumentsProviderHelper in DocumentsUI is doing the same thing.
+        query(childrenUri, null, null).use { cursor ->
             while (cursor.moveToNext()) {
                 val childDocumentId = cursor.requireString(
                     DocumentsContract.Document.COLUMN_DOCUMENT_ID
@@ -396,10 +398,20 @@ object DocumentResolver {
                 )
                 val childPath = parentPath.resolve(childDisplayName)
                 pathDocumentIdCache[childPath] = childDocumentId
+                directoryCursorCache[childPath] = cursor.toRowCursor()
                 childrenPaths += childPath
             }
         }
         return childrenPaths
+    }
+
+    @Throws(ResolverException::class)
+    fun queryDocument(path: Path, uri: Uri): Cursor {
+        directoryCursorCache.remove(path)?.let { return it }
+        // A null projection means all supported columns should be included according to
+        // [DocumentsProvider.queryDocument]. This is fine for functionality and performance as
+        // DocumentsProviderHelper in DocumentsUI is doing the same thing.
+        return query(uri, null, null)
     }
 
     @Throws(ResolverException::class)
@@ -433,7 +445,8 @@ object DocumentResolver {
         val parentUri = getDocumentUri(path.requireParent())
         // Always remove the path from cache, in case a removal actually succeeded despite exception
         // being thrown.
-        pathDocumentIdCache.remove(path)
+        pathDocumentIdCache -= path
+        directoryCursorCache -= path
         removeApi24(uri, parentUri)
     }
 
@@ -460,7 +473,8 @@ object DocumentResolver {
         val uri = getDocumentUri(path)
         // Always remove the path from cache, in case a rename actually succeeded despite exception
         // being thrown.
-        pathDocumentIdCache.remove(path)
+        pathDocumentIdCache -= path
+        directoryCursorCache -= path
         return rename(uri, displayName)
     }
 
@@ -488,13 +502,10 @@ object DocumentResolver {
 
     @Throws(ResolverException::class)
     private fun queryDocumentId(path: Path): String {
-        var documentId = pathDocumentIdCache[path]
-        if (documentId != null) {
-            return documentId
-        }
+        pathDocumentIdCache[path]?.let { return it }
         val parentPath = path.parent
         val treeUri = path.treeUri
-        documentId = if (parentPath != null) {
+        val documentId = if (parentPath != null) {
             queryChildDocumentId(parentPath, path.displayName!!, treeUri)
         } else {
             // TODO: kotlinc: Type mismatch: inferred type is String? but String was expected
@@ -553,5 +564,31 @@ object DocumentResolver {
         val displayName: String?
         val parent: Path?
         fun resolve(other: String): Path
+    }
+
+    private fun Cursor.toRowCursor(): Cursor {
+        val columnNames = columnNames
+        val rowValues = Array<Any?>(columnNames.size) {
+            when (val type = getType(it)) {
+                Cursor.FIELD_TYPE_NULL -> null
+                Cursor.FIELD_TYPE_INTEGER -> getLong(it)
+                Cursor.FIELD_TYPE_FLOAT -> getDouble(it)
+                Cursor.FIELD_TYPE_STRING -> getString(it)
+                Cursor.FIELD_TYPE_BLOB -> getBlob(it)
+                else -> throw ResolverException("Unknown cursor column type $type")
+            }
+        }
+        return RowCursor(columnNames, rowValues)
+    }
+
+    private class RowCursor(
+        private val columnNames: Array<String>,
+        private val rowValues: Array<Any?>
+    ) : AbstractLocalCursor() {
+        override fun getCount(): Int = 1
+
+        override fun getColumnNames(): Array<String> = columnNames
+
+        override fun getObject(columnIndex: Int): Any? = rowValues[columnIndex]
     }
 }

@@ -37,14 +37,7 @@ internal class DocumentFileAttributeView(
         var size: Long
         var flags: Int
         try {
-            DocumentResolver.query(
-                uri, arrayOf(
-                    DocumentsContract.Document.COLUMN_LAST_MODIFIED,
-                    DocumentsContract.Document.COLUMN_MIME_TYPE,
-                    DocumentsContract.Document.COLUMN_SIZE,
-                    DocumentsContract.Document.COLUMN_FLAGS
-                ), null
-            ).use { cursor ->
+            DocumentResolver.queryDocument(path, uri).use { cursor ->
                 cursor.moveToFirstOrThrow()
                 lastModifiedTimeMillis = cursor.getLong(
                     DocumentsContract.Document.COLUMN_LAST_MODIFIED
