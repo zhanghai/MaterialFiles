@@ -26,6 +26,7 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
     private val isAbsolute: Boolean
     private val segments: List<ByteString>
 
+    @Volatile
     private var byteStringCache: ByteString? = null
 
     constructor(separator: Byte, path: ByteString) {
