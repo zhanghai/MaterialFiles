@@ -91,9 +91,7 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
     override val rootStrategy: RootStrategy
         get() {
             val strategy = super.rootStrategy
-            if (strategy == RootStrategy.PREFER_NO && !EffortlessPermissions.hasPermissions(
-                    application, Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )) {
+            if (strategy == RootStrategy.PREFER_NO && !isStoragePermissionGranted) {
                 return RootStrategy.NEVER
             }
             return strategy
@@ -125,3 +123,18 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
 
 val Path.isLinuxPath: Boolean
     get() = this is LinuxPath
+
+// IPC for checking the storage permission is expensive if we do it on every file system access, so
+// cache its result here.
+@Volatile
+private var wasStoragePermissionGranted: Boolean = false
+private val isStoragePermissionGranted: Boolean
+    get() {
+        // Android kills an app if the user revokes any of its runtime permissions.
+        if (wasStoragePermissionGranted) {
+            return true
+        }
+        return EffortlessPermissions.hasPermissions(
+            application, Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ).also { wasStoragePermissionGranted = it }
+    }
