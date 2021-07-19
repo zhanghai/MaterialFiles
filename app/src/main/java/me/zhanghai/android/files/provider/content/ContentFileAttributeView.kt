@@ -31,7 +31,7 @@ internal class ContentFileAttributeView(
             Resolver.getSize(uri)
         } catch (e: ResolverException) {
             throw e.toFileSystemException(path.toString())
-        }
+        } ?: 0
         return ContentFileAttributes.from(mimeType, size, uri)
     }
 

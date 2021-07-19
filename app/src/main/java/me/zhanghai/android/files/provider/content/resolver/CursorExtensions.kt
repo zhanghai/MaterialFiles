@@ -6,6 +6,9 @@
 package me.zhanghai.android.files.provider.content.resolver
 
 import android.database.Cursor
+import androidx.core.database.getIntOrNull
+import androidx.core.database.getLongOrNull
+import androidx.core.database.getStringOrNull
 
 @Throws(ResolverException::class)
 fun Cursor.moveToFirstOrThrow() {
@@ -14,38 +17,34 @@ fun Cursor.moveToFirstOrThrow() {
     }
 }
 
-@Throws(ResolverException::class)
-fun Cursor.getInt(columnName: String): Int {
-    val columnIndex = try {
-        getColumnIndexOrThrow(columnName)
-    } catch (e: IllegalArgumentException) {
-        throw ResolverException(e)
-    }
-    return getInt(columnIndex)
+fun Cursor.getColumnIndexOrNull(columnName: String): Int? =
+    getColumnIndex(columnName).takeIf { it != -1 }
+
+fun Cursor.getInt(columnName: String): Int? {
+    val columnIndex = getColumnIndexOrNull(columnName) ?: return null
+    return getIntOrNull(columnIndex)
 }
 
-@Throws(ResolverException::class)
-fun Cursor.getLong(columnName: String): Long {
-    val columnIndex = try {
-        getColumnIndexOrThrow(columnName)
-    } catch (e: IllegalArgumentException) {
-        throw ResolverException(e)
-    }
-    return getLong(columnIndex)
+fun Cursor.getLong(columnName: String): Long? {
+    val columnIndex = getColumnIndexOrNull(columnName) ?: return null
+    return getLongOrNull(columnIndex)
 }
 
-@Throws(ResolverException::class)
 fun Cursor.getString(columnName: String): String? {
-    val columnIndex = try {
+    val columnIndex = getColumnIndexOrNull(columnName) ?: return null
+    return getStringOrNull(columnIndex)
+}
+
+@Throws(ResolverException::class)
+fun Cursor.requireColumnIndex(columnName: String): Int =
+    try {
         getColumnIndexOrThrow(columnName)
     } catch (e: IllegalArgumentException) {
         throw ResolverException(e)
     }
-    return getString(columnIndex)
-}
 
 @Throws(ResolverException::class)
 fun Cursor.requireString(columnName: String): String {
-    return getString(columnName)
-        ?: throw ResolverException("Cursor.getString() with column name $columnName returned null")
+    return getStringOrNull(requireColumnIndex(columnName))
+        ?: throw ResolverException("Cursor.getStringOrNull() for $columnName returned null")
 }

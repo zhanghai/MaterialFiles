@@ -86,7 +86,7 @@ internal object DocumentCopyMove {
         } catch (e: ResolverException) {
             e.printStackTrace()
             return
-        }
+        } ?: return
         this(size)
     }
 }

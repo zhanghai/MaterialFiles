@@ -36,8 +36,8 @@ android {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 23
-        versionName '1.2.1'
+        versionCode 24
+        versionName '1.3.0'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
@@ -120,7 +120,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
 
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
@@ -164,7 +164,7 @@ dependencies {
     implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
-    def coil_version = '1.2.2'
+    def coil_version = '1.3.0'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"

@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.document.resolver
 
 import android.database.Cursor
-import android.database.MatrixCursor
 import android.database.MergeCursor
 import android.net.Uri
 import android.provider.DocumentsContract
@@ -20,15 +19,8 @@ object ExternalStorageProviderHack {
     private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DOCUMENT_ID = "primary:Android"
     private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID =
         "primary:Android/data"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DISPLAY_NAME = "data"
     private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID =
         "primary:Android/obb"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DISPLAY_NAME = "obb"
-
-    private val CHILD_DOCUMENTS_CURSOR_COLUMN_NAMES = arrayOf(
-        DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-        DocumentsContract.Document.COLUMN_DISPLAY_NAME
-    )
 
     fun transformQueryResult(uri: Uri, cursor: Cursor): Cursor {
         if (uri.authority == DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY
@@ -55,31 +47,22 @@ object ExternalStorageProviderHack {
             if (hasDataRow && hasObbRow) {
                 return cursor
             }
-            val extraCursor = MatrixCursor(CHILD_DOCUMENTS_CURSOR_COLUMN_NAMES)
+            val cursors = mutableListOf(cursor)
             if (!hasDataRow) {
-                extraCursor.newRow()
-                    .add(
-                        DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-                        EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID
-                    )
-                    .add(
-                        DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-                        EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DISPLAY_NAME
-                    )
+                val androidDataUri = DocumentsContract.buildDocumentUriUsingTree(
+                    uri, EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID
+                )
+                cursors += DocumentResolver.query(androidDataUri, null, null)
             }
             if (!hasObbRow) {
-                extraCursor.newRow()
-                    .add(
-                        DocumentsContract.Document.COLUMN_DOCUMENT_ID,
-                        EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID
-                    )
-                    .add(
-                        DocumentsContract.Document.COLUMN_DISPLAY_NAME,
-                        EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DISPLAY_NAME
-                    )
+                val androidObbUri = DocumentsContract.buildDocumentUriUsingTree(
+                    uri, EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID
+                )
+                cursors += DocumentResolver.query(androidObbUri, null, null)
             }
-            return MergeCursor(arrayOf(cursor, extraCursor))
+            return MergeCursor(cursors.toTypedArray())
+        } else {
+            return cursor
         }
-        return cursor
     }
 }

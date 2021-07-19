@@ -58,7 +58,7 @@ object Resolver {
         }?.takeIfNotEmpty()
 
     @Throws(ResolverException::class)
-    fun getSize(uri: Uri): Long =
+    fun getSize(uri: Uri): Long? =
         query(uri, arrayOf(OpenableColumns.SIZE), null, null, null).use { cursor ->
             cursor.moveToFirstOrThrow()
             cursor.getLong(OpenableColumns.SIZE)
