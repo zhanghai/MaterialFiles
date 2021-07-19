@@ -228,13 +228,13 @@ object DocumentResolver {
         }?.takeIf { it.isNotEmpty() && it != MimeType.GENERIC.value }
 
     @Throws(ResolverException::class)
-    fun getSize(path: Path): Long {
+    fun getSize(path: Path): Long? {
         val uri = getDocumentUri(path)
         return getSize(uri)
     }
 
     @Throws(ResolverException::class)
-    fun getSize(uri: Uri): Long =
+    fun getSize(uri: Uri): Long? =
         query(uri, arrayOf(DocumentsContract.Document.COLUMN_SIZE), null).use { cursor ->
             cursor.moveToFirstOrThrow()
             cursor.getLong(DocumentsContract.Document.COLUMN_SIZE)
@@ -330,7 +330,7 @@ object DocumentResolver {
         } catch (e: ResolverException) {
             e.printStackTrace()
             return
-        }
+        } ?: return
         this(size)
     }
 

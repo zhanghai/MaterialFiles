@@ -41,10 +41,10 @@ internal class DocumentFileAttributeView(
                 cursor.moveToFirstOrThrow()
                 lastModifiedTimeMillis = cursor.getLong(
                     DocumentsContract.Document.COLUMN_LAST_MODIFIED
-                )
+                ) ?: 0
                 mimeType = cursor.getString(DocumentsContract.Document.COLUMN_MIME_TYPE)
-                size = cursor.getLong(DocumentsContract.Document.COLUMN_SIZE)
-                flags = cursor.getInt(DocumentsContract.Document.COLUMN_FLAGS)
+                size = cursor.getLong(DocumentsContract.Document.COLUMN_SIZE) ?: 0
+                flags = cursor.getInt(DocumentsContract.Document.COLUMN_FLAGS) ?: 0
             }
         } catch (e: ResolverException) {
             throw e.toFileSystemException(path.toString())
