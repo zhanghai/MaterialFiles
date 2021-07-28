@@ -96,5 +96,10 @@
             android:key="@string/pref_key_read_remote_files_for_thumbnail"
             android:title="@string/settings_read_remote_files_for_thumbnail_title"
             android:defaultValue="@bool/pref_default_value_read_remote_files_for_thumbnail" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_open_archive_file"
+            android:title="@string/settings_open_archive_file"
+            android:defaultValue="@bool/pref_default_value_open_archive_file" />
     </PreferenceCategory>
 </PreferenceScreen>
