@@ -155,6 +155,8 @@ private val mimeTypeToIconMap = mapOf(
     "text/rtf" to MimeTypeIcon.DOCUMENT,
     "application/epub+zip" to MimeTypeIcon.EBOOK,
     "application/vnd.amazon.ebook" to MimeTypeIcon.EBOOK,
+    "application/x-cbr" to MimeTypeIcon.EBOOK,
+    "application/x-cbz" to MimeTypeIcon.EBOOK,
     "application/x-ibooks+zip" to MimeTypeIcon.EBOOK,
     "application/x-mobipocket-ebook" to MimeTypeIcon.EBOOK,
     "application/vnd.ms-outlook" to MimeTypeIcon.EMAIL,
