@@ -21,7 +21,9 @@ val MimeType.isApk: Boolean
     get() = this == MimeType.APK
 
 val MimeType.isSupportedArchive: Boolean
-    get() = this in supportedArchiveMimeTypes
+    get() =
+        Settings.OPEN_ARCHIVE_FILE.valueCompat
+                && (this in supportedArchiveMimeTypes)
 
 private val supportedArchiveMimeTypes = mutableListOf(
     "application/gzip",
