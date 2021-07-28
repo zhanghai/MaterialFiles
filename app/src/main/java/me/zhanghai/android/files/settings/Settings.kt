@@ -169,4 +169,10 @@ object Settings {
             R.string.pref_key_read_remote_files_for_thumbnail,
             R.bool.pref_default_value_read_remote_files_for_thumbnail
         )
+
+    val OPEN_ARCHIVE_FILE: SettingLiveData<Boolean> =
+            BooleanSettingLiveData(
+                    R.string.pref_key_open_archive_file,
+                    R.bool.pref_default_value_open_archive_file
+            )
 }
