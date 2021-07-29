@@ -31,7 +31,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 30
     ndkVersion '22.1.7171670'
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '31.0.0'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
