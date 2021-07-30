@@ -15,7 +15,15 @@
             android:key="@string/pref_key_theme_color"
             android:title="@string/settings_theme_color_title"
             android:defaultValue="@string/pref_default_value_theme_color"
+            android:dependency="@string/pref_key_material_design_3"
             android:summary="@string/settings_theme_color_summary" />
+
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_material_design_3"
+            android:title="@string/settings_material_design_3_title"
+            android:defaultValue="@bool/pref_default_value_material_design_3"
+            android:disableDependentsState="true"
+            app:isPreferenceVisible="@bool/pref_visible_material_design_3" />
 
         <rikka.preference.SimpleMenuPreference
             android:key="@string/pref_key_night_mode"

@@ -29,7 +29,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 //#endif
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     ndkVersion '22.1.7171670'
     buildToolsVersion '31.0.0'
     defaultConfig {

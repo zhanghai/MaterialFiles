@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <bool name="pref_default_value_material_design_3">true</bool>
+    <bool name="pref_visible_material_design_3">true</bool>
+</resources>

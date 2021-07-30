@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <style name="Theme.MaterialFiles.Md3">
+        <item name="colorPrimary">@color/color_primary_md3</item>
+        <item name="colorSurface">@color/color_surface_md3</item>
+        <item name="colorBackgroundFloating">@color/color_background_floating_md3</item>
+        <item name="android:textColorPrimary">@color/primary_text_md3</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_inverse_md3</item>
+        <item name="android:textColorSecondary">@color/secondary_text_md3</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_inverse_md3</item>
+        <item name="android:textColorTertiary">@color/tertiary_text_md3</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiary_text_inverse_md3</item>
+    </style>
+    <style name="Theme.MaterialFiles.Translucent.Md3">
+        <item name="colorPrimary">@color/color_primary_md3</item>
+        <item name="colorSurface">@color/color_surface_md3</item>
+        <item name="colorBackgroundFloating">@color/color_background_floating_md3</item>
+        <item name="android:textColorPrimary">@color/primary_text_md3</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_inverse_md3</item>
+        <item name="android:textColorSecondary">@color/secondary_text_md3</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_inverse_md3</item>
+        <item name="android:textColorTertiary">@color/tertiary_text_md3</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiary_text_inverse_md3</item>
+    </style>
+    <style name="Theme.MaterialFiles.Immersive.Md3">
+        <item name="colorPrimary">@color/color_primary_md3_dark</item>
+        <item name="android:textColorPrimary">@color/primary_text_md3</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_inverse_md3</item>
+        <item name="android:textColorSecondary">@color/secondary_text_md3</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_inverse_md3</item>
+        <item name="android:textColorTertiary">@color/tertiary_text_md3</item>
+        <item name="android:textColorTertiaryInverse">@color/tertiary_text_inverse_md3</item>
+    </style>
+    <style name="Theme.MaterialFiles.Md3.Black" />
+</resources>
