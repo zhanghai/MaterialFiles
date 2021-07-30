@@ -6,27 +6,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-kapt {
-    correctErrorTypes = true
-}
 apply plugin: 'kotlin-parcelize'
-
-apply from: '../signing.gradle'
-
-//#ifdef NONFREE
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.google.gms:google-services:4.3.8'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
-    }
-}
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
-//#endif
+
+apply from: '../signing.gradle'
 
 android {
     compileSdkVersion 30
@@ -84,14 +68,8 @@ android {
     }
 }
 
-repositories {
-    maven {
-        url 'https://jitpack.io'
-    }
-}
-dependencies {
-    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -179,4 +157,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:19.0.0'
     implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.0'
 //#endif
+
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
 }
