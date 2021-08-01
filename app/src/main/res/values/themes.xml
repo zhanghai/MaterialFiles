@@ -13,6 +13,8 @@
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V21.Theme.MaterialFiles" />
     <style name="Base.Theme.MaterialFiles" parent="Platform.Theme.MaterialFiles">
 
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialFiles.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialFiles.ActionBarPopup</item>
         <item name="android:colorBackground">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
@@ -57,6 +59,8 @@
     <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V21.Theme.MaterialFiles.Immersive" />
     <style name="Base.Theme.MaterialFiles.Immersive" parent="Platform.Theme.MaterialFiles.Immersive">
 
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialFiles.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialFiles.ActionBarPopup</item>
         <item name="android:colorBackground">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
         <item name="windowActionBar">false</item>

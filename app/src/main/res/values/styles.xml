@@ -39,4 +39,15 @@
         <item name="strokeColor">@color/mtrl_btn_stroke_color_selector</item>
         <item name="strokeWidth">@dimen/mtrl_btn_stroke_size</item>
     </style>
+
+    <!-- See also ThemeOverlay.AppCompat.ActionBar . -->
+    <style name="ThemeOverlay.MaterialFiles.ActionBar" parent="">
+        <item name="colorControlNormal">?android:textColorPrimary</item>
+        <item name="searchViewStyle">@style/Widget.AppCompat.SearchView.ActionBar</item>
+    </style>
+
+    <style name="ThemeOverlay.MaterialFiles.ActionBarPopup" parent="">
+        <item name="colorControlNormal">?android:textColorSecondary</item>
+        <item name="searchViewStyle">@style/Widget.AppCompat.SearchView</item>
+    </style>
 </resources>
