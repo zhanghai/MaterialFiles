@@ -34,7 +34,7 @@
                 app:popupTheme="?actionBarPopupTheme"
                 app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small" />
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <me.zhanghai.android.files.ui.IgnoreParentElevationToolbar
                 android:id="@+id/overlayToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"

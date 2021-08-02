@@ -93,7 +93,6 @@ import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.copyText
 import me.zhanghai.android.files.util.create
-import me.zhanghai.android.files.util.createEditIntent
 import me.zhanghai.android.files.util.createInstallPackageIntent
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.createSendStreamIntent

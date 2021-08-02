@@ -65,11 +65,13 @@ object CustomThemeHelper {
     private fun getCustomThemeRes(@StyleRes baseThemeRes: Int, context: Context): Int {
         val resources = context.resources
         val baseThemeName = resources.getResourceName(baseThemeRes)
-        val themeColorName = resources.getResourceEntryName(
-            Settings.THEME_COLOR.valueCompat.resourceId
-        )
+        val customThemeIdentifier = if (Settings.MATERIAL_DESIGN_3.valueCompat) {
+            "Md3"
+        } else {
+            resources.getResourceEntryName(Settings.THEME_COLOR.valueCompat.resourceId)
+        }
         val blackThemeSuffix = if (Settings.BLACK_NIGHT_MODE.valueCompat) ".Black" else ""
-        val customThemeName = "$baseThemeName.$themeColorName$blackThemeSuffix"
+        val customThemeName = "$baseThemeName.$customThemeIdentifier$blackThemeSuffix"
         return resources.getIdentifier(customThemeName, null, null)
     }
 

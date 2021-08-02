@@ -29,9 +29,9 @@ apply plugin: 'com.google.firebase.crashlytics'
 //#endif
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     ndkVersion '22.1.7171670'
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '31.0.0'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
@@ -164,7 +164,7 @@ dependencies {
     implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
-    def coil_version = '1.3.0'
+    def coil_version = '1.3.1'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
