@@ -68,7 +68,7 @@ class ClientException : Exception {
             else -> when (statusCode) {
                 NtStatuses.STATUS_NOT_A_REPARSE_POINT, NtStatuses.STATUS_IO_REPARSE_TAG_INVALID,
                 NtStatuses.STATUS_IO_REPARSE_TAG_MISMATCH,
-                NtStatus.STATUS_IO_REPARSE_TAG_NOT_HANDLED.value ->
+                NtStatuses.STATUS_IO_REPARSE_TAG_NOT_HANDLED ->
                     NotLinkException(file, other, message)
                 else -> FileSystemException(file, other, message)
             }

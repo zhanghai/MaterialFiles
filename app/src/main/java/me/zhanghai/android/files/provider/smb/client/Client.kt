@@ -582,7 +582,7 @@ object Client {
         completionFilter: Set<SMB2CompletionFilter>
     ): Future<SMB2ChangeNotifyResponse> {
         return try {
-            directory.watchAsync(completionFilter, false)
+            directory.changeNotifyAsync(false, completionFilter)
         } catch (e: SMBRuntimeException) {
             throw ClientException(e)
         }

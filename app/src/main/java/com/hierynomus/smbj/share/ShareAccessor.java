@@ -5,31 +5,23 @@
 
 package com.hierynomus.smbj.share;
 
-import androidx.annotation.NonNull;
-
 import com.hierynomus.mssmb2.SMB2FileId;
 import com.hierynomus.mssmb2.messages.SMB2IoctlResponse;
 import com.hierynomus.smbj.io.ArrayByteChunkProvider;
-import com.hierynomus.smbj.io.ByteChunkProvider;
 
-import java.util.concurrent.Future;
+import androidx.annotation.NonNull;
 
 public class ShareAccessor {
     /**
-     * This ioctl() variant allows passing in the {@param statusHandler}.
-     *
-     * @see Share#ioctl(com.hierynomus.mssmb2.SMB2FileId, long, boolean, ByteChunkProvider, int)
+     * @see Share#ioctl(com.hierynomus.mssmb2.SMB2FileId, long, boolean,
+     *      com.hierynomus.smbj.io.ByteChunkProvider, int)
      */
     @NonNull
     public static SMB2IoctlResponse ioctl(@NonNull Share share, @NonNull SMB2FileId fileId,
                                           long ctlCode, boolean isFsCtl, @NonNull byte[] inData,
                                           int inOffset, int inLength,
-                                          @NonNull StatusHandler statusHandler) {
-        final ByteChunkProvider inputData = new ArrayByteChunkProvider(inData, inOffset, inLength,
-                0);
-        final Future<SMB2IoctlResponse> future = share.ioctlAsync(fileId, ctlCode, isFsCtl,
-                inputData, -1);
-        final long transactTimeout = share.getTreeConnect().getConfig().getTransactTimeout();
-        return share.receive(future, "IOCTL", fileId, statusHandler, transactTimeout);
+                                          @NonNull StatusHandler statusHandler, long timeout) {
+        return share.receive(share.ioctlAsync(fileId, ctlCode, isFsCtl, new ArrayByteChunkProvider(
+                inData, inOffset, inLength, 0), -1), "IOCTL", fileId, statusHandler, timeout);
     }
 }

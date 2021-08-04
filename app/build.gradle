@@ -131,9 +131,10 @@ dependencies {
     implementation 'com.github.junrar:junrar:7.4.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation ('com.hierynomus:smbj:0.11.1') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
+    implementation ('com.hierynomus:smbj:0.10.0') {
+        // Newer versions of org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by
+        // Jetifier, but the newer version is required by jCIFS-NG, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead to get the newer version.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation ('com.hierynomus:sshj:0.31.0') {
