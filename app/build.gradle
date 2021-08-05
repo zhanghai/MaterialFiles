@@ -128,6 +128,7 @@ dependencies {
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     // SMBJ 0.11.1 is incompatible with SMBJ-RPC.
     // https://github.com/zhanghai/MaterialFiles/issues/542
+    // Run `git revert 5ec1a3f` once SMBJ-RPC is updated to be compatible with the new SMBJ.
     implementation ('com.hierynomus:smbj:0.10.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
