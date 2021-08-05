@@ -195,10 +195,10 @@ class FileByteChannel(
         private val timeout: Long
 
         init {
-            val treeConnect = file.diskShare.treeConnect
-            val config = treeConnect.config
+            val connection = file.diskShare.treeConnect.session.connection
+            val config = connection.config
             bufferSize = config.readBufferSize
-                .coerceAtMost(treeConnect.session.connection.negotiatedProtocol.maxReadSize)
+                .coerceAtMost(connection.negotiatedProtocol.maxReadSize)
             timeout = config.readTimeout
         }
 

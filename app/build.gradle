@@ -126,7 +126,9 @@ dependencies {
     implementation 'com.github.junrar:junrar:7.4.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation ('com.hierynomus:smbj:0.11.1') {
+    // SMBJ 0.11.1 is incompatible with SMBJ-RPC.
+    // https://github.com/zhanghai/MaterialFiles/issues/542
+    implementation ('com.hierynomus:smbj:0.10.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
