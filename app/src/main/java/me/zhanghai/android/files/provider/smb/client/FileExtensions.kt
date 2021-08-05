@@ -115,9 +115,11 @@ private fun File.serverCopyChunk(
     val share = diskShare
     val buffer = SMBBuffer()
     request.write(buffer)
+    //val readTimeout = share.readTimeout
+    val readTimeout = share.treeConnect.config.readTimeout
     val ioctlResponse = ShareAccessor.ioctl(
         share, fileId, CopyChunkRequest.getCtlCode(), true, buffer.array(), buffer.rpos(),
-        buffer.available(), SERVER_COPY_CHUNK_STATUS_HANDLER
+        buffer.available(), SERVER_COPY_CHUNK_STATUS_HANDLER, readTimeout
     )
     if (ioctlResponse.error != null) {
         throw SMBApiException(ioctlResponse.header, "FSCTL_SRV_COPYCHUNK failed")

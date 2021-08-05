@@ -24,12 +24,11 @@ public class ShareAccessor {
     public static SMB2IoctlResponse ioctl(@NonNull Share share, @NonNull SMB2FileId fileId,
                                           long ctlCode, boolean isFsCtl, @NonNull byte[] inData,
                                           int inOffset, int inLength,
-                                          @NonNull StatusHandler statusHandler) {
+                                          @NonNull StatusHandler statusHandler, long timeout) {
         final ByteChunkProvider inputData = new ArrayByteChunkProvider(inData, inOffset, inLength,
                 0);
         final Future<SMB2IoctlResponse> future = share.ioctlAsync(fileId, ctlCode, isFsCtl,
                 inputData, -1);
-        final long transactTimeout = share.getTreeConnect().getConfig().getTransactTimeout();
-        return share.receive(future, "IOCTL", fileId, statusHandler, transactTimeout);
+        return share.receive(future, "IOCTL", fileId, statusHandler, timeout);
     }
 }
