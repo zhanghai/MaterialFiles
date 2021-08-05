@@ -16,6 +16,7 @@ import net.schmizz.sshj.sftp.Response
 import net.schmizz.sshj.sftp.SFTPClient
 import net.schmizz.sshj.sftp.SFTPException
 import net.schmizz.sshj.transport.TransportException
+import net.schmizz.sshj.transport.verification.PromiscuousVerifier
 import net.schmizz.sshj.userauth.UserAuthException
 import java.io.IOException
 import java.util.Collections
@@ -218,7 +219,7 @@ object Client {
             }
             val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
-            val sshClient = SSHClient()
+            val sshClient = SSHClient().apply { addHostKeyVerifier(PromiscuousVerifier()) }
             try {
                 sshClient.connect(authority.host, authority.port)
             } catch (e: IOException) {
