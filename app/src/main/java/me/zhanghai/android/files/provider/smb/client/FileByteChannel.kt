@@ -196,9 +196,10 @@ class FileByteChannel(
 
         init {
             val connection = file.diskShare.treeConnect.session.connection
-            bufferSize = connection.config.readBufferSize
+            val config = connection.config
+            bufferSize = config.readBufferSize
                 .coerceAtMost(connection.negotiatedProtocol.maxReadSize)
-            timeout = connection.config.readTimeout
+            timeout = config.readTimeout
         }
 
         private val buffer = ByteBuffer.allocate(bufferSize).apply { limit(0) }

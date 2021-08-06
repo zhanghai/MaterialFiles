@@ -21,7 +21,10 @@ public class ShareAccessor {
                                           long ctlCode, boolean isFsCtl, @NonNull byte[] inData,
                                           int inOffset, int inLength,
                                           @NonNull StatusHandler statusHandler, long timeout) {
-        return share.receive(share.ioctlAsync(fileId, ctlCode, isFsCtl, new ArrayByteChunkProvider(
-                inData, inOffset, inLength, 0), -1), "IOCTL", fileId, statusHandler, timeout);
+        final ByteChunkProvider inputData = new ArrayByteChunkProvider(inData, inOffset, inLength,
+                0);
+        final Future<SMB2IoctlResponse> future = share.ioctlAsync(fileId, ctlCode, isFsCtl,
+                inputData, -1);
+        return share.receive(future, "IOCTL", fileId, statusHandler, timeout);
     }
 }
