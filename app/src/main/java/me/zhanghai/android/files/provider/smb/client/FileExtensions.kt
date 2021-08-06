@@ -130,5 +130,5 @@ private fun File.serverCopyChunk(
     } catch (e: Buffer.BufferException) {
         throw SMBRuntimeException(e)
     }
-    return Pair(ioctlResponse.header, response)
+    return ioctlResponse.header to response
 }

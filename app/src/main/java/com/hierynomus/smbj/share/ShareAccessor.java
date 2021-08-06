@@ -5,16 +5,20 @@
 
 package com.hierynomus.smbj.share;
 
+import androidx.annotation.NonNull;
+
 import com.hierynomus.mssmb2.SMB2FileId;
 import com.hierynomus.mssmb2.messages.SMB2IoctlResponse;
 import com.hierynomus.smbj.io.ArrayByteChunkProvider;
+import com.hierynomus.smbj.io.ByteChunkProvider;
 
-import androidx.annotation.NonNull;
+import java.util.concurrent.Future;
 
 public class ShareAccessor {
     /**
-     * @see Share#ioctl(com.hierynomus.mssmb2.SMB2FileId, long, boolean,
-     *      com.hierynomus.smbj.io.ByteChunkProvider, int)
+     * This ioctl() variant allows passing in the {@param statusHandler}.
+     *
+     * @see Share#ioctl(com.hierynomus.mssmb2.SMB2FileId, long, boolean, ByteChunkProvider, int)
      */
     @NonNull
     public static SMB2IoctlResponse ioctl(@NonNull Share share, @NonNull SMB2FileId fileId,
