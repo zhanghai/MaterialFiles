@@ -12,7 +12,6 @@ import me.zhanghai.android.files.fileproperties.FilePropertiesFileViewModel
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.provider.common.PosixFileAttributes
 import me.zhanghai.android.files.provider.common.PosixPrincipal
-import me.zhanghai.android.files.provider.common.isNullOrEmpty
 import me.zhanghai.android.files.provider.common.toInt
 import me.zhanghai.android.files.provider.common.toModeString
 import me.zhanghai.android.files.util.Stateful
@@ -35,13 +34,17 @@ class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
         bindView(stateful) { file ->
             val attributes = file.attributes as PosixFileAttributes
             val owner = attributes.owner()
-            addItemView(R.string.file_properties_permissions_owner, getPrincipalText(owner)) {
-                SetOwnerDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment)
-            }
+            addItemView(
+                R.string.file_properties_permissions_owner, getPrincipalText(owner), owner?.let {
+                    { SetOwnerDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment) }
+                }
+            )
             val group = attributes.group()
-            addItemView(R.string.file_properties_permissions_group, getPrincipalText(group)) {
-                SetGroupDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment)
-            }
+            addItemView(
+                R.string.file_properties_permissions_group, getPrincipalText(group), group?.let {
+                    { SetGroupDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment) }
+                }
+            )
             val mode = attributes.mode()
             addItemView(
                 R.string.file_properties_permissions_mode, if (mode != null) {
@@ -51,24 +54,26 @@ class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
                     )
                 } else {
                     getString(R.string.unknown)
-                }
-            ) {
-                if (!attributes.isSymbolicLink) {
-                    SetModeDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment)
-                }
-            }
-            val seLinuxContext = attributes.seLinuxContext()
-            addItemView(
-                R.string.file_properties_permissions_selinux_context,
-                if (!seLinuxContext.isNullOrEmpty()) {
-                    seLinuxContext.toString()
+                }, if (mode != null && !attributes.isSymbolicLink) {
+                    { SetModeDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment) }
                 } else {
-                    getString(R.string.empty_placeholder)
+                    null
                 }
-            ) {
-                SetSeLinuxContextDialogFragment.show(
-                    file, this@FilePropertiesPermissionsTabFragment
-                )
+            )
+            val seLinuxContext = attributes.seLinuxContext()
+            if (seLinuxContext != null) {
+                addItemView(
+                    R.string.file_properties_permissions_selinux_context,
+                    if (seLinuxContext.isNotEmpty()) {
+                        seLinuxContext.toString()
+                    } else {
+                        getString(R.string.empty_placeholder)
+                    }
+                ) {
+                    SetSeLinuxContextDialogFragment.show(
+                        file, this@FilePropertiesPermissionsTabFragment
+                    )
+                }
             }
         }
     }

@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.linux
 
+import android.system.OsConstants
 import java8.nio.file.attribute.FileTime
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.PosixFileAttributeView
@@ -56,9 +57,9 @@ internal class LocalLinuxFileAttributeView(
                 Syscalls.getfilecon(path)
             }
         } catch (e: SyscallException) {
-            // Filesystem may not support xattrs and SELinux calls may fail with EOPNOTSUPP.
+            // SELinux calls may fail with ENODATA or ENOTSUP, and there may be other errors.
             e.toFileSystemException(path.toString()).printStackTrace()
-            null
+            if (e.errno == OsConstants.ENODATA) ByteString.EMPTY else null
         }
         return LinuxFileAttributes.from(stat, owner, group, seLinuxContext)
     }
