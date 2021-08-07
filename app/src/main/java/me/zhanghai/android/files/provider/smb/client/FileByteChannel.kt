@@ -70,13 +70,13 @@ class FileByteChannel(
             if (isAppend) {
                 position = getSize()
             }
-            val length = try {
+            return try {
                 file.write(ByteBufferChunkProvider(source, position))
             } catch (e: SMBRuntimeException) {
                 throw e.toIOException()
+            }.also {
+                position += it
             }
-            position += length
-            return length
         }
     }
 
