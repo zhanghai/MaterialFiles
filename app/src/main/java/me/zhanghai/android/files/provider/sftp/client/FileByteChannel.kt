@@ -71,6 +71,7 @@ class FileByteChannel(
             } catch (e: IOException) {
                 throw e.maybeToSpecificException()
             }
+            source.position(source.limit())
             position += remaining
             return remaining
         }
