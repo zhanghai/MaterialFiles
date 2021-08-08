@@ -103,7 +103,7 @@ private fun createStyle(context: Context): String {
 
 private fun Int.toCssColor(): String =
     if (Color.alpha(this) == 0xFF) {
-        "#${(this and 0x00FFFFFF).toString(16)}"
+        "#%06X".format(this and 0x00FFFFFF)
     } else {
         "rgba(${Color.red(this)}, ${Color.green(this)}, ${Color.blue(this)}, ${
             Color.alpha(this).toFloat() / 0xFF
