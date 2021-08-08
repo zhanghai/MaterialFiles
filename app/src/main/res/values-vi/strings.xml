@@ -56,13 +56,13 @@
         <item quantity="other">%1$,d byte</item>
     </plurals>
 
-    <string name="storage_permission_request_message">Ứng dụng cần quyền truy cập tập tin. Hãy chọn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
+    <string name="storage_permission_request_message">Ứng dụng cần quyền truy cập tệp. Hãy nhấn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
     <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tệp. Hãy cấp quyền \"Bộ nhớ\" trong cài đặt hệ thống.</string>
 
     <string name="notification_channel_background_activity_start_name">Hành động khi chạy nền</string>
     <string name="notification_channel_background_activity_start_description">Thực hiện các hành động khi ứng dụng chạy nền</string>
-    <string name="notification_channel_file_job_name">Thao tác với tập tin</string>
-    <string name="notification_channel_file_job_description">Hiển thị và điều khiển các thao tác liên quan đến tập tin</string>
+    <string name="notification_channel_file_job_name">Thao tác với tệp</string>
+    <string name="notification_channel_file_job_description">Hiển thị và điều khiển các thao tác với tệp</string>
     <string name="notification_channel_ftp_server_name">Máy chủ FTP</string>
     <string name="notification_channel_ftp_server_description">Hiển thị và điều khiển máy chủ FTP</string>
 
@@ -146,12 +146,12 @@
     <string name="file_job_cannot_extract_into_itself_title">Không thể giải nén thư mục vào trong chính nó</string>
     <string name="file_job_cannot_move_into_itself_title">Không thể di chuyển thư mục vào trong chính nó</string>
     <string name="file_job_cannot_copy_move_into_itself_message">Thư mục đích ở trong thư mục nguồn.</string>
-    <string name="file_job_cannot_copy_over_itself_title">Không thể sao chép một tập tin đè lên chính nó</string>
-    <string name="file_job_cannot_extract_over_itself_title">Không thể giải nén tập tin đè lên chính nó</string>
-    <string name="file_job_cannot_move_over_itself_title">Không thể di chuyển tập tin đè lên chính nó</string>
-    <string name="file_job_cannot_copy_move_over_itself_message">Tập tin nguồn sẽ bị tập tin đích ghi đè.</string>
+    <string name="file_job_cannot_copy_over_itself_title">Không thể sao chép một tệp lên chính nó</string>
+    <string name="file_job_cannot_extract_over_itself_title">Không thể giải nén một tệp lên chính nó</string>
+    <string name="file_job_cannot_move_over_itself_title">Không thể di chuyển một tệp lên chính nó</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Tệp nguồn sẽ bị tệp đích ghi đè.</string>
     <string name="file_job_replace_title_format">Thay thế tệp “%1$s”?</string>
-    <string name="file_job_replace_message_format">Có tập tin trùng tên trong thư mục “%1$s”. Chọn thay thế sẽ ghi đè lên tập tin này.</string>
+    <string name="file_job_replace_message_format">Một tệp khác có cùng tên đã tồn tại trong “%1$s”.\nViệc thay thế sẽ ghi đè lên nội dung của nó.</string>
     <string name="file_job_replace_target_name">Tệp gốc</string>
     <string name="file_job_replace_source_name">Thay bằng</string>
     <string name="file_job_merge_title_format">Hợp nhất thư mục “%1$s”?</string>
@@ -192,7 +192,7 @@
     <string name="file_job_remount_success_format">“%1$s” đã được mount lại thành thiết bị đọc-ghi</string>
     <string name="file_job_action_all">Áp dụng hành động này cho tất cả tệp</string>
 
-    <string name="file_open_apk_message">Tập tin này là một gói cài đặt Android. Bạn muốn cài đặt hay xem nội dung của nó?</string>
+    <string name="file_open_apk_message">Tệp này là một gói cài đặt Android. Bạn muốn cài đặt hay xem nội dung của nó?</string>
     <string name="file_open_as_title">Mở dưới dạng…</string>
     <string name="file_open_as_title_format">Mở “%1$s” dưới dạng</string>
     <string name="file_open_as_type_text">Văn bản</string>
@@ -223,7 +223,7 @@
 
     <string name="file_list_title">Tệp</string>
     <plurals name="file_list_title_pick_file">
-        <item quantity="other">Chọn tập tin</item>
+        <item quantity="other">Chọn tệp</item>
     </plurals>
     <plurals name="file_list_title_pick_directory">
         <item quantity="other">Chọn thư mục</item>
@@ -479,7 +479,7 @@
         <item>Dựa theo chế độ tiết kiệm pin</item>
     </string-array>
     <string name="settings_black_night_mode">Chế độ ban đêm đen</string>
-    <string name="settings_file_list_animation_title">Hoạt ảnh danh sách tập tin</string>
+    <string name="settings_file_list_animation_title">Hoạt ảnh danh sách tệp</string>
     <string name="settings_file_name_ellipsize_title">Hiển thị tên tệp dài</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Rút ngắn ở đầu</item>
@@ -501,7 +501,7 @@
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Chế độ truy cập root</string>
     <plurals name="settings_root_strategy_message_format">
-        <item quantity="other">Bạn có %1$,d thao tác đang chạy, thay đổi chế độ root có thể gây ra lỗi. Bạn có chắc chắn muốn thay đổi ngay không?</item>
+        <item quantity="other">Bạn có %1$,d thao tác với tệp đang chạy và việc thay đổi chế độ truy cập root ngay bây giờ có thể gây ra lỗi không mong đợi. Bạn có chắc bạn muốn thay đổi ngay không?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Chỉ dùng quyền truy cập thông thường</item>
@@ -509,14 +509,14 @@
         <item>Ưu tiên truy cập root</item>
         <item>Chỉ dùng quyền truy cập root</item>
     </string-array>
-    <string name="settings_archive_file_name_encoding_title">Bảng mã kí tự của tập tin nén</string>
+    <string name="settings_archive_file_name_encoding_title">Bảng mã kí tự của tên tệp nén</string>
     <string name="settings_open_apk_default_action_title">Mở gói cài đặt Android</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Cài đặt</item>
         <item>Xem nội dung</item>
         <item>Hỏi xem sẽ làm gì</item>
     </string-array>
-    <string name="settings_read_remote_files_for_thumbnail_title">Đọc tập tin từ xa để lấy ảnh xem trước</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Đọc tệp từ xa để lấy ảnh xem trước</string>
 
     <string name="about_title">Giới thiệu</string>
     <string name="about_version_title">Phiên bản</string>

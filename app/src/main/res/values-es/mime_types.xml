@@ -7,7 +7,7 @@
 
 <resources>
     <string name="file_type_name_unknown">Archivo</string>
-    <string name="file_type_name_apk">Paquete Android</string>
+    <string name="file_type_name_apk">Paquete de Android</string>
     <string name="file_type_name_archive">%1$sarchivo</string>
     <string name="file_type_name_audio">%1$s audio</string>
     <string name="file_type_name_calendar">%1$s calendario</string>

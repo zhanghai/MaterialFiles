@@ -18,6 +18,7 @@
     <string name="empty">Vazio</string>
     <string name="empty_placeholder">(Vazio)</string>
     <string name="error">Erro</string>
+    <string name="hide">Ocultar</string>
     <string name="install">Instalar</string>
     <string name="keep_editing">Continuar editando</string>
     <string name="loading">Carregando…</string>
@@ -38,6 +39,7 @@
     <string name="select">Selecionar</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="share">Compartilhar</string>
+    <string name="show">Mostrar</string>
     <string name="skip">Próximo</string>
     <string name="sort">Classificar</string>
     <string name="stop">Parar</string>
@@ -191,6 +193,8 @@
     <string name="file_job_move_error_message_format">Houve um erro ao mover o arquivo em \"%1$s\".\n%2$s</string>
     <string name="file_job_delete_error_title">Erro ao excluir</string>
     <string name="file_job_delete_error_message_format">Houve um erro ao excluir \"%1$s\".\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Erro ao renomear \"%1$s\"</string>
+    <string name="file_job_rename_error_message_format">Ocorreu um erro ao renomear o arquivo para “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Erro ao alterar proprietário de \"%1$s\"</string>
     <string name="file_job_set_owner_error_message_format">Houve um erro ao alterar o proprietário para \"%1$s\".\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Erro ao alterar grupo de \"%1$s\"</string>
@@ -390,11 +394,49 @@
     <string name="file_properties_apk_min_sdk_version">Versão mínima do sistema</string>
     <string name="file_properties_apk_target_sdk_version">Versão do sistema de destino</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Permissões</string>
+    <string name="file_properties_apk_requested_permissions_zero">Nenhuma permissão solicitada</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d permissões solicitada</item>
+        <item quantity="other">%1$,d permissões solicitadas</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Assinaturas</string>
     <string name="file_properties_apk_past_signature_digests">Assinaturas antigas</string>
 
     <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_list_title">Armazenamento</string>
+    <string name="storage_list_empty">Nenhum armazenamento</string>
+    <string name="storage_add_storage_title">Adicionar armazenamento</string>
+    <string name="storage_add_storage_document_tree">Armazenamento externo</string>
+    <string name="storage_add_storage_smb_server">Servidor SMB</string>
+    <string name="storage_edit_device_storage_title">Editar armazenamento do dispositivo</string>
+    <string name="storage_edit_device_storage_name">Nome</string>
+    <string name="storage_edit_device_storage_path">Caminho</string>
+    <string name="storage_add_document_tree_title">Adicionar armazenamento externo</string>
+    <string name="storage_edit_document_tree_title">Editar armazenamento externo</string>
+    <string name="storage_edit_document_tree_name">Nome</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Caminho</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Procurando servidores SMB…</string>
+    <string name="storage_add_lan_smb_server_add">Adicionar manualmente</string>
+    <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
+    <string name="storage_edit_smb_server_title_add">Adicionar servidor SMB</string>
+    <string name="storage_edit_smb_server_host">Hostname</string>
+    <string name="storage_edit_smb_server_port">Porta</string>
+    <string name="storage_edit_smb_server_name">Nome</string>
+    <string name="storage_edit_smb_server_name_placeholder">Use hostname</string>
+    <string name="storage_edit_smb_server_authentication_type">Autenticação</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Senha</item>
+        <item>Convidado</item>
+        <item>Anônimo</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Usuário</string>
+    <string name="storage_edit_smb_server_password">Senha</string>
+    <string name="storage_edit_smb_server_domain">Domínio</string>
+    <string name="storage_edit_smb_server_connect_and_add">Conecte e adicione</string>
+    <string name="storage_edit_smb_server_add">Add</string>
 
     <string name="navigation_storage_subtitle_format">%1$s livre de %2$s</string>
     <string name="navigation_add_storage">Adicionar armazenamento…</string>
@@ -450,6 +492,8 @@
 
     <string name="settings_title">Configurações</string>
     <string name="settings_interface_title">Interface</string>
+    <string name="settings_theme_color_title">Cor do tema</string>
+    <string name="settings_theme_color_summary">Cor que aparece com mais frequência no aplicativo</string>
     <string name="settings_night_mode_title">Modo noturno</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir o sistema</item>
@@ -458,7 +502,15 @@
         <item>Baseado na hora</item>
         <item>Baseado na economia de bateria</item>
     </string-array>
+    <string name="settings_black_night_mode">Modo noite escura</string>
     <string name="settings_file_list_animation_title">Animação da lista de arquivos</string>
+    <string name="settings_file_name_ellipsize_title">Exibir nome de arquivo longo</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Elipsar o início</item>
+        <item>Elipsar o meio</item>
+        <item>Elipsar o final</item>
+        <item>Letreiro</item>
+    </string-array>
     <string name="settings_behavior_title">Comportamento</string>
     <string name="settings_default_directory_title">Pasta padrão</string>
     <string name="settings_storages_title">@string/storage_list_title</string>

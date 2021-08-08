@@ -15,9 +15,11 @@
     <string name="default_">Predeterminado</string>
     <string name="delete">Eliminar</string>
     <string name="discard">Descartar</string>
+    <string name="edit">Editar</string>
     <string name="empty">Vacío</string>
     <string name="empty_placeholder">(Vacío)</string>
     <string name="error">Error</string>
+    <string name="hide">Ocultar</string>
     <string name="install">Instalar</string>
     <string name="keep_editing">Continuar editando</string>
     <string name="loading">Cargando…</string>
@@ -38,6 +40,7 @@
     <string name="select">Seleccionar</string>
     <string name="select_all">Seleccionar todos</string>
     <string name="share">Compartir</string>
+    <string name="show">Mostrar</string>
     <string name="skip">Saltar</string>
     <string name="sort">Clasificar</string>
     <string name="stop">Parar</string>
@@ -191,6 +194,8 @@
     <string name="file_job_move_error_message_format">Hubo un error movimiento el archivo en \"%1$s\".\n%2$s</string>
     <string name="file_job_delete_error_title">Error al eliminar</string>
     <string name="file_job_delete_error_message_format">Hubo un error eliminando \"%1$s\".\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Error renombrando\"%1$s\"</string>
+    <string name="file_job_rename_error_message_format">Hubo un error renombrando \"%1$s\".\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Error al cambiar el propietario de \"%1$s\"</string>
     <string name="file_job_set_owner_error_message_format">Hubo un error cambiando el propietario de \"%1$s\".\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Error al cambiar el grupo de \"%1$s\"</string>
@@ -210,6 +215,7 @@
     <string name="file_job_action_all">Aplicar esta acción a todos los archivos</string>
 
     <string name="file_open_apk_message">Este archivo es un paquete Android. ¿Quieres instalarlo o ver su contenido?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Abrir como…</string>
     <string name="file_open_as_title_format">Abrir \"%1$s\" como</string>
     <string name="file_open_as_type_text">Texto</string>
@@ -390,11 +396,80 @@
     <string name="file_properties_apk_min_sdk_version">Versión mínima del sistema</string>
     <string name="file_properties_apk_target_sdk_version">Versión destino del sistema</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Permisos</string>
+    <string name="file_properties_apk_requested_permissions_zero">No se requieren permisos</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">No se requieren permisos</item>
+        <item quantity="other">%1$,d permisos requeridos</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Firmas</string>
+    <string name="file_properties_apk_signature_digests_empty">Sin firmas válidas</string>
     <string name="file_properties_apk_past_signature_digests">Firmas antiguas</string>
 
     <string name="storage_file_system_root_title">Raíz</string>
+    <string name="storage_list_title">Almacenamiento</string>
+    <string name="storage_list_empty">No hay almacenamiento</string>
+    <string name="storage_add_storage_title">Añadir almacenamiento</string>
+    <string name="storage_add_storage_document_tree">Almacenamiento externo</string>
+    <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
+    <string name="storage_add_storage_smb_server">Servidor SMB</string>
+    <string name="storage_edit_device_storage_title">Editar dispositivo de almacenamiento</string>
+    <string name="storage_edit_device_storage_name">Nombre</string>
+    <string name="storage_edit_device_storage_path">Ruta</string>
+    <string name="storage_add_document_tree_title">Agregar almacenamiento externo</string>
+    <string name="storage_edit_document_tree_title">Editar almacenamiento externo</string>
+    <string name="storage_edit_document_tree_name">Nombre</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Ruta</string>
+    <string name="storage_edit_sftp_server_title_edit">Editar servidor SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Añadir servidor SFTP</string>
+    <string name="storage_edit_sftp_server_host">Nombre del host</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Ingrese el nombre del host</string>
+    <string name="storage_edit_sftp_server_port">Puerto</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Puerto no válido</string>
+    <string name="storage_edit_sftp_server_path">Ruta</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Puede dejarse vacío</string>
+    <string name="storage_edit_sftp_server_name">Nombre</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Usar nombre del host</string>
+    <string name="storage_edit_sftp_server_authentication_type">Autentificación</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Contraseña</item>
+        <item>Clave pública</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Nombre de usuario</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_sftp_server_password">Contraseña</string>
+    <string name="storage_edit_sftp_server_private_key">Clave privada</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Abrir archivo</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Ingrese una clave privada</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Clave privada no válida</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Conectar y añadir</string>
+    <string name="storage_edit_sftp_server_add">Añadir</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Buscando servidores SMB</string>
+    <string name="storage_add_lan_smb_server_add">Añadir manualmente</string>
+    <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
+    <string name="storage_edit_smb_server_title_add">Añadir servidor SMB</string>
+    <string name="storage_edit_smb_server_host">Nombre de host</string>
+    <string name="storage_edit_smb_server_host_error_empty">Ingrese el nombre del host</string>
+    <string name="storage_edit_smb_server_port">Puerto</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Puerto no válido</string>
+    <string name="storage_edit_smb_server_path">Ruta</string>
+    <string name="storage_edit_smb_server_path_placeholder">Puede dejarse vacío</string>
+    <string name="storage_edit_smb_server_name">Nombre</string>
+    <string name="storage_edit_smb_server_name_placeholder">Usar nombre de host</string>
+    <string name="storage_edit_smb_server_authentication_type">Autenticación</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Contraseña</item>
+        <item>Invitado</item>
+        <item>Anonimo</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Nombre de usuario</string>
+    <string name="storage_edit_smb_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_smb_server_password">Contraseña</string>
+    <string name="storage_edit_smb_server_domain">Dominio</string>
+    <string name="storage_edit_smb_server_connect_and_add">Conectar y añadir</string>
+    <string name="storage_edit_smb_server_add">Añadir</string>
 
     <string name="navigation_storage_subtitle_format">%1$slibre de %2$s</string>
     <string name="navigation_add_storage">Agregar almacenamiento…</string>
@@ -426,6 +501,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Guardado</string>
     <string name="text_editor_reload_message">¿Estás seguro de recargar? Los cambios que no se hayan guardado en el documento se perderán.</string>
+    <string name="text_editor_encoding">Codificando</string>
     <string name="text_editor_close_message">¿Estás seguro que quieres descartar los cambios sin guardar en el documento?</string>
 
     <string name="ftp_server_title">Servidor FTP</string>
@@ -450,6 +526,8 @@
 
     <string name="settings_title">Ajustes</string>
     <string name="settings_interface_title">Interfaz</string>
+    <string name="settings_theme_color_title">Color de tema</string>
+    <string name="settings_theme_color_summary">Color que aparece más frecuentemente en la aplicación</string>
     <string name="settings_night_mode_title">Modo nocturno</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir sistema</item>
@@ -458,7 +536,15 @@
         <item>En base al horario</item>
         <item>En base al ahorro de batería</item>
     </string-array>
+    <string name="settings_black_night_mode">Modo noche oscuro</string>
     <string name="settings_file_list_animation_title">Animación de la lista de archivos</string>
+    <string name="settings_file_name_ellipsize_title">Mostrar nombre de archivo grande</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Eclipsar al principio</item>
+        <item>Elipsar en la mitad</item>
+        <item>Elipsar el final</item>
+        <item>Marca</item>
+    </string-array>
     <string name="settings_behavior_title">Comportamiento</string>
     <string name="settings_default_directory_title">Carpeta por defecto</string>
     <string name="settings_storages_title">@string/storage_list_title</string>
@@ -489,6 +575,8 @@
         <item>Ver contenido</item>
         <item>Preguntar qué hacer</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas para archivos PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Podría hacer que la aplicación se vuelva inestable en versiones antiguas de Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para obtener una miniatura</string>
 
     <string name="about_title">Sobre</string>

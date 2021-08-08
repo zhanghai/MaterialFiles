@@ -10,11 +10,12 @@
     <string name="app_name">ملفات متيريال</string>
 
     <string name="close">أغلق</string>
-    <string name="copy">انسخ</string>
+    <string name="copy">نسخ</string>
     <string name="cut">قص</string>
     <string name="default_">الافتراضي</string>
-    <string name="delete">احذف</string>
+    <string name="delete">حذف</string>
     <string name="discard">تجاهل</string>
+    <string name="edit">تعديل</string>
     <string name="empty">فارغ</string>
     <string name="empty_placeholder">(فارغ)</string>
     <string name="error">خطأ</string>
@@ -297,7 +298,8 @@
     <string name="file_job_remount_success_format">تمت إعادة تحميل ”%1$s“ في وضع قراءة-كتابة</string>
     <string name="file_job_action_all">قم بتطبيق هذا الإجراء على جميع الملفات</string>
 
-    <string name="file_open_apk_message">هذا الملف عبارة عن حزمة Android. هل تريد تثبيته أم عرض محتوياته؟</string>
+    <string name="file_open_apk_message">هذا الملف عبارة عن حزمة تطبيق لـ Android. هل تريد تثبيته أم عرض محتوياته؟</string>
+    <string name="file_edit_title">@string/select</string>
     <string name="file_open_as_title">افتح كـ …</string>
     <string name="file_open_as_title_format">افتح ”%1$s“ كـ</string>
     <string name="file_open_as_type_text">نص</string>
@@ -371,7 +373,7 @@
     <string name="file_list_action_navigate_up">اذهب للأعلى</string>
     <string name="file_list_action_show_hidden_files">أظهر الملفات المخفية</string>
     <string name="file_list_action_copy_path">انسخ المسار</string>
-    <string name="file_list_action_open_in_terminal">فتح في نافذة الأوامر terminal</string>
+    <string name="file_list_action_open_in_terminal">فتح في نافذة محرر الأوامر</string>
     <string name="file_list_action_add_bookmark">اضافة للإشاراة المرجعية</string>
     <string name="file_list_action_create_shortcut">إنشاء اختصار</string>
     <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
@@ -384,23 +386,23 @@
     <string name="file_list_paste_copy_title_format">نسخ %1$,d</string>
     <string name="file_list_paste_extract_title_format">استخراج %1$,d</string>
     <string name="file_list_paste_action_extract_here">استخرج هنا</string>
-    <string name="file_list_empty">لا ملفات</string>
+    <string name="file_list_empty">لا توجد ملفات</string>
     <string name="file_list_action_create_file">ملف</string>
     <string name="file_list_action_create_directory">مجلد</string>
 
     <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
-    <string name="file_item_action_open_with">فتح مع</string>
+    <string name="file_item_action_open_with">فتح بـ</string>
     <string name="file_item_action_extract">استخرج</string>
     <string name="file_item_action_archive">ضغط</string>
     <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
     <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
-    <string name="file_item_action_properties">خصائص</string>
+    <string name="file_item_action_properties">الخصائص</string>
 
     <string name="file_properties_title_format">”%1$s“ خصائص</string>
     <string name="file_properties_basic">أساسي</string>
-    <string name="file_properties_basic_name">اسم</string>
-    <string name="file_properties_basic_type">نوع</string>
+    <string name="file_properties_basic_name">الاسم</string>
+    <string name="file_properties_basic_type">النوع</string>
     <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_type_symbolic_link_format">رابط لـ %1$s (%2$s)</string>
     <string name="file_properties_basic_symbolic_link_target">رابط الهدف</string>
@@ -485,7 +487,7 @@
     <string name="file_properties_audio_year">السنة</string>
     <string name="file_properties_audio_genre">النوع</string>
     <string name="file_properties_media_duration">المدة الزمنية</string>
-    <string name="file_properties_media_bit_rate">معدل البت (البت ريت)</string>
+    <string name="file_properties_media_bit_rate">معدل البت /البت ريت</string>
     <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
     <string name="file_properties_audio_sample_rate">معدل العينة</string>
     <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
@@ -498,7 +500,7 @@
     <string name="file_properties_apk_min_sdk_version">الحد الأدنى لإصدار النظام</string>
     <string name="file_properties_apk_target_sdk_version">إصدار النظام المستهدف</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s، %3$d)</string>
-    <string name="file_properties_apk_requested_permissions">أذونات</string>
+    <string name="file_properties_apk_requested_permissions">الأذونات</string>
     <string name="file_properties_apk_requested_permissions_zero">لا توجد أذونات مطلوبة</string>
     <plurals name="file_properties_apk_requested_permissions_positive_format">
         <item quantity="zero">تم طلب %1$,d أذن</item>
@@ -509,22 +511,48 @@
         <item quantity="other">تم طلب %1$,d أذن</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">التوقيعات</string>
+    <string name="file_properties_apk_signature_digests_empty">لاتوجد تواقيع موثقة</string>
     <string name="file_properties_apk_past_signature_digests">التوقيعات القديمة</string>
 
-    <string name="storage_file_system_root_title">جذر (روت)</string>
+    <string name="storage_file_system_root_title">الجذر/الروت</string>
     <string name="storage_list_title">وحدة تخزين</string>
-    <string name="storage_list_empty">لا يوجد وحدة تخزين</string>
+    <string name="storage_list_empty">لا توجد وحدة تخزين</string>
     <string name="storage_add_storage_title">إضافة وحدة تخزين</string>
     <string name="storage_add_storage_document_tree">وحدة التخزين الخارجية</string>
+    <string name="storage_add_storage_sftp_server">خادم SFTP </string>
     <string name="storage_add_storage_smb_server">خادم SMB</string>
     <string name="storage_edit_device_storage_title">تحرير وحدة تخزين الجهاز</string>
     <string name="storage_edit_device_storage_name">الاسم</string>
-    <string name="storage_edit_device_storage_path">مسار</string>
+    <string name="storage_edit_device_storage_path">المسار</string>
     <string name="storage_add_document_tree_title">أضف وحدة تخزين خارجية</string>
     <string name="storage_edit_document_tree_title">تحرير وحدة التخزين الخارجية</string>
     <string name="storage_edit_document_tree_name">الاسم</string>
     <string name="storage_edit_document_tree_uri">URI</string>
-    <string name="storage_edit_document_tree_path">مسار</string>
+    <string name="storage_edit_document_tree_path">المسار</string>
+    <string name="storage_edit_sftp_server_title_edit">تحرير خادم SFTP </string>
+    <string name="storage_edit_sftp_server_title_add">إضافة خادم SFTP </string>
+    <string name="storage_edit_sftp_server_host">اسم المضيف</string>
+    <string name="storage_edit_sftp_server_host_error_empty">أدخل اسم مضيف</string>
+    <string name="storage_edit_sftp_server_port">المنفذ</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">منفذ غير صالح</string>
+    <string name="storage_edit_sftp_server_path">المسار</string>
+    <string name="storage_edit_sftp_server_path_placeholder">يمكن تركه فارغا</string>
+    <string name="storage_edit_sftp_server_name">الاسم</string>
+    <string name="storage_edit_sftp_server_name_placeholder">استخدم اسم المضيف</string>
+    <string name="storage_edit_sftp_server_authentication_type">المصادقة</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>كلمة المرور</item>
+        <item>مفتاح عام</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">اسم المستخدم</string>
+    <string name="storage_edit_sftp_server_username_error_empty">أدخل اسم مستخدم</string>
+    <string name="storage_edit_sftp_server_password">كلمة المرور</string>
+    <string name="storage_edit_sftp_server_private_key">مفتاح خاص</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">فتح ملف</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">ادخال مفتاح خاص</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">المفتاح الخاص غير صحيح</string>
+    <string name="storage_edit_sftp_server_connect_and_add">قم بالاتصال والإضافة</string>
+    <string name="storage_edit_sftp_server_add">إضافة</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">البحث عن خوادم SMB…</string>
     <string name="storage_add_lan_smb_server_add">إضافة يدويًا</string>
@@ -534,6 +562,8 @@
     <string name="storage_edit_smb_server_host_error_empty">أدخل اسم مضيف</string>
     <string name="storage_edit_smb_server_port">منفذ</string>
     <string name="storage_edit_smb_server_port_error_invalid">منفذ غير صالح</string>
+    <string name="storage_edit_smb_server_path">مسار</string>
+    <string name="storage_edit_smb_server_path_placeholder">يمكن تركه فارغا</string>
     <string name="storage_edit_smb_server_name">الاسم</string>
     <string name="storage_edit_smb_server_name_placeholder">استخدم اسم المضيف</string>
     <string name="storage_edit_smb_server_authentication_type">المصادقة</string>
@@ -551,22 +581,22 @@
 
     <string name="navigation_storage_subtitle_format">%1$s خالي من %2$s</string>
     <string name="navigation_add_storage">إضافة وحدة تخزين…</string>
-    <string name="navigation_standard_directory_alarms">منبه</string>
-    <string name="navigation_standard_directory_dcim">مجلد الكاميرا</string>
+    <string name="navigation_standard_directory_alarms">المنبه</string>
+    <string name="navigation_standard_directory_dcim">الكاميرا</string>
     <string name="navigation_standard_directory_documents">المستندات</string>
     <string name="navigation_standard_directory_downloads">التنزيلات</string>
     <string name="navigation_standard_directory_movies">الأفلام</string>
     <string name="navigation_standard_directory_music">الموسيقى</string>
     <string name="navigation_standard_directory_notifications">الإشعارات</string>
     <string name="navigation_standard_directory_pictures">الصور</string>
-    <string name="navigation_standard_directory_podcasts">المدونة الصوتية (بودكاست)</string>
+    <string name="navigation_standard_directory_podcasts">المدونة الصوتية /بودكاست</string>
     <string name="navigation_standard_directory_ringtones">النغمات</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
     <string name="navigation_edit_bookmark_directory_title">مجلد الإشارات المرجعية</string>
     <string name="navigation_edit_bookmark_directory_name">الاسم</string>
-    <string name="navigation_edit_bookmark_directory_path">مسار</string>
+    <string name="navigation_edit_bookmark_directory_path">المسار</string>
     <string name="navigation_ftp_server">@string/ftp_server_title</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
@@ -579,6 +609,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">تم الحفظ</string>
     <string name="text_editor_reload_message">هل أنت متأكد أنك تريد إعادة التحميل؟ ستفقد التغييرات غير المحفوظة على هذا المستند.</string>
+    <string name="text_editor_encoding">ترميز</string>
     <string name="text_editor_close_message">هل أنت متأكد أنك تريد تجاهل التغييرات غير المحفوظة في هذا المستند؟</string>
 
     <string name="ftp_server_title">خادم FTP </string>
@@ -602,7 +633,7 @@
     <string name="ftp_server_notification_text">خادم FTP قيد التشغيل</string>
 
     <string name="settings_title">الإعدادات</string>
-    <string name="settings_interface_title">واجهه المستخدم</string>
+    <string name="settings_interface_title">واجهة المستخدم</string>
     <string name="settings_theme_color_title">لون الثيم</string>
     <string name="settings_theme_color_summary">اللون الذي يظهر بشكل متكرر في التطبيق</string>
     <string name="settings_night_mode_title">الوضع الليلي</string>
@@ -610,11 +641,11 @@
         <item>اتبع النظام</item>
         <item>إيقاف</item>
         <item>تشغيل</item>
-        <item>على أساس الوقت</item>
-        <item>على أساس توفير شحن البطارية</item>
+        <item>يعتمد على الوقت</item>
+        <item>يعتمد على وضع توفير الطاقة</item>
     </string-array>
     <string name="settings_black_night_mode">الوضع الليلي الأسود</string>
-    <string name="settings_file_list_animation_title">قائمة الملفات المتحركة</string>
+    <string name="settings_file_list_animation_title">التأثيرات المتحركة لقائمة الملفات</string>
     <string name="settings_file_name_ellipsize_title">عرض اسم ملف طويل</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>قلل من البداية</item>
@@ -622,7 +653,7 @@
         <item>قلل من النهاية</item>
         <item>شاشة اسمية</item>
     </string-array>
-    <string name="settings_behavior_title">سلوك</string>
+    <string name="settings_behavior_title">السلوك</string>
     <string name="settings_default_directory_title">المجلد الإفتراضى</string>
     <string name="settings_storages_title">@string/storage_list_title</string>
     <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
@@ -634,7 +665,7 @@
     <string name="settings_bookmark_directories_summary_empty">لا توجد مجلدات الإشارات المرجعية</string>
     <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
-    <string name="settings_root_strategy_title">وضع الوصول إلى الجذر (الروت)</string>
+    <string name="settings_root_strategy_title">وضع الوصول إلى الجذر/الروت</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="zero">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
         <item quantity="one">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
@@ -645,8 +676,8 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>الوصول العادي فقط</item>
-        <item>تفضل الوصول العادي</item>
-        <item>تفضل الوصول إلى الجذر</item>
+        <item>تفضيل الوصول العادي</item>
+        <item>تفضيل الوصول إلى الجذر</item>
         <item>الوصول إلى الجذر فقط</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">أرشيف اسم ملف الترميز</string>
@@ -656,6 +687,8 @@
         <item>عرض المحتويات</item>
         <item>اسأل ماذا تفعل</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">إظهار الصورة المصغرة لملفات PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">قد يجعل التطبيق غير مستقر على الإصدارات الأقدم من Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">قراءة الملفات البعيدة للصور المصغرة</string>
 
     <string name="about_title">حول</string>
@@ -665,9 +698,9 @@
     <string name="about_privacy_policy_title">سياسة الخصوصة</string>
     <string name="about_author_title">المؤلف</string>
     <string name="about_author_name_title">هاي تشانغ Hai Zhang</string>
-    <string name="about_author_github_title">تابع على GitHub</string>
+    <string name="about_author_github_title">تابعني على GitHub</string>
     <string name="about_author_google_plus_title">أضف إلى دوائر Google+</string>
-    <string name="about_author_twitter_title">تابع على Twitter</string>
+    <string name="about_author_twitter_title">متابعة على Twitter</string>
 
     <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
     <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
