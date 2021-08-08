@@ -180,14 +180,7 @@ class FileByteChannel(
 
         init {
             val engine = RemoteFileAccessor.getRequester(file)
-            val subsystem = engine.subsystem
-            // There is no way to negotiate a max packet size in SFTP, and the protocol only
-            // required servers to support at least 32KiB, which will be the value returned by
-            // subsystem.localMaxPacketSize.
-            // @see http://lists.mindrot.org/pipermail/openssh-bugs/2006-January/004179.html
-            // TODO: Use multiple pending requests to improve performance.
-            bufferSize = subsystem.localMaxPacketSize
-                .coerceAtMost(subsystem.remoteMaxPacketSize - file.outgoingPacketOverhead)
+            bufferSize = DEFAULT_BUFFER_SIZE
             timeout = engine.timeoutMs.toLong()
         }
 
@@ -275,5 +268,10 @@ class FileByteChannel(
                 bufferedPosition = newPosition
             }
         }
+    }
+
+    companion object {
+        // @see SmbConfig.DEFAULT_BUFFER_SIZE
+        private const val DEFAULT_BUFFER_SIZE = 1024 * 1024
     }
 }
