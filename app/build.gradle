@@ -31,7 +31,9 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 31
     ndkVersion '22.1.7171670'
-    buildToolsVersion '31.0.0'
+    // Build tools 31.0.0 broke librootjava: https://github.com/Chainfire/librootjava/issues/24 .
+    //buildToolsVersion '31.0.0'
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
