@@ -26,7 +26,7 @@
     <string name="merge">Обединаване</string>
     <string name="none">Няма</string>
     <string name="paste">Поставяне</string>
-    <string name="pick">Избиране</string>
+    <string name="pick">@string/select</string>
     <string name="refresh">Опресняване</string>
     <string name="reload">Презареждане</string>
     <string name="remove">Премахване</string>
@@ -48,7 +48,7 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Няма намерено приложение за това действие</string>
-    <string name="copied_to_clipboard_format">Копирано в клипборда</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Отваряне на настройки</string>
     <string name="shortcut_created">Прекият път е създаден</string>
 
@@ -214,6 +214,7 @@
     <string name="file_job_action_all">Прилагане за всички файлове</string>
 
     <string name="file_open_apk_message">Този файл е пакет на Андроид. Искате да го инсталирате или да видите съдържанието му?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Отваряне като…</string>
     <string name="file_open_as_title_format">Отваряне на \"%1$s\" като</string>
     <string name="file_open_as_type_text">Текст</string>
@@ -274,11 +275,11 @@
     <string name="file_list_action_open_in_terminal">Отваряне в терминал</string>
     <string name="file_list_action_add_bookmark">Добавяне на отметка</string>
     <string name="file_list_action_create_shortcut">Създаване на пряк път</string>
-    <string name="file_list_breadcrumb_action_copy_path">Копиране на път</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Отваряне в нов прозорез</string>
     <string name="file_list_select_title_format">%1$,d избран(и)</string>
-    <string name="file_list_select_action_extract">Извличане</string>
-    <string name="file_list_select_action_archive">Архивиране</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Избиране на \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Преместване на %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копиране на %1$,d</string>
@@ -292,9 +293,9 @@
     <string name="file_item_action_open_with">Отваряне с</string>
     <string name="file_item_action_extract">Извличане</string>
     <string name="file_item_action_archive">Компресиране</string>
-    <string name="file_item_action_copy_path">Копиране на път</string>
-    <string name="file_item_action_add_bookmark">Добавяне като отметка</string>
-    <string name="file_item_action_create_shortcut">Създаване на пряк път</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Свойства</string>
 
     <string name="file_properties_title_format">Свойства на \"%1$s\"</string>
@@ -417,7 +418,7 @@
     <string name="storage_edit_document_tree_name">Име</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Път</string>
-    <string name="storage_add_lan_smb_server_title">Име</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Търсене на SMB сървъри…</string>
     <string name="storage_add_lan_smb_server_add">Ръчно добавяне</string>
     <string name="storage_edit_smb_server_title_edit">Редакция на SMB сървър</string>
@@ -456,13 +457,13 @@
     <string name="navigation_edit_bookmark_directory_title">Отметната папка</string>
     <string name="navigation_edit_bookmark_directory_name">Име</string>
     <string name="navigation_edit_bookmark_directory_path">Път</string>
-    <string name="navigation_ftp_server">FTP сървър</string>
-    <string name="navigation_settings">Настройки</string>
-    <string name="navigation_about">Относнно</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
 
     <string name="image_viewer_title">Преглед на изображение</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">Изтриване</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Текстов редактор</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -487,7 +488,7 @@
     <string name="ftp_server_port_title">Порт</string>
     <string name="ftp_server_home_directory_title">Основна папка</string>
     <string name="ftp_server_writable_title">Разрешаване на писане</string>
-    <string name="ftp_server_notification_title">Име на FTP сървър</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP сървърът работи</string>
 
     <string name="settings_title">Настройки</string>
@@ -513,16 +514,16 @@
     </string-array>
     <string name="settings_behavior_title">Поведение</string>
     <string name="settings_default_directory_title">Папка по подразбиране</string>
-    <string name="settings_storages_title">Хранилища</string>
-    <string name="settings_storages_summary_empty">Няма хранилища</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Стандартни папки</string>
     <string name="settings_standard_directories_summary_empty">Няма стандартни папки</string>
-    <string name="settings_standard_directory_list_title">Стандартни папки</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Екранни снимки</string>
     <string name="settings_bookmark_directories_title">Отметнати папки</string>
     <string name="settings_bookmark_directories_summary_empty">Няма отметнати папки</string>
-    <string name="settings_bookmark_directory_list_title">Отметнати папки</string>
-    <string name="settings_bookmark_directory_list_empty">Няма отметнати папки</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root достъп</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Имате изпълняваща се %1$,d файлова операция и промяната на root режима за достъп може да доведе до неочаквана грешка. Сигурни ли сте, че искате да го смените сега?</item>
@@ -554,6 +555,6 @@
     <string name="about_author_google_plus_title">Добавяне към Google+ circles</string>
     <string name="about_author_twitter_title">Следене в Twitter</string>
 
-    <string name="shortcut_downloads_title">Изтегляния</string>
-    <string name="shortcut_ftp_server_title">Име на FTP сървъра</string>
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>
