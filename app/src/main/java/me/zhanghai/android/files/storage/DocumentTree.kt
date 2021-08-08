@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.storage
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
@@ -36,6 +37,9 @@ data class DocumentTree(
 
     override val iconRes: Int
         @DrawableRes
+        // Error: Call requires API level 24 (current min is 21):
+        // android.os.storage.StorageVolume#equals [NewApi]
+        @SuppressLint("NewApi")
         get() {
             val storageVolume = uri.storageVolume
             return if (storageVolume != null && !storageVolume.isPrimaryCompat) {
