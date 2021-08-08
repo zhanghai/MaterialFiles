@@ -170,7 +170,14 @@ class FileByteChannel(
             if (!isOpen) {
                 return
             }
-            file.close()
+            try {
+                file.close()
+            } catch (e: SFTPException) {
+                // NO_SUCH_FILE is returned when canceling an in-progress copy to SFTP server.
+                if (e.statusCode != Response.StatusCode.NO_SUCH_FILE) {
+                    throw e
+                }
+            }
         }
     }
 
