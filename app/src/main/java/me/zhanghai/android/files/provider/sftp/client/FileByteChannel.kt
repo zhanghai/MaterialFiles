@@ -153,11 +153,11 @@ class FileByteChannel(
         when {
             this is SFTPException && statusCode == Response.StatusCode.INVALID_HANDLE -> {
                 synchronized(closeLock) { isOpen = false }
-                AsynchronousCloseException().apply { initCause(this) }
+                AsynchronousCloseException().apply { initCause(this@maybeToSpecificException) }
             }
-            this is InterruptedIOException -> {
+            this is InterruptedIOException || cause is InterruptedException -> {
                 closeSafe()
-                ClosedByInterruptException().apply { initCause(this) }
+                ClosedByInterruptException().apply { initCause(this@maybeToSpecificException) }
             }
             else -> this
         }
