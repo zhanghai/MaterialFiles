@@ -55,7 +55,6 @@ internal class SftpPath : ByteStringListPath<SftpPath>, Client.Path {
         get() =
             ByteStringBuilder(BYTE_STRING_TWO_SLASHES)
                 .append(fileSystem.authority.toString().toByteString())
-                .append(separator)
                 .append(super.uriSchemeSpecificPart!!)
                 .toByteString()
 
