@@ -72,11 +72,16 @@ private fun createStyle(context: Context): String {
         context.getColorByAttr(R.attr.colorOnSurface), (0.08f * 0xFF).roundToInt()
     ).toCssColor()
     val linkTextColor = context.getColorByAttr(android.R.attr.textColorLink).toCssColor()
+    val textHighlightColor = context.getColorByAttr(android.R.attr.textColorHighlight).toCssColor()
     return """
+        ::selection {
+            background: $textHighlightColor;
+        }
         body {
             color: $primaryTextColor;
             margin: 0;
             overflow-wrap: break-word;
+            -webkit-tap-highlight-color: $textHighlightColor;
         }
         ul {
             list-style-type: none;
