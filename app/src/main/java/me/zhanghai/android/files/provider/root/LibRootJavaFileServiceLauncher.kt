@@ -10,6 +10,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import eu.chainfire.librootjava.Debugger
+import eu.chainfire.librootjava.Logger
 import eu.chainfire.librootjava.RootIPC
 import eu.chainfire.librootjava.RootIPCReceiver
 import eu.chainfire.librootjava.RootJava
@@ -42,6 +43,7 @@ object LibRootJavaFileServiceLauncher {
         // Work around https://github.com/Chainfire/librootjava/issues/23
         //Debugger.setEnabled(BuildConfig.DEBUG)
         Debugger.setEnabled(BuildConfig.DEBUG && Build.VERSION.SDK_INT < Build.VERSION_CODES.R)
+        Logger.setDebugLogging(BuildConfig.DEBUG)
     }
 
     @Throws(RemoteFileSystemException::class)
