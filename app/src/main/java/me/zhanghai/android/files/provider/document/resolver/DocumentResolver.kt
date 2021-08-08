@@ -551,7 +551,7 @@ object DocumentResolver {
     fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor {
         // DocumentsProvider doesn't support selection and selectionArgs.
         var cursor = Resolver.query(uri, projection, null, null, sortOrder)
-        cursor = ExternalStorageProviderHack.transformQueryResult(uri, cursor)
+        cursor = ExternalStorageProviderHacks.transformQueryResult(uri, cursor)
         return cursor
     }
 
