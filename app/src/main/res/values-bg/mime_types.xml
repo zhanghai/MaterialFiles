@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Файл</string>
+    <string name="file_type_name_apk">Пакет на Андроид</string>
+    <string name="file_type_name_archive">%1$s архив</string>
+    <string name="file_type_name_audio">%1$s аудио</string>
+    <string name="file_type_name_calendar">%1$s календар</string>
+    <string name="file_type_name_certificate">%1$s сертификат</string>
+    <string name="file_type_name_code">%1$s документ</string>
+    <string name="file_type_name_contact">Електронна визитка</string>
+    <string name="file_type_name_directory">Папка</string>
+    <string name="file_type_name_document">%1$s документ</string>
+    <string name="file_type_name_ebook">%1$s е-книга</string>
+    <string name="file_type_name_email">%1$s електронно съобщение</string>
+    <string name="file_type_name_font">%1$s шрифт</string>
+    <string name="file_type_name_generic">%1$s файл</string>
+    <string name="file_type_name_image">%1$s изображение</string>
+    <string name="file_type_name_pdf">PDF документ</string>
+    <string name="file_type_name_presentation">%1$s презентация</string>
+    <string name="file_type_name_spreadsheet">%1$s таблица</string>
+    <string name="file_type_name_text">%1$s документ</string>
+    <string name="file_type_name_text_plain">Текстов документ</string>
+    <string name="file_type_name_video">%1$s видео</string>
+    <string name="file_type_name_word">Word документ</string>
+    <string name="file_type_name_powerpoint">PowerPoint презентация</string>
+    <string name="file_type_name_excel">Excel таблица</string>
+    <string name="file_type_name_posix_character_device">Символно устройство</string>
+    <string name="file_type_name_posix_block_device">Блоково устройство</string>
+    <string name="file_type_name_posix_fifo">Тръба (Pipe)</string>
+    <string name="file_type_name_posix_symbolic_link">Връзка</string>
+    <string name="file_type_name_posix_socket">Socket</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Връзка (счупена)</string>
+</resources>

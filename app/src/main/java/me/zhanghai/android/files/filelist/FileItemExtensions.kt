@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.content.Context
+import android.os.Build
 import java8.nio.file.Path
 import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileTime
@@ -13,8 +14,10 @@ import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.getBrokenSymbolicLinkName
 import me.zhanghai.android.files.file.getName
+import me.zhanghai.android.files.file.isApk
+import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.file.isMedia
-import me.zhanghai.android.files.file.supportsThumbnail
+import me.zhanghai.android.files.file.isPdf
 import me.zhanghai.android.files.provider.archive.createArchiveRootPath
 import me.zhanghai.android.files.provider.document.documentSupportsThumbnail
 import me.zhanghai.android.files.provider.document.isDocumentPath
@@ -50,22 +53,29 @@ val FileItem.isListable: Boolean
 val FileItem.listablePath: Path
     get() = if (isArchiveFile) path.createArchiveRootPath() else path
 
+// @see PathAttributesFetcher.fetch
 val FileItem.supportsThumbnail: Boolean
     get() =
         when {
-            path.isLinuxPath -> mimeType.supportsThumbnail
+            path.isLinuxPath ->
+                mimeType.isImage || mimeType.isMedia || (showPdfThumbnail && mimeType.isPdf)
+                        || mimeType.isApk
             path.isDocumentPath -> {
                 when {
                     attributes.documentSupportsThumbnail -> true
-                    mimeType.isMedia ->
+                    mimeType.isImage || mimeType.isMedia || (showPdfThumbnail && mimeType.isPdf) ->
                         DocumentResolver.isLocal(path as DocumentResolver.Path)
                             || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
                     else -> false
                 }
             }
-            // TODO: Allow other providers as well - but might be resource consuming.
-            else -> false
+            else -> mimeType.isImage && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
         }
+
+private val showPdfThumbnail: Boolean
+    get() =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                || Settings.SHOW_PDF_THUMBNAIL_PRE_28.valueCompat
 
 fun FileItem.createDummyArchiveRoot(): FileItem =
     FileItem(

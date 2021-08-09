@@ -50,11 +50,10 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): SmbPath =
         SmbPath(fileSystem, absolute, segments)
 
-    override val uriSchemeSpecificPart: ByteString?
+    override val uriSchemeSpecificPart: ByteString
         get() =
             ByteStringBuilder(BYTE_STRING_TWO_SLASHES)
                 .append(fileSystem.authority.toString().toByteString())
-                .append(separator)
                 .append(super.uriSchemeSpecificPart!!)
                 .toByteString()
 

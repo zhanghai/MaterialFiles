@@ -15,9 +15,11 @@
     <string name="default_">デフォルト</string>
     <string name="delete">削除</string>
     <string name="discard">破棄</string>
+    <string name="edit">編集</string>
     <string name="empty">空</string>
     <string name="empty_placeholder">(空)</string>
     <string name="error">エラー</string>
+    <string name="hide">隠す</string>
     <string name="install">インストール</string>
     <string name="keep_editing">編集を続ける</string>
     <string name="loading">読み込み中…</string>
@@ -38,6 +40,7 @@
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
     <string name="share">共有</string>
+    <string name="show">見せる</string>
     <string name="skip">スキップ</string>
     <string name="sort">並び替え</string>
     <string name="stop">停止</string>
@@ -170,6 +173,8 @@
     <string name="file_job_move_error_message_format">ファイルを “%1$s” に移動する際にエラーが発生しました。\n%2$s</string>
     <string name="file_job_delete_error_title">削除中にエラーが発生しました</string>
     <string name="file_job_delete_error_message_format">“%1$s” の削除中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_rename_error_title_format">“%1$s”の名前変更中にエラーが発生しました</string>
+    <string name="file_job_rename_error_message_format">ファイルを “%1$s” へ名前変更中にエラーが発生しました。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">“%1$s” の所有者を変更中にエラーが発生しました</string>
     <string name="file_job_set_owner_error_message_format">所有者を “%1$s” に変更する際にエラーが発生しました。\n%2$s</string>
     <string name="file_job_set_group_error_title_format">グループを“%1$s”に変更する際にエラーが発生しました。</string>
@@ -189,6 +194,7 @@
     <string name="file_job_action_all">この操作をすべてのファイルに適用</string>
 
     <string name="file_open_apk_message">このファイルは Android パッケージです。インストールしますか？それとも中身を表示しますか？</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">指定形式として開く…</string>
     <string name="file_open_as_title_format">“%1$s” を指定の形式として開く</string>
     <string name="file_open_as_type_text">テキスト</string>
@@ -286,7 +292,7 @@
     <string name="file_properties_basic_archive_file">圧縮ファイル</string>
     <string name="file_properties_basic_archive_entry">アーカイブエントリー</string>
     <string name="file_properties_basic_free_space">空き容量</string>
-    <string name="file_properties_permissions">パーミッション</string>
+    <string name="file_properties_permissions">権限</string>
     <string name="file_properties_permissions_owner">所有者</string>
     <string name="file_properties_permissions_group">グループ</string>
     <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
@@ -364,13 +370,82 @@
     <string name="file_properties_apk_min_sdk_version">最低システムバージョン</string>
     <string name="file_properties_apk_target_sdk_version">対象システムバージョン</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">権限</string>
+    <string name="file_properties_apk_requested_permissions_zero">権限が要求されていません</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="other">%1$,d 権限を要求</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">署名</string>
+    <string name="file_properties_apk_signature_digests_empty">有効な署名がない</string>
     <string name="file_properties_apk_past_signature_digests">古い署名</string>
 
     <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_list_title">ストレージ</string>
+    <string name="storage_list_empty">ストレージなし</string>
+    <string name="storage_add_storage_title">ストレージを追加</string>
+    <string name="storage_add_storage_document_tree">外部ストレージ</string>
+    <string name="storage_add_storage_sftp_server">SFTP サーバー</string>
+    <string name="storage_add_storage_smb_server">SMB サーバー</string>
+    <string name="storage_edit_device_storage_title">デバイスのストレージを編集</string>
+    <string name="storage_edit_device_storage_name">名前</string>
+    <string name="storage_edit_device_storage_path">パス</string>
+    <string name="storage_add_document_tree_title">外部ストレージを追加</string>
+    <string name="storage_edit_document_tree_title">外部ストレージを編集</string>
+    <string name="storage_edit_document_tree_name">名前</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">パス</string>
+    <string name="storage_edit_sftp_server_title_edit">SFTP サーバーを編集</string>
+    <string name="storage_edit_sftp_server_title_add">SFTP サーバーを追加</string>
+    <string name="storage_edit_sftp_server_host">ホスト名</string>
+    <string name="storage_edit_sftp_server_host_error_empty">ホスト名を入力</string>
+    <string name="storage_edit_sftp_server_port">ポート</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">無効なポート</string>
+    <string name="storage_edit_sftp_server_path">パス</string>
+    <string name="storage_edit_sftp_server_path_placeholder">空のままでもよい</string>
+    <string name="storage_edit_sftp_server_name">名前</string>
+    <string name="storage_edit_sftp_server_name_placeholder">ホスト名を使う</string>
+    <string name="storage_edit_sftp_server_authentication_type">認証</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>パスワード</item>
+        <item>公開鍵</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">ユーザー名</string>
+    <string name="storage_edit_sftp_server_username_error_empty">ユーザー名を入力</string>
+    <string name="storage_edit_sftp_server_password">パスワード</string>
+    <string name="storage_edit_sftp_server_private_key">秘密鍵</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">ファイルを開く</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">秘密鍵を入力</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">無効な秘密鍵</string>
+    <string name="storage_edit_sftp_server_connect_and_add">接続と追加</string>
+    <string name="storage_edit_sftp_server_add">追加</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">SMB サーバーを検索中…</string>
+    <string name="storage_add_lan_smb_server_add">手動で追加</string>
+    <string name="storage_edit_smb_server_title_edit">SMB サーバーを編集</string>
+    <string name="storage_edit_smb_server_title_add">SMB サーバーを追加</string>
+    <string name="storage_edit_smb_server_host">ホスト名</string>
+    <string name="storage_edit_smb_server_host_error_empty">ホスト名を入力</string>
+    <string name="storage_edit_smb_server_port">ポート</string>
+    <string name="storage_edit_smb_server_port_error_invalid">無効なポート</string>
+    <string name="storage_edit_smb_server_path">パス</string>
+    <string name="storage_edit_smb_server_path_placeholder">空のままでもよい</string>
+    <string name="storage_edit_smb_server_name">名前</string>
+    <string name="storage_edit_smb_server_name_placeholder">ホスト名を使う</string>
+    <string name="storage_edit_smb_server_authentication_type">認証</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>パスワード</item>
+        <item>ゲスト</item>
+        <item>匿名</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">ユーザー名</string>
+    <string name="storage_edit_smb_server_username_error_empty">ユーザー名を入力</string>
+    <string name="storage_edit_smb_server_password">パスワード</string>
+    <string name="storage_edit_smb_server_domain">ドメイン</string>
+    <string name="storage_edit_smb_server_connect_and_add">接続と追加</string>
+    <string name="storage_edit_smb_server_add">追加</string>
 
     <string name="navigation_storage_subtitle_format">%1$s 空き / %2$s</string>
+    <string name="navigation_add_storage">ストレージを追加…</string>
     <string name="navigation_standard_directory_alarms">アラーム</string>
     <string name="navigation_standard_directory_dcim">写真</string>
     <string name="navigation_standard_directory_documents">ドキュメント</string>
@@ -399,6 +474,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">保存しました</string>
     <string name="text_editor_reload_message">再読み込みしてもよろしいですか？このドキュメントの未保存の変更は失われます。</string>
+    <string name="text_editor_encoding">エンコーディング</string>
     <string name="text_editor_close_message">保存していないこのドキュメントの変更を破棄してもよろしいですか？</string>
 
     <string name="ftp_server_title">FTP サーバー</string>
@@ -423,6 +499,8 @@
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">外観</string>
+    <string name="settings_theme_color_title">テーマ色</string>
+    <string name="settings_theme_color_summary">アプリ内での出現頻度が高い色</string>
     <string name="settings_night_mode_title">夜間モード</string>
     <string-array name="settings_night_mode_entries">
         <item>システム設定に従う</item>
@@ -431,7 +509,15 @@
         <item>時刻に依存</item>
         <item>バッテリーセーバーに依存</item>
     </string-array>
+    <string name="settings_black_night_mode">黒い夜間モード</string>
     <string name="settings_file_list_animation_title">ファイル一覧のアニメーション</string>
+    <string name="settings_file_name_ellipsize_title">長いファイル名の表示方法</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>冒頭を省略</item>
+        <item>中央を省略</item>
+        <item>末尾を省略</item>
+        <item>スクロール</item>
+    </string-array>
     <string name="settings_behavior_title">動作</string>
     <string name="settings_default_directory_title">既定フォルダ</string>
     <string name="settings_storages_title">@string/storage_list_title</string>
@@ -461,6 +547,8 @@
         <item>コメントを見る</item>
         <item>何をすべきか尋ねる</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ファイルのサムネイルを表示する</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">古いバージョンの Android ではアプリが不安定になる可能性があります</string>
     <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネイルを読み込む</string>
 
     <string name="about_title">このアプリについて</string>

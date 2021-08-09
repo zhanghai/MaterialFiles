@@ -52,6 +52,10 @@
     public <init>();
 }
 
+# Bouncy Castle
+-keep class org.bouncycastle.jcajce.provider.** { *; }
+-keep class org.bouncycastle.jce.provider.** { *; }
+
 # Stetho No-op
 # This library includes the no-op for stetho-okhttp3 which requires okhttp3, but we never used it.
 -dontwarn com.facebook.stetho.okhttp3.StethoInterceptor

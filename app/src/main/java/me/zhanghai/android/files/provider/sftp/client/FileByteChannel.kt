@@ -71,6 +71,7 @@ class FileByteChannel(
             } catch (e: IOException) {
                 throw e.maybeToSpecificException()
             }
+            source.position(source.limit())
             position += remaining
             return remaining
         }
@@ -152,11 +153,11 @@ class FileByteChannel(
         when {
             this is SFTPException && statusCode == Response.StatusCode.INVALID_HANDLE -> {
                 synchronized(closeLock) { isOpen = false }
-                AsynchronousCloseException().apply { initCause(this) }
+                AsynchronousCloseException().apply { initCause(this@maybeToSpecificException) }
             }
-            this is InterruptedIOException -> {
+            this is InterruptedIOException || cause is InterruptedException -> {
                 closeSafe()
-                ClosedByInterruptException().apply { initCause(this) }
+                ClosedByInterruptException().apply { initCause(this@maybeToSpecificException) }
             }
             else -> this
         }
@@ -169,7 +170,14 @@ class FileByteChannel(
             if (!isOpen) {
                 return
             }
-            file.close()
+            try {
+                file.close()
+            } catch (e: SFTPException) {
+                // NO_SUCH_FILE is returned when canceling an in-progress copy to SFTP server.
+                if (e.statusCode != Response.StatusCode.NO_SUCH_FILE) {
+                    throw e
+                }
+            }
         }
     }
 
@@ -179,14 +187,7 @@ class FileByteChannel(
 
         init {
             val engine = RemoteFileAccessor.getRequester(file)
-            val subsystem = engine.subsystem
-            // There is no way to negotiate a max packet size in SFTP, and the protocol only
-            // required servers to support at least 32KiB, which will be the value returned by
-            // subsystem.localMaxPacketSize.
-            // @see http://lists.mindrot.org/pipermail/openssh-bugs/2006-January/004179.html
-            // TODO: Use multiple pending requests to improve performance.
-            bufferSize = subsystem.localMaxPacketSize
-                .coerceAtMost(subsystem.remoteMaxPacketSize - file.outgoingPacketOverhead)
+            bufferSize = DEFAULT_BUFFER_SIZE
             timeout = engine.timeoutMs.toLong()
         }
 
@@ -274,5 +275,10 @@ class FileByteChannel(
                 bufferedPosition = newPosition
             }
         }
+    }
+
+    companion object {
+        // @see SmbConfig.DEFAULT_BUFFER_SIZE
+        private const val DEFAULT_BUFFER_SIZE = 1024 * 1024
     }
 }

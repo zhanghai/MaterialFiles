@@ -15,6 +15,7 @@
     <string name="default_">Predefinito</string>
     <string name="delete">Elimina</string>
     <string name="discard">Scarta</string>
+    <string name="edit">Modifica</string>
     <string name="empty">Vuoto</string>
     <string name="empty_placeholder">(Vuoto)</string>
     <string name="error">Errore</string>
@@ -214,6 +215,7 @@
     <string name="file_job_action_all">Applica questa azione a tutti i file</string>
 
     <string name="file_open_apk_message">Questo file è un pacchetto di Android. Vuoi installarlo o vederne i contenuti?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Apri come…</string>
     <string name="file_open_as_title_format">Apri “%1$s” come</string>
     <string name="file_open_as_type_text">Testo</string>
@@ -401,6 +403,7 @@
         <item quantity="other">%1$,d autorizzazioni richieste</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Firme</string>
+    <string name="file_properties_apk_signature_digests_empty">Nessuna firma valida</string>
     <string name="file_properties_apk_past_signature_digests">Vecchie firme</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -408,6 +411,7 @@
     <string name="storage_list_empty">Nessuna archiviazione</string>
     <string name="storage_add_storage_title">Aggiungi archiviazione</string>
     <string name="storage_add_storage_document_tree">Archiviazione esterna</string>
+    <string name="storage_add_storage_sftp_server">Server SFTP</string>
     <string name="storage_add_storage_smb_server">Server SMB</string>
     <string name="storage_edit_device_storage_title">Modifica archiviazione dispositivo</string>
     <string name="storage_edit_device_storage_name">Nome</string>
@@ -417,6 +421,30 @@
     <string name="storage_edit_document_tree_name">Nome</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Percorso</string>
+    <string name="storage_edit_sftp_server_title_edit">Modifica server SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Aggiungi server SFTP</string>
+    <string name="storage_edit_sftp_server_host">Nome host</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Inserisci un nome host</string>
+    <string name="storage_edit_sftp_server_port">Porta</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Porta non valida</string>
+    <string name="storage_edit_sftp_server_path">Percorso</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Può essere lasciato vuoto</string>
+    <string name="storage_edit_sftp_server_name">Nome</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Usa nome host</string>
+    <string name="storage_edit_sftp_server_authentication_type">Autenticazione</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Password</item>
+        <item>Chiave pubblica</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Nome utente</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Inserisci un nome utente</string>
+    <string name="storage_edit_sftp_server_password">Password</string>
+    <string name="storage_edit_sftp_server_private_key">Chiave privata</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Apri file</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Inserisci una chiave privata</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Chiave privata non valida</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Connetti e aggiungi</string>
+    <string name="storage_edit_sftp_server_add">Aggiungi</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Ricerca di server SMB…</string>
     <string name="storage_add_lan_smb_server_add">Aggiungi manualmente</string>
@@ -426,6 +454,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Inserisci un nome host</string>
     <string name="storage_edit_smb_server_port">Porta</string>
     <string name="storage_edit_smb_server_port_error_invalid">Porta non valida</string>
+    <string name="storage_edit_smb_server_path">Percorso</string>
+    <string name="storage_edit_smb_server_path_placeholder">Può essere lasciato vuoto</string>
     <string name="storage_edit_smb_server_name">Nome</string>
     <string name="storage_edit_smb_server_name_placeholder">Usa nome host</string>
     <string name="storage_edit_smb_server_authentication_type">Autenticazione</string>
@@ -471,6 +501,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Salvato</string>
     <string name="text_editor_reload_message">Sei sicuro di volere ricaricare? Le modifiche a questo documento non salvate verranno perse.</string>
+    <string name="text_editor_encoding">Codifica in corso</string>
     <string name="text_editor_close_message">Sei sicuro di volere scartare le modifiche a questo documento non salvate?</string>
 
     <string name="ftp_server_title">Server FTP</string>
@@ -544,6 +575,8 @@
         <item>Vedi contenuti</item>
         <item>Chiedi cosa fare</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostra miniatura per i file PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Può rendere l\'app instabile su versioni vecchie di Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Leggi file remoti per miniatura</string>
 
     <string name="about_title">Al riguardo</string>

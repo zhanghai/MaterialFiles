@@ -31,13 +31,15 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 31
     ndkVersion '22.1.7171670'
-    buildToolsVersion '31.0.0'
+    // Build tools 31.0.0 broke librootjava: https://github.com/Chainfire/librootjava/issues/24 .
+    //buildToolsVersion '31.0.0'
+    buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 24
-        versionName '1.3.0'
+        versionCode 25
+        versionName '1.3.1'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
@@ -80,7 +82,7 @@ android {
     lintOptions {
         // For "Invalid package reference in library; not included in Android: javax.security.sasl.
         // Referenced from org.apache.mina.proxy.ProxyAuthException."
-        warning 'InvalidPackage'
+        warning 'InvalidPackage', 'MissingTranslation'
     }
     applicationVariants.all { variant ->
         variant.outputs.all {

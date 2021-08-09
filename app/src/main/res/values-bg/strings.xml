@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">Затваряне</string>
+    <string name="copy">Копиране</string>
+    <string name="cut">Изрязване</string>
+    <string name="default_">По подразбиране</string>
+    <string name="delete">Изтриване</string>
+    <string name="discard">Отказ</string>
+    <string name="empty">Празно</string>
+    <string name="empty_placeholder">(Празно)</string>
+    <string name="error">Грешка</string>
+    <string name="hide">Скриване</string>
+    <string name="install">Инсталиране</string>
+    <string name="keep_editing">Продължаване редактирането</string>
+    <string name="loading">Зареждане…</string>
+    <string name="maybe_later">По къно</string>
+    <string name="merge">Обединаване</string>
+    <string name="none">Няма</string>
+    <string name="paste">Поставяне</string>
+    <string name="pick">@string/select</string>
+    <string name="refresh">Опресняване</string>
+    <string name="reload">Презареждане</string>
+    <string name="remove">Премахване</string>
+    <string name="rename">Преименуване</string>
+    <string name="replace">Замяна</string>
+    <string name="reset">Нулиране</string>
+    <string name="retry">Повтаряне</string>
+    <string name="save">Запис</string>
+    <string name="search">Търсене</string>
+    <string name="select">Избиране</string>
+    <string name="select_all">Избиране всички</string>
+    <string name="share">Споделяне</string>
+    <string name="show">Показване</string>
+    <string name="skip">Пропускане</string>
+    <string name="sort">Подреждане</string>
+    <string name="stop">Спиране</string>
+    <string name="unknown">Неизвестно</string>
+    <string name="view">Изглед</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Няма намерено приложение за това действие</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="open_settings">Отваряне на настройки</string>
+    <string name="shortcut_created">Прекият път е създаден</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d байт</item>
+        <item quantity="other">%1$,d байта</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">Трябват права за достъпа до файлове. Моля натиснете \"Разрешаване\" в следващия системен прозорец</string>
+    <string name="storage_permission_permanently_denied_message">Трябват права за достъпа до файлове. Моля разрешете \"ХРАНИЛИЩЕ\" в правата в системните настройки.</string>
+
+    <string name="notification_channel_background_activity_start_name">Действия на заден план</string>
+    <string name="notification_channel_background_activity_start_description">Изпълняване на действия докато приложението е на заден план</string>
+    <string name="notification_channel_file_job_name">Файлови операции</string>
+    <string name="notification_channel_file_job_description">Показване и контролиране на файлови операции</string>
+    <string name="notification_channel_ftp_server_name">FTP сървър</string>
+    <string name="notification_channel_ftp_server_description">Показване и контролиране на FTP сървъра</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="one">Приготвяне да се компресира %1$,d файл (%2$s)</item>
+        <item quantity="other">Подготвяне да се компресират %1$,d файла (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">Компресиране на \"%1$s\" в \"%2$s\"</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="one">Компресиране на %1$,d файл в \"%2$s\"</item>
+        <item quantity="other">Компресиране на %1$,d файла в \"%2$s\"</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="one">Приготвяне да се копира %1$,d файл (%2$s)</item>
+        <item quantity="other">Подготвяне да се копират %1$,d файла (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">Копиране на %1$s в %2$s</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="one">Копиране на %1$,d файл в \"%2$s\"</item>
+        <item quantity="other">Копиране на %1$,d файла в \"%2$s\"</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="one">Приготвяне да се извлече %1$,d файл (%2$s)</item>
+        <item quantity="other">Подготвяне да се извлекат %1$,d файла (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">Извличане на \"%1$s\" в \"%2$s\"</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="one">Извличане на %1$,d файл в \"%2$s\"</item>
+        <item quantity="other">Извличане на %1$,d файла в \"%2$s\"</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="one">Подготвяне да се премести %1$,d файл (%2$s)</item>
+        <item quantity="other">Подготвяне да се преместят %1$,d файла (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">Преместване на \"%1$s\" в \"%2$s\"</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="one">Преместване на %1$,d файл към \"%2$s\"</item>
+        <item quantity="other">Преместване на %1$,d файла към \"%2$s\"</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="one">Подготвяне да се изтрие %1$,d файл</item>
+        <item quantity="other">Подготвяне да се изтрият %1$,d файла</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">Изтриване на \"%1$s\"</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="one">Изтриване на %1$,d файл</item>
+        <item quantity="other">Изтриване на %1$,d файла</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="one">Подготвяне за смяна на притежателя на %1$,d файл</item>
+        <item quantity="other">Подготвяне за смяна на притежателя на %1$,d файла</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">Смяна на притежателя на \"%1$s\"</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="one">Смяна на притежателя на %1$,d файл</item>
+        <item quantity="other">Смяна на притежателя на %1$,d файла</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="one">Подготовка за промяна на групата на %1$,d файл</item>
+        <item quantity="other">Подготвяне за промяна на групата на %1$,d файла</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">Промяна на групата на \"%1$s\"</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="one">Смяна на групата на %1$,d файл</item>
+        <item quantity="other">Смяна на групата на %1$,d файла</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="one">Подготовка за смяна на правата на %1$,d файл</item>
+        <item quantity="other">Подготвяне за смяна на правата на %1$,d файла</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">Смяна на правата на \"%1$s\"</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="one">Смяна на правата на %1$,d файл</item>
+        <item quantity="other">Смяна на правата на %1$,d файла</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="one">Подготовка за смяна на SELinux контекста на %1$,d файл</item>
+        <item quantity="other">Подготвяне за смяна на SELinux контекста на %1$,d файла</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">Промяна на SELinux контекста за \"%1$s\"</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Промяна на SELinux контекста на %1$,d файл</item>
+        <item quantity="other">Промяна на SELinux контекста на %1$,d файла</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="one">Подготовка за възстановяване на SELinux контекста на %1$,d файл</item>
+        <item quantity="other">Подготвяне за възстановяване на SELinux контекста на %1$,d файла</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Възстановяване на SELinux контекста за \"%1$s\"</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Възстановяване на SELinux контекста за %1$,d файл</item>
+        <item quantity="other">Възстановяване на SELinux контекста за %1$,d файлове</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Записване на \"%1$s\"</string>
+    <string name="file_job_create_error_title">Грешка при създаването</string>
+    <string name="file_job_create_error_message_format">Възникна грешка при създаването на \"%1$s\".\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">Не може да се копира папка в себе си</string>
+    <string name="file_job_cannot_extract_into_itself_title">Не може да се извлече папка в себе си</string>
+    <string name="file_job_cannot_move_into_itself_title">Не може да се премести папка в себе си</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">Целевата папка е в папката източник</string>
+    <string name="file_job_cannot_copy_over_itself_title">Не може да се копира файл върху себе си</string>
+    <string name="file_job_cannot_extract_over_itself_title">Не може да се извлече файл върху себе си</string>
+    <string name="file_job_cannot_move_over_itself_title">Не може да се премести файл върху себе си</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Не може да се копира/мести върху себе си</string>
+    <string name="file_job_replace_title_format">Замяна на файла \"%1$s\"?</string>
+    <string name="file_job_replace_message_format">Друг файл със същото име вече съществува в \"%1$s\".\nПодмяната му ще презапише съдържанието му.</string>
+    <string name="file_job_replace_target_name">Оригинален файл</string>
+    <string name="file_job_replace_source_name">Замяна с</string>
+    <string name="file_job_merge_title_format">Обединяване на папката \"%1$s\"?</string>
+    <string name="file_job_merge_copy_message_format">Обединяването ще поиска потвърждение, преди да замени всички файлове в папката, които са в конфликт с копираните файлове.</string>
+    <string name="file_job_merge_extract_message_format">Обединяването ще поиска потвърждение, преди да замени всички файлове в папката, които са в конфликт с извличаните файлове.</string>
+    <string name="file_job_merge_move_message_format">Обединяването ще поиска потвърждение, преди да замени всички файлове в папката, които са в конфликт с преместваните файлове.</string>
+    <string name="file_job_merge_target_name">Оригинална папка</string>
+    <string name="file_job_merge_source_name">Обединяване с</string>
+    <string name="file_job_conflict_show_name">Избиране на ново име</string>
+    <string name="file_job_conflict_name_hint">Ново име</string>
+    <string name="file_job_archive_error_title_format">Грешка при компресирането на \"%1$s\"</string>
+    <string name="file_job_archive_error_message_format">Възникна грешка докато файлът се компресираше в \"%1$s\".\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Грешка при копирането на \"%1$s\"</string>
+    <string name="file_job_copy_error_message_format">Възникна грешка докато файлът се копираше в \"%1$s\".\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Грешка при извличането на \"%1$s\"</string>
+    <string name="file_job_extract_error_message_format">Възникна грешка при извличането на файлът в \"%1$s\".\n%2$s</string>
+    <string name="file_job_move_error_title_format">Грешка при преместването на \"%1$s\"</string>
+    <string name="file_job_move_error_message_format">Възникна грешка при преместването на файла в \"%1$s\".\n%2$s</string>
+    <string name="file_job_delete_error_title">Грешка при изтриване</string>
+    <string name="file_job_delete_error_message_format">Възникна грешка при изтриването на \"%1$s\".\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Възникна грешка при преименуването на \"%1$s\"</string>
+    <string name="file_job_rename_error_message_format">Възникна грешка при преименуването на файла на \"%1$s\"\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Грешка при смяната на притежателя на \"%1$s\"</string>
+    <string name="file_job_set_owner_error_message_format">Възникна грешка при смяната на притежателя на \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Грешка при промяна на групата на \"%1$s\"</string>
+    <string name="file_job_set_group_error_message_format">Възникна грешка при промяната на групата на \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Грешка при промяната на правата на \"%1$s\"</string>
+    <string name="file_job_set_mode_error_message_format">Възникна грешка при промяна на правата на \"%1$s\".\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Грешка при промяна на SELinux контекста на \"%1$s\"</string>
+    <string name="file_job_set_selinux_context_error_message_format">Възникна грешка при промяната на SELinux контекста на \"%1$s\".\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Грешка при възстановяване на SELinux контекста</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Възникна грешка при възстановяване на SELinux контекста на \"%1$s\".\n%2$s</string>
+    <string name="file_job_write_error_title">Грешка при писане</string>
+    <string name="file_job_write_error_message_format">Възникна грешка при писането на \"%1$s\".\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Възникна грешка при получаването на информация за \"%1$s\".</string>
+    <string name="file_job_remount_format">Закачане \"%1$s\" за писане и четене</string>
+    <string name="file_job_remount_loading_format">Закачане \"%1$s\" за писане и четене…</string>
+    <string name="file_job_remount_success_format">\"%1$s\" беше закачено за писане и четене</string>
+    <string name="file_job_action_all">Прилагане за всички файлове</string>
+
+    <string name="file_open_apk_message">Този файл е пакет на Андроид. Искате да го инсталирате или да видите съдържанието му?</string>
+    <string name="file_edit_title">@string/edit</string>
+    <string name="file_open_as_title">Отваряне като…</string>
+    <string name="file_open_as_title_format">Отваряне на \"%1$s\" като</string>
+    <string name="file_open_as_type_text">Текст</string>
+    <string name="file_open_as_type_image">Каркинка</string>
+    <string name="file_open_as_type_audio">Аудио</string>
+    <string name="file_open_as_type_video">Видео</string>
+    <string name="file_open_as_type_directory">Папка</string>
+    <string name="file_open_as_type_any">Друго</string>
+    <string name="file_install_apk_from_background_title_format">“%1$s” е готово да бъде инсталирано</string>
+    <string name="file_install_apk_from_background_text">Натиснете за да инсталирате</string>
+    <string name="file_open_from_background_title_format">“%1$s” е готово да бъде отворено</string>
+    <string name="file_open_from_background_text">Натиснете за да отворите</string>
+    <string name="file_name_error_empty">Файлът на може да е празен</string>
+    <string name="file_name_error_invalid">Невалидно име на файл</string>
+    <string name="file_name_error_already_exists">Файл с това име вече съществува</string>
+    <string name="file_delete_message_file_format">Изтриване на \"%1$s\"?</string>
+    <string name="file_delete_message_directory_format">Изтриване на папката \"%1$s\" и нейното съдържание?</string>
+    <string name="file_delete_message_multiple_files_format">Изтриване на %1$,d файла?</string>
+    <string name="file_delete_message_multiple_directories_format">Изтриване на %1$,d папки и тяхното съдържание?</string>
+    <string name="file_delete_message_multiple_mixed_format">Изтриване на %1$,d елемента?</string>
+    <string name="file_create_archive_title">Създаване на архив</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Добавена е отметка</string>
+    <string name="file_create_file_title">Нов файл</string>
+    <string name="file_create_directory_title">Нова папка</string>
+
+    <string name="file_list_title">Файлове</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="one">Избиране на файл</item>
+        <item quantity="other">Избиране на файлове</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="one">Избиране на папка</item>
+        <item quantity="other">Избиране на папки</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d папка</item>
+        <item quantity="other">%1$,d папки</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d файл</item>
+        <item quantity="other">%1$,d файлове</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_action_sort_by_name">Име</string>
+    <string name="file_list_action_sort_by_type">Тип</string>
+    <string name="file_list_action_sort_by_size">Размер</string>
+    <string name="file_list_action_sort_by_last_modified">Последна промяна</string>
+    <string name="file_list_action_sort_order_ascending">Възходящ</string>
+    <string name="file_list_action_sort_directories_first">Първо папките</string>
+    <string name="file_list_action_sort_path_specific">Само тази папка</string>
+    <string name="file_list_action_new_task">Нов прозорец</string>
+    <string name="file_list_action_navigate_up">Нагоре</string>
+    <string name="file_list_action_show_hidden_files">Показване на скрити файлове</string>
+    <string name="file_list_action_copy_path">Копиране на път</string>
+    <string name="file_list_action_open_in_terminal">Отваряне в терминал</string>
+    <string name="file_list_action_add_bookmark">Добавяне на отметка</string>
+    <string name="file_list_action_create_shortcut">Създаване на пряк път</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Отваряне в нов прозорез</string>
+    <string name="file_list_select_title_format">%1$,d избран(и)</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">Избиране на \"%1$s\"</string>
+    <string name="file_list_paste_move_title_format">Преместване на %1$,d</string>
+    <string name="file_list_paste_copy_title_format">Копиране на %1$,d</string>
+    <string name="file_list_paste_extract_title_format">Извличане на %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Извличане тук</string>
+    <string name="file_list_empty">Няма файлове</string>
+    <string name="file_list_action_create_file">Файл</string>
+    <string name="file_list_action_create_directory">Папка</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Отваряне с</string>
+    <string name="file_item_action_extract">Извличане</string>
+    <string name="file_item_action_archive">Компресиране</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
+    <string name="file_item_action_properties">Свойства</string>
+
+    <string name="file_properties_title_format">Свойства на \"%1$s\"</string>
+    <string name="file_properties_basic">Основни</string>
+    <string name="file_properties_basic_name">Име</string>
+    <string name="file_properties_basic_type">Тип</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Връзка към %1$s(%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Цел на връзката</string>
+    <string name="file_properties_basic_size">Размер</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Съдържание</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d елемент, общо %2$s</item>
+        <item quantity="other">%1$,d елемента, общо%2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Последна промяна</string>
+    <string name="file_properties_basic_parent_directory">Предишна папка</string>
+    <string name="file_properties_basic_archive_file">Архивен файл</string>
+    <string name="file_properties_basic_archive_entry">Запис в архива</string>
+    <string name="file_properties_basic_free_space">Свободно пространство</string>
+    <string name="file_properties_permissions">Права</string>
+    <string name="file_properties_permissions_owner">Притежател</string>
+    <string name="file_properties_permissions_group">Група</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Промяна на притежател</string>
+    <string name="file_properties_permissions_set_group_title">Промяна на група</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Въведете име или ID</string>
+    <string name="file_properties_permissions_set_principal_system">Система</string>
+    <string name="file_properties_permissions_mode">Права</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Промяна на права</string>
+    <string name="file_properties_permissions_set_mode_others">Други</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Четене</item>
+        <item>Писане</item>
+        <item>Стартиране</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Четене</item>
+        <item>Писане</item>
+        <item>Търсене</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Специални</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Set UID</item>
+        <item>Set GID</item>
+        <item>Sticky бит</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Да не се добавя \"Изпълнение\" рекурсивно</string>
+    <string name="file_properties_permissions_selinux_context">SELinux контекст</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Смяна на SELinux контекст</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Възстановяване</string>
+    <string name="file_properties_permissions_recursive">Рекурсивно прилагане</string>
+    <string name="file_properties_image">Изображение</string>
+    <string name="file_properties_media_dimensions">Размери</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Направена на</string>
+    <string name="file_properties_media_coordinates">Координати</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Местоположене</string>
+    <string name="file_properties_image_gps_altitude">Височина</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Камера</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Апертура</string>
+    <string name="file_properties_image_shutter_speed">Shutter speed</string>
+    <string name="file_properties_image_focal_length">Фокусно разстояние</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO еквивалент</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Софтуер</string>
+    <string name="file_properties_image_description">Описание</string>
+    <string name="file_properties_image_artist">Създател</string>
+    <string name="file_properties_image_copyright">Авторски права</string>
+    <string name="file_properties_audio">Аудио</string>
+    <string name="file_properties_media_title">Име</string>
+    <string name="file_properties_audio_artist">Артист</string>
+    <string name="file_properties_audio_album">Албум</string>
+    <string name="file_properties_audio_album_artist">Артист на албума</string>
+    <string name="file_properties_audio_composer">Композитор</string>
+    <string name="file_properties_audio_disc_number">Диск</string>
+    <string name="file_properties_audio_track_number">Track</string>
+    <string name="file_properties_audio_year">Година</string>
+    <string name="file_properties_audio_genre">Жанр</string>
+    <string name="file_properties_media_duration">Времетраене</string>
+    <string name="file_properties_media_bit_rate">Bit rate</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">Sample rate</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Видео</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Име</string>
+    <string name="file_properties_apk_package_name">Име на пакета</string>
+    <string name="file_properties_apk_version">Версия</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Минимална версия на системата</string>
+    <string name="file_properties_apk_target_sdk_version">Целева версия на системата</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Права</string>
+    <string name="file_properties_apk_requested_permissions_zero">Няма заявени права</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">Заявен %1$,d право</item>
+        <item quantity="other">Заявени %1$,d права</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">Подписи</string>
+    <string name="file_properties_apk_past_signature_digests">Стари подписи</string>
+
+    <string name="storage_file_system_root_title">Начална</string>
+    <string name="storage_list_title">Хранилище</string>
+    <string name="storage_list_empty">Няма хранилища</string>
+    <string name="storage_add_storage_title">Добавяне на хранилище</string>
+    <string name="storage_add_storage_document_tree">Външно хранилище</string>
+    <string name="storage_add_storage_smb_server">SMB сървър</string>
+    <string name="storage_edit_device_storage_title">Редактиране на хранилището на устройството</string>
+    <string name="storage_edit_device_storage_name">Име</string>
+    <string name="storage_edit_device_storage_path">Път</string>
+    <string name="storage_add_document_tree_title">Добавяне на външно хранилище</string>
+    <string name="storage_edit_document_tree_title">Редакция на външно хранилище</string>
+    <string name="storage_edit_document_tree_name">Име</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Път</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Търсене на SMB сървъри…</string>
+    <string name="storage_add_lan_smb_server_add">Ръчно добавяне</string>
+    <string name="storage_edit_smb_server_title_edit">Редакция на SMB сървър</string>
+    <string name="storage_edit_smb_server_title_add">Добавяне на SMB сървър</string>
+    <string name="storage_edit_smb_server_host">Име на машина</string>
+    <string name="storage_edit_smb_server_port">Порт</string>
+    <string name="storage_edit_smb_server_name">Име</string>
+    <string name="storage_edit_smb_server_name_placeholder">Използване на името на хоста</string>
+    <string name="storage_edit_smb_server_authentication_type">Тип удостоверяване</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Парола</item>
+        <item>Гост</item>
+        <item>Анонимен</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Потребител</string>
+    <string name="storage_edit_smb_server_password">Парола</string>
+    <string name="storage_edit_smb_server_domain">Домейн</string>
+    <string name="storage_edit_smb_server_connect_and_add">Свързване и добавяне</string>
+    <string name="storage_edit_smb_server_add">Добавяне</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s свободни от %2$s</string>
+    <string name="navigation_add_storage">Добавяне на хранилище…</string>
+    <string name="navigation_standard_directory_alarms">Аларми</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Документи</string>
+    <string name="navigation_standard_directory_downloads">Изтегляния</string>
+    <string name="navigation_standard_directory_movies">Филми</string>
+    <string name="navigation_standard_directory_music">Музика</string>
+    <string name="navigation_standard_directory_notifications">Известия</string>
+    <string name="navigation_standard_directory_pictures">Картинтки</string>
+    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_ringtones">Тонове за звънене</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Отметната папка</string>
+    <string name="navigation_edit_bookmark_directory_name">Име</string>
+    <string name="navigation_edit_bookmark_directory_path">Път</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="image_viewer_title">Преглед на изображение</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
+    <string name="text_editor_title">Текстов редактор</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">Запазен</string>
+    <string name="text_editor_reload_message">Сигурни ли сте, че искате да презаредите? Незапазените промени по този документ ще се загубят.</string>
+    <string name="text_editor_close_message">Сигурни ли сте, че искате да отмените незаписаните промени в този документ?</string>
+
+    <string name="ftp_server_title">FTP сървър</string>
+    <string name="ftp_server_state_title">Статус</string>
+    <string name="ftp_server_state_summary_starting">Стартиране…</string>
+    <string name="ftp_server_state_summary_running">Работещ</string>
+    <string name="ftp_server_state_summary_stopping">Спиране…</string>
+    <string name="ftp_server_state_summary_stopped">Не е стартиран</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Не може да се вземе локалния IP адрес</string>
+    <string name="ftp_server_url_menu_copy_url">Копиране на URL</string>
+    <string name="ftp_server_url_menu_copy_password">Копиране на парола</string>
+    <string name="ftp_server_configuration_title">Конфигурация</string>
+    <string name="ftp_server_anonymous_login_title">Анонимно вписване</string>
+    <string name="ftp_server_username_title">Потребител</string>
+    <string name="ftp_server_password_title">Парола</string>
+    <string name="ftp_server_port_title">Порт</string>
+    <string name="ftp_server_home_directory_title">Основна папка</string>
+    <string name="ftp_server_writable_title">Разрешаване на писане</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">FTP сървърът работи</string>
+
+    <string name="settings_title">Настройки</string>
+    <string name="settings_interface_title">Интерфейс</string>
+    <string name="settings_theme_color_title">Цвят на темата</string>
+    <string name="settings_theme_color_summary">Цвят, който се ползва най-често в приложението</string>
+    <string name="settings_night_mode_title">Нощен режим</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Използвай системния</item>
+        <item>Изк.</item>
+        <item>Вкл.</item>
+        <item>Според времето</item>
+        <item>Според пестенето на батерия</item>
+    </string-array>
+    <string name="settings_black_night_mode">Тъмен нощен режим</string>
+    <string name="settings_file_list_animation_title">Анимиране на списъка на файлове</string>
+    <string name="settings_file_name_ellipsize_title">Показване на дълги файлови имена</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Скриване на началото</item>
+        <item>Скриване на средата</item>
+        <item>Скриване на края</item>
+        <item>Marquee</item>
+    </string-array>
+    <string name="settings_behavior_title">Поведение</string>
+    <string name="settings_default_directory_title">Папка по подразбиране</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
+    <string name="settings_standard_directories_title">Стандартни папки</string>
+    <string name="settings_standard_directories_summary_empty">Няма стандартни папки</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
+    <string name="settings_bookmark_directory_screenshots">Екранни снимки</string>
+    <string name="settings_bookmark_directories_title">Отметнати папки</string>
+    <string name="settings_bookmark_directories_summary_empty">Няма отметнати папки</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_root_strategy_title">Root достъп</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">Имате изпълняваща се %1$,d файлова операция и промяната на root режима за достъп може да доведе до неочаквана грешка. Сигурни ли сте, че искате да го смените сега?</item>
+        <item quantity="other">Имате изпълняващи се %1$,d файлови операции и промяната на root режима за достъп може да доведе до неочаквана грешка. Сигурни ли сте, че искате да го смените сега?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Само нормален достъп</item>
+        <item>Предпочитане на нормален достъп</item>
+        <item>Предпочитане на root достъп</item>
+        <item>Само root достъп</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Кодиране на името</string>
+    <string name="settings_open_apk_default_action_title">Отваряне на пакет на Андроид</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Инсталиране</item>
+        <item>Преглед на съдържанието</item>
+        <item>Питане какво да прави</item>
+    </string-array>
+    <string name="settings_read_remote_files_for_thumbnail_title">Четене на отдалечени файлове за миниатюри</string>
+
+    <string name="about_title">Относно</string>
+    <string name="about_version_title">Версия</string>
+    <string name="about_github_title">Прегледай в GitHub</string>
+    <string name="about_licenses_title">Лицензи</string>
+    <string name="about_privacy_policy_title">Политика за поверителност</string>
+    <string name="about_author_title">Автор</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Следене в GitHub</string>
+    <string name="about_author_google_plus_title">Добавяне към Google+ circles</string>
+    <string name="about_author_twitter_title">Следене в Twitter</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
+</resources>

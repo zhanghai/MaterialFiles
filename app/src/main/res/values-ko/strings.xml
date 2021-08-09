@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">닫기</string>
+    <string name="copy">복사</string>
+    <string name="cut">잘라내기</string>
+    <string name="default_">기본</string>
+    <string name="delete">삭제</string>
+    <string name="discard">버리기</string>
+    <string name="edit">편집</string>
+    <string name="empty">빈 항목</string>
+    <string name="empty_placeholder">(빈 항목)</string>
+    <string name="error">오류</string>
+    <string name="hide">숨기기</string>
+    <string name="install">설치</string>
+    <string name="keep_editing">편집 계속하기</string>
+    <string name="loading">불러오는 중…</string>
+    <string name="maybe_later">나중에</string>
+    <string name="merge">합치기</string>
+    <string name="none">없음</string>
+    <string name="paste">붙여넣기</string>
+    <string name="pick">@string/select</string>
+    <string name="refresh">새로고침</string>
+    <string name="reload">다시 불러오기</string>
+    <string name="remove">삭제</string>
+    <string name="rename">이름 바꾸기</string>
+    <string name="replace">교체</string>
+    <string name="reset">초기화</string>
+    <string name="retry">다시 시도</string>
+    <string name="save">저장</string>
+    <string name="search">검색</string>
+    <string name="select">선택</string>
+    <string name="select_all">모두 선택</string>
+    <string name="share">공유</string>
+    <string name="show">표시</string>
+    <string name="skip">건너 뛰기</string>
+    <string name="sort">정렬</string>
+    <string name="stop">중지</string>
+    <string name="unknown">알 수 없음</string>
+    <string name="view">보기</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">해당 작업을 위한 애플리케이션이 없습니다</string>
+    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="open_settings">설정 열기</string>
+    <string name="shortcut_created">바로가기가 생성되었습니다</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="other">%1$,d 바이트</item>
+    </plurals>
+
+    <string name="storage_permission_request_message">파일에 접근하기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 \'허용\'을 선택해 주세요.</string>
+    <string name="storage_permission_permanently_denied_message">파일에 접근하기 위한 권한이 필요합니다. 시스템 설정에서 \'저장용량\' 권한을 허용해 주세요.</string>
+
+    <string name="notification_channel_background_activity_start_name">백그라운드에서 작업</string>
+    <string name="notification_channel_background_activity_start_description">앱이 백그라운드에 있는 동안 작업합니다</string>
+    <string name="notification_channel_file_job_name">파일 작업</string>
+    <string name="notification_channel_file_job_description">파일 작업을 표시하고 제어합니다</string>
+    <string name="notification_channel_ftp_server_name">FTP 서버</string>
+    <string name="notification_channel_ftp_server_description">FTP 서버를 표시하고 제어합니다</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 압축 준비 중 (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">“%1$s” 항목을 “%2$s” (으)로 압축 중</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일을 “%2$s” 로 압축 중</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 복사 준비 중 (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">“%1$s” 항목을 “%2$s” (으)로 복사 중</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일을 “%2$s” (으)로 복사 중</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 압축 해제 준비 중 (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">“%1$s” 항목을 “%2$s” 에 압축 해제 중</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일을 “%2$s” 에 압축 해제 중</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 이동 준비 중 (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">“%1$s” 항목을 “%2$s” (으)로 이동 중</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일을 “%2$s” (으)로 이동 중</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 삭제 준비 중</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">“%1$s” 파일 삭제 중</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일 삭제 중</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 소유자 변경 준비 중</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">“%1$s” 소유자 변경 중</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일 소유자 변경 중</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 그룹 변경 준비 중</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">“%1$s” 그룹 변경 중</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일 그룹 변경 중</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 모드 변경 준비 중</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">“%1$s” 모드 변경 중</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일 모드 변경 중</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 SELinux 컨텍스트 변경 준비 중</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">“%1$s” SELinux 컨텍스트 변경 중</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일 SELinux 컨텍스트 변경 중</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="other">%1$,d개 파일 SELinux 컨텍스트 복원 준비 중</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">“%1$s” SELinux 컨텍스트 복원 중</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="other">%1$,d개 파일 SELinux 컨텍스트 복원 중</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">“%1$s” 쓰는 중</string>
+    <string name="file_job_create_error_title">생성 중 오류</string>
+    <string name="file_job_create_error_message_format">“%1$s” 항목을 생성하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">같은 폴더에 복사할 수 없습니다.</string>
+    <string name="file_job_cannot_extract_into_itself_title">같은 폴더에 압축 해제할 수 없습니다.</string>
+    <string name="file_job_cannot_move_into_itself_title">같은 폴더로 옮길 수 없습니다.</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">옮길 위치가 현 위치의 아래에 속해 있습니다.</string>
+    <string name="file_job_cannot_copy_over_itself_title">같은 파일로 복사할 수 없습니다.</string>
+    <string name="file_job_cannot_extract_over_itself_title">같은 파일로 압축 해제할 수 없습니다.</string>
+    <string name="file_job_cannot_move_over_itself_title">같은 파일로 옮길 수 없습니다.</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">원본 파일이 대상 파일을 덮어쓰게 됩니다.</string>
+    <string name="file_job_replace_title_format">“%1$s” 파일을 교체하시겠습니까?</string>
+    <string name="file_job_replace_message_format">이름이 “%1$s”인 파일이 이미 있습니다.\n파일을 교체하면 대상 파일의 내용을 덮어씁니다.</string>
+    <string name="file_job_replace_target_name">기존 파일</string>
+    <string name="file_job_replace_source_name">교체할 파일</string>
+    <string name="file_job_merge_title_format">“%1$s” 폴더를 합치시겠습니까?</string>
+    <string name="file_job_merge_copy_message_format">합치기를 선택하면 복사할 파일들 중 교체가 필요한 파일이 있을 때 대화 상자를 띄웁니다.</string>
+    <string name="file_job_merge_extract_message_format">합치기를 선택하면 압축 해제할 파일들 중 교체가 필요한 파일이 있을 때 대화 상자를 띄웁니다.</string>
+    <string name="file_job_merge_move_message_format">합치기를 선택하면 이동할 파일들 중 교체가 필요한 파일이 있을 때 대화 상자를 띄웁니다.</string>
+    <string name="file_job_merge_target_name">기존 폴더</string>
+    <string name="file_job_merge_source_name">와 합치기</string>
+    <string name="file_job_conflict_show_name">새 파일 이름 선택</string>
+    <string name="file_job_conflict_name_hint">새 이름</string>
+    <string name="file_job_archive_error_title_format">“%1$s” 압축 중 오류</string>
+    <string name="file_job_archive_error_message_format">“%1$s” 압축 파일을 생성하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">“%1$s” 복사 중 오류</string>
+    <string name="file_job_copy_error_message_format">파일을 “%1$s” (으)로 복사하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">“%1$s” 압축 해제 중 오류</string>
+    <string name="file_job_extract_error_message_format"> “%1$s” 파일의 압축을 해제하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_move_error_title_format">“%1$s” 이동 중 오류</string>
+    <string name="file_job_move_error_message_format">파일을 “%1$s” (으)로 이동하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_delete_error_title">삭제 중 오류</string>
+    <string name="file_job_delete_error_message_format">“%1$s” 파일을 삭제하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">“%1$s” 이름 바꾸기 중 오류</string>
+    <string name="file_job_rename_error_message_format">파일 이름을 “%1$s” (으)로 바꾸는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">“%1$s” 소유자 변경 중 오류</string>
+    <string name="file_job_set_owner_error_message_format">소유자를 “%1$s” (으)로 변경하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">“%1$s” 그룹 변경 중 오류</string>
+    <string name="file_job_set_group_error_message_format">그룹을 “%1$s” (으)로 변경하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">“%1$s” 모드 변경 중 오류</string>
+    <string name="file_job_set_mode_error_message_format">모드를 “%1$s” (으)로 변경하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">“%1$s” SELinux 컨텍스트 변경 중 오류</string>
+    <string name="file_job_set_selinux_context_error_message_format">SELinux 컨텍스트를 “%1$s” (으)로 변경하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">SELinux 컨텍스트 복원 중 오류</string>
+    <string name="file_job_restore_selinux_context_error_message_format">“%1$s” 항목의 SELinux 컨텍스트를 복원하는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_write_error_title">쓰기 중 오류</string>
+    <string name="file_job_write_error_message_format">“%1$s” 항목을 쓰는 중에 오류가 발생하였습니다.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">“%1$s” 항목의 정보를 가져오는 중에 오류가 발생하였습니다.</string>
+    <string name="file_job_remount_format">“%1$s” 을(를) 쓰기 허용으로 다시 마운트</string>
+    <string name="file_job_remount_loading_format">쓰기 허용으로 “%1$s” 다시 마운트 중…</string>
+    <string name="file_job_remount_success_format">“%1$s” 을(를) 쓰기 허용으로 다시 마운트했습니다</string>
+    <string name="file_job_action_all">이 선택을 모든 파일에 적용</string>
+
+    <string name="file_open_apk_message">이 파일은 Android 패키지 파일로, 파일 내부를 열어 보거나 기기에 설치할 수 있습니다.</string>
+    <string name="file_edit_title">@string/edit</string>
+    <string name="file_open_as_title">연결 프로그램…</string>
+    <string name="file_open_as_title_format">“%1$s” 연결 프로그램</string>
+    <string name="file_open_as_type_text">텍스트</string>
+    <string name="file_open_as_type_image">이미지</string>
+    <string name="file_open_as_type_audio">오디오</string>
+    <string name="file_open_as_type_video">영상</string>
+    <string name="file_open_as_type_directory">폴더</string>
+    <string name="file_open_as_type_any">기타</string>
+    <string name="file_install_apk_from_background_title_format">“%1$s” 설치 준비 완료</string>
+    <string name="file_install_apk_from_background_text">눌러서 설치</string>
+    <string name="file_open_from_background_title_format">“%1$s” 열기 준비 완료</string>
+    <string name="file_open_from_background_text">눌러서 열기</string>
+    <string name="file_name_error_empty">파일 이름을 입력하세요</string>
+    <string name="file_name_error_invalid">올바르지 않은 파일 이름</string>
+    <string name="file_name_error_already_exists">같은 이름을 가진 파일이 이미 존재합니다</string>
+    <string name="file_delete_message_file_format">“%1$s”을(를) 삭제하시겠습니까?</string>
+    <string name="file_delete_message_directory_format">“%1$s” 폴더를 삭제하시겠습니까?</string>
+    <string name="file_delete_message_multiple_files_format">%1$,d개 파일을 삭제하시겠습니까?</string>
+    <string name="file_delete_message_multiple_directories_format">%1$,d개 폴더를 삭제하시겠습니까?</string>
+    <string name="file_delete_message_multiple_mixed_format">%1$,d개 항목을 삭제하시겠습니까?</string>
+    <string name="file_create_archive_title">압축 파일 만들기</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">즐겨찾기가 추가되었습니다</string>
+    <string name="file_create_file_title">새 파일</string>
+    <string name="file_create_directory_title">새 폴더</string>
+
+    <string name="file_list_title">파일</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="other">파일 선택</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="other">폴더 선택</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="other">%1$,d개 폴더</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="other">%1$,d개 파일</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_action_sort_by_name">이름</string>
+    <string name="file_list_action_sort_by_type">유형</string>
+    <string name="file_list_action_sort_by_size">크기</string>
+    <string name="file_list_action_sort_by_last_modified">수정된 날짜</string>
+    <string name="file_list_action_sort_order_ascending">오름차순</string>
+    <string name="file_list_action_sort_directories_first">폴더를 먼저 표시</string>
+    <string name="file_list_action_sort_path_specific">이 폴더에만 적용</string>
+    <string name="file_list_action_new_task">새 창</string>
+    <string name="file_list_action_navigate_up">상위 폴더로</string>
+    <string name="file_list_action_show_hidden_files">숨김 파일 표시</string>
+    <string name="file_list_action_copy_path">경로 복사</string>
+    <string name="file_list_action_open_in_terminal">터미널에서 열기</string>
+    <string name="file_list_action_add_bookmark">즐겨찾기에 추가</string>
+    <string name="file_list_action_create_shortcut">바로가기 만들기</string>
+    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">새 창에서 열기</string>
+    <string name="file_list_select_title_format">%1$,d개 항목 선택함</string>
+    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
+    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
+    <string name="file_list_select_current_directory_format">“%1$s” 선택</string>
+    <string name="file_list_paste_move_title_format">%1$,d개 항목 이동</string>
+    <string name="file_list_paste_copy_title_format">%1$,d개 항목 복사</string>
+    <string name="file_list_paste_extract_title_format">%1$,d개 항목 압축 해제</string>
+    <string name="file_list_paste_action_extract_here">여기에 압축 풀기</string>
+    <string name="file_list_empty">파일 없음</string>
+    <string name="file_list_action_create_file">파일</string>
+    <string name="file_list_action_create_directory">폴더</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">연결 프로그램</string>
+    <string name="file_item_action_extract">압축 풀기</string>
+    <string name="file_item_action_archive">압축</string>
+    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
+    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
+    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
+    <string name="file_item_action_properties">속성</string>
+
+    <string name="file_properties_title_format">“%1$s” 속성</string>
+    <string name="file_properties_basic">기본</string>
+    <string name="file_properties_basic_name">이름</string>
+    <string name="file_properties_basic_type">유형</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">%1$s (%2$s) 로의 바로가기</string>
+    <string name="file_properties_basic_symbolic_link_target">바로가기 대상</string>
+    <string name="file_properties_basic_size">크기</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">내부</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="other">%1$,d개 항목, 총 %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">최근 수정 날짜</string>
+    <string name="file_properties_basic_parent_directory">상위 폴더</string>
+    <string name="file_properties_basic_archive_file">압축 파일</string>
+    <string name="file_properties_basic_archive_entry">압축된 항목</string>
+    <string name="file_properties_basic_free_space">빈 공간</string>
+    <string name="file_properties_permissions">권한</string>
+    <string name="file_properties_permissions_owner">소유자</string>
+    <string name="file_properties_permissions_group">그룹</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">소유자 변경</string>
+    <string name="file_properties_permissions_set_group_title">그룹 변경</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">이름 또는 ID를 입력하세요</string>
+    <string name="file_properties_permissions_set_principal_system">시스템</string>
+    <string name="file_properties_permissions_mode">모드</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">모드 변경</string>
+    <string name="file_properties_permissions_set_mode_others">그 외</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Read</item>
+        <item>Write</item>
+        <item>Execute</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>읽기</item>
+        <item>쓰기</item>
+        <item>검색</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Special</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Set UID</item>
+        <item>Set GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">내부 파일에 \"실행\" 권한 부여 안 함</string>
+    <string name="file_properties_permissions_selinux_context">SELinux 컨텍스트</string>
+    <string name="file_properties_permissions_set_selinux_context_title">SELinux 컨텍스트 변경</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">복원</string>
+    <string name="file_properties_permissions_recursive">내부 파일에도 적용</string>
+    <string name="file_properties_image">이미지</string>
+    <string name="file_properties_media_dimensions">크기</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">촬영된 시각</string>
+    <string name="file_properties_media_coordinates">좌표</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">위치</string>
+    <string name="file_properties_image_gps_altitude">고도</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">카메라</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">조리개 값</string>
+    <string name="file_properties_image_shutter_speed">셔터 속도</string>
+    <string name="file_properties_image_focal_length">초점 거리</string>
+    <string name="file_properties_image_focal_length_format">%1$.2fmm</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO 감도</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">소프트웨어</string>
+    <string name="file_properties_image_description">설명</string>
+    <string name="file_properties_image_artist">만든이</string>
+    <string name="file_properties_image_copyright">저작권</string>
+    <string name="file_properties_audio">오디오</string>
+    <string name="file_properties_media_title">제목</string>
+    <string name="file_properties_audio_artist">아티스트</string>
+    <string name="file_properties_audio_album">앨범</string>
+    <string name="file_properties_audio_album_artist">앨범 아티스트</string>
+    <string name="file_properties_audio_composer">작곡가</string>
+    <string name="file_properties_audio_disc_number">디스크</string>
+    <string name="file_properties_audio_track_number">트랙</string>
+    <string name="file_properties_audio_year">년도</string>
+    <string name="file_properties_audio_genre">장르</string>
+    <string name="file_properties_media_duration">길이</string>
+    <string name="file_properties_media_bit_rate">비트레이트</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">샘플링 레이트</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">영상</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">이름</string>
+    <string name="file_properties_apk_package_name">패키지 이름</string>
+    <string name="file_properties_apk_version">버전</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">최소 시스템 버전</string>
+    <string name="file_properties_apk_target_sdk_version">타겟 시스템 버전</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">권한</string>
+    <string name="file_properties_apk_requested_permissions_zero">요청한 권한 없음</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="other">%1$,d개 권한 요청함</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">서명</string>
+    <string name="file_properties_apk_signature_digests_empty">올바르지 않은 서명</string>
+    <string name="file_properties_apk_past_signature_digests">이전 서명</string>
+
+    <string name="storage_file_system_root_title">루트</string>
+    <string name="storage_list_title">저장소</string>
+    <string name="storage_list_empty">저장소 없음</string>
+    <string name="storage_add_storage_title">저장소 추가</string>
+    <string name="storage_add_storage_document_tree">외부 저장소</string>
+    <string name="storage_add_storage_sftp_server">SFTP 서버</string>
+    <string name="storage_add_storage_smb_server">SMB 서버</string>
+    <string name="storage_edit_device_storage_title">기기 저장소 편집</string>
+    <string name="storage_edit_device_storage_name">이름</string>
+    <string name="storage_edit_device_storage_path">경로</string>
+    <string name="storage_add_document_tree_title">외부 저장소 추가</string>
+    <string name="storage_edit_document_tree_title">외부 저장소 편집</string>
+    <string name="storage_edit_document_tree_name">이름</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">경로</string>
+    <string name="storage_edit_sftp_server_title_edit">SFTP 서버 편집</string>
+    <string name="storage_edit_sftp_server_title_add">SFTP 서버 추가</string>
+    <string name="storage_edit_sftp_server_host">호스트 이름</string>
+    <string name="storage_edit_sftp_server_host_error_empty">호스트 이름을 입력하세요</string>
+    <string name="storage_edit_sftp_server_port">포트</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">올바르지 않은 포트</string>
+    <string name="storage_edit_sftp_server_path">경로</string>
+    <string name="storage_edit_sftp_server_path_placeholder">비워둘 수 있음</string>
+    <string name="storage_edit_sftp_server_name">이름</string>
+    <string name="storage_edit_sftp_server_name_placeholder">호스트 이름 사용</string>
+    <string name="storage_edit_sftp_server_authentication_type">인증</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>비밀번호</item>
+        <item>공개 키</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">사용자 이름</string>
+    <string name="storage_edit_sftp_server_username_error_empty">사용자 이름을 입력하세요</string>
+    <string name="storage_edit_sftp_server_password">비밀번호</string>
+    <string name="storage_edit_sftp_server_private_key">개인 키</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">파일 열기</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">개인 키를 입력하세요</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">올바르지 않은 개인 키</string>
+    <string name="storage_edit_sftp_server_connect_and_add">연결 및 추가</string>
+    <string name="storage_edit_sftp_server_add">추가</string>
+    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">SMB 서버 검색 중…</string>
+    <string name="storage_add_lan_smb_server_add">직접 추가</string>
+    <string name="storage_edit_smb_server_title_edit">SMB 서버 편집</string>
+    <string name="storage_edit_smb_server_title_add">SMB 서버 추가</string>
+    <string name="storage_edit_smb_server_host">호스트 이름</string>
+    <string name="storage_edit_smb_server_host_error_empty">호스트 이름을 입력하세요</string>
+    <string name="storage_edit_smb_server_port">포트</string>
+    <string name="storage_edit_smb_server_port_error_invalid">올바르지 않은 포트</string>
+    <string name="storage_edit_smb_server_path">경로</string>
+    <string name="storage_edit_smb_server_path_placeholder">비워둘 수 있음</string>
+    <string name="storage_edit_smb_server_name">이름</string>
+    <string name="storage_edit_smb_server_name_placeholder">호스트 이름 사용</string>
+    <string name="storage_edit_smb_server_authentication_type">인증</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>비밀번호</item>
+        <item>게스트</item>
+        <item>익명</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">사용자 이름</string>
+    <string name="storage_edit_smb_server_username_error_empty">사용자 이름을 입력하세요</string>
+    <string name="storage_edit_smb_server_password">비밀번호</string>
+    <string name="storage_edit_smb_server_domain">도메인</string>
+    <string name="storage_edit_smb_server_connect_and_add">연결 및 추가</string>
+    <string name="storage_edit_smb_server_add">추가</string>
+
+    <string name="navigation_storage_subtitle_format">%2$s 중 %1$s 남음</string>
+    <string name="navigation_add_storage">저장소 추가…</string>
+    <string name="navigation_standard_directory_alarms">알람 벨소리</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">문서</string>
+    <string name="navigation_standard_directory_downloads">다운로드</string>
+    <string name="navigation_standard_directory_movies">영화</string>
+    <string name="navigation_standard_directory_music">음악</string>
+    <string name="navigation_standard_directory_notifications">알림 소리</string>
+    <string name="navigation_standard_directory_pictures">사진</string>
+    <string name="navigation_standard_directory_podcasts">팟캐스트</string>
+    <string name="navigation_standard_directory_ringtones">벨소리</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">즐겨찾기 폴더</string>
+    <string name="navigation_edit_bookmark_directory_name">이름</string>
+    <string name="navigation_edit_bookmark_directory_path">경로</string>
+    <string name="navigation_ftp_server">@string/ftp_server_title</string>
+    <string name="navigation_settings">@string/settings_title</string>
+    <string name="navigation_about">@string/about_title</string>
+
+    <string name="image_viewer_title">이미지 뷰어</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
+    <string name="text_editor_title">텍스트 편집기</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">저장됨</string>
+    <string name="text_editor_reload_message">정말 다시 불러오시겠습니까? 이 문서의 저장하지 않은 내용은 사라집니다.</string>
+    <string name="text_editor_encoding">인코딩</string>
+    <string name="text_editor_close_message">정말 이 문서의 저장하지 않은 내용을 버리시겠습니까?</string>
+
+    <string name="ftp_server_title">FTP 서버</string>
+    <string name="ftp_server_state_title">상태</string>
+    <string name="ftp_server_state_summary_starting">시작하는 중…</string>
+    <string name="ftp_server_state_summary_running">실행 중</string>
+    <string name="ftp_server_state_summary_stopping">중지하는 중…</string>
+    <string name="ftp_server_state_summary_stopped">시작되지 않음</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">로컬 IP 주소를 찾을 수 없음</string>
+    <string name="ftp_server_url_menu_copy_url">URL 복사</string>
+    <string name="ftp_server_url_menu_copy_password">비밀번호 복사</string>
+    <string name="ftp_server_configuration_title">설정</string>
+    <string name="ftp_server_anonymous_login_title">익명으로 로그인 허용</string>
+    <string name="ftp_server_username_title">사용자 이름</string>
+    <string name="ftp_server_password_title">비밀번호</string>
+    <string name="ftp_server_port_title">포트</string>
+    <string name="ftp_server_home_directory_title">루트 폴더</string>
+    <string name="ftp_server_writable_title">쓰기 허용</string>
+    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
+    <string name="ftp_server_notification_text">FTP 서버가 실행 중입니다</string>
+
+    <string name="settings_title">설정</string>
+    <string name="settings_interface_title">인터페이스</string>
+    <string name="settings_theme_color_title">테마 색상</string>
+    <string name="settings_theme_color_summary">앱에서 가장 많이 보이는 색상</string>
+    <string name="settings_night_mode_title">다크 모드</string>
+    <string-array name="settings_night_mode_entries">
+        <item>시스템 설정에 따름</item>
+        <item>끄기</item>
+        <item>켜기</item>
+        <item>시간대에 따름</item>
+        <item>배터리 절약 모드 사용 시</item>
+    </string-array>
+    <string name="settings_black_night_mode">다크 모드에 검정색 사용</string>
+    <string name="settings_file_list_animation_title">파일 목록 애니메이션</string>
+    <string name="settings_file_name_ellipsize_title">긴 파일 이름 표시</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>앞부분 생략</item>
+        <item>중간 부분 생략</item>
+        <item>뒷부분 생략</item>
+        <item>애니메이션으로 표시</item>
+    </string-array>
+    <string name="settings_behavior_title">세부 기능</string>
+    <string name="settings_default_directory_title">기본 폴더</string>
+    <string name="settings_storages_title">@string/storage_list_title</string>
+    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
+    <string name="settings_standard_directories_title">주요 폴더</string>
+    <string name="settings_standard_directories_summary_empty">설정된 주요 폴더 없음</string>
+    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
+    <string name="settings_bookmark_directory_screenshots">스크린샷</string>
+    <string name="settings_bookmark_directories_title">즐겨찾기 폴더</string>
+    <string name="settings_bookmark_directories_summary_empty">즐겨찾기된 폴더 없음</string>
+    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
+    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
+    <string name="settings_root_strategy_title">루트 액세스 모드</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="other">아직 %1$,d개의 파일 작업이 진행 중입니다. 지금 루트 액세스 모드를 변경하면 예기치 못한 오류가 발생할 수 있습니다. 정말 지금 변경하시겠습니까?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>일반 액세스만</item>
+        <item>일반 액세스 선호</item>
+        <item>루트 액세스 선호</item>
+        <item>루트 액세스만</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">압축 파일 이름 인코딩</string>
+    <string name="settings_open_apk_default_action_title">Android 패키지(APK)를 열 때 작업</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>설치</item>
+        <item>내용 보기</item>
+        <item>물어보기</item>
+    </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF 파일 섬네일 표시</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Android 버전이 낮을 경우 앱이 불안정해질 수 있습니다.</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">원격 파일에서 섬네일 읽기</string>
+
+    <string name="about_title">정보</string>
+    <string name="about_version_title">버전</string>
+    <string name="about_github_title">GitHub에서 보기</string>
+    <string name="about_licenses_title">라이선스</string>
+    <string name="about_privacy_policy_title">개인 정보 보호 정책</string>
+    <string name="about_author_title">제작자</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">GitHub 팔로우하기</string>
+    <string name="about_author_google_plus_title">Google+ 서클에 추가</string>
+    <string name="about_author_twitter_title">Twitter 팔로우하기</string>
+
+    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
+    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
+</resources>

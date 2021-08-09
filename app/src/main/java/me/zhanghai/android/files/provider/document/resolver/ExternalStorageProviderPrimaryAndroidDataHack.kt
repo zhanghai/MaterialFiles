@@ -15,27 +15,33 @@ import me.zhanghai.android.files.provider.content.resolver.requireString
 // On Android 11, ExternalStorageProvider no longer returns Android/data and Android/obb as children
 // of the Android directory on primary storage. However, the two child directories are actually
 // still accessible.
-object ExternalStorageProviderHack {
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DOCUMENT_ID = "primary:Android"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID =
-        "primary:Android/data"
-    private const val EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID =
-        "primary:Android/obb"
+object ExternalStorageProviderHacks {
+    private const val DOCUMENT_ID_PRIMARY = "primary"
+    private const val DOCUMENT_ID_PRIMARY_ANDROID = "primary:Android"
+    private const val DOCUMENT_ID_PRIMARY_ANDROID_DATA = "primary:Android/data"
+    private const val DOCUMENT_ID_PRIMARY_ANDROID_OBB = "primary:Android/obb"
+
+    private val TREE_URI_PRIMARY_ANDROID = DocumentsContract.buildTreeDocumentUri(
+        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY, DOCUMENT_ID_PRIMARY
+    )
+    val DOCUMENT_URI_ANDROID_DATA = DocumentsContract.buildDocumentUriUsingTree(
+        TREE_URI_PRIMARY_ANDROID, DOCUMENT_ID_PRIMARY_ANDROID_DATA
+    )
+    val DOCUMENT_URI_ANDROID_OBB = DocumentsContract.buildDocumentUriUsingTree(
+        TREE_URI_PRIMARY_ANDROID, DOCUMENT_ID_PRIMARY_ANDROID_OBB
+    )
 
     fun transformQueryResult(uri: Uri, cursor: Cursor): Cursor {
         if (uri.authority == DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY
             && DocumentsContractCompat.isChildDocumentsUri(uri)
-            && DocumentsContract.getDocumentId(uri)
-                == EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DOCUMENT_ID) {
+            && DocumentsContract.getDocumentId(uri) == DOCUMENT_ID_PRIMARY_ANDROID) {
             var hasDataRow = false
             var hasObbRow = false
             try {
                 while (cursor.moveToNext()) {
                     when (cursor.requireString(DocumentsContract.Document.COLUMN_DOCUMENT_ID)) {
-                        EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID ->
-                            hasDataRow = true
-                        EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID ->
-                            hasObbRow = true
+                        DOCUMENT_ID_PRIMARY_ANDROID_DATA -> hasDataRow = true
+                        DOCUMENT_ID_PRIMARY_ANDROID_OBB -> hasObbRow = true
                     }
                     if (hasDataRow && hasObbRow) {
                         break
@@ -50,13 +56,13 @@ object ExternalStorageProviderHack {
             val cursors = mutableListOf(cursor)
             if (!hasDataRow) {
                 val androidDataUri = DocumentsContract.buildDocumentUriUsingTree(
-                    uri, EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_DATA_DOCUMENT_ID
+                    uri, DOCUMENT_ID_PRIMARY_ANDROID_DATA
                 )
                 cursors += DocumentResolver.query(androidDataUri, null, null)
             }
             if (!hasObbRow) {
                 val androidObbUri = DocumentsContract.buildDocumentUriUsingTree(
-                    uri, EXTERNAL_STORAGE_PROVIDER_PRIMARY_ANDROID_OBB_DOCUMENT_ID
+                    uri, DOCUMENT_ID_PRIMARY_ANDROID_OBB
                 )
                 cursors += DocumentResolver.query(androidObbUri, null, null)
             }

@@ -15,6 +15,7 @@
     <string name="default_">Domyślny</string>
     <string name="delete">Usuń</string>
     <string name="discard">Odrzuć</string>
+    <string name="edit">Edytuj</string>
     <string name="empty">Pusto</string>
     <string name="empty_placeholder">(Pusto)</string>
     <string name="error">Błąd</string>
@@ -163,17 +164,17 @@
         <item quantity="other">Zmienianie grupy dla %1$,d plików</item>
     </plurals>
     <plurals name="file_job_set_mode_scan_notification_title_format">
-        <item quantity="one">Przygotowywanie do zmiany trybu dla %1$,d pliku</item>
-        <item quantity="few">Przygotowywanie do zmiany trybu dla %1$,d pliku</item>
-        <item quantity="many">Przygotowywanie do zmiany trybu dla %1$,d plików</item>
-        <item quantity="other">Przygotowywanie do zmiany trybu dla %1$,d plików</item>
+        <item quantity="one">Przygotowywanie do zmiany atrybutu dla %1$,d pliku</item>
+        <item quantity="few">Przygotowywanie do zmiany atrybutów dla %1$,d pliku</item>
+        <item quantity="many">Przygotowywanie do zmiany atrybutów dla %1$,d plików</item>
+        <item quantity="other">Przygotowywanie do zmiany atrybutów dla %1$,d plików</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one_format">Zmienianie trybu dla “%1$s”</string>
+    <string name="file_job_set_mode_notification_title_one_format">Zmienianie atrybutu dla “%1$s”</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
-        <item quantity="one">Zmienianie trybu dla %1$,d pliku</item>
-        <item quantity="few">Zmienianie trybu dla %1$,d plików</item>
-        <item quantity="many">Zmienianie trybu dla %1$,d plików</item>
-        <item quantity="other">Zmienianie trybu dla %1$,d plików</item>
+        <item quantity="one">Zmienianie atrybutu dla %1$,d pliku</item>
+        <item quantity="few">Zmienianie atrybutów dla %1$,d plików</item>
+        <item quantity="many">Zmienianie atrybutów dla %1$,d plików</item>
+        <item quantity="other">Zmienianie atrybutów dla %1$,d plików</item>
     </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Przygotowywanie do zmiany kontekstu SELinux dla %1$,d pliku</item>
@@ -241,8 +242,8 @@
     <string name="file_job_set_owner_error_message_format">Wystąpił błąd podczas zmiany właściciela na “%1$s”.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Błąd podczas zmiany grupy dla “%1$s”</string>
     <string name="file_job_set_group_error_message_format">Wystąpił błąd podczas zmiany grupy na “%1$s”.\n%2$s</string>
-    <string name="file_job_set_mode_error_title_format">Błąd podczas zmiany trybu dla “%1$s”</string>
-    <string name="file_job_set_mode_error_message_format">Wystąpił błąd podczas zmiany trybu na “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Błąd podczas zmiany atrybutu dla “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">Wystąpił błąd podczas zmiany atrybutu na “%1$s”.\n%2$s</string>
     <string name="file_job_set_selinux_context_error_title_format">Błąd podczas zmiany kontekstu SELinux dla “%1$s”</string>
     <string name="file_job_set_selinux_context_error_message_format">Wystąpił błąd podczas zmiany kontekstu SELinux na “%1$s”.\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">Błąd podczas przywracania kontekstu SELinux</string>
@@ -256,6 +257,7 @@
     <string name="file_job_action_all">Zastosuj tą akcję do wszystkich plików</string>
 
     <string name="file_open_apk_message">Ten plik to pakiet instalacyjny. Czy chcesz go zainstalować, lub wyświetlić jego zawartość?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Otwórz jako…</string>
     <string name="file_open_as_title_format">Otwórz „%1$s” jako…</string>
     <string name="file_open_as_type_text">Tekst</string>
@@ -376,9 +378,9 @@
     <string name="file_properties_permissions_set_group_title">Zmień grupę</string>
     <string name="file_properties_permissions_set_principal_filter_hint">Wprowadź nazwę lub ID</string>
     <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Tryb</string>
+    <string name="file_properties_permissions_mode">Atrybut</string>
     <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Zmień tryb</string>
+    <string name="file_properties_permissions_set_mode_title">Zmiana atrybutu</string>
     <string name="file_properties_permissions_set_mode_others">Inni</string>
     <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
         <item>Odczyt</item>
@@ -455,6 +457,7 @@
         <item quantity="other">%1$,d wymaganych uprawnień</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Podpisy cyfrowe</string>
+    <string name="file_properties_apk_signature_digests_empty">Brak prawidłowych sygnatur</string>
     <string name="file_properties_apk_past_signature_digests">Starsze podpisy cyfrowe</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -462,6 +465,7 @@
     <string name="storage_list_empty">Brak nośników</string>
     <string name="storage_add_storage_title">Dodaj nośnik</string>
     <string name="storage_add_storage_document_tree">Zewnętrzny nośnik pamięci</string>
+    <string name="storage_add_storage_sftp_server">Serwer SFTP</string>
     <string name="storage_add_storage_smb_server">Serwer SMB</string>
     <string name="storage_edit_device_storage_title">Edytuj pamięć urządzenia</string>
     <string name="storage_edit_device_storage_name">Nazwa</string>
@@ -471,6 +475,30 @@
     <string name="storage_edit_document_tree_name">Nazwa</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Ścieżka</string>
+    <string name="storage_edit_sftp_server_title_edit">Edytuj serwer SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Dodaj serwer SFTP</string>
+    <string name="storage_edit_sftp_server_host">Nazwa hosta</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Wprowadź nazwę hosta</string>
+    <string name="storage_edit_sftp_server_port">Port</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Nieprawidłowy port</string>
+    <string name="storage_edit_sftp_server_path">Ścieżka</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Można pozostawić jako puste</string>
+    <string name="storage_edit_sftp_server_name">Nazwa</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Użyj nazwy hosta</string>
+    <string name="storage_edit_sftp_server_authentication_type">Poświadczenie</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Hasło</item>
+        <item>Klucz publiczny</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Nazwa użytkownika</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Wprowadź nazwę użytkownika</string>
+    <string name="storage_edit_sftp_server_password">Hasło</string>
+    <string name="storage_edit_sftp_server_private_key">Klucz prywatny</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Otwórz plik</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Wprowadź klucz prywatny</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Nieprawidłowy klucz prywatny</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Połącz i dodaj</string>
+    <string name="storage_edit_sftp_server_add">Dodaj</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Wyszukiwanie serwerów SMB…</string>
     <string name="storage_add_lan_smb_server_add">Dodaj ręcznie</string>
@@ -480,6 +508,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Wprowadź nazwę hosta</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_error_invalid">Nieprawidłowy port</string>
+    <string name="storage_edit_smb_server_path">Ścieżka</string>
+    <string name="storage_edit_smb_server_path_placeholder">Można pozostawić jako puste</string>
     <string name="storage_edit_smb_server_name">Nazwa</string>
     <string name="storage_edit_smb_server_name_placeholder">Użyj nazwy hosta</string>
     <string name="storage_edit_smb_server_authentication_type">Poświadczenie</string>
@@ -504,7 +534,7 @@
     <string name="navigation_standard_directory_movies">Filmy</string>
     <string name="navigation_standard_directory_music">Muzyka</string>
     <string name="navigation_standard_directory_notifications">Powiadomienia</string>
-    <string name="navigation_standard_directory_pictures">Zdjęcia</string>
+    <string name="navigation_standard_directory_pictures">Obrazy</string>
     <string name="navigation_standard_directory_podcasts">Podcasty</string>
     <string name="navigation_standard_directory_ringtones">Dzwonki</string>
     <string name="navigation_standard_directory_qq">QQ</string>
@@ -525,6 +555,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Zapisano</string>
     <string name="text_editor_reload_message">Czy na pewno chcesz załadować ponownie? Niezapisane zmiany w tym dokumencie zostaną utracone.</string>
+    <string name="text_editor_encoding">Szyfrowanie</string>
     <string name="text_editor_close_message">Czy na pewno chcesz porzucić niezapisane zmiany w tym dokumencie?</string>
 
     <string name="ftp_server_title">Serwer FTP</string>
@@ -542,7 +573,7 @@
     <string name="ftp_server_username_title">Nazwa użytkownika</string>
     <string name="ftp_server_password_title">Hasło</string>
     <string name="ftp_server_port_title">Port</string>
-    <string name="ftp_server_home_directory_title">Folder Root</string>
+    <string name="ftp_server_home_directory_title">Folder główny</string>
     <string name="ftp_server_writable_title">Zezwól na zapis</string>
     <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">Serwer FTP jest uruchomiony</string>
@@ -594,12 +625,14 @@
         <item>Tylko tryb dostępu do Root\'a</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Kodowanie nazwy pliku archiwum</string>
-    <string name="settings_open_apk_default_action_title">Otwórz pakiet instalacyjny </string>
+    <string name="settings_open_apk_default_action_title">Otwieranie pakietu instalacyjnego</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Zainstaluj</item>
         <item>Wyświetl zawartość</item>
         <item>Zapytaj co zrobić</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Pokaż miniaturę dla plików PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Może spowodować niestabilność aplikacji w starszych wersjach systemu Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Odczytaj zdalne pliki jako miniatury</string>
 
     <string name="about_title">O aplikacji</string>

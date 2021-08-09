@@ -1,0 +1,9 @@
+- Added SFTP support.
+- Added Material You theme on Android 12.
+- Added setting an initial path for SFTP and SMB.
+- Added encoding support in text editor.
+- Added Bulgarian and Korean translations.
+- Fixed not showing files when running in work profile.
+- Fixed slow loading for a large number of files.
+- Fixed thumbnail support for SFTP and SMB.
+- Other bug fixes and improvements.

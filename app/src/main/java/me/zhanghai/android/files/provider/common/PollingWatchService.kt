@@ -93,11 +93,11 @@ class PollingWatchService : AbstractWatchService<PollingWatchKey>() {
 
     private class Poller @Throws(IOException::class) constructor(
         private val watchService: PollingWatchService,
-        private val directory: Path,
+        private val path: Path,
         @Volatile
         var kinds: Set<WatchEvent.Kind<*>>
     ) : Thread("AbstractPollingWatchService.Poller-${id.getAndIncrement()}") {
-        val key = PollingWatchKey(watchService, directory)
+        val key = PollingWatchKey(watchService, path)
 
         private var oldFiles: Map<Path, BasicFileAttributes>
 
@@ -155,22 +155,28 @@ class PollingWatchService : AbstractWatchService<PollingWatchKey>() {
         @Throws(IOException::class)
         private fun getFiles(): Map<Path, BasicFileAttributes> =
             mutableMapOf<Path, BasicFileAttributes>().apply {
-                directory.newDirectoryStream().use { directoryStream ->
-                    try {
-                        directoryStream.forEach {
-                            val attributes = try {
-                                it.readAttributes(
-                                    BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS
-                                )
-                            } catch (e: IOException) {
-                                e.printStackTrace()
-                                return@forEach
+                if (path.isDirectory(LinkOption.NOFOLLOW_LINKS)) {
+                    path.newDirectoryStream().use { directoryStream ->
+                        try {
+                            directoryStream.forEach {
+                                val attributes = try {
+                                    it.readAttributes(
+                                        BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS
+                                    )
+                                } catch (e: IOException) {
+                                    e.printStackTrace()
+                                    return@forEach
+                                }
+                                this[it] = attributes
                             }
-                            this[it] = attributes
+                        } catch (e: DirectoryIteratorException) {
+                            throw e.cause!!
                         }
-                    } catch (e: DirectoryIteratorException) {
-                        throw e.cause!!
                     }
+                } else {
+                    this[path] = path.readAttributes(
+                        BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS
+                    )
                 }
             }.also {
                 if (BuildConfig.DEBUG) {

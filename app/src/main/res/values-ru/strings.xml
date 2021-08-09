@@ -15,6 +15,7 @@
     <string name="default_">По умолчанию</string>
     <string name="delete">Удалить</string>
     <string name="discard">Отказаться</string>
+    <string name="edit">Редактировать</string>
     <string name="empty">Пусто</string>
     <string name="empty_placeholder">(Пусто)</string>
     <string name="error">Ошибка</string>
@@ -256,6 +257,7 @@
     <string name="file_job_action_all">Применить действие ко всем файлам</string>
 
     <string name="file_open_apk_message">Этот файл представляет собой Android-пакет. Вы хотите установить его или посмотреть его содержимое?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Открыть как…</string>
     <string name="file_open_as_title_format">Открыть “%1$s” как</string>
     <string name="file_open_as_type_text">Текст</string>
@@ -455,6 +457,7 @@
         <item quantity="other">Запрошено %1$,d разрешений</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Подписи</string>
+    <string name="file_properties_apk_signature_digests_empty">Нет действительных подписей</string>
     <string name="file_properties_apk_past_signature_digests">Старые подписи</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -462,6 +465,7 @@
     <string name="storage_list_empty">Нет накопителей</string>
     <string name="storage_add_storage_title">Добавить накопитель</string>
     <string name="storage_add_storage_document_tree">Внешний накопитель</string>
+    <string name="storage_add_storage_sftp_server">SFTP сервер</string>
     <string name="storage_add_storage_smb_server">SMB-сервер</string>
     <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
     <string name="storage_edit_device_storage_name">Имя</string>
@@ -471,6 +475,30 @@
     <string name="storage_edit_document_tree_name">Имя</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Путь</string>
+    <string name="storage_edit_sftp_server_title_edit">Редактировать SFTP сервер</string>
+    <string name="storage_edit_sftp_server_title_add">Добавить SFTP сервер</string>
+    <string name="storage_edit_sftp_server_host">Имя хоста</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Введите имя хоста</string>
+    <string name="storage_edit_sftp_server_port">Порт</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Неверный порт</string>
+    <string name="storage_edit_sftp_server_path">Путь</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Можно оставить пустым</string>
+    <string name="storage_edit_sftp_server_name">Имя</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Используйте имя хоста</string>
+    <string name="storage_edit_sftp_server_authentication_type">Авторизация</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Пароль</item>
+        <item>Публичный ключ</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Имя пользователя</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Введите имя пользователя</string>
+    <string name="storage_edit_sftp_server_password">Пароль</string>
+    <string name="storage_edit_sftp_server_private_key">Приватный ключ</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Открыть файл</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Введите приватный ключ</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Неверный приватный ключ</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Соедениться и добавить</string>
+    <string name="storage_edit_sftp_server_add">Добавить</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Поиск SMB-серверов…</string>
     <string name="storage_add_lan_smb_server_add">Добавить вручную</string>
@@ -480,6 +508,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Введите имя хоста</string>
     <string name="storage_edit_smb_server_port">Порт</string>
     <string name="storage_edit_smb_server_port_error_invalid">Неверный порт</string>
+    <string name="storage_edit_smb_server_path">Путь</string>
+    <string name="storage_edit_smb_server_path_placeholder">Можно оставить пустым</string>
     <string name="storage_edit_smb_server_name">Имя</string>
     <string name="storage_edit_smb_server_name_placeholder">Используйте имя хоста</string>
     <string name="storage_edit_smb_server_authentication_type">Авторизация</string>
@@ -525,6 +555,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Сохранено</string>
     <string name="text_editor_reload_message">Вы уверены что хотите перезагрузить? Несохраненные изменения в  документе будут потеряны.</string>
+    <string name="text_editor_encoding">Кодировка</string>
     <string name="text_editor_close_message">Вы уверены что хотите отказаться от несохраненных изменений в документе?</string>
 
     <string name="ftp_server_title">FTP-сервер</string>
@@ -600,6 +631,8 @@
         <item>Просмотр содержимого</item>
         <item>Спрашивать что делать</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Показывать миниатюры для файлов PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Приложение может стать нестабильным на старых версиях Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Считывать удалённые (сетевые) файлы для миниатюр</string>
 
     <string name="about_title">О программе</string>

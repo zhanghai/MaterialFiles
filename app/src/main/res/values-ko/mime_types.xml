@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">파일</string>
+    <string name="file_type_name_apk">Android 패키지</string>
+    <string name="file_type_name_archive">%1$s 압축 파일</string>
+    <string name="file_type_name_audio">%1$s 오디오</string>
+    <string name="file_type_name_calendar">%1$s 캘린더</string>
+    <string name="file_type_name_certificate">%1$s 인증서</string>
+    <string name="file_type_name_code">%1$s 문서</string>
+    <string name="file_type_name_contact">전자 명함</string>
+    <string name="file_type_name_directory">폴더</string>
+    <string name="file_type_name_document">%1$s 문서</string>
+    <string name="file_type_name_ebook">%1$s 전자책</string>
+    <string name="file_type_name_email">%1$s 이메일 메시지</string>
+    <string name="file_type_name_font">%1$s 글꼴</string>
+    <string name="file_type_name_generic">%1$s 파일</string>
+    <string name="file_type_name_image">%1$s 이미지</string>
+    <string name="file_type_name_pdf">PDF 문서</string>
+    <string name="file_type_name_presentation">%1$s 프레젠테이션</string>
+    <string name="file_type_name_spreadsheet">%1$s 스프레드시트</string>
+    <string name="file_type_name_text">%1$s 문서</string>
+    <string name="file_type_name_text_plain">텍스트 문서</string>
+    <string name="file_type_name_video">%1$s 영상</string>
+    <string name="file_type_name_word">Word 문서</string>
+    <string name="file_type_name_powerpoint">PowerPoint 프레젠테이션</string>
+    <string name="file_type_name_excel">Excel 스프레드시트</string>
+    <string name="file_type_name_posix_character_device">문자 디바이스</string>
+    <string name="file_type_name_posix_block_device">블록 디바이스</string>
+    <string name="file_type_name_posix_fifo">파이프</string>
+    <string name="file_type_name_posix_symbolic_link">링크</string>
+    <string name="file_type_name_posix_socket">소켓</string>
+    <string name="file_type_name_posix_symbolic_link_broken">링크 (깨짐)</string>
+</resources>

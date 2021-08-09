@@ -18,6 +18,7 @@
     <string name="empty">Vide</string>
     <string name="empty_placeholder">(vide)</string>
     <string name="error">Erreur</string>
+    <string name="hide">Cacher</string>
     <string name="install">Installer</string>
     <string name="keep_editing">Continuer à modifier</string>
     <string name="loading">Chargement…</string>
@@ -38,6 +39,7 @@
     <string name="select">Sélectionner</string>
     <string name="select_all">Sélectionner tout</string>
     <string name="share">Partager</string>
+    <string name="show">Montrer</string>
     <string name="skip">Passer</string>
     <string name="sort">Trier</string>
     <string name="stop">Arrêter</string>
@@ -51,11 +53,11 @@
     <string name="shortcut_created">Raccourci créé</string>
 
     <plurals name="size_in_bytes_format">
-        <item quantity="one">%1$,d byte</item>
-        <item quantity="other">%1$,d bytes</item>
+        <item quantity="one">%1$,d octet</item>
+        <item quantity="other">%1$,d octets</item>
     </plurals>
 
-    <string name="storage_permission_request_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
+    <string name="storage_permission_request_message">L’application a besoin de la permission pour accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
     <string name="storage_permission_permanently_denied_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez accorder la permission de stockage dans les paramètres du système.</string>
 
     <string name="notification_channel_background_activity_start_name">Actions en arrière-plan</string>
@@ -166,7 +168,7 @@
     <string name="file_job_cannot_move_into_itself_title">Impossible de déplacer un dossier dans lui-même</string>
     <string name="file_job_cannot_copy_move_into_itself_message">Le dossier de destination est à l\'intérieur du dossier source</string>
     <string name="file_job_cannot_copy_over_itself_title">Impossible de copier un fichier sur lui-même</string>
-    <string name="file_job_cannot_extract_over_itself_title">Impossible d\'éextraire un fichier sur lui-même</string>
+    <string name="file_job_cannot_extract_over_itself_title">Impossible d’extraire un fichier sur lui-même</string>
     <string name="file_job_cannot_move_over_itself_title">Impossible de déplacer un fichier sur lui-même</string>
     <string name="file_job_cannot_copy_move_over_itself_message">Le fichier source serait écrasé par la destination.</string>
     <string name="file_job_replace_title_format">Remplacer le fichier “%1$s” ?</string>
@@ -191,6 +193,8 @@
     <string name="file_job_move_error_message_format">Une erreur s\'est produite lors du déplacement du fichier vers \"%1$s\".\n%2$s</string>
     <string name="file_job_delete_error_title">Erreur lors de la suppression</string>
     <string name="file_job_delete_error_message_format">Une erreur s\'est produite lors de la suppression de \"%1$s\".\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Erreur lors du renommage “%1$s”</string>
+    <string name="file_job_rename_error_message_format">Une erreur s\'est produite lors du changement de nom du fichier en “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Erreur lors du changement de propriétaire de “%1$s”</string>
     <string name="file_job_set_owner_error_message_format">Une erreur s\'est produite lors du changement de propriétaire par \"%1$s\".\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Erreur lors du changement de groupe de “%1$s”</string>
@@ -390,11 +394,49 @@
     <string name="file_properties_apk_min_sdk_version">Version système minimale</string>
     <string name="file_properties_apk_target_sdk_version">Version système cible</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Permissions</string>
+    <string name="file_properties_apk_requested_permissions_zero">Aucune permission demandée</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d permission demandée</item>
+        <item quantity="other">%1$,d permissions demandées</item>
+    </plurals>
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_past_signature_digests">Anciennes signatures</string>
 
     <string name="storage_file_system_root_title">Root</string>
+    <string name="storage_list_title">Support de stockage</string>
+    <string name="storage_list_empty">Pas de  support de stockage</string>
+    <string name="storage_add_storage_title">Ajouter un support de stockage</string>
+    <string name="storage_add_storage_document_tree">Support de stockage externe</string>
+    <string name="storage_add_storage_smb_server">Serveur SMB</string>
+    <string name="storage_edit_device_storage_title">Modifier le stockage de l\'appareil</string>
+    <string name="storage_edit_device_storage_name">Nom</string>
+    <string name="storage_edit_device_storage_path">Chemin</string>
+    <string name="storage_add_document_tree_title">Ajouter un support de stockage externe</string>
+    <string name="storage_edit_document_tree_title">Modifier le support de stockage externe</string>
+    <string name="storage_edit_document_tree_name">Nom</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Chemin</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_add_lan_smb_server_loading">Recherche de serveurs SMB…</string>
+    <string name="storage_add_lan_smb_server_add">Ajouter manuellement</string>
+    <string name="storage_edit_smb_server_title_edit">Modifier le serveur SMB</string>
+    <string name="storage_edit_smb_server_title_add">Ajouter un serveur SMB</string>
+    <string name="storage_edit_smb_server_host">Nom d\'hôte</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_name">Nom</string>
+    <string name="storage_edit_smb_server_name_placeholder">Utiliser le nom d\'hôte</string>
+    <string name="storage_edit_smb_server_authentication_type">Identification</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Mot de passe</item>
+        <item>Invité</item>
+        <item>Anonyme</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Nom d\'utilisateur</string>
+    <string name="storage_edit_smb_server_password">Mot de passe</string>
+    <string name="storage_edit_smb_server_domain">Domaine</string>
+    <string name="storage_edit_smb_server_connect_and_add">Connecter et ajouter</string>
+    <string name="storage_edit_smb_server_add">Ajouter</string>
 
     <string name="navigation_storage_subtitle_format">%1$s de libre sur %2$s</string>
     <string name="navigation_add_storage">Ajouter un support de stockage…</string>
@@ -450,6 +492,8 @@
 
     <string name="settings_title">Réglages</string>
     <string name="settings_interface_title">Interface</string>
+    <string name="settings_theme_color_title">Couleur du thème</string>
+    <string name="settings_theme_color_summary">Couleur qui apparaît le plus souvent dans l’application</string>
     <string name="settings_night_mode_title">Mode nuit</string>
     <string-array name="settings_night_mode_entries">
         <item>Système de suivi</item>
@@ -458,7 +502,15 @@
         <item>Basé sur le temps</item>
         <item>Basé sur l’économiseur de batterie</item>
     </string-array>
+    <string name="settings_black_night_mode">Mode nuit noire</string>
     <string name="settings_file_list_animation_title">Animation de liste de fichiers</string>
+    <string name="settings_file_name_ellipsize_title">Affichage du nom de fichier</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Tronquer le début</item>
+        <item>Tronquer le milieu</item>
+        <item>Tronquer la fin</item>
+        <item>Entier</item>
+    </string-array>
     <string name="settings_behavior_title">Comportement</string>
     <string name="settings_default_directory_title">Dossier par défaut</string>
     <string name="settings_storages_title">@string/storage_list_title</string>

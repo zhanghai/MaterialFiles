@@ -31,8 +31,8 @@
     <string name="file_type_name_powerpoint">عرض باور بوينت</string>
     <string name="file_type_name_excel">جداول إكسل</string>
     <string name="file_type_name_posix_character_device">جهاز الصفة</string>
-    <string name="file_type_name_posix_block_device">جهاز الحظر</string>
-    <string name="file_type_name_posix_fifo">يضخ</string>
+    <string name="file_type_name_posix_block_device">حظر الجهاز</string>
+    <string name="file_type_name_posix_fifo">أنبوب</string>
     <string name="file_type_name_posix_symbolic_link">الارتباط</string>
     <string name="file_type_name_posix_socket">قابس</string>
     <string name="file_type_name_posix_symbolic_link_broken">الارتباط (معطل)</string>

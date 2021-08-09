@@ -126,7 +126,7 @@ class EditSmbServerFragment : Fragment() {
                 val authority = server.authority
                 binding.hostEdit.setText(authority.host)
                 if (authority.port != Authority.DEFAULT_PORT) {
-                    binding.portEdit.setText(authority.port)
+                    binding.portEdit.setText(authority.port.toString())
                 }
                 when (val authentication = server.authentication) {
                     Authentication.GUEST ->

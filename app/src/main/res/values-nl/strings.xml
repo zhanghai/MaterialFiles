@@ -15,6 +15,7 @@
     <string name="default_">Standaard</string>
     <string name="delete">Verwijderen</string>
     <string name="discard">Verwerpen</string>
+    <string name="edit">Bewerken</string>
     <string name="empty">Leeg</string>
     <string name="empty_placeholder">(leeg)</string>
     <string name="error">Fout</string>
@@ -57,8 +58,8 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op \'TOESTAAN\'.</string>
-    <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht \'Opslag\' in de systeeminstellingen.</string>
+    <string name="storage_permission_request_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
+    <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht ‘Opslag’ in de systeeminstellingen.</string>
 
     <string name="notification_channel_background_activity_start_name">Achtergrondtaken</string>
     <string name="notification_channel_background_activity_start_description">Neem taken aan terwijl de app op de achtergrond draait</string>
@@ -71,37 +72,37 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one_format">Bezig met toevoegen van \'%1$s\' aan \'%2$s\'</string>
+    <string name="file_job_archive_notification_title_one_format">Bezig met toevoegen van ‘%1$s’ aan ‘%2$s’</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
-        <item quantity="one">Bezig met toevoegen van %1$,d bestand aan \'%2$s\'</item>
-        <item quantity="other">Bezig met toevoegen van %1$,d bestanden aan \'%2$s\'</item>
+        <item quantity="one">Bezig met toevoegen van %1$,d bestand aan ‘%2$s’</item>
+        <item quantity="other">Bezig met toevoegen van %1$,d bestanden aan ‘%2$s’</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one_format">Bezig met kopiëren van \'%1$s\' naar \'%2$s\'</string>
+    <string name="file_job_copy_notification_title_one_format">Bezig met kopiëren van ‘%1$s’ naar ‘%2$s’</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
-        <item quantity="one">Bezig met kopiëren van %1$,d bestand naar \'%2$s\'</item>
-        <item quantity="other">Bezig met kopiëren van %1$,d bestanden naar \'%2$s\'</item>
+        <item quantity="one">Bezig met kopiëren van %1$,d bestand naar ‘%2$s’</item>
+        <item quantity="other">Bezig met kopiëren van %1$,d bestanden naar ‘%2$s’</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one_format">Bezig met uitpakken van \'%1$s\' naar \'%2$s\'</string>
+    <string name="file_job_extract_notification_title_one_format">Bezig met uitpakken van ‘%1$s’ naar ‘%2$s’</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
-        <item quantity="one">Bezig met uitpakken van %1$,d bestand naar \'%2$s\'</item>
-        <item quantity="other">Bezig met uitpakken van %1$,d bestanden naar \'%2$s\'</item>
+        <item quantity="one">Bezig met uitpakken van %1$,d bestand naar ‘%2$s’</item>
+        <item quantity="other">Bezig met uitpakken van %1$,d bestanden naar ‘%2$s’</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one_format">Bezig met verplaatsen van \'%1$s\' naar \'%2$s\'</string>
+    <string name="file_job_move_notification_title_one_format">Bezig met verplaatsen van ‘%1$s’ naar ‘%2$s’</string>
     <plurals name="file_job_move_notification_title_multiple_format">
-        <item quantity="one">Bezig met verplaatsen van %1$,d bestand naar \'%2$s\'</item>
-        <item quantity="other">Bezig met verplaatsen van %1$,d bestanden naar \'%2$s\'</item>
+        <item quantity="one">Bezig met verplaatsen van %1$,d bestand naar ‘%2$s’</item>
+        <item quantity="other">Bezig met verplaatsen van %1$,d bestanden naar ‘%2$s’</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
@@ -109,7 +110,7 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one_format">Bezig met verwijderen van \'%1$s\'</string>
+    <string name="file_job_delete_notification_title_one_format">Bezig met verwijderen van ‘%1$s’</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Bezig met verwijderen van %1$,d bestand</item>
         <item quantity="other">Bezig met verwijderen van %1$,d bestanden</item>
@@ -118,7 +119,7 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one_format">Bezig met veranderen van eigenaar van \'%1$s\'</string>
+    <string name="file_job_set_owner_notification_title_one_format">Bezig met veranderen van eigenaar van ‘%1$s’</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Bezig met veranderen van eigenaar van %1$,d bestand</item>
         <item quantity="other">Bezig met veranderen van eigenaar van %1$,d bestanden</item>
@@ -127,7 +128,7 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one_format">Bezig met veranderen van groep van \'%1$s\'</string>
+    <string name="file_job_set_group_notification_title_one_format">Bezig met veranderen van groep van ‘%1$s’</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Bezig met veranderen van groep van %1$,d bestand</item>
         <item quantity="other">Bezig met veranderen van groep van %1$,d bestanden</item>
@@ -136,7 +137,7 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one_format">Bezig met aanpassen van modus van \'%1$s\'</string>
+    <string name="file_job_set_mode_notification_title_one_format">Bezig met aanpassen van modus van ‘%1$s’</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Bezig met aanpassen van modus van %1$,d bestand</item>
         <item quantity="other">Bezig met aanpassen van modus van %1$,d bestanden</item>
@@ -145,7 +146,7 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one_format">Bezig met aanpassen van SELinux-context van \'%1$s\'</string>
+    <string name="file_job_set_selinux_context_notification_title_one_format">Bezig met aanpassen van SELinux-context van ‘%1$s’</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Bezig met aanpassen van SELinux-context van %1$,d bestand</item>
         <item quantity="other">Bezig met aanpassen van SELinux-context van %1$,d bestanden</item>
@@ -154,15 +155,15 @@
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand</item>
         <item quantity="other">Bezig met voorbereiden van %1$,d bestanden</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one_format">Bezig met herstellen van SELinux-context van \'%1$s\'</string>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Bezig met herstellen van SELinux-context van ‘%1$s’</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Bezig met herstellen van SELinux-context van %1$,d bestand</item>
         <item quantity="other">Bezig met herstellen van SELinux-context van %1$,d bestanden</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title_format">Bezig met wegschrijven van \'%1$s\'</string>
+    <string name="file_job_write_notification_title_format">Bezig met wegschrijven van ‘%1$s’</string>
     <string name="file_job_create_error_title">Fout tijdens aanmaken</string>
-    <string name="file_job_create_error_message_format">Er is een fout opgetreden tijdens het aanmaken van \'%1$s\'.\n%2$s</string>
+    <string name="file_job_create_error_message_format">Er is een fout opgetreden tijdens het aanmaken van ‘%1$s’.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Een map kan niet naar zichzelf worden gekopieerd</string>
     <string name="file_job_cannot_extract_into_itself_title">Een map kan niet naar zichzelf worden uitgepakt</string>
     <string name="file_job_cannot_move_into_itself_title">Een map kan niet naar zichzelf worden verplaatst</string>
@@ -171,11 +172,11 @@
     <string name="file_job_cannot_extract_over_itself_title">Een bestand kan niet naar zichzelf worden uitgepakt</string>
     <string name="file_job_cannot_move_over_itself_title">Een bestand kan niet naar zichzelf worden verplaatst</string>
     <string name="file_job_cannot_copy_move_over_itself_message">Het bronbestand zou worden overschreven door de bestemming.</string>
-    <string name="file_job_replace_title_format">Wil je \'%1$s\' vervangen?</string>
-    <string name="file_job_replace_message_format">Er is al een bestand met deze naam in \'%1$s\'.\nDoor het te vervangen wordt de inhoud ervan overschreven.</string>
+    <string name="file_job_replace_title_format">Wil je ‘%1$s’ vervangen?</string>
+    <string name="file_job_replace_message_format">Er is al een bestand met deze naam in ‘%1$s’.\nDoor het te vervangen wordt de inhoud ervan overschreven.</string>
     <string name="file_job_replace_target_name">Oorspronkelijk bestand</string>
     <string name="file_job_replace_source_name">Vervangen door</string>
-    <string name="file_job_merge_title_format">Wil je \'%1$s\' samenvoegen?</string>
+    <string name="file_job_merge_title_format">Wil je ‘%1$s’ samenvoegen?</string>
     <string name="file_job_merge_copy_message_format">Er wordt om bevestiging gevraagd alvorens het samenvoegen wegens mogelijke bestandsconflicten tijdens het kopiëren.</string>
     <string name="file_job_merge_extract_message_format">Er wordt om bevestiging gevraagd alvorens het samenvoegen wegens mogelijke bestandsconflicten tijdens het uitpakken.</string>
     <string name="file_job_merge_move_message_format">Er wordt om bevestiging gevraagd alvorens het samenvoegen wegens mogelijke bestandsconflicten tijdens het verplaatsen.</string>
@@ -183,54 +184,55 @@
     <string name="file_job_merge_source_name">Samenvoegen met</string>
     <string name="file_job_conflict_show_name">Voer een nieuwe naam in</string>
     <string name="file_job_conflict_name_hint">Nieuwe naam</string>
-    <string name="file_job_archive_error_title_format">Fout tijdens inpakken van \'%1$s\'</string>
-    <string name="file_job_archive_error_message_format">Er is een fout opgetreden tijdens het inpakken in \'%1$s\'.\n%2$s</string>
-    <string name="file_job_copy_error_title_format">Fout tijdens kopiëren van \'%1$s\'</string>
-    <string name="file_job_copy_error_message_format">Er is een fout opgetreden tijdens het kopiëren naar \'%1$s\'.\n%2$s</string>
-    <string name="file_job_extract_error_title_format">Fout tijdens uitpakken van \'%1$s\'</string>
-    <string name="file_job_extract_error_message_format">Er is een fout opgetreden tijdens het uitpakken naar \'%1$s\'.\n%2$s</string>
-    <string name="file_job_move_error_title_format">Fout tijdens verplaatsen van \'%1$s\'</string>
-    <string name="file_job_move_error_message_format">Er is een fout opgetreden tijdens het verplaatsen naar \'%1$s\'.\n%2$s</string>
+    <string name="file_job_archive_error_title_format">Fout tijdens inpakken van ‘%1$s’</string>
+    <string name="file_job_archive_error_message_format">Er is een fout opgetreden tijdens het inpakken in ‘%1$s’.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Fout tijdens kopiëren van ‘%1$s’</string>
+    <string name="file_job_copy_error_message_format">Er is een fout opgetreden tijdens het kopiëren naar ‘%1$s’.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Fout tijdens uitpakken van ‘%1$s’</string>
+    <string name="file_job_extract_error_message_format">Er is een fout opgetreden tijdens het uitpakken naar ‘%1$s’.\n%2$s</string>
+    <string name="file_job_move_error_title_format">Fout tijdens verplaatsen van ‘%1$s’</string>
+    <string name="file_job_move_error_message_format">Er is een fout opgetreden tijdens het verplaatsen naar ‘%1$s’.\n%2$s</string>
     <string name="file_job_delete_error_title">Fout tijdens verwijderen</string>
-    <string name="file_job_delete_error_message_format">Er is een fout opgetreden tijdens het verwijderen van \'%1$s\'.\n%2$s</string>
-    <string name="file_job_rename_error_title_format">Fout tijdens verplaatsen van \'%1$s\'</string>
-    <string name="file_job_rename_error_message_format">Er is een fout opgetreden tijdens het wijzigen van de naam in \'%1$s\'.\n%2$s</string>
-    <string name="file_job_set_owner_error_title_format">Fout tijdens veranderen van eigenaar van \'%1$s\'</string>
-    <string name="file_job_set_owner_error_message_format">Er is een fout opgetreden tijdens het veranderen van de eigenaar naar \'%1$s\'.\n%2$s</string>
-    <string name="file_job_set_group_error_title_format">Fout tijdens veranderen van groep van \'%1$s\'</string>
-    <string name="file_job_set_group_error_message_format">Er is een fout opgetreden tijdens het veranderen van de groep naar \'%1$s\'.\n%2$s</string>
-    <string name="file_job_set_mode_error_title_format">Fout tijdens aanpassen van modus van \'%1$s\'</string>
-    <string name="file_job_set_mode_error_message_format">Er is een fout opgetreden tijdens het aanpassen van de modus naar \'%1$s\'.\n%2$s</string>
-    <string name="file_job_set_selinux_context_error_title_format">Fout tijdens aanpassen van SELinux-context van \'%1$s\'</string>
-    <string name="file_job_set_selinux_context_error_message_format">Er is een fout opgetreden tijdens het aanpassen van de SELinux-context naar \'%1$s\'.\n%2$s</string>
+    <string name="file_job_delete_error_message_format">Er is een fout opgetreden tijdens het verwijderen van ‘%1$s’.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Fout tijdens verplaatsen van ‘%1$s’</string>
+    <string name="file_job_rename_error_message_format">Er is een fout opgetreden tijdens het wijzigen van de naam in ‘%1$s’.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Fout tijdens veranderen van eigenaar van ‘%1$s’</string>
+    <string name="file_job_set_owner_error_message_format">Er is een fout opgetreden tijdens het veranderen van de eigenaar naar ‘%1$s’.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Fout tijdens veranderen van groep van ‘%1$s’</string>
+    <string name="file_job_set_group_error_message_format">Er is een fout opgetreden tijdens het veranderen van de groep naar ‘%1$s’.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Fout tijdens aanpassen van modus van ‘%1$s’</string>
+    <string name="file_job_set_mode_error_message_format">Er is een fout opgetreden tijdens het aanpassen van de modus naar ‘%1$s’.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Fout tijdens aanpassen van SELinux-context van ‘%1$s’</string>
+    <string name="file_job_set_selinux_context_error_message_format">Er is een fout opgetreden tijdens het aanpassen van de SELinux-context naar ‘%1$s’.\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">Fout tijdens herstellen van SELinux-context</string>
-    <string name="file_job_restore_selinux_context_error_message_format">Er is een fout opgetreden tijdens het herstellen van de SELinux-context van \'%1$s\'.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Er is een fout opgetreden tijdens het herstellen van de SELinux-context van ‘%1$s’.\n%2$s</string>
     <string name="file_job_write_error_title">Fout tijdens wegschrijven</string>
-    <string name="file_job_write_error_message_format">Er is een fout opgetreden tijdens het wegschrijven van \'%1$s\'.\n%2$s</string>
-    <string name="file_job_get_information_error_message_format">Er is een fout opgetreden tijdens het verkrijgen van informatie over \'%1$s\'.</string>
-    <string name="file_job_remount_format">\'%1$s\' opnieuw aankoppelen als beschrijfbaar</string>
-    <string name="file_job_remount_loading_format">Bezig met opnieuw aankoppelen van \'%1$s\'…</string>
-    <string name="file_job_remount_success_format">\'%1$s\' is opnieuw aangekoppeld als beschrijfbaar</string>
+    <string name="file_job_write_error_message_format">Er is een fout opgetreden tijdens het wegschrijven van ‘%1$s’.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Er is een fout opgetreden tijdens het verkrijgen van informatie over ‘%1$s’.</string>
+    <string name="file_job_remount_format">‘%1$s’ opnieuw aankoppelen als beschrijfbaar</string>
+    <string name="file_job_remount_loading_format">Bezig met opnieuw aankoppelen van ‘%1$s’…</string>
+    <string name="file_job_remount_success_format">‘%1$s’ is opnieuw aangekoppeld als beschrijfbaar</string>
     <string name="file_job_action_all">Toepassen op alle bestanden</string>
 
     <string name="file_open_apk_message">Dit bestand is een Android-pakket. Wil je het installeren of de inhoud ervan bekijken?</string>
+    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Openen als…</string>
-    <string name="file_open_as_title_format">\'%1$s\' openen als</string>
+    <string name="file_open_as_title_format">‘%1$s’ openen als</string>
     <string name="file_open_as_type_text">Tekst</string>
     <string name="file_open_as_type_image">Afbeelding</string>
     <string name="file_open_as_type_audio">Audio</string>
     <string name="file_open_as_type_video">Video</string>
     <string name="file_open_as_type_directory">Map</string>
     <string name="file_open_as_type_any">Anders</string>
-    <string name="file_install_apk_from_background_title_format">\'%1$s\' kan nu worden geïnstalleerd</string>
+    <string name="file_install_apk_from_background_title_format">‘%1$s’ kan nu worden geïnstalleerd</string>
     <string name="file_install_apk_from_background_text">Druk om te installeren</string>
-    <string name="file_open_from_background_title_format">\'%1$s\' kan nu worden geopend</string>
+    <string name="file_open_from_background_title_format">‘%1$s’ kan nu worden geopend</string>
     <string name="file_open_from_background_text">Druk om te openen</string>
     <string name="file_name_error_empty">Voer een bestandsnaam in</string>
     <string name="file_name_error_invalid">Ongeldige bestandsnaam</string>
     <string name="file_name_error_already_exists">Er is al een bestand met deze naam</string>
-    <string name="file_delete_message_file_format">\'%1$s\' verwijderen?</string>
-    <string name="file_delete_message_directory_format">Wil je de map \'%1$s\' en alle inhoud ervan verwijderen?</string>
+    <string name="file_delete_message_file_format">‘%1$s’ verwijderen?</string>
+    <string name="file_delete_message_directory_format">Wil je de map ‘%1$s’ en alle inhoud ervan verwijderen?</string>
     <string name="file_delete_message_multiple_files_format">%1$,d bestanden verwijderen?</string>
     <string name="file_delete_message_multiple_directories_format">Wil je %1$,d mappen en alle inhoud ervan verwijderen?</string>
     <string name="file_delete_message_multiple_mixed_format">%1$,d items verwijderen?</string>
@@ -270,7 +272,7 @@
     <string name="file_list_action_new_task">Nieuw venster</string>
     <string name="file_list_action_navigate_up">Ga omhoog</string>
     <string name="file_list_action_show_hidden_files">Verborgen bestanden tonen</string>
-    <string name="file_list_action_copy_path">Pad kopiëren</string>
+    <string name="file_list_action_copy_path">Locatie kopiëren</string>
     <string name="file_list_action_open_in_terminal">Openen in terminalvenster</string>
     <string name="file_list_action_add_bookmark">Bladwijzer toevoegen</string>
     <string name="file_list_action_create_shortcut">Snelkoppeling maken</string>
@@ -279,7 +281,7 @@
     <string name="file_list_select_title_format">%1$,d geselecteerd</string>
     <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
-    <string name="file_list_select_current_directory_format">\'%1$s\' selecteren</string>
+    <string name="file_list_select_current_directory_format">‘%1$s’ selecteren</string>
     <string name="file_list_paste_move_title_format">Bezig met verplaatsen van %1$,d</string>
     <string name="file_list_paste_copy_title_format">Bezig met kopiëren van %1$,d</string>
     <string name="file_list_paste_extract_title_format">Bezig met uitpakken van %1$,d</string>
@@ -297,7 +299,7 @@
     <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Eigenschappen</string>
 
-    <string name="file_properties_title_format">Eigenschappen van \'%1$s\'</string>
+    <string name="file_properties_title_format">Eigenschappen van ‘%1$s’</string>
     <string name="file_properties_basic">Informatie</string>
     <string name="file_properties_basic_name">Naam</string>
     <string name="file_properties_basic_type">Soort</string>
@@ -401,6 +403,7 @@
         <item quantity="other">%1$,d rechten vereist</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Ondertekeningen</string>
+    <string name="file_properties_apk_signature_digests_empty">Geen geldige ondertekeningen</string>
     <string name="file_properties_apk_past_signature_digests">Oude ondertekeningen</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -408,15 +411,40 @@
     <string name="storage_list_empty">Geen opslag</string>
     <string name="storage_add_storage_title">Opslagmedium toevoegen</string>
     <string name="storage_add_storage_document_tree">Externe opslag</string>
+    <string name="storage_add_storage_sftp_server">SFTP-server</string>
     <string name="storage_add_storage_smb_server">SMB-server</string>
     <string name="storage_edit_device_storage_title">Apparaatopslag bewerken</string>
     <string name="storage_edit_device_storage_name">Naam</string>
-    <string name="storage_edit_device_storage_path">Pad</string>
+    <string name="storage_edit_device_storage_path">Locatie</string>
     <string name="storage_add_document_tree_title">Externe opslag toevoegen</string>
     <string name="storage_edit_document_tree_title">Externe opslag bewerken</string>
     <string name="storage_edit_document_tree_name">Naam</string>
     <string name="storage_edit_document_tree_uri">URI</string>
-    <string name="storage_edit_document_tree_path">Pad</string>
+    <string name="storage_edit_document_tree_path">Locatie</string>
+    <string name="storage_edit_sftp_server_title_edit">SFTP-server bewerken</string>
+    <string name="storage_edit_sftp_server_title_add">SFTP-server toevoegen</string>
+    <string name="storage_edit_sftp_server_host">Hostnaam</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Voer een hostnaam in</string>
+    <string name="storage_edit_sftp_server_port">Poort</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Ongeldig poortnummer</string>
+    <string name="storage_edit_sftp_server_path">Locatie</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Mag leeg worden gelaten</string>
+    <string name="storage_edit_sftp_server_name">Naam</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Hostnaam gebruiken</string>
+    <string name="storage_edit_sftp_server_authentication_type">Authenticatie</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Wachtwoord</item>
+        <item>Publieke sleutel</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Gebruikersnaam</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Voer een gebruikersnaam in</string>
+    <string name="storage_edit_sftp_server_password">Wachtwoord</string>
+    <string name="storage_edit_sftp_server_private_key">Privésleutel</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Bestand openen</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Voer een privésleutel in</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Ongeldige privésleutel</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Verbinden en toevoegen</string>
+    <string name="storage_edit_sftp_server_add">Toevoegen</string>
     <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Bezig met zoeken naar smb-servers…</string>
     <string name="storage_add_lan_smb_server_add">Handmatig toevoegen</string>
@@ -426,6 +454,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Voer een hostnaam in</string>
     <string name="storage_edit_smb_server_port">Poort</string>
     <string name="storage_edit_smb_server_port_error_invalid">Ongeldig poortnummer</string>
+    <string name="storage_edit_smb_server_path">Locatie</string>
+    <string name="storage_edit_smb_server_path_placeholder">Mag leeg worden gelaten</string>
     <string name="storage_edit_smb_server_name">Naam</string>
     <string name="storage_edit_smb_server_name_placeholder">Hostnaam gebruiken</string>
     <string name="storage_edit_smb_server_authentication_type">Authenticatie</string>
@@ -458,7 +488,7 @@
     <string name="navigation_standard_directory_wechat">WeChat</string>
     <string name="navigation_edit_bookmark_directory_title">Toevoegen aan bladwijzers</string>
     <string name="navigation_edit_bookmark_directory_name">Naam</string>
-    <string name="navigation_edit_bookmark_directory_path">Pad</string>
+    <string name="navigation_edit_bookmark_directory_path">Locatie</string>
     <string name="navigation_ftp_server">@string/ftp_server_title</string>
     <string name="navigation_settings">@string/settings_title</string>
     <string name="navigation_about">@string/about_title</string>
@@ -471,6 +501,7 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Opgeslagen</string>
     <string name="text_editor_reload_message">Weet je zeker dat je wilt herladen? Niet-opgeslagen wijzigingen gaan verloren.</string>
+    <string name="text_editor_encoding">Versleuteling</string>
     <string name="text_editor_close_message">Weet je zeker dat je de niet-opgeslagen wijzigingen wilt verwerpen?</string>
 
     <string name="ftp_server_title">FTP-server</string>
@@ -544,6 +575,8 @@
         <item>Inhoud bekijken</item>
         <item>Vragen om een actie</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Miniaturen van pdf-bestanden tonen</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Dit kan leiden tot instabiliteit op oudere Android-versies</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Miniaturen laden van externe bestanden</string>
 
     <string name="about_title">Over</string>
