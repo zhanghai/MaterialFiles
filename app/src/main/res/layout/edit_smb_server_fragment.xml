@@ -206,6 +206,7 @@
                 android:id="@+id/removeOrAddButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
                 android:text="@string/save"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Dialog" />
 
