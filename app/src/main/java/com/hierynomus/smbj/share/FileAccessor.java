@@ -13,6 +13,8 @@ import java.util.concurrent.Future;
 import androidx.annotation.NonNull;
 
 public class FileAccessor {
+    private FileAccessor() {}
+
     /**
      * @see File#readAsync(long, int)
      */
