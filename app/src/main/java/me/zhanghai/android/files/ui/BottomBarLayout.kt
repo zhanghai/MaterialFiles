@@ -15,7 +15,7 @@ import androidx.annotation.StyleRes
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.MaterialShapeUtils
 
-class MaterialFrameLayout @JvmOverloads constructor(
+class BottomBarLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     @AttrRes defStyleAttr: Int = 0,
@@ -27,9 +27,10 @@ class MaterialFrameLayout @JvmOverloads constructor(
             this.background = MaterialShapeDrawable().apply {
                 fillColor = ColorStateList.valueOf(background.color)
                 initializeElevationOverlay(context)
-                elevation = this@MaterialFrameLayout.elevation
+                elevation = this@BottomBarLayout.elevation
             }
         }
+        maybeUseMd3AppBarElevationOverlay()
     }
 
     override fun onAttachedToWindow() {

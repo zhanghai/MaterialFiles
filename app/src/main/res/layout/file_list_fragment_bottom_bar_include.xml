@@ -9,7 +9,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <me.zhanghai.android.files.ui.MaterialFrameLayout
+    <me.zhanghai.android.files.ui.BottomBarLayout
         android:id="@+id/bottomBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,5 +26,5 @@
             android:paddingEnd="@dimen/file_list_toolbar_padding_end_no_overflow"
             app:navigationIcon="@drawable/close_icon_control_normal_24dp"
             app:popupTheme="?actionBarPopupTheme" />
-    </me.zhanghai.android.files.ui.MaterialFrameLayout>
+    </me.zhanghai.android.files.ui.BottomBarLayout>
 </merge>
