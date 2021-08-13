@@ -17,6 +17,7 @@ import androidx.core.graphics.ColorUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.MaterialShapeDrawableAccessor
 import com.google.android.material.shape.MaterialShapeUtils
 import me.zhanghai.android.files.util.activity
 
@@ -57,9 +58,11 @@ class CoordinatorAppBarLayout : AppBarLayout {
             true
         }
 
+        maybeUseMd3AppBarElevationOverlay()
+
         if (background is MaterialShapeDrawable) {
             this.background = OnElevationChangedMaterialShapeDrawable(
-                background, context, this::onBackgroundElevationChanged
+                background, this::onBackgroundElevationChanged
             )
         }
 
@@ -115,12 +118,14 @@ class CoordinatorAppBarLayout : AppBarLayout {
 
     private class OnElevationChangedMaterialShapeDrawable(
         drawable: MaterialShapeDrawable,
-        context: Context,
         private val onElevationChanged: (Float) -> Unit
     ) : MaterialShapeDrawable() {
         init {
             fillColor = drawable.fillColor
-            initializeElevationOverlay(context)
+            MaterialShapeDrawableAccessor.setElevationOverlayProvider(
+                this, MaterialShapeDrawableAccessor.getElevationOverlayProvider(drawable)
+            )
+            MaterialShapeDrawableAccessor.updateZ(this)
         }
 
         override fun setElevation(elevation: Float) {

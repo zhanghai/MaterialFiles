@@ -19,4 +19,6 @@
     <color name="secondary_text_inverse_md3">@color/secondary_text_md3_light</color>
     <color name="tertiary_text_md3">@color/tertiary_text_md3_dark</color>
     <color name="tertiary_text_inverse_md3">@color/tertiary_text_md3_light</color>
+
+    <color name="color_lifted_app_bar_surface_md3">@color/color_lifted_app_bar_surface_md3_dark</color>
 </resources>
