@@ -16,7 +16,8 @@
         android:layout_gravity="bottom"
         android:background="?colorSurface"
         android:elevation="@dimen/design_appbar_elevation"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="?actionBarTheme">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/bottomToolbar"
