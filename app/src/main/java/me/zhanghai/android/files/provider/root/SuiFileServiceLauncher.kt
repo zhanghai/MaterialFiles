@@ -93,9 +93,10 @@ object SuiFileServiceLauncher {
                             val serviceArgs = Shizuku.UserServiceArgs(
                                 ComponentName(application, SuiFileServiceInterface::class.java)
                             )
+                                .debuggable(BuildConfig.DEBUG)
+                                .daemon(false)
                                 .processNameSuffix("sui")
                                 .version(BuildConfig.VERSION_CODE)
-                                .debuggable(BuildConfig.DEBUG)
                             val connection = object : ServiceConnection {
                                 override fun onServiceConnected(
                                     name: ComponentName,
