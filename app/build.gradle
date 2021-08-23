@@ -178,10 +178,7 @@ dependencies {
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.3'
-    // Commons Compress 1.21 changed code to rely on NIO 2 which doesn't exist on older Android
-    // versions.
-    //noinspection GradleDependency
-    implementation 'org.apache.commons:commons-compress:1.20'
+    implementation 'org.apache.commons:commons-compress:1.21'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.9'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'
