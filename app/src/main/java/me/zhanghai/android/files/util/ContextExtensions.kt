@@ -23,6 +23,7 @@ import android.view.animation.AnimationUtils
 import android.view.animation.Interpolator
 import android.widget.Toast
 import androidx.annotation.AnimRes
+import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
@@ -34,6 +35,7 @@ import androidx.annotation.InterpolatorRes
 import androidx.annotation.PluralsRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.res.ResourcesCompat
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getFloatCompat
 import me.zhanghai.android.files.compat.mainExecutorCompat
@@ -116,9 +118,12 @@ fun Context.getDrawableByAttr(@AttrRes attr: Int): Drawable =
 fun Context.getFloatByAttr(@AttrRes attr: Int): Float =
     obtainStyledAttributesCompat(attrs = intArrayOf(attr)).use { it.getFloat(0, 0f) }
 
+@AnyRes
 @SuppressLint("RestrictedApi")
 fun Context.getResourceIdByAttr(@AttrRes attr: Int): Int =
-    obtainStyledAttributesCompat(attrs = intArrayOf(attr)).use { it.getResourceId(0, 0) }
+    obtainStyledAttributesCompat(attrs = intArrayOf(attr)).use {
+        it.getResourceId(0, ResourcesCompat.ID_NULL)
+    }
 
 val Context.displayWidth: Int
     get() = resources.displayMetrics.widthPixels

@@ -15,6 +15,8 @@ import com.hierynomus.smbj.io.ByteChunkProvider;
 import java.util.concurrent.Future;
 
 public class ShareAccessor {
+    private ShareAccessor() {}
+
     /**
      * This ioctl() variant allows passing in the {@param statusHandler}.
      *

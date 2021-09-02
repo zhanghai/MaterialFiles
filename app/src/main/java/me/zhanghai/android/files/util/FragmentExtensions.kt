@@ -10,6 +10,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.annotation.AnimRes
+import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
 import androidx.annotation.AttrRes
 import androidx.annotation.BoolRes
@@ -90,6 +91,7 @@ fun Fragment.getDrawableByAttr(@AttrRes attr: Int) = requireContext().getDrawabl
 
 fun Fragment.getFloatByAttr(@AttrRes attr: Int) = requireContext().getFloatByAttr(attr)
 
+@AnyRes
 fun Fragment.getResourceIdByAttr(@AttrRes attr: Int): Int =
     requireContext().getResourceIdByAttr(attr)
 

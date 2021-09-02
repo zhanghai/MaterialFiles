@@ -11,8 +11,7 @@ import androidx.annotation.AttrRes
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.shape.MaterialShapeDrawable
 
-// This fix is needed for night mode after activity recreation on S+.
-class IgnoreParentElevationToolbar : MaterialToolbar {
+class OverlayToolbar : MaterialToolbar {
     constructor(context: Context) : super(context)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
@@ -21,12 +20,17 @@ class IgnoreParentElevationToolbar : MaterialToolbar {
         context, attrs, defStyleAttr
     )
 
+    init {
+        maybeUseMd3AppBarElevationOverlay()
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
         // @see MaterialShapeUtils.setParentAbsoluteElevation
         val background = background
         if (background is MaterialShapeDrawable && background.isElevationOverlayEnabled) {
+            // This fix is needed for elevation overlay after activity recreation on S+.
             background.parentAbsoluteElevation = 0f
         }
     }

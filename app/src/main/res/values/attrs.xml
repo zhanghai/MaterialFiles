@@ -7,4 +7,5 @@
 
 <resources>
     <attr name="colorAppBarSurface" format="color" />
+    <attr name="colorLiftedAppBarSurface" format="color" />
 </resources>
