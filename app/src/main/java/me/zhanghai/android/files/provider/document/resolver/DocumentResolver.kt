@@ -19,11 +19,13 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.provider.common.copyTo
 import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
+import me.zhanghai.android.files.provider.content.resolver.getInt
 import me.zhanghai.android.files.provider.content.resolver.getLong
 import me.zhanghai.android.files.provider.content.resolver.getString
 import me.zhanghai.android.files.provider.content.resolver.moveToFirstOrThrow
 import me.zhanghai.android.files.provider.content.resolver.requireString
 import me.zhanghai.android.files.util.AbstractLocalCursor
+import me.zhanghai.android.files.util.hasBits
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
@@ -38,19 +40,6 @@ object DocumentResolver {
     private const val MTP_DOCUMENTS_PROVIDER_AUTHORITY = "com.android.mtp.documents"
 
     private val LOCAL_AUTHORITIES = setOf(
-        BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
-        MTP_DOCUMENTS_PROVIDER_AUTHORITY
-    )
-    private val COPY_UNSUPPORTED_AUTHORITIES = setOf(
-        BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
-        DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
-        MTP_DOCUMENTS_PROVIDER_AUTHORITY
-    )
-    private val MOVE_UNSUPPORTED_AUTHORITIES = setOf(
-        MTP_DOCUMENTS_PROVIDER_AUTHORITY
-    )
-    private val REMOVE_UNSUPPORTED_AUTHORITIES = setOf(
         BUGREPORT_STORAGE_PROVIDER_AUTHORITY,
         DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
         MTP_DOCUMENTS_PROVIDER_AUTHORITY
@@ -76,15 +65,20 @@ object DocumentResolver {
         listener: ((Long) -> Unit)?
     ): Uri {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-            && sourcePath.hasSameAuthority(targetPath) && !sourcePath.isCopyUnsupported) {
+            && sourcePath.hasSameAuthority(targetPath) && isCopySupported(getDocumentUri(sourcePath))) {
             copyApi24(sourcePath, targetPath, intervalMillis, listener)
         } else {
             copyManually(sourcePath, targetPath, intervalMillis, listener)
         }
     }
 
-    private val Path.isCopyUnsupported: Boolean
-        get() = treeUri.authority in COPY_UNSUPPORTED_AUTHORITIES
+    @Throws(ResolverException::class)
+    private fun isCopySupported(uri: Uri): Boolean =
+        query(uri, arrayOf(DocumentsContract.Document.COLUMN_FLAGS), null).use { cursor ->
+            cursor.moveToFirstOrThrow()
+            cursor.getInt(DocumentsContract.Document.COLUMN_FLAGS)
+                ?.hasBits(DocumentsContract.Document.FLAG_SUPPORTS_COPY) ?: false
+        }
 
     @RequiresApi(Build.VERSION_CODES.N)
     @Throws(ResolverException::class)
@@ -269,7 +263,7 @@ object DocumentResolver {
             return rename(sourcePath, targetPath.displayName!!)
         }
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-            && sourcePath.hasSameAuthority(targetPath) && !sourcePath.isMoveUnsupported) {
+            && sourcePath.hasSameAuthority(targetPath) && isMoveSupported(getDocumentUri(sourcePath))) {
             moveApi24(sourcePath, targetPath, moveOnly, intervalMillis, listener)
         } else {
             if (moveOnly) {
@@ -283,8 +277,13 @@ object DocumentResolver {
     private fun Path.hasSameAuthority(other: Path): Boolean =
         treeUri.authority == other.treeUri.authority
 
-    private val Path.isMoveUnsupported: Boolean
-        get() = treeUri.authority in MOVE_UNSUPPORTED_AUTHORITIES
+    @Throws(ResolverException::class)
+    private fun isMoveSupported(uri: Uri): Boolean =
+        query(uri, arrayOf(DocumentsContract.Document.COLUMN_FLAGS), null).use { cursor ->
+            cursor.moveToFirstOrThrow()
+            cursor.getInt(DocumentsContract.Document.COLUMN_FLAGS)
+                ?.hasBits(DocumentsContract.Document.FLAG_SUPPORTS_MOVE) ?: false
+        }
 
     @RequiresApi(Build.VERSION_CODES.N)
     @Throws(ResolverException::class)
@@ -416,7 +415,7 @@ object DocumentResolver {
 
     @Throws(ResolverException::class)
     fun remove(path: Path) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isRemoveUnsupported(path)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && isRemoveSupported(path)) {
             removeApi24(path)
         } else {
             @Suppress("DEPRECATION")
@@ -426,17 +425,23 @@ object DocumentResolver {
 
     @Throws(ResolverException::class)
     fun remove(uri: Uri, parentUri: Uri) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !isRemoveUnsupported(uri)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && isRemoveSupported(uri)) {
             removeApi24(uri, parentUri)
         } else {
             delete(uri)
         }
     }
 
-    private fun isRemoveUnsupported(path: Path): Boolean = isRemoveUnsupported(path.treeUri)
+    @Throws(ResolverException::class)
+    private fun isRemoveSupported(path: Path): Boolean = isRemoveSupported(getDocumentUri(path))
 
-    private fun isRemoveUnsupported(uri: Uri): Boolean =
-        uri.authority in REMOVE_UNSUPPORTED_AUTHORITIES
+    @Throws(ResolverException::class)
+    private fun isRemoveSupported(uri: Uri): Boolean =
+        query(uri, arrayOf(DocumentsContract.Document.COLUMN_FLAGS), null).use { cursor ->
+            cursor.moveToFirstOrThrow()
+            cursor.getInt(DocumentsContract.Document.COLUMN_FLAGS)
+                ?.hasBits(DocumentsContract.Document.FLAG_SUPPORTS_REMOVE) ?: false
+        }
 
     @RequiresApi(Build.VERSION_CODES.N)
     @Throws(ResolverException::class)
