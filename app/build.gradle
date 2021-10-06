@@ -165,7 +165,7 @@ dependencies {
     implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
-    def coil_version = '1.3.2'
+    def coil_version = '1.4.0'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
@@ -177,7 +177,7 @@ dependencies {
     implementation 'me.zhanghai.android.libselinux:library:2.0.1'
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
-    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.3'
+    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.4'
     implementation 'org.apache.commons:commons-compress:1.21'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.9'
@@ -186,7 +186,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.32'
 
 //#ifdef NONFREE
-    implementation 'com.google.firebase:firebase-analytics:19.0.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.1'
+    implementation 'com.google.firebase:firebase-analytics:19.0.2'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.3'
 //#endif
 }
