@@ -128,11 +128,7 @@ dependencies {
     implementation 'com.github.junrar:junrar:7.4.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    // SMBJ 0.11.1 is incompatible with SMBJ-RPC.
-    // https://github.com/zhanghai/MaterialFiles/issues/542
-    // Run `git revert 5ec1a3f` once SMBJ-RPC is updated to be compatible with the new SMBJ.
-    //noinspection GradleDependency
-    implementation ('com.hierynomus:smbj:0.10.0') {
+    implementation ('com.hierynomus:smbj:0.11.3') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
@@ -147,12 +143,12 @@ dependencies {
     // strange focus effect on the first mini FAB.
     //noinspection GradleDependency
     implementation 'com.leinardi.android:speed-dial:3.1.1'
-    implementation ('com.rapid7.client:dcerpc:0.11.0') {
+    implementation ('com.rapid7.client:dcerpc:0.12.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.69'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
