@@ -174,6 +174,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
         navigationFragment.listener = this
         val activity = requireActivity() as AppCompatActivity
+        activity.setTitle(R.string.file_list_title)
         activity.setSupportActionBar(binding.toolbar)
         overlayActionMode = OverlayToolbarActionMode(binding.overlayToolbar)
         bottomActionMode = PersistentBarLayoutToolbarActionMode(
