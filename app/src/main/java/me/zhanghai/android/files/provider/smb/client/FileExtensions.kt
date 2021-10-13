@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.provider.smb.client
 
 import com.hierynomus.mserref.NtStatus
-import com.hierynomus.mssmb2.SMB2Header
+import com.hierynomus.mssmb2.SMB2PacketHeader
 import com.hierynomus.mssmb2.SMBApiException
 import com.hierynomus.mssmb2.copy.CopyChunkRequest
 import com.hierynomus.mssmb2.copy.CopyChunkResponse
@@ -108,7 +108,7 @@ private val SERVER_COPY_CHUNK_STATUS_HANDLER = StatusHandler {
 @Throws(SMBRuntimeException::class)
 private fun File.serverCopyChunk(
     request: CopyChunkRequest
-): Pair<SMB2Header, CopyChunkResponse> {
+): Pair<SMB2PacketHeader, CopyChunkResponse> {
     // FSCTL_SRV_COPYCHUNK and FSCTL_SRV_COPYCHUNK_WRITE FSCTL codes are used for performing server
     // side copy operations. These FSCTLs are issued by the application against an open handle to
     // the target file.
@@ -116,7 +116,7 @@ private fun File.serverCopyChunk(
     val buffer = SMBBuffer()
     request.write(buffer)
     //val readTimeout = share.readTimeout
-    val readTimeout = share.treeConnect.session.connection.config.readTimeout
+    val readTimeout = share.treeConnect.config.readTimeout
     val ioctlResponse = ShareAccessor.ioctl(
         share, fileId, CopyChunkRequest.getCtlCode(), true, buffer.array(), buffer.rpos(),
         buffer.available(), SERVER_COPY_CHUNK_STATUS_HANDLER, readTimeout

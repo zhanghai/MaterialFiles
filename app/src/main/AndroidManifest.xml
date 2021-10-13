@@ -44,7 +44,6 @@
 
         <activity
             android:name="me.zhanghai.android.files.filelist.FileListActivity"
-            android:label="@string/file_list_title"
             android:visibleToInstantApps="true"
             tools:ignore="UnusedAttribute">
             <intent-filter>

@@ -133,11 +133,7 @@ dependencies {
     implementation 'com.github.junrar:junrar:7.4.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    // SMBJ 0.11.1 is incompatible with SMBJ-RPC.
-    // https://github.com/zhanghai/MaterialFiles/issues/542
-    // Run `git revert 5ec1a3f` once SMBJ-RPC is updated to be compatible with the new SMBJ.
-    //noinspection GradleDependency
-    implementation ('com.hierynomus:smbj:0.10.0') {
+    implementation ('com.hierynomus:smbj:0.11.3') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
@@ -152,12 +148,12 @@ dependencies {
     // strange focus effect on the first mini FAB.
     //noinspection GradleDependency
     implementation 'com.leinardi.android:speed-dial:3.1.1'
-    implementation ('com.rapid7.client:dcerpc:0.11.0') {
+    implementation ('com.rapid7.client:dcerpc:0.12.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.68'
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.69'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
@@ -170,7 +166,7 @@ dependencies {
     implementation 'eu.chainfire:librootjava:1.3.1'
     implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
-    def coil_version = '1.3.2'
+    def coil_version = '1.4.0'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
@@ -182,7 +178,7 @@ dependencies {
     implementation 'me.zhanghai.android.libselinux:library:2.0.1'
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
-    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.3'
+    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.4'
     implementation 'org.apache.commons:commons-compress:1.21'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.9'
@@ -191,7 +187,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.32'
 
 //#ifdef NONFREE
-    implementation 'com.google.firebase:firebase-analytics:19.0.1'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.1'
+    implementation 'com.google.firebase:firebase-analytics:19.0.2'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.3'
 //#endif
 }
