@@ -141,6 +141,7 @@ class EditSmbServerFragment : Fragment() {
                     }
                 }
                 binding.pathEdit.setText(server.relativePath)
+                binding.nameEdit.setText(server.customName)
             } else {
                 val host = args.host
                 if (host != null) {

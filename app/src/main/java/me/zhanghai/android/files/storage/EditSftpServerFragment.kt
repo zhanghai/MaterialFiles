@@ -153,6 +153,7 @@ class EditSftpServerFragment : Fragment() {
                     }
                 }
                 binding.pathEdit.setText(server.relativePath)
+                binding.nameEdit.setText(server.customName)
             }
         }
     }
