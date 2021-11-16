@@ -44,6 +44,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.filelist.FileListActivity"
+            android:configChanges="orientation|screenSize"
             android:visibleToInstantApps="true"
             tools:ignore="UnusedAttribute">
             <intent-filter>
@@ -155,6 +156,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.storage.AddStorageDialogActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/storage_add_storage_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
