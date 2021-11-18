@@ -24,13 +24,13 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
                 val items = STORAGE_TYPES.map { getString(it.first) }.toTypedArray<CharSequence>()
                 setItems(items) { _, which ->
                     startActivitySafe(STORAGE_TYPES[which].second)
-                    dismiss()
+                    finish()
                 }
             }
             .create()
 
-    override fun onDismiss(dialog: DialogInterface) {
-        super.onDismiss(dialog)
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
 
         finish()
     }
