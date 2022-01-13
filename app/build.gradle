@@ -21,7 +21,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.10'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -185,7 +185,8 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.32'
 
 //#ifdef NONFREE
-    implementation 'com.google.firebase:firebase-analytics:19.0.2'
-    implementation 'com.google.firebase:firebase-crashlytics-ndk:18.2.3'
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif
 }
