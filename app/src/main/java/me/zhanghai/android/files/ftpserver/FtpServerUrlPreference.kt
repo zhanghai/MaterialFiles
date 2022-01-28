@@ -118,7 +118,7 @@ class FtpServerUrlPreference : Preference {
             if (!hasUrl) {
                 return
             }
-            val url = summary
+            val url = summary!!
             menu
                 .setHeaderTitle(url)
                 .apply {
