@@ -37,6 +37,7 @@ android {
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
+        //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 29
         versionCode 25
         versionName '1.3.1'
