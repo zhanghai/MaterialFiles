@@ -10,6 +10,7 @@ import android.database.MergeCursor
 import android.net.Uri
 import android.provider.DocumentsContract
 import me.zhanghai.android.files.compat.DocumentsContractCompat
+import me.zhanghai.android.files.file.asDocumentTreeUri
 import me.zhanghai.android.files.provider.content.resolver.requireString
 
 // On Android 11, ExternalStorageProvider no longer returns Android/data and Android/obb as children

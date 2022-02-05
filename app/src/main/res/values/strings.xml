@@ -480,6 +480,8 @@
     <string name="storage_list_title">Storage</string>
     <string name="storage_list_empty">No storage</string>
     <string name="storage_add_storage_title">Add storage</string>
+    <string name="storage_add_storage_android_data" translatable="false">Android/data</string>
+    <string name="storage_add_storage_android_obb" translatable="false">Android/obb</string>
     <string name="storage_add_storage_document_tree">External storage</string>
     <string name="storage_add_storage_sftp_server">SFTP server</string>
     <string name="storage_add_storage_smb_server">SMB server</string>
