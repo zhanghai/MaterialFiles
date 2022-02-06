@@ -19,6 +19,7 @@ import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.TintTypedArray
 import androidx.core.content.ContextCompat
+import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
 import me.zhanghai.android.files.util.lazyReflectedMethod
 import java.util.concurrent.Executor
 import kotlin.contracts.ExperimentalContracts

@@ -13,9 +13,9 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import jcifs.context.SingletonContext
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.coil.initializeCoil
-import me.zhanghai.android.files.compat.RestrictedHiddenApiAccess
 import me.zhanghai.android.files.filejob.fileJobNotificationTemplate
 import me.zhanghai.android.files.ftpserver.ftpServerServiceNotificationTemplate
+import me.zhanghai.android.files.hiddenapi.HiddenApi
 import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.storage.SftpServerAuthenticator
@@ -40,7 +40,9 @@ private fun initializeCrashlytics() {
 }
 
 private fun allowRestrictedHiddenApiAccess() {
-    RestrictedHiddenApiAccess.allow()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        HiddenApi.setExemptions(arrayOf(""))
+    }
 }
 
 private fun initializeThreeTen() {

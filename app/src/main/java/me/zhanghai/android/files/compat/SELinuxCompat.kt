@@ -7,6 +7,7 @@ package me.zhanghai.android.files.compat
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
 import me.zhanghai.android.files.util.lazyReflectedClass
 import me.zhanghai.android.files.util.lazyReflectedMethod
 import java.io.File
