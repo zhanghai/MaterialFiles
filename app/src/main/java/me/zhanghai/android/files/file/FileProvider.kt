@@ -353,7 +353,9 @@ class FileProvider : ContentProvider() {
         private val COLUMNS = arrayOf(
             OpenableColumns.DISPLAY_NAME,
             OpenableColumns.SIZE,
-            MediaStore.MediaColumns.DATA
+            MediaStore.MediaColumns.DATA,
+            DocumentsContract.Document.COLUMN_MIME_TYPE,
+            DocumentsContract.Document.COLUMN_LAST_MODIFIED
         )
     }
 }
