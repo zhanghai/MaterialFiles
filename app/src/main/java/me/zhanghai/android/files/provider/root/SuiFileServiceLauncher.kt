@@ -27,19 +27,28 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 object SuiFileServiceLauncher {
-    // This only works when explicitly annotating the getter.
-    //@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
-    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
-    val isAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-            && Sui.init(application.packageName)
-
     private val lock = Any()
+
+    private var isSuiIntialized = false
+
+    val isSuiAvailable: Boolean
+        @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
+        get() {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return false
+            }
+            if (!isSuiIntialized) {
+                Sui.init(application.packageName)
+                isSuiIntialized = true
+            }
+            return Sui.isSui()
+        }
 
     @RequiresApi(Build.VERSION_CODES.M)
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
         synchronized(lock) {
-            if (!isAvailable) {
+            if (!isSuiAvailable) {
                 throw RemoteFileSystemException("Sui isn't available")
             }
             if (Shizuku.checkSelfPermission() != PackageManager.PERMISSION_GRANTED) {
