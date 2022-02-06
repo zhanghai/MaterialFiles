@@ -44,6 +44,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.filelist.FileListActivity"
+            android:exported="true"
             android:visibleToInstantApps="true"
             tools:ignore="UnusedAttribute">
             <intent-filter>
@@ -131,6 +132,7 @@
             android:name="me.zhanghai.android.files.filelist.OpenFileActivity"
             android:documentLaunchMode="always"
             android:excludeFromRecents="true"
+            android:exported="true"
             android:theme="@style/Theme.MaterialFiles.Translucent">
             <intent-filter>
                 <action android:name="me.zhanghai.android.files.intent.action.OPEN_FILE" />
@@ -195,6 +197,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.ftpserver.FtpServerActivity"
+            android:exported="true"
             android:label="@string/ftp_server_title"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MaterialFiles">
@@ -210,6 +213,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.settings.SettingsActivity"
+            android:exported="true"
             android:label="@string/settings_title"
             android:launchMode="singleTop"
             android:theme="@style/Theme.MaterialFiles">
@@ -255,6 +259,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"
+            android:exported="true"
             android:label="@string/text_editor_title"
             android:theme="@style/Theme.MaterialFiles">
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -273,6 +278,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.viewer.image.ImageViewerActivity"
+            android:exported="true"
             android:label="@string/image_viewer_title"
             android:theme="@style/Theme.MaterialFiles.Immersive">
             <intent-filter tools:ignore="AppLinkUrlError">
@@ -288,6 +294,7 @@
 
         <service
             android:name="me.zhanghai.android.files.ftpserver.FtpServerTileService"
+            android:exported="true"
             android:icon="@drawable/shared_directory_icon_white_24dp"
             android:label="@string/ftp_server_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
