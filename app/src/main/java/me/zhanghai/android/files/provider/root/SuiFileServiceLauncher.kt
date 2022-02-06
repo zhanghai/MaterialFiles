@@ -31,9 +31,9 @@ object SuiFileServiceLauncher {
 
     private var isSuiIntialized = false
 
-    val isSuiAvailable: Boolean
-        @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
-        get() {
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
+    fun isSuiAvailable(): Boolean {
+        synchronized(lock) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 return false
             }
@@ -43,12 +43,13 @@ object SuiFileServiceLauncher {
             }
             return Sui.isSui()
         }
+    }
 
     @RequiresApi(Build.VERSION_CODES.M)
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
         synchronized(lock) {
-            if (!isSuiAvailable) {
+            if (!isSuiAvailable()) {
                 throw RemoteFileSystemException("Sui isn't available")
             }
             if (Shizuku.checkSelfPermission() != PackageManager.PERMISSION_GRANTED) {

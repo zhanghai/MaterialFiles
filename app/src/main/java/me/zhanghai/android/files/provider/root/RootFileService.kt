@@ -23,7 +23,7 @@ lateinit var rootContext: Context private set
 
 object RootFileService : RemoteFileService(
     RemoteInterface {
-        if (SuiFileServiceLauncher.isSuiAvailable) {
+        if (SuiFileServiceLauncher.isSuiAvailable()) {
             SuiFileServiceLauncher.launchService()
         } else {
             LibSuFileServiceLauncher.launchService()

@@ -39,21 +39,20 @@ object LibSuFileServiceLauncher {
         )
     }
 
-    val isSuAvailable: Boolean
-        get() =
-            try {
-                Runtime.getRuntime().exec("su --version")
-                true
-            } catch (e: IOException) {
-                // java.io.IOException: Cannot run program "su": error=2, No such file or directory
-                false
-            }
+    fun isSuAvailable(): Boolean =
+        try {
+            Runtime.getRuntime().exec("su --version")
+            true
+        } catch (e: IOException) {
+            // java.io.IOException: Cannot run program "su": error=2, No such file or directory
+            false
+        }
 
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
         synchronized(lock) {
             // libsu won't call back when su isn't available.
-            if (!isSuAvailable) {
+            if (!isSuAvailable()) {
                 throw RemoteFileSystemException("Root isn't available")
             }
             return runBlocking {
