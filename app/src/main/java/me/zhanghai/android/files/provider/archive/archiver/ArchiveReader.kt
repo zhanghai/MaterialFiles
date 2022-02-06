@@ -7,13 +7,11 @@ package me.zhanghai.android.files.provider.archive.archiver
 
 import android.os.Build
 import androidx.preference.PreferenceManager
-import eu.chainfire.librootjava.RootJava
 import java8.nio.charset.StandardCharsets
 import java8.nio.file.AccessMode
 import java8.nio.file.NoSuchFileException
 import java8.nio.file.NotLinkException
 import java8.nio.file.Path
-import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.provider.common.IsDirectoryException
@@ -21,6 +19,7 @@ import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.checkAccess
 import me.zhanghai.android.files.provider.common.posixFileType
 import me.zhanghai.android.files.provider.root.isRunningAsRoot
+import me.zhanghai.android.files.provider.root.rootContext
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.valueCompat
 import org.apache.commons.compress.archivers.ArchiveEntry
@@ -177,10 +176,10 @@ object ArchiveReader {
         get() =
             if (isRunningAsRoot) {
                 try {
-                    val context = RootJava.getPackageContext(BuildConfig.APPLICATION_ID)
-                    val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-                    val key = context.getString(R.string.pref_key_archive_file_name_encoding)
-                    val defaultValue = context.getString(
+                    val sharedPreferences =
+                        PreferenceManager.getDefaultSharedPreferences(rootContext)
+                    val key = rootContext.getString(R.string.pref_key_archive_file_name_encoding)
+                    val defaultValue = rootContext.getString(
                         R.string.pref_default_value_archive_file_name_encoding
                     )
                     sharedPreferences.getString(key, defaultValue)!!

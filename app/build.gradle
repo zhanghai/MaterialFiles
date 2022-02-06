@@ -31,9 +31,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     compileSdkVersion 31
     ndkVersion '23.1.7779620'
-    // Build tools 31.0.0 broke librootjava: https://github.com/Chainfire/librootjava/issues/24 .
-    //buildToolsVersion '32.0.0'
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '32.0.0'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdkVersion 21
@@ -156,6 +154,7 @@ dependencies {
     // SMBJ-RPC depends on com.google.guava:guava:18.0, which conflicts with
     // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+    implementation 'com.github.topjohnwu.libsu:service:3.2.1'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
@@ -165,8 +164,6 @@ dependencies {
     implementation 'dev.chrisbanes:insetter-ktx:0.3.1'
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.3'
     implementation 'dev.rikka.shizuku:api:12.0.0'
-    implementation 'eu.chainfire:librootjava:1.3.1'
-    implementation 'eu.chainfire:libsuperuser:1.1.0.201907261845'
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
     def coil_version = '1.4.0'
     implementation "io.coil-kt:coil:$coil_version"

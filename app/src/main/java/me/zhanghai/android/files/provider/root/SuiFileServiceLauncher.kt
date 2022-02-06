@@ -10,7 +10,7 @@ import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
+import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.runBlocking
@@ -18,48 +18,28 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withTimeout
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.app.application
-import me.zhanghai.android.files.provider.FileSystemProviders
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
 import me.zhanghai.android.files.provider.remote.IRemoteFileService
 import me.zhanghai.android.files.provider.remote.RemoteFileServiceInterface
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException
-import me.zhanghai.android.libselinux.SeLinux
 import rikka.shizuku.Shizuku
 import rikka.sui.Sui
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 object SuiFileServiceLauncher {
-    private const val TIMEOUT_MILLIS = 10 * 1000
+    // This only works when explicitly annotating the getter.
+    //@ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
+    @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
+    val isAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+            && Sui.init(application.packageName)
 
-    private val suiInitializationLock = Any()
-    private var isSuiInitialized = false
-
-    private val launchServiceLock = Any()
-
-    val isSuiAvailable: Boolean
-        get() {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                return false
-            }
-            ensureSuiInitialized()
-            return Sui.isSui()
-        }
+    private val lock = Any()
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun ensureSuiInitialized() {
-        synchronized(suiInitializationLock) {
-            if (!isSuiInitialized) {
-                Sui.init(application.packageName)
-                isSuiInitialized = true
-            }
-        }
-    }
-
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
-        synchronized(launchServiceLock) {
-            if (!isSuiAvailable) {
+        synchronized(lock) {
+            if (!isAvailable) {
                 throw RemoteFileSystemException("Sui isn't available")
             }
             if (Shizuku.checkSelfPermission() != PackageManager.PERMISSION_GRANTED) {
@@ -88,7 +68,7 @@ object SuiFileServiceLauncher {
             }
             return runBlocking {
                 try {
-                    withTimeout(TIMEOUT_MILLIS.toLong()) {
+                    withTimeout(RootFileService.TIMEOUT_MILLIS) {
                         suspendCancellableCoroutine { continuation ->
                             val serviceArgs = Shizuku.UserServiceArgs(
                                 ComponentName(application, SuiFileServiceInterface::class.java)
@@ -102,9 +82,8 @@ object SuiFileServiceLauncher {
                                     name: ComponentName,
                                     service: IBinder
                                 ) {
-                                    val serviceInterface = IRemoteFileService.Stub.asInterface(
-                                        service
-                                    )
+                                    val serviceInterface =
+                                        IRemoteFileService.Stub.asInterface(service)
                                     continuation.resume(serviceInterface)
                                 }
 
@@ -149,15 +128,6 @@ object SuiFileServiceLauncher {
 @RequiresApi(Build.VERSION_CODES.M)
 class SuiFileServiceInterface : RemoteFileServiceInterface() {
     init {
-        Log.i(LOG_TAG, "Loading native libraries")
-        System.loadLibrary(Syscalls.libraryName)
-        System.loadLibrary(SeLinux.getLibraryName())
-        Log.i(LOG_TAG, "Installing file system providers")
-        FileSystemProviders.install()
-        FileSystemProviders.overflowWatchEvents = true
-    }
-
-    companion object {
-        private val LOG_TAG = SuiFileServiceInterface::class.java.simpleName
+        RootFileService.main()
     }
 }

@@ -5,7 +5,7 @@
 
 package me.zhanghai.android.files.util
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Parcelable
@@ -20,7 +20,7 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.intentType
 import kotlin.reflect.KClass
 
-fun <T : Activity> KClass<T>.createIntent(): Intent = Intent(application, java)
+fun <T : Context> KClass<T>.createIntent(): Intent = Intent(application, java)
 
 fun CharSequence.createSendTextIntent(htmlText: String? = null): Intent =
     // The context parameter here is only used for passing calling activity information and starting
