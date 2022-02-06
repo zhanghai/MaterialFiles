@@ -21,12 +21,8 @@ import java.io.FileDescriptor
 import java.io.InterruptedIOException
 
 object Syscalls {
-    const val libraryName = "syscalls"
-
     init {
-        if (Os.getuid() != 0) {
-            System.loadLibrary(libraryName)
-        }
+        System.loadLibrary("syscalls")
     }
 
     @Throws(SyscallException::class)

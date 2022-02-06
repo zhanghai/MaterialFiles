@@ -11,7 +11,6 @@ import android.os.Process
 import android.util.Log
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.provider.FileSystemProviders
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
 import me.zhanghai.android.files.provider.remote.RemoteFileService
 import me.zhanghai.android.files.provider.remote.RemoteInterface
 import me.zhanghai.android.files.util.lazyReflectedMethod
@@ -49,7 +48,6 @@ object RootFileService : RemoteFileService(
         Log.i(LOG_TAG, "Creating package context")
         rootContext = createPackageContext(BuildConfig.APPLICATION_ID)
         Log.i(LOG_TAG, "Loading native libraries")
-        System.loadLibrary(Syscalls.libraryName)
         System.loadLibrary(SeLinux.getLibraryName())
         Log.i(LOG_TAG, "Installing file system providers")
         FileSystemProviders.install()
