@@ -6,13 +6,11 @@
 package me.zhanghai.android.files.hiddenapi
 
 import android.os.Build
-import androidx.annotation.RequiresApi
 
-@RequiresApi(Build.VERSION_CODES.P)
 object HiddenApi {
-    init {
-        System.loadLibrary("hiddenapi")
+    fun disableHiddenApiChecks() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            System.loadLibrary("hiddenapi")
+        }
     }
-
-    external fun setExemptions(signaturePrefixes: Array<String>): Boolean
 }
