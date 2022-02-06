@@ -53,10 +53,14 @@
 
 static jclass findClass(JNIEnv *env, const char *name) {
     jclass localClass = (*env)->FindClass(env, name);
+    if (!localClass) {
+        ALOGE("Failed to find class '%s'", name);
+        abort();
+    }
     jclass globalClass = (*env)->NewGlobalRef(env, localClass);
     (*env)->DeleteLocalRef(env, localClass);
     if (!globalClass) {
-        ALOGE("Failed to find class '%s'", name);
+        ALOGE("Failed to create a global reference for '%s'", name);
         abort();
     }
     return globalClass;
