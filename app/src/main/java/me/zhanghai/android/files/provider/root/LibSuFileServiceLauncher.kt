@@ -41,6 +41,10 @@ object LibSuFileServiceLauncher {
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
         synchronized(lock) {
+            // libsu won't call back when su isn't available.
+            if (!Shell.sh("command -v su").exec().isSuccess) {
+                throw RemoteFileSystemException("Root access unavailable")
+            }
             return runBlocking {
                 try {
                     withTimeout(RootFileService.TIMEOUT_MILLIS) {
