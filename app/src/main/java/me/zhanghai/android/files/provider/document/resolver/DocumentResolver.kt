@@ -10,6 +10,7 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.net.Uri
 import android.os.Build
+import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import androidx.annotation.RequiresApi
@@ -241,10 +242,12 @@ object DocumentResolver {
         }
 
     @Throws(ResolverException::class)
-    fun getThumbnail(path: Path, width: Int, height: Int): Bitmap? {
+    fun getThumbnail(path: Path, width: Int, height: Int, signal: CancellationSignal): Bitmap? {
         val uri = getDocumentUri(path)
         return try {
-            DocumentsContract.getDocumentThumbnail(contentResolver, uri, Point(width, height), null)
+            DocumentsContract.getDocumentThumbnail(
+                contentResolver, uri, Point(width, height), signal
+            )
         } catch (e: Exception) {
             throw ResolverException(e)
         }
