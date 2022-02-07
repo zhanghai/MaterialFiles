@@ -134,13 +134,6 @@
     </notice>
 
     <notice>
-        <name>EffortlessPermissions</name>
-        <url>https://github.com/zhanghai/EffortlessPermissions</url>
-        <copyright>Copyright 2017 Hai Zhang</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
         <name>AndroidFastScroll</name>
         <url>https://github.com/zhanghai/AndroidFastScroll</url>
         <copyright>Copyright 2019 Google LLC</copyright>

@@ -24,9 +24,13 @@ import androidx.annotation.InterpolatorRes
 import androidx.annotation.PluralsRes
 import androidx.fragment.app.Fragment
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.checkSelfPermissionCompat
 import me.zhanghai.android.files.compat.getColorCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
+
+fun Fragment.checkSelfPermission(permission: String) =
+    requireContext().checkSelfPermissionCompat(permission)
 
 fun Fragment.finish() = requireActivity().finish()
 

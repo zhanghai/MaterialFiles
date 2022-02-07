@@ -58,8 +58,9 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">App needs permission to access files. Please click “ALLOW” in the upcoming system dialog.</string>
+    <string name="storage_permission_rationale_message">App needs permission to access files. Please click “ALLOW” in the upcoming system dialog.</string>
     <string name="storage_permission_permanently_denied_message">App needs permission to access files. Please grant the “Storage” permission in system settings.</string>
+    <string name="all_files_access_rationale_message">App needs access to manage all files. Please allow the access in the upcoming system setting.</string>
 
     <string name="notification_channel_background_activity_start_name">Actions while background</string>
     <string name="notification_channel_background_activity_start_description">Take actions while app is in the background</string>

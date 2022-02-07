@@ -20,11 +20,11 @@ import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.launchSafe
 
 class AddDocumentTreeFragment : Fragment() {
-    private val args by args<Args>()
-
     private val openDocumentTreeLauncher = registerForActivityResult(
         ActivityResultContracts.OpenDocumentTree(), this::onOpenDocumentTreeResult
     )
+
+    private val args by args<Args>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

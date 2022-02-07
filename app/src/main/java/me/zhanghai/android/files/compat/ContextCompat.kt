@@ -26,6 +26,9 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
+fun Context.checkSelfPermissionCompat(permission: String): Int =
+    ContextCompat.checkSelfPermission(this, permission)
+
 @ColorInt
 fun Context.getColorCompat(@ColorRes id: Int): Int = getColorStateListCompat(id).defaultColor
 

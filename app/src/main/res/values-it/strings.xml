@@ -58,7 +58,7 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">L\'app richiede l\'autorizzazione di accedere ai file. Clicca \"CONSENTI\" nella prossima finestra.</string>
+    <string name="storage_permission_rationale_message">L\'app richiede l\'autorizzazione di accedere ai file. Clicca \"CONSENTI\" nella prossima finestra.</string>
     <string name="storage_permission_permanently_denied_message">L\'app richiede l\'autorizzazione di accedere ai file. Consenti l\'autorizzazione \"Archiviazione\" nelle impostazioni di sistema.</string>
 
     <string name="notification_channel_background_activity_start_name">Azioni in secondo piano</string>

@@ -57,7 +57,7 @@
         <item quantity="other">%1$,d Bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte klicken Sie im nächsten Dialog auf \"Erlauben\".</string>
+    <string name="storage_permission_rationale_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte klicken Sie im nächsten Dialog auf \"Erlauben\".</string>
     <string name="storage_permission_permanently_denied_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte erteilen Sie die \"Speicher\"-Berechtigung in den Systemeinstellungen.</string>
 
     <string name="notification_channel_background_activity_start_name">Aktionen im Hintergrund</string>

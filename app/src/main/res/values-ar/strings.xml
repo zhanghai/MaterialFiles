@@ -62,7 +62,7 @@
         <item quantity="other">%1$,d بايت</item>
     </plurals>
 
-    <string name="storage_permission_request_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
+    <string name="storage_permission_rationale_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
     <string name="storage_permission_permanently_denied_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء منح إذن \"التخزين\" في إعدادات النظام.</string>
 
     <string name="notification_channel_background_activity_start_name">الإجراءات أثناء العمل في الخلفية</string>

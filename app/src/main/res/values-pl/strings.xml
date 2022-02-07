@@ -60,7 +60,7 @@
         <item quantity="other">%1$,d bajtów</item>
     </plurals>
 
-    <string name="storage_permission_request_message">Aplikacja potrzebuje uprawnień dostępu do plików. Kliknij \"ZEZWÓL\" w następnym oknie dialogowym systemu.</string>
+    <string name="storage_permission_rationale_message">Aplikacja potrzebuje uprawnień dostępu do plików. Kliknij \"ZEZWÓL\" w następnym oknie dialogowym systemu.</string>
     <string name="storage_permission_permanently_denied_message">Aplikacja potrzebuje uprawnień dostępu do plików. Przyznaj uprawnienie dostępu do pamięci w ustawieniach systemu.</string>
 
     <string name="notification_channel_background_activity_start_name">Działania w tle</string>

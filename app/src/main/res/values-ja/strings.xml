@@ -57,7 +57,7 @@
         <item quantity="other">%1$,d バイト</item>
     </plurals>
 
-    <string name="storage_permission_request_message">アプリはファイルにアクセスする権限を必要とします。次に表示されるシステムダイアログで「許可」を選択して下さい。</string>
+    <string name="storage_permission_rationale_message">アプリはファイルにアクセスする権限を必要とします。次に表示されるシステムダイアログで「許可」を選択して下さい。</string>
     <string name="storage_permission_permanently_denied_message">アプリはファイルにアクセスする権限を必要とします。システム設定で「ストレージ」権限を付与してください。</string>
 
     <string name="notification_channel_background_activity_start_name">バックグラウンド処理</string>

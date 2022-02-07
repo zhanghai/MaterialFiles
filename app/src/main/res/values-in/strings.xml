@@ -56,7 +56,7 @@
         <item quantity="other">%1$,d byte</item>
     </plurals>
 
-    <string name="storage_permission_request_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
+    <string name="storage_permission_rationale_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
     <string name="storage_permission_permanently_denied_message">Apl membutuhkan izin untuk mengakses berkas. Aktifkan izin \"Penyimpanan\" di dalam pengaturan sistem.</string>
 
     <string name="notification_channel_background_activity_start_name">Tindakan saat di latar belakang</string>

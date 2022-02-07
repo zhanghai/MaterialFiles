@@ -58,7 +58,7 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
+    <string name="storage_permission_rationale_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
     <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht ‘Opslag’ in de systeeminstellingen.</string>
 
     <string name="notification_channel_background_activity_start_name">Achtergrondtaken</string>

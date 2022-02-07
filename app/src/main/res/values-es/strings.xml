@@ -58,7 +58,7 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">La aplicación necesita permiso para acceder a los archivos. Por favor, aprieta \"PERMITIR\" en el diálogo del sistema.</string>
+    <string name="storage_permission_rationale_message">La aplicación necesita permiso para acceder a los archivos. Por favor, aprieta \"PERMITIR\" en el diálogo del sistema.</string>
     <string name="storage_permission_permanently_denied_message">La aplicación necesita permiso para acceder a los archivos. Por favor, concede el permiso de \"Almacenamiento\" en la configuración del sistema.</string>
 
     <string name="notification_channel_background_activity_start_name">Acciones en segundo plano</string>

@@ -57,7 +57,7 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">A aplicação precisa da permissão para aceder aos ficheiros. Clique em \"PERMITIR\" na próxima caixa de diálogo.</string>
+    <string name="storage_permission_rationale_message">A aplicação precisa da permissão para aceder aos ficheiros. Clique em \"PERMITIR\" na próxima caixa de diálogo.</string>
     <string name="storage_permission_permanently_denied_message">A aplicação precisa da permissão para aceder aos ficheiros. Por favor, conceda a permissão de \"Armazenamento\" nas definições de sistema.</string>
 
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>

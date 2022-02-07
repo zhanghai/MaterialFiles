@@ -57,7 +57,7 @@
         <item quantity="other">%1$,d octets</item>
     </plurals>
 
-    <string name="storage_permission_request_message">L’application a besoin de la permission pour accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
+    <string name="storage_permission_rationale_message">L’application a besoin de la permission pour accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
     <string name="storage_permission_permanently_denied_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez accorder la permission de stockage dans les paramètres du système.</string>
 
     <string name="notification_channel_background_activity_start_name">Actions en arrière-plan</string>

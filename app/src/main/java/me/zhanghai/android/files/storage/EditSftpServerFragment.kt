@@ -42,11 +42,11 @@ import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
 
 class EditSftpServerFragment : Fragment() {
-    private val args by args<Args>()
-
     private val pickPrivateKeyFileLauncher = registerForActivityResult(
         FileListActivity.PickFileContract(), this::onPickPrivateKeyFileResult
     )
+
+    private val args by args<Args>()
 
     private val viewModel by viewModels { { EditSftpServerViewModel() } }
 
