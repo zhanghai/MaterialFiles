@@ -14,7 +14,6 @@ import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.provider.remote.RemoteFileService
 import me.zhanghai.android.files.provider.remote.RemoteInterface
 import me.zhanghai.android.files.util.lazyReflectedMethod
-import me.zhanghai.android.libselinux.SeLinux
 
 val isRunningAsRoot = Process.myUid() == 0
 
@@ -47,8 +46,6 @@ object RootFileService : RemoteFileService(
     fun main() {
         Log.i(LOG_TAG, "Creating package context")
         rootContext = createPackageContext(BuildConfig.APPLICATION_ID)
-        Log.i(LOG_TAG, "Loading native libraries")
-        System.loadLibrary(SeLinux.getLibraryName())
         Log.i(LOG_TAG, "Installing file system providers")
         FileSystemProviders.install()
         FileSystemProviders.overflowWatchEvents = true
