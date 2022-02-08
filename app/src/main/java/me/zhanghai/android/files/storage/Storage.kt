@@ -16,8 +16,9 @@ import me.zhanghai.android.files.util.takeIfNotEmpty
 abstract class Storage : Parcelable {
     abstract val id: Long
 
-    @DrawableRes
-    open val iconRes: Int = R.drawable.directory_icon_white_24dp
+    open val iconRes: Int
+        @DrawableRes
+        get() = R.drawable.directory_icon_white_24dp
 
     abstract val customName: String?
 

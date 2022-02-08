@@ -11,7 +11,6 @@ import android.os.storage.StorageVolume
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
 import java8.nio.file.Paths
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getDescriptionCompat
@@ -49,18 +48,18 @@ data class FileSystemRoot(
     override val customName: String?,
     override val isVisible: Boolean
 ) : DeviceStorage() {
-    @IgnoredOnParcel
-    override val id: Long = "FileSystemRoot".hashCode().toLong()
+    override val id: Long
+        get() = "FileSystemRoot".hashCode().toLong()
 
-    @DrawableRes
-    @IgnoredOnParcel
-    override val iconRes: Int = R.drawable.device_icon_white_24dp
+    override val iconRes: Int
+        @DrawableRes
+        get() = R.drawable.device_icon_white_24dp
 
     override fun getDefaultName(context: Context): String =
         context.getString(R.string.storage_file_system_root_title)
 
-    @IgnoredOnParcel
-    override val linuxPath: String = LINUX_PATH
+    override val linuxPath: String
+        get() = LINUX_PATH
 
     companion object {
         const val LINUX_PATH = "/"
@@ -72,12 +71,12 @@ data class PrimaryStorageVolume(
     override val customName: String?,
     override val isVisible: Boolean
 ) : DeviceStorage() {
-    @IgnoredOnParcel
-    override val id: Long = "PrimaryStorageVolume".hashCode().toLong()
+    override val id: Long
+        get() = "PrimaryStorageVolume".hashCode().toLong()
 
-    @DrawableRes
-    @IgnoredOnParcel
-    override val iconRes: Int = R.drawable.sd_card_icon_white_24dp
+    override val iconRes: Int
+        @DrawableRes
+        get() = R.drawable.sd_card_icon_white_24dp
 
     override fun getDefaultName(context: Context): String =
         storageVolume.getDescriptionCompat(context)
