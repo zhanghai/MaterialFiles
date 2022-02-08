@@ -26,7 +26,7 @@ import com.hierynomus.smbj.common.SMBRuntimeException
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.Directory
 import com.hierynomus.smbj.share.DiskShare
-import com.hierynomus.smbj.share.NamedPipe
+import com.hierynomus.smbj.share.PipeShare
 import com.hierynomus.smbj.share.PrinterShare
 import com.hierynomus.smbj.share.Share
 import com.rapid7.client.dcerpc.mssrvs.ServerService
@@ -466,7 +466,7 @@ object Client {
                     // in use shortly. All shares are automatically closed when the session is
                     // closed anyway.
                 }
-                is NamedPipe -> ShareInformation(ShareType.PIPE, null).also { share.closeSafe() }
+                is PipeShare -> ShareInformation(ShareType.PIPE, null).also { share.closeSafe() }
                 is PrinterShare -> ShareInformation(ShareType.PRINTER, null)
                     .also { share.closeSafe() }
                 else -> throw AssertionError(share)
