@@ -452,8 +452,7 @@ object Client {
         val sharePath = path.sharePath ?: throw ClientException("$path does not have a share path")
         val session = getSession(path.authority)
         if (sharePath.path.isEmpty()) {
-            val share = getShare(session, sharePath.name)
-            return when (share) {
+            return when (val share = getShare(session, sharePath.name)) {
                 is DiskShare -> {
                     val shareInfo = try {
                         share.shareInformation
