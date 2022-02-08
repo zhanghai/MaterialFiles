@@ -163,14 +163,10 @@ class EditSftpServerFragment : Fragment() {
         val port = binding.portEdit.text.toString().takeIfNotEmpty()?.toIntOrNull()
             ?: Authority.DEFAULT_PORT
         val path = binding.pathEdit.text.toString().trim()
-        val username = binding.usernameEdit.text.toString().takeIfNotEmpty()
+        val username = binding.usernameEdit.text.toString()
         binding.nameLayout.placeholderText = if (host != null) {
-            val authority = if (username != null) {
-                Authority(host, port, username).toString()
-            } else {
-                if (port != Authority.DEFAULT_PORT) "$host:$port" else host
-            }
-            if (path.isNotEmpty()) "$authority/$path" else authority
+            val authority = Authority(host, port, username)
+            if (path.isNotEmpty()) "$authority/$path" else authority.toString()
         } else {
             getString(R.string.storage_edit_sftp_server_name_placeholder)
         }

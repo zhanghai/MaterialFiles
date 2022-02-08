@@ -16,8 +16,10 @@ data class Authority(
     val username: String
 ) : Parcelable {
     override fun toString(): String = buildString {
-        append(username)
-        append('@')
+        if (username.isNotEmpty()) {
+            append(username)
+            append('@')
+        }
         append(host)
         if (port != DEFAULT_PORT) {
             append(':')
