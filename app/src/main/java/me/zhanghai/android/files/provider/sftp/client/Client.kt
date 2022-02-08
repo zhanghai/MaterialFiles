@@ -232,7 +232,7 @@ object Client {
                 throw ClientException(e)
             }
             try {
-                sshClient.auth(authentication.username, authentication.toAuthMethod())
+                sshClient.auth(authority.username, authentication.toAuthMethod())
             } catch (e: UserAuthException) {
                 sshClient.closeSafe()
                 throw ClientException(e)

@@ -63,7 +63,7 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
 
     override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.portOrDefaultPort)
+        val authority = Authority(uri.host, uri.portOrDefaultPort, uri.userInfo)
         synchronized(lock) {
             if (fileSystems[authority] != null) {
                 throw FileSystemAlreadyExistsException(authority.toString())
@@ -83,7 +83,7 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
 
     override fun getFileSystem(uri: URI): FileSystem {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.portOrDefaultPort)
+        val authority = Authority(uri.host, uri.portOrDefaultPort, uri.userInfo)
         return synchronized(lock) { fileSystems[authority] }
             ?: throw FileSystemNotFoundException(authority.toString())
     }
@@ -95,7 +95,7 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
 
     override fun getPath(uri: URI): Path {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.portOrDefaultPort)
+        val authority = Authority(uri.host, uri.portOrDefaultPort, uri.userInfo)
         val path = uri.decodedPathByteString
             ?: throw IllegalArgumentException("URI must have a path")
         return getOrNewFileSystem(authority).getPath(path)

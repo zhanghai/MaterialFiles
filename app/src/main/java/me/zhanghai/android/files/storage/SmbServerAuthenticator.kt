@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.storage
 
-import me.zhanghai.android.files.provider.smb.client.Authentication
 import me.zhanghai.android.files.provider.smb.client.Authenticator
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.settings.Settings
@@ -14,13 +13,13 @@ import me.zhanghai.android.files.util.valueCompat
 object SmbServerAuthenticator : Authenticator {
     private val transientServers = mutableSetOf<SmbServer>()
 
-    override fun getAuthentication(authority: Authority): Authentication? {
+    override fun getPassword(authority: Authority): String? {
         val server = synchronized(transientServers) {
             transientServers.find { it.authority == authority }
         } ?: Settings.STORAGES.valueCompat.find {
             it is SmbServer && it.authority == authority
         } as SmbServer?
-        return server?.authentication
+        return server?.password
     }
 
     fun addTransientServer(server: SmbServer) {

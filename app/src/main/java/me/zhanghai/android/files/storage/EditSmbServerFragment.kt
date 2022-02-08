@@ -17,12 +17,11 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.flow.collect
+import com.hierynomus.smbj.auth.AuthenticationContext
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditSmbServerFragmentBinding
-import me.zhanghai.android.files.provider.smb.client.Authentication
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.ui.UnfilteredArrayAdapter
 import me.zhanghai.android.files.util.ActionState
@@ -92,8 +91,11 @@ class EditSmbServerFragment : Fragment() {
         authenticationType = AuthenticationType.PASSWORD
         binding.authenticationTypeEdit.doAfterTextChanged {
             onAuthenticationTypeChanged(authenticationType)
+            updateNamePlaceholder()
         }
         binding.usernameEdit.hideTextInputLayoutErrorOnTextChange(binding.usernameLayout)
+        binding.usernameEdit.doAfterTextChanged { updateNamePlaceholder() }
+        binding.domainEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.saveOrConnectAndAddButton.setText(
             if (args.server != null) {
                 R.string.save
@@ -128,16 +130,20 @@ class EditSmbServerFragment : Fragment() {
                 if (authority.port != Authority.DEFAULT_PORT) {
                     binding.portEdit.setText(authority.port.toString())
                 }
-                when (val authentication = server.authentication) {
-                    Authentication.GUEST ->
-                        authenticationType = AuthenticationType.GUEST
-                    Authentication.ANONYMOUS ->
-                        authenticationType = AuthenticationType.ANONYMOUS
+                when {
+                    AuthenticationContext.guest().let {
+                        authority.username == it.username && authority.domain == it.domain
+                                && server.password == it.password.concatToString()
+                    } -> authenticationType = AuthenticationType.GUEST
+                    AuthenticationContext.anonymous().let {
+                        authority.username == it.username && authority.domain == it.domain
+                                && server.password == it.password.concatToString()
+                    } -> authenticationType = AuthenticationType.ANONYMOUS
                     else -> {
                         authenticationType = AuthenticationType.PASSWORD
-                        binding.usernameEdit.setText(authentication.username)
-                        binding.domainEdit.setText(authentication.domain)
-                        binding.passwordEdit.setText(authentication.password)
+                        binding.usernameEdit.setText(authority.username)
+                        binding.domainEdit.setText(authority.domain)
+                        binding.passwordEdit.setText(server.password)
                     }
                 }
                 binding.pathEdit.setText(server.relativePath)
@@ -153,14 +159,32 @@ class EditSmbServerFragment : Fragment() {
 
     private fun updateNamePlaceholder() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
-        val port = binding.portEdit.text.toString().takeIfNotEmpty()
-            .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
+        val port = binding.portEdit.text.toString().takeIfNotEmpty()?.toIntOrNull()
+            ?: Authority.DEFAULT_PORT
         val path = binding.pathEdit.text.toString().trim()
-        binding.nameLayout.placeholderText = if (host != null && port != null) {
-            val authority = Authority(host, port)
+        val username: String
+        val domain: String?
+        when (authenticationType) {
+            AuthenticationType.PASSWORD -> {
+                username = binding.usernameEdit.text.toString()
+                domain = binding.domainEdit.text.toString().takeIfNotEmpty()
+            }
+            AuthenticationType.GUEST -> {
+                AuthenticationContext.guest().let {
+                    username = it.username
+                    domain = it.domain
+                }
+            }
+            AuthenticationType.ANONYMOUS -> {
+                AuthenticationContext.anonymous().let {
+                    username = it.username
+                    domain = it.domain
+                }
+            }
+        }
+        binding.nameLayout.placeholderText = if (host != null) {
+            val authority = Authority(host, port, username, domain)
             if (path.isNotEmpty()) "$authority/$path" else authority.toString()
-        } else if (host != null) {
-            if (path.isNotEmpty()) "$host/$path" else host
         } else {
             getString(R.string.storage_edit_smb_server_name_placeholder)
         }
@@ -251,9 +275,12 @@ class EditSmbServerFragment : Fragment() {
         }
         val path = binding.pathEdit.text.toString().trim()
         val name = binding.nameEdit.text.toString().takeIfNotEmpty()
-        val authentication = when (authenticationType) {
+        val username: String?
+        val domain: String?
+        val password: String
+        when (authenticationType) {
             AuthenticationType.PASSWORD -> {
-                val username = binding.usernameEdit.text.toString().takeIfNotEmpty()
+                username = binding.usernameEdit.text.toString().takeIfNotEmpty()
                 if (username == null) {
                     binding.usernameLayout.error =
                         getString(R.string.storage_edit_smb_server_username_error_empty)
@@ -261,19 +288,30 @@ class EditSmbServerFragment : Fragment() {
                         errorEdit = binding.usernameEdit
                     }
                 }
-                val domain = binding.domainEdit.text.toString().takeIfNotEmpty()
-                val password = binding.passwordEdit.text.toString()
-                if (errorEdit == null) Authentication(username!!, domain, password) else null
+                domain = binding.domainEdit.text.toString().takeIfNotEmpty()
+                password = binding.passwordEdit.text.toString()
             }
-            AuthenticationType.GUEST -> Authentication.GUEST
-            AuthenticationType.ANONYMOUS -> Authentication.ANONYMOUS
+            AuthenticationType.GUEST -> {
+                AuthenticationContext.guest().let {
+                    username = it.username
+                    domain = it.domain
+                    password = it.password.concatToString()
+                }
+            }
+            AuthenticationType.ANONYMOUS -> {
+                AuthenticationContext.anonymous().let {
+                    username = it.username
+                    domain = it.domain
+                    password = it.password.concatToString()
+                }
+            }
         }
         if (errorEdit != null) {
             errorEdit.requestFocus()
             return null
         }
-        val authority = Authority(host!!, port!!)
-        return SmbServer(args.server?.id, name, authority, authentication!!, path)
+        val authority = Authority(host!!, port!!, username!!, domain)
+        return SmbServer(args.server?.id, name, authority, password, path)
     }
 
     @Parcelize
