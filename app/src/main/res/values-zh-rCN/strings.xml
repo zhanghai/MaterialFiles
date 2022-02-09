@@ -27,7 +27,6 @@
     <string name="merge">合并</string>
     <string name="none">无</string>
     <string name="paste">粘贴</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">刷新</string>
     <string name="reload">重新加载</string>
     <string name="remove">移除</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">未找到可处理此操作的应用</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">打开设置</string>
     <string name="shortcut_created">已创建快捷方式</string>
 
@@ -195,7 +193,6 @@
     <string name="file_job_action_all">应用此操作到所有文件</string>
 
     <string name="file_open_apk_message">这个文件是一个 Android 安装包。您想要安装它，还是查看它的内容？</string>
-    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">打开为…</string>
     <string name="file_open_as_title_format">将“%1$s”打开为</string>
     <string name="file_open_as_type_text">文本</string>
@@ -252,11 +249,8 @@
     <string name="file_list_action_open_in_terminal">在终端中打开</string>
     <string name="file_list_action_add_bookmark">添加书签</string>
     <string name="file_list_action_create_shortcut">创建快捷方式</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中打开</string>
     <string name="file_list_select_title_format">已选择 %1$,d</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">选择“%1$s”</string>
     <string name="file_list_paste_move_title_format">移动 %1$,d</string>
     <string name="file_list_paste_copy_title_format">复制 %1$,d</string>
@@ -270,9 +264,6 @@
     <string name="file_item_action_open_with">打开方式</string>
     <string name="file_item_action_extract">提取</string>
     <string name="file_item_action_archive">压缩</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">属性</string>
 
     <string name="file_properties_title_format">“%1$s”属性</string>
@@ -419,7 +410,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">私钥无效</string>
     <string name="storage_edit_sftp_server_connect_and_add">连接并添加</string>
     <string name="storage_edit_sftp_server_add">添加</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">正在搜索 SMB 服务器…</string>
     <string name="storage_add_lan_smb_server_add">手动添加</string>
     <string name="storage_edit_smb_server_title_edit">编辑 SMB 服务器</string>
@@ -463,13 +453,9 @@
     <string name="navigation_edit_bookmark_directory_title">书签文件夹</string>
     <string name="navigation_edit_bookmark_directory_name">名称</string>
     <string name="navigation_edit_bookmark_directory_path">路径</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
 
     <string name="image_viewer_title">图像查看器</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">文本编辑器</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -495,7 +481,6 @@
     <string name="ftp_server_port_title">端口</string>
     <string name="ftp_server_home_directory_title">根文件夹</string>
     <string name="ftp_server_writable_title">允许写入</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP 服务器正在运行</string>
 
     <string name="settings_title">设置</string>
@@ -527,7 +512,6 @@
     <string name="settings_bookmark_directory_screenshots">屏幕截图</string>
     <string name="settings_bookmark_directories_title">书签文件夹</string>
     <string name="settings_bookmark_directories_summary_empty">无书签文件夹</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 访问模式</string>
     <string-array name="settings_root_strategy_entries">
         <item>仅普通访问</item>
@@ -559,7 +543,4 @@
     <string name="about_author_github_title">在 GitHub 上关注</string>
     <string name="about_author_google_plus_title">添加到 Google+ 圈子</string>
     <string name="about_author_twitter_title">在 Twitter 上关注</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>
