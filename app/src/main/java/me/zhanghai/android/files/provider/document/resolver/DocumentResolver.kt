@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.document.resolver
 
+import android.database.ContentObserver
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.Point
@@ -14,6 +15,8 @@ import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import androidx.annotation.RequiresApi
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.suspendCancellableCoroutine
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.file.MimeType
@@ -31,6 +34,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.Collections
 import java.util.WeakHashMap
+import kotlin.coroutines.resume
 
 object DocumentResolver {
     // @see com.android.shell.BugreportStorageProvider#AUTHORITY
@@ -388,24 +392,30 @@ object DocumentResolver {
             parentPath.treeUri, parentDocumentId
         )
         val childrenPaths = mutableListOf<Path>()
-        // A null projection means all supported columns should be included according to
-        // [DocumentsProvider.queryChildDocuments]. This is fine for functionality and performance
-        // as DocumentsProviderHelper in DocumentsUI is doing the same thing.
-        query(childrenUri, null, null).use { cursor ->
-            while (cursor.moveToNext()) {
-                val childDocumentId = cursor.requireString(
-                    DocumentsContract.Document.COLUMN_DOCUMENT_ID
-                )
-                val childDisplayName = cursor.requireString(
-                    DocumentsContract.Document.COLUMN_DISPLAY_NAME
-                )
-                val childPath = parentPath.resolve(childDisplayName)
-                pathDocumentIdCache[childPath] = childDocumentId
-                directoryCursorCache[childPath] = cursor.toRowCursor()
-                childrenPaths += childPath
+        while (true) {
+            // A null projection means all supported columns should be included according to
+            // [DocumentsProvider.queryChildDocuments]. This is fine for functionality and
+            // performance as DocumentsProviderHelper in DocumentsUI is doing the same thing.
+            query(childrenUri, null, null).use { cursor ->
+                if (cursor.extras.getBoolean(DocumentsContract.EXTRA_LOADING)) {
+                    cursor.waitUntilChanged()
+                    return@use
+                }
+                while (cursor.moveToNext()) {
+                    val childDocumentId = cursor.requireString(
+                        DocumentsContract.Document.COLUMN_DOCUMENT_ID
+                    )
+                    val childDisplayName = cursor.requireString(
+                        DocumentsContract.Document.COLUMN_DISPLAY_NAME
+                    )
+                    val childPath = parentPath.resolve(childDisplayName)
+                    pathDocumentIdCache[childPath] = childDocumentId
+                    directoryCursorCache[childPath] = cursor.toRowCursor()
+                    childrenPaths += childPath
+                }
+                return childrenPaths
             }
         }
-        return childrenPaths
     }
 
     @Throws(ResolverException::class)
@@ -567,6 +577,28 @@ object DocumentResolver {
         val displayName: String?
         val parent: Path?
         fun resolve(other: String): Path
+    }
+
+    @Throws(ResolverException::class)
+    private fun Cursor.waitUntilChanged() {
+        try {
+            runBlocking {
+                suspendCancellableCoroutine<Unit> { continuation ->
+                    val observer = object : ContentObserver(null) {
+                        override fun onChange(selfChange: Boolean) {
+                            unregisterContentObserver(this)
+                            continuation.resume(Unit)
+                        }
+                    }
+                    registerContentObserver(observer)
+                    continuation.invokeOnCancellation {
+                        unregisterContentObserver(observer)
+                    }
+                }
+            }
+        } catch (e: InterruptedException) {
+            throw ResolverException(e)
+        }
     }
 
     private fun Cursor.toRowCursor(): Cursor {
