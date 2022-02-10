@@ -15,6 +15,7 @@
     <string name="default_">Bawaan</string>
     <string name="delete">Hapus</string>
     <string name="discard">Batal</string>
+    <string name="edit">Sunting</string>
     <string name="empty">Kosong</string>
     <string name="empty_placeholder">(Kosong)</string>
     <string name="error">Galat</string>
@@ -26,7 +27,6 @@
     <string name="merge">Gabung</string>
     <string name="none">Nihil</string>
     <string name="paste">Tempel</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Segarkan</string>
     <string name="reload">Muat ulang</string>
     <string name="remove">Buang</string>
@@ -48,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Tidak ada aplikasi yang bisa memproses tindakan ini</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Buka pengaturan</string>
     <string name="shortcut_created">Pintasan dibuat</string>
 
@@ -58,7 +57,6 @@
 
     <string name="storage_permission_rationale_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
     <string name="storage_permission_permanently_denied_message">Apl membutuhkan izin untuk mengakses berkas. Aktifkan izin \"Penyimpanan\" di dalam pengaturan sistem.</string>
-
     <string name="notification_channel_background_activity_start_name">Tindakan saat di latar belakang</string>
     <string name="notification_channel_background_activity_start_description">Ambil tindakan saat apl berada di latar belakang</string>
     <string name="notification_channel_file_job_name">Tindakan berkas</string>
@@ -249,11 +247,8 @@
     <string name="file_list_action_open_in_terminal">Buka di terminal</string>
     <string name="file_list_action_add_bookmark">Tambahkan markah</string>
     <string name="file_list_action_create_shortcut">Buat pintasan</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Buka di jendela baru</string>
     <string name="file_list_select_title_format">%1$,d dipilih</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Pilih “%1$s”</string>
     <string name="file_list_paste_move_title_format">Memindahkan %1$,d</string>
     <string name="file_list_paste_copy_title_format">Menyalin %1$,d</string>
@@ -267,9 +262,6 @@
     <string name="file_item_action_open_with">Buka dengan</string>
     <string name="file_item_action_extract">Ekstrak</string>
     <string name="file_item_action_archive">Kompres</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Properti</string>
 
     <string name="file_properties_title_format">Properti “%1$s”</string>
@@ -374,6 +366,7 @@
         <item quantity="other">%1$,d izin diminta</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Tanda tangan</string>
+    <string name="file_properties_apk_signature_digests_empty">Tidak ada tanda tangan yang valid</string>
     <string name="file_properties_apk_past_signature_digests">Tanda tangan lama</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -381,6 +374,7 @@
     <string name="storage_list_empty">Tidak ada penyimpanan</string>
     <string name="storage_add_storage_title">Tambah penyimpanan</string>
     <string name="storage_add_storage_document_tree">Penyimpanan eksternal</string>
+    <string name="storage_add_storage_sftp_server">Server SFTP</string>
     <string name="storage_add_storage_smb_server">Server SMB</string>
     <string name="storage_edit_device_storage_title">Sunting penyimpanan perangkat</string>
     <string name="storage_edit_device_storage_name">Nama</string>
@@ -390,7 +384,30 @@
     <string name="storage_edit_document_tree_name">Nama</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Jalur</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_edit_sftp_server_title_edit">Sunting server SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Tambahkan server SFTP</string>
+    <string name="storage_edit_sftp_server_host">Nama hos</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Masukkan nama hos</string>
+    <string name="storage_edit_sftp_server_port">Porta</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Porta tidak valid</string>
+    <string name="storage_edit_sftp_server_path">Jalur</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Boleh dikosongkan</string>
+    <string name="storage_edit_sftp_server_name">Nama</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Gunakan nama hos</string>
+    <string name="storage_edit_sftp_server_authentication_type">Otentikasi</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Sandi</item>
+        <item>Kunci publik</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Nama pengguna</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Masukkan nama pengguna</string>
+    <string name="storage_edit_sftp_server_password">Sandi</string>
+    <string name="storage_edit_sftp_server_private_key">Kunci privat</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Buka berkas</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Masukkan kunci privat</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Kunci privat tidak valid</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Sambung dan tambah</string>
+    <string name="storage_edit_sftp_server_add">Tambah</string>
     <string name="storage_add_lan_smb_server_loading">Mencari server SMB…</string>
     <string name="storage_add_lan_smb_server_add">Tambah secara manual</string>
     <string name="storage_edit_smb_server_title_edit">Sunting server SMB</string>
@@ -399,6 +416,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Masukkan nama hos</string>
     <string name="storage_edit_smb_server_port">Porta</string>
     <string name="storage_edit_smb_server_port_error_invalid">Porta tidak valid</string>
+    <string name="storage_edit_smb_server_path">Jalur</string>
+    <string name="storage_edit_smb_server_path_placeholder">Boleh dikosongkan</string>
     <string name="storage_edit_smb_server_name">Nama</string>
     <string name="storage_edit_smb_server_name_placeholder">Gunakan nama hos</string>
     <string name="storage_edit_smb_server_authentication_type">Otentikasi</string>
@@ -432,13 +451,8 @@
     <string name="navigation_edit_bookmark_directory_title">Folder markah</string>
     <string name="navigation_edit_bookmark_directory_name">Nama</string>
     <string name="navigation_edit_bookmark_directory_path">Jalur</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Penampil gambar</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Penyunting teks</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -463,7 +477,6 @@
     <string name="ftp_server_port_title">Porta</string>
     <string name="ftp_server_home_directory_title">Folder root</string>
     <string name="ftp_server_writable_title">Izinkan menyimpan</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">Server FTP sedang berjalan</string>
 
     <string name="settings_title">Pengaturan</string>
@@ -489,16 +502,11 @@
     </string-array>
     <string name="settings_behavior_title">Perilaku</string>
     <string name="settings_default_directory_title">Folder default</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Folder standar</string>
     <string name="settings_standard_directories_summary_empty">Tidak ada folder standar yang diaktifkan</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Screenshot</string>
     <string name="settings_bookmark_directories_title">Folder markah</string>
     <string name="settings_bookmark_directories_summary_empty">Tidak ada folder markah</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Mode akses root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="other">Anda memiliki %1$,d proses berkas yang sedang berjalan dan mengubah mode akses root sekarang bisa mengakibatkan kesalahan yang tidak terduga. Apakah Anda yakin ingin mengubahnya sekarang?</item>
@@ -516,6 +524,8 @@
         <item>Lihat konten</item>
         <item>Tanyakan yang ingin dilakukan</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Tampilkan thumbnail berkas PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Mungkin membuat apl tidak stabil pada versi Android lama</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Baca berkas remote untuk thumbnail</string>
 
     <string name="about_title">Tentang</string>
@@ -528,7 +538,4 @@
     <string name="about_author_github_title">Ikuti di GitHub</string>
     <string name="about_author_google_plus_title">Tambahkan ke lingkaran Google+</string>
     <string name="about_author_twitter_title">Ikuti di Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

@@ -5,7 +5,9 @@
   ~ All Rights Reserved.
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ImpliedQuantity">
 
     <string name="app_name">Material Files</string>
 
@@ -26,7 +28,6 @@
     <string name="merge">Juntar</string>
     <string name="none">Nenhum</string>
     <string name="paste">Colar</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Recarregar</string>
     <string name="reload">Recarregar</string>
     <string name="remove">Remover</string>
@@ -48,7 +49,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Não existe uma aplicação para gerir esta ação</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Abrir definições</string>
     <string name="shortcut_created">Atalho criado</string>
 
@@ -59,7 +59,6 @@
 
     <string name="storage_permission_rationale_message">A aplicação precisa da permissão para aceder aos ficheiros. Clique em \"PERMITIR\" na próxima caixa de diálogo.</string>
     <string name="storage_permission_permanently_denied_message">A aplicação precisa da permissão para aceder aos ficheiros. Por favor, conceda a permissão de \"Armazenamento\" nas definições de sistema.</string>
-
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Executar ações se a aplicação estiver em segundo plano</string>
     <string name="notification_channel_file_job_name">Operações de ficheiro</string>
@@ -244,11 +243,11 @@
 
     <string name="file_list_title">Ficheiros</string>
     <plurals name="file_list_title_pick_file">
-        <item quantity="one" tools:ignore="ImpliedQuantity">Selecionar ficheiro</item>
+        <item quantity="one">Selecionar ficheiro</item>
         <item quantity="other">Selecionar ficheiros</item>
     </plurals>
     <plurals name="file_list_title_pick_directory">
-        <item quantity="one" tools:ignore="ImpliedQuantity">Selecionar pasta</item>
+        <item quantity="one">Selecionar pasta</item>
         <item quantity="other">Selecionar pastas</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
@@ -274,11 +273,8 @@
     <string name="file_list_action_open_in_terminal">Abrir no terminal</string>
     <string name="file_list_action_add_bookmark">Adicionar marcador</string>
     <string name="file_list_action_create_shortcut">Criar atalho</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir em nova janela</string>
     <string name="file_list_select_title_format">%1$,d selecionado</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">“%1$s” selecionado</string>
     <string name="file_list_paste_move_title_format">A mover %1$,d</string>
     <string name="file_list_paste_copy_title_format">A copiar %1$,d</string>
@@ -292,9 +288,6 @@
     <string name="file_item_action_open_with">Abrir com</string>
     <string name="file_item_action_extract">Extrair</string>
     <string name="file_item_action_archive">Comprimir</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Propriedades</string>
 
     <string name="file_properties_title_format">Propriedades de “%1$s”</string>
@@ -417,7 +410,6 @@
     <string name="storage_edit_document_tree_name">Nome</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Caminho</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">A procurar servidores SMB…</string>
     <string name="storage_add_lan_smb_server_add">Adicionar manualmente</string>
     <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
@@ -459,13 +451,8 @@
     <string name="navigation_edit_bookmark_directory_title">Pasta de marcadores</string>
     <string name="navigation_edit_bookmark_directory_name">Nome</string>
     <string name="navigation_edit_bookmark_directory_path">Caminho</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Visualizador de imagens</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Editor de texto</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -490,7 +477,6 @@
     <string name="ftp_server_port_title">Porta</string>
     <string name="ftp_server_home_directory_title">Pasta root</string>
     <string name="ftp_server_writable_title">Permitir escrita</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">Servidor FTP em execução</string>
 
     <string name="settings_title">Definições</string>
@@ -516,16 +502,11 @@
     </string-array>
     <string name="settings_behavior_title">Comportamento</string>
     <string name="settings_default_directory_title">Pasta padrão</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Pastas padrão</string>
     <string name="settings_standard_directories_summary_empty">Não existem pastas padrão</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Capturas de ecrã</string>
     <string name="settings_bookmark_directories_title">Pastas de marcadores</string>
     <string name="settings_bookmark_directories_summary_empty">Não existem pastas de marcadores</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Modo de acesso root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Tem %1$,d operação de ficheiro em execução e se alterar o modo de acesso root agora podem ocorrer erros inesperados. Tem a certeza de que deseja alterar agora?</item>
@@ -556,7 +537,4 @@
     <string name="about_author_github_title">Seguir em GitHub</string>
     <string name="about_author_google_plus_title">Adicionar aos círculos Google+</string>
     <string name="about_author_twitter_title">Seguir em Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

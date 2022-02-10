@@ -27,7 +27,6 @@
     <string name="merge">Scal</string>
     <string name="none">Żaden</string>
     <string name="paste">Wklej</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Odśwież</string>
     <string name="reload">Przeładuj</string>
     <string name="remove">Usuń</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Nie znaleziono aplikacji do wykonania tej akcji</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Otwórz ustawienia</string>
     <string name="shortcut_created">Skrót utworzony</string>
 
@@ -62,7 +60,6 @@
 
     <string name="storage_permission_rationale_message">Aplikacja potrzebuje uprawnień dostępu do plików. Kliknij \"ZEZWÓL\" w następnym oknie dialogowym systemu.</string>
     <string name="storage_permission_permanently_denied_message">Aplikacja potrzebuje uprawnień dostępu do plików. Przyznaj uprawnienie dostępu do pamięci w ustawieniach systemu.</string>
-
     <string name="notification_channel_background_activity_start_name">Działania w tle</string>
     <string name="notification_channel_background_activity_start_description">Podejmuj działania, gdy aplikacja działa w tle</string>
     <string name="notification_channel_file_job_name">Operacje na plikach</string>
@@ -256,8 +253,7 @@
     <string name="file_job_remount_success_format">“%1$s” został zamontowany ponownie z uprawnieniem do odczytu i zapisu</string>
     <string name="file_job_action_all">Zastosuj tą akcję do wszystkich plików</string>
 
-    <string name="file_open_apk_message">Ten plik to pakiet instalacyjny. Czy chcesz go zainstalować, lub wyświetlić jego zawartość?</string>
-    <string name="file_edit_title">@string/edit</string>
+    <string name="file_open_apk_message">Ten plik jest pakietem instalacyjnym dla systemu Android. Czy chcesz go zainstalować, czy wyświetlić jego zawartość?</string>
     <string name="file_open_as_title">Otwórz jako…</string>
     <string name="file_open_as_title_format">Otwórz „%1$s” jako…</string>
     <string name="file_open_as_type_text">Tekst</string>
@@ -326,11 +322,8 @@
     <string name="file_list_action_open_in_terminal">Otwórz w terminalu</string>
     <string name="file_list_action_add_bookmark">Dodaj zakładkę</string>
     <string name="file_list_action_create_shortcut">Utwórz skrót</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otwórz w nowym oknie</string>
     <string name="file_list_select_title_format">%1$,d wybrano</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Wybierz “%1$s”</string>
     <string name="file_list_paste_move_title_format">Przenoszenie %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiowanie %1$,d</string>
@@ -344,9 +337,6 @@
     <string name="file_item_action_open_with">Otwórz za pomocą</string>
     <string name="file_item_action_extract">Wypakuj</string>
     <string name="file_item_action_archive">Skompresuj plik</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Właściwości</string>
 
     <string name="file_properties_title_format">“%1$s” właściwości</string>
@@ -361,7 +351,7 @@
     <string name="file_properties_basic_contents">Zawartość</string>
     <plurals name="file_properties_basic_contents_format">
         <item quantity="one">%1$,d element, o rozmiarze %2$s</item>
-        <item quantity="few">%1$,d elementów, suma rozmiaru %2$s</item>
+        <item quantity="few">%1$,d elementy, suma rozmiaru %2$s</item>
         <item quantity="many">%1$,d elementów, suma rozmiaru %2$s</item>
         <item quantity="other">%1$,d elementów, suma rozmiaru %2$s</item>
     </plurals>
@@ -499,7 +489,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">Nieprawidłowy klucz prywatny</string>
     <string name="storage_edit_sftp_server_connect_and_add">Połącz i dodaj</string>
     <string name="storage_edit_sftp_server_add">Dodaj</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Wyszukiwanie serwerów SMB…</string>
     <string name="storage_add_lan_smb_server_add">Dodaj ręcznie</string>
     <string name="storage_edit_smb_server_title_edit">Edytuj serwer SMB</string>
@@ -543,13 +532,8 @@
     <string name="navigation_edit_bookmark_directory_title">Folder zakładek</string>
     <string name="navigation_edit_bookmark_directory_name">Nazwa</string>
     <string name="navigation_edit_bookmark_directory_path">Ścieżka</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Przeglądarka zdjęć</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Edytor tekstu</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -575,7 +559,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Folder główny</string>
     <string name="ftp_server_writable_title">Zezwól na zapis</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">Serwer FTP jest uruchomiony</string>
 
     <string name="settings_title">Ustawienia</string>
@@ -601,16 +584,11 @@
     </string-array>
     <string name="settings_behavior_title">Zachowanie</string>
     <string name="settings_default_directory_title">Domyślny folder</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Standardowe foldery</string>
     <string name="settings_standard_directories_summary_empty">Nie włączono żadnych standardowych folderów</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Zrzuty ekranu</string>
     <string name="settings_bookmark_directories_title">Foldery dodane do zakładek</string>
     <string name="settings_bookmark_directories_summary_empty">Brak folderów dodanych do zakładek</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Tryb dostępu do Root\'a</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Masz uruchomione %1$,d operację na pliku, a zmiana trybu dostępu roota może teraz spowodować nieoczekiwany błąd. Czy na pewno chcesz to teraz zmienić?</item>
@@ -645,7 +623,4 @@
     <string name="about_author_github_title">Obserwuj na GitHubie</string>
     <string name="about_author_google_plus_title">Dodaj do kręgów Google+</string>
     <string name="about_author_twitter_title">Obserwuj na Twitterze</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

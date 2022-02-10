@@ -15,6 +15,7 @@
     <string name="default_">Mặc định</string>
     <string name="delete">Xoá</string>
     <string name="discard">Bỏ</string>
+    <string name="edit">Chỉnh sửa</string>
     <string name="empty">Trống</string>
     <string name="empty_placeholder">(trống)</string>
     <string name="error">Lỗi</string>
@@ -26,7 +27,6 @@
     <string name="merge">Hợp nhất</string>
     <string name="none">Không có</string>
     <string name="paste">Dán</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Làm mới</string>
     <string name="reload">Tải lại</string>
     <string name="remove">Gỡ bỏ</string>
@@ -48,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Không tìm thấy ứng dụng nào để xử lý hành động này</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Mở cài đặt</string>
     <string name="shortcut_created">Đã tạo lối tắt</string>
 
@@ -58,7 +57,6 @@
 
     <string name="storage_permission_rationale_message">Ứng dụng cần quyền truy cập tệp. Hãy nhấn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
     <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tệp. Hãy cấp quyền \"Bộ nhớ\" trong cài đặt hệ thống.</string>
-
     <string name="notification_channel_background_activity_start_name">Hành động khi chạy nền</string>
     <string name="notification_channel_background_activity_start_description">Thực hiện các hành động khi ứng dụng chạy nền</string>
     <string name="notification_channel_file_job_name">Thao tác với tệp</string>
@@ -249,11 +247,8 @@
     <string name="file_list_action_open_in_terminal">Mở trong cửa sổ dòng lệnh</string>
     <string name="file_list_action_add_bookmark">Thêm đánh dấu</string>
     <string name="file_list_action_create_shortcut">Tạo lối tắt</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Mở trong cửa sổ mới</string>
     <string name="file_list_select_title_format">Đã chọn %1$,d</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Chọn “%1$s”</string>
     <string name="file_list_paste_move_title_format">Đang di chuyển %1$,d</string>
     <string name="file_list_paste_copy_title_format">Đang sao chép %1$,d</string>
@@ -267,9 +262,6 @@
     <string name="file_item_action_open_with">Mở bằng</string>
     <string name="file_item_action_extract">Giải nén</string>
     <string name="file_item_action_archive">Nén</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Thuộc tính</string>
 
     <string name="file_properties_title_format">Thuộc tính của “%1$s”</string>
@@ -374,6 +366,7 @@
         <item quantity="other">%1$,d quyền được yêu cầu</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Chữ kí</string>
+    <string name="file_properties_apk_signature_digests_empty">Không có chữ ký hợp lệ</string>
     <string name="file_properties_apk_past_signature_digests">Chữ kí cũ</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -381,6 +374,7 @@
     <string name="storage_list_empty">Không có kho lưu trữ</string>
     <string name="storage_add_storage_title">Thêm kho lưu trữ</string>
     <string name="storage_add_storage_document_tree">Bộ nhớ ngoài</string>
+    <string name="storage_add_storage_sftp_server">Máy chủ SFTP</string>
     <string name="storage_add_storage_smb_server">Máy chủ SMB</string>
     <string name="storage_edit_device_storage_title">Chỉnh sửa kho lưu trữ thiết bị</string>
     <string name="storage_edit_device_storage_name">Tên</string>
@@ -390,7 +384,30 @@
     <string name="storage_edit_document_tree_name">Tên</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Đường dẫn</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_edit_sftp_server_title_edit">Chỉnh sửa máy chủ SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Thêm máy chủ SFTP</string>
+    <string name="storage_edit_sftp_server_host">Tên máy chủ</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Nhập tên máy chủ</string>
+    <string name="storage_edit_sftp_server_port">Cổng</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Cổng không hợp lệ</string>
+    <string name="storage_edit_sftp_server_path">Đường dẫn</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Có thể để trống</string>
+    <string name="storage_edit_sftp_server_name">Tên</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Sử dụng tên máy chủ</string>
+    <string name="storage_edit_sftp_server_authentication_type">Xác thực</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Mật khẩu</item>
+        <item>Mã khóa công khai</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Tên người dùng</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Nhập tên người dùng</string>
+    <string name="storage_edit_sftp_server_password">Mật khẩu</string>
+    <string name="storage_edit_sftp_server_private_key">Mã khóa riêng</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Mở tệp</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Nhập mã khóa riêng</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Mã khóa riêng không hợp lệ</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Kết nối và thêm</string>
+    <string name="storage_edit_sftp_server_add">Thêm</string>
     <string name="storage_add_lan_smb_server_loading">Đang tìm kiếm máy chủ SMB…</string>
     <string name="storage_add_lan_smb_server_add">Thêm thủ công</string>
     <string name="storage_edit_smb_server_title_edit">Chỉnh sửa máy chủ SMB</string>
@@ -399,6 +416,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Nhập tên máy chủ</string>
     <string name="storage_edit_smb_server_port">Cổng</string>
     <string name="storage_edit_smb_server_port_error_invalid">Cổng không hợp lệ</string>
+    <string name="storage_edit_smb_server_path">Đường dẫn</string>
+    <string name="storage_edit_smb_server_path_placeholder">Có thể để trống</string>
     <string name="storage_edit_smb_server_name">Tên</string>
     <string name="storage_edit_smb_server_name_placeholder">Sử dụng tên máy chủ</string>
     <string name="storage_edit_smb_server_authentication_type">Xác thực</string>
@@ -432,18 +451,14 @@
     <string name="navigation_edit_bookmark_directory_title">Đánh dấu thư mục</string>
     <string name="navigation_edit_bookmark_directory_name">Tên</string>
     <string name="navigation_edit_bookmark_directory_path">Đường dẫn</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Trình xem hình ảnh</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Trình chỉnh sửa văn bản</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">* %1$s</string>
     <string name="text_editor_save_success">Đã lưu</string>
     <string name="text_editor_reload_message">Bạn có chắc chắn muốn tải lại không? Những thay đổi chưa lưu sẽ bị mất.</string>
+    <string name="text_editor_encoding">Bảng mã kí tự</string>
     <string name="text_editor_close_message">Bạn có chắc chắn muốn huỷ bỏ những thay đổi chưa lưu đối với tài liệu này?</string>
 
     <string name="ftp_server_title">Máy chủ FTP</string>
@@ -463,7 +478,6 @@
     <string name="ftp_server_port_title">Cổng</string>
     <string name="ftp_server_home_directory_title">Thư mục gốc</string>
     <string name="ftp_server_writable_title">Cho phép ghi</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">Máy chủ FTP đang chạy</string>
 
     <string name="settings_title">Cài đặt</string>
@@ -489,16 +503,11 @@
     </string-array>
     <string name="settings_behavior_title">Hành vi</string>
     <string name="settings_default_directory_title">Thư mục mặc định</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Các thư mục tiêu chuẩn</string>
     <string name="settings_standard_directories_summary_empty">Không bật thư mục tiêu chuẩn nào</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Ảnh chụp màn hình</string>
     <string name="settings_bookmark_directories_title">Đánh dấu thư mục</string>
     <string name="settings_bookmark_directories_summary_empty">Không có thư mục nào được đánh dấu</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Chế độ truy cập root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="other">Bạn có %1$,d thao tác với tệp đang chạy và việc thay đổi chế độ truy cập root ngay bây giờ có thể gây ra lỗi không mong đợi. Bạn có chắc bạn muốn thay đổi ngay không?</item>
@@ -516,6 +525,8 @@
         <item>Xem nội dung</item>
         <item>Hỏi xem sẽ làm gì</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Hiện hình thu nhỏ cho tệp PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Có thể làm ứng dụng không ổn định trên các phiên bản Android thấp hơn</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Đọc tệp từ xa để lấy ảnh xem trước</string>
 
     <string name="about_title">Giới thiệu</string>
@@ -528,7 +539,4 @@
     <string name="about_author_github_title">Theo dõi trên GitHub</string>
     <string name="about_author_google_plus_title">Thêm vào vòng bạn bè Google+</string>
     <string name="about_author_twitter_title">Theo dõi trên Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

@@ -5,7 +5,9 @@
   ~ All Rights Reserved.
   -->
 
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ImpliedQuantity">
 
     <string name="app_name">Material Files</string>
 
@@ -15,6 +17,7 @@
     <string name="default_">Padrão</string>
     <string name="delete">Excluir</string>
     <string name="discard">Descartar</string>
+    <string name="edit">Editar</string>
     <string name="empty">Vazio</string>
     <string name="empty_placeholder">(Vazio)</string>
     <string name="error">Erro</string>
@@ -26,7 +29,6 @@
     <string name="merge">Mesclar</string>
     <string name="none">Nenhum</string>
     <string name="paste">Colar</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Atualizar</string>
     <string name="reload">Recarregar</string>
     <string name="remove">Remover</string>
@@ -48,7 +50,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Nenhum aplicativo encontrado para lidar com essa ação</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Abrir configurações</string>
     <string name="shortcut_created">Atalho criado</string>
 
@@ -59,7 +60,6 @@
 
     <string name="storage_permission_rationale_message">O aplicativo precisa de permissão para acessar os arquivos. Clique em \"PERMITIR\" na próxima caixa de diálogo do sistema.</string>
     <string name="storage_permission_permanently_denied_message">O aplicativo precisa de permissão para acessar os arquivos. Por favor, conceda a permissão de \"Armazenamento\" nas configurações do sistema.</string>
-
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realize ações enquanto o aplicativo estiver em segundo plano</string>
     <string name="notification_channel_file_job_name">Operações de arquivo</string>
@@ -244,11 +244,11 @@
 
     <string name="file_list_title">Arquivos</string>
     <plurals name="file_list_title_pick_file">
-        <item quantity="one" tools:ignore="ImpliedQuantity">Selecione um arquivo</item>
+        <item quantity="one">Selecione um arquivo</item>
         <item quantity="other">Selecionar arquivos</item>
     </plurals>
     <plurals name="file_list_title_pick_directory">
-        <item quantity="one" tools:ignore="ImpliedQuantity">Selecione uma pasta</item>
+        <item quantity="one">Selecione uma pasta</item>
         <item quantity="other">Selecionar pastas</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
@@ -274,11 +274,8 @@
     <string name="file_list_action_open_in_terminal">Abrir no terminal</string>
     <string name="file_list_action_add_bookmark">Adicionar aos favoritos</string>
     <string name="file_list_action_create_shortcut">Criar atalho</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir em uma nova janela</string>
     <string name="file_list_select_title_format">%1$,d selecionado</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Selecionar “%1$s”</string>
     <string name="file_list_paste_move_title_format">Movendo %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copiando %1$,d</string>
@@ -292,9 +289,6 @@
     <string name="file_item_action_open_with">Abrir com</string>
     <string name="file_item_action_extract">Extrair</string>
     <string name="file_item_action_archive">Compactar</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Propriedades</string>
 
     <string name="file_properties_title_format">\"%1$s\" propriedades</string>
@@ -401,6 +395,7 @@
         <item quantity="other">%1$,d permissões solicitadas</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Assinaturas</string>
+    <string name="file_properties_apk_signature_digests_empty">Sem assinaturas válidas</string>
     <string name="file_properties_apk_past_signature_digests">Assinaturas antigas</string>
 
     <string name="storage_file_system_root_title">Root</string>
@@ -408,6 +403,7 @@
     <string name="storage_list_empty">Nenhum armazenamento</string>
     <string name="storage_add_storage_title">Adicionar armazenamento</string>
     <string name="storage_add_storage_document_tree">Armazenamento externo</string>
+    <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
     <string name="storage_add_storage_smb_server">Servidor SMB</string>
     <string name="storage_edit_device_storage_title">Editar armazenamento do dispositivo</string>
     <string name="storage_edit_device_storage_name">Nome</string>
@@ -417,13 +413,40 @@
     <string name="storage_edit_document_tree_name">Nome</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Caminho</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_edit_sftp_server_title_edit">Editar servidor SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Adicionar servidor SFTP</string>
+    <string name="storage_edit_sftp_server_host">Hostname</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Insira o hostname</string>
+    <string name="storage_edit_sftp_server_port">Porta</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Porta inválida</string>
+    <string name="storage_edit_sftp_server_path">Caminho</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Pode ser deixado vazio</string>
+    <string name="storage_edit_sftp_server_name">Nome</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Usar hostname</string>
+    <string name="storage_edit_sftp_server_authentication_type">Autenticação</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Senha</item>
+        <item>Chave pública</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Nome de usuário</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Insira o nome de usuário</string>
+    <string name="storage_edit_sftp_server_password">Senha</string>
+    <string name="storage_edit_sftp_server_private_key">Chave privada</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Abrir arquivo</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Insira a chave privada</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Chave privada inválida</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Conectar e adicionar</string>
+    <string name="storage_edit_sftp_server_add">Adicionar</string>
     <string name="storage_add_lan_smb_server_loading">Procurando servidores SMB…</string>
     <string name="storage_add_lan_smb_server_add">Adicionar manualmente</string>
     <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
     <string name="storage_edit_smb_server_title_add">Adicionar servidor SMB</string>
     <string name="storage_edit_smb_server_host">Hostname</string>
+    <string name="storage_edit_smb_server_host_error_empty">Insira o hostname</string>
     <string name="storage_edit_smb_server_port">Porta</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Porta inválida</string>
+    <string name="storage_edit_smb_server_path">Caminho</string>
+    <string name="storage_edit_smb_server_path_placeholder">Pode ser deixado vazio</string>
     <string name="storage_edit_smb_server_name">Nome</string>
     <string name="storage_edit_smb_server_name_placeholder">Use hostname</string>
     <string name="storage_edit_smb_server_authentication_type">Autenticação</string>
@@ -433,6 +456,7 @@
         <item>Anônimo</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Usuário</string>
+    <string name="storage_edit_smb_server_username_error_empty">Insira o nome de usuário</string>
     <string name="storage_edit_smb_server_password">Senha</string>
     <string name="storage_edit_smb_server_domain">Domínio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conecte e adicione</string>
@@ -456,18 +480,14 @@
     <string name="navigation_edit_bookmark_directory_title">Pasta de favoritos</string>
     <string name="navigation_edit_bookmark_directory_name">Nome</string>
     <string name="navigation_edit_bookmark_directory_path">Caminho</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Visualizador de imagens</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Editor de texto</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Salvo</string>
     <string name="text_editor_reload_message">Tem certeza de que deseja recarregar? Alterações não salvas neste documento serão perdidas.</string>
+    <string name="text_editor_encoding">Codificação</string>
     <string name="text_editor_close_message">Tem certeza de que deseja descartar alterações não salvas neste documento?</string>
 
     <string name="ftp_server_title">Servidor FTP</string>
@@ -487,7 +507,6 @@
     <string name="ftp_server_port_title">Porta</string>
     <string name="ftp_server_home_directory_title">Pasta raiz</string>
     <string name="ftp_server_writable_title">Permitir escrita</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">O servidor FTP está sendo executado</string>
 
     <string name="settings_title">Configurações</string>
@@ -513,16 +532,11 @@
     </string-array>
     <string name="settings_behavior_title">Comportamento</string>
     <string name="settings_default_directory_title">Pasta padrão</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Pastas padrão</string>
     <string name="settings_standard_directories_summary_empty">Nenhuma pasta padrão ativada</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Capturas de tela</string>
     <string name="settings_bookmark_directories_title">Pastas de favoritos</string>
     <string name="settings_bookmark_directories_summary_empty">Nenhuma pasta de favoritos</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Modo de acesso root</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Você tem %1$,d operação de arquivo sendo executada e alterar o modo de acesso root agora pode resultar em erros inesperados. Tem certeza de que deseja alterar agora?</item>
@@ -541,6 +555,8 @@
         <item>Visualizar conteúdo</item>
         <item>Perguntar o que fazer</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas para arquivos PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Pode tornar-se instável nas versões mais antigas do Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Ler arquivos remotos para as miniaturas</string>
 
     <string name="about_title">Sobre</string>
@@ -553,7 +569,4 @@
     <string name="about_author_github_title">Siga no GitHub</string>
     <string name="about_author_google_plus_title">Adicione aos círculos do Google+</string>
     <string name="about_author_twitter_title">Siga no Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

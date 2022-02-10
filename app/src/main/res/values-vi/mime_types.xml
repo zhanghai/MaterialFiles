@@ -8,7 +8,7 @@
 <resources>
     <string name="file_type_name_unknown">Tệp</string>
     <string name="file_type_name_apk">Gói cài đặt Android</string>
-    <string name="file_type_name_archive">Tập tin nén %1$s</string>
+    <string name="file_type_name_archive">Tệp nén %1$s</string>
     <string name="file_type_name_audio">Âm thanh %1$s</string>
     <string name="file_type_name_calendar">Lịch %1$s</string>
     <string name="file_type_name_certificate">Chứng chỉ %1$s</string>
@@ -19,7 +19,7 @@
     <string name="file_type_name_ebook">Sách điện tử %1$s</string>
     <string name="file_type_name_email">Email %1$s</string>
     <string name="file_type_name_font">Phông chữ %1$s</string>
-    <string name="file_type_name_generic">Tập tin %1$s</string>
+    <string name="file_type_name_generic">Tệp %1$s</string>
     <string name="file_type_name_image">Hình ảnh %1$s</string>
     <string name="file_type_name_pdf">Tài liệu PDF</string>
     <string name="file_type_name_presentation">Bản trình chiếu %1$s</string>

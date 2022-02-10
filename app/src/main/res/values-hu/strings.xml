@@ -15,6 +15,7 @@
     <string name="default_">Alapértelmezett</string>
     <string name="delete">Törlés</string>
     <string name="discard">Elvetés</string>
+    <string name="edit">Szerkesztés</string>
     <string name="empty">Ürítés</string>
     <string name="empty_placeholder">(Üres)</string>
     <string name="error">Hiba</string>
@@ -26,7 +27,6 @@
     <string name="merge">Egyesítés</string>
     <string name="none">Nincs</string>
     <string name="paste">Beillesztés</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Frissítés</string>
     <string name="reload">Újratöltés</string>
     <string name="remove">Eltávolítás</string>
@@ -48,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Nincs olyan alkalmazás, amely kezelné ezt a műveletet</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Beállítások megnyitása</string>
     <string name="shortcut_created">Parancsikon létrehozva</string>
 
@@ -59,7 +58,6 @@
 
     <string name="storage_permission_rationale_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Kattintson az „Engedélyezésre” a következő rendszerüzeneten.</string>
     <string name="storage_permission_permanently_denied_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Adja meg a „Tároló” engedélyt a rendszerbeállításokban.</string>
-
     <string name="notification_channel_background_activity_start_name">Műveletek a háttérben</string>
     <string name="notification_channel_background_activity_start_description">Műveletek elvégzése, míg az alkalmazás a háttérben van</string>
     <string name="notification_channel_file_job_name">Fájlműveletek</string>
@@ -274,11 +272,8 @@
     <string name="file_list_action_open_in_terminal">Megnyitás terminálban</string>
     <string name="file_list_action_add_bookmark">Könyvjelző hozzáadása</string>
     <string name="file_list_action_create_shortcut">Parancsikon létrehozása</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Megnyitás új ablakban</string>
     <string name="file_list_select_title_format">%1$,d kiválasztva</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">„%1$s” kiválasztása</string>
     <string name="file_list_paste_move_title_format">%1$,d áthelyezése</string>
     <string name="file_list_paste_copy_title_format">%1$,d másolása</string>
@@ -292,9 +287,6 @@
     <string name="file_item_action_open_with">Megnyitás ezzel:</string>
     <string name="file_item_action_extract">Kibontás</string>
     <string name="file_item_action_archive">Tömörítés</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Tulajdonságok</string>
 
     <string name="file_properties_title_format">„%1$s” tulajdonságai</string>
@@ -401,6 +393,7 @@
         <item quantity="other">%1$,d engedélyt kér</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Aláírások</string>
+    <string name="file_properties_apk_signature_digests_empty">Nincsenek érvényes aláírások</string>
     <string name="file_properties_apk_past_signature_digests">Régi aláírások</string>
 
     <string name="storage_file_system_root_title">Gyökér</string>
@@ -408,6 +401,7 @@
     <string name="storage_list_empty">Nincs tároló</string>
     <string name="storage_add_storage_title">Tároló hozzáadása</string>
     <string name="storage_add_storage_document_tree">Külső tároló</string>
+    <string name="storage_add_storage_sftp_server">SFTP-kiszolgáló</string>
     <string name="storage_add_storage_smb_server">SMB-kiszolgáló</string>
     <string name="storage_edit_device_storage_title">Tárolóeszköz szerkesztése</string>
     <string name="storage_edit_device_storage_name">Név</string>
@@ -417,7 +411,30 @@
     <string name="storage_edit_document_tree_name">Név</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Útvonal</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
+    <string name="storage_edit_sftp_server_title_edit">SFTP-kiszolgáló szerkesztése</string>
+    <string name="storage_edit_sftp_server_title_add">SFTP-kiszolgáló hozzáadása</string>
+    <string name="storage_edit_sftp_server_host">Gépnév</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Adjon meg egy gépnevet</string>
+    <string name="storage_edit_sftp_server_port">Port</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Érvénytelen port</string>
+    <string name="storage_edit_sftp_server_path">Útvonal</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Üresen hagyható</string>
+    <string name="storage_edit_sftp_server_name">Név</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Gépnév használata</string>
+    <string name="storage_edit_sftp_server_authentication_type">Hitelesítés</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Jelszó</item>
+        <item>Nyilvános kulcs</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Felhasználónév</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Adjon meg egy felhasználónevet</string>
+    <string name="storage_edit_sftp_server_password">Jelszó</string>
+    <string name="storage_edit_sftp_server_private_key">Privát kulcs</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Fájl megnyitása</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Adjon meg egy privát kulcsot</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Érvénytelen privát kulcs</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Kapcsolódás és hozzáadás</string>
+    <string name="storage_edit_sftp_server_add">Hozzáadása</string>
     <string name="storage_add_lan_smb_server_loading">SMB-kiszolgálók keresése…</string>
     <string name="storage_add_lan_smb_server_add">Hozzáadás kézzel</string>
     <string name="storage_edit_smb_server_title_edit">SMB-kiszolgáló szerkesztése</string>
@@ -426,6 +443,8 @@
     <string name="storage_edit_smb_server_host_error_empty">Adjon meg egy gépnevet</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_error_invalid">Érvénytelen port</string>
+    <string name="storage_edit_smb_server_path">Útvonal</string>
+    <string name="storage_edit_smb_server_path_placeholder">Üresen hagyható</string>
     <string name="storage_edit_smb_server_name">Név</string>
     <string name="storage_edit_smb_server_name_placeholder">Gépnév használata</string>
     <string name="storage_edit_smb_server_authentication_type">Hitelesítés</string>
@@ -459,18 +478,14 @@
     <string name="navigation_edit_bookmark_directory_title">Mappa könyvjelzőzése</string>
     <string name="navigation_edit_bookmark_directory_name">Név</string>
     <string name="navigation_edit_bookmark_directory_path">Útvonal</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Képmegjelenítő</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Szövegszerkesztő</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Mentve</string>
     <string name="text_editor_reload_message">Biztos, hogy újratölti? A dokumentum összes mentetlen módosítása elvész.</string>
+    <string name="text_editor_encoding">Kódolás</string>
     <string name="text_editor_close_message">Biztos, hogy elveti a dokumentum mentetlen módosításait?</string>
 
     <string name="ftp_server_title">FTP-kiszolgáló</string>
@@ -490,10 +505,9 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Gyökérmappa</string>
     <string name="ftp_server_writable_title">Írás engedélyezése</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">Az FTP-kiszolgáló fut</string>
 
-    <string name="settings_title">Beállításo</string>
+    <string name="settings_title">Beállítások</string>
     <string name="settings_interface_title">Felület</string>
     <string name="settings_theme_color_title">Téma színe</string>
     <string name="settings_theme_color_summary">A szín, amely a leggyakrabban megjelenik az alkalmazásban</string>
@@ -516,16 +530,11 @@
     </string-array>
     <string name="settings_behavior_title">Viselkedés</string>
     <string name="settings_default_directory_title">Alapértelmezett mappa</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Szokásos mappák</string>
     <string name="settings_standard_directories_summary_empty">A szokásos mappák nem engedélyezettek</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Képernyőképek</string>
     <string name="settings_bookmark_directories_title">Mappák könyvjelzőzése</string>
     <string name="settings_bookmark_directories_summary_empty">Nincsenek könyvjelzőzött mappák</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root hozzáférési mód</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">%1$,d fájlművelet fut, és a root hozzáférési mód átváltása váratlan hibát okozhat. Biztos, hogy most módosítja?</item>
@@ -544,6 +553,8 @@
         <item>Tartalom megtekintése</item>
         <item>Kérdezze meg, hogy mit tegyen</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Bélyegkép megjelenítése a PDF-fájlokhoz</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Az Android régebbi verzióinál instabillá teheti az alkalmazást</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Távoli fájlok olvasása a bélyegképekhez</string>
 
     <string name="about_title">Névjegy</string>
@@ -556,7 +567,4 @@
     <string name="about_author_github_title">Követés a GitHubon</string>
     <string name="about_author_google_plus_title">Hozzáadás a Google+ körökhöz</string>
     <string name="about_author_twitter_title">Követés Twitteren</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

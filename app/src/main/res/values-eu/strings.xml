@@ -25,7 +25,6 @@
     <string name="merge">Bateratu</string>
     <string name="none">Bat ere ez</string>
     <string name="paste">Itsatsi</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Freskatu</string>
     <string name="reload">Birkargatu</string>
     <string name="remove">Kendu</string>
@@ -46,7 +45,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Ez da aplikaziorik aurkitu ekintza hau burutzeko</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Ireki ezarpenak</string>
     <string name="shortcut_created">Laster-marka sortuta</string>
 
@@ -57,7 +55,6 @@
 
     <string name="storage_permission_rationale_message">Aplikazioak fitxategiak atzitzeko baimena behar du. Sakatu \"BAIMENDU\" hurrengo elkarrizketa-koadroan.</string>
     <string name="storage_permission_permanently_denied_message">Aplikazioak fitxategiak atzitzeko baimena behar du. Eman \"Memoria\" (sic)  baimena sistemaren ezarpenetan.</string>
-
     <string name="notification_channel_background_activity_start_name">Ekintzak bigarren planoan</string>
     <string name="notification_channel_background_activity_start_description">Egin gauzak aplikazioa bigarren planoan dagoenean</string>
     <string name="notification_channel_file_job_name">Fitxategi-eragiketak</string>
@@ -270,11 +267,8 @@
     <string name="file_list_action_open_in_terminal">Ireki terminalean</string>
     <string name="file_list_action_add_bookmark">Gehitu laster-marka</string>
     <string name="file_list_action_create_shortcut">Sortu laster-marka</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Ireki leiho berrian</string>
     <string name="file_list_select_title_format">%1$,d hautatuta</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Hautatu “%1$s”</string>
     <string name="file_list_paste_move_title_format">%1$,d lekuz aldatzen</string>
     <string name="file_list_paste_copy_title_format">%1$,d kopiatzen</string>
@@ -288,9 +282,6 @@
     <string name="file_item_action_open_with">Ireki honekin</string>
     <string name="file_item_action_extract">Erauzi</string>
     <string name="file_item_action_archive">Konprimitu</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Propietateak</string>
 
     <string name="file_properties_title_format">“%1$s” propietateak</string>
@@ -341,10 +332,7 @@
     <string name="file_properties_permissions_set_selinux_context_title">Aldatu SELinux testuingurua</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Berrezarri</string>
     <string name="file_properties_permissions_recursive">Aplikatu bildutako fitxategiei</string>
-
     <string name="storage_file_system_root_title">Erroa</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
-
     <string name="navigation_storage_subtitle_format">%1$s libre %2$s guztira</string>
     <string name="navigation_add_storage">Gehitu biltegia…</string>
     <string name="navigation_standard_directory_alarms">Alarmak</string>
@@ -363,13 +351,8 @@
     <string name="navigation_edit_bookmark_directory_title">Karpetaren laster-marka</string>
     <string name="navigation_edit_bookmark_directory_name">Izena</string>
     <string name="navigation_edit_bookmark_directory_path">Bidea</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Irudi ikuslea</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Testu editorea</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -394,7 +377,6 @@
     <string name="ftp_server_port_title">Ataka</string>
     <string name="ftp_server_home_directory_title">Erro karpeta</string>
     <string name="ftp_server_writable_title">Baimendu idaztea</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP zerbitzaria abian da</string>
 
     <string name="settings_title">Ezarpenak</string>
@@ -410,16 +392,11 @@
     <string name="settings_file_list_animation_title">Fitxategien zerrendaren animazioa</string>
     <string name="settings_behavior_title">Portaera</string>
     <string name="settings_default_directory_title">Lehenetsitako karpeta</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Karpeta estandarrak</string>
     <string name="settings_standard_directories_summary_empty">Ez da karpeta estandarrik gaitu</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Pantaila-argazkiak</string>
     <string name="settings_bookmark_directories_title">Karpeten laster-markak</string>
     <string name="settings_bookmark_directories_summary_empty">Karpeten laster-markarik ez</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root sarbidea modua</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Eragiketa %1$,d duzu abian eta root sarbide modua orain aldatzeak ustekabeko errorea sortu dezake. Ziur orain aldatu nahi duzula?</item>
@@ -450,7 +427,4 @@
     <string name="about_author_github_title">Jarraitu GitHub-en</string>
     <string name="about_author_google_plus_title">Gehitu Google+ zirkuluetara</string>
     <string name="about_author_twitter_title">Jarraitu Twitter-en</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

@@ -27,7 +27,6 @@
     <string name="merge">دمج</string>
     <string name="none">لا شيء</string>
     <string name="paste">لصق</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">تحديث</string>
     <string name="reload">إعادة تحميل</string>
     <string name="remove">إزالة</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">لم يتم العثور على تطبيق للتعامل مع هذا الإجراء</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">أفتح الإعدادات</string>
     <string name="shortcut_created">تم إنشاء الاختصار</string>
 
@@ -64,7 +62,6 @@
 
     <string name="storage_permission_rationale_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
     <string name="storage_permission_permanently_denied_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء منح إذن \"التخزين\" في إعدادات النظام.</string>
-
     <string name="notification_channel_background_activity_start_name">الإجراءات أثناء العمل في الخلفية</string>
     <string name="notification_channel_background_activity_start_description">اتخذ إجراءات أثناء عمل التطبيق في الخلفية</string>
     <string name="notification_channel_file_job_name">عمليات الملف</string>
@@ -299,7 +296,6 @@
     <string name="file_job_action_all">قم بتطبيق هذا الإجراء على جميع الملفات</string>
 
     <string name="file_open_apk_message">هذا الملف عبارة عن حزمة تطبيق لـ Android. هل تريد تثبيته أم عرض محتوياته؟</string>
-    <string name="file_edit_title">@string/select</string>
     <string name="file_open_as_title">افتح كـ …</string>
     <string name="file_open_as_title_format">افتح ”%1$s“ كـ</string>
     <string name="file_open_as_type_text">نص</string>
@@ -376,11 +372,8 @@
     <string name="file_list_action_open_in_terminal">فتح في نافذة محرر الأوامر</string>
     <string name="file_list_action_add_bookmark">اضافة للإشاراة المرجعية</string>
     <string name="file_list_action_create_shortcut">إنشاء اختصار</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">افتح في نافذة جديدة</string>
     <string name="file_list_select_title_format">تم تحديد %1$,d</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">تحديد ”%1$s“</string>
     <string name="file_list_paste_move_title_format">نقل %1$,d</string>
     <string name="file_list_paste_copy_title_format">نسخ %1$,d</string>
@@ -394,9 +387,6 @@
     <string name="file_item_action_open_with">فتح بـ</string>
     <string name="file_item_action_extract">استخرج</string>
     <string name="file_item_action_archive">ضغط</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">الخصائص</string>
 
     <string name="file_properties_title_format">”%1$s“ خصائص</string>
@@ -553,7 +543,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">المفتاح الخاص غير صحيح</string>
     <string name="storage_edit_sftp_server_connect_and_add">قم بالاتصال والإضافة</string>
     <string name="storage_edit_sftp_server_add">إضافة</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">البحث عن خوادم SMB…</string>
     <string name="storage_add_lan_smb_server_add">إضافة يدويًا</string>
     <string name="storage_edit_smb_server_title_edit">تحرير خادم SMB</string>
@@ -597,13 +586,8 @@
     <string name="navigation_edit_bookmark_directory_title">مجلد الإشارات المرجعية</string>
     <string name="navigation_edit_bookmark_directory_name">الاسم</string>
     <string name="navigation_edit_bookmark_directory_path">المسار</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">عارض الصور</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">محرر النص</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -629,7 +613,6 @@
     <string name="ftp_server_port_title">منفذ</string>
     <string name="ftp_server_home_directory_title">المجلد الرئيسي</string>
     <string name="ftp_server_writable_title">اسمح بالكتابة</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">خادم FTP قيد التشغيل</string>
 
     <string name="settings_title">الإعدادات</string>
@@ -655,16 +638,11 @@
     </string-array>
     <string name="settings_behavior_title">السلوك</string>
     <string name="settings_default_directory_title">المجلد الإفتراضى</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">المجلدات الأساسية</string>
     <string name="settings_standard_directories_summary_empty">لم يتم تمكين المجلدات الأساسية</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">لقطات الشاشة</string>
     <string name="settings_bookmark_directories_title">مجلدات الإشارات المرجعية</string>
     <string name="settings_bookmark_directories_summary_empty">لا توجد مجلدات الإشارات المرجعية</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">وضع الوصول إلى الجذر/الروت</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="zero">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
@@ -701,7 +679,4 @@
     <string name="about_author_github_title">تابعني على GitHub</string>
     <string name="about_author_google_plus_title">أضف إلى دوائر Google+</string>
     <string name="about_author_twitter_title">متابعة على Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

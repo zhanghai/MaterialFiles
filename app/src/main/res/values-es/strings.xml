@@ -27,7 +27,6 @@
     <string name="merge">Fusionar</string>
     <string name="none">Ninguno</string>
     <string name="paste">Pegar</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Actualizar</string>
     <string name="reload">Recargar</string>
     <string name="remove">Remover</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No se encontró ninguna aplicación para esta acción</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Abrir ajustes</string>
     <string name="shortcut_created">Atajo creado</string>
 
@@ -60,7 +58,6 @@
 
     <string name="storage_permission_rationale_message">La aplicación necesita permiso para acceder a los archivos. Por favor, aprieta \"PERMITIR\" en el diálogo del sistema.</string>
     <string name="storage_permission_permanently_denied_message">La aplicación necesita permiso para acceder a los archivos. Por favor, concede el permiso de \"Almacenamiento\" en la configuración del sistema.</string>
-
     <string name="notification_channel_background_activity_start_name">Acciones en segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realiza acciones mientras la aplicación está en segundo plano</string>
     <string name="notification_channel_file_job_name">Operaciones de archivos</string>
@@ -215,7 +212,6 @@
     <string name="file_job_action_all">Aplicar esta acción a todos los archivos</string>
 
     <string name="file_open_apk_message">Este archivo es un paquete Android. ¿Quieres instalarlo o ver su contenido?</string>
-    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Abrir como…</string>
     <string name="file_open_as_title_format">Abrir \"%1$s\" como</string>
     <string name="file_open_as_type_text">Texto</string>
@@ -276,11 +272,8 @@
     <string name="file_list_action_open_in_terminal">Abrir en la terminal</string>
     <string name="file_list_action_add_bookmark">Agregar marcador</string>
     <string name="file_list_action_create_shortcut">Crear atajo</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir en una nueva ventana</string>
     <string name="file_list_select_title_format">%1$,d seleccionado</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Seleccionar \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Moviendo %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copiando %1$,d</string>
@@ -294,9 +287,6 @@
     <string name="file_item_action_open_with">Abrir con</string>
     <string name="file_item_action_extract">Extraer</string>
     <string name="file_item_action_archive">Comprimir</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Propiedades</string>
 
     <string name="file_properties_title_format">“%1$s” propiedades</string>
@@ -445,7 +435,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">Clave privada no válida</string>
     <string name="storage_edit_sftp_server_connect_and_add">Conectar y añadir</string>
     <string name="storage_edit_sftp_server_add">Añadir</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Buscando servidores SMB</string>
     <string name="storage_add_lan_smb_server_add">Añadir manualmente</string>
     <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
@@ -489,13 +478,8 @@
     <string name="navigation_edit_bookmark_directory_title">Carpeta de marcador</string>
     <string name="navigation_edit_bookmark_directory_name">Nombre</string>
     <string name="navigation_edit_bookmark_directory_path">Ruta</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Visor de imagen</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Editor de texto</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -521,7 +505,6 @@
     <string name="ftp_server_port_title">Puerto</string>
     <string name="ftp_server_home_directory_title">Carpeta raíz</string>
     <string name="ftp_server_writable_title">Permitir escritura</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">El servidor FTP está corriendo</string>
 
     <string name="settings_title">Ajustes</string>
@@ -547,16 +530,11 @@
     </string-array>
     <string name="settings_behavior_title">Comportamiento</string>
     <string name="settings_default_directory_title">Carpeta por defecto</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Carpetas estándar</string>
     <string name="settings_standard_directories_summary_empty">Ninguna carpeta estándar habilitada</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Capturas de pantalla</string>
     <string name="settings_bookmark_directories_title">Carpeta de marcador</string>
     <string name="settings_bookmark_directories_summary_empty">Sin carpetas de marcador</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Modo de acceso administrativo</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
@@ -589,7 +567,4 @@
     <string name="about_author_github_title">Seguir en GitHub</string>
     <string name="about_author_google_plus_title">Agregar a círculos de Google+</string>
     <string name="about_author_twitter_title">Seguir en Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>
