@@ -31,14 +31,13 @@ import me.zhanghai.android.files.provider.linux.LinuxFileSystem
 import me.zhanghai.android.files.storage.DocumentTree
 import me.zhanghai.android.files.storage.FileSystemRoot
 import me.zhanghai.android.files.storage.PrimaryStorageVolume
-import me.zhanghai.android.files.storage.SmbServer
 import me.zhanghai.android.files.util.asBase64
 import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.toBase64
 import me.zhanghai.android.files.util.toByteArray
 import me.zhanghai.android.files.util.use
 
-internal fun upgradeAppTo1_1_0(lastVersionCode: Int) {
+internal fun upgradeAppTo1_1_0() {
     // Migrate settings.
     migratePathSetting(R.string.pref_key_file_list_default_directory)
     migrateFileSortOptionsSetting()
@@ -222,7 +221,7 @@ private val pathSharedPreferences: SharedPreferences
         return application.getSharedPreferences(name, mode)
     }
 
-internal fun upgradeAppTo1_2_0(lastVersionCode: Int) {
+internal fun upgradeAppTo1_2_0() {
     migrateStoragesSetting()
 }
 
@@ -242,7 +241,7 @@ private fun migrateStoragesSetting() {
     defaultSharedPreferences.edit { putString(key, bytes.toBase64().value) }
 }
 
-internal fun upgradeAppTo1_3_0(lastVersionCode: Int) {
+internal fun upgradeAppTo1_3_0() {
     migrateSmbServersSetting()
 }
 
@@ -293,6 +292,93 @@ private fun migrateSmbServersSetting() {
                         oldParcel.setDataPosition(oldPosition)
                         val storage = oldParcel.readValue(appClassLoader)
                         newParcel.writeValue(storage)
+                    }
+                }
+            }
+            newParcel.marshall()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
+}
+
+internal fun upgradeAppTo1_4_0() {
+    migrateSftpAndSmbServersSetting()
+}
+
+private fun migrateSftpAndSmbServersSetting() {
+    val key = application.getString(R.string.pref_key_storages)
+    val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
+        ?: return
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                oldParcel.readInt()
+                newParcel.writeInt(PARCEL_VAL_LIST)
+                val size = oldParcel.readInt()
+                newParcel.writeInt(size)
+                repeat(size) {
+                    val oldPosition = oldParcel.dataPosition()
+                    oldParcel.readInt()
+                    when (oldParcel.readString()) {
+                        "me.zhanghai.android.files.storage.SftpServer" -> {
+                            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                            newParcel.writeString("me.zhanghai.android.files.storage.SftpServer")
+                            val id = oldParcel.readLong()
+                            newParcel.writeLong(id)
+                            val customName = oldParcel.readString()
+                            newParcel.writeString(customName)
+                            oldParcel.readString()
+                            newParcel.writeString(
+                                "me.zhanghai.android.files.provider.sftp.client.Authority"
+                            )
+                            val authorityHost = oldParcel.readString()
+                            newParcel.writeString(authorityHost)
+                            val authorityPort = oldParcel.readInt()
+                            newParcel.writeInt(authorityPort)
+                            val authenticationClassName = oldParcel.readString()
+                            val authorityUsername = oldParcel.readString()
+                            newParcel.writeString(authorityUsername)
+                            newParcel.writeString(authenticationClassName)
+                            val authenticationPasswordOrPrivateKey = oldParcel.readString()
+                            newParcel.writeString(authenticationPasswordOrPrivateKey)
+                            val relativePath = oldParcel.readString()
+                            newParcel.writeString(relativePath)
+                        }
+                        "me.zhanghai.android.files.storage.SmbServer" -> {
+                            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                            newParcel.writeString("me.zhanghai.android.files.storage.SmbServer")
+                            val id = oldParcel.readLong()
+                            newParcel.writeLong(id)
+                            val customName = oldParcel.readString()
+                            newParcel.writeString(customName)
+                            oldParcel.readString()
+                            newParcel.writeString(
+                                "me.zhanghai.android.files.provider.smb.client.Authority"
+                            )
+                            val authorityHost = oldParcel.readString()
+                            newParcel.writeString(authorityHost)
+                            val authorityPort = oldParcel.readInt()
+                            newParcel.writeInt(authorityPort)
+                            oldParcel.readString()
+                            val authorityUsername = oldParcel.readString()
+                            newParcel.writeString(authorityUsername)
+                            val authorityDomain = oldParcel.readString()
+                            newParcel.writeString(authorityDomain)
+                            val password = oldParcel.readString()
+                            newParcel.writeString(password)
+                            val relativePath = oldParcel.readString()
+                            newParcel.writeString(relativePath)
+                        }
+                        else -> {
+                            oldParcel.setDataPosition(oldPosition)
+                            val storage = oldParcel.readValue(appClassLoader)
+                            newParcel.writeValue(storage)
+                        }
                     }
                 }
             }

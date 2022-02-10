@@ -22,11 +22,12 @@ import com.hierynomus.mssmb2.messages.SMB2ChangeNotifyResponse
 import com.hierynomus.protocol.commons.EnumWithValue
 import com.hierynomus.smbj.ProgressListener
 import com.hierynomus.smbj.SMBClient
+import com.hierynomus.smbj.auth.AuthenticationContext
 import com.hierynomus.smbj.common.SMBRuntimeException
 import com.hierynomus.smbj.session.Session
 import com.hierynomus.smbj.share.Directory
 import com.hierynomus.smbj.share.DiskShare
-import com.hierynomus.smbj.share.NamedPipe
+import com.hierynomus.smbj.share.PipeShare
 import com.hierynomus.smbj.share.PrinterShare
 import com.hierynomus.smbj.share.Share
 import com.rapid7.client.dcerpc.mssrvs.ServerService
@@ -452,8 +453,7 @@ object Client {
         val sharePath = path.sharePath ?: throw ClientException("$path does not have a share path")
         val session = getSession(path.authority)
         if (sharePath.path.isEmpty()) {
-            val share = getShare(session, sharePath.name)
-            return when (share) {
+            return when (val share = getShare(session, sharePath.name)) {
                 is DiskShare -> {
                     val shareInfo = try {
                         share.shareInformation
@@ -466,7 +466,7 @@ object Client {
                     // in use shortly. All shares are automatically closed when the session is
                     // closed anyway.
                 }
-                is NamedPipe -> ShareInformation(ShareType.PIPE, null).also { share.closeSafe() }
+                is PipeShare -> ShareInformation(ShareType.PIPE, null).also { share.closeSafe() }
                 is PrinterShare -> ShareInformation(ShareType.PRINTER, null)
                     .also { share.closeSafe() }
                 else -> throw AssertionError(share)
@@ -602,16 +602,18 @@ object Client {
                     sessions -= authority
                 }
             }
-            val authentication = authenticator.getAuthentication(authority)
-                ?: throw ClientException("No authentication found for $authority")
+            val password = authenticator.getPassword(authority)
+                ?: throw ClientException("No password found for $authority")
             val hostAddress = resolveHostName(authority.host)
             val connection = try {
                 client.connect(hostAddress, authority.port)
             } catch (e: IOException) {
                 throw ClientException(e)
             }
+            val authenticationContext =
+                AuthenticationContext(authority.username, password.toCharArray(), authority.domain)
             session = try {
-                connection.authenticate(authentication.toContext())
+                connection.authenticate(authenticationContext)
             } catch (e: SMBRuntimeException) {
                 // We need to close the connection here, otherwise future authentications reusing it
                 // will receive an exception about no available credits.

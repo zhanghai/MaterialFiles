@@ -215,7 +215,12 @@ object Client {
         synchronized(clients) {
             var client = clients[authority]
             if (client != null) {
-                return client
+                if (client.sftpEngine.subsystem.isOpen) {
+                    return client
+                } else {
+                    client.closeSafe()
+                    clients -= authority
+                }
             }
             val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
@@ -227,7 +232,7 @@ object Client {
                 throw ClientException(e)
             }
             try {
-                sshClient.auth(authentication.username, authentication.toAuthMethod())
+                sshClient.auth(authority.username, authentication.toAuthMethod())
             } catch (e: UserAuthException) {
                 sshClient.closeSafe()
                 throw ClientException(e)

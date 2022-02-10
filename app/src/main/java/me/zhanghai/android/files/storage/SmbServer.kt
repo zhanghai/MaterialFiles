@@ -9,10 +9,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.provider.smb.client.Authentication
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.provider.smb.createSmbRootPath
 import me.zhanghai.android.files.util.createIntent
@@ -24,20 +22,20 @@ class SmbServer(
     override val id: Long,
     override val customName: String?,
     val authority: Authority,
-    val authentication: Authentication,
+    val password: String,
     val relativePath: String
 ) : Storage() {
     constructor(
         id: Long?,
         customName: String?,
         authority: Authority,
-        authentication: Authentication,
+        password: String,
         relativePath: String
-    ) : this(id ?: Random.nextLong(), customName, authority, authentication, relativePath)
+    ) : this(id ?: Random.nextLong(), customName, authority, password, relativePath)
 
-    @DrawableRes
-    @IgnoredOnParcel
-    override val iconRes: Int = R.drawable.computer_icon_white_24dp
+    override val iconRes: Int
+        @DrawableRes
+        get() = R.drawable.computer_icon_white_24dp
 
     override fun getDefaultName(context: Context): String =
         if (relativePath.isNotEmpty()) "$authority/$relativePath" else authority.toString()

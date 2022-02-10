@@ -24,10 +24,9 @@
     <string name="keep_editing">編集を続ける</string>
     <string name="loading">読み込み中…</string>
     <string name="maybe_later">あとで</string>
-    <string name="merge">マージ</string>
+    <string name="merge">併合</string>
     <string name="none">なし</string>
     <string name="paste">貼り付け</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">更新</string>
     <string name="reload">再読込</string>
     <string name="remove">消去</string>
@@ -40,7 +39,7 @@
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
     <string name="share">共有</string>
-    <string name="show">見せる</string>
+    <string name="show">示す</string>
     <string name="skip">スキップ</string>
     <string name="sort">並び替え</string>
     <string name="stop">停止</string>
@@ -48,8 +47,7 @@
     <string name="view">表示</string>
 
     <!-- android.R.string.app_not_found -->
-    <string name="activity_not_found">この操作を処理するアプリが見つかりません</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
+    <string name="activity_not_found">この操作を処理できるアプリが見つかりません</string>
     <string name="open_settings">設定を開く</string>
     <string name="shortcut_created">ショートカットを作成しました</string>
 
@@ -57,9 +55,8 @@
         <item quantity="other">%1$,d バイト</item>
     </plurals>
 
-    <string name="storage_permission_request_message">アプリはファイルにアクセスする権限を必要とします。次に表示されるシステムダイアログで「許可」を選択して下さい。</string>
-    <string name="storage_permission_permanently_denied_message">アプリはファイルにアクセスする権限を必要とします。システム設定で「ストレージ」権限を付与してください。</string>
-
+    <string name="storage_permission_rationale_message">ファイルをアクセスする権限は必要です。表示されるシステムダイアログで「許可」を選択して下さい。</string>
+    <string name="storage_permission_permanently_denied_message">ファイルをアクセスする権限は必要です。システム設定で「ストレージ」権限を許可してください。</string>
     <string name="notification_channel_background_activity_start_name">バックグラウンド処理</string>
     <string name="notification_channel_background_activity_start_description">バックグラウンドでアプリを実行</string>
     <string name="notification_channel_file_job_name">ファイル作業</string>
@@ -156,11 +153,11 @@
     <string name="file_job_replace_target_name">元のファイル</string>
     <string name="file_job_replace_source_name">置換</string>
     <string name="file_job_merge_title_format">「%1$s」フォルダをマージしますか？</string>
-    <string name="file_job_merge_copy_message_format">マージすると、コピーするファイルとフォルダ内の競合するファイルを置き換える前に確認を求めます。</string>
-    <string name="file_job_merge_extract_message_format">マージすると、展開するファイルとフォルダ内の競合するファイルを置き換える前に確認を求めます。</string>
-    <string name="file_job_merge_move_message_format">マージすると、移動するファイルとフォルダ内の競合するファイルを置き換える前に確認を求めます。</string>
+    <string name="file_job_merge_copy_message_format">併合は、コピーするファイルが衝突してる場合、置き換える前には確認を尋ねます。</string>
+    <string name="file_job_merge_extract_message_format">併合は、展開するファイルが衝突してる場合、置き換える前には確認を尋ねます。</string>
+    <string name="file_job_merge_move_message_format">併合は、移動するファイルが衝突してる場合、置き換える前には確認を尋ねます。</string>
     <string name="file_job_merge_target_name">元のフォルダ</string>
-    <string name="file_job_merge_source_name">統合</string>
+    <string name="file_job_merge_source_name">併合</string>
     <string name="file_job_conflict_show_name">宛先の新しい名前を選択してください</string>
     <string name="file_job_conflict_name_hint">新しい名前</string>
     <string name="file_job_archive_error_title_format">“%1$s” の圧縮中にエラーが発生しました</string>
@@ -194,7 +191,6 @@
     <string name="file_job_action_all">この操作をすべてのファイルに適用</string>
 
     <string name="file_open_apk_message">このファイルは Android パッケージです。インストールしますか？それとも中身を表示しますか？</string>
-    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">指定形式として開く…</string>
     <string name="file_open_as_title_format">“%1$s” を指定の形式として開く</string>
     <string name="file_open_as_type_text">テキスト</string>
@@ -215,7 +211,7 @@
     <string name="file_delete_message_multiple_files_format">ファイル%1$,dを削除しますか？</string>
     <string name="file_delete_message_multiple_directories_format">フォルダー%1$,dとその内容を削除しますか？</string>
     <string name="file_delete_message_multiple_mixed_format">%1$,d個の項目を削除しますか？</string>
-    <string name="file_create_archive_title">アーカイブの作成</string>
+    <string name="file_create_archive_title">アーカイブを作成</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
@@ -251,11 +247,8 @@
     <string name="file_list_action_open_in_terminal">ターミナルで開く</string>
     <string name="file_list_action_add_bookmark">ブックマークに追加</string>
     <string name="file_list_action_create_shortcut">ショートカットを作成</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">新しい画面を開く</string>
     <string name="file_list_select_title_format">%1$,d個選択済み</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">“%1$s” を選択</string>
     <string name="file_list_paste_move_title_format">%1$,d を移動</string>
     <string name="file_list_paste_copy_title_format">%1$,d をコピー</string>
@@ -269,9 +262,6 @@
     <string name="file_item_action_open_with">アプリで開く</string>
     <string name="file_item_action_extract">展開</string>
     <string name="file_item_action_archive">圧縮</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">プロパティ</string>
 
     <string name="file_properties_title_format">“%1$s” のプロパティ</string>
@@ -336,8 +326,8 @@
     <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
     <string name="file_properties_image_equipment">カメラ</string>
     <string name="file_properties_image_equipment_format">%1$s %2$s</string>
-    <string name="file_properties_image_f_number">絞り値</string>
-    <string name="file_properties_image_shutter_speed">シャッタースピード</string>
+    <string name="file_properties_image_f_number">アパーチャー</string>
+    <string name="file_properties_image_shutter_speed">シャッター速度</string>
     <string name="file_properties_image_focal_length">焦点距離</string>
     <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
     <string name="file_properties_image_photographic_sensitivity">ISO値</string>
@@ -359,7 +349,7 @@
     <string name="file_properties_media_duration">長さ</string>
     <string name="file_properties_media_bit_rate">ビットレート</string>
     <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
-    <string name="file_properties_audio_sample_rate">サンプリングレート</string>
+    <string name="file_properties_audio_sample_rate">サンプリング周波数</string>
     <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
     <string name="file_properties_video">ビデオ</string>
     <string name="file_properties_apk">APK</string>
@@ -371,7 +361,7 @@
     <string name="file_properties_apk_target_sdk_version">対象システムバージョン</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
     <string name="file_properties_apk_requested_permissions">権限</string>
-    <string name="file_properties_apk_requested_permissions_zero">権限が要求されていません</string>
+    <string name="file_properties_apk_requested_permissions_zero">権限要求はいません</string>
     <plurals name="file_properties_apk_requested_permissions_positive_format">
         <item quantity="other">%1$,d 権限を要求</item>
     </plurals>
@@ -418,7 +408,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">無効な秘密鍵</string>
     <string name="storage_edit_sftp_server_connect_and_add">接続と追加</string>
     <string name="storage_edit_sftp_server_add">追加</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">SMB サーバーを検索中…</string>
     <string name="storage_add_lan_smb_server_add">手動で追加</string>
     <string name="storage_edit_smb_server_title_edit">SMB サーバーを編集</string>
@@ -454,7 +443,7 @@
     <string name="navigation_standard_directory_music">音楽</string>
     <string name="navigation_standard_directory_notifications">通知</string>
     <string name="navigation_standard_directory_pictures">画像</string>
-    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_podcasts">ポッドキャスト</string>
     <string name="navigation_standard_directory_ringtones">着信音</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
@@ -462,20 +451,15 @@
     <string name="navigation_edit_bookmark_directory_title">ブックマークフォルダ</string>
     <string name="navigation_edit_bookmark_directory_name">名前</string>
     <string name="navigation_edit_bookmark_directory_path">パス</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">画像ビューア</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">テキストエディタ</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">保存しました</string>
-    <string name="text_editor_reload_message">再読み込みしてもよろしいですか？このドキュメントの未保存の変更は失われます。</string>
+    <string name="text_editor_reload_message">再読みはよろしですか？未保存の変更は破棄します。</string>
     <string name="text_editor_encoding">エンコーディング</string>
-    <string name="text_editor_close_message">保存していないこのドキュメントの変更を破棄してもよろしいですか？</string>
+    <string name="text_editor_close_message">保存していない変更を破棄してもいいですか？</string>
 
     <string name="ftp_server_title">FTP サーバー</string>
     <string name="ftp_server_state_title">状態</string>
@@ -492,9 +476,8 @@
     <string name="ftp_server_username_title">ユーザー名</string>
     <string name="ftp_server_password_title">パスワード</string>
     <string name="ftp_server_port_title">ポート</string>
-    <string name="ftp_server_home_directory_title">ルートフォルダ</string>
+    <string name="ftp_server_home_directory_title">Root フォルダ</string>
     <string name="ftp_server_writable_title">書き込みを許可</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP サーバーを実行中です</string>
 
     <string name="settings_title">設定</string>
@@ -509,30 +492,25 @@
         <item>時刻に依存</item>
         <item>バッテリーセーバーに依存</item>
     </string-array>
-    <string name="settings_black_night_mode">黒い夜間モード</string>
+    <string name="settings_black_night_mode">真っ黒モード</string>
     <string name="settings_file_list_animation_title">ファイル一覧のアニメーション</string>
     <string name="settings_file_name_ellipsize_title">長いファイル名の表示方法</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>冒頭を省略</item>
         <item>中央を省略</item>
         <item>末尾を省略</item>
-        <item>スクロール</item>
+        <item>スクローリング</item>
     </string-array>
-    <string name="settings_behavior_title">動作</string>
+    <string name="settings_behavior_title">動き方</string>
     <string name="settings_default_directory_title">既定フォルダ</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">標準フォルダ</string>
     <string name="settings_standard_directories_summary_empty">標準フォルダが有効化されていません</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">スクリーンショット</string>
     <string name="settings_bookmark_directories_title">ブックマークフォルダ</string>
     <string name="settings_bookmark_directories_summary_empty">ブックマークフォルダがありません</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root アクセスモード</string>
     <plurals name="settings_root_strategy_message_format">
-        <item quantity="other">%1$,d 個のファイルが操作中です。ルートアクセスモードを変更すると予期せぬエラーが発生することがあります。 今すぐ変更しますか？</item>
+        <item quantity="other">%1$,d 個のファイルが操作中です。ルートアクセスモードを変更すると不測のエラーが発生することがあります。 今すぐ変更しますか？</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>通常アクセスのみ</item>
@@ -544,24 +522,21 @@
     <string name="settings_open_apk_default_action_title">Android パッケージを開く</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>インストール</item>
-        <item>コメントを見る</item>
+        <item>内容を見る</item>
         <item>何をすべきか尋ねる</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ファイルのサムネイルを表示する</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ファイルのサムネを表示する</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">古いバージョンの Android ではアプリが不安定になる可能性があります</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネイルを読み込む</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネを読み込む</string>
 
     <string name="about_title">このアプリについて</string>
     <string name="about_version_title">バージョン</string>
     <string name="about_github_title">GitHub で見る</string>
     <string name="about_licenses_title">ライセンス</string>
-    <string name="about_privacy_policy_title">プライバシーポリシー</string>
-    <string name="about_author_title">作者</string>
+    <string name="about_privacy_policy_title">プライバシー方針</string>
+    <string name="about_author_title">開発者</string>
     <string name="about_author_name_title">張海</string>
     <string name="about_author_github_title">GitHub でフォロー</string>
     <string name="about_author_google_plus_title">Google+ サークルに追加</string>
     <string name="about_author_twitter_title">Twitter でフォロー</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

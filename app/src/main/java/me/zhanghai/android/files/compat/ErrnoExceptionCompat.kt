@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.compat
 
 import android.system.ErrnoException
+import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
 import me.zhanghai.android.files.util.lazyReflectedField
 
 @RestrictedHiddenApi

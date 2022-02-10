@@ -12,9 +12,20 @@ import net.schmizz.sshj.SSHClient
 @Parcelize
 data class Authority(
     val host: String,
-    val port: Int
+    val port: Int,
+    val username: String
 ) : Parcelable {
-    override fun toString(): String = if (port != DEFAULT_PORT) "$host:$port" else host
+    override fun toString(): String = buildString {
+        if (username.isNotEmpty()) {
+            append(username)
+            append('@')
+        }
+        append(host)
+        if (port != DEFAULT_PORT) {
+            append(':')
+            append(port.toString())
+        }
+    }
 
     companion object {
         const val DEFAULT_PORT = SSHClient.DEFAULT_PORT

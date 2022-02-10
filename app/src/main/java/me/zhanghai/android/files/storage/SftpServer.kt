@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
-import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.provider.sftp.client.Authentication
@@ -35,9 +34,9 @@ class SftpServer(
         relativePath: String
     ) : this(id ?: Random.nextLong(), customName, authority, authentication, relativePath)
 
-    @DrawableRes
-    @IgnoredOnParcel
-    override val iconRes: Int = R.drawable.computer_icon_white_24dp
+    override val iconRes: Int
+        @DrawableRes
+        get() = R.drawable.computer_icon_white_24dp
 
     override fun getDefaultName(context: Context): String =
         if (relativePath.isNotEmpty()) "$authority/$relativePath" else authority.toString()

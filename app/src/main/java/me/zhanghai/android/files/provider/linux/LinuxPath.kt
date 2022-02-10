@@ -6,6 +6,8 @@
 package me.zhanghai.android.files.provider.linux
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import java8.nio.file.LinkOption
@@ -14,8 +16,8 @@ import java8.nio.file.ProviderMismatchException
 import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
-import me.zhanghai.android.effortlesspermissions.EffortlessPermissions
 import me.zhanghai.android.files.app.application
+import me.zhanghai.android.files.compat.checkSelfPermissionCompat
 import me.zhanghai.android.files.compat.readBooleanCompat
 import me.zhanghai.android.files.compat.writeBooleanCompat
 import me.zhanghai.android.files.provider.common.ByteString
@@ -91,7 +93,7 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
     override val rootStrategy: RootStrategy
         get() {
             val strategy = super.rootStrategy
-            if (strategy == RootStrategy.PREFER_NO && !isStoragePermissionGranted) {
+            if (strategy == RootStrategy.PREFER_NO && isMissingStoragePermission) {
                 return RootStrategy.NEVER
             }
             return strategy
@@ -127,14 +129,15 @@ val Path.isLinuxPath: Boolean
 // IPC for checking the storage permission is expensive if we do it on every file system access, so
 // cache its result here.
 @Volatile
-private var wasStoragePermissionGranted: Boolean = false
-private val isStoragePermissionGranted: Boolean
+private var wasMissingStoragePermission = true
+private val isMissingStoragePermission: Boolean
     get() {
         // Android kills an app if the user revokes any of its runtime permissions.
-        if (wasStoragePermissionGranted) {
-            return true
+        if (!wasMissingStoragePermission) {
+            return false
         }
-        return EffortlessPermissions.hasPermissions(
-            application, Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ).also { wasStoragePermissionGranted = it }
+        return (Build.VERSION.SDK_INT in Build.VERSION_CODES.M until Build.VERSION_CODES.R
+                && application.checkSelfPermissionCompat(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            .also { wasMissingStoragePermission = it }
     }

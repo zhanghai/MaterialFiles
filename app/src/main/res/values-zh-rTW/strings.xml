@@ -27,7 +27,6 @@
     <string name="merge">合併</string>
     <string name="none">無</string>
     <string name="paste">貼上</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">更新</string>
     <string name="reload">重新載入</string>
     <string name="remove">移除</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">未找到可處理此操作的程式</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">開啟設定</string>
     <string name="shortcut_created">已建立捷徑</string>
 
@@ -57,8 +55,9 @@
         <item quantity="other">%1$,d 位元組</item>
     </plurals>
 
-    <string name="storage_permission_request_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
-    <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在設定中授予「儲存空間」權限</string>
+    <string name="storage_permission_rationale_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
+    <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在系統設定中授予「儲存空間」權限。</string>
+    <string name="all_files_access_rationale_message">程式需要管理所有檔案的權限。請在接下來的系統設定中授予權限。</string>
 
     <string name="notification_channel_background_activity_start_name">背景期間動作</string>
     <string name="notification_channel_background_activity_start_description">在應用程式處於背景期間採取動作</string>
@@ -194,7 +193,6 @@
     <string name="file_job_action_all">套用此操作到所有檔案</string>
 
     <string name="file_open_apk_message">這個檔案是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>
-    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">開啟為…</string>
     <string name="file_open_as_title_format">將「%1$s」開啟為</string>
     <string name="file_open_as_type_text">文字</string>
@@ -251,11 +249,8 @@
     <string name="file_list_action_open_in_terminal">在終端中開啟</string>
     <string name="file_list_action_add_bookmark">新增書籤</string>
     <string name="file_list_action_create_shortcut">建立捷徑</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中開啟</string>
     <string name="file_list_select_title_format">已選取 %1$,d</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">選取「%1$s」</string>
     <string name="file_list_paste_move_title_format">移動 %1$,d</string>
     <string name="file_list_paste_copy_title_format">複製 %1$,d</string>
@@ -269,9 +264,6 @@
     <string name="file_item_action_open_with">開啟方式</string>
     <string name="file_item_action_extract">解開</string>
     <string name="file_item_action_archive">壓縮</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">屬性</string>
 
     <string name="file_properties_title_format">「%1$s」屬性</string>
@@ -418,7 +410,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">無效的私密金鑰</string>
     <string name="storage_edit_sftp_server_connect_and_add">連線並新增</string>
     <string name="storage_edit_sftp_server_add">新增</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">正在搜尋 SMB 伺服器…</string>
     <string name="storage_add_lan_smb_server_add">手動新增</string>
     <string name="storage_edit_smb_server_title_edit">編輯 SMB 伺服器</string>
@@ -462,13 +453,9 @@
     <string name="navigation_edit_bookmark_directory_title">書籤資料夾</string>
     <string name="navigation_edit_bookmark_directory_name">名稱</string>
     <string name="navigation_edit_bookmark_directory_path">路徑</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
 
     <string name="image_viewer_title">影像檢視器</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">文字編輯器</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -494,7 +481,6 @@
     <string name="ftp_server_port_title">連接埠</string>
     <string name="ftp_server_home_directory_title">根資料夾</string>
     <string name="ftp_server_writable_title">允許寫入</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP 伺服器正在執行</string>
 
     <string name="settings_title">設定</string>
@@ -526,7 +512,6 @@
     <string name="settings_bookmark_directory_screenshots">螢幕擷取畫面</string>
     <string name="settings_bookmark_directories_title">書籤資料夾</string>
     <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
     <string-array name="settings_root_strategy_entries">
         <item>僅普通存取</item>
@@ -558,7 +543,4 @@
     <string name="about_author_github_title">在 GitHub 上關注</string>
     <string name="about_author_google_plus_title">加入到 Google+ 圈子</string>
     <string name="about_author_twitter_title">在 Twitter 上關注</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

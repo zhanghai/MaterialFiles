@@ -18,14 +18,11 @@ import net.schmizz.sshj.userauth.password.PasswordUtils
 import java.io.IOException
 
 sealed class Authentication : Parcelable {
-    abstract val username: String
-
     abstract fun toAuthMethod(): AuthMethod
 }
 
 @Parcelize
 data class PasswordAuthentication(
-    override val username: String,
     val password: String
 ) : Authentication() {
     override fun toAuthMethod(): AuthMethod =
@@ -34,7 +31,6 @@ data class PasswordAuthentication(
 
 @Parcelize
 data class PublicKeyAuthentication(
-    override val username: String,
     val privateKey: String
 ) : Authentication() {
     override fun toAuthMethod(): AuthMethod =

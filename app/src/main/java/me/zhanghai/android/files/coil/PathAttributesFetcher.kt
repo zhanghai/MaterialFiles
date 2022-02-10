@@ -41,6 +41,7 @@ import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.getDimensionPixelSize
+import me.zhanghai.android.files.util.runWithCancellationSignal
 import me.zhanghai.android.files.util.setDataSource
 import me.zhanghai.android.files.util.valueCompat
 import okio.buffer
@@ -95,13 +96,15 @@ class PathAttributesFetcher(
         val isThumbnailSize = size.isThumbnailSize
         if (path.isDocumentPath && isThumbnailSize && attributes.documentSupportsThumbnail) {
             size as PixelSize
-            val thumbnail = try {
-                DocumentResolver.getThumbnail(
-                    path as DocumentResolver.Path, size.width, size.height
-                )
-            } catch (e: ResolverException) {
-                e.printStackTrace()
-                null
+            val thumbnail = runWithCancellationSignal { signal ->
+                try {
+                    DocumentResolver.getThumbnail(
+                        path as DocumentResolver.Path, size.width, size.height, signal
+                    )
+                } catch (e: ResolverException) {
+                    e.printStackTrace()
+                    null
+                }
             }
             if (thumbnail != null) {
                 return DrawableResult(

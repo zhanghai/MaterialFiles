@@ -8,6 +8,7 @@ package me.zhanghai.android.files.storage
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
@@ -40,14 +41,14 @@ data class DocumentTree(
         // Error: Call requires API level 24 (current min is 21):
         // android.os.storage.StorageVolume#equals [NewApi]
         @SuppressLint("NewApi")
-        get() {
-            val storageVolume = uri.storageVolume
-            return if (storageVolume != null && !storageVolume.isPrimaryCompat) {
+        get() =
+            // We are using MANAGE_EXTERNAL_STORAGE to access all storage volumes since R.
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R
+                && uri.storageVolume.let { it != null && !it.isPrimaryCompat }) {
                 R.drawable.sd_card_icon_white_24dp
             } else {
                 super.iconRes
             }
-        }
 
     override fun getDefaultName(context: Context): String =
         uri.storageVolume?.getDescriptionCompat(context) ?: uri.displayName ?: uri.value.toString()

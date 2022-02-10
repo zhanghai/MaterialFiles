@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Environment
 import android.os.storage.StorageVolume
 import android.provider.DocumentsContract
 import me.zhanghai.android.files.util.lazyReflectedMethod
@@ -27,6 +28,17 @@ private val getPathFileMethod by lazyReflectedMethod(storageVolumeClass, "getPat
 
 val StorageVolume.pathFileCompat: File
     get() = File(pathCompat)
+
+val StorageVolume.directoryCompat: File?
+    get() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            directory
+        } else {
+            when (stateCompat) {
+                Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY -> pathFileCompat
+                else -> null
+            }
+        }
 
 @SuppressLint("NewApi")
 fun StorageVolume.getDescriptionCompat(context: Context): String = getDescription(context)

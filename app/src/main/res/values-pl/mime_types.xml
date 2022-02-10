@@ -13,11 +13,11 @@
     <string name="file_type_name_calendar">%1$s kalendarz</string>
     <string name="file_type_name_certificate">%1$s certyfikat</string>
     <string name="file_type_name_code">%1$s dokument</string>
-    <string name="file_type_name_contact">Elektroniczna wizytówka</string>
+    <string name="file_type_name_contact">Wizytówka elektroniczna</string>
     <string name="file_type_name_directory">Folder</string>
     <string name="file_type_name_document">%1$s dokument</string>
     <string name="file_type_name_ebook">%1$s e-book</string>
-    <string name="file_type_name_email">%1$s wiadomość email</string>
+    <string name="file_type_name_email">%1$s wiadomość e-mail</string>
     <string name="file_type_name_font">%1$s czcionka</string>
     <string name="file_type_name_generic">%1$s plik</string>
     <string name="file_type_name_image">%1$s obraz</string>
@@ -27,9 +27,9 @@
     <string name="file_type_name_text">%1$s dokument</string>
     <string name="file_type_name_text_plain">Zwykły dokument tekstowy</string>
     <string name="file_type_name_video">%1$s wideo</string>
-    <string name="file_type_name_word">dokument Word</string>
-    <string name="file_type_name_powerpoint">prezentacja PowerPoint</string>
-    <string name="file_type_name_excel">arkusz kalkulacyjny Excel</string>
+    <string name="file_type_name_word">Dokument Word</string>
+    <string name="file_type_name_powerpoint">Prezentacja PowerPoint</string>
+    <string name="file_type_name_excel">Arkusz kalkulacyjny Excel</string>
     <string name="file_type_name_posix_character_device">Urządzenie znakowe</string>
     <string name="file_type_name_posix_block_device">Urządzenie blokowe</string>
     <string name="file_type_name_posix_fifo">Potok</string>

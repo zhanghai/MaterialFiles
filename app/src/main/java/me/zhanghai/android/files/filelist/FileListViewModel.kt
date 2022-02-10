@@ -211,6 +211,13 @@ class FileListViewModel : ViewModel() {
         _pasteStateLiveData.value = pasteState
     }
 
+    private val _isRequestingStorageAccessLiveData = MutableLiveData(false)
+    var isStorageAccessRequested: Boolean
+        get() = _isRequestingStorageAccessLiveData.valueCompat
+        set(value) {
+            _isRequestingStorageAccessLiveData.value = value
+        }
+
     override fun onCleared() {
         _fileListLiveData.close()
     }

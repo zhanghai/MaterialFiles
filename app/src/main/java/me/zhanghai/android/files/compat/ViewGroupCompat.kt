@@ -8,6 +8,7 @@ package me.zhanghai.android.files.compat
 import android.graphics.PointF
 import android.view.View
 import android.view.ViewGroup
+import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
 import me.zhanghai.android.files.util.lazyReflectedMethod
 
 @RestrictedHiddenApi

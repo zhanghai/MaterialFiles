@@ -7,6 +7,7 @@ package me.zhanghai.android.files.compat
 
 import android.content.pm.ApplicationInfo
 import android.os.Build
+import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
 import me.zhanghai.android.files.util.lazyReflectedField
 
 @RestrictedHiddenApi

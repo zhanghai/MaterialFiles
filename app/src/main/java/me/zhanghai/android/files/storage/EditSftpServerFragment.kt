@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import java8.nio.file.Path
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
@@ -42,11 +41,11 @@ import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
 
 class EditSftpServerFragment : Fragment() {
-    private val args by args<Args>()
-
     private val pickPrivateKeyFileLauncher = registerForActivityResult(
         FileListActivity.PickFileContract(), this::onPickPrivateKeyFileResult
     )
+
+    private val args by args<Args>()
 
     private val viewModel by viewModels { { EditSftpServerViewModel() } }
 
@@ -104,6 +103,7 @@ class EditSftpServerFragment : Fragment() {
             onAuthenticationTypeChanged(authenticationType)
         }
         binding.usernameEdit.hideTextInputLayoutErrorOnTextChange(binding.usernameLayout)
+        binding.usernameEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.privateKeyLayout.setEndIconOnClickListener { onOpenPrivateKeyFile() }
         binding.privateKeyEdit.hideTextInputLayoutErrorOnTextChange(binding.privateKeyLayout)
         binding.saveOrConnectAndAddButton.setText(
@@ -141,7 +141,7 @@ class EditSftpServerFragment : Fragment() {
                     binding.portEdit.setText(authority.port.toString())
                 }
                 val authentication = server.authentication
-                binding.usernameEdit.setText(authentication.username)
+                binding.usernameEdit.setText(authority.username)
                 when (authentication) {
                     is PasswordAuthentication -> {
                         authenticationType = AuthenticationType.PASSWORD
@@ -160,14 +160,13 @@ class EditSftpServerFragment : Fragment() {
 
     private fun updateNamePlaceholder() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
-        val port = binding.portEdit.text.toString().takeIfNotEmpty()
-            .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
+        val port = binding.portEdit.text.toString().takeIfNotEmpty()?.toIntOrNull()
+            ?: Authority.DEFAULT_PORT
         val path = binding.pathEdit.text.toString().trim()
-        binding.nameLayout.placeholderText = if (host != null && port != null) {
-            val authority = Authority(host, port)
+        val username = binding.usernameEdit.text.toString()
+        binding.nameLayout.placeholderText = if (host != null) {
+            val authority = Authority(host, port, username)
             if (path.isNotEmpty()) "$authority/$path" else authority.toString()
-        } else if (host != null) {
-            if (path.isNotEmpty()) "$host/$path" else host
         } else {
             getString(R.string.storage_edit_sftp_server_name_placeholder)
         }
@@ -300,7 +299,7 @@ class EditSftpServerFragment : Fragment() {
         val authentication = when (authenticationType) {
             AuthenticationType.PASSWORD -> {
                 val password = binding.passwordEdit.text.toString()
-                if (errorEdit == null) PasswordAuthentication(username!!, password) else null
+                if (errorEdit == null) PasswordAuthentication(password) else null
             }
             AuthenticationType.PUBLIC_KEY -> {
                 val privateKey = binding.privateKeyEdit.text.toString().takeIfNotEmpty()
@@ -317,14 +316,14 @@ class EditSftpServerFragment : Fragment() {
                         errorEdit = binding.privateKeyEdit
                     }
                 }
-                if (errorEdit == null) PublicKeyAuthentication(username!!, privateKey!!) else null
+                if (errorEdit == null) PublicKeyAuthentication(privateKey!!) else null
             }
         }
         if (errorEdit != null) {
             errorEdit.requestFocus()
             return null
         }
-        val authority = Authority(host!!, port!!)
+        val authority = Authority(host!!, port!!, username!!)
         return SftpServer(args.server?.id, name, authority, authentication!!, path)
     }
 

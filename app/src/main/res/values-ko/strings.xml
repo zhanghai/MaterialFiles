@@ -27,7 +27,6 @@
     <string name="merge">합치기</string>
     <string name="none">없음</string>
     <string name="paste">붙여넣기</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">새로고침</string>
     <string name="reload">다시 불러오기</string>
     <string name="remove">삭제</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">해당 작업을 위한 애플리케이션이 없습니다</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">설정 열기</string>
     <string name="shortcut_created">바로가기가 생성되었습니다</string>
 
@@ -57,9 +55,8 @@
         <item quantity="other">%1$,d 바이트</item>
     </plurals>
 
-    <string name="storage_permission_request_message">파일에 접근하기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 \'허용\'을 선택해 주세요.</string>
+    <string name="storage_permission_rationale_message">파일에 접근하기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 \'허용\'을 선택해 주세요.</string>
     <string name="storage_permission_permanently_denied_message">파일에 접근하기 위한 권한이 필요합니다. 시스템 설정에서 \'저장용량\' 권한을 허용해 주세요.</string>
-
     <string name="notification_channel_background_activity_start_name">백그라운드에서 작업</string>
     <string name="notification_channel_background_activity_start_description">앱이 백그라운드에 있는 동안 작업합니다</string>
     <string name="notification_channel_file_job_name">파일 작업</string>
@@ -194,7 +191,6 @@
     <string name="file_job_action_all">이 선택을 모든 파일에 적용</string>
 
     <string name="file_open_apk_message">이 파일은 Android 패키지 파일로, 파일 내부를 열어 보거나 기기에 설치할 수 있습니다.</string>
-    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">연결 프로그램…</string>
     <string name="file_open_as_title_format">“%1$s” 연결 프로그램</string>
     <string name="file_open_as_type_text">텍스트</string>
@@ -251,11 +247,8 @@
     <string name="file_list_action_open_in_terminal">터미널에서 열기</string>
     <string name="file_list_action_add_bookmark">즐겨찾기에 추가</string>
     <string name="file_list_action_create_shortcut">바로가기 만들기</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">새 창에서 열기</string>
     <string name="file_list_select_title_format">%1$,d개 항목 선택함</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">“%1$s” 선택</string>
     <string name="file_list_paste_move_title_format">%1$,d개 항목 이동</string>
     <string name="file_list_paste_copy_title_format">%1$,d개 항목 복사</string>
@@ -269,9 +262,6 @@
     <string name="file_item_action_open_with">연결 프로그램</string>
     <string name="file_item_action_extract">압축 풀기</string>
     <string name="file_item_action_archive">압축</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">속성</string>
 
     <string name="file_properties_title_format">“%1$s” 속성</string>
@@ -418,7 +408,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">올바르지 않은 개인 키</string>
     <string name="storage_edit_sftp_server_connect_and_add">연결 및 추가</string>
     <string name="storage_edit_sftp_server_add">추가</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">SMB 서버 검색 중…</string>
     <string name="storage_add_lan_smb_server_add">직접 추가</string>
     <string name="storage_edit_smb_server_title_edit">SMB 서버 편집</string>
@@ -462,13 +451,8 @@
     <string name="navigation_edit_bookmark_directory_title">즐겨찾기 폴더</string>
     <string name="navigation_edit_bookmark_directory_name">이름</string>
     <string name="navigation_edit_bookmark_directory_path">경로</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">이미지 뷰어</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">텍스트 편집기</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -494,7 +478,6 @@
     <string name="ftp_server_port_title">포트</string>
     <string name="ftp_server_home_directory_title">루트 폴더</string>
     <string name="ftp_server_writable_title">쓰기 허용</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">FTP 서버가 실행 중입니다</string>
 
     <string name="settings_title">설정</string>
@@ -520,16 +503,11 @@
     </string-array>
     <string name="settings_behavior_title">세부 기능</string>
     <string name="settings_default_directory_title">기본 폴더</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">주요 폴더</string>
     <string name="settings_standard_directories_summary_empty">설정된 주요 폴더 없음</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">스크린샷</string>
     <string name="settings_bookmark_directories_title">즐겨찾기 폴더</string>
     <string name="settings_bookmark_directories_summary_empty">즐겨찾기된 폴더 없음</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">루트 액세스 모드</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="other">아직 %1$,d개의 파일 작업이 진행 중입니다. 지금 루트 액세스 모드를 변경하면 예기치 못한 오류가 발생할 수 있습니다. 정말 지금 변경하시겠습니까?</item>
@@ -561,7 +539,4 @@
     <string name="about_author_github_title">GitHub 팔로우하기</string>
     <string name="about_author_google_plus_title">Google+ 서클에 추가</string>
     <string name="about_author_twitter_title">Twitter 팔로우하기</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

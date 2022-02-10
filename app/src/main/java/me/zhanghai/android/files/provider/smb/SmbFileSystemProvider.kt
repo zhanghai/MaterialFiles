@@ -44,6 +44,7 @@ import me.zhanghai.android.files.provider.smb.client.ClientException
 import me.zhanghai.android.files.provider.smb.client.FileInformation
 import me.zhanghai.android.files.provider.smb.client.SymbolicLinkReparseData
 import me.zhanghai.android.files.util.enumSetOf
+import me.zhanghai.android.files.util.takeIfNotEmpty
 import java.io.IOException
 import java.net.URI
 
@@ -60,7 +61,8 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.portOrDefaultPort)
+        val (username, domain) = uri.usernameAndDomain
+        val authority = Authority(uri.host, uri.portOrDefaultPort, username, domain)
         synchronized(lock) {
             if (fileSystems[authority] != null) {
                 throw FileSystemAlreadyExistsException(authority.toString())
@@ -80,7 +82,8 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun getFileSystem(uri: URI): FileSystem {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.portOrDefaultPort)
+        val (username, domain) = uri.usernameAndDomain
+        val authority = Authority(uri.host, uri.portOrDefaultPort, username, domain)
         return synchronized(lock) { fileSystems[authority] }
             ?: throw FileSystemNotFoundException(authority.toString())
     }
@@ -92,7 +95,8 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun getPath(uri: URI): Path {
         uri.requireSameScheme()
-        val authority = Authority(uri.host, uri.portOrDefaultPort)
+        val (username, domain) = uri.usernameAndDomain
+        val authority = Authority(uri.host, uri.portOrDefaultPort, username, domain)
         val path = uri.decodedPathByteString
             ?: throw IllegalArgumentException("URI must have a path")
         return getOrNewFileSystem(authority).getPath(path)
@@ -102,6 +106,22 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         val scheme = scheme
         require(scheme == SCHEME) { "URI scheme $scheme must be $SCHEME" }
     }
+
+    private val URI.usernameAndDomain: Pair<String, String?>
+        get() {
+            val userInfo = userInfo ?: ""
+            val domainSeparatorIndex = userInfo.indexOf('\\')
+            val username: String
+            val domain: String?
+            if (domainSeparatorIndex != -1) {
+                username = userInfo.substring(domainSeparatorIndex + 1)
+                domain = userInfo.substring(0, domainSeparatorIndex).takeIfNotEmpty()
+            } else {
+                username = userInfo
+                domain = null
+            }
+            return username to domain
+        }
 
     private val URI.portOrDefaultPort: Int
         get() = if (port != -1) port else Authority.DEFAULT_PORT

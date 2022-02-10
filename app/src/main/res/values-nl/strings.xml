@@ -27,7 +27,6 @@
     <string name="merge">Samenvoegen</string>
     <string name="none">Geen</string>
     <string name="paste">Plakken</string>
-    <string name="pick">@string/select</string>
     <string name="refresh">Verversen</string>
     <string name="reload">Herladen</string>
     <string name="remove">Verwijderen</string>
@@ -49,7 +48,6 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Er is geen app die deze actie kan uitvoeren</string>
-    <string name="copied_to_clipboard_format">@string/preference_copied</string>
     <string name="open_settings">Instellingen openen</string>
     <string name="shortcut_created">De snelkoppeling is gemaakt</string>
 
@@ -58,9 +56,8 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_request_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
+    <string name="storage_permission_rationale_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
     <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht ‘Opslag’ in de systeeminstellingen.</string>
-
     <string name="notification_channel_background_activity_start_name">Achtergrondtaken</string>
     <string name="notification_channel_background_activity_start_description">Neem taken aan terwijl de app op de achtergrond draait</string>
     <string name="notification_channel_file_job_name">Bestandshandelingen</string>
@@ -215,7 +212,6 @@
     <string name="file_job_action_all">Toepassen op alle bestanden</string>
 
     <string name="file_open_apk_message">Dit bestand is een Android-pakket. Wil je het installeren of de inhoud ervan bekijken?</string>
-    <string name="file_edit_title">@string/edit</string>
     <string name="file_open_as_title">Openen als…</string>
     <string name="file_open_as_title_format">‘%1$s’ openen als</string>
     <string name="file_open_as_type_text">Tekst</string>
@@ -276,11 +272,8 @@
     <string name="file_list_action_open_in_terminal">Openen in terminalvenster</string>
     <string name="file_list_action_add_bookmark">Bladwijzer toevoegen</string>
     <string name="file_list_action_create_shortcut">Snelkoppeling maken</string>
-    <string name="file_list_breadcrumb_action_copy_path">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Openen in nieuw venster</string>
     <string name="file_list_select_title_format">%1$,d geselecteerd</string>
-    <string name="file_list_select_action_extract">@string/file_item_action_extract</string>
-    <string name="file_list_select_action_archive">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">‘%1$s’ selecteren</string>
     <string name="file_list_paste_move_title_format">Bezig met verplaatsen van %1$,d</string>
     <string name="file_list_paste_copy_title_format">Bezig met kopiëren van %1$,d</string>
@@ -294,9 +287,6 @@
     <string name="file_item_action_open_with">Openen met</string>
     <string name="file_item_action_extract">Uitpakken</string>
     <string name="file_item_action_archive">Inpakken</string>
-    <string name="file_item_action_copy_path">@string/file_list_action_copy_path</string>
-    <string name="file_item_action_add_bookmark">@string/file_list_action_add_bookmark</string>
-    <string name="file_item_action_create_shortcut">@string/file_list_action_create_shortcut</string>
     <string name="file_item_action_properties">Eigenschappen</string>
 
     <string name="file_properties_title_format">Eigenschappen van ‘%1$s’</string>
@@ -445,7 +435,6 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">Ongeldige privésleutel</string>
     <string name="storage_edit_sftp_server_connect_and_add">Verbinden en toevoegen</string>
     <string name="storage_edit_sftp_server_add">Toevoegen</string>
-    <string name="storage_add_lan_smb_server_title">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Bezig met zoeken naar smb-servers…</string>
     <string name="storage_add_lan_smb_server_add">Handmatig toevoegen</string>
     <string name="storage_edit_smb_server_title_edit">SMB-server bewerken</string>
@@ -489,13 +478,8 @@
     <string name="navigation_edit_bookmark_directory_title">Toevoegen aan bladwijzers</string>
     <string name="navigation_edit_bookmark_directory_name">Naam</string>
     <string name="navigation_edit_bookmark_directory_path">Locatie</string>
-    <string name="navigation_ftp_server">@string/ftp_server_title</string>
-    <string name="navigation_settings">@string/settings_title</string>
-    <string name="navigation_about">@string/about_title</string>
-
     <string name="image_viewer_title">Afbeeldingsweergave</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="image_viewer_delete_message_format">@string/file_delete_message_file_format</string>
     <string name="text_editor_title">Tekstbewerker</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -521,7 +505,6 @@
     <string name="ftp_server_port_title">Poort</string>
     <string name="ftp_server_home_directory_title">Hoofdmap</string>
     <string name="ftp_server_writable_title">Wegschrijven toestaan</string>
-    <string name="ftp_server_notification_title">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text">De FTP-server draait</string>
 
     <string name="settings_title">Instellingen</string>
@@ -547,16 +530,11 @@
     </string-array>
     <string name="settings_behavior_title">Gedrag</string>
     <string name="settings_default_directory_title">Standaardmap</string>
-    <string name="settings_storages_title">@string/storage_list_title</string>
-    <string name="settings_storages_summary_empty">@string/storage_list_empty</string>
     <string name="settings_standard_directories_title">Standaardmappen</string>
     <string name="settings_standard_directories_summary_empty">Geen standaardmappen ingesteld</string>
-    <string name="settings_standard_directory_list_title">@string/settings_standard_directories_title</string>
     <string name="settings_bookmark_directory_screenshots">Schermfoto\'s</string>
     <string name="settings_bookmark_directories_title">Bladwijzermappen</string>
     <string name="settings_bookmark_directories_summary_empty">Geen bladwijzermappen</string>
-    <string name="settings_bookmark_directory_list_title">@string/settings_bookmark_directories_title</string>
-    <string name="settings_bookmark_directory_list_empty">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Roottoegangsmodus</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Er wordt %1$,d bestandshandeling uitgevoerd. Als je nu de root-toegangsmodus aanpast, dan kan er een onverwachte fout optreden. Weet je zeker dat je wilt doorgaan?</item>
@@ -589,7 +567,4 @@
     <string name="about_author_github_title">Volgen op GitHub</string>
     <string name="about_author_google_plus_title">Toevoegen op Google+</string>
     <string name="about_author_twitter_title">Volgen op Twitter</string>
-
-    <string name="shortcut_downloads_title">@string/navigation_standard_directory_downloads</string>
-    <string name="shortcut_ftp_server_title">@string/ftp_server_title</string>
 </resources>

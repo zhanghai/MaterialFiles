@@ -19,11 +19,15 @@ import androidx.annotation.StyleableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.TintTypedArray
 import androidx.core.content.ContextCompat
+import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
 import me.zhanghai.android.files.util.lazyReflectedMethod
 import java.util.concurrent.Executor
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+
+fun Context.checkSelfPermissionCompat(permission: String): Int =
+    ContextCompat.checkSelfPermission(this, permission)
 
 @ColorInt
 fun Context.getColorCompat(@ColorRes id: Int): Int = getColorStateListCompat(id).defaultColor
