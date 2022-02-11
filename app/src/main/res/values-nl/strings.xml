@@ -58,6 +58,8 @@
 
     <string name="storage_permission_rationale_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
     <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht ‘Opslag’ in de systeeminstellingen.</string>
+    <string name="all_files_access_rationale_message">Deze app heeft toegang nodig tot je bestanden. Sta de toegang toe op het volgende scherm.</string>
+
     <string name="notification_channel_background_activity_start_name">Achtergrondtaken</string>
     <string name="notification_channel_background_activity_start_description">Neem taken aan terwijl de app op de achtergrond draait</string>
     <string name="notification_channel_file_job_name">Bestandshandelingen</string>
@@ -511,6 +513,7 @@
     <string name="settings_interface_title">Uiterlijk</string>
     <string name="settings_theme_color_title">Themakleur</string>
     <string name="settings_theme_color_summary">De kleur die het vaakst wordt gebruikt in de app</string>
+    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Systeeminstellingen gebruiken</item>

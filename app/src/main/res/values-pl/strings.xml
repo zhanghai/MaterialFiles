@@ -60,6 +60,8 @@
 
     <string name="storage_permission_rationale_message">Aplikacja potrzebuje uprawnień dostępu do plików. Kliknij \"ZEZWÓL\" w następnym oknie dialogowym systemu.</string>
     <string name="storage_permission_permanently_denied_message">Aplikacja potrzebuje uprawnień dostępu do plików. Przyznaj uprawnienie dostępu do pamięci w ustawieniach systemu.</string>
+    <string name="all_files_access_rationale_message">Aplikacja potrzebuje dostępu do zarządzania wszystkimi plikami. Zezwól na dostęp w następnym ustawieniu systemu.</string>
+
     <string name="notification_channel_background_activity_start_name">Działania w tle</string>
     <string name="notification_channel_background_activity_start_description">Podejmuj działania, gdy aplikacja działa w tle</string>
     <string name="notification_channel_file_job_name">Operacje na plikach</string>
@@ -565,6 +567,7 @@
     <string name="settings_interface_title">Interfejs</string>
     <string name="settings_theme_color_title">Kolor motywu</string>
     <string name="settings_theme_color_summary">Kolor pojawiający się najczęściej w aplikacji</string>
+    <string name="settings_material_design_3_title">Twój Material</string>
     <string name="settings_night_mode_title">Tryb nocny</string>
     <string-array name="settings_night_mode_entries">
         <item>Zgodnie z systemem</item>
