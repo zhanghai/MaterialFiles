@@ -146,14 +146,12 @@ class FileProvider : ContentProvider() {
     }
 
     private fun getDefaultProjection(): Array<String> =
-        // TODO: Use platform constant for T after SDK finalization.
-        //if (Build.VERSION.SDK_INT in Build.VERSION_CODES.Q until Build.VERSION_CODES.TIRAMISU
-        if (Build.VERSION.SDK_INT in Build.VERSION_CODES.Q until 33
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
             && Binder.getCallingUid() == Process.SYSTEM_UID) {
-            // com.android.internal.app.ChooserActivity.queryResolver() in Q until T queries with a
-            // null projection (meaning all columns) on main thread but only actually needs the
-            // display name (and document flags). However if we do return all the columns, we may
-            // perform network requests and crash it due to StrictMode. So just work around by only
+            // com.android.internal.app.ChooserActivity.queryResolver() in Q queries with a null
+            // projection (meaning all columns) on main thread but only actually needs the display
+            // name (and document flags). However if we do return all the columns, we may perform
+            // network requests and crash it due to StrictMode. So just work around by only
             // returning the display name in this case.
             CHOOSER_ACTIVITY_DEFAULT_PROJECTION
         } else {
