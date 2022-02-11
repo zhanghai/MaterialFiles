@@ -391,7 +391,6 @@ object DocumentResolver {
         val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(
             parentPath.treeUri, parentDocumentId
         )
-        val childrenPaths = mutableListOf<Path>()
         while (true) {
             // A null projection means all supported columns should be included according to
             // [DocumentsProvider.queryChildDocuments]. This is fine for functionality and
@@ -401,6 +400,7 @@ object DocumentResolver {
                     cursor.waitUntilChanged()
                     return@use
                 }
+                val childrenPaths = mutableListOf<Path>()
                 while (cursor.moveToNext()) {
                     val childDocumentId = cursor.requireString(
                         DocumentsContract.Document.COLUMN_DOCUMENT_ID
