@@ -7,7 +7,7 @@
 
 <resources
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingQuantity">
+    tools:ignore="ImpliedQuantity,MissingQuantity">
 
     <string name="app_name">Material Files</string>
 
