@@ -133,8 +133,12 @@ private fun FileJob.postNotification(
         //setContentIntent()
         if (showCancel) {
             val intent = FileJobReceiver.createIntent(id)
+            var pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                pendingIntentFlags = pendingIntentFlags or PendingIntent.FLAG_IMMUTABLE
+            }
             val pendingIntent = PendingIntent.getBroadcast(
-                service, id + 1, intent, PendingIntent.FLAG_UPDATE_CURRENT
+                service, id + 1, intent, pendingIntentFlags
             )
             addAction(
                 R.drawable.close_icon_white_24dp, getString(android.R.string.cancel), pendingIntent
