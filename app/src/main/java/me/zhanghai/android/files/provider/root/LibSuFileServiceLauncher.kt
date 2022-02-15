@@ -55,56 +55,62 @@ object LibSuFileServiceLauncher {
             if (!isSuAvailable()) {
                 throw RemoteFileSystemException("Root isn't available")
             }
-            return runBlocking {
-                try {
-                    withTimeout(RootFileService.TIMEOUT_MILLIS) {
-                        suspendCancellableCoroutine { continuation ->
-                            val intent = LibSuFileService::class.createIntent()
-                            val connection = object : ServiceConnection {
-                                override fun onServiceConnected(
-                                    name: ComponentName,
-                                    service: IBinder
-                                ) {
-                                    val serviceInterface =
-                                        IRemoteFileService.Stub.asInterface(service)
-                                    continuation.resume(serviceInterface)
-                                }
+            return try {
+                runBlocking {
+                    try {
+                        withTimeout(RootFileService.TIMEOUT_MILLIS) {
+                            suspendCancellableCoroutine { continuation ->
+                                val intent = LibSuFileService::class.createIntent()
+                                val connection = object : ServiceConnection {
+                                    override fun onServiceConnected(
+                                        name: ComponentName,
+                                        service: IBinder
+                                    ) {
+                                        val serviceInterface =
+                                            IRemoteFileService.Stub.asInterface(service)
+                                        continuation.resume(serviceInterface)
+                                    }
 
-                                override fun onServiceDisconnected(name: ComponentName) {
-                                    if (continuation.isActive) {
-                                        continuation.resumeWithException(
-                                            RemoteFileSystemException("libsu service disconnected")
-                                        )
+                                    override fun onServiceDisconnected(name: ComponentName) {
+                                        if (continuation.isActive) {
+                                            continuation.resumeWithException(
+                                                RemoteFileSystemException(
+                                                    "libsu service disconnected"
+                                                )
+                                            )
+                                        }
+                                    }
+
+                                    override fun onBindingDied(name: ComponentName) {
+                                        if (continuation.isActive) {
+                                            continuation.resumeWithException(
+                                                RemoteFileSystemException("libsu binding died")
+                                            )
+                                        }
+                                    }
+
+                                    override fun onNullBinding(name: ComponentName) {
+                                        if (continuation.isActive) {
+                                            continuation.resumeWithException(
+                                                RemoteFileSystemException("libsu binding is null")
+                                            )
+                                        }
                                     }
                                 }
-
-                                override fun onBindingDied(name: ComponentName) {
-                                    if (continuation.isActive) {
-                                        continuation.resumeWithException(
-                                            RemoteFileSystemException("libsu binding died")
-                                        )
+                                launch(Dispatchers.Main.immediate) {
+                                    RootService.bind(intent, connection)
+                                    continuation.invokeOnCancellation {
+                                        RootService.unbind(connection)
                                     }
-                                }
-
-                                override fun onNullBinding(name: ComponentName) {
-                                    if (continuation.isActive) {
-                                        continuation.resumeWithException(
-                                            RemoteFileSystemException("libsu binding is null")
-                                        )
-                                    }
-                                }
-                            }
-                            launch(Dispatchers.Main.immediate) {
-                                RootService.bind(intent, connection)
-                                continuation.invokeOnCancellation {
-                                    RootService.unbind(connection)
                                 }
                             }
                         }
+                    } catch (e: TimeoutCancellationException) {
+                        throw RemoteFileSystemException(e)
                     }
-                } catch (e: TimeoutCancellationException) {
-                    throw RemoteFileSystemException(e)
                 }
+            } catch (e: InterruptedException) {
+                throw RemoteFileSystemException(e)
             }
         }
     }

@@ -62,6 +62,8 @@
 
     <string name="storage_permission_rationale_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, нажмите «РАЗРЕШИТЬ» в появившемся системном диалоговом окне.</string>
     <string name="storage_permission_permanently_denied_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, предоставьте разрешение «Хранилище» в настройках системы.</string>
+    <string name="all_files_access_rationale_message">Приложению требуется доступ для управления всеми файлами. Пожалуйста, разрешите доступ в появившемся окне настроек системы.</string>
+
     <string name="notification_channel_background_activity_start_name">Действия в фоновом режиме</string>
     <string name="notification_channel_background_activity_start_description">Разрешить действия, пока приложение находится в фоновом режиме</string>
     <string name="notification_channel_file_job_name">Операции с файлами</string>
@@ -567,6 +569,7 @@
     <string name="settings_interface_title">Интерфейс</string>
     <string name="settings_theme_color_title">Цвет темы</string>
     <string name="settings_theme_color_summary">Цвет который чаще всего используется в приложении</string>
+    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">Ночной режим</string>
     <string-array name="settings_night_mode_entries">
         <item>Использовать системную тему</item>
