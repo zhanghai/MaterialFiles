@@ -542,7 +542,7 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
     } else {
         gr_passwd = NULL;
     }
-    jint gr_gid = group->gr_gid;
+    jint gr_gid = (jint) group->gr_gid;
     jobjectArray gr_mem;
     if (group->gr_mem) {
         jsize gr_memLength = 0;
@@ -771,8 +771,8 @@ static jobject newStructPasswd(JNIEnv *env, const struct passwd *passwd) {
     } else {
         pw_name = NULL;
     }
-    jint pw_uid = passwd->pw_uid;
-    jint pw_gid = passwd->pw_gid;
+    jint pw_uid = (jint) passwd->pw_uid;
+    jint pw_gid = (jint) passwd->pw_gid;
 #ifdef __LP64__
     jobject pw_gecos;
     if (passwd->pw_gecos) {
@@ -953,8 +953,8 @@ static jobject newStructInotifyEvent(JNIEnv *env, const struct inotify_event *ev
                                  "(IIILme/zhanghai/android/files/provider/common/ByteString;)V");
     }
     jint wd = event->wd;
-    jint mask = event->mask;
-    jint cookie = event->cookie;
+    jint mask = (jint) event->mask;
+    jint cookie = (jint) event->cookie;
     jobject name;
     size_t nameLength = strlen(event->name);
     if (nameLength) {
@@ -1198,16 +1198,16 @@ static jobject newStructStat(JNIEnv *env, const struct stat64 *stat) {
                 "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;"
                 "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;)V");
     }
-    jlong st_dev = stat->st_dev;
-    jlong st_ino = stat->st_ino;
-    jint st_mode = stat->st_mode;
+    jlong st_dev = (jlong) stat->st_dev;
+    jlong st_ino = (jlong) stat->st_ino;
+    jint st_mode = (jint) stat->st_mode;
     jlong st_nlink = stat->st_nlink;
-    jint st_uid = stat->st_uid;
-    jint st_gid = stat->st_gid;
-    jlong st_rdev = stat->st_rdev;
+    jint st_uid = (jint) stat->st_uid;
+    jint st_gid = (jint) stat->st_gid;
+    jlong st_rdev = (jlong) stat->st_rdev;
     jlong st_size = stat->st_size;
     jlong st_blksize = stat->st_blksize;
-    jlong st_blocks = stat->st_blocks;
+    jlong st_blocks = (jlong) stat->st_blocks;
     jobject st_atim = newStructTimespec(env, &stat->st_atim);
     if (!st_atim) {
         return NULL;
@@ -1352,7 +1352,7 @@ static jobject newStructDirent(JNIEnv *env, const struct dirent64 *dirent) {
         constructor = findMethod(env, getStructDirentClass(env), "<init>",
                                  "(JJIILme/zhanghai/android/files/provider/common/ByteString;)V");
     }
-    jlong d_ino = dirent->d_ino;
+    jlong d_ino = (jlong) dirent->d_ino;
     jlong d_off = dirent->d_off;
     jint d_reclen = dirent->d_reclen;
     jint d_type = dirent->d_type;
