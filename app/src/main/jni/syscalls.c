@@ -548,7 +548,7 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
         jsize gr_memLength = 0;
         for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
             ++gr_memLength;
-        };
+        }
         gr_mem = (*env)->NewObjectArray(env, gr_memLength, getByteStringClass(env), NULL);
         if (!gr_mem) {
             return NULL;
@@ -562,7 +562,7 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
             }
             (*env)->SetObjectArrayElement(env, gr_mem, gr_memIndex, gr_memElement);
             (*env)->DeleteLocalRef(env, gr_memElement);
-        };
+        }
     } else {
         gr_mem = NULL;
     }
