@@ -9,8 +9,6 @@ import com.hierynomus.msdtyp.FileTime
 import com.hierynomus.msfscc.fileinformation.FileAllInformation
 import com.hierynomus.msfscc.fileinformation.FileIdFullDirectoryInformation
 import com.hierynomus.msfscc.fileinformation.ShareInfo
-import com.hierynomus.protocol.commons.buffer.Buffer
-import com.hierynomus.smb.SMBBuffer
 import com.hierynomus.smbj.common.SMBRuntimeException
 
 sealed class PathInformation
@@ -26,16 +24,10 @@ class FileInformation(
 ) : PathInformation()
 
 @Throws(SMBRuntimeException::class)
-fun FileIdFullDirectoryInformation.toFileInformation(): FileInformation {
-    val fileId = try {
-        SMBBuffer(fileId).readLong()
-    } catch (e: Buffer.BufferException) {
-        throw SMBRuntimeException(e)
-    }
-    return FileInformation(
+fun FileIdFullDirectoryInformation.toFileInformation(): FileInformation =
+    FileInformation(
         creationTime, lastAccessTime, lastWriteTime, changeTime, endOfFile, fileAttributes, fileId
     )
-}
 
 fun FileAllInformation.toFileInformation(): FileInformation =
     FileInformation(
