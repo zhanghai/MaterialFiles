@@ -94,6 +94,9 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
+    // f41f2a0b81: Preliminary multiuser support
+    //implementation 'com.github.topjohnwu.libsu:service:3.2.1'
+    implementation 'com.github.topjohnwu.libsu:service:f41f2a0b81'
 }
 
 dependencies {
@@ -153,7 +156,6 @@ dependencies {
     // SMBJ-RPC depends on com.google.guava:guava:18.0, which conflicts with
     // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
-    implementation 'com.github.topjohnwu.libsu:service:3.2.1'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
