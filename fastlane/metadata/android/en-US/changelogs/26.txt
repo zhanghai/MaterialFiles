@@ -1,0 +1,8 @@
+- Added direct SD card access on Android 11+.
+- Added multi-user support for SFTP and SMB.
+- Added monochromatic app icon on Android 13.
+- Added Persian, Romanian and Turkish translations.
+- Changed app name to "Material Files" to avoid confusion.
+- Changed root library to libsu to support new Magisk.
+- Fixed SMB UI crash on Android 6.0.
+- Other bug fixes and improvements.
