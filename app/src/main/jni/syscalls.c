@@ -542,13 +542,13 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
     } else {
         gr_passwd = NULL;
     }
-    jint gr_gid = group->gr_gid;
+    jint gr_gid = (jint) group->gr_gid;
     jobjectArray gr_mem;
     if (group->gr_mem) {
         jsize gr_memLength = 0;
         for (char **gr_memIterator = group->gr_mem; *gr_memIterator; ++gr_memIterator) {
             ++gr_memLength;
-        };
+        }
         gr_mem = (*env)->NewObjectArray(env, gr_memLength, getByteStringClass(env), NULL);
         if (!gr_mem) {
             return NULL;
@@ -562,7 +562,7 @@ static jobject newStructGroup(JNIEnv *env, const struct group *group) {
             }
             (*env)->SetObjectArrayElement(env, gr_mem, gr_memIndex, gr_memElement);
             (*env)->DeleteLocalRef(env, gr_memElement);
-        };
+        }
     } else {
         gr_mem = NULL;
     }
@@ -608,9 +608,10 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
         // See `man 3 getpwnam`
         bufferSize = 16384;
     }
+    //char buffer[bufferSize] = {};
     char buffer[bufferSize];
-    struct group group;
-    struct group *result;
+    struct group group = {};
+    struct group *result = NULL;
     errno = TEMP_FAILURE_RETRY_R(getgrgid_r(gid, &group, buffer, bufferSize, &result));
     if (errno) {
         throwSyscallException(env, "getgrgid_r");
@@ -644,9 +645,10 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
         // See `man 3 getpwnam`
         bufferSize = 16384;
     }
+    //char buffer[bufferSize] = {};
     char buffer[bufferSize];
-    struct group group;
-    struct group *result;
+    struct group group = {};
+    struct group *result = NULL;
     errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
     free(name);
     if (errno) {
@@ -738,8 +740,8 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getmntent(
     struct mntent *mntent = TEMP_FAILURE_RETRY(getmntent(file));
 #else
     // getmntent() in bionic is a stub until API 22.
-    struct mntent entryBuffer;
-    char stringsBuffer[BUFSIZ];
+    struct mntent entryBuffer = {};
+    char stringsBuffer[BUFSIZ] = {};
     struct mntent *mntent = TEMP_FAILURE_RETRY(_getmntent_r(file, &entryBuffer, stringsBuffer,
             sizeof(stringsBuffer)));
 #endif
@@ -771,8 +773,8 @@ static jobject newStructPasswd(JNIEnv *env, const struct passwd *passwd) {
     } else {
         pw_name = NULL;
     }
-    jint pw_uid = passwd->pw_uid;
-    jint pw_gid = passwd->pw_gid;
+    jint pw_uid = (jint) passwd->pw_uid;
+    jint pw_gid = (jint) passwd->pw_gid;
 #ifdef __LP64__
     jobject pw_gecos;
     if (passwd->pw_gecos) {
@@ -840,9 +842,10 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
         // See `man 3 getpwnam`
         bufferSize = 16384;
     }
+    //char buffer[bufferSize] = {};
     char buffer[bufferSize];
-    struct passwd passwd;
-    struct passwd *result;
+    struct passwd passwd = {};
+    struct passwd *result = NULL;
     errno = TEMP_FAILURE_RETRY_R(getpwnam_r(name, &passwd, buffer, bufferSize, &result));
     free(name);
     if (errno) {
@@ -864,9 +867,10 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwuid(
         // See `man 3 getpwuid`
         bufferSize = 16384;
     }
+    //char buffer[bufferSize] = {};
     char buffer[bufferSize];
-    struct passwd passwd;
-    struct passwd *result;
+    struct passwd passwd = {};
+    struct passwd *result = NULL;
     errno = TEMP_FAILURE_RETRY_R(getpwuid_r(uid, &passwd, buffer, bufferSize, &result));
     if (errno) {
         throwSyscallException(env, "getpwnam_r");
@@ -905,7 +909,7 @@ static char* _hasmntopt(const struct mntent* mnt, const char* opt) {
 JNIEXPORT jboolean JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_hasmntopt(
         JNIEnv *env, jclass clazz, jobject javaMntent, jobject javaOption) {
-    struct mntent mntent = { 0 };
+    struct mntent mntent = {};
     mntent.mnt_opts = mallocMntOptsFromStructMntent(env, javaMntent);
     char *option = mallocStringFromByteString(env, javaOption);
 #if __ANDROID_API__ >= __ANDROID_API_O__
@@ -953,8 +957,8 @@ static jobject newStructInotifyEvent(JNIEnv *env, const struct inotify_event *ev
                                  "(IIILme/zhanghai/android/files/provider/common/ByteString;)V");
     }
     jint wd = event->wd;
-    jint mask = event->mask;
-    jint cookie = event->cookie;
+    jint mask = (jint) event->mask;
+    jint cookie = (jint) event->cookie;
     jobject name;
     size_t nameLength = strlen(event->name);
     if (nameLength) {
@@ -1064,6 +1068,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_lgetxattr(
         if (errno) {
             break;
         }
+        //char value[size] = {};
         char value[size];
         TEMP_FAILURE_RETRY(lgetxattr(path, name, value, size));
         if (errno) {
@@ -1114,6 +1119,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_llistxattr(
         if (errno) {
             break;
         }
+        //char names[size] = {};
         char names[size];
         TEMP_FAILURE_RETRY(llistxattr(path, names, size));
         if (errno) {
@@ -1198,16 +1204,16 @@ static jobject newStructStat(JNIEnv *env, const struct stat64 *stat) {
                 "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;"
                 "Lme/zhanghai/android/files/provider/linux/syscall/StructTimespec;)V");
     }
-    jlong st_dev = stat->st_dev;
-    jlong st_ino = stat->st_ino;
-    jint st_mode = stat->st_mode;
+    jlong st_dev = (jlong) stat->st_dev;
+    jlong st_ino = (jlong) stat->st_ino;
+    jint st_mode = (jint) stat->st_mode;
     jlong st_nlink = stat->st_nlink;
-    jint st_uid = stat->st_uid;
-    jint st_gid = stat->st_gid;
-    jlong st_rdev = stat->st_rdev;
+    jint st_uid = (jint) stat->st_uid;
+    jint st_gid = (jint) stat->st_gid;
+    jlong st_rdev = (jlong) stat->st_rdev;
     jlong st_size = stat->st_size;
     jlong st_blksize = stat->st_blksize;
-    jlong st_blocks = stat->st_blocks;
+    jlong st_blocks = (jlong) stat->st_blocks;
     jobject st_atim = newStructTimespec(env, &stat->st_atim);
     if (!st_atim) {
         return NULL;
@@ -1227,7 +1233,7 @@ static jobject newStructStat(JNIEnv *env, const struct stat64 *stat) {
 
 static jobject doStat(JNIEnv *env, jobject javaPath, bool isLstat) {
     char *path = mallocStringFromByteString(env, javaPath);
-    struct stat64 stat;
+    struct stat64 stat = {};
     TEMP_FAILURE_RETRY((isLstat ? lstat64 : stat64)(path, &stat));
     free(path);
     if (errno) {
@@ -1252,6 +1258,7 @@ JNIEXPORT void JNICALL
 doUtimens(JNIEnv *env, jobject javaPath, jobjectArray javaTimes, bool isLutimens) {
     char *path = mallocStringFromByteString(env, javaPath);
     size_t timesSize = (size_t) (*env)->GetArrayLength(env, javaTimes);
+    //struct timespec times[timesSize] = {};
     struct timespec times[timesSize];
     for (size_t i = 0; i < timesSize; ++i) {
         jsize javaTimeIndex = (jsize) i;
@@ -1352,7 +1359,7 @@ static jobject newStructDirent(JNIEnv *env, const struct dirent64 *dirent) {
         constructor = findMethod(env, getStructDirentClass(env), "<init>",
                                  "(JJIILme/zhanghai/android/files/provider/common/ByteString;)V");
     }
-    jlong d_ino = dirent->d_ino;
+    jlong d_ino = (jlong) dirent->d_ino;
     jlong d_off = dirent->d_off;
     jint d_reclen = dirent->d_reclen;
     jint d_type = dirent->d_type;
@@ -1386,6 +1393,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readlink(
     size_t maxSize = PATH_MAX;
     jobject javaTarget = NULL;
     while (true) {
+        //char target[maxSize] = {};
         char target[maxSize];
         size_t size = (size_t) TEMP_FAILURE_RETRY(readlink(path, target, maxSize));
         if (errno) {
@@ -1410,7 +1418,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_realpath(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     char *path = mallocStringFromByteString(env, javaPath);
-    char resolvedPath[PATH_MAX];
+    char resolvedPath[PATH_MAX] = {};
     TEMP_FAILURE_RETRY(realpath(path, resolvedPath));
     free(path);
     if (errno) {
@@ -1532,7 +1540,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_statvfs(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     char *path = mallocStringFromByteString(env, javaPath);
-    struct statvfs64 statvfs;
+    struct statvfs64 statvfs = {};
     TEMP_FAILURE_RETRY(statvfs64(path, &statvfs));
     free(path);
     if (errno) {

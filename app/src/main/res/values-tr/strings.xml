@@ -21,23 +21,23 @@
     <string name="error">Hata</string>
     <string name="hide">Gizle</string>
     <string name="install">Yükle</string>
-    <string name="keep_editing">Düzenlemeye Devam Et</string>
+    <string name="keep_editing">Düzenlemeye devam et</string>
     <string name="loading">Yükleniyor…</string>
     <string name="maybe_later">Belki sonra</string>
     <string name="merge">Birleştir</string>
     <string name="none">Hiçbiri</string>
     <string name="paste">Yapıştır</string>
     <string name="refresh">Yenile</string>
-    <string name="reload">Yeniden Yükle</string>
+    <string name="reload">Yeniden yükle</string>
     <string name="remove">Kaldır</string>
-    <string name="rename">Yeniden Adlandır</string>
+    <string name="rename">Yeniden adlandır</string>
     <string name="replace">Değiştir</string>
     <string name="reset">Sıfırla</string>
-    <string name="retry">Yeniden Dene</string>
+    <string name="retry">Yeniden dene</string>
     <string name="save">Kaydet</string>
     <string name="search">Ara</string>
     <string name="select">Seç</string>
-    <string name="select_all">Tümünü Seç</string>
+    <string name="select_all">Tümünü seç</string>
     <string name="share">Paylaş</string>
     <string name="show">Göster</string>
     <string name="skip">Atla</string>
@@ -48,16 +48,18 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Bu eylemi gerçekleştirecek uygulama bulunamadı</string>
-    <string name="open_settings">Ayarları Aç</string>
-    <string name="shortcut_created">Kısayol Oluşturuldu</string>
+    <string name="open_settings">Ayarları aç</string>
+    <string name="shortcut_created">Kısayol oluşturuldu</string>
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d bayt</item>
         <item quantity="other">%1$,d bayt</item>
     </plurals>
 
-    <string name="storage_permission_rationale_message">Uygulamanın dosyalara erişmek için izne ihtiyacı var. Lütfen yaklaşan sistem iletişim kutusunda “İZİN VER” seçeneğini tıklayın.</string>
+    <string name="storage_permission_rationale_message">Uygulamanın dosyalara erişmek için izne ihtiyacı var. Lütfen açılan sistem iletişim kutusunda “İZİN VER” seçeneğini tıklayın.</string>
     <string name="storage_permission_permanently_denied_message">Uygulamanın dosyalara erişmek için izne ihtiyacı var. Lütfen sistem ayarlarında \"Depolama\" iznini verin.</string>
+    <string name="all_files_access_rationale_message">Uygulamanın tüm dosyaları yönetmek için erişime ihtiyacı var. Lütfen açılan sistem ayarından erişime izin verin.</string>
+
     <string name="notification_channel_background_activity_start_name">Arka plandaki eylemler</string>
     <string name="notification_channel_background_activity_start_description">Uygulama arka plandayken işlem yapın</string>
     <string name="notification_channel_file_job_name">Dosya işlemleri</string>

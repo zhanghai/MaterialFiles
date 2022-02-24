@@ -58,6 +58,8 @@
 
     <string name="storage_permission_rationale_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte klicken Sie im nächsten Dialog auf \"Erlauben\".</string>
     <string name="storage_permission_permanently_denied_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte erteilen Sie die \"Speicher\"-Berechtigung in den Systemeinstellungen.</string>
+    <string name="all_files_access_rationale_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte den Zugriff in den Systemeinstellungen erlauben.</string>
+
     <string name="notification_channel_background_activity_start_name">Aktionen im Hintergrund</string>
     <string name="notification_channel_background_activity_start_description">Aktionen ausführen während die App im Hintergrund läuft</string>
     <string name="notification_channel_file_job_name">Dateioperationen</string>

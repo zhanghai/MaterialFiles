@@ -57,6 +57,8 @@
 
     <string name="storage_permission_rationale_message">ファイルをアクセスする権限は必要です。表示されるシステムダイアログで「許可」を選択して下さい。</string>
     <string name="storage_permission_permanently_denied_message">ファイルをアクセスする権限は必要です。システム設定で「ストレージ」権限を許可してください。</string>
+    <string name="all_files_access_rationale_message">アプリが全てのファイルを管理するにはアクセスが必要です。次に表示されるシステム設定でアクセスを許可してください。</string>
+
     <string name="notification_channel_background_activity_start_name">バックグラウンド処理</string>
     <string name="notification_channel_background_activity_start_description">バックグラウンドでアプリを実行</string>
     <string name="notification_channel_file_job_name">ファイル作業</string>
@@ -484,6 +486,7 @@
     <string name="settings_interface_title">外観</string>
     <string name="settings_theme_color_title">テーマ色</string>
     <string name="settings_theme_color_summary">アプリ内での出現頻度が高い色</string>
+    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">夜間モード</string>
     <string-array name="settings_night_mode_entries">
         <item>システム設定に従う</item>

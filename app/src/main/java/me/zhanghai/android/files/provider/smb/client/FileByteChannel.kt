@@ -307,6 +307,8 @@ private class ByteBufferChunkProvider(
 
     override fun bytesLeft(): Int = buffer.remaining()
 
+    override fun prepareWrite(maxBytesToPrepare: Int) {}
+
     override fun getChunk(chunk: ByteArray): Int {
         val length = chunk.size.coerceAtMost(buffer.remaining())
         buffer.get(chunk, 0, length)
