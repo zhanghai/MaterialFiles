@@ -58,6 +58,8 @@
 
     <string name="storage_permission_rationale_message">L\'app richiede l\'autorizzazione di accedere ai file. Clicca \"CONSENTI\" nella prossima finestra.</string>
     <string name="storage_permission_permanently_denied_message">L\'app richiede l\'autorizzazione di accedere ai file. Consenti l\'autorizzazione \"Archiviazione\" nelle impostazioni di sistema.</string>
+    <string name="all_files_access_rationale_message">L\'app richiede l\'autorizzazione di gestire i file. Consenti l\'accesso nella prossima impostazione di sistema.</string>
+
     <string name="notification_channel_background_activity_start_name">Azioni in secondo piano</string>
     <string name="notification_channel_background_activity_start_description">Esegui azioni mentre l\'app è in secondo piano</string>
     <string name="notification_channel_file_job_name">Operazioni sui file</string>
@@ -511,6 +513,7 @@
     <string name="settings_interface_title">Interfaccia</string>
     <string name="settings_theme_color_title">Colore tema</string>
     <string name="settings_theme_color_summary">Colore che appare più spesso nell\'app</string>
+    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">Modalità notte</string>
     <string-array name="settings_night_mode_entries">
         <item>Segui il sistema</item>

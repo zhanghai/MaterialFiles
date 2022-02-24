@@ -31,7 +31,7 @@
     <string name="file_type_name_powerpoint">PowerPoint sunumu</string>
     <string name="file_type_name_excel">Excel tablosu</string>
     <string name="file_type_name_posix_character_device">Karakter cihazı</string>
-    <string name="file_type_name_posix_block_device">Cihazı engelle</string>
+    <string name="file_type_name_posix_block_device">Blok cihazı</string>
     <string name="file_type_name_posix_fifo">Pipe</string>
     <string name="file_type_name_posix_symbolic_link">Bağlantı</string>
     <string name="file_type_name_posix_socket">Soket</string>

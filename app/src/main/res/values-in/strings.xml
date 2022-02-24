@@ -57,6 +57,8 @@
 
     <string name="storage_permission_rationale_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
     <string name="storage_permission_permanently_denied_message">Apl membutuhkan izin untuk mengakses berkas. Aktifkan izin \"Penyimpanan\" di dalam pengaturan sistem.</string>
+    <string name="all_files_access_rationale_message">Aplikasi membutuhkan izin untuk mengelola semua berkas. Silakan izinkan akses di dalam pengaturan sistem berikut.</string>
+
     <string name="notification_channel_background_activity_start_name">Tindakan saat di latar belakang</string>
     <string name="notification_channel_background_activity_start_description">Ambil tindakan saat apl berada di latar belakang</string>
     <string name="notification_channel_file_job_name">Tindakan berkas</string>
@@ -483,6 +485,7 @@
     <string name="settings_interface_title">Antarmuka</string>
     <string name="settings_theme_color_title">Warna tema</string>
     <string name="settings_theme_color_summary">Warna yang muncul paling sering di dalam apl</string>
+    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">Mode malam</string>
     <string-array name="settings_night_mode_entries">
         <item>Ikuti sistem</item>
