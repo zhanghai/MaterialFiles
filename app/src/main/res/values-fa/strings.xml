@@ -547,8 +547,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>فقط دسترسی معمولی</item>
-        <item>دسترسی معمولی را ترجیح بده</item>
-        <item>دسترسی ریشه را ترجیح بده</item>
+        <item>Automatic</item>
         <item>فقط دسترسی ریشه</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">رمزگذاری نام پروندهٔ بایگانی</string>

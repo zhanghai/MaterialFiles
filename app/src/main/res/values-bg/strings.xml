@@ -509,8 +509,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Само нормален достъп</item>
-        <item>Предпочитане на нормален достъп</item>
-        <item>Предпочитане на root достъп</item>
+        <item>Automatic</item>
         <item>Само root достъп</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Кодиране на името</string>

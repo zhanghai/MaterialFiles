@@ -514,8 +514,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Apenas acesso normal</item>
-        <item>Preferir acesso normal</item>
-        <item>Preferir acesso root</item>
+        <item>Automatic</item>
         <item>Apenas acesso root</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Codificação para o nome do arquivo</string>

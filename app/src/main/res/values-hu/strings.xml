@@ -542,8 +542,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Csak normál hozzáférés</item>
-        <item>Normál hozzáférés előnyben részesítése</item>
-        <item>Root hozzáférés előnyben részesítése</item>
+        <item>Automatic</item>
         <item>Csak root hozzéférés</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Archívum fájlnévkódolása</string>

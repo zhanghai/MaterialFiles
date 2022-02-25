@@ -515,8 +515,7 @@
     <string name="settings_root_strategy_title">Root 访问模式</string>
     <string-array name="settings_root_strategy_entries">
         <item>仅普通访问</item>
-        <item>优先普通访问</item>
-        <item>优先 root 访问</item>
+        <item>自动</item>
         <item>仅 root 访问</item>
     </string-array>
     <plurals name="settings_root_strategy_message_format">

@@ -28,6 +28,7 @@ import me.zhanghai.android.files.provider.common.moveToByteString
 import me.zhanghai.android.files.provider.content.ContentFileSystem
 import me.zhanghai.android.files.provider.document.DocumentFileSystem
 import me.zhanghai.android.files.provider.linux.LinuxFileSystem
+import me.zhanghai.android.files.provider.root.RootStrategy
 import me.zhanghai.android.files.storage.DocumentTree
 import me.zhanghai.android.files.storage.FileSystemRoot
 import me.zhanghai.android.files.storage.PrimaryStorageVolume
@@ -305,7 +306,19 @@ private fun migrateSmbServersSetting() {
 }
 
 internal fun upgradeAppTo1_4_0() {
+    migrateRootStrategySetting()
     migrateSftpAndSmbServersSetting()
+}
+
+private fun migrateRootStrategySetting() {
+    val key = application.getString(R.string.pref_key_storages)
+    val oldValue = defaultSharedPreferences.getString(key, null)?.toInt() ?: return
+    val newValue = when (oldValue) {
+        0 -> RootStrategy.NEVER
+        3 -> RootStrategy.ALWAYS
+        else -> RootStrategy.AUTOMATIC
+    }.ordinal.toString()
+    defaultSharedPreferences.edit { putString(key, newValue) }
 }
 
 private fun migrateSftpAndSmbServersSetting() {

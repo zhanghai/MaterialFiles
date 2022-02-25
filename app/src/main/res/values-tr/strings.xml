@@ -544,8 +544,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Yalnızca normal erişim</item>
-        <item>Normal erişimi tercih et</item>
-        <item>Kök erişimini tercih et</item>
+        <item>Automatic</item>
         <item>Yalnızca kök erişimi</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Arşiv dosya adı kodlaması</string>

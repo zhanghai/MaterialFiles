@@ -514,8 +514,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>일반 액세스만</item>
-        <item>일반 액세스 선호</item>
-        <item>루트 액세스 선호</item>
+        <item>Automatic</item>
         <item>루트 액세스만</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">압축 파일 이름 인코딩</string>

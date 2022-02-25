@@ -517,8 +517,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>通常アクセスのみ</item>
-        <item>通常アクセスを優先</item>
-        <item>Root アクセスを優先</item>
+        <item>Automatic</item>
         <item>Root アクセスのみ</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">アーカイブのファイル名のエンコード</string>

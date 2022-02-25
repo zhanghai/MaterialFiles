@@ -64,7 +64,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
-        <item>3</item>
     </string-array>
     <string name="pref_key_archive_file_name_encoding">key_archive_file_name_encoding</string>
     <string name="pref_default_value_archive_file_name_encoding">UTF-8</string>
