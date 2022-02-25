@@ -84,14 +84,34 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
         return watcher.register(this, events, *modifiers)
     }
 
-    override val isRootRequired: Boolean
-        get() {
-            val file = toFile()
-            return StorageVolumeListLiveData.valueCompat.none {
-                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R || it.isPrimaryCompat)
-                        && file.startsWith(it.pathFileCompat)
+    override fun isRootRequired(isAttributeAccess: Boolean): Boolean {
+        val file = toFile()
+        return StorageVolumeListLiveData.valueCompat.none {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !it.isPrimaryCompat) {
+                return@none false
             }
+            val storageVolumeFile = it.pathFileCompat
+            if (!file.startsWith(storageVolumeFile)) {
+                return@none false
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                fun File.startsWithAndroidDataOrObb() =
+                    startsWith(storageVolumeFile.resolve(FILE_ANDROID_DATA))
+                        || startsWith(storageVolumeFile.resolve(FILE_ANDROID_OBB))
+                if (isAttributeAccess) {
+                    val parentFile = file.parentFile
+                    if (parentFile != null && parentFile.startsWithAndroidDataOrObb()) {
+                        return@none false
+                    }
+                } else {
+                    if (file.startsWithAndroidDataOrObb()) {
+                        return@none false
+                    }
+                }
+            }
+            return@none true
         }
+    }
 
     private constructor(source: Parcel) : super(source) {
         fileSystem = source.readParcelable()!!
@@ -105,6 +125,9 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
 
     companion object {
         private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
+
+        private val FILE_ANDROID_DATA = File("Android/data")
+        private val FILE_ANDROID_OBB = File("Android/obb")
 
         @JvmField
         val CREATOR = object : Parcelable.Creator<LinuxPath> {

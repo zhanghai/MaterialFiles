@@ -11,19 +11,24 @@ import me.zhanghai.android.files.util.valueCompat
 import java.io.IOException
 
 interface RootablePath {
-    val isRootRequired: Boolean
+    fun isRootRequired(isAttributeAccess: Boolean): Boolean
 }
 
 private val rootStrategy: RootStrategy
     get() = if (isRunningAsRoot) RootStrategy.NEVER else Settings.ROOT_STRATEGY.valueCompat
 
 @Throws(IOException::class)
-fun <T, R> callRootable(path: Path, localObject: T, rootObject: T, block: T.() -> R): R {
+fun <T, R> callRootable(
+    path: Path,
+    isAttributeAccess: Boolean,
+    localObject: T,
+    rootObject: T, block: T.() -> R
+): R {
     path as? RootablePath ?: throw IllegalArgumentException("$path is not a RootablePath")
     return when (rootStrategy) {
         RootStrategy.NEVER -> localObject.block()
         RootStrategy.AUTOMATIC ->
-            if (path.isRootRequired) {
+            if (path.isRootRequired(isAttributeAccess)) {
                 rootObject.block()
             } else {
                 localObject.block()
@@ -36,6 +41,7 @@ fun <T, R> callRootable(path: Path, localObject: T, rootObject: T, block: T.() -
 fun <T, R> callRootable(
     path1: Path,
     path2: Path,
+    isAttributeAccess: Boolean,
     localObject: T,
     rootObject: T,
     block: T.() -> R
@@ -46,7 +52,8 @@ fun <T, R> callRootable(
         RootStrategy.NEVER ->
             localObject.block()
         RootStrategy.AUTOMATIC ->
-            if (path1.isRootRequired || path2.isRootRequired) {
+            if (path1.isRootRequired(isAttributeAccess)
+                || path2.isRootRequired(isAttributeAccess)) {
                 rootObject.block()
             } else {
                 localObject.block()

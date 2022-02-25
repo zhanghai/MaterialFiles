@@ -76,11 +76,14 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
         throw UnsupportedOperationException()
     }
 
-    override val isRootRequired: Boolean
-        get() {
-            val archiveFile = fileSystem.archiveFile
-            return if (archiveFile is RootablePath) archiveFile.isRootRequired else false
+    override fun isRootRequired(isAttributeAccess: Boolean): Boolean {
+        val archiveFile = fileSystem.archiveFile
+        return if (archiveFile is RootablePath) {
+            archiveFile.isRootRequired(isAttributeAccess)
+        } else {
+            false
         }
+    }
 
     private constructor(source: Parcel) : super(source) {
         fileSystem = source.readParcelable()!!

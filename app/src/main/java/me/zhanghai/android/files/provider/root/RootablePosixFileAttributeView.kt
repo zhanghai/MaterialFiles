@@ -64,5 +64,5 @@ abstract class RootablePosixFileAttributeView(
 
     @Throws(IOException::class)
     private fun <R> callRootable(path: Path, block: PosixFileAttributeView.() -> R): R =
-        callRootable(path, localAttributeView, rootAttributeView, block)
+        callRootable(path, true, localAttributeView, rootAttributeView, block)
 }
