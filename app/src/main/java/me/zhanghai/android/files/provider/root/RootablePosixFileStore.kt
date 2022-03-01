@@ -56,5 +56,5 @@ abstract class RootablePosixFileStore(
 
     @Throws(IOException::class)
     private fun <R> callRootable(path: Path, block: PosixFileStore.() -> R): R =
-        callRootable(path, localFileStore, rootFileStore, block)
+        callRootable(path, true, localFileStore, rootFileStore, block)
 }

@@ -100,7 +100,9 @@ object LibSuFileServiceLauncher {
                                 launch(Dispatchers.Main.immediate) {
                                     RootService.bind(intent, connection)
                                     continuation.invokeOnCancellation {
-                                        RootService.unbind(connection)
+                                        launch(Dispatchers.Main.immediate) {
+                                            RootService.unbind(connection)
+                                        }
                                     }
                                 }
                             }

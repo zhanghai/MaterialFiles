@@ -640,8 +640,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Normal access only</item>
-        <item>Prefer normal access</item>
-        <item>Prefer root access</item>
+        <item>Automatic</item>
         <item>Root access only</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Archive file name encoding</string>

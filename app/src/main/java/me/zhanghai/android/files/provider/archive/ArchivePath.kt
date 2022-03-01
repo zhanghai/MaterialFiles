@@ -15,7 +15,6 @@ import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
-import me.zhanghai.android.files.provider.root.RootStrategy
 import me.zhanghai.android.files.provider.root.RootablePath
 import me.zhanghai.android.files.util.readParcelable
 import java.io.File
@@ -77,27 +76,14 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
         throw UnsupportedOperationException()
     }
 
-    override var isRootPreferred: Boolean
-        get() {
-            val archiveFile = fileSystem.archiveFile
-            return if (archiveFile is RootablePath) archiveFile.isRootPreferred else false
+    override fun isRootRequired(isAttributeAccess: Boolean): Boolean {
+        val archiveFile = fileSystem.archiveFile
+        return if (archiveFile is RootablePath) {
+            archiveFile.isRootRequired(isAttributeAccess)
+        } else {
+            false
         }
-        set(value) {
-            val archiveFile = fileSystem.archiveFile
-            if (archiveFile is RootablePath) {
-                archiveFile.isRootPreferred = value
-            }
-        }
-
-    override val rootStrategy: RootStrategy
-        get() {
-            val archiveFile = fileSystem.archiveFile
-            if (archiveFile !is RootablePath) {
-                return RootStrategy.NEVER
-            }
-            val rootablePath = archiveFile as RootablePath
-            return rootablePath.rootStrategy
-        }
+    }
 
     private constructor(source: Parcel) : super(source) {
         fileSystem = source.readParcelable()!!

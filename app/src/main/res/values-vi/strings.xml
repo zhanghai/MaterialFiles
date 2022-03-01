@@ -514,8 +514,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Chỉ dùng quyền truy cập thông thường</item>
-        <item>Ưu tiên truy cập thông thường</item>
-        <item>Ưu tiên truy cập root</item>
+        <item>Automatic</item>
         <item>Chỉ dùng quyền truy cập root</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Bảng mã kí tự của tên tệp nén</string>

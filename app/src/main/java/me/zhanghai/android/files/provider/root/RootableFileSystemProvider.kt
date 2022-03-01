@@ -107,13 +107,13 @@ abstract class RootableFileSystemProvider(
 
     @Throws(IOException::class)
     override fun isSameFile(path: Path, path2: Path): Boolean =
-        callRootable(path, path2) { isSameFile(path, path2) }
+        callRootable(path, path2, true) { isSameFile(path, path2) }
 
     @Throws(IOException::class)
-    override fun isHidden(path: Path): Boolean = callRootable(path) { isHidden(path) }
+    override fun isHidden(path: Path): Boolean = callRootable(path, true) { isHidden(path) }
 
     @Throws(IOException::class)
-    override fun getFileStore(path: Path): FileStore = callRootable(path) { getFileStore(path) }
+    override fun getFileStore(path: Path): FileStore = localProvider.getFileStore(path)
 
     @Throws(IOException::class)
     override fun checkAccess(path: Path, vararg modes: AccessMode) {
@@ -138,7 +138,7 @@ abstract class RootableFileSystemProvider(
         path: Path,
         attributes: String,
         vararg options: LinkOption
-    ): Map<String, Any> = callRootable(path) { readAttributes(path, attributes, *options) }
+    ): Map<String, Any> = callRootable(path, true) { readAttributes(path, attributes, *options) }
 
     @Throws(IOException::class)
     override fun setAttribute(
@@ -147,7 +147,7 @@ abstract class RootableFileSystemProvider(
         value: Any,
         vararg options: LinkOption
     ) {
-        callRootable(path) { setAttribute(path, attribute, value, *options) }
+        callRootable(path, true) { setAttribute(path, attribute, value, *options) }
     }
 
     @Throws(IOException::class)
@@ -188,10 +188,17 @@ abstract class RootableFileSystemProvider(
     }
 
     @Throws(IOException::class)
-    private fun <R> callRootable(path: Path, block: FileSystemProvider.() -> R): R =
-        callRootable(path, localProvider, rootProvider, block)
+    private fun <R> callRootable(
+        path: Path,
+        isAttributeAccess: Boolean = false,
+        block: FileSystemProvider.() -> R
+    ): R = callRootable(path, isAttributeAccess, localProvider, rootProvider, block)
 
     @Throws(IOException::class)
-    private fun <R> callRootable(path1: Path, path2: Path, block: FileSystemProvider.() -> R): R =
-        callRootable(path1, path2, localProvider, rootProvider, block)
+    private fun <R> callRootable(
+        path1: Path,
+        path2: Path,
+        isAttributeAccess: Boolean = false,
+        block: FileSystemProvider.() -> R
+    ): R = callRootable(path1, path2, isAttributeAccess, localProvider, rootProvider, block)
 }

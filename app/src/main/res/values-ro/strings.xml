@@ -570,8 +570,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Numai acces normal</item>
-        <item>Preferă acces normal</item>
-        <item>Preferă accesul administartorului</item>
+        <item>Automatic</item>
         <item>Numai acces pentru administrator</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Encodarea numelui arhivei</string>

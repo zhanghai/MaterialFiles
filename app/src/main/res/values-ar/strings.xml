@@ -654,8 +654,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>الوصول العادي فقط</item>
-        <item>تفضيل الوصول العادي</item>
-        <item>تفضيل الوصول إلى الجذر</item>
+        <item>Automatic</item>
         <item>الوصول إلى الجذر فقط</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">أرشيف اسم ملف الترميز</string>

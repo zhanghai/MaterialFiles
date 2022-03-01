@@ -542,8 +542,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Sólo acceso normal</item>
-        <item>Preferir acceso normal</item>
-        <item>Preferir acceso administrativo</item>
+        <item>Automatic</item>
         <item>Sólo acceso administrativo</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Codificación del nombre de archivo</string>

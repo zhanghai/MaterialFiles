@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.provider.linux
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
@@ -16,17 +14,16 @@ import java8.nio.file.ProviderMismatchException
 import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
-import me.zhanghai.android.files.app.application
-import me.zhanghai.android.files.compat.checkSelfPermissionCompat
-import me.zhanghai.android.files.compat.readBooleanCompat
-import me.zhanghai.android.files.compat.writeBooleanCompat
+import me.zhanghai.android.files.compat.isPrimaryCompat
+import me.zhanghai.android.files.compat.pathFileCompat
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.toByteString
-import me.zhanghai.android.files.provider.root.RootStrategy
 import me.zhanghai.android.files.provider.root.RootablePath
+import me.zhanghai.android.files.storage.StorageVolumeListLiveData
 import me.zhanghai.android.files.util.readParcelable
+import me.zhanghai.android.files.util.valueCompat
 import java.io.File
 import java.io.IOException
 
@@ -87,32 +84,50 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
         return watcher.register(this, events, *modifiers)
     }
 
-    @Volatile
-    override var isRootPreferred: Boolean = false
-
-    override val rootStrategy: RootStrategy
-        get() {
-            val strategy = super.rootStrategy
-            if (strategy == RootStrategy.PREFER_NO && isMissingStoragePermission) {
-                return RootStrategy.NEVER
+    override fun isRootRequired(isAttributeAccess: Boolean): Boolean {
+        val file = toFile()
+        return StorageVolumeListLiveData.valueCompat.none {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !it.isPrimaryCompat) {
+                return@none false
             }
-            return strategy
+            val storageVolumeFile = it.pathFileCompat
+            if (!file.startsWith(storageVolumeFile)) {
+                return@none false
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                fun File.startsWithAndroidDataOrObb() =
+                    startsWith(storageVolumeFile.resolve(FILE_ANDROID_DATA))
+                        || startsWith(storageVolumeFile.resolve(FILE_ANDROID_OBB))
+                if (isAttributeAccess) {
+                    val parentFile = file.parentFile
+                    if (parentFile != null && parentFile.startsWithAndroidDataOrObb()) {
+                        return@none false
+                    }
+                } else {
+                    if (file.startsWithAndroidDataOrObb()) {
+                        return@none false
+                    }
+                }
+            }
+            return@none true
         }
+    }
 
     private constructor(source: Parcel) : super(source) {
         fileSystem = source.readParcelable()!!
-        isRootPreferred = source.readBooleanCompat()
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         super.writeToParcel(dest, flags)
 
         dest.writeParcelable(fileSystem, flags)
-        dest.writeBooleanCompat(isRootPreferred)
     }
 
     companion object {
         private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
+
+        private val FILE_ANDROID_DATA = File("Android/data")
+        private val FILE_ANDROID_OBB = File("Android/obb")
 
         @JvmField
         val CREATOR = object : Parcelable.Creator<LinuxPath> {
@@ -125,19 +140,3 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
 
 val Path.isLinuxPath: Boolean
     get() = this is LinuxPath
-
-// IPC for checking the storage permission is expensive if we do it on every file system access, so
-// cache its result here.
-@Volatile
-private var wasMissingStoragePermission = true
-private val isMissingStoragePermission: Boolean
-    get() {
-        // Android kills an app if the user revokes any of its runtime permissions.
-        if (!wasMissingStoragePermission) {
-            return false
-        }
-        return (Build.VERSION.SDK_INT in Build.VERSION_CODES.M until Build.VERSION_CODES.R
-                && application.checkSelfPermissionCompat(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED)
-            .also { wasMissingStoragePermission = it }
-    }

@@ -404,8 +404,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Sarbide arrunta soilik</item>
-        <item>Hobetsi sarbide arrunta</item>
-        <item>Hobetsi root sarbidea</item>
+        <item>Automatic</item>
         <item>Root sarbidea soilik</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Artxibo fitxategi-izenaren kodeketa</string>

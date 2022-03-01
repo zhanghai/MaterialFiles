@@ -57,6 +57,7 @@ class CoordinatorScrollingLinearLayout : LinearLayout, AttachedBehavior {
             .setSystemWindowInsets(Insets.of(0, 0, 0, insets.systemWindowInsetBottom))
             .build()
             .toWindowInsets()
+        requestLayout()
         return insets
     }
 

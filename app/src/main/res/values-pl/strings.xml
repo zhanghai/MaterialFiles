@@ -601,8 +601,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Tylko normalny tryb dostępu</item>
-        <item>Preferuj normalny dostęp</item>
-        <item>Preferuj tryb dostępu do Root\'a</item>
+        <item>Automatic</item>
         <item>Tylko tryb dostępu do Root\'a</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Kodowanie nazwy pliku archiwum</string>
