@@ -40,6 +40,7 @@ object LibSuFileServiceLauncher {
     }
 
     fun isSuAvailable(): Boolean =
+        // @see com.topjohnwu.superuser.Shell.rootAccess
         try {
             Runtime.getRuntime().exec("su --version")
             true

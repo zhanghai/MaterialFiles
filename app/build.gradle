@@ -94,9 +94,7 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
-    // f41f2a0b81: Preliminary multiuser support
-    //implementation 'com.github.topjohnwu.libsu:service:3.2.1'
-    implementation 'com.github.topjohnwu.libsu:service:f41f2a0b81'
+    implementation 'com.github.topjohnwu.libsu:service:4.0.0'
 }
 
 dependencies {
