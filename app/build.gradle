@@ -178,6 +178,7 @@ dependencies {
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.4'
     // Commons Compress 1.21 requires Android 8.0.
     // See also https://issues.apache.org/jira/browse/COMPRESS-611
+    // Run `git revert fb1628e` once this is fixed.
     //noinspection GradleDependency
     implementation 'org.apache.commons:commons-compress:1.20'
     // Optional dependency of Commons Compress for 7Z LZMA.
