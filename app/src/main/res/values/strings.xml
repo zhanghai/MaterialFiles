@@ -431,6 +431,9 @@
         <item>Android 9</item>
         <item>Android 10</item>
         <item>Android 11</item>
+        <item>Android 12</item>
+        <item>Android 12L</item>
+        <item>Android 13</item>
         <item>Android ?</item>
     </string-array>
     <string-array name="file_properites_apk_sdk_version_codenames" translatable="false">
@@ -465,6 +468,9 @@
         <item>P</item>
         <item>Q</item>
         <item>R</item>
+        <item>S</item>
+        <item>S_V2</item>
+        <item>T</item>
         <item>\?</item>
     </string-array>
     <string name="file_properties_apk_requested_permissions">Permissions</string>
