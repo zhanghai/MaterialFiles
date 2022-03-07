@@ -317,70 +317,6 @@ internal fun upgradeAppTo1_4_0() {
     migratePathSetting1_4_0(R.string.pref_key_ftp_server_home_directory)
 }
 
-private fun migrateRootStrategySetting1_4_0() {
-    val key = application.getString(R.string.pref_key_root_strategy)
-    val oldValue = defaultSharedPreferences.getString(key, null)?.toInt() ?: return
-    val newValue = when (oldValue) {
-        0 -> RootStrategy.NEVER
-        3 -> RootStrategy.ALWAYS
-        else -> RootStrategy.AUTOMATIC
-    }.ordinal.toString()
-    defaultSharedPreferences.edit { putString(key, newValue) }
-}
-
-private fun migrateSftpServersSetting1_4_0() {
-    val key = application.getString(R.string.pref_key_storages)
-    val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
-        ?: return
-    val newBytes = try {
-        Parcel.obtain().use { newParcel ->
-            Parcel.obtain().use { oldParcel ->
-                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
-                oldParcel.setDataPosition(0)
-                newParcel.writeInt(oldParcel.readInt())
-                val size = oldParcel.readInt()
-                newParcel.writeInt(size)
-                repeat(size) {
-                    val oldPosition = oldParcel.dataPosition()
-                    oldParcel.readInt()
-                    when (oldParcel.readString()) {
-                        "me.zhanghai.android.files.storage.SftpServer" -> {
-                            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
-                            newParcel.writeString("me.zhanghai.android.files.storage.SftpServer")
-                            val id = oldParcel.readLong()
-                            newParcel.writeLong(id)
-                            val customName = oldParcel.readString()
-                            newParcel.writeString(customName)
-                            val authorityHost = oldParcel.readString()
-                            newParcel.writeString(authorityHost)
-                            val authorityPort = oldParcel.readInt()
-                            newParcel.writeInt(authorityPort)
-                            val authenticationClassName = oldParcel.readString()
-                            val authorityUsername = oldParcel.readString()
-                            newParcel.writeString(authorityUsername)
-                            newParcel.writeString(authenticationClassName)
-                            val authenticationPasswordOrPrivateKey = oldParcel.readString()
-                            newParcel.writeString(authenticationPasswordOrPrivateKey)
-                            val relativePath = oldParcel.readString()
-                            newParcel.writeString(relativePath)
-                        }
-                        else -> {
-                            oldParcel.setDataPosition(oldPosition)
-                            val storage = oldParcel.readValue(appClassLoader)
-                            newParcel.writeValue(storage)
-                        }
-                    }
-                }
-            }
-            newParcel.marshall()
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
-    }
-    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
-}
-
 private fun migratePathSetting1_4_0(@StringRes keyRes: Int) {
     val key = application.getString(keyRes)
     val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
@@ -458,4 +394,68 @@ private fun migratePath1_4_0(oldParcel: Parcel, newParcel: Parcel) {
             newParcel.writeParcelable(oldParcel.readParcelable<SmbFileSystem>(), 0)
         else -> throw IllegalStateException(className)
     }
+}
+
+private fun migrateSftpServersSetting1_4_0() {
+    val key = application.getString(R.string.pref_key_storages)
+    val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
+        ?: return
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                newParcel.writeInt(oldParcel.readInt())
+                val size = oldParcel.readInt()
+                newParcel.writeInt(size)
+                repeat(size) {
+                    val oldPosition = oldParcel.dataPosition()
+                    oldParcel.readInt()
+                    when (oldParcel.readString()) {
+                        "me.zhanghai.android.files.storage.SftpServer" -> {
+                            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                            newParcel.writeString("me.zhanghai.android.files.storage.SftpServer")
+                            val id = oldParcel.readLong()
+                            newParcel.writeLong(id)
+                            val customName = oldParcel.readString()
+                            newParcel.writeString(customName)
+                            val authorityHost = oldParcel.readString()
+                            newParcel.writeString(authorityHost)
+                            val authorityPort = oldParcel.readInt()
+                            newParcel.writeInt(authorityPort)
+                            val authenticationClassName = oldParcel.readString()
+                            val authorityUsername = oldParcel.readString()
+                            newParcel.writeString(authorityUsername)
+                            newParcel.writeString(authenticationClassName)
+                            val authenticationPasswordOrPrivateKey = oldParcel.readString()
+                            newParcel.writeString(authenticationPasswordOrPrivateKey)
+                            val relativePath = oldParcel.readString()
+                            newParcel.writeString(relativePath)
+                        }
+                        else -> {
+                            oldParcel.setDataPosition(oldPosition)
+                            val storage = oldParcel.readValue(appClassLoader)
+                            newParcel.writeValue(storage)
+                        }
+                    }
+                }
+            }
+            newParcel.marshall()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
+}
+
+private fun migrateRootStrategySetting1_4_0() {
+    val key = application.getString(R.string.pref_key_root_strategy)
+    val oldValue = defaultSharedPreferences.getString(key, null)?.toInt() ?: return
+    val newValue = when (oldValue) {
+        0 -> RootStrategy.NEVER
+        3 -> RootStrategy.ALWAYS
+        else -> RootStrategy.AUTOMATIC
+    }.ordinal.toString()
+    defaultSharedPreferences.edit { putString(key, newValue) }
 }
