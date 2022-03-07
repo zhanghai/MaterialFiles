@@ -18,6 +18,7 @@ import com.hierynomus.smbj.share.FileAccessor
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.provider.common.ForceableChannel
 import me.zhanghai.android.files.util.closeSafe
+import me.zhanghai.android.files.util.hasInterruptedCause
 import java.io.Closeable
 import java.io.IOException
 import java.io.InterruptedIOException
@@ -162,7 +163,7 @@ class FileByteChannel(
                 synchronized(closeLock) { isOpen = false }
                 AsynchronousCloseException().apply { initCause(this@toIOException) }
             }
-            cause?.cause is InterruptedException -> {
+            hasInterruptedCause -> {
                 closeSafe()
                 ClosedByInterruptException().apply { initCause(this@toIOException) }
             }
@@ -182,8 +183,7 @@ class FileByteChannel(
                 file.close()
             } catch (e: SMBRuntimeException) {
                 throw when {
-                    e.cause?.cause is InterruptedException -> InterruptedIOException()
-                        .apply { initCause(e) }
+                    e.hasInterruptedCause -> InterruptedIOException().apply { initCause(e) }
                     else -> IOException(e)
                 }
             }
