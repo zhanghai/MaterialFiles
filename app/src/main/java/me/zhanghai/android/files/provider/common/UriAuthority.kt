@@ -8,16 +8,18 @@ data class UriAuthority(
     val host: String,
     val port: Int?
 ) {
-    private fun toUri(): URI =
-        try {
-            URI(null, userInfo, host, port ?: -1, null, null, null)
+    fun encode(): String = toUri().rawAuthority ?: ""
+
+    override fun toString(): String = toUri().authority ?: ""
+
+    private fun toUri(): URI {
+        return try {
+            // HACK: An empty host/authority requires a path, so use "/" as path here.
+            URI(null, userInfo, host, port ?: -1, "/", null, null)
         } catch (e: URISyntaxException) {
             throw IllegalArgumentException(e)
         }
-
-    fun encode(): String = toUri().rawAuthority
-
-    override fun toString(): String = toUri().authority
+    }
 
     companion object {
         val EMPTY = UriAuthority(null, "", null)
