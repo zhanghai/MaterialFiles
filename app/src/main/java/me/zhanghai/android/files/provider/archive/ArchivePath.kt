@@ -45,11 +45,11 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): ArchivePath =
         ArchivePath(fileSystem, absolute, segments)
 
-    override val uriSchemeSpecificPart: ByteString?
+    override val uriPath: ByteString
         get() = fileSystem.archiveFile.toUri().toString().toByteString()
 
     override val uriFragment: ByteString?
-        get() = super.uriSchemeSpecificPart
+        get() = super.uriPath
 
     override val defaultDirectory: ArchivePath
         get() = fileSystem.defaultDirectory

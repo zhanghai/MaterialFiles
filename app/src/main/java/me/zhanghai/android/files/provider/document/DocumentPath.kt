@@ -49,11 +49,11 @@ internal class DocumentPath : ByteStringListPath<DocumentPath>, DocumentResolver
     override fun createPath(absolute: Boolean, segments: List<ByteString>): DocumentPath =
         DocumentPath(fileSystem, absolute, segments)
 
-    override val uriSchemeSpecificPart: ByteString?
+    override val uriPath: ByteString
         get() = fileSystem.treeUri.toString().toByteString()
 
     override val uriFragment: ByteString?
-        get() = super.uriSchemeSpecificPart
+        get() = super.uriPath
 
     override val defaultDirectory: DocumentPath
         get() = fileSystem.defaultDirectory

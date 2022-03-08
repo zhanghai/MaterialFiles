@@ -37,7 +37,7 @@ import me.zhanghai.android.files.provider.common.PathObservableProvider
 import me.zhanghai.android.files.provider.common.Searchable
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable
 import me.zhanghai.android.files.provider.common.decodedFragmentByteString
-import me.zhanghai.android.files.provider.common.decodedSchemeSpecificPartByteString
+import me.zhanghai.android.files.provider.common.decodedPathByteString
 import me.zhanghai.android.files.provider.common.open
 import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toByteString
@@ -109,7 +109,7 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
 
     private val URI.treeUri: Uri
         get() {
-            val schemeSpecificPart = decodedSchemeSpecificPartByteString
+            val schemeSpecificPart = decodedPathByteString
                 ?: throw IllegalArgumentException("URI must have a scheme specific part")
             return schemeSpecificPart.toString().toUri()
         }
