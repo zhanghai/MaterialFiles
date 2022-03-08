@@ -67,7 +67,8 @@ private fun encodeHexCharacter(halfByte: Byte): Char =
     }
 
 val URI.decodedPathByteString: ByteString?
-    get() = rawPath?.let { decode(it) }
+    // URI.getRawPath() returns null when there's no authority and the path isn't absolute.
+    get() = (rawPath ?: rawSchemeSpecificPart)?.let { decode(it) }
 
 val URI.decodedFragmentByteString: ByteString?
     get() = rawFragment?.let { decode(it) }

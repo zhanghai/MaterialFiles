@@ -109,9 +109,9 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
 
     private val URI.treeUri: Uri
         get() {
-            val schemeSpecificPart = decodedPathByteString
-                ?: throw IllegalArgumentException("URI must have a scheme specific part")
-            return schemeSpecificPart.toString().toUri()
+            val path = decodedPathByteString
+                ?: throw IllegalArgumentException("URI must have a path")
+            return path.toString().toUri()
         }
 
     @Throws(IOException::class)

@@ -84,9 +84,9 @@ class LocalArchiveFileSystemProvider(
 
     private val URI.archiveFile: Path
         get() {
-            val schemeSpecificPart = decodedPathByteString
-                ?: throw IllegalArgumentException("URI must have a scheme specific part")
-            val archiveUri = URI.create(schemeSpecificPart.toString())
+            val path = decodedPathByteString
+                ?: throw IllegalArgumentException("URI must have a path")
+            val archiveUri = URI.create(path.toString())
             return Paths.get(archiveUri)
         }
 
