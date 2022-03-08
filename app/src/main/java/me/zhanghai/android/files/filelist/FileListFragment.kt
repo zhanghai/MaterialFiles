@@ -754,21 +754,23 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             overlayActionMode.title = getString(R.string.file_list_select_title_format, files.size)
             overlayActionMode.setMenuResource(R.menu.file_list_select)
             val menu = overlayActionMode.menu
-            val hasReadOnly = files.any { it.path.fileSystem.isReadOnly }
-            menu.findItem(R.id.action_cut).isVisible = !hasReadOnly
-            val isExtract = files.all { it.path.isArchivePath }
+            val isAnyFileReadOnly = files.any { it.path.fileSystem.isReadOnly }
+            menu.findItem(R.id.action_cut).isVisible = !isAnyFileReadOnly
+            val areAllFilesArchivePaths = files.all { it.path.isArchivePath }
             menu.findItem(R.id.action_copy)
                 .setIcon(
-                    if (isExtract) {
+                    if (areAllFilesArchivePaths) {
                         R.drawable.extract_icon_control_normal_24dp
                     } else {
                         R.drawable.copy_icon_control_normal_24dp
                     }
                 )
                 .setTitle(
-                    if (isExtract) R.string.file_list_select_action_extract else R.string.copy
+                    if (areAllFilesArchivePaths) R.string.file_list_select_action_extract else R.string.copy
                 )
-            menu.findItem(R.id.action_delete).isVisible = !hasReadOnly
+            menu.findItem(R.id.action_delete).isVisible = !isAnyFileReadOnly
+            val isCurrentPathReadOnly = viewModel.currentPath.fileSystem.isReadOnly
+            menu.findItem(R.id.action_archive).isVisible = !isCurrentPathReadOnly
         }
         if (!overlayActionMode.isActive) {
             binding.appBarLayout.setExpanded(true)
@@ -901,10 +903,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 return
             }
             bottomActionMode.setNavigationIcon(R.drawable.close_icon_control_normal_24dp)
-            val isExtract = files.all { it.path.isArchivePath }
+            val areAllFilesArchivePaths = files.all { it.path.isArchivePath }
             bottomActionMode.title = getString(
                 if (pasteState.copy) {
-                    if (isExtract) {
+                    if (areAllFilesArchivePaths) {
                         R.string.file_list_paste_extract_title_format
                     } else {
                         R.string.file_list_paste_copy_title_format
@@ -914,12 +916,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 }, files.size
             )
             bottomActionMode.setMenuResource(R.menu.file_list_paste)
-            val isReadOnly = viewModel.currentPath.fileSystem.isReadOnly
+            val isCurrentPathReadOnly = viewModel.currentPath.fileSystem.isReadOnly
             bottomActionMode.menu.findItem(R.id.action_paste)
                 .setTitle(
-                    if (isExtract) R.string.file_list_paste_action_extract_here else R.string.paste
+                    if (areAllFilesArchivePaths) R.string.file_list_paste_action_extract_here else R.string.paste
                 )
-                .isEnabled = !isReadOnly
+                .isEnabled = !isCurrentPathReadOnly
         }
         if (!bottomActionMode.isActive) {
             bottomActionMode.start(object : ToolbarActionMode.Callback {
