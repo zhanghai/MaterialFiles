@@ -8,7 +8,7 @@ package me.zhanghai.android.files.provider.sftp.client
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.provider.common.ForceableChannel
 import me.zhanghai.android.files.util.closeSafe
-import me.zhanghai.android.files.util.hasInterruptedCause
+import me.zhanghai.android.files.util.findCauseByClass
 import net.schmizz.concurrent.Promise
 import net.schmizz.sshj.sftp.PacketType
 import net.schmizz.sshj.sftp.RemoteFile
@@ -155,7 +155,7 @@ class FileByteChannel(
                 synchronized(closeLock) { isOpen = false }
                 AsynchronousCloseException().apply { initCause(this@maybeToSpecificException) }
             }
-            hasInterruptedCause -> {
+            findCauseByClass<InterruptedException>() != null -> {
                 closeSafe()
                 ClosedByInterruptException().apply { initCause(this@maybeToSpecificException) }
             }
