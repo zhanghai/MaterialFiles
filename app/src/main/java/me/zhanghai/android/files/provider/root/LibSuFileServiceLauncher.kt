@@ -6,9 +6,11 @@
 package me.zhanghai.android.files.provider.root
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
+import com.topjohnwu.superuser.NoShellException
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ipc.RootService
 import kotlinx.coroutines.Dispatchers
@@ -34,6 +36,7 @@ object LibSuFileServiceLauncher {
         Shell.enableVerboseLogging = BuildConfig.DEBUG
         Shell.setDefaultBuilder(
             Shell.Builder.create()
+                .setInitializers(LibSuShellInitializer::class.java)
                 .setFlags(Shell.FLAG_MOUNT_MASTER or Shell.FLAG_REDIRECT_STDERR)
                 .setTimeout(TimeUnit.MILLISECONDS.toSeconds(RootFileService.TIMEOUT_MILLIS))
         )
@@ -60,6 +63,21 @@ object LibSuFileServiceLauncher {
                 runBlocking {
                     try {
                         withTimeout(RootFileService.TIMEOUT_MILLIS) {
+                            // Proactively create the shell because RootService doesn't allow us to
+                            // handle errors during shell creation.
+                            suspendCancellableCoroutine<Unit> { continuation ->
+                                // Shell.getShell(GetShellCallback) doesn't allow handling errors.
+                                Shell.EXECUTOR.submit {
+                                    try {
+                                        Shell.getShell()
+                                        continuation.resume(Unit)
+                                    } catch (e: NoShellException) {
+                                        continuation.resumeWithException(
+                                            RemoteFileSystemException(e)
+                                        )
+                                    }
+                                }
+                            }
                             suspendCancellableCoroutine { continuation ->
                                 val intent = LibSuFileService::class.createIntent()
                                 val connection = object : ServiceConnection {
@@ -116,6 +134,20 @@ object LibSuFileServiceLauncher {
                 throw RemoteFileSystemException(e)
             }
         }
+    }
+}
+
+private class LibSuShellInitializer : Shell.Initializer() {
+    override fun onInit(context: Context, shell: Shell): Boolean {
+        // Prevent normal shells from being created and set as the main shell.
+        if (!shell.isRoot) {
+            return false
+        }
+        // Work around https://github.com/topjohnwu/libsu/issues/108 for Magisk before 24.0.
+        if (shell.status == Shell.ROOT_MOUNT_MASTER) {
+            shell.newJob().add("cd /").exec()
+        }
+        return true
     }
 }
 
