@@ -567,7 +567,6 @@
     <string name="settings_interface_title">Interfejs</string>
     <string name="settings_theme_color_title">Kolor motywu</string>
     <string name="settings_theme_color_summary">Kolor pojawiający się najczęściej w aplikacji</string>
-    <string name="settings_material_design_3_title">Twój Material</string>
     <string name="settings_night_mode_title">Tryb nocny</string>
     <string-array name="settings_night_mode_entries">
         <item>Zgodnie z systemem</item>
