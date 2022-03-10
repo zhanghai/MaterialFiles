@@ -487,7 +487,7 @@
     <string name="settings_interface_title">介面</string>
     <string name="settings_theme_color_title">主題色</string>
     <string name="settings_theme_color_summary">應用程式中最常見的色彩</string>
-    <string name="settings_material_design_3_title">你的質感設計</string>
+    <string name="settings_material_design_3_title">質感設計 3</string>
     <string name="settings_night_mode_title">夜間模式</string>
     <string-array name="settings_night_mode_entries">
         <item>跟隨系統</item>

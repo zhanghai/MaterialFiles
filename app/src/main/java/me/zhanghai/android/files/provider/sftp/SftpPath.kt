@@ -15,10 +15,9 @@ import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
-import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.PollingWatchService
-import me.zhanghai.android.files.provider.common.toByteString
+import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.sftp.client.Authority
 import me.zhanghai.android.files.provider.sftp.client.Client
 import me.zhanghai.android.files.util.readParcelable
@@ -51,12 +50,8 @@ internal class SftpPath : ByteStringListPath<SftpPath>, Client.Path {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): SftpPath =
         SftpPath(fileSystem, absolute, segments)
 
-    override val uriSchemeSpecificPart: ByteString
-        get() =
-            ByteStringBuilder(BYTE_STRING_TWO_SLASHES)
-                .append(fileSystem.authority.toString().toByteString())
-                .append(super.uriSchemeSpecificPart!!)
-                .toByteString()
+    override val uriAuthority: UriAuthority?
+        get() = fileSystem.authority.toUriAuthority()
 
     override val defaultDirectory: SftpPath
         get() = fileSystem.defaultDirectory
@@ -103,8 +98,6 @@ internal class SftpPath : ByteStringListPath<SftpPath>, Client.Path {
     }
 
     companion object {
-        private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
-
         @JvmField
         val CREATOR = object : Parcelable.Creator<SftpPath> {
             override fun createFromParcel(source: Parcel): SftpPath = SftpPath(source)

@@ -18,6 +18,7 @@ import com.hierynomus.smbj.share.FileAccessor
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.provider.common.ForceableChannel
 import me.zhanghai.android.files.util.closeSafe
+import me.zhanghai.android.files.util.findCauseByClass
 import java.io.Closeable
 import java.io.IOException
 import java.io.InterruptedIOException
@@ -158,11 +159,12 @@ class FileByteChannel(
 
     private fun SMBRuntimeException.toIOException(): IOException =
         when {
-            this is SMBApiException && status == NtStatus.STATUS_FILE_CLOSED -> {
+            findCauseByClass<SMBApiException>()
+                .let { it != null && it.status == NtStatus.STATUS_FILE_CLOSED } -> {
                 synchronized(closeLock) { isOpen = false }
                 AsynchronousCloseException().apply { initCause(this@toIOException) }
             }
-            cause?.cause is InterruptedException -> {
+            findCauseByClass<InterruptedException>() != null -> {
                 closeSafe()
                 ClosedByInterruptException().apply { initCause(this@toIOException) }
             }
@@ -182,8 +184,8 @@ class FileByteChannel(
                 file.close()
             } catch (e: SMBRuntimeException) {
                 throw when {
-                    e.cause?.cause is InterruptedException -> InterruptedIOException()
-                        .apply { initCause(e) }
+                    e.findCauseByClass<InterruptedException>() != null ->
+                        InterruptedIOException().apply { initCause(e) }
                     else -> IOException(e)
                 }
             }
@@ -229,7 +231,7 @@ class FileByteChannel(
                 pendingFuture?.also { pendingFuture = null }
             } ?: readIntoBufferAsync()
             val response = try {
-                Futures.get(future, timeout, TimeUnit.MILLISECONDS, TransportException.Wrapper)
+                receive(future, timeout)
             } catch (e: SMBRuntimeException) {
                 throw e.toIOException()
             }
@@ -258,6 +260,15 @@ class FileByteChannel(
             }
             return true
         }
+
+        // @see com.hierynomus.smbj.share.Share.receive
+        @Throws(SMBRuntimeException::class)
+        private fun <T> receive(future: Future<T>, timeout: Long): T =
+            try {
+                Futures.get(future, timeout, TimeUnit.MILLISECONDS, TransportException.Wrapper)
+            } catch (e: TransportException) {
+                throw SMBRuntimeException(e)
+            }
 
         @Throws(IOException::class)
         private fun readIntoBufferAsync(): Future<SMB2ReadResponse> =

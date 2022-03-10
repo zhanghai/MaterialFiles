@@ -28,7 +28,6 @@ import org.apache.commons.compress.archivers.ArchiveStreamFactory
 import org.apache.commons.compress.archivers.sevenz.SevenZArchiveEntry
 import org.apache.commons.compress.archivers.sevenz.SevenZFile
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry
-import org.apache.commons.compress.archivers.tar.TarFile
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.compressors.CompressorException
 import org.apache.commons.compress.compressors.CompressorStreamFactory
@@ -125,11 +124,6 @@ object ArchiveReader {
         val encoding = archiveFileNameEncoding
         if (compressorType == null) {
             when (archiveType) {
-                ArchiveStreamFactory.TAR ->
-                    // Otherwise just use TarArchiveInputStream later.
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        return TarFile(javaFile, encoding).use { it.entries.toList() }
-                    }
                 ArchiveStreamFactory.ZIP ->
                     return ZipFileCompat(javaFile, encoding).use { it.entries.toList() }
                 ArchiveStreamFactory.SEVEN_Z -> {
@@ -229,26 +223,6 @@ object ArchiveReader {
         val encoding = archiveFileNameEncoding
         if (compressorType == null) {
             when (entry) {
-                is TarArchiveEntry ->
-                    // Otherwise just use TarArchiveInputStream later.
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        var successful = false
-                        var tarFile: TarFile? = null
-                        var tarEntryInputStream: InputStream? = null
-                        return try {
-                            tarFile = TarFile(javaFile, encoding)
-                            tarEntryInputStream = tarFile.getInputStream(entry)
-                                ?: throw NoSuchFileException(file.toString())
-                            val inputStream = CloseableInputStream(tarEntryInputStream, tarFile)
-                            successful = true
-                            inputStream
-                        } finally {
-                            if (!successful) {
-                                tarEntryInputStream?.close()
-                                tarFile?.close()
-                            }
-                        }
-                    }
                 is ZipArchiveEntry -> {
                     var successful = false
                     var zipFile: ZipFileCompat? = null

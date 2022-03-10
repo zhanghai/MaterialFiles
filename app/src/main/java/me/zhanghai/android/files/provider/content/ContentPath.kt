@@ -58,7 +58,7 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
             ContentPath(fileSystem, segments)
         }
 
-    override val uriSchemeSpecificPart: ByteString?
+    override val uriPath: ByteString
         get() {
             throw AssertionError()
         }

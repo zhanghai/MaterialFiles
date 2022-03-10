@@ -249,7 +249,7 @@ class FileProvider : ContentProvider() {
         if (this is FileNotFoundException) {
             this
         } else {
-            FileNotFoundException(message).apply { initCause(this) }
+            FileNotFoundException(message).apply { initCause(this@toFileNotFoundException) }
         }
 
     private class ChannelCallback (

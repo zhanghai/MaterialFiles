@@ -99,9 +99,7 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
-    // f41f2a0b81: Preliminary multiuser support
-    //implementation 'com.github.topjohnwu.libsu:service:3.2.1'
-    implementation 'com.github.topjohnwu.libsu:service:f41f2a0b81'
+    implementation 'com.github.topjohnwu.libsu:service:4.0.0'
 }
 
 dependencies {
@@ -183,7 +181,12 @@ dependencies {
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.4'
-    implementation 'org.apache.commons:commons-compress:1.21'
+    // Commons Compress 1.21 requires Android 8.0.
+    // See also https://issues.apache.org/jira/browse/COMPRESS-611
+    // Run `git revert fb1628e` if we ever created a fork that supports Android 5.0, or we raised
+    // minimum SDK version to Android 8.0.
+    //noinspection GradleDependency
+    implementation 'org.apache.commons:commons-compress:1.20'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.9'
     implementation 'org.apache.ftpserver:ftpserver-core:1.1.1'

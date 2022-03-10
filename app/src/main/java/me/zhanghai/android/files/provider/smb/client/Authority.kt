@@ -8,6 +8,8 @@ package me.zhanghai.android.files.provider.smb.client
 import android.os.Parcelable
 import com.hierynomus.smbj.SMBClient
 import kotlinx.parcelize.Parcelize
+import me.zhanghai.android.files.provider.common.UriAuthority
+import me.zhanghai.android.files.util.takeIfNotEmpty
 
 @Parcelize
 data class Authority(
@@ -16,22 +18,13 @@ data class Authority(
     val username: String,
     val domain: String?
 ) : Parcelable {
-    override fun toString(): String = buildString {
-        if (domain != null) {
-            append(domain)
-            append('\\')
-        }
-        if (username.isNotEmpty()) {
-            append(username)
-        }
-        if (domain != null || username.isNotEmpty()) {
-            append('@')
-        }
-        append(host)
-        if (port != DEFAULT_PORT) {
-            append(port)
-        }
+    fun toUriAuthority(): UriAuthority {
+        val userInfo = if (domain != null) "$domain\\$username" else username.takeIfNotEmpty()
+        val uriPort = port.takeIf { it != DEFAULT_PORT }
+        return UriAuthority(userInfo, host, uriPort)
     }
+
+    override fun toString(): String = toUriAuthority().toString()
 
     companion object {
         const val DEFAULT_PORT = SMBClient.DEFAULT_PORT

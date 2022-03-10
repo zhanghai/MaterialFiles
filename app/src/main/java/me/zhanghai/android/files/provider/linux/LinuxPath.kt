@@ -17,9 +17,8 @@ import java8.nio.file.WatchService
 import me.zhanghai.android.files.compat.isPrimaryCompat
 import me.zhanghai.android.files.compat.pathFileCompat
 import me.zhanghai.android.files.provider.common.ByteString
-import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPath
-import me.zhanghai.android.files.provider.common.toByteString
+import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.root.RootablePath
 import me.zhanghai.android.files.storage.StorageVolumeListLiveData
 import me.zhanghai.android.files.util.readParcelable
@@ -52,11 +51,8 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): LinuxPath =
         LinuxPath(fileSystem, absolute, segments)
 
-    override val uriSchemeSpecificPart: ByteString?
-        get() =
-            ByteStringBuilder(BYTE_STRING_TWO_SLASHES)
-                .append(super.uriSchemeSpecificPart!!)
-                .toByteString()
+    override val uriAuthority: UriAuthority?
+        get() = UriAuthority.EMPTY
 
     override val defaultDirectory: LinuxPath
         get() = fileSystem.defaultDirectory
@@ -124,8 +120,6 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
     }
 
     companion object {
-        private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
-
         private val FILE_ANDROID_DATA = File("Android/data")
         private val FILE_ANDROID_OBB = File("Android/obb")
 

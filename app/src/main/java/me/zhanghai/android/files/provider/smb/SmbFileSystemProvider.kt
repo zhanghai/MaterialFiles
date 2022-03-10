@@ -61,8 +61,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
-        val (username, domain) = uri.usernameAndDomain
-        val authority = Authority(uri.host, uri.portOrDefaultPort, username, domain)
+        val authority = uri.smbAuthority
         synchronized(lock) {
             if (fileSystems[authority] != null) {
                 throw FileSystemAlreadyExistsException(authority.toString())
@@ -82,8 +81,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun getFileSystem(uri: URI): FileSystem {
         uri.requireSameScheme()
-        val (username, domain) = uri.usernameAndDomain
-        val authority = Authority(uri.host, uri.portOrDefaultPort, username, domain)
+        val authority = uri.smbAuthority
         return synchronized(lock) { fileSystems[authority] }
             ?: throw FileSystemNotFoundException(authority.toString())
     }
@@ -95,8 +93,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     override fun getPath(uri: URI): Path {
         uri.requireSameScheme()
-        val (username, domain) = uri.usernameAndDomain
-        val authority = Authority(uri.host, uri.portOrDefaultPort, username, domain)
+        val authority = uri.smbAuthority
         val path = uri.decodedPathByteString
             ?: throw IllegalArgumentException("URI must have a path")
         return getOrNewFileSystem(authority).getPath(path)
@@ -107,8 +104,9 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         require(scheme == SCHEME) { "URI scheme $scheme must be $SCHEME" }
     }
 
-    private val URI.usernameAndDomain: Pair<String, String?>
+    private val URI.smbAuthority: Authority
         get() {
+            val port = if (port != -1) port else Authority.DEFAULT_PORT
             val userInfo = userInfo ?: ""
             val domainSeparatorIndex = userInfo.indexOf('\\')
             val username: String
@@ -120,11 +118,8 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
                 username = userInfo
                 domain = null
             }
-            return username to domain
+            return Authority(host, port, username, domain)
         }
-
-    private val URI.portOrDefaultPort: Int
-        get() = if (port != -1) port else Authority.DEFAULT_PORT
 
     @Throws(IOException::class)
     override fun newFileChannel(

@@ -513,7 +513,6 @@
     <string name="settings_interface_title">Interfaccia</string>
     <string name="settings_theme_color_title">Colore tema</string>
     <string name="settings_theme_color_summary">Colore che appare più spesso nell\'app</string>
-    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">Modalità notte</string>
     <string-array name="settings_night_mode_entries">
         <item>Segui il sistema</item>

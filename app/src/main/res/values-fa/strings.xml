@@ -515,7 +515,6 @@
     <string name="settings_interface_title">رابط</string>
     <string name="settings_theme_color_title">رنگ زمینه</string>
     <string name="settings_theme_color_summary">رنگی که بیشتر در برنامه ظاهر می‌شود</string>
-    <string name="settings_material_design_3_title">متریال شما</string>
     <string name="settings_night_mode_title">حالت شب</string>
     <string-array name="settings_night_mode_entries">
         <item>پی‌روی از سامانه</item>

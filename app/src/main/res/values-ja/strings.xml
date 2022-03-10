@@ -486,7 +486,6 @@
     <string name="settings_interface_title">外観</string>
     <string name="settings_theme_color_title">テーマ色</string>
     <string name="settings_theme_color_summary">アプリ内での出現頻度が高い色</string>
-    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">夜間モード</string>
     <string-array name="settings_night_mode_entries">
         <item>システム設定に従う</item>

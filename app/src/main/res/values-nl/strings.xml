@@ -513,7 +513,6 @@
     <string name="settings_interface_title">Uiterlijk</string>
     <string name="settings_theme_color_title">Themakleur</string>
     <string name="settings_theme_color_summary">De kleur die het vaakst wordt gebruikt in de app</string>
-    <string name="settings_material_design_3_title">Material You</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Systeeminstellingen gebruiken</item>

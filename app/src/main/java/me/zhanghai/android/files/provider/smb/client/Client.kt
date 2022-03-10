@@ -43,6 +43,7 @@ import me.zhanghai.android.files.util.enumSetOf
 import me.zhanghai.android.files.util.hasBits
 import java.io.Closeable
 import java.io.IOException
+import java.net.Inet4Address
 import java.net.UnknownHostException
 import java.util.Collections
 import java.util.WeakHashMap
@@ -631,12 +632,13 @@ object Client {
     @Throws(ClientException::class)
     private fun resolveHostName(hostName: String): String {
         val nameServiceClient = SingletonContext.getInstance().nameServiceClient
-        val uniAddress = try {
-            nameServiceClient.getByName(hostName)
+        val addresses = try {
+            nameServiceClient.getAllByName(hostName, false).mapNotNull { it.toInetAddress() }
         } catch (e: UnknownHostException) {
             throw ClientException(e)
         }
-        return uniAddress.hostAddress
+        val address = addresses.firstOrNull { it is Inet4Address } ?: addresses.first()
+        return address.hostAddress!!
     }
 
     @Throws(ClientException::class)

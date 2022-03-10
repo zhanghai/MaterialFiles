@@ -15,9 +15,8 @@ import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
-import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPath
-import me.zhanghai.android.files.provider.common.toByteString
+import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.util.readParcelable
@@ -50,12 +49,8 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): SmbPath =
         SmbPath(fileSystem, absolute, segments)
 
-    override val uriSchemeSpecificPart: ByteString
-        get() =
-            ByteStringBuilder(BYTE_STRING_TWO_SLASHES)
-                .append(fileSystem.authority.toString().toByteString())
-                .append(super.uriSchemeSpecificPart!!)
-                .toByteString()
+    override val uriAuthority: UriAuthority?
+        get() = fileSystem.authority.toUriAuthority()
 
     override val defaultDirectory: SmbPath
         get() = fileSystem.defaultDirectory
@@ -136,8 +131,6 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
     }
 
     companion object {
-        private val BYTE_STRING_TWO_SLASHES = "//".toByteString()
-
         @JvmField
         val CREATOR = object : Parcelable.Creator<SmbPath> {
             override fun createFromParcel(source: Parcel): SmbPath = SmbPath(source)
