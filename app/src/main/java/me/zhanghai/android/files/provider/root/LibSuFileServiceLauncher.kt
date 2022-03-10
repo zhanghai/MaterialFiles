@@ -138,17 +138,8 @@ object LibSuFileServiceLauncher {
 }
 
 private class LibSuShellInitializer : Shell.Initializer() {
-    override fun onInit(context: Context, shell: Shell): Boolean {
-        // Prevent normal shells from being created and set as the main shell.
-        if (!shell.isRoot) {
-            return false
-        }
-        // Work around https://github.com/topjohnwu/libsu/issues/108 for Magisk before 24.0.
-        if (shell.status == Shell.ROOT_MOUNT_MASTER) {
-            shell.newJob().add("cd /").exec()
-        }
-        return true
-    }
+    // Prevent normal shells from being created and set as the main shell.
+    override fun onInit(context: Context, shell: Shell): Boolean = shell.isRoot
 }
 
 class LibSuFileService : RootService() {
