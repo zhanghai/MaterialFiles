@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.common
 
+import java.io.Closeable
 import java.io.IOException
 import java.io.InputStream
 import java.io.InterruptedIOException
@@ -38,6 +39,21 @@ fun InputStream.copyTo(
         }
     }
     listener?.invoke(copiedSize)
+}
+
+fun InputStream.withCloseable(closeable: Closeable): InputStream =
+    CloseableInputStream(this, closeable)
+
+private class CloseableInputStream(
+    inputStream: InputStream,
+    private val closeable: Closeable
+) : DelegateInputStream(inputStream) {
+    @Throws(IOException::class)
+    override fun close() {
+        super.close()
+
+        closeable.close()
+    }
 }
 
 @Throws(InterruptedIOException::class)

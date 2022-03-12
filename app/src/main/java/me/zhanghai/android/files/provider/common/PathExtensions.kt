@@ -15,6 +15,7 @@ import java8.nio.file.LinkOption
 import java8.nio.file.OpenOption
 import java8.nio.file.Path
 import java8.nio.file.ProviderMismatchException
+import java8.nio.file.StandardOpenOption
 import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileAttribute
 import java8.nio.file.attribute.FileAttributeView
@@ -62,7 +63,14 @@ fun Path.createDirectories(vararg attributes: FileAttribute<*>): Path =
     Files.createDirectories(this, *attributes)
 
 @Throws(IOException::class)
-fun Path.createFile(vararg attributes: FileAttribute<*>): Path = Files.createFile(this, *attributes)
+fun Path.createFile(vararg attributes: FileAttribute<*>): Path =
+    try {
+        // This uses newByteChannel() under the hood, which may not be supported.
+        Files.createFile(this, *attributes)
+    } catch (e: UnsupportedOperationException) {
+        Files.newOutputStream(this, StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE).close()
+        this
+    }
 
 @Throws(IOException::class)
 fun Path.createSymbolicLink(target: Path, vararg attributes: FileAttribute<*>): Path =

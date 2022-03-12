@@ -18,6 +18,7 @@ import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.checkAccess
 import me.zhanghai.android.files.provider.common.posixFileType
+import me.zhanghai.android.files.provider.common.withCloseable
 import me.zhanghai.android.files.provider.root.isRunningAsRoot
 import me.zhanghai.android.files.provider.root.rootContext
 import me.zhanghai.android.files.settings.Settings
@@ -32,7 +33,6 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.compressors.CompressorException
 import org.apache.commons.compress.compressors.CompressorStreamFactory
 import java.io.BufferedInputStream
-import java.io.Closeable
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
@@ -231,7 +231,7 @@ object ArchiveReader {
                         zipFile = ZipFileCompat(javaFile, encoding)
                         zipEntryInputStream = zipFile.getInputStream(entry)
                             ?: throw NoSuchFileException(file.toString())
-                        val inputStream = CloseableInputStream(zipEntryInputStream, zipFile)
+                        val inputStream = zipEntryInputStream.withCloseable(zipFile)
                         successful = true
                         inputStream
                     } finally {
@@ -381,29 +381,6 @@ object ArchiveReader {
         }
 
         override fun hashCode(): Int = name.hashCode()
-    }
-
-    private class CloseableInputStream(
-        private val inputStream: InputStream,
-        private val closeable: Closeable
-    ) : InputStream() {
-        @Throws(IOException::class)
-        override fun available(): Int = inputStream.available()
-
-        @Throws(IOException::class)
-        override fun read(): Int = inputStream.read()
-
-        @Throws(IOException::class)
-        override fun read(b: ByteArray): Int = inputStream.read(b)
-
-        @Throws(IOException::class)
-        override fun read(b: ByteArray, off: Int, len: Int): Int = inputStream.read(b, off, len)
-
-        @Throws(IOException::class)
-        override fun close() {
-            inputStream.close()
-            closeable.close()
-        }
     }
 
     private class SevenZArchiveEntryInputStream(
