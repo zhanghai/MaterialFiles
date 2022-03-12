@@ -20,8 +20,10 @@ import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.storage.SftpServerAuthenticator
 import me.zhanghai.android.files.storage.SmbServerAuthenticator
+import me.zhanghai.android.files.storage.StorageVolumeListLiveData
 import me.zhanghai.android.files.theme.custom.CustomThemeHelper
 import me.zhanghai.android.files.theme.night.NightModeHelper
+import me.zhanghai.android.files.util.valueCompat
 import java.util.Properties
 import me.zhanghai.android.files.provider.sftp.client.Client as SftpClient
 import me.zhanghai.android.files.provider.smb.client.Client as SmbClient
@@ -29,8 +31,9 @@ import me.zhanghai.android.files.provider.smb.client.Client as SmbClient
 val appInitializers = listOf(
     ::initializeCrashlytics, ::disableHiddenApiChecks, ::initializeThreeTen,
     ::initializeWebViewDebugging, ::initializeStetho, ::initializeCoil,
-    ::initializeFileSystemProviders, ::upgradeApp, ::initializeSettings, ::initializeCustomTheme,
-    ::initializeNightMode, ::createNotificationChannels
+    ::initializeFileSystemProviders, ::upgradeApp, ::initializeStorageVolumeListLiveData,
+    ::initializeSettings, ::initializeCustomTheme, ::initializeNightMode,
+    ::createNotificationChannels
 )
 
 private fun initializeCrashlytics() {
@@ -71,6 +74,12 @@ private fun initializeFileSystemProviders() {
     }
     SftpClient.authenticator = SftpServerAuthenticator
     SmbClient.authenticator = SmbServerAuthenticator
+}
+
+private fun initializeStorageVolumeListLiveData() {
+    // Force initialization of StorageVolumeListLiveData so that it won't happen on a background
+    // thread.
+    StorageVolumeListLiveData.valueCompat
 }
 
 private fun initializeSettings() {
