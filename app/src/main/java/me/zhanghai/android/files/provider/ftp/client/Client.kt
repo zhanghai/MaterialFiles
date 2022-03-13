@@ -43,6 +43,16 @@ object Client {
                 client.disconnect()
                 continue
             }
+            val isAlive = try {
+                client.sendNoOp()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                false
+            }
+            if (!isAlive) {
+                closeClient(client)
+                continue
+            }
             return client
         }
         return createClient(authority)
