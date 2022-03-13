@@ -26,7 +26,7 @@ internal fun OpenOptions.toDocumentMode(): String =
         if (create || createNew) {
             throw AssertionError(
                 "${StandardOpenOption.CREATE} and ${StandardOpenOption.CREATE_NEW
-                } should have been handled before calling DocumentOpenOptions.toMode()"
+                } should have been handled before calling OpenOptions.toDocumentMode()"
             )
         }
         if (deleteOnClose) {
