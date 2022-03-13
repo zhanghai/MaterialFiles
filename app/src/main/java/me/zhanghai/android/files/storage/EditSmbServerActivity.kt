@@ -33,8 +33,7 @@ class EditSmbServerActivity : AppActivity() {
 
     class Contract : ActivityResultContract<EditSmbServerFragment.Args, Boolean>() {
         override fun createIntent(context: Context, input: EditSmbServerFragment.Args): Intent =
-            EditSmbServerActivity::class.createIntent()
-                .putArgs(input)
+            EditSmbServerActivity::class.createIntent().putArgs(input)
 
         override fun parseResult(resultCode: Int, intent: Intent?): Boolean =
             resultCode == Activity.RESULT_OK
