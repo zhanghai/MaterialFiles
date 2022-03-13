@@ -80,6 +80,9 @@ object Client {
                 if (!FTPReply.isPositiveCompletion(replyCode)) {
                     throwNegativeReplyCodeException()
                 }
+                if (!setFileType(FTPClient.BINARY_FILE_TYPE)) {
+                    throwNegativeReplyCodeException()
+                }
                 if (!login(authority.username, password)) {
                     throwNegativeReplyCodeException()
                 }
