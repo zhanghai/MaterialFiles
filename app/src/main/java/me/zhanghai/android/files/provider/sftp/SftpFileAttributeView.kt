@@ -142,6 +142,6 @@ internal class SftpFileAttributeView(
     companion object {
         private val NAME = SftpFileSystemProvider.scheme
 
-        val SUPPORTED_NAMES = setOf("basic", NAME)
+        val SUPPORTED_NAMES = setOf("basic", "posix", NAME)
     }
 }
