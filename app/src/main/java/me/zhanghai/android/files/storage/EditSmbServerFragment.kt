@@ -206,9 +206,8 @@ class EditSmbServerFragment : Fragment() {
         }
 
     private fun onAuthenticationTypeChanged(authenticationType: AuthenticationType) {
-        val isPasswordAuthentication = authenticationType == AuthenticationType.PASSWORD
-        binding.authenticationTypeLayout.isErrorEnabled = isPasswordAuthentication
-        binding.passwordAuthenticationLayout.isVisible = isPasswordAuthentication
+        binding.passwordAuthenticationLayout.isVisible =
+            authenticationType == AuthenticationType.PASSWORD
     }
 
     private fun saveOrAdd() {
