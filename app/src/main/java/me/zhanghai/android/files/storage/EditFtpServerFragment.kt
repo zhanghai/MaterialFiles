@@ -22,6 +22,7 @@ import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditFtpServerFragmentBinding
 import me.zhanghai.android.files.provider.ftp.client.Authority
+import me.zhanghai.android.files.provider.ftp.client.Protocol
 import me.zhanghai.android.files.ui.UnfilteredArrayAdapter
 import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.ParcelableArgs
@@ -81,6 +82,17 @@ class EditFtpServerFragment : Fragment() {
         binding.portEdit.hideTextInputLayoutErrorOnTextChange(binding.portLayout)
         binding.portEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.pathEdit.doAfterTextChanged { updateNamePlaceholder() }
+        binding.protocolEdit.setAdapter(
+            UnfilteredArrayAdapter(
+                binding.protocolEdit.context, R.layout.dropdown_item,
+                objects = getTextArray(R.array.storage_edit_ftp_server_protocol_entries)
+            )
+        )
+        protocol = Protocol.FTP
+        binding.protocolEdit.doAfterTextChanged {
+            updateNamePlaceholder()
+            updatePortPlaceholder()
+        }
         binding.authenticationTypeEdit.setAdapter(
             UnfilteredArrayAdapter(
                 binding.authenticationTypeEdit.context, R.layout.dropdown_item,
@@ -125,7 +137,8 @@ class EditFtpServerFragment : Fragment() {
             if (server != null) {
                 val authority = server.authority
                 binding.hostEdit.setText(authority.host)
-                if (authority.port != Authority.DEFAULT_PORT) {
+                protocol = authority.protocol
+                if (authority.port != protocol.defaultPort) {
                     binding.portEdit.setText(authority.port.toString())
                 }
                 when {
@@ -152,19 +165,37 @@ class EditFtpServerFragment : Fragment() {
     private fun updateNamePlaceholder() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
         val port = binding.portEdit.text.toString().takeIfNotEmpty()?.toIntOrNull()
-            ?: Authority.DEFAULT_PORT
+            ?: protocol.defaultPort
         val path = binding.pathEdit.text.toString().trim()
         val username = when (authenticationType) {
             AuthenticationType.PASSWORD -> binding.usernameEdit.text.toString()
             AuthenticationType.ANONYMOUS -> Authority.ANONYMOUS_USERNAME
         }
         binding.nameLayout.placeholderText = if (host != null) {
-            val authority = Authority(host, port, username)
+            val authority = Authority(protocol, host, port, username)
             if (path.isNotEmpty()) "$authority/$path" else authority.toString()
         } else {
             getString(R.string.storage_edit_ftp_server_name_placeholder)
         }
     }
+
+    private fun updatePortPlaceholder() {
+        binding.portLayout.placeholderText = protocol.defaultPort.toString()
+    }
+
+    private var protocol: Protocol
+        get() {
+            val adapter = binding.protocolEdit.adapter
+            val items = List(adapter.count) { adapter.getItem(it) as CharSequence }
+            val selectedItem = binding.protocolEdit.text
+            val selectedIndex = items.indexOfFirst { TextUtils.equals(it, selectedItem) }
+            return Protocol.values()[selectedIndex]
+        }
+        set(value) {
+            val adapter = binding.protocolEdit.adapter
+            val item = adapter.getItem(value.ordinal) as CharSequence
+            binding.protocolEdit.setText(item, false)
+        }
 
     private var authenticationType: AuthenticationType
         get() {
@@ -182,9 +213,8 @@ class EditFtpServerFragment : Fragment() {
         }
 
     private fun onAuthenticationTypeChanged(authenticationType: AuthenticationType) {
-        val isPasswordAuthentication = authenticationType == AuthenticationType.PASSWORD
-        binding.authenticationTypeLayout.isErrorEnabled = isPasswordAuthentication
-        binding.passwordAuthenticationLayout.isVisible = isPasswordAuthentication
+        binding.passwordAuthenticationLayout.isVisible =
+            authenticationType == AuthenticationType.PASSWORD
     }
 
     private fun saveOrAdd() {
@@ -241,7 +271,7 @@ class EditFtpServerFragment : Fragment() {
             }
         }
         val port = binding.portEdit.text.toString().takeIfNotEmpty()
-            .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
+            .let { if (it != null) it.toIntOrNull() else protocol.defaultPort }
         if (port == null) {
             binding.portLayout.error =
                 getString(R.string.storage_edit_ftp_server_port_error_invalid)
@@ -274,7 +304,7 @@ class EditFtpServerFragment : Fragment() {
             errorEdit.requestFocus()
             return null
         }
-        val authority = Authority(host!!, port!!, username!!)
+        val authority = Authority(protocol, host!!, port!!, username!!)
         return FtpServer(args.server?.id, name, authority, password, path)
     }
 

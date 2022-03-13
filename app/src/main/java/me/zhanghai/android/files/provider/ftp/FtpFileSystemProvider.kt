@@ -28,6 +28,7 @@ import java8.nio.file.attribute.FileAttribute
 import java8.nio.file.attribute.FileAttributeView
 import java8.nio.file.spi.FileSystemProvider
 import me.zhanghai.android.files.provider.common.ByteStringPath
+import me.zhanghai.android.files.provider.common.DelegateSchemeFileSystemProvider
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream
 import me.zhanghai.android.files.provider.common.PathObservable
 import me.zhanghai.android.files.provider.common.PathObservableProvider
@@ -42,21 +43,20 @@ import me.zhanghai.android.files.provider.common.toLinkOptions
 import me.zhanghai.android.files.provider.common.toOpenOptions
 import me.zhanghai.android.files.provider.ftp.client.Authority
 import me.zhanghai.android.files.provider.ftp.client.Client
+import me.zhanghai.android.files.provider.ftp.client.Protocol
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.net.URI
 
 object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Searchable {
-    private const val SCHEME = "ftp"
-
     private val HIDDEN_FILE_NAME_PREFIX = ".".toByteString()
 
     private val fileSystems = mutableMapOf<Authority, FtpFileSystem>()
 
     private val lock = Any()
 
-    override fun getScheme(): String = SCHEME
+    override fun getScheme(): String = Protocol.FTP.scheme
 
     override fun newFileSystem(uri: URI, env: Map<String, *>): FileSystem {
         uri.requireSameScheme()
@@ -100,14 +100,15 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
 
     private fun URI.requireSameScheme() {
         val scheme = scheme
-        require(scheme == SCHEME) { "URI scheme $scheme must be $SCHEME" }
+        require(scheme in Protocol.SCHEMES) { "URI scheme $scheme must be in ${Protocol.SCHEMES}" }
     }
 
     private val URI.ftpAuthority: Authority
         get() {
-            val port = if (port != -1) port else Authority.DEFAULT_PORT
+            val protocol = Protocol.fromScheme(scheme)
+            val port = if (port != -1) port else protocol.defaultPort
             val username = userInfo ?: ""
-            return Authority(host, port, username)
+            return Authority(protocol, host, port, username)
         }
 
     @Throws(IOException::class)
@@ -405,3 +406,9 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         WalkFileTreeSearchable.search(directory, query, intervalMillis, listener)
     }
 }
+
+val FtpsFileSystemProvider =
+    DelegateSchemeFileSystemProvider(Protocol.FTPS.scheme, FtpFileSystemProvider)
+
+val FtpesFileSystemProvider =
+    DelegateSchemeFileSystemProvider(Protocol.FTPES.scheme, FtpFileSystemProvider)

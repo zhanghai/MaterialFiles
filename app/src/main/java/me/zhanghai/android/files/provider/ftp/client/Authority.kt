@@ -9,17 +9,17 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.util.takeIfNotEmpty
-import org.apache.commons.net.ftp.FTPClient
 
 @Parcelize
 data class Authority(
+    val protocol: Protocol,
     val host: String,
     val port: Int,
     val username: String
 ) : Parcelable {
     fun toUriAuthority(): UriAuthority {
         val userInfo = username.takeIfNotEmpty()
-        val uriPort = port.takeIf { it != DEFAULT_PORT }
+        val uriPort = port.takeIf { it != protocol.defaultPort }
         return UriAuthority(userInfo, host, uriPort)
     }
 
@@ -29,6 +29,5 @@ data class Authority(
         // @see https://www.rfc-editor.org/rfc/rfc1635
         const val ANONYMOUS_USERNAME = "anonymous"
         const val ANONYMOUS_PASSWORD = "guest"
-        const val DEFAULT_PORT = FTPClient.DEFAULT_PORT
     }
 }

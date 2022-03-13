@@ -512,6 +512,12 @@
     <string name="storage_edit_ftp_server_path_placeholder">Can be left empty</string>
     <string name="storage_edit_ftp_server_name">Name</string>
     <string name="storage_edit_ftp_server_name_placeholder">Use hostname</string>
+    <string name="storage_edit_ftp_server_protocol">Protocol</string>
+    <string-array name="storage_edit_ftp_server_protocol_entries" translatable="false">
+        <item>FTP</item>
+        <item>FTPS</item>
+        <item>FTPES</item>
+    </string-array>
     <string name="storage_edit_ftp_server_authentication_type">Authentication</string>
     <string-array name="storage_edit_ftp_server_authentication_type_entries">
         <item>Password</item>

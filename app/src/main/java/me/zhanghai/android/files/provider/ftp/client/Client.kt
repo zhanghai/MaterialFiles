@@ -72,7 +72,7 @@ object Client {
     private fun createClient(authority: Authority): FTPClient {
         val password = authenticator.getPassword(authority)
             ?: throw IOException("No password found for $authority")
-        return FTPClient().apply {
+        return authority.protocol.createClient().apply {
             configure(FTPClientConfig(""))
             listHiddenFiles = true
             connect(authority.host, authority.port)
