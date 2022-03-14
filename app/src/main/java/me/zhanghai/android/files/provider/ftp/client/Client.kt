@@ -223,7 +223,10 @@ object Client {
         useClient(path.authority) { client ->
             val files = client.mlistDirCompat(path.remotePath)
                 ?: client.throwNegativeReplyCodeException()
-            return files.map { file ->
+            return files.mapNotNull { file ->
+                if (file.name == "." || file.name == "..") {
+                    return@mapNotNull null
+                }
                 path.resolve(file.name).also { directoryFilesCache[it] = file }
             }
         }
