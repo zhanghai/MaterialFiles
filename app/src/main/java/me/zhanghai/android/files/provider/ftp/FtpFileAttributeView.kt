@@ -47,7 +47,7 @@ internal class FtpFileAttributeView(
             throw UnsupportedOperationException(LinkOption.NOFOLLOW_LINKS.toString())
         }
         try {
-            Client.setLastModifiedTime(path, lastModifiedTime)
+            Client.setLastModifiedTime(path, lastModifiedTime.toInstant())
         } catch (e: IOException) {
             throw e.toFileSystemExceptionForFtp(path.toString())
         }

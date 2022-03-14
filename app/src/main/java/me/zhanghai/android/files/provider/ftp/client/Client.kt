@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.ftp.client
 
 import java8.nio.charset.StandardCharsets
-import java8.nio.file.attribute.FileTime
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateOutputStream
 import org.apache.commons.net.ftp.FTPClient
@@ -14,6 +13,7 @@ import org.apache.commons.net.ftp.FTPClientConfig
 import org.apache.commons.net.ftp.FTPFile
 import org.apache.commons.net.ftp.FTPReply
 import org.apache.commons.net.ftp.FTPSClient
+import org.threeten.bp.Instant
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.format.DateTimeFormatter
@@ -265,10 +265,10 @@ object Client {
     }
 
     @Throws(IOException::class)
-    fun setLastModifiedTime(path: Path, lastModifiedTime: FileTime) {
-        val lastModifiedTimeString = TIMESTAMP_FORMATTER.format(lastModifiedTime.toInstant())
+    fun setLastModifiedTime(path: Path, lastModifiedTime: Instant) {
+        val lastModifiedTimeString = TIMESTAMP_FORMATTER.format(lastModifiedTime)
         useClient(path.authority) { client ->
-            if (!client.setModificationTime(path.remotePath, lastModifiedTimeString)) {
+            if (!client.setModificationTimeCompat(path.remotePath, lastModifiedTimeString)) {
                 client.throwNegativeReplyCodeException()
             }
         }
