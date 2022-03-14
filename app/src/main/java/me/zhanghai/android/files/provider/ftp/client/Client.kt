@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.ftp.client
 
+import java8.nio.charset.StandardCharsets
 import java8.nio.file.attribute.FileTime
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateOutputStream
@@ -75,6 +76,8 @@ object Client {
             ?: throw IOException("No password found for $authority")
         return authority.protocol.createClient().apply {
             configure(FTPClientConfig(""))
+            // This has to be set before connect().
+            controlEncoding = StandardCharsets.UTF_8.name()
             listHiddenFiles = true
             connect(authority.host, authority.port)
             try {
