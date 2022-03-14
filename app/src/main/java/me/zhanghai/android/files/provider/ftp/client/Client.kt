@@ -25,7 +25,7 @@ import java.util.Locale
 import java.util.WeakHashMap
 
 object Client {
-    private val LAST_MODIFIED_TIME_FORMATTER =
+    private val TIMESTAMP_FORMATTER =
         DateTimeFormatter.ofPattern("yyyyMMddHHmmss", Locale.ROOT)
             .withChronology(IsoChronology.INSTANCE)
             .withZone(ZoneOffset.UTC)
@@ -264,8 +264,7 @@ object Client {
 
     @Throws(IOException::class)
     fun setLastModifiedTime(path: Path, lastModifiedTime: FileTime) {
-        val lastModifiedTimeString =
-            LAST_MODIFIED_TIME_FORMATTER.format(lastModifiedTime.toInstant())
+        val lastModifiedTimeString = TIMESTAMP_FORMATTER.format(lastModifiedTime.toInstant())
         useClient(path.authority) { client ->
             if (!client.setModificationTime(path.remotePath, lastModifiedTimeString)) {
                 client.throwNegativeReplyCodeException()
