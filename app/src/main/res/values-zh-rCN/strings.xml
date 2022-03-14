@@ -397,6 +397,7 @@
     <string name="storage_edit_ftp_server_path_placeholder">可留空</string>
     <string name="storage_edit_ftp_server_name">名称</string>
     <string name="storage_edit_ftp_server_name_placeholder">使用主机名</string>
+    <string name="storage_edit_ftp_server_protocol">协议</string>
     <string name="storage_edit_ftp_server_authentication_type">验证</string>
     <string-array name="storage_edit_ftp_server_authentication_type_entries">
         <item>密码</item>
@@ -423,7 +424,6 @@
     <string name="storage_edit_sftp_server_path_placeholder">可留空</string>
     <string name="storage_edit_sftp_server_name">名称</string>
     <string name="storage_edit_sftp_server_name_placeholder">使用主机名</string>
-    <string name="storage_edit_ftp_server_protocol">协议</string>
     <string name="storage_edit_sftp_server_authentication_type">验证</string>
     <string-array name="storage_edit_sftp_server_authentication_type_entries">
         <item>密码</item>
