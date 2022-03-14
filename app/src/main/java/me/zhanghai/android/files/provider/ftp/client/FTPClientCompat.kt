@@ -3,7 +3,6 @@ package me.zhanghai.android.files.provider.ftp.client
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPFile
-import org.apache.commons.net.ftp.FTPReply
 import java.io.File
 import java.io.IOException
 import java.util.Calendar
@@ -26,11 +25,7 @@ fun FTPClient.mlistFileCompat(pathname: String): FTPFile? {
     } else {
         val path = File(pathname)
         val parent = path.parent ?: return DUMMY_ROOT_FTP_FILE
-        val file = listFiles(parent)?.firstOrNull { it != null && it.name == path.name }
-        if (file == null && FTPReply.isPositiveCompletion(replyCode)) {
-            throw IOException("File $pathname isn't listed in parent: $replyString")
-        }
-        return file
+        return listFiles(parent)?.firstOrNull { it != null && it.name == path.name }
     }
 }
 
