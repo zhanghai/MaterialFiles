@@ -81,8 +81,16 @@ object Client {
                 if (!FTPReply.isPositiveCompletion(replyCode)) {
                     throwNegativeReplyCodeException()
                 }
-                // This has to be called after connect() despite being entirely local.
-                enterLocalPassiveMode()
+                if (!login(authority.username, password)) {
+                    throwNegativeReplyCodeException()
+                }
+            } catch (t: Throwable) {
+                disconnect()
+                throw t
+            }
+            // This has to be called after connect() despite being entirely local.
+            enterLocalPassiveMode()
+            try {
                 if (this is FTPSClient) {
                     // @see https://datatracker.ietf.org/doc/html/rfc4217#section-9
                     execPBSZ(0)
@@ -91,11 +99,8 @@ object Client {
                 if (!setFileType(FTPClient.BINARY_FILE_TYPE)) {
                     throwNegativeReplyCodeException()
                 }
-                if (!login(authority.username, password)) {
-                    throwNegativeReplyCodeException()
-                }
             } catch (t: Throwable) {
-                disconnect()
+                closeClient(this)
                 throw t
             }
         }
