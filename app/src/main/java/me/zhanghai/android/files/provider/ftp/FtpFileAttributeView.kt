@@ -19,12 +19,12 @@ internal class FtpFileAttributeView(
 
     @Throws(IOException::class)
     override fun readAttributes(): FtpFileAttributes {
-        val attributes = try {
+        val file = try {
             Client.listFile(path, noFollowLinks)
         } catch (e: IOException) {
             throw e.toFileSystemExceptionForFtp(path.toString())
         }
-        return FtpFileAttributes.from(attributes, path)
+        return FtpFileAttributes.from(file, path)
     }
 
     override fun setTimes(
