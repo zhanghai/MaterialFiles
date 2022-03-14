@@ -405,6 +405,12 @@
     <string name="storage_edit_ftp_server_username">用户名</string>
     <string name="storage_edit_ftp_server_username_error_empty">输入用户名</string>
     <string name="storage_edit_ftp_server_password">密码</string>
+    <string name="storage_edit_ftp_server_mode">模式</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>主动</item>
+        <item>被动</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">编码</string>
     <string name="storage_edit_ftp_server_connect_and_add">连接并添加</string>
     <string name="storage_edit_ftp_server_add">添加</string>
     <string name="storage_edit_sftp_server_title_edit">编辑 SFTP 服务器</string>

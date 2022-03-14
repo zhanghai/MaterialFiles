@@ -22,6 +22,7 @@ import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditFtpServerFragmentBinding
 import me.zhanghai.android.files.provider.ftp.client.Authority
+import me.zhanghai.android.files.provider.ftp.client.Mode
 import me.zhanghai.android.files.provider.ftp.client.Protocol
 import me.zhanghai.android.files.ui.UnfilteredArrayAdapter
 import me.zhanghai.android.files.util.ActionState
@@ -36,6 +37,7 @@ import me.zhanghai.android.files.util.setResult
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
+import java.nio.charset.Charset
 
 class EditFtpServerFragment : Fragment() {
     private val args by args<Args>()
@@ -106,6 +108,20 @@ class EditFtpServerFragment : Fragment() {
         }
         binding.usernameEdit.hideTextInputLayoutErrorOnTextChange(binding.usernameLayout)
         binding.usernameEdit.doAfterTextChanged { updateNamePlaceholder() }
+        binding.modeEdit.setAdapter(
+            UnfilteredArrayAdapter(
+                binding.modeEdit.context, R.layout.dropdown_item,
+                objects = getTextArray(R.array.storage_edit_ftp_server_mode_entries)
+            )
+        )
+        mode = Authority.DEFAULT_MODE
+        binding.encodingEdit.setAdapter(
+            UnfilteredArrayAdapter(
+                binding.encodingEdit.context, R.layout.dropdown_item,
+                objects = viewModel.charsets.map { it.displayName() }
+            )
+        )
+        encoding = Authority.DEFAULT_ENCODING
         binding.saveOrConnectAndAddButton.setText(
             if (args.server != null) {
                 R.string.save
@@ -153,6 +169,8 @@ class EditFtpServerFragment : Fragment() {
                 }
                 binding.pathEdit.setText(server.relativePath)
                 binding.nameEdit.setText(server.customName)
+                mode = authority.mode
+                encoding = authority.encoding
             } else {
                 val host = args.host
                 if (host != null) {
@@ -172,7 +190,7 @@ class EditFtpServerFragment : Fragment() {
             AuthenticationType.ANONYMOUS -> Authority.ANONYMOUS_USERNAME
         }
         binding.nameLayout.placeholderText = if (host != null) {
-            val authority = Authority(protocol, host, port, username)
+            val authority = Authority(protocol, host, port, username, mode, encoding)
             if (path.isNotEmpty()) "$authority/$path" else authority.toString()
         } else {
             getString(R.string.storage_edit_ftp_server_name_placeholder)
@@ -216,6 +234,35 @@ class EditFtpServerFragment : Fragment() {
         binding.passwordAuthenticationLayout.isVisible =
             authenticationType == AuthenticationType.PASSWORD
     }
+
+    private var mode: Mode
+        get() {
+            val adapter = binding.modeEdit.adapter
+            val items = List(adapter.count) { adapter.getItem(it) as CharSequence }
+            val selectedItem = binding.modeEdit.text
+            val selectedIndex = items.indexOfFirst { TextUtils.equals(it, selectedItem) }
+            return Mode.values()[selectedIndex]
+        }
+        set(value) {
+            val adapter = binding.modeEdit.adapter
+            val item = adapter.getItem(value.ordinal) as CharSequence
+            binding.modeEdit.setText(item, false)
+        }
+
+    private var encoding: String
+        get() {
+            val adapter = binding.encodingEdit.adapter
+            val items = List(adapter.count) { adapter.getItem(it) as CharSequence }
+            val selectedItem = binding.encodingEdit.text
+            val selectedIndex = items.indexOfFirst { TextUtils.equals(it, selectedItem) }
+            return viewModel.charsets[selectedIndex].name()
+        }
+        set(value) {
+            val adapter = binding.encodingEdit.adapter
+            val item = adapter.getItem(viewModel.charsets.indexOfFirst { it.name() == value })
+                as CharSequence
+            binding.encodingEdit.setText(item, false)
+        }
 
     private fun saveOrAdd() {
         val server = getServerOrSetError() ?: return
@@ -304,7 +351,7 @@ class EditFtpServerFragment : Fragment() {
             errorEdit.requestFocus()
             return null
         }
-        val authority = Authority(protocol, host!!, port!!, username!!)
+        val authority = Authority(protocol, host!!, port!!, username!!, mode, encoding)
         return FtpServer(args.server?.id, name, authority, password, path)
     }
 

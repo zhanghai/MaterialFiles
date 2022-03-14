@@ -191,6 +191,38 @@
                                 android:inputType="textPassword" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/modeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/storage_edit_ftp_server_mode"
+                        app:errorEnabled="true"
+                        app:expandedHintEnabled="false"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/modeEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/encodingLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/storage_edit_ftp_server_encoding"
+                        app:errorEnabled="true"
+                        app:expandedHintEnabled="false"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/encodingEdit"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </FrameLayout>

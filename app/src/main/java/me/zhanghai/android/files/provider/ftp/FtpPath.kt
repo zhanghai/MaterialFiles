@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.ftp
 
+import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 import java8.nio.file.FileSystem
@@ -18,6 +19,7 @@ import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.PollingWatchService
 import me.zhanghai.android.files.provider.common.UriAuthority
+import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.ftp.client.Authority
 import me.zhanghai.android.files.provider.ftp.client.Client
 import me.zhanghai.android.files.util.readParcelable
@@ -55,6 +57,18 @@ internal class FtpPath : ByteStringListPath<FtpPath>, Client.Path {
 
     override val uriAuthority: UriAuthority?
         get() = fileSystem.authority.toUriAuthority()
+
+    override val uriQuery: ByteString?
+        get() =
+            Uri.Builder().apply {
+                val authority = fileSystem.authority
+                if (authority.mode != Authority.DEFAULT_MODE) {
+                    appendQueryParameter(QUERY_PARAMETER_MODE, authority.mode.name.lowercase())
+                }
+                if (authority.encoding != Authority.DEFAULT_ENCODING) {
+                    appendQueryParameter(QUERY_PARAMETER_ENCODING, authority.encoding)
+                }
+            }.build().query?.toByteString()
 
     override val defaultDirectory: FtpPath
         get() = fileSystem.defaultDirectory
@@ -107,6 +121,9 @@ internal class FtpPath : ByteStringListPath<FtpPath>, Client.Path {
 
             override fun newArray(size: Int): Array<FtpPath?> = arrayOfNulls(size)
         }
+
+        const val QUERY_PARAMETER_MODE = "mode"
+        const val QUERY_PARAMETER_ENCODING = "encoding"
     }
 }
 

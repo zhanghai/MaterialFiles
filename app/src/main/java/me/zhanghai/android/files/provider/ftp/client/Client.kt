@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.ftp.client
 
-import java8.nio.charset.StandardCharsets
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateOutputStream
 import org.apache.commons.net.ftp.FTPClient
@@ -77,7 +76,7 @@ object Client {
         return authority.protocol.createClient().apply {
             configure(FTPClientConfig(""))
             // This has to be set before connect().
-            controlEncoding = StandardCharsets.UTF_8.name()
+            controlEncoding = authority.encoding
             listHiddenFiles = true
             connect(authority.host, authority.port)
             try {
@@ -92,7 +91,9 @@ object Client {
                 throw t
             }
             // This has to be called after connect() despite being entirely local.
-            enterLocalPassiveMode()
+            if (authority.mode == Mode.PASSIVE) {
+                enterLocalPassiveMode()
+            }
             try {
                 if (this is FTPSClient) {
                     // @see https://datatracker.ietf.org/doc/html/rfc4217#section-9

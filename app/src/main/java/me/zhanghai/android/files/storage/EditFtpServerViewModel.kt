@@ -16,8 +16,11 @@ import me.zhanghai.android.files.provider.common.newDirectoryStream
 import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.isFinished
 import me.zhanghai.android.files.util.isReady
+import java.nio.charset.Charset
 
 class EditFtpServerViewModel : ViewModel() {
+    val charsets = Charset.availableCharsets().values.toList()
+
     private val _connectState = MutableStateFlow<ActionState<FtpServer, Unit>>(ActionState.Ready())
     val connectState = _connectState.asStateFlow()
 

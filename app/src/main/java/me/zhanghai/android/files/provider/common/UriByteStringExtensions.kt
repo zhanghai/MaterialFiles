@@ -15,6 +15,7 @@ fun KClass<URI>.create(
     scheme: String,
     authority: UriAuthority?,
     path: ByteString,
+    query: ByteString?,
     fragment: ByteString?
 ): URI {
     val builder = StringBuilder()
@@ -23,6 +24,9 @@ fun KClass<URI>.create(
         builder.append("//").append(authority.encode())
     }
     builder.append(encodePath(path))
+    if (query != null) {
+        builder.append('?').append(encodeQuery(query))
+    }
     if (fragment != null) {
         builder.append('#').append(encodeFragment(fragment))
     }
@@ -37,11 +41,13 @@ private const val CHARSET_UNRESERVED = "$CHARSET_ALPHA$CHARSET_DIGIT-._~"
 private const val CHARSET_SUB_DELIMS = "!$&'()*+,;="
 private const val CHARSET_PCHAR = "$CHARSET_UNRESERVED$CHARSET_SUB_DELIMS:@"
 private const val CHARSET_PATH = "$CHARSET_PCHAR/"
-private const val CHARSET_FRAGMENT = "$CHARSET_PCHAR/?"
+private const val CHARSET_QUERY = "$CHARSET_PCHAR/?"
 
 private fun encodePath(decoded: ByteString): String = encode(decoded, CHARSET_PATH)
 
-private fun encodeFragment(decoded: ByteString): String = encode(decoded, CHARSET_FRAGMENT)
+private fun encodeQuery(decoded: ByteString): String = encode(decoded, CHARSET_QUERY)
+
+private fun encodeFragment(decoded: ByteString): String = encodeQuery(decoded)
 
 private fun encode(decoded: ByteString, charset: String): String {
     val builder = StringBuilder()
@@ -69,6 +75,9 @@ private fun encodeHexCharacter(halfByte: Byte): Char =
 val URI.decodedPathByteString: ByteString?
     // URI.getRawPath() returns null when there's no authority and the path isn't absolute.
     get() = (rawPath ?: rawSchemeSpecificPart)?.let { decode(it) }
+
+val URI.decodedQueryByteString: ByteString?
+    get() = rawQuery?.let { decode(it) }
 
 val URI.decodedFragmentByteString: ByteString?
     get() = rawFragment?.let { decode(it) }

@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.ftp
 
+import android.net.Uri
 import java8.nio.channels.FileChannel
 import java8.nio.channels.SeekableByteChannel
 import java8.nio.file.AccessMode
@@ -36,6 +37,7 @@ import me.zhanghai.android.files.provider.common.Searchable
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable
 import me.zhanghai.android.files.provider.common.WatchServicePathObservable
 import me.zhanghai.android.files.provider.common.decodedPathByteString
+import me.zhanghai.android.files.provider.common.decodedQueryByteString
 import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.common.toCopyOptions
@@ -43,6 +45,7 @@ import me.zhanghai.android.files.provider.common.toLinkOptions
 import me.zhanghai.android.files.provider.common.toOpenOptions
 import me.zhanghai.android.files.provider.ftp.client.Authority
 import me.zhanghai.android.files.provider.ftp.client.Client
+import me.zhanghai.android.files.provider.ftp.client.Mode
 import me.zhanghai.android.files.provider.ftp.client.Protocol
 import java.io.IOException
 import java.io.InputStream
@@ -108,7 +111,13 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
             val protocol = Protocol.fromScheme(scheme)
             val port = if (port != -1) port else protocol.defaultPort
             val username = userInfo ?: ""
-            return Authority(protocol, host, port, username)
+            val queryUri = decodedQueryByteString?.toString()?.let { Uri.parse(it) }
+            val mode = queryUri?.getQueryParameter(FtpPath.QUERY_PARAMETER_MODE)
+                ?.let { mode -> Mode.values().first { it.name.equals(mode, true) } }
+                ?: Authority.DEFAULT_MODE
+            val encoding = queryUri?.getQueryParameter(FtpPath.QUERY_PARAMETER_ENCODING)
+                ?: Authority.DEFAULT_ENCODING
+            return Authority(protocol, host, port, username, mode, encoding)
         }
 
     @Throws(IOException::class)
