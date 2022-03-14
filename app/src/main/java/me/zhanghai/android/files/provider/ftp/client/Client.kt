@@ -80,6 +80,8 @@ object Client {
                 if (!FTPReply.isPositiveCompletion(replyCode)) {
                     throwNegativeReplyCodeException()
                 }
+                // This has to be called after connect() despite being entirely local.
+                enterLocalPassiveMode()
                 if (!setFileType(FTPClient.BINARY_FILE_TYPE)) {
                     throwNegativeReplyCodeException()
                 }
