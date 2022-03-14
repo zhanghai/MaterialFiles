@@ -14,11 +14,11 @@ import java8.nio.file.NotLinkException
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.use
+import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.checkAccess
 import me.zhanghai.android.files.provider.common.posixFileType
-import me.zhanghai.android.files.provider.common.withCloseable
 import me.zhanghai.android.files.provider.root.isRunningAsRoot
 import me.zhanghai.android.files.provider.root.rootContext
 import me.zhanghai.android.files.settings.Settings
@@ -33,6 +33,7 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.compressors.CompressorException
 import org.apache.commons.compress.compressors.CompressorStreamFactory
 import java.io.BufferedInputStream
+import java.io.Closeable
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
@@ -231,7 +232,7 @@ object ArchiveReader {
                         zipFile = ZipFileCompat(javaFile, encoding)
                         zipEntryInputStream = zipFile.getInputStream(entry)
                             ?: throw NoSuchFileException(file.toString())
-                        val inputStream = zipEntryInputStream.withCloseable(zipFile)
+                        val inputStream = CloseableInputStream(zipEntryInputStream, zipFile)
                         successful = true
                         inputStream
                     } finally {
@@ -381,6 +382,18 @@ object ArchiveReader {
         }
 
         override fun hashCode(): Int = name.hashCode()
+    }
+
+    private class CloseableInputStream(
+        inputStream: InputStream,
+        private val closeable: Closeable
+    ) : DelegateInputStream(inputStream) {
+        @Throws(IOException::class)
+        override fun close() {
+            super.close()
+
+            closeable.close()
+        }
     }
 
     private class SevenZArchiveEntryInputStream(
