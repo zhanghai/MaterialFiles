@@ -22,6 +22,7 @@ import me.zhanghai.android.files.provider.archive.createArchiveRootPath
 import me.zhanghai.android.files.provider.document.documentSupportsThumbnail
 import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
+import me.zhanghai.android.files.provider.ftp.isFtpPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileName
@@ -55,27 +56,27 @@ val FileItem.listablePath: Path
 
 // @see PathAttributesFetcher.fetch
 val FileItem.supportsThumbnail: Boolean
-    get() =
-        when {
-            path.isLinuxPath ->
-                mimeType.isImage || mimeType.isMedia || (showPdfThumbnail && mimeType.isPdf)
-                        || mimeType.isApk
-            path.isDocumentPath -> {
-                when {
-                    attributes.documentSupportsThumbnail -> true
-                    mimeType.isImage || mimeType.isMedia || (showPdfThumbnail && mimeType.isPdf) ->
-                        DocumentResolver.isLocal(path as DocumentResolver.Path)
-                            || Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
-                    else -> false
-                }
-            }
-            else -> mimeType.isImage && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
+    get() {
+        if (path.isDocumentPath && attributes.documentSupportsThumbnail) {
+            return true
         }
-
-private val showPdfThumbnail: Boolean
-    get() =
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
-                || Settings.SHOW_PDF_THUMBNAIL_PRE_28.valueCompat
+        val isLocalPath = path.isLinuxPath
+            || (path.isDocumentPath && DocumentResolver.isLocal(path as DocumentResolver.Path))
+        val shouldReadRemotePath = !path.isFtpPath
+            && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
+        if (!(isLocalPath || shouldReadRemotePath)) {
+            return false
+        }
+        return when {
+            mimeType.isApk && path.isLinuxPath -> true
+            mimeType.isImage -> true
+            mimeType.isMedia && (path.isLinuxPath || path.isDocumentPath) -> true
+            mimeType.isPdf && (path.isLinuxPath || path.isDocumentPath) ->
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
+                    || Settings.SHOW_PDF_THUMBNAIL_PRE_28.valueCompat
+            else -> false
+        }
+    }
 
 fun FileItem.createDummyArchiveRoot(): FileItem =
     FileItem(
