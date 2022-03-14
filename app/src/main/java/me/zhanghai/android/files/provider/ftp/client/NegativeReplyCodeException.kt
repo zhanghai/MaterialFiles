@@ -22,6 +22,9 @@ class NegativeReplyCodeException(
         }.apply { initCause(this@NegativeReplyCodeException) }
 }
 
+internal fun FTPClient.createNegativeReplyCodeException() =
+    NegativeReplyCodeException(replyCode, replyString)
+
 internal fun FTPClient.throwNegativeReplyCodeException(): Nothing {
-    throw NegativeReplyCodeException(replyCode, replyString)
+    throw createNegativeReplyCodeException()
 }

@@ -299,7 +299,10 @@ object Client {
             try {
                 super.close()
                 if (!client.completePendingCommand()) {
-                    client.throwNegativeReplyCodeException()
+                    // We may close the input stream before the file is fully read (may happen when
+                    // decoding images) and it will result in an error reported here, but that's
+                    // totally fine.
+                    client.createNegativeReplyCodeException().printStackTrace()
                 }
             } finally {
                 releaseClient(authority, client)
