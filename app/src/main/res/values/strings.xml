@@ -505,6 +505,7 @@
     <string name="storage_edit_ftp_server_title_add">Add FTP server</string>
     <string name="storage_edit_ftp_server_host">Hostname</string>
     <string name="storage_edit_ftp_server_host_error_empty">Enter a hostname</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Invalid hostname</string>
     <string name="storage_edit_ftp_server_port">Port</string>
     <string name="storage_edit_ftp_server_port_placeholder" translatable="false">21</string>
     <string name="storage_edit_ftp_server_port_error_invalid">Invalid port</string>
@@ -538,6 +539,7 @@
     <string name="storage_edit_sftp_server_title_add">Add SFTP server</string>
     <string name="storage_edit_sftp_server_host">Hostname</string>
     <string name="storage_edit_sftp_server_host_error_empty">Enter a hostname</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Invalid hostname</string>
     <string name="storage_edit_sftp_server_port">Port</string>
     <string name="storage_edit_sftp_server_port_placeholder" translatable="false">22</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Invalid port</string>
@@ -566,6 +568,7 @@
     <string name="storage_edit_smb_server_title_add">Add SMB server</string>
     <string name="storage_edit_smb_server_host">Hostname</string>
     <string name="storage_edit_smb_server_host_error_empty">Enter a hostname</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Invalid hostname</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_placeholder" translatable="false">445</string>
     <string name="storage_edit_smb_server_port_error_invalid">Invalid port</string>

@@ -391,6 +391,7 @@
     <string name="storage_edit_ftp_server_title_add">新增 FTP 伺服器</string>
     <string name="storage_edit_ftp_server_host">主機名稱</string>
     <string name="storage_edit_ftp_server_host_error_empty">輸入主機名稱</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">無效的主機名稱</string>
     <string name="storage_edit_ftp_server_port">連接埠</string>
     <string name="storage_edit_ftp_server_port_error_invalid">無效的連接埠</string>
     <string name="storage_edit_ftp_server_path">路徑</string>
@@ -418,6 +419,7 @@
     <string name="storage_edit_sftp_server_title_add">新增 SFTP 伺服器</string>
     <string name="storage_edit_sftp_server_host">主機名稱</string>
     <string name="storage_edit_sftp_server_host_error_empty">輸入主機名稱</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">無效的主機名稱</string>
     <string name="storage_edit_sftp_server_port">連接埠</string>
     <string name="storage_edit_sftp_server_port_error_invalid">無效的連接埠</string>
     <string name="storage_edit_sftp_server_path">路徑</string>
@@ -444,6 +446,7 @@
     <string name="storage_edit_smb_server_title_add">新增 SMB 伺服器</string>
     <string name="storage_edit_smb_server_host">主機名稱</string>
     <string name="storage_edit_smb_server_host_error_empty">輸入主機名稱</string>
+    <string name="storage_edit_smb_server_host_error_invalid">無效的主機名稱</string>
     <string name="storage_edit_smb_server_port">連接埠</string>
     <string name="storage_edit_smb_server_port_error_invalid">無效的連接埠</string>
     <string name="storage_edit_smb_server_path">路徑</string>

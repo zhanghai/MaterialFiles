@@ -39,6 +39,7 @@ import me.zhanghai.android.files.util.launchSafe
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
+import java.net.URI
 
 class EditSftpServerFragment : Fragment() {
     private val pickPrivateKeyFileLauncher = registerForActivityResult(
@@ -274,6 +275,12 @@ class EditSftpServerFragment : Fragment() {
         if (host == null) {
             binding.hostLayout.error =
                 getString(R.string.storage_edit_sftp_server_host_error_empty)
+            if (errorEdit == null) {
+                errorEdit = binding.hostEdit
+            }
+        } else if (!URI::class.isValidHost(host)) {
+            binding.hostLayout.error =
+                getString(R.string.storage_edit_ftp_server_host_error_invalid)
             if (errorEdit == null) {
                 errorEdit = binding.hostEdit
             }

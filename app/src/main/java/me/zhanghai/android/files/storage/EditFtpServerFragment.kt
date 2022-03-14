@@ -37,7 +37,7 @@ import me.zhanghai.android.files.util.setResult
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
-import java.nio.charset.Charset
+import java.net.URI
 
 class EditFtpServerFragment : Fragment() {
     private val args by args<Args>()
@@ -313,6 +313,12 @@ class EditFtpServerFragment : Fragment() {
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
         if (host == null) {
             binding.hostLayout.error = getString(R.string.storage_edit_ftp_server_host_error_empty)
+            if (errorEdit == null) {
+                errorEdit = binding.hostEdit
+            }
+        } else if (!URI::class.isValidHost(host)) {
+            binding.hostLayout.error =
+                getString(R.string.storage_edit_ftp_server_host_error_invalid)
             if (errorEdit == null) {
                 errorEdit = binding.hostEdit
             }

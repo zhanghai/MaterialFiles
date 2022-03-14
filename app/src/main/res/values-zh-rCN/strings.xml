@@ -391,6 +391,7 @@
     <string name="storage_edit_ftp_server_title_add">添加 FTP 服务器</string>
     <string name="storage_edit_ftp_server_host">主机名</string>
     <string name="storage_edit_ftp_server_host_error_empty">输入主机名</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">无效主机名</string>
     <string name="storage_edit_ftp_server_port">端口</string>
     <string name="storage_edit_ftp_server_port_error_invalid">无效端口</string>
     <string name="storage_edit_ftp_server_path">路径</string>
@@ -418,6 +419,7 @@
     <string name="storage_edit_sftp_server_title_add">添加 SFTP 服务器</string>
     <string name="storage_edit_sftp_server_host">主机名</string>
     <string name="storage_edit_sftp_server_host_error_empty">输入主机名</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">无效主机名</string>
     <string name="storage_edit_sftp_server_port">端口</string>
     <string name="storage_edit_sftp_server_port_error_invalid">无效端口</string>
     <string name="storage_edit_sftp_server_path">路径</string>
@@ -444,6 +446,7 @@
     <string name="storage_edit_smb_server_title_add">添加 SMB 服务器</string>
     <string name="storage_edit_smb_server_host">主机名</string>
     <string name="storage_edit_smb_server_host_error_empty">输入主机名</string>
+    <string name="storage_edit_smb_server_host_error_invalid">无效主机名</string>
     <string name="storage_edit_smb_server_port">端口</string>
     <string name="storage_edit_smb_server_port_error_invalid">无效端口</string>
     <string name="storage_edit_smb_server_path">路径</string>
