@@ -15,8 +15,7 @@ fun KClass<URI>.create(
     scheme: String,
     authority: UriAuthority?,
     path: ByteString,
-    query: ByteString?,
-    fragment: ByteString?
+    query: ByteString?
 ): URI {
     val builder = StringBuilder()
     builder.append(scheme).append(':')
@@ -26,9 +25,6 @@ fun KClass<URI>.create(
     builder.append(encodePath(path))
     if (query != null) {
         builder.append('?').append(encodeQuery(query))
-    }
-    if (fragment != null) {
-        builder.append('#').append(encodeFragment(fragment))
     }
     val uriString = builder.toString()
     return URI.create(uriString)
@@ -46,8 +42,6 @@ private const val CHARSET_QUERY = "$CHARSET_PCHAR/?"
 private fun encodePath(decoded: ByteString): String = encode(decoded, CHARSET_PATH)
 
 private fun encodeQuery(decoded: ByteString): String = encode(decoded, CHARSET_QUERY)
-
-private fun encodeFragment(decoded: ByteString): String = encodeQuery(decoded)
 
 private fun encode(decoded: ByteString, charset: String): String {
     val builder = StringBuilder()
@@ -78,9 +72,6 @@ val URI.decodedPathByteString: ByteString?
 
 val URI.decodedQueryByteString: ByteString?
     get() = rawQuery?.let { decode(it) }
-
-val URI.decodedFragmentByteString: ByteString?
-    get() = rawFragment?.let { decode(it) }
 
 private fun decode(encoded: String): ByteString {
     val builder = ByteStringBuilder()

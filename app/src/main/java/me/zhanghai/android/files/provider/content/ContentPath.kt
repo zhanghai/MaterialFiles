@@ -17,6 +17,7 @@ import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
+import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
@@ -58,12 +59,22 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
             ContentPath(fileSystem, segments)
         }
 
+    override val uriScheme: String
+        get() {
+            throw AssertionError()
+        }
+
+    override val uriAuthority: UriAuthority?
+        get() {
+            throw AssertionError()
+        }
+
     override val uriPath: ByteString
         get() {
             throw AssertionError()
         }
 
-    override val uriFragment: ByteString?
+    override val uriQuery: ByteString?
         get() {
             throw AssertionError()
         }
