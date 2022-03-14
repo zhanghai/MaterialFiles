@@ -12,6 +12,7 @@ import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPClientConfig
 import org.apache.commons.net.ftp.FTPFile
 import org.apache.commons.net.ftp.FTPReply
+import org.apache.commons.net.ftp.FTPSClient
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.chrono.IsoChronology
 import org.threeten.bp.format.DateTimeFormatter
@@ -82,6 +83,11 @@ object Client {
                 }
                 // This has to be called after connect() despite being entirely local.
                 enterLocalPassiveMode()
+                if (this is FTPSClient) {
+                    // @see https://datatracker.ietf.org/doc/html/rfc4217#section-9
+                    execPBSZ(0)
+                    execPROT("P")
+                }
                 if (!setFileType(FTPClient.BINARY_FILE_TYPE)) {
                     throwNegativeReplyCodeException()
                 }
