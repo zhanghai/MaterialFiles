@@ -193,10 +193,7 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
         return createPath(false, relativeSegments)
     }
 
-    override fun toUri(): URI =
-        URI::class.create(
-            fileSystem.provider().scheme, uriAuthority, uriPath, uriFragment
-        )
+    override fun toUri(): URI = URI::class.create(uriScheme, uriAuthority, uriPath, uriFragment)
 
     override fun toAbsolutePath(): T {
         if (isAbsolute) {
@@ -280,6 +277,9 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
     protected abstract fun createPath(absolute: Boolean, segments: List<ByteString>): T
 
     private fun createEmptyPath(): T = createPath(false, listOf(ByteString.EMPTY))
+
+    protected open val uriScheme: String
+        get() = fileSystem.provider().scheme
 
     protected open val uriAuthority: UriAuthority?
         get() = null

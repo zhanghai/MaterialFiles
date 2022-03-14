@@ -50,6 +50,9 @@ internal class FtpPath : ByteStringListPath<FtpPath>, Client.Path {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): FtpPath =
         FtpPath(fileSystem, absolute, segments)
 
+    override val uriScheme: String
+        get() = fileSystem.authority.protocol.scheme
+
     override val uriAuthority: UriAuthority?
         get() = fileSystem.authority.toUriAuthority()
 
