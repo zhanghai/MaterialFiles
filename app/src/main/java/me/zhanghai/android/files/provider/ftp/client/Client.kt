@@ -221,7 +221,8 @@ object Client {
     @Throws(IOException::class)
     fun listDirectory(path: Path): List<Path> {
         useClient(path.authority) { client ->
-            val files = client.mlistDir(path.remotePath) ?: client.throwNegativeReplyCodeException()
+            val files = client.mlistDirCompat(path.remotePath)
+                ?: client.throwNegativeReplyCodeException()
             return files.map { file ->
                 path.resolve(file.name).also { directoryFilesCache[it] = file }
             }
@@ -258,7 +259,8 @@ object Client {
             }
         }
         useClient(path.authority) { client ->
-            return client.mlistFile(path.remotePath) ?: client.throwNegativeReplyCodeException()
+            return client.mlistFileCompat(path.remotePath)
+                ?: client.throwNegativeReplyCodeException()
         }
     }
 
