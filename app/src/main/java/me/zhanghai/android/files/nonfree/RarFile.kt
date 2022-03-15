@@ -3,10 +3,11 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.archive.archiver
+package me.zhanghai.android.files.nonfree
 
 import com.github.junrar.Archive
 import com.github.junrar.exception.RarException
+import me.zhanghai.android.files.provider.archive.archiver.ArchiveException
 import org.apache.commons.compress.archivers.zip.ZipEncodingHelper
 import org.apache.commons.compress.utils.IOUtils
 import java.io.Closeable
@@ -17,7 +18,7 @@ import java.io.PipedInputStream
 import java.io.PipedOutputStream
 import kotlin.math.max
 
-internal class RarFile(file: File, encoding: String?) : Closeable {
+class RarFile(file: File, encoding: String?) : Closeable {
     private var archive =
         try {
             Archive(file)
