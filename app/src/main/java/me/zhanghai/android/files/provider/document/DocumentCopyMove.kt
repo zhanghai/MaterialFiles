@@ -12,6 +12,7 @@ import me.zhanghai.android.files.provider.common.CopyOptions
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
 import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import java.io.IOException
+import java.io.InterruptedIOException
 
 internal object DocumentCopyMove {
     @Throws(IOException::class)
@@ -44,6 +45,7 @@ internal object DocumentCopyMove {
                 source, target, copyOptions.progressIntervalMillis, copyOptions.progressListener
             )
         } catch (e: ResolverException) {
+            (e.cause as? InterruptedIOException)?.let { throw it }
             throw e.toFileSystemException(source.toString(), target.toString())
         }
     }
@@ -76,6 +78,7 @@ internal object DocumentCopyMove {
                 copyOptions.progressListener
             )
         } catch (e: ResolverException) {
+            (e.cause as? InterruptedIOException)?.let { throw it }
             throw e.toFileSystemException(source.toString(), target.toString())
         }
     }

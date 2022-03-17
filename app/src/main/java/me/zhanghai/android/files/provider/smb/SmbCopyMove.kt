@@ -20,6 +20,7 @@ import me.zhanghai.android.files.provider.smb.client.FileInformation
 import me.zhanghai.android.files.util.enumSetOf
 import me.zhanghai.android.files.util.hasBits
 import java.io.IOException
+import java.io.InterruptedIOException
 
 internal object SmbCopyMove {
     @Throws(IOException::class)
@@ -86,6 +87,7 @@ internal object SmbCopyMove {
                     copyOptions.progressIntervalMillis, copyOptions.progressListener
                 )
             } catch (e: ClientException) {
+                (e.cause as? InterruptedIOException)?.let { throw it }
                 e.maybeThrowInvalidFileNameException(target.toString())
                 throw e.toFileSystemException(target.toString())
             }
