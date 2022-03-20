@@ -17,8 +17,10 @@ import kotlinx.coroutines.runInterruptible
 import kotlinx.coroutines.withTimeout
 import me.zhanghai.android.files.provider.common.ForceableChannel
 import me.zhanghai.android.files.provider.common.readFully
+import me.zhanghai.android.files.util.closeSafe
 import org.apache.commons.net.ftp.FTPClient
 import java.io.ByteArrayInputStream
+import java.io.Closeable
 import java.io.IOException
 import java.io.InterruptedIOException
 import java.nio.ByteBuffer
@@ -168,11 +170,12 @@ class FileByteChannel(
                 return
             }
             isOpen = false
+            readBuffer.closeSafe()
             releaseClient(client)
         }
     }
 
-    private inner class ReadBuffer {
+    private inner class ReadBuffer : Closeable {
         private val bufferSize = DEFAULT_BUFFER_SIZE
         private val timeoutMillis = 15_000L
 
@@ -180,6 +183,7 @@ class FileByteChannel(
         private var bufferedPosition = 0L
 
         private var pendingDeferred: Deferred<ByteBuffer>? = null
+        private val pendingDeferredLock = Any()
 
         @Throws(IOException::class)
         fun read(destination: ByteBuffer): Int {
@@ -199,7 +203,9 @@ class FileByteChannel(
 
         @Throws(IOException::class)
         private fun readIntoBuffer() {
-            val deferred = pendingDeferred?.also { pendingDeferred = null } ?: readIntoBufferAsync()
+            val deferred = synchronized(pendingDeferredLock) {
+                pendingDeferred?.also { pendingDeferred = null }
+            } ?: readIntoBufferAsync()
             val newBuffer = try {
                 runBlocking { deferred.await() }
             } catch (e: CancellationException) {
@@ -212,7 +218,9 @@ class FileByteChannel(
                 return
             }
             bufferedPosition += buffer.remaining()
-            pendingDeferred = readIntoBufferAsync()
+            synchronized(pendingDeferredLock) {
+                pendingDeferred = readIntoBufferAsync()
+            }
         }
 
         private fun readIntoBufferAsync(): Deferred<ByteBuffer> =
@@ -244,12 +252,23 @@ class FileByteChannel(
             if (newBufferPosition in 0..buffer.limit()) {
                 buffer.position(newBufferPosition.toInt())
             } else {
+                synchronized(pendingDeferredLock) {
+                    pendingDeferred?.let {
+                        it.cancel()
+                        pendingDeferred = null
+                    }
+                }
+                buffer.limit(0)
+                bufferedPosition = newPosition
+            }
+        }
+
+        override fun close() {
+            synchronized(pendingDeferredLock) {
                 pendingDeferred?.let {
                     it.cancel()
                     pendingDeferred = null
                 }
-                buffer.limit(0)
-                bufferedPosition = newPosition
             }
         }
     }
