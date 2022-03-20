@@ -55,7 +55,7 @@ internal class FtpPath : ByteStringListPath<FtpPath>, Client.Path {
     override val uriScheme: String
         get() = fileSystem.authority.protocol.scheme
 
-    override val uriAuthority: UriAuthority?
+    override val uriAuthority: UriAuthority
         get() = fileSystem.authority.toUriAuthority()
 
     override val uriQuery: ByteString?

@@ -10,18 +10,18 @@ import kotlin.experimental.and
 import kotlin.experimental.or
 import kotlin.reflect.KClass
 
+// Note: The URI must have an authority, otherwise the Java URI class recognizes the rest of the URI
+// as scheme specific part and refuses to parse our query.
 // @see https://datatracker.ietf.org/doc/html/rfc3986
 fun KClass<URI>.create(
     scheme: String,
-    authority: UriAuthority?,
+    authority: UriAuthority,
     path: ByteString,
     query: ByteString?
 ): URI {
     val builder = StringBuilder()
     builder.append(scheme).append(':')
-    if (authority != null) {
-        builder.append("//").append(authority.encode())
-    }
+    builder.append("//").append(authority.encode())
     builder.append(encodePath(path))
     if (query != null) {
         builder.append('?').append(encodeQuery(query))

@@ -49,7 +49,7 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): SmbPath =
         SmbPath(fileSystem, absolute, segments)
 
-    override val uriAuthority: UriAuthority?
+    override val uriAuthority: UriAuthority
         get() = fileSystem.authority.toUriAuthority()
 
     override val defaultDirectory: SmbPath

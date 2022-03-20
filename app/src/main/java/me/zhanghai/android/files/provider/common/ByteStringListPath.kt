@@ -281,8 +281,8 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
     protected open val uriScheme: String
         get() = fileSystem.provider().scheme
 
-    protected open val uriAuthority: UriAuthority?
-        get() = null
+    protected open val uriAuthority: UriAuthority
+        get() = UriAuthority.EMPTY
 
     protected open val uriPath: ByteString
         get() = toAbsolutePath().toByteString()

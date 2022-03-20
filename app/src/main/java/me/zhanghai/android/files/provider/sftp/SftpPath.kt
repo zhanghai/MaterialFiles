@@ -50,7 +50,7 @@ internal class SftpPath : ByteStringListPath<SftpPath>, Client.Path {
     override fun createPath(absolute: Boolean, segments: List<ByteString>): SftpPath =
         SftpPath(fileSystem, absolute, segments)
 
-    override val uriAuthority: UriAuthority?
+    override val uriAuthority: UriAuthority
         get() = fileSystem.authority.toUriAuthority()
 
     override val defaultDirectory: SftpPath

@@ -64,7 +64,7 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
             throw AssertionError()
         }
 
-    override val uriAuthority: UriAuthority?
+    override val uriAuthority: UriAuthority
         get() {
             throw AssertionError()
         }
