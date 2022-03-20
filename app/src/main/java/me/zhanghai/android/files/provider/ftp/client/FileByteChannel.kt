@@ -3,28 +3,32 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.sftp.client
+package me.zhanghai.android.files.provider.ftp.client
 
 import java8.nio.channels.SeekableByteChannel
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.runInterruptible
+import kotlinx.coroutines.withTimeout
 import me.zhanghai.android.files.provider.common.ForceableChannel
-import me.zhanghai.android.files.util.closeSafe
-import me.zhanghai.android.files.util.findCauseByClass
-import net.schmizz.concurrent.Promise
-import net.schmizz.sshj.sftp.PacketType
-import net.schmizz.sshj.sftp.RemoteFile
-import net.schmizz.sshj.sftp.RemoteFileAccessor
-import net.schmizz.sshj.sftp.Response
-import net.schmizz.sshj.sftp.SFTPException
+import me.zhanghai.android.files.provider.common.readFully
+import org.apache.commons.net.ftp.FTPClient
+import java.io.ByteArrayInputStream
 import java.io.IOException
+import java.io.InterruptedIOException
 import java.nio.ByteBuffer
-import java.nio.channels.AsynchronousCloseException
-import java.nio.channels.ClosedByInterruptException
 import java.nio.channels.ClosedChannelException
 import java.nio.channels.NonReadableChannelException
-import java.util.concurrent.TimeUnit
 
 class FileByteChannel(
-    private val file: RemoteFile,
+    private val client: FTPClient,
+    private val releaseClient: (FTPClient) -> Unit,
+    private val path: String,
     private val isAppend: Boolean
 ) : ForceableChannel, SeekableByteChannel {
     private var position = 0L
@@ -61,18 +65,25 @@ class FileByteChannel(
         if (remaining == 0) {
             return 0
         }
+        // I don't think we are using native or read-only ByteBuffer, so just call array() here.
         synchronized(ioLock) {
             if (isAppend) {
+                ByteArrayInputStream(source.array(), source.position(), remaining).use {
+                    if (!client.appendFile(path, it)) {
+                        client.throwNegativeReplyCodeException()
+                    }
+                }
                 position = getSize()
-            }
-            // I don't think we are using native or read-only ByteBuffer, so just call array() here.
-            try {
-                file.write(position, source.array(), source.position(), remaining)
-            } catch (e: IOException) {
-                throw e.maybeToSpecificException()
+            } else {
+                client.restartOffset = position
+                ByteArrayInputStream(source.array(), source.position(), remaining).use {
+                    if (!client.storeFile(path, it)) {
+                        client.throwNegativeReplyCodeException()
+                    }
+                }
+                position += remaining
             }
             source.position(source.limit())
-            position += remaining
             return remaining
         }
     }
@@ -116,10 +127,11 @@ class FileByteChannel(
             if (size >= currentSize) {
                 return this
             }
-            try {
-                file.setLength(size)
-            } catch (e: IOException) {
-                throw e.maybeToSpecificException()
+            client.restartOffset = size
+            ByteArrayInputStream(byteArrayOf()).use {
+                if (!client.storeFile(path, it)) {
+                    client.throwNegativeReplyCodeException()
+                }
             }
             position = position.coerceAtMost(size)
         }
@@ -127,12 +139,10 @@ class FileByteChannel(
     }
 
     @Throws(IOException::class)
-    private fun getSize(): Long =
-        try{
-            file.length()
-        } catch (e: IOException) {
-            throw e.maybeToSpecificException()
-        }
+    private fun getSize(): Long {
+        val sizeString = client.getSize(path) ?: client.throwNegativeReplyCodeException()
+        return sizeString.toLongOrNull() ?: throw IOException("Invalid size $sizeString")
+    }
 
     @Throws(IOException::class)
     override fun force(metaData: Boolean) {
@@ -149,19 +159,6 @@ class FileByteChannel(
         }
     }
 
-    private fun IOException.maybeToSpecificException(): IOException =
-        when {
-            this is SFTPException && statusCode == Response.StatusCode.INVALID_HANDLE -> {
-                synchronized(closeLock) { isOpen = false }
-                AsynchronousCloseException().apply { initCause(this@maybeToSpecificException) }
-            }
-            findCauseByClass<InterruptedException>() != null -> {
-                closeSafe()
-                ClosedByInterruptException().apply { initCause(this@maybeToSpecificException) }
-            }
-            else -> this
-        }
-
     override fun isOpen(): Boolean = synchronized(closeLock) { isOpen }
 
     @Throws(IOException::class)
@@ -171,36 +168,24 @@ class FileByteChannel(
                 return
             }
             isOpen = false
-            try {
-                file.close()
-            } catch (e: SFTPException) {
-                // NO_SUCH_FILE is returned when canceling an in-progress copy to SFTP server.
-                if (e.statusCode != Response.StatusCode.NO_SUCH_FILE) {
-                    throw e
-                }
-            }
+            releaseClient(client)
         }
     }
 
     private inner class ReadBuffer {
-        private val bufferSize: Int = DEFAULT_BUFFER_SIZE
-        private val timeout: Long
-
-        init {
-            val engine = RemoteFileAccessor.getRequester(file)
-            timeout = engine.timeoutMs.toLong()
-        }
+        private val bufferSize = DEFAULT_BUFFER_SIZE
+        private val timeoutMillis = 15_000L
 
         private val buffer = ByteBuffer.allocate(bufferSize).apply { limit(0) }
         private var bufferedPosition = 0L
 
-        private var pendingPromise: Promise<Response, SFTPException>? = null
-        private val pendingPromiseLock = Any()
+        private var pendingDeferred: Deferred<ByteBuffer>? = null
 
         @Throws(IOException::class)
         fun read(destination: ByteBuffer): Int {
             if (!buffer.hasRemaining()) {
-                if (!readIntoBuffer()) {
+                readIntoBuffer()
+                if (!buffer.hasRemaining()) {
                     return -1
                 }
             }
@@ -213,51 +198,42 @@ class FileByteChannel(
         }
 
         @Throws(IOException::class)
-        private fun readIntoBuffer(): Boolean {
-            val promise = synchronized(pendingPromiseLock) {
-                pendingPromise?.also { pendingPromise = null }
-            } ?: readIntoBufferAsync()
-            val response = try {
-                promise.retrieve(timeout, TimeUnit.MILLISECONDS)
-            } catch (e: IOException) {
-                throw e.maybeToSpecificException()
-            }
-            val dataLength: Int
-            when (response.type) {
-                PacketType.STATUS -> {
-                    response.ensureStatusIs(Response.StatusCode.EOF)
-                    return false
-                }
-                PacketType.DATA -> {
-                    dataLength = response.readUInt32AsInt()
-                }
-                else -> throw SFTPException("Unexpected packet type ${response.type}")
-            }
-            if (dataLength == 0) {
-                return false
+        private fun readIntoBuffer() {
+            val deferred = pendingDeferred?.also { pendingDeferred = null } ?: readIntoBufferAsync()
+            val newBuffer = try {
+                runBlocking { deferred.await() }
+            } catch (e: CancellationException) {
+                throw InterruptedIOException().apply { initCause(e) }
             }
             buffer.clear()
-            val length = dataLength.coerceAtMost(buffer.remaining())
-            buffer.put(response.array(), response.rpos(), length)
+            buffer.put(newBuffer)
             buffer.flip()
-            bufferedPosition += length
-            synchronized(pendingPromiseLock) {
-                pendingPromise = try {
-                    readIntoBufferAsync()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    null
-                }
+            if (!buffer.hasRemaining()) {
+                return
             }
-            return true
+            bufferedPosition += buffer.remaining()
+            pendingDeferred = readIntoBufferAsync()
         }
 
-        @Throws(IOException::class)
-        private fun readIntoBufferAsync(): Promise<Response, SFTPException> =
-            try {
-                RemoteFileAccessor.asyncRead(file, bufferedPosition, bufferSize)
-            } catch (e: IOException) {
-                throw e.maybeToSpecificException()
+        private fun readIntoBufferAsync(): Deferred<ByteBuffer> =
+            @OptIn(DelicateCoroutinesApi::class)
+            GlobalScope.async(Dispatchers.IO) {
+                withTimeout(timeoutMillis) {
+                    runInterruptible {
+                        client.restartOffset = bufferedPosition
+                        val inputStream = client.retrieveFileStream(path)
+                            ?: client.throwNegativeReplyCodeException()
+                        val buffer = ByteBuffer.allocate(bufferSize)
+                        val limit = inputStream.use {
+                            it.readFully(buffer.array(), buffer.position(), buffer.remaining())
+                        }
+                        buffer.limit(limit)
+                        // We may close the input stream before the file is fully read and it will
+                        // result in an error reported here, but that's totally fine.
+                        client.completePendingCommand()
+                        buffer
+                    }
+                }
             }
 
         fun reposition(oldPosition: Long, newPosition: Long) {
@@ -268,8 +244,9 @@ class FileByteChannel(
             if (newBufferPosition in 0..buffer.limit()) {
                 buffer.position(newBufferPosition.toInt())
             } else {
-                synchronized(pendingPromiseLock) {
-                    pendingPromise = null
+                pendingDeferred?.let {
+                    it.cancel()
+                    pendingDeferred = null
                 }
                 buffer.limit(0)
                 bufferedPosition = newPosition
@@ -278,7 +255,6 @@ class FileByteChannel(
     }
 
     companion object {
-        // @see SmbConfig.DEFAULT_BUFFER_SIZE
         private const val DEFAULT_BUFFER_SIZE = 1024 * 1024
     }
 }

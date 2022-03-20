@@ -174,13 +174,13 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         optionsSet += StandardOpenOption.WRITE
         val openOptions = optionsSet.toOpenOptions()
         openOptions.checkForFtp()
+        if (!openOptions.truncateExisting && !openOptions.createNew) {
+            throw UnsupportedOperationException("Missing ${StandardOpenOption.TRUNCATE_EXISTING}")
+        }
         val fileFile = try {
             Client.listFileOrNull(file, true)
         } catch (e: IOException) {
             throw e.toFileSystemExceptionForFtp(file.toString())
-        }
-        if (!openOptions.truncateExisting && !openOptions.createNew) {
-            throw UnsupportedOperationException("Missing ${StandardOpenOption.TRUNCATE_EXISTING}")
         }
         if (openOptions.createNew && fileFile != null) {
             throw FileAlreadyExistsException(file.toString())
@@ -216,11 +216,19 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         vararg attributes: FileAttribute<*>
     ): SeekableByteChannel {
         file as? FtpPath ?: throw ProviderMismatchException(file.toString())
-        options.toOpenOptions().checkForFtp()
+        val openOptions = options.toOpenOptions()
+        openOptions.checkForFtp()
+        if (openOptions.write && !openOptions.truncateExisting) {
+            throw UnsupportedOperationException("Missing ${StandardOpenOption.TRUNCATE_EXISTING}")
+        }
         if (attributes.isNotEmpty()) {
             throw UnsupportedOperationException(attributes.contentToString())
         }
-        throw UnsupportedOperationException()
+        try {
+            return Client.openByteChannel(file, openOptions.append)
+        } catch (e: IOException) {
+            throw e.toFileSystemExceptionForFtp(file.toString())
+        }
     }
 
     @Throws(IOException::class)

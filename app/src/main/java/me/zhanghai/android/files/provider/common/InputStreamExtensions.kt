@@ -40,6 +40,19 @@ fun InputStream.copyTo(
     listener?.invoke(copiedSize)
 }
 
+@Throws(IOException::class)
+fun InputStream.readFully(buffer: ByteArray, offset: Int, length: Int): Int {
+    var totalReadSize = 0
+    while (totalReadSize < length) {
+        val readSize = read(buffer, offset + totalReadSize, length - totalReadSize)
+        if (readSize == -1) {
+            break
+        }
+        totalReadSize += readSize
+    }
+    return totalReadSize
+}
+
 @Throws(InterruptedIOException::class)
 private fun throwIfInterrupted() {
     if (Thread.interrupted()) {

@@ -5,10 +5,12 @@
 
 package me.zhanghai.android.files.provider.ftp.client
 
+import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateOutputStream
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPClientConfig
+import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPFile
 import org.apache.commons.net.ftp.FTPReply
 import org.apache.commons.net.ftp.FTPSClient
@@ -266,6 +268,18 @@ object Client {
             return client.mlistFileCompat(path.remotePath)
                 ?: client.throwNegativeReplyCodeException()
         }
+    }
+
+    @Throws(IOException::class)
+    fun openByteChannel(path: Path, isAppend: Boolean): SeekableByteChannel {
+        val authority = path.authority
+        val client = acquireClient(authority)
+        if (!client.hasFeature(FTPCmd.REST)) {
+            throw IOException("Missing feature ${FTPCmd.REST.command}")
+        }
+        return FileByteChannel(
+            client, { releaseClient(authority, client) }, path.remotePath, isAppend
+        )
     }
 
     @Throws(IOException::class)

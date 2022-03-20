@@ -179,6 +179,7 @@ class FileByteChannel(
             if (!isOpen) {
                 return
             }
+            isOpen = false
             readBuffer.closeSafe()
             try {
                 file.close()
