@@ -569,7 +569,6 @@
     <string name="settings_interface_title">ממשק</string>
     <string name="settings_theme_color_title">צבע ערכת נושא</string>
     <string name="settings_theme_color_summary">צבע המופיע בתדירות הגבוהה ביותר ביישום</string>
-    <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">מצב לילה</string>
     <string-array name="settings_night_mode_entries">
         <item>כמו במערכת</item>

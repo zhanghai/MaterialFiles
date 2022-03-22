@@ -567,7 +567,6 @@
     <string name="settings_interface_title">Rozhraní</string>
     <string name="settings_theme_color_title">Barva motivu</string>
     <string name="settings_theme_color_summary">Barva, která se v aplikaci vyskytuje nejvíce</string>
-    <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Noční režim</string>
     <string-array name="settings_night_mode_entries">
         <item>Podle systému</item>
