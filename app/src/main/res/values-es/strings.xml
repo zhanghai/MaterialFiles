@@ -542,7 +542,6 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Sólo acceso normal</item>
-        <item>Automatic</item>
         <item>Sólo acceso administrativo</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Codificación del nombre de archivo</string>
@@ -566,4 +565,5 @@
     <string name="about_author_github_title">Seguir en GitHub</string>
     <string name="about_author_google_plus_title">Agregar a círculos de Google+</string>
     <string name="about_author_twitter_title">Seguir en Twitter</string>
-</resources>
+
+    </resources>

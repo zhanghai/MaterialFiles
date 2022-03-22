@@ -602,7 +602,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Только нормальный доступ</item>
-        <item>Automatic</item>
+        <item>Автоматически</item>
         <item>Только root-доступ</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Кодировка имени файла архива</string>

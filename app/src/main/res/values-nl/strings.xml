@@ -544,7 +544,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Alleen reguliere toegang</item>
-        <item>Automatic</item>
+        <item>Automatisch</item>
         <item>Alleen roottoegang</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Tekenreeks van archiefbestandsnaam</string>

@@ -544,7 +544,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Nur normaler Zugriff</item>
-        <item>Automatic</item>
+        <item>Automatisch</item>
         <item>Nur Root-Zugriff</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Zeichenkodierung des Dateinamens im Archiv</string>
