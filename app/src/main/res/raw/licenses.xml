@@ -43,6 +43,13 @@
     </notice>
 
     <notice>
+        <name>libsu</name>
+        <url>https://github.com/topjohnwu/libsu</url>
+        <copyright>Copyright 2021 John "topjohnwu" Wu</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>Material Shadow 9-Patch</name>
         <url>https://github.com/h6ah4i/android-materialshadowninepatch</url>
         <copyright>Copyright 2015 Haruki Hasegawa</copyright>
@@ -85,9 +92,9 @@
     </notice>
 
     <notice>
-        <name>libsu</name>
-        <url>https://github.com/topjohnwu/libsu</url>
-        <copyright>Copyright 2021 John "topjohnwu" Wu</copyright>
+        <name>Apache Commons Net</name>
+        <url>https://commons.apache.org/proper/commons-net/</url>
+        <copyright>Copyright 2003 The Apache Software Foundation</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 

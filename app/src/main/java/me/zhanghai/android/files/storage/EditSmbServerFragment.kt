@@ -36,6 +36,7 @@ import me.zhanghai.android.files.util.setResult
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.viewModels
+import java.net.URI
 
 class EditSmbServerFragment : Fragment() {
     private val args by args<Args>()
@@ -206,9 +207,8 @@ class EditSmbServerFragment : Fragment() {
         }
 
     private fun onAuthenticationTypeChanged(authenticationType: AuthenticationType) {
-        val isPasswordAuthentication = authenticationType == AuthenticationType.PASSWORD
-        binding.authenticationTypeLayout.isErrorEnabled = isPasswordAuthentication
-        binding.passwordAuthenticationLayout.isVisible = isPasswordAuthentication
+        binding.passwordAuthenticationLayout.isVisible =
+            authenticationType == AuthenticationType.PASSWORD
     }
 
     private fun saveOrAdd() {
@@ -259,8 +259,13 @@ class EditSmbServerFragment : Fragment() {
         var errorEdit: TextInputEditText? = null
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
         if (host == null) {
+            binding.hostLayout.error = getString(R.string.storage_edit_smb_server_host_error_empty)
+            if (errorEdit == null) {
+                errorEdit = binding.hostEdit
+            }
+        } else if (!URI::class.isValidHost(host)) {
             binding.hostLayout.error =
-                getString(R.string.storage_edit_smb_server_host_error_empty)
+                getString(R.string.storage_edit_ftp_server_host_error_invalid)
             if (errorEdit == null) {
                 errorEdit = binding.hostEdit
             }
@@ -268,7 +273,8 @@ class EditSmbServerFragment : Fragment() {
         val port = binding.portEdit.text.toString().takeIfNotEmpty()
             .let { if (it != null) it.toIntOrNull() else Authority.DEFAULT_PORT }
         if (port == null) {
-            binding.portLayout.error = getString(R.string.storage_edit_smb_server_port_error_invalid)
+            binding.portLayout.error =
+                getString(R.string.storage_edit_smb_server_port_error_invalid)
             if (errorEdit == null) {
                 errorEdit = binding.portEdit
             }

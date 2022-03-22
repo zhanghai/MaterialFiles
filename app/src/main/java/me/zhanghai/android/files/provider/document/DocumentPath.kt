@@ -52,7 +52,7 @@ internal class DocumentPath : ByteStringListPath<DocumentPath>, DocumentResolver
     override val uriPath: ByteString
         get() = fileSystem.treeUri.toString().toByteString()
 
-    override val uriFragment: ByteString?
+    override val uriQuery: ByteString?
         get() = super.uriPath
 
     override val defaultDirectory: DocumentPath

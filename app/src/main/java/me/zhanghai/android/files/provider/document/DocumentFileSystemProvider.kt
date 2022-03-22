@@ -36,8 +36,8 @@ import me.zhanghai.android.files.provider.common.PathObservable
 import me.zhanghai.android.files.provider.common.PathObservableProvider
 import me.zhanghai.android.files.provider.common.Searchable
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable
-import me.zhanghai.android.files.provider.common.decodedFragmentByteString
 import me.zhanghai.android.files.provider.common.decodedPathByteString
+import me.zhanghai.android.files.provider.common.decodedQueryByteString
 import me.zhanghai.android.files.provider.common.open
 import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toByteString
@@ -97,9 +97,9 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
     override fun getPath(uri: URI): Path {
         uri.requireSameScheme()
         val treeUri = uri.treeUri
-        val fragment = uri.decodedFragmentByteString
-            ?: throw IllegalArgumentException("URI must have a fragment")
-        return getOrNewFileSystem(treeUri).getPath(fragment)
+        val path = uri.decodedQueryByteString
+            ?: throw IllegalArgumentException("URI must have a query")
+        return getOrNewFileSystem(treeUri).getPath(path)
     }
 
     private fun URI.requireSameScheme() {

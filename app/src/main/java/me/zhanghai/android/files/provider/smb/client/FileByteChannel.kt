@@ -179,6 +179,7 @@ class FileByteChannel(
             if (!isOpen) {
                 return
             }
+            isOpen = false
             readBuffer.closeSafe()
             try {
                 file.close()
@@ -213,7 +214,8 @@ class FileByteChannel(
         @Throws(IOException::class)
         fun read(destination: ByteBuffer): Int {
             if (!buffer.hasRemaining()) {
-                if (!readIntoBuffer()) {
+                readIntoBuffer()
+                if (!buffer.hasRemaining()) {
                     return -1
                 }
             }
@@ -226,7 +228,7 @@ class FileByteChannel(
         }
 
         @Throws(IOException::class)
-        private fun readIntoBuffer(): Boolean {
+        private fun readIntoBuffer() {
             val future = synchronized(pendingFutureLock) {
                 pendingFuture?.also { pendingFuture = null }
             } ?: readIntoBufferAsync()
@@ -236,14 +238,18 @@ class FileByteChannel(
                 throw e.toIOException()
             }
             when (response.header.statusCode) {
-                NtStatus.STATUS_END_OF_FILE.value -> return false
+                NtStatus.STATUS_END_OF_FILE.value -> {
+                    buffer.limit(0)
+                    return
+                }
                 NtStatus.STATUS_SUCCESS.value -> {}
                 else -> throw SMBApiException(response.header, "Read failed for $this")
                     .toIOException()
             }
             val data = response.data
             if (data.isEmpty()) {
-                return false
+                buffer.limit(0)
+                return
             }
             buffer.clear()
             val length = data.size.coerceAtMost(buffer.remaining())
@@ -251,14 +257,12 @@ class FileByteChannel(
             buffer.flip()
             bufferedPosition += length
             synchronized(pendingFutureLock) {
-                pendingFuture = try {
-                    readIntoBufferAsync()
+                try {
+                    pendingFuture = readIntoBufferAsync()
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    null
                 }
             }
-            return true
         }
 
         // @see com.hierynomus.smbj.share.Share.receive

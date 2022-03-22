@@ -3,14 +3,14 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.archive.archiver
+package me.zhanghai.android.files.nonfree
 
 import com.github.junrar.rarfile.FileHeader
 import org.apache.commons.compress.archivers.ArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipEncoding
 import java.util.Date
 
-internal class RarArchiveEntry(val header: FileHeader, zipEncoding: ZipEncoding) : ArchiveEntry {
+class RarArchiveEntry(val header: FileHeader, zipEncoding: ZipEncoding) : ArchiveEntry {
     private val name: String
 
     init {

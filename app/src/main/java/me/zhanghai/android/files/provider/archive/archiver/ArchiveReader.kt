@@ -14,6 +14,11 @@ import java8.nio.file.NotLinkException
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.use
+//#ifdef NONFREE
+import me.zhanghai.android.files.nonfree.RarArchiveEntry
+import me.zhanghai.android.files.nonfree.RarFile
+//#endif
+import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.checkAccess
@@ -132,7 +137,9 @@ object ArchiveReader {
                     }
                     return SevenZFile(javaFile).use { it.entries.toList() }
                 }
+//#ifdef NONFREE
                 RarFile.RAR -> return RarFile(javaFile, encoding).use { it.entries.toList() }
+//#endif
                 // Unnecessary, but teaches lint that compressorType != null below might be false.
                 else -> {}
             }
@@ -263,6 +270,7 @@ object ArchiveReader {
                         }
                     }
                 }
+//#ifdef NONFREE
                 is RarArchiveEntry -> {
                     var successful = false
                     var rarFile: RarFile? = null
@@ -285,6 +293,7 @@ object ArchiveReader {
                         }
                     }
                 }
+//#endif
                 // Unnecessary, but teaches lint that compressorType != null below might be false.
                 else -> {}
             }
@@ -333,11 +342,14 @@ object ArchiveReader {
 
     @Throws(ApacheArchiveException::class)
     private fun detectArchiveType(inputStream: InputStream): String =
+//#ifdef NONFREE
         try {
             RarFile.detect(inputStream)
         } catch (e: IOException) {
             throw ApacheArchiveException("RarFile.detect()", e)
-        } ?: ArchiveStreamFactory.detect(inputStream)
+        } ?:
+//#endif
+        ArchiveStreamFactory.detect(inputStream)
 
     @Throws(IOException::class)
     fun readSymbolicLink(file: Path, entry: ArchiveEntry): String {
@@ -384,24 +396,13 @@ object ArchiveReader {
     }
 
     private class CloseableInputStream(
-        private val inputStream: InputStream,
+        inputStream: InputStream,
         private val closeable: Closeable
-    ) : InputStream() {
-        @Throws(IOException::class)
-        override fun available(): Int = inputStream.available()
-
-        @Throws(IOException::class)
-        override fun read(): Int = inputStream.read()
-
-        @Throws(IOException::class)
-        override fun read(b: ByteArray): Int = inputStream.read(b)
-
-        @Throws(IOException::class)
-        override fun read(b: ByteArray, off: Int, len: Int): Int = inputStream.read(b, off, len)
-
+    ) : DelegateInputStream(inputStream) {
         @Throws(IOException::class)
         override fun close() {
-            inputStream.close()
+            super.close()
+
             closeable.close()
         }
     }

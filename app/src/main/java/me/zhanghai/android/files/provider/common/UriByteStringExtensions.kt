@@ -10,21 +10,21 @@ import kotlin.experimental.and
 import kotlin.experimental.or
 import kotlin.reflect.KClass
 
+// Note: The URI must have an authority, otherwise the Java URI class recognizes the rest of the URI
+// as scheme specific part and refuses to parse our query.
 // @see https://datatracker.ietf.org/doc/html/rfc3986
 fun KClass<URI>.create(
     scheme: String,
-    authority: UriAuthority?,
+    authority: UriAuthority,
     path: ByteString,
-    fragment: ByteString?
+    query: ByteString?
 ): URI {
     val builder = StringBuilder()
     builder.append(scheme).append(':')
-    if (authority != null) {
-        builder.append("//").append(authority.encode())
-    }
+    builder.append("//").append(authority.encode())
     builder.append(encodePath(path))
-    if (fragment != null) {
-        builder.append('#').append(encodeFragment(fragment))
+    if (query != null) {
+        builder.append('?').append(encodeQuery(query))
     }
     val uriString = builder.toString()
     return URI.create(uriString)
@@ -37,11 +37,11 @@ private const val CHARSET_UNRESERVED = "$CHARSET_ALPHA$CHARSET_DIGIT-._~"
 private const val CHARSET_SUB_DELIMS = "!$&'()*+,;="
 private const val CHARSET_PCHAR = "$CHARSET_UNRESERVED$CHARSET_SUB_DELIMS:@"
 private const val CHARSET_PATH = "$CHARSET_PCHAR/"
-private const val CHARSET_FRAGMENT = "$CHARSET_PCHAR/?"
+private const val CHARSET_QUERY = "$CHARSET_PCHAR/?"
 
 private fun encodePath(decoded: ByteString): String = encode(decoded, CHARSET_PATH)
 
-private fun encodeFragment(decoded: ByteString): String = encode(decoded, CHARSET_FRAGMENT)
+private fun encodeQuery(decoded: ByteString): String = encode(decoded, CHARSET_QUERY)
 
 private fun encode(decoded: ByteString, charset: String): String {
     val builder = StringBuilder()
@@ -70,8 +70,8 @@ val URI.decodedPathByteString: ByteString?
     // URI.getRawPath() returns null when there's no authority and the path isn't absolute.
     get() = (rawPath ?: rawSchemeSpecificPart)?.let { decode(it) }
 
-val URI.decodedFragmentByteString: ByteString?
-    get() = rawFragment?.let { decode(it) }
+val URI.decodedQueryByteString: ByteString?
+    get() = rawQuery?.let { decode(it) }
 
 private fun decode(encoded: String): ByteString {
     val builder = ByteStringBuilder()

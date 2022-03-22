@@ -592,7 +592,11 @@ object DocumentResolver {
                     }
                     registerContentObserver(observer)
                     continuation.invokeOnCancellation {
-                        unregisterContentObserver(observer)
+                        try {
+                            unregisterContentObserver(observer)
+                        // This may be invoked when continuation is resumed but still cancelled
+                        // while waiting to be dispatched.
+                        } catch (ignored: IllegalStateException) {}
                     }
                 }
             }
