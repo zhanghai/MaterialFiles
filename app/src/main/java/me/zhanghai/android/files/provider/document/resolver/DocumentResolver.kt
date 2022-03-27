@@ -28,15 +28,12 @@ import me.zhanghai.android.files.provider.content.resolver.getString
 import me.zhanghai.android.files.provider.content.resolver.moveToFirstOrThrow
 import me.zhanghai.android.files.provider.content.resolver.requireString
 import me.zhanghai.android.files.util.AbstractLocalCursor
-import me.zhanghai.android.files.util.closeSafe
 import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 import java.util.Collections
 import java.util.WeakHashMap
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 import kotlin.coroutines.resume
 
 object DocumentResolver {
@@ -394,24 +391,30 @@ object DocumentResolver {
         val childrenUri = DocumentsContract.buildChildDocumentsUriUsingTree(
             parentPath.treeUri, parentDocumentId
         )
-        // A null projection means all supported columns should be included according to
-        // [DocumentsProvider.queryChildDocuments]. This is fine for functionality and
-        // performance as DocumentsProviderHelper in DocumentsUI is doing the same thing.
-        query(childrenUri, null, null).use { cursor ->
-            val childrenPaths = mutableListOf<Path>()
-            while (cursor.moveToNext()) {
-                val childDocumentId = cursor.requireString(
-                    DocumentsContract.Document.COLUMN_DOCUMENT_ID
-                )
-                val childDisplayName = cursor.requireString(
-                    DocumentsContract.Document.COLUMN_DISPLAY_NAME
-                )
-                val childPath = parentPath.resolve(childDisplayName)
-                pathDocumentIdCache[childPath] = childDocumentId
-                directoryCursorCache[childPath] = cursor.toRowCursor()
-                childrenPaths += childPath
+        while (true) {
+            // A null projection means all supported columns should be included according to
+            // [DocumentsProvider.queryChildDocuments]. This is fine for functionality and
+            // performance as DocumentsProviderHelper in DocumentsUI is doing the same thing.
+            query(childrenUri, null, null).use { cursor ->
+                if (cursor.extras.getBoolean(DocumentsContract.EXTRA_LOADING)) {
+                    cursor.waitUntilChanged()
+                    return@use
+                }
+                val childrenPaths = mutableListOf<Path>()
+                while (cursor.moveToNext()) {
+                    val childDocumentId = cursor.requireString(
+                        DocumentsContract.Document.COLUMN_DOCUMENT_ID
+                    )
+                    val childDisplayName = cursor.requireString(
+                        DocumentsContract.Document.COLUMN_DISPLAY_NAME
+                    )
+                    val childPath = parentPath.resolve(childDisplayName)
+                    pathDocumentIdCache[childPath] = childDocumentId
+                    directoryCursorCache[childPath] = cursor.toRowCursor()
+                    childrenPaths += childPath
+                }
+                return childrenPaths
             }
-            return childrenPaths
         }
     }
 
@@ -560,55 +563,9 @@ object DocumentResolver {
     @Throws(ResolverException::class)
     fun query(uri: Uri, projection: Array<out String?>?, sortOrder: String?): Cursor {
         // DocumentsProvider doesn't support selection and selectionArgs.
-        var cursor = queryUntilNotLoading { Resolver.query(uri, projection, null, null, sortOrder) }
+        var cursor = Resolver.query(uri, projection, null, null, sortOrder)
         cursor = ExternalStorageProviderHacks.transformQueryResult(uri, cursor)
         return cursor
-    }
-
-    @Throws(ResolverException::class)
-    private fun queryUntilNotLoading(query: () -> Cursor): Cursor {
-        while (true) {
-            val cursor = query()
-            if (!cursor.extras.getBoolean(DocumentsContract.EXTRA_LOADING)) {
-                return cursor
-            }
-            cursor.use {
-                val latch = CountDownLatch(1)
-                val observer = object : ContentObserver(null) {
-                    override fun onChange(selfChange: Boolean) {
-                        latch.countDown()
-                    }
-                }
-                cursor.registerContentObserver(observer)
-                try {
-                    // By the time we registered the observer, the change notification may have
-                    // already be sent by the provider so that we have missed it. So the fundamental
-                    // design of this EXTRA_LOADING mechanism is flawed.
-                    // As a result, we have to query again after observer registration to make sure
-                    // it's not that case. However if we query again immediately after the observer
-                    // registration, we might trigger another unnecessary network request in the
-                    // provider if it's not properly de-duplicated, which is likely the case. So we
-                    // wait 1 second before doing that.
-                    if (latch.await(1, TimeUnit.SECONDS)) {
-                        // The observer has been notified, return@use to query again.
-                        return@use
-                    }
-                    val newCursor = query()
-                    if (!newCursor.extras.getBoolean(DocumentsContract.EXTRA_LOADING)) {
-                        // We weren't notified but a new query showed that the data is no longer
-                        // loading, so we can just return the new result.
-                        return newCursor
-                    }
-                    newCursor.closeSafe()
-                    // Keep waiting for the change notification.
-                    latch.await()
-                } catch (e: InterruptedException) {
-                    throw ResolverException(e)
-                } finally {
-                    cursor.unregisterContentObserver(observer)
-                }
-            }
-        }
     }
 
     @Throws(ResolverException::class)
@@ -620,6 +577,32 @@ object DocumentResolver {
         val displayName: String?
         val parent: Path?
         fun resolve(other: String): Path
+    }
+
+    @Throws(ResolverException::class)
+    private fun Cursor.waitUntilChanged() {
+        try {
+            runBlocking {
+                suspendCancellableCoroutine<Unit> { continuation ->
+                    val observer = object : ContentObserver(null) {
+                        override fun onChange(selfChange: Boolean) {
+                            unregisterContentObserver(this)
+                            continuation.resume(Unit)
+                        }
+                    }
+                    registerContentObserver(observer)
+                    continuation.invokeOnCancellation {
+                        try {
+                            unregisterContentObserver(observer)
+                        // This may be invoked when continuation is resumed but still cancelled
+                        // while waiting to be dispatched.
+                        } catch (ignored: IllegalStateException) {}
+                    }
+                }
+            }
+        } catch (e: InterruptedException) {
+            throw ResolverException(e)
+        }
     }
 
     private fun Cursor.toRowCursor(): Cursor {
