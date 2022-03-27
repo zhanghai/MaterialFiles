@@ -182,11 +182,6 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
-            android:name="me.zhanghai.android.files.storage.EditFtpServerActivity"
-            android:label="@string/storage_edit_ftp_server_title_edit"
-            android:theme="@style/Theme.MaterialFiles" />
-
-        <activity
             android:name="me.zhanghai.android.files.storage.EditSftpServerActivity"
             android:label="@string/storage_edit_sftp_server_title_edit"
             android:theme="@style/Theme.MaterialFiles" />
