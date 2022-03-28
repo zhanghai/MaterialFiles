@@ -515,6 +515,7 @@
     <string name="settings_interface_title">رابط</string>
     <string name="settings_theme_color_title">رنگ زمینه</string>
     <string name="settings_theme_color_summary">رنگی که بیشتر در برنامه ظاهر می‌شود</string>
+    <string name="settings_material_design_3_title">طراحی متریال ۳</string>
     <string name="settings_night_mode_title">حالت شب</string>
     <string-array name="settings_night_mode_entries">
         <item>پی‌روی از سامانه</item>
@@ -546,7 +547,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>فقط دسترسی معمولی</item>
-        <item>Automatic</item>
+        <item>خودکار</item>
         <item>فقط دسترسی ریشه</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">رمزگذاری نام پروندهٔ بایگانی</string>

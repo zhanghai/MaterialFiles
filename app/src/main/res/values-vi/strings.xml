@@ -57,6 +57,8 @@
 
     <string name="storage_permission_rationale_message">Ứng dụng cần quyền truy cập tệp. Hãy nhấn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
     <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tệp. Hãy cấp quyền \"Bộ nhớ\" trong cài đặt hệ thống.</string>
+    <string name="all_files_access_rationale_message">Ứng dụng cần quyền quản lý tất cả tệp. Vui lòng cấp quyền ở cài đặt hệ thống tiếp theo.</string>
+
     <string name="notification_channel_background_activity_start_name">Hành động khi chạy nền</string>
     <string name="notification_channel_background_activity_start_description">Thực hiện các hành động khi ứng dụng chạy nền</string>
     <string name="notification_channel_file_job_name">Thao tác với tệp</string>
@@ -484,6 +486,7 @@
     <string name="settings_interface_title">Giao diện</string>
     <string name="settings_theme_color_title">Màu chủ đề</string>
     <string name="settings_theme_color_summary">Màu thường xuyên xuất hiện nhất trong ứng dụng</string>
+    <string name="settings_material_design_3_title">Thiết kế Material 3</string>
     <string name="settings_night_mode_title">Chế độ ban đêm</string>
     <string-array name="settings_night_mode_entries">
         <item>Theo hệ thống</item>
@@ -514,7 +517,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Chỉ dùng quyền truy cập thông thường</item>
-        <item>Automatic</item>
+        <item>Tự động</item>
         <item>Chỉ dùng quyền truy cập root</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Bảng mã kí tự của tên tệp nén</string>

@@ -279,7 +279,7 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
             return null
         }
         @Suppress("UNCHECKED_CAST")
-        return getFileAttributeView(path) as V
+        return getFileAttributeView(path, *options) as V
     }
 
     internal fun supportsFileAttributeView(type: Class<out FileAttributeView>): Boolean =
@@ -295,7 +295,7 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
             throw UnsupportedOperationException(type.toString())
         }
         @Suppress("UNCHECKED_CAST")
-        return getFileAttributeView(path).readAttributes() as A
+        return getFileAttributeView(path, *options).readAttributes() as A
     }
 
     private fun getFileAttributeView(path: Path, vararg options: LinkOption): SftpFileAttributeView {

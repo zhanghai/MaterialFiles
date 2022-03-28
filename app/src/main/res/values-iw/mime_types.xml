@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">קובץ</string>
+    <string name="file_type_name_apk">חבילה לאנדרואיד</string>
+    <string name="file_type_name_archive">ארכיון %1$s</string>
+    <string name="file_type_name_audio">קובץ שמע %1$s</string>
+    <string name="file_type_name_calendar">לוח שנה %1$s</string>
+    <string name="file_type_name_certificate">תעודת %1$s</string>
+    <string name="file_type_name_code">מסמך %1$s</string>
+    <string name="file_type_name_contact">כרטיס ביקור אלקטרוני</string>
+    <string name="file_type_name_directory">תיקייה</string>
+    <string name="file_type_name_document">מסמך %1$s</string>
+    <string name="file_type_name_ebook">ספר אלקטרוני %1$s</string>
+    <string name="file_type_name_email">הודעת דוא\"ל %1$s</string>
+    <string name="file_type_name_font">גופן %1$s</string>
+    <string name="file_type_name_generic">קובץ %1$s</string>
+    <string name="file_type_name_image">תמונה %1$s</string>
+    <string name="file_type_name_pdf">מסמך PDF</string>
+    <string name="file_type_name_presentation">מצגת %1$s</string>
+    <string name="file_type_name_spreadsheet">גיליון אלקטרוני%1$s</string>
+    <string name="file_type_name_text">מסמך %1$s</string>
+    <string name="file_type_name_text_plain">מסמך טקסט רגיל</string>
+    <string name="file_type_name_video">וידאו %1$s</string>
+    <string name="file_type_name_word">מסמך Word</string>
+    <string name="file_type_name_powerpoint">מצגת PowerPoint</string>
+    <string name="file_type_name_excel">גיליון Excel</string>
+    <string name="file_type_name_posix_character_device">התקן היוצר</string>
+    <string name="file_type_name_posix_block_device">התקן חסום</string>
+    <string name="file_type_name_posix_fifo">צינור</string>
+    <string name="file_type_name_posix_symbolic_link">קישור</string>
+    <string name="file_type_name_posix_socket">שקע</string>
+    <string name="file_type_name_posix_symbolic_link_broken">קישור (שבור)</string>
+</resources>

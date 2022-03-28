@@ -62,6 +62,8 @@
 
     <string name="storage_permission_rationale_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
     <string name="storage_permission_permanently_denied_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء منح إذن \"التخزين\" في إعدادات النظام.</string>
+    <string name="all_files_access_rationale_message">يحتاج التطبيق الوصول لإدارة جميع الملفات. لرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
+
     <string name="notification_channel_background_activity_start_name">الإجراءات أثناء العمل في الخلفية</string>
     <string name="notification_channel_background_activity_start_description">اتخذ إجراءات أثناء عمل التطبيق في الخلفية</string>
     <string name="notification_channel_file_job_name">عمليات الملف</string>
@@ -619,6 +621,7 @@
     <string name="settings_interface_title">واجهة المستخدم</string>
     <string name="settings_theme_color_title">لون الثيم</string>
     <string name="settings_theme_color_summary">اللون الذي يظهر بشكل متكرر في التطبيق</string>
+    <string name="settings_material_design_3_title">تصميم متيريال 3</string>
     <string name="settings_night_mode_title">الوضع الليلي</string>
     <string-array name="settings_night_mode_entries">
         <item>اتبع النظام</item>
@@ -654,7 +657,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>الوصول العادي فقط</item>
-        <item>Automatic</item>
+        <item>تلقائي</item>
         <item>الوصول إلى الجذر فقط</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">أرشيف اسم ملف الترميز</string>

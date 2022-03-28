@@ -513,6 +513,7 @@
     <string name="settings_interface_title">Uiterlijk</string>
     <string name="settings_theme_color_title">Themakleur</string>
     <string name="settings_theme_color_summary">De kleur die het vaakst wordt gebruikt in de app</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
     <string-array name="settings_night_mode_entries">
         <item>Systeeminstellingen gebruiken</item>
@@ -544,7 +545,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Alleen reguliere toegang</item>
-        <item>Automatic</item>
+        <item>Automatisch</item>
         <item>Alleen roottoegang</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Tekenreeks van archiefbestandsnaam</string>

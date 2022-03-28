@@ -362,7 +362,7 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
             return null
         }
         @Suppress("UNCHECKED_CAST")
-        return getFileAttributeView(path) as V
+        return getFileAttributeView(path, *options) as V
     }
 
     internal fun supportsFileAttributeView(type: Class<out FileAttributeView>): Boolean =
@@ -378,7 +378,7 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
             throw UnsupportedOperationException(type.toString())
         }
         @Suppress("UNCHECKED_CAST")
-        return getFileAttributeView(path).readAttributes() as A
+        return getFileAttributeView(path, *options).readAttributes() as A
     }
 
     private fun getFileAttributeView(path: Path, vararg options: LinkOption): FtpFileAttributeView {

@@ -280,7 +280,7 @@ class EditSftpServerFragment : Fragment() {
             }
         } else if (!URI::class.isValidHost(host)) {
             binding.hostLayout.error =
-                getString(R.string.storage_edit_ftp_server_host_error_invalid)
+                getString(R.string.storage_edit_sftp_server_host_error_invalid)
             if (errorEdit == null) {
                 errorEdit = binding.hostEdit
             }
