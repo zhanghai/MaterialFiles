@@ -184,7 +184,7 @@ dependencies {
     implementation 'org.apache.commons:commons-compress:1.20'
     // Optional dependency of Commons Compress for 7Z LZMA.
     implementation 'org.tukaani:xz:1.9'
-    implementation 'org.apache.ftpserver:ftpserver-core:1.1.3'
+    implementation 'org.apache.ftpserver:ftpserver-core:1.2.0'
     // This is a dependency of org.apache.ftpserver:ftpserver-core but org.apache.mina:mina-core
     // 2.1.3+ became incompatible before API 24 due to dependency on StandardSocketOptions
     // (DIRMINA-1123) and NetworkChannel.supportedOptions() (DIRMINA-1130).
