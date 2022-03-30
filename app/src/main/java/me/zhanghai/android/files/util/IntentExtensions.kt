@@ -76,17 +76,17 @@ fun KClass<Intent>.createViewAppInMarket(packageName: String): Intent =
 fun KClass<Intent>.createViewLocation(latitude: Float, longitude: Float, label: String): Intent =
     Uri.parse("geo:0,0?q=$latitude,$longitude(${Uri.encode(label)})").createViewIntent()
 
-fun <T : Parcelable> Intent.getParcelableExtraSafe(key: String): T? {
+fun <T : Parcelable> Intent.getParcelableExtraSafe(key: String?): T? {
     setExtrasClassLoader(appClassLoader)
     return getParcelableExtra(key)
 }
 
-fun Intent.getParcelableArrayExtraSafe(key: String): Array<Parcelable>? {
+fun Intent.getParcelableArrayExtraSafe(key: String?): Array<Parcelable>? {
     setExtrasClassLoader(appClassLoader)
     return getParcelableArrayExtra(key)
 }
 
-fun <T : Parcelable?> Intent.getParcelableArrayListExtraSafe(key: String): ArrayList<T>? {
+fun <T : Parcelable?> Intent.getParcelableArrayListExtraSafe(key: String?): ArrayList<T>? {
     setExtrasClassLoader(appClassLoader)
     return getParcelableArrayListExtra(key)
 }
