@@ -35,9 +35,9 @@
       ~ TODO: Remove this attribute once Samsung respects the default value for it.
       -->
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:extractNativeLibs="true"
-        android:fullBackupContent="true"
+        android:fullBackupContent="false"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
