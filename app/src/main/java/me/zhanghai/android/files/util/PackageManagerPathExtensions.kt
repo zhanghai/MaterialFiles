@@ -14,6 +14,9 @@ import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import java.io.Closeable
 
+val Path.isGetPackageArchiveInfoCompatible: Boolean
+    get() = isLinuxPath || isDocumentPath
+
 fun PackageManager.getPackageArchiveInfoCompat(
     path: Path,
     flags: Int

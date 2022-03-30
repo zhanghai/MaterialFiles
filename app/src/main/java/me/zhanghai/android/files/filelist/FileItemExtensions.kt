@@ -26,6 +26,7 @@ import me.zhanghai.android.files.provider.ftp.isFtpPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileName
+import me.zhanghai.android.files.util.isGetPackageArchiveInfoCompatible
 import me.zhanghai.android.files.util.valueCompat
 import java.text.CollationKey
 
@@ -68,7 +69,7 @@ val FileItem.supportsThumbnail: Boolean
             return false
         }
         return when {
-            mimeType.isApk && (path.isLinuxPath || path.isDocumentPath) -> true
+            mimeType.isApk && path.isGetPackageArchiveInfoCompatible -> true
             mimeType.isImage -> true
             mimeType.isMedia && (path.isLinuxPath || path.isDocumentPath) -> true
             mimeType.isPdf && (path.isLinuxPath || path.isDocumentPath) ->

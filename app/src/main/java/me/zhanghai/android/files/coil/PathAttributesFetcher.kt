@@ -43,6 +43,7 @@ import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import me.zhanghai.android.files.util.getPackageArchiveInfoCompat
+import me.zhanghai.android.files.util.isGetPackageArchiveInfoCompatible
 import me.zhanghai.android.files.util.runWithCancellationSignal
 import me.zhanghai.android.files.util.setDataSource
 import me.zhanghai.android.files.util.valueCompat
@@ -144,7 +145,7 @@ class PathAttributesFetcher(
         }
         val mimeType = AndroidFileTypeDetector.getMimeType(data.first, data.second).asMimeType()
         when {
-            mimeType.isApk && (path.isLinuxPath || path.isDocumentPath) -> {
+            mimeType.isApk && path.isGetPackageArchiveInfoCompatible -> {
                 try {
                     return appIconFetcher.fetch(pool, path, size, options)
                 } catch (e: Exception) {
