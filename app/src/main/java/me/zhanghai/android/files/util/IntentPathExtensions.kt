@@ -15,21 +15,14 @@ import me.zhanghai.android.files.compat.DocumentsContractCompat
 import java.io.Serializable
 import java.net.URI
 import java.net.URISyntaxException
+import kotlin.reflect.KClass
 
 private const val EXTRA_PATH_URI = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI"
 
 var Intent.extraPath: Path?
     get() {
-        val extraPathUriString = getStringExtra(EXTRA_PATH_URI)
-        if (extraPathUriString != null) {
-            val extraPathUri = try {
-                URI(extraPathUriString)
-            } catch (e: URISyntaxException) {
-                e.printStackTrace()
-                null
-            }
-            extraPathUri?.let { return Paths.get(extraPathUri) }
-        }
+        val extraPathUri = getStringExtra(EXTRA_PATH_URI)
+        extraPathUri?.let { URI::class.createOrLog(it) }?.let { return Paths.get(it) }
         data?.toPathOrNull()?.let { return it }
         val extraInitialUri = getParcelableExtraSafe<Uri>(DocumentsContractCompat.EXTRA_INITIAL_URI)
         extraInitialUri?.toPathOrNull()?.let { return it }
@@ -47,27 +40,39 @@ var Intent.extraPath: Path?
 
 private fun Uri.toPathOrNull(): Path? =
     when (scheme) {
-        ContentResolver.SCHEME_FILE, null -> {
-            val path = path?.takeIfNotEmpty()
-            path?.let { Paths.get(it) }
-        }
+        ContentResolver.SCHEME_FILE, null -> path?.takeIfNotEmpty()?.let { Paths.get(it) }
         ContentResolver.SCHEME_CONTENT -> {
-            val uri = try {
-                URI(toString())
-            } catch (e: URISyntaxException) {
-                e.printStackTrace()
+            val uri = URI::class.createOrLog(toString())
                 // Some people use Uri.parse() without encoding their path. Let's try saving
                 // them by calling the other URI constructor that encodes everything.
-                try {
-                    URI(scheme, userInfo, host, port, path, query, fragment)
-                } catch (e2: URISyntaxException) {
-                    e2.printStackTrace()
-                    null
-                }
-            }
+                ?: URI::class.createOrLog(scheme, userInfo, host, port, path, query, fragment)
             uri?.let { Paths.get(it) }
         }
         else -> null
+    }
+
+private fun KClass<URI>.createOrLog(uri: String): URI? =
+    try {
+        URI(uri)
+    } catch (e: URISyntaxException) {
+        e.printStackTrace()
+        null
+    }
+
+private fun KClass<URI>.createOrLog(
+    scheme: String?,
+    userInfo: String?,
+    host: String?,
+    port: Int,
+    path: String?,
+    query: String?,
+    fragment: String?
+): URI? =
+    try {
+        URI(scheme, userInfo, host, port, path, query, fragment)
+    } catch (e: URISyntaxException) {
+        e.printStackTrace()
+        null
     }
 
 private const val EXTRA_PATH_URI_LIST = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI_LIST"
@@ -75,8 +80,8 @@ private const val EXTRA_PATH_URI_LIST = "${BuildConfig.APPLICATION_ID}.extra.PAT
 var Intent.extraPathList: List<Path>
     get() {
         @Suppress("UNCHECKED_CAST")
-        val extraPathUris =
-            (getSerializableExtra(EXTRA_PATH_URI_LIST) as List<URI>?)?.takeIfNotEmpty()
+        val extraPathUris = (getSerializableExtra(EXTRA_PATH_URI_LIST) as List<URI>?)
+            ?.takeIfNotEmpty()
         extraPathUris?.let { return it.map { uri -> Paths.get(uri) } }
         return listOfNotNull(extraPath)
     }
