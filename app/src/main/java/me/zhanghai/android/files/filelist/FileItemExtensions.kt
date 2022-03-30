@@ -68,7 +68,7 @@ val FileItem.supportsThumbnail: Boolean
             return false
         }
         return when {
-            mimeType.isApk && path.isLinuxPath -> true
+            mimeType.isApk && (path.isLinuxPath || path.isDocumentPath) -> true
             mimeType.isImage -> true
             mimeType.isMedia && (path.isLinuxPath || path.isDocumentPath) -> true
             mimeType.isPdf && (path.isLinuxPath || path.isDocumentPath) ->
