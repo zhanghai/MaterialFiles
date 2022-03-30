@@ -19,34 +19,25 @@ import java.net.URISyntaxException
 private const val EXTRA_PATH_URI = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI"
 
 var Intent.extraPath: Path?
-    get() = getExtraPath(false)
-    set(value) {
-        // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
-        // We cannot put URI into intent here either, because ShortcutInfo uses PersistableBundle
-        // which doesn't support Serializable.
-        putExtra(EXTRA_PATH_URI, value?.toUri()?.toString())
-    }
-
-fun Intent.getExtraPath(allowDataContentUri: Boolean): Path? {
-    val extraPathUriString = getStringExtra(EXTRA_PATH_URI)
-    if (extraPathUriString != null) {
-        val extraPathUri = try {
-            URI(extraPathUriString)
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-            null
-        }
-        extraPathUri?.let { return Paths.get(extraPathUri) }
-    }
-    val data = data
-    if (data != null) {
-        when (data.scheme) {
-            ContentResolver.SCHEME_FILE, null -> {
-                val path = data.path?.takeIfNotEmpty()
-                path?.let { return Paths.get(it) }
+    get() {
+        val extraPathUriString = getStringExtra(EXTRA_PATH_URI)
+        if (extraPathUriString != null) {
+            val extraPathUri = try {
+                URI(extraPathUriString)
+            } catch (e: URISyntaxException) {
+                e.printStackTrace()
+                null
             }
-            ContentResolver.SCHEME_CONTENT -> {
-                if (allowDataContentUri) {
+            extraPathUri?.let { return Paths.get(extraPathUri) }
+        }
+        val data = data
+        if (data != null) {
+            when (data.scheme) {
+                ContentResolver.SCHEME_FILE, null -> {
+                    val path = data.path?.takeIfNotEmpty()
+                    path?.let { return Paths.get(it) }
+                }
+                ContentResolver.SCHEME_CONTENT -> {
                     val dataUri = try {
                         URI(data.toString())
                     } catch (e: URISyntaxException) {
@@ -67,32 +58,36 @@ fun Intent.getExtraPath(allowDataContentUri: Boolean): Path? {
                 }
             }
         }
+        val extraInitialUri = getParcelableExtraSafe<Uri>(DocumentsContractCompat.EXTRA_INITIAL_URI)
+        // TODO: Support DocumentsProvider Uri?
+        if (extraInitialUri != null && extraInitialUri.scheme == ContentResolver.SCHEME_FILE) {
+            val path = extraInitialUri.path?.takeIfNotEmpty()
+            path?.let { return Paths.get(it) }
+        }
+        val extraAbsolutePath = getStringExtra("org.openintents.extra.ABSOLUTE_PATH")
+            ?.takeIfNotEmpty()
+        extraAbsolutePath?.let { return Paths.get(it) }
+        return null
     }
-    val extraInitialUri = getParcelableExtraSafe<Uri>(DocumentsContractCompat.EXTRA_INITIAL_URI)
-    // TODO: Support DocumentsProvider Uri?
-    if (extraInitialUri != null && extraInitialUri.scheme == ContentResolver.SCHEME_FILE) {
-        val path = extraInitialUri.path?.takeIfNotEmpty()
-        path?.let { return Paths.get(it) }
+    set(value) {
+        // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
+        // We cannot put URI into intent here either, because ShortcutInfo uses PersistableBundle
+        // which doesn't support Serializable.
+        putExtra(EXTRA_PATH_URI, value?.toUri()?.toString())
     }
-    val extraAbsolutePath = getStringExtra("org.openintents.extra.ABSOLUTE_PATH")?.takeIfNotEmpty()
-    extraAbsolutePath?.let { return Paths.get(it) }
-    return null
-}
 
 private const val EXTRA_PATH_URI_LIST = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI_LIST"
 
 var Intent.extraPathList: List<Path>
-    get() = getExtraPathList(false)
+    get() {
+        @Suppress("UNCHECKED_CAST")
+        val extraPathUris =
+            (getSerializableExtra(EXTRA_PATH_URI_LIST) as List<URI>?)?.takeIfNotEmpty()
+        extraPathUris?.let { return it.map { uri -> Paths.get(uri) } }
+        return listOfNotNull(extraPath)
+    }
     set(value) {
         // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
         val pathUris = value.map { it.toUri() }
         putExtra(EXTRA_PATH_URI_LIST, pathUris as Serializable)
     }
-
-fun Intent.getExtraPathList(allowDataContentUri: Boolean): List<Path> {
-    @Suppress("UNCHECKED_CAST")
-    val extraPathUris = (getSerializableExtra(EXTRA_PATH_URI_LIST) as List<URI>?)?.takeIfNotEmpty()
-    extraPathUris?.let { return it.map { uri -> Paths.get(uri) } }
-    val extraPath = getExtraPath(allowDataContentUri)
-    return listOfNotNull(extraPath)
-}
