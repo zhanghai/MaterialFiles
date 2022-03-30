@@ -33,7 +33,7 @@ private val supportedArchiveMimeTypes = mutableListOf(
     "application/x-xz"
 )
     .apply {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             this += "application/x-7z-compressed"
         }
     }

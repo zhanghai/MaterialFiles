@@ -16,6 +16,6 @@
 
     <integer name="file_list_toolbar_scroll_flags">@integer/scrollFlags_scroll_enterAlways</integer>
 
-    <!-- SevenZFile and SevenZOutputFile requires SeekableByteChannel which requires Android N. -->
+    <!-- SevenZOutputFile requires SeekableByteChannel which requires Android N. -->
     <integer name="create_archive_type_seven_z_visibility">@integer/visibility_gone</integer>
 </resources>
