@@ -376,7 +376,6 @@
     <string name="storage_list_empty">无存储</string>
     <string name="storage_add_storage_title">添加存储</string>
     <string name="storage_add_storage_document_tree">外部存储</string>
-    <string name="storage_add_storage_ftp_server">FTP 服务器</string>
     <string name="storage_add_storage_sftp_server">SFTP 服务器</string>
     <string name="storage_add_storage_smb_server">SMB 服务器</string>
     <string name="storage_edit_device_storage_title">编辑设备存储</string>
@@ -387,34 +386,6 @@
     <string name="storage_edit_document_tree_name">名称</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">路径</string>
-    <string name="storage_edit_ftp_server_title_edit">编辑 FTP 服务器</string>
-    <string name="storage_edit_ftp_server_title_add">添加 FTP 服务器</string>
-    <string name="storage_edit_ftp_server_host">主机名</string>
-    <string name="storage_edit_ftp_server_host_error_empty">输入主机名</string>
-    <string name="storage_edit_ftp_server_host_error_invalid">无效主机名</string>
-    <string name="storage_edit_ftp_server_port">端口</string>
-    <string name="storage_edit_ftp_server_port_error_invalid">无效端口</string>
-    <string name="storage_edit_ftp_server_path">路径</string>
-    <string name="storage_edit_ftp_server_path_placeholder">可留空</string>
-    <string name="storage_edit_ftp_server_name">名称</string>
-    <string name="storage_edit_ftp_server_name_placeholder">使用主机名</string>
-    <string name="storage_edit_ftp_server_protocol">协议</string>
-    <string name="storage_edit_ftp_server_authentication_type">验证</string>
-    <string-array name="storage_edit_ftp_server_authentication_type_entries">
-        <item>密码</item>
-        <item>匿名</item>
-    </string-array>
-    <string name="storage_edit_ftp_server_username">用户名</string>
-    <string name="storage_edit_ftp_server_username_error_empty">输入用户名</string>
-    <string name="storage_edit_ftp_server_password">密码</string>
-    <string name="storage_edit_ftp_server_mode">模式</string>
-    <string-array name="storage_edit_ftp_server_mode_entries">
-        <item>主动</item>
-        <item>被动</item>
-    </string-array>
-    <string name="storage_edit_ftp_server_encoding">编码</string>
-    <string name="storage_edit_ftp_server_connect_and_add">连接并添加</string>
-    <string name="storage_edit_ftp_server_add">添加</string>
     <string name="storage_edit_sftp_server_title_edit">编辑 SFTP 服务器</string>
     <string name="storage_edit_sftp_server_title_add">添加 SFTP 服务器</string>
     <string name="storage_edit_sftp_server_host">主机名</string>

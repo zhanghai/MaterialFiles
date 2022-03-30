@@ -92,13 +92,6 @@
     </notice>
 
     <notice>
-        <name>Apache Commons Net</name>
-        <url>https://commons.apache.org/proper/commons-net/</url>
-        <copyright>Copyright 2003 The Apache Software Foundation</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
         <name>Insetter</name>
         <url>https://github.com/chrisbanes/insetter</url>
         <copyright>Copyright 2019 Google LLC</copyright>

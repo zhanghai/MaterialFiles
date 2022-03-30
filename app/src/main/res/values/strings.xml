@@ -490,7 +490,6 @@
     <string name="storage_add_storage_android_data" translatable="false">Android/data</string>
     <string name="storage_add_storage_android_obb" translatable="false">Android/obb</string>
     <string name="storage_add_storage_document_tree">External storage</string>
-    <string name="storage_add_storage_ftp_server">FTP server</string>
     <string name="storage_add_storage_sftp_server">SFTP server</string>
     <string name="storage_add_storage_smb_server">SMB server</string>
     <string name="storage_edit_device_storage_title">Edit device storage</string>
@@ -501,40 +500,6 @@
     <string name="storage_edit_document_tree_name">Name</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Path</string>
-    <string name="storage_edit_ftp_server_title_edit">Edit FTP server</string>
-    <string name="storage_edit_ftp_server_title_add">Add FTP server</string>
-    <string name="storage_edit_ftp_server_host">Hostname</string>
-    <string name="storage_edit_ftp_server_host_error_empty">Enter a hostname</string>
-    <string name="storage_edit_ftp_server_host_error_invalid">Invalid hostname</string>
-    <string name="storage_edit_ftp_server_port">Port</string>
-    <string name="storage_edit_ftp_server_port_placeholder" translatable="false">21</string>
-    <string name="storage_edit_ftp_server_port_error_invalid">Invalid port</string>
-    <string name="storage_edit_ftp_server_path">Path</string>
-    <string name="storage_edit_ftp_server_path_placeholder">Can be left empty</string>
-    <string name="storage_edit_ftp_server_name">Name</string>
-    <string name="storage_edit_ftp_server_name_placeholder">Use hostname</string>
-    <string name="storage_edit_ftp_server_protocol">Protocol</string>
-    <string-array name="storage_edit_ftp_server_protocol_entries" translatable="false">
-        <item>FTP</item>
-        <item>FTPS</item>
-        <item>FTPES</item>
-    </string-array>
-    <string name="storage_edit_ftp_server_authentication_type">Authentication</string>
-    <string-array name="storage_edit_ftp_server_authentication_type_entries">
-        <item>Password</item>
-        <item>Anonymous</item>
-    </string-array>
-    <string name="storage_edit_ftp_server_username">Username</string>
-    <string name="storage_edit_ftp_server_username_error_empty">Enter a username</string>
-    <string name="storage_edit_ftp_server_password">Password</string>
-    <string name="storage_edit_ftp_server_mode">Mode</string>
-    <string-array name="storage_edit_ftp_server_mode_entries">
-        <item>Active</item>
-        <item>Passive</item>
-    </string-array>
-    <string name="storage_edit_ftp_server_encoding">Encoding</string>
-    <string name="storage_edit_ftp_server_connect_and_add">Connect and add</string>
-    <string name="storage_edit_ftp_server_add">Add</string>
     <string name="storage_edit_sftp_server_title_edit">Edit SFTP server</string>
     <string name="storage_edit_sftp_server_title_add">Add SFTP server</string>
     <string name="storage_edit_sftp_server_host">Hostname</string>
