@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.sftp.client
 
+import android.os.Build
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Security
 
@@ -15,6 +16,13 @@ import java.security.Security
 // better keep BouncyCastle registered.
 object SecurityProviderHelper {
     fun init() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP_MR1) {
+            // On older Android versions, JarURLConnectionImpl.getInputStream() throws a
+            // "SecurityException: Incorrect signature" when it's called by Apache FTPServer if we
+            // replace Bouncy Castle. We are only required to replace Bouncy Castle on P and above
+            // anyway, so don't do that before Lollipop MR1.
+            return
+        }
         val bouncyCastleProvider = BouncyCastleProvider()
         Security.removeProvider(bouncyCastleProvider.name)
         Security.addProvider(bouncyCastleProvider)

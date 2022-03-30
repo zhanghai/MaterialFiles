@@ -46,7 +46,9 @@ internal class ArchivePath : ByteStringListPath<ArchivePath>, RootablePath {
         ArchivePath(fileSystem, absolute, segments)
 
     override val uriPath: ByteString
-        get() = fileSystem.archiveFile.toUri().toString().toByteString()
+        // Prepend a slash character to make it a valid URI path, since we always have an (empty)
+        // authority.
+        get() = ("/" + fileSystem.archiveFile.toUri().toString()).toByteString()
 
     override val uriQuery: ByteString?
         get() = super.uriPath

@@ -11,7 +11,8 @@ import kotlin.experimental.or
 import kotlin.reflect.KClass
 
 // Note: The URI must have an authority, otherwise the Java URI class recognizes the rest of the URI
-// as scheme specific part and refuses to parse our query.
+// as scheme specific part and refuses to parse our query. As a result, our path must also either be
+// empty or absolute (beginning with a slash character).
 // @see https://datatracker.ietf.org/doc/html/rfc3986
 fun KClass<URI>.create(
     scheme: String,
@@ -22,6 +23,9 @@ fun KClass<URI>.create(
     val builder = StringBuilder()
     builder.append(scheme).append(':')
     builder.append("//").append(authority.encode())
+    require(path.isEmpty() || path.startsWith("/".toByteString())) {
+        "Path $path must either be empty or begin with a slash character"
+    }
     builder.append(encodePath(path))
     if (query != null) {
         builder.append('?').append(encodeQuery(query))
@@ -67,8 +71,7 @@ private fun encodeHexCharacter(halfByte: Byte): Char =
     }
 
 val URI.decodedPathByteString: ByteString?
-    // URI.getRawPath() returns null when there's no authority and the path isn't absolute.
-    get() = (rawPath ?: rawSchemeSpecificPart)?.let { decode(it) }
+    get() = rawPath?.let { decode(it) }
 
 val URI.decodedQueryByteString: ByteString?
     get() = rawQuery?.let { decode(it) }
