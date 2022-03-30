@@ -111,7 +111,8 @@ object DocumentFileSystemProvider : FileSystemProvider(), PathObservableProvider
         get() {
             val path = decodedPathByteString
                 ?: throw IllegalArgumentException("URI must have a path")
-            return path.toString().toUri()
+            // Drop the first character which is always a slash.
+            return path.toString().drop(1).toUri()
         }
 
     @Throws(IOException::class)

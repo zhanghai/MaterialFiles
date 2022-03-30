@@ -50,7 +50,9 @@ internal class DocumentPath : ByteStringListPath<DocumentPath>, DocumentResolver
         DocumentPath(fileSystem, absolute, segments)
 
     override val uriPath: ByteString
-        get() = fileSystem.treeUri.toString().toByteString()
+        // Prepend a slash character to make it a valid URI path, since we always have an (empty)
+        // authority.
+        get() = ("/" + fileSystem.treeUri.toString()).toByteString()
 
     override val uriQuery: ByteString?
         get() = super.uriPath

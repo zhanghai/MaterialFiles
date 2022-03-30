@@ -86,7 +86,8 @@ class LocalArchiveFileSystemProvider(
         get() {
             val path = decodedPathByteString
                 ?: throw IllegalArgumentException("URI must have a path")
-            val archiveUri = URI.create(path.toString())
+            // Drop the first character which is always a slash.
+            val archiveUri = URI.create(path.toString().drop(1))
             return Paths.get(archiveUri)
         }
 
