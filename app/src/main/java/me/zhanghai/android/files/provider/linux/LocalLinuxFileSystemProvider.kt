@@ -38,7 +38,7 @@ import me.zhanghai.android.files.provider.common.toCopyOptions
 import me.zhanghai.android.files.provider.common.toInt
 import me.zhanghai.android.files.provider.common.toLinkOptions
 import me.zhanghai.android.files.provider.common.toOpenOptions
-import me.zhanghai.android.files.provider.linux.mediastore.MediaStore
+import me.zhanghai.android.files.provider.linux.media.MediaScanner
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls
 import me.zhanghai.android.files.util.hasBits
@@ -102,8 +102,8 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
             }
         }
         val javaFile = file.toFile()
-        MediaStore.scan(javaFile)
-        return MediaStore.createScanOnCloseFileChannel(fileChannel, javaFile)
+        MediaScanner.scan(javaFile)
+        return MediaScanner.createScanOnCloseFileChannel(fileChannel, javaFile)
     }
 
     @Throws(IOException::class)
@@ -140,7 +140,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
             e.maybeThrowInvalidFileNameException(directoryBytes.toString())
             throw e.toFileSystemException(directoryBytes.toString())
         }
-        MediaStore.scan(directory.toFile())
+        MediaScanner.scan(directory.toFile())
     }
 
     @Throws(IOException::class)
@@ -161,7 +161,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
             e.maybeThrowInvalidFileNameException(linkBytes.toString())
             throw e.toFileSystemException(linkBytes.toString(), targetBytes.toString())
         }
-        MediaStore.scan(link.toFile())
+        MediaScanner.scan(link.toFile())
     }
 
     @Throws(IOException::class)
@@ -176,7 +176,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
             e.maybeThrowInvalidFileNameException(newPathBytes.toString())
             throw e.toFileSystemException(newPathBytes.toString(), oldPathBytes.toString())
         }
-        MediaStore.scan(link.toFile())
+        MediaScanner.scan(link.toFile())
     }
 
     @Throws(IOException::class)
@@ -188,7 +188,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         } catch (e: SyscallException) {
             throw e.toFileSystemException(pathBytes.toString())
         }
-        MediaStore.scan(path.toFile())
+        MediaScanner.scan(path.toFile())
     }
 
     @Throws(IOException::class)
@@ -212,7 +212,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val targetBytes = target.toByteString()
         val copyOptions = options.toCopyOptions()
         LinuxCopyMove.copy(sourceBytes, targetBytes, copyOptions)
-        MediaStore.scan(target.toFile())
+        MediaScanner.scan(target.toFile())
     }
 
     @Throws(IOException::class)
@@ -223,8 +223,8 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val targetBytes = target.toByteString()
         val copyOptions = options.toCopyOptions()
         LinuxCopyMove.move(sourceBytes, targetBytes, copyOptions)
-        MediaStore.scan(source.toFile())
-        MediaStore.scan(target.toFile())
+        MediaScanner.scan(source.toFile())
+        MediaScanner.scan(target.toFile())
     }
 
     @Throws(IOException::class)

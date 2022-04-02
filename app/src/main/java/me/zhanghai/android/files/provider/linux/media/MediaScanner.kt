@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.provider.linux.mediastore
+package me.zhanghai.android.files.provider.linux.media
 
 import android.media.MediaScannerConnection
 import java8.nio.channels.FileChannel
@@ -17,7 +17,7 @@ import java.io.IOException
  * @see com.android.internal.content.FileSystemProvider
  * @see com.android.providers.media.scan.ModernMediaScanner.java
  */
-object MediaStore {
+object MediaScanner {
     fun scan(file: File) {
         if (isRunningAsRoot) {
             return
