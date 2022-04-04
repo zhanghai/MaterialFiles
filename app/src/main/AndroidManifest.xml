@@ -65,7 +65,9 @@
                 <data android:mimeType="vnd.android.document/directory" />
             </intent-filter>
             <!-- @see me.zhanghai.android.files.file.isSupportedArchive -->
-            <intent-filter tools:ignore="AppLinkUrlError">
+            <intent-filter
+                android:label="@string/archive_viewer_title"
+                tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="application/gzip" />
