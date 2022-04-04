@@ -142,7 +142,9 @@ class FileByteChannel(
 
     @Throws(IOException::class)
     private fun getSize(): Long {
-        val sizeString = client.getSize(path) ?: client.throwNegativeReplyCodeException()
+        val sizeString = synchronized(ioLock) {
+            client.getSize(path) ?: client.throwNegativeReplyCodeException()
+        }
         return sizeString.toLongOrNull() ?: throw IOException("Invalid size $sizeString")
     }
 
@@ -170,7 +172,7 @@ class FileByteChannel(
                 return
             }
             isOpen = false
-            readBuffer.closeSafe()
+            synchronized(ioLock) { readBuffer.closeSafe() }
             releaseClient(client)
         }
     }
