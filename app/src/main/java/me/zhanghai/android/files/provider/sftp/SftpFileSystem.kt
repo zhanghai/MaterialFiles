@@ -17,7 +17,7 @@ import java8.nio.file.spi.FileSystemProvider
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPathCreator
-import me.zhanghai.android.files.provider.common.PollingWatchService
+import me.zhanghai.android.files.provider.common.LocalWatchService
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.sftp.client.Authority
 import me.zhanghai.android.files.util.readParcelable
@@ -96,7 +96,7 @@ internal class SftpFileSystem(
     }
 
     @Throws(IOException::class)
-    override fun newWatchService(): WatchService = PollingWatchService()
+    override fun newWatchService(): WatchService = LocalWatchService()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

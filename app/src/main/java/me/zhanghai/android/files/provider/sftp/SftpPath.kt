@@ -16,7 +16,7 @@ import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
-import me.zhanghai.android.files.provider.common.PollingWatchService
+import me.zhanghai.android.files.provider.common.LocalWatchService
 import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.sftp.client.Authority
 import me.zhanghai.android.files.provider.sftp.client.Client
@@ -75,7 +75,7 @@ internal class SftpPath : ByteStringListPath<SftpPath>, Client.Path {
         events: Array<WatchEvent.Kind<*>>,
         vararg modifiers: WatchEvent.Modifier
     ): WatchKey {
-        if (watcher !is PollingWatchService) {
+        if (watcher !is LocalWatchService) {
             throw ProviderMismatchException(watcher.toString())
         }
         return watcher.register(this, events, *modifiers)
