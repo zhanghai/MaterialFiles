@@ -231,15 +231,18 @@ class FileByteChannel(
                         client.restartOffset = bufferedPosition
                         val inputStream = client.retrieveFileStream(path)
                             ?: client.throwNegativeReplyCodeException()
-                        val buffer = ByteBuffer.allocate(bufferSize)
-                        val limit = inputStream.use {
-                            it.readFully(buffer.array(), buffer.position(), buffer.remaining())
+                        try {
+                            val buffer = ByteBuffer.allocate(bufferSize)
+                            val limit = inputStream.use {
+                                it.readFully(buffer.array(), buffer.position(), buffer.remaining())
+                            }
+                            buffer.limit(limit)
+                            buffer
+                        } finally {
+                            // We may close the input stream before the file is fully read and it
+                            // will result in an error reported here, but that's totally fine.
+                            client.completePendingCommand()
                         }
-                        buffer.limit(limit)
-                        // We may close the input stream before the file is fully read and it will
-                        // result in an error reported here, but that's totally fine.
-                        client.completePendingCommand()
-                        buffer
                     }
                 }
             }
@@ -255,6 +258,7 @@ class FileByteChannel(
                 synchronized(pendingDeferredLock) {
                     pendingDeferred?.let {
                         it.cancel()
+                        runBlocking { it.join() }
                         pendingDeferred = null
                     }
                 }
@@ -267,6 +271,7 @@ class FileByteChannel(
             synchronized(pendingDeferredLock) {
                 pendingDeferred?.let {
                     it.cancel()
+                    runBlocking { it.join() }
                     pendingDeferred = null
                 }
             }
