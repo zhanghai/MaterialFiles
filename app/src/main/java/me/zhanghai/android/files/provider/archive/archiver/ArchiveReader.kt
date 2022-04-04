@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.archive.archiver
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceManager
+import java8.nio.channels.SeekableByteChannel
 import java8.nio.charset.StandardCharsets
 import java8.nio.file.AccessMode
 import java8.nio.file.NoSuchFileException
@@ -19,14 +20,18 @@ import me.zhanghai.android.files.compat.use
 //#ifdef NONFREE
 import me.zhanghai.android.files.nonfree.RarArchiveEntry
 import me.zhanghai.android.files.nonfree.RarFile
+import me.zhanghai.android.files.provider.common.DelegateForceableSeekableByteChannel
 //#endif
 import me.zhanghai.android.files.provider.common.DelegateInputStream
+import me.zhanghai.android.files.provider.common.DelegateNonForceableSeekableByteChannel
+import me.zhanghai.android.files.provider.common.ForceableChannel
 import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.checkAccess
 import me.zhanghai.android.files.provider.common.newByteChannel
 import me.zhanghai.android.files.provider.common.newInputStream
 import me.zhanghai.android.files.provider.common.posixFileType
+import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.provider.root.isRunningAsRoot
 import me.zhanghai.android.files.provider.root.rootContext
 import me.zhanghai.android.files.settings.Settings
@@ -133,8 +138,8 @@ object ArchiveReader {
         val encoding = archiveFileNameEncoding
         if (compressorType == null) {
             when {
-                archiveType == ArchiveStreamFactory.ZIP && ZipFileCompat.isSupported(file) ->
-                    return ZipFileCompat.create(file, encoding).use { it.entries.toList() }
+                archiveType == ArchiveStreamFactory.ZIP && ZipFileCompat::class.isSupported(file) ->
+                    return ZipFileCompat::class.create(file, encoding).use { it.entries.toList() }
                 archiveType == ArchiveStreamFactory.SEVEN_Z -> {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         throw IOException(UnsupportedOperationException("SevenZFile"))
@@ -234,12 +239,12 @@ object ArchiveReader {
         val encoding = archiveFileNameEncoding
         if (compressorType == null) {
             when {
-                entry is ZipArchiveEntry && ZipFileCompat.isSupported(file) -> {
+                entry is ZipArchiveEntry && ZipFileCompat::class.isSupported(file) -> {
                     var successful = false
                     var zipFile: ZipFileCompat? = null
                     var zipEntryInputStream: InputStream? = null
                     return try {
-                        zipFile = ZipFileCompat.create(file, encoding)
+                        zipFile = ZipFileCompat::class.create(file, encoding)
                         zipEntryInputStream = zipFile.getInputStream(entry)
                             ?: throw NoSuchFileException(file.toString())
                         val inputStream = CloseableInputStream(zipEntryInputStream, zipFile)
@@ -358,9 +363,47 @@ object ArchiveReader {
 //#endif
         ArchiveStreamFactory.detect(inputStream)
 
+    private fun KClass<ZipFileCompat>.isSupported(file: Path): Boolean =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.N || file.isLinuxPath
+
+    private fun KClass<ZipFileCompat>.create(file: Path, encoding: String?): ZipFileCompat =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            ZipFileCompat(
+                CacheSizeSeekableByteChannel(file.newByteChannel()).toJavaSeekableByteChannel(),
+                encoding
+            )
+        } else {
+            ZipFileCompat(file.toFile())
+        }
+
     @RequiresApi(Build.VERSION_CODES.N)
     private fun KClass<SevenZFile>.create(file: Path): SevenZFile =
-        SevenZFile(file.newByteChannel().toJavaSeekableByteChannel())
+        SevenZFile(CacheSizeSeekableByteChannel(file.newByteChannel()).toJavaSeekableByteChannel())
+
+    // ZipFileCompat and SevenZFile call size() repeatedly, especially ZipFile.skipBytes(), so make
+    // it cached to improve performance.
+    private fun CacheSizeSeekableByteChannel(channel: SeekableByteChannel): SeekableByteChannel =
+        if (channel is ForceableChannel) {
+            CacheSizeForceableSeekableByteChannel(channel)
+        } else {
+            CacheSizeNonForceableSeekableByteChannel(channel)
+        }
+
+    private class CacheSizeNonForceableSeekableByteChannel(
+        channel: SeekableByteChannel
+    ) : DelegateNonForceableSeekableByteChannel(channel) {
+        private val size: Long by lazy { super.size() }
+
+        override fun size(): Long = size
+    }
+
+    private class CacheSizeForceableSeekableByteChannel(
+        channel: SeekableByteChannel
+    ) : DelegateForceableSeekableByteChannel(channel) {
+        private val size: Long by lazy { super.size() }
+
+        override fun size(): Long = size
+    }
 
     @Throws(IOException::class)
     fun readSymbolicLink(file: Path, entry: ArchiveEntry): String {

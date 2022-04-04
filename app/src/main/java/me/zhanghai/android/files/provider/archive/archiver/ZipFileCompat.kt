@@ -8,10 +8,6 @@ package me.zhanghai.android.files.provider.archive.archiver
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import java8.nio.file.Path
-import me.zhanghai.android.files.compat.toJavaSeekableByteChannel
-import me.zhanghai.android.files.provider.common.newByteChannel
-import me.zhanghai.android.files.provider.linux.isLinuxPath
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipFile
 import java.io.Closeable
@@ -100,17 +96,5 @@ internal class ZipFileCompat : Closeable {
             method = entry.method
             comment = entry.comment
         }
-    }
-
-    companion object {
-        fun isSupported(file: Path): Boolean =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.N || file.isLinuxPath
-
-        fun create(file: Path, encoding: String?): ZipFileCompat =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                ZipFileCompat(file.newByteChannel().toJavaSeekableByteChannel(), encoding)
-            } else {
-                ZipFileCompat(file.toFile())
-            }
     }
 }
