@@ -41,7 +41,6 @@ import me.zhanghai.android.files.provider.sftp.client.Client
 import me.zhanghai.android.files.provider.sftp.client.ClientException
 import me.zhanghai.android.files.provider.sftp.client.SecurityProviderHelper
 import me.zhanghai.android.files.util.enumSetOf
-import net.schmizz.sshj.sftp.FileAttributes
 import net.schmizz.sshj.sftp.OpenMode
 import java.io.IOException
 import java.net.URI
@@ -258,13 +257,8 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
                 this += OpenMode.WRITE
             }
         }
-        val file = try {
-            Client.open(path, flags, FileAttributes.EMPTY)
-        } catch (e: ClientException) {
-            throw e.toFileSystemException(path.toString())
-        }
         try {
-            Client.close(file)
+            Client.access(path, flags)
         } catch (e: ClientException) {
             throw e.toFileSystemException(path.toString())
         }

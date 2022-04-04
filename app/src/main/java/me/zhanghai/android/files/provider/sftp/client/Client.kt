@@ -32,8 +32,9 @@ object Client {
         Collections.synchronizedMap(WeakHashMap<Path, FileAttributes>())
 
     @Throws(ClientException::class)
-    fun close(file: RemoteFile) {
-        return try {
+    fun access(path: Path, flags: Set<OpenMode>) {
+        val file = open(path, flags, FileAttributes.EMPTY)
+        try {
             file.close()
         } catch (e: IOException) {
             throw ClientException(e)
@@ -66,7 +67,7 @@ object Client {
     }
 
     @Throws(ClientException::class)
-    fun open(path: Path, flags: Set<OpenMode>, attributes: FileAttributes): RemoteFile {
+    private fun open(path: Path, flags: Set<OpenMode>, attributes: FileAttributes): RemoteFile {
         val client = getClient(path.authority)
         return try {
             client.open(path.remotePath, flags, attributes)
