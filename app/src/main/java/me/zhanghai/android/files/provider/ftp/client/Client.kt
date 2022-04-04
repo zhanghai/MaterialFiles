@@ -215,7 +215,7 @@ object Client {
         directoryFilesCache -= source
         directoryFilesCache -= target
         LocalWatchService.onEntryDeleted(source as Java8Path)
-        LocalWatchService.onEntryDeleted(target as Java8Path)
+        LocalWatchService.onEntryCreated(target as Java8Path)
     }
 
     @Throws(IOException::class)
