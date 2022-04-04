@@ -33,10 +33,11 @@ class FileByteChannel(
     private val path: String,
     private val isAppend: Boolean
 ) : ForceableChannel, SeekableByteChannel {
-    private var position = 0L
-    private val ioLock = Any()
+    private val clientLock = Any()
 
+    private var position = 0L
     private val readBuffer = ReadBuffer()
+    private val ioLock = Any()
 
     private var isOpen = true
     private val closeLock = Any()
@@ -70,17 +71,21 @@ class FileByteChannel(
         // I don't think we are using native or read-only ByteBuffer, so just call array() here.
         synchronized(ioLock) {
             if (isAppend) {
-                ByteArrayInputStream(source.array(), source.position(), remaining).use {
-                    if (!client.appendFile(path, it)) {
-                        client.throwNegativeReplyCodeException()
+                synchronized(clientLock) {
+                    ByteArrayInputStream(source.array(), source.position(), remaining).use {
+                        if (!client.appendFile(path, it)) {
+                            client.throwNegativeReplyCodeException()
+                        }
                     }
                 }
                 position = getSize()
             } else {
-                client.restartOffset = position
-                ByteArrayInputStream(source.array(), source.position(), remaining).use {
-                    if (!client.storeFile(path, it)) {
-                        client.throwNegativeReplyCodeException()
+                synchronized(clientLock) {
+                    client.restartOffset = position
+                    ByteArrayInputStream(source.array(), source.position(), remaining).use {
+                        if (!client.storeFile(path, it)) {
+                            client.throwNegativeReplyCodeException()
+                        }
                     }
                 }
                 position += remaining
@@ -129,10 +134,12 @@ class FileByteChannel(
             if (size >= currentSize) {
                 return this
             }
-            client.restartOffset = size
-            ByteArrayInputStream(byteArrayOf()).use {
-                if (!client.storeFile(path, it)) {
-                    client.throwNegativeReplyCodeException()
+            synchronized(clientLock) {
+                client.restartOffset = size
+                ByteArrayInputStream(byteArrayOf()).use {
+                    if (!client.storeFile(path, it)) {
+                        client.throwNegativeReplyCodeException()
+                    }
                 }
             }
             position = position.coerceAtMost(size)
@@ -142,7 +149,7 @@ class FileByteChannel(
 
     @Throws(IOException::class)
     private fun getSize(): Long {
-        val sizeString = synchronized(ioLock) {
+        val sizeString = synchronized(clientLock) {
             client.getSize(path) ?: client.throwNegativeReplyCodeException()
         }
         return sizeString.toLongOrNull() ?: throw IOException("Invalid size $sizeString")
@@ -172,8 +179,10 @@ class FileByteChannel(
                 return
             }
             isOpen = false
-            synchronized(ioLock) { readBuffer.closeSafe() }
-            releaseClient(client)
+            synchronized(ioLock) {
+                readBuffer.closeSafe()
+                synchronized(clientLock) { releaseClient(client) }
+            }
         }
     }
 
@@ -230,20 +239,25 @@ class FileByteChannel(
             GlobalScope.async(Dispatchers.IO) {
                 withTimeout(timeoutMillis) {
                     runInterruptible {
-                        client.restartOffset = bufferedPosition
-                        val inputStream = client.retrieveFileStream(path)
-                            ?: client.throwNegativeReplyCodeException()
-                        try {
-                            val buffer = ByteBuffer.allocate(bufferSize)
-                            val limit = inputStream.use {
-                                it.readFully(buffer.array(), buffer.position(), buffer.remaining())
+                        synchronized(clientLock) {
+                            client.restartOffset = bufferedPosition
+                            val inputStream = client.retrieveFileStream(path)
+                                ?: client.throwNegativeReplyCodeException()
+                            try {
+                                val buffer = ByteBuffer.allocate(bufferSize)
+                                val limit = inputStream.use {
+                                    it.readFully(
+                                        buffer.array(), buffer.position(), buffer.remaining()
+                                    )
+                                }
+                                buffer.limit(limit)
+                                buffer
+                            } finally {
+                                // We will likely close the input stream before the file is fully
+                                // read and it will result in a false return value here, but that's
+                                // totally fine.
+                                client.completePendingCommand()
                             }
-                            buffer.limit(limit)
-                            buffer
-                        } finally {
-                            // We may close the input stream before the file is fully read and it
-                            // will result in an error reported here, but that's totally fine.
-                            client.completePendingCommand()
                         }
                     }
                 }
