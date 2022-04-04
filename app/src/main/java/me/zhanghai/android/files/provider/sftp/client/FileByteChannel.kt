@@ -269,9 +269,7 @@ class FileByteChannel(
             if (newBufferPosition in 0..buffer.limit()) {
                 buffer.position(newBufferPosition.toInt())
             } else {
-                synchronized(pendingPromiseLock) {
-                    pendingPromise = null
-                }
+                synchronized(pendingPromiseLock) { pendingPromise = null }
                 buffer.limit(0)
                 bufferedPosition = newPosition
             }

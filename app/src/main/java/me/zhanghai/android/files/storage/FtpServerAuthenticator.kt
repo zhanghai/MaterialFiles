@@ -23,14 +23,10 @@ object FtpServerAuthenticator : Authenticator {
     }
 
     fun addTransientServer(server: FtpServer) {
-        synchronized(transientServers) {
-            transientServers += server
-        }
+        synchronized(transientServers) { transientServers += server }
     }
 
     fun removeTransientServer(server: FtpServer) {
-        synchronized(transientServers) {
-            transientServers -= server
-        }
+        synchronized(transientServers) { transientServers -= server }
     }
 }

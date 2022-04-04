@@ -23,14 +23,10 @@ object SmbServerAuthenticator : Authenticator {
     }
 
     fun addTransientServer(server: SmbServer) {
-        synchronized(transientServers) {
-            transientServers += server
-        }
+        synchronized(transientServers) { transientServers += server }
     }
 
     fun removeTransientServer(server: SmbServer) {
-        synchronized(transientServers) {
-            transientServers -= server
-        }
+        synchronized(transientServers) { transientServers -= server }
     }
 }

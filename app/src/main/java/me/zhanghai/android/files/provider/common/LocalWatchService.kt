@@ -18,9 +18,7 @@ class LocalWatchService : AbstractWatchService<LocalWatchKey>() {
     private val keys = mutableMapOf<Path, LocalWatchKey>()
 
     init {
-        synchronized(services) {
-            services.add(this)
-        }
+        synchronized(services) { services.add(this) }
     }
 
     @Throws(IOException::class)
@@ -60,12 +58,8 @@ class LocalWatchService : AbstractWatchService<LocalWatchKey>() {
 
     @Throws(IOException::class)
     override fun onClose() {
-        synchronized(keys) {
-            keys.clear()
-        }
-        synchronized(services) {
-            services.remove(this)
-        }
+        synchronized(keys) { keys.clear() }
+        synchronized(services) { services.remove(this) }
     }
 
     private fun onWatchEvent(path: Path, kind: WatchEvent.Kind<Path>) {

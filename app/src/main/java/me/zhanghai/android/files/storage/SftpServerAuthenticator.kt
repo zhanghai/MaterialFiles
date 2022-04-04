@@ -24,14 +24,10 @@ object SftpServerAuthenticator : Authenticator {
     }
 
     fun addTransientServer(server: SftpServer) {
-        synchronized(transientServers) {
-            transientServers += server
-        }
+        synchronized(transientServers) { transientServers += server }
     }
 
     fun removeTransientServer(server: SftpServer) {
-        synchronized(transientServers) {
-            transientServers -= server
-        }
+        synchronized(transientServers) { transientServers -= server }
     }
 }
