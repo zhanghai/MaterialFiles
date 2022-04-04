@@ -28,9 +28,8 @@ class FileByteChannel(
     private val isAppend: Boolean
 ) : ForceableChannel, SeekableByteChannel {
     private var position = 0L
-    private val ioLock = Any()
-
     private val readBuffer = ReadBuffer()
+    private val ioLock = Any()
 
     private var isOpen = true
     private val closeLock = Any()
