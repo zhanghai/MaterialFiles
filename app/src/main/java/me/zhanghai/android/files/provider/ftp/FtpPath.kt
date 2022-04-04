@@ -17,7 +17,7 @@ import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
-import me.zhanghai.android.files.provider.common.PollingWatchService
+import me.zhanghai.android.files.provider.common.LocalWatchService
 import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.ftp.client.Authority
@@ -92,7 +92,7 @@ internal class FtpPath : ByteStringListPath<FtpPath>, Client.Path {
         events: Array<WatchEvent.Kind<*>>,
         vararg modifiers: WatchEvent.Modifier
     ): WatchKey {
-        if (watcher !is PollingWatchService) {
+        if (watcher !is LocalWatchService) {
             throw ProviderMismatchException(watcher.toString())
         }
         return watcher.register(this, events, *modifiers)
