@@ -11,6 +11,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AppCompatActivity
+import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.recreateCompat
 import me.zhanghai.android.files.compat.setThemeCompat
 import me.zhanghai.android.files.compat.themeResIdCompat
@@ -65,13 +66,16 @@ object CustomThemeHelper {
     private fun getCustomThemeRes(@StyleRes baseThemeRes: Int, context: Context): Int {
         val resources = context.resources
         val baseThemeName = resources.getResourceName(baseThemeRes)
-        val customThemeIdentifier = if (Settings.MATERIAL_DESIGN_3.valueCompat) {
-            "Md3"
+        val customThemeName = if (Settings.MATERIAL_DESIGN_3.valueCompat) {
+            val defaultThemeName = resources.getResourceEntryName(R.style.Theme_MaterialFiles)
+            val material3ThemeName =
+                resources.getResourceEntryName(R.style.Theme_MaterialFiles_Material3)
+            baseThemeName.replace(defaultThemeName, material3ThemeName)
         } else {
-            resources.getResourceEntryName(Settings.THEME_COLOR.valueCompat.resourceId)
-        }
-        val blackThemeSuffix = if (Settings.BLACK_NIGHT_MODE.valueCompat) ".Black" else ""
-        val customThemeName = "$baseThemeName.$customThemeIdentifier$blackThemeSuffix"
+            val themeColorName =
+                resources.getResourceEntryName(Settings.THEME_COLOR.valueCompat.resourceId)
+            "$baseThemeName.$themeColorName"
+        } + if (Settings.BLACK_NIGHT_MODE.valueCompat) ".Black" else ""
         return resources.getIdentifier(customThemeName, null, null)
     }
 

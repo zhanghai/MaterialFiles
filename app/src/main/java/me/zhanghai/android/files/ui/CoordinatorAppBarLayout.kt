@@ -58,8 +58,6 @@ class CoordinatorAppBarLayout : AppBarLayout {
             true
         }
 
-        maybeUseMd3AppBarElevationOverlay()
-
         if (background is MaterialShapeDrawable) {
             this.background = OnElevationChangedMaterialShapeDrawable(
                 background, this::onBackgroundElevationChanged

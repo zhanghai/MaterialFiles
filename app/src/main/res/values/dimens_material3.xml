@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <dimen name="navigation_item_horizontal_padding_material3">@dimen/m3_navigation_item_horizontal_padding</dimen>
+    <dimen name="navigation_item_icon_padding_material3">@dimen/m3_navigation_item_icon_padding</dimen>
+</resources>

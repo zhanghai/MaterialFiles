@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="PrivateResource">
+
+    <style name="Preference.MaterialFiles.Material3.SimpleMenuPreference" parent="Preference.SimpleMenuPreference">
+        <item name="android:popupMenuStyle">@style/Widget.MaterialFiles.Material3.Preference.SimpleMenuPreference.PopupMenu</item>
+    </style>
+    <style name="Widget.MaterialFiles.Material3.Preference.SimpleMenuPreference.PopupMenu" parent="Widget.Preference.SimpleMenuPreference.PopupMenu">
+        <item name="android:popupBackground">@drawable/m3_popupmenu_background_overlay</item>
+    </style>
+
+    <style name="TextAppearance.MaterialFiles.Material3.ListItem" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+    </style>
+
+    <style name="TextAppearance.MaterialFiles.Material3.ListItemSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+    </style>
+
+    <style name="Widget.MaterialFiles.Material3.CompoundButton.Switch" parent="Widget.Material3.CompoundButton.Switch">
+        <item name="android:thumb">@drawable/switch_thumb_material3</item>
+        <item name="thumbTint">@color/switch_thumb_tint_material3</item>
+        <item name="thumbTintMode">src_in</item>
+        <item name="track">@drawable/switch_track_material3</item>
+        <item name="trackTint">@color/switch_track_tint_material3</item>
+    </style>
+
+    <style name="Widget.MaterialFiles.Material3.NavigationView" parent="Widget.Material3.NavigationView">
+        <item name="itemHorizontalPadding">@dimen/navigation_item_horizontal_padding_material3</item>
+        <item name="itemSubtitleTextAppearance">?textAppearanceBodyMedium</item>
+        <item name="itemSubtitleTextColor">@color/navigation_item_subtitle_text_color_material3</item>
+        <item name="itemSubtitleTextSize">10sp</item>
+        <item name="itemIconPadding">@dimen/navigation_item_icon_padding_material3</item>
+        <item name="dividerVerticalPadding">@dimen/design_navigation_separator_vertical_padding</item>
+    </style>
+
+    <style name="Widget.MaterialFiles.Material3.TabLayout" parent="Widget.Material3.TabLayout">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.MaterialFiles.Material3.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="contentInsetStartWithNavigation">@dimen/abc_action_bar_content_inset_with_nav</item>
+    </style>
+</resources>

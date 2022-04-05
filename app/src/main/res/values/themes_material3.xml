@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <style name="Platform.V21.Theme.MaterialFiles.Material3" parent="Theme.Material3.DynamicColors.DayNight">
+        <item name="colorPrimaryDark">@color/system_window_scrim_compat</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Material3" parent="Platform.V21.Theme.MaterialFiles.Material3" />
+    <style name="Base.Theme.MaterialFiles.Material3" parent="Platform.Theme.MaterialFiles.Material3">
+
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialFiles.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialFiles.ActionBarPopup</item>
+        <item name="android:colorBackground">?colorSurface</item>
+        <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorAccent">?colorPrimary</item>
+        <item name="floatingActionButtonStyle">?floatingActionButtonSecondaryStyle</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="minTouchTargetSize">0dp</item>
+        <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
+        <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
+        <item name="switchStyle">@style/Widget.MaterialFiles.Material3.CompoundButton.Switch</item>
+        <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
+        <item name="textAppearanceListItem">@style/TextAppearance.MaterialFiles.Material3.ListItem</item>
+        <item name="android:textAppearanceListItem">?textAppearanceListItem</item>
+        <item name="textAppearanceListItemSmall">@style/TextAppearance.MaterialFiles.Material3.ListItemSmall</item>
+        <item name="android:textAppearanceListItemSmall">?textAppearanceListItemSmall</item>
+        <item name="textInputStyle">?textInputOutlinedStyle</item>
+        <item name="toolbarStyle">@style/Widget.MaterialFiles.Material3.Toolbar</item>
+
+        <item name="colorAppBarSurface">?colorSurface</item>
+    </style>
+    <style name="Theme.MaterialFiles.Material3" parent="Base.Theme.MaterialFiles.Material3" />
+
+    <style name="Platform.V21.Theme.MaterialFiles.Material3.Translucent" parent="Theme.MaterialFiles.Material3">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Material3.Translucent" parent="Platform.V21.Theme.MaterialFiles.Material3.Translucent" />
+    <style name="Base.Theme.MaterialFiles.Material3.Translucent" parent="Platform.Theme.MaterialFiles.Material3.Translucent">
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.MaterialFiles.Material3.Translucent" parent="Base.Theme.MaterialFiles.Material3.Translucent" />
+
+    <style name="Platform.V21.Theme.MaterialFiles.Material3.Immersive" parent="Theme.Material3.DynamicColors.Dark">
+        <item name="android:navigationBarColor">?colorPrimaryDark</item>
+
+        <item name="colorPrimaryDark">@color/dark_50_percent</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Material3.Immersive" parent="Platform.V21.Theme.MaterialFiles.Material3.Immersive" />
+    <style name="Base.Theme.MaterialFiles.Material3.Immersive" parent="Platform.Theme.MaterialFiles.Material3.Immersive">
+
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialFiles.ActionBar</item>
+        <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialFiles.ActionBarPopup</item>
+        <item name="android:colorBackground">?colorSurface</item>
+        <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="colorAccent">?colorPrimary</item>
+        <item name="floatingActionButtonStyle">?floatingActionButtonSecondaryStyle</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="minTouchTargetSize">0dp</item>
+        <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
+        <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
+        <item name="switchStyle">@style/Widget.MaterialFiles.Material3.CompoundButton.Switch</item>
+        <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
+        <item name="textAppearanceListItem">@style/TextAppearance.MaterialFiles.Material3.ListItem</item>
+        <item name="android:textAppearanceListItem">?textAppearanceListItem</item>
+        <item name="textAppearanceListItemSmall">@style/TextAppearance.MaterialFiles.Material3.ListItemSmall</item>
+        <item name="android:textAppearanceListItemSmall">?textAppearanceListItemSmall</item>
+        <item name="textInputStyle">?textInputOutlinedStyle</item>
+        <item name="toolbarStyle">@style/Widget.MaterialFiles.Material3.Toolbar</item>
+
+        <item name="colorAppBarSurface">@color/dark_50_percent</item>
+    </style>
+    <style name="Theme.MaterialFiles.Material3.Immersive" parent="Base.Theme.MaterialFiles.Material3.Immersive" />
+
+    <style name="Theme.MaterialFiles.Material3.Black" />
+</resources>

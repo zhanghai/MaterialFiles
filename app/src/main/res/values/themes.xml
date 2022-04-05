@@ -27,10 +27,11 @@
         <item name="colorSecondaryVariant">?colorSecondary</item>
         <item name="colorSurface">@color/color_surface</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.MediumComponent</item>
+        <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="navigationViewStyle">@style/Widget.MaterialFiles.NavigationView</item>
         <item name="minTouchTargetSize">0dp</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="textInputStyle">?textInputOutlinedStyle</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
     </style>
@@ -75,9 +76,10 @@
         <item name="colorSecondaryVariant">?colorSecondary</item>
         <item name="colorSurface">@color/color_surface_dark</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.MediumComponent</item>
+        <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
         <item name="minTouchTargetSize">0dp</item>
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="textInputStyle">?textInputOutlinedStyle</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
     </style>

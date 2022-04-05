@@ -131,7 +131,7 @@
                         android:hint="@string/storage_edit_ftp_server_protocol"
                         app:errorEnabled="true"
                         app:expandedHintEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                        style="?textInputOutlinedExposedDropdownMenuStyle">
 
                         <AutoCompleteTextView
                             android:id="@+id/protocolEdit"
@@ -147,7 +147,7 @@
                         android:hint="@string/storage_edit_ftp_server_authentication_type"
                         app:errorEnabled="true"
                         app:expandedHintEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                        style="?textInputOutlinedExposedDropdownMenuStyle">
 
                         <AutoCompleteTextView
                             android:id="@+id/authenticationTypeEdit"
@@ -199,7 +199,7 @@
                         android:hint="@string/storage_edit_ftp_server_mode"
                         app:errorEnabled="true"
                         app:expandedHintEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                        style="?textInputOutlinedExposedDropdownMenuStyle">
 
                         <AutoCompleteTextView
                             android:id="@+id/modeEdit"
@@ -215,7 +215,7 @@
                         android:hint="@string/storage_edit_ftp_server_encoding"
                         app:errorEnabled="true"
                         app:expandedHintEnabled="false"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+                        style="?textInputOutlinedExposedDropdownMenuStyle">
 
                         <AutoCompleteTextView
                             android:id="@+id/encodingEdit"
@@ -243,7 +243,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:text="@string/save"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog" />
+                style="?buttonBarButtonStyle" />
 
             <Space
                 android:layout_width="0dp"
@@ -255,14 +255,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@android:string/cancel"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog" />
+                style="?buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/saveOrConnectAndAddButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/save"
-                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog" />
+                style="?buttonBarButtonStyle" />
         </LinearLayout>
     </me.zhanghai.android.files.ui.CoordinatorScrollingLinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

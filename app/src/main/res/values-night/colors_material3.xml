@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <color name="system_window_scrim_material3">@color/system_window_scrim_dark_material3</color>
+
+    <color name="switch_thumb_tint_material3">@color/switch_thumb_tint_dark_material3</color>
+    <color name="switch_track_tint_material3">@color/switch_track_tint_dark_material3</color>
+</resources>

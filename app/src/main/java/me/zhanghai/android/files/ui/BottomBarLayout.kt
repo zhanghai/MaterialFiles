@@ -30,7 +30,6 @@ class BottomBarLayout @JvmOverloads constructor(
                 elevation = this@BottomBarLayout.elevation
             }
         }
-        maybeUseMd3AppBarElevationOverlay()
     }
 
     override fun onAttachedToWindow() {

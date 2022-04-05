@@ -20,10 +20,6 @@ class OverlayToolbar : MaterialToolbar {
         context, attrs, defStyleAttr
     )
 
-    init {
-        maybeUseMd3AppBarElevationOverlay()
-    }
-
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 

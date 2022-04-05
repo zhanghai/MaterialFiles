@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="PrivateResource">
+    <item android:state_enabled="false" android:alpha="@dimen/material_emphasis_disabled" android:color="@color/m3_sys_color_dynamic_dark_on_surface" />
+    <item android:color="@color/m3_sys_color_dynamic_dark_outline" />
+</selector>

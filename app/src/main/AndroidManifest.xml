@@ -332,11 +332,5 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
-
-        <!-- We need to reference the MD3 theme in XML for R8 to keep relevant resources. -->
-        <activity
-            android:name=".KeepMd3Resources"
-            android:theme="@style/Theme.MaterialFiles.Md3"
-            tools:ignore="MissingClass" />
     </application>
 </manifest>

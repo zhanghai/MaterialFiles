@@ -6,8 +6,8 @@
   -->
 
 <resources>
+
     <attr name="colorAppBarSurface" format="color" />
-    <attr name="colorLiftedAppBarSurface" format="color" />
 
     <declare-styleable name="NavigationViewExtra">
         <attr name="itemSubtitleTextAppearance" format="reference" />
