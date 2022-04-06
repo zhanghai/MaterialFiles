@@ -28,6 +28,7 @@
         <item name="colorSurface">@color/color_surface</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.MediumComponent</item>
         <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="navigationViewStyle">@style/Widget.MaterialFiles.NavigationView</item>
         <item name="minTouchTargetSize">0dp</item>
         <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
 

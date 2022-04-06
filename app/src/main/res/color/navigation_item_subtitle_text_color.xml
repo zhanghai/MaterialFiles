@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2022 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="?colorPrimary" android:state_checked="true" />
+    <item android:alpha="0.38" android:color="?android:textColorSecondary" android:state_enabled="false" />
+    <item android:color="?android:textColorSecondary" />
+</selector>

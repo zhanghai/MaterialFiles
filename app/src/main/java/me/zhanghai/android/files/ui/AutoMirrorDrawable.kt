@@ -5,6 +5,7 @@
 package me.zhanghai.android.files.ui
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
@@ -44,5 +45,24 @@ class AutoMirrorDrawable(drawable: Drawable) : DrawableWrapper(drawable) {
             padding.right = paddingStart
         }
         return hasPadding
+    }
+
+    override fun getConstantState(): ConstantState? =
+        wrappedDrawable.constantState?.let { DelegateConstantState(it) }
+
+    private class DelegateConstantState(
+        private val constantState: ConstantState
+    ) : ConstantState() {
+        override fun newDrawable(): Drawable = AutoMirrorDrawable(constantState.newDrawable())
+
+        override fun newDrawable(res: Resources?): Drawable =
+            AutoMirrorDrawable(constantState.newDrawable(res))
+
+        override fun newDrawable(res: Resources?, theme: Resources.Theme?): Drawable =
+            AutoMirrorDrawable(constantState.newDrawable(res, theme))
+
+        override fun getChangingConfigurations(): Int = constantState.changingConfigurations
+
+        override fun canApplyTheme(): Boolean = constantState.canApplyTheme()
     }
 }
