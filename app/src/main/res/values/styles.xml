@@ -25,10 +25,8 @@
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="ShapeAppearance.MaterialFiles.Navigation" parent="">
-        <item name="cornerFamily">rounded</item>
-        <!-- Half of ?listPreferredItemHeightSmall -->
-        <item name="cornerSize">24dp</item>
+    <style name="ShapeAppearance.MaterialFiles.NavigationItem" parent="ShapeAppearance.MaterialComponents">
+        <item name="cornerSize">50%</item>
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>

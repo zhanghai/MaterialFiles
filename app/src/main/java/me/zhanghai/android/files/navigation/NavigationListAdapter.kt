@@ -92,7 +92,7 @@ class NavigationListAdapter(
     private fun createItemShapeDrawable(fillColor: ColorStateList, context: Context): Drawable {
         val materialShapeDrawable = MaterialShapeDrawable(
             ShapeAppearanceModel.builder(
-                context, R.style.ShapeAppearance_MaterialFiles_Navigation, 0
+                context, R.style.ShapeAppearance_MaterialFiles_NavigationItem, 0
             ).build()
         ).apply { this.fillColor = fillColor }
         val rightInset = context.dpToDimensionPixelSize(8)
