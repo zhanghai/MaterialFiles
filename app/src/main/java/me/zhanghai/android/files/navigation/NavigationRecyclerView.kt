@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.activity
 import me.zhanghai.android.files.util.displayWidth
-import me.zhanghai.android.files.util.getDimension
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import me.zhanghai.android.files.util.getDimensionPixelSizeByAttr
 import me.zhanghai.android.files.util.getDrawableByAttr
@@ -39,9 +38,7 @@ class NavigationRecyclerView : RecyclerView {
         context, attrs, defStyleAttr)
 
     init {
-        val context = context
         updatePadding(top = verticalPadding, bottom = verticalPadding)
-        elevation = context.getDimension(R.dimen.design_navigation_elevation)
         fitsSystemWindows = true
         setWillNotDraw(false)
     }
