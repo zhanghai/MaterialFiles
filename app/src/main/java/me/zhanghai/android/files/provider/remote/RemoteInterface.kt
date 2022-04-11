@@ -28,13 +28,13 @@ class RemoteInterface<T : IInterface>(
             if (value == null) {
                 value = creator()
                 this.value = value
-            }
-            try {
-                value.asBinder().linkToDeath(deathRecipient, 0)
-            } catch (e: RemoteException) {
-                // RemoteException is thrown if remote has already died.
-                this.value = null
-                throw RemoteFileSystemException(e)
+                try {
+                    value.asBinder().linkToDeath(deathRecipient, 0)
+                } catch (e: RemoteException) {
+                    // RemoteException is thrown if remote has already died.
+                    this.value = null
+                    throw RemoteFileSystemException(e)
+                }
             }
             return value
         }
