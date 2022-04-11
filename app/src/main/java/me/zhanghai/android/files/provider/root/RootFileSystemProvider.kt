@@ -40,12 +40,4 @@ open class RootFileSystemProvider(scheme: String) : RemoteFileSystemProvider(
     ): V? {
         throw AssertionError()
     }
-
-    override fun <A : BasicFileAttributes> readAttributes(
-        path: Path,
-        type: Class<A>,
-        vararg options: LinkOption
-    ): A {
-        throw AssertionError()
-    }
 }

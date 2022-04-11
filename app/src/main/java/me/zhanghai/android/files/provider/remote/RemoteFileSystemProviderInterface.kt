@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.remote
 
+import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.spi.FileSystemProvider
 import me.zhanghai.android.files.provider.common.PathObservableProvider
 import me.zhanghai.android.files.provider.common.Searchable
@@ -142,7 +143,11 @@ class RemoteFileSystemProviderInterface(
         exception: ParcelableException
     ): ParcelableObject? =
         tryRun(exception) {
-            provider.readAttributes(path.value(), type.value(), *options.value()).toParcelable()
+            provider.readAttributes(
+                // We have to explicitly specify the Class type here, or it will be resolved to the
+                // String overload.
+                path.value(), type.value<Class<BasicFileAttributes>>(), *options.value()
+            ).toParcelable()
         }
 
     override fun observe(

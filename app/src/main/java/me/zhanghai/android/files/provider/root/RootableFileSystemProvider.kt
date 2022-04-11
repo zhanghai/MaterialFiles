@@ -131,7 +131,7 @@ abstract class RootableFileSystemProvider(
         path: Path,
         type: Class<A>,
         vararg options: LinkOption
-    ): A = localProvider.readAttributes(path, type, *options)
+    ): A = callRootable(path, true) { readAttributes(path, type, *options) }
 
     @Throws(IOException::class)
     override fun readAttributes(
