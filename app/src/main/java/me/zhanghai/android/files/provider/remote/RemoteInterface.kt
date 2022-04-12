@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.remote
 import android.os.IBinder.DeathRecipient
 import android.os.IInterface
 import android.os.RemoteException
+import java.lang.ref.WeakReference
 
 class RemoteInterface<T : IInterface>(
     // @Throws(RemoteFileSystemException::class)
@@ -17,7 +18,7 @@ class RemoteInterface<T : IInterface>(
 
     private val lock = Any()
 
-    private val deathRecipient = DeathRecipient { binderDied() }
+    private val deathRecipient = WeakDeathRecipient(this)
 
     fun has(): Boolean = synchronized(lock) { value != null }
 
@@ -44,6 +45,26 @@ class RemoteInterface<T : IInterface>(
         synchronized(lock) {
             value!!.asBinder().unlinkToDeath(deathRecipient, 0)
             value = null
+        }
+    }
+
+    protected fun finalize() {
+        if (value != null) {
+            // We have to do this or JavaBinder will complain about BinderProxy being destroyed
+            // without unlinkToDeath() being called first.
+            value!!.asBinder().unlinkToDeath(deathRecipient, 0)
+            value = null
+        }
+    }
+
+    // Avoid a strong reference to the BinderProxy so that it can be garbage collected.
+    private class WeakDeathRecipient<T : IInterface>(
+        remoteInterface: RemoteInterface<T>
+    ) : DeathRecipient {
+        private val weakRemoteInterface = WeakReference(remoteInterface)
+
+        override fun binderDied() {
+            weakRemoteInterface.get()?.binderDied()
         }
     }
 }
