@@ -49,7 +49,7 @@ class NavigationFragment : Fragment(), NavigationItem.Listener {
         //binding.recyclerView.setItemAnimator(new NoChangeAnimationItemAnimator());
         val context = requireContext()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = NavigationListAdapter(this)
+        adapter = NavigationListAdapter(this, context)
         binding.recyclerView.adapter = adapter
 
         val viewLifecycleOwner = viewLifecycleOwner

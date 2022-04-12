@@ -8,4 +8,11 @@
 <resources>
     <attr name="colorAppBarSurface" format="color" />
     <attr name="colorLiftedAppBarSurface" format="color" />
+
+    <declare-styleable name="NavigationViewExtra">
+        <attr name="itemSubtitleTextAppearance" format="reference" />
+        <attr name="itemSubtitleTextColor" format="color" />
+        <attr name="itemSubtitleTextSize" format="dimension" />
+        <attr name="dividerVerticalPadding" format="dimension" />
+    </declare-styleable>
 </resources>

@@ -8,6 +8,9 @@ package me.zhanghai.android.files.provider.ftp.client
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateOutputStream
+import me.zhanghai.android.files.provider.common.LocalWatchService
+import me.zhanghai.android.files.provider.common.NotifyEntryModifiedOutputStream
+import me.zhanghai.android.files.provider.common.NotifyEntryModifiedSeekableByteChannel
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPClientConfig
 import org.apache.commons.net.ftp.FTPCmd
@@ -24,6 +27,7 @@ import java.io.OutputStream
 import java.util.Collections
 import java.util.Locale
 import java.util.WeakHashMap
+import java8.nio.file.Path as Java8Path
 
 object Client {
     private val TIMESTAMP_FORMATTER =
@@ -152,11 +156,13 @@ object Client {
                 client.throwNegativeReplyCodeException()
             }
         }
+        LocalWatchService.onEntryCreated(path as Java8Path)
     }
 
     @Throws(IOException::class)
     fun createFile(path: Path) {
         storeFile(path).close()
+        LocalWatchService.onEntryCreated(path as Java8Path)
     }
 
     @Throws(IOException::class)
@@ -182,6 +188,7 @@ object Client {
             }
         }
         directoryFilesCache -= path
+        LocalWatchService.onEntryDeleted(path as Java8Path)
     }
 
     @Throws(IOException::class)
@@ -192,6 +199,7 @@ object Client {
             }
         }
         directoryFilesCache -= path
+        LocalWatchService.onEntryDeleted(path as Java8Path)
     }
 
     @Throws(IOException::class)
@@ -206,6 +214,8 @@ object Client {
         }
         directoryFilesCache -= source
         directoryFilesCache -= target
+        LocalWatchService.onEntryDeleted(source as Java8Path)
+        LocalWatchService.onEntryCreated(target as Java8Path)
     }
 
     @Throws(IOException::class)
@@ -277,8 +287,10 @@ object Client {
         if (!client.hasFeature(FTPCmd.REST)) {
             throw IOException("Missing feature ${FTPCmd.REST.command}")
         }
-        return FileByteChannel(
-            client, { releaseClient(authority, client) }, path.remotePath, isAppend
+        return NotifyEntryModifiedSeekableByteChannel(
+            FileByteChannel(
+                client, { releaseClient(authority, client) }, path.remotePath, isAppend
+            ), path as Java8Path
         )
     }
 
@@ -290,6 +302,7 @@ object Client {
                 client.throwNegativeReplyCodeException()
             }
         }
+        LocalWatchService.onEntryModified(path as Java8Path)
     }
 
     @Throws(IOException::class)
@@ -302,7 +315,9 @@ object Client {
             releaseClient(authority, client)
             throw t
         }
-        return CompletePendingCommandOutputStream(outputStream, authority, client)
+        return NotifyEntryModifiedOutputStream(
+            CompletePendingCommandOutputStream(outputStream, authority, client), path as Java8Path
+        )
     }
 
     interface Path {

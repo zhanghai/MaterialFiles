@@ -6,6 +6,9 @@
 package me.zhanghai.android.files.provider.sftp.client
 
 import java8.nio.channels.SeekableByteChannel
+import java8.nio.file.Path as Java8Path
+import me.zhanghai.android.files.provider.common.LocalWatchService
+import me.zhanghai.android.files.provider.common.NotifyEntryModifiedSeekableByteChannel
 import me.zhanghai.android.files.util.closeSafe
 import net.schmizz.sshj.SSHClient
 import net.schmizz.sshj.sftp.FileAttributes
@@ -32,8 +35,9 @@ object Client {
         Collections.synchronizedMap(WeakHashMap<Path, FileAttributes>())
 
     @Throws(ClientException::class)
-    fun close(file: RemoteFile) {
-        return try {
+    fun access(path: Path, flags: Set<OpenMode>) {
+        val file = open(path, flags, FileAttributes.EMPTY)
+        try {
             file.close()
         } catch (e: IOException) {
             throw ClientException(e)
@@ -63,10 +67,11 @@ object Client {
         } catch (e: IOException) {
             throw ClientException(e)
         }
+        LocalWatchService.onEntryCreated(path as Java8Path)
     }
 
     @Throws(ClientException::class)
-    fun open(path: Path, flags: Set<OpenMode>, attributes: FileAttributes): RemoteFile {
+    private fun open(path: Path, flags: Set<OpenMode>, attributes: FileAttributes): RemoteFile {
         val client = getClient(path.authority)
         return try {
             client.open(path.remotePath, flags, attributes)
@@ -82,7 +87,9 @@ object Client {
         attributes: FileAttributes
     ): SeekableByteChannel {
         val file = open(path, flags, attributes)
-        return FileByteChannel(file, flags.contains(OpenMode.APPEND))
+        return NotifyEntryModifiedSeekableByteChannel(
+            FileByteChannel(file, flags.contains(OpenMode.APPEND)), path as Java8Path
+        )
     }
 
     @Throws(ClientException::class)
@@ -133,6 +140,8 @@ object Client {
         }
         directoryFileAttributesCache -= path
         directoryFileAttributesCache -= newPath
+        LocalWatchService.onEntryDeleted(path as Java8Path)
+        LocalWatchService.onEntryCreated(newPath as Java8Path)
     }
 
     @Throws(ClientException::class)
@@ -144,6 +153,7 @@ object Client {
             throw ClientException(e)
         }
         directoryFileAttributesCache -= path
+        LocalWatchService.onEntryDeleted(path as Java8Path)
     }
 
     @Throws(ClientException::class)
@@ -170,6 +180,7 @@ object Client {
             throw ClientException(e)
         }
         directoryFileAttributesCache -= path
+        LocalWatchService.onEntryModified(path as Java8Path)
     }
 
     @Throws(ClientException::class)
@@ -197,6 +208,7 @@ object Client {
         } catch (e: IOException) {
             throw ClientException(e)
         }
+        LocalWatchService.onEntryCreated(link as Java8Path)
     }
 
     @Throws(ClientException::class)
@@ -208,6 +220,7 @@ object Client {
             throw ClientException(e)
         }
         directoryFileAttributesCache -= path
+        LocalWatchService.onEntryDeleted(path as Java8Path)
     }
 
     @Throws(ClientException::class)

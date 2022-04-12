@@ -5,30 +5,116 @@
 
 package me.zhanghai.android.files.navigation
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
 import android.graphics.drawable.RippleDrawable
+import android.util.TypedValue
 import android.view.ViewGroup
+import androidx.annotation.Px
+import androidx.annotation.StyleRes
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updatePaddingRelative
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.foregroundCompat
-import me.zhanghai.android.files.compat.getColorStateListCompat
+import me.zhanghai.android.files.compat.obtainStyledAttributesCompat
+import me.zhanghai.android.files.compat.setTextAppearanceCompat
+import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.databinding.NavigationDividerItemBinding
 import me.zhanghai.android.files.databinding.NavigationItemBinding
 import me.zhanghai.android.files.ui.AutoMirrorDrawable
 import me.zhanghai.android.files.ui.SimpleAdapter
-import me.zhanghai.android.files.util.dpToDimensionPixelSize
 import me.zhanghai.android.files.util.getColorStateListByAttr
 import me.zhanghai.android.files.util.layoutInflater
 
 class NavigationListAdapter(
-    private val listener: NavigationItem.Listener
+    private val listener: NavigationItem.Listener,
+    context: Context
 ) : SimpleAdapter<NavigationItem?, RecyclerView.ViewHolder>() {
+    @SuppressLint("PrivateResource", "RestrictedApi")
+    private val viewAttributes = context.obtainStyledAttributesCompat(
+        null, R.styleable.NavigationView, R.attr.navigationViewStyle,
+        R.style.Widget_MaterialComponents_NavigationView
+    ).use { a ->
+        val itemShapeAppearance = a.getResourceId(R.styleable.NavigationView_itemShapeAppearance, 0)
+        val itemShapeAppearanceOverlay = a.getResourceId(
+            R.styleable.NavigationView_itemShapeAppearanceOverlay, 0
+        )
+        val itemShapeFillColor = a.getColorStateList(R.styleable.NavigationView_itemShapeFillColor)
+        val itemShapeInsetStart =
+            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetStart, 0)
+        val itemShapeInsetEnd =
+            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetEnd, 0)
+        val itemShapeInsetTop =
+            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetTop, 0)
+        val itemShapeInsetBottom =
+            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetBottom, 0)
+        val itemBackground = createItemShapeDrawable(
+            itemShapeAppearance, itemShapeAppearanceOverlay, itemShapeFillColor,
+            itemShapeInsetStart, itemShapeInsetEnd, itemShapeInsetTop, itemShapeInsetBottom, context
+        )
+        val controlHighlightColor = context.getColorStateListByAttr(R.attr.colorControlHighlight)
+        val itemForegroundMaskFillColor = ColorStateList.valueOf(Color.WHITE)
+        val itemForegroundMask = createItemShapeDrawable(
+            itemShapeAppearance, itemShapeAppearanceOverlay, itemForegroundMaskFillColor,
+            itemShapeInsetStart, itemShapeInsetEnd, itemShapeInsetTop, itemShapeInsetBottom, context
+        )
+        val itemForeground = RippleDrawable(controlHighlightColor, null, itemForegroundMask)
+        context.obtainStyledAttributesCompat(
+            null, R.styleable.NavigationViewExtra, R.attr.navigationViewStyle, 0
+        ).use { a2 ->
+            ViewAttributes(
+                a.getDimensionPixelSize(R.styleable.NavigationView_itemHorizontalPadding, 0),
+                a.getDimensionPixelSize(R.styleable.NavigationView_itemVerticalPadding, 0),
+                itemBackground,
+                itemForeground,
+                a.getDimensionPixelSize(R.styleable.NavigationView_itemIconSize, 0),
+                a.getColorStateList(R.styleable.NavigationView_itemIconTint),
+                a.getDimensionPixelSize(R.styleable.NavigationView_itemIconPadding, 0),
+                a.getResourceId(
+                    R.styleable.NavigationView_itemTextAppearance, ResourcesCompat.ID_NULL
+                ),
+                a.getColorStateList(R.styleable.NavigationView_itemTextColor),
+                a2.getResourceId(
+                    R.styleable.NavigationViewExtra_itemSubtitleTextAppearance,
+                    ResourcesCompat.ID_NULL
+                ),
+                a2.getColorStateList(R.styleable.NavigationViewExtra_itemSubtitleTextColor),
+                a2.getDimension(R.styleable.NavigationViewExtra_itemSubtitleTextSize, 0f),
+                a.getDimensionPixelSize(R.styleable.NavigationView_dividerInsetStart, 0),
+                a.getDimensionPixelSize(R.styleable.NavigationView_dividerInsetEnd, 0),
+                a2.getDimensionPixelSize(R.styleable.NavigationViewExtra_dividerVerticalPadding, 0)
+            )
+        }
+    }
+
+    // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
+    private fun createItemShapeDrawable(
+        @StyleRes shapeAppearance: Int,
+        @StyleRes shapeAppearanceOverlay: Int,
+        fillColor: ColorStateList?,
+        @Px insetStart: Int,
+        @Px insetEnd: Int,
+        @Px insetTop: Int,
+        @Px insetBottom: Int,
+        context: Context
+    ): Drawable {
+        val shapeAppearanceModel =
+            ShapeAppearanceModel.builder(context, shapeAppearance, shapeAppearanceOverlay).build()
+        val materialShapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
+            .apply { this.fillColor = fillColor }
+        return AutoMirrorDrawable(
+            InsetDrawable(materialShapeDrawable, insetStart, insetTop, insetEnd, insetBottom)
+        )
+    }
+
     fun notifyCheckedChanged() {
         notifyItemRangeChanged(0, itemCount, PAYLOAD_CHECKED_CHANGED)
     }
@@ -50,53 +136,52 @@ class NavigationListAdapter(
                 ItemHolder(
                     NavigationItemBinding.inflate(parent.context.layoutInflater, parent, false)
                 ).apply {
-                    val context = binding.itemLayout.context
-                    binding.itemLayout.background = createItemBackground(context)
-                    binding.itemLayout.foregroundCompat = createItemForeground(context)
-                    binding.iconImage.imageTintList = NavigationItemColor.create(
-                        binding.iconImage.imageTintList!!, binding.iconImage.context
+                    binding.itemLayout.updatePaddingRelative(
+                        viewAttributes.itemHorizontalPadding,
+                        viewAttributes.itemVerticalPadding,
+                        viewAttributes.itemHorizontalPadding,
+                        viewAttributes.itemVerticalPadding
                     )
-                    binding.titleText.setTextColor(
-                        NavigationItemColor.create(
-                            binding.titleText.textColors, binding.titleText.context
+                    binding.itemLayout.background =
+                        viewAttributes.itemBackground?.constantState?.newDrawable()
+                    binding.itemLayout.foregroundCompat =
+                        viewAttributes.itemForeground?.constantState?.newDrawable()
+                    binding.iconImage.updateLayoutParams {
+                        width = viewAttributes.itemIconSize
+                        height = viewAttributes.itemIconSize
+                    }
+                    binding.iconImage.imageTintList = viewAttributes.itemIconTint
+                    binding.textLayout.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                        marginStart = viewAttributes.itemIconPadding
+                    }
+                    if (viewAttributes.itemTextAppearance != ResourcesCompat.ID_NULL) {
+                        binding.titleText.setTextAppearanceCompat(viewAttributes.itemTextAppearance)
+                    }
+                    binding.titleText.setTextColor(viewAttributes.itemTextColor)
+                    if (viewAttributes.itemSubtitleTextAppearance != ResourcesCompat.ID_NULL) {
+                        binding.subtitleText.setTextAppearanceCompat(
+                            viewAttributes.itemSubtitleTextAppearance
                         )
+                    }
+                    binding.subtitleText.setTextSize(
+                        TypedValue.COMPLEX_UNIT_PX, viewAttributes.itemSubtitleTextSize
                     )
-                    binding.subtitleText.setTextColor(
-                        NavigationItemColor.create(
-                            binding.subtitleText.textColors, binding.subtitleText.context
-                        )
-                    )
+                    binding.subtitleText.setTextColor(viewAttributes.itemSubtitleTextColor)
                 }
             ViewType.DIVIDER ->
                 DividerHolder(
                     NavigationDividerItemBinding.inflate(
                         parent.context.layoutInflater, parent, false
                     )
-                )
+                ).apply {
+                    binding.root.updatePaddingRelative(
+                        viewAttributes.dividerInsetStart,
+                        viewAttributes.dividerVerticalPadding,
+                        viewAttributes.dividerInsetEnd,
+                        viewAttributes.dividerVerticalPadding
+                    )
+                }
         }
-    }
-
-    // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
-    private fun createItemBackground(context: Context): Drawable =
-        createItemShapeDrawable(
-            context.getColorStateListCompat(R.color.mtrl_navigation_item_background_color), context
-        )
-
-    private fun createItemForeground(context: Context): Drawable {
-        val controlHighlightColor = context.getColorStateListByAttr(R.attr.colorControlHighlight)
-        val mask = createItemShapeDrawable(ColorStateList.valueOf(Color.WHITE), context)
-        return RippleDrawable(controlHighlightColor, null, mask)
-    }
-
-    // @see com.google.android.material.navigation.NavigationView#createDefaultItemBackground
-    private fun createItemShapeDrawable(fillColor: ColorStateList, context: Context): Drawable {
-        val materialShapeDrawable = MaterialShapeDrawable(
-            ShapeAppearanceModel.builder(
-                context, R.style.ShapeAppearance_MaterialFiles_Navigation, 0
-            ).build()
-        ).apply { this.fillColor = fillColor }
-        val rightInset = context.dpToDimensionPixelSize(8)
-        return AutoMirrorDrawable(InsetDrawable(materialShapeDrawable, 0, 0, rightInset, 0))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -129,6 +214,24 @@ class NavigationListAdapter(
     companion object {
         private val PAYLOAD_CHECKED_CHANGED = Any()
     }
+
+    private class ViewAttributes(
+        @Px val itemHorizontalPadding: Int,
+        @Px val itemVerticalPadding: Int,
+        val itemBackground: Drawable?,
+        val itemForeground: Drawable?,
+        @Px val itemIconSize: Int,
+        val itemIconTint: ColorStateList?,
+        @Px val itemIconPadding: Int,
+        @StyleRes val itemTextAppearance: Int,
+        val itemTextColor: ColorStateList?,
+        @StyleRes val itemSubtitleTextAppearance: Int,
+        val itemSubtitleTextColor: ColorStateList?,
+        @Px val itemSubtitleTextSize: Float,
+        @Px val dividerInsetStart: Int,
+        @Px val dividerInsetEnd: Int,
+        @Px val dividerVerticalPadding: Int
+    )
 
     private enum class ViewType {
         ITEM,

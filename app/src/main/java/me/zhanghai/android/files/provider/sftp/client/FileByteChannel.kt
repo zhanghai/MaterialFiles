@@ -28,9 +28,8 @@ class FileByteChannel(
     private val isAppend: Boolean
 ) : ForceableChannel, SeekableByteChannel {
     private var position = 0L
-    private val ioLock = Any()
-
     private val readBuffer = ReadBuffer()
+    private val ioLock = Any()
 
     private var isOpen = true
     private val closeLock = Any()
@@ -269,9 +268,7 @@ class FileByteChannel(
             if (newBufferPosition in 0..buffer.limit()) {
                 buffer.position(newBufferPosition.toInt())
             } else {
-                synchronized(pendingPromiseLock) {
-                    pendingPromise = null
-                }
+                synchronized(pendingPromiseLock) { pendingPromise = null }
                 buffer.limit(0)
                 bufferedPosition = newPosition
             }

@@ -118,7 +118,7 @@ class FilePropertiesVideoTabFragment : FilePropertiesTabFragment() {
 
     companion object {
         fun isAvailable(file: FileItem): Boolean =
-            file.path.isMediaMetadataRetrieverCompatible && file.mimeType.isVideo
+            file.mimeType.isVideo && file.path.isMediaMetadataRetrieverCompatible
     }
 
     @Parcelize

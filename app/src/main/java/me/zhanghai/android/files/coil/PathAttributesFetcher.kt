@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.coil
 
 import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.media.MediaMetadataRetriever
 import android.os.ParcelFileDescriptor
 import androidx.core.graphics.drawable.toDrawable
@@ -21,7 +22,6 @@ import coil.size.PixelSize
 import coil.size.Size
 import java8.nio.file.Path
 import java8.nio.file.attribute.BasicFileAttributes
-import me.zhanghai.android.appiconloader.AppIconLoader
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.file.MimeType
@@ -42,16 +42,40 @@ import me.zhanghai.android.files.provider.ftp.isFtpPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.getDimensionPixelSize
+import me.zhanghai.android.files.util.getPackageArchiveInfoCompat
+import me.zhanghai.android.files.util.isGetPackageArchiveInfoCompatible
 import me.zhanghai.android.files.util.runWithCancellationSignal
 import me.zhanghai.android.files.util.setDataSource
 import me.zhanghai.android.files.util.valueCompat
 import okio.buffer
 import okio.source
+import java.io.Closeable
+import java.io.IOException
 import me.zhanghai.android.files.util.setDataSource as appSetDataSource
 
 class PathAttributesFetcher(
     private val context: Context
 ) : Fetcher<Pair<Path, BasicFileAttributes>> {
+    private val appIconFetcher = object : AppIconFetcher<Path>(
+        // This is used by FileListAdapter.
+        context.getDimensionPixelSize(R.dimen.large_icon_size), context
+    ) {
+        override fun key(data: Path): String? {
+            throw AssertionError(data)
+        }
+
+        override fun getApplicationInfo(data: Path): Pair<ApplicationInfo, Closeable?> {
+            val (packageInfo, closeable) =
+                context.packageManager.getPackageArchiveInfoCompat(data, 0)
+            val applicationInfo = packageInfo?.applicationInfo
+            if (applicationInfo == null) {
+                closeable?.close()
+                throw IOException("ApplicationInfo is null")
+            }
+            return applicationInfo to closeable
+        }
+    }
+
     private val videoFrameFetcher = object : VideoFrameFetcher<Path>(context) {
         override fun key(data: Path): String? {
             throw AssertionError(data)
@@ -76,11 +100,6 @@ class PathAttributesFetcher(
                 else -> throw IllegalArgumentException(data.toString())
             }
     }
-
-    private val appIconLoader = AppIconLoader(
-        // This is used by FileListAdapter.
-        context.getDimensionPixelSize(R.dimen.large_icon_size), false, context
-    )
 
     override fun key(data: Pair<Path, BasicFileAttributes>): String {
         val (path, attributes) = data
@@ -126,18 +145,11 @@ class PathAttributesFetcher(
         }
         val mimeType = AndroidFileTypeDetector.getMimeType(data.first, data.second).asMimeType()
         when {
-            mimeType.isApk && path.isLinuxPath -> {
-                val apkPath = path.toFile().path
-                val applicationInfo = context.packageManager.getPackageArchiveInfo(apkPath, 0)
-                    ?.applicationInfo
-                if (applicationInfo != null) {
-                    applicationInfo.sourceDir = apkPath
-                    applicationInfo.publicSourceDir = apkPath
-                    val icon = appIconLoader.loadIcon(applicationInfo)
-                    // Not sampled because we only load with one fixed size.
-                    return DrawableResult(
-                        icon.toDrawable(context.resources), false, DataSource.DISK
-                    )
+            mimeType.isApk && path.isGetPackageArchiveInfoCompatible -> {
+                try {
+                    return appIconFetcher.fetch(pool, path, size, options)
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
             mimeType.isImage || mimeType == MimeType.GENERIC -> {

@@ -5,47 +5,41 @@
 
 package me.zhanghai.android.files.provider.archive.archiver
 
+import android.annotation.SuppressLint
 import android.os.Build
+import androidx.annotation.RequiresApi
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
 import org.apache.commons.compress.archivers.zip.ZipFile
 import java.io.Closeable
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.nio.charset.Charset
-import java.nio.charset.UnsupportedCharsetException
+import java.nio.channels.SeekableByteChannel
 import java.util.Enumeration
 import java.util.zip.ZipEntry
 import java.util.zip.ZipException
 import java.util.zip.ZipFile as JavaZipFile
 
-internal class ZipFileCompat(file: File, encoding: String) : Closeable {
-    private var zipFile: ZipFile?
-    private var javaZipFile: JavaZipFile?
+internal class ZipFileCompat : Closeable {
+    @RequiresApi(Build.VERSION_CODES.N)
+    private val zipFile: ZipFile?
+    private val javaZipFile: JavaZipFile?
 
-    init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            zipFile = ZipFile(file, encoding)
-            javaZipFile = null
-        } else {
-            zipFile = null
-            javaZipFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                // The same charset logic as Apache Commons Compress.
-                val charset = try {
-                    Charset.forName(encoding)
-                } catch (e: UnsupportedCharsetException) {
-                    Charset.defaultCharset()
-                }
-                JavaZipFile(file, charset)
-            } else {
-                JavaZipFile(file)
-            }
-        }
+    @RequiresApi(Build.VERSION_CODES.N)
+    constructor(channel: SeekableByteChannel, encoding: String?) {
+        zipFile = ZipFile(channel, encoding)
+        javaZipFile = null
+    }
+
+    constructor(file: File) {
+        @SuppressLint("NewApi")
+        zipFile = null
+        javaZipFile = JavaZipFile(file)
     }
 
     val entries: Enumeration<ZipArchiveEntry>
         get() =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 zipFile!!.entries
             } else {
                 val entries = javaZipFile!!.entries()
@@ -66,7 +60,7 @@ internal class ZipFileCompat(file: File, encoding: String) : Closeable {
 
     @Throws(IOException::class)
     fun getInputStream(entry: ZipArchiveEntry): InputStream? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             zipFile!!.getInputStream(entry)
         } else {
             javaZipFile!!.getInputStream(entry)
@@ -74,7 +68,7 @@ internal class ZipFileCompat(file: File, encoding: String) : Closeable {
 
     @Throws(IOException::class)
     override fun close() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             zipFile!!.close()
         } else {
             javaZipFile!!.close()

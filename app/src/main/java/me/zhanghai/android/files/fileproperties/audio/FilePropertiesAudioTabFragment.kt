@@ -87,7 +87,7 @@ class FilePropertiesAudioTabFragment : FilePropertiesTabFragment() {
 
     companion object {
         fun isAvailable(file: FileItem): Boolean =
-            file.path.isMediaMetadataRetrieverCompatible && file.mimeType.isAudio
+            file.mimeType.isAudio && file.path.isMediaMetadataRetrieverCompatible
     }
 
     @Parcelize

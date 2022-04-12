@@ -25,10 +25,24 @@
         <item name="cornerSize">8dp</item>
     </style>
 
-    <style name="ShapeAppearance.MaterialFiles.Navigation" parent="">
-        <item name="cornerFamily">rounded</item>
-        <!-- Half of ?listPreferredItemHeightSmall -->
-        <item name="cornerSize">24dp</item>
+    <style name="Widget.MaterialFiles.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemHorizontalPadding">@dimen/navigation_item_horizontal_padding</item>
+        <item name="itemVerticalPadding" tools:ignore="PrivateResource">@dimen/design_navigation_item_vertical_padding</item>
+        <item name="itemShapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialFiles.NavigationView.Item</item>
+        <item name="itemShapeInsetStart">0dp</item>
+        <item name="itemShapeInsetEnd">8dp</item>
+        <item name="itemShapeInsetTop">0dp</item>
+        <item name="itemShapeInsetBottom">0dp</item>
+        <item name="itemIconTint">@color/navigation_item_subtitle_text_color</item>
+        <item name="itemIconPadding">@dimen/navigation_item_icon_padding</item>
+        <item name="itemSubtitleTextAppearance">?textAppearanceBody2</item>
+        <item name="itemSubtitleTextColor">@color/navigation_item_subtitle_text_color</item>
+        <item name="itemSubtitleTextSize">10sp</item>
+        <item name="dividerVerticalPadding">@dimen/design_navigation_separator_vertical_padding</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.MaterialFiles.NavigationView.Item" parent="">
+        <item name="cornerSize">50%</item>
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>

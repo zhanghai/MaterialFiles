@@ -6,23 +6,32 @@
 package me.zhanghai.android.files.provider.archive.archiver
 
 import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceManager
+import java8.nio.channels.SeekableByteChannel
 import java8.nio.charset.StandardCharsets
 import java8.nio.file.AccessMode
 import java8.nio.file.NoSuchFileException
 import java8.nio.file.NotLinkException
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.toJavaSeekableByteChannel
 import me.zhanghai.android.files.compat.use
 //#ifdef NONFREE
 import me.zhanghai.android.files.nonfree.RarArchiveEntry
 import me.zhanghai.android.files.nonfree.RarFile
+import me.zhanghai.android.files.provider.common.DelegateForceableSeekableByteChannel
 //#endif
 import me.zhanghai.android.files.provider.common.DelegateInputStream
+import me.zhanghai.android.files.provider.common.DelegateNonForceableSeekableByteChannel
+import me.zhanghai.android.files.provider.common.ForceableChannel
 import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.checkAccess
+import me.zhanghai.android.files.provider.common.newByteChannel
+import me.zhanghai.android.files.provider.common.newInputStream
 import me.zhanghai.android.files.provider.common.posixFileType
+import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.provider.root.isRunningAsRoot
 import me.zhanghai.android.files.provider.root.rootContext
 import me.zhanghai.android.files.settings.Settings
@@ -42,6 +51,7 @@ import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStream
 import java.util.Date
+import kotlin.reflect.KClass
 import org.apache.commons.compress.archivers.ArchiveException as ApacheArchiveException
 
 object ArchiveReader {
@@ -96,10 +106,9 @@ object ArchiveReader {
 
     @Throws(IOException::class)
     private fun readEntries(file: Path): List<ArchiveEntry> {
-        val javaFile = file.toFile()
         val compressorType: String?
         val archiveType = try {
-            javaFile.inputStream().buffered().use { inputStream ->
+            file.newInputStream().buffered().use { inputStream ->
                 compressorType = try {
                     // inputStream must be buffered for markSupported().
                     CompressorStreamFactory.detect(inputStream)
@@ -128,24 +137,25 @@ object ArchiveReader {
         }
         val encoding = archiveFileNameEncoding
         if (compressorType == null) {
-            when (archiveType) {
-                ArchiveStreamFactory.ZIP ->
-                    return ZipFileCompat(javaFile, encoding).use { it.entries.toList() }
-                ArchiveStreamFactory.SEVEN_Z -> {
+            when {
+                archiveType == ArchiveStreamFactory.ZIP && ZipFileCompat::class.isSupported(file) ->
+                    return ZipFileCompat::class.create(file, encoding).use { it.entries.toList() }
+                archiveType == ArchiveStreamFactory.SEVEN_Z -> {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                         throw IOException(UnsupportedOperationException("SevenZFile"))
                     }
-                    return SevenZFile(javaFile).use { it.entries.toList() }
+                    return SevenZFile::class.create(file).use { it.entries.toList() }
                 }
-//#ifdef NONFREE
-                RarFile.RAR -> return RarFile(javaFile, encoding).use { it.entries.toList() }
-//#endif
+                //#ifdef NONFREE
+                archiveType == RarFile.RAR ->
+                    return RarFile.create(file, encoding).use { it.entries.toList() }
+                //#endif
                 // Unnecessary, but teaches lint that compressorType != null below might be false.
                 else -> {}
             }
         }
         return try {
-            javaFile.inputStream().buffered().use { inputStream ->
+            file.newInputStream().buffered().use { inputStream ->
                 val compressorInputStream = if (compressorType != null) {
                     compressorStreamFactory.createCompressorInputStream(compressorType, inputStream)
                 } else {
@@ -197,10 +207,9 @@ object ArchiveReader {
         if (entry.isDirectory) {
             throw IsDirectoryException(file.toString())
         }
-        val javaFile = file.toFile()
         val compressorType: String?
         val archiveType = try {
-            javaFile.inputStream().buffered().use { inputStream ->
+            file.newInputStream().buffered().use { inputStream ->
                 compressorType = try {
                     // inputStream must be buffered for markSupported().
                     CompressorStreamFactory.detect(inputStream)
@@ -229,13 +238,13 @@ object ArchiveReader {
         }
         val encoding = archiveFileNameEncoding
         if (compressorType == null) {
-            when (entry) {
-                is ZipArchiveEntry -> {
+            when {
+                entry is ZipArchiveEntry && ZipFileCompat::class.isSupported(file) -> {
                     var successful = false
                     var zipFile: ZipFileCompat? = null
                     var zipEntryInputStream: InputStream? = null
                     return try {
-                        zipFile = ZipFileCompat(javaFile, encoding)
+                        zipFile = ZipFileCompat::class.create(file, encoding)
                         zipEntryInputStream = zipFile.getInputStream(entry)
                             ?: throw NoSuchFileException(file.toString())
                         val inputStream = CloseableInputStream(zipEntryInputStream, zipFile)
@@ -248,11 +257,14 @@ object ArchiveReader {
                         }
                     }
                 }
-                is SevenZArchiveEntry -> {
+                entry is SevenZArchiveEntry -> {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        throw IOException(UnsupportedOperationException("SevenZFile"))
+                    }
                     var successful = false
                     var sevenZFile: SevenZFile? = null
                     return try {
-                        sevenZFile = SevenZFile(javaFile)
+                        sevenZFile = SevenZFile::class.create(file)
                         var inputStream: InputStream? = null
                         while (true) {
                             val currentEntry = sevenZFile.nextEntry ?: break
@@ -271,11 +283,11 @@ object ArchiveReader {
                     }
                 }
 //#ifdef NONFREE
-                is RarArchiveEntry -> {
+                entry is RarArchiveEntry -> {
                     var successful = false
                     var rarFile: RarFile? = null
                     return try {
-                        rarFile = RarFile(javaFile, encoding)
+                        rarFile = RarFile.create(file, encoding)
                         var inputStream: InputStream? = null
                         while (true) {
                             val currentEntry = rarFile.nextEntry ?: break
@@ -303,7 +315,7 @@ object ArchiveReader {
         var compressorInputStream: InputStream? = null
         var archiveInputStream: ArchiveInputStream? = null
         return try {
-            inputStream = javaFile.inputStream().buffered()
+            inputStream = file.newInputStream().buffered()
             compressorInputStream = if (compressorType != null) {
                 compressorStreamFactory.createCompressorInputStream(compressorType, inputStream)
             } else {
@@ -350,6 +362,48 @@ object ArchiveReader {
         } ?:
 //#endif
         ArchiveStreamFactory.detect(inputStream)
+
+    private fun KClass<ZipFileCompat>.isSupported(file: Path): Boolean =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.N || file.isLinuxPath
+
+    private fun KClass<ZipFileCompat>.create(file: Path, encoding: String?): ZipFileCompat =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            ZipFileCompat(
+                CacheSizeSeekableByteChannel(file.newByteChannel()).toJavaSeekableByteChannel(),
+                encoding
+            )
+        } else {
+            ZipFileCompat(file.toFile())
+        }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun KClass<SevenZFile>.create(file: Path): SevenZFile =
+        SevenZFile(CacheSizeSeekableByteChannel(file.newByteChannel()).toJavaSeekableByteChannel())
+
+    // ZipFileCompat and SevenZFile call size() repeatedly, especially ZipFile.skipBytes(), so make
+    // it cached to improve performance.
+    private fun CacheSizeSeekableByteChannel(channel: SeekableByteChannel): SeekableByteChannel =
+        if (channel is ForceableChannel) {
+            CacheSizeForceableSeekableByteChannel(channel)
+        } else {
+            CacheSizeNonForceableSeekableByteChannel(channel)
+        }
+
+    private class CacheSizeNonForceableSeekableByteChannel(
+        channel: SeekableByteChannel
+    ) : DelegateNonForceableSeekableByteChannel(channel) {
+        private val size: Long by lazy { super.size() }
+
+        override fun size(): Long = size
+    }
+
+    private class CacheSizeForceableSeekableByteChannel(
+        channel: SeekableByteChannel
+    ) : DelegateForceableSeekableByteChannel(channel) {
+        private val size: Long by lazy { super.size() }
+
+        override fun size(): Long = size
+    }
 
     @Throws(IOException::class)
     fun readSymbolicLink(file: Path, entry: ArchiveEntry): String {

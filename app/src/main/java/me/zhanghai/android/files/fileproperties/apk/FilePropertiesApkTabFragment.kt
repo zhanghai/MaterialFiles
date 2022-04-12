@@ -15,13 +15,13 @@ import me.zhanghai.android.files.compat.longVersionCodeCompat
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
-import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.getStringArray
+import me.zhanghai.android.files.util.isGetPackageArchiveInfoCompatible
 import me.zhanghai.android.files.util.viewModels
 
 class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
@@ -111,7 +111,8 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
     }
 
     companion object {
-        fun isAvailable(file: FileItem): Boolean = file.mimeType.isApk && file.path.isLinuxPath
+        fun isAvailable(file: FileItem): Boolean =
+            file.mimeType.isApk && file.path.isGetPackageArchiveInfoCompatible
     }
 
     @Parcelize

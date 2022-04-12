@@ -15,11 +15,22 @@ import me.zhanghai.android.files.compat.DocumentsContractCompat
 import java.io.Serializable
 import java.net.URI
 import java.net.URISyntaxException
+import kotlin.reflect.KClass
 
 private const val EXTRA_PATH_URI = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI"
 
 var Intent.extraPath: Path?
-    get() = getExtraPath(false)
+    get() {
+        val extraPathUri = getStringExtra(EXTRA_PATH_URI)
+        extraPathUri?.let { URI::class.createOrLog(it) }?.let { return Paths.get(it) }
+        data?.toPathOrNull()?.let { return it }
+        val extraInitialUri = getParcelableExtraSafe<Uri>(DocumentsContractCompat.EXTRA_INITIAL_URI)
+        extraInitialUri?.toPathOrNull()?.let { return it }
+        val extraAbsolutePath = getStringExtra("org.openintents.extra.ABSOLUTE_PATH")
+            ?.takeIfNotEmpty()
+        extraAbsolutePath?.let { return Paths.get(it) }
+        return null
+    }
     set(value) {
         // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
         // We cannot put URI into intent here either, because ShortcutInfo uses PersistableBundle
@@ -27,72 +38,55 @@ var Intent.extraPath: Path?
         putExtra(EXTRA_PATH_URI, value?.toUri()?.toString())
     }
 
-fun Intent.getExtraPath(allowDataContentUri: Boolean): Path? {
-    val extraPathUriString = getStringExtra(EXTRA_PATH_URI)
-    if (extraPathUriString != null) {
-        val extraPathUri = try {
-            URI(extraPathUriString)
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-            null
+private fun Uri.toPathOrNull(): Path? =
+    when (scheme) {
+        ContentResolver.SCHEME_FILE, null -> path?.takeIfNotEmpty()?.let { Paths.get(it) }
+        ContentResolver.SCHEME_CONTENT -> {
+            val uri = URI::class.createOrLog(toString())
+                // Some people use Uri.parse() without encoding their path. Let's try saving
+                // them by calling the other URI constructor that encodes everything.
+                ?: URI::class.createOrLog(scheme, userInfo, host, port, path, query, fragment)
+            uri?.let { Paths.get(it) }
         }
-        extraPathUri?.let { return Paths.get(extraPathUri) }
+        else -> null
     }
-    val data = data
-    if (data != null) {
-        when (data.scheme) {
-            ContentResolver.SCHEME_FILE, null -> {
-                val path = data.path?.takeIfNotEmpty()
-                path?.let { return Paths.get(it) }
-            }
-            ContentResolver.SCHEME_CONTENT -> {
-                if (allowDataContentUri) {
-                    val dataUri = try {
-                        URI(data.toString())
-                    } catch (e: URISyntaxException) {
-                        e.printStackTrace()
-                        // Some people use Uri.parse() without encoding their path. Let's try saving
-                        // them by calling the other URI constructor that encodes everything.
-                        try {
-                            URI(
-                                data.scheme, data.userInfo, data.host, data.port, data.path,
-                                data.query, data.fragment
-                            )
-                        } catch (e2: URISyntaxException) {
-                            e2.printStackTrace()
-                            null
-                        }
-                    }
-                    dataUri?.let { return Paths.get(it) }
-                }
-            }
-        }
+
+private fun KClass<URI>.createOrLog(uri: String): URI? =
+    try {
+        URI(uri)
+    } catch (e: URISyntaxException) {
+        e.printStackTrace()
+        null
     }
-    val extraInitialUri = getParcelableExtraSafe<Uri>(DocumentsContractCompat.EXTRA_INITIAL_URI)
-    // TODO: Support DocumentsProvider Uri?
-    if (extraInitialUri != null && extraInitialUri.scheme == ContentResolver.SCHEME_FILE) {
-        val path = extraInitialUri.path?.takeIfNotEmpty()
-        path?.let { return Paths.get(it) }
+
+private fun KClass<URI>.createOrLog(
+    scheme: String?,
+    userInfo: String?,
+    host: String?,
+    port: Int,
+    path: String?,
+    query: String?,
+    fragment: String?
+): URI? =
+    try {
+        URI(scheme, userInfo, host, port, path, query, fragment)
+    } catch (e: URISyntaxException) {
+        e.printStackTrace()
+        null
     }
-    val extraAbsolutePath = getStringExtra("org.openintents.extra.ABSOLUTE_PATH")?.takeIfNotEmpty()
-    extraAbsolutePath?.let { return Paths.get(it) }
-    return null
-}
 
 private const val EXTRA_PATH_URI_LIST = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI_LIST"
 
 var Intent.extraPathList: List<Path>
-    get() = getExtraPathList(false)
+    get() {
+        @Suppress("UNCHECKED_CAST")
+        val extraPathUris = (getSerializableExtra(EXTRA_PATH_URI_LIST) as List<URI>?)
+            ?.takeIfNotEmpty()
+        extraPathUris?.let { return it.map { uri -> Paths.get(uri) } }
+        return listOfNotNull(extraPath)
+    }
     set(value) {
         // We cannot put Path into intent here, otherwise we will crash other apps unmarshalling it.
         val pathUris = value.map { it.toUri() }
         putExtra(EXTRA_PATH_URI_LIST, pathUris as Serializable)
     }
-
-fun Intent.getExtraPathList(allowDataContentUri: Boolean): List<Path> {
-    @Suppress("UNCHECKED_CAST")
-    val extraPathUris = (getSerializableExtra(EXTRA_PATH_URI_LIST) as List<URI>?)?.takeIfNotEmpty()
-    extraPathUris?.let { return it.map { uri -> Paths.get(uri) } }
-    val extraPath = getExtraPath(allowDataContentUri)
-    return listOfNotNull(extraPath)
-}

@@ -20,7 +20,6 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import java8.nio.file.Path
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
@@ -30,9 +29,9 @@ import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.DataState
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
-import me.zhanghai.android.files.util.getExtraPath
 import me.zhanghai.android.files.util.isReady
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.viewModels
@@ -76,7 +75,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val argsFile = args.intent.getExtraPath(true)
+        val argsFile = args.intent.extraPath
         if (argsFile == null) {
             // TODO: Show a toast.
             finish()

@@ -16,25 +16,21 @@ import coil.fetch.FetchResult
 import coil.fetch.Fetcher
 import coil.size.Size
 import me.zhanghai.android.appiconloader.AppIconLoader
-import me.zhanghai.android.files.R
-import me.zhanghai.android.files.compat.longVersionCodeCompat
-import me.zhanghai.android.files.util.getDimensionPixelSize
+import java.io.Closeable
 
-class ApplicationInfoFetcher(private val context: Context) : Fetcher<ApplicationInfo> {
-    private val appIconLoader = AppIconLoader(
-        // This is used by PrincipalListAdapter.
-        context.getDimensionPixelSize(R.dimen.icon_size), false, context
-    )
+abstract class AppIconFetcher<T : Any>(iconSize: Int, private val context: Context) : Fetcher<T> {
+    private val appIconLoader = AppIconLoader(iconSize, false, context)
 
-    override fun key(data: ApplicationInfo): String? =
-        AppIconLoader.getIconKey(data, data.longVersionCodeCompat, context)
+    abstract fun getApplicationInfo(data: T): Pair<ApplicationInfo, Closeable?>
 
     override suspend fun fetch(
         pool: BitmapPool,
-        data: ApplicationInfo,
+        data: T,
         size: Size,
-        options: Options): FetchResult {
-        val icon = appIconLoader.loadIcon(data)
+        options: Options
+    ): FetchResult {
+        val (applicationInfo, closeable) = getApplicationInfo(data)
+        val icon = closeable.use { appIconLoader.loadIcon(applicationInfo) }
         // Not sampled because we only load with one fixed size.
         return DrawableResult(icon.toDrawable(context.resources), false, DataSource.DISK)
     }

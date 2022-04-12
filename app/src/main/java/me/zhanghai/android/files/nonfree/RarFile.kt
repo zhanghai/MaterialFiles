@@ -7,21 +7,23 @@ package me.zhanghai.android.files.nonfree
 
 import com.github.junrar.Archive
 import com.github.junrar.exception.RarException
+import java8.nio.channels.SeekableByteChannel
+import java8.nio.file.Path
 import me.zhanghai.android.files.provider.archive.archiver.ArchiveException
+import me.zhanghai.android.files.provider.common.newByteChannel
 import org.apache.commons.compress.archivers.zip.ZipEncodingHelper
 import org.apache.commons.compress.utils.IOUtils
 import java.io.Closeable
-import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.PipedInputStream
 import java.io.PipedOutputStream
 import kotlin.math.max
 
-class RarFile(file: File, encoding: String?) : Closeable {
+class RarFile(channel: SeekableByteChannel, encoding: String?) : Closeable {
     private var archive =
         try {
-            Archive(file)
+            Archive(RarChannelVolumeManager(channel), null, null)
         } catch (e: RarException) {
             throw ArchiveException(e)
         }
@@ -99,5 +101,8 @@ class RarFile(file: File, encoding: String?) : Closeable {
             }
             return true
         }
+
+        fun create(file: Path, encoding: String?): RarFile =
+            RarFile(file.newByteChannel(), encoding)
     }
 }
