@@ -15,4 +15,4 @@
     android:ellipsize="end"
     android:gravity="center_vertical"
     android:maxLines="1"
-    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+    android:textAppearance="?textAppearanceListItem" />

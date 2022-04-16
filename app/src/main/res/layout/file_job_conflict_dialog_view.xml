@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="?textAppearanceListItem" />
 
             <TextView
                 android:id="@+id/targetDescriptionText"
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textAppearance="?textAppearanceListItemSecondary"
                 android:textColor="?android:textColorSecondary" />
         </LinearLayout>
     </LinearLayout>
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="?textAppearanceListItem" />
 
             <TextView
                 android:id="@+id/sourceDescriptionText"
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textAppearance="?textAppearanceListItemSecondary"
                 android:textColor="?android:textColorSecondary" />
         </LinearLayout>
     </LinearLayout>
@@ -176,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="?dialogPreferredPadding"
                 android:text="@string/file_job_conflict_show_name"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                android:textAppearance="?textAppearanceListItem" />
         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -214,5 +214,5 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="@string/file_job_action_all"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="?textAppearanceListItem" />
 </LinearLayout>

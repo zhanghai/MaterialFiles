@@ -16,5 +16,5 @@
     android:gravity="center_vertical"
     android:maxLines="1"
     android:text="@string/storage_add_lan_smb_server_loading"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textAppearance="?textAppearanceListItemSecondary"
     android:textColor="?android:textColorSecondary" />

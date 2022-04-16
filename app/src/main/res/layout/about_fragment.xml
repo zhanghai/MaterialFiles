@@ -117,7 +117,7 @@
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:text="@string/about_version_title"
-                                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                    android:textAppearance="?textAppearanceListItem" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -154,7 +154,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_github_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
                         <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
@@ -181,7 +181,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_licenses_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
                         <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
@@ -209,7 +209,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_privacy_policy_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -270,7 +270,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_author_name_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
                         <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
@@ -297,7 +297,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_author_github_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
                         <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
@@ -324,7 +324,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_author_google_plus_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
                         <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
@@ -351,7 +351,7 @@
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:text="@string/about_author_twitter_title"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                                android:textAppearance="?textAppearanceListItem" />
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>

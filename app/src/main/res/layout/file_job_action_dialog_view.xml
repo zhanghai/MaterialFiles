@@ -36,5 +36,5 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="@string/file_job_action_all"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="?textAppearanceListItem" />
 </LinearLayout>

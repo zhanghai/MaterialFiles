@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="?textAppearanceListItemSecondary" />
 
         <TextView
             android:id="@+id/addressText"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="?textAppearanceListItemSecondary"
             android:textColor="?android:textColorSecondary" />
     </LinearLayout>
 </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>

@@ -18,6 +18,6 @@
     android:gravity="center_vertical"
     android:maxLines="1"
     android:text="@string/storage_add_lan_smb_server_add"
-    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+    android:textAppearance="?textAppearanceListItemSecondary"
     app:drawableStartCompat="@drawable/add_icon_white_24dp"
     app:drawableTint="?colorControlNormal" />

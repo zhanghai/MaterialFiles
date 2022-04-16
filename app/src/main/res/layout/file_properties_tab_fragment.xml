@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center_horizontal"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:textAppearance="?textAppearanceListItem"
         android:visibility="gone" />
 
     <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout

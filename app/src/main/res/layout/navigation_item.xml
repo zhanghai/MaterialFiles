@@ -43,7 +43,7 @@
             android:duplicateParentState="true"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="?textAppearanceListItemSecondary"
             android:textColor="?android:textColorSecondary"
             android:textSize="10sp" />
     </LinearLayout>

@@ -31,7 +31,7 @@
             android:drawableTop="@drawable/error_icon_240dp"
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textAppearance="?textAppearanceListItem"
             android:visibility="gone" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
             android:text="@string/file_list_empty"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textAppearance="?textAppearanceListItem"
             android:visibility="gone" />
 
         <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout

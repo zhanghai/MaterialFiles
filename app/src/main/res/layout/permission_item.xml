@@ -23,19 +23,19 @@
         android:id="@+id/labelText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="?textAppearanceListItemSecondary" />
 
     <TextView
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="?textAppearanceListItemSecondary"
         android:textColor="?android:textColorSecondary" />
 
     <me.zhanghai.android.files.ui.AutoGoneTextView
         android:id="@+id/descriptionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="?textAppearanceListItemSecondary"
         android:textColor="?android:textColorSecondary" />
 </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>

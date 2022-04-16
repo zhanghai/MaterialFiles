@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/settings_bookmark_directory_list_empty"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textAppearance="?textAppearanceListItem"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView

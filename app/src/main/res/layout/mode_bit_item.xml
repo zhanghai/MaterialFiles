@@ -20,5 +20,5 @@
         android:paddingStart="5dp"
         android:clickable="false"
         android:focusable="false"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="?textAppearanceListItem" />
 </FrameLayout>

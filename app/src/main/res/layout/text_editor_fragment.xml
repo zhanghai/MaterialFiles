@@ -48,7 +48,7 @@
             android:drawableTop="@drawable/error_icon_240dp"
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textAppearance="?textAppearanceListItem"
             android:visibility="gone" />
 
         <!-- TODO: Use a WebView for large amount of text. -->
@@ -68,7 +68,7 @@
                 android:gravity="top"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1">
+                android:textAppearance="?textAppearanceListItemSecondary">
                 <requestFocus />
             </me.zhanghai.android.files.ui.ScrollingChildEditText>
         </me.zhanghai.android.fastscroll.FastScrollNestedScrollView>

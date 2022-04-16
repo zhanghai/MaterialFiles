@@ -24,7 +24,7 @@
         android:hint="@string/file_properties_permissions_set_principal_filter_hint"
         android:importantForAutofill="no"
         android:inputType="text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="?textAppearanceListItem" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textAppearance="?textAppearanceListItem"
             android:visibility="gone" />
 
         <TextView
@@ -55,7 +55,7 @@
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:text="@string/empty"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textAppearance="?textAppearanceListItem"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -78,5 +78,5 @@
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         android:text="@string/file_properties_permissions_recursive"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="?textAppearanceListItem" />
 </LinearLayout>
