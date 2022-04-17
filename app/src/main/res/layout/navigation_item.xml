@@ -42,9 +42,6 @@
             android:layout_height="wrap_content"
             android:duplicateParentState="true"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="?textAppearanceListItemSecondary"
-            android:textColor="?android:textColorSecondary"
-            android:textSize="10sp" />
+            android:maxLines="1" />
     </LinearLayout>
 </me.zhanghai.android.files.ui.CheckableForegroundLinearLayout>
