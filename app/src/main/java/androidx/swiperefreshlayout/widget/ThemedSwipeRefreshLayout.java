@@ -5,6 +5,7 @@
 
 package androidx.swiperefreshlayout.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
 import android.util.AttributeSet;
@@ -12,7 +13,9 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.ColorUtils;
 import me.zhanghai.android.files.R;
+import me.zhanghai.android.files.compat.ContextCompatKt;
 import me.zhanghai.android.files.util.ContextExtensionsKt;
 
 public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
@@ -28,10 +31,23 @@ public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
         init();
     }
 
+    @SuppressLint("PrivateResource")
     private void init() {
         Context context = getContext();
-        ((ShapeDrawable) mCircleView.getBackground()).getPaint().setColor(
-                ContextExtensionsKt.getColorByAttr(context, R.attr.colorBackgroundFloating));
+        boolean isMaterial3Theme = ContextExtensionsKt.getBooleanByAttr(context,
+                R.attr.isMaterial3Theme);
+        int backgroundColor;
+        if (isMaterial3Theme) {
+            int surfaceColor = ContextExtensionsKt.getColorByAttr(context,
+                    R.attr.colorSurface);
+            int overlayColor = ContextCompatKt.getColorCompat(context,
+                    R.color.m3_popupmenu_overlay_color);
+            backgroundColor = ColorUtils.compositeColors(overlayColor, surfaceColor);
+        } else {
+            backgroundColor = ContextExtensionsKt.getColorByAttr(context,
+                    R.attr.colorBackgroundFloating);
+        }
+        ((ShapeDrawable) mCircleView.getBackground()).getPaint().setColor(backgroundColor);
         setColorSchemeColors(ContextExtensionsKt.getColorByAttr(context, R.attr.colorAccent));
     }
 
