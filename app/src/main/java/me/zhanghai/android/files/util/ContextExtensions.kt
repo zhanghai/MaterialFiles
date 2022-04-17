@@ -177,14 +177,18 @@ val Context.hasW600Dp: Boolean
 val Context.hasW960Dp: Boolean
     get() = hasWDp(960)
 
+val Context.isLightTheme: Boolean
+    get() = getBooleanByAttr(R.attr.isLightTheme)
+
+val Context.isMaterial3Theme: Boolean
+    @SuppressLint("PrivateResource")
+    get() = getBooleanByAttr(R.attr.isMaterial3Theme)
+
 val Context.isOrientationLandscape: Boolean
     get() = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
 val Context.isOrientationPortrait: Boolean
     get() = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-
-val Context.isLightTheme: Boolean
-    get() = getBooleanByAttr(R.attr.isLightTheme)
 
 val Context.layoutInflater: LayoutInflater
     get() = LayoutInflater.from(this)

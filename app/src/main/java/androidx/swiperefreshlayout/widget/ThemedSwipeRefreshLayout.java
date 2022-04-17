@@ -31,15 +31,14 @@ public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
         init();
     }
 
-    @SuppressLint("PrivateResource")
     private void init() {
         Context context = getContext();
-        boolean isMaterial3Theme = ContextExtensionsKt.getBooleanByAttr(context,
-                R.attr.isMaterial3Theme);
+        boolean isMaterial3Theme = ContextExtensionsKt.isMaterial3Theme(context);
         int backgroundColor;
         if (isMaterial3Theme) {
             int surfaceColor = ContextExtensionsKt.getColorByAttr(context,
                     R.attr.colorSurface);
+            @SuppressLint("PrivateResource")
             int overlayColor = ContextCompatKt.getColorCompat(context,
                     R.color.m3_popupmenu_overlay_color);
             backgroundColor = ColorUtils.compositeColors(overlayColor, surfaceColor);

@@ -9,7 +9,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -36,17 +35,14 @@ import me.zhanghai.android.files.compat.setTextAppearanceCompat
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.asColor
 import me.zhanghai.android.files.util.dpToDimensionPixelSize
-import me.zhanghai.android.files.util.getBooleanByAttr
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.getParcelableSafe
 import me.zhanghai.android.files.util.getResourceIdByAttr
+import me.zhanghai.android.files.util.isMaterial3Theme
 import me.zhanghai.android.files.util.shortAnimTime
 import me.zhanghai.android.files.util.withModulatedAlpha
 
 class ThemedSpeedDialView : SpeedDialView {
-    @SuppressLint("PrivateResource")
-    private val isMaterial3Theme = context.getBooleanByAttr(R.attr.isMaterial3Theme)
-
     private var mainFabAnimator: Animator? = null
 
     constructor(context: Context) : super(context)
@@ -66,7 +62,8 @@ class ThemedSpeedDialView : SpeedDialView {
             }
             useCompatPadding = false
         }
-        if (isMaterial3Theme) {
+        val context = context
+        if (context.isMaterial3Theme) {
             mainFabClosedBackgroundColor = context.getColorByAttr(R.attr.colorSecondaryContainer)
             mainFabClosedIconColor = context.getColorByAttr(R.attr.colorOnSecondaryContainer)
             mainFabOpenedBackgroundColor = context.getColorByAttr(R.attr.colorPrimary)
@@ -137,6 +134,7 @@ class ThemedSpeedDialView : SpeedDialView {
         animate: Boolean
     ): FabWithLabelView? {
         val context = context
+        val isMaterial3Theme = context.isMaterial3Theme
         val fabImageTintColor = if (isMaterial3Theme) {
             context.getColorByAttr(R.attr.colorPrimary)
         } else {
