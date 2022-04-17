@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:background="?colorAppBarSurface"
         android:theme="?actionBarTheme"
-        app:liftOnScroll="@bool/file_list_app_bar_lift_on_scroll"
+        app:liftOnScroll="true"
         app:liftOnScrollTargetViewId="@id/recyclerView">
 
         <FrameLayout
