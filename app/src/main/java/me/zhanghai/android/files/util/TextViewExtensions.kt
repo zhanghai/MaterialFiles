@@ -12,8 +12,8 @@ import android.widget.TextView
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
 
-fun TextView.hideTextInputLayoutErrorOnTextChange(textInputLayout: TextInputLayout) {
-    doAfterTextChanged { textInputLayout.error = null }
+fun TextView.hideTextInputLayoutErrorOnTextChange(vararg textInputLayouts: TextInputLayout) {
+    doAfterTextChanged { textInputLayouts.forEach { it.error = null } }
 }
 
 var TextView.isBold: Boolean

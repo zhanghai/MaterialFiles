@@ -459,3 +459,64 @@ private fun migrateRootStrategySetting1_4_0() {
     }.ordinal.toString()
     defaultSharedPreferences.edit { putString(key, newValue) }
 }
+
+internal fun upgradeAppTo1_5_0() {
+    migrateSftpServersSetting1_5_0()
+}
+
+private fun migrateSftpServersSetting1_5_0() {
+    val key = application.getString(R.string.pref_key_storages)
+    val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
+        ?: return
+    val newBytes = try {
+        Parcel.obtain().use { newParcel ->
+            Parcel.obtain().use { oldParcel ->
+                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                oldParcel.setDataPosition(0)
+                newParcel.writeInt(oldParcel.readInt())
+                val size = oldParcel.readInt()
+                newParcel.writeInt(size)
+                repeat(size) {
+                    val oldPosition = oldParcel.dataPosition()
+                    oldParcel.readInt()
+                    when (oldParcel.readString()) {
+                        "me.zhanghai.android.files.storage.SftpServer" -> {
+                            newParcel.writeInt(PARCEL_VAL_PARCELABLE)
+                            newParcel.writeString("me.zhanghai.android.files.storage.SftpServer")
+                            val id = oldParcel.readLong()
+                            newParcel.writeLong(id)
+                            val customName = oldParcel.readString()
+                            newParcel.writeString(customName)
+                            val authorityHost = oldParcel.readString()
+                            newParcel.writeString(authorityHost)
+                            val authorityPort = oldParcel.readInt()
+                            newParcel.writeInt(authorityPort)
+                            val authorityUsername = oldParcel.readString()
+                            newParcel.writeString(authorityUsername)
+                            val authenticationClassName = oldParcel.readString()
+                            newParcel.writeString(authenticationClassName)
+                            val authenticationPasswordOrPrivateKey = oldParcel.readString()
+                            newParcel.writeString(authenticationPasswordOrPrivateKey)
+                            if (authenticationClassName == "me.zhanghai.android.files.provider.sftp"
+                                + ".client.PublicKeyAuthentication") {
+                                newParcel.writeString(null)
+                            }
+                            val relativePath = oldParcel.readString()
+                            newParcel.writeString(relativePath)
+                        }
+                        else -> {
+                            oldParcel.setDataPosition(oldPosition)
+                            val storage = oldParcel.readValue(appClassLoader)
+                            newParcel.writeValue(storage)
+                        }
+                    }
+                }
+            }
+            newParcel.marshall()
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        null
+    }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
+}

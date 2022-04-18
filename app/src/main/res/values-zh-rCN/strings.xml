@@ -444,6 +444,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">打开文件</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">输入私钥</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">私钥无效</string>
+    <string name="storage_edit_sftp_server_private_key_password">私钥密码</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">可留空</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">私钥密码无效</string>
     <string name="storage_edit_sftp_server_connect_and_add">连接并添加</string>
     <string name="storage_edit_sftp_server_add">添加</string>
     <string name="storage_add_lan_smb_server_loading">正在搜索 SMB 服务器…</string>

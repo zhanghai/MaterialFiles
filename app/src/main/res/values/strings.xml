@@ -568,6 +568,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Open file</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Enter a private key</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Invalid private key</string>
+    <string name="storage_edit_sftp_server_private_key_password">Private key password</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Can be left empty</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Invalid private key password</string>
     <string name="storage_edit_sftp_server_connect_and_add">Connect and add</string>
     <string name="storage_edit_sftp_server_add">Add</string>
     <string name="storage_add_lan_smb_server_title" translatable="false">@string/storage_edit_smb_server_title_add</string>

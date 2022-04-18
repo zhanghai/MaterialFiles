@@ -169,22 +169,46 @@
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/privateKeyLayout"
+                    <LinearLayout
+                        android:id="@+id/publicKeyAuthenticationLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/storage_edit_sftp_server_private_key"
-                        app:endIconContentDescription="@string/storage_edit_sftp_server_private_key_open_file"
-                        app:endIconDrawable="@drawable/file_icon_white_24dp"
-                        app:endIconMode="custom"
-                        app:errorEnabled="true">
+                        android:orientation="vertical">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/privateKeyEdit"
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/privateKeyLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:hint="@string/storage_edit_sftp_server_private_key"
+                            app:endIconContentDescription="@string/storage_edit_sftp_server_private_key_open_file"
+                            app:endIconDrawable="@drawable/file_icon_white_24dp"
+                            app:endIconMode="custom"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/privateKeyEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textMultiLine" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/privateKeyPasswordLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/storage_edit_sftp_server_private_key_password"
+                            app:endIconMode="password_toggle"
+                            app:errorEnabled="true"
+                            app:expandedHintEnabled="false"
+                            app:placeholderText="@string/storage_edit_sftp_server_private_key_password_placeholder">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/privateKeyPasswordEdit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </FrameLayout>

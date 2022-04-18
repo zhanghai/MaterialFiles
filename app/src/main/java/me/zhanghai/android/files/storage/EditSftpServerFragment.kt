@@ -16,6 +16,7 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
+import com.hierynomus.sshj.common.KeyDecryptionFailedException
 import java8.nio.file.Path
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -106,7 +107,12 @@ class EditSftpServerFragment : Fragment() {
         binding.usernameEdit.hideTextInputLayoutErrorOnTextChange(binding.usernameLayout)
         binding.usernameEdit.doAfterTextChanged { updateNamePlaceholder() }
         binding.privateKeyLayout.setEndIconOnClickListener { onOpenPrivateKeyFile() }
-        binding.privateKeyEdit.hideTextInputLayoutErrorOnTextChange(binding.privateKeyLayout)
+        binding.privateKeyEdit.hideTextInputLayoutErrorOnTextChange(
+            binding.privateKeyLayout, binding.privateKeyPasswordLayout
+        )
+        binding.privateKeyPasswordEdit.hideTextInputLayoutErrorOnTextChange(
+            binding.privateKeyLayout, binding.privateKeyPasswordLayout
+        )
         binding.saveOrConnectAndAddButton.setText(
             if (args.server != null) {
                 R.string.save
@@ -151,6 +157,7 @@ class EditSftpServerFragment : Fragment() {
                     is PublicKeyAuthentication -> {
                         authenticationType = AuthenticationType.PUBLIC_KEY
                         binding.privateKeyEdit.setText(authentication.privateKey)
+                        binding.privateKeyPasswordEdit.setText(authentication.privateKeyPassword)
                     }
                 }
                 binding.pathEdit.setText(server.relativePath)
@@ -190,7 +197,8 @@ class EditSftpServerFragment : Fragment() {
 
     private fun onAuthenticationTypeChanged(authenticationType: AuthenticationType) {
         binding.passwordLayout.isVisible = authenticationType == AuthenticationType.PASSWORD
-        binding.privateKeyLayout.isVisible = authenticationType == AuthenticationType.PUBLIC_KEY
+        binding.publicKeyAuthenticationLayout.isVisible =
+            authenticationType == AuthenticationType.PUBLIC_KEY
     }
 
     private fun onOpenPrivateKeyFile() {
@@ -310,20 +318,40 @@ class EditSftpServerFragment : Fragment() {
             }
             AuthenticationType.PUBLIC_KEY -> {
                 val privateKey = binding.privateKeyEdit.text.toString().takeIfNotEmpty()
+                val privateKeyPassword =
+                    binding.privateKeyPasswordEdit.text.toString().takeIfNotEmpty()
                 if (privateKey == null) {
                     binding.privateKeyLayout.error =
                         getString(R.string.storage_edit_sftp_server_private_key_error_empty)
                     if (errorEdit == null) {
                         errorEdit = binding.privateKeyEdit
                     }
-                } else if (!PublicKeyAuthentication.validatePrivateKey(privateKey)) {
-                    binding.privateKeyLayout.error =
-                        getString(R.string.storage_edit_sftp_server_private_key_error_invalid)
-                    if (errorEdit == null) {
-                        errorEdit = binding.privateKeyEdit
+                } else {
+                    val exception = PublicKeyAuthentication.validate(privateKey, privateKeyPassword)
+                    if (exception != null) {
+                        exception.printStackTrace()
+                        if (exception is KeyDecryptionFailedException) {
+                            binding.privateKeyPasswordLayout.error = getString(
+                                R.string.storage_edit_sftp_server_private_key_password_error_invalid
+                            )
+                            if (errorEdit == null) {
+                                errorEdit = binding.privateKeyPasswordEdit
+                            }
+                        } else {
+                            binding.privateKeyLayout.error = getString(
+                                R.string.storage_edit_sftp_server_private_key_error_invalid
+                            )
+                            if (errorEdit == null) {
+                                errorEdit = binding.privateKeyEdit
+                            }
+                        }
                     }
                 }
-                if (errorEdit == null) PublicKeyAuthentication(privateKey!!) else null
+                if (errorEdit == null) {
+                    PublicKeyAuthentication(privateKey!!, privateKeyPassword)
+                } else {
+                    null
+                }
             }
         }
         if (errorEdit != null) {
