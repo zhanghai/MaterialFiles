@@ -315,9 +315,6 @@
     <string name="file_name_error_already_exists">يوجد ملف بهذا الاسم بالفعل</string>
     <string name="file_delete_message_file_format">حذف ”%1$s“؟</string>
     <string name="file_delete_message_directory_format">حذف المجلد ”%1$s“  ومحتوياته؟</string>
-    <string name="file_delete_message_multiple_files_format">هل تريد حذف %1$,d من الملفات؟</string>
-    <string name="file_delete_message_multiple_directories_format">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</string>
-    <string name="file_delete_message_multiple_mixed_format">هل تريد حذف %1$,d عنصر؟</string>
     <string name="file_create_archive_title">إنشاء أرشيف</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

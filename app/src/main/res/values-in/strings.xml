@@ -210,9 +210,6 @@
     <string name="file_name_error_already_exists">Berkas dengan nama ini sudah ada</string>
     <string name="file_delete_message_file_format">Hapus “%1$s”?</string>
     <string name="file_delete_message_directory_format">Hapus folder “%1$s” dan isinya?</string>
-    <string name="file_delete_message_multiple_files_format">Hapus %1$,d berkas?</string>
-    <string name="file_delete_message_multiple_directories_format">Hapus %1$,d folder dan semua isinya?</string>
-    <string name="file_delete_message_multiple_mixed_format">Hapus %1$,d item?</string>
     <string name="file_create_archive_title">Buat arsip</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

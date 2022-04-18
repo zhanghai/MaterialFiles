@@ -273,9 +273,6 @@
     <string name="file_name_error_already_exists">כבר קיים קובץ בשם זה</string>
     <string name="file_delete_message_file_format">למחוק את \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">למחוק את התיקייה \"%1$s\" ואת תכולתה?</string>
-    <string name="file_delete_message_multiple_files_format">למחוק %1$,d קבצים?</string>
-    <string name="file_delete_message_multiple_directories_format">למחוק %1$,d תיקיות ואת תכולתן?</string>
-    <string name="file_delete_message_multiple_mixed_format">למחוק %1$,d פריטים?</string>
     <string name="file_create_archive_title">יצירת ארכיון</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

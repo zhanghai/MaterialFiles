@@ -208,9 +208,6 @@
     <string name="file_name_error_already_exists">같은 이름을 가진 파일이 이미 존재합니다</string>
     <string name="file_delete_message_file_format">“%1$s”을(를) 삭제하시겠습니까?</string>
     <string name="file_delete_message_directory_format">“%1$s” 폴더를 삭제하시겠습니까?</string>
-    <string name="file_delete_message_multiple_files_format">%1$,d개 파일을 삭제하시겠습니까?</string>
-    <string name="file_delete_message_multiple_directories_format">%1$,d개 폴더를 삭제하시겠습니까?</string>
-    <string name="file_delete_message_multiple_mixed_format">%1$,d개 항목을 삭제하시겠습니까?</string>
     <string name="file_create_archive_title">압축 파일 만들기</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

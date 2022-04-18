@@ -234,9 +234,18 @@
     <string name="file_name_error_already_exists">A file with this name already exists</string>
     <string name="file_delete_message_file_format">Delete “%1$s”?</string>
     <string name="file_delete_message_directory_format">Delete folder “%1$s” and its contents?</string>
-    <string name="file_delete_message_multiple_files_format">Delete %1$,d files?</string>
-    <string name="file_delete_message_multiple_directories_format">Delete %1$,d folders and their contents?</string>
-    <string name="file_delete_message_multiple_mixed_format">Delete %1$,d items?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Delete %1$,d file?</item>
+        <item quantity="other">Delete %1$,d files?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Delete %1$,d folder and its content?</item>
+        <item quantity="other">Delete %1$,d folders and their contents?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Delete %1$,d item?</item>
+        <item quantity="other">Delete %1$,d items?</item>
+    </plurals>
     <string name="file_create_archive_title">Create archive</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

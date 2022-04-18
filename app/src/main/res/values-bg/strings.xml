@@ -228,9 +228,6 @@
     <string name="file_name_error_already_exists">Файл с това име вече съществува</string>
     <string name="file_delete_message_file_format">Изтриване на \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Изтриване на папката \"%1$s\" и нейното съдържание?</string>
-    <string name="file_delete_message_multiple_files_format">Изтриване на %1$,d файла?</string>
-    <string name="file_delete_message_multiple_directories_format">Изтриване на %1$,d папки и тяхното съдържание?</string>
-    <string name="file_delete_message_multiple_mixed_format">Изтриване на %1$,d елемента?</string>
     <string name="file_create_archive_title">Създаване на архив</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

@@ -231,9 +231,6 @@
     <string name="file_name_error_already_exists">Er is al een bestand met deze naam</string>
     <string name="file_delete_message_file_format">‘%1$s’ verwijderen?</string>
     <string name="file_delete_message_directory_format">Wil je de map ‘%1$s’ en alle inhoud ervan verwijderen?</string>
-    <string name="file_delete_message_multiple_files_format">%1$,d bestanden verwijderen?</string>
-    <string name="file_delete_message_multiple_directories_format">Wil je %1$,d mappen en alle inhoud ervan verwijderen?</string>
-    <string name="file_delete_message_multiple_mixed_format">%1$,d items verwijderen?</string>
     <string name="file_create_archive_title">Archief samenstellen</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

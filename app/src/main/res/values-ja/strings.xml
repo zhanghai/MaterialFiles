@@ -210,9 +210,6 @@
     <string name="file_name_error_already_exists">この名前のファイルは既に存在します</string>
     <string name="file_delete_message_file_format">“%1$s” を削除しますか？</string>
     <string name="file_delete_message_directory_format">“%1$s” フォルダと中のファイルを削除しますか？</string>
-    <string name="file_delete_message_multiple_files_format">ファイル%1$,dを削除しますか？</string>
-    <string name="file_delete_message_multiple_directories_format">フォルダー%1$,dとその内容を削除しますか？</string>
-    <string name="file_delete_message_multiple_mixed_format">%1$,d個の項目を削除しますか？</string>
     <string name="file_create_archive_title">アーカイブを作成</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

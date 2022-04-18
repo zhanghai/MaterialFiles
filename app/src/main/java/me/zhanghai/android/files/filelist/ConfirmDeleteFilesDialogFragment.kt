@@ -14,6 +14,7 @@ import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.show
 
@@ -37,11 +38,11 @@ class ConfirmDeleteFilesDialogFragment : AppCompatDialogFragment() {
             val allDirectories = files.all { it.attributesNoFollowLinks.isDirectory }
             val allFiles = files.none { it.attributesNoFollowLinks.isDirectory }
             val messageRes = when {
-                allDirectories -> R.string.file_delete_message_multiple_directories_format
-                allFiles -> R.string.file_delete_message_multiple_files_format
-                else -> R.string.file_delete_message_multiple_mixed_format
+                allDirectories -> R.plurals.file_delete_message_multiple_directories_format
+                allFiles -> R.plurals.file_delete_message_multiple_files_format
+                else -> R.plurals.file_delete_message_multiple_mixed_format
             }
-            getString(messageRes, files.size)
+            getQuantityString(messageRes, files.size, files.size)
         }
         return MaterialAlertDialogBuilder(requireContext(), theme)
             .setMessage(message)

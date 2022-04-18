@@ -231,9 +231,6 @@
     <string name="file_name_error_already_exists">Bu isimde bir dosya zaten mevcut</string>
     <string name="file_delete_message_file_format">“%1$s” silinsin mi?</string>
     <string name="file_delete_message_directory_format">\"%1$s\" klasörü ve içeriği silinsin mi?</string>
-    <string name="file_delete_message_multiple_files_format">%1$,d dosya silinsin mi?</string>
-    <string name="file_delete_message_multiple_directories_format">%1$,d klasör ve içerikleri silinsin mi?</string>
-    <string name="file_delete_message_multiple_mixed_format">%1$,d öge silinsin mi?</string>
     <string name="file_create_archive_title">Arşiv oluştur</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

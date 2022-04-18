@@ -229,9 +229,6 @@
     <string name="file_name_error_already_exists">Ya existe un archivo con este nombre</string>
     <string name="file_delete_message_file_format">¿Eliminar \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">¿Eliminar carpeta \"%1$s\" y su contenido?</string>
-    <string name="file_delete_message_multiple_files_format">¿Eliminar %1$,d archivos?</string>
-    <string name="file_delete_message_multiple_directories_format">¿Eliminar %1$,d carpetas y sus contenidos?</string>
-    <string name="file_delete_message_multiple_mixed_format">¿Eliminar %1$,d artículos?</string>
     <string name="file_create_archive_title">Crear archivo</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

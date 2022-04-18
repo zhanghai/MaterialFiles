@@ -275,9 +275,6 @@
     <string name="file_name_error_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete_message_file_format">Удалить “%1$s”?</string>
     <string name="file_delete_message_directory_format">Удалить папку “%1$s” и её содержимое?</string>
-    <string name="file_delete_message_multiple_files_format">Удалить %1$,d файлы?</string>
-    <string name="file_delete_message_multiple_directories_format">Удалить %1$,d папки и их содержимое?</string>
-    <string name="file_delete_message_multiple_mixed_format">Удалить %1$,d элементы?</string>
     <string name="file_create_archive_title">Создать архив</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

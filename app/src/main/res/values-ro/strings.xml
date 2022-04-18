@@ -250,9 +250,6 @@
     <string name="file_name_error_already_exists">Un fişier cu acelaşi nume există deja</string>
     <string name="file_delete_message_file_format">Şterge \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Şterge dosarul \"%1$s\" şi conţinutul acestuia ?</string>
-    <string name="file_delete_message_multiple_files_format">Ştergeţi %1$,d fişiere?</string>
-    <string name="file_delete_message_multiple_directories_format">Ştergeţi %1$,d de dosare şi conţinutul acestora?</string>
-    <string name="file_delete_message_multiple_mixed_format">Ştergeţi %1$,d articole?</string>
     <string name="file_create_archive_title">Creează arhiva</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

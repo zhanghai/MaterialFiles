@@ -210,9 +210,6 @@
     <string name="file_name_error_already_exists">Một tệp có tên này đã tồn tại</string>
     <string name="file_delete_message_file_format">Xoá “%1$s”?</string>
     <string name="file_delete_message_directory_format">Xoá thư mục “%1$s” và nội dung của nó?</string>
-    <string name="file_delete_message_multiple_files_format">Xoá %1$,d tệp?</string>
-    <string name="file_delete_message_multiple_directories_format">Xoá %1$,d thư mục và nội dung của chúng?</string>
-    <string name="file_delete_message_multiple_mixed_format">Xoá %1$,d mục?</string>
     <string name="file_create_archive_title">Tạo tệp nén</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>

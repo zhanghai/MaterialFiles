@@ -273,9 +273,6 @@
     <string name="file_name_error_already_exists">Soubor s tímto názvem již existuje</string>
     <string name="file_delete_message_file_format">Smazat \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Smazat složku \"%1$s\" a její obsah?</string>
-    <string name="file_delete_message_multiple_files_format">Smazat %1$,d souborů?</string>
-    <string name="file_delete_message_multiple_directories_format">Smazat %1$,d složek a jejich obsah?</string>
-    <string name="file_delete_message_multiple_mixed_format">Smazat %1$,d položek?</string>
     <string name="file_create_archive_title">Vytvořit archiv</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
