@@ -19,6 +19,7 @@ import me.zhanghai.android.files.file.asDocumentTreeUri
 import me.zhanghai.android.files.file.releasePersistablePermission
 import me.zhanghai.android.files.provider.document.documentTreeUri
 import me.zhanghai.android.files.provider.document.isDocumentPath
+import me.zhanghai.android.files.settings.StandardDirectoryListActivity
 import me.zhanghai.android.files.storage.AddStorageDialogActivity
 import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.util.createIntent
@@ -93,6 +94,10 @@ class NavigationFragment : Fragment(), NavigationItem.Listener {
             && currentPath.documentTreeUri.asDocumentTreeUri() == treeUri) {
             listener.navigateToDefaultRoot()
         }
+    }
+
+    override fun onEditStandardDirectory(standardDirectory: StandardDirectory) {
+        startActivitySafe(StandardDirectoryListActivity::class.createIntent())
     }
 
     override fun onEditBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {

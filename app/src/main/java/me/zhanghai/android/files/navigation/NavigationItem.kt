@@ -40,6 +40,7 @@ abstract class NavigationItem {
         fun navigateToRoot(path: Path)
         fun onAddStorage()
         fun onEditStorage(storage: Storage)
+        fun onEditStandardDirectory(standardDirectory: StandardDirectory)
         fun onEditBookmarkDirectory(bookmarkDirectory: BookmarkDirectory)
         fun closeNavigationDrawer()
         fun startActivity(intent: Intent)

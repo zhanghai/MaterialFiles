@@ -188,6 +188,11 @@ private class StandardDirectoryItem(
         get() = standardDirectory.iconRes
 
     override fun getTitle(context: Context): String = standardDirectory.getTitle(context)
+
+    override fun onLongClick(listener: Listener): Boolean {
+        listener.onEditStandardDirectory(standardDirectory)
+        return true
+    }
 }
 
 val standardDirectories: List<StandardDirectory>
