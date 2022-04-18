@@ -41,6 +41,7 @@
     <dimen name="touch_target_icon_padding">12dp</dimen>
     <dimen name="touch_target_large_icon_padding">4dp</dimen>
     <dimen name="badge_size">18dp</dimen>
+    <dimen name="badge_size_plus_1dp">19dp</dimen>
 
     <dimen name="file_list_toolbar_padding_start">8dp</dimen>
     <dimen name="file_list_toolbar_padding_end_no_overflow">14dp</dimen>

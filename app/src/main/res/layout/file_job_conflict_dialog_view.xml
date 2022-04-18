@@ -42,6 +42,17 @@
                 android:layout_height="@dimen/large_icon_size"
                 android:scaleType="centerCrop" />
 
+            <me.zhanghai.android.files.ui.DisabledAlphaImageView
+                android:id="@+id/targetAppIconBadgeImage"
+                android:layout_width="@dimen/badge_size_plus_1dp"
+                android:layout_height="@dimen/badge_size_plus_1dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginStart="-0.5dp"
+                android:layout_marginEnd="-0.5dp"
+                android:layout_marginTop="-0.5dp"
+                android:layout_marginBottom="-0.5dp"
+                android:duplicateParentState="true" />
+
             <ImageView
                 android:id="@+id/targetBadgeImage"
                 android:layout_width="@dimen/badge_size"
@@ -106,6 +117,17 @@
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
                 android:scaleType="centerCrop" />
+
+            <me.zhanghai.android.files.ui.DisabledAlphaImageView
+                android:id="@+id/sourceAppIconBadgeImage"
+                android:layout_width="@dimen/badge_size_plus_1dp"
+                android:layout_height="@dimen/badge_size_plus_1dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginStart="-0.5dp"
+                android:layout_marginEnd="-0.5dp"
+                android:layout_marginTop="-0.5dp"
+                android:layout_marginBottom="-0.5dp"
+                android:duplicateParentState="true" />
 
             <ImageView
                 android:id="@+id/sourceBadgeImage"

@@ -18,8 +18,12 @@ import coil.size.Size
 import me.zhanghai.android.appiconloader.AppIconLoader
 import java.io.Closeable
 
-abstract class AppIconFetcher<T : Any>(iconSize: Int, private val context: Context) : Fetcher<T> {
-    private val appIconLoader = AppIconLoader(iconSize, false, context)
+abstract class AppIconFetcher<T : Any>(
+    iconSize: Int,
+    private val context: Context,
+    shrinkNonAdaptiveIcons: Boolean = false
+) : Fetcher<T> {
+    private val appIconLoader = AppIconLoader(iconSize, shrinkNonAdaptiveIcons, context)
 
     abstract fun getApplicationInfo(data: T): Pair<ApplicationInfo, Closeable?>
 

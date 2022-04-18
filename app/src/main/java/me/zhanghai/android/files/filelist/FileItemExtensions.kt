@@ -79,6 +79,26 @@ val FileItem.supportsThumbnail: Boolean
         }
     }
 
+// @see android.content.pm.parsing.ApkLiteParseUtils.parsePackageSplitNames
+// @see android.content.pm.parsing.ParsingPackageUtils.validateName
+// @see com.android.server.pm.PackageManagerService.getNextCodePath
+private const val PACKAGE_NAME_COMPONENT_PATTERN = "[A-Za-z][0-9A-Z_a-z]*"
+private const val PACKAGE_NAME_PATTERN =
+    "$PACKAGE_NAME_COMPONENT_PATTERN(?:\\.$PACKAGE_NAME_COMPONENT_PATTERN)+"
+private const val BASE64_URL_SAFE_CHARACTER_CLASS = "[0-9A-Za-z\\-_]"
+private const val BASE64_URL_SAFE_PATTERN = ("(?:$BASE64_URL_SAFE_CHARACTER_CLASS{4})*"
+    + "(?:$BASE64_URL_SAFE_CHARACTER_CLASS{3}=|$BASE64_URL_SAFE_CHARACTER_CLASS{2}==)?")
+private val APP_DIRECTORY_REGEX =
+    Regex("($PACKAGE_NAME_PATTERN)(?:-$BASE64_URL_SAFE_PATTERN)?")
+
+val FileItem.appDirectoryPackageName: String?
+    get() {
+        if (!attributes.isDirectory) {
+            return null
+        }
+        return APP_DIRECTORY_REGEX.matchEntire(name)?.groupValues?.get(1)
+    }
+
 fun FileItem.createDummyArchiveRoot(): FileItem =
     FileItem(
         path.createArchiveRootPath(), DummyCollationKey(), DummyArchiveRootBasicFileAttributes(),

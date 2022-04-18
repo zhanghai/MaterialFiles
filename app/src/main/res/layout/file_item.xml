@@ -41,6 +41,17 @@
             android:scaleType="centerCrop" />
 
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
+            android:id="@+id/appIconBadgeImage"
+            android:layout_width="@dimen/badge_size_plus_1dp"
+            android:layout_height="@dimen/badge_size_plus_1dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginStart="-0.5dp"
+            android:layout_marginEnd="-0.5dp"
+            android:layout_marginTop="-0.5dp"
+            android:layout_marginBottom="-0.5dp"
+            android:duplicateParentState="true" />
+
+        <me.zhanghai.android.files.ui.DisabledAlphaImageView
             android:id="@+id/badgeImage"
             android:layout_width="@dimen/badge_size"
             android:layout_height="@dimen/badge_size"

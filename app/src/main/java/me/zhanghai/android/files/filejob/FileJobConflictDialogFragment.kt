@@ -28,6 +28,7 @@ import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.coil.AppIconPackageName
 import me.zhanghai.android.files.compat.requireViewByIdCompat
 import me.zhanghai.android.files.databinding.FileJobConflictDialogViewBinding
 import me.zhanghai.android.files.file.FileItem
@@ -35,6 +36,7 @@ import me.zhanghai.android.files.file.fileSize
 import me.zhanghai.android.files.file.formatShort
 import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.file.lastModifiedInstant
+import me.zhanghai.android.files.filelist.appDirectoryPackageName
 import me.zhanghai.android.files.filelist.supportsThumbnail
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableState
@@ -85,7 +87,8 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                 )
                 bindFileItem(
                     targetFile, binding.targetIconImage, binding.targetThumbnailImage,
-                    binding.targetBadgeImage, binding.targetDescriptionText
+                    binding.targetAppIconBadgeImage, binding.targetBadgeImage,
+                    binding.targetDescriptionText
                 )
                 binding.sourceNameText.setText(
                     if (isMerge) {
@@ -96,7 +99,8 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                 )
                 bindFileItem(
                     sourceFile, binding.sourceIconImage, binding.sourceThumbnailImage,
-                    binding.sourceBadgeImage, binding.sourceDescriptionText
+                    binding.sourceAppIconBadgeImage, binding.sourceBadgeImage,
+                    binding.sourceDescriptionText
                 )
                 binding.showNameLayout.setOnClickListener {
                     val visible = !binding.nameLayout.isVisible
@@ -142,6 +146,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         file: FileItem,
         iconImage: ImageView,
         thumbnailImage: ImageView,
+        appIconBadgeImage: ImageView,
         badgeImage: ImageView,
         descriptionText: TextView
     ) {
@@ -155,6 +160,14 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
             thumbnailImage.loadAny(path to attributes) {
                 listener { _, _ -> iconImage.isVisible = false }
             }
+        }
+        appIconBadgeImage.clear()
+        appIconBadgeImage.setImageDrawable(null)
+        val appDirectoryPackageName = file.appDirectoryPackageName
+        val hasAppIconBadge = appDirectoryPackageName != null
+        appIconBadgeImage.isVisible = hasAppIconBadge
+        if (hasAppIconBadge) {
+            appIconBadgeImage.loadAny(AppIconPackageName(appDirectoryPackageName!!))
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {

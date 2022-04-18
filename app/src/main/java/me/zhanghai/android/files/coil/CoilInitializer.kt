@@ -18,6 +18,7 @@ fun initializeCoil() {
         ImageLoader.Builder(application)
             .componentRegistry {
                 add(AppIconApplicationInfoFetcher(application))
+                add(AppIconPackageNameFetcher(application))
                 add(PathAttributesFetcher(application))
                 add(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
