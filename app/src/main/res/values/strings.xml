@@ -26,6 +26,7 @@
     <string name="maybe_later">Maybe later</string>
     <string name="merge">Merge</string>
     <string name="none">None</string>
+    <string name="open_navigation_drawer">Open navigation drawer</string>
     <string name="paste">Paste</string>
     <string name="pick" translatable="false">@string/select</string>
     <string name="refresh">Refresh</string>

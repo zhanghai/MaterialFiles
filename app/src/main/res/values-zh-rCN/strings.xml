@@ -26,6 +26,7 @@
     <string name="maybe_later">以后再说</string>
     <string name="merge">合并</string>
     <string name="none">无</string>
+    <string name="open_navigation_drawer">打开抽屉式导航栏</string>
     <string name="paste">粘贴</string>
     <string name="refresh">刷新</string>
     <string name="reload">重新加载</string>
