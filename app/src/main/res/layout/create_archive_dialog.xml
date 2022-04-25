@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/file_name_dialog_name_include" />
+            <include layout="@layout/name_dialog_name_include" />
 
             <me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup
                 android:id="@+id/typeGroup"

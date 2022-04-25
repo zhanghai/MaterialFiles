@@ -17,7 +17,7 @@ import com.google.android.material.textfield.TextInputLayout
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.CreateArchiveDialogBinding
-import me.zhanghai.android.files.databinding.FileNameDialogNameIncludeBinding
+import me.zhanghai.android.files.databinding.NameDialogNameIncludeBinding
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.putArgs
@@ -57,7 +57,7 @@ class CreateArchiveDialogFragment : FileNameDialogFragment() {
     @StringRes
     override val titleRes: Int = R.string.file_create_archive_title
 
-    override fun onInflateBinding(inflater: LayoutInflater): FileNameDialogFragment.Binding =
+    override fun onInflateBinding(inflater: LayoutInflater): NameDialogFragment.Binding =
         Binding.inflate(inflater)
 
     override val name: String
@@ -106,12 +106,12 @@ class CreateArchiveDialogFragment : FileNameDialogFragment() {
         nameLayout: TextInputLayout,
         nameEdit: EditText,
         val typeGroup: RadioGroup
-    ) : FileNameDialogFragment.Binding(root, nameLayout, nameEdit) {
+    ) : NameDialogFragment.Binding(root, nameLayout, nameEdit) {
         companion object {
             fun inflate(inflater: LayoutInflater): Binding {
                 val binding = CreateArchiveDialogBinding.inflate(inflater)
                 val bindingRoot = binding.root
-                val nameBinding = FileNameDialogNameIncludeBinding.bind(bindingRoot)
+                val nameBinding = NameDialogNameIncludeBinding.bind(bindingRoot)
                 return Binding(
                     bindingRoot, nameBinding.nameLayout, nameBinding.nameEdit, binding.typeGroup
                 )

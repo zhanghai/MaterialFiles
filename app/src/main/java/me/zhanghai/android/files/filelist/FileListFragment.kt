@@ -119,7 +119,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     OpenApkDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
     CreateArchiveDialogFragment.Listener, RenameFileDialogFragment.Listener,
     CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-    NavigationFragment.Listener, ShowRequestAllFilesAccessRationaleDialogFragment.Listener,
+    NavigateToPathDialogFragment.Listener, NavigationFragment.Listener,
+    ShowRequestAllFilesAccessRationaleDialogFragment.Listener,
     ShowRequestStoragePermissionRationaleDialogFragment.Listener,
     ShowRequestStoragePermissionInSettingsRationaleDialogFragment.Listener {
     private val requestAllFilesAccessLauncher = registerForActivityResult(
@@ -428,6 +429,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 navigateUp()
                 true
             }
+            R.id.action_navigate_to -> {
+                showNavigateToPathDialog()
+                true
+            }
             R.id.action_refresh -> {
                 refresh()
                 true
@@ -605,6 +610,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.navigateUp(true)
     }
 
+    private fun showNavigateToPathDialog() {
+        NavigateToPathDialogFragment.show(currentPath, this)
+    }
+
     private fun newTask() {
         openInNewTask(currentPath)
     }
@@ -662,7 +671,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     override fun copyPath(path: Path) {
-        clipboardManager.copyText(path.userFriendlyString, requireContext())
+        clipboardManager.copyText(path.toUserFriendlyString(), requireContext())
     }
 
     override fun openInNewTask(path: Path) {

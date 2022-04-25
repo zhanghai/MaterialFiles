@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="8dp">
 
-            <include layout="@layout/file_name_dialog_name_include" />
+            <include layout="@layout/name_dialog_name_include" />
         </FrameLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

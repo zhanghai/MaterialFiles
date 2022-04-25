@@ -15,7 +15,6 @@ import me.zhanghai.android.files.provider.linux.isLinuxPath
 val Path.name: String
     get() = fileName?.toString() ?: if (isArchivePath) archiveFile.fileName.toString() else "/"
 
-val Path.userFriendlyString: String
-    get() = if (isLinuxPath) toFile().path else toUri().toString()
+fun Path.toUserFriendlyString(): String = if (isLinuxPath) toFile().path else toUri().toString()
 
 fun Path.isArchiveFile(mimeType: MimeType): Boolean = !isArchivePath && mimeType.isSupportedArchive

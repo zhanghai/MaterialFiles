@@ -273,6 +273,8 @@
         <item quantity="other">%1$,d files</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Path cannot be empty</string>
+    <string name="file_list_path_error_invalid">Invalid path</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Type</string>
     <string name="file_list_action_sort_by_size">Size</string>
@@ -282,6 +284,8 @@
     <string name="file_list_action_sort_path_specific">Only for this folder</string>
     <string name="file_list_action_new_task">New window</string>
     <string name="file_list_action_navigate_up">Go up</string>
+    <string name="file_list_action_navigate_to">Go to</string>
+    <string name="file_list_navigate_to_title" translatable="false">@string/file_list_action_navigate_to</string>
     <string name="file_list_action_show_hidden_files">Show hidden files</string>
     <string name="file_list_action_copy_path">Copy path</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>

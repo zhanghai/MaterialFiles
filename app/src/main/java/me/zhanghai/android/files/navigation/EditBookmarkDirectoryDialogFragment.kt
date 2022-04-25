@@ -17,7 +17,7 @@ import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.EditBookmarkDirectoryDialogBinding
 import me.zhanghai.android.files.filelist.FileListActivity
-import me.zhanghai.android.files.filelist.userFriendlyString
+import me.zhanghai.android.files.filelist.toUserFriendlyString
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableParceler
 import me.zhanghai.android.files.util.ParcelableState
@@ -85,7 +85,7 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun updatePathText() {
-        binding.pathText.setText(path.userFriendlyString)
+        binding.pathText.setText(path.toUserFriendlyString())
     }
 
     private fun save() {

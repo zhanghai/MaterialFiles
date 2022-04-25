@@ -68,6 +68,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_navigate_to"
+        android:orderInCategory="100"
+        android:title="@string/file_list_action_navigate_to"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
         android:title="@string/refresh"

@@ -12,7 +12,7 @@ import me.zhanghai.android.files.util.show
 
 class CreateDirectoryDialogFragment : FileNameDialogFragment() {
     override val listener: Listener
-        get() = requireParentFragment() as Listener
+        get() = super.listener as Listener
 
     @StringRes
     override val titleRes: Int = R.string.file_create_directory_title

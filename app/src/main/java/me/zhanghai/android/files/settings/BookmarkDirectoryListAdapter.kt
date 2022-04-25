@@ -12,7 +12,7 @@ import com.h6ah4i.android.widget.advrecyclerview.utils.AbstractDraggableItemView
 import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.compat.isTransformedTouchPointInViewCompat
 import me.zhanghai.android.files.databinding.BookmarkDirectoryItemBinding
-import me.zhanghai.android.files.filelist.userFriendlyString
+import me.zhanghai.android.files.filelist.toUserFriendlyString
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.ui.SimpleAdapter
 import me.zhanghai.android.files.util.layoutInflater
@@ -38,7 +38,7 @@ class BookmarkDirectoryListAdapter(
         binding.root.foregroundCompat!!.mutate().setVisible(!holder.dragState.isActive, false)
         binding.root.setOnClickListener { listener.editBookmarkDirectory(bookmarkDirectory) }
         binding.nameText.text = bookmarkDirectory.name
-        binding.pathText.text = bookmarkDirectory.path.userFriendlyString
+        binding.pathText.text = bookmarkDirectory.path.toUserFriendlyString()
     }
 
     override fun onCheckCanStartDrag(holder: ViewHolder, position: Int, x: Int, y: Int): Boolean =

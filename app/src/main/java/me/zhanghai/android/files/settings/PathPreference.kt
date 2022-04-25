@@ -19,7 +19,7 @@ import com.takisoft.preferencex.PreferenceFragmentCompat
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.filelist.FileListActivity
-import me.zhanghai.android.files.filelist.userFriendlyString
+import me.zhanghai.android.files.filelist.toUserFriendlyString
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData
 import me.zhanghai.android.files.util.startActivityForResultSafe
 import me.zhanghai.android.files.util.valueCompat
@@ -100,7 +100,7 @@ abstract class PathPreference : Preference, PreferenceActivityResultListener {
         override fun provideSummary(preference: PathPreference): CharSequence? {
             val path = preference.path
             val navigationRoot = NavigationRootMapLiveData.valueCompat[path]
-            return navigationRoot?.getName(preference.context) ?: path.userFriendlyString
+            return navigationRoot?.getName(preference.context) ?: path.toUserFriendlyString()
         }
     }
 }

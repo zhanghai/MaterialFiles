@@ -27,9 +27,7 @@ class RenameFileDialogFragment : FileNameDialogFragment() {
         val dialog = super.onCreateDialog(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val file = args.file
-            binding.nameEdit.setText(file.name)
-            binding.nameEdit.setSelection(0, file.baseName.length)
+            binding.nameEdit.setSelection(0, args.file.baseName.length)
         }
         return dialog
     }
@@ -37,7 +35,8 @@ class RenameFileDialogFragment : FileNameDialogFragment() {
     @StringRes
     override val titleRes: Int = R.string.rename
 
-    override fun isNameUnchanged(name: String): Boolean = name == args.file.name
+    override val initialName: String?
+        get() = args.file.name
 
     override fun onOk(name: String) {
         listener.renameFile(args.file, name)

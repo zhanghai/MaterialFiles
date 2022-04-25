@@ -12,10 +12,9 @@ import java8.nio.file.Path
 import java8.nio.file.Paths
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.compat.DocumentsContractCompat
+import me.zhanghai.android.files.storage.createOrLog
 import java.io.Serializable
 import java.net.URI
-import java.net.URISyntaxException
-import kotlin.reflect.KClass
 
 private const val EXTRA_PATH_URI = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI"
 
@@ -49,30 +48,6 @@ private fun Uri.toPathOrNull(): Path? =
             uri?.let { Paths.get(it) }
         }
         else -> null
-    }
-
-private fun KClass<URI>.createOrLog(uri: String): URI? =
-    try {
-        URI(uri)
-    } catch (e: URISyntaxException) {
-        e.printStackTrace()
-        null
-    }
-
-private fun KClass<URI>.createOrLog(
-    scheme: String?,
-    userInfo: String?,
-    host: String?,
-    port: Int,
-    path: String?,
-    query: String?,
-    fragment: String?
-): URI? =
-    try {
-        URI(scheme, userInfo, host, port, path, query, fragment)
-    } catch (e: URISyntaxException) {
-        e.printStackTrace()
-        null
     }
 
 private const val EXTRA_PATH_URI_LIST = "${BuildConfig.APPLICATION_ID}.extra.PATH_URI_LIST"

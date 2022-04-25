@@ -242,6 +242,8 @@
         <item quantity="other">%1$,d 个文件</item>
     </plurals>
     <string name="file_list_subtitle_separator">，</string>
+    <string name="file_list_path_error_empty">路径不能为空</string>
+    <string name="file_list_path_error_invalid">无效路径</string>
     <string name="file_list_action_sort_by_name">名称</string>
     <string name="file_list_action_sort_by_type">类型</string>
     <string name="file_list_action_sort_by_size">大小</string>
@@ -251,6 +253,7 @@
     <string name="file_list_action_sort_path_specific">仅用于此文件夹</string>
     <string name="file_list_action_new_task">新建窗口</string>
     <string name="file_list_action_navigate_up">向上</string>
+    <string name="file_list_action_navigate_to">转到</string>
     <string name="file_list_action_show_hidden_files">显示隐藏文件</string>
     <string name="file_list_action_copy_path">复制路径</string>
     <string name="file_list_action_open_in_terminal">在终端中打开</string>
