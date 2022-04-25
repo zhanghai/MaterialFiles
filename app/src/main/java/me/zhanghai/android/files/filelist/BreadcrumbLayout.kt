@@ -73,6 +73,18 @@ class BreadcrumbLayout : HorizontalScrollView {
         addView(itemsLayout, LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT))
     }
 
+    override fun jumpDrawablesToCurrentState() {
+        // HACK: AppBarLayout.updateAppBarLayoutDrawableState() calls
+        // CoordinatorLayout.jumpDrawablesToCurrentState() to fix a pre-N visual bug according to a
+        // comment in AppBarLayout.BaseBehavior.onLayoutChild(), however that results in our ripple
+        // disappearing. One way to ignore that call path is to skip when we are in layout, so that
+        // we at least preserve the other call path upon being attached to window.
+        if (isInLayout) {
+            return
+        }
+        super.jumpDrawablesToCurrentState()
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         var heightMeasureSpec = heightMeasureSpec
