@@ -207,7 +207,7 @@
     <string name="file_open_from_background_title_format">“%1$s”已可打开</string>
     <string name="file_open_from_background_text">点按即可打开</string>
     <string name="file_name_error_empty">文件名不能为空</string>
-    <string name="file_name_error_invalid">文件名无效</string>
+    <string name="file_name_error_invalid">无效文件名</string>
     <string name="file_name_error_already_exists">已存在同名的文件</string>
     <string name="file_delete_message_file_format">删除“%1$s”？</string>
     <string name="file_delete_message_directory_format">删除文件夹“%1$s”和它的内容？</string>
@@ -444,10 +444,10 @@
     <string name="storage_edit_sftp_server_private_key">私钥</string>
     <string name="storage_edit_sftp_server_private_key_open_file">打开文件</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">输入私钥</string>
-    <string name="storage_edit_sftp_server_private_key_error_invalid">私钥无效</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">无效私钥</string>
     <string name="storage_edit_sftp_server_private_key_password">私钥密码</string>
     <string name="storage_edit_sftp_server_private_key_password_placeholder">可留空</string>
-    <string name="storage_edit_sftp_server_private_key_password_error_invalid">私钥密码无效</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">无效私钥密码</string>
     <string name="storage_edit_sftp_server_connect_and_add">连接并添加</string>
     <string name="storage_edit_sftp_server_add">添加</string>
     <string name="storage_add_lan_smb_server_loading">正在搜索 SMB 服务器…</string>

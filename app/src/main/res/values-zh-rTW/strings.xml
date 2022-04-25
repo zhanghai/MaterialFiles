@@ -207,7 +207,7 @@
     <string name="file_open_from_background_title_format">「%1$s」已可供開啟</string>
     <string name="file_open_from_background_text">輕觸即可開啟</string>
     <string name="file_name_error_empty">檔案名稱不能為空</string>
-    <string name="file_name_error_invalid">檔案名稱無效</string>
+    <string name="file_name_error_invalid">無效的檔案名稱</string>
     <string name="file_name_error_already_exists">已存在同名的檔案</string>
     <string name="file_delete_message_file_format">刪除「%1$s」？</string>
     <string name="file_delete_message_directory_format">刪除資料夾「%1$s」和它的內容？</string>
