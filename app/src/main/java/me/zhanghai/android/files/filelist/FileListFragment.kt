@@ -77,6 +77,7 @@ import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.terminal.Terminal
+import me.zhanghai.android.files.ui.AppBarLayoutExpandHackListener
 import me.zhanghai.android.files.ui.CoordinatorAppBarLayout
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView
 import me.zhanghai.android.files.ui.OverlayToolbarActionMode
@@ -783,6 +784,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
         if (!overlayActionMode.isActive) {
             binding.appBarLayout.setExpanded(true)
+            binding.appBarLayout.addOnOffsetChangedListener(
+                AppBarLayoutExpandHackListener(binding.recyclerView)
+            )
             overlayActionMode.start(object : ToolbarActionMode.Callback {
                 override fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode) {}
 
