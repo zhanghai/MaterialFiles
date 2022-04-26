@@ -170,7 +170,7 @@ dependencies {
     implementation "io.coil-kt:coil-svg:$coil_version"
     implementation "io.coil-kt:coil-video:$coil_version"
     implementation 'me.zhanghai.android.appiconloader:appiconloader:1.3.1'
-    implementation 'me.zhanghai.android.fastscroll:library:1.1.7'
+    implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
     implementation 'me.zhanghai.android.foregroundcompat:library:1.0.2'
     implementation 'me.zhanghai.android.libselinux:library:2.1.0'
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
