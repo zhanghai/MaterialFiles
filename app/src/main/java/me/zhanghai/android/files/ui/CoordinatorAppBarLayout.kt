@@ -14,14 +14,13 @@ import android.view.View
 import androidx.annotation.AttrRes
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.graphics.ColorUtils
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.MaterialShapeDrawableAccessor
 import com.google.android.material.shape.MaterialShapeUtils
 import me.zhanghai.android.files.util.activity
 
-class CoordinatorAppBarLayout : AppBarLayout {
+class CoordinatorAppBarLayout : FitsSystemWindowsAppBarLayout {
     private val tempConsumed = IntArray(2)
 
     private var offset = 0
@@ -40,8 +39,6 @@ class CoordinatorAppBarLayout : AppBarLayout {
     ) : super(context, attrs, defStyleAttr)
 
     init {
-        fitsSystemWindows = true
-
         val background = background
         val backgroundColor = (background as? MaterialShapeDrawable)?.fillColor?.defaultColor
         if (backgroundColor != null) {
