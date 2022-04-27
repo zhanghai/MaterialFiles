@@ -13,10 +13,11 @@ import me.zhanghai.android.files.compat.setTintCompat
 import me.zhanghai.android.files.navigation.StandardDirectoriesLiveData
 import me.zhanghai.android.files.navigation.StandardDirectory
 import me.zhanghai.android.files.navigation.getExternalStorageDirectory
+import me.zhanghai.android.files.ui.PreferenceFragmentCompat
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.valueCompat
 
-class StandardDirectoryListPreferenceFragment : PreferenceFragmentCompatFixIssue201(),
+class StandardDirectoryListPreferenceFragment : PreferenceFragmentCompat(),
     Preference.OnPreferenceClickListener {
     override fun onCreatePreferencesFix(
         savedInstanceState: Bundle?,

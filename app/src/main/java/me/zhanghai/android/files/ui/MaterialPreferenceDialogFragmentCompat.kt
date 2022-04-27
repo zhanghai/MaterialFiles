@@ -186,7 +186,7 @@ abstract class MaterialPreferenceDialogFragmentCompat : AppCompatDialogFragment(
     abstract fun onDialogClosed(positiveResult: Boolean)
 
     companion object {
-        private const val ARG_KEY = "key"
+        /*protected */const val ARG_KEY = "key"
     }
 
     @Parcelize

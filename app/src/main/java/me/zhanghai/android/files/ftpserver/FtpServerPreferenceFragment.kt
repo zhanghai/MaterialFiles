@@ -6,8 +6,8 @@
 package me.zhanghai.android.files.ftpserver
 
 import android.os.Bundle
-import com.takisoft.preferencex.PreferenceFragmentCompat
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.ui.PreferenceFragmentCompat
 
 class FtpServerPreferenceFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferencesFix(savedInstanceState: Bundle?, rootKey: String?) {
