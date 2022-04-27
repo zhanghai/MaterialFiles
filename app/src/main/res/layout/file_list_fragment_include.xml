@@ -41,6 +41,10 @@
             </me.zhanghai.android.files.ui.PersistentBarLayout>
         </me.zhanghai.android.files.ui.IgnoreFitsSystemWindowsFullyDraggableDrawerContentLayout>
 
+        <!--
+          ~ We have to set android:fitsSystemWindows="true" here to prevent DrawerLayout from
+          ~ applying the window insets as margins for this view.
+          -->
         <me.zhanghai.android.files.ui.NavigationFrameLayout
             android:id="@+id/navigationFragment"
             android:layout_width="wrap_content"
