@@ -77,6 +77,9 @@ fun <T : View> View.findViewByClass(clazz: Class<T>): T? {
     return null
 }
 
+val View.isLayoutDirectionRtl: Boolean
+    get() = layoutDirection == View.LAYOUT_DIRECTION_RTL
+
 var View.layoutInStatusBar: Boolean
     get() = systemUiVisibility.hasBits(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     set(value) {
