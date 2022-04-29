@@ -9,6 +9,7 @@ import java8.nio.file.AtomicMoveNotSupportedException
 import java8.nio.file.CopyOption
 import java8.nio.file.FileAlreadyExistsException
 import java8.nio.file.LinkOption
+import java8.nio.file.NoSuchFileException
 import java8.nio.file.Path
 import java8.nio.file.StandardCopyOption
 import java8.nio.file.StandardOpenOption
@@ -137,12 +138,14 @@ internal object ForeignCopyMove {
         try {
             source.delete()
         } catch (e: IOException) {
-            try {
-                target.delete()
-            } catch (e2: IOException) {
-                e.addSuppressed(e2)
-            } catch (e2: UnsupportedOperationException) {
-                e.addSuppressed(e2)
+            if (e !is NoSuchFileException) {
+                try {
+                    target.delete()
+                } catch (e2: IOException) {
+                    e.addSuppressed(e2)
+                } catch (e2: UnsupportedOperationException) {
+                    e.addSuppressed(e2)
+                }
             }
             throw e
         } catch (e: UnsupportedOperationException) {

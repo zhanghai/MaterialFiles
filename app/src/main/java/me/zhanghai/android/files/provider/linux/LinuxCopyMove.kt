@@ -291,10 +291,12 @@ internal object LinuxCopyMove {
         try {
             Syscalls.remove(source)
         } catch (e: SyscallException) {
-            try {
-                Syscalls.remove(target)
-            } catch (e2: SyscallException) {
-                e.addSuppressed(e2.toFileSystemException(target.toString()))
+            if (e.errno != OsConstants.ENOENT) {
+                try {
+                    Syscalls.remove(target)
+                } catch (e2: SyscallException) {
+                    e.addSuppressed(e2.toFileSystemException(target.toString()))
+                }
             }
             throw e.toFileSystemException(source.toString())
         }

@@ -282,10 +282,12 @@ internal object SftpCopyMove {
         try {
             Client.remove(source)
         } catch (e: ClientException) {
-            try {
-                Client.remove(target)
-            } catch (e2: ClientException) {
-                e.addSuppressed(e2.toFileSystemException(target.toString()))
+            if (e.toFileSystemException(source.toString()) !is NoSuchFileException) {
+                try {
+                    Client.remove(target)
+                } catch (e2: ClientException) {
+                    e.addSuppressed(e2.toFileSystemException(target.toString()))
+                }
             }
             throw e.toFileSystemException(source.toString())
         }

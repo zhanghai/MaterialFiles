@@ -226,10 +226,12 @@ internal object SmbCopyMove {
         try {
             Client.delete(source)
         } catch (e: ClientException) {
-            try {
-                Client.delete(target)
-            } catch (e2: ClientException) {
-                e.addSuppressed(e2.toFileSystemException(target.toString()))
+            if (e.toFileSystemException(source.toString()) !is NoSuchFileException) {
+                try {
+                    Client.delete(target)
+                } catch (e2: ClientException) {
+                    e.addSuppressed(e2.toFileSystemException(target.toString()))
+                }
             }
             throw e.toFileSystemException(source.toString())
         }

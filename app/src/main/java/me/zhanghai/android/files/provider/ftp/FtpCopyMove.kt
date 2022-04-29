@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.ftp
 
 import java8.nio.file.FileAlreadyExistsException
+import java8.nio.file.NoSuchFileException
 import java8.nio.file.StandardCopyOption
 import me.zhanghai.android.files.compat.toInstantCompat
 import me.zhanghai.android.files.provider.common.CopyOptions
@@ -167,10 +168,12 @@ internal object FtpCopyMove {
         try {
             Client.delete(source, sourceFile.isDirectory)
         } catch (e: IOException) {
-            try {
-                Client.delete(target, sourceFile.isDirectory)
-            } catch (e2: IOException) {
-                e.addSuppressed(e2.toFileSystemExceptionForFtp(target.toString()))
+            if (e.toFileSystemExceptionForFtp(source.toString()) !is NoSuchFileException) {
+                try {
+                    Client.delete(target, sourceFile.isDirectory)
+                } catch (e2: IOException) {
+                    e.addSuppressed(e2.toFileSystemExceptionForFtp(target.toString()))
+                }
             }
             throw e.toFileSystemExceptionForFtp(source.toString())
         }

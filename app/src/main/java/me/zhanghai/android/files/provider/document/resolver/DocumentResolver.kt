@@ -15,6 +15,7 @@ import android.os.CancellationSignal
 import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import androidx.annotation.RequiresApi
+import java8.nio.file.NoSuchFileException
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
 import me.zhanghai.android.files.app.contentResolver
@@ -354,12 +355,15 @@ object DocumentResolver {
             val sourceParentUri = getDocumentUri(sourcePath.requireParent())
             remove(sourceUri, sourceParentUri)
         } catch (e: ResolverException) {
-            try {
-                val targetParentUri = getDocumentUri(targetPath.requireParent())
-                remove(targetUri, targetParentUri)
-            } catch (e2: ResolverException) {
-                e.addSuppressed(e2)
+            if (e.toFileSystemException(sourcePath.toString()) !is NoSuchFileException) {
+                try {
+                    val targetParentUri = getDocumentUri(targetPath.requireParent())
+                    remove(targetUri, targetParentUri)
+                } catch (e2: ResolverException) {
+                    e.addSuppressed(e2)
+                }
             }
+            throw e
         }
         return targetUri
     }
