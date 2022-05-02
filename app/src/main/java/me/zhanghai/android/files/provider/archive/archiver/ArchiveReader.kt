@@ -20,8 +20,8 @@ import me.zhanghai.android.files.compat.use
 //#ifdef NONFREE
 import me.zhanghai.android.files.nonfree.RarArchiveEntry
 import me.zhanghai.android.files.nonfree.RarFile
-import me.zhanghai.android.files.provider.common.DelegateForceableSeekableByteChannel
 //#endif
+import me.zhanghai.android.files.provider.common.DelegateForceableSeekableByteChannel
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateNonForceableSeekableByteChannel
 import me.zhanghai.android.files.provider.common.ForceableChannel
