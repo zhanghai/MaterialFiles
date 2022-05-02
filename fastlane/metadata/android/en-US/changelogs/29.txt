@@ -4,4 +4,5 @@
 - Added app icon badge for folders named after package names.
 - Added menu item for going to a custom path.
 - Added optional private key password for SFTP.
+- Added Icelandic translation.
 - Other bug fixes and improvements.
