@@ -12,6 +12,7 @@ LOCALES=(
     fr
     hu
     in
+    is
     it
     iw
     ja

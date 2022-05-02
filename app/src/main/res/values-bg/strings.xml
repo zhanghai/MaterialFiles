@@ -55,8 +55,8 @@
         <item quantity="other">%1$,d байта</item>
     </plurals>
 
-    <string name="storage_permission_rationale_message">Трябват права за достъпа до файлове. Моля натиснете \"Разрешаване\" в следващия системен прозорец</string>
-    <string name="storage_permission_permanently_denied_message">Трябват права за достъпа до файлове. Моля разрешете \"ХРАНИЛИЩЕ\" в правата в системните настройки.</string>
+    <string name="storage_permission_rationale_message">Трябват права за достъпа до файлове. Моля натиснете “Разрешаване” в следващия системен прозорец</string>
+    <string name="storage_permission_permanently_denied_message">Трябват права за достъпа до файлове. Моля разрешете “ХРАНИЛИЩЕ” в правата в системните настройки.</string>
     <string name="notification_channel_background_activity_start_name">Действия на заден план</string>
     <string name="notification_channel_background_activity_start_description">Изпълняване на действия докато приложението е на заден план</string>
     <string name="notification_channel_file_job_name">Файлови операции</string>
@@ -68,10 +68,10 @@
         <item quantity="one">Приготвяне да се компресира %1$,d файл (%2$s)</item>
         <item quantity="other">Подготвяне да се компресират %1$,d файла (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one_format">Компресиране на \"%1$s\" в \"%2$s\"</string>
+    <string name="file_job_archive_notification_title_one_format">Компресиране на “%1$s” в “%2$s”</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
-        <item quantity="one">Компресиране на %1$,d файл в \"%2$s\"</item>
-        <item quantity="other">Компресиране на %1$,d файла в \"%2$s\"</item>
+        <item quantity="one">Компресиране на %1$,d файл в “%2$s”</item>
+        <item quantity="other">Компресиране на %1$,d файла в “%2$s”</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Приготвяне да се копира %1$,d файл (%2$s)</item>
@@ -79,26 +79,26 @@
     </plurals>
     <string name="file_job_copy_notification_title_one_format">Копиране на %1$s в %2$s</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
-        <item quantity="one">Копиране на %1$,d файл в \"%2$s\"</item>
-        <item quantity="other">Копиране на %1$,d файла в \"%2$s\"</item>
+        <item quantity="one">Копиране на %1$,d файл в “%2$s”</item>
+        <item quantity="other">Копиране на %1$,d файла в “%2$s”</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Приготвяне да се извлече %1$,d файл (%2$s)</item>
         <item quantity="other">Подготвяне да се извлекат %1$,d файла (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one_format">Извличане на \"%1$s\" в \"%2$s\"</string>
+    <string name="file_job_extract_notification_title_one_format">Извличане на “%1$s” в “%2$s”</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
-        <item quantity="one">Извличане на %1$,d файл в \"%2$s\"</item>
-        <item quantity="other">Извличане на %1$,d файла в \"%2$s\"</item>
+        <item quantity="one">Извличане на %1$,d файл в “%2$s”</item>
+        <item quantity="other">Извличане на %1$,d файла в “%2$s”</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Подготвяне да се премести %1$,d файл (%2$s)</item>
         <item quantity="other">Подготвяне да се преместят %1$,d файла (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one_format">Преместване на \"%1$s\" в \"%2$s\"</string>
+    <string name="file_job_move_notification_title_one_format">Преместване на “%1$s” в “%2$s”</string>
     <plurals name="file_job_move_notification_title_multiple_format">
-        <item quantity="one">Преместване на %1$,d файл към \"%2$s\"</item>
-        <item quantity="other">Преместване на %1$,d файла към \"%2$s\"</item>
+        <item quantity="one">Преместване на %1$,d файл към “%2$s”</item>
+        <item quantity="other">Преместване на %1$,d файла към “%2$s”</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
@@ -106,7 +106,7 @@
         <item quantity="one">Подготвяне да се изтрие %1$,d файл</item>
         <item quantity="other">Подготвяне да се изтрият %1$,d файла</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one_format">Изтриване на \"%1$s\"</string>
+    <string name="file_job_delete_notification_title_one_format">Изтриване на “%1$s”</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Изтриване на %1$,d файл</item>
         <item quantity="other">Изтриване на %1$,d файла</item>
@@ -115,7 +115,7 @@
         <item quantity="one">Подготвяне за смяна на притежателя на %1$,d файл</item>
         <item quantity="other">Подготвяне за смяна на притежателя на %1$,d файла</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one_format">Смяна на притежателя на \"%1$s\"</string>
+    <string name="file_job_set_owner_notification_title_one_format">Смяна на притежателя на “%1$s”</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Смяна на притежателя на %1$,d файл</item>
         <item quantity="other">Смяна на притежателя на %1$,d файла</item>
@@ -124,7 +124,7 @@
         <item quantity="one">Подготовка за промяна на групата на %1$,d файл</item>
         <item quantity="other">Подготвяне за промяна на групата на %1$,d файла</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one_format">Промяна на групата на \"%1$s\"</string>
+    <string name="file_job_set_group_notification_title_one_format">Промяна на групата на “%1$s”</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Смяна на групата на %1$,d файл</item>
         <item quantity="other">Смяна на групата на %1$,d файла</item>
@@ -133,7 +133,7 @@
         <item quantity="one">Подготовка за смяна на правата на %1$,d файл</item>
         <item quantity="other">Подготвяне за смяна на правата на %1$,d файла</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one_format">Смяна на правата на \"%1$s\"</string>
+    <string name="file_job_set_mode_notification_title_one_format">Смяна на правата на “%1$s”</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Смяна на правата на %1$,d файл</item>
         <item quantity="other">Смяна на правата на %1$,d файла</item>
@@ -142,7 +142,7 @@
         <item quantity="one">Подготовка за смяна на SELinux контекста на %1$,d файл</item>
         <item quantity="other">Подготвяне за смяна на SELinux контекста на %1$,d файла</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one_format">Промяна на SELinux контекста за \"%1$s\"</string>
+    <string name="file_job_set_selinux_context_notification_title_one_format">Промяна на SELinux контекста за “%1$s”</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Промяна на SELinux контекста на %1$,d файл</item>
         <item quantity="other">Промяна на SELinux контекста на %1$,d файла</item>
@@ -151,15 +151,15 @@
         <item quantity="one">Подготовка за възстановяване на SELinux контекста на %1$,d файл</item>
         <item quantity="other">Подготвяне за възстановяване на SELinux контекста на %1$,d файла</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one_format">Възстановяване на SELinux контекста за \"%1$s\"</string>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Възстановяване на SELinux контекста за “%1$s”</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Възстановяване на SELinux контекста за %1$,d файл</item>
         <item quantity="other">Възстановяване на SELinux контекста за %1$,d файлове</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title_format">Записване на \"%1$s\"</string>
+    <string name="file_job_write_notification_title_format">Записване на “%1$s”</string>
     <string name="file_job_create_error_title">Грешка при създаването</string>
-    <string name="file_job_create_error_message_format">Възникна грешка при създаването на \"%1$s\".\n%2$s</string>
+    <string name="file_job_create_error_message_format">Възникна грешка при създаването на “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">Не може да се копира папка в себе си</string>
     <string name="file_job_cannot_extract_into_itself_title">Не може да се извлече папка в себе си</string>
     <string name="file_job_cannot_move_into_itself_title">Не може да се премести папка в себе си</string>
@@ -168,11 +168,11 @@
     <string name="file_job_cannot_extract_over_itself_title">Не може да се извлече файл върху себе си</string>
     <string name="file_job_cannot_move_over_itself_title">Не може да се премести файл върху себе си</string>
     <string name="file_job_cannot_copy_move_over_itself_message">Не може да се копира/мести върху себе си</string>
-    <string name="file_job_replace_title_format">Замяна на файла \"%1$s\"?</string>
-    <string name="file_job_replace_message_format">Друг файл със същото име вече съществува в \"%1$s\".\nПодмяната му ще презапише съдържанието му.</string>
+    <string name="file_job_replace_title_format">Замяна на файла “%1$s”?</string>
+    <string name="file_job_replace_message_format">Друг файл със същото име вече съществува в “%1$s”.\nПодмяната му ще презапише съдържанието му.</string>
     <string name="file_job_replace_target_name">Оригинален файл</string>
     <string name="file_job_replace_source_name">Замяна с</string>
-    <string name="file_job_merge_title_format">Обединяване на папката \"%1$s\"?</string>
+    <string name="file_job_merge_title_format">Обединяване на папката “%1$s”?</string>
     <string name="file_job_merge_copy_message_format">Обединяването ще поиска потвърждение, преди да замени всички файлове в папката, които са в конфликт с копираните файлове.</string>
     <string name="file_job_merge_extract_message_format">Обединяването ще поиска потвърждение, преди да замени всички файлове в папката, които са в конфликт с извличаните файлове.</string>
     <string name="file_job_merge_move_message_format">Обединяването ще поиска потвърждение, преди да замени всички файлове в папката, които са в конфликт с преместваните файлове.</string>
@@ -180,39 +180,39 @@
     <string name="file_job_merge_source_name">Обединяване с</string>
     <string name="file_job_conflict_show_name">Избиране на ново име</string>
     <string name="file_job_conflict_name_hint">Ново име</string>
-    <string name="file_job_archive_error_title_format">Грешка при компресирането на \"%1$s\"</string>
-    <string name="file_job_archive_error_message_format">Възникна грешка докато файлът се компресираше в \"%1$s\".\n%2$s</string>
-    <string name="file_job_copy_error_title_format">Грешка при копирането на \"%1$s\"</string>
-    <string name="file_job_copy_error_message_format">Възникна грешка докато файлът се копираше в \"%1$s\".\n%2$s</string>
-    <string name="file_job_extract_error_title_format">Грешка при извличането на \"%1$s\"</string>
-    <string name="file_job_extract_error_message_format">Възникна грешка при извличането на файлът в \"%1$s\".\n%2$s</string>
-    <string name="file_job_move_error_title_format">Грешка при преместването на \"%1$s\"</string>
-    <string name="file_job_move_error_message_format">Възникна грешка при преместването на файла в \"%1$s\".\n%2$s</string>
+    <string name="file_job_archive_error_title_format">Грешка при компресирането на “%1$s”</string>
+    <string name="file_job_archive_error_message_format">Възникна грешка докато файлът се компресираше в “%1$s”.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Грешка при копирането на “%1$s”</string>
+    <string name="file_job_copy_error_message_format">Възникна грешка докато файлът се копираше в “%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Грешка при извличането на “%1$s”</string>
+    <string name="file_job_extract_error_message_format">Възникна грешка при извличането на файлът в “%1$s”.\n%2$s</string>
+    <string name="file_job_move_error_title_format">Грешка при преместването на “%1$s”</string>
+    <string name="file_job_move_error_message_format">Възникна грешка при преместването на файла в “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Грешка при изтриване</string>
-    <string name="file_job_delete_error_message_format">Възникна грешка при изтриването на \"%1$s\".\n%2$s</string>
-    <string name="file_job_rename_error_title_format">Възникна грешка при преименуването на \"%1$s\"</string>
-    <string name="file_job_rename_error_message_format">Възникна грешка при преименуването на файла на \"%1$s\"\n%2$s</string>
-    <string name="file_job_set_owner_error_title_format">Грешка при смяната на притежателя на \"%1$s\"</string>
-    <string name="file_job_set_owner_error_message_format">Възникна грешка при смяната на притежателя на \"%1$s\".\n%2$s</string>
-    <string name="file_job_set_group_error_title_format">Грешка при промяна на групата на \"%1$s\"</string>
-    <string name="file_job_set_group_error_message_format">Възникна грешка при промяната на групата на \"%1$s\".\n%2$s</string>
-    <string name="file_job_set_mode_error_title_format">Грешка при промяната на правата на \"%1$s\"</string>
-    <string name="file_job_set_mode_error_message_format">Възникна грешка при промяна на правата на \"%1$s\".\n%2$s</string>
-    <string name="file_job_set_selinux_context_error_title_format">Грешка при промяна на SELinux контекста на \"%1$s\"</string>
-    <string name="file_job_set_selinux_context_error_message_format">Възникна грешка при промяната на SELinux контекста на \"%1$s\".\n%2$s</string>
+    <string name="file_job_delete_error_message_format">Възникна грешка при изтриването на “%1$s”.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Възникна грешка при преименуването на “%1$s”</string>
+    <string name="file_job_rename_error_message_format">Възникна грешка при преименуването на файла на “%1$s”\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Грешка при смяната на притежателя на “%1$s”</string>
+    <string name="file_job_set_owner_error_message_format">Възникна грешка при смяната на притежателя на “%1$s”.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Грешка при промяна на групата на “%1$s”</string>
+    <string name="file_job_set_group_error_message_format">Възникна грешка при промяната на групата на “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Грешка при промяната на правата на “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">Възникна грешка при промяна на правата на “%1$s”.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Грешка при промяна на SELinux контекста на “%1$s”</string>
+    <string name="file_job_set_selinux_context_error_message_format">Възникна грешка при промяната на SELinux контекста на “%1$s”.\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">Грешка при възстановяване на SELinux контекста</string>
-    <string name="file_job_restore_selinux_context_error_message_format">Възникна грешка при възстановяване на SELinux контекста на \"%1$s\".\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Възникна грешка при възстановяване на SELinux контекста на “%1$s”.\n%2$s</string>
     <string name="file_job_write_error_title">Грешка при писане</string>
-    <string name="file_job_write_error_message_format">Възникна грешка при писането на \"%1$s\".\n%2$s</string>
-    <string name="file_job_get_information_error_message_format">Възникна грешка при получаването на информация за \"%1$s\".</string>
-    <string name="file_job_remount_format">Закачане \"%1$s\" за писане и четене</string>
-    <string name="file_job_remount_loading_format">Закачане \"%1$s\" за писане и четене…</string>
-    <string name="file_job_remount_success_format">\"%1$s\" беше закачено за писане и четене</string>
+    <string name="file_job_write_error_message_format">Възникна грешка при писането на “%1$s”.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Възникна грешка при получаването на информация за “%1$s”.</string>
+    <string name="file_job_remount_format">Закачане “%1$s” за писане и четене</string>
+    <string name="file_job_remount_loading_format">Закачане “%1$s” за писане и четене…</string>
+    <string name="file_job_remount_success_format">“%1$s” беше закачено за писане и четене</string>
     <string name="file_job_action_all">Прилагане за всички файлове</string>
 
     <string name="file_open_apk_message">Този файл е пакет на Андроид. Искате да го инсталирате или да видите съдържанието му?</string>
     <string name="file_open_as_title">Отваряне като…</string>
-    <string name="file_open_as_title_format">Отваряне на \"%1$s\" като</string>
+    <string name="file_open_as_title_format">Отваряне на “%1$s” като</string>
     <string name="file_open_as_type_text">Текст</string>
     <string name="file_open_as_type_image">Каркинка</string>
     <string name="file_open_as_type_audio">Аудио</string>
@@ -226,8 +226,8 @@
     <string name="file_name_error_empty">Файлът на може да е празен</string>
     <string name="file_name_error_invalid">Невалидно име на файл</string>
     <string name="file_name_error_already_exists">Файл с това име вече съществува</string>
-    <string name="file_delete_message_file_format">Изтриване на \"%1$s\"?</string>
-    <string name="file_delete_message_directory_format">Изтриване на папката \"%1$s\" и нейното съдържание?</string>
+    <string name="file_delete_message_file_format">Изтриване на “%1$s”?</string>
+    <string name="file_delete_message_directory_format">Изтриване на папката “%1$s” и нейното съдържание?</string>
     <string name="file_create_archive_title">Създаване на архив</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -270,7 +270,7 @@
     <string name="file_list_action_create_shortcut">Създаване на пряк път</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Отваряне в нов прозорез</string>
     <string name="file_list_select_title_format">%1$,d избран(и)</string>
-    <string name="file_list_select_current_directory_format">Избиране на \"%1$s\"</string>
+    <string name="file_list_select_current_directory_format">Избиране на “%1$s”</string>
     <string name="file_list_paste_move_title_format">Преместване на %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копиране на %1$,d</string>
     <string name="file_list_paste_extract_title_format">Извличане на %1$,d</string>
@@ -285,7 +285,7 @@
     <string name="file_item_action_archive">Компресиране</string>
     <string name="file_item_action_properties">Свойства</string>
 
-    <string name="file_properties_title_format">Свойства на \"%1$s\"</string>
+    <string name="file_properties_title_format">Свойства на “%1$s”</string>
     <string name="file_properties_basic">Основни</string>
     <string name="file_properties_basic_name">Име</string>
     <string name="file_properties_basic_type">Тип</string>
@@ -332,7 +332,7 @@
         <item>Set GID</item>
         <item>Sticky бит</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Да не се добавя \"Изпълнение\" рекурсивно</string>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Да не се добавя “Изпълнение” рекурсивно</string>
     <string name="file_properties_permissions_selinux_context">SELinux контекст</string>
     <string name="file_properties_permissions_set_selinux_context_title">Смяна на SELinux контекст</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Възстановяване</string>

@@ -28,6 +28,7 @@
     <string name="maybe_later">Peut-être plus tard</string>
     <string name="merge">Fusionner</string>
     <string name="none">Aucun</string>
+    <string name="open_navigation_drawer">Ouvrir le tiroir de navigation</string>
     <string name="paste">Coller</string>
     <string name="refresh">Rafraîchir</string>
     <string name="reload">Recharger</string>
@@ -60,6 +61,8 @@
 
     <string name="storage_permission_rationale_message">L’application a besoin de la permission pour accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
     <string name="storage_permission_permanently_denied_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez accorder la permission de stockage dans les paramètres du système.</string>
+    <string name="all_files_access_rationale_message">L\'application a besoin d\'un accès pour gérer tous les fichiers. Veuillez autoriser cet accès dans les paramètres du système.</string>
+
     <string name="notification_channel_background_activity_start_name">Actions en arrière-plan</string>
     <string name="notification_channel_background_activity_start_description">Maintenir les actions lorsque l’application est en arrière-plan</string>
     <string name="notification_channel_file_job_name">Opérations sur les fichiers</string>
@@ -106,7 +109,7 @@
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title_format">
-        <item quantity="one">Préparation de la suppression de  %1$,d fichier</item>
+        <item quantity="one">Préparation de la suppression de %1$,d fichier</item>
         <item quantity="other">Préparation de la suppression de %1$,d fichiers</item>
     </plurals>
     <string name="file_job_delete_notification_title_one_format">Supprimer “%1$s”</string>
@@ -231,6 +234,18 @@
     <string name="file_name_error_already_exists">Un fichier avec ce nom existe déjà</string>
     <string name="file_delete_message_file_format">Supprimer “%1$s” ?</string>
     <string name="file_delete_message_directory_format">Supprimer le dossier “%1$s” et son contenu ?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Supprimer %1$,d fichier?</item>
+        <item quantity="other">Supprimer %1$,d fichiers?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Supprimer %1$,d dossier et son contenu ?</item>
+        <item quantity="other">Supprimer %1$,d dossiers et leur contenu ?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Supprimer %1$,d élément?</item>
+        <item quantity="other">Supprimer %1$,d éléments?</item>
+    </plurals>
     <string name="file_create_archive_title">Créer une archive</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -257,6 +272,8 @@
         <item quantity="other">%1$,d fichiers</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Le chemin ne peut pas être vide</string>
+    <string name="file_list_path_error_invalid">Chemin invalide</string>
     <string name="file_list_action_sort_by_name">Nom</string>
     <string name="file_list_action_sort_by_type">Type</string>
     <string name="file_list_action_sort_by_size">Taille</string>
@@ -266,6 +283,7 @@
     <string name="file_list_action_sort_path_specific">Seulement pour ce dossier</string>
     <string name="file_list_action_new_task">Nouvelle fenêtre</string>
     <string name="file_list_action_navigate_up">Aller en haut</string>
+    <string name="file_list_action_navigate_to">Aller à</string>
     <string name="file_list_action_show_hidden_files">Voir les fichiers cachés</string>
     <string name="file_list_action_copy_path">Copier le chemin</string>
     <string name="file_list_action_open_in_terminal">Ouvrir dans le terminal</string>
@@ -397,9 +415,10 @@
 
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Support de stockage</string>
-    <string name="storage_list_empty">Pas de  support de stockage</string>
+    <string name="storage_list_empty">Pas de support de stockage</string>
     <string name="storage_add_storage_title">Ajouter un support de stockage</string>
     <string name="storage_add_storage_document_tree">Support de stockage externe</string>
+    <string name="storage_add_storage_ftp_server">Serveur FTP</string>
     <string name="storage_add_storage_sftp_server">Serveur SFTP</string>
     <string name="storage_add_storage_smb_server">Serveur SMB</string>
     <string name="storage_edit_device_storage_title">Modifier le stockage de l\'appareil</string>
@@ -410,10 +429,39 @@
     <string name="storage_edit_document_tree_name">Nom</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Chemin</string>
+    <string name="storage_edit_ftp_server_title_edit">Modifier le serveur FTP</string>
+    <string name="storage_edit_ftp_server_title_add">Ajouter un serveur FTP</string>
+    <string name="storage_edit_ftp_server_host">Nom d\'hôte</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Entrez un nom d\'hôte</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Nom d\'hôte invalide</string>
+    <string name="storage_edit_ftp_server_port">Port</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Port invalide</string>
+    <string name="storage_edit_ftp_server_path">Chemin d\'accès</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Peut être laissé vide</string>
+    <string name="storage_edit_ftp_server_name">Nom</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Utiliser le nom d\'hôte</string>
+    <string name="storage_edit_ftp_server_protocol">Protocole</string>
+    <string name="storage_edit_ftp_server_authentication_type">Authentification</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Mot de passe</item>
+        <item>Anonyme</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Nom d\'utilisateur</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Entrez un nom d\'utilisateur</string>
+    <string name="storage_edit_ftp_server_password">Mot de passe</string>
+    <string name="storage_edit_ftp_server_mode">Mode</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Actif</item>
+        <item>Passif</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Encodage</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Connecter et ajouter</string>
+    <string name="storage_edit_ftp_server_add">Ajouter</string>
     <string name="storage_edit_sftp_server_title_edit">Modifier le serveur SFTP</string>
     <string name="storage_edit_sftp_server_title_add">Ajouter un serveur SFTP</string>
     <string name="storage_edit_sftp_server_host">Nom d\'hôte</string>
     <string name="storage_edit_sftp_server_host_error_empty">Entrez un nom d\'hôte</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Nom d\'hôte invalide</string>
     <string name="storage_edit_sftp_server_port">Port</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Port non valide</string>
     <string name="storage_edit_sftp_server_path">Chemin</string>
@@ -432,6 +480,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Ouvrir le fichier</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Entrer une clé privée</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Clé privée non valide</string>
+    <string name="storage_edit_sftp_server_private_key_password">Mot de passe de clé privée</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Peut être laissé vide</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Mot de passe de clé privée invalide</string>
     <string name="storage_edit_sftp_server_connect_and_add">Connecter et ajouter</string>
     <string name="storage_edit_sftp_server_add">Ajouter</string>
     <string name="storage_add_lan_smb_server_loading">Recherche de serveurs SMB…</string>
@@ -440,6 +491,7 @@
     <string name="storage_edit_smb_server_title_add">Ajouter un serveur SMB</string>
     <string name="storage_edit_smb_server_host">Nom d\'hôte</string>
     <string name="storage_edit_smb_server_host_error_empty">Entrez un nom d\'hôte</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Nom d\'hôte invalide</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_error_invalid">Port non valide</string>
     <string name="storage_edit_smb_server_path">Chemin</string>
@@ -477,6 +529,7 @@
     <string name="navigation_edit_bookmark_directory_title">Dossier de marque-pages</string>
     <string name="navigation_edit_bookmark_directory_name">Nom</string>
     <string name="navigation_edit_bookmark_directory_path">Chemin</string>
+    <string name="archive_viewer_title">Visionneuse d\'archives</string>
     <string name="image_viewer_title">Visionneuse d\'images</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">Éditeur de texte</string>
@@ -510,6 +563,7 @@
     <string name="settings_interface_title">Interface</string>
     <string name="settings_theme_color_title">Couleur du thème</string>
     <string name="settings_theme_color_summary">Couleur qui apparaît le plus souvent dans l’application</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Mode nuit</string>
     <string-array name="settings_night_mode_entries">
         <item>Système de suivi</item>
@@ -541,7 +595,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Accès normal seulement</item>
-        <item>Automatic</item>
+        <item>Automatique</item>
         <item>Accès root uniquement</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Encodage du nom de l\'archive</string>

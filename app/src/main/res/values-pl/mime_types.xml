@@ -14,7 +14,7 @@
     <string name="file_type_name_certificate">%1$s certyfikat</string>
     <string name="file_type_name_code">%1$s dokument</string>
     <string name="file_type_name_contact">Wizytówka elektroniczna</string>
-    <string name="file_type_name_directory">Folder</string>
+    <string name="file_type_name_directory">Katalog</string>
     <string name="file_type_name_document">%1$s dokument</string>
     <string name="file_type_name_ebook">%1$s e-book</string>
     <string name="file_type_name_email">%1$s wiadomość e-mail</string>
@@ -33,7 +33,7 @@
     <string name="file_type_name_posix_character_device">Urządzenie znakowe</string>
     <string name="file_type_name_posix_block_device">Urządzenie blokowe</string>
     <string name="file_type_name_posix_fifo">Potok</string>
-    <string name="file_type_name_posix_symbolic_link">Łącze</string>
+    <string name="file_type_name_posix_symbolic_link">Link</string>
     <string name="file_type_name_posix_socket">Gniazdo</string>
-    <string name="file_type_name_posix_symbolic_link_broken">Łącze (uszkodzone)</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Link (uszkodzony)</string>
 </resources>

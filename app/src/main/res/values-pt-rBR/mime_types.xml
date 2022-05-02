@@ -16,7 +16,7 @@
     <string name="file_type_name_contact">Cartão de visitas eletrônico</string>
     <string name="file_type_name_directory">Pasta</string>
     <string name="file_type_name_document">%1$s documento</string>
-    <string name="file_type_name_ebook">%1$s livro eletrônico</string>
+    <string name="file_type_name_ebook">%1$s e-book</string>
     <string name="file_type_name_email">%1$s mensagem de email</string>
     <string name="file_type_name_font">%1$s fonte</string>
     <string name="file_type_name_generic">%1$s arquivo</string>
@@ -25,15 +25,15 @@
     <string name="file_type_name_presentation">%1$s apresentação</string>
     <string name="file_type_name_spreadsheet">%1$s planilha</string>
     <string name="file_type_name_text">%1$s documento</string>
-    <string name="file_type_name_text_plain">Documento de texto simples</string>
+    <string name="file_type_name_text_plain">Documento de texto puro</string>
     <string name="file_type_name_video">%1$s vídeo</string>
     <string name="file_type_name_word">Documento no Word</string>
-    <string name="file_type_name_powerpoint">Apresentação no PowerPoint</string>
-    <string name="file_type_name_excel">Planilha no Excel</string>
-    <string name="file_type_name_posix_character_device">Dispositivo de caracteres</string>
-    <string name="file_type_name_posix_block_device">Bloquear dispositivo</string>
+    <string name="file_type_name_powerpoint">Apresentação do PowerPoint</string>
+    <string name="file_type_name_excel">Planilha do Excel</string>
+    <string name="file_type_name_posix_character_device">Dispositivo de caractere</string>
+    <string name="file_type_name_posix_block_device">Dispositivo de bloco</string>
     <string name="file_type_name_posix_fifo">Pipe</string>
-    <string name="file_type_name_posix_symbolic_link">Endereço de ligação</string>
+    <string name="file_type_name_posix_symbolic_link">Link</string>
     <string name="file_type_name_posix_socket">Soquete</string>
-    <string name="file_type_name_posix_symbolic_link_broken">Endereço de ligação (indisponível)</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Link (quebrado)</string>
 </resources>

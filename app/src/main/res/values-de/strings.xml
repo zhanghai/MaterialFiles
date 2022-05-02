@@ -26,6 +26,7 @@
     <string name="maybe_later">Vielleicht später</string>
     <string name="merge">Zusammenführen</string>
     <string name="none">Nichts</string>
+    <string name="open_navigation_drawer">Navigationsmenü öffnen</string>
     <string name="paste">Einfügen</string>
     <string name="refresh">Aktualisieren</string>
     <string name="reload">Neu laden</string>
@@ -231,6 +232,18 @@
     <string name="file_name_error_already_exists">Eine Datei mit diesem Namen existiert bereits</string>
     <string name="file_delete_message_file_format">“%1$s” löschen?</string>
     <string name="file_delete_message_directory_format">Ordner “%1$s” und dessen Inhalt löschen?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">%1$,d Datei löschen?</item>
+        <item quantity="other">%1$,d Dateien löschen?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">%1$,d Ordner und dessen Inhalt löschen?</item>
+        <item quantity="other">%1$,d Ordner und deren Inhalte löschen?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">%1$,d Eintrag löschen?</item>
+        <item quantity="other">%1$,d Einträge löschen?</item>
+    </plurals>
     <string name="file_create_archive_title">Archiv erstellen</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -257,6 +270,8 @@
         <item quantity="other">%1$,d Dateien</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Pfad darf nicht leer sein</string>
+    <string name="file_list_path_error_invalid">Ungültiger Pfad</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Typ</string>
     <string name="file_list_action_sort_by_size">Größe</string>
@@ -266,6 +281,7 @@
     <string name="file_list_action_sort_path_specific">Nur für diesen Ordner</string>
     <string name="file_list_action_new_task">Neues Fenster</string>
     <string name="file_list_action_navigate_up">Gehe hoch</string>
+    <string name="file_list_action_navigate_to">Gehe zu</string>
     <string name="file_list_action_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="file_list_action_copy_path">Pfad kopieren</string>
     <string name="file_list_action_open_in_terminal">Im Terminal öffnen</string>
@@ -400,6 +416,7 @@
     <string name="storage_list_empty">Kein Speicher</string>
     <string name="storage_add_storage_title">Speicher hinzufügen</string>
     <string name="storage_add_storage_document_tree">Externer Speicher</string>
+    <string name="storage_add_storage_ftp_server">FTP-Server</string>
     <string name="storage_add_storage_sftp_server">SFTP-Server</string>
     <string name="storage_add_storage_smb_server">SMB-Server</string>
     <string name="storage_edit_device_storage_title">Gerätespeicher bearbeiten</string>
@@ -410,10 +427,39 @@
     <string name="storage_edit_document_tree_name">Name</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Pfad</string>
+    <string name="storage_edit_ftp_server_title_edit">FTP-Server bearbeiten</string>
+    <string name="storage_edit_ftp_server_title_add">FTP-Server hinzufügen</string>
+    <string name="storage_edit_ftp_server_host">Hostname</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Hostname eingeben</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Ungültiger Hostname</string>
+    <string name="storage_edit_ftp_server_port">Port</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Ungültiger Port</string>
+    <string name="storage_edit_ftp_server_path">Pfad</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Kann leer gelassen werden</string>
+    <string name="storage_edit_ftp_server_name">Name</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Hostname verwenden</string>
+    <string name="storage_edit_ftp_server_protocol">Protokoll</string>
+    <string name="storage_edit_ftp_server_authentication_type">Authentifizierung</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Passwort</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Benutzername</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Benutzername eingeben</string>
+    <string name="storage_edit_ftp_server_password">Passwort</string>
+    <string name="storage_edit_ftp_server_mode">Modus</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Aktiv</item>
+        <item>Passiv</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Kodierung</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Verbinden und hinzufügen</string>
+    <string name="storage_edit_ftp_server_add">Hinzufügen</string>
     <string name="storage_edit_sftp_server_title_edit">SFTP-Server bearbeiten</string>
     <string name="storage_edit_sftp_server_title_add">SFTP-Server hinzufügen</string>
     <string name="storage_edit_sftp_server_host">Hostname</string>
     <string name="storage_edit_sftp_server_host_error_empty">Hostnamen eingeben</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Ungültiger Hostname</string>
     <string name="storage_edit_sftp_server_port">Port</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Ungültiger Port</string>
     <string name="storage_edit_sftp_server_path">Pfad</string>
@@ -432,6 +478,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Datei öffnen</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Privaten Schlüssel eingeben</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Ungültiger privater Schlüssel</string>
+    <string name="storage_edit_sftp_server_private_key_password">Passwort des privaten Schlüssels</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Kann leer gelassen werden</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Passwort des privatne Schlüssels ungültig</string>
     <string name="storage_edit_sftp_server_connect_and_add">Verbinden und hinzufügen</string>
     <string name="storage_edit_sftp_server_add">Hinzufügen</string>
     <string name="storage_add_lan_smb_server_loading">Suche nach SMB-Servern…</string>
@@ -440,6 +489,7 @@
     <string name="storage_edit_smb_server_title_add">SMB-Server hinzufügen</string>
     <string name="storage_edit_smb_server_host">Hostname</string>
     <string name="storage_edit_smb_server_host_error_empty">Benutzernamen eingeben</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Ungültiger Hostname</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_error_invalid">Ungültiger Port</string>
     <string name="storage_edit_smb_server_path">Pfad</string>
@@ -477,6 +527,7 @@
     <string name="navigation_edit_bookmark_directory_title">Lesezeichenordner</string>
     <string name="navigation_edit_bookmark_directory_name">Name</string>
     <string name="navigation_edit_bookmark_directory_path">Pfad</string>
+    <string name="archive_viewer_title">Archivbetrachter</string>
     <string name="image_viewer_title">Bildbetrachter</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">Textbearbeitung</string>

@@ -28,6 +28,7 @@
     <string name="maybe_later">Возможно позже</string>
     <string name="merge">Объеденить</string>
     <string name="none">Нет</string>
+    <string name="open_navigation_drawer">Открыть боковое меню</string>
     <string name="paste">Вставить</string>
     <string name="refresh">Обновить</string>
     <string name="reload">Перезагрузить</string>
@@ -275,6 +276,24 @@
     <string name="file_name_error_already_exists">Файл с таким именем уже существует</string>
     <string name="file_delete_message_file_format">Удалить “%1$s”?</string>
     <string name="file_delete_message_directory_format">Удалить папку “%1$s” и её содержимое?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Удалить %1$,d файл?</item>
+        <item quantity="few">Удалить %1$,d файла?</item>
+        <item quantity="many">Удалить %1$,d файлов?</item>
+        <item quantity="other">Удалить %1$,d файлов?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Удалить %1$,d папку и её содержимое?</item>
+        <item quantity="few">Удалить %1$,d папки и их содержимое?</item>
+        <item quantity="many">Удалить %1$,d папок и их содержимое?</item>
+        <item quantity="other">Удалить %1$,d папок и их содержимое?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Удалить %1$,d элемент?</item>
+        <item quantity="few">Удалить %1$,d элемента?</item>
+        <item quantity="many">Удалить %1$,d элементов?</item>
+        <item quantity="other">Удалить %1$,d элементов?</item>
+    </plurals>
     <string name="file_create_archive_title">Создать архив</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -309,6 +328,8 @@
         <item quantity="other">%1$,d файлов</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Путь не может быть пустым</string>
+    <string name="file_list_path_error_invalid">Неверный путь</string>
     <string name="file_list_action_sort_by_name">Имя</string>
     <string name="file_list_action_sort_by_type">Тип</string>
     <string name="file_list_action_sort_by_size">Размер</string>
@@ -318,6 +339,7 @@
     <string name="file_list_action_sort_path_specific">Только для этой папки</string>
     <string name="file_list_action_new_task">Новое окно</string>
     <string name="file_list_action_navigate_up">Вверх</string>
+    <string name="file_list_action_navigate_to">Перейти к</string>
     <string name="file_list_action_show_hidden_files">Показывать скрытые файлы</string>
     <string name="file_list_action_copy_path">Скопировать путь</string>
     <string name="file_list_action_open_in_terminal">Открыть в терминале</string>
@@ -456,6 +478,7 @@
     <string name="storage_list_empty">Нет накопителей</string>
     <string name="storage_add_storage_title">Добавить накопитель</string>
     <string name="storage_add_storage_document_tree">Внешний накопитель</string>
+    <string name="storage_add_storage_ftp_server">FTP-сервер</string>
     <string name="storage_add_storage_sftp_server">SFTP сервер</string>
     <string name="storage_add_storage_smb_server">SMB-сервер</string>
     <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
@@ -466,10 +489,39 @@
     <string name="storage_edit_document_tree_name">Имя</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Путь</string>
+    <string name="storage_edit_ftp_server_title_edit">Редактировать FTP сервер</string>
+    <string name="storage_edit_ftp_server_title_add">Добавить FTP сервер</string>
+    <string name="storage_edit_ftp_server_host">Имя хоста</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Введите имя хоста</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Неверное имя хоста</string>
+    <string name="storage_edit_ftp_server_port">Порт</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Неверный порт</string>
+    <string name="storage_edit_ftp_server_path">Путь</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Можно оставить пустым</string>
+    <string name="storage_edit_ftp_server_name">Имя</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Используйте имя хоста</string>
+    <string name="storage_edit_ftp_server_protocol">Протокол</string>
+    <string name="storage_edit_ftp_server_authentication_type">Авторизация</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Пароль</item>
+        <item>Анонимно</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Имя пользователя</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Введите имя пользователя</string>
+    <string name="storage_edit_ftp_server_password">Пароль</string>
+    <string name="storage_edit_ftp_server_mode">Режим</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Активный</item>
+        <item>Пассивный</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Кодировка</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Соединиться и добавить</string>
+    <string name="storage_edit_ftp_server_add">Добавить</string>
     <string name="storage_edit_sftp_server_title_edit">Редактировать SFTP сервер</string>
     <string name="storage_edit_sftp_server_title_add">Добавить SFTP сервер</string>
     <string name="storage_edit_sftp_server_host">Имя хоста</string>
     <string name="storage_edit_sftp_server_host_error_empty">Введите имя хоста</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Неверное имя хоста</string>
     <string name="storage_edit_sftp_server_port">Порт</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_sftp_server_path">Путь</string>
@@ -488,7 +540,10 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Открыть файл</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Введите приватный ключ</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Неверный приватный ключ</string>
-    <string name="storage_edit_sftp_server_connect_and_add">Соедениться и добавить</string>
+    <string name="storage_edit_sftp_server_private_key_password">Пароль закрытого ключа</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Можно оставить пустым</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Неверный пароль закрытого ключа</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Соединиться и добавить</string>
     <string name="storage_edit_sftp_server_add">Добавить</string>
     <string name="storage_add_lan_smb_server_loading">Поиск SMB-серверов…</string>
     <string name="storage_add_lan_smb_server_add">Добавить вручную</string>
@@ -496,6 +551,7 @@
     <string name="storage_edit_smb_server_title_add">Добавить SMB-сервер</string>
     <string name="storage_edit_smb_server_host">Имя хоста</string>
     <string name="storage_edit_smb_server_host_error_empty">Введите имя хоста</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Неверное имя хоста</string>
     <string name="storage_edit_smb_server_port">Порт</string>
     <string name="storage_edit_smb_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_smb_server_path">Путь</string>
@@ -533,6 +589,7 @@
     <string name="navigation_edit_bookmark_directory_title">Закладка папки</string>
     <string name="navigation_edit_bookmark_directory_name">Имя</string>
     <string name="navigation_edit_bookmark_directory_path">Путь</string>
+    <string name="archive_viewer_title">Просмотрщик архивов</string>
     <string name="image_viewer_title">Просмотрщик изображений</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">Текстовый редактор</string>

@@ -57,8 +57,8 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="storage_permission_rationale_message">A aplicação precisa da permissão para aceder aos ficheiros. Clique em \"PERMITIR\" na próxima caixa de diálogo.</string>
-    <string name="storage_permission_permanently_denied_message">A aplicação precisa da permissão para aceder aos ficheiros. Por favor, conceda a permissão de \"Armazenamento\" nas definições de sistema.</string>
+    <string name="storage_permission_rationale_message">A aplicação precisa da permissão para aceder aos ficheiros. Clique em “PERMITIR” na próxima caixa de diálogo.</string>
+    <string name="storage_permission_permanently_denied_message">A aplicação precisa da permissão para aceder aos ficheiros. Por favor, conceda a permissão de “Armazenamento” nas definições de sistema.</string>
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Executar ações se a aplicação estiver em segundo plano</string>
     <string name="notification_channel_file_job_name">Operações de ficheiro</string>
@@ -171,7 +171,7 @@
     <string name="file_job_cannot_move_over_itself_title">Não é possível mover um ficheiro para si mesmo</string>
     <string name="file_job_cannot_copy_move_over_itself_message">O ficheiro de origem seria substituído pelo de destino. </string>
     <string name="file_job_replace_title_format">Substituir ficheiro “%1$s”?</string>
-    <string name="file_job_replace_message_format">Já existe um ficheiro com este nome em \"%1$s\".\nSe o substituir perde o conteúdo do ficheiro existente.</string>
+    <string name="file_job_replace_message_format">Já existe um ficheiro com este nome em “%1$s”.\nSe o substituir perde o conteúdo do ficheiro existente.</string>
     <string name="file_job_replace_target_name">Ficheiro original</string>
     <string name="file_job_replace_source_name">Substituir por</string>
     <string name="file_job_merge_title_format">Juntar pasta “%1$s”?</string>
@@ -207,7 +207,7 @@
     <string name="file_job_write_error_title">Erro ao escrever</string>
     <string name="file_job_write_error_message_format">Ocorreu um erro ao escrever “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">Ocorreu um erro ao obter informação de “%1$s”.</string>
-    <string name="file_job_remount_format">Remontar \"%1$s\" como apenas leitura</string>
+    <string name="file_job_remount_format">Remontar “%1$s” como apenas leitura</string>
     <string name="file_job_remount_loading_format">A remontar “%1$s” como apenas leitura…</string>
     <string name="file_job_remount_success_format">“%1$s” foi remontado como apenas leitura</string>
     <string name="file_job_action_all">Aplicar esta ação para todos os ficheiros</string>
@@ -334,7 +334,7 @@
         <item>Definir GID</item>
         <item>Bit fixo</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Não adicionar \"Execução\" a ficheiros anexados</string>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Não adicionar “Execução” a ficheiros anexados</string>
     <string name="file_properties_permissions_selinux_context">Contexto SELinux</string>
     <string name="file_properties_permissions_set_selinux_context_title">Alterar contexto SELinux</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Restaurar</string>

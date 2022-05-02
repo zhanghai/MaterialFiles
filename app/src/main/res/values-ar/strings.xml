@@ -26,6 +26,7 @@
     <string name="maybe_later">ربما في وقت لاحق</string>
     <string name="merge">دمج</string>
     <string name="none">لا شيء</string>
+    <string name="open_navigation_drawer">افتح درج التنقل</string>
     <string name="paste">لصق</string>
     <string name="refresh">تحديث</string>
     <string name="reload">إعادة تحميل</string>
@@ -315,6 +316,30 @@
     <string name="file_name_error_already_exists">يوجد ملف بهذا الاسم بالفعل</string>
     <string name="file_delete_message_file_format">حذف ”%1$s“؟</string>
     <string name="file_delete_message_directory_format">حذف المجلد ”%1$s“  ومحتوياته؟</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="zero">هل تريد حذف %1$,d من الملفات؟</item>
+        <item quantity="one">هل تريد حذف %1$,d من الملفات؟</item>
+        <item quantity="two">هل تريد حذف %1$,d من الملفات؟</item>
+        <item quantity="few">هل تريد حذف %1$,d من الملفات؟</item>
+        <item quantity="many">هل تريد حذف %1$,d من الملفات؟</item>
+        <item quantity="other">هل تريد حذف %1$,d من الملفات؟</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="zero">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</item>
+        <item quantity="one">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</item>
+        <item quantity="two">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</item>
+        <item quantity="few">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</item>
+        <item quantity="many">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</item>
+        <item quantity="other">هل تريد حذف %1$,d مجلدات ومحتوياتها؟</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="zero">هل تريد حذف %1$,d عنصر؟</item>
+        <item quantity="one">هل تريد حذف %1$,d عنصر؟</item>
+        <item quantity="two">هل تريد حذف %1$,d عنصر؟</item>
+        <item quantity="few">هل تريد حذف %1$,d عنصر؟</item>
+        <item quantity="many">هل تريد حذف %1$,d عنصر؟</item>
+        <item quantity="other">هل تريد حذف %1$,d عنصر؟</item>
+    </plurals>
     <string name="file_create_archive_title">إنشاء أرشيف</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -357,6 +382,8 @@
         <item quantity="other">%1$,d ملف</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">لا يمكن أن يكون المسار فارغًا</string>
+    <string name="file_list_path_error_invalid">مسار غير صالح</string>
     <string name="file_list_action_sort_by_name">اسم</string>
     <string name="file_list_action_sort_by_type">نوع</string>
     <string name="file_list_action_sort_by_size">حجم</string>
@@ -366,6 +393,7 @@
     <string name="file_list_action_sort_path_specific">فقط لهذا المجلد</string>
     <string name="file_list_action_new_task">نافذة جديدة</string>
     <string name="file_list_action_navigate_up">اذهب للأعلى</string>
+    <string name="file_list_action_navigate_to">اذهب إلى</string>
     <string name="file_list_action_show_hidden_files">أظهر الملفات المخفية</string>
     <string name="file_list_action_copy_path">انسخ المسار</string>
     <string name="file_list_action_open_in_terminal">فتح في نافذة محرر الأوامر</string>
@@ -508,6 +536,7 @@
     <string name="storage_list_empty">لا توجد وحدة تخزين</string>
     <string name="storage_add_storage_title">إضافة وحدة تخزين</string>
     <string name="storage_add_storage_document_tree">وحدة التخزين الخارجية</string>
+    <string name="storage_add_storage_ftp_server">خادم FTP </string>
     <string name="storage_add_storage_sftp_server">خادم SFTP </string>
     <string name="storage_add_storage_smb_server">خادم SMB</string>
     <string name="storage_edit_device_storage_title">تحرير وحدة تخزين الجهاز</string>
@@ -518,10 +547,39 @@
     <string name="storage_edit_document_tree_name">الاسم</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">المسار</string>
+    <string name="storage_edit_ftp_server_title_edit">تحرير خادم FTP</string>
+    <string name="storage_edit_ftp_server_title_add">إضافة خادم FTP</string>
+    <string name="storage_edit_ftp_server_host">اسم المضيف</string>
+    <string name="storage_edit_ftp_server_host_error_empty">أدخل اسم مضيف</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">اسم مضيف غير صالح</string>
+    <string name="storage_edit_ftp_server_port">المنفذ</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">منفذ غير صالح</string>
+    <string name="storage_edit_ftp_server_path">المسار</string>
+    <string name="storage_edit_ftp_server_path_placeholder">يمكن تركه فارغًا</string>
+    <string name="storage_edit_ftp_server_name">الاسم</string>
+    <string name="storage_edit_ftp_server_name_placeholder">استخدم اسم المضيف</string>
+    <string name="storage_edit_ftp_server_protocol">بروتوكول</string>
+    <string name="storage_edit_ftp_server_authentication_type">المصادقة</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>كلمة المرور</item>
+        <item>مجهول</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">اسم المستخدم</string>
+    <string name="storage_edit_ftp_server_username_error_empty">أدخل اسم مستخدم</string>
+    <string name="storage_edit_ftp_server_password">كلمة المرور</string>
+    <string name="storage_edit_ftp_server_mode">الوضع</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>نشط</item>
+        <item>غير نشط</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">ترميز</string>
+    <string name="storage_edit_ftp_server_connect_and_add">قم بالاتصال والإضافة</string>
+    <string name="storage_edit_ftp_server_add">إضافة</string>
     <string name="storage_edit_sftp_server_title_edit">تحرير خادم SFTP </string>
     <string name="storage_edit_sftp_server_title_add">إضافة خادم SFTP </string>
     <string name="storage_edit_sftp_server_host">اسم المضيف</string>
     <string name="storage_edit_sftp_server_host_error_empty">أدخل اسم مضيف</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">اسم مضيف غير صالح</string>
     <string name="storage_edit_sftp_server_port">المنفذ</string>
     <string name="storage_edit_sftp_server_port_error_invalid">منفذ غير صالح</string>
     <string name="storage_edit_sftp_server_path">المسار</string>
@@ -540,6 +598,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">فتح ملف</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">ادخال مفتاح خاص</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">المفتاح الخاص غير صحيح</string>
+    <string name="storage_edit_sftp_server_private_key_password">كلمة مرور المفتاح الخاص</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">يمكن تركه فارغًا</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">كلمة مرور المفتاح الخاص غير صالحة</string>
     <string name="storage_edit_sftp_server_connect_and_add">قم بالاتصال والإضافة</string>
     <string name="storage_edit_sftp_server_add">إضافة</string>
     <string name="storage_add_lan_smb_server_loading">البحث عن خوادم SMB…</string>
@@ -548,6 +609,7 @@
     <string name="storage_edit_smb_server_title_add">إضافة خادم SMB</string>
     <string name="storage_edit_smb_server_host">اسم المضيف</string>
     <string name="storage_edit_smb_server_host_error_empty">أدخل اسم مضيف</string>
+    <string name="storage_edit_smb_server_host_error_invalid">اسم مضيف غير صالح</string>
     <string name="storage_edit_smb_server_port">منفذ</string>
     <string name="storage_edit_smb_server_port_error_invalid">منفذ غير صالح</string>
     <string name="storage_edit_smb_server_path">مسار</string>
@@ -585,6 +647,7 @@
     <string name="navigation_edit_bookmark_directory_title">مجلد الإشارات المرجعية</string>
     <string name="navigation_edit_bookmark_directory_name">الاسم</string>
     <string name="navigation_edit_bookmark_directory_path">المسار</string>
+    <string name="archive_viewer_title">عارض الأرشيف</string>
     <string name="image_viewer_title">عارض الصور</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">محرر النص</string>

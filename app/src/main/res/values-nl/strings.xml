@@ -26,6 +26,7 @@
     <string name="maybe_later">Misschien later</string>
     <string name="merge">Samenvoegen</string>
     <string name="none">Geen</string>
+    <string name="open_navigation_drawer">Navigatiemenu openen</string>
     <string name="paste">Plakken</string>
     <string name="refresh">Verversen</string>
     <string name="reload">Herladen</string>
@@ -231,6 +232,18 @@
     <string name="file_name_error_already_exists">Er is al een bestand met deze naam</string>
     <string name="file_delete_message_file_format">‘%1$s’ verwijderen?</string>
     <string name="file_delete_message_directory_format">Wil je de map ‘%1$s’ en alle inhoud ervan verwijderen?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">%1$,d bestand verwijderen?</item>
+        <item quantity="other">%1$,d bestanden verwijderen?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Wil je %1$,d map en alle inhoud ervan verwijderen?</item>
+        <item quantity="other">Wil je %1$,d mappen en alle inhoud ervan verwijderen?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">%1$,d item verwijderen?</item>
+        <item quantity="other">%1$,d items verwijderen?</item>
+    </plurals>
     <string name="file_create_archive_title">Archief samenstellen</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -257,6 +270,8 @@
         <item quantity="other">%1$,d bestanden</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Voer een locatie in</string>
+    <string name="file_list_path_error_invalid">Ongeldige locatie</string>
     <string name="file_list_action_sort_by_name">Naam</string>
     <string name="file_list_action_sort_by_type">Soort</string>
     <string name="file_list_action_sort_by_size">Grootte</string>
@@ -266,6 +281,7 @@
     <string name="file_list_action_sort_path_specific">Alleen in deze map</string>
     <string name="file_list_action_new_task">Nieuw venster</string>
     <string name="file_list_action_navigate_up">Ga omhoog</string>
+    <string name="file_list_action_navigate_to">Ga naar</string>
     <string name="file_list_action_show_hidden_files">Verborgen bestanden tonen</string>
     <string name="file_list_action_copy_path">Locatie kopiëren</string>
     <string name="file_list_action_open_in_terminal">Openen in terminalvenster</string>
@@ -400,6 +416,7 @@
     <string name="storage_list_empty">Geen opslag</string>
     <string name="storage_add_storage_title">Opslagmedium toevoegen</string>
     <string name="storage_add_storage_document_tree">Externe opslag</string>
+    <string name="storage_add_storage_ftp_server">FTP-server</string>
     <string name="storage_add_storage_sftp_server">SFTP-server</string>
     <string name="storage_add_storage_smb_server">SMB-server</string>
     <string name="storage_edit_device_storage_title">Apparaatopslag bewerken</string>
@@ -410,10 +427,39 @@
     <string name="storage_edit_document_tree_name">Naam</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Locatie</string>
+    <string name="storage_edit_ftp_server_title_edit">FTP-server bewerken</string>
+    <string name="storage_edit_ftp_server_title_add">FTP-server toevoegen</string>
+    <string name="storage_edit_ftp_server_host">Hostnaam</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Voer een hostnaam in</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Ongeldige hostnaam</string>
+    <string name="storage_edit_ftp_server_port">Poort</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Ongeldig poortnummer</string>
+    <string name="storage_edit_ftp_server_path">Locatie</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Mag leeg worden gelaten</string>
+    <string name="storage_edit_ftp_server_name">Naam</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Hostnaam gebruiken</string>
+    <string name="storage_edit_ftp_server_protocol">Protocol</string>
+    <string name="storage_edit_ftp_server_authentication_type">Authenticatie</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Wachtwoord</item>
+        <item>Anoniem</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Gebruikersnaam</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Voer een gebruikersnaam in</string>
+    <string name="storage_edit_ftp_server_password">Wachtwoord</string>
+    <string name="storage_edit_ftp_server_mode">Modus</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Actief</item>
+        <item>Passief</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Versleuteling</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Verbinden en toevoegen</string>
+    <string name="storage_edit_ftp_server_add">Toevoegen</string>
     <string name="storage_edit_sftp_server_title_edit">SFTP-server bewerken</string>
     <string name="storage_edit_sftp_server_title_add">SFTP-server toevoegen</string>
     <string name="storage_edit_sftp_server_host">Hostnaam</string>
     <string name="storage_edit_sftp_server_host_error_empty">Voer een hostnaam in</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Ongeldige hostnaam</string>
     <string name="storage_edit_sftp_server_port">Poort</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Ongeldig poortnummer</string>
     <string name="storage_edit_sftp_server_path">Locatie</string>
@@ -432,6 +478,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Bestand openen</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Voer een privésleutel in</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Ongeldige privésleutel</string>
+    <string name="storage_edit_sftp_server_private_key_password">Privésleutel</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Mag leeg worden gelaten</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Ongeldige privésleutel</string>
     <string name="storage_edit_sftp_server_connect_and_add">Verbinden en toevoegen</string>
     <string name="storage_edit_sftp_server_add">Toevoegen</string>
     <string name="storage_add_lan_smb_server_loading">Bezig met zoeken naar smb-servers…</string>
@@ -440,6 +489,7 @@
     <string name="storage_edit_smb_server_title_add">SMB-server toevoegen</string>
     <string name="storage_edit_smb_server_host">Hostnaam</string>
     <string name="storage_edit_smb_server_host_error_empty">Voer een hostnaam in</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Ongeldige hostnaam</string>
     <string name="storage_edit_smb_server_port">Poort</string>
     <string name="storage_edit_smb_server_port_error_invalid">Ongeldig poortnummer</string>
     <string name="storage_edit_smb_server_path">Locatie</string>
@@ -477,6 +527,7 @@
     <string name="navigation_edit_bookmark_directory_title">Toevoegen aan bladwijzers</string>
     <string name="navigation_edit_bookmark_directory_name">Naam</string>
     <string name="navigation_edit_bookmark_directory_path">Locatie</string>
+    <string name="archive_viewer_title">Archiefweergave</string>
     <string name="image_viewer_title">Afbeeldingsweergave</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">Tekstbewerker</string>
