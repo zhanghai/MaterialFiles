@@ -18,7 +18,7 @@ internal class DocumentPathObservable(
     path: DocumentPath,
     intervalMillis: Long
 ) : AbstractPathObservable(intervalMillis) {
-    private var cursor: Cursor
+    private val cursor: Cursor
 
     private val contentObserver = object : ContentObserver(handler) {
         override fun deliverSelfNotifications(): Boolean = true

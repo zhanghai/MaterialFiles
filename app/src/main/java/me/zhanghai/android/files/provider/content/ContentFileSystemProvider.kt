@@ -27,6 +27,8 @@ import java8.nio.file.attribute.FileAttributeView
 import java8.nio.file.spi.FileSystemProvider
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.provider.common.ByteStringPath
+import me.zhanghai.android.files.provider.common.PathObservable
+import me.zhanghai.android.files.provider.common.PathObservableProvider
 import me.zhanghai.android.files.provider.common.open
 import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toOpenOptions
@@ -37,7 +39,7 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.net.URI
 
-object ContentFileSystemProvider : FileSystemProvider() {
+object ContentFileSystemProvider : FileSystemProvider(), PathObservableProvider {
     private const val SCHEME = ContentResolver.SCHEME_CONTENT
 
     internal val fileSystem = ContentFileSystem(this)
@@ -289,5 +291,12 @@ object ContentFileSystemProvider : FileSystemProvider() {
     ) {
         path as? ContentPath ?: throw ProviderMismatchException(path.toString())
         throw UnsupportedOperationException()
+    }
+
+    @Throws(IOException::class)
+    override fun observe(path: Path, intervalMillis: Long): PathObservable {
+        path as? ContentPath ?: throw ProviderMismatchException(path.toString())
+        val uri = path.uri!!
+        return ContentPathObservable(uri, intervalMillis)
     }
 }
