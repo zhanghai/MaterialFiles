@@ -31,8 +31,6 @@ import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes
 import me.zhanghai.android.files.provider.archive.archiveFile
 import me.zhanghai.android.files.provider.archive.isArchivePath
-import me.zhanghai.android.files.provider.document.isDocumentPath
-import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.viewModels
