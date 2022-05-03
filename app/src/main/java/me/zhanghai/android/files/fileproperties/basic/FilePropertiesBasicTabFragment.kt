@@ -25,6 +25,7 @@ import me.zhanghai.android.files.file.fileSize
 import me.zhanghai.android.files.file.formatLong
 import me.zhanghai.android.files.filelist.getMimeTypeName
 import me.zhanghai.android.files.filelist.name
+import me.zhanghai.android.files.filelist.toUserFriendlyString
 import me.zhanghai.android.files.fileproperties.FilePropertiesFileViewModel
 import me.zhanghai.android.files.fileproperties.FilePropertiesTabFragment
 import me.zhanghai.android.files.provider.archive.ArchiveFileAttributes
@@ -60,7 +61,9 @@ class FilePropertiesBasicTabFragment : FilePropertiesTabFragment() {
             val path = file.path
             if (path.isArchivePath) {
                 val archiveFile = path.archiveFile
-                addItemView(R.string.file_properties_basic_archive_file, archiveFile.toFile().path)
+                addItemView(
+                    R.string.file_properties_basic_archive_file, archiveFile.toUserFriendlyString()
+                )
                 val attributes = file.attributes as ArchiveFileAttributes
                 addItemView(R.string.file_properties_basic_archive_entry, attributes.entryName())
             } else {
