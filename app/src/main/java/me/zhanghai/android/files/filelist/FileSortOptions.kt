@@ -9,7 +9,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.compat.reversedCompat
 import me.zhanghai.android.files.file.FileItem
-import java.util.Comparator
 
 @Parcelize
 data class FileSortOptions(

@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.provider.sftp.client
 
 import java8.nio.channels.SeekableByteChannel
-import java8.nio.file.Path as Java8Path
 import me.zhanghai.android.files.provider.common.LocalWatchService
 import me.zhanghai.android.files.provider.common.NotifyEntryModifiedSeekableByteChannel
 import me.zhanghai.android.files.util.closeSafe
@@ -24,6 +23,7 @@ import net.schmizz.sshj.userauth.UserAuthException
 import java.io.IOException
 import java.util.Collections
 import java.util.WeakHashMap
+import java8.nio.file.Path as Java8Path
 
 object Client {
     @Volatile

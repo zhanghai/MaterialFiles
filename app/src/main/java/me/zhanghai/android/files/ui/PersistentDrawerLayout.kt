@@ -17,7 +17,6 @@ import androidx.core.content.res.use
 import androidx.core.view.children
 import androidx.core.view.isInvisible
 import androidx.customview.widget.ViewDragHelper
-import me.zhanghai.android.files.util.dpToDimension
 import me.zhanghai.android.files.util.layoutInStatusBar
 
 class PersistentDrawerLayout @JvmOverloads constructor(

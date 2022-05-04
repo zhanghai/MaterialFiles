@@ -12,7 +12,6 @@ import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.provider.linux.syscall.Syscalls
 import java.io.IOException
-import java.util.NoSuchElementException
 
 internal class LinuxDirectoryStream(
     private val directory: LinuxPath,

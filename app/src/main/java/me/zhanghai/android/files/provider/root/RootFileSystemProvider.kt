@@ -8,7 +8,6 @@ package me.zhanghai.android.files.provider.root
 import java8.nio.file.FileSystem
 import java8.nio.file.LinkOption
 import java8.nio.file.Path
-import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileAttributeView
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemProvider
 import me.zhanghai.android.files.provider.remote.RemoteInterface
