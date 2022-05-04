@@ -15,7 +15,7 @@ val isGeocoderPresent by lazy { Geocoder.isPresent() }
 
 @Throws(IOException::class)
 suspend fun Geocoder.awaitGetFromLocation(
-    latitude :Double,
+    latitude: Double,
     longitude: Double,
     maxResults: Int
 ): List<Address> =

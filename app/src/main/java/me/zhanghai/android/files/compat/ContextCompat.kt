@@ -63,7 +63,7 @@ inline fun <R> TintTypedArray.use(block: (TintTypedArray) -> R): R {
 val Context.mainExecutorCompat: Executor
     get() = ContextCompat.getMainExecutor(this)
 
-fun <T> Context.getSystemServiceCompat(serviceClass: Class<T>):T =
+fun <T> Context.getSystemServiceCompat(serviceClass: Class<T>): T =
     ContextCompat.getSystemService(this, serviceClass)!!
 
 @RestrictedHiddenApi

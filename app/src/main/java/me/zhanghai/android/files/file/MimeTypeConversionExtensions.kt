@@ -10,7 +10,6 @@ import me.zhanghai.android.files.compat.getMimeTypeFromExtensionCompat
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.asPathName
-import java.util.Locale
 
 fun MimeType.Companion.guessFromPath(path: String): MimeType {
     val fileName = path.asPathName().fileName ?: return DIRECTORY

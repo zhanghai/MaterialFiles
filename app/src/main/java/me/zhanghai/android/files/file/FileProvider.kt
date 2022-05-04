@@ -252,7 +252,7 @@ class FileProvider : ContentProvider() {
             FileNotFoundException(message).apply { initCause(this@toFileNotFoundException) }
         }
 
-    private class ChannelCallback (
+    private class ChannelCallback(
         private val channel: SeekableByteChannel
     ) : ProxyFileDescriptorCallbackCompat() {
         private var offset = 0L

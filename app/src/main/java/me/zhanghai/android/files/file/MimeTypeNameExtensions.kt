@@ -7,7 +7,6 @@ package me.zhanghai.android.files.file
 
 import android.content.Context
 import me.zhanghai.android.files.R
-import java.util.Locale
 
 fun MimeType.getName(extension: String, context: Context): String {
     val nameRes = specialPosixFileTypeToNameResMap[this]

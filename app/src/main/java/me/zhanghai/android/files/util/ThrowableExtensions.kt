@@ -5,7 +5,7 @@
 
 package me.zhanghai.android.files.util
 
-inline fun <reified T: Throwable> Throwable.findCauseByClass(): T? {
+inline fun <reified T : Throwable> Throwable.findCauseByClass(): T? {
     var current: Throwable? = this
     do {
         if (current is T) {

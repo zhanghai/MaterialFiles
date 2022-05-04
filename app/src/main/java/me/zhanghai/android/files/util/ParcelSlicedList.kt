@@ -10,7 +10,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 // @see android.content.pm.ParceledListSlice
-class ParcelSlicedList<T: Parcelable?> : Parcelable {
+class ParcelSlicedList<T : Parcelable?> : Parcelable {
     val list: List<T>
 
     constructor(list: List<T>) {
@@ -37,7 +37,7 @@ class ParcelSlicedList<T: Parcelable?> : Parcelable {
 
     private fun readSliceFromParcel(list: MutableList<T>, source: Parcel) {
         val size = source.readInt()
-        repeat (size) {
+        repeat(size) {
             @Suppress("UNCHECKED_CAST")
             val element = source.readParcelable<T>(ParcelSlicedList::class.java.classLoader) as T
             list += element

@@ -22,7 +22,7 @@ inline fun <reified E : Parcelable?, L : MutableList<E>> Parcel.readParcelableLi
     list: L
 ): L = readParcelableListCompat(list, E::class.java.classLoader)
 
-inline fun <reified T: Parcelable?> Parcel.readParcelableListCompat(): List<T> =
+inline fun <reified T : Parcelable?> Parcel.readParcelableListCompat(): List<T> =
     readParcelableListCompat(mutableListOf())
 
 @OptIn(ExperimentalContracts::class)

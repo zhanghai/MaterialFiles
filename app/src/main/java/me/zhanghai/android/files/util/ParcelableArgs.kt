@@ -27,7 +27,7 @@ fun <Args : ParcelableArgs> Args.toBundle(argsClass: KClass<Args>): Bundle =
 
 inline fun <reified Args : ParcelableArgs> Args.toBundle(): Bundle = toBundle(Args::class)
 
-fun <F: Fragment, Args: ParcelableArgs> F.putArgs(args: Args, argsClass: KClass<Args>): F {
+fun <F : Fragment, Args : ParcelableArgs> F.putArgs(args: Args, argsClass: KClass<Args>): F {
     val arguments = arguments
     if (arguments != null) {
         arguments.putArgs(args, argsClass)
@@ -37,13 +37,13 @@ fun <F: Fragment, Args: ParcelableArgs> F.putArgs(args: Args, argsClass: KClass<
     return this
 }
 
-inline fun <F: Fragment, reified Args: ParcelableArgs> F.putArgs(args: Args): F =
+inline fun <F : Fragment, reified Args : ParcelableArgs> F.putArgs(args: Args): F =
     putArgs(args, Args::class)
 
-fun <Args: ParcelableArgs> Intent.putArgs(args: Args, argsClass: KClass<Args>): Intent =
+fun <Args : ParcelableArgs> Intent.putArgs(args: Args, argsClass: KClass<Args>): Intent =
     putExtra(argsClass.java.name, args)
 
-inline fun <reified Args: ParcelableArgs> Intent.putArgs(args: Args) = putArgs(args, Args::class)
+inline fun <reified Args : ParcelableArgs> Intent.putArgs(args: Args) = putArgs(args, Args::class)
 
 fun <Args : ParcelableArgs> Bundle.getArgs(argsClass: KClass<Args>): Args =
     getArgsOrNull(argsClass)!!

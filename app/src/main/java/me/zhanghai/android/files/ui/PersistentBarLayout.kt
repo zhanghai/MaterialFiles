@@ -23,8 +23,10 @@ import me.zhanghai.android.files.util.layoutInStatusBar
  * @see PersistentDrawerLayout
  */
 class PersistentBarLayout @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null,
-    @AttrRes defStyleAttr: Int = 0, @StyleRes defStyleRes: Int = 0
+    context: Context,
+    attrs: AttributeSet? = null,
+    @AttrRes defStyleAttr: Int = 0,
+    @StyleRes defStyleRes: Int = 0
 ) : ViewGroup(context, attrs, defStyleAttr, defStyleRes) {
     private val topDragger = ViewDragHelper.create(this, ViewDragCallback(Gravity.TOP))
     private val bottomDragger = ViewDragHelper.create(this, ViewDragCallback(Gravity.BOTTOM))

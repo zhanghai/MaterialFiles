@@ -48,7 +48,7 @@ fun StorageManager.openProxyFileDescriptorCompat(
         pfds[0]
     }
 
-private class PipeWriter (
+private class PipeWriter(
     private val pfd: ParcelFileDescriptor,
     private val callback: ProxyFileDescriptorCallbackCompat,
     private val handler: Handler

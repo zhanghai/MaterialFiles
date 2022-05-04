@@ -22,7 +22,7 @@ import me.zhanghai.android.files.util.valueCompat
 
 @Parcelize
 @JvmInline
-value class DocumentTreeUri(val value: Uri): Parcelable {
+value class DocumentTreeUri(val value: Uri) : Parcelable {
     val documentId: String
         get() = DocumentsContract.getTreeDocumentId(value)
 

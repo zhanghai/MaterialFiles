@@ -6,8 +6,8 @@
   -->
 
 <shortcuts
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:targetApi="n_mr1">
 
     <shortcut

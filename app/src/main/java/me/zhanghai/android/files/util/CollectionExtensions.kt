@@ -33,7 +33,7 @@ fun <T> Iterable<T>.toLinkedSet(): LinkedHashSet<T> = toCollection(LinkedHashSet
 
 fun <T : Enum<T>> Collection<T>.toEnumSet(): EnumSet<T> = EnumSet.copyOf(this)
 
-fun <T: Collection<*>> T.takeIfNotEmpty(): T? = if (isNotEmpty()) this else null
+fun <T : Collection<*>> T.takeIfNotEmpty(): T? = if (isNotEmpty()) this else null
 
 fun <T> MutableCollection<T>.removeFirst(): T {
     val iterator = iterator()
