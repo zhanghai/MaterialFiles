@@ -36,9 +36,9 @@
 
 #undef TEMP_FAILURE_RETRY
 #define TEMP_FAILURE_RETRY(exp) ({ \
-    errno = 0; \
     __typeof__(exp) _rc; \
     do { \
+        errno = 0; \
         _rc = (exp); \
     } while (errno == EINTR); \
     _rc; })
@@ -51,8 +51,8 @@
     _rc; })
 
 #define TEMP_FAILURE_RETRY_V(exp) ({ \
-    errno = 0; \
     do { \
+        errno = 0; \
         (exp); \
     } while (errno == EINTR); })
 
