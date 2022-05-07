@@ -26,6 +26,7 @@
     <string name="maybe_later">אולי אחר כך</string>
     <string name="merge">מיזוג</string>
     <string name="none">ללא</string>
+    <string name="open_navigation_drawer">פתיחת חלונית ההזזה לניווט</string>
     <string name="paste">הדבקה</string>
     <string name="refresh">רענון</string>
     <string name="reload">טעינה מחדש</string>
@@ -273,6 +274,24 @@
     <string name="file_name_error_already_exists">כבר קיים קובץ בשם זה</string>
     <string name="file_delete_message_file_format">למחוק את \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">למחוק את התיקייה \"%1$s\" ואת תכולתה?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">למחוק קובץ אחד?</item>
+        <item quantity="two">למחוק %1$,d קבצים?</item>
+        <item quantity="many">למחוק %1$,d קבצים?</item>
+        <item quantity="other">למחוק %1$,d קבצים?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">למחוק את התיקייה ותכולתה?</item>
+        <item quantity="two">למחוק %1$,d תיקיות ואת תכולתן?</item>
+        <item quantity="many">למחוק %1$,d תיקיות ואת תכולתן?</item>
+        <item quantity="other">למחוק %1$,d תיקיות ואת תכולתן?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">למחוק פריט אחד?</item>
+        <item quantity="two">למחוק %1$,d פריטים?</item>
+        <item quantity="many">למחוק %1$,d פריטים?</item>
+        <item quantity="other">למחוק %1$,d פריטים?</item>
+    </plurals>
     <string name="file_create_archive_title">יצירת ארכיון</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -307,6 +326,8 @@
         <item quantity="other">%1$,d קבצים</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">נתיב אינו יכול להיות ריק</string>
+    <string name="file_list_path_error_invalid">נתיב לא חוקי</string>
     <string name="file_list_action_sort_by_name">שם</string>
     <string name="file_list_action_sort_by_type">סוג</string>
     <string name="file_list_action_sort_by_size">גודל</string>
@@ -316,6 +337,7 @@
     <string name="file_list_action_sort_path_specific">לתיקייה זו בלבד</string>
     <string name="file_list_action_new_task">חלון חדש</string>
     <string name="file_list_action_navigate_up">עלה</string>
+    <string name="file_list_action_navigate_to">מעבר אל</string>
     <string name="file_list_action_show_hidden_files">הצגת קבצים מוסתרים</string>
     <string name="file_list_action_copy_path">העתקת הנתיב</string>
     <string name="file_list_action_open_in_terminal">פתיחה במסוף</string>
@@ -454,6 +476,7 @@
     <string name="storage_list_empty">ללא אחסון</string>
     <string name="storage_add_storage_title">הוספת אחסון</string>
     <string name="storage_add_storage_document_tree">אחסון חיצוני</string>
+    <string name="storage_add_storage_ftp_server">שרת FTP</string>
     <string name="storage_add_storage_sftp_server">שרת SFTP</string>
     <string name="storage_add_storage_smb_server">שרת SMB</string>
     <string name="storage_edit_device_storage_title">עריכת אחסון ההתקן</string>
@@ -464,10 +487,39 @@
     <string name="storage_edit_document_tree_name">שם</string>
     <string name="storage_edit_document_tree_uri">כתובת</string>
     <string name="storage_edit_document_tree_path">נתיב</string>
+    <string name="storage_edit_ftp_server_title_edit">עריכת שרת FTP</string>
+    <string name="storage_edit_ftp_server_title_add">הוספת שרת FTP</string>
+    <string name="storage_edit_ftp_server_host">שם מארח</string>
+    <string name="storage_edit_ftp_server_host_error_empty">הזנת שם מארח</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">שם מארח לא תקין</string>
+    <string name="storage_edit_ftp_server_port">פתחה</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">פתחה אינה תקפה</string>
+    <string name="storage_edit_ftp_server_path">נתיב</string>
+    <string name="storage_edit_ftp_server_path_placeholder">ניתן להשאיר ריק</string>
+    <string name="storage_edit_ftp_server_name">שם</string>
+    <string name="storage_edit_ftp_server_name_placeholder">השתמש בשם מארח</string>
+    <string name="storage_edit_ftp_server_protocol">פרוטוקול</string>
+    <string name="storage_edit_ftp_server_authentication_type">אימות</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>סיסמה</item>
+        <item>אנונימי</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">שם משתמש</string>
+    <string name="storage_edit_ftp_server_username_error_empty">הזנת שם משתמש</string>
+    <string name="storage_edit_ftp_server_password">סיסמה</string>
+    <string name="storage_edit_ftp_server_mode">מצב</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>פעיל</item>
+        <item>פסיבי</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">הצפנה</string>
+    <string name="storage_edit_ftp_server_connect_and_add">התחברות והוספה</string>
+    <string name="storage_edit_ftp_server_add">הוספה</string>
     <string name="storage_edit_sftp_server_title_edit">עריכת שרת SFTP</string>
     <string name="storage_edit_sftp_server_title_add">הוספת שרת SFTP</string>
     <string name="storage_edit_sftp_server_host">שם מארח</string>
     <string name="storage_edit_sftp_server_host_error_empty">הזנת שם מארח</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">שם מארח לא תקין</string>
     <string name="storage_edit_sftp_server_port">פתחה</string>
     <string name="storage_edit_sftp_server_port_error_invalid">פתחה אינה תקפה</string>
     <string name="storage_edit_sftp_server_path">נתיב</string>
@@ -486,6 +538,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">פתיחת קובץ</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">הזנת מפתח פרטי</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">מפתח פרטי אינו תקף</string>
+    <string name="storage_edit_sftp_server_private_key_password">סיסמת מפתח פרטי</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">ניתן להשאיר ריק</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">סיסמת מפתח פרטי לא חוקית</string>
     <string name="storage_edit_sftp_server_connect_and_add">התחברות והוספה</string>
     <string name="storage_edit_sftp_server_add">הוספה</string>
     <string name="storage_add_lan_smb_server_loading">מחפש שרת SMB…</string>
@@ -494,6 +549,7 @@
     <string name="storage_edit_smb_server_title_add">הוספת שרת SMB</string>
     <string name="storage_edit_smb_server_host">שם מארח</string>
     <string name="storage_edit_smb_server_host_error_empty">הזנת שם מארח</string>
+    <string name="storage_edit_smb_server_host_error_invalid">שם מארח לא תקין</string>
     <string name="storage_edit_smb_server_port">פתחה</string>
     <string name="storage_edit_smb_server_port_error_invalid">פתחה אינה תקפה</string>
     <string name="storage_edit_smb_server_path">נתיב</string>
@@ -531,6 +587,7 @@
     <string name="navigation_edit_bookmark_directory_title">תיקיית סימניות</string>
     <string name="navigation_edit_bookmark_directory_name">שם</string>
     <string name="navigation_edit_bookmark_directory_path">נתיב</string>
+    <string name="archive_viewer_title">מציג ארכיונים</string>
     <string name="image_viewer_title">מציג התמונות</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">עורך טקסט</string>

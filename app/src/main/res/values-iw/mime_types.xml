@@ -30,8 +30,8 @@
     <string name="file_type_name_word">מסמך Word</string>
     <string name="file_type_name_powerpoint">מצגת PowerPoint</string>
     <string name="file_type_name_excel">גיליון Excel</string>
-    <string name="file_type_name_posix_character_device">התקן היוצר</string>
-    <string name="file_type_name_posix_block_device">התקן חסום</string>
+    <string name="file_type_name_posix_character_device">התקן תכונה</string>
+    <string name="file_type_name_posix_block_device">התקן בלוק</string>
     <string name="file_type_name_posix_fifo">צינור</string>
     <string name="file_type_name_posix_symbolic_link">קישור</string>
     <string name="file_type_name_posix_socket">שקע</string>

@@ -654,7 +654,7 @@
         <item quantity="other">Masz uruchomione %1$,d operacje na plikach, a zmiana trybu dostępu roota może teraz spowodować nieoczekiwany błąd. Czy na pewno chcesz to teraz zmienić?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
-        <item>Tylko normalny dostęp</item>
+        <item>Tylko dostęp normalny</item>
         <item>Automatyczny</item>
         <item>Tylko dostęp do roota</item>
     </string-array>
