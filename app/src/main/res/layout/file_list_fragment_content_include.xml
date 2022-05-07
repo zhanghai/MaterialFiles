@@ -7,6 +7,7 @@
 
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout
@@ -28,11 +29,11 @@
             android:layout_gravity="center"
             android:paddingTop="12dp"
             android:paddingBottom="32dp"
-            android:drawableTop="@drawable/error_icon_240dp"
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
             android:textAppearance="?textAppearanceListItem"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/error_icon_240dp" />
 
         <TextView
             android:id="@+id/emptyView"
@@ -41,12 +42,12 @@
             android:layout_gravity="center"
             android:paddingTop="12dp"
             android:paddingBottom="32dp"
-            android:drawableTop="@drawable/file_icon_240dp"
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
             android:text="@string/file_list_empty"
             android:textAppearance="?textAppearanceListItem"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/file_icon_240dp" />
 
         <androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"

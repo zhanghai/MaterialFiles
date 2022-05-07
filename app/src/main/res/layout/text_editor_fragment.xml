@@ -45,11 +45,11 @@
             android:layout_gravity="center"
             android:paddingTop="12dp"
             android:paddingBottom="32dp"
-            android:drawableTop="@drawable/error_icon_240dp"
             android:drawablePadding="8dp"
             android:gravity="center_horizontal"
             android:textAppearance="?textAppearanceListItem"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:drawableTopCompat="@drawable/error_icon_240dp" />
 
         <!-- TODO: Use a WebView for large amount of text. -->
         <me.zhanghai.android.fastscroll.FastScrollNestedScrollView
