@@ -1,0 +1,2 @@
+- Fixed crash when viewing archive files.
+- Other bug fixes and improvements.
