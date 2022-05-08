@@ -8,7 +8,7 @@
 
 [在酷安上下载](https://www.coolapk.com/apk/me.zhanghai.android.files) [下载 APK](https://github.com/zhanghai/MaterialFiles/releases/latest/download/app-release.apk)
 
-[在 Transifex 上帮助翻译](https://www.transifex.com/zhanghai/MaterialFiles/)（[搜索 Android 和 GNOME 的翻译](https://translations.zhanghai.me/)、[搜索微软的翻译](https://www.microsoft.com/en-us/language)）
+[在 Transifex 上帮助翻译](https://www.transifex.com/zhanghai/MaterialFiles/)（[搜索 Android 和 GNOME 的翻译](https://translations.zhanghai.me/)、[搜索微软的翻译](https://www.microsoft.com/en-us/language)、[MIME 类型翻译](https://github.com/freedesktop/xdg-shared-mime-info/tree/master/po)）
 
 ## 预览
 
