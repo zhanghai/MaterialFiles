@@ -35,21 +35,39 @@
 #define LOG_TAG "syscalls"
 
 #undef TEMP_FAILURE_RETRY
+// Checks errno when return value is -1.
 #define TEMP_FAILURE_RETRY(exp) ({ \
     __typeof__(exp) _rc; \
     do { \
         errno = 0; \
         _rc = (exp); \
-    } while (errno == EINTR); \
+    } while (_rc == -1 && errno == EINTR); \
+    if (_rc != -1) { \
+        errno = 0; \
+    } \
     _rc; })
 
-#define TEMP_FAILURE_RETRY_R(exp) ({ \
+// Checks return value as errno.
+#define TEMP_FAILURE_RETRY_E(exp) ({ \
     __typeof__(exp) _rc; \
     do { \
         _rc = (exp); \
     } while (_rc == EINTR); \
     _rc; })
 
+// Checks errno when return value is NULL.
+#define TEMP_FAILURE_RETRY_N(exp) ({ \
+    __typeof__(exp) _rc; \
+    do { \
+        errno = 0; \
+        _rc = (exp); \
+    } while (!_rc && errno == EINTR); \
+    if (_rc) { \
+        errno = 0; \
+    } \
+    _rc; })
+
+// Always checks errno and ignores return value.
 #define TEMP_FAILURE_RETRY_V(exp) ({ \
     do { \
         errno = 0; \
@@ -407,7 +425,8 @@ JNIEXPORT void JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_endmntent(
         JNIEnv *env, jclass clazz, jlong javaFile) {
     FILE *file = (FILE *) javaFile;
-    TEMP_FAILURE_RETRY(endmntent(file));
+    // The endmntent() function always returns 1.
+    TEMP_FAILURE_RETRY_V(endmntent(file));
     if (errno) {
         throwSyscallException(env, "endmntent");
     }
@@ -574,7 +593,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrent(JNIEnv *env, jclass clazz) {
     while (true) {
         // getgrent() in bionic is thread safe.
-        struct group *group = TEMP_FAILURE_RETRY(getgrent());
+        struct group *group = TEMP_FAILURE_RETRY_N(getgrent());
         if (errno) {
             throwSyscallException(env, "getgrent");
             return NULL;
@@ -612,7 +631,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     char buffer[bufferSize];
     struct group group = {};
     struct group *result = NULL;
-    errno = TEMP_FAILURE_RETRY_R(getgrgid_r(gid, &group, buffer, bufferSize, &result));
+    errno = TEMP_FAILURE_RETRY_E(getgrgid_r(gid, &group, buffer, bufferSize, &result));
     if (errno) {
         throwSyscallException(env, "getgrgid_r");
         return NULL;
@@ -623,7 +642,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrgid(
     return newStructGroup(env, result);
 #else
     gid_t gid = (gid_t) javaGid;
-    struct group *result = TEMP_FAILURE_RETRY(getgrgid(gid));
+    struct group *result = TEMP_FAILURE_RETRY_N(getgrgid(gid));
     if (errno) {
         throwSyscallException(env, "getgrgid");
         return NULL;
@@ -649,7 +668,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     char buffer[bufferSize];
     struct group group = {};
     struct group *result = NULL;
-    errno = TEMP_FAILURE_RETRY_R(getgrnam_r(name, &group, buffer, bufferSize, &result));
+    errno = TEMP_FAILURE_RETRY_E(getgrnam_r(name, &group, buffer, bufferSize, &result));
     free(name);
     if (errno) {
         throwSyscallException(env, "getgrnam_r");
@@ -661,7 +680,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getgrnam(
     return newStructGroup(env, result);
 #else
     char *name = mallocStringFromByteString(env, javaName);
-    struct group *result = TEMP_FAILURE_RETRY(getgrnam(name));
+    struct group *result = TEMP_FAILURE_RETRY_N(getgrnam(name));
     free(name);
     if (errno) {
         throwSyscallException(env, "getgrnam");
@@ -737,12 +756,12 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getmntent(
     FILE *file = (FILE *) javaFile;
 #if __ANDROID_API__ >= __ANDROID_API_L_MR1__
     // getmntent() in bionic is thread safe.
-    struct mntent *mntent = TEMP_FAILURE_RETRY(getmntent(file));
+    struct mntent *mntent = TEMP_FAILURE_RETRY_N(getmntent(file));
 #else
     // getmntent() in bionic is a stub until API 22.
     struct mntent entryBuffer = {};
     char stringsBuffer[BUFSIZ] = {};
-    struct mntent *mntent = TEMP_FAILURE_RETRY(_getmntent_r(file, &entryBuffer, stringsBuffer,
+    struct mntent *mntent = TEMP_FAILURE_RETRY_N(_getmntent_r(file, &entryBuffer, stringsBuffer,
             sizeof(stringsBuffer)));
 #endif
     if (errno) {
@@ -814,7 +833,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwent(JNIEnv *env, jclass clazz) {
     while (true) {
         // getpwent() in bionic is thread safe.
-        struct passwd *passwd = TEMP_FAILURE_RETRY(getpwent());
+        struct passwd *passwd = TEMP_FAILURE_RETRY_N(getpwent());
         if (errno) {
             throwSyscallException(env, "getpwent");
             return NULL;
@@ -846,7 +865,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwnam(
     char buffer[bufferSize];
     struct passwd passwd = {};
     struct passwd *result = NULL;
-    errno = TEMP_FAILURE_RETRY_R(getpwnam_r(name, &passwd, buffer, bufferSize, &result));
+    errno = TEMP_FAILURE_RETRY_E(getpwnam_r(name, &passwd, buffer, bufferSize, &result));
     free(name);
     if (errno) {
         throwSyscallException(env, "getpwnam_r");
@@ -871,7 +890,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_getpwuid(
     char buffer[bufferSize];
     struct passwd passwd = {};
     struct passwd *result = NULL;
-    errno = TEMP_FAILURE_RETRY_R(getpwuid_r(uid, &passwd, buffer, bufferSize, &result));
+    errno = TEMP_FAILURE_RETRY_E(getpwuid_r(uid, &passwd, buffer, bufferSize, &result));
     if (errno) {
         throwSyscallException(env, "getpwnam_r");
         return NULL;
@@ -1344,7 +1363,7 @@ JNIEXPORT jlong JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_opendir(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     char *path = mallocStringFromByteString(env, javaPath);
-    DIR *dir = TEMP_FAILURE_RETRY(opendir(path));
+    DIR *dir = TEMP_FAILURE_RETRY_N(opendir(path));
     free(path);
     if (errno) {
         throwSyscallException(env, "opendir");
@@ -1375,7 +1394,7 @@ JNIEXPORT jobject JNICALL
 Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_readdir(
         JNIEnv *env, jclass clazz, jlong javaDir) {
     DIR *dir = (DIR *) javaDir;
-    struct dirent64 *dirent = TEMP_FAILURE_RETRY(readdir64(dir));
+    struct dirent64 *dirent = TEMP_FAILURE_RETRY_N(readdir64(dir));
     if (errno) {
         throwSyscallException(env, "readdir64");
         return NULL;
@@ -1419,7 +1438,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_realpath(
         JNIEnv *env, jclass clazz, jobject javaPath) {
     char *path = mallocStringFromByteString(env, javaPath);
     char resolvedPath[PATH_MAX] = {};
-    TEMP_FAILURE_RETRY(realpath(path, resolvedPath));
+    TEMP_FAILURE_RETRY_N(realpath(path, resolvedPath));
     free(path);
     if (errno) {
         throwSyscallException(env, "realpath");
@@ -1491,7 +1510,7 @@ Java_me_zhanghai_android_files_provider_linux_syscall_Syscalls_setmntent(
         JNIEnv *env, jclass clazz, jobject javaPath, jobject javaMode) {
     char *path = mallocStringFromByteString(env, javaPath);
     char *mode = mallocStringFromByteString(env, javaMode);
-    FILE *file = TEMP_FAILURE_RETRY(setmntent(path, mode));
+    FILE *file = TEMP_FAILURE_RETRY_N(setmntent(path, mode));
     free(path);
     free(mode);
     if (errno) {
