@@ -26,6 +26,7 @@
     <string name="maybe_later">나중에</string>
     <string name="merge">합치기</string>
     <string name="none">없음</string>
+    <string name="open_navigation_drawer">탐색 창 열기</string>
     <string name="paste">붙여넣기</string>
     <string name="refresh">새로고침</string>
     <string name="reload">다시 불러오기</string>
@@ -57,6 +58,8 @@
 
     <string name="storage_permission_rationale_message">파일에 접근하기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 \'허용\'을 선택해 주세요.</string>
     <string name="storage_permission_permanently_denied_message">파일에 접근하기 위한 권한이 필요합니다. 시스템 설정에서 \'저장용량\' 권한을 허용해 주세요.</string>
+    <string name="all_files_access_rationale_message">모든 파일 관리 권한이 필요합니다. 곧 나타날 시스템 설정에서 권한을 허용해 주세요.</string>
+
     <string name="notification_channel_background_activity_start_name">백그라운드에서 작업</string>
     <string name="notification_channel_background_activity_start_description">앱이 백그라운드에 있는 동안 작업합니다</string>
     <string name="notification_channel_file_job_name">파일 작업</string>
@@ -208,6 +211,15 @@
     <string name="file_name_error_already_exists">같은 이름을 가진 파일이 이미 존재합니다</string>
     <string name="file_delete_message_file_format">“%1$s”을(를) 삭제하시겠습니까?</string>
     <string name="file_delete_message_directory_format">“%1$s” 폴더를 삭제하시겠습니까?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="other">%1$,d개 파일을 삭제하시겠습니까?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="other">%1$,d개 폴더 및 그 하위 항목을 삭제하시겠습니까?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="other">%1$,d개 항목을 삭제하시겠습니까?</item>
+    </plurals>
     <string name="file_create_archive_title">압축 파일 만들기</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -230,6 +242,8 @@
         <item quantity="other">%1$,d개 파일</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">경로를 입력하세요</string>
+    <string name="file_list_path_error_invalid">올바르지 않은 경로</string>
     <string name="file_list_action_sort_by_name">이름</string>
     <string name="file_list_action_sort_by_type">유형</string>
     <string name="file_list_action_sort_by_size">크기</string>
@@ -239,6 +253,7 @@
     <string name="file_list_action_sort_path_specific">이 폴더에만 적용</string>
     <string name="file_list_action_new_task">새 창</string>
     <string name="file_list_action_navigate_up">상위 폴더로</string>
+    <string name="file_list_action_navigate_to">이동</string>
     <string name="file_list_action_show_hidden_files">숨김 파일 표시</string>
     <string name="file_list_action_copy_path">경로 복사</string>
     <string name="file_list_action_open_in_terminal">터미널에서 열기</string>
@@ -371,6 +386,7 @@
     <string name="storage_list_empty">저장소 없음</string>
     <string name="storage_add_storage_title">저장소 추가</string>
     <string name="storage_add_storage_document_tree">외부 저장소</string>
+    <string name="storage_add_storage_ftp_server">FTP 서버</string>
     <string name="storage_add_storage_sftp_server">SFTP 서버</string>
     <string name="storage_add_storage_smb_server">SMB 서버</string>
     <string name="storage_edit_device_storage_title">기기 저장소 편집</string>
@@ -381,10 +397,39 @@
     <string name="storage_edit_document_tree_name">이름</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">경로</string>
+    <string name="storage_edit_ftp_server_title_edit">FTP 서버 편집</string>
+    <string name="storage_edit_ftp_server_title_add">FTP 서버 추가</string>
+    <string name="storage_edit_ftp_server_host">호스트 이름</string>
+    <string name="storage_edit_ftp_server_host_error_empty">호스트 이름을 입력하세요</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">올바르지 않은 호스트 이름</string>
+    <string name="storage_edit_ftp_server_port">포트</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">올바르지 않은 포트</string>
+    <string name="storage_edit_ftp_server_path">경로</string>
+    <string name="storage_edit_ftp_server_path_placeholder">비워둘 수 없음</string>
+    <string name="storage_edit_ftp_server_name">이름</string>
+    <string name="storage_edit_ftp_server_name_placeholder">호스트 이름 사용</string>
+    <string name="storage_edit_ftp_server_protocol">프로토콜</string>
+    <string name="storage_edit_ftp_server_authentication_type">인증</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>비밀번호</item>
+        <item>익명</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">사용자 이름</string>
+    <string name="storage_edit_ftp_server_username_error_empty">사용자 이름을 입력하세요</string>
+    <string name="storage_edit_ftp_server_password">비밀번호</string>
+    <string name="storage_edit_ftp_server_mode">모드</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>액티브</item>
+        <item>패시브</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">인코딩</string>
+    <string name="storage_edit_ftp_server_connect_and_add">연결 및 추가</string>
+    <string name="storage_edit_ftp_server_add">추가</string>
     <string name="storage_edit_sftp_server_title_edit">SFTP 서버 편집</string>
     <string name="storage_edit_sftp_server_title_add">SFTP 서버 추가</string>
     <string name="storage_edit_sftp_server_host">호스트 이름</string>
     <string name="storage_edit_sftp_server_host_error_empty">호스트 이름을 입력하세요</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">올바르지 않은 호스트 이름</string>
     <string name="storage_edit_sftp_server_port">포트</string>
     <string name="storage_edit_sftp_server_port_error_invalid">올바르지 않은 포트</string>
     <string name="storage_edit_sftp_server_path">경로</string>
@@ -403,6 +448,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">파일 열기</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">개인 키를 입력하세요</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">올바르지 않은 개인 키</string>
+    <string name="storage_edit_sftp_server_private_key_password">개인 키 비밀번호</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">비워둘 수 없음</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">올바르지 않은 개인 키 비밀번호</string>
     <string name="storage_edit_sftp_server_connect_and_add">연결 및 추가</string>
     <string name="storage_edit_sftp_server_add">추가</string>
     <string name="storage_add_lan_smb_server_loading">SMB 서버 검색 중…</string>
@@ -411,6 +459,7 @@
     <string name="storage_edit_smb_server_title_add">SMB 서버 추가</string>
     <string name="storage_edit_smb_server_host">호스트 이름</string>
     <string name="storage_edit_smb_server_host_error_empty">호스트 이름을 입력하세요</string>
+    <string name="storage_edit_smb_server_host_error_invalid">올바르지 않은 호스트 이름</string>
     <string name="storage_edit_smb_server_port">포트</string>
     <string name="storage_edit_smb_server_port_error_invalid">올바르지 않은 포트</string>
     <string name="storage_edit_smb_server_path">경로</string>
@@ -448,6 +497,7 @@
     <string name="navigation_edit_bookmark_directory_title">즐겨찾기 폴더</string>
     <string name="navigation_edit_bookmark_directory_name">이름</string>
     <string name="navigation_edit_bookmark_directory_path">경로</string>
+    <string name="archive_viewer_title">압축 파일 뷰어</string>
     <string name="image_viewer_title">이미지 뷰어</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">텍스트 편집기</string>
@@ -481,6 +531,7 @@
     <string name="settings_interface_title">인터페이스</string>
     <string name="settings_theme_color_title">테마 색상</string>
     <string name="settings_theme_color_summary">앱에서 가장 많이 보이는 색상</string>
+    <string name="settings_material_design_3_title">머티리얼 디자인 3</string>
     <string name="settings_night_mode_title">다크 모드</string>
     <string-array name="settings_night_mode_entries">
         <item>시스템 설정에 따름</item>
@@ -511,7 +562,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>일반 액세스만</item>
-        <item>Automatic</item>
+        <item>자동</item>
         <item>루트 액세스만</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">압축 파일 이름 인코딩</string>
