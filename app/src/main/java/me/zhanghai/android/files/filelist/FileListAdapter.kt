@@ -11,8 +11,8 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import coil.clear
-import coil.loadAny
+import coil.dispose
+import coil.load
 import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
@@ -199,23 +199,23 @@ class FileListAdapter(
         binding.iconLayout.setOnClickListener { selectFile(file) }
         binding.iconImage.setImageResource(file.mimeType.iconRes)
         binding.iconImage.isVisible = true
-        binding.thumbnailImage.clear()
+        binding.thumbnailImage.dispose()
         binding.thumbnailImage.setImageDrawable(null)
         val supportsThumbnail = file.supportsThumbnail
         binding.thumbnailImage.isVisible = supportsThumbnail
         val attributes = file.attributes
         if (supportsThumbnail) {
-            binding.thumbnailImage.loadAny(path to attributes) {
+            binding.thumbnailImage.load(path to attributes) {
                 listener { _, _ -> binding.iconImage.isVisible = false }
             }
         }
-        binding.appIconBadgeImage.clear()
+        binding.appIconBadgeImage.dispose()
         binding.appIconBadgeImage.setImageDrawable(null)
         val appDirectoryPackageName = file.appDirectoryPackageName
         val hasAppIconBadge = appDirectoryPackageName != null
         binding.appIconBadgeImage.isVisible = hasAppIconBadge
         if (hasAppIconBadge) {
-            binding.appIconBadgeImage.loadAny(AppIconPackageName(appDirectoryPackageName!!))
+            binding.appIconBadgeImage.load(AppIconPackageName(appDirectoryPackageName!!))
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {

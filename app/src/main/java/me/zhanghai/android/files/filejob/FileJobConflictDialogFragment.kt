@@ -21,8 +21,8 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.core.widget.doAfterTextChanged
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
-import coil.clear
-import coil.loadAny
+import coil.dispose
+import coil.load
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.parcelize.Parceler
 import kotlinx.parcelize.Parcelize
@@ -153,21 +153,21 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         val path = file.path
         iconImage.setImageResource(file.mimeType.iconRes)
         iconImage.isVisible = true
-        thumbnailImage.clear()
+        thumbnailImage.dispose()
         thumbnailImage.setImageDrawable(null)
         val attributes = file.attributes
         if (file.supportsThumbnail) {
-            thumbnailImage.loadAny(path to attributes) {
+            thumbnailImage.load(path to attributes) {
                 listener { _, _ -> iconImage.isVisible = false }
             }
         }
-        appIconBadgeImage.clear()
+        appIconBadgeImage.dispose()
         appIconBadgeImage.setImageDrawable(null)
         val appDirectoryPackageName = file.appDirectoryPackageName
         val hasAppIconBadge = appDirectoryPackageName != null
         appIconBadgeImage.isVisible = hasAppIconBadge
         if (hasAppIconBadge) {
-            appIconBadgeImage.loadAny(AppIconPackageName(appDirectoryPackageName!!))
+            appIconBadgeImage.load(AppIconPackageName(appDirectoryPackageName!!))
         }
         val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
             if (file.isSymbolicLinkBroken) {

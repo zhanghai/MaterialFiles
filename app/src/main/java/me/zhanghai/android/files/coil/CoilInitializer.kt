@@ -16,18 +16,21 @@ import me.zhanghai.android.files.app.application
 fun initializeCoil() {
     Coil.setImageLoader(
         ImageLoader.Builder(application)
-            .componentRegistry {
-                add(AppIconApplicationInfoFetcher(application))
-                add(AppIconPackageNameFetcher(application))
-                add(PathAttributesFetcher(application))
+            .components {
+                add(AppIconApplicationInfoKeyer())
+                add(AppIconApplicationInfoFetcherFactory(application))
+                add(AppIconPackageNameKeyer())
+                add(AppIconPackageNameFetcherFactory(application))
+                add(PathAttributesKeyer())
+                add(PathAttributesFetcher.Factory(application))
                 add(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        ImageDecoderDecoder(application)
+                        ImageDecoderDecoder.Factory()
                     } else {
-                        GifDecoder()
+                        GifDecoder.Factory()
                     }
                 )
-                add(SvgDecoder(application, false))
+                add(SvgDecoder.Factory(false))
             }
             .build()
     )

@@ -7,19 +7,25 @@ package me.zhanghai.android.files.coil
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
+import coil.key.Keyer
+import coil.request.Options
 import me.zhanghai.android.appiconloader.AppIconLoader
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.longVersionCodeCompat
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import java.io.Closeable
 
-class AppIconApplicationInfoFetcher(private val context: Context) : AppIconFetcher<ApplicationInfo>(
+class AppIconApplicationInfoKeyer : Keyer<ApplicationInfo> {
+    override fun key(data: ApplicationInfo, options: Options): String =
+        AppIconLoader.getIconKey(data, data.longVersionCodeCompat, options.context)
+}
+
+class AppIconApplicationInfoFetcherFactory(
+    context: Context
+) : AppIconFetcher.Factory<ApplicationInfo>(
     // This is used by PrincipalListAdapter.
     context.getDimensionPixelSize(R.dimen.icon_size), context
 ) {
-    override fun key(data: ApplicationInfo): String? =
-        AppIconLoader.getIconKey(data, data.longVersionCodeCompat, context)
-
     override fun getApplicationInfo(data: ApplicationInfo): Pair<ApplicationInfo, Closeable?> =
         data to null
 }
