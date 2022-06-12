@@ -25,13 +25,13 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
-fun ImageRequest.Builder.videoFrameFraction(frameFraction: Double): ImageRequest.Builder {
-    require(frameFraction in 0.0..1.0) { "frameFraction must be >= 0 and <= 1." }
-    return setParameter(VideoFrameFetcher.VIDEO_FRAME_FRACTION_KEY, frameFraction)
+fun ImageRequest.Builder.videoFramePercent(framePercent: Double): ImageRequest.Builder {
+    require(framePercent in 0.0..1.0) { "framePercent must be >= 0 and <= 1." }
+    return setParameter(VideoFrameFetcher.VIDEO_FRAME_PERCENT_KEY, framePercent)
 }
 
-fun Parameters.videoFrameFraction(): Double? =
-    value(VideoFrameFetcher.VIDEO_FRAME_FRACTION_KEY) as Double?
+fun Parameters.videoFramePercent(): Double? =
+    value(VideoFrameFetcher.VIDEO_FRAME_PERCENT_KEY) as Double?
 
 class VideoFrameFetcher(
     private val options: Options,
@@ -66,11 +66,11 @@ class VideoFrameFetcher(
             val durationMillis =
                 retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)
                     ?.toLongOrNull() ?: 0L
-            // 1/3 is the first fraction tried by totem-video-thumbnailer.
+            // 1/3 is the first percentage tried by totem-video-thumbnailer.
             // @see https://gitlab.gnome.org/GNOME/totem/-/blob/master/src/totem-video-thumbnailer.c#L543
-            val frameFraction = options.parameters.videoFrameFraction() ?: (1.0 / 3.0)
+            val framePercent = options.parameters.videoFramePercent() ?: (1.0 / 3.0)
             val frameMicros = TimeUnit.MICROSECONDS.convert(
-                (frameFraction * durationMillis).roundToLong(), TimeUnit.MILLISECONDS
+                (framePercent * durationMillis).roundToLong(), TimeUnit.MILLISECONDS
             )
             val frameOption = options.parameters.videoFrameOption()
                 ?: MediaMetadataRetriever.OPTION_CLOSEST_SYNC
@@ -141,7 +141,7 @@ class VideoFrameFetcher(
         }
 
     companion object {
-        const val VIDEO_FRAME_FRACTION_KEY = "coil#video_frame_fraction"
+        const val VIDEO_FRAME_PERCENT_KEY = "coil#video_frame_percent"
     }
 
     abstract class Factory<T : Any> : Fetcher.Factory<T> {
