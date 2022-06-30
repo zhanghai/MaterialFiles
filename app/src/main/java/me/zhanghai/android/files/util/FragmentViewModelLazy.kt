@@ -10,12 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.CreationExtras
 
 inline fun <reified VM : ViewModel> Fragment.viewModels(
     noinline ownerProducer: () -> ViewModelStoreOwner = { this },
+    noinline extrasProducer: (() -> CreationExtras)? = null,
     noinline factoryProducer: (() -> () -> VM)? = null
 ) = viewModels<VM>(
     ownerProducer,
+    extrasProducer,
     factoryProducer?.let {
         {
             val factory = it()
@@ -28,5 +31,6 @@ inline fun <reified VM : ViewModel> Fragment.viewModels(
 )
 
 inline fun <reified VM : ViewModel> Fragment.activityViewModels(
+    noinline extrasProducer: (() -> CreationExtras)? = null,
     noinline factoryProducer: (() -> () -> VM)? = null
-) = viewModels(::requireActivity, factoryProducer)
+) = viewModels(::requireActivity, extrasProducer, factoryProducer)
