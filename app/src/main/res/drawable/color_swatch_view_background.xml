@@ -23,7 +23,11 @@
     </item>
     -->
 
-    <item android:gravity="center">
+    <item         
+        android:top="6dp"
+        android:bottom="6dp"
+        android:left="6dp"
+        android:right="6dp">
         <animated-selector
             android:enterFadeDuration="@android:integer/config_shortAnimTime"
             android:exitFadeDuration="@android:integer/config_shortAnimTime">
