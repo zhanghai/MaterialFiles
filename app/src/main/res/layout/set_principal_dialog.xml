@@ -7,6 +7,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/abc_dialog_title_divider_material"
@@ -20,7 +21,7 @@
         android:paddingEnd="?dialogPreferredPadding"
         android:background="@null"
         android:drawablePadding="24dp"
-        android:drawableStart="@drawable/filter_icon_control_normal_24dp"
+        app:drawableStartCompat="@drawable/filter_icon_control_normal_24dp"
         android:hint="@string/file_properties_permissions_set_principal_filter_hint"
         android:importantForAutofill="no"
         android:inputType="text"
