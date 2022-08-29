@@ -17,21 +17,12 @@ import coil.decode.DecodeUtils
 import coil.fetch.DrawableResult
 import coil.fetch.FetchResult
 import coil.fetch.Fetcher
-import coil.request.ImageRequest
 import coil.request.Options
-import coil.request.Parameters
 import coil.request.videoFrameOption
+import coil.request.videoFramePercent
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
-
-fun ImageRequest.Builder.videoFramePercent(framePercent: Double): ImageRequest.Builder {
-    require(framePercent in 0.0..1.0) { "framePercent must be >= 0 and <= 1." }
-    return setParameter(VideoFrameFetcher.VIDEO_FRAME_PERCENT_KEY, framePercent)
-}
-
-fun Parameters.videoFramePercent(): Double? =
-    value(VideoFrameFetcher.VIDEO_FRAME_PERCENT_KEY) as Double?
 
 class VideoFrameFetcher(
     private val options: Options,
@@ -139,10 +130,6 @@ class VideoFrameFetcher(
                 dataSource = DataSource.DISK
             )
         }
-
-    companion object {
-        const val VIDEO_FRAME_PERCENT_KEY = "coil#video_frame_percent"
-    }
 
     abstract class Factory<T : Any> : Fetcher.Factory<T> {
         override fun create(data: T, options: Options, imageLoader: ImageLoader): Fetcher =
