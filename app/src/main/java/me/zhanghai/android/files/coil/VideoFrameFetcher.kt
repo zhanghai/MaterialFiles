@@ -23,6 +23,7 @@ import coil.request.videoFramePercent
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
+import me.zhanghai.android.files.compat.use
 
 class VideoFrameFetcher(
     private val options: Options,
