@@ -28,6 +28,11 @@
         android:maxSdkVersion="30" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
+    <!-- https://firebase.google.com/support/release-notes/android#analytics_v20-1-1 -->
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
+
     <!-- Shizuku requires API 23. -->
     <uses-sdk tools:overrideLibrary="rikka.shizuku.aidl,rikka.shizuku.api,rikka.shizuku.shared" />
 
@@ -333,6 +338,11 @@
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
+
+        <!-- https://firebase.google.com/support/release-notes/android#analytics_v20-1-1 -->
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
             android:value="false" />
     </application>
 </manifest>
