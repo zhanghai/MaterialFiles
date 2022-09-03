@@ -272,7 +272,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         companion object {
             fun inflate(menu: Menu, inflater: MenuInflater): MenuBinding {
                 inflater.inflate(R.menu.text_editor, menu)
-                val encodingSubMenu = menu.findItem(R.id.action_encoding).subMenu
+                val encodingSubMenu = menu.findItem(R.id.action_encoding).subMenu!!
                 for ((charsetName, charset) in Charset.availableCharsets()) {
                     // HACK: Use titleCondensed to store charset name.
                     encodingSubMenu.add(Menu.NONE, Menu.FIRST, Menu.NONE, charset.displayName())
