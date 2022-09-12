@@ -161,7 +161,7 @@ dependencies {
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.3'
     implementation 'dev.rikka.shizuku:api:12.0.0'
     implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
-    def coil_version = '2.2.0'
+    def coil_version = '2.2.1'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
     implementation "io.coil-kt:coil-svg:$coil_version"
