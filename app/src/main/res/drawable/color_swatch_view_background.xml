@@ -23,7 +23,14 @@
     </item>
     -->
 
+    <!-- android:gravity is only available on API 23+.
     <item android:gravity="center">
+    -->
+    <item
+        android:left="6dp"
+        android:right="6dp"
+        android:top="6dp"
+        android:bottom="6dp">
         <animated-selector
             android:enterFadeDuration="@android:integer/config_shortAnimTime"
             android:exitFadeDuration="@android:integer/config_shortAnimTime">
