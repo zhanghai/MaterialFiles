@@ -20,6 +20,8 @@ import coil.fetch.Fetcher
 import coil.request.Options
 import coil.request.videoFrameOption
 import coil.request.videoFramePercent
+import me.zhanghai.android.files.compat.getFrameAtTimeCompat
+import me.zhanghai.android.files.compat.getScaledFrameAtTimeCompat
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
@@ -66,6 +68,11 @@ class VideoFrameFetcher(
             )
             val frameOption = options.parameters.videoFrameOption()
                 ?: MediaMetadataRetriever.OPTION_CLOSEST_SYNC
+            val bitmapParams = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                MediaMetadataRetriever.BitmapParams().apply { preferredConfig = options.config }
+            } else {
+                null
+            }
             val outBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1
                 && srcWidth > 0 && srcHeight > 0) {
                 val dstWidth = options.size.widthPx(options.scale) { srcWidth }
@@ -84,9 +91,11 @@ class VideoFrameFetcher(
                 }
                 val width = (scale * srcWidth).roundToInt()
                 val height = (scale * srcHeight).roundToInt()
-                retriever.getScaledFrameAtTime(frameMicros, frameOption, width, height)
+                retriever.getScaledFrameAtTimeCompat(
+                    frameMicros, frameOption, width, height, bitmapParams
+                )
             } else {
-                retriever.getFrameAtTime(frameMicros, frameOption)?.also {
+                retriever.getFrameAtTimeCompat(frameMicros, frameOption, bitmapParams)?.also {
                     srcWidth = it.width
                     srcHeight = it.height
                 }
