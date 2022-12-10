@@ -17,13 +17,13 @@
     </style>
 
     <style name="TextAppearance.MaterialFiles.Material3.ListItem" parent="TextAppearance.Material3.TitleMedium">
-        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
-        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="fontFamily">@macro/m3_ref_typeface_plain_regular</item>
+        <item name="android:fontFamily">@macro/m3_ref_typeface_plain_regular</item>
     </style>
 
     <style name="TextAppearance.MaterialFiles.Material3.ListItemSmall" parent="TextAppearance.Material3.TitleSmall">
-        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
-        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="fontFamily">@macro/m3_ref_typeface_plain_regular</item>
+        <item name="android:fontFamily">@macro/m3_ref_typeface_plain_regular</item>
     </style>
 
     <style name="Widget.MaterialFiles.Material3.CompoundButton.Switch" parent="Widget.Material3.CompoundButton.Switch">
