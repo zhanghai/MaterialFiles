@@ -739,6 +739,5 @@
     <string name="about_author_title">المؤلف</string>
     <string name="about_author_name_title">هاي تشانغ Hai Zhang</string>
     <string name="about_author_github_title">تابعني على GitHub</string>
-    <string name="about_author_google_plus_title">أضف إلى دوائر Google+</string>
     <string name="about_author_twitter_title">متابعة على Twitter</string>
 </resources>

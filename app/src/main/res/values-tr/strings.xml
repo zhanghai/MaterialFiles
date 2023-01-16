@@ -596,6 +596,5 @@
     <string name="about_author_title">Yazar</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">GitHub\'da takip edin</string>
-    <string name="about_author_google_plus_title">Google+ çevrelerine ekleyin</string>
     <string name="about_author_twitter_title">Twitter\'da takip edin</string>
 </resources>

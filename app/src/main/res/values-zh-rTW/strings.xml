@@ -585,6 +585,5 @@
     <string name="about_author_title">作者</string>
     <string name="about_author_name_title">張海</string>
     <string name="about_author_github_title">在 GitHub 上關注</string>
-    <string name="about_author_google_plus_title">加入到 Google+ 圈子</string>
     <string name="about_author_twitter_title">在 Twitter 上關注</string>
 </resources>

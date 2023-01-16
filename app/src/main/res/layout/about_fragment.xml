@@ -301,33 +301,6 @@
                         </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
 
                         <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
-                            android:id="@+id/authorGooglePlusLayout"
-                            android:layout_width="match_parent"
-                            android:layout_height="?listPreferredItemHeightSmall"
-                            android:paddingStart="?android:listPreferredItemPaddingStart"
-                            android:paddingEnd="?android:listPreferredItemPaddingEnd"
-                            android:foreground="?selectableItemBackground"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <ImageView
-                                android:layout_width="@dimen/icon_size"
-                                android:layout_height="@dimen/icon_size"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/google_plus_icon_white_24dp"
-                                app:tint="?colorControlNormal" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/content_start_from_screen_edge_margin_minus_24dp"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:text="@string/about_author_google_plus_title"
-                                android:textAppearance="?textAppearanceListItem" />
-                        </me.zhanghai.android.foregroundcompat.ForegroundLinearLayout>
-
-                        <me.zhanghai.android.foregroundcompat.ForegroundLinearLayout
                             android:id="@+id/authorTwitterLayout"
                             android:layout_width="match_parent"
                             android:layout_height="?listPreferredItemHeightSmall"

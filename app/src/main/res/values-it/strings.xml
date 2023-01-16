@@ -615,6 +615,5 @@
     <string name="about_author_title">Autore</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">Segui su GitHub</string>
-    <string name="about_author_google_plus_title">Aggiungi a cerchie di Google+</string>
     <string name="about_author_twitter_title">Segui su Twitter</string>
 </resources>

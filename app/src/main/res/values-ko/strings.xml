@@ -584,6 +584,5 @@
     <string name="about_author_title">제작자</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">GitHub 팔로우하기</string>
-    <string name="about_author_google_plus_title">Google+ 서클에 추가</string>
     <string name="about_author_twitter_title">Twitter 팔로우하기</string>
 </resources>

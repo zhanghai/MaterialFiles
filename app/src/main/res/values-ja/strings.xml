@@ -584,6 +584,5 @@
     <string name="about_author_title">開発者</string>
     <string name="about_author_name_title">張海</string>
     <string name="about_author_github_title">GitHub でフォロー</string>
-    <string name="about_author_google_plus_title">Google+ サークルに追加</string>
     <string name="about_author_twitter_title">Twitter でフォロー</string>
 </resources>

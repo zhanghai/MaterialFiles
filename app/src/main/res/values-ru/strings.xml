@@ -679,6 +679,5 @@
     <string name="about_author_title">Автор</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">Фолловить на GitHub</string>
-    <string name="about_author_google_plus_title">Добавить в круги Google+</string>
     <string name="about_author_twitter_title">Фолловить в Twitter</string>
 </resources>

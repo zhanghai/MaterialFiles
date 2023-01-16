@@ -620,6 +620,5 @@
     <string name="about_author_title">Autor</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">Sledovat na GitHubu</string>
-    <string name="about_author_google_plus_title">Přidat do kruhů Google+</string>
     <string name="about_author_twitter_title">Sledovat na Twitteru</string>
 </resources>

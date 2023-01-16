@@ -584,6 +584,5 @@
     <string name="about_author_title">Tác giả</string>
     <string name="about_author_name_title">Hai Zhang</string>
     <string name="about_author_github_title">Theo dõi trên GitHub</string>
-    <string name="about_author_google_plus_title">Thêm vào vòng bạn bè Google+</string>
     <string name="about_author_twitter_title">Theo dõi trên Twitter</string>
 </resources>
