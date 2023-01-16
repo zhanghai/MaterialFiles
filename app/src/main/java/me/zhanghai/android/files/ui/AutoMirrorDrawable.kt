@@ -2,19 +2,18 @@
  * Copyright (c) 2020 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
+
 package me.zhanghai.android.files.ui
 
-import android.annotation.SuppressLint
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.view.View
-import androidx.appcompat.graphics.drawable.DrawableWrapper
+import androidx.appcompat.graphics.drawable.DrawableWrapperCompat
 import me.zhanghai.android.files.compat.layoutDirectionCompat
 
-@SuppressLint("RestrictedApi")
-class AutoMirrorDrawable(drawable: Drawable) : DrawableWrapper(drawable) {
+class AutoMirrorDrawable(drawable: Drawable) : DrawableWrapperCompat(drawable) {
     override fun draw(canvas: Canvas) {
         if (needMirroring()) {
             val centerX = bounds.exactCenterX()
@@ -48,7 +47,7 @@ class AutoMirrorDrawable(drawable: Drawable) : DrawableWrapper(drawable) {
     }
 
     override fun getConstantState(): ConstantState? =
-        wrappedDrawable.constantState?.let { DelegateConstantState(it) }
+        drawable!!.constantState?.let { DelegateConstantState(it) }
 
     private class DelegateConstantState(
         private val constantState: ConstantState

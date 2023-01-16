@@ -305,7 +305,7 @@ class FileListAdapter(
         }
     }
 
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(position: Int): CharSequence {
         val file = getItem(position)
         return file.name.take(1).uppercase(Locale.getDefault())
     }
