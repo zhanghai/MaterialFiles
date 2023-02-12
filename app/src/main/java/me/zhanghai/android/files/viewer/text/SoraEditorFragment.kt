@@ -122,6 +122,16 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                         item.isChecked = codeEditor.editorLanguage is JavaLanguage
                         true
                     }
+                    R.id.action_undo -> {
+                        if (codeEditor.canUndo())
+                            codeEditor.undo()
+                        true
+                    }
+                    R.id.action_redo -> {
+                        if (codeEditor.canRedo())
+                            codeEditor.redo()
+                        true
+                    }
                     R.id.action_reload -> {
                         onReload()
                         true

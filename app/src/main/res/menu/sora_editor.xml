@@ -21,13 +21,29 @@
         android:id="@+id/action_syntax_highlight"
         android:checkable="true"
         android:orderInCategory="100"
-        android:title="@string/syntax_highlighting" />
+        android:title="@string/syntax_highlighting"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_word_warp"
         android:checkable="true"
         android:orderInCategory="100"
-        android:title="@string/word_warp" />
+        android:title="@string/word_warp"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_undo"
+        android:icon="@drawable/round_undo_control_normal_24"
+        android:orderInCategory="100"
+        android:title="@string/undo"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_redo"
+        android:icon="@drawable/round_redo_control_normal_24"
+        android:orderInCategory="100"
+        android:title="@string/redo"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_reload"

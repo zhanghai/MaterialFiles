@@ -729,4 +729,6 @@
     <string name="shortcut_ftp_server_title" translatable="false">@string/ftp_server_title</string>
     <string name="word_warp">Word Warp</string>
     <string name="syntax_highlighting">Syntax Highlighting</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
 </resources>
