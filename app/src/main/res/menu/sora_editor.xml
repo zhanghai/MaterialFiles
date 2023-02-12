@@ -18,10 +18,16 @@
         tools:ignore="AlwaysShowAction" />
 
     <item
+        android:id="@+id/action_syntax_highlight"
+        android:checkable="true"
+        android:orderInCategory="100"
+        android:title="@string/syntax_highlighting" />
+
+    <item
         android:id="@+id/action_word_warp"
         android:checkable="true"
         android:orderInCategory="100"
-        android:title="Word Warp" />
+        android:title="@string/word_warp" />
 
     <item
         android:id="@+id/action_reload"

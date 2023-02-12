@@ -1,6 +1,7 @@
 package me.zhanghai.android.files.viewer.text
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,6 +14,7 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import io.github.rosemoe.sora.langs.java.JavaLanguage
 import io.github.rosemoe.sora.widget.CodeEditor
 import io.github.rosemoe.sora.widget.schemes.EditorColorScheme
 import io.github.rosemoe.sora.widget.schemes.SchemeDarcula
@@ -73,6 +75,7 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
+        codeEditor.setEditorLanguage(JavaLanguage())
         codeEditor.colorScheme =
             if (NightModeHelper.isInNightMode(activity)) SchemeDarcula() else EditorColorScheme()
 
@@ -88,6 +91,8 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
                 menuInflater.inflate(R.menu.sora_editor, menu)
                 menu.findItem(R.id.action_word_warp).isChecked = codeEditor.isWordwrap
+                menu.findItem(R.id.action_syntax_highlight).isChecked =
+                    codeEditor.editorLanguage is JavaLanguage
             }
 
             override fun onMenuItemSelected(item: MenuItem): Boolean =
@@ -102,6 +107,13 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                         item.isChecked = codeEditor.isWordwrap
                         true
                     }
+                    R.id.action_syntax_highlight -> {
+                        codeEditor.setEditorLanguage(
+                            if (codeEditor.editorLanguage is JavaLanguage) null else JavaLanguage()
+                        )
+                        item.isChecked = codeEditor.editorLanguage is JavaLanguage
+                        true
+                    }
                     R.id.action_reload -> {
                         onReload()
                         true
@@ -110,6 +122,7 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                 }
         })
     }
+
 
     fun onFinish(): Boolean {
         if (textChanged()) {

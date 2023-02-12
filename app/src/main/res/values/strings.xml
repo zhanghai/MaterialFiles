@@ -727,4 +727,6 @@
 
     <string name="shortcut_downloads_title" translatable="false">@string/navigation_standard_directory_downloads</string>
     <string name="shortcut_ftp_server_title" translatable="false">@string/ftp_server_title</string>
+    <string name="word_warp">Word Warp</string>
+    <string name="syntax_highlighting">Syntax Highlighting</string>
 </resources>
