@@ -14,6 +14,8 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import io.github.rosemoe.sora.event.ContentChangeEvent
+import io.github.rosemoe.sora.event.EventReceiver
 import io.github.rosemoe.sora.langs.java.JavaLanguage
 import io.github.rosemoe.sora.widget.CodeEditor
 import io.github.rosemoe.sora.widget.schemes.EditorColorScheme
@@ -79,10 +81,16 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         codeEditor.colorScheme =
             if (NightModeHelper.isInNightMode(activity)) SchemeDarcula() else EditorColorScheme()
 
-
-        updateTitle() //TODO: Call this method when text is edited (How to detect??)
+        updateTitle()
         setupMenu()
         reload()
+
+        codeEditor.subscribeEvent(ContentChangeEvent::class.java) { _, _ ->
+            run {
+                updateTitle()
+                requireActivity().invalidateOptionsMenu()
+            }
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -101,6 +109,10 @@ class SoraEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                 menu.findItem(R.id.action_word_warp).isChecked = codeEditor.isWordwrap
                 menu.findItem(R.id.action_syntax_highlight).isChecked =
                     codeEditor.editorLanguage is JavaLanguage
+
+                menu.findItem(R.id.action_redo).isEnabled = codeEditor.canRedo()
+                menu.findItem(R.id.action_undo).isEnabled = codeEditor.canUndo()
+
             }
 
             override fun onMenuItemSelected(item: MenuItem): Boolean =
