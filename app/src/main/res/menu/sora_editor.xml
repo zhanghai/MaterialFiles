@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/action_save"
+        android:icon="@drawable/save_icon_control_normal_24dp"
+        android:orderInCategory="100"
+        android:title="@string/save"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/action_syntax_highlight"
+        android:checkable="true"
+        android:orderInCategory="100"
+        android:title="@string/syntax_highlighting"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_word_warp"
+        android:checkable="true"
+        android:orderInCategory="100"
+        android:title="@string/word_warp"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_undo"
+        android:icon="@drawable/round_undo_control_normal_24"
+        android:orderInCategory="100"
+        android:title="@string/undo"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_redo"
+        android:icon="@drawable/round_redo_control_normal_24"
+        android:orderInCategory="100"
+        android:title="@string/redo"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_reload"
+        android:orderInCategory="100"
+        android:title="@string/reload"
+        app:showAsAction="never" />
+
+</menu>

@@ -12,7 +12,7 @@ import me.zhanghai.android.files.app.AppActivity
 import me.zhanghai.android.files.util.putArgs
 
 class TextEditorActivity : AppActivity() {
-    private lateinit var fragment: TextEditorFragment
+    private lateinit var fragment: SoraEditorFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,11 +20,11 @@ class TextEditorActivity : AppActivity() {
         // Calls ensureSubDecor().
         findViewById<View>(android.R.id.content)
         if (savedInstanceState == null) {
-            fragment = TextEditorFragment().putArgs(TextEditorFragment.Args(intent))
+            fragment = SoraEditorFragment().putArgs(SoraEditorFragment.Args(intent))
             supportFragmentManager.commit { add(android.R.id.content, fragment) }
         } else {
             fragment = supportFragmentManager.findFragmentById(android.R.id.content)
-                as TextEditorFragment
+                as SoraEditorFragment
         }
     }
 
