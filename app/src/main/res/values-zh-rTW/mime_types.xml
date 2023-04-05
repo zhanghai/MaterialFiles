@@ -25,7 +25,7 @@
     <string name="file_type_name_presentation">%1$s 簡報</string>
     <string name="file_type_name_spreadsheet">%1$s 試算表</string>
     <string name="file_type_name_text">%1$s 檔案</string>
-    <string name="file_type_name_text_plain">文字文件</string>
+    <string name="file_type_name_text_plain">純文字檔案</string>
     <string name="file_type_name_video">%1$s 影片</string>
     <string name="file_type_name_word">Word 檔案</string>
     <string name="file_type_name_powerpoint">PowerPoint 投影片</string>
