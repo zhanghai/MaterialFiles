@@ -1,0 +1,15 @@
+一個採用質感設計的開源檔案管理器。
+
+特色：
+- 開放原始碼：輕巧、簡潔、安全。
+- 質感設計：符合 Material Design 規範，注重細節。
+- 麵包屑：透過多層選單輕鬆瀏覽檔案。
+- Root：以 Root 權限檢視及管理檔案。
+- 封存：檢視、取出與建立常見的壓縮檔案。
+- NAS：檢視及管理 FTP、SFTP 與 SMB 伺服器上的檔案。
+- 主題：可自訂介面色彩，設定夜間模式及純黑色調。
+- Linux 關聯：支援符號連結、檔案權限與 SELinux 安全本文。
+- 健全性：後端調度 Linux 系統，而非獨立的 ls 解析。
+- 結構完整：建立在良好基礎上，包括 Java NIO2 檔案 API 與 LiveData。
+
+https://github.com/zhanghai/MaterialFiles
