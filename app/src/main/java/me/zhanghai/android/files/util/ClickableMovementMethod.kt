@@ -18,14 +18,16 @@ import android.widget.TextView
  * [ClickableSpan]s.
  */
 object ClickableMovementMethod : BaseMovementMethod() {
-    override fun canSelectArbitrarily(): Boolean = false
+    override fun initialize(view: TextView, text: Spannable) {
+        Selection.removeSelection(text)
+    }
 
-    override fun onTouchEvent(widget: TextView, text: Spannable, event: MotionEvent): Boolean {
+    override fun onTouchEvent(view: TextView, text: Spannable, event: MotionEvent): Boolean {
         when (val action = event.actionMasked) {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_UP -> {
-                val x = event.x.toInt() - widget.totalPaddingLeft + widget.scrollX
-                val y = event.y.toInt() - widget.totalPaddingTop + widget.scrollY
-                val layout = widget.layout
+                val x = event.x.toInt() - view.totalPaddingLeft + view.scrollX
+                val y = event.y.toInt() - view.totalPaddingTop + view.scrollY
+                val layout = view.layout
                 val span = if (y < 0 || y > layout.height) {
                     null
                 } else {
@@ -41,7 +43,7 @@ object ClickableMovementMethod : BaseMovementMethod() {
                     if (action == MotionEvent.ACTION_DOWN) {
                         Selection.setSelection(text, text.getSpanStart(span), text.getSpanEnd(span))
                     } else {
-                        span.onClick(widget)
+                        span.onClick(view)
                     }
                     return true
                 } else {
@@ -50,9 +52,5 @@ object ClickableMovementMethod : BaseMovementMethod() {
             }
         }
         return false
-    }
-
-    override fun initialize(widget: TextView, text: Spannable) {
-        Selection.removeSelection(text)
     }
 }

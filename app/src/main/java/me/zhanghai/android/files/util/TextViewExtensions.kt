@@ -92,5 +92,5 @@ fun TextView.setSpanClickable() {
 
 fun TextView.setSpanClickableAndTextSelectable() {
     setTextIsSelectable(true)
-    movementMethod = LinkArrowKeyMovementMethod
+    movementMethod = ClickableArrowKeyMovementMethod
 }
