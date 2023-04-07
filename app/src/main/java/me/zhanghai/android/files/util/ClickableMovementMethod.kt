@@ -26,9 +26,17 @@ object ClickableMovementMethod : BaseMovementMethod() {
                 val x = event.x.toInt() - widget.totalPaddingLeft + widget.scrollX
                 val y = event.y.toInt() - widget.totalPaddingTop + widget.scrollY
                 val layout = widget.layout
-                val line = layout.getLineForVertical(y)
-                val off = layout.getOffsetForHorizontal(line, x.toFloat())
-                val span = text.getSpans(off, off, ClickableSpan::class.java).firstOrNull()
+                val span = if (y < 0 || y > layout.height) {
+                    null
+                } else {
+                    val line = layout.getLineForVertical(y)
+                    if (x < layout.getLineLeft(line) || x > layout.getLineRight(line)) {
+                        null
+                    } else {
+                        val off = layout.getOffsetForHorizontal(line, x.toFloat())
+                        text.getSpans(off, off, ClickableSpan::class.java).firstOrNull()
+                    }
+                }
                 if (span != null) {
                     if (action == MotionEvent.ACTION_DOWN) {
                         Selection.setSelection(text, text.getSpanStart(span), text.getSpanEnd(span))

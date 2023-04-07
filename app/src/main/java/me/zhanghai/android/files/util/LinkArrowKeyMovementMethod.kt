@@ -167,34 +167,37 @@ object LinkArrowKeyMovementMethod : ArrowKeyMovementMethod() {
         return false
     }
 
-    override fun onTouchEvent(widget: TextView, buffer: Spannable, event: MotionEvent): Boolean {
-        val action = event.action
-        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN) {
-            var x = event.x.toInt()
-            var y = event.y.toInt()
-            x -= widget.totalPaddingLeft
-            y -= widget.totalPaddingTop
-            x += widget.scrollX
-            y += widget.scrollY
-            val layout = widget.layout
-            val line = layout.getLineForVertical(y)
-            val off = layout.getOffsetForHorizontal(line, x.toFloat())
-            val links = buffer.getSpans(off, off, ClickableSpan::class.java)
-            if (links.isNotEmpty()) {
-                if (action == MotionEvent.ACTION_UP) {
-                    links[0].onClick(widget)
-                } else if (action == MotionEvent.ACTION_DOWN) {
-                    Selection.setSelection(
-                        buffer, buffer.getSpanStart(links[0]), buffer.getSpanEnd(links[0])
-                    )
+    override fun onTouchEvent(widget: TextView, text: Spannable, event: MotionEvent): Boolean {
+        when (val action = event.actionMasked) {
+            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_UP -> {
+                val x = event.x.toInt() - widget.totalPaddingLeft + widget.scrollX
+                val y = event.y.toInt() - widget.totalPaddingTop + widget.scrollY
+                val layout = widget.layout
+                val span = if (y < 0 || y > layout.height) {
+                    null
+                } else {
+                    val line = layout.getLineForVertical(y)
+                    if (x < layout.getLineLeft(line) || x > layout.getLineRight(line)) {
+                        null
+                    } else {
+                        val off = layout.getOffsetForHorizontal(line, x.toFloat())
+                        text.getSpans(off, off, ClickableSpan::class.java).firstOrNull()
+                    }
                 }
-                return true
+                if (span != null) {
+                    if (action == MotionEvent.ACTION_DOWN) {
+                        Selection.setSelection(text, text.getSpanStart(span), text.getSpanEnd(span))
+                    } else {
+                        span.onClick(widget)
+                    }
+                    return true
+                }
+                // Removed
+                //else {
+                //    Selection.removeSelection(buffer);
+                //}
             }
-            // Removed
-            //else {
-            //    Selection.removeSelection(buffer);
-            //}
         }
-        return super.onTouchEvent(widget, buffer, event)
+        return super.onTouchEvent(widget, text, event)
     }
 }
