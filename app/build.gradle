@@ -5,10 +5,6 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-kapt {
-    correctErrorTypes = true
-}
 apply plugin: 'kotlin-parcelize'
 
 apply from: '../signing.gradle'
@@ -21,7 +17,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.3.15'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.4'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -47,11 +43,16 @@ android {
         resValue 'string', 'file_provider_authority', applicationId + '.file_provider'
     }
     buildFeatures {
+        aidl true
+        buildConfig true
         viewBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     externalNativeBuild {
         cmake {
@@ -91,7 +92,7 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
-    implementation 'com.github.topjohnwu.libsu:service:5.0.4'
+    implementation 'com.github.topjohnwu.libsu:service:5.0.5'
 }
 
 dependencies {
@@ -120,7 +121,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
 
     implementation 'com.caverock:androidsvg-aar:1.4'
-    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.drakeet.drawer:drawer:1.0.3'
     debugImplementation 'com.facebook.stetho:stetho:1.6.0'
     // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
@@ -132,26 +133,26 @@ dependencies {
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
+    // TODO: Update for SSH
+    //implementation ('com.hierynomus:sshj:0.35.0') {
     implementation ('com.hierynomus:sshj:0.32.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.4.0'
-    // FloatingActionButtonSpeedDial 3.2.0 forces the user out of touch mode upon open and leaves a
-    // strange focus effect on the first mini FAB.
-    //noinspection GradleDependency
-    implementation 'com.leinardi.android:speed-dial:3.1.1'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
+    implementation 'com.leinardi.android:speed-dial:3.3.0'
     implementation ('com.rapid7.client:dcerpc:0.12.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.70'
     // SMBJ-RPC depends on com.google.guava:guava:18.0, which conflicts with
     // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
+    // TODO: Update for FTP client
+    //implementation 'commons-net:commons-net:3.9.0'
     implementation 'commons-net:commons-net:3.8.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
@@ -160,8 +161,15 @@ dependencies {
     // dev.chrisbanesinsetter:insetter:0.6.0 makes inset unstable when entering immersive.
     implementation 'dev.chrisbanes:insetter-ktx:0.3.1'
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.3'
+    // Shizuku-API 13.1.0 requires core library desugaring.
+    //noinspection GradleDependency
     implementation 'dev.rikka.shizuku:api:12.2.0'
-    implementation 'eu.agno3.jcifs:jcifs-ng:2.1.6'
+    implementation ('eu.agno3.jcifs:jcifs-ng:2.1.9') {
+        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    }
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.73'
     def coil_version = '2.3.0'
     implementation "io.coil-kt:coil:$coil_version"
     implementation "io.coil-kt:coil-gif:$coil_version"
@@ -195,8 +203,10 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
+    // TODO: Update for RAR
+    //implementation 'com.github.junrar:junrar:7.5.4'
     implementation 'com.github.junrar:junrar:7.4.1'
-    implementation platform('com.google.firebase:firebase-bom:30.4.0')
+    implementation platform('com.google.firebase:firebase-bom:31.5.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif
