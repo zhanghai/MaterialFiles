@@ -29,7 +29,6 @@ import com.leinardi.android.speeddial.FabWithLabelView
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.parcelize.Parcelize
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.createCompat
 import me.zhanghai.android.files.compat.setTextAppearanceCompat
 import me.zhanghai.android.files.util.ParcelableState
@@ -64,13 +63,19 @@ class ThemedSpeedDialView : SpeedDialView {
         }
         val context = context
         if (context.isMaterial3Theme) {
-            mainFabClosedBackgroundColor = context.getColorByAttr(R.attr.colorSecondaryContainer)
-            mainFabClosedIconColor = context.getColorByAttr(R.attr.colorOnSecondaryContainer)
-            mainFabOpenedBackgroundColor = context.getColorByAttr(R.attr.colorPrimary)
-            mainFabOpenedIconColor = context.getColorByAttr(R.attr.colorOnPrimary)
+            mainFabClosedBackgroundColor =
+                context.getColorByAttr(com.google.android.material.R.attr.colorSecondaryContainer)
+            mainFabClosedIconColor =
+                context.getColorByAttr(com.google.android.material.R.attr.colorOnSecondaryContainer)
+            mainFabOpenedBackgroundColor =
+                context.getColorByAttr(androidx.appcompat.R.attr.colorPrimary)
+            mainFabOpenedIconColor =
+                context.getColorByAttr(com.google.android.material.R.attr.colorOnPrimary)
         } else {
-            mainFabClosedBackgroundColor = context.getColorByAttr(R.attr.colorSecondary)
-            mainFabClosedIconColor = context.getColorByAttr(R.attr.colorOnSecondary)
+            mainFabClosedBackgroundColor =
+                context.getColorByAttr(com.google.android.material.R.attr.colorSecondary)
+            mainFabClosedIconColor =
+                context.getColorByAttr(com.google.android.material.R.attr.colorOnSecondary)
             mainFabOpenedBackgroundColor = mainFabClosedBackgroundColor
             mainFabOpenedIconColor = mainFabClosedIconColor
         }
@@ -122,7 +127,8 @@ class ThemedSpeedDialView : SpeedDialView {
 
         val overlayLayout = overlayLayout
         if (overlayLayout != null) {
-            val surfaceColor = context.getColorByAttr(R.attr.colorSurface)
+            val surfaceColor =
+                context.getColorByAttr(com.google.android.material.R.attr.colorSurface)
             val overlayColor = surfaceColor.asColor().withModulatedAlpha(0.87f).value
             overlayLayout.setBackgroundColor(overlayColor)
         }
@@ -136,18 +142,19 @@ class ThemedSpeedDialView : SpeedDialView {
         val context = context
         val isMaterial3Theme = context.isMaterial3Theme
         val fabImageTintColor = if (isMaterial3Theme) {
-            context.getColorByAttr(R.attr.colorPrimary)
+            context.getColorByAttr(androidx.appcompat.R.attr.colorPrimary)
         } else {
-            context.getColorByAttr(R.attr.colorSecondary)
+            context.getColorByAttr(com.google.android.material.R.attr.colorSecondary)
         }
-        val fabBackgroundColor = context.getColorByAttr(R.attr.colorSurface)
+        val fabBackgroundColor =
+            context.getColorByAttr(com.google.android.material.R.attr.colorSurface)
         val labelColor = context.getColorByAttr(android.R.attr.textColorSecondary)
         val labelBackgroundColor = if (isMaterial3Theme) {
             Color.TRANSPARENT
         } else {
             // Label view doesn't have enough elevation (only 1dp) for elevation overlay to work
             // well.
-            context.getColorByAttr(R.attr.colorBackgroundFloating)
+            context.getColorByAttr(androidx.appcompat.R.attr.colorBackgroundFloating)
         }
         val actionItem = SpeedDialActionItem.Builder(
             actionItem.id,
@@ -177,7 +184,9 @@ class ThemedSpeedDialView : SpeedDialView {
                     foreground = null
                     (getChildAt(0) as TextView).apply {
                         setTextAppearanceCompat(
-                            context.getResourceIdByAttr(R.attr.textAppearanceLabelLarge)
+                            context.getResourceIdByAttr(
+                                com.google.android.material.R.attr.textAppearanceLabelLarge
+                            )
                         )
                     }
                 }

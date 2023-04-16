@@ -17,7 +17,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.ColorUtils
 import androidx.core.view.ViewCompat
 import de.psdev.licensesdialog.model.Notices
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.scrollIndicatorsCompat
 import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.getColorByAttr
@@ -69,7 +68,8 @@ private fun createHtml(notices: Notices, context: Context): String =
 private fun createStyle(context: Context): String {
     val primaryTextColor = context.getColorByAttr(android.R.attr.textColorPrimary).toCssColor()
     val preformattedTextBackgroundColor = ColorUtils.setAlphaComponent(
-        context.getColorByAttr(R.attr.colorOnSurface), (0.08f * 0xFF).roundToInt()
+        context.getColorByAttr(com.google.android.material.R.attr.colorOnSurface),
+        (0.08f * 0xFF).roundToInt()
     ).toCssColor()
     val linkTextColor = context.getColorByAttr(android.R.attr.textColorLink).toCssColor()
     val textHighlightColor = context.getColorByAttr(android.R.attr.textColorHighlight).toCssColor()
@@ -139,7 +139,9 @@ private fun createView(html: String, context: Context): View {
     }
     return FrameLayout(context).apply {
         setPaddingRelative(
-            0, context.getDimensionPixelSize(R.dimen.abc_dialog_title_divider_material), 0, 0
+            0, context.getDimensionPixelSize(
+                androidx.appcompat.R.dimen.abc_dialog_title_divider_material
+            ), 0, 0
         )
         addView(webView)
     }

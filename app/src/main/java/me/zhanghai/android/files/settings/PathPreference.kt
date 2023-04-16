@@ -17,7 +17,6 @@ import androidx.preference.Preference
 import com.takisoft.preferencex.PreferenceActivityResultListener
 import com.takisoft.preferencex.PreferenceFragmentCompat
 import java8.nio.file.Path
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.filelist.toUserFriendlyString
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData
@@ -64,12 +63,12 @@ abstract class PathPreference : Preference, PreferenceActivityResultListener {
     private fun init(attrs: AttributeSet?, @AttrRes defStyleAttr: Int, @StyleRes defStyleRes: Int) {
         isPersistent = false
         context.obtainStyledAttributes(
-            attrs, R.styleable.EditTextPreference, defStyleAttr, defStyleRes
+            attrs, androidx.preference.R.styleable.EditTextPreference, defStyleAttr, defStyleRes
         ).use {
             if (TypedArrayUtils.getBoolean(
-                    it, R.styleable.EditTextPreference_useSimpleSummaryProvider,
-                    R.styleable.EditTextPreference_useSimpleSummaryProvider, false
-                )) {
+                it, androidx.preference.R.styleable.EditTextPreference_useSimpleSummaryProvider,
+                androidx.preference.R.styleable.EditTextPreference_useSimpleSummaryProvider, false
+            )) {
                 summaryProvider = SimpleSummaryProvider
             }
         }

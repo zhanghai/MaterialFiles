@@ -18,7 +18,6 @@ import androidx.appcompat.widget.ListPopupWindow
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import kotlinx.parcelize.Parcelize
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.doOnGlobalLayout
 import me.zhanghai.android.files.util.getBooleanByAttr
@@ -44,17 +43,18 @@ class DropDownView @JvmOverloads constructor(
 
     private fun maybeSimulateElevationOverlay() {
         val context = context
-        val elevationOverlayEnabled = context.getBooleanByAttr(R.attr.elevationOverlayEnabled)
+        val elevationOverlayEnabled =
+            context.getBooleanByAttr(com.google.android.material.R.attr.elevationOverlayEnabled)
         if (!elevationOverlayEnabled) {
             return
         }
         val elevation = context.getDimensionPixelOffset(
-            R.dimen.mtrl_exposed_dropdown_menu_popup_elevation
+            com.google.android.material.R.dimen.mtrl_exposed_dropdown_menu_popup_elevation
         ).toFloat()
         val background = MaterialShapeDrawable.createWithElevationOverlay(context, elevation)
             .apply {
                 val cornerSize = context.getDimensionPixelOffset(
-                    R.dimen.mtrl_shape_corner_size_small_component
+                    com.google.android.material.R.dimen.mtrl_shape_corner_size_small_component
                 ).toFloat()
                 shapeAppearanceModel = ShapeAppearanceModel.builder()
                     .setAllCornerSizes(cornerSize)

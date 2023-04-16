@@ -11,7 +11,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.asColor
 import me.zhanghai.android.files.util.getColorByAttr
 import me.zhanghai.android.files.util.shortAnimTime
@@ -30,7 +29,7 @@ object CheckableItemBackground {
             val shortAnimTime = context.shortAnimTime
             setEnterFadeDuration(shortAnimTime)
             setExitFadeDuration(shortAnimTime)
-            val primaryColor = context.getColorByAttr(R.attr.colorPrimary)
+            val primaryColor = context.getColorByAttr(androidx.appcompat.R.attr.colorPrimary)
             val checkedColor = primaryColor.asColor().withModulatedAlpha(0.12f).value
             addState(intArrayOf(android.R.attr.state_checked), ColorDrawable(checkedColor))
             addState(intArrayOf(), ColorDrawable(Color.TRANSPARENT))

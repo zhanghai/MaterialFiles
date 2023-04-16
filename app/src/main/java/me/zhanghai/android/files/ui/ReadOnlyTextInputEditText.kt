@@ -16,7 +16,6 @@ import android.view.View
 import androidx.annotation.AttrRes
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.textfield.TextInputEditText
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.getColorStateListByAttr
 
 class ReadOnlyTextInputEditText : TextInputEditText {
@@ -73,7 +72,8 @@ class ReadOnlyTextInputEditText : TextInputEditText {
     // @see com.google.android.material.textfield.DropdownMenuEndIconDelegate#addRippleEffect(
     //      AutoCompleteTextView)
     private fun addRippleEffect(boxBackground: MaterialShapeDrawable): Drawable {
-        val rippleColor = context.getColorStateListByAttr(R.attr.colorControlHighlight)
+        val rippleColor =
+            context.getColorStateListByAttr(androidx.appcompat.R.attr.colorControlHighlight)
         val mask = MaterialShapeDrawable(boxBackground.shapeAppearanceModel)
             .apply { setTint(Color.WHITE) }
         return RippleDrawable(rippleColor, boxBackground, mask)

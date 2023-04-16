@@ -12,7 +12,6 @@ import androidx.annotation.AttrRes
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePaddingRelative
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.requireViewByIdCompat
 import me.zhanghai.android.files.util.dpToDimensionPixelSize
 import me.zhanghai.android.files.util.getDrawableByAttr
@@ -30,19 +29,19 @@ open class FixLayoutSearchView : SearchView {
         // A negative value won't work here because SearchView will use its preferred width as max
         // width instead.
         maxWidth = Int.MAX_VALUE
-        val searchEditFrame = requireViewByIdCompat<View>(R.id.search_edit_frame)
+        val searchEditFrame = requireViewByIdCompat<View>(androidx.appcompat.R.id.search_edit_frame)
         searchEditFrame.updateLayoutParams<MarginLayoutParams> {
             leftMargin = 0
             rightMargin = 0
         }
-        val searchSrcText = requireViewByIdCompat<View>(R.id.search_src_text)
+        val searchSrcText = requireViewByIdCompat<View>(androidx.appcompat.R.id.search_src_text)
         searchSrcText.updatePaddingRelative(start = 0, end = 0)
-        val searchCloseBtn = requireViewByIdCompat<View>(R.id.search_close_btn)
+        val searchCloseBtn = requireViewByIdCompat<View>(androidx.appcompat.R.id.search_close_btn)
         val searchCloseBtnPaddingHorizontal = searchCloseBtn.context.dpToDimensionPixelSize(12)
         searchCloseBtn.updatePaddingRelative(
             start = searchCloseBtnPaddingHorizontal, end = searchCloseBtnPaddingHorizontal
         )
         searchCloseBtn.background = searchCloseBtn.context
-            .getDrawableByAttr(R.attr.actionBarItemBackground)
+            .getDrawableByAttr(androidx.appcompat.R.attr.actionBarItemBackground)
     }
 }

@@ -36,8 +36,9 @@ class BreadcrumbLayout : HorizontalScrollView {
                 context.getColorByAttr(android.R.attr.textColorSecondary)
             )
         )
-    private val popupContext =
-        context.withTheme(context.getResourceIdByAttr(R.attr.actionBarPopupTheme))
+    private val popupContext = context.withTheme(
+        context.getResourceIdByAttr(androidx.appcompat.R.attr.actionBarPopupTheme)
+    )
 
     private val itemsLayout: LinearLayout
 

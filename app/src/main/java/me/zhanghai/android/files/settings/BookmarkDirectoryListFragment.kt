@@ -18,7 +18,6 @@ import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
 import java8.nio.file.Path
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.BookmarkDirectoryListFragmentBinding
 import me.zhanghai.android.files.filelist.FileListActivity
 import me.zhanghai.android.files.navigation.BookmarkDirectories
@@ -64,7 +63,9 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
         adapter = BookmarkDirectoryListAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
-                getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable
+                getDrawable(
+                    com.h6ah4i.android.materialshadowninepatch.R.drawable.ms9_composite_shadow_z2
+                ) as NinePatchDrawable
             )
         }
         wrappedAdapter = dragDropManager.createWrappedAdapter(adapter)

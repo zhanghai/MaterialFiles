@@ -11,7 +11,6 @@ import android.graphics.Color
 import android.os.Build
 import androidx.annotation.StyleRes
 import androidx.core.app.ActivityCompat
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.getColorByAttr
 
 fun Activity.recreateCompat() {
@@ -21,7 +20,7 @@ fun Activity.recreateCompat() {
 fun Activity.setThemeCompat(@StyleRes resid: Int) {
     setTheme(resid)
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        val surfaceColor = getColorByAttr(R.attr.colorSurface)
+        val surfaceColor = getColorByAttr(com.google.android.material.R.attr.colorSurface)
         if (surfaceColor != 0 && Color.alpha(surfaceColor) == 0xFF) {
             @Suppress("DEPRECATION")
             setTaskDescription(TaskDescription(null, null, surfaceColor))

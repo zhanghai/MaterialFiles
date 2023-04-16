@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.annotation.AttrRes
 import com.google.android.material.textfield.TextInputLayout
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getDrawableCompat
 
 class ReadOnlyTextInputLayout : TextInputLayout {
@@ -39,7 +38,9 @@ class ReadOnlyTextInputLayout : TextInputLayout {
     fun setDropDown(dropDown: Boolean) {
         if (dropDown) {
             endIconMode = END_ICON_CUSTOM
-            endIconDrawable = context.getDrawableCompat(R.drawable.mtrl_ic_arrow_drop_down)
+            endIconDrawable = context.getDrawableCompat(
+                com.google.android.material.R.drawable.mtrl_ic_arrow_drop_down
+            )
         } else {
             endIconMode = END_ICON_NONE
         }

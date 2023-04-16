@@ -40,27 +40,38 @@ class NavigationListAdapter(
 ) : SimpleAdapter<NavigationItem?, RecyclerView.ViewHolder>() {
     @SuppressLint("PrivateResource", "RestrictedApi")
     private val viewAttributes = context.obtainStyledAttributesCompat(
-        null, R.styleable.NavigationView, R.attr.navigationViewStyle,
-        R.style.Widget_MaterialComponents_NavigationView
+        null, com.google.android.material.R.styleable.NavigationView,
+        com.google.android.material.R.attr.navigationViewStyle,
+        com.google.android.material.R.style.Widget_MaterialComponents_NavigationView
     ).use { a ->
-        val itemShapeAppearance = a.getResourceId(R.styleable.NavigationView_itemShapeAppearance, 0)
-        val itemShapeAppearanceOverlay = a.getResourceId(
-            R.styleable.NavigationView_itemShapeAppearanceOverlay, 0
+        val itemShapeAppearance = a.getResourceId(
+            com.google.android.material.R.styleable.NavigationView_itemShapeAppearance, 0
         )
-        val itemShapeFillColor = a.getColorStateList(R.styleable.NavigationView_itemShapeFillColor)
-        val itemShapeInsetStart =
-            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetStart, 0)
-        val itemShapeInsetEnd =
-            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetEnd, 0)
-        val itemShapeInsetTop =
-            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetTop, 0)
-        val itemShapeInsetBottom =
-            a.getDimensionPixelSize(R.styleable.NavigationView_itemShapeInsetBottom, 0)
+        val itemShapeAppearanceOverlay = a.getResourceId(
+            com.google.android.material.R.styleable.NavigationView_itemShapeAppearanceOverlay, 0
+        )
+        val itemShapeFillColor = a.getColorStateList(
+            com.google.android.material.R.styleable.NavigationView_itemShapeFillColor
+        )
+        val itemShapeInsetStart = a.getDimensionPixelSize(
+            com.google.android.material.R.styleable.NavigationView_itemShapeInsetStart, 0
+        )
+        val itemShapeInsetEnd = a.getDimensionPixelSize(
+            com.google.android.material.R.styleable.NavigationView_itemShapeInsetEnd, 0
+        )
+        val itemShapeInsetTop = a.getDimensionPixelSize(
+            com.google.android.material.R.styleable.NavigationView_itemShapeInsetTop, 0
+        )
+        val itemShapeInsetBottom = a.getDimensionPixelSize(
+            com.google.android.material.R.styleable.NavigationView_itemShapeInsetBottom, 0
+        )
         val itemBackground = createItemShapeDrawable(
             itemShapeAppearance, itemShapeAppearanceOverlay, itemShapeFillColor,
             itemShapeInsetStart, itemShapeInsetEnd, itemShapeInsetTop, itemShapeInsetBottom, context
         )
-        val controlHighlightColor = context.getColorStateListByAttr(R.attr.colorControlHighlight)
+        val controlHighlightColor = context.getColorStateListByAttr(
+            com.google.android.material.R.attr.colorControlHighlight
+        )
         val itemForegroundMaskFillColor = ColorStateList.valueOf(Color.WHITE)
         val itemForegroundMask = createItemShapeDrawable(
             itemShapeAppearance, itemShapeAppearanceOverlay, itemForegroundMaskFillColor,
@@ -68,28 +79,46 @@ class NavigationListAdapter(
         )
         val itemForeground = RippleDrawable(controlHighlightColor, null, itemForegroundMask)
         context.obtainStyledAttributesCompat(
-            null, R.styleable.NavigationViewExtra, R.attr.navigationViewStyle, 0
+            null, R.styleable.NavigationViewExtra,
+            com.google.android.material.R.attr.navigationViewStyle, 0
         ).use { a2 ->
             ViewAttributes(
-                a.getDimensionPixelSize(R.styleable.NavigationView_itemHorizontalPadding, 0),
-                a.getDimensionPixelSize(R.styleable.NavigationView_itemVerticalPadding, 0),
+                a.getDimensionPixelSize(
+                    com.google.android.material.R.styleable.NavigationView_itemHorizontalPadding, 0
+                ),
+                a.getDimensionPixelSize(
+                    com.google.android.material.R.styleable.NavigationView_itemVerticalPadding, 0
+                ),
                 itemBackground,
                 itemForeground,
-                a.getDimensionPixelSize(R.styleable.NavigationView_itemIconSize, 0),
-                a.getColorStateList(R.styleable.NavigationView_itemIconTint),
-                a.getDimensionPixelSize(R.styleable.NavigationView_itemIconPadding, 0),
-                a.getResourceId(
-                    R.styleable.NavigationView_itemTextAppearance, ResourcesCompat.ID_NULL
+                a.getDimensionPixelSize(
+                    com.google.android.material.R.styleable.NavigationView_itemIconSize, 0
                 ),
-                a.getColorStateList(R.styleable.NavigationView_itemTextColor),
+                a.getColorStateList(
+                    com.google.android.material.R.styleable.NavigationView_itemIconTint
+                ),
+                a.getDimensionPixelSize(
+                    com.google.android.material.R.styleable.NavigationView_itemIconPadding, 0
+                ),
+                a.getResourceId(
+                    com.google.android.material.R.styleable.NavigationView_itemTextAppearance,
+                    ResourcesCompat.ID_NULL
+                ),
+                a.getColorStateList(
+                    com.google.android.material.R.styleable.NavigationView_itemTextColor
+                ),
                 a2.getResourceId(
                     R.styleable.NavigationViewExtra_itemSubtitleTextAppearance,
                     ResourcesCompat.ID_NULL
                 ),
                 a2.getColorStateList(R.styleable.NavigationViewExtra_itemSubtitleTextColor),
                 a2.getDimension(R.styleable.NavigationViewExtra_itemSubtitleTextSize, 0f),
-                a.getDimensionPixelSize(R.styleable.NavigationView_dividerInsetStart, 0),
-                a.getDimensionPixelSize(R.styleable.NavigationView_dividerInsetEnd, 0),
+                a.getDimensionPixelSize(
+                    com.google.android.material.R.styleable.NavigationView_dividerInsetStart, 0
+                ),
+                a.getDimensionPixelSize(
+                    com.google.android.material.R.styleable.NavigationView_dividerInsetEnd, 0
+                ),
                 a2.getDimensionPixelSize(R.styleable.NavigationViewExtra_dividerVerticalPadding, 0)
             )
         }

@@ -23,9 +23,11 @@ import me.zhanghai.android.files.util.getDrawableByAttr
 import me.zhanghai.android.files.util.isLayoutDirectionRtl
 
 class NavigationRecyclerView : RecyclerView {
-    private val verticalPadding =
-        context.getDimensionPixelSize(R.dimen.design_navigation_padding_bottom)
-    private val actionBarSize = context.getDimensionPixelSizeByAttr(R.attr.actionBarSize)
+    private val verticalPadding = context.getDimensionPixelSize(
+        com.google.android.material.R.dimen.design_navigation_padding_bottom
+    )
+    private val actionBarSize =
+        context.getDimensionPixelSizeByAttr(androidx.appcompat.R.attr.actionBarSize)
     private val maxWidth = context.getDimensionPixelSize(R.dimen.navigation_max_width)
     private var scrim = context.getDrawableByAttr(android.R.attr.statusBarColor)
 

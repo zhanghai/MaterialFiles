@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
-import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.StorageListFragmentBinding
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.createIntent
@@ -53,7 +52,9 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
         adapter = StorageListAdapter(this)
         dragDropManager = RecyclerViewDragDropManager().apply {
             setDraggingItemShadowDrawable(
-                getDrawable(R.drawable.ms9_composite_shadow_z2) as NinePatchDrawable
+                getDrawable(
+                    com.h6ah4i.android.materialshadowninepatch.R.drawable.ms9_composite_shadow_z2
+                ) as NinePatchDrawable
             )
         }
         wrappedAdapter = dragDropManager.createWrappedAdapter(adapter)

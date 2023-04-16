@@ -37,17 +37,18 @@ public class ThemedSwipeRefreshLayout extends SwipeRefreshLayout {
         int backgroundColor;
         if (isMaterial3Theme) {
             int surfaceColor = ContextExtensionsKt.getColorByAttr(context,
-                    R.attr.colorSurface);
+                    com.google.android.material.R.attr.colorSurface);
             @SuppressLint("PrivateResource")
             int overlayColor = ContextCompatKt.getColorCompat(context,
-                    R.color.m3_popupmenu_overlay_color);
+                    com.google.android.material.R.color.m3_popupmenu_overlay_color);
             backgroundColor = ColorUtils.compositeColors(overlayColor, surfaceColor);
         } else {
             backgroundColor = ContextExtensionsKt.getColorByAttr(context,
-                    R.attr.colorBackgroundFloating);
+                    androidx.appcompat.R.attr.colorBackgroundFloating);
         }
         ((ShapeDrawable) mCircleView.getBackground()).getPaint().setColor(backgroundColor);
-        setColorSchemeColors(ContextExtensionsKt.getColorByAttr(context, R.attr.colorAccent));
+        setColorSchemeColors(ContextExtensionsKt.getColorByAttr(context,
+                androidx.appcompat.R.attr.colorAccent));
     }
 
     @Override
