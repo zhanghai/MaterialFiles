@@ -133,9 +133,7 @@ dependencies {
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    // TODO: Update for SSH
-    //implementation ('com.hierynomus:sshj:0.35.0') {
-    implementation ('com.hierynomus:sshj:0.32.0') {
+    implementation ('com.hierynomus:sshj:0.35.0') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
@@ -151,9 +149,7 @@ dependencies {
     // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
-    // TODO: Update for FTP client
-    //implementation 'commons-net:commons-net:3.9.0'
-    implementation 'commons-net:commons-net:3.8.0'
+    implementation 'commons-net:commons-net:3.9.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
     //noinspection GradleDependency
@@ -203,9 +199,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    // TODO: Update for RAR
-    //implementation 'com.github.junrar:junrar:7.5.4'
-    implementation 'com.github.junrar:junrar:7.4.1'
+    implementation 'com.github.junrar:junrar:7.5.4'
     implementation platform('com.google.firebase:firebase-bom:31.5.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
