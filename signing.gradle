@@ -17,5 +17,12 @@ android {
             keyAlias getString('keyAlias', 'KEY_ALIAS', 'Key alias')
             keyPassword getString('keyPassword', 'KEY_PASSWORD', 'Key password')
         }
+
+        debug {
+            storeFile file('testkey_untrusted.jks')
+            keyAlias 'alias'
+            storePassword 'xrj45yWGLbsO7W0v'
+            keyPassword 'xrj45yWGLbsO7W0v'
+        }
     }
 }
