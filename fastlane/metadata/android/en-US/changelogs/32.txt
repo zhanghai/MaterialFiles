@@ -1,0 +1,2 @@
+- Use Sora-Editor as Text Editor.
+- Other bug fixes and improvements.

@@ -35,8 +35,8 @@ android {
         // Not supporting notification runtime permission yet.
         //noinspection OldTargetApi
         targetSdkVersion 32
-        versionCode 31
-        versionName '1.5.2'
+        versionCode 32
+        versionName '1.5.2.Sora-Editor'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
