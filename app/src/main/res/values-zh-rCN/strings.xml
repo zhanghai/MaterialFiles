@@ -586,4 +586,9 @@
     <string name="about_author_name_title">张海</string>
     <string name="about_author_github_title">在 GitHub 上关注</string>
     <string name="about_author_twitter_title">在 Twitter 上关注</string>
+
+    <string name="word_warp">文字换行</string>
+    <string name="syntax_highlighting">语法高亮</string>
+    <string name="undo">撤消</string>
+    <string name="redo">重做</string> 
 </resources>

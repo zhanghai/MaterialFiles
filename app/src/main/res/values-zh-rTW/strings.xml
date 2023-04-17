@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ Copyright (c) 2023 Hai Zhang <dreaming.in.code.zh@gmail.com>
   ~ All Rights Reserved.
   -->
 
@@ -23,12 +23,12 @@
     <string name="install">安裝</string>
     <string name="keep_editing">繼續編輯</string>
     <string name="loading">正在載入…</string>
-    <string name="maybe_later">稍後再說</string>
+    <string name="maybe_later">稍後</string>
     <string name="merge">合併</string>
     <string name="none">無</string>
-    <string name="open_navigation_drawer">開啟導覽匣</string>
+    <string name="open_navigation_drawer">開啟側邊選單</string>
     <string name="paste">貼上</string>
-    <string name="refresh">更新</string>
+    <string name="refresh">重新整理</string>
     <string name="reload">重新載入</string>
     <string name="remove">移除</string>
     <string name="rename">重新命名</string>
@@ -44,11 +44,11 @@
     <string name="skip">跳過</string>
     <string name="sort">排序</string>
     <string name="stop">停止</string>
-    <string name="unknown">不明</string>
+    <string name="unknown">未知</string>
     <string name="view">查看</string>
 
     <!-- android.R.string.app_not_found -->
-    <string name="activity_not_found">未找到可處理此操作的程式</string>
+    <string name="activity_not_found">找不到可執行這項操作的應用程式</string>
     <string name="open_settings">開啟設定</string>
     <string name="shortcut_created">已建立捷徑</string>
 
@@ -56,9 +56,9 @@
         <item quantity="other">%1$,d 位元組</item>
     </plurals>
 
-    <string name="storage_permission_rationale_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
-    <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在系統設定中授予「儲存空間」權限。</string>
-    <string name="all_files_access_rationale_message">程式需要管理所有檔案的權限。請在接下來的系統設定中授予權限。</string>
+    <string name="storage_permission_rationale_message">應用程式需要存取檔案權限。請在接下來的畫面中按下「允許」。</string>
+    <string name="storage_permission_permanently_denied_message">應用程式需要存取檔案權限。請在系統設定中授予「儲存空間」權限。</string>
+    <string name="all_files_access_rationale_message">應用程式需要管理所有檔案的權限。請在接下來的系統設定中授予權限。</string>
 
     <string name="notification_channel_background_activity_start_name">背景期間動作</string>
     <string name="notification_channel_background_activity_start_description">在應用程式處於背景期間採取動作</string>
@@ -68,111 +68,111 @@
     <string name="notification_channel_ftp_server_description">顯示和控制 FTP 伺服器</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
-        <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）</item>
+        <item quantity="other">正在準備壓縮 %1$,d 個檔案（%2$s）…</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one_format">正在將「%1$s」壓縮進「%2$s」</string>
+    <string name="file_job_archive_notification_title_one_format">正在將「%1$s」壓縮至「%2$s」…</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
-        <item quantity="other">正在將 %1$,d 個檔案壓縮進「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案壓縮至「%2$s」…</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
-        <item quantity="other">正在準備複製 %1$,d 個檔案（%2$s）</item>
+        <item quantity="other">正在準備複製 %1$,d 個檔案（%2$s）…</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one_format">正在將「%1$s」複製到「%2$s」</string>
+    <string name="file_job_copy_notification_title_one_format">正在將「%1$s」複製到「%2$s」…</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
-        <item quantity="other">正在將 %1$,d 個檔案複製到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案複製到「%2$s」…</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
-        <item quantity="other">正在準備解開 %1$,d 個檔案（%2$s）</item>
+        <item quantity="other">正在準備解壓縮 %1$,d 個檔案（%2$s）…</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one_format">正在將「%1$s」解開到「%2$s」</string>
+    <string name="file_job_extract_notification_title_one_format">正在將「%1$s」解壓縮至「%2$s」…</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
-        <item quantity="other">正在將 %1$,d 個檔案解開到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案解壓縮至「%2$s」…</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
-        <item quantity="other">正在準備移動 %1$,d 個檔案（%2$s）</item>
+        <item quantity="other">正在準備移動 %1$,d 個檔案（%2$s）…</item>
     </plurals>
-    <string name="file_job_move_notification_title_one_format">正在將「%1$s」移動到「%2$s」</string>
+    <string name="file_job_move_notification_title_one_format">正在將「%1$s」移動到「%2$s」…</string>
     <plurals name="file_job_move_notification_title_multiple_format">
-        <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」</item>
+        <item quantity="other">正在將 %1$,d 個檔案移動到「%2$s」…</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title_format">
-        <item quantity="other">正在準備刪除 %1$,d 個檔案</item>
+        <item quantity="other">正在準備刪除 %1$,d 個檔案…</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one_format">正在刪除「%1$s」</string>
+    <string name="file_job_delete_notification_title_one_format">正在刪除「%1$s」…</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
-        <item quantity="other">正在刪除 %1$,d 個檔案</item>
+        <item quantity="other">正在刪除 %1$,d 個檔案…</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
-        <item quantity="other">正在準備變更 %1$,d 個檔案的擁有者</item>
+        <item quantity="other">正在準備變更 %1$,d 個檔案的擁有者…</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one_format">正在變更「%1$s」的擁有者</string>
+    <string name="file_job_set_owner_notification_title_one_format">正在變更「%1$s」的擁有者…</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
-        <item quantity="other">正在變更 %1$,d 個檔案的擁有者</item>
+        <item quantity="other">正在變更 %1$,d 個檔案的擁有者…</item>
     </plurals>
     <plurals name="file_job_set_group_scan_notification_title_format">
-        <item quantity="other">正在準備變更 %1$,d 個檔案的群組</item>
+        <item quantity="other">正在準備變更 %1$,d 個檔案的群組…</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one_format">正在變更「%1$s」的群組</string>
+    <string name="file_job_set_group_notification_title_one_format">正在變更「%1$s」的群組…</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
-        <item quantity="other">正在變更 %1$,d 個檔案的群組</item>
+        <item quantity="other">正在變更 %1$,d 個檔案的群組…</item>
     </plurals>
     <plurals name="file_job_set_mode_scan_notification_title_format">
-        <item quantity="other">正在準備變更 %1$,d 個檔案的模式</item>
+        <item quantity="other">正在準備變更 %1$,d 個檔案的模式…</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one_format">正在變更「%1$s」的模式</string>
+    <string name="file_job_set_mode_notification_title_one_format">正在變更「%1$s」的模式…</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
-        <item quantity="other">正在變更 %1$,d 個檔案的模式</item>
+        <item quantity="other">正在變更 %1$,d 個檔案的模式…</item>
     </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
-        <item quantity="other">正在準備變更 %1$,d 個檔案的 SELinux 上下文</item>
+        <item quantity="other">正在準備變更 %1$,d 個檔案的 SELinux 本文…</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one_format">正在變更「%1$s」的 SELinux 上下文</string>
+    <string name="file_job_set_selinux_context_notification_title_one_format">正在變更「%1$s」的 SELinux 本文…</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
-        <item quantity="other">正在變更 %1$,d 個檔案的 SELinux 上下文</item>
+        <item quantity="other">正在變更 %1$,d 個檔案的 SELinux 本文…</item>
     </plurals>
     <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
-        <item quantity="other">正在準備還原 %1$,d 個檔案的 SELinux 上下文</item>
+        <item quantity="other">正在準備還原 %1$,d 個檔案的 SELinux 本文…</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one_format">正在還原「%1$s」的 SELinux 上下文</string>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">正在還原「%1$s」的 SELinux 本文…</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
-        <item quantity="other">正在還原 %1$,d 個檔案的 SELinux 上下文</item>
+        <item quantity="other">正在還原 %1$,d 個檔案的 SELinux 本文…</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title_format">正在寫入「%1$s」</string>
+    <string name="file_job_write_notification_title_format">正在寫入「%1$s」…</string>
     <string name="file_job_create_error_title">建立時發生錯誤</string>
-    <string name="file_job_create_error_message_format">在建立「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到自身</string>
-    <string name="file_job_cannot_extract_into_itself_title">無法將資料夾解開到自身</string>
-    <string name="file_job_cannot_move_into_itself_title">無法將資料夾移動到自身</string>
+    <string name="file_job_create_error_message_format">建立「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">無法將資料夾複製到本身</string>
+    <string name="file_job_cannot_extract_into_itself_title">無法將資料夾解壓縮至本身</string>
+    <string name="file_job_cannot_move_into_itself_title">無法將資料夾移動到本身</string>
     <string name="file_job_cannot_copy_move_into_itself_message">目標資料夾位於來源資料夾內。</string>
-    <string name="file_job_cannot_copy_over_itself_title">無法將檔案複製到自身</string>
-    <string name="file_job_cannot_extract_over_itself_title">無法將檔案解開到自身</string>
-    <string name="file_job_cannot_move_over_itself_title">無法將檔案移動到自身</string>
-    <string name="file_job_cannot_copy_move_over_itself_message">來源檔案將被目標覆蓋。</string>
+    <string name="file_job_cannot_copy_over_itself_title">無法將檔案複製到本身</string>
+    <string name="file_job_cannot_extract_over_itself_title">無法將檔案解壓縮至本身</string>
+    <string name="file_job_cannot_move_over_itself_title">無法將檔案移動到本身</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">來源檔案將被目標取代。</string>
     <string name="file_job_replace_title_format">取代檔案「%1$s」？</string>
-    <string name="file_job_replace_message_format">在「%1$s」中存在相同名稱的另一個檔案。\n取代將覆蓋它的內容。</string>
+    <string name="file_job_replace_message_format">「%1$s」中已存在另一個相同名稱的檔案。\n取代將會覆蓋它的內容。</string>
     <string name="file_job_replace_target_name">原始檔案</string>
     <string name="file_job_replace_source_name">取代為</string>
     <string name="file_job_merge_title_format">合併資料夾「%1$s」？</string>
-    <string name="file_job_merge_copy_message_format">檔案中有檔案與正在被複製的檔案衝突時，合併將在取代前請求確認。</string>
-    <string name="file_job_merge_extract_message_format">檔案中有檔案與正在被解開的檔案衝突時，合併將在取代前請求確認。</string>
+    <string name="file_job_merge_copy_message_format">資料夾中的檔案與正在複製的檔案衝突時，合併將在取代前請求確認。</string>
+    <string name="file_job_merge_extract_message_format">資料夾中有檔案與正在被解開的檔案衝突時，合併將在取代前請求確認。</string>
     <string name="file_job_merge_move_message_format">檔案中有檔案與正在被移動的檔案衝突時，合併將在取代前請求確認。</string>
     <string name="file_job_merge_target_name">原始資料夾</string>
     <string name="file_job_merge_source_name">合併</string>
     <string name="file_job_conflict_show_name">為目標選取新的名稱</string>
-    <string name="file_job_conflict_name_hint">新名稱</string>
+    <string name="file_job_conflict_name_hint">新的名稱</string>
     <string name="file_job_archive_error_title_format">壓縮「%1$s」時發生錯誤</string>
-    <string name="file_job_archive_error_message_format">將檔案壓縮進「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_archive_error_message_format">將檔案壓縮至「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_copy_error_title_format">複製「%1$s」時發生錯誤</string>
     <string name="file_job_copy_error_message_format">將檔案複製到「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_extract_error_title_format">解開「%1$s」時發生錯誤</string>
-    <string name="file_job_extract_error_message_format">將檔案解開到「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_extract_error_title_format">解壓縮「%1$s」時發生錯誤</string>
+    <string name="file_job_extract_error_message_format">將檔案解壓縮至「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_move_error_title_format">移動「%1$s」時發生錯誤</string>
     <string name="file_job_move_error_message_format">將檔案移動到「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_delete_error_title">刪除時發生錯誤</string>
-    <string name="file_job_delete_error_message_format">在刪除「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_delete_error_message_format">刪除「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_rename_error_title_format">重新命名「%1$s」時發生錯誤</string>
     <string name="file_job_rename_error_message_format">將檔案重新命名為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">變更「%1$s」的擁有者時發生錯誤</string>
@@ -181,21 +181,20 @@
     <string name="file_job_set_group_error_message_format">將群組變更為「%1$s」時發生錯誤。\n%2$s</string>
     <string name="file_job_set_mode_error_title_format">變更「%1$s」的模式時發生錯誤</string>
     <string name="file_job_set_mode_error_message_format">將模式變更為「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_set_selinux_context_error_title_format">變更「%1$s」的 SELinux 上下文時發生錯誤</string>
-    <string name="file_job_set_selinux_context_error_message_format">將 SELinux 上下文變更為「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_restore_selinux_context_error_title">還原 SELinux 上下文時發生錯誤</string>
-    <string name="file_job_restore_selinux_context_error_message_format">在還原「%1$s」的 SELinux 上下文時發生錯誤。\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">變更「%1$s」的 SELinux 本文時發生錯誤</string>
+    <string name="file_job_set_selinux_context_error_message_format">將 SELinux 本文變更為「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">還原 SELinux 本文時發生錯誤</string>
+    <string name="file_job_restore_selinux_context_error_message_format">還原「%1$s」的 SELinux 本文時發生錯誤。\n%2$s</string>
     <string name="file_job_write_error_title">寫入時發生錯誤</string>
-    <string name="file_job_write_error_message_format">在寫入「%1$s」時發生錯誤。\n%2$s</string>
-    <string name="file_job_get_information_error_message_format">在取得「%1$s」的資訊時發生錯誤。</string>
-    <string name="file_job_remount_format">重新掛接「%1$s」為讀寫模式</string>
-    <string name="file_job_remount_loading_format">正在重新掛接「%1$s」為讀寫模式…</string>
-    <string name="file_job_remount_success_format">「%1$s」已被重新掛接為讀寫模式</string>
-    <string name="file_job_action_all">套用此操作到所有檔案</string>
-
-    <string name="file_open_apk_message">這個檔案是一個 Android 安裝包。您想要安裝它，還是查看它的內容？</string>
+    <string name="file_job_write_error_message_format">寫入「%1$s」時發生錯誤。\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">取得「%1$s」的資訊時發生錯誤。</string>
+    <string name="file_job_remount_format">重新掛載「%1$s」為讀寫模式</string>
+    <string name="file_job_remount_loading_format">正在重新掛載「%1$s」為讀寫模式…</string>
+    <string name="file_job_remount_success_format">「%1$s」已被重新掛載為讀寫模式</string>
+    <string name="file_job_action_all">套用本次操作至所有檔案</string>
+    <string name="file_open_apk_message">這個檔案是一個 Android 套件。您要安裝還是檢視內容？</string>
     <string name="file_open_as_title">開啟為…</string>
-    <string name="file_open_as_title_format">將「%1$s」開啟為</string>
+    <string name="file_open_as_title_format">將「%1$s」開啟為…</string>
     <string name="file_open_as_type_text">文字</string>
     <string name="file_open_as_type_image">影像</string>
     <string name="file_open_as_type_audio">音訊</string>
@@ -220,7 +219,7 @@
     <plurals name="file_delete_message_multiple_mixed_format">
         <item quantity="other">刪除 %1$,d 個檔案和資料夾？</item>
     </plurals>
-    <string name="file_create_archive_title">建立壓縮檔案</string>
+    <string name="file_create_archive_title">建立封存</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
@@ -250,7 +249,7 @@
     <string name="file_list_action_sort_by_last_modified">最後修改</string>
     <string name="file_list_action_sort_order_ascending">升序</string>
     <string name="file_list_action_sort_directories_first">資料夾優先</string>
-    <string name="file_list_action_sort_path_specific">僅用於此資料夾</string>
+    <string name="file_list_action_sort_path_specific">僅套用於這個資料夾</string>
     <string name="file_list_action_new_task">開新視窗</string>
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_navigate_to">移至</string>
@@ -259,20 +258,20 @@
     <string name="file_list_action_open_in_terminal">在終端中開啟</string>
     <string name="file_list_action_add_bookmark">新增書籤</string>
     <string name="file_list_action_create_shortcut">建立捷徑</string>
-    <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中開啟</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">在新視窗中開啟</string>
     <string name="file_list_select_title_format">已選取 %1$,d</string>
     <string name="file_list_select_current_directory_format">選取「%1$s」</string>
     <string name="file_list_paste_move_title_format">移動 %1$,d</string>
     <string name="file_list_paste_copy_title_format">複製 %1$,d</string>
-    <string name="file_list_paste_extract_title_format">解開 %1$,d</string>
-    <string name="file_list_paste_action_extract_here">在這裡解開</string>
-    <string name="file_list_empty">無檔案</string>
+    <string name="file_list_paste_extract_title_format">解壓縮 %1$,d</string>
+    <string name="file_list_paste_action_extract_here">解壓縮至此</string>
+    <string name="file_list_empty">沒有檔案</string>
     <string name="file_list_action_create_file">檔案</string>
     <string name="file_list_action_create_directory">資料夾</string>
 
     <string name="file_item_description_separator">"    "</string>
     <string name="file_item_action_open_with">開啟方式</string>
-    <string name="file_item_action_extract">解開</string>
+    <string name="file_item_action_extract">解壓縮</string>
     <string name="file_item_action_archive">壓縮</string>
     <string name="file_item_action_properties">屬性</string>
 
@@ -290,7 +289,7 @@
         <item quantity="other">%1$,d 個項目，總計 %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">最後修改</string>
-    <string name="file_properties_basic_parent_directory">父資料夾</string>
+    <string name="file_properties_basic_parent_directory">上層資料夾</string>
     <string name="file_properties_basic_archive_file">封存檔案</string>
     <string name="file_properties_basic_archive_entry">封存條目</string>
     <string name="file_properties_basic_free_space">可用空間</string>
@@ -300,7 +299,7 @@
     <string name="file_properties_permissions_principal_format">%1$s（%2$d）</string>
     <string name="file_properties_permissions_set_owner_title">變更擁有者</string>
     <string name="file_properties_permissions_set_group_title">變更群組</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">輸入名稱或 ID</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">請輸入名稱或 ID</string>
     <string name="file_properties_permissions_set_principal_system">系統</string>
     <string name="file_properties_permissions_mode">模式</string>
     <string name="file_properties_permissions_mode_format">%1$s（%2$04o）</string>
@@ -320,13 +319,13 @@
     <string-array name="file_properties_permissions_set_mode_special_mode_bits">
         <item>設定 UID</item>
         <item>設定 GID</item>
-        <item>粘滯位</item>
+        <item>黏滯位</item>
     </string-array>
     <string name="file_properties_permissions_set_mode_uppercase_x">不要為包含的檔案新增「執行」</string>
-    <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
-    <string name="file_properties_permissions_set_selinux_context_title">變更 SELinux 上下文</string>
+    <string name="file_properties_permissions_selinux_context">SELinux 本文</string>
+    <string name="file_properties_permissions_set_selinux_context_title">變更 SELinux 本文</string>
     <string name="file_properties_permissions_set_selinux_context_restore">還原</string>
-    <string name="file_properties_permissions_recursive">套用到包含的檔案</string>
+    <string name="file_properties_permissions_recursive">套用至包含的檔案</string>
     <string name="file_properties_image">影像</string>
     <string name="file_properties_media_dimensions">尺寸</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -366,7 +365,7 @@
     <string name="file_properties_video">影片</string>
     <string name="file_properties_apk">安裝包</string>
     <string name="file_properties_apk_label">名稱</string>
-    <string name="file_properties_apk_package_name">封裝名稱</string>
+    <string name="file_properties_apk_package_name">套件名稱</string>
     <string name="file_properties_apk_version">版本</string>
     <string name="file_properties_apk_version_format">%1$s（%2$d）</string>
     <string name="file_properties_apk_min_sdk_version">最低系統版本</string>
@@ -375,7 +374,7 @@
     <string name="file_properties_apk_requested_permissions">權限</string>
     <string name="file_properties_apk_requested_permissions_zero">未要求任何權限</string>
     <plurals name="file_properties_apk_requested_permissions_positive_format">
-        <item quantity="other">已要求 %1$,d 項權限</item>
+        <item quantity="other">要求 %1$,d 項權限</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">簽章</string>
     <string name="file_properties_apk_signature_digests_empty">無有效簽章</string>
@@ -384,7 +383,7 @@
     <string name="storage_file_system_root_title">根目錄</string>
     <string name="storage_list_title">儲存空間</string>
     <string name="storage_list_empty">無儲存空間</string>
-    <string name="storage_add_storage_title">新增儲存空間</string>
+    <string name="storage_add_storage_title">新增…</string>
     <string name="storage_add_storage_document_tree">外部儲存空間</string>
     <string name="storage_add_storage_ftp_server">FTP 伺服器</string>
     <string name="storage_add_storage_sftp_server">SFTP 伺服器</string>
@@ -473,14 +472,14 @@
         <item>匿名</item>
     </string-array>
     <string name="storage_edit_smb_server_username">使用者名稱</string>
-    <string name="storage_edit_smb_server_username_error_empty">輸入使用者名稱</string>
+    <string name="storage_edit_smb_server_username_error_empty">請輸入使用者名稱</string>
     <string name="storage_edit_smb_server_password">密碼</string>
     <string name="storage_edit_smb_server_domain">網域</string>
     <string name="storage_edit_smb_server_connect_and_add">連線並新增</string>
     <string name="storage_edit_smb_server_add">新增</string>
 
     <string name="navigation_storage_subtitle_format">共 %2$s，剩餘 %1$s</string>
-    <string name="navigation_add_storage">新增儲存…</string>
+    <string name="navigation_add_storage">新增…</string>
     <string name="navigation_standard_directory_alarms">鬧鐘</string>
     <string name="navigation_standard_directory_dcim">相片</string>
     <string name="navigation_standard_directory_documents">檔案</string>
@@ -505,9 +504,9 @@
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">已儲存</string>
-    <string name="text_editor_reload_message">您確定要重新載入嗎？對此文件未儲存的變更將丟失。</string>
+    <string name="text_editor_reload_message">您確定要重新載入嗎？文件中尚未儲存的變更將會遺失。</string>
     <string name="text_editor_encoding">編碼</string>
-    <string name="text_editor_close_message">您確定要捨棄對此文件未儲存的變更嗎？</string>
+    <string name="text_editor_close_message">您確定要捨棄這個文件尚未儲存的變更嗎？</string>
 
     <string name="ftp_server_title">FTP 伺服器</string>
     <string name="ftp_server_state_title">狀態</string>
@@ -531,59 +530,59 @@
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">介面</string>
     <string name="settings_theme_color_title">主題色</string>
-    <string name="settings_theme_color_summary">應用程式中最常見的色彩</string>
+    <string name="settings_theme_color_summary">應用程式中最顯眼的色彩</string>
     <string name="settings_material_design_3_title">質感設計 3</string>
     <string name="settings_night_mode_title">夜間模式</string>
     <string-array name="settings_night_mode_entries">
         <item>跟隨系統</item>
         <item>關閉</item>
         <item>開啟</item>
-        <item>基於時間</item>
-        <item>基於省電模式</item>
+        <item>依據時間</item>
+        <item>依據省電模式</item>
     </string-array>
     <string name="settings_black_night_mode">黑色夜間模式</string>
-    <string name="settings_file_list_animation_title">檔案列表動畫</string>
-    <string name="settings_file_name_ellipsize_title">顯示長檔案名稱</string>
+    <string name="settings_file_list_animation_title">檔案清單動畫</string>
+    <string name="settings_file_name_ellipsize_title">顯示概略檔案名稱</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>省略開頭</item>
         <item>省略中間</item>
         <item>省略結尾</item>
-        <item>滾動</item>
+        <item>捲動</item>
     </string-array>
-    <string name="settings_behavior_title">行為</string>
+    <string name="settings_behavior_title">動作</string>
     <string name="settings_default_directory_title">預設資料夾</string>
     <string name="settings_standard_directories_title">標準資料夾</string>
     <string name="settings_standard_directories_summary_empty">未啟用標準資料夾</string>
     <string name="settings_bookmark_directory_screenshots">螢幕擷取畫面</string>
     <string name="settings_bookmark_directories_title">書籤資料夾</string>
-    <string name="settings_bookmark_directories_summary_empty">無書籤資料夾</string>
+    <string name="settings_bookmark_directories_summary_empty">沒有書籤資料夾</string>
     <string name="settings_root_strategy_title">Root 存取模式</string>
     <string-array name="settings_root_strategy_entries">
         <item>僅普通存取</item>
         <item>自動</item>
-        <item>僅 root 存取</item>
+        <item>僅 Root 存取</item>
     </string-array>
     <plurals name="settings_root_strategy_message_format">
-        <item quantity="other">您有 %1$,d 個正在執行的檔案作業，因此現在變更 root 存取模式可能會導致未預期的錯誤。您確定要現在變更它嗎？</item>
+        <item quantity="other">您有 %1$,d 個檔案作業正在執行，變更 Root 存取模式可能會導致無法預期的錯誤。您確定要立即變更嗎？</item>
     </plurals>
     <string name="settings_archive_file_name_encoding_title">封存檔案名稱編碼</string>
-    <string name="settings_open_apk_default_action_title">開啟 Android 安裝包</string>
+    <string name="settings_open_apk_default_action_title">開啟 Android 套件</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>安裝</item>
-        <item>查看內容</item>
-        <item>詢問操作</item>
+        <item>檢視內容</item>
+        <item>每次詢問</item>
     </string-array>
     <string name="settings_show_pdf_thumbnail_pre_28_title">顯示 PDF 檔案縮圖</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">可能導致應用程式在舊版 Android 上不穩定</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">讀取遠端檔案以顯示縮圖</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">讀取遠端檔案時顯示縮圖</string>
 
     <string name="about_title">關於</string>
     <string name="about_version_title">版本</string>
-    <string name="about_github_title">在 GitHub 上查看</string>
-    <string name="about_licenses_title">許可證</string>
+    <string name="about_github_title">GitHub 資訊</string>
+    <string name="about_licenses_title">授權</string>
     <string name="about_privacy_policy_title">隱私權政策</string>
     <string name="about_author_title">作者</string>
     <string name="about_author_name_title">張海</string>
-    <string name="about_author_github_title">在 GitHub 上關注</string>
-    <string name="about_author_twitter_title">在 Twitter 上關注</string>
+    <string name="about_author_github_title">關注 GitHub</string>
+    <string name="about_author_twitter_title">關注 Twitter</string>
 </resources>
