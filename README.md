@@ -1,6 +1,6 @@
 # Material Files
 
-[![Android CI 状态](https://github.com/Citrinae-Lime/MaterialFiles-CI_Build/workflows/Android%20CI/badge.svg)](https://github.com/Citrinae-Lime/MaterialFiles-CI_Build/actions) [![GitHub 发行版](https://img.shields.io/github/v/release/Citrinae-Lime/MaterialFiles-CI_Build)](https://github.com/Citrinae-Lime/MaterialFiles-CI_Build/releases) [![许可证](https://img.shields.io/github/license/zhanghai/MaterialFiles?color=blue)](LICENSE)
+[![Android CI 状态](https://github.com/Citrinae-Lime/MaterialFiles-CI_Build/workflows/Android%20CI/badge.svg?branch=Sora-Editor)](https://github.com/Citrinae-Lime/MaterialFiles-CI_Build/actions) [![GitHub 发行版](https://img.shields.io/github/v/release/Citrinae-Lime/MaterialFiles-CI_Build)](https://github.com/Citrinae-Lime/MaterialFiles-CI_Build/releases) [![许可证](https://img.shields.io/github/license/zhanghai/MaterialFiles?color=blue)](LICENSE)
 
 一个开源的 Material Design 文件管理器，适用于 Android 5.0+。
 
