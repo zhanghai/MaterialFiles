@@ -15,14 +15,15 @@ class WrapFirstPageContentViewPager : ViewPager {
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        var heightMeasureSpec = heightMeasureSpec
-        if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY && childCount > 0) {
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+        val newHeightMeasureSpec = if (heightMode != MeasureSpec.EXACTLY && childCount > 0) {
             val child = getChildAt(0)
             child.measure(widthMeasureSpec, heightMeasureSpec)
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(
-                child.measuredHeight, MeasureSpec.EXACTLY
-            )
+            val height = child.measuredHeight
+            MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
+        } else {
+            heightMeasureSpec
         }
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec)
     }
 }
