@@ -10,7 +10,6 @@ import android.os.Parcelable
 import android.provider.DocumentsContract
 import java8.nio.file.attribute.BasicFileAttributeView
 import java8.nio.file.attribute.FileTime
-import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
 import me.zhanghai.android.files.provider.content.resolver.getInt
 import me.zhanghai.android.files.provider.content.resolver.getLong

@@ -16,7 +16,6 @@ import java8.nio.file.NotLinkException
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.toJavaSeekableByteChannel
-import me.zhanghai.android.files.compat.use
 //#ifdef NONFREE
 import me.zhanghai.android.files.nonfree.RarArchiveEntry
 import me.zhanghai.android.files.nonfree.RarFile
