@@ -167,11 +167,11 @@ dependencies {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation 'org.bouncycastle:bcprov-jdk15to18:1.73'
-    def coil_version = '2.3.0'
-    implementation "io.coil-kt:coil:$coil_version"
-    implementation "io.coil-kt:coil-gif:$coil_version"
-    implementation "io.coil-kt:coil-svg:$coil_version"
-    implementation "io.coil-kt:coil-video:$coil_version"
+    implementation platform('io.coil-kt:coil-bom:2.4.0')
+    implementation "io.coil-kt:coil"
+    implementation "io.coil-kt:coil-gif"
+    implementation "io.coil-kt:coil-svg"
+    implementation "io.coil-kt:coil-video"
     implementation 'me.zhanghai.android.appiconloader:appiconloader:1.5.0'
     implementation 'me.zhanghai.android.fastscroll:library:1.2.0'
     implementation 'me.zhanghai.android.foregroundcompat:library:1.0.2'
