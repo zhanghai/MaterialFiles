@@ -92,7 +92,7 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
-    implementation 'com.github.topjohnwu.libsu:service:5.1.0'
+    implementation 'com.github.topjohnwu.libsu:service:5.2.0'
 }
 
 dependencies {
