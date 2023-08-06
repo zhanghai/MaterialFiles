@@ -43,7 +43,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.leinardi.android.speeddial.SpeedDialView
 import java8.nio.file.Path
 import java8.nio.file.Paths
@@ -197,14 +196,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             binding.persistentBarLayout, binding.bottomBarLayout, binding.bottomToolbar
         )
         val contentLayoutInitialPaddingBottom = binding.contentLayout.paddingBottom
-        binding.appBarLayout.addOnOffsetChangedListener(
-            OnOffsetChangedListener { _, verticalOffset ->
-                binding.contentLayout.updatePaddingRelative(
-                    bottom = contentLayoutInitialPaddingBottom +
-                        binding.appBarLayout.totalScrollRange + verticalOffset
-                )
-            }
-        )
+        binding.appBarLayout.addOnOffsetChangedListener { _, verticalOffset ->
+            binding.contentLayout.updatePaddingRelative(
+                bottom = contentLayoutInitialPaddingBottom +
+                    binding.appBarLayout.totalScrollRange + verticalOffset
+            )
+        }
         binding.appBarLayout.syncBackgroundElevationTo(binding.overlayToolbar)
         binding.breadcrumbLayout.setListener(this)
         if (!(activity.hasSw600Dp && activity.isOrientationLandscape)) {
