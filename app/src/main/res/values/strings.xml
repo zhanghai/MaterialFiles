@@ -43,7 +43,6 @@
     <string name="share">Share</string>
     <string name="show">Show</string>
     <string name="skip">Skip</string>
-    <string name="sort">Sort</string>
     <string name="stop">Stop</string>
     <string name="unknown">Unknown</string>
     <string name="view">View</string>
@@ -275,13 +274,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Path cannot be empty</string>
     <string name="file_list_path_error_invalid">Invalid path</string>
+    <string name="file_list_action_view_sort">View and sort</string>
+    <string name="file_list_action_view_list">List</string>
+    <string name="file_list_action_view_grid">Grid</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Type</string>
     <string name="file_list_action_sort_by_size">Size</string>
     <string name="file_list_action_sort_by_last_modified">Last modified</string>
     <string name="file_list_action_sort_order_ascending">Ascending</string>
     <string name="file_list_action_sort_directories_first">Folders first</string>
-    <string name="file_list_action_sort_path_specific">Only for this folder</string>
+    <string name="file_list_action_view_sort_path_specific">Only for this folder</string>
     <string name="file_list_action_new_task">New window</string>
     <string name="file_list_action_navigate_up">Go up</string>
     <string name="file_list_action_navigate_to">Go to</string>

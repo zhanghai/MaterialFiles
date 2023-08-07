@@ -41,7 +41,6 @@
     <string name="share">Megosztás</string>
     <string name="show">Megjelenítés</string>
     <string name="skip">Kihagyás</string>
-    <string name="sort">Rendezés</string>
     <string name="stop">Leállítás</string>
     <string name="unknown">Ismeretlen</string>
     <string name="view">Nézet</string>
@@ -261,7 +260,7 @@
     <string name="file_list_action_sort_by_last_modified">Utoljára módosítva</string>
     <string name="file_list_action_sort_order_ascending">Növekvő</string>
     <string name="file_list_action_sort_directories_first">Mappák elöl</string>
-    <string name="file_list_action_sort_path_specific">Csak ennél a mappánál</string>
+    <string name="file_list_action_view_sort_path_specific">Csak ennél a mappánál</string>
     <string name="file_list_action_new_task">Új ablak</string>
     <string name="file_list_action_navigate_up">Ugrás fel</string>
     <string name="file_list_action_show_hidden_files">Rejtett fájlok megjelenítése</string>

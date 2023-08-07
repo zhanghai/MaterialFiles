@@ -42,7 +42,6 @@
     <string name="share">Chia sẻ</string>
     <string name="show">Hiện</string>
     <string name="skip">Bỏ qua</string>
-    <string name="sort">Sắp xếp</string>
     <string name="stop">Dừng</string>
     <string name="unknown">Không rõ</string>
     <string name="view">Xem</string>
@@ -250,7 +249,7 @@
     <string name="file_list_action_sort_by_last_modified">Thay đổi lần cuối</string>
     <string name="file_list_action_sort_order_ascending">Tăng dần</string>
     <string name="file_list_action_sort_directories_first">Thư mục lên trước</string>
-    <string name="file_list_action_sort_path_specific">Chỉ đối với thư mục này</string>
+    <string name="file_list_action_view_sort_path_specific">Chỉ đối với thư mục này</string>
     <string name="file_list_action_new_task">Cửa sổ mới</string>
     <string name="file_list_action_navigate_up">Đi lên</string>
     <string name="file_list_action_navigate_to">Đi đến</string>

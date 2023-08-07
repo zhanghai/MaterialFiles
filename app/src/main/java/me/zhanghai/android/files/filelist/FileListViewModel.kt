@@ -103,6 +103,14 @@ class FileListViewModel : ViewModel() {
 
     val breadcrumbLiveData: LiveData<BreadcrumbData> = BreadcrumbLiveData(trailLiveData)
 
+    private val _viewTypeLiveData = FileViewTypeLiveData(currentPathLiveData)
+    val viewTypeLiveData: LiveData<FileViewType> = _viewTypeLiveData
+    var viewType: FileViewType
+        get() = _viewTypeLiveData.valueCompat
+        set(value) {
+            _viewTypeLiveData.putValue(value)
+        }
+
     private val _sortOptionsLiveData = FileSortOptionsLiveData(currentPathLiveData)
     val sortOptionsLiveData: LiveData<FileSortOptions> = _sortOptionsLiveData
     val sortOptions: FileSortOptions
@@ -115,13 +123,14 @@ class FileListViewModel : ViewModel() {
     fun setSortDirectoriesFirst(isDirectoriesFirst: Boolean) =
         _sortOptionsLiveData.putIsDirectoriesFirst(isDirectoriesFirst)
 
-    private val _sortPathSpecificLiveData = FileSortPathSpecificLiveData(currentPathLiveData)
-    val sortPathSpecificLiveData: LiveData<Boolean>
-        get() = _sortPathSpecificLiveData
-    var isSortPathSpecific: Boolean
-        get() = _sortPathSpecificLiveData.valueCompat
+    private val _viewSortPathSpecificLiveData =
+        FileViewSortPathSpecificLiveData(currentPathLiveData)
+    val viewSortPathSpecificLiveData: LiveData<Boolean>
+        get() = _viewSortPathSpecificLiveData
+    var isViewSortPathSpecific: Boolean
+        get() = _viewSortPathSpecificLiveData.valueCompat
         set(value) {
-            _sortPathSpecificLiveData.putValue(value)
+            _viewSortPathSpecificLiveData.putValue(value)
         }
 
     private val _pickOptionsLiveData = MutableLiveData<PickOptions?>()

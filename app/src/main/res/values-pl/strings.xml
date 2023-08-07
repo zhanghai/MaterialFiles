@@ -42,7 +42,6 @@
     <string name="share">Udostępnij </string>
     <string name="show">Pokaż</string>
     <string name="skip">Pomiń</string>
-    <string name="sort">Sortowanie</string>
     <string name="stop">Zatrzymaj</string>
     <string name="unknown">Nieznany</string>
     <string name="view">Podgląd</string>
@@ -334,7 +333,7 @@
     <string name="file_list_action_sort_by_last_modified">Ostatnia modyfikacja</string>
     <string name="file_list_action_sort_order_ascending">Rosnąco</string>
     <string name="file_list_action_sort_directories_first">Najpierw katalogi</string>
-    <string name="file_list_action_sort_path_specific">Tylko dla tego katalogu</string>
+    <string name="file_list_action_view_sort_path_specific">Tylko dla tego katalogu</string>
     <string name="file_list_action_new_task">Nowe okno</string>
     <string name="file_list_action_navigate_up">Idź w górę</string>
     <string name="file_list_action_navigate_to">Idź do</string>

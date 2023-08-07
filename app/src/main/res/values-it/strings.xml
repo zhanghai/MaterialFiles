@@ -42,7 +42,6 @@
     <string name="share">Condividi</string>
     <string name="show">Mostra</string>
     <string name="skip">Salta</string>
-    <string name="sort">Ordina</string>
     <string name="stop">Ferma</string>
     <string name="unknown">Sconosciuto</string>
     <string name="view">Visualizza</string>
@@ -278,7 +277,7 @@
     <string name="file_list_action_sort_by_last_modified">Ultima modifica</string>
     <string name="file_list_action_sort_order_ascending">Crescente</string>
     <string name="file_list_action_sort_directories_first">Prima le cartelle</string>
-    <string name="file_list_action_sort_path_specific">Solo per questa cartella</string>
+    <string name="file_list_action_view_sort_path_specific">Solo per questa cartella</string>
     <string name="file_list_action_new_task">Nuova finestra</string>
     <string name="file_list_action_navigate_up">Cartella superiore</string>
     <string name="file_list_action_navigate_to">Vai in</string>

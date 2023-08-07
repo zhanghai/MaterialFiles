@@ -44,7 +44,6 @@
     <string name="share">Поделиться</string>
     <string name="show">Показать</string>
     <string name="skip">Пропустить</string>
-    <string name="sort">Сортировка</string>
     <string name="stop">Остановить</string>
     <string name="unknown">Неизвестно</string>
     <string name="view">Просмотр</string>
@@ -336,7 +335,7 @@
     <string name="file_list_action_sort_by_last_modified">Последнее изменение</string>
     <string name="file_list_action_sort_order_ascending">По возрастанию</string>
     <string name="file_list_action_sort_directories_first">Папки первые</string>
-    <string name="file_list_action_sort_path_specific">Только для этой папки</string>
+    <string name="file_list_action_view_sort_path_specific">Только для этой папки</string>
     <string name="file_list_action_new_task">Новое окно</string>
     <string name="file_list_action_navigate_up">Вверх</string>
     <string name="file_list_action_navigate_to">Перейти к</string>

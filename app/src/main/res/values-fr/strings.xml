@@ -44,7 +44,6 @@
     <string name="share">Partager</string>
     <string name="show">Montrer</string>
     <string name="skip">Passer</string>
-    <string name="sort">Trier</string>
     <string name="stop">Arrêter</string>
     <string name="unknown">Inconnu</string>
     <string name="view">Voir</string>
@@ -280,7 +279,7 @@
     <string name="file_list_action_sort_by_last_modified">Dernière modification</string>
     <string name="file_list_action_sort_order_ascending">Ascendant</string>
     <string name="file_list_action_sort_directories_first">Dossiers en premier</string>
-    <string name="file_list_action_sort_path_specific">Seulement pour ce dossier</string>
+    <string name="file_list_action_view_sort_path_specific">Seulement pour ce dossier</string>
     <string name="file_list_action_new_task">Nouvelle fenêtre</string>
     <string name="file_list_action_navigate_up">Aller en haut</string>
     <string name="file_list_action_navigate_to">Aller à</string>

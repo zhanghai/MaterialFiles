@@ -6,7 +6,11 @@
 package me.zhanghai.android.files.filelist
 
 import android.text.TextUtils
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
@@ -17,14 +21,18 @@ import java8.nio.file.Path
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.coil.AppIconPackageName
-import me.zhanghai.android.files.databinding.FileItemBinding
+import me.zhanghai.android.files.compat.isSingleLineCompat
+import me.zhanghai.android.files.databinding.FileItemGridBinding
+import me.zhanghai.android.files.databinding.FileItemListBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.fileSize
 import me.zhanghai.android.files.file.formatShort
 import me.zhanghai.android.files.file.iconRes
+import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.AnimatedListAdapter
+import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
 import me.zhanghai.android.files.ui.CheckableItemBackground
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
@@ -34,6 +42,16 @@ class FileListAdapter(
     private val listener: Listener
 ) : AnimatedListAdapter<FileItem, FileListAdapter.ViewHolder>(CALLBACK), PopupTextProvider {
     private var isSearching = false
+
+    private lateinit var _viewType: FileViewType
+    var viewType: FileViewType
+        get() = _viewType
+        set(value) {
+            _viewType = value
+            if (!isSearching) {
+                super.replace(list, true)
+            }
+        }
 
     private lateinit var _comparator: Comparator<FileItem>
     var comparator: Comparator<FileItem>
@@ -144,16 +162,25 @@ class FileListAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
-        ViewHolder(
-            FileItemBinding.inflate(parent.context.layoutInflater, parent, false)
-        ).apply {
-            binding.itemLayout.background =
-                CheckableItemBackground.create(binding.itemLayout.context)
-            popupMenu = PopupMenu(binding.menuButton.context, binding.menuButton)
-                .apply { inflate(R.menu.file_item) }
-            binding.menuButton.setOnClickListener { popupMenu.show() }
+    override fun getItemViewType(position: Int): Int = viewType.ordinal
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val viewType = FileViewType.values()[viewType]
+        val inflater = parent.context.layoutInflater
+        val holder = when (viewType) {
+            FileViewType.LIST -> ViewHolder(FileItemListBinding.inflate(inflater, parent, false))
+            FileViewType.GRID -> ViewHolder(FileItemGridBinding.inflate(inflater, parent, false))
         }
+        return holder.apply {
+            itemLayout.background = when (viewType) {
+                FileViewType.LIST -> CheckableItemBackground.create(0f, 0f, itemLayout.context)
+                FileViewType.GRID -> CheckableItemBackground.create(4f, 12f, itemLayout.context)
+            }
+            popupMenu = PopupMenu(menuButton.context, menuButton)
+                .apply { inflate(R.menu.file_item) }
+            menuButton.setOnClickListener { popupMenu.show() }
+        }
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         throw UnsupportedOperationException()
@@ -161,11 +188,10 @@ class FileListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
         val file = getItem(position)
-        val binding = holder.binding
         val isDirectory = file.attributes.isDirectory
-        val enabled = isFileSelectable(file) || isDirectory
-        binding.itemLayout.isEnabled = enabled
-        binding.menuButton.isEnabled = enabled
+        val isEnabled = isFileSelectable(file) || isDirectory
+        holder.itemLayout.isEnabled = isEnabled
+        holder.menuButton.isEnabled = isEnabled
         val menu = holder.popupMenu.menu
         val path = file.path
         val hasPickOptions = pickOptions != null
@@ -173,69 +199,102 @@ class FileListAdapter(
         menu.findItem(R.id.action_cut).isVisible = !hasPickOptions && !isReadOnly
         menu.findItem(R.id.action_copy).isVisible = !hasPickOptions
         val checked = file in selectedFiles
-        binding.itemLayout.isChecked = checked
-        val nameEllipsize = nameEllipsize
-        binding.nameText.ellipsize = nameEllipsize
-        binding.nameText.isSelected = nameEllipsize == TextUtils.TruncateAt.MARQUEE
+        holder.itemLayout.isChecked = checked
+        holder.nameText.apply {
+            if (isSingleLineCompat) {
+                val nameEllipsize = nameEllipsize
+                ellipsize = nameEllipsize
+                isSelected = nameEllipsize == TextUtils.TruncateAt.MARQUEE
+            }
+        }
         if (payloads.isNotEmpty()) {
             return
         }
         bindViewHolderAnimation(holder)
-        binding.itemLayout.setOnClickListener {
-            if (selectedFiles.isEmpty()) {
-                listener.openFile(file)
-            } else {
-                selectFile(file)
+        holder.itemLayout.apply {
+            setOnClickListener {
+                if (selectedFiles.isEmpty()) {
+                    listener.openFile(file)
+                } else {
+                    selectFile(file)
+                }
+            }
+            setOnLongClickListener {
+                if (selectedFiles.isEmpty()) {
+                    selectFile(file)
+                } else {
+                    listener.openFile(file)
+                }
+                true
             }
         }
-        binding.itemLayout.setOnLongClickListener {
-            if (selectedFiles.isEmpty()) {
-                selectFile(file)
-            } else {
-                listener.openFile(file)
-            }
-            true
+        holder.iconLayout.setOnClickListener { selectFile(file) }
+        val iconRes = file.mimeType.iconRes
+        holder.iconImage.apply {
+            isVisible = true
+            setImageResource(iconRes)
         }
-        binding.iconLayout.setOnClickListener { selectFile(file) }
-        binding.iconImage.setImageResource(file.mimeType.iconRes)
-        binding.iconImage.isVisible = true
-        binding.thumbnailImage.dispose()
-        binding.thumbnailImage.setImageDrawable(null)
+        holder.directoryThumbnailImage?.isVisible = isDirectory
+        holder.thumbnailOutlineView?.isVisible = !isDirectory
         val supportsThumbnail = file.supportsThumbnail
-        binding.thumbnailImage.isVisible = supportsThumbnail
+        val shouldLoadThumbnailIcon = supportsThumbnail && holder.thumbnailIconImage != null &&
+            file.mimeType.isApk
         val attributes = file.attributes
-        if (supportsThumbnail) {
-            binding.thumbnailImage.load(path to attributes) {
-                listener { _, _ -> binding.iconImage.isVisible = false }
+        holder.thumbnailIconImage?.apply {
+            dispose()
+            isVisible = !isDirectory
+            setImageResource(iconRes)
+            if (shouldLoadThumbnailIcon) {
+                load(path to attributes)
             }
         }
-        binding.appIconBadgeImage.dispose()
-        binding.appIconBadgeImage.setImageDrawable(null)
-        val appDirectoryPackageName = file.appDirectoryPackageName
-        val hasAppIconBadge = appDirectoryPackageName != null
-        binding.appIconBadgeImage.isVisible = hasAppIconBadge
-        if (hasAppIconBadge) {
-            binding.appIconBadgeImage.load(AppIconPackageName(appDirectoryPackageName!!))
+        holder.thumbnailImage.apply {
+            dispose()
+            setImageDrawable(null)
+            val shouldLoadThumbnail = supportsThumbnail && !shouldLoadThumbnailIcon
+            isVisible = shouldLoadThumbnail
+            if (shouldLoadThumbnail) {
+                load(path to attributes) {
+                    listener { _, _ ->
+                        val iconImage = holder.thumbnailIconImage ?: holder.iconImage
+                        iconImage.isVisible = false
+                    }
+                }
+            }
         }
-        val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
-            if (file.isSymbolicLinkBroken) {
-                R.drawable.error_badge_icon_18dp
+        holder.appIconBadgeImage.apply {
+            dispose()
+            setImageDrawable(null)
+            val appDirectoryPackageName = file.appDirectoryPackageName
+            val hasAppIconBadge = appDirectoryPackageName != null
+            isVisible = hasAppIconBadge
+            if (hasAppIconBadge) {
+                load(AppIconPackageName(appDirectoryPackageName!!))
+            }
+        }
+        holder.badgeImage.apply {
+            val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
+                if (file.isSymbolicLinkBroken) {
+                    R.drawable.error_badge_icon_18dp
+                } else {
+                    R.drawable.symbolic_link_badge_icon_18dp
+                }
             } else {
-                R.drawable.symbolic_link_badge_icon_18dp
+                null
             }
-        } else {
-            null
+            val hasBadge = badgeIconRes != null
+            isVisible = hasBadge
+            if (hasBadge) {
+                setImageResource(badgeIconRes!!)
+            } else {
+                setImageDrawable(null)
+            }
         }
-        val hasBadge = badgeIconRes != null
-        binding.badgeImage.isVisible = hasBadge
-        if (hasBadge) {
-            binding.badgeImage.setImageResource(badgeIconRes!!)
-        }
-        binding.nameText.text = file.name
-        binding.descriptionText.text = if (isDirectory) {
+        holder.nameText.text = file.name
+        holder.descriptionText?.text = if (isDirectory) {
             null
         } else {
-            val context = binding.descriptionText.context
+            val context = holder.descriptionText!!.context
             val lastModificationTime = attributes.lastModifiedTime().toInstant()
                 .formatShort(context)
             val size = attributes.fileSize.formatHumanReadable(context)
@@ -325,7 +384,53 @@ class FileListAdapter(
         }
     }
 
-    class ViewHolder(val binding: FileItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(
+        root: View,
+        val itemLayout: CheckableForegroundLinearLayout,
+        val iconLayout: View,
+        val iconImage: ImageView,
+        val directoryThumbnailImage: ImageView?,
+        val thumbnailOutlineView: View?,
+        val thumbnailIconImage: ImageView?,
+        val thumbnailImage: ImageView,
+        val appIconBadgeImage: ImageView,
+        val badgeImage: ImageView,
+        val nameText: TextView,
+        val descriptionText: TextView?,
+        val menuButton: ImageButton
+    ) : RecyclerView.ViewHolder(root) {
+        constructor(binding: FileItemListBinding) : this(
+            binding.root,
+            binding.itemLayout,
+            binding.iconLayout,
+            binding.iconImage,
+            null,
+            null,
+            null,
+            binding.thumbnailImage,
+            binding.appIconBadgeImage,
+            binding.badgeImage,
+            binding.nameText,
+            binding.descriptionText,
+            binding.menuButton
+        )
+
+        constructor(binding: FileItemGridBinding) : this(
+            binding.root,
+            binding.itemLayout,
+            binding.iconLayout,
+            binding.iconImage,
+            binding.directoryThumbnailImage,
+            binding.thumbnailOutlineView,
+            binding.thumbnailIconImage,
+            binding.thumbnailImage,
+            binding.appIconBadgeImage,
+            binding.badgeImage,
+            binding.nameText,
+            null,
+            binding.menuButton
+        )
+
         lateinit var popupMenu: PopupMenu
     }
 

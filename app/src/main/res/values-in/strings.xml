@@ -42,7 +42,6 @@
     <string name="share">Bagikan</string>
     <string name="show">Tampilkan</string>
     <string name="skip">Lewati</string>
-    <string name="sort">Urutkan</string>
     <string name="stop">Setop</string>
     <string name="unknown">Tidak diketahui</string>
     <string name="view">Lihat</string>
@@ -250,7 +249,7 @@
     <string name="file_list_action_sort_by_last_modified">Terakhir diubah</string>
     <string name="file_list_action_sort_order_ascending">Naik</string>
     <string name="file_list_action_sort_directories_first">Folder di atas</string>
-    <string name="file_list_action_sort_path_specific">Hanya untuk folder ini</string>
+    <string name="file_list_action_view_sort_path_specific">Hanya untuk folder ini</string>
     <string name="file_list_action_new_task">Jendela baru</string>
     <string name="file_list_action_navigate_up">Ke atas</string>
     <string name="file_list_action_navigate_to">Kunjungi</string>

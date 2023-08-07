@@ -14,6 +14,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import androidx.core.content.edit
+import androidx.core.content.res.ResourcesCompat
 import me.zhanghai.android.files.app.appClassLoader
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.util.Base64
@@ -196,7 +197,10 @@ class BooleanSettingLiveData(
 }
 
 // Use string resource for default value so that we can support ListPreference.
-class EnumSettingLiveData<E : Enum<E>>(
+// TODO: kotlinc: Type argument is not within its bounds: should be subtype of 'Enum<E>'
+//  https://youtrack.jetbrains.com/issue/KT-60985
+//class EnumSettingLiveData<E : Enum<E>?>(
+class EnumSettingLiveData<E : Enum<*>?>(
     nameSuffix: String?,
     @StringRes keyRes: Int,
     keySuffix: String?,
@@ -216,7 +220,12 @@ class EnumSettingLiveData<E : Enum<E>>(
     }
 
     override fun getDefaultValue(@StringRes defaultValueRes: Int): E =
-        enumValues[application.getString(defaultValueRes).toInt()]
+        if (defaultValueRes != ResourcesCompat.ID_NULL) {
+            enumValues[application.getString(defaultValueRes).toInt()]
+        } else {
+            @Suppress("UNCHECKED_CAST")
+            null as E
+        }
 
     override fun getValue(
         sharedPreferences: SharedPreferences,
@@ -228,7 +237,7 @@ class EnumSettingLiveData<E : Enum<E>>(
     }
 
     override fun putValue(sharedPreferences: SharedPreferences, key: String, value: E) {
-        sharedPreferences.edit { putString(key, value.ordinal.toString()) }
+        sharedPreferences.edit { putString(key, value?.ordinal?.toString()) }
     }
 }
 

@@ -9,6 +9,10 @@
 
     <attr name="colorAppBarSurface" format="color" />
 
+    <declare-styleable name="AspectRatioFrameLayout">
+        <attr name="aspectRatio" format="float" />
+    </declare-styleable>
+
     <declare-styleable name="NavigationViewExtra">
         <attr name="itemSubtitleTextAppearance" format="reference" />
         <attr name="itemSubtitleTextColor" format="color" />

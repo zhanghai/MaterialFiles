@@ -51,6 +51,7 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.clipboardManager
 import me.zhanghai.android.files.compat.checkSelfPermissionCompat
+import me.zhanghai.android.files.compat.setGroupDividerEnabledCompat
 import me.zhanghai.android.files.databinding.FileListFragmentAppBarIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentBinding
 import me.zhanghai.android.files.databinding.FileListFragmentBottomBarIncludeBinding
@@ -149,6 +150,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     private lateinit var bottomActionMode: ToolbarActionMode
 
+    private lateinit var layoutManager: GridLayoutManager
+
     private lateinit var adapter: FileListAdapter
 
     private val debouncedSearchRunnable = DebouncedRunnable(Handler(Looper.getMainLooper()), 1000) {
@@ -210,7 +213,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             )
         }
         binding.swipeRefreshLayout.setOnRefreshListener { this.refresh() }
-        binding.recyclerView.layoutManager = GridLayoutManager(activity, /* TODO */ 1)
+        layoutManager = GridLayoutManager(activity, 1)
+        binding.recyclerView.layoutManager = layoutManager
         adapter = FileListAdapter(this)
         binding.recyclerView.adapter = adapter
         val fastScroller = ThemedFastScroller.create(binding.recyclerView)
@@ -293,9 +297,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.breadcrumbLiveData.observe(viewLifecycleOwner) {
             binding.breadcrumbLayout.setData(it)
         }
+        viewModel.viewTypeLiveData.observe(viewLifecycleOwner) { onViewTypeChanged(it) }
         viewModel.sortOptionsLiveData.observe(viewLifecycleOwner) { onSortOptionsChanged(it) }
-        viewModel.sortPathSpecificLiveData.observe(viewLifecycleOwner) {
-            onSortPathSpecificChanged(it)
+        viewModel.viewSortPathSpecificLiveData.observe(viewLifecycleOwner) {
+            onViewSortPathSpecificChanged(it)
         }
         viewModel.pickOptionsLiveData.observe(viewLifecycleOwner) { onPickOptionsChanged(it) }
         viewModel.selectedFilesLiveData.observe(viewLifecycleOwner) { onSelectedFilesChanged(it) }
@@ -317,6 +322,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         super.onCreateOptionsMenu(menu, inflater)
 
         menuBinding = MenuBinding.inflate(menu, inflater)
+        menuBinding.viewSortItem.subMenu!!.setGroupDividerEnabledCompat(true)
         setUpSearchView()
     }
 
@@ -369,7 +375,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
-        updateSortMenuItems()
+        updateViewSortMenuItems()
         updateSelectAllMenuItem()
         updateShowHiddenFilesMenuItem()
     }
@@ -383,6 +389,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                         !Settings.FILE_LIST_PERSISTENT_DRAWER_OPEN.valueCompat
                     )
                 }
+                true
+            }
+            R.id.action_view_list -> {
+                viewModel.viewType = FileViewType.LIST
+                true
+            }
+            R.id.action_view_grid -> {
+                viewModel.viewType = FileViewType.GRID
                 true
             }
             R.id.action_sort_by_name -> {
@@ -415,8 +429,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 viewModel.setSortDirectoriesFirst(!menuBinding.sortDirectoriesFirstItem.isChecked)
                 true
             }
-            R.id.action_sort_path_specific -> {
-                viewModel.isSortPathSpecific = !menuBinding.sortPathSpecificItem.isChecked
+            R.id.action_view_sort_path_specific -> {
+                viewModel.isViewSortPathSpecific = !menuBinding.viewSortPathSpecificItem.isChecked
                 true
             }
             R.id.action_new_task -> {
@@ -507,7 +521,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun onSearchViewExpandedChanged(expanded: Boolean) {
-        updateSortMenuItems()
+        updateViewSortMenuItems()
     }
 
     private fun onFileListChanged(stateful: Stateful<List<FileItem>>) {
@@ -540,8 +554,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             adapter.clear()
         }
         if (stateful is Success) {
-            viewModel.pendingState
-                ?.let { binding.recyclerView.layoutManager!!.onRestoreInstanceState(it) }
+            viewModel.pendingState?.let { layoutManager.onRestoreInstanceState(it) }
         }
     }
 
@@ -572,24 +585,39 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
     }
 
+    private fun onViewTypeChanged(viewType: FileViewType) {
+        layoutManager.spanCount = when (viewType) {
+            FileViewType.LIST -> 1
+            FileViewType.GRID -> (resources.configuration.screenWidthDp / 180).coerceAtLeast(2)
+        }
+        adapter.viewType = viewType
+        updateViewSortMenuItems()
+    }
+
     private fun onSortOptionsChanged(sortOptions: FileSortOptions) {
         adapter.comparator = sortOptions.createComparator()
-        updateSortMenuItems()
+        updateViewSortMenuItems()
     }
 
-    private fun onSortPathSpecificChanged(pathSpecific: Boolean) {
-        updateSortMenuItems()
+    private fun onViewSortPathSpecificChanged(pathSpecific: Boolean) {
+        updateViewSortMenuItems()
     }
 
-    private fun updateSortMenuItems() {
+    private fun updateViewSortMenuItems() {
         if (!this::menuBinding.isInitialized) {
             return
         }
         val searchViewExpanded = viewModel.isSearchViewExpanded
-        menuBinding.sortItem.isVisible = !searchViewExpanded
+        menuBinding.viewSortItem.isVisible = !searchViewExpanded
         if (searchViewExpanded) {
             return
         }
+        val viewType = viewModel.viewType
+        val checkedViewTypeItem = when (viewType) {
+            FileViewType.LIST -> menuBinding.viewListItem
+            FileViewType.GRID -> menuBinding.viewGridItem
+        }
+        checkedViewTypeItem.isChecked = true
         val sortOptions = viewModel.sortOptions
         val checkedSortByItem = when (sortOptions.by) {
             By.NAME -> menuBinding.sortByNameItem
@@ -600,7 +628,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         checkedSortByItem.isChecked = true
         menuBinding.sortOrderAscendingItem.isChecked = sortOptions.order == Order.ASCENDING
         menuBinding.sortDirectoriesFirstItem.isChecked = sortOptions.isDirectoriesFirst
-        menuBinding.sortPathSpecificItem.isChecked = viewModel.isSortPathSpecific
+        menuBinding.viewSortPathSpecificItem.isChecked = viewModel.isViewSortPathSpecific
     }
 
     private fun navigateUp() {
@@ -664,7 +692,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     override fun navigateTo(path: Path) {
         collapseSearchView()
-        val state = binding.recyclerView.layoutManager!!.onSaveInstanceState()
+        val state = layoutManager.onSaveInstanceState()
         viewModel.navigateTo(state!!, path)
     }
 
@@ -1408,14 +1436,16 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private class MenuBinding private constructor(
         val menu: Menu,
         val searchItem: MenuItem,
-        val sortItem: MenuItem,
+        val viewSortItem: MenuItem,
+        val viewListItem: MenuItem,
+        val viewGridItem: MenuItem,
         val sortByNameItem: MenuItem,
         val sortByTypeItem: MenuItem,
         val sortBySizeItem: MenuItem,
         val sortByLastModifiedItem: MenuItem,
         val sortOrderAscendingItem: MenuItem,
         val sortDirectoriesFirstItem: MenuItem,
-        val sortPathSpecificItem: MenuItem,
+        val viewSortPathSpecificItem: MenuItem,
         val selectAllItem: MenuItem,
         val showHiddenFilesItem: MenuItem
     ) {
@@ -1423,14 +1453,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             fun inflate(menu: Menu, inflater: MenuInflater): MenuBinding {
                 inflater.inflate(R.menu.file_list, menu)
                 return MenuBinding(
-                    menu, menu.findItem(R.id.action_search), menu.findItem(R.id.action_sort),
+                    menu, menu.findItem(R.id.action_search), menu.findItem(R.id.action_view_sort),
+                    menu.findItem(R.id.action_view_list), menu.findItem(R.id.action_view_grid),
                     menu.findItem(R.id.action_sort_by_name),
                     menu.findItem(R.id.action_sort_by_type),
                     menu.findItem(R.id.action_sort_by_size),
                     menu.findItem(R.id.action_sort_by_last_modified),
                     menu.findItem(R.id.action_sort_order_ascending),
                     menu.findItem(R.id.action_sort_directories_first),
-                    menu.findItem(R.id.action_sort_path_specific),
+                    menu.findItem(R.id.action_view_sort_path_specific),
                     menu.findItem(R.id.action_select_all),
                     menu.findItem(R.id.action_show_hidden_files)
                 )

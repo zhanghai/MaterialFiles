@@ -41,7 +41,6 @@
     <string name="share">Sdílet</string>
     <string name="show">Ukázat</string>
     <string name="skip">Přeskočit</string>
-    <string name="sort">Seřadit</string>
     <string name="stop">Zastavit</string>
     <string name="unknown">Neznámý</string>
     <string name="view">Zobrazení</string>
@@ -313,7 +312,7 @@
     <string name="file_list_action_sort_by_last_modified">Naposledy změněno</string>
     <string name="file_list_action_sort_order_ascending">Vzestupně</string>
     <string name="file_list_action_sort_directories_first">Složky jako první</string>
-    <string name="file_list_action_sort_path_specific">Pouze pro tuto složku</string>
+    <string name="file_list_action_view_sort_path_specific">Pouze pro tuto složku</string>
     <string name="file_list_action_new_task">Nové okno</string>
     <string name="file_list_action_navigate_up">Nahoru</string>
     <string name="file_list_action_show_hidden_files">Zobrazit skryté soubory</string>

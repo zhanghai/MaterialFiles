@@ -42,7 +42,6 @@
     <string name="share">공유</string>
     <string name="show">표시</string>
     <string name="skip">건너 뛰기</string>
-    <string name="sort">정렬</string>
     <string name="stop">중지</string>
     <string name="unknown">알 수 없음</string>
     <string name="view">보기</string>
@@ -250,7 +249,7 @@
     <string name="file_list_action_sort_by_last_modified">수정된 날짜</string>
     <string name="file_list_action_sort_order_ascending">오름차순</string>
     <string name="file_list_action_sort_directories_first">폴더를 먼저 표시</string>
-    <string name="file_list_action_sort_path_specific">이 폴더에만 적용</string>
+    <string name="file_list_action_view_sort_path_specific">이 폴더에만 적용</string>
     <string name="file_list_action_new_task">새 창</string>
     <string name="file_list_action_navigate_up">상위 폴더로</string>
     <string name="file_list_action_navigate_to">이동</string>

@@ -61,7 +61,7 @@
                 android:paddingBottom="@dimen/list_bottom_padding_with_fab"
                 android:clipToPadding="false"
                 android:fitsSystemWindows="true"
-                tools:listitem="@layout/file_item" />
+                tools:listitem="@layout/file_item_list" />
         </androidx.swiperefreshlayout.widget.ThemedSwipeRefreshLayout>
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </merge>

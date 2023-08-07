@@ -31,6 +31,7 @@
     <dimen name="list_vertical_padding">8dp</dimen>
     <dimen name="list_bottom_padding_with_fab">88dp</dimen>
     <dimen name="dense_single_line_list_item_height">40dp</dimen>
+    <dimen name="single_line_list_item_height">56dp</dimen>
     <dimen name="two_line_list_item_height">72dp</dimen>
     <dimen name="list_item_vertical_padding">16dp</dimen>
     <dimen name="horizontal_divider_height">1dp</dimen>

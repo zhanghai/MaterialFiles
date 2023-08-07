@@ -42,7 +42,6 @@
     <string name="share">Delen</string>
     <string name="show">Tonen</string>
     <string name="skip">Overslaan</string>
-    <string name="sort">Sorteren</string>
     <string name="stop">Stoppen</string>
     <string name="unknown">Onbekend</string>
     <string name="view">Bekijken</string>
@@ -278,7 +277,7 @@
     <string name="file_list_action_sort_by_last_modified">Aangepast op</string>
     <string name="file_list_action_sort_order_ascending">Oplopend</string>
     <string name="file_list_action_sort_directories_first">Mappen vóór bestanden</string>
-    <string name="file_list_action_sort_path_specific">Alleen in deze map</string>
+    <string name="file_list_action_view_sort_path_specific">Alleen in deze map</string>
     <string name="file_list_action_new_task">Nieuw venster</string>
     <string name="file_list_action_navigate_up">Ga omhoog</string>
     <string name="file_list_action_navigate_to">Ga naar</string>

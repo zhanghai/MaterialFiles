@@ -44,7 +44,6 @@
     <string name="share">Deila</string>
     <string name="show">Birta</string>
     <string name="skip">Sleppa</string>
-    <string name="sort">Raða</string>
     <string name="stop">Stöðva</string>
     <string name="unknown">Óþekkt</string>
     <string name="view">Skoða</string>
@@ -280,7 +279,7 @@
     <string name="file_list_action_sort_by_last_modified">Síðast breytt</string>
     <string name="file_list_action_sort_order_ascending">Hækkandi</string>
     <string name="file_list_action_sort_directories_first">Möppur fyrst</string>
-    <string name="file_list_action_sort_path_specific">Aðeins í þessari möppu</string>
+    <string name="file_list_action_view_sort_path_specific">Aðeins í þessari möppu</string>
     <string name="file_list_action_new_task">Nýr gluggi</string>
     <string name="file_list_action_navigate_up">Fara upp</string>
     <string name="file_list_action_navigate_to">Fara í</string>

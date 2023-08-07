@@ -38,7 +38,6 @@
     <string name="select_all">Hautatu guztiak</string>
     <string name="share">Partekatu</string>
     <string name="skip">Saltatu</string>
-    <string name="sort">Ordenatu</string>
     <string name="stop">Gelditu</string>
     <string name="unknown">Ezezaguna</string>
     <string name="view">Ikusi</string>
@@ -256,7 +255,7 @@
     <string name="file_list_action_sort_by_last_modified">Azken aldaketa</string>
     <string name="file_list_action_sort_order_ascending">Gorantza</string>
     <string name="file_list_action_sort_directories_first">Karpetak aurretik</string>
-    <string name="file_list_action_sort_path_specific">Karpeta honetan bakarrik</string>
+    <string name="file_list_action_view_sort_path_specific">Karpeta honetan bakarrik</string>
     <string name="file_list_action_new_task">Leiho berria</string>
     <string name="file_list_action_navigate_up">Joan gora</string>
     <string name="file_list_action_show_hidden_files">Erakutsi ezkutatutako fitxategiak</string>

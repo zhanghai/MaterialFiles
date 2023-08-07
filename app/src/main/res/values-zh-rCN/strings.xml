@@ -42,7 +42,6 @@
     <string name="share">分享</string>
     <string name="show">显示</string>
     <string name="skip">跳过</string>
-    <string name="sort">排序</string>
     <string name="stop">停止</string>
     <string name="unknown">未知</string>
     <string name="view">查看</string>
@@ -244,13 +243,16 @@
     <string name="file_list_subtitle_separator">，</string>
     <string name="file_list_path_error_empty">路径不能为空</string>
     <string name="file_list_path_error_invalid">无效路径</string>
+    <string name="file_list_action_view_sort">视图和排序</string>
+    <string name="file_list_action_view_list">列表</string>
+    <string name="file_list_action_view_grid">网格</string>
     <string name="file_list_action_sort_by_name">名称</string>
     <string name="file_list_action_sort_by_type">类型</string>
     <string name="file_list_action_sort_by_size">大小</string>
     <string name="file_list_action_sort_by_last_modified">最后修改</string>
     <string name="file_list_action_sort_order_ascending">升序</string>
     <string name="file_list_action_sort_directories_first">文件夹优先</string>
-    <string name="file_list_action_sort_path_specific">仅用于此文件夹</string>
+    <string name="file_list_action_view_sort_path_specific">仅用于此文件夹</string>
     <string name="file_list_action_new_task">新建窗口</string>
     <string name="file_list_action_navigate_up">向上</string>
     <string name="file_list_action_navigate_to">转到</string>

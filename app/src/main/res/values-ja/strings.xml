@@ -42,7 +42,6 @@
     <string name="share">共有</string>
     <string name="show">示す</string>
     <string name="skip">スキップ</string>
-    <string name="sort">並び替え</string>
     <string name="stop">停止</string>
     <string name="unknown">不明</string>
     <string name="view">表示</string>
@@ -250,7 +249,7 @@
     <string name="file_list_action_sort_by_last_modified">更新日時</string>
     <string name="file_list_action_sort_order_ascending">昇順</string>
     <string name="file_list_action_sort_directories_first">フォルダを先頭に表示</string>
-    <string name="file_list_action_sort_path_specific">このフォルダのみに適用</string>
+    <string name="file_list_action_view_sort_path_specific">このフォルダのみに適用</string>
     <string name="file_list_action_new_task">新しい画面</string>
     <string name="file_list_action_navigate_up">上へ移動</string>
     <string name="file_list_action_navigate_to">ここへ移動</string>

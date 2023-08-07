@@ -41,7 +41,6 @@
     <string name="share">Paylaş</string>
     <string name="show">Göster</string>
     <string name="skip">Atla</string>
-    <string name="sort">Sırala</string>
     <string name="stop">Durdur</string>
     <string name="unknown">Bilinmiyor</string>
     <string name="view">Görüntüle</string>
@@ -263,7 +262,7 @@
     <string name="file_list_action_sort_by_last_modified">Son düzenleme</string>
     <string name="file_list_action_sort_order_ascending">Artan</string>
     <string name="file_list_action_sort_directories_first">Önce klasörler</string>
-    <string name="file_list_action_sort_path_specific">Sadece bu klasör için</string>
+    <string name="file_list_action_view_sort_path_specific">Sadece bu klasör için</string>
     <string name="file_list_action_new_task">Yeni pencere</string>
     <string name="file_list_action_navigate_up">Yukarı git</string>
     <string name="file_list_action_show_hidden_files">Gizli dosyaları göster</string>

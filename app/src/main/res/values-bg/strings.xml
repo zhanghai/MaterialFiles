@@ -40,7 +40,6 @@
     <string name="share">Споделяне</string>
     <string name="show">Показване</string>
     <string name="skip">Пропускане</string>
-    <string name="sort">Подреждане</string>
     <string name="stop">Спиране</string>
     <string name="unknown">Неизвестно</string>
     <string name="view">Изглед</string>
@@ -260,7 +259,7 @@
     <string name="file_list_action_sort_by_last_modified">Последна промяна</string>
     <string name="file_list_action_sort_order_ascending">Възходящ</string>
     <string name="file_list_action_sort_directories_first">Първо папките</string>
-    <string name="file_list_action_sort_path_specific">Само тази папка</string>
+    <string name="file_list_action_view_sort_path_specific">Само тази папка</string>
     <string name="file_list_action_new_task">Нов прозорец</string>
     <string name="file_list_action_navigate_up">Нагоре</string>
     <string name="file_list_action_show_hidden_files">Показване на скрити файлове</string>

@@ -20,13 +20,25 @@
         app:showAsAction="always|collapseActionView" />
 
     <item
-        android:id="@+id/action_sort"
+        android:id="@+id/action_view_sort"
         android:icon="@drawable/sort_icon_control_normal_24dp"
         android:orderInCategory="100"
-        android:title="@string/sort"
+        android:title="@string/file_list_action_view_sort"
         app:showAsAction="always">
         <menu>
-            <group android:checkableBehavior="single">
+            <group
+                android:id="@+id/group_view"
+                android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_view_list"
+                    android:title="@string/file_list_action_view_list" />
+                <item
+                    android:id="@+id/action_view_grid"
+                    android:title="@string/file_list_action_view_grid" />
+            </group>
+            <group
+                android:id="@+id/group_sort"
+                android:checkableBehavior="single">
                 <item
                     android:id="@+id/action_sort_by_name"
                     android:title="@string/file_list_action_sort_by_name" />
@@ -39,19 +51,19 @@
                 <item
                     android:id="@+id/action_sort_by_last_modified"
                     android:title="@string/file_list_action_sort_by_last_modified" />
+                <item
+                    android:id="@+id/action_sort_order_ascending"
+                    android:checkable="true"
+                    android:title="@string/file_list_action_sort_order_ascending" />
+                <item
+                    android:id="@+id/action_sort_directories_first"
+                    android:checkable="true"
+                    android:title="@string/file_list_action_sort_directories_first" />
             </group>
             <item
-                android:id="@+id/action_sort_order_ascending"
+                android:id="@+id/action_view_sort_path_specific"
                 android:checkable="true"
-                android:title="@string/file_list_action_sort_order_ascending" />
-            <item
-                android:id="@+id/action_sort_directories_first"
-                android:checkable="true"
-                android:title="@string/file_list_action_sort_directories_first" />
-            <item
-                android:id="@+id/action_sort_path_specific"
-                android:checkable="true"
-                android:title="@string/file_list_action_sort_path_specific" />
+                android:title="@string/file_list_action_view_sort_path_specific" />
         </menu>
     </item>
 

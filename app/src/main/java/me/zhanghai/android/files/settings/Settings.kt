@@ -13,6 +13,7 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.compat.EnvironmentCompat2
 import me.zhanghai.android.files.filelist.FileSortOptions
+import me.zhanghai.android.files.filelist.FileViewType
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.StandardDirectorySettings
@@ -48,6 +49,12 @@ object Settings {
         BooleanSettingLiveData(
             R.string.pref_key_file_list_show_hidden_files,
             R.bool.pref_default_value_file_list_show_hidden_files
+        )
+
+    val FILE_LIST_VIEW_TYPE: SettingLiveData<FileViewType> =
+        EnumSettingLiveData(
+            R.string.pref_key_file_list_view_type, R.string.pref_default_value_file_list_view_type,
+            FileViewType::class.java
         )
 
     val FILE_LIST_SORT_OPTIONS: SettingLiveData<FileSortOptions> =

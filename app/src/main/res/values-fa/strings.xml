@@ -43,7 +43,6 @@
     <string name="share">هم‌رسانی</string>
     <string name="show">نمایش</string>
     <string name="skip">پرش</string>
-    <string name="sort">چینش</string>
     <string name="stop">توقّف</string>
     <string name="unknown">ناشناس</string>
     <string name="view">دیدن</string>
@@ -265,7 +264,7 @@
     <string name="file_list_action_sort_by_last_modified">آخرین تغییر</string>
     <string name="file_list_action_sort_order_ascending">بالا رونده</string>
     <string name="file_list_action_sort_directories_first">ابتدا شاخه‌ها</string>
-    <string name="file_list_action_sort_path_specific">تنها برای این شاخه</string>
+    <string name="file_list_action_view_sort_path_specific">تنها برای این شاخه</string>
     <string name="file_list_action_new_task">پنجرهٔ جدید</string>
     <string name="file_list_action_navigate_up">برو بالا</string>
     <string name="file_list_action_show_hidden_files">نمایش پرونده‌های پنهان</string>
