@@ -43,6 +43,7 @@
     <string name="show">显示</string>
     <string name="skip">跳过</string>
     <string name="stop">停止</string>
+    <string name="system_default">系统默认</string>
     <string name="unknown">未知</string>
     <string name="view">查看</string>
 
@@ -532,6 +533,7 @@
 
     <string name="settings_title">设置</string>
     <string name="settings_interface_title">界面</string>
+    <string name="settings_locale_title">语言</string>
     <string name="settings_theme_color_title">主题色</string>
     <string name="settings_theme_color_summary">应用中最常见的颜色</string>
     <string name="settings_material_design_3_title">质感设计 3</string>

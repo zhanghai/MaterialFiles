@@ -63,7 +63,7 @@ abstract class SettingLiveData<T>(
         defaultValue: T
     ): T
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String?) {
         if (key == this.key) {
             loadValue()
         }

@@ -11,6 +11,8 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.StyleRes
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import kotlinx.parcelize.Parcelize
@@ -38,6 +40,13 @@ class SettingsActivity : AppActivity(), OnThemeChangedListener, OnNightModeChang
         if (savedInstanceState == null) {
             supportFragmentManager.commit { add<SettingsFragment>(android.R.id.content) }
         }
+    }
+
+    fun setApplicationLocalesPreApi33(locales: LocaleListCompat) {
+        // HACK: Prevent this activity from being recreated due to locale change.
+        delegate.onDestroy()
+        AppCompatDelegate.setApplicationLocales(locales)
+        restart()
     }
 
     override fun onThemeChanged(@StyleRes theme: Int) {
