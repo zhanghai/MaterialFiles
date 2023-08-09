@@ -24,7 +24,7 @@ import me.zhanghai.android.files.util.toList
 import java.util.Locale
 
 class LocalePreference : ListPreference {
-    lateinit var setApplicationLocalesPreApi33: (LocaleListCompat) -> Unit
+    lateinit var setApplicationLocalesPre33: (LocaleListCompat) -> Unit
 
     constructor(context: Context) : super(context)
 
@@ -98,7 +98,7 @@ class LocalePreference : ListPreference {
             } else {
                 LocaleListCompat.getEmptyLocaleList()
             }
-            setApplicationLocalesPreApi33(locales)
+            setApplicationLocalesPre33(locales)
         }
 
     override fun onClick() {

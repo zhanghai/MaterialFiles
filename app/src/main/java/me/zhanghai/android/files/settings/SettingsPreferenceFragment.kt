@@ -22,9 +22,9 @@ class SettingsPreferenceFragment : PreferenceFragmentCompat() {
 
         localePreference = preferenceScreen.findPreference(getString(R.string.pref_key_locale))!!
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-            localePreference.setApplicationLocalesPreApi33 = { locales ->
+            localePreference.setApplicationLocalesPre33 = { locales ->
                 val activity = requireActivity() as SettingsActivity
-                activity.setApplicationLocalesPreApi33(locales)
+                activity.setApplicationLocalesPre33(locales)
             }
         }
     }
