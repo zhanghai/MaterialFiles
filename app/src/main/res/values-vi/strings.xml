@@ -524,7 +524,6 @@
     <string name="ftp_server_port_title">Cổng</string>
     <string name="ftp_server_home_directory_title">Thư mục gốc</string>
     <string name="ftp_server_writable_title">Cho phép ghi</string>
-    <string name="ftp_server_notification_text">Máy chủ FTP đang chạy</string>
 
     <string name="settings_title">Cài đặt</string>
     <string name="settings_interface_title">Giao diện</string>

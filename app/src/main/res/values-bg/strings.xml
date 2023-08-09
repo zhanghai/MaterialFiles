@@ -468,7 +468,6 @@
     <string name="ftp_server_port_title">Порт</string>
     <string name="ftp_server_home_directory_title">Основна папка</string>
     <string name="ftp_server_writable_title">Разрешаване на писане</string>
-    <string name="ftp_server_notification_text">FTP сървърът работи</string>
 
     <string name="settings_title">Настройки</string>
     <string name="settings_interface_title">Интерфейс</string>

@@ -5,11 +5,7 @@
 
 package me.zhanghai.android.files.ftpserver
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.net.ConnectivityManager
 import android.util.AttributeSet
 import android.view.ContextMenu
 import android.view.ContextMenu.ContextMenuInfo
@@ -25,16 +21,13 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.clipboardManager
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.copyText
-import me.zhanghai.android.files.util.getLocalAddress
 import me.zhanghai.android.files.util.valueCompat
-import java.net.InetAddress
 
 class FtpServerUrlPreference : Preference {
-    private val observer = Observer<Any> { updateSummary() }
-    private val connectivityReceiver = ConnectivityReceiver()
+    private val observer = Observer<Any> { updateUrl() }
+    private val receiver = FtpServerUrl.createChangeReceiver(context) { updateUrl() }
 
-    private val contextMenuListener = ContextMenuListener()
-    private var hasUrl = false
+    private var url: String? = null
 
     constructor(context: Context) : super(context)
 
@@ -53,7 +46,7 @@ class FtpServerUrlPreference : Preference {
 
     init {
         isPersistent = false
-        updateSummary()
+        updateUrl()
     }
 
     override fun onAttached() {
@@ -62,9 +55,7 @@ class FtpServerUrlPreference : Preference {
         Settings.FTP_SERVER_ANONYMOUS_LOGIN.observeForever(observer)
         Settings.FTP_SERVER_USERNAME.observeForever(observer)
         Settings.FTP_SERVER_PORT.observeForever(observer)
-        context.registerReceiver(
-            connectivityReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-        )
+        receiver.register()
     }
 
     override fun onDetached() {
@@ -73,76 +64,45 @@ class FtpServerUrlPreference : Preference {
         Settings.FTP_SERVER_ANONYMOUS_LOGIN.removeObserver(observer)
         Settings.FTP_SERVER_USERNAME.removeObserver(observer)
         Settings.FTP_SERVER_PORT.removeObserver(observer)
-        context.unregisterReceiver(connectivityReceiver)
+        receiver.unregister()
     }
 
-    private fun updateSummary() {
-        val localAddress = InetAddress::class.getLocalAddress()
-        val summary: String
-        if (localAddress != null) {
-            val username = if (!Settings.FTP_SERVER_ANONYMOUS_LOGIN.valueCompat) {
-                Settings.FTP_SERVER_USERNAME.valueCompat
-            } else {
-                null
-            }
-            val host = localAddress.hostAddress
-            val port = Settings.FTP_SERVER_PORT.valueCompat
-            summary = "ftp://${if (username != null) "$username@" else ""}$host:$port/"
-            hasUrl = true
-        } else {
-            summary = context.getString(R.string.ftp_server_url_summary_no_local_inet_address)
-            hasUrl = false
-        }
-        setSummary(summary)
+    private fun updateUrl() {
+        url = FtpServerUrl.getUrl()
+        summary = url ?: context.getString(R.string.ftp_server_url_summary_no_local_inet_address)
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
 
-        holder.itemView.setOnCreateContextMenuListener(contextMenuListener)
-    }
-
-    private inner class ConnectivityReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            when (val action = intent.action) {
-                ConnectivityManager.CONNECTIVITY_ACTION -> updateSummary()
-                else -> throw IllegalArgumentException(action)
-            }
-        }
-    }
-
-    private inner class ContextMenuListener : OnCreateContextMenuListener {
-        override fun onCreateContextMenu(
-            menu: ContextMenu, view: View, menuInfo: ContextMenuInfo?
-        ) {
-            if (!hasUrl) {
-                return
-            }
-            val url = summary!!
-            menu
-                .setHeaderTitle(url)
-                .apply {
+        holder.itemView.setOnCreateContextMenuListener(object : OnCreateContextMenuListener {
+            override fun onCreateContextMenu(
+                menu: ContextMenu,
+                view: View,
+                menuInfo: ContextMenuInfo?
+            ) {
+                val url = url ?: return
+                menu.apply {
+                    setHeaderTitle(url)
                     add(Menu.NONE, Menu.NONE, Menu.NONE, R.string.ftp_server_url_menu_copy_url)
                         .setOnMenuItemClickListener {
                             clipboardManager.copyText(url, context)
                             true
                         }
-                }
-                .apply {
                     if (!Settings.FTP_SERVER_ANONYMOUS_LOGIN.valueCompat) {
                         val password = Settings.FTP_SERVER_PASSWORD.valueCompat
                         if (password.isNotEmpty()) {
                             add(
                                 Menu.NONE, Menu.NONE, Menu.NONE,
                                 R.string.ftp_server_url_menu_copy_password
-                            )
-                                .setOnMenuItemClickListener {
-                                    clipboardManager.copyText(password, context)
-                                    true
-                                }
+                            ).setOnMenuItemClickListener {
+                                clipboardManager.copyText(password, context)
+                                true
+                            }
                         }
                     }
                 }
-        }
+            }
+        })
     }
 }

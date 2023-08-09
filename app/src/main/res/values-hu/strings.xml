@@ -501,7 +501,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Gyökérmappa</string>
     <string name="ftp_server_writable_title">Írás engedélyezése</string>
-    <string name="ftp_server_notification_text">Az FTP-kiszolgáló fut</string>
 
     <string name="settings_title">Beállítások</string>
     <string name="settings_interface_title">Felület</string>

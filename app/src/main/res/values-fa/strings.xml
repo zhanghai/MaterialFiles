@@ -505,7 +505,6 @@
     <string name="ftp_server_port_title">درگاه</string>
     <string name="ftp_server_home_directory_title">شاخهٔ ریشه</string>
     <string name="ftp_server_writable_title">اجازهٔ نوشتن</string>
-    <string name="ftp_server_notification_text">کارساز اف‌تی‌پی در حال اجراست</string>
 
     <string name="settings_title">تنظیمات</string>
     <string name="settings_interface_title">رابط</string>

@@ -28,6 +28,8 @@ class FtpServerService : Service() {
 
     private lateinit var wakeLock: FtpServerWakeLock
 
+    private lateinit var notification: FtpServerNotification
+
     private val executorService = Executors.newSingleThreadExecutor()
 
     private var server: FtpServer? = null
@@ -36,6 +38,7 @@ class FtpServerService : Service() {
         super.onCreate()
 
         wakeLock = FtpServerWakeLock()
+        notification = FtpServerNotification(this)
         executeStart()
     }
 
@@ -55,7 +58,7 @@ class FtpServerService : Service() {
             return
         }
         wakeLock.acquire()
-        FtpServerServiceNotification.startForeground(this)
+        notification.startForeground()
         state = State.STARTING
         executorService.execute { doStart() }
     }
@@ -63,7 +66,7 @@ class FtpServerService : Service() {
     private fun onStartError(exception: Exception) {
         state = State.STOPPED
         showToast(exception.toString())
-        FtpServerServiceNotification.stopForeground(this)
+        notification.stopForeground()
         wakeLock.release()
         stopSelf()
     }
@@ -74,7 +77,7 @@ class FtpServerService : Service() {
         }
         state = State.STOPPING
         executorService.execute { doStop() }
-        FtpServerServiceNotification.stopForeground(this)
+        notification.stopForeground()
         wakeLock.release()
     }
 

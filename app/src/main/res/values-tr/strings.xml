@@ -535,7 +535,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Kök klasör</string>
     <string name="ftp_server_writable_title">Yazmaya izin ver</string>
-    <string name="ftp_server_notification_text">FTP sunucusu çalışıyor</string>
 
     <string name="settings_title">Ayarlar</string>
     <string name="settings_interface_title">Arayüz</string>

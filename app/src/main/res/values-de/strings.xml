@@ -554,7 +554,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Stammverzeichnis</string>
     <string name="ftp_server_writable_title">Erlaube Schreiben</string>
-    <string name="ftp_server_notification_text">FTP-Server läuft</string>
 
     <string name="settings_title">Einstellungen</string>
     <string name="settings_interface_title">Benutzeroberfläche</string>

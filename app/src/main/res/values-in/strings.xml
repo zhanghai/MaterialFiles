@@ -524,7 +524,6 @@
     <string name="ftp_server_port_title">Porta</string>
     <string name="ftp_server_home_directory_title">Folder root</string>
     <string name="ftp_server_writable_title">Izinkan menyimpan</string>
-    <string name="ftp_server_notification_text">Server FTP sedang berjalan</string>
 
     <string name="settings_title">Pengaturan</string>
     <string name="settings_interface_title">Antarmuka</string>

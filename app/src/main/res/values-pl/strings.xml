@@ -614,7 +614,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Katalog główny</string>
     <string name="ftp_server_writable_title">Zezwól na zapis</string>
-    <string name="ftp_server_notification_text">Serwer FTP jest uruchomiony</string>
 
     <string name="settings_title">Ustawienia</string>
     <string name="settings_interface_title">Interfejs</string>

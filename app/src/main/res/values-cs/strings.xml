@@ -557,7 +557,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Složka Root</string>
     <string name="ftp_server_writable_title">Povolit zapisování</string>
-    <string name="ftp_server_notification_text">FTP server běží</string>
 
     <string name="settings_title">Nastavení</string>
     <string name="settings_interface_title">Rozhraní</string>

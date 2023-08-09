@@ -10,8 +10,10 @@ import android.app.Service
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.ServiceCompat
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.NotificationIds
+import me.zhanghai.android.files.compat.stopForegroundCompat
 import me.zhanghai.android.files.util.NotificationChannelTemplate
 import me.zhanghai.android.files.util.NotificationTemplate
 import me.zhanghai.android.files.util.createIntent
@@ -28,14 +30,22 @@ val ftpServerServiceNotificationTemplate: NotificationTemplate =
         colorRes = R.color.color_primary,
         smallIcon = R.drawable.notification_icon,
         contentTitleRes = R.string.ftp_server_notification_title,
-        contentTextRes = R.string.ftp_server_notification_text,
         ongoing = true,
         category = NotificationCompat.CATEGORY_SERVICE,
         priority = NotificationCompat.PRIORITY_LOW
     )
 
-object FtpServerServiceNotification {
-    fun startForeground(service: Service) {
+class FtpServerNotification(private val service: Service) {
+    private val receiver = FtpServerUrl.createChangeReceiver(service) { doStartForeground() }
+
+    fun startForeground() {
+        doStartForeground()
+        receiver.register()
+    }
+
+    private fun doStartForeground() {
+        val contextText = FtpServerUrl.getUrl()
+            ?: service.getString(R.string.ftp_server_notification_text_no_local_inet_address)
         val contentIntent = FtpServerActivity::class.createIntent()
         var pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -49,16 +59,17 @@ object FtpServerServiceNotification {
             service, FtpServerReceiver::class.hashCode(), stopIntent, pendingIntentFlags
         )
         val notification = ftpServerServiceNotificationTemplate.createBuilder(service)
+            .setContentText(contextText)
             .setContentIntent(contentPendingIntent)
             .addAction(
-                R.drawable.stop_icon_white_24dp, service.getString(R.string.stop),
-                stopPendingIntent
+                R.drawable.stop_icon_white_24dp, service.getString(R.string.stop), stopPendingIntent
             )
             .build()
         service.startForeground(NotificationIds.FTP_SERVER, notification)
     }
 
-    fun stopForeground(service: Service) {
-        service.stopForeground(true)
+    fun stopForeground() {
+        receiver.unregister()
+        service.stopForegroundCompat(ServiceCompat.STOP_FOREGROUND_REMOVE)
     }
 }

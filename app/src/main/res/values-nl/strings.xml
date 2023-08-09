@@ -554,7 +554,6 @@
     <string name="ftp_server_port_title">Poort</string>
     <string name="ftp_server_home_directory_title">Hoofdmap</string>
     <string name="ftp_server_writable_title">Wegschrijven toestaan</string>
-    <string name="ftp_server_notification_text">De FTP-server draait</string>
 
     <string name="settings_title">Instellingen</string>
     <string name="settings_interface_title">Uiterlijk</string>

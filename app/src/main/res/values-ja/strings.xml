@@ -524,7 +524,6 @@
     <string name="ftp_server_port_title">ポート</string>
     <string name="ftp_server_home_directory_title">Root フォルダ</string>
     <string name="ftp_server_writable_title">書き込みを許可</string>
-    <string name="ftp_server_notification_text">FTP サーバーを実行中です</string>
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">外観</string>

@@ -373,7 +373,6 @@
     <string name="ftp_server_port_title">Ataka</string>
     <string name="ftp_server_home_directory_title">Erro karpeta</string>
     <string name="ftp_server_writable_title">Baimendu idaztea</string>
-    <string name="ftp_server_notification_text">FTP zerbitzaria abian da</string>
 
     <string name="settings_title">Ezarpenak</string>
     <string name="settings_interface_title">Interfazea</string>

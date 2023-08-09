@@ -501,7 +501,6 @@
     <string name="ftp_server_port_title">Puerto</string>
     <string name="ftp_server_home_directory_title">Carpeta raíz</string>
     <string name="ftp_server_writable_title">Permitir escritura</string>
-    <string name="ftp_server_notification_text">El servidor FTP está corriendo</string>
 
     <string name="settings_title">Ajustes</string>
     <string name="settings_interface_title">Interfaz</string>

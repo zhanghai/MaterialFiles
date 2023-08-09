@@ -556,7 +556,6 @@
     <string name="ftp_server_port_title">Gátt</string>
     <string name="ftp_server_home_directory_title">Rótarmappa</string>
     <string name="ftp_server_writable_title">Leyfa skrifun</string>
-    <string name="ftp_server_notification_text">FTP-netþjónn er í gangi</string>
 
     <string name="settings_title">Stillingar</string>
     <string name="settings_interface_title">Viðmót</string>

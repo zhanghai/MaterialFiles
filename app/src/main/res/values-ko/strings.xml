@@ -524,7 +524,6 @@
     <string name="ftp_server_port_title">포트</string>
     <string name="ftp_server_home_directory_title">루트 폴더</string>
     <string name="ftp_server_writable_title">쓰기 허용</string>
-    <string name="ftp_server_notification_text">FTP 서버가 실행 중입니다</string>
 
     <string name="settings_title">설정</string>
     <string name="settings_interface_title">인터페이스</string>

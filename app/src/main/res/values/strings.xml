@@ -665,7 +665,7 @@
     <string name="ftp_server_home_directory_title">Root folder</string>
     <string name="ftp_server_writable_title">Allow writing</string>
     <string name="ftp_server_notification_title" translatable="false">@string/ftp_server_title</string>
-    <string name="ftp_server_notification_text">FTP server is running</string>
+    <string name="ftp_server_notification_text_no_local_inet_address" translatable="false">@string/ftp_server_url_summary_no_local_inet_address</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>

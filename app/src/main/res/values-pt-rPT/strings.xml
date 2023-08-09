@@ -473,7 +473,6 @@
     <string name="ftp_server_port_title">Porta</string>
     <string name="ftp_server_home_directory_title">Pasta root</string>
     <string name="ftp_server_writable_title">Permitir escrita</string>
-    <string name="ftp_server_notification_text">Servidor FTP em execução</string>
 
     <string name="settings_title">Definições</string>
     <string name="settings_interface_title">Interface</string>

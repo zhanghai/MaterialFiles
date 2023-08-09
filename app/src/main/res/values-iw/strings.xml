@@ -614,7 +614,6 @@
     <string name="ftp_server_port_title">פתחה</string>
     <string name="ftp_server_home_directory_title">תיקיית שורש</string>
     <string name="ftp_server_writable_title">איפשור כתיבה</string>
-    <string name="ftp_server_notification_text">שרת FTP פועל</string>
 
     <string name="settings_title">הגדרות</string>
     <string name="settings_interface_title">ממשק</string>

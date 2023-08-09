@@ -616,7 +616,6 @@
     <string name="ftp_server_port_title">Порт</string>
     <string name="ftp_server_home_directory_title">Корневой каталог</string>
     <string name="ftp_server_writable_title">Разрешить запись</string>
-    <string name="ftp_server_notification_text">FTP-сервер запущен</string>
 
     <string name="settings_title">Настройки</string>
     <string name="settings_interface_title">Интерфейс</string>

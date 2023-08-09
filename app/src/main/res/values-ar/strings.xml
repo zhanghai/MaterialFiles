@@ -674,7 +674,6 @@
     <string name="ftp_server_port_title">منفذ</string>
     <string name="ftp_server_home_directory_title">المجلد الرئيسي</string>
     <string name="ftp_server_writable_title">اسمح بالكتابة</string>
-    <string name="ftp_server_notification_text">خادم FTP قيد التشغيل</string>
 
     <string name="settings_title">الإعدادات</string>
     <string name="settings_interface_title">واجهة المستخدم</string>

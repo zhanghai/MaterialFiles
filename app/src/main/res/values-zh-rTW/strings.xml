@@ -533,7 +533,6 @@
     <string name="ftp_server_port_title">連接埠</string>
     <string name="ftp_server_home_directory_title">根資料夾</string>
     <string name="ftp_server_writable_title">允許寫入</string>
-    <string name="ftp_server_notification_text">FTP 伺服器正在執行</string>
 
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">介面</string>

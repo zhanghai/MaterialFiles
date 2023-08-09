@@ -584,7 +584,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Dosar rădăcină</string>
     <string name="ftp_server_writable_title">Permite scrierea</string>
-    <string name="ftp_server_notification_text">Serverul FTP funcționează</string>
 
     <string name="settings_title">Setări</string>
     <string name="settings_interface_title">Interfață</string>

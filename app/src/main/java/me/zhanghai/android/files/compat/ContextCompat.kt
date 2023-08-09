@@ -6,7 +6,10 @@
 package me.zhanghai.android.files.compat
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -38,6 +41,12 @@ fun Context.getColorStateListCompat(@ColorRes id: Int): ColorStateList =
 fun Context.getDrawableCompat(@DrawableRes id: Int): Drawable =
     AppCompatResources.getDrawable(this, id)!!
 
+fun <T> Context.getSystemServiceCompat(serviceClass: Class<T>): T =
+    ContextCompat.getSystemService(this, serviceClass)!!
+
+val Context.mainExecutorCompat: Executor
+    get() = ContextCompat.getMainExecutor(this)
+
 @SuppressLint("RestrictedApi")
 fun Context.obtainStyledAttributesCompat(
     set: AttributeSet? = null,
@@ -60,11 +69,11 @@ inline fun <R> TintTypedArray.use(block: (TintTypedArray) -> R): R {
     }
 }
 
-val Context.mainExecutorCompat: Executor
-    get() = ContextCompat.getMainExecutor(this)
-
-fun <T> Context.getSystemServiceCompat(serviceClass: Class<T>): T =
-    ContextCompat.getSystemService(this, serviceClass)!!
+fun Context.registerReceiverCompat(
+    receiver: BroadcastReceiver?,
+    filter: IntentFilter,
+    flags: Int
+): Intent? = ContextCompat.registerReceiver(this, receiver, filter, flags)
 
 @RestrictedHiddenApi
 private val getThemeResIdMethod by lazyReflectedMethod(Context::class.java, "getThemeResId")
