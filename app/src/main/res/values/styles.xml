@@ -7,6 +7,10 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="Preference.MaterialFiles.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/switch_preference_compat_widget</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small">
         <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
     </style>

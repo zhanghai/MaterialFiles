@@ -16,6 +16,10 @@
         <item name="android:popupBackground">@drawable/m3_popupmenu_background_overlay</item>
     </style>
 
+    <style name="Preference.MaterialFiles.Material3.SwitchPreferenceCompat" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:widgetLayout">@layout/switch_preference_compat_widget_material3</item>
+    </style>
+
     <style name="TextAppearance.MaterialFiles.Material3.ListItem" parent="TextAppearance.Material3.TitleMedium">
         <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
         <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>

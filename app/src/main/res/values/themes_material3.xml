@@ -26,6 +26,7 @@
         <item name="minTouchTargetSize">0dp</item>
         <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
         <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.MaterialFiles.Material3.SwitchPreferenceCompat</item>
         <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
         <item name="textAppearanceListItem">@style/TextAppearance.MaterialFiles.Material3.ListItem</item>
         <item name="android:textAppearanceListItem">?textAppearanceListItem</item>
@@ -76,6 +77,7 @@
         <item name="minTouchTargetSize">0dp</item>
         <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
         <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.MaterialFiles.Material3.SwitchPreferenceCompat</item>
         <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
         <item name="textAppearanceListItem">@style/TextAppearance.MaterialFiles.Material3.ListItem</item>
         <item name="android:textAppearanceListItem">?textAppearanceListItem</item>
