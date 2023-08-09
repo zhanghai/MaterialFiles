@@ -650,7 +650,7 @@
     <string name="ftp_server_state_summary_stopping">Stopping…</string>
     <string name="ftp_server_state_summary_stopped">Not started</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Cannot retrieve local IP address</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Local IP address is unknown</string>
     <string name="ftp_server_url_menu_copy_url">Copy URL</string>
     <string name="ftp_server_url_menu_copy_password">Copy password</string>
     <string name="ftp_server_add_tile_title">Add to Quick Settings</string>

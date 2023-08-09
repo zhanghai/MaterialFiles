@@ -519,7 +519,7 @@
     <string name="ftp_server_state_summary_stopping">正在停止…</string>
     <string name="ftp_server_state_summary_stopped">未启动</string>
     <string name="ftp_server_url_title">网址</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">无法获取本地 IP 地址</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">本地 IP 地址未知</string>
     <string name="ftp_server_url_menu_copy_url">复制网址</string>
     <string name="ftp_server_url_menu_copy_password">复制密码</string>
     <string name="ftp_server_add_tile_title">添加到“快捷设置”</string>
