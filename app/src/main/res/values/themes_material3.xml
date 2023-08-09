@@ -21,19 +21,22 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorAccent">?colorPrimary</item>
-        <item name="floatingActionButtonStyle">?floatingActionButtonSecondaryStyle</item>
-        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
-        <item name="minTouchTargetSize">0dp</item>
-        <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
-        <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
-        <item name="switchPreferenceCompatStyle">@style/Preference.MaterialFiles.Material3.SwitchPreferenceCompat</item>
-        <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MaterialFiles.Material3.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.Material3.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MaterialFiles.Material3.LargeComponent</item>
         <item name="textAppearanceListItem">@style/TextAppearance.MaterialFiles.Material3.ListItem</item>
         <item name="android:textAppearanceListItem">?textAppearanceListItem</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.MaterialFiles.Material3.ListItemSmall</item>
         <item name="android:textAppearanceListItemSmall">?textAppearanceListItemSmall</item>
+        <item name="floatingActionButtonStyle">?floatingActionButtonSecondaryStyle</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
+        <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.MaterialFiles.Material3.SwitchPreferenceCompat</item>
+        <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
         <item name="textInputStyle">?textInputOutlinedStyle</item>
         <item name="toolbarStyle">@style/Widget.MaterialFiles.Material3.Toolbar</item>
+        <item name="minTouchTargetSize">0dp</item>
 
         <item name="colorAppBarSurface">?colorSurface</item>
     </style>
@@ -72,19 +75,22 @@
         <item name="windowNoTitle">true</item>
 
         <item name="colorAccent">?colorPrimary</item>
-        <item name="floatingActionButtonStyle">?floatingActionButtonSecondaryStyle</item>
-        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
-        <item name="minTouchTargetSize">0dp</item>
-        <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
-        <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
-        <item name="switchPreferenceCompatStyle">@style/Preference.MaterialFiles.Material3.SwitchPreferenceCompat</item>
-        <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MaterialFiles.Material3.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MaterialFiles.Material3.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.MaterialFiles.Material3.LargeComponent</item>
         <item name="textAppearanceListItem">@style/TextAppearance.MaterialFiles.Material3.ListItem</item>
         <item name="android:textAppearanceListItem">?textAppearanceListItem</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.MaterialFiles.Material3.ListItemSmall</item>
         <item name="android:textAppearanceListItemSmall">?textAppearanceListItemSmall</item>
+        <item name="floatingActionButtonStyle">?floatingActionButtonSecondaryStyle</item>
+        <item name="materialCardViewStyle">@style/Widget.MaterialFiles.CardView</item>
+        <item name="navigationViewStyle">@style/Widget.MaterialFiles.Material3.NavigationView</item>
+        <item name="simpleMenuPreferenceStyle">@style/Preference.MaterialFiles.Material3.SimpleMenuPreference</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.MaterialFiles.Material3.SwitchPreferenceCompat</item>
+        <item name="tabStyle">@style/Widget.MaterialFiles.Material3.TabLayout</item>
         <item name="textInputStyle">?textInputOutlinedStyle</item>
         <item name="toolbarStyle">@style/Widget.MaterialFiles.Material3.Toolbar</item>
+        <item name="minTouchTargetSize">0dp</item>
 
         <item name="colorAppBarSurface">@color/dark_50_percent</item>
     </style>

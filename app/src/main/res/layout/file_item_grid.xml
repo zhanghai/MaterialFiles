@@ -11,7 +11,7 @@
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="@drawable/file_item_grid_foreground"
+    android:foreground="?selectableItemBackground"
     android:gravity="center_vertical"
     android:orientation="vertical">
 
@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             android:duplicateParentState="true"
             android:scaleType="centerCrop"
-            app:shapeAppearance="?shapeAppearanceMediumComponent" />
+            app:shapeAppearance="?shapeAppearanceSmallComponent" />
 
         <View
             android:id="@+id/thumbnailOutlineView"
