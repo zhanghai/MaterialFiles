@@ -26,14 +26,6 @@
         <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
     </style>
 
-    <style name="Widget.MaterialFiles.Material3.CompoundButton.Switch" parent="Widget.Material3.CompoundButton.Switch">
-        <item name="android:thumb">@drawable/switch_thumb_material3</item>
-        <item name="thumbTint">@color/switch_thumb_tint_material3</item>
-        <item name="thumbTintMode">src_in</item>
-        <item name="track">@drawable/switch_track_material3</item>
-        <item name="trackTint">@color/switch_track_tint_material3</item>
-    </style>
-
     <style name="Widget.MaterialFiles.Material3.NavigationView" parent="Widget.Material3.NavigationView">
         <item name="itemHorizontalPadding">@dimen/navigation_item_horizontal_padding_material3</item>
         <item name="itemSubtitleTextAppearance">?textAppearanceBodyMedium</item>

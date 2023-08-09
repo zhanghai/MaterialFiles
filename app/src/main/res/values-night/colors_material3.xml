@@ -6,9 +6,5 @@
   -->
 
 <resources>
-
     <color name="system_window_scrim_material3">@color/system_window_scrim_dark_material3</color>
-
-    <color name="switch_thumb_tint_material3">@color/switch_thumb_tint_dark_material3</color>
-    <color name="switch_track_tint_material3">@color/switch_track_tint_dark_material3</color>
 </resources>

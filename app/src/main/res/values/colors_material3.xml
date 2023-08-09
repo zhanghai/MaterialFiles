@@ -6,12 +6,8 @@
   -->
 
 <resources>
-
     <!-- This is actually unused on v29+, so it's okay to hard code. -->
     <color name="system_window_scrim_light_material3">#99FFFFFF</color>
     <color name="system_window_scrim_dark_material3">#661F1F1F</color>
     <color name="system_window_scrim_material3">@color/system_window_scrim_light_material3</color>
-
-    <color name="switch_thumb_tint_material3">@color/switch_thumb_tint_light_material3</color>
-    <color name="switch_track_tint_material3">@color/switch_track_tint_light_material3</color>
 </resources>
