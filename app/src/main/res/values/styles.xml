@@ -11,6 +11,10 @@
         <item name="android:widgetLayout">@layout/switch_preference_compat_widget</item>
     </style>
 
+    <style name="ShapeAppearance.MaterialFiles.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">8dp</item>
+    </style>
+
     <style name="TextAppearance.AppCompat.Widget.ActionBar.Subtitle.Small">
         <item name="android:textSize" tools:ignore="SpUsage">12dp</item>
     </style>
@@ -23,10 +27,6 @@
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="android:clipToPadding">false</item>
-    </style>
-
-    <style name="ShapeAppearance.MaterialFiles.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerSize">8dp</item>
     </style>
 
     <style name="Widget.MaterialFiles.NavigationView" parent="Widget.MaterialComponents.NavigationView">
@@ -44,7 +44,6 @@
         <item name="itemSubtitleTextSize">10sp</item>
         <item name="dividerVerticalPadding">@dimen/design_navigation_separator_vertical_padding</item>
     </style>
-
     <style name="ShapeAppearanceOverlay.MaterialFiles.NavigationView.Item" parent="">
         <item name="cornerSize">50%</item>
         <item name="cornerSizeTopLeft">0dp</item>
