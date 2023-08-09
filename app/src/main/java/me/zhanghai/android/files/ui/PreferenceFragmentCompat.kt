@@ -15,9 +15,7 @@ abstract class PreferenceFragmentCompat : TakisoftPreferenceFragmentCompat() {
     // @see https://github.com/Gericop/Android-Support-Preference-V7-Fix/issues/201
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (preferenceScreen == null) {
-            val preferenceManager = preferenceManager
-            val context = preferenceManager.context
-            val preferenceScreen = preferenceManager.createPreferenceScreen(context)
+            val preferenceScreen = preferenceManager.createPreferenceScreen(requireContext())
             setPreferenceScreen(preferenceScreen)
         }
 

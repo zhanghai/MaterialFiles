@@ -33,9 +33,8 @@ class StandardDirectoryListPreferenceFragment : PreferenceFragmentCompat(),
     private fun onStandardDirectoriesChanged(
         standardDirectories: List<StandardDirectory>
     ) {
-        val preferenceManager = preferenceManager
-        val context = preferenceManager.context
         var preferenceScreen = preferenceScreen
+        val context = requireContext()
         val oldPreferences = mutableMapOf<String, Preference>()
         if (preferenceScreen == null) {
             preferenceScreen = preferenceManager.createPreferenceScreen(context)
