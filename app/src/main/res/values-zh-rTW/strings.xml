@@ -522,6 +522,10 @@
     <string name="ftp_server_url_summary_no_local_inet_address">無法擷取本機 IP 位址</string>
     <string name="ftp_server_url_menu_copy_url">複製網址</string>
     <string name="ftp_server_url_menu_copy_password">複製密碼</string>
+    <string name="ftp_server_add_tile_title">加入「快速設定」選單</string>
+    <string name="ftp_server_add_tile_result_added">已將「FTP 伺服器」加入「快速設定」選單</string>
+    <string name="ftp_server_add_tile_result_already_added">「FTP 伺服器」已被加入「快速設定」選單</string>
+    <string name="ftp_server_add_tile_result_error">將「FTP 伺服器」加入「快速設定」選單時發生錯誤</string>
     <string name="ftp_server_configuration_title">配置</string>
     <string name="ftp_server_anonymous_login_title">匿名登入</string>
     <string name="ftp_server_username_title">使用者名稱</string>

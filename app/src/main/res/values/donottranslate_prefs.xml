@@ -21,6 +21,7 @@
     <string name="pref_key_create_archive_type">key_create_archive_type</string>
 
     <string name="pref_key_ftp_server_state">key_ftp_server_state</string>
+    <bool name="pref_visible_ftp_server_add_tile">false</bool>
     <string name="pref_key_ftp_server_anonymous_login">key_ftp_server_anonymous_login</string>
     <bool name="pref_default_value_ftp_server_anonymous_login">true</bool>
     <string name="pref_key_ftp_server_username">key_ftp_server_username</string>

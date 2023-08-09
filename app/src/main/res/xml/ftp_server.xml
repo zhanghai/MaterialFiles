@@ -17,6 +17,10 @@
     <me.zhanghai.android.files.ftpserver.FtpServerUrlPreference
         android:title="@string/ftp_server_url_title" />
 
+    <me.zhanghai.android.files.ftpserver.FtpServerAddTilePreference
+        android:title="@string/ftp_server_add_tile_title"
+        app:isPreferenceVisible="@bool/pref_visible_ftp_server_add_tile" />
+
     <PreferenceCategory
         android:title="@string/ftp_server_configuration_title"
         android:dependency="@string/pref_key_ftp_server_state">
