@@ -11,7 +11,6 @@ import android.media.MediaMetadataRetriever
 import android.os.ParcelFileDescriptor
 import androidx.core.graphics.drawable.toDrawable
 import coil.ImageLoader
-import coil.decode.DataSource
 import coil.decode.ImageSource
 import coil.fetch.DrawableResult
 import coil.fetch.FetchResult
@@ -90,7 +89,7 @@ class PathAttributesFetcher(
                 }
                 if (thumbnail != null) {
                     return DrawableResult(
-                        thumbnail.toDrawable(options.context.resources), true, DataSource.DISK
+                        thumbnail.toDrawable(options.context.resources), true, path.dataSource
                     )
                 }
             }
@@ -116,7 +115,7 @@ class PathAttributesFetcher(
                 val inputStream = path.newInputStream()
                 return SourceResult(
                     ImageSource(inputStream.source().buffer(), options.context),
-                    if (mimeType != MimeType.GENERIC) mimeType.value else null, DataSource.DISK
+                    if (mimeType != MimeType.GENERIC) mimeType.value else null, path.dataSource
                 )
             }
             mimeType.isMedia && (path.isLinuxPath || path.isDocumentPath) -> {
@@ -133,7 +132,7 @@ class PathAttributesFetcher(
                     return SourceResult(
                         ImageSource(
                             embeddedPicture.inputStream().source().buffer(), options.context
-                        ), null, DataSource.DISK
+                        ), null, path.dataSource
                     )
                 }
                 if (mimeType.isVideo) {

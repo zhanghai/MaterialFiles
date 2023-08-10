@@ -7,16 +7,31 @@ package me.zhanghai.android.files.coil
 
 import android.graphics.Bitmap
 import android.os.Build
+import coil.decode.DataSource
 import coil.size.Dimension
 import coil.size.Scale
 import coil.size.Size
 import coil.size.isOriginal
 import coil.size.pxOrElse
+import java8.nio.file.Path
+import me.zhanghai.android.files.provider.archive.archiveFile
+import me.zhanghai.android.files.provider.archive.isArchivePath
+import me.zhanghai.android.files.provider.ftp.isFtpPath
+import me.zhanghai.android.files.provider.sftp.isSftpPath
+import me.zhanghai.android.files.provider.smb.isSmbPath
 
 val Bitmap.Config.isHardware: Boolean
     get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && this == Bitmap.Config.HARDWARE
 
 fun Bitmap.Config.toSoftware(): Bitmap.Config = if (isHardware) Bitmap.Config.ARGB_8888 else this
+
+val Path.dataSource: DataSource
+    get() =
+        when {
+            isArchivePath -> archiveFile.dataSource
+            isFtpPath || isSftpPath || isSmbPath -> DataSource.NETWORK
+            else -> DataSource.DISK
+        }
 
 inline fun Size.widthPx(scale: Scale, original: () -> Int): Int =
     if (isOriginal) original() else width.toPx(scale)
