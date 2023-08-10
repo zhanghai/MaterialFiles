@@ -56,13 +56,14 @@ class FileListAdapter(
             }
         }
 
-    private lateinit var _comparator: Comparator<FileItem>
-    var comparator: Comparator<FileItem>
-        get() = _comparator
+    private lateinit var _sortOptions: FileSortOptions
+    var sortOptions: FileSortOptions
+        get() = _sortOptions
         set(value) {
-            _comparator = value
+            _sortOptions = value
             if (!isSearching) {
-                super.replace(list.sortedWith(value), true)
+                val sortedList = list.sortedWith(value.createComparator())
+                super.replace(sortedList, true)
                 rebuildFilePositionMap()
             }
         }
@@ -153,7 +154,8 @@ class FileListAdapter(
     fun replaceListAndIsSearching(list: List<FileItem>, isSearching: Boolean) {
         val clear = this.isSearching != isSearching
         this.isSearching = isSearching
-        super.replace(if (!isSearching) list.sortedWith(comparator) else list, clear)
+        val sortedList = if (!isSearching) list.sortedWith(sortOptions.createComparator()) else list
+        super.replace(sortedList, clear)
         rebuildFilePositionMap()
     }
 
@@ -384,9 +386,15 @@ class FileListAdapter(
         }
     }
 
-    override fun getPopupText(position: Int): CharSequence {
+    override fun getPopupText(view: View, position: Int): CharSequence {
         val file = getItem(position)
-        return file.name.take(1).uppercase(Locale.getDefault())
+        return when (sortOptions.by) {
+            FileSortOptions.By.NAME -> file.name.take(1).uppercase(Locale.getDefault())
+            FileSortOptions.By.TYPE -> file.extension.uppercase(Locale.getDefault())
+            FileSortOptions.By.SIZE -> file.attributes.fileSize.formatHumanReadable(view.context)
+            FileSortOptions.By.LAST_MODIFIED ->
+                file.attributes.lastModifiedTime().toInstant().formatShort(view.context)
+        }
     }
 
     override val isAnimationEnabled: Boolean

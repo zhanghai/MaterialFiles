@@ -595,7 +595,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun onSortOptionsChanged(sortOptions: FileSortOptions) {
-        adapter.comparator = sortOptions.createComparator()
+        adapter.sortOptions = sortOptions
         updateViewSortMenuItems()
     }
 
