@@ -18,6 +18,9 @@
         <item name="android:colorBackground">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
+        <!-- https://developer.android.com/training/tv/start/start#transition-color -->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="windowNoTitle">true</item>
 
         <item name="colorAccent">?colorPrimary</item>
@@ -71,6 +74,9 @@
         <item name="android:colorBackground">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
         <item name="windowActionBar">false</item>
+        <!-- https://developer.android.com/training/tv/start/start#transition-color -->
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowBackground">@android:color/black</item>
         <item name="windowNoTitle">true</item>
 

@@ -29,3 +29,6 @@ for shortcut in directory downloads file ftp_server; do
     inkscape -o "${shortcut}_shortcut_icon-xxhdpi.png" --export-area=15:15:93:93 -w 144 -h 144 "${shortcut}_shortcut_icon.svg"
     inkscape -o "${shortcut}_shortcut_icon-xxxhdpi.png" --export-area=15:15:93:93 -w 192 -h 192 "${shortcut}_shortcut_icon.svg"
 done
+
+inkscape -o banner-xhdpi.png --export-area=0:0:320:180 -w 320 -h 180 banner.svg
+inkscape -o banner-play.png --export-area=0:0:320:180 -w 1280 -h 720 banner.svg

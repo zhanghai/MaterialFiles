@@ -13,3 +13,6 @@ for shortcut in directory downloads file ftp_server; do
         cp "${shortcut}_shortcut_icon-${dpi}.png" "../app/src/main/res/mipmap-${dpi}/${shortcut}_shortcut_icon.png"
     done
 done
+
+cp banner-xhdpi.png ../app/src/main/res/drawable-xhdpi/banner.png
+cp banner-play.png ../fastlane/metadata/android/en-US/images/tvBanner.png
