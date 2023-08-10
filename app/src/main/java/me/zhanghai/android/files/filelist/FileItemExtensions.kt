@@ -21,7 +21,6 @@ import me.zhanghai.android.files.file.isPdf
 import me.zhanghai.android.files.provider.archive.createArchiveRootPath
 import me.zhanghai.android.files.provider.document.documentSupportsThumbnail
 import me.zhanghai.android.files.provider.document.isDocumentPath
-import me.zhanghai.android.files.provider.document.resolver.DocumentResolver
 import me.zhanghai.android.files.provider.ftp.isFtpPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
@@ -61,12 +60,12 @@ val FileItem.supportsThumbnail: Boolean
         if (path.isDocumentPath && attributes.documentSupportsThumbnail) {
             return true
         }
-        val isLocalPath = path.isLinuxPath
-            || (path.isDocumentPath && DocumentResolver.isLocal(path as DocumentResolver.Path))
-        val shouldReadRemotePath = !path.isFtpPath
-            && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
-        if (!(isLocalPath || shouldReadRemotePath)) {
-            return false
+        if (path.isRemotePath) {
+            val shouldReadRemotePath = !path.isFtpPath
+                && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
+            if (!shouldReadRemotePath) {
+                return false
+            }
         }
         return when {
             mimeType.isApk && path.isGetPackageArchiveInfoCompatible -> true

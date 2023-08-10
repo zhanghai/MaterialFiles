@@ -31,6 +31,7 @@ import me.zhanghai.android.files.file.isMedia
 import me.zhanghai.android.files.file.isPdf
 import me.zhanghai.android.files.file.isVideo
 import me.zhanghai.android.files.file.lastModifiedInstant
+import me.zhanghai.android.files.filelist.isRemotePath
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector
 import me.zhanghai.android.files.provider.common.newInputStream
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
@@ -93,13 +94,13 @@ class PathAttributesFetcher(
                     )
                 }
             }
-            val isLocalPath = path.isLinuxPath
-                || (path.isDocumentPath && DocumentResolver.isLocal(path as DocumentResolver.Path))
-            // FTP doesn't support random access and requires one connection per parallel read.
-            val shouldReadRemotePath = !path.isFtpPath
-                && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
-            if (!(isLocalPath || shouldReadRemotePath)) {
-                error("Cannot read $path for thumbnail")
+            if (path.isRemotePath) {
+                // FTP doesn't support random access and requires one connection per parallel read.
+                val shouldReadRemotePath = !path.isFtpPath
+                    && Settings.READ_REMOTE_FILES_FOR_THUMBNAIL.valueCompat
+                if (!shouldReadRemotePath) {
+                    error("Cannot read $path for thumbnail")
+                }
             }
         }
         val mimeType = AndroidFileTypeDetector.getMimeType(data.first, data.second).asMimeType()
