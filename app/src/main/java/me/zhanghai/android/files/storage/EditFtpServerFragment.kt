@@ -311,6 +311,7 @@ class EditFtpServerFragment : Fragment() {
     private fun getServerOrSetError(): FtpServer? {
         var errorEdit: TextInputEditText? = null
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
+            ?.let { URI::class.canonicalizeHost(it) }
         if (host == null) {
             binding.hostLayout.error = getString(R.string.storage_edit_ftp_server_host_error_empty)
             if (errorEdit == null) {

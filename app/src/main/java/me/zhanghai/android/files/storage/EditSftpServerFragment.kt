@@ -280,6 +280,7 @@ class EditSftpServerFragment : Fragment() {
     private fun getServerOrSetError(): SftpServer? {
         var errorEdit: TextInputEditText? = null
         val host = binding.hostEdit.text.toString().takeIfNotEmpty()
+            ?.let { URI::class.canonicalizeHost(it) }
         if (host == null) {
             binding.hostLayout.error =
                 getString(R.string.storage_edit_sftp_server_host_error_empty)

@@ -4,6 +4,10 @@ import java.net.URI
 import java.net.URISyntaxException
 import kotlin.reflect.KClass
 
+// @see URI.appendAuthority
+fun KClass<URI>.canonicalizeHost(host: String): String =
+    if (host.contains(':') && !host.startsWith('[') && !host.endsWith(']')) "[$host]" else host
+
 fun KClass<URI>.createOrLog(uri: String): URI? =
     try {
         URI(uri)
