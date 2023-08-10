@@ -296,7 +296,7 @@
     <string name="file_list_action_create_shortcut">Create shortcut</string>
     <string name="file_list_breadcrumb_action_copy_path" translatable="false">@string/file_list_action_copy_path</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Open in new window</string>
-    <string name="file_list_select_title_format">%1$,d selected</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_action_extract" translatable="false">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive" translatable="false">@string/file_item_action_archive</string>
     <string name="file_list_select_current_directory_format">Select “%1$s”</string>

@@ -263,7 +263,7 @@
     <string name="file_list_action_add_bookmark">添加书签</string>
     <string name="file_list_action_create_shortcut">创建快捷方式</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">在新窗口中打开</string>
-    <string name="file_list_select_title_format">已选择 %1$,d</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">选择“%1$s”</string>
     <string name="file_list_paste_move_title_format">移动 %1$,d</string>
     <string name="file_list_paste_copy_title_format">复制 %1$,d</string>
