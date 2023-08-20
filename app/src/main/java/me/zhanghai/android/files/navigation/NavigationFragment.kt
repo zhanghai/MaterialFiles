@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.navigation
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,16 +15,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import java8.nio.file.Path
 import me.zhanghai.android.files.databinding.NavigationFragmentBinding
-import me.zhanghai.android.files.file.DocumentTreeUri
-import me.zhanghai.android.files.file.asDocumentTreeUri
-import me.zhanghai.android.files.file.releasePersistablePermission
-import me.zhanghai.android.files.provider.document.documentTreeUri
-import me.zhanghai.android.files.provider.document.isDocumentPath
-import me.zhanghai.android.files.settings.StandardDirectoryListActivity
-import me.zhanghai.android.files.storage.AddStorageDialogActivity
-import me.zhanghai.android.files.storage.Storage
-import me.zhanghai.android.files.util.createIntent
-import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.startActivitySafe
 
 class NavigationFragment : Fragment(), NavigationItem.Listener {
@@ -77,34 +68,8 @@ class NavigationFragment : Fragment(), NavigationItem.Listener {
         listener.navigateToRoot(path)
     }
 
-    override fun onAddStorage() {
-        startActivitySafe(AddStorageDialogActivity::class.createIntent())
-    }
-
-    override fun onEditStorage(storage: Storage) {
-        startActivitySafe(storage.createEditIntent())
-    }
-
-    // TODO
-    // FIXME: Navigate away on async storage removal
-    fun removeDocumentTree(treeUri: DocumentTreeUri) {
-        treeUri.releasePersistablePermission()
-        val currentPath = listener.currentPath
-        if (currentPath.isDocumentPath
-            && currentPath.documentTreeUri.asDocumentTreeUri() == treeUri) {
-            listener.navigateToDefaultRoot()
-        }
-    }
-
-    override fun onEditStandardDirectory(standardDirectory: StandardDirectory) {
-        startActivitySafe(StandardDirectoryListActivity::class.createIntent())
-    }
-
-    override fun onEditBookmarkDirectory(bookmarkDirectory: BookmarkDirectory) {
-        startActivitySafe(
-            EditBookmarkDirectoryDialogActivity::class.createIntent()
-                .putArgs(EditBookmarkDirectoryDialogFragment.Args(bookmarkDirectory))
-        )
+    override fun launchIntent(intent: Intent) {
+        startActivitySafe(intent)
     }
 
     override fun closeNavigationDrawer() {

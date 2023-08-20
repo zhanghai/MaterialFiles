@@ -40,8 +40,7 @@ class EditDocumentTreeDialogFragment : AppCompatDialogFragment() {
                         documentTree.getName(binding.nameEdit.context)
                     )
                 }
-                val uri = documentTree.uri.value
-                binding.uriText.setText(uri.toString())
+                binding.uriText.setText(documentTree.uri.value.toString())
                 val linuxPath = documentTree.linuxPath
                 binding.pathLayout.isVisible = linuxPath != null
                 binding.pathText.setText(linuxPath)

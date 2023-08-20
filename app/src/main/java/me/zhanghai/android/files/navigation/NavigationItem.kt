@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
 import me.zhanghai.android.files.compat.getDrawableCompat
-import me.zhanghai.android.files.storage.Storage
 
 abstract class NavigationItem {
     abstract val id: Long
@@ -35,11 +34,7 @@ abstract class NavigationItem {
         val currentPath: Path
         fun navigateTo(path: Path)
         fun navigateToRoot(path: Path)
-        fun onAddStorage()
-        fun onEditStorage(storage: Storage)
-        fun onEditStandardDirectory(standardDirectory: StandardDirectory)
-        fun onEditBookmarkDirectory(bookmarkDirectory: BookmarkDirectory)
+        fun launchIntent(intent: Intent)
         fun closeNavigationDrawer()
-        fun startActivity(intent: Intent)
     }
 }

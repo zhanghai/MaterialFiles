@@ -12,7 +12,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.file.asDocumentTreeUri
+import me.zhanghai.android.files.file.asDocumentUri
 import me.zhanghai.android.files.provider.document.resolver.ExternalStorageProviderHacks
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.finish
@@ -41,34 +41,29 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
     companion object {
         private val STORAGE_TYPES = listOfNotNull(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                (R.string.storage_add_storage_android_data
-                        to AddDocumentTreeActivity ::class.createIntent()
-                    .putArgs(
-                        AddDocumentTreeFragment.Args(
+                R.string.storage_add_storage_android_data to
+                    AddDocumentManagerShortcutActivity ::class.createIntent().putArgs(
+                        AddDocumentManagerShortcutFragment.Args(
                             R.string.storage_add_storage_android_data,
-                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_DATA
-                                .asDocumentTreeUri()
+                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_DATA.asDocumentUri()
                         )
-                    ))
+                    )
             } else null,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                (R.string.storage_add_storage_android_obb
-                        to AddDocumentTreeActivity ::class.createIntent()
-                    .putArgs(
-                        AddDocumentTreeFragment.Args(
+                R.string.storage_add_storage_android_obb to
+                    AddDocumentManagerShortcutActivity ::class.createIntent().putArgs(
+                        AddDocumentManagerShortcutFragment.Args(
                             R.string.storage_add_storage_android_obb,
-                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_OBB
-                                .asDocumentTreeUri()
+                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_OBB.asDocumentUri()
                         )
-                    ))
+                    )
             } else null,
-            R.string.storage_add_storage_document_tree
-                    to AddDocumentTreeActivity::class.createIntent()
-                .putArgs(AddDocumentTreeFragment.Args(null, null)),
-            R.string.storage_add_storage_ftp_server to EditFtpServerActivity::class.createIntent()
-                .putArgs(EditFtpServerFragment.Args()),
-            R.string.storage_add_storage_sftp_server to EditSftpServerActivity::class.createIntent()
-                .putArgs(EditSftpServerFragment.Args()),
+            R.string.storage_add_storage_document_tree to
+                AddDocumentTreeActivity::class.createIntent(),
+            R.string.storage_add_storage_ftp_server to
+                EditFtpServerActivity::class.createIntent().putArgs(EditFtpServerFragment.Args()),
+            R.string.storage_add_storage_sftp_server to
+                EditSftpServerActivity::class.createIntent().putArgs(EditSftpServerFragment.Args()),
             R.string.storage_add_storage_smb_server to AddLanSmbServerActivity::class.createIntent()
         )
     }

@@ -9,6 +9,7 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
+import me.zhanghai.android.files.app.packageManager
 
 object DocumentsContractCompat {
     const val EXTRA_INITIAL_URI = "android.provider.extra.INITIAL_URI"
@@ -20,6 +21,17 @@ object DocumentsContractCompat {
     private const val PATH_DOCUMENT = "document"
     private const val PATH_CHILDREN = "children"
     private const val PATH_TREE = "tree"
+
+    /** @see DocumentsContract.PACKAGE_DOCUMENTS_UI */
+    fun getDocumentsUiPackage(): String? {
+        // See android.permission.cts.ProviderPermissionTest.testManageDocuments()
+        val packageInfos = packageManager.getPackagesHoldingPermissions(
+            arrayOf(android.Manifest.permission.MANAGE_DOCUMENTS), 0
+        )
+        val packageInfo = packageInfos.firstOrNull { it.packageName.endsWith(".documentsui") }
+            ?: packageInfos.firstOrNull()
+        return packageInfo?.packageName
+    }
 
     /** @see DocumentsContract.isDocumentUri */
     fun isDocumentUri(uri: Uri): Boolean {

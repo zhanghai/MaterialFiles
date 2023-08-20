@@ -51,7 +51,8 @@ data class DocumentTree(
             }
 
     override fun getDefaultName(context: Context): String =
-        uri.storageVolume?.getDescriptionCompat(context) ?: uri.displayName ?: uri.value.toString()
+        uri.storageVolume?.getDescriptionCompat(context) ?: uri.displayName
+            ?: uri.value.lastPathSegment ?: uri.value.toString()
 
     override val description: String
         get() = uri.value.toString()

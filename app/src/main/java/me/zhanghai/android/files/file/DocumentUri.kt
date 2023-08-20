@@ -6,12 +6,15 @@
 package me.zhanghai.android.files.file
 
 import android.net.Uri
+import android.os.Parcelable
 import android.provider.DocumentsContract
+import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 
+@Parcelize
 @JvmInline
-value class DocumentUri(val value: Uri) {
+value class DocumentUri(val value: Uri) : Parcelable {
     val documentId: String
         get() = DocumentsContract.getDocumentId(value)
 }
@@ -50,6 +53,3 @@ val DocumentUri.displayName: String?
         }
         return null
     }
-
-val DocumentUri.displayNameOrUri: String
-    get() = displayName ?: value.toString()

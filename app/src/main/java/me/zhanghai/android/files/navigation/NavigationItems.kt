@@ -25,11 +25,14 @@ import me.zhanghai.android.files.file.asFileSize
 import me.zhanghai.android.files.ftpserver.FtpServerActivity
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.settings.SettingsActivity
+import me.zhanghai.android.files.settings.StandardDirectoryListActivity
+import me.zhanghai.android.files.storage.AddStorageDialogActivity
 import me.zhanghai.android.files.storage.FileSystemRoot
 import me.zhanghai.android.files.storage.Storage
 import me.zhanghai.android.files.storage.StorageVolumeListLiveData
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.isMounted
+import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.valueCompat
 
 val navigationItems: List<NavigationItem?>
@@ -60,7 +63,10 @@ val navigationItems: List<NavigationItem?>
 
 private val storageItems: List<NavigationItem>
     @Size(min = 0)
-    get() = Settings.STORAGES.valueCompat.filter { it.isVisible }.map { StorageItem(it) }
+    get() =
+        Settings.STORAGES.valueCompat.filter { it.isVisible }.map {
+            if (it.path != null) PathStorageItem(it) else IntentStorageItem(it)
+        }
 
 private abstract class PathItem(val path: Path) : NavigationItem() {
     override fun isChecked(listener: Listener): Boolean = listener.currentPath == path
@@ -75,9 +81,9 @@ private abstract class PathItem(val path: Path) : NavigationItem() {
     }
 }
 
-private class StorageItem(
+private class PathStorageItem(
     private val storage: Storage
-) : PathItem(storage.path), NavigationRoot {
+) : PathItem(storage.path!!), NavigationRoot {
     init {
         require(storage.isVisible)
     }
@@ -95,11 +101,38 @@ private class StorageItem(
         storage.linuxPath?.let { getStorageSubtitle(it, context) }
 
     override fun onLongClick(listener: Listener): Boolean {
-        listener.onEditStorage(storage)
+        listener.launchIntent(storage.createEditIntent())
         return true
     }
 
     override fun getName(context: Context): String = getTitle(context)
+}
+
+private class IntentStorageItem(
+    private val storage: Storage
+) : NavigationItem() {
+    init {
+        require(storage.isVisible)
+    }
+
+    override val id: Long
+        get() = storage.id
+
+    override val iconRes: Int
+        @DrawableRes
+        get() = storage.iconRes
+
+    override fun getTitle(context: Context): String = storage.getName(context)
+
+    override fun onClick(listener: Listener) {
+        listener.launchIntent(storage.createIntent()!!)
+        listener.closeNavigationDrawer()
+    }
+
+    override fun onLongClick(listener: Listener): Boolean {
+        listener.launchIntent(storage.createEditIntent())
+        return true
+    }
 }
 
 private val storageVolumeItems: List<NavigationItem>
@@ -162,7 +195,7 @@ private class AddStorageItem : NavigationItem() {
         context.getString(R.string.navigation_add_storage)
 
     override fun onClick(listener: Listener) {
-        listener.onAddStorage()
+        listener.launchIntent(AddStorageDialogActivity::class.createIntent())
     }
 }
 
@@ -190,7 +223,7 @@ private class StandardDirectoryItem(
     override fun getTitle(context: Context): String = standardDirectory.getTitle(context)
 
     override fun onLongClick(listener: Listener): Boolean {
-        listener.onEditStandardDirectory(standardDirectory)
+        listener.launchIntent(StandardDirectoryListActivity::class.createIntent())
         return true
     }
 }
@@ -311,7 +344,10 @@ private class BookmarkDirectoryItem(
     override fun getTitle(context: Context): String = bookmarkDirectory.name
 
     override fun onLongClick(listener: Listener): Boolean {
-        listener.onEditBookmarkDirectory(bookmarkDirectory)
+        listener.launchIntent(
+            EditBookmarkDirectoryDialogActivity::class.createIntent()
+                .putArgs(EditBookmarkDirectoryDialogFragment.Args(bookmarkDirectory))
+        )
         return true
     }
 }
@@ -319,15 +355,15 @@ private class BookmarkDirectoryItem(
 private val menuItems: List<NavigationItem>
     @Size(3)
     get() = listOf(
-        ActivityMenuItem(
+        IntentMenuItem(
             R.drawable.shared_directory_icon_white_24dp, R.string.navigation_ftp_server,
             FtpServerActivity::class.createIntent()
         ),
-        ActivityMenuItem(
+        IntentMenuItem(
             R.drawable.settings_icon_white_24dp, R.string.navigation_settings,
             SettingsActivity::class.createIntent()
         ),
-        ActivityMenuItem(
+        IntentMenuItem(
             R.drawable.about_icon_white_24dp, R.string.navigation_about,
             AboutActivity::class.createIntent()
         )
@@ -340,7 +376,7 @@ private abstract class MenuItem(
     override fun getTitle(context: Context): String = context.getString(titleRes)
 }
 
-private class ActivityMenuItem(
+private class IntentMenuItem(
     @DrawableRes iconRes: Int,
     @StringRes titleRes: Int,
     private val intent: Intent
@@ -349,8 +385,7 @@ private class ActivityMenuItem(
         get() = intent.component.hashCode().toLong()
 
     override fun onClick(listener: Listener) {
-        // TODO: startActivitySafe()?
-        listener.startActivity(intent)
+        listener.launchIntent(intent)
         listener.closeNavigationDrawer()
     }
 }

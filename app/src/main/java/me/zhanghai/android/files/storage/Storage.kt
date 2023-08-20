@@ -28,11 +28,13 @@ abstract class Storage : Parcelable {
 
     abstract val description: String
 
-    abstract val path: Path
+    abstract val path: Path?
 
     open val linuxPath: String? = null
 
     open val isVisible: Boolean = true
+
+    open fun createIntent(): Intent? = null
 
     abstract fun createEditIntent(): Intent
 }
