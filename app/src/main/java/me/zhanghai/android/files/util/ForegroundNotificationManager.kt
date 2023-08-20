@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.util
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.Service
 import me.zhanghai.android.files.app.notificationManager
@@ -14,6 +15,8 @@ class ForegroundNotificationManager(private val service: Service) {
 
     private var foregroundId = 0
 
+    // TODO: Add POST_NOTIFICATIONS permission when targeting API 33.
+    @SuppressLint("MissingPermission")
     fun notify(id: Int, notification: Notification) {
         synchronized(notifications) {
             if (notifications.isEmpty()) {

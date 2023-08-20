@@ -5,6 +5,8 @@
 
 package com.google.android.material.shape;
 
+import android.annotation.SuppressLint;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -13,6 +15,7 @@ import com.google.android.material.elevation.ElevationOverlayProvider;
 public class MaterialShapeDrawableAccessor {
     private MaterialShapeDrawableAccessor() {}
 
+    @SuppressLint("RestrictedApi")
     public static ElevationOverlayProvider getElevationOverlayProvider(
             @NonNull MaterialShapeDrawable drawable) {
         MaterialShapeDrawable.MaterialShapeDrawableState drawableState =
@@ -20,6 +23,7 @@ public class MaterialShapeDrawableAccessor {
         return drawableState.elevationOverlayProvider;
     }
 
+    @SuppressLint("RestrictedApi")
     public static void setElevationOverlayProvider(
             @NonNull MaterialShapeDrawable drawable,
             @Nullable ElevationOverlayProvider elevationOverlayProvider) {

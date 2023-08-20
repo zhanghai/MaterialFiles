@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.app
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -51,6 +52,8 @@ object BackgroundActivityStarter {
             Lifecycle.State.STARTED
         )
 
+    // TODO: Add POST_NOTIFICATIONS permission when targeting API 33.
+    @SuppressLint("MissingPermission")
     private fun notifyStartActivity(
         intent: Intent,
         title: CharSequence,
