@@ -24,7 +24,6 @@
             android:paddingStart="?dialogPreferredPadding"
             android:paddingEnd="?dialogPreferredPadding"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp"
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
