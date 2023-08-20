@@ -33,7 +33,7 @@ class EditDocumentManagerShortcutDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         MaterialAlertDialogBuilder(requireContext(), theme)
-            .setTitle(R.string.storage_edit_document_tree_title)
+            .setTitle(R.string.storage_edit_document_manager_shortcut_title)
             .apply {
                 binding = EditDocumentManagerShortcutDialogBinding.inflate(context.layoutInflater)
                 val documentManagerShortcut = args.documentManagerShortcut
