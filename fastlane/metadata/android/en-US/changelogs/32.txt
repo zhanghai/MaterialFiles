@@ -4,6 +4,6 @@
 - Added URL information to FTP server notification.
 - Added banner for Android TV.
 - Fast scroll popup now shows text according to the current sort options.
-- Video preview is now taken from 1/3 of the video instead of the first frame.
+- Video thumbnail is now taken from 1/3 of the video instead of the first frame.
 - Material Design 2 theme will be removed in the upcoming version 1.7.0 to ease code maintenance.
 - Other bug fixes and improvements.
