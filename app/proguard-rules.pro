@@ -56,6 +56,14 @@
 -keep class org.bouncycastle.jcajce.provider.** { *; }
 -keep class org.bouncycastle.jce.provider.** { *; }
 
+# SMBJ
+-dontwarn javax.el.**
+-dontwarn org.ietf.jgss.**
+-dontwarn sun.security.x509.X509Key
+
+# SMBJ-RPC
+-dontwarn java.rmi.UnmarshalException
+
 # Stetho No-op
 # This library includes the no-op for stetho-okhttp3 which requires okhttp3, but we never used it.
 -dontwarn com.facebook.stetho.okhttp3.StethoInterceptor
