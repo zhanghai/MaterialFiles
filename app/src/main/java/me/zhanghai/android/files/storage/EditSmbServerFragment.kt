@@ -197,7 +197,7 @@ class EditSmbServerFragment : Fragment() {
             val items = List(adapter.count) { adapter.getItem(it) as CharSequence }
             val selectedItem = binding.authenticationTypeEdit.text
             val selectedIndex = items.indexOfFirst { TextUtils.equals(it, selectedItem) }
-            return AuthenticationType.values()[selectedIndex]
+            return AuthenticationType.entries[selectedIndex]
         }
         set(value) {
             val adapter = binding.authenticationTypeEdit.adapter

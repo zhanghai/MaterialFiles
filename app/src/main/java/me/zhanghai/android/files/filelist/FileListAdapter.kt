@@ -170,7 +170,7 @@ class FileListAdapter(
     override fun getItemViewType(position: Int): Int = viewType.ordinal
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewType = FileViewType.values()[viewType]
+        val viewType = FileViewType.entries[viewType]
         val inflater = parent.context.layoutInflater
         val holder = when (viewType) {
             FileViewType.LIST -> ViewHolder(FileItemListBinding.inflate(inflater, parent, false))

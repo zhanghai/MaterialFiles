@@ -70,8 +70,7 @@ class ThemeColorPreference : BaseColorPreference {
 
     init {
         val context = context
-        entryValues = ThemeColor.values().map { context.getColorCompat(it.resourceId) }
-            .toIntArray()
+        entryValues = ThemeColor.entries.map { context.getColorCompat(it.resourceId) }.toIntArray()
     }
 
     override fun onGetDefaultValue(a: TypedArray, index: Int): Any? =

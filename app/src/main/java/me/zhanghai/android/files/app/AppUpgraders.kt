@@ -94,8 +94,8 @@ private fun migrateFileSortOptionsSetting1_1_0(sharedPreferences: SharedPreferen
                 oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
                 oldParcel.setDataPosition(0)
                 newParcel.writeString(oldParcel.readString())
-                newParcel.writeString(FileSortOptions.By.values()[oldParcel.readInt()].name)
-                newParcel.writeString(FileSortOptions.Order.values()[oldParcel.readInt()].name)
+                newParcel.writeString(FileSortOptions.By.entries[oldParcel.readInt()].name)
+                newParcel.writeString(FileSortOptions.Order.entries[oldParcel.readInt()].name)
                 newParcel.writeInt(oldParcel.readByte().toInt())
             }
             newParcel.marshall()

@@ -113,7 +113,7 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
             val username = userInfo ?: ""
             val queryUri = decodedQueryByteString?.toString()?.let { Uri.parse(it) }
             val mode = queryUri?.getQueryParameter(FtpPath.QUERY_PARAMETER_MODE)
-                ?.let { mode -> Mode.values().first { it.name.equals(mode, true) } }
+                ?.let { mode -> Mode.entries.first { it.name.equals(mode, true) } }
                 ?: Authority.DEFAULT_MODE
             val encoding = queryUri?.getQueryParameter(FtpPath.QUERY_PARAMETER_ENCODING)
                 ?: Authority.DEFAULT_ENCODING

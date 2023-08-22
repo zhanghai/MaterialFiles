@@ -160,7 +160,7 @@ class NavigationListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (ViewType.values()[viewType]) {
+        return when (ViewType.entries[viewType]) {
             ViewType.ITEM ->
                 ItemHolder(
                     NavigationItemBinding.inflate(parent.context.layoutInflater, parent, false)
@@ -222,7 +222,7 @@ class NavigationListAdapter(
         position: Int,
         payloads: List<Any>
     ) {
-        when (ViewType.values()[getItemViewType(position)]) {
+        when (ViewType.entries[getItemViewType(position)]) {
             ViewType.ITEM -> {
                 val item = getItem(position)!!
                 val binding = (holder as ItemHolder).binding
