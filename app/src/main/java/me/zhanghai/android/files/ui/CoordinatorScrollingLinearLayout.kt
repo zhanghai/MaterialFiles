@@ -85,7 +85,7 @@ class CoordinatorScrollingLinearLayout : LinearLayout, AttachedBehavior {
     }
 
     private fun findScrollingView(viewGroup: ViewGroup = this): View? {
-        for (index in 0 until viewGroup.childCount) {
+        for (index in 0..<viewGroup.childCount) {
             val view = viewGroup.getChildAt(index)
             if (view is ScrollingView) {
                 return view

@@ -58,7 +58,7 @@ abstract class SimpleAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Ada
 
     fun findPositionById(id: Long): Int {
         val count = itemCount
-        for (index in 0 until count) {
+        for (index in 0..<count) {
             if (getItemId(index) == id) {
                 return index
             }

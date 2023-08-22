@@ -154,10 +154,10 @@ class BreadcrumbLayout : HorizontalScrollView {
     private fun inflateItemViews() {
         // HACK: Remove/add views at the front so that ripple remains correct, as we are potentially
         // collapsing/expanding breadcrumbs at the front.
-        for (index in data.paths.size until itemsLayout.childCount) {
+        for (index in data.paths.size..<itemsLayout.childCount) {
             itemsLayout.removeViewAt(0)
         }
-        for (index in itemsLayout.childCount until data.paths.size) {
+        for (index in itemsLayout.childCount..<data.paths.size) {
             val binding = BreadcrumbItemBinding.inflate(context.layoutInflater, itemsLayout, false)
             val menu = PopupMenu(popupContext, binding.root)
                 .apply { inflate(R.menu.file_list_breadcrumb) }

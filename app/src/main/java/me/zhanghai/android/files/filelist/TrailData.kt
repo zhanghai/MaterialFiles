@@ -33,7 +33,7 @@ class TrailData private constructor(
             }
         }
         if (isPrefix) {
-            for (index in newTrail.size until trail.size) {
+            for (index in newTrail.size..<trail.size) {
                 newTrail.add(trail[index])
                 newStates.add(if (index != currentIndex) states[index] else lastState)
             }

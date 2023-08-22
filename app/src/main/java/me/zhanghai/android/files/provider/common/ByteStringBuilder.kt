@@ -16,7 +16,7 @@ class ByteStringBuilder(capacity: Int = 16) {
     }
 
     operator fun get(index: Int): Byte {
-        if (index !in 0 until length) {
+        if (index !in 0..<length) {
             throw IndexOutOfBoundsException()
         }
         return bytes[index]

@@ -76,19 +76,19 @@ fun String.asMimeType(): MimeType {
 private val String.isValidMimeType: Boolean
     get() {
         val indexOfSlash = indexOf('/')
-        if (indexOfSlash == -1 || indexOfSlash !in 1 until length) {
+        if (indexOfSlash == -1 || indexOfSlash !in 1..<length) {
             return false
         }
         val indexOfSemicolon = indexOf(';')
         if (indexOfSemicolon != -1) {
-            if (indexOfSemicolon !in indexOfSlash + 2 until length) {
+            if (indexOfSemicolon !in indexOfSlash + 2..<length) {
                 return false
             }
         }
         val indexOfPlus = indexOf('+')
         if (indexOfPlus != -1 && !(indexOfSemicolon != -1 && indexOfPlus > indexOfSemicolon)) {
-            if (indexOfPlus !in indexOfSlash + 2
-                until if (indexOfSemicolon != -1) indexOfSemicolon - 1 else length) {
+            if (indexOfPlus !in indexOfSlash + 2..<
+                if (indexOfSemicolon != -1) indexOfSemicolon - 1 else length) {
                 return false
             }
         }

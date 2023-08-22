@@ -1123,7 +1123,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
         var paths = mutableListOf<Path>()
         // We need the ordered list from our adapter instead of the list from FileListLiveData.
-        for (index in 0 until adapter.itemCount) {
+        for (index in 0..<adapter.itemCount) {
             val file = adapter.getItem(index)
             val filePath = file.path
             if (file.mimeType.isImage || filePath == path) {

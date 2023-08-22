@@ -54,7 +54,7 @@ class ByteString internal constructor(
     fun endsWith(suffix: ByteString): Boolean = startsWith(suffix, length - suffix.length)
 
     fun indexOf(byte: Byte, fromIndex: Int = 0): Int {
-        for (index in fromIndex.coerceAtLeast(0) until length) {
+        for (index in fromIndex.coerceAtLeast(0)..<length) {
             if (this[index] == byte) {
                 return index
             }
@@ -74,7 +74,7 @@ class ByteString internal constructor(
     fun contains(byte: Byte): Boolean = indexOf(byte) != -1
 
     fun indexOf(substring: ByteString, fromIndex: Int = 0): Int {
-        for (index in fromIndex.coerceAtLeast(0) until length - substring.length) {
+        for (index in fromIndex.coerceAtLeast(0)..<length - substring.length) {
             if (startsWith(substring, index)) {
                 return index
             }
@@ -166,7 +166,7 @@ class ByteString internal constructor(
     private fun ByteArray.compareTo(other: ByteArray): Int {
         val size = size
         val otherSize = other.size
-        for (index in 0 until min(size, otherSize)) {
+        for (index in 0..<min(size, otherSize)) {
             val byte = this[index]
             val otherByte = other[index]
             val result = byte - otherByte

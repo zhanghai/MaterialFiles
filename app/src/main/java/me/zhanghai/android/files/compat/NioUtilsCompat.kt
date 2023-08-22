@@ -26,7 +26,7 @@ object NioUtilsCompat {
     )
 
     fun newFileChannel(ioObject: Closeable, fd: FileDescriptor, flags: Int): FileChannel =
-        if (Build.VERSION.SDK_INT in Build.VERSION_CODES.N until Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT in Build.VERSION_CODES.N..<Build.VERSION_CODES.R) {
             // They broke O_RDONLY by assuming it's non-zero, but in fact it is zero.
             // https://android.googlesource.com/platform/libcore/+/nougat-release/luni/src/main/java/java/nio/NioUtils.java#63
             val readable = flags and OsConstants.O_ACCMODE != OsConstants.O_WRONLY

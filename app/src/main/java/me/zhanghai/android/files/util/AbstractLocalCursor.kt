@@ -89,13 +89,13 @@ abstract class AbstractLocalCursor : Cursor {
 
     private fun getObjectChecked(columnIndex: Int): Any? {
         val columnCount = columnCount
-        if (columnIndex !in 0 until columnCount) {
+        if (columnIndex !in 0..<columnCount) {
             throw CursorIndexOutOfBoundsException(
                 "Requested column: $columnIndex, # of columns: $columnCount"
             )
         }
         val count = count
-        if (_position !in 0 until count) {
+        if (_position !in 0..<count) {
             throw CursorIndexOutOfBoundsException(_position, count)
         }
         return getObject(columnIndex)

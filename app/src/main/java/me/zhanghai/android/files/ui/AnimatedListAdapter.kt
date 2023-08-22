@@ -86,7 +86,7 @@ abstract class AnimatedListAdapter<T, VH : RecyclerView.ViewHolder>(
     private fun clearAnimation() {
         stopAnimation()
         recyclerView?.let {
-            for (index in 0 until it.childCount) {
+            for (index in 0..<it.childCount) {
                 it.getChildAt(index).clearAnimation()
             }
         }

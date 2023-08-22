@@ -30,7 +30,7 @@ fun <E : Parcelable?, L : MutableList<E>> Parcel.readParcelableListCompat(
             return list
         }
         val listSize = list.size
-        for (index in 0 until size) {
+        for (index in 0..<size) {
             @Suppress("UNCHECKED_CAST")
             val element = readParcelable<E>(classLoader) as E
             if (index < listSize) {
