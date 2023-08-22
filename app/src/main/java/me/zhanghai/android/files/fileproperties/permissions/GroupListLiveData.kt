@@ -5,9 +5,9 @@
 
 package me.zhanghai.android.files.fileproperties.permissions
 
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls.endgrent
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls.getgrent
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls.setgrent
+import me.zhanghai.android.files.provider.linux.syscall.Syscall.endgrent
+import me.zhanghai.android.files.provider.linux.syscall.Syscall.getgrent
+import me.zhanghai.android.files.provider.linux.syscall.Syscall.setgrent
 
 class GroupListLiveData : PrincipalListLiveData() {
     override val androidPrincipals: MutableList<PrincipalItem>

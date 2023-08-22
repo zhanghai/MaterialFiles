@@ -40,7 +40,7 @@ import me.zhanghai.android.files.provider.common.toLinkOptions
 import me.zhanghai.android.files.provider.common.toOpenOptions
 import me.zhanghai.android.files.provider.linux.media.MediaScanner
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
+import me.zhanghai.android.files.provider.linux.syscall.Syscall
 import me.zhanghai.android.files.util.hasBits
 import java.io.IOException
 import java.net.URI
@@ -86,7 +86,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val mode = (PosixFileMode.fromAttributes(attributes) ?: PosixFileMode.CREATE_FILE_DEFAULT)
             .toInt()
         val fd = try {
-            Syscalls.open(fileBytes, flags, mode)
+            Syscall.open(fileBytes, flags, mode)
         } catch (e: SyscallException) {
             if (flags.hasBits(OsConstants.O_CREAT)) {
                 e.maybeThrowInvalidFileNameException(fileBytes.toString())
@@ -96,7 +96,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val fileChannel = FileChannel::class.open(fd, flags)
         if (openOptions.deleteOnClose) {
             try {
-                Syscalls.remove(fileBytes)
+                Syscall.remove(fileBytes)
             } catch (e: SyscallException) {
                 e.printStackTrace()
             }
@@ -121,7 +121,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         directory as? LinuxPath ?: throw ProviderMismatchException(directory.toString())
         val directoryBytes = directory.toByteString()
         val dir = try {
-            Syscalls.opendir(directoryBytes)
+            Syscall.opendir(directoryBytes)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(directoryBytes.toString())
         }
@@ -135,7 +135,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val mode = (PosixFileMode.fromAttributes(attributes)
             ?: PosixFileMode.CREATE_DIRECTORY_DEFAULT).toInt()
         try {
-            Syscalls.mkdir(directoryBytes, mode)
+            Syscall.mkdir(directoryBytes, mode)
         } catch (e: SyscallException) {
             e.maybeThrowInvalidFileNameException(directoryBytes.toString())
             throw e.toFileSystemException(directoryBytes.toString())
@@ -156,7 +156,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         }
         val linkBytes = link.toByteString()
         try {
-            Syscalls.symlink(targetBytes, linkBytes)
+            Syscall.symlink(targetBytes, linkBytes)
         } catch (e: SyscallException) {
             e.maybeThrowInvalidFileNameException(linkBytes.toString())
             throw e.toFileSystemException(linkBytes.toString(), targetBytes.toString())
@@ -171,7 +171,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val oldPathBytes = existing.toByteString()
         val newPathBytes = link.toByteString()
         try {
-            Syscalls.link(oldPathBytes, newPathBytes)
+            Syscall.link(oldPathBytes, newPathBytes)
         } catch (e: SyscallException) {
             e.maybeThrowInvalidFileNameException(newPathBytes.toString())
             throw e.toFileSystemException(newPathBytes.toString(), oldPathBytes.toString())
@@ -184,7 +184,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         path as? LinuxPath ?: throw ProviderMismatchException(path.toString())
         val pathBytes = path.toByteString()
         try {
-            Syscalls.remove(pathBytes)
+            Syscall.remove(pathBytes)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(pathBytes.toString())
         }
@@ -196,7 +196,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         link as? LinuxPath ?: throw ProviderMismatchException(link.toString())
         val linkBytes = link.toByteString()
         val targetBytes = try {
-            Syscalls.readlink(linkBytes)
+            Syscall.readlink(linkBytes)
         } catch (e: SyscallException) {
             e.maybeThrowNotLinkException(linkBytes.toString())
             throw e.toFileSystemException(linkBytes.toString())
@@ -240,12 +240,12 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         val pathBytes = path.toByteString()
         val path2Bytes = path2.toByteString()
         val pathStat = try {
-            Syscalls.lstat(pathBytes)
+            Syscall.lstat(pathBytes)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(pathBytes.toString())
         }
         val path2Stat = try {
-            Syscalls.lstat(path2Bytes)
+            Syscall.lstat(path2Bytes)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path2Bytes.toString())
         }
@@ -287,7 +287,7 @@ class LocalLinuxFileSystemProvider(provider: LinuxFileSystemProvider) : FileSyst
         }
         val accessible = try {
             // TODO: Should use euidaccess() but that's unavailable on Android.
-            Syscalls.access(pathBytes, mode)
+            Syscall.access(pathBytes, mode)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(pathBytes.toString())
         }

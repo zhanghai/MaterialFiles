@@ -20,9 +20,9 @@ import me.zhanghai.android.libselinux.SeLinux
 import java.io.FileDescriptor
 import java.io.InterruptedIOException
 
-object Syscalls {
+object Syscall {
     init {
-        System.loadLibrary("syscalls")
+        System.loadLibrary("syscall")
     }
 
     @Throws(SyscallException::class)

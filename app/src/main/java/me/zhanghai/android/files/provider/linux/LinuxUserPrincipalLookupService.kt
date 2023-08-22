@@ -12,7 +12,7 @@ import me.zhanghai.android.files.provider.common.PosixGroup
 import me.zhanghai.android.files.provider.common.PosixUser
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
+import me.zhanghai.android.files.provider.linux.syscall.Syscall
 import java.io.IOException
 
 internal object LinuxUserPrincipalLookupService : UserPrincipalLookupService() {
@@ -23,7 +23,7 @@ internal object LinuxUserPrincipalLookupService : UserPrincipalLookupService() {
     @Throws(IOException::class)
     fun lookupPrincipalByName(name: ByteString): PosixUser {
         val passwd = try {
-            Syscalls.getpwnam(name)
+            Syscall.getpwnam(name)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(null)
         } ?: throw UserPrincipalNotFoundException(name.toString())
@@ -40,7 +40,7 @@ internal object LinuxUserPrincipalLookupService : UserPrincipalLookupService() {
 
     @Throws(SyscallException::class)
     fun getUserById(uid: Int): PosixUser {
-        val passwd = Syscalls.getpwuid(uid)
+        val passwd = Syscall.getpwuid(uid)
         return PosixUser(uid, passwd?.pw_name)
     }
 
@@ -51,7 +51,7 @@ internal object LinuxUserPrincipalLookupService : UserPrincipalLookupService() {
     @Throws(IOException::class)
     fun lookupPrincipalByGroupName(group: ByteString): PosixGroup {
         val groupStruct = try {
-            Syscalls.getgrnam(group)
+            Syscall.getgrnam(group)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(null)
         } ?: throw UserPrincipalNotFoundException(group.toString())
@@ -68,7 +68,7 @@ internal object LinuxUserPrincipalLookupService : UserPrincipalLookupService() {
 
     @Throws(SyscallException::class)
     fun getGroupById(gid: Int): PosixGroup {
-        val group = Syscalls.getgrgid(gid)
+        val group = Syscall.getgrgid(gid)
         return PosixGroup(gid, group?.gr_name)
     }
 }

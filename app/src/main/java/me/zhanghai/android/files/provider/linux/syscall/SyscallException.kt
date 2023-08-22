@@ -70,6 +70,6 @@ class SyscallException @JvmOverloads constructor(
 
     companion object {
         private fun perror(errno: Int, functionName: String): String =
-            "$functionName: ${Syscalls.strerror(errno)}"
+            "$functionName: ${Syscall.strerror(errno)}"
     }
 }

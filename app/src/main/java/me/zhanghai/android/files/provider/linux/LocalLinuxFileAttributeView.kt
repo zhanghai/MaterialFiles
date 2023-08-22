@@ -16,7 +16,7 @@ import me.zhanghai.android.files.provider.common.toInt
 import me.zhanghai.android.files.provider.linux.syscall.Constants
 import me.zhanghai.android.files.provider.linux.syscall.StructTimespec
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
+import me.zhanghai.android.files.provider.linux.syscall.Syscall
 import java.io.IOException
 
 internal class LocalLinuxFileAttributeView(
@@ -29,9 +29,9 @@ internal class LocalLinuxFileAttributeView(
     override fun readAttributes(): LinuxFileAttributes {
         val stat = try {
             if (noFollowLinks) {
-                Syscalls.lstat(path)
+                Syscall.lstat(path)
             } else {
-                Syscalls.stat(path)
+                Syscall.stat(path)
             }
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
@@ -52,9 +52,9 @@ internal class LocalLinuxFileAttributeView(
         }
         val seLinuxContext = try {
             if (noFollowLinks) {
-                Syscalls.lgetfilecon(path)
+                Syscall.lgetfilecon(path)
             } else {
-                Syscalls.getfilecon(path)
+                Syscall.getfilecon(path)
             }
         } catch (e: SyscallException) {
             // SELinux calls may fail with ENODATA or ENOTSUP, and there may be other errors.
@@ -81,9 +81,9 @@ internal class LocalLinuxFileAttributeView(
         val times = arrayOf(lastAccessTime.toTimespec(), lastModifiedTime.toTimespec())
         try {
             if (noFollowLinks) {
-                Syscalls.lutimens(path, times)
+                Syscall.lutimens(path, times)
             } else {
-                Syscalls.utimens(path, times)
+                Syscall.utimens(path, times)
             }
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
@@ -103,9 +103,9 @@ internal class LocalLinuxFileAttributeView(
         val uid = owner.id
         try {
             if (noFollowLinks) {
-                Syscalls.lchown(path, uid, -1)
+                Syscall.lchown(path, uid, -1)
             } else {
-                Syscalls.chown(path, uid, -1)
+                Syscall.chown(path, uid, -1)
             }
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
@@ -117,9 +117,9 @@ internal class LocalLinuxFileAttributeView(
         val gid = group.id
         try {
             if (noFollowLinks) {
-                Syscalls.lchown(path, -1, gid)
+                Syscall.lchown(path, -1, gid)
             } else {
-                Syscalls.chown(path, -1, gid)
+                Syscall.chown(path, -1, gid)
             }
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
@@ -133,7 +133,7 @@ internal class LocalLinuxFileAttributeView(
         }
         val modeInt = mode.toInt()
         try {
-            Syscalls.chmod(path, modeInt)
+            Syscall.chmod(path, modeInt)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
         }
@@ -143,9 +143,9 @@ internal class LocalLinuxFileAttributeView(
     override fun setSeLinuxContext(context: ByteString) {
         try {
             if (noFollowLinks) {
-                Syscalls.lsetfilecon(path, context)
+                Syscall.lsetfilecon(path, context)
             } else {
-                Syscalls.setfilecon(path, context)
+                Syscall.setfilecon(path, context)
             }
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
@@ -158,13 +158,13 @@ internal class LocalLinuxFileAttributeView(
             path
         } else {
             try {
-                Syscalls.realpath(path)
+                Syscall.realpath(path)
             } catch (e: SyscallException) {
                 throw e.toFileSystemException(path.toString())
             }
         }
         try {
-            Syscalls.selinux_android_restorecon(path, 0)
+            Syscall.selinux_android_restorecon(path, 0)
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
         }

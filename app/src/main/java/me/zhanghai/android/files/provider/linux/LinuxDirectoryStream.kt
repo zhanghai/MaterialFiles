@@ -10,7 +10,7 @@ import java8.nio.file.DirectoryStream
 import java8.nio.file.Path
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
+import me.zhanghai.android.files.provider.linux.syscall.Syscall
 import java.io.IOException
 
 internal class LinuxDirectoryStream(
@@ -42,7 +42,7 @@ internal class LinuxDirectoryStream(
                 return
             }
             try {
-                Syscalls.closedir(dir)
+                Syscall.closedir(dir)
             } catch (e: SyscallException) {
                 throw e.toFileSystemException(directory.toString())
             }
@@ -81,7 +81,7 @@ internal class LinuxDirectoryStream(
                         return null
                     }
                     val dirent = try {
-                        Syscalls.readdir(dir)
+                        Syscall.readdir(dir)
                     } catch (e: SyscallException) {
                         throw DirectoryIteratorException(
                             e.toFileSystemException(directory.toString())

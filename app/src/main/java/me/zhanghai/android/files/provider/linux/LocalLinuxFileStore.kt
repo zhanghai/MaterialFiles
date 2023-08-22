@@ -19,7 +19,7 @@ import me.zhanghai.android.files.provider.linux.syscall.Constants
 import me.zhanghai.android.files.provider.linux.syscall.Int32Ref
 import me.zhanghai.android.files.provider.linux.syscall.StructMntent
 import me.zhanghai.android.files.provider.linux.syscall.SyscallException
-import me.zhanghai.android.files.provider.linux.syscall.Syscalls
+import me.zhanghai.android.files.provider.linux.syscall.Syscall
 import me.zhanghai.android.files.util.andInv
 import me.zhanghai.android.files.util.hasBits
 import me.zhanghai.android.files.util.readParcelable
@@ -73,7 +73,7 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
 
     override fun type(): String = mntent.mnt_type.toString()
 
-    override fun isReadOnly(): Boolean = Syscalls.hasmntopt(mntent, OPTION_RO)
+    override fun isReadOnly(): Boolean = Syscall.hasmntopt(mntent, OPTION_RO)
 
     @Throws(IOException::class)
     override fun setReadOnly(readOnly: Boolean) {
@@ -124,7 +124,7 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
     ) {
         val mountFlags = mountFlags or Constants.MS_REMOUNT
         try {
-            Syscalls.mount(source, target, fileSystemType, mountFlags, data)
+            Syscall.mount(source, target, fileSystemType, mountFlags, data)
         } catch (e: SyscallException) {
             val readOnly = mountFlags.hasBits(Constants.MS_RDONLY)
             val isReadOnlyError = e.errno == OsConstants.EACCES || e.errno == OsConstants.EROFS
@@ -132,13 +132,13 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
                 throw e
             }
             try {
-                val fd = Syscalls.open(source!!, OsConstants.O_RDONLY, 0)
+                val fd = Syscall.open(source!!, OsConstants.O_RDONLY, 0)
                 try {
-                    Syscalls.ioctl_int(fd, Constants.BLKROSET, Int32Ref(0))
+                    Syscall.ioctl_int(fd, Constants.BLKROSET, Int32Ref(0))
                 } finally {
-                    Syscalls.close(fd)
+                    Syscall.close(fd)
                 }
-                Syscalls.mount(source, target, fileSystemType, mountFlags, data)
+                Syscall.mount(source, target, fileSystemType, mountFlags, data)
             } catch (e2: SyscallException) {
                 e.addSuppressed(e2)
                 throw e
@@ -167,7 +167,7 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
     @Throws(IOException::class)
     private fun getStatVfs(): StructStatVfs =
         try {
-            Syscalls.statvfs(path.toByteString())
+            Syscall.statvfs(path.toByteString())
         } catch (e: SyscallException) {
             throw e.toFileSystemException(path.toString())
         }
@@ -273,14 +273,14 @@ internal class LocalLinuxFileStore : PosixFileStore, Parcelable {
         @Throws(SyscallException::class)
         private fun getMountEntries(): List<StructMntent> {
             val entries = mutableListOf<StructMntent>()
-            val file = Syscalls.setmntent(PATH_PROC_SELF_MOUNTS, MODE_R)
+            val file = Syscall.setmntent(PATH_PROC_SELF_MOUNTS, MODE_R)
             try {
                 while (true) {
-                    val mntent = Syscalls.getmntent(file) ?: break
+                    val mntent = Syscall.getmntent(file) ?: break
                     entries += mntent
                 }
             } finally {
-                Syscalls.endmntent(file)
+                Syscall.endmntent(file)
             }
             return entries
         }
