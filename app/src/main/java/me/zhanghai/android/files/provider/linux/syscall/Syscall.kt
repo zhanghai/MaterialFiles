@@ -268,8 +268,8 @@ object Syscall {
     external fun sendfile(
         outFd: FileDescriptor,
         inFd: FileDescriptor,
-        offset: Int64Ref?
-        , count: Long
+        offset: Int64Ref?,
+        count: Long
     ): Long
 
     @Throws(SyscallException::class)
