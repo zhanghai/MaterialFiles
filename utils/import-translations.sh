@@ -6,9 +6,11 @@ LOCALES=(
     bg
     cs
     de
+    el
     es
     eu
     fa
+    fi
     fr
     hu
     in
@@ -17,6 +19,8 @@ LOCALES=(
     iw
     ja
     ko
+    lt
+    nb
     nl
     pl
     pt-rBR
@@ -24,6 +28,7 @@ LOCALES=(
     ro
     ru
     tr
+    uk
     vi
 )
 
