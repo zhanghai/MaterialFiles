@@ -38,11 +38,12 @@
     <string name="save">Zapisz</string>
     <string name="search">Szukaj</string>
     <string name="select">Wybierz</string>
-    <string name="select_all">Wybierz wszystkie</string>
+    <string name="select_all">Wybierz wszystko</string>
     <string name="share">Udostępnij </string>
     <string name="show">Pokaż</string>
     <string name="skip">Pomiń</string>
     <string name="stop">Zatrzymaj</string>
+    <string name="system_default">Domyślne systemu</string>
     <string name="unknown">Nieznany</string>
     <string name="view">Podgląd</string>
 
@@ -217,7 +218,7 @@
     <string name="file_job_replace_message_format">Inny plik o tej nazwie już istnieje w „%1$s”.\nZastąpienie go spowoduje nadpisanie jego zawartości.</string>
     <string name="file_job_replace_target_name">Oryginalny plik</string>
     <string name="file_job_replace_source_name">Zastąpić z</string>
-    <string name="file_job_merge_title_format">Scalić katalog „%1$s\"?</string>
+    <string name="file_job_merge_title_format">Scalić katalog „%1$s”?</string>
     <string name="file_job_merge_copy_message_format">Operacja scalania poprosi o potwierdzenie przed zastąpieniem jakichkolwiek plików w katalogu, które powodują konflikt z kopiowanymi plikami.</string>
     <string name="file_job_merge_extract_message_format">Operacja scalania poprosi o potwierdzenie przed zastąpieniem jakichkolwiek plików w katalogu, które powodują konflikt z rozpakowywanymi plikami.</string>
     <string name="file_job_merge_move_message_format">Operacja scalania poprosi o potwierdzenie przed zastąpieniem jakichkolwiek plików w katalogu, które powodują konflikt z przenoszonymi plikami.</string>
@@ -227,7 +228,7 @@
     <string name="file_job_conflict_name_hint">Nowa nazwa</string>
     <string name="file_job_archive_error_title_format">Błąd podczas kompresowania „%1$s”</string>
     <string name="file_job_archive_error_message_format">Wystąpił błąd podczas kompresowania pliku do „%1$s”.\n%2$s</string>
-    <string name="file_job_copy_error_title_format">Błąd podczas kopiowania „%1$s\"</string>
+    <string name="file_job_copy_error_title_format">Błąd podczas kopiowania „%1$s”</string>
     <string name="file_job_copy_error_message_format">Wystąpił błąd podczas kopiowania pliku do „%1$s”.\n%2$s</string>
     <string name="file_job_extract_error_title_format">Błąd podczas rozpakowywania „%1$s”</string>
     <string name="file_job_extract_error_message_format">Wystąpił błąd podczas rozpakowywania pliku do „%1$s”.\n%2$s</string>
@@ -327,13 +328,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Ścieżka nie może być pusta</string>
     <string name="file_list_path_error_invalid">Nieprawidłowa ścieżka</string>
+    <string name="file_list_action_view_sort">Przeglądaj i sortuj</string>
+    <string name="file_list_action_view_list">Lista</string>
+    <string name="file_list_action_view_grid">Siatka</string>
     <string name="file_list_action_sort_by_name">Nazwa</string>
     <string name="file_list_action_sort_by_type">Typ</string>
     <string name="file_list_action_sort_by_size">Rozmiar</string>
     <string name="file_list_action_sort_by_last_modified">Ostatnia modyfikacja</string>
     <string name="file_list_action_sort_order_ascending">Rosnąco</string>
     <string name="file_list_action_sort_directories_first">Najpierw katalogi</string>
-    <string name="file_list_action_view_sort_path_specific">Tylko dla tego katalogu</string>
+    <string name="file_list_action_view_sort_path_specific">Tylko dla tego folderu</string>
     <string name="file_list_action_new_task">Nowe okno</string>
     <string name="file_list_action_navigate_up">Idź w górę</string>
     <string name="file_list_action_navigate_to">Idź do</string>
@@ -343,7 +347,7 @@
     <string name="file_list_action_add_bookmark">Dodaj zakładkę</string>
     <string name="file_list_action_create_shortcut">Utwórz skrót</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otwórz w nowym oknie</string>
-    <string name="file_list_select_title_format">%1$,d wybrano</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">Wybierz „%1$s”</string>
     <string name="file_list_paste_move_title_format">Przenoszenie %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiowanie %1$,d</string>
@@ -481,6 +485,10 @@
     <string name="storage_edit_device_storage_title">Edytuj pamięć urządzenia</string>
     <string name="storage_edit_device_storage_name">Nazwa</string>
     <string name="storage_edit_device_storage_path">Ścieżka</string>
+    <string name="storage_add_document_manager_shortcut_title">Dodaj skrót DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Edytuj skrót DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Podaj URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Nieprawidłowy URI</string>
     <string name="storage_add_document_tree_title">Dodaj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_title">Edytuj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_name">Nazwa</string>
@@ -604,9 +612,13 @@
     <string name="ftp_server_state_summary_stopping">Zatrzymywanie…</string>
     <string name="ftp_server_state_summary_stopped">Nie uruchomiony</string>
     <string name="ftp_server_url_title">Adres URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Niemożna pobrać lokalnego adresu IP</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Lokalny adres IP jest nieznany</string>
     <string name="ftp_server_url_menu_copy_url">Skopiuj adres URL</string>
     <string name="ftp_server_url_menu_copy_password">Skopiuj hasło</string>
+    <string name="ftp_server_add_tile_title">Dodaj do szybkich ustawień</string>
+    <string name="ftp_server_add_tile_result_added">„Serwer FTP” został dodany do szybkich ustawień</string>
+    <string name="ftp_server_add_tile_result_already_added">„Serwer FTP” został już dodany do szybkich ustawień</string>
+    <string name="ftp_server_add_tile_result_error">Wystąpił błąd podczas dodawania kafelka „Serwer FTP” do szybkich ustawień</string>
     <string name="ftp_server_configuration_title">Konfiguracja</string>
     <string name="ftp_server_anonymous_login_title">Logowanie anonimowe</string>
     <string name="ftp_server_username_title">Nazwa użytkownika</string>
@@ -614,9 +626,9 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Katalog główny</string>
     <string name="ftp_server_writable_title">Zezwól na zapis</string>
-
     <string name="settings_title">Ustawienia</string>
     <string name="settings_interface_title">Interfejs</string>
+    <string name="settings_locale_title">Język</string>
     <string name="settings_theme_color_title">Kolor motywu</string>
     <string name="settings_theme_color_summary">Kolor pojawiający się najczęściej w aplikacji</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
@@ -630,7 +642,7 @@
     </string-array>
     <string name="settings_black_night_mode">Czarny tryb nocny</string>
     <string name="settings_file_list_animation_title">Animacja listy plików</string>
-    <string name="settings_file_name_ellipsize_title">Wyświetl długą nazwę pliku</string>
+    <string name="settings_file_name_ellipsize_title">Wyświetlanie długiej nazwy pliku</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Wielokropek na początku</item>
         <item>Wielokropek w środku</item>

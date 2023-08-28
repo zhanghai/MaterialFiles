@@ -249,7 +249,6 @@
     <string name="file_list_action_sort_by_last_modified">Thay đổi lần cuối</string>
     <string name="file_list_action_sort_order_ascending">Tăng dần</string>
     <string name="file_list_action_sort_directories_first">Thư mục lên trước</string>
-    <string name="file_list_action_view_sort_path_specific">Chỉ đối với thư mục này</string>
     <string name="file_list_action_new_task">Cửa sổ mới</string>
     <string name="file_list_action_navigate_up">Đi lên</string>
     <string name="file_list_action_navigate_to">Đi đến</string>
@@ -259,7 +258,6 @@
     <string name="file_list_action_add_bookmark">Thêm đánh dấu</string>
     <string name="file_list_action_create_shortcut">Tạo lối tắt</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Mở trong cửa sổ mới</string>
-    <string name="file_list_select_title_format">Đã chọn %1$,d</string>
     <string name="file_list_select_current_directory_format">Chọn “%1$s”</string>
     <string name="file_list_paste_move_title_format">Đang di chuyển %1$,d</string>
     <string name="file_list_paste_copy_title_format">Đang sao chép %1$,d</string>
@@ -514,7 +512,6 @@
     <string name="ftp_server_state_summary_stopping">Đang dừng…</string>
     <string name="ftp_server_state_summary_stopped">Chưa khởi động</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Không thể lấy địa chỉ IP nội bộ</string>
     <string name="ftp_server_url_menu_copy_url">Sao chép URL</string>
     <string name="ftp_server_url_menu_copy_password">Sao chép mật khẩu</string>
     <string name="ftp_server_configuration_title">Thiết lập</string>
@@ -524,7 +521,6 @@
     <string name="ftp_server_port_title">Cổng</string>
     <string name="ftp_server_home_directory_title">Thư mục gốc</string>
     <string name="ftp_server_writable_title">Cho phép ghi</string>
-
     <string name="settings_title">Cài đặt</string>
     <string name="settings_interface_title">Giao diện</string>
     <string name="settings_theme_color_title">Màu chủ đề</string>

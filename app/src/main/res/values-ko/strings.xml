@@ -43,6 +43,7 @@
     <string name="show">표시</string>
     <string name="skip">건너 뛰기</string>
     <string name="stop">중지</string>
+    <string name="system_default">시스템 기본값</string>
     <string name="unknown">알 수 없음</string>
     <string name="view">보기</string>
 
@@ -243,6 +244,9 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">경로를 입력하세요</string>
     <string name="file_list_path_error_invalid">올바르지 않은 경로</string>
+    <string name="file_list_action_view_sort">정렬 및 표시 방식</string>
+    <string name="file_list_action_view_list">목록</string>
+    <string name="file_list_action_view_grid">격자</string>
     <string name="file_list_action_sort_by_name">이름</string>
     <string name="file_list_action_sort_by_type">유형</string>
     <string name="file_list_action_sort_by_size">크기</string>
@@ -259,7 +263,7 @@
     <string name="file_list_action_add_bookmark">즐겨찾기에 추가</string>
     <string name="file_list_action_create_shortcut">바로가기 만들기</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">새 창에서 열기</string>
-    <string name="file_list_select_title_format">%1$,d개 항목 선택함</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">“%1$s” 선택</string>
     <string name="file_list_paste_move_title_format">%1$,d개 항목 이동</string>
     <string name="file_list_paste_copy_title_format">%1$,d개 항목 복사</string>
@@ -321,7 +325,7 @@
         <item>Set GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">내부 파일에 \"실행\" 권한 부여 안 함</string>
+    <string name="file_properties_permissions_set_mode_uppercase_x">내부 파일에 “실행” 권한 부여 안 함</string>
     <string name="file_properties_permissions_selinux_context">SELinux 컨텍스트</string>
     <string name="file_properties_permissions_set_selinux_context_title">SELinux 컨텍스트 변경</string>
     <string name="file_properties_permissions_set_selinux_context_restore">복원</string>
@@ -391,6 +395,10 @@
     <string name="storage_edit_device_storage_title">기기 저장소 편집</string>
     <string name="storage_edit_device_storage_name">이름</string>
     <string name="storage_edit_device_storage_path">경로</string>
+    <string name="storage_add_document_manager_shortcut_title">DocumentsUI 바로가기 추가</string>
+    <string name="storage_edit_document_manager_shortcut_title">DocumentsUI 바로가기 편집</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">URI를 입력하세요</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">올바르지 않은 URI</string>
     <string name="storage_add_document_tree_title">외부 저장소 추가</string>
     <string name="storage_edit_document_tree_title">외부 저장소 편집</string>
     <string name="storage_edit_document_tree_name">이름</string>
@@ -514,9 +522,13 @@
     <string name="ftp_server_state_summary_stopping">중지하는 중…</string>
     <string name="ftp_server_state_summary_stopped">시작되지 않음</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">로컬 IP 주소를 찾을 수 없음</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">로컬 IP 주소 알 수 없음</string>
     <string name="ftp_server_url_menu_copy_url">URL 복사</string>
     <string name="ftp_server_url_menu_copy_password">비밀번호 복사</string>
+    <string name="ftp_server_add_tile_title">빠른 설정에 추가</string>
+    <string name="ftp_server_add_tile_result_added">“FTP 서버”를 빠른 설정에 추가했습니다.</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP 서버”는 이미 빠른 설정에 추가되어 있습니다.</string>
+    <string name="ftp_server_add_tile_result_error">빠른 설정에 “FTP 서버”를 추가하는 중 오류</string>
     <string name="ftp_server_configuration_title">설정</string>
     <string name="ftp_server_anonymous_login_title">익명으로 로그인 허용</string>
     <string name="ftp_server_username_title">사용자 이름</string>
@@ -524,9 +536,9 @@
     <string name="ftp_server_port_title">포트</string>
     <string name="ftp_server_home_directory_title">루트 폴더</string>
     <string name="ftp_server_writable_title">쓰기 허용</string>
-
     <string name="settings_title">설정</string>
     <string name="settings_interface_title">인터페이스</string>
+    <string name="settings_locale_title">언어</string>
     <string name="settings_theme_color_title">테마 색상</string>
     <string name="settings_theme_color_summary">앱에서 가장 많이 보이는 색상</string>
     <string name="settings_material_design_3_title">머티리얼 디자인 3</string>

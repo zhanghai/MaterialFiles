@@ -262,7 +262,6 @@
     <string name="file_list_action_sort_by_last_modified">Son düzenleme</string>
     <string name="file_list_action_sort_order_ascending">Artan</string>
     <string name="file_list_action_sort_directories_first">Önce klasörler</string>
-    <string name="file_list_action_view_sort_path_specific">Sadece bu klasör için</string>
     <string name="file_list_action_new_task">Yeni pencere</string>
     <string name="file_list_action_navigate_up">Yukarı git</string>
     <string name="file_list_action_show_hidden_files">Gizli dosyaları göster</string>
@@ -271,7 +270,6 @@
     <string name="file_list_action_add_bookmark">Yer işareti ekle</string>
     <string name="file_list_action_create_shortcut">Kısayol oluştur</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Yeni pencerede aç</string>
-    <string name="file_list_select_title_format">%1$,d seçildi</string>
     <string name="file_list_select_current_directory_format">“%1$s”`i seç</string>
     <string name="file_list_paste_move_title_format">%1$,d taşınıyor</string>
     <string name="file_list_paste_copy_title_format">%1$,d kopyalanıyor</string>
@@ -525,7 +523,6 @@
     <string name="ftp_server_state_summary_stopping">Durduruluyor…</string>
     <string name="ftp_server_state_summary_stopped">Başlatılmadı</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Yerel IP adresi alınamıyor</string>
     <string name="ftp_server_url_menu_copy_url">URL\'yi kopyala</string>
     <string name="ftp_server_url_menu_copy_password">Şifreyi kopyala</string>
     <string name="ftp_server_configuration_title">Yapılandırma</string>
@@ -535,7 +532,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Kök klasör</string>
     <string name="ftp_server_writable_title">Yazmaya izin ver</string>
-
     <string name="settings_title">Ayarlar</string>
     <string name="settings_interface_title">Arayüz</string>
     <string name="settings_theme_color_title">Tema rengi</string>

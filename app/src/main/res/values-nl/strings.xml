@@ -43,6 +43,7 @@
     <string name="show">Tonen</string>
     <string name="skip">Overslaan</string>
     <string name="stop">Stoppen</string>
+    <string name="system_default">Systeemstandaard</string>
     <string name="unknown">Onbekend</string>
     <string name="view">Bekijken</string>
 
@@ -271,6 +272,9 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Voer een locatie in</string>
     <string name="file_list_path_error_invalid">Ongeldige locatie</string>
+    <string name="file_list_action_view_sort">Weergave en sortering</string>
+    <string name="file_list_action_view_list">Lĳst</string>
+    <string name="file_list_action_view_grid">Rooster</string>
     <string name="file_list_action_sort_by_name">Naam</string>
     <string name="file_list_action_sort_by_type">Soort</string>
     <string name="file_list_action_sort_by_size">Grootte</string>
@@ -287,7 +291,7 @@
     <string name="file_list_action_add_bookmark">Bladwijzer toevoegen</string>
     <string name="file_list_action_create_shortcut">Snelkoppeling maken</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Openen in nieuw venster</string>
-    <string name="file_list_select_title_format">%1$,d geselecteerd</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">‘%1$s’ selecteren</string>
     <string name="file_list_paste_move_title_format">Bezig met verplaatsen van %1$,d</string>
     <string name="file_list_paste_copy_title_format">Bezig met kopiëren van %1$,d</string>
@@ -421,6 +425,10 @@
     <string name="storage_edit_device_storage_title">Apparaatopslag bewerken</string>
     <string name="storage_edit_device_storage_name">Naam</string>
     <string name="storage_edit_device_storage_path">Locatie</string>
+    <string name="storage_add_document_manager_shortcut_title">Documentsnelkoppeling maken</string>
+    <string name="storage_edit_document_manager_shortcut_title">Documentsnelkoppeling bewerken</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Voer een uri in</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ongeldige uri</string>
     <string name="storage_add_document_tree_title">Externe opslag toevoegen</string>
     <string name="storage_edit_document_tree_title">Externe opslag bewerken</string>
     <string name="storage_edit_document_tree_name">Naam</string>
@@ -544,9 +552,13 @@
     <string name="ftp_server_state_summary_stopping">Bezig met stoppen…</string>
     <string name="ftp_server_state_summary_stopped">Niet gestart</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Kan lokaal ip-adres niet ophalen</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Het lokale ip-adres is onbekend</string>
     <string name="ftp_server_url_menu_copy_url">URL kopiëren</string>
     <string name="ftp_server_url_menu_copy_password">Wachtwoord kopiëren</string>
+    <string name="ftp_server_add_tile_title">Toevoegen aan snelle instellingen</string>
+    <string name="ftp_server_add_tile_result_added">De ftp-server is toegevoegd aan de snelle instellingen</string>
+    <string name="ftp_server_add_tile_result_already_added">De ftp-server is al toegevoegd aan de snelle instellingen</string>
+    <string name="ftp_server_add_tile_result_error">De ftp-server kan niet worden toegevoegd aan de snelle instellingen</string>
     <string name="ftp_server_configuration_title">Instellingen</string>
     <string name="ftp_server_anonymous_login_title">Anoniem inloggen</string>
     <string name="ftp_server_username_title">Gebruikersnaam</string>
@@ -554,9 +566,9 @@
     <string name="ftp_server_port_title">Poort</string>
     <string name="ftp_server_home_directory_title">Hoofdmap</string>
     <string name="ftp_server_writable_title">Wegschrijven toestaan</string>
-
     <string name="settings_title">Instellingen</string>
     <string name="settings_interface_title">Uiterlijk</string>
+    <string name="settings_locale_title">Taal</string>
     <string name="settings_theme_color_title">Themakleur</string>
     <string name="settings_theme_color_summary">De kleur die het vaakst wordt gebruikt in de app</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

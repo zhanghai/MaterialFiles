@@ -312,7 +312,6 @@
     <string name="file_list_action_sort_by_last_modified">Naposledy změněno</string>
     <string name="file_list_action_sort_order_ascending">Vzestupně</string>
     <string name="file_list_action_sort_directories_first">Složky jako první</string>
-    <string name="file_list_action_view_sort_path_specific">Pouze pro tuto složku</string>
     <string name="file_list_action_new_task">Nové okno</string>
     <string name="file_list_action_navigate_up">Nahoru</string>
     <string name="file_list_action_show_hidden_files">Zobrazit skryté soubory</string>
@@ -321,7 +320,6 @@
     <string name="file_list_action_add_bookmark">Přidat záložku</string>
     <string name="file_list_action_create_shortcut">Vytvořit zástupce</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otevřít v novém okně</string>
-    <string name="file_list_select_title_format">Vybráno %1$,d</string>
     <string name="file_list_select_current_directory_format">Vyberte \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Přesouvání %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopírování %1$,d</string>
@@ -547,7 +545,6 @@
     <string name="ftp_server_state_summary_stopping">Zastavování…</string>
     <string name="ftp_server_state_summary_stopped">Není spuštěno</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Nelze získat lokální IP adresu</string>
     <string name="ftp_server_url_menu_copy_url">Kopírovat URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopírovat heslo</string>
     <string name="ftp_server_configuration_title">Konfigurace</string>
@@ -557,7 +554,6 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Složka Root</string>
     <string name="ftp_server_writable_title">Povolit zapisování</string>
-
     <string name="settings_title">Nastavení</string>
     <string name="settings_interface_title">Rozhraní</string>
     <string name="settings_theme_color_title">Barva motivu</string>

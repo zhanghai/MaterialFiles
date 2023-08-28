@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Filer</string>
+
+    <string name="close">Lukk</string>
+    <string name="copy">Kopier</string>
+    <string name="cut">Klipp ut</string>
+    <string name="default_">Standard</string>
+    <string name="delete">Slett</string>
+    <string name="discard">Forkast</string>
+    <string name="edit">Rediger</string>
+    <string name="empty">Tom</string>
+    <string name="empty_placeholder">(Tom)</string>
+    <string name="error">Feil</string>
+    <string name="hide">Skjul</string>
+    <string name="install">Installer</string>
+    <string name="keep_editing">Fortsett å redigere</string>
+    <string name="loading">Laster inn …</string>
+    <string name="maybe_later">Kanskje senere</string>
+    <string name="merge">Slå sammen</string>
+    <string name="none">Ingen</string>
+    <string name="open_navigation_drawer">Åpne uttrekksmenyen</string>
+    <string name="paste">Lim inn</string>
+    <string name="refresh">Last inn på nytt</string>
+    <string name="reload">Last inn på nytt</string>
+    <string name="remove">Fjern</string>
+    <string name="rename">Gi nytt navn</string>
+    <string name="replace">Erstatt</string>
+    <string name="reset">Tilbakestill</string>
+    <string name="retry">Prøv på nytt</string>
+    <string name="save">Lagre</string>
+    <string name="search">Søk</string>
+    <string name="select">Velg</string>
+    <string name="select_all">Velg alle</string>
+    <string name="share">Del</string>
+    <string name="show">Vis</string>
+    <string name="skip">Hopp over</string>
+    <string name="stop">Stopp</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="unknown">Ukjent</string>
+    <string name="view">Se innholdet</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Finner ingen apper som kan utføre denne handlingen</string>
+    <string name="open_settings">Åpne innstillingene</string>
+    <string name="shortcut_created">Snarveien er opprettet</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d byte</item>
+        <item quantity="other">%1$,d byte</item>
+    </plurals>
+
+    <string name="storage_permission_rationale_message">Appen trenger tilgang til filene. Trykk på «TILLAT» i den kommende systemdialogen.</string>
+    <string name="storage_permission_permanently_denied_message">Appen trenger tilgang til filene. Gi «Lagring»-tillatelsen i systeminnstillingene.</string>
+    <string name="all_files_access_rationale_message">Appen trenger tillatelse til å administrere alle filer. Gi tillatelse i de kommende systeminnstillingene.</string>
+
+    <string name="notification_channel_background_activity_start_name">Handlinger i bakgrunnen</string>
+    <string name="notification_channel_background_activity_start_description">Utfør handlinger mens appen er i bakgrunnen</string>
+    <string name="notification_channel_file_job_name">Filoperasjoner</string>
+    <string name="notification_channel_file_job_description">Se og kontrollér filoperasjoner</string>
+    <string name="notification_channel_ftp_server_name">FTP-tjener</string>
+    <string name="notification_channel_ftp_server_description">Se og kontrollér FTP-tjeneren</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="one">Forbereder komprimering av %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder komprimering av %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">Komprimerer «%1$s» til «%2$s»</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="one">Komprimerer %1$,d fil til «%2$s»</item>
+        <item quantity="other">Komprimerer %1$,d filer til «%2$s»</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="one">Forbereder kopiering av %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder kopiering av %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">Kopierer «%1$s» til «%2$s»</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="one">Kopierer %1$,d fil til «%2$s»</item>
+        <item quantity="other">Kopierer %1$,d filer til «%2$s»</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="one">Forbereder utpakkingen av %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder utpakking av %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">Pakker ut «%1$s» til «%2$s»</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="one">Pakker ut %1$,d fil til «%2$s»</item>
+        <item quantity="other">Pakker ut %1$,d filer til «%2$s»</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="one">Forbereder flytting av %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder flytting av %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">Flytter «%1$s» til «%2$s»</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="one">Flytter %1$,d fil til «%2$s»</item>
+        <item quantity="other">Flytter %1$,d filer til «%2$s»</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="one">Forbereder sletting av %1$,d fil</item>
+        <item quantity="other">Forbereder sletting av %1$,d filer</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">Sletter «%1$s»</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="one">Sletter %1$,d fil</item>
+        <item quantity="other">Sletter %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="one">Forbereder endring av eier for %1$,d fil</item>
+        <item quantity="other">Forbereder endring av eier for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">Endrer eier for «%1$s»</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="one">Endrer eier for %1$,d fil</item>
+        <item quantity="other">Endrer eier for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="one">Forbereder endring av gruppe for %1$,d fil</item>
+        <item quantity="other">Forbereder endring av gruppe for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">Endrer gruppe for «%1$s»</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="one">Endrer gruppe for %1$,d fil</item>
+        <item quantity="other">Enrer gruppe for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="one">Forbereder endring av modus for %1$,d fil</item>
+        <item quantity="other">Forbereder endring av modus for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">Endrer modus for «%1$s»</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="one">Endrer modus for %1$,d fil</item>
+        <item quantity="other">Endrer modus for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="one">Forbereder endring av SElinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Forbereder endring av SElinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">Endrer SELinux-kontekst for «%1$s»</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Endrer SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Endrer SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="one">Forbereder tilbakestilling av SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Forbereder gjenoppretting av SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Gjenoppretter SELinux-kontekst for «%1$s»</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Gjenoppretter SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Gjenoppretter SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Skriver til «%1$s»</string>
+    <string name="file_job_create_error_title">Feil under oppretting</string>
+    <string name="file_job_create_error_message_format">Det oppsto en feil under opprettingen av «%1$s».\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">Kan ikke kopiere en mappe inn i seg selv</string>
+    <string name="file_job_cannot_extract_into_itself_title">Kan ikke pakke ut en mappe inn i seg selv</string>
+    <string name="file_job_cannot_move_into_itself_title">Kan ikke flytte en mappe inn i seg selv</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">Målmappen er inne i kildemappen.</string>
+    <string name="file_job_cannot_copy_over_itself_title">Kan ikke kopiere en fil over seg selv</string>
+    <string name="file_job_cannot_extract_over_itself_title">Kan ikke pakke ut en fil over seg selv</string>
+    <string name="file_job_cannot_move_over_itself_title">Kan ikke flytte en fil over seg selv</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Kildefilen ville blitt overskrevet av målfilen.</string>
+    <string name="file_job_replace_title_format">Vil du erstatte «%1$s»-filen?</string>
+    <string name="file_job_replace_message_format">En annen fil med det samme navnet finnes allerede i «%1$s».\nÅ erstatte den vil overskrive innholdet til filen.</string>
+    <string name="file_job_replace_target_name">Opprinnelig fil</string>
+    <string name="file_job_replace_source_name">Erstatt med</string>
+    <string name="file_job_merge_title_format">Vil du slå sammen mappen «%1$s»?</string>
+    <string name="file_job_merge_copy_message_format">Sammenslåing vil be om bekreftelse før noen av filene i mappen som er i konflikt blir erstattet med filene som blir kopiert.</string>
+    <string name="file_job_merge_extract_message_format">Sammenslåing vil be om bekreftelse før noen av filene i mappen som er i konflikt blir erstattet med filene som blir pakket ut.</string>
+    <string name="file_job_merge_move_message_format">Sammenslåing vil be om bekreftelse før noen av filene i mappen som er i konflikt blir erstattet med filene som blir flyttet.</string>
+    <string name="file_job_merge_target_name">Opprinnelig mappe</string>
+    <string name="file_job_merge_source_name">Slå sammen med</string>
+    <string name="file_job_conflict_show_name">Velg et nytt navn for målet</string>
+    <string name="file_job_conflict_name_hint">Nytt navn</string>
+    <string name="file_job_archive_error_title_format">Feil under komprimering av «%1$s»</string>
+    <string name="file_job_archive_error_message_format">Det oppsto en feil under komprimering av filen inn i «%1$s».\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Feil under kopiering av «%1$s»</string>
+    <string name="file_job_copy_error_message_format">Det oppsto en feil under kopiering av filen inn i «%1$s».\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Feil under utpakking av «%1$s»</string>
+    <string name="file_job_extract_error_message_format">Det oppsto en feil under utpakking av filen inn i «%1$s».\n%2$s</string>
+    <string name="file_job_move_error_title_format">Feil under flytting av «%1$s»</string>
+    <string name="file_job_move_error_message_format">Det oppsto en feil under flytting av filen inn i «%1$s».\n%2$s</string>
+    <string name="file_job_delete_error_title">Feil under sletting</string>
+    <string name="file_job_delete_error_message_format">Det oppsto en feil under sletting av «%1$s».\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Feil under endring av navn for «%1$s»</string>
+    <string name="file_job_rename_error_message_format">Det oppsto en feil under endring av filnavnet til «%1$s».\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Feil under endring av eier for «%1$s»</string>
+    <string name="file_job_set_owner_error_message_format">Det oppsto en feil under endring av eier til «%1$s».\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Feil under endring av gruppe for «%1$s»</string>
+    <string name="file_job_set_group_error_message_format">Det oppsto en feil under endring av gruppe til «%1$s».\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Feil under endring av modus for «%1$s»</string>
+    <string name="file_job_set_mode_error_message_format">Det oppsto en feil under endring av modus til «%1$s».\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Feil under endring av SELinux-kontekst for «%1$s»</string>
+    <string name="file_job_set_selinux_context_error_message_format">Det oppsto en feil under endring av SELinux-kontekst til «%1$s».\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Feil under gjenoppretting av SELinux-kontekst</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Det oppsto en feil under gjenoppretting av SELinux-kontekst for «%1$s».\n%2$s</string>
+    <string name="file_job_write_error_title">Feil under skriving</string>
+    <string name="file_job_write_error_message_format">Det oppsto en feil under skriving til «%1$s».\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Det oppsto en feil under henting av informasjon om «%1$s».</string>
+    <string name="file_job_remount_format">Koble til «%1$s» på nytt med lese- og skrivetilgang</string>
+    <string name="file_job_remount_loading_format">Kobler til «%1$s» på nytt med lese- og skrivetilgang …</string>
+    <string name="file_job_remount_success_format">«%1$s» er koblet til på nytt med lese- og skrivetilgang</string>
+    <string name="file_job_action_all">Bruk denne handlingen på alle filene</string>
+
+    <string name="file_open_apk_message">Denne filen er en Android-pakke. Vil du installere den eller se innholdet i den?</string>
+    <string name="file_open_as_title">Åpne som …</string>
+    <string name="file_open_as_title_format">Åpne «%1$s» som</string>
+    <string name="file_open_as_type_text">Tekst</string>
+    <string name="file_open_as_type_image">Bilde</string>
+    <string name="file_open_as_type_audio">Lyd</string>
+    <string name="file_open_as_type_video">Video</string>
+    <string name="file_open_as_type_directory">Mappe</string>
+    <string name="file_open_as_type_any">Annet</string>
+    <string name="file_install_apk_from_background_title_format">«%1$s» er klar til installering</string>
+    <string name="file_install_apk_from_background_text">Trykk for å installere</string>
+    <string name="file_open_from_background_title_format">«%1$s» er klar til åpning</string>
+    <string name="file_open_from_background_text">Trykk for å åpne</string>
+    <string name="file_name_error_empty">Filnavnet kan ikke være tomt</string>
+    <string name="file_name_error_invalid">Ugyldig filnavn</string>
+    <string name="file_name_error_already_exists">Det finnes allerede en fil med dette navnet</string>
+    <string name="file_delete_message_file_format">Vil du slette «%1$s»?</string>
+    <string name="file_delete_message_directory_format">Vil du slette «%1$s»-mappen og innholdet i den?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Vil du slette %1$,d fil?</item>
+        <item quantity="other">Vil du slette %1$,d filer?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Vil du slette %1$,d mappe og innholdet i den?</item>
+        <item quantity="other">Vil du slette %1$,d mapper og innholdet i dem?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Vil du slette %1$,d element?</item>
+        <item quantity="other">Vil du slette %1$,d elementer?</item>
+    </plurals>
+    <string name="file_create_archive_title">Opprett arkiv</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_add_bookmark_success">Bokmerke er lagt til</string>
+    <string name="file_create_file_title">Ny fil</string>
+    <string name="file_create_directory_title">Ny mappe</string>
+
+    <string name="file_list_title">Filer</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="one">Velg en fil</item>
+        <item quantity="other">Velg filer</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="one">Velg en mappe</item>
+        <item quantity="other">Velg mapper</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d mappe</item>
+        <item quantity="other">%1$,d mapper</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d mappe</item>
+        <item quantity="other">%1$,d mapper</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Banen kan ikke være tom</string>
+    <string name="file_list_path_error_invalid">Ugyldig bane</string>
+    <string name="file_list_action_view_sort">Se og sortér</string>
+    <string name="file_list_action_view_list">Liste</string>
+    <string name="file_list_action_view_grid">Rutenett</string>
+    <string name="file_list_action_sort_by_name">Navn</string>
+    <string name="file_list_action_sort_by_type">Type</string>
+    <string name="file_list_action_sort_by_size">Størrelse</string>
+    <string name="file_list_action_sort_by_last_modified">Sist endret</string>
+    <string name="file_list_action_sort_order_ascending">Stigende</string>
+    <string name="file_list_action_sort_directories_first">Mapper først</string>
+    <string name="file_list_action_view_sort_path_specific">Kun for denne mappen</string>
+    <string name="file_list_action_new_task">Nytt vindu</string>
+    <string name="file_list_action_navigate_up">Gå opp</string>
+    <string name="file_list_action_navigate_to">Gå til</string>
+    <string name="file_list_action_show_hidden_files">Vis skjulte filer</string>
+    <string name="file_list_action_copy_path">Kopier bane</string>
+    <string name="file_list_action_open_in_terminal">Åpne i terminalen</string>
+    <string name="file_list_action_add_bookmark">Legg til bokmerke</string>
+    <string name="file_list_action_create_shortcut">Opprett snarvei</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Åpne i et nytt vindu</string>
+    <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_select_current_directory_format">Velg «%1$s»</string>
+    <string name="file_list_paste_move_title_format">Flytter %1$,d</string>
+    <string name="file_list_paste_copy_title_format">Kopierer %1$,d</string>
+    <string name="file_list_paste_extract_title_format">Pakker ut %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Pakk ut her</string>
+    <string name="file_list_empty">Ingen filer</string>
+    <string name="file_list_action_create_file">Fil</string>
+    <string name="file_list_action_create_directory">Mappe</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Åpne med</string>
+    <string name="file_item_action_extract">Pakk ut</string>
+    <string name="file_item_action_archive">Komprimer</string>
+    <string name="file_item_action_properties">Egenskaper</string>
+
+    <string name="file_properties_title_format">Egenskaper for «%1$s»</string>
+    <string name="file_properties_basic">Generelt</string>
+    <string name="file_properties_basic_name">Navn</string>
+    <string name="file_properties_basic_type">Type</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Lenke til %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Lenkemål</string>
+    <string name="file_properties_basic_size">Størrelse</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Innhold</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d fil, med størrelse %2$s</item>
+        <item quantity="other">%1$,d filer, totalt %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Sist endret</string>
+    <string name="file_properties_basic_parent_directory">Plassering</string>
+    <string name="file_properties_basic_archive_file">Arkivfil</string>
+    <string name="file_properties_basic_archive_entry">Arkivoppføring</string>
+    <string name="file_properties_basic_free_space">Ledig plass</string>
+    <string name="file_properties_permissions">Tillatelser</string>
+    <string name="file_properties_permissions_owner">Eier</string>
+    <string name="file_properties_permissions_group">Gruppe</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Endre eier</string>
+    <string name="file_properties_permissions_set_group_title">Endre gruppe</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Skriv inn et navn eller ID</string>
+    <string name="file_properties_permissions_set_principal_system">System</string>
+    <string name="file_properties_permissions_mode">Modus</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Endre modus</string>
+    <string name="file_properties_permissions_set_mode_others">Andre</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Lese</item>
+        <item>Skrive</item>
+        <item>Kjøre</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Lese</item>
+        <item>Skrive</item>
+        <item>Søk</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Spesielt</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Angi UID</item>
+        <item>Angi GID</item>
+        <item>Fast</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Ikke legg til «Kjør» på underfilene</string>
+    <string name="file_properties_permissions_selinux_context">SELinux-kontekst</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Endre SELinux-kontekst</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Gjenopprett</string>
+    <string name="file_properties_permissions_recursive">Bruk på alle underfilene</string>
+    <string name="file_properties_image">Bilde</string>
+    <string name="file_properties_media_dimensions">Dimensjoner</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Tatt</string>
+    <string name="file_properties_media_coordinates">Koordinater</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Posisjon</string>
+    <string name="file_properties_image_gps_altitude">Høyde over havet</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Kamera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Blender</string>
+    <string name="file_properties_image_shutter_speed">Lukkerhastighet</string>
+    <string name="file_properties_image_focal_length">Brennvidde</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">Tilsvarende ISO</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Programvare</string>
+    <string name="file_properties_image_description">Beskrivelse</string>
+    <string name="file_properties_image_artist">Opprettet av</string>
+    <string name="file_properties_image_copyright">Opphavsrett</string>
+    <string name="file_properties_audio">Lyd</string>
+    <string name="file_properties_media_title">Tittel</string>
+    <string name="file_properties_audio_artist">Artist</string>
+    <string name="file_properties_audio_album">Album</string>
+    <string name="file_properties_audio_album_artist">Albumartist</string>
+    <string name="file_properties_audio_composer">Komponist</string>
+    <string name="file_properties_audio_disc_number">Disk</string>
+    <string name="file_properties_audio_track_number">Spor</string>
+    <string name="file_properties_audio_year">År</string>
+    <string name="file_properties_audio_genre">Sjanger</string>
+    <string name="file_properties_media_duration">Varighet</string>
+    <string name="file_properties_media_bit_rate">Bithastighet</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbit/s</string>
+    <string name="file_properties_audio_sample_rate">Samplefrekvens</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Video</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Navn</string>
+    <string name="file_properties_apk_package_name">Pakkenavn</string>
+    <string name="file_properties_apk_version">Versjon</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Minimum systemversjon</string>
+    <string name="file_properties_apk_target_sdk_version">Målsystemversjon</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Tillatelser</string>
+    <string name="file_properties_apk_requested_permissions_zero">Ingen tillatelser er forespurt</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d tillatelse er forespurt</item>
+        <item quantity="other">%1$,d tillatelser er forespurt</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">Signaturer</string>
+    <string name="file_properties_apk_signature_digests_empty">Ingen gyldige signaturer</string>
+    <string name="file_properties_apk_past_signature_digests">Gamle signaturer</string>
+
+    <string name="storage_file_system_root_title">Rot</string>
+    <string name="storage_list_title">Lagring</string>
+    <string name="storage_list_empty">Ingen lagring</string>
+    <string name="storage_add_storage_title">Legg til lagring</string>
+    <string name="storage_add_storage_document_tree">Ekstern lagring</string>
+    <string name="storage_add_storage_ftp_server">FTP-tjener</string>
+    <string name="storage_add_storage_sftp_server">SFTP-tjener</string>
+    <string name="storage_add_storage_smb_server">SMB-tjener</string>
+    <string name="storage_edit_device_storage_title">Rediger lagring på enheten</string>
+    <string name="storage_edit_device_storage_name">Navn</string>
+    <string name="storage_edit_device_storage_path">Bane</string>
+    <string name="storage_add_document_manager_shortcut_title">Legg til DocumentsUI-snarvei</string>
+    <string name="storage_edit_document_manager_shortcut_title">Rediger DocumentsUI-snarvei</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Skriv inn en URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ugyldig URI</string>
+    <string name="storage_add_document_tree_title">Legg til ekstern lagring</string>
+    <string name="storage_edit_document_tree_title">Rediger ekstern lagring</string>
+    <string name="storage_edit_document_tree_name">Navn</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Bane</string>
+    <string name="storage_edit_ftp_server_title_edit">Rediger FTP-tjener</string>
+    <string name="storage_edit_ftp_server_title_add">Legg til FTP-tjener</string>
+    <string name="storage_edit_ftp_server_host">Vertsnavn</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Skriv inn et vertsnavn</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Ugyldig vertsnavn</string>
+    <string name="storage_edit_ftp_server_port">Port</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_ftp_server_path">Bane</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Kan være tomt</string>
+    <string name="storage_edit_ftp_server_name">Navn</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Bruk vertsnavn</string>
+    <string name="storage_edit_ftp_server_protocol">Protokoll</string>
+    <string name="storage_edit_ftp_server_authentication_type">Autentisering</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Passord</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Brukernavn</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Skriv inn et brukernavn</string>
+    <string name="storage_edit_ftp_server_password">Passord</string>
+    <string name="storage_edit_ftp_server_mode">Modus</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Aktiv</item>
+        <item>Passiv</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Koding</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Koble til og legg til</string>
+    <string name="storage_edit_ftp_server_add">Legg til</string>
+    <string name="storage_edit_sftp_server_title_edit">Rediger SFTP-tjener</string>
+    <string name="storage_edit_sftp_server_title_add">Legg til SFTP-tjener</string>
+    <string name="storage_edit_sftp_server_host">Vertsnavn</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Skriv inn vertsnavn</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Ugyldig vertsnavn</string>
+    <string name="storage_edit_sftp_server_port">Port</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_sftp_server_path">Bane</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Kan være tomt</string>
+    <string name="storage_edit_sftp_server_name">Navn</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Bruk vertsnavn</string>
+    <string name="storage_edit_sftp_server_authentication_type">Autentisering</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Passord</item>
+        <item>Offentlig nøkkel</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Brukernavn</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Skriv inn et brukernavn</string>
+    <string name="storage_edit_sftp_server_password">Passord</string>
+    <string name="storage_edit_sftp_server_private_key">Privat nøkkel</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Åpne fil</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Skriv inn en privat nøkkel</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Ugyldig privat nøkkel</string>
+    <string name="storage_edit_sftp_server_private_key_password">Passord for privat nøkkel</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Kan være tomt</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Ugyldig passord for privat nøkkel</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Koble til og legg til</string>
+    <string name="storage_edit_sftp_server_add">Legg til</string>
+    <string name="storage_add_lan_smb_server_loading">Søker etter SMB-tjenere …</string>
+    <string name="storage_add_lan_smb_server_add">Legg til manuelt</string>
+    <string name="storage_edit_smb_server_title_edit">Rediger SMB-tjener</string>
+    <string name="storage_edit_smb_server_title_add">Legg til SMB-tjener</string>
+    <string name="storage_edit_smb_server_host">Vertsnavn</string>
+    <string name="storage_edit_smb_server_host_error_empty">Skriv inn et vertsnavn</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Ugyldig vertsnavn</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_smb_server_path">Bane</string>
+    <string name="storage_edit_smb_server_path_placeholder">Kan være tomt</string>
+    <string name="storage_edit_smb_server_name">Navn</string>
+    <string name="storage_edit_smb_server_name_placeholder">Bruk vertsnavn</string>
+    <string name="storage_edit_smb_server_authentication_type">Autentisering</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Passord</item>
+        <item>Gjest</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Brukernavn</string>
+    <string name="storage_edit_smb_server_username_error_empty">Skriv inn et brukernavn</string>
+    <string name="storage_edit_smb_server_password">Passord</string>
+    <string name="storage_edit_smb_server_domain">Domene</string>
+    <string name="storage_edit_smb_server_connect_and_add">Koble til og legg til</string>
+    <string name="storage_edit_smb_server_add">Legg til</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s av %2$s ledig</string>
+    <string name="navigation_add_storage">Legg til lagring …</string>
+    <string name="navigation_standard_directory_alarms">Alarmer</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Dokumenter</string>
+    <string name="navigation_standard_directory_downloads">Nedlastinger</string>
+    <string name="navigation_standard_directory_movies">Filmer</string>
+    <string name="navigation_standard_directory_music">Musikk</string>
+    <string name="navigation_standard_directory_notifications">Varsler</string>
+    <string name="navigation_standard_directory_pictures">Bilder</string>
+    <string name="navigation_standard_directory_podcasts">Podcaster</string>
+    <string name="navigation_standard_directory_ringtones">Ringetoner</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Bokmerket mappe</string>
+    <string name="navigation_edit_bookmark_directory_name">Navn</string>
+    <string name="navigation_edit_bookmark_directory_path">Bane</string>
+    <string name="archive_viewer_title">Arkivleser</string>
+    <string name="image_viewer_title">Bildefremviser</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="text_editor_title">Tekstredigering</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">Lagret</string>
+    <string name="text_editor_reload_message">Er du sikker på at du vil laste inn på nytt? Ulagrede endringer i dette dokumentet vil gå tapt.</string>
+    <string name="text_editor_encoding">Tegnkoding</string>
+    <string name="text_editor_close_message">Er du sikker på at du vil forkaste de ulagrede endringene i dette dokumentet?</string>
+
+    <string name="ftp_server_title">FTP-tjener</string>
+    <string name="ftp_server_state_title">Status</string>
+    <string name="ftp_server_state_summary_starting">Starter …</string>
+    <string name="ftp_server_state_summary_running">Kjører</string>
+    <string name="ftp_server_state_summary_stopping">Stopper …</string>
+    <string name="ftp_server_state_summary_stopped">Ikke startet</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Lokal IP-adresse er ukjent</string>
+    <string name="ftp_server_url_menu_copy_url">Kopier URL</string>
+    <string name="ftp_server_url_menu_copy_password">Kopier passord</string>
+    <string name="ftp_server_add_tile_title">Legg til i hurtiginnstillingene</string>
+    <string name="ftp_server_add_tile_result_added">«FTP-tjener» er lagt til i hurtiginnstillingene</string>
+    <string name="ftp_server_add_tile_result_already_added">«FTP-tjener» er allerede lagt til i hurtiginnstillingene</string>
+    <string name="ftp_server_add_tile_result_error">Feil under tilføying av «FTP-tjener» til hurtiginnstillingene</string>
+    <string name="ftp_server_configuration_title">Konfigurasjon</string>
+    <string name="ftp_server_anonymous_login_title">Anonym innlogging</string>
+    <string name="ftp_server_username_title">Brukernavn</string>
+    <string name="ftp_server_password_title">Passord</string>
+    <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_home_directory_title">Rotmappen</string>
+    <string name="ftp_server_writable_title">Tillat skriving</string>
+    <string name="settings_title">Innstillinger</string>
+    <string name="settings_interface_title">Grensesnitt</string>
+    <string name="settings_locale_title">Språk</string>
+    <string name="settings_theme_color_title">Temafarge</string>
+    <string name="settings_theme_color_summary">Den mest brukte fargen i appen</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
+    <string name="settings_night_mode_title">Nattmodus</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Følg systemet</item>
+        <item>Av</item>
+        <item>På</item>
+        <item>Basert på tid</item>
+        <item>Basert på batterisparing</item>
+    </string-array>
+    <string name="settings_black_night_mode">Svart nattmodus</string>
+    <string name="settings_file_list_animation_title">Animer fillisten</string>
+    <string name="settings_file_name_ellipsize_title">Vis lange filnavn</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Ellipse i starten</item>
+        <item>Ellipse i midten</item>
+        <item>Ellipse på slutten</item>
+        <item>Rulletekst</item>
+    </string-array>
+    <string name="settings_behavior_title">Atferd</string>
+    <string name="settings_default_directory_title">Startmappe</string>
+    <string name="settings_standard_directories_title">Standardmapper</string>
+    <string name="settings_standard_directories_summary_empty">Ingen standardmapper er aktivert</string>
+    <string name="settings_bookmark_directory_screenshots">Skjermdumper</string>
+    <string name="settings_bookmark_directories_title">Bokmerkede mapper</string>
+    <string name="settings_bookmark_directories_summary_empty">Ingen bokmerkede mapper</string>
+    <string name="settings_root_strategy_title">Tilgang som rot</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">Du kjører %1$,d filoperasjon; å endre tilgangsmodusen nå kan føre til uventede feil. Er du sikker på at du vil endre den nå?</item>
+        <item quantity="other">Du kjører %1$,d filoperasjoner; å endre tilgangsmodusen nå kan føre til uventede feil. Er du sikker på at du vil endre den nå?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Bare vanlig tilgang</item>
+        <item>Automatisk</item>
+        <item>Bare tilgang som rot</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Tegnkoding for filnavn til arkiv</string>
+    <string name="settings_open_apk_default_action_title">Åpne Android-pakke</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Installer</item>
+        <item>Se innholdet</item>
+        <item>Spør</item>
+    </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Vis miniatyrbilde for PDF-filer</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Kan gjøre appen ustabil på eldre Android-versjoner</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Les eksterne filer for miniatyrbilder</string>
+
+    <string name="about_title">Om appen</string>
+    <string name="about_version_title">Versjon</string>
+    <string name="about_github_title">Se på GitHub</string>
+    <string name="about_licenses_title">Lisenser</string>
+    <string name="about_privacy_policy_title">Personvernregler</string>
+    <string name="about_author_title">Utvikler</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Følg på GitHub</string>
+    <string name="about_author_twitter_title">Følg på Twitter</string>
+</resources>

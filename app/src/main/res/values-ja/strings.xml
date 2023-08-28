@@ -259,7 +259,7 @@
     <string name="file_list_action_add_bookmark">ブックマークに追加</string>
     <string name="file_list_action_create_shortcut">ショートカットを作成</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">新しい画面を開く</string>
-    <string name="file_list_select_title_format">%1$,d 個選択済み</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">“%1$s” を選択</string>
     <string name="file_list_paste_move_title_format">%1$,d を移動</string>
     <string name="file_list_paste_copy_title_format">%1$,d をコピー</string>
@@ -514,7 +514,6 @@
     <string name="ftp_server_state_summary_stopping">停止…</string>
     <string name="ftp_server_state_summary_stopped">停止中</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">ローカルIPアドレスが取得できません</string>
     <string name="ftp_server_url_menu_copy_url">URL をコピー</string>
     <string name="ftp_server_url_menu_copy_password">パスワードをコピー</string>
     <string name="ftp_server_configuration_title">環境設定</string>
@@ -524,7 +523,6 @@
     <string name="ftp_server_port_title">ポート</string>
     <string name="ftp_server_home_directory_title">Root フォルダ</string>
     <string name="ftp_server_writable_title">書き込みを許可</string>
-
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">外観</string>
     <string name="settings_theme_color_title">テーマ色</string>

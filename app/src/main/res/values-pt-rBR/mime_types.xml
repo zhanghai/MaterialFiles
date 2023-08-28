@@ -25,9 +25,9 @@
     <string name="file_type_name_presentation">%1$s apresentação</string>
     <string name="file_type_name_spreadsheet">%1$s planilha</string>
     <string name="file_type_name_text">%1$s documento</string>
-    <string name="file_type_name_text_plain">Documento de texto puro</string>
+    <string name="file_type_name_text_plain">Documento de texto simples</string>
     <string name="file_type_name_video">%1$s vídeo</string>
-    <string name="file_type_name_word">Documento no Word</string>
+    <string name="file_type_name_word">Documento do Word</string>
     <string name="file_type_name_powerpoint">Apresentação do PowerPoint</string>
     <string name="file_type_name_excel">Planilha do Excel</string>
     <string name="file_type_name_posix_character_device">Dispositivo de caractere</string>

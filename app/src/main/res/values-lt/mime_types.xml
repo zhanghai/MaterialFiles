@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Failas</string>
+    <string name="file_type_name_apk">Android paketas</string>
+    <string name="file_type_name_archive">%1$s archyvas</string>
+    <string name="file_type_name_audio">%1$s garso įrašas</string>
+    <string name="file_type_name_calendar">%1$s kalendorius</string>
+    <string name="file_type_name_certificate">%1$s sertifikatas</string>
+    <string name="file_type_name_code">%1$s dokumentas</string>
+    <string name="file_type_name_contact">Elektroninė verslo kortelė</string>
+    <string name="file_type_name_directory">Aplankas</string>
+    <string name="file_type_name_document">%1$s dokumentas</string>
+    <string name="file_type_name_ebook">%1$s e. knyga</string>
+    <string name="file_type_name_email">%1$s el. pašto žinutė</string>
+    <string name="file_type_name_font">%1$s šriftas</string>
+    <string name="file_type_name_generic">%1$s failas</string>
+    <string name="file_type_name_image">%1$s vaizdas</string>
+    <string name="file_type_name_pdf">PDF dokumentas</string>
+    <string name="file_type_name_presentation">%1$s pristatymas</string>
+    <string name="file_type_name_spreadsheet">%1$s skaičiuoklė</string>
+    <string name="file_type_name_text">%1$s dokumentas</string>
+    <string name="file_type_name_text_plain">Paprasto teksto dokumentas</string>
+    <string name="file_type_name_video">%1$s vaizdo įrašas</string>
+    <string name="file_type_name_word">Word dokumentas</string>
+    <string name="file_type_name_powerpoint">PowerPoint pristatymas</string>
+    <string name="file_type_name_excel">Excel skaičiuoklė</string>
+    <string name="file_type_name_posix_character_device">Simbolių įrenginys</string>
+    <string name="file_type_name_posix_block_device">Blokavimo įrenginys</string>
+    <string name="file_type_name_posix_fifo">Vamzdis</string>
+    <string name="file_type_name_posix_symbolic_link">Nuoroda</string>
+    <string name="file_type_name_posix_socket">Lizdas</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Nuoroda (neveikianti)</string>
+</resources>

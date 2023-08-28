@@ -26,6 +26,7 @@
     <string name="maybe_later">Quizás más tarde</string>
     <string name="merge">Fusionar</string>
     <string name="none">Ninguno</string>
+    <string name="open_navigation_drawer">Abrir barra de navegación</string>
     <string name="paste">Pegar</string>
     <string name="refresh">Actualizar</string>
     <string name="reload">Recargar</string>
@@ -42,6 +43,7 @@
     <string name="show">Mostrar</string>
     <string name="skip">Saltar</string>
     <string name="stop">Parar</string>
+    <string name="system_default">Por defecto del sistema</string>
     <string name="unknown">Desconocido</string>
     <string name="view">Ver</string>
 
@@ -52,11 +54,14 @@
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d byte</item>
+        <item quantity="many">%1$,d bytes</item>
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
     <string name="storage_permission_rationale_message">La aplicación necesita permiso para acceder a los archivos. Por favor, aprieta \"PERMITIR\" en el diálogo del sistema.</string>
     <string name="storage_permission_permanently_denied_message">La aplicación necesita permiso para acceder a los archivos. Por favor, concede el permiso de \"Almacenamiento\" en la configuración del sistema.</string>
+    <string name="all_files_access_rationale_message">La aplicación necesita administrar todos los archivos. Por favor permita el acceso en la siguiente configuración del sistema.</string>
+
     <string name="notification_channel_background_activity_start_name">Acciones en segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realiza acciones mientras la aplicación está en segundo plano</string>
     <string name="notification_channel_file_job_name">Operaciones de archivos</string>
@@ -66,94 +71,114 @@
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparando para comprimir %1$,d archivos (%2$s)</item>
+        <item quantity="many">Preparándose para comprimir %1$,d archivos (%2$s)</item>
         <item quantity="other">Preparándose para comprimir %1$,d archivos (%2$s)</item>
     </plurals>
     <string name="file_job_archive_notification_title_one_format">Comprimiendo \"%1$s\" en \"%2$s\"</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Comprimiendo %1$,d archivos en \"%2$s\"</item>
+        <item quantity="many">Comprimiendo %1$,d archivos en \"%2$s\"</item>
         <item quantity="other">Comprimiendo %1$,d archivos en \"%2$s\"</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Preparando para copiar %1$,d archivos (%2$s)</item>
+        <item quantity="many">Preparándose para copiar %1$,d archivos (%2$s)</item>
         <item quantity="other">Preparándose para copiar %1$,d archivos (%2$s)</item>
     </plurals>
     <string name="file_job_copy_notification_title_one_format">Copiando \"%1$s\" a \"%2$s\"</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Copiando %1$,d archivos a \"%2$s\"</item>
+        <item quantity="many">Copiando %1$,d archivos a \"%2$s\"</item>
         <item quantity="other">Copiando %1$,d archivos a \"%2$s\"</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Preparando para extraer %1$,d archivos (%2$s)</item>
+        <item quantity="many">Preparando para extraer %1$,d archivos (%2$s)</item>
         <item quantity="other">Preparando para extraer %1$,d archivos (%2$s)</item>
     </plurals>
     <string name="file_job_extract_notification_title_one_format">Extrayendo \"%1$s\" a \"%2$s\"</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Extrayendo %1$,d archivos a \"%2$s\"</item>
+        <item quantity="many">Extrayendo %1$,d archivos a \"%2$s\"</item>
         <item quantity="other">Extrayendo %1$,d archivos a \"%2$s\"</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Preparando para mover %1$,d archivos (%2$s)</item>
+        <item quantity="many">Preparando para mover %1$,d archivos (%2$s)</item>
         <item quantity="other">Preparando para mover %1$,d archivos (%2$s)</item>
     </plurals>
     <string name="file_job_move_notification_title_one_format">Moviendo \"%1$s\" a \"%2$s\"</string>
     <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Moviendo %1$,d archivos a \"%2$s\"</item>
+        <item quantity="many">Moviendo %1$,d archivos a \"%2$s\"</item>
         <item quantity="other">Moviendo %1$,d archivos a \"%2$s\"</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Preparando para eliminar %1$,d archivos</item>
+        <item quantity="many">Preparando para eliminar %1$,d archivos</item>
         <item quantity="other">Preparando para eliminar %1$,d archivos</item>
     </plurals>
     <string name="file_job_delete_notification_title_one_format">Eliminando \"%1$s\"</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Eliminando %1$,d archivos</item>
+        <item quantity="many">Eliminando %1$,d archivos</item>
         <item quantity="other">Eliminando %1$,d archivos</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Preparando para cambiar el propietario de %1$,d archivos</item>
+        <item quantity="many">Preparando para cambiar el propietario de %1$,d archivos</item>
         <item quantity="other">Preparando para cambiar el propietario de %1$,d archivos</item>
     </plurals>
     <string name="file_job_set_owner_notification_title_one_format">Cambiando el propietario de \"%1$s\"</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">Cambiando el propietario de %1$,d archivos</item>
+        <item quantity="many">Cambiando el propietario de %1$,d archivos</item>
         <item quantity="other">Cambiando el propietario de %1$,d archivos</item>
     </plurals>
     <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">Preparando para cambiar el grupo de %1$,d archivos</item>
+        <item quantity="many">Preparando para cambiar el grupo de %1$,d archivos</item>
         <item quantity="other">Preparando para cambiar el grupo de %1$,d archivos</item>
     </plurals>
     <string name="file_job_set_group_notification_title_one_format">Cambiando el grupo de \"%1$s\"</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">Cambiando el grupo de %1$,d archivos</item>
+        <item quantity="many">Cambiando el grupo de %1$,d archivos</item>
         <item quantity="other">Cambiando el grupo de %1$,d archivos</item>
     </plurals>
     <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">Preparando para cambiar el modo de %1$,d archivos</item>
+        <item quantity="many">Preparando para cambiar el modo de %1$,d archivos</item>
         <item quantity="other">Preparando para cambiar el modo de %1$,d archivos</item>
     </plurals>
     <string name="file_job_set_mode_notification_title_one_format">Cambiando el modo de \"%1$s\"</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">Cambiando el modo de %1$,d archivos</item>
+        <item quantity="many">Cambiando el modo de %1$,d archivos</item>
         <item quantity="other">Cambiando el modo de %1$,d archivos</item>
     </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparándose para cambiar el contexto de SELinux de %1$,d archivos</item>
+        <item quantity="many">Preparándose para cambiar el contexto de SELinux de %1$,d archivos</item>
         <item quantity="other">Preparándose para cambiar el contexto de SELinux de %1$,d archivos</item>
     </plurals>
     <string name="file_job_set_selinux_context_notification_title_one_format">Cambiando el contexto SELinux de \"%1$s\"</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">Cambiando el contexto de SELinux de %1$,d archivos</item>
+        <item quantity="many">Cambiando el contexto de SELinux de %1$,d archivos</item>
         <item quantity="other">Cambiando el contexto de SELinux de %1$,d archivos</item>
     </plurals>
     <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparándose para restaurar el contexto de SELinux de %1$,d archivos</item>
+        <item quantity="many">Preparándose para restaurar el contexto de SELinux de %1$,d archivos</item>
         <item quantity="other">Preparándose para restaurar el contexto de SELinux de %1$,d archivos</item>
     </plurals>
     <string name="file_job_restore_selinux_context_notification_title_one_format">Restaurando el contexto de SELinux de \"%1$s\"</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">Restaurando el contexto de SELinux de %1$,d archivos</item>
+        <item quantity="many">Restaurando el contexto de SELinux de %1$,d archivos</item>
         <item quantity="other">Restaurando el contexto de SELinux de %1$,d archivos</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
@@ -239,18 +264,22 @@
     <string name="file_list_title">Archivos</string>
     <plurals name="file_list_title_pick_file">
         <item quantity="one">Seleccionar un archivo</item>
+        <item quantity="many">Seleccionar archivos</item>
         <item quantity="other">Seleccionar archivos</item>
     </plurals>
     <plurals name="file_list_title_pick_directory">
         <item quantity="one">Seleccionar una carpeta</item>
+        <item quantity="many">Seleccionar carpetas</item>
         <item quantity="other">Seleccionar carpetas</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d carpeta</item>
+        <item quantity="many">%1$,d carpetas</item>
         <item quantity="other">%1$,d carpetas</item>
     </plurals>
     <plurals name="file_list_subtitle_file_count_format">
         <item quantity="one">%1$,d archivo</item>
+        <item quantity="many">%1$,d archivos</item>
         <item quantity="other">%1$,d archivos</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
@@ -260,7 +289,6 @@
     <string name="file_list_action_sort_by_last_modified">Última modificación</string>
     <string name="file_list_action_sort_order_ascending">Ascendente</string>
     <string name="file_list_action_sort_directories_first">Carpetas primero</string>
-    <string name="file_list_action_view_sort_path_specific">Sólo para esta carpeta</string>
     <string name="file_list_action_new_task">Nueva ventana</string>
     <string name="file_list_action_navigate_up">Subir</string>
     <string name="file_list_action_show_hidden_files">Mostrar archivos ocultos</string>
@@ -269,7 +297,6 @@
     <string name="file_list_action_add_bookmark">Agregar marcador</string>
     <string name="file_list_action_create_shortcut">Crear atajo</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir en una nueva ventana</string>
-    <string name="file_list_select_title_format">%1$,d seleccionado</string>
     <string name="file_list_select_current_directory_format">Seleccionar \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Moviendo %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copiando %1$,d</string>
@@ -297,6 +324,7 @@
     <string name="file_properties_basic_contents">Contenido</string>
     <plurals name="file_properties_basic_contents_format">
         <item quantity="one">%1$,d artículo, con un tamaño %2$s</item>
+        <item quantity="many">%1$,d artículos, en total%2$s</item>
         <item quantity="other">%1$,d artículos, en total%2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Última modificación</string>
@@ -386,6 +414,7 @@
     <string name="file_properties_apk_requested_permissions_zero">No se requieren permisos</string>
     <plurals name="file_properties_apk_requested_permissions_positive_format">
         <item quantity="one">No se requieren permisos</item>
+        <item quantity="many">%1$,d permisos requeridos</item>
         <item quantity="other">%1$,d permisos requeridos</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Firmas</string>
@@ -491,7 +520,6 @@
     <string name="ftp_server_state_summary_stopping">Deteniendo…</string>
     <string name="ftp_server_state_summary_stopped">Sin iniciar</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">No se puede obtener la dirección IP local</string>
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar contraseña</string>
     <string name="ftp_server_configuration_title">Configuración</string>
@@ -501,7 +529,6 @@
     <string name="ftp_server_port_title">Puerto</string>
     <string name="ftp_server_home_directory_title">Carpeta raíz</string>
     <string name="ftp_server_writable_title">Permitir escritura</string>
-
     <string name="settings_title">Ajustes</string>
     <string name="settings_interface_title">Interfaz</string>
     <string name="settings_theme_color_title">Color de tema</string>
@@ -533,6 +560,7 @@
     <string name="settings_root_strategy_title">Modo de acceso administrativo</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
+        <item quantity="many">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
         <item quantity="other">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">

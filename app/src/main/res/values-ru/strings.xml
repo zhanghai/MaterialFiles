@@ -51,7 +51,7 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Приложение не найдено для обработки данного действия</string>
     <string name="open_settings">Открыть настройки</string>
-    <string name="shortcut_created">Шорткат создан</string>
+    <string name="shortcut_created">Ярлык создан</string>
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d байт</item>
@@ -335,7 +335,6 @@
     <string name="file_list_action_sort_by_last_modified">Последнее изменение</string>
     <string name="file_list_action_sort_order_ascending">По возрастанию</string>
     <string name="file_list_action_sort_directories_first">Папки первые</string>
-    <string name="file_list_action_view_sort_path_specific">Только для этой папки</string>
     <string name="file_list_action_new_task">Новое окно</string>
     <string name="file_list_action_navigate_up">Вверх</string>
     <string name="file_list_action_navigate_to">Перейти к</string>
@@ -343,9 +342,8 @@
     <string name="file_list_action_copy_path">Скопировать путь</string>
     <string name="file_list_action_open_in_terminal">Открыть в терминале</string>
     <string name="file_list_action_add_bookmark">Добавить закладку</string>
-    <string name="file_list_action_create_shortcut">Создать шорткат</string>
+    <string name="file_list_action_create_shortcut">Создать ярлык</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Открыть в новом окне</string>
-    <string name="file_list_select_title_format">%1$,d выбрано</string>
     <string name="file_list_select_current_directory_format">Выбрать “%1$s”</string>
     <string name="file_list_paste_move_title_format">Перемещение %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копирование %1$,d</string>
@@ -606,7 +604,6 @@
     <string name="ftp_server_state_summary_stopping">Остановка…</string>
     <string name="ftp_server_state_summary_stopped">Не запущен</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Не удаётся получить локальный IP-адрес</string>
     <string name="ftp_server_url_menu_copy_url">Скопировать URL</string>
     <string name="ftp_server_url_menu_copy_password">Скопировать пароль</string>
     <string name="ftp_server_configuration_title">Конфигурация</string>
@@ -616,7 +613,6 @@
     <string name="ftp_server_port_title">Порт</string>
     <string name="ftp_server_home_directory_title">Корневой каталог</string>
     <string name="ftp_server_writable_title">Разрешить запись</string>
-
     <string name="settings_title">Настройки</string>
     <string name="settings_interface_title">Интерфейс</string>
     <string name="settings_theme_color_title">Цвет темы</string>
@@ -676,6 +672,6 @@
     <string name="about_privacy_policy_title">Политика конфиденциальности</string>
     <string name="about_author_title">Автор</string>
     <string name="about_author_name_title">Hai Zhang</string>
-    <string name="about_author_github_title">Фолловить на GitHub</string>
-    <string name="about_author_twitter_title">Фолловить в Twitter</string>
+    <string name="about_author_github_title">Подписаться на GitHub</string>
+    <string name="about_author_twitter_title">Подписаться в Twitter</string>
 </resources>

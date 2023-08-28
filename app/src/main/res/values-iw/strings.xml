@@ -333,7 +333,6 @@
     <string name="file_list_action_sort_by_last_modified">השתנה לאחרונה</string>
     <string name="file_list_action_sort_order_ascending">עולה</string>
     <string name="file_list_action_sort_directories_first">תיקיות תחילה</string>
-    <string name="file_list_action_view_sort_path_specific">לתיקייה זו בלבד</string>
     <string name="file_list_action_new_task">חלון חדש</string>
     <string name="file_list_action_navigate_up">עלה</string>
     <string name="file_list_action_navigate_to">מעבר אל</string>
@@ -343,7 +342,6 @@
     <string name="file_list_action_add_bookmark">הוספת סימנייה</string>
     <string name="file_list_action_create_shortcut">יצירת קיצור דרך</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">פתיחה בחלון חדש</string>
-    <string name="file_list_select_title_format">%1$,d נבחרו</string>
     <string name="file_list_select_current_directory_format">בחירת “%1$s”</string>
     <string name="file_list_paste_move_title_format">מעביר את %1$,d</string>
     <string name="file_list_paste_copy_title_format">מעתיק את %1$,d</string>
@@ -604,7 +602,6 @@
     <string name="ftp_server_state_summary_stopping">עוצר…</string>
     <string name="ftp_server_state_summary_stopped">לא התחיל</string>
     <string name="ftp_server_url_title">כתובת</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">לא ניתן לאחזר כתובת IP מקומית</string>
     <string name="ftp_server_url_menu_copy_url">העתקת כתובת</string>
     <string name="ftp_server_url_menu_copy_password">העתקת סיסמה</string>
     <string name="ftp_server_configuration_title">תצורה</string>
@@ -614,7 +611,6 @@
     <string name="ftp_server_port_title">פתחה</string>
     <string name="ftp_server_home_directory_title">תיקיית שורש</string>
     <string name="ftp_server_writable_title">איפשור כתיבה</string>
-
     <string name="settings_title">הגדרות</string>
     <string name="settings_interface_title">ממשק</string>
     <string name="settings_theme_color_title">צבע ערכת נושא</string>

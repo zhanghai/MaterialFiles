@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Αρχείο</string>
+    <string name="file_type_name_apk">Πακέτο Android</string>
+    <string name="file_type_name_archive">%1$s αρχειοθήκη</string>
+    <string name="file_type_name_audio">%1$s ήχος</string>
+    <string name="file_type_name_calendar">%1$s ημερολόγιο</string>
+    <string name="file_type_name_certificate">%1$s πιστοποιητικό</string>
+    <string name="file_type_name_code">%1$s έγγραφο</string>
+    <string name="file_type_name_contact">Ηλεκτρονική επαγγελματική κάρτα</string>
+    <string name="file_type_name_directory">Φάκελος</string>
+    <string name="file_type_name_document">%1$s έγγραφο</string>
+    <string name="file_type_name_ebook">%1$s ηλεκτρ-βιβλίο</string>
+    <string name="file_type_name_email">%1$s μήνυμα email</string>
+    <string name="file_type_name_font">%1$s γραμματοσειρά</string>
+    <string name="file_type_name_generic">%1$s αρχείο</string>
+    <string name="file_type_name_image">%1$s εικόνα</string>
+    <string name="file_type_name_pdf">Έγγραφο PDF</string>
+    <string name="file_type_name_presentation">%1$s παρουσίαση</string>
+    <string name="file_type_name_spreadsheet">%1$s υπολογιστικό φύλλο</string>
+    <string name="file_type_name_text">%1$s έγγραφο</string>
+    <string name="file_type_name_text_plain">Έγγραφο απλού κειμένου</string>
+    <string name="file_type_name_video">%1$s βίντεο</string>
+    <string name="file_type_name_word">Έγγραφο Word</string>
+    <string name="file_type_name_powerpoint">Παρουσίαση PowerPoint</string>
+    <string name="file_type_name_excel">Υπολογιστικό φύλλο Excel</string>
+    <string name="file_type_name_posix_character_device">Χαρακτήρας συσκευής</string>
+    <string name="file_type_name_posix_block_device">Αποκλεισμός συσκευής</string>
+    <string name="file_type_name_posix_fifo">Pipe</string>
+    <string name="file_type_name_posix_symbolic_link">Σύνδεσμος</string>
+    <string name="file_type_name_posix_socket">Υποδοχή</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Σύνδεσμος (κατεστραμμένος)</string>
+</resources>

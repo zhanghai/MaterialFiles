@@ -43,6 +43,7 @@
     <string name="show">Anzeigen</string>
     <string name="skip">Überspringen</string>
     <string name="stop">Stopp</string>
+    <string name="system_default">Systemvorgabe</string>
     <string name="unknown">Unbekannt</string>
     <string name="view">Anzeigen</string>
 
@@ -271,6 +272,9 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Pfad darf nicht leer sein</string>
     <string name="file_list_path_error_invalid">Ungültiger Pfad</string>
+    <string name="file_list_action_view_sort">Anzeigen und Sortieren</string>
+    <string name="file_list_action_view_list">Liste</string>
+    <string name="file_list_action_view_grid">Raster</string>
     <string name="file_list_action_sort_by_name">Name</string>
     <string name="file_list_action_sort_by_type">Typ</string>
     <string name="file_list_action_sort_by_size">Größe</string>
@@ -287,7 +291,7 @@
     <string name="file_list_action_add_bookmark">Lesezeichen hinzufügen</string>
     <string name="file_list_action_create_shortcut">Verknüpfung erstellen</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">In neuem Fenster öffnen</string>
-    <string name="file_list_select_title_format">%1$,d ausgewählt</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">“%1$s” auswählen</string>
     <string name="file_list_paste_move_title_format">Verschiebe %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiere %1$,d</string>
@@ -421,6 +425,10 @@
     <string name="storage_edit_device_storage_title">Gerätespeicher bearbeiten</string>
     <string name="storage_edit_device_storage_name">Name</string>
     <string name="storage_edit_device_storage_path">Pfad</string>
+    <string name="storage_add_document_manager_shortcut_title">DocumentsUI Verknüpfung hinzufügen</string>
+    <string name="storage_edit_document_manager_shortcut_title">DocumentsUI Verknüpfung bearbeiten</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Gib eine URI ein</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ungültige URI</string>
     <string name="storage_add_document_tree_title">Externen Speicher hinzufügen</string>
     <string name="storage_edit_document_tree_title">Externen Speicher bearbeiten</string>
     <string name="storage_edit_document_tree_name">Name</string>
@@ -544,9 +552,13 @@
     <string name="ftp_server_state_summary_stopping">Beendet…</string>
     <string name="ftp_server_state_summary_stopped">Nicht gestartet</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Lokale IP-Adresse konnte nicht abgerufen werden</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Die Lokale IP Adresse ist unbekannt</string>
     <string name="ftp_server_url_menu_copy_url">Kopiere URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopiere Passwort</string>
+    <string name="ftp_server_add_tile_title">Zu  den Schnell-Einstellungen hinzufügen</string>
+    <string name="ftp_server_add_tile_result_added">\"FTP server\" ist zu den Schnell-Einstellungen hinzugefügt worden</string>
+    <string name="ftp_server_add_tile_result_already_added">\"FTP server\" ist schon in den Schnell-Einstellungen vorhanden</string>
+    <string name="ftp_server_add_tile_result_error">Fehler beim hinzufügen von \"FTP server\" zu den Schnell-Einstellungen</string>
     <string name="ftp_server_configuration_title">Konfiguration</string>
     <string name="ftp_server_anonymous_login_title">Anonymer Login</string>
     <string name="ftp_server_username_title">Benutzername</string>
@@ -554,9 +566,9 @@
     <string name="ftp_server_port_title">Port</string>
     <string name="ftp_server_home_directory_title">Stammverzeichnis</string>
     <string name="ftp_server_writable_title">Erlaube Schreiben</string>
-
     <string name="settings_title">Einstellungen</string>
     <string name="settings_interface_title">Benutzeroberfläche</string>
+    <string name="settings_locale_title">Sprache</string>
     <string name="settings_theme_color_title">Thema Farbe</string>
     <string name="settings_theme_color_summary">Die am häufigsten vorkommende Farbe in der App</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

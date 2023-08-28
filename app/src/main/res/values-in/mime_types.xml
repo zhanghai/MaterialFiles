@@ -17,8 +17,8 @@
     <string name="file_type_name_directory">Folder</string>
     <string name="file_type_name_document">%1$s dokumen</string>
     <string name="file_type_name_ebook">%1$s e-book</string>
-    <string name="file_type_name_email">%1$s pesan surel</string>
-    <string name="file_type_name_font">%1$s fon</string>
+    <string name="file_type_name_email">%1$s pesan email</string>
+    <string name="file_type_name_font">%1$s font</string>
     <string name="file_type_name_generic">%1$s berkas</string>
     <string name="file_type_name_image">%1$s gambar</string>
     <string name="file_type_name_pdf">Dokumen PDF</string>
@@ -30,6 +30,9 @@
     <string name="file_type_name_word">Dokumen Word</string>
     <string name="file_type_name_powerpoint">Presentasi PowerPoint</string>
     <string name="file_type_name_excel">Spreadsheet Excel</string>
+    <string name="file_type_name_posix_character_device">karakter perangkat</string>
+    <string name="file_type_name_posix_block_device">blok perangkat</string>
+    <string name="file_type_name_posix_fifo">pipa</string>
     <string name="file_type_name_posix_symbolic_link">Tautan</string>
     <string name="file_type_name_posix_socket">Soket</string>
     <string name="file_type_name_posix_symbolic_link_broken">Tautan (rusak)</string>

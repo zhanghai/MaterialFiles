@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Tiedosto</string>
+    <string name="file_type_name_apk">Android-asennuspakkaus</string>
+    <string name="file_type_name_archive">%1$s arkisto</string>
+    <string name="file_type_name_audio">%1$s ääni</string>
+    <string name="file_type_name_calendar">%1$s kalenteri</string>
+    <string name="file_type_name_certificate">%1$s sertifikaatti</string>
+    <string name="file_type_name_code">%1$s dokumentti</string>
+    <string name="file_type_name_directory">Kansio</string>
+    <string name="file_type_name_document">%1$s dokumentti</string>
+    <string name="file_type_name_ebook">%1$s e-kirja</string>
+    <string name="file_type_name_email">%1$s sähköpostiviesti</string>
+    <string name="file_type_name_font">%1$s kirjasin</string>
+    <string name="file_type_name_generic">%1$s tiedosto</string>
+    <string name="file_type_name_image">%1$s kuva</string>
+    <string name="file_type_name_pdf">PDF-dokumentti</string>
+    <string name="file_type_name_presentation">%1$s esitys</string>
+    <string name="file_type_name_spreadsheet">%1$s laskentataulukko</string>
+    <string name="file_type_name_text">%1$s dokumentti</string>
+    <string name="file_type_name_text_plain">Pelkkä teksti-dokumentti</string>
+    <string name="file_type_name_video">%1$s video</string>
+    <string name="file_type_name_word">Word-dokumentti</string>
+    <string name="file_type_name_powerpoint">PowerPoint-esitys</string>
+    <string name="file_type_name_excel">Excel-laskentataulukko</string></resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Файл</string>
+    <string name="file_type_name_apk">Пакунок Android</string>
+    <string name="file_type_name_archive">%1$s архів</string>
+    <string name="file_type_name_audio">%1$s звук</string>
+    <string name="file_type_name_calendar">%1$s календар</string>
+    <string name="file_type_name_certificate">%1$s сертифікат</string>
+    <string name="file_type_name_code">%1$s документ</string>
+    <string name="file_type_name_contact">Електронна візитка</string>
+    <string name="file_type_name_directory">Тека</string>
+    <string name="file_type_name_document">%1$s документ</string>
+    <string name="file_type_name_ebook">%1$s ел. книга</string>
+    <string name="file_type_name_email">%1$s ел. лист</string>
+    <string name="file_type_name_font">%1$s шрифт</string>
+    <string name="file_type_name_generic">%1$s файл</string>
+    <string name="file_type_name_image">%1$s зображення</string>
+    <string name="file_type_name_pdf">Документ PDF</string>
+    <string name="file_type_name_presentation">%1$s презентація</string>
+    <string name="file_type_name_spreadsheet">%1$s таблиця</string>
+    <string name="file_type_name_text">%1$s документ</string>
+    <string name="file_type_name_text_plain">Звичайний текстовий документ</string>
+    <string name="file_type_name_video">%1$s відеозапис</string>
+    <string name="file_type_name_word">Документ Word</string>
+    <string name="file_type_name_powerpoint">Презентація PowerPoint</string>
+    <string name="file_type_name_excel">Таблиця Excel</string>
+    <string name="file_type_name_posix_character_device">Символьний пристрій</string>
+    <string name="file_type_name_posix_block_device">Блоковий пристрій</string>
+    <string name="file_type_name_posix_fifo">Канал</string>
+    <string name="file_type_name_posix_symbolic_link">Посилання</string>
+    <string name="file_type_name_posix_socket">Сокет</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Посилання (зламане)</string>
+</resources>
