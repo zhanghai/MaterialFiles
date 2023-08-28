@@ -1,10 +1,10 @@
 - Added grid view.
 - Added per-app language setting.
-- Added shortcut to DocumentsUI for accessing Android/data and Android/obb.
+- Added shortcut to access Android/data.
 - Added URL information to FTP server notification.
 - Added banner for Android TV.
 - Added Greek, Finnish, Lithuanian, Norwegian Bokmål and Ukrainian translation.
 - Fast scroll popup now shows text according to the current sort options.
-- Video thumbnail is now taken from 1/3 of the video instead of the first frame.
-- Material Design 2 theme will be removed in the upcoming version 1.7.0 to ease code maintenance.
+- Video thumbnail is now taken from 1/3 of the video.
+- Material Design 2 theme will be removed in the upcoming version 1.7.0.
 - Other bug fixes and improvements.
