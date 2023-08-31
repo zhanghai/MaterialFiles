@@ -284,6 +284,7 @@
 
         <activity
             android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"
+            android:configChanges="uiMode|orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
             android:label="@string/text_editor_title"
             android:theme="@style/Theme.MaterialFiles">
