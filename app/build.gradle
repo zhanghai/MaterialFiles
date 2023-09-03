@@ -103,7 +103,9 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
-    implementation 'com.github.topjohnwu.libsu:service:5.2.0'
+    // libsu 5.2.0 is buggy on OnePlus: https://github.com/topjohnwu/Magisk/issues/7214
+    //noinspection GradleDependency
+    implementation 'com.github.topjohnwu.libsu:service:5.1.0'
 }
 
 dependencies {
