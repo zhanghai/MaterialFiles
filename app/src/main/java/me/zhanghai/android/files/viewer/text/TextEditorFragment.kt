@@ -142,7 +142,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                 true
             }
             Menu.FIRST -> {
-                viewModel.encoding.value = Charset.forName(item.titleCondensed.toString())
+                viewModel.encoding.value = Charset.forName(item.titleCondensed!!.toString())
                 true
             }
             else -> super.onOptionsItemSelected(item)

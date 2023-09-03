@@ -90,7 +90,7 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
 
     override fun normalize(): ContentPath = this
 
-    override fun toUri(): URI = URI.create(uri.toString())
+    override fun toUri(): URI = URI.create(uri!!.toString())
 
     override fun toAbsolutePath(): ContentPath {
         if (!isAbsolute) {

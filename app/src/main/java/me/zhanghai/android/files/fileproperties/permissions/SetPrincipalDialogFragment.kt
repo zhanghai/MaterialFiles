@@ -56,7 +56,7 @@ abstract class SetPrincipalDialogFragment : AppCompatDialogFragment() {
                 }
 
                 binding = SetPrincipalDialogBinding.inflate(context.layoutInflater)
-                binding.filterEdit.doAfterTextChanged { viewModel.filter = it.toString() }
+                binding.filterEdit.doAfterTextChanged { viewModel.filter = it!!.toString() }
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 adapter = createAdapter(selectionLiveData)
                 binding.recyclerView.adapter = adapter
