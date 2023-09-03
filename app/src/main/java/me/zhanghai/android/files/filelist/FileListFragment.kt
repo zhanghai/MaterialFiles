@@ -1032,7 +1032,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun makePathListForJob(files: FileItemSet): List<Path> =
-        files.map { it.path }.sorted()
+        files.map { it.path }.sortedBy { it.toUri() }
 
     private fun onFileNameEllipsizeChanged(fileNameEllipsize: TextUtils.TruncateAt) {
         adapter.nameEllipsize = fileNameEllipsize
