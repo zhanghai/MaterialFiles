@@ -10,7 +10,7 @@ An open source Material Design file manager, for Android 5.0+.
 
 [Get it on Coolapk](https://www.coolapk.com/apk/me.zhanghai.android.files) [Get the APK](https://github.com/zhanghai/MaterialFiles/releases/latest/download/app-release.apk)
 
-[Help translation on Transifex](https://www.transifex.com/zhanghai/MaterialFiles/) ([Search Android & GNOME translations](https://translations.zhanghai.me/), [Search Microsoft translations](https://www.microsoft.com/en-us/language), [MIME type translations](https://github.com/freedesktop/xdg-shared-mime-info/tree/master/po))
+[Help translation on Transifex](https://www.transifex.com/zhanghai/MaterialFiles/) ([Search Android & GNOME translations](https://translations.zhanghai.me/), [Search Microsoft translations](https://www.microsoft.com/en-us/language), [MIME type translations](https://gitlab.freedesktop.org/xdg/shared-mime-info/-/tree/master/po))
 
 ## Preview
 
