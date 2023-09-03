@@ -78,8 +78,8 @@ class EditDocumentManagerShortcutDialogFragment : AppCompatDialogFragment() {
                 errorEdit = binding.uriEdit
             }
         }
-        val uri = Uri.parse(uriText).asDocumentUriOrNull()
-        if (uri == null) {
+        val uri = uriText?.let { Uri.parse(it).asDocumentUriOrNull() }
+        if (uriText != null && uri == null) {
             binding.uriLayout.error =
                 getString(R.string.storage_edit_document_manager_shortcut_uri_error_invalid)
             if (errorEdit == null) {
