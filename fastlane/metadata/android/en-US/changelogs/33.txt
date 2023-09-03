@@ -1,0 +1,4 @@
+- Fixed FTP client not working before Android 8.0.
+- Fixed root access not working on some OnePlus devices.
+- Fixed number of grid view columns on landscape tablet.
+- Other bug fixes and improvements.
