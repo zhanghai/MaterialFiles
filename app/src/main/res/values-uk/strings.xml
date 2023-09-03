@@ -45,6 +45,7 @@
     <string name="show">Показати</string>
     <string name="skip">Пропустити</string>
     <string name="stop">Зупинити</string>
+    <string name="system_default">Системна за замовчуванням</string>
     <string name="unknown">Невідомий</string>
     <string name="view">Вигляд</string>
 
@@ -329,12 +330,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Шлях не може бути порожнім</string>
     <string name="file_list_path_error_invalid">Недійсний шлях</string>
+    <string name="file_list_action_view_sort">Вигляд та сортування</string>
+    <string name="file_list_action_view_list">Список</string>
+    <string name="file_list_action_view_grid">Сітка</string>
     <string name="file_list_action_sort_by_name">Назва</string>
     <string name="file_list_action_sort_by_type">Тип</string>
     <string name="file_list_action_sort_by_size">Розмір</string>
     <string name="file_list_action_sort_by_last_modified">Востаннє змінено</string>
     <string name="file_list_action_sort_order_ascending">Зростання</string>
     <string name="file_list_action_sort_directories_first">Теки спочатку</string>
+    <string name="file_list_action_view_sort_path_specific">Тільки для цієї теки</string>
     <string name="file_list_action_new_task">Нове вікно</string>
     <string name="file_list_action_navigate_up">Перейти вверх</string>
     <string name="file_list_action_navigate_to">Перейти в</string>
@@ -344,6 +349,7 @@
     <string name="file_list_action_add_bookmark">Додати закладку</string>
     <string name="file_list_action_create_shortcut">Створити скорочення</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Відкрити в новому вікні</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">Вибрати “%1$s”</string>
     <string name="file_list_paste_move_title_format">Переміщення %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копіювання %1$,d</string>
@@ -481,6 +487,10 @@
     <string name="storage_edit_device_storage_title">Змінити сховище пристрою</string>
     <string name="storage_edit_device_storage_name">Назва</string>
     <string name="storage_edit_device_storage_path">Шлях</string>
+    <string name="storage_add_document_manager_shortcut_title">Додати ярлик DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Редагувати ярлик DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Введіть URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Невірний URI</string>
     <string name="storage_add_document_tree_title">Додати зовнішнє сховище</string>
     <string name="storage_edit_document_tree_title">Змінити зовнішнє сховище</string>
     <string name="storage_edit_document_tree_name">Назва</string>
@@ -604,8 +614,13 @@
     <string name="ftp_server_state_summary_stopping">Зупинка…</string>
     <string name="ftp_server_state_summary_stopped">Не запущено</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Локальна IP-адреса невідома</string>
     <string name="ftp_server_url_menu_copy_url">Копіювати URL</string>
     <string name="ftp_server_url_menu_copy_password">Копіювати пароль</string>
+    <string name="ftp_server_add_tile_title">Додати до швидких налаштувань</string>
+    <string name="ftp_server_add_tile_result_added">\"FTP сервер\" був доданий до швидких налаштувань</string>
+    <string name="ftp_server_add_tile_result_already_added">\"FTP сервер\" уже доданий до швидких налаштувань</string>
+    <string name="ftp_server_add_tile_result_error">Сталася помилка при додаванні \"FTP сервер\" до швидких налаштувань</string>
     <string name="ftp_server_configuration_title">Конфігурація</string>
     <string name="ftp_server_anonymous_login_title">Анонімний вхід</string>
     <string name="ftp_server_username_title">Імʼя користувача</string>
@@ -615,6 +630,7 @@
     <string name="ftp_server_writable_title">Дозволити запис</string>
     <string name="settings_title">Налаштування</string>
     <string name="settings_interface_title">Інтерфейс</string>
+    <string name="settings_locale_title">Мова</string>
     <string name="settings_theme_color_title">Колір теми</string>
     <string name="settings_theme_color_summary">Колір, який найчастіше з’являється у застосунку</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
