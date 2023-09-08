@@ -13,6 +13,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Looper
@@ -36,7 +37,9 @@ import androidx.annotation.PluralsRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.util.TypedValueCompat
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.complexUnitCompat
 import me.zhanghai.android.files.compat.getFloatCompat
 import me.zhanghai.android.files.compat.mainExecutorCompat
 import me.zhanghai.android.files.compat.obtainStyledAttributesCompat
@@ -56,17 +59,38 @@ val Context.activity: Activity?
 
 fun Context.getAnimation(@AnimRes id: Int): Animation = AnimationUtils.loadAnimation(this, id)
 
-fun Context.getBoolean(@BoolRes id: Int) = resources.getBoolean(id)
+fun Context.getBoolean(@BoolRes id: Int): Boolean = resources.getBoolean(id)
 
-fun Context.getDimension(@DimenRes id: Int) = resources.getDimension(id)
+@Dimension
+fun Context.getDimension(@DimenRes id: Int): Float = resources.getDimension(id)
 
-fun Context.getDimensionPixelOffset(@DimenRes id: Int) = resources.getDimensionPixelOffset(id)
+@Dimension(unit = Dimension.DP)
+fun Context.getDimensionDp(@DimenRes id: Int): Float {
+    TypedValue::class.useTemp { value ->
+        resources.getValue(id, value, true)
+        if (value.type != TypedValue.TYPE_DIMENSION) {
+            throw Resources.NotFoundException(
+                "Resource ID #0x${Integer.toHexString(id)} type #0x${
+                    Integer.toHexString(value.type)
+                } is not valid"
+            )
+        }
+        if (value.complexUnitCompat == TypedValue.COMPLEX_UNIT_DIP) {
+            return TypedValue.complexToFloat(value.data)
+        }
+        return dimensionToDp(TypedValue.complexToDimension(value.data, resources.displayMetrics))
+    }
+}
 
-fun Context.getDimensionPixelSize(@DimenRes id: Int) = resources.getDimensionPixelSize(id)
+@Dimension
+fun Context.getDimensionPixelOffset(@DimenRes id: Int): Int = resources.getDimensionPixelOffset(id)
 
-fun Context.getFloat(@DimenRes id: Int) = resources.getFloatCompat(id)
+@Dimension
+fun Context.getDimensionPixelSize(@DimenRes id: Int): Int = resources.getDimensionPixelSize(id)
 
-fun Context.getInteger(@IntegerRes id: Int) = resources.getInteger(id)
+fun Context.getFloat(@DimenRes id: Int): Float = resources.getFloatCompat(id)
+
+fun Context.getInteger(@IntegerRes id: Int): Int = resources.getInteger(id)
 
 fun Context.getInterpolator(@InterpolatorRes id: Int): Interpolator =
     AnimationUtils.loadInterpolator(this, id)
@@ -161,6 +185,13 @@ fun Context.dpToDimensionPixelSize(@Dimension(unit = Dimension.DP) dp: Float): I
 @Dimension
 fun Context.dpToDimensionPixelSize(@Dimension(unit = Dimension.DP) dp: Int) =
     dpToDimensionPixelSize(dp.toFloat())
+
+@Dimension(unit = Dimension.DP)
+fun Context.dimensionToDp(@Dimension dimension: Float): Float =
+    TypedValueCompat.pxToDp(dimension, resources.displayMetrics)
+
+@Dimension(unit = Dimension.DP)
+fun Context.dimensionToDp(@Dimension dimension: Int): Float = dimensionToDp(dimension.toFloat())
 
 fun Context.hasSwDp(@Dimension(unit = Dimension.DP) dp: Int): Boolean =
     resources.configuration.smallestScreenWidthDp >= dp

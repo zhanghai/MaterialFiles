@@ -104,6 +104,7 @@ import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.extraPathList
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
+import me.zhanghai.android.files.util.getDimensionDp
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.hasSw600Dp
 import me.zhanghai.android.files.util.isOrientationLandscape
@@ -115,6 +116,7 @@ import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 import me.zhanghai.android.files.util.withChooser
 import me.zhanghai.android.files.viewer.image.ImageViewerActivity
+import kotlin.math.roundToInt
 
 class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.Listener,
     OpenApkDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
@@ -599,14 +601,13 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         layoutManager.spanCount = when (viewModel.viewType) {
             FileViewType.LIST -> 1
             FileViewType.GRID -> {
-                var width = resources.configuration.screenWidthDp
+                var widthDp = resources.configuration.screenWidthDp
                 val persistentDrawerLayout = binding.persistentDrawerLayout
                 if (persistentDrawerLayout != null &&
                     persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    // R.dimen.navigation_max_width
-                    width -= 320
+                    widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
-                (width / 180).coerceAtLeast(2)
+                (widthDp / 180).coerceAtLeast(2)
             }
         }
     }
