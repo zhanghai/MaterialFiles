@@ -16,11 +16,11 @@ import java8.nio.file.WatchService
 import java8.nio.file.attribute.UserPrincipalLookupService
 import java8.nio.file.spi.FileSystemProvider
 import me.zhanghai.android.files.provider.archive.archiver.ArchiveReader
+import me.zhanghai.android.files.provider.archive.archiver.ReadArchive
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.ByteStringListPathCreator
 import me.zhanghai.android.files.provider.common.toByteString
-import org.apache.commons.compress.archivers.ArchiveEntry
 import java.io.IOException
 import java.io.InputStream
 
@@ -49,19 +49,19 @@ internal class LocalArchiveFileSystem(
 
     private var isRefreshNeeded = true
 
-    private var entries: Map<Path, ArchiveEntry>? = null
+    private var entries: Map<Path, ReadArchive.Entry>? = null
 
     private var tree: Map<Path, List<Path>>? = null
 
     @Throws(IOException::class)
-    fun getEntry(path: Path): ArchiveEntry =
+    fun getEntry(path: Path): ReadArchive.Entry =
         synchronized(lock) {
             ensureEntriesLocked()
             getEntryLocked(path)
         }
 
     @Throws(IOException::class)
-    private fun getEntryLocked(path: Path): ArchiveEntry =
+    private fun getEntryLocked(path: Path): ReadArchive.Entry =
         synchronized(lock) {
             entries!![path] ?: throw NoSuchFileException(path.toString())
         }

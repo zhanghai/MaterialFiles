@@ -187,18 +187,11 @@ dependencies {
     implementation 'me.zhanghai.android.appiconloader:appiconloader:1.5.0'
     implementation 'me.zhanghai.android.fastscroll:library:1.3.0'
     implementation 'me.zhanghai.android.foregroundcompat:library:1.0.2'
+    implementation 'me.zhanghai.android.libarchive:library:1.0.0'
     implementation 'me.zhanghai.android.libselinux:library:2.1.0'
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
     implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.4'
-    // Commons Compress 1.21 requires Android 8.0.
-    // See also https://issues.apache.org/jira/browse/COMPRESS-611
-    // Run `git revert fb1628e` if we ever created a fork that supports Android 5.0, or we raised
-    // minimum SDK version to Android 8.0.
-    //noinspection GradleDependency
-    implementation 'org.apache.commons:commons-compress:1.20'
-    // Optional dependency of Commons Compress for 7Z LZMA.
-    implementation 'org.tukaani:xz:1.9'
     implementation 'org.apache.ftpserver:ftpserver-core:1.2.0'
     // This is a dependency of org.apache.ftpserver:ftpserver-core but org.apache.mina:mina-core
     // 2.1.3+ became incompatible before API 24 due to dependency on StandardSocketOptions
@@ -208,11 +201,10 @@ dependencies {
             strictly '2.1.3'
         }
     }
-    // Also a dependency of jCIFS-NG and Junrar.
+    // Also a dependency of jCIFS-NG.
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation 'com.github.junrar:junrar:7.5.4'
     implementation platform('com.google.firebase:firebase-bom:32.2.3')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'

@@ -582,8 +582,9 @@ private class ActionAllInfo(
 class ArchiveFileJob(
     private val sources: List<Path>,
     private val archiveFile: Path,
-    private val archiveType: String,
-    private val compressorType: String?
+    private val format: Int,
+    private val filter: Int,
+    private val password: String?
 ) : FileJob() {
     @Throws(IOException::class)
     override fun run() {
@@ -594,16 +595,16 @@ class ArchiveFileJob(
         var successful = false
         try {
             channel.use {
-                ArchiveWriter(archiveType, compressorType, channel).use { writer ->
+                ArchiveWriter(channel, format, filter, password).use { writer ->
                     val transferInfo = TransferInfo(scanInfo, archiveFile)
                     for (source in sources) {
                         val target = getTargetFileName(source)
                         archiveRecursively(source, writer, target, transferInfo)
                         throwIfInterrupted()
                     }
-                    successful = true
                 }
             }
+            successful = true
         } finally {
             if (!successful) {
                 try {

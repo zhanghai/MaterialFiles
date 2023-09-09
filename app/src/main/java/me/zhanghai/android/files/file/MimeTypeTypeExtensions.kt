@@ -5,8 +5,6 @@
 
 package me.zhanghai.android.files.file
 
-import android.os.Build
-
 val MimeType.isApk: Boolean
     get() = this == MimeType.APK
 
@@ -20,24 +18,24 @@ private val supportedArchiveMimeTypes = mutableListOf(
     "application/zip",
     "application/vnd.android.package-archive",
     "application/vnd.debian.binary-package",
+    "application/x-7z-compressed",
     "application/x-bzip2",
+    "application/x-cab",
     "application/x-compress",
     "application/x-cpio",
     "application/x-deb",
     "application/x-debian-package",
     "application/x-gtar",
     "application/x-gtar-compressed",
+    "application/x-iso9660-image",
     "application/x-java-archive",
+    "application/x-lha",
     "application/x-lzma",
+    "application/x-redhat-package-manager",
     "application/x-tar",
+    "application/x-ustar",
     "application/x-xz"
-)
-    .apply {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            this += "application/x-7z-compressed"
-        }
-    }
-    .map { it.asMimeType() }.toSet()
+).map { it.asMimeType() }.toSet()
 
 val MimeType.isImage: Boolean
     get() = icon == MimeTypeIcon.IMAGE

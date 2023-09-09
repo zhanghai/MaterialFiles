@@ -8,11 +8,11 @@ package me.zhanghai.android.files.provider.archive
 import android.os.Parcel
 import android.os.Parcelable
 import java8.nio.file.Path
+import me.zhanghai.android.files.provider.archive.archiver.ReadArchive
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPathCreator
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException
 import me.zhanghai.android.files.provider.root.RootableFileSystem
-import org.apache.commons.compress.archivers.ArchiveEntry
 import java.io.IOException
 import java.io.InputStream
 
@@ -39,7 +39,7 @@ internal class ArchiveFileSystem(
         get() = localFileSystem.archiveFile
 
     @Throws(IOException::class)
-    fun getEntryAsLocal(path: Path): ArchiveEntry = localFileSystem.getEntry(path)
+    fun getEntryAsLocal(path: Path): ReadArchive.Entry = localFileSystem.getEntry(path)
 
     @Throws(IOException::class)
     fun newInputStreamAsLocal(file: Path): InputStream = localFileSystem.newInputStream(file)

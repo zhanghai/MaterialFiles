@@ -27,12 +27,25 @@ enum class PosixFileModeBit {
 }
 
 object PosixFileMode {
-    val CREATE_FILE_DEFAULT = fromInt(
-        OsConstants.S_IRUSR or OsConstants.S_IWUSR or OsConstants.S_IRGRP or OsConstants.S_IWGRP
-            or OsConstants.S_IROTH or OsConstants.S_IWOTH
+    val CREATE_DIRECTORY_DEFAULT = fromInt(
+        OsConstants.S_IRWXU or OsConstants.S_IRWXG or OsConstants.S_IRWXO
     )
 
-    val CREATE_DIRECTORY_DEFAULT = fromInt(
+    val CREATE_FILE_DEFAULT = fromInt(
+        OsConstants.S_IRUSR or OsConstants.S_IWUSR or OsConstants.S_IRGRP or OsConstants.S_IWGRP or
+            OsConstants.S_IROTH or OsConstants.S_IWOTH
+    )
+
+    val DIRECTORY_DEFAULT = fromInt(
+        OsConstants.S_IRWXU or OsConstants.S_IRGRP or OsConstants.S_IXGRP or
+            OsConstants.S_IROTH or OsConstants.S_IXOTH
+    )
+
+    val FILE_DEFAULT = fromInt(
+        OsConstants.S_IRUSR or OsConstants.S_IWUSR or OsConstants.S_IRGRP or OsConstants.S_IROTH
+    )
+
+    val SYMBOLIC_LINK_DEFAULT = fromInt(
         OsConstants.S_IRWXU or OsConstants.S_IRWXG or OsConstants.S_IRWXO
     )
 

@@ -98,11 +98,12 @@ class FileJobService : Service() {
         fun archive(
             sources: List<Path>,
             archiveFile: Path,
-            archiveType: String,
-            compressorType: String?,
+            format: Int,
+            filter: Int,
+            password: String?,
             context: Context
         ) {
-            startJob(ArchiveFileJob(sources, archiveFile, archiveType, compressorType), context)
+            startJob(ArchiveFileJob(sources, archiveFile, format, filter, password), context)
         }
 
         fun copy(sources: List<Path>, targetDirectory: Path, context: Context) {

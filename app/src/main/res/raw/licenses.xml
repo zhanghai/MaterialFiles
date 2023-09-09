@@ -155,6 +155,48 @@
     </notice>
 
     <notice>
+        <name>libarchive-android</name>
+        <url>https://github.com/zhanghai/libarchive-android</url>
+        <copyright>Copyright 2023 Google LLC</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>libarchive</name>
+        <url>https://github.com/libarchive/libarchive</url>
+        <copyright>Copyright 2003 Tim Kientzle</copyright>
+        <license>BSD 2-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>bzip2</name>
+        <url>https://gitlab.com/bzip2/bzip2</url>
+        <copyright>Copyright 1996 Julian Seward</copyright>
+        <license>BSD 3-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>lz4</name>
+        <url>https://github.com/lz4/lz4</url>
+        <copyright>Copyright 2011 Yann Collet</copyright>
+        <license>BSD 2-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>zstd</name>
+        <url>https://github.com/facebook/zstd</url>
+        <copyright>Copyright Meta Platforms, Inc. and affiliates</copyright>
+        <license>BSD 3-Clause License</license>
+    </notice>
+
+    <notice>
+        <name>mbedtls</name>
+        <url>https://github.com/Mbed-TLS/mbedtls</url>
+        <copyright>Copyright The Mbed TLS Contributors</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
         <name>libselinux-android</name>
         <url>https://github.com/zhanghai/libselinux-android</url>
         <copyright>Copyright 2019 Hai Zhang</copyright>
@@ -180,13 +222,6 @@
         <url>https://github.com/retrostreams/android-retrostreams</url>
         <copyright>Copyright 1994 Oracle and/or its affiliates</copyright>
         <license>GNU General Public License 2.0</license>
-    </notice>
-
-    <notice>
-        <name>Apache Commons Compress</name>
-        <url>https://commons.apache.org/proper/commons-compress/</url>
-        <copyright>Copyright 2002 The Apache Software Foundation</copyright>
-        <license>Apache Software License 2.0</license>
     </notice>
 
     <notice>

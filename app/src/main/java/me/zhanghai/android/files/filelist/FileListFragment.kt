@@ -911,12 +911,13 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override fun archive(
         files: FileItemSet,
         name: String,
-        archiveType: String,
-        compressorType: String?
+        format: Int,
+        filter: Int,
+        password: String?
     ) {
         val archiveFile = viewModel.currentPath.resolve(name)
         FileJobService.archive(
-            makePathListForJob(files), archiveFile, archiveType, compressorType, requireContext()
+            makePathListForJob(files), archiveFile, format, filter, password, requireContext()
         )
         viewModel.selectFiles(files, false)
     }
