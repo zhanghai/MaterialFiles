@@ -11,7 +11,6 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.guessFromPath
 import me.zhanghai.android.files.provider.common.PosixFileStore
 import me.zhanghai.android.files.provider.common.size
-import org.tukaani.xz.UnsupportedOptionsException
 import java.io.IOException
 
 internal class LocalArchiveFileStore(private val archiveFile: Path) : PosixFileStore() {
@@ -25,7 +24,7 @@ internal class LocalArchiveFileStore(private val archiveFile: Path) : PosixFileS
 
     @Throws(IOException::class)
     override fun setReadOnly(readOnly: Boolean) {
-        throw UnsupportedOptionsException()
+        throw UnsupportedOperationException()
     }
 
     @Throws(IOException::class)
