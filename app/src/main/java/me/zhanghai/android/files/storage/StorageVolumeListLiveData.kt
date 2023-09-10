@@ -11,15 +11,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.storage.StorageVolume
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.storageManager
+import me.zhanghai.android.files.compat.registerReceiverCompat
 import me.zhanghai.android.files.compat.storageVolumesCompat
 
 object StorageVolumeListLiveData : LiveData<List<StorageVolume>>() {
     init {
         loadValue()
-        application.registerReceiver(
+        application.registerReceiverCompat(
             object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
                     loadValue()
@@ -36,7 +38,7 @@ object StorageVolumeListLiveData : LiveData<List<StorageVolume>>() {
                 // The "file" data scheme is required to receive these broadcasts.
                 // @see https://stackoverflow.com/a/7143298
                 addDataScheme(ContentResolver.SCHEME_FILE)
-            }
+            }, ContextCompat.RECEIVER_NOT_EXPORTED
         )
     }
 
