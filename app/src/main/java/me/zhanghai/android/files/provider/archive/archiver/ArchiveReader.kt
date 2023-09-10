@@ -51,6 +51,11 @@ object ArchiveReader {
                     // Don't allow a path to become the root path only after normalization.
                     continue
                 }
+            } else {
+                if (!entry.isDirectory) {
+                    // Ignore a root path that's not a directory
+                    continue
+                }
             }
             entries.getOrPut(path) { entry }
         }
