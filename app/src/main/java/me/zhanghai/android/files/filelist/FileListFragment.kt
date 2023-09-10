@@ -124,6 +124,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
     NavigateToPathDialogFragment.Listener, NavigationFragment.Listener,
     ShowRequestAllFilesAccessRationaleDialogFragment.Listener,
+    ShowRequestNotificationPermissionRationaleDialogFragment.Listener,
+    ShowRequestNotificationPermissionInSettingsRationaleDialogFragment.Listener,
     ShowRequestStoragePermissionRationaleDialogFragment.Listener,
     ShowRequestStoragePermissionInSettingsRationaleDialogFragment.Listener {
     private val requestAllFilesAccessLauncher = registerForActivityResult(
@@ -133,8 +135,17 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         ActivityResultContracts.RequestPermission(), this::onRequestStoragePermissionResult
     )
     private val requestStoragePermissionInSettingsLauncher = registerForActivityResult(
-        RequestStoragePermissionInSettingsContract(),
+        RequestPermissionInSettingsContract(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
         this::onRequestStoragePermissionInSettingsResult
+    )
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private val requestNotificationPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(), this::onRequestNotificationPermissionResult
+    )
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private val requestNotificationPermissionInSettingsLauncher = registerForActivityResult(
+        RequestPermissionInSettingsContract(android.Manifest.permission.POST_NOTIFICATIONS),
+        this::onRequestNotificationPermissionInSettingsResult
     )
 
     private val args by args<Args>()
@@ -320,7 +331,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override fun onResume() {
         super.onResume()
 
-        ensureStorageAccess()
+        if (ensureStorageAccess()) {
+            ensureNotificationPermission()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -1308,18 +1321,20 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         binding.drawerLayout?.closeDrawer(GravityCompat.START)
     }
 
-    private fun ensureStorageAccess() {
+    private fun ensureStorageAccess(): Boolean {
         if (viewModel.isStorageAccessRequested) {
-            return
+            return true
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
                 ShowRequestAllFilesAccessRationaleDialogFragment.show(this)
                 viewModel.isStorageAccessRequested = true
+                return false
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PackageManager.PERMISSION_GRANTED
+            ) {
                 if (shouldShowRequestPermissionRationale(
                         android.Manifest.permission.WRITE_EXTERNAL_STORAGE
                     )) {
@@ -1328,8 +1343,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     requestStoragePermission()
                 }
                 viewModel.isStorageAccessRequested = true
+                return false
             }
         }
+        return true
     }
 
     override fun requestAllFilesAccess() {
@@ -1352,8 +1369,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             viewModel.isStorageAccessRequested = false
             refresh()
         } else if (!shouldShowRequestPermissionRationale(
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )) {
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )) {
             ShowRequestStoragePermissionInSettingsRationaleDialogFragment.show(this)
         }
     }
@@ -1365,6 +1382,57 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun onRequestStoragePermissionInSettingsResult(isGranted: Boolean) {
         if (isGranted) {
             viewModel.isStorageAccessRequested = false
+            refresh()
+        }
+    }
+
+    private fun ensureNotificationPermission(): Boolean {
+        if (viewModel.isNotificationPermissionRequested) {
+            return true
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED) {
+                if (shouldShowRequestPermissionRationale(
+                        android.Manifest.permission.POST_NOTIFICATIONS
+                    )) {
+                    ShowRequestNotificationPermissionRationaleDialogFragment.show(this)
+                } else {
+                    requestNotificationPermission()
+                }
+                viewModel.isNotificationPermissionRequested = true
+                return false
+            }
+        }
+        return true
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun requestNotificationPermission() {
+        requestNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun onRequestNotificationPermissionResult(isGranted: Boolean) {
+        if (isGranted) {
+            viewModel.isNotificationPermissionRequested = false
+            refresh()
+        } else if (!shouldShowRequestPermissionRationale(
+            android.Manifest.permission.POST_NOTIFICATIONS
+        )) {
+            ShowRequestNotificationPermissionInSettingsRationaleDialogFragment.show(this)
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override fun requestNotificationPermissionInSettings() {
+        requestNotificationPermissionInSettingsLauncher.launch(Unit)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun onRequestNotificationPermissionInSettingsResult(isGranted: Boolean) {
+        if (isGranted) {
+            viewModel.isNotificationPermissionRequested = false
             refresh()
         }
     }
@@ -1389,7 +1457,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             Environment.isExternalStorageManager()
     }
 
-    private class RequestStoragePermissionInSettingsContract
+    private class RequestPermissionInSettingsContract(private val permissionName: String)
         : ActivityResultContract<Unit, Boolean>() {
         override fun createIntent(context: Context, input: Unit): Intent =
             Intent(
@@ -1398,9 +1466,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             )
 
         override fun parseResult(resultCode: Int, intent: Intent?): Boolean =
-            application.checkSelfPermissionCompat(
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED
+            application.checkSelfPermissionCompat(permissionName) ==
+                PackageManager.PERMISSION_GRANTED
     }
 
     @Parcelize

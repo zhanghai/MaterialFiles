@@ -56,9 +56,11 @@
         <item quantity="other">%1$,d 位元組</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">程式需要管理所有檔案的權限。請在接下來的系統設定中授予權限。</string>
     <string name="storage_permission_rationale_message">程式需要存取檔案的權限。請在接下來的系統對話框中點擊「允許」。</string>
     <string name="storage_permission_permanently_denied_message">程式需要存取檔案的權限。請在系統設定中授予「儲存空間」權限。</string>
-    <string name="all_files_access_rationale_message">程式需要管理所有檔案的權限。請在接下來的系統設定中授予權限。</string>
+    <string name="notification_permission_rationale_message">程式需要發布檔案作業相關通知的權限。請在接下來的系統對話框中點擊「允許」。</string>
+    <string name="notification_permission_permanently_denied_message">程式需要發布檔案作業相關通知的權限。請在系統設定中授予「通知」權限。</string>
 
     <string name="notification_channel_background_activity_start_name">背景期間動作</string>
     <string name="notification_channel_background_activity_start_description">在應用程式處於背景期間採取動作</string>

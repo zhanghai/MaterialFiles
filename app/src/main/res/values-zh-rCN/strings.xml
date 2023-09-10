@@ -56,9 +56,11 @@
         <item quantity="other">%1$,d 字节</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">应用需要管理所有文件的权限。请在接下来的系统设置中授予权限。</string>
     <string name="storage_permission_rationale_message">应用需要访问文件的权限。请在接下来的系统对话框中点击“允许”。</string>
     <string name="storage_permission_permanently_denied_message">应用需要访问文件的权限。请在系统设置中授予“存储空间”权限。</string>
-    <string name="all_files_access_rationale_message">应用需要管理所有文件的权限。请在接下来的系统设置中授予权限。</string>
+    <string name="notification_permission_rationale_message">应用需要发布文件操作相关通知的权限。请在接下来的系统对话框中点击“允许”。</string>
+    <string name="notification_permission_permanently_denied_message">应用需要发布文件操作相关通知的权限。请在系统设置中授予“通知”权限。</string>
 
     <string name="notification_channel_background_activity_start_name">后台期间动作</string>
     <string name="notification_channel_background_activity_start_description">在应用处于后台期间采取动作</string>

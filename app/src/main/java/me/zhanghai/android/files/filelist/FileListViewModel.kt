@@ -227,6 +227,13 @@ class FileListViewModel : ViewModel() {
             _isRequestingStorageAccessLiveData.value = value
         }
 
+    private val _isRequestingNotificationPermissionLiveData = MutableLiveData(false)
+    var isNotificationPermissionRequested: Boolean
+        get() = _isRequestingNotificationPermissionLiveData.valueCompat
+        set(value) {
+            _isRequestingNotificationPermissionLiveData.value = value
+        }
+
     override fun onCleared() {
         _fileListLiveData.close()
     }
