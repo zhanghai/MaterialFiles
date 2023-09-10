@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BRANCH=master
+BRANCH=main
 
 debian_mime_types=$(mktemp)
 android_mime_types=$(mktemp)

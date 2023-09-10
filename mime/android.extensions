@@ -35,6 +35,7 @@ atomcat application/atomcat+xml
 atomsrv application/atomserv+xml
 au audio/basic
 avi video/avi
+avif image/avif
 awb audio/amr-wb
 axa audio/annodex
 axv video/annodex
@@ -108,6 +109,7 @@ dcr application/x-director
 ddeb application/vnd.debian.binary-package
 deb application/x-debian-package
 deploy application/octet-stream
+der application/x-x509-ca-cert
 dfxp application/ttml+xml
 dif video/dv
 diff text/plain
