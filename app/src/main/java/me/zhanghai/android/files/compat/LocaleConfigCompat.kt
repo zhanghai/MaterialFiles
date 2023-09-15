@@ -90,13 +90,25 @@ class LocaleConfigCompat(context: Context) {
         // @see com.android.server.pm.pkg.parsing.ParsingPackageUtils
         @XmlRes
         private fun getLocaleConfigResourceId(context: Context): Int {
+            // Java cookies starts at 1, while passing 0 (invalid cookie for Java) makes
+            // AssetManager pick the last asset containing such a file name.
+            // We should go over all the assets containing AndroidManifest.xml, however there's no
+            // API to do that, so the best we can do is to start from the first asset and iterate
+            // until we can't find the next asset containing AndroidManifest.xml.
             var cookie = 1
+            var isAndroidManifestFound = false
             while (true) {
                 val parser = try {
                     context.assets.openXmlResourceParser(cookie, FILE_NAME_ANDROID_MANIFEST)
                 } catch (e: FileNotFoundException) {
-                    break
+                    if (!isAndroidManifestFound) {
+                        ++cookie
+                        continue
+                    } else {
+                        break
+                    }
                 }
+                isAndroidManifestFound = true
                 parser.use {
                     do {
                         if (parser.eventType != XmlPullParser.START_TAG) {
