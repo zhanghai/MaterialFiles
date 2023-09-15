@@ -44,6 +44,7 @@ import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.getDimensionPixelSize
 import me.zhanghai.android.files.util.getPackageArchiveInfoCompat
 import me.zhanghai.android.files.util.isGetPackageArchiveInfoCompatible
+import me.zhanghai.android.files.util.isMediaMetadataRetrieverCompatible
 import me.zhanghai.android.files.util.runWithCancellationSignal
 import me.zhanghai.android.files.util.setDataSource
 import me.zhanghai.android.files.util.valueCompat
@@ -119,7 +120,7 @@ class PathAttributesFetcher(
                     if (mimeType != MimeType.GENERIC) mimeType.value else null, path.dataSource
                 )
             }
-            mimeType.isMedia && (path.isLinuxPath || path.isDocumentPath) -> {
+            mimeType.isMedia && path.isMediaMetadataRetrieverCompatible -> {
                 val embeddedPicture = try {
                     MediaMetadataRetriever().use { retriever ->
                         retriever.setDataSource(path)
