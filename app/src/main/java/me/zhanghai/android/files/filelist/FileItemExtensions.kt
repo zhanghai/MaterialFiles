@@ -26,6 +26,7 @@ import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.isGetPackageArchiveInfoCompatible
+import me.zhanghai.android.files.util.isMediaMetadataRetrieverCompatible
 import me.zhanghai.android.files.util.valueCompat
 import java.text.CollationKey
 
@@ -70,7 +71,7 @@ val FileItem.supportsThumbnail: Boolean
         return when {
             mimeType.isApk && path.isGetPackageArchiveInfoCompatible -> true
             mimeType.isImage -> true
-            mimeType.isMedia && (path.isLinuxPath || path.isDocumentPath) -> true
+            mimeType.isMedia && path.isMediaMetadataRetrieverCompatible -> true
             mimeType.isPdf && (path.isLinuxPath || path.isDocumentPath) ->
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.P
                     || Settings.SHOW_PDF_THUMBNAIL_PRE_28.valueCompat
