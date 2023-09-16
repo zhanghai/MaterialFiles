@@ -1472,7 +1472,10 @@ private fun FileJob.open(
     val targetFile = cacheDirectory.resolveForeign(targetFileName)
     val transferInfo = TransferInfo(scanInfo, cacheDirectory)
     val actionAllInfo = ActionAllInfo(replace = true)
-    copy(file, targetFile, isExtract, transferInfo, actionAllInfo)
+    val copied = copy(file, targetFile, isExtract, transferInfo, actionAllInfo)
+    if (!copied) {
+        return
+    }
     BackgroundActivityStarter.startActivity(
         intentCreator(targetFile), getString(notificationTitleFormatRes, targetFileName),
         getString(notificationTextRes), service
