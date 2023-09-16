@@ -11,7 +11,7 @@ import me.zhanghai.android.files.R
 import me.zhanghai.android.files.util.NotificationChannelTemplate
 import me.zhanghai.android.files.util.NotificationTemplate
 
-val fileJobNotificationTemplate: NotificationTemplate =
+val fileJobNotificationTemplate =
     NotificationTemplate(
         NotificationChannelTemplate(
             "file_job",
@@ -23,6 +23,7 @@ val fileJobNotificationTemplate: NotificationTemplate =
         colorRes = R.color.color_primary,
         smallIcon = R.drawable.notification_icon,
         ongoing = true,
+        onlyAlertOnce = true,
         category = NotificationCompat.CATEGORY_PROGRESS,
         priority = NotificationCompat.PRIORITY_LOW
     )

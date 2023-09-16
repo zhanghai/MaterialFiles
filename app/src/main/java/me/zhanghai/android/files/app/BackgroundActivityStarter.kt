@@ -18,7 +18,7 @@ import me.zhanghai.android.files.util.NotificationChannelTemplate
 import me.zhanghai.android.files.util.NotificationTemplate
 import me.zhanghai.android.files.util.startActivitySafe
 
-val backgroundActivityStartNotificationTemplate: NotificationTemplate =
+val backgroundActivityStartNotificationTemplate =
     NotificationTemplate(
         NotificationChannelTemplate(
             "background_activity_start",

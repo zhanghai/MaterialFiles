@@ -24,6 +24,7 @@ class NotificationTemplate(
     @StringRes val contentTitleRes: Int? = null,
     @StringRes val contentTextRes: Int? = null,
     val ongoing: Boolean? = null,
+    val onlyAlertOnce: Boolean? = null,
     val autoCancel: Boolean? = null,
     val category: String? = null,
     val priority: Int? = null
@@ -35,6 +36,7 @@ class NotificationTemplate(
             contentTitleRes?.let { setContentTitle(context.getText(contentTitleRes)) }
             contentTextRes?.let { setContentText(context.getText(contentTextRes)) }
             ongoing?.let { setOngoing(it) }
+            onlyAlertOnce?.let { setOnlyAlertOnce(it) }
             autoCancel?.let { setAutoCancel(it) }
             category?.let { setCategory(it) }
             this@NotificationTemplate.priority?.let { priority = it }

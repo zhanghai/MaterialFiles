@@ -18,7 +18,7 @@ import me.zhanghai.android.files.util.NotificationChannelTemplate
 import me.zhanghai.android.files.util.NotificationTemplate
 import me.zhanghai.android.files.util.createIntent
 
-val ftpServerServiceNotificationTemplate: NotificationTemplate =
+val ftpServerServiceNotificationTemplate =
     NotificationTemplate(
         NotificationChannelTemplate(
             "ftp_server",
@@ -31,6 +31,7 @@ val ftpServerServiceNotificationTemplate: NotificationTemplate =
         smallIcon = R.drawable.notification_icon,
         contentTitleRes = R.string.ftp_server_notification_title,
         ongoing = true,
+        onlyAlertOnce = true,
         category = NotificationCompat.CATEGORY_SERVICE,
         priority = NotificationCompat.PRIORITY_LOW
     )
