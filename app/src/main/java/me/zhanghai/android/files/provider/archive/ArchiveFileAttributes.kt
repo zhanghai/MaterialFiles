@@ -13,6 +13,7 @@ import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.provider.archive.archiver.ReadArchive
 import me.zhanghai.android.files.provider.common.AbstractPosixFileAttributes
 import me.zhanghai.android.files.provider.common.ByteString
+import me.zhanghai.android.files.provider.common.EncryptedFileAttributes
 import me.zhanghai.android.files.provider.common.FileTimeParceler
 import me.zhanghai.android.files.provider.common.PosixFileModeBit
 import me.zhanghai.android.files.provider.common.PosixFileType
@@ -31,8 +32,11 @@ internal class ArchiveFileAttributes(
     override val group: PosixGroup?,
     override val mode: Set<PosixFileModeBit>?,
     override val seLinuxContext: ByteString?,
+    private val isEncrypted: Boolean,
     private val entryName: String
-) : AbstractPosixFileAttributes() {
+) : AbstractPosixFileAttributes(), EncryptedFileAttributes {
+    override fun isEncrypted(): Boolean = isEncrypted
+
     fun entryName(): String = entryName
 
     companion object {
@@ -47,10 +51,11 @@ internal class ArchiveFileAttributes(
             val group = entry.group
             val mode = entry.mode
             val seLinuxContext = null
+            val isEncrypted = entry.isEncrypted
             val entryName = entry.name
             return ArchiveFileAttributes(
                 lastModifiedTime, lastAccessTime, creationTime, type, size, fileKey, owner, group,
-                mode, seLinuxContext, entryName
+                mode, seLinuxContext, isEncrypted, entryName
             )
         }
     }

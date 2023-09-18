@@ -85,7 +85,7 @@ object ArchiveReader {
     private fun createDirectoryEntry(name: String): ReadArchive.Entry {
         require(!name.endsWith("/")) { "name $name should not end with a slash" }
         return ReadArchive.Entry(
-            name, null, null, null, PosixFileType.DIRECTORY, 0, null, null,
+            name, false, null, null, null, PosixFileType.DIRECTORY, 0, null, null,
             PosixFileMode.DIRECTORY_DEFAULT, null
         )
     }

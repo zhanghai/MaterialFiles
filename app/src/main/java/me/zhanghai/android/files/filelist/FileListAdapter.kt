@@ -32,6 +32,7 @@ import me.zhanghai.android.files.file.formatShort
 import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.provider.archive.isArchivePath
+import me.zhanghai.android.files.provider.common.isEncrypted
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.AnimatedListAdapter
 import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
@@ -301,6 +302,8 @@ class FileListAdapter(
                 } else {
                     R.drawable.symbolic_link_badge_icon_18dp
                 }
+            } else if (file.attributesNoFollowLinks.isEncrypted()) {
+                R.drawable.encrypted_badge_icon_18dp
             } else {
                 null
             }

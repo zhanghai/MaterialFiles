@@ -136,6 +136,7 @@ class ReadArchive : Closeable {
                 ?: throw ArchiveException(
                     Archive.ERRNO_FATAL, "pathname == null && pathnameUtf8 == null"
                 )
+        val isEncrypted = ArchiveEntry.isEncrypted(entry)
         val stat = ArchiveEntry.stat(entry)
         val lastModifiedTime = if (ArchiveEntry.mtimeIsSet(entry)) {
             FileTime.from(
@@ -177,8 +178,8 @@ class ReadArchive : Closeable {
         val symbolicLinkTarget =
             getEntryString(ArchiveEntry.symlinkUtf8(entry), ArchiveEntry.symlink(entry), charset)
         return Entry(
-            name, lastModifiedTime, lastAccessTime, creationTime, type, size, owner, group, mode,
-            symbolicLinkTarget
+            name, isEncrypted, lastModifiedTime, lastAccessTime, creationTime, type, size, owner,
+            group, mode, symbolicLinkTarget
         )
     }
 
@@ -209,6 +210,7 @@ class ReadArchive : Closeable {
 
     class Entry(
         val name: String,
+        val isEncrypted: Boolean,
         val lastModifiedTime: FileTime?,
         val lastAccessTime: FileTime?,
         val creationTime: FileTime?,
