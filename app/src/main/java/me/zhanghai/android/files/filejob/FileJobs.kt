@@ -478,7 +478,7 @@ private fun FileJob.showActionDialog(
     neutralButtonText: CharSequence?
 ): ActionResult =
     try {
-        runBlocking<ActionResult> {
+        runBlocking {
             suspendCoroutine { continuation ->
                 BackgroundActivityStarter.startActivity(
                     FileJobActionDialogActivity::class.createIntent().putArgs(
@@ -521,7 +521,7 @@ private fun FileJob.showConflictDialog(
     type: CopyMoveType
 ): ConflictResult =
     try {
-        runBlocking<ConflictResult> {
+        runBlocking {
             suspendCoroutine { continuation ->
                 BackgroundActivityStarter.startActivity(
                     FileJobConflictDialogActivity::class.createIntent().putArgs(

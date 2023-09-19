@@ -112,9 +112,8 @@ object ArchiveReader {
         val (archive, closeable) = openArchive(file)
         var successful = false
         return try {
-            var currentEntry: ReadArchive.Entry? = null
             while (true) {
-                currentEntry = archive.readEntry(charset) ?: break
+                val currentEntry = archive.readEntry(charset) ?: break
                 if (currentEntry.name != entry.name) {
                     continue
                 }
