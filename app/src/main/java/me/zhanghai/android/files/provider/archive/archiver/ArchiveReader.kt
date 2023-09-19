@@ -8,15 +8,12 @@ package me.zhanghai.android.files.provider.archive.archiver
 import androidx.preference.PreferenceManager
 import java8.nio.channels.SeekableByteChannel
 import java8.nio.charset.StandardCharsets
-import java8.nio.file.NoSuchFileException
-import java8.nio.file.NotLinkException
 import java8.nio.file.Path
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.provider.common.DelegateForceableSeekableByteChannel
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateNonForceableSeekableByteChannel
 import me.zhanghai.android.files.provider.common.ForceableChannel
-import me.zhanghai.android.files.provider.common.IsDirectoryException
 import me.zhanghai.android.files.provider.common.PosixFileMode
 import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.newByteChannel
@@ -104,10 +101,7 @@ object ArchiveReader {
     }
 
     @Throws(IOException::class)
-    fun newInputStream(file: Path, entry: ReadArchive.Entry): InputStream {
-        if (entry.isDirectory) {
-            throw IsDirectoryException(file.toString())
-        }
+    fun newInputStream(file: Path, entry: ReadArchive.Entry): InputStream? {
         val charset = archiveFileNameCharset
         val (archive, closeable) = openArchive(file)
         var successful = false
@@ -123,7 +117,7 @@ object ArchiveReader {
             if (successful) {
                 CloseableInputStream(archive.newDataInputStream(), closeable)
             } else {
-                throw NoSuchFileException(file.toString())
+                null
             }
         } finally {
             if (!successful) {
@@ -132,6 +126,7 @@ object ArchiveReader {
         }
     }
 
+    @Throws(IOException::class)
     private fun openArchive(file: Path): Pair<ReadArchive, ArchiveCloseable> {
         val channel = try {
             CacheSizeSeekableByteChannel(file.newByteChannel())
@@ -231,13 +226,5 @@ object ArchiveReader {
 
             closeable.close()
         }
-    }
-
-    @Throws(IOException::class)
-    fun readSymbolicLink(file: Path, entry: ReadArchive.Entry): String {
-        if (entry.type != PosixFileType.SYMBOLIC_LINK) {
-            throw NotLinkException(file.toString())
-        }
-        return entry.symbolicLinkTarget ?: ""
     }
 }
