@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import me.zhanghai.android.files.compat.mainExecutorCompat
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.util.WakeWifiLock
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.valueCompat
 import java.util.concurrent.Executors
@@ -26,7 +27,7 @@ class FtpServerService : Service() {
             _stateLiveData.value = value
         }
 
-    private lateinit var wakeLock: FtpServerWakeLock
+    private lateinit var wakeWifiLock: WakeWifiLock
 
     private lateinit var notification: FtpServerNotification
 
@@ -37,7 +38,7 @@ class FtpServerService : Service() {
     override fun onCreate() {
         super.onCreate()
 
-        wakeLock = FtpServerWakeLock()
+        wakeWifiLock = WakeWifiLock(FtpServerService::class.java.simpleName)
         notification = FtpServerNotification(this)
         executeStart()
     }
@@ -57,7 +58,7 @@ class FtpServerService : Service() {
         if (state == State.STARTING || state == State.RUNNING) {
             return
         }
-        wakeLock.acquire()
+        wakeWifiLock.isAcquired = true
         notification.startForeground()
         state = State.STARTING
         executorService.execute { doStart() }
@@ -67,7 +68,7 @@ class FtpServerService : Service() {
         state = State.STOPPED
         showToast(exception.toString())
         notification.stopForeground()
-        wakeLock.release()
+        wakeWifiLock.isAcquired = false
         stopSelf()
     }
 
@@ -78,7 +79,7 @@ class FtpServerService : Service() {
         state = State.STOPPING
         executorService.execute { doStop() }
         notification.stopForeground()
-        wakeLock.release()
+        wakeWifiLock.isAcquired = false
     }
 
     @WorkerThread

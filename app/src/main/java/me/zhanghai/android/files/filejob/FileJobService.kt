@@ -16,11 +16,14 @@ import me.zhanghai.android.files.provider.common.PosixFileModeBit
 import me.zhanghai.android.files.provider.common.PosixGroup
 import me.zhanghai.android.files.provider.common.PosixUser
 import me.zhanghai.android.files.util.ForegroundNotificationManager
+import me.zhanghai.android.files.util.WakeWifiLock
 import me.zhanghai.android.files.util.removeFirst
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 class FileJobService : Service() {
+    private lateinit var wakeWifiLock: WakeWifiLock
+
     internal lateinit var notificationManager: ForegroundNotificationManager
         private set
 
@@ -31,22 +34,12 @@ class FileJobService : Service() {
     override fun onCreate() {
         super.onCreate()
 
+        wakeWifiLock = WakeWifiLock(FileJobService::class.java.simpleName)
         notificationManager = ForegroundNotificationManager(this)
         instance = this
 
         while (pendingJobs.isNotEmpty()) {
             startJob(pendingJobs.removeFirst())
-        }
-    }
-
-    private fun startJob(job: FileJob) {
-        // Synchronize on runningJobs to prevent a job from removing itself before being added.
-        synchronized(runningJobs) {
-            val future = executorService.submit {
-                job.runOn(this)
-                synchronized(runningJobs) { runningJobs.remove(job) }
-            }
-            runningJobs[job] = future
         }
     }
 
@@ -57,9 +50,25 @@ class FileJobService : Service() {
     private val jobCount: Int
         get() = synchronized(runningJobs) { runningJobs.size }
 
+    private fun startJob(job: FileJob) {
+        // Synchronize on runningJobs to prevent a job from removing itself before being added.
+        synchronized(runningJobs) {
+            val future = executorService.submit {
+                job.runOn(this)
+                synchronized(runningJobs) {
+                    runningJobs.remove(job)
+                    updateWakeWifiLockLocked()
+                }
+            }
+            runningJobs[job] = future
+            updateWakeWifiLockLocked()
+        }
+    }
+
     private fun cancelJob(id: Int) {
         synchronized(runningJobs) {
             runningJobs.removeFirst { it.key.id == id }?.value?.cancel(true)
+            updateWakeWifiLockLocked()
         }
     }
 
@@ -72,7 +81,14 @@ class FileJobService : Service() {
             while (runningJobs.isNotEmpty()) {
                 runningJobs.removeFirst().value.cancel(true)
             }
+            updateWakeWifiLockLocked()
         }
+    }
+
+    // Synchronize on runningJobs to avoid the potential race condition that the lock is
+    // acquired after all jobs are finished in a very short time.
+    private fun updateWakeWifiLockLocked() {
+        wakeWifiLock.isAcquired = jobCount > 0
     }
 
     companion object {
