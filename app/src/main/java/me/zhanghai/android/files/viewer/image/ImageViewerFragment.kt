@@ -100,17 +100,22 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         }
         // This will set up window flags.
         systemUiHelper.show()
-        adapter = ImageViewerAdapter(viewLifecycleOwner) { systemUiHelper.toggle() }
-        adapter.replace(paths)
-        binding.viewPager.adapter = adapter
-        // ViewPager saves its position and will restore it later.
-        binding.viewPager.setCurrentItem(args.position, false)
-        binding.viewPager.setPageTransformer(DepthPageTransformer)
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                updateTitle()
-            }
-        })
+        adapter = ImageViewerAdapter(viewLifecycleOwner) { systemUiHelper.toggle() }.apply {
+            replace(paths)
+        }
+        binding.viewPager.apply {
+            // 1 is the default for the old androidx.viewpager.widget.ViewPager.
+            offscreenPageLimit = 1
+            adapter = this@ImageViewerFragment.adapter
+            // ViewPager saves its position and will restore it later.
+            setCurrentItem(args.position, false)
+            setPageTransformer(DepthPageTransformer)
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    updateTitle()
+                }
+            })
+        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
