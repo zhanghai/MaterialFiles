@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.viewpager2.widget.ViewPager2
@@ -179,6 +180,9 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             binding.viewPager.currentItem = paths.lastIndex
         }
         updateTitle()
+        // Work around blank screen due to ViewPager2.PageTransformer not being called (and thus the
+        // next item keeps its 0 alpha) when we have offscreenPageLimit = 1.
+        binding.viewPager.doOnPreDraw { binding.viewPager.requestTransform() }
     }
 
     private fun updateTitle() {
