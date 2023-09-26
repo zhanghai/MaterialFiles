@@ -139,7 +139,10 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
             .setNegativeButton(R.string.skip, ::onDialogButtonClick)
             .setNeutralButton(android.R.string.cancel, ::onDialogButtonClick)
             .create()
-            .apply { setCanceledOnTouchOutside(false) }
+            .apply {
+                setCanceledOnTouchOutside(false)
+                window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+            }
     }
 
     /** @see me.zhanghai.android.files.filelist.FileListAdapter.onBindViewHolder */
@@ -250,10 +253,10 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
 
         if (binding.root.parent == null) {
             val dialog = requireDialog() as AlertDialog
+            dialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
             val scrollView = dialog.requireViewByIdCompat<NestedScrollView>(R.id.scrollView)
             val linearLayout = scrollView.getChildAt(0) as LinearLayout
             linearLayout.addView(binding.root)
-            dialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
         }
     }
 
