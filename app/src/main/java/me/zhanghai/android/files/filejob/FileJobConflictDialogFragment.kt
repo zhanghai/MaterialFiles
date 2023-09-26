@@ -38,6 +38,7 @@ import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.file.lastModifiedInstant
 import me.zhanghai.android.files.filelist.appDirectoryPackageName
 import me.zhanghai.android.files.filelist.supportsThumbnail
+import me.zhanghai.android.files.provider.common.isEncrypted
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
@@ -151,37 +152,51 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
         descriptionText: TextView
     ) {
         val path = file.path
-        iconImage.setImageResource(file.mimeType.iconRes)
-        iconImage.isVisible = true
-        thumbnailImage.dispose()
-        thumbnailImage.setImageDrawable(null)
+        iconImage.apply {
+            isVisible = true
+            setImageResource(file.mimeType.iconRes)
+        }
         val attributes = file.attributes
-        if (file.supportsThumbnail) {
-            thumbnailImage.load(path to attributes) {
-                listener { _, _ -> iconImage.isVisible = false }
+        thumbnailImage.apply {
+            dispose()
+            setImageDrawable(null)
+            val supportsThumbnail = file.supportsThumbnail
+            isVisible = supportsThumbnail
+            if (supportsThumbnail) {
+                load(path to attributes) {
+                    listener { _, _ -> iconImage.isVisible = false }
+                }
             }
         }
-        appIconBadgeImage.dispose()
-        appIconBadgeImage.setImageDrawable(null)
-        val appDirectoryPackageName = file.appDirectoryPackageName
-        val hasAppIconBadge = appDirectoryPackageName != null
-        appIconBadgeImage.isVisible = hasAppIconBadge
-        if (hasAppIconBadge) {
-            appIconBadgeImage.load(AppIconPackageName(appDirectoryPackageName!!))
+        appIconBadgeImage.apply {
+            dispose()
+            setImageDrawable(null)
+            val appDirectoryPackageName = file.appDirectoryPackageName
+            val hasAppIconBadge = appDirectoryPackageName != null
+            isVisible = hasAppIconBadge
+            if (hasAppIconBadge) {
+                load(AppIconPackageName(appDirectoryPackageName!!))
+            }
         }
-        val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
-            if (file.isSymbolicLinkBroken) {
-                R.drawable.error_badge_icon_18dp
+        badgeImage.apply {
+            val badgeIconRes = if (file.attributesNoFollowLinks.isSymbolicLink) {
+                if (file.isSymbolicLinkBroken) {
+                    R.drawable.error_badge_icon_18dp
+                } else {
+                    R.drawable.symbolic_link_badge_icon_18dp
+                }
+            } else if (file.attributesNoFollowLinks.isEncrypted()) {
+                R.drawable.encrypted_badge_icon_18dp
             } else {
-                R.drawable.symbolic_link_badge_icon_18dp
+                null
             }
-        } else {
-            null
-        }
-        val hasBadge = badgeIconRes != null
-        badgeImage.isVisible = hasBadge
-        if (hasBadge) {
-            badgeImage.setImageResource(badgeIconRes!!)
+            val hasBadge = badgeIconRes != null
+            isVisible = hasBadge
+            if (hasBadge) {
+                setImageResource(badgeIconRes!!)
+            } else {
+                setImageDrawable(null)
+            }
         }
         val lastModificationTime = attributes.lastModifiedInstant
             .formatShort(descriptionText.context)
