@@ -1368,9 +1368,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (isGranted) {
             viewModel.isStorageAccessRequested = false
             refresh()
-        } else if (!shouldShowRequestPermissionRationale(
+        } else if (shouldShowRequestPermissionRationale(
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         )) {
+            ShowRequestStoragePermissionRationaleDialogFragment.show(this)
+        } else {
             ShowRequestStoragePermissionInSettingsRationaleDialogFragment.show(this)
         }
     }
@@ -1417,9 +1419,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (isGranted) {
             viewModel.isNotificationPermissionRequested = false
             refresh()
-        } else if (!shouldShowRequestPermissionRationale(
+        } else if (shouldShowRequestPermissionRationale(
             android.Manifest.permission.POST_NOTIFICATIONS
         )) {
+            ShowRequestNotificationPermissionRationaleDialogFragment.show(this)
+        } else {
             ShowRequestNotificationPermissionInSettingsRationaleDialogFragment.show(this)
         }
     }
