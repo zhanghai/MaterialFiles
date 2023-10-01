@@ -7,6 +7,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/abc_dialog_title_divider_material">
@@ -61,6 +62,23 @@
                     android:textAppearance="?textAppearanceListItem"
                     android:visibility="@integer/create_archive_type_seven_z_visibility" />
             </me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="?dialogPreferredPadding"
+                android:layout_marginEnd="?dialogPreferredPadding"
+                android:layout_marginTop="4dp"
+                android:hint="@string/file_create_archive_password"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

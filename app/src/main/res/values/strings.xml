@@ -259,6 +259,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Password (optional)</string>
     <string name="file_add_bookmark_success">Bookmark added</string>
     <string name="file_create_file_title">New file</string>
     <string name="file_create_directory_title">New folder</string>

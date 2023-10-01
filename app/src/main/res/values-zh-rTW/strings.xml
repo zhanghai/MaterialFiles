@@ -230,6 +230,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">密碼（選填）</string>
     <string name="file_add_bookmark_success">已新增書籤</string>
     <string name="file_create_file_title">新檔案</string>
     <string name="file_create_directory_title">新資料夾</string>

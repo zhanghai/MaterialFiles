@@ -37,7 +37,11 @@ class WriteArchive @Throws(ArchiveException::class) constructor(
             Archive.writeSetFormat(archive, format)
             Archive.writeAddFilter(archive, filter)
             if (password != null) {
+                require(format == Archive.FORMAT_ZIP)
                 Archive.writeSetPassphrase(archive, password.toByteArray())
+                Archive.writeSetFormatOption(
+                    archive, null, "encryption".toByteArray(), "zipcrypt".toByteArray()
+                )
             }
             Archive.writeOpen(
                 archive, null, null, { _, _, buffer -> channel.write(buffer) }, null
