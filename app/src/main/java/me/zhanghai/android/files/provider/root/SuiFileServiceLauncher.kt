@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.IBinder
 import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.runBlocking
@@ -145,6 +146,7 @@ object SuiFileServiceLauncher {
     }
 }
 
+@Keep
 @RequiresApi(Build.VERSION_CODES.M)
 class SuiFileServiceInterface : RemoteFileServiceInterface() {
     init {
