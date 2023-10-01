@@ -74,6 +74,10 @@
     <string name="notification_channel_ftp_server_name">FTP server</string>
     <string name="notification_channel_ftp_server_description">Display and control the FTP server</string>
 
+    <string name="file_action_archive_password_title">Password required</string>
+    <string name="file_action_archive_password_message_format">“%1$s” is password-protected.</string>
+    <string name="file_action_archive_password_error_empty">Password cannot be empty</string>
+
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparing to compress %1$,d file (%2$s)</item>
         <item quantity="other">Preparing to compress %1$,d files (%2$s)</item>

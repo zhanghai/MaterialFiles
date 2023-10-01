@@ -51,14 +51,24 @@ internal class ArchiveFileSystem(
     @Throws(IOException::class)
     fun readSymbolicLinkAsLocal(link: Path): String = localFileSystem.readSymbolicLink(link)
 
+    fun addPassword(password: String) {
+        localFileSystem.addPassword(password)
+        rootFileSystem.addPassword(password)
+    }
+
+    fun setPasswords(passwords: List<String>) {
+        localFileSystem.setPasswords(passwords)
+        rootFileSystem.setPasswords(passwords)
+    }
+
     fun refresh() {
         localFileSystem.refresh()
         rootFileSystem.refresh()
     }
 
     @Throws(RemoteFileSystemException::class)
-    fun doRefreshIfNeededAsRoot() {
-        rootFileSystem.doRefreshIfNeeded()
+    fun prepareAsRoot() {
+        rootFileSystem.prepare()
     }
 
     override fun getPath(first: ByteString, vararg more: ByteString): ArchivePath =

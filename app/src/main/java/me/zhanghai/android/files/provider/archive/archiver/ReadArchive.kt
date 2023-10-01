@@ -30,7 +30,7 @@ class ReadArchive : Closeable {
     private val archive = Archive.readNew()
 
     @Throws(ArchiveException::class)
-    constructor(inputStream: InputStream) {
+    constructor(inputStream: InputStream, passwords: List<String>) {
         var successful = false
         try {
             Archive.setCharset(archive, StandardCharsets.UTF_8.name().toByteArray())
@@ -59,6 +59,9 @@ class ReadArchive : Closeable {
                     throw e.toArchiveException("InputStream.skip")
                 }
             }
+            for (password in passwords) {
+                Archive.readAddPassphrase(archive, password.toByteArray())
+            }
             Archive.readOpen1(archive)
             successful = true
         } finally {
@@ -69,7 +72,7 @@ class ReadArchive : Closeable {
     }
 
     @Throws(ArchiveException::class)
-    constructor(channel: SeekableByteChannel) {
+    constructor(channel: SeekableByteChannel, passwords: List<String>) {
         var successful = false
         try {
             Archive.setCharset(archive, StandardCharsets.UTF_8.name().toByteArray())
@@ -116,6 +119,9 @@ class ReadArchive : Closeable {
                     throw e.toArchiveException("SeekableByteChannel.position")
                 }
                 newPosition
+            }
+            for (password in passwords) {
+                Archive.readAddPassphrase(archive, password.toByteArray())
             }
             Archive.readOpen1(archive)
             successful = true
@@ -195,11 +201,6 @@ class ReadArchive : Closeable {
 
     @Throws(ArchiveException::class)
     fun newDataInputStream(): InputStream = DataInputStream()
-
-    @Throws(ArchiveException::class)
-    fun addPassword(password: String) {
-        Archive.readAddPassphrase(archive, password.toByteArray())
-    }
 
     @Throws(ArchiveException::class)
     override fun close() {

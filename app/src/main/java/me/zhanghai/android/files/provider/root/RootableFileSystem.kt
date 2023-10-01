@@ -13,7 +13,6 @@ import java8.nio.file.PathMatcher
 import java8.nio.file.WatchService
 import java8.nio.file.attribute.UserPrincipalLookupService
 import java8.nio.file.spi.FileSystemProvider
-import me.zhanghai.android.files.provider.remote.RemoteFileSystemException
 import java.io.IOException
 
 abstract class RootableFileSystem(
@@ -22,11 +21,6 @@ abstract class RootableFileSystem(
 ) : FileSystem(), Parcelable {
     protected open val localFileSystem: FileSystem = localFileSystemCreator(this)
     protected open val rootFileSystem: RootFileSystem = rootFileSystemCreator(this)
-
-    @Throws(RemoteFileSystemException::class)
-    fun ensureRootInterface() {
-        rootFileSystem.ensureRemoteInterface()
-    }
 
     override fun provider(): FileSystemProvider = localFileSystem.provider()
 

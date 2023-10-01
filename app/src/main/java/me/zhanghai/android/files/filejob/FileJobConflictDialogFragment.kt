@@ -352,5 +352,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
     }
 
     @Parcelize
-    private class State(val isAllChecked: Boolean) : ParcelableState
+    private class State(
+        val isAllChecked: Boolean
+    ) : ParcelableState
 }

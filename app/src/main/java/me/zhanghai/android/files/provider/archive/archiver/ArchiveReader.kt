@@ -31,10 +31,11 @@ object ArchiveReader {
     @Throws(IOException::class)
     fun readEntries(
         file: Path,
+        passwords: List<String>,
         rootPath: Path
     ): Pair<Map<Path, ReadArchive.Entry>, Map<Path, List<Path>>> {
         val entries = mutableMapOf<Path, ReadArchive.Entry>()
-        val rawEntries = readEntries(file)
+        val rawEntries = readEntries(file, passwords)
         for (entry in rawEntries) {
             var path = rootPath.resolve(entry.name)
             // Normalize an absolute path to prevent path traversal attack.
@@ -88,9 +89,9 @@ object ArchiveReader {
     }
 
     @Throws(IOException::class)
-    private fun readEntries(file: Path): List<ReadArchive.Entry> {
+    private fun readEntries(file: Path, passwords: List<String>): List<ReadArchive.Entry> {
         val charset = archiveFileNameCharset
-        val (archive, closeable) = openArchive(file)
+        val (archive, closeable) = openArchive(file, passwords)
         return closeable.use {
             buildList {
                 while (true) {
@@ -101,9 +102,9 @@ object ArchiveReader {
     }
 
     @Throws(IOException::class)
-    fun newInputStream(file: Path, entry: ReadArchive.Entry): InputStream? {
+    fun newInputStream(file: Path, passwords: List<String>, entry: ReadArchive.Entry): InputStream? {
         val charset = archiveFileNameCharset
-        val (archive, closeable) = openArchive(file)
+        val (archive, closeable) = openArchive(file, passwords)
         var successful = false
         return try {
             while (true) {
@@ -127,7 +128,10 @@ object ArchiveReader {
     }
 
     @Throws(IOException::class)
-    private fun openArchive(file: Path): Pair<ReadArchive, ArchiveCloseable> {
+    private fun openArchive(
+        file: Path,
+        passwords: List<String>
+    ): Pair<ReadArchive, ArchiveCloseable> {
         val channel = try {
             CacheSizeSeekableByteChannel(file.newByteChannel())
         } catch (e: Exception) {
@@ -137,7 +141,7 @@ object ArchiveReader {
         if (channel != null) {
             var successful = false
             try {
-                val archive = ReadArchive(channel)
+                val archive = ReadArchive(channel, passwords)
                 successful = true
                 return archive to ArchiveCloseable(archive, channel)
             } finally {
@@ -149,7 +153,7 @@ object ArchiveReader {
         val inputStream = file.newInputStream()
         var successful = false
         try {
-            val archive = ReadArchive(inputStream)
+            val archive = ReadArchive(inputStream, passwords)
             successful = true
             return archive to ArchiveCloseable(archive, inputStream)
         } finally {

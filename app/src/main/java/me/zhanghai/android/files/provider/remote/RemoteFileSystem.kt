@@ -18,11 +18,4 @@ abstract class RemoteFileSystem(
         }
         remoteInterface.get().call { exception -> close(exception) }
     }
-
-    protected fun hasRemoteInterface(): Boolean = remoteInterface.has()
-
-    @Throws(RemoteFileSystemException::class)
-    fun ensureRemoteInterface() {
-        remoteInterface.get()
-    }
 }

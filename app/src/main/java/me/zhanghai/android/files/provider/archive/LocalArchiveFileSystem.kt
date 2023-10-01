@@ -50,6 +50,8 @@ internal class LocalArchiveFileSystem(
 
     private var isOpen = true
 
+    private var passwords = listOf<String>()
+
     private var isRefreshNeeded = true
 
     private var entries: Map<Path, ReadArchive.Entry>? = null
@@ -78,9 +80,9 @@ internal class LocalArchiveFileSystem(
                 throw IsDirectoryException(file.toString())
             }
             val inputStream = try {
-                ArchiveReader.newInputStream(archiveFile, entry)
+                ArchiveReader.newInputStream(archiveFile, passwords, entry)
             } catch (e: ArchiveException) {
-                throw e.toFileSystemOrInterruptedIOException(file.toString())
+                throw e.toFileSystemOrInterruptedIOException(file)
             } ?: throw NoSuchFileException(file.toString())
             ArchiveExceptionInputStream(inputStream, file)
         }
@@ -107,6 +109,24 @@ internal class LocalArchiveFileSystem(
             entry.symbolicLinkTarget ?: ""
         }
 
+    fun addPassword(password: String) {
+        synchronized(lock) {
+            if (!isOpen) {
+                throw ClosedFileSystemException()
+            }
+            passwords += password
+        }
+    }
+
+    fun setPasswords(passwords: List<String>) {
+        synchronized(lock) {
+            if (!isOpen) {
+                throw ClosedFileSystemException()
+            }
+            this.passwords = passwords
+        }
+    }
+
     fun refresh() {
         synchronized(lock) {
             if (!isOpen) {
@@ -123,9 +143,9 @@ internal class LocalArchiveFileSystem(
         }
         if (isRefreshNeeded) {
             val entriesAndTree = try {
-                ArchiveReader.readEntries(archiveFile, rootDirectory)
+                ArchiveReader.readEntries(archiveFile, passwords, rootDirectory)
             } catch (e: ArchiveException) {
-                throw e.toFileSystemOrInterruptedIOException(file.toString())
+                throw e.toFileSystemOrInterruptedIOException(file)
             }
             entries = entriesAndTree.first
             tree = entriesAndTree.second

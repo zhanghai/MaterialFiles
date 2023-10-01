@@ -69,6 +69,10 @@
     <string name="notification_channel_ftp_server_name">FTP 服务器</string>
     <string name="notification_channel_ftp_server_description">显示和控制 FTP 服务器</string>
 
+    <string name="file_action_archive_password_title">需要密码</string>
+    <string name="file_action_archive_password_message_format">“%1$s”受密码保护。</string>
+    <string name="file_action_archive_password_error_empty">密码不能为空</string>
+
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">正在准备压缩 %1$,d 个文件（%2$s）</item>
     </plurals>

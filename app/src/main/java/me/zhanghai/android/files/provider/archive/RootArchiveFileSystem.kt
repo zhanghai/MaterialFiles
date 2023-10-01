@@ -13,25 +13,43 @@ import me.zhanghai.android.files.provider.root.RootFileSystem
 internal class RootArchiveFileSystem(
     private val fileSystem: FileSystem
 ) : RootFileSystem(fileSystem) {
+    private var passwords = listOf<String>()
+
+    private var isSetPasswordNeeded = false
+
     private var isRefreshNeeded = false
 
     private val lock = Any()
 
+    fun addPassword(password: String) {
+        synchronized(lock) {
+            passwords += password
+            isSetPasswordNeeded = true
+        }
+    }
+
+    fun setPasswords(passwords: List<String>) {
+        synchronized(lock) {
+            this.passwords = passwords
+            isSetPasswordNeeded = true
+        }
+    }
+
     fun refresh() {
         synchronized(lock) {
-            if (hasRemoteInterface()) {
-                isRefreshNeeded = true
-            }
+            isRefreshNeeded = true
         }
     }
 
     @Throws(RemoteFileSystemException::class)
-    fun doRefreshIfNeeded() {
+    fun prepare() {
         synchronized(lock) {
+            if (isSetPasswordNeeded) {
+                RootFileService.setArchivePasswords(fileSystem, passwords)
+                isSetPasswordNeeded = false
+            }
             if (isRefreshNeeded) {
-                if (hasRemoteInterface()) {
-                    RootFileService.refreshArchiveFileSystem(fileSystem)
-                }
+                RootFileService.refreshArchiveFileSystem(fileSystem)
                 isRefreshNeeded = false
             }
         }

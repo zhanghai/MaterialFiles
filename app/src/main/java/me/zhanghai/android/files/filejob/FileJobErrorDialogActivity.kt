@@ -12,10 +12,10 @@ import me.zhanghai.android.files.app.AppActivity
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.putArgs
 
-class FileJobActionDialogActivity : AppActivity() {
-    private val args by args<FileJobActionDialogFragment.Args>()
+class FileJobErrorDialogActivity : AppActivity() {
+    private val args by args<FileJobErrorDialogFragment.Args>()
 
-    private lateinit var fragment: FileJobActionDialogFragment
+    private lateinit var fragment: FileJobErrorDialogFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,14 +23,14 @@ class FileJobActionDialogActivity : AppActivity() {
         // Calls ensureSubDecor().
         findViewById<View>(android.R.id.content)
         if (savedInstanceState == null) {
-            fragment = FileJobActionDialogFragment().putArgs(args)
+            fragment = FileJobErrorDialogFragment().putArgs(args)
             supportFragmentManager.commit {
-                add(fragment, FileJobActionDialogFragment::class.java.name)
+                add(fragment, FileJobErrorDialogFragment::class.java.name)
             }
         } else {
             fragment = supportFragmentManager.findFragmentByTag(
-                FileJobActionDialogFragment::class.java.name
-            ) as FileJobActionDialogFragment
+                FileJobErrorDialogFragment::class.java.name
+            ) as FileJobErrorDialogFragment
         }
     }
 

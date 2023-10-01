@@ -17,7 +17,7 @@ import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.isFinished
 import me.zhanghai.android.files.util.isReady
 
-class FileJobActionViewModel : ViewModel() {
+class FileJobErrorViewModel : ViewModel() {
     private val _remountState =
         MutableStateFlow<ActionState<PosixFileStore, Unit>>(ActionState.Ready())
     val remountState = _remountState.asStateFlow()

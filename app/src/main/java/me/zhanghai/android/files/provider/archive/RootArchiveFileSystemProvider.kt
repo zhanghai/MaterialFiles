@@ -44,16 +44,8 @@ class RootArchiveFileSystemProvider(scheme: String) : RootFileSystemProvider(sch
     }
 
     @Throws(RemoteFileSystemException::class)
-    private fun prepareFileSystem(path: Path) {
+    internal fun prepareFileSystem(path: Path) {
         path as? ArchivePath ?: throw ProviderMismatchException(path.toString())
-        val fileSystem = path.fileSystem
-        fileSystem.ensureRootInterface()
-        fileSystem.doRefreshIfNeededAsRoot()
-    }
-
-    @Throws(RemoteFileSystemException::class)
-    internal fun doRefreshIfNeeded(path: Path) {
-        path as? ArchivePath ?: throw ProviderMismatchException(path.toString())
-        path.fileSystem.doRefreshIfNeededAsRoot()
+        path.fileSystem.prepareAsRoot()
     }
 }

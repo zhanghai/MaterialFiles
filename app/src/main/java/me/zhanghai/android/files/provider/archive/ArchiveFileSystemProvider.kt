@@ -29,7 +29,7 @@ object ArchiveFileSystemProvider : RootableFileSystemProvider(
     internal fun supportsFileAttributeView(type: Class<out FileAttributeView>): Boolean =
         LocalArchiveFileSystemProvider.supportsFileAttributeView(type)
 
-    internal fun doRefreshIfNeeded(path: Path) {
-        rootProvider.doRefreshIfNeeded(path)
+    internal fun prepareFileSystem(path: Path) {
+        rootProvider.prepareFileSystem(path)
     }
 }

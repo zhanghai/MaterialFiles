@@ -31,6 +31,11 @@ abstract class RemoteFileService(private val remoteInterface: RemoteInterface<IR
         }
 
     @Throws(RemoteFileSystemException::class)
+    fun setArchivePasswords(fileSystem: FileSystem, passwords: List<String>) {
+        remoteInterface.get().call { setArchivePasswords(fileSystem.toParcelable(), passwords) }
+    }
+
+    @Throws(RemoteFileSystemException::class)
     fun refreshArchiveFileSystem(fileSystem: FileSystem) {
         remoteInterface.get().call { refreshArchiveFileSystem(fileSystem.toParcelable()) }
     }

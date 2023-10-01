@@ -17,7 +17,7 @@ internal class RootArchiveFileAttributeView(
 ) : RootPosixFileAttributeView(attributeView) {
     @Throws(IOException::class)
     override fun readAttributes(): PosixFileAttributes {
-        ArchiveFileSystemProvider.doRefreshIfNeeded(path)
+        ArchiveFileSystemProvider.prepareFileSystem(path)
         return super.readAttributes()
     }
 }

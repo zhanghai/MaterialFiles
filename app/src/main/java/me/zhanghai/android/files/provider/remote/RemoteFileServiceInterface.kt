@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.remote
 import java8.nio.file.FileSystem
 import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.provider.archive.archiveRefresh
+import me.zhanghai.android.files.provider.archive.archiveSetPasswords
 
 open class RemoteFileServiceInterface : IRemoteFileService.Stub() {
     override fun getRemoteFileSystemProviderInterface(scheme: String): IRemoteFileSystemProvider =
@@ -24,6 +25,10 @@ open class RemoteFileServiceInterface : IRemoteFileService.Stub() {
         attributeView: ParcelableObject
     ): IRemotePosixFileAttributeView =
         RemotePosixFileAttributeViewInterface(attributeView.value())
+
+    override fun setArchivePasswords(fileSystem: ParcelableObject, passwords: List<String>) {
+        fileSystem.value<FileSystem>().getPath("").archiveSetPasswords(passwords)
+    }
 
     override fun refreshArchiveFileSystem(fileSystem: ParcelableObject) {
         fileSystem.value<FileSystem>().getPath("").archiveRefresh()

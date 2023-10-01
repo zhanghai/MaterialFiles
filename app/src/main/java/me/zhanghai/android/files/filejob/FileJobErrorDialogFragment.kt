@@ -22,7 +22,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.requireViewByIdCompat
-import me.zhanghai.android.files.databinding.FileJobActionDialogViewBinding
+import me.zhanghai.android.files.databinding.FileJobErrorDialogViewBinding
 import me.zhanghai.android.files.provider.common.PosixFileStore
 import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.ParcelableArgs
@@ -42,12 +42,12 @@ import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.viewModels
 
-class FileJobActionDialogFragment : AppCompatDialogFragment() {
+class FileJobErrorDialogFragment : AppCompatDialogFragment() {
     private val args by args<Args>()
 
-    private val viewModel by viewModels { { FileJobActionViewModel() } }
+    private val viewModel by viewModels { { FileJobErrorViewModel() } }
 
-    private lateinit var binding: FileJobActionDialogViewBinding
+    private lateinit var binding: FileJobErrorDialogViewBinding
 
     private var isListenerNotified = false
 
@@ -62,7 +62,7 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
             .setTitle(args.title)
             .setMessage(args.message)
             .apply {
-                binding = FileJobActionDialogViewBinding.inflate(context.layoutInflater)
+                binding = FileJobErrorDialogViewBinding.inflate(context.layoutInflater)
                 val hasReadOnlyFileStore = args.readOnlyFileStore != null
                 binding.remountButton.isVisible = hasReadOnlyFileStore
                 if (hasReadOnlyFileStore) {
@@ -118,9 +118,9 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
 
     private fun onDialogButtonClick(dialog: DialogInterface, which: Int) {
         val action = when (which) {
-            DialogInterface.BUTTON_POSITIVE -> FileJobAction.POSITIVE
-            DialogInterface.BUTTON_NEGATIVE -> FileJobAction.NEGATIVE
-            DialogInterface.BUTTON_NEUTRAL -> FileJobAction.NEUTRAL
+            DialogInterface.BUTTON_POSITIVE -> FileJobErrorAction.POSITIVE
+            DialogInterface.BUTTON_NEGATIVE -> FileJobErrorAction.NEGATIVE
+            DialogInterface.BUTTON_NEUTRAL -> FileJobErrorAction.NEUTRAL
             else -> throw AssertionError(which)
         }
         notifyListenerOnce(action, args.showAll && binding.allCheck.isChecked)
@@ -141,15 +141,15 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
 
-        notifyListenerOnce(FileJobAction.CANCELED, false)
+        notifyListenerOnce(FileJobErrorAction.CANCELED, false)
         finish()
     }
 
     fun onFinish() {
-        notifyListenerOnce(FileJobAction.CANCELED, false)
+        notifyListenerOnce(FileJobErrorAction.CANCELED, false)
     }
 
-    private fun notifyListenerOnce(action: FileJobAction, isAll: Boolean) {
+    private fun notifyListenerOnce(action: FileJobErrorAction, isAll: Boolean) {
         if (isListenerNotified) {
             return
         }
@@ -166,17 +166,17 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
         val positiveButtonText: CharSequence?,
         val negativeButtonText: CharSequence?,
         val neutralButtonText: CharSequence?,
-        val listener: @WriteWith<ListenerParceler>() (FileJobAction, Boolean) -> Unit
+        val listener: @WriteWith<ListenerParceler>() (FileJobErrorAction, Boolean) -> Unit
     ) : ParcelableArgs {
-        object ListenerParceler : Parceler<(FileJobAction, Boolean) -> Unit> {
-            override fun create(parcel: Parcel): (FileJobAction, Boolean) -> Unit =
+        object ListenerParceler : Parceler<(FileJobErrorAction, Boolean) -> Unit> {
+            override fun create(parcel: Parcel): (FileJobErrorAction, Boolean) -> Unit =
                 parcel.readParcelable<RemoteCallback>()!!.let {
                     { action, isAll ->
                         it.sendResult(Bundle().putArgs(ListenerArgs(action, isAll)))
                     }
                 }
 
-            override fun ((FileJobAction, Boolean) -> Unit).write(parcel: Parcel, flags: Int) {
+            override fun ((FileJobErrorAction, Boolean) -> Unit).write(parcel: Parcel, flags: Int) {
                 parcel.writeParcelable(RemoteCallback {
                     val args = it.getArgs<ListenerArgs>()
                     this(args.action, args.isAll)
@@ -185,12 +185,14 @@ class FileJobActionDialogFragment : AppCompatDialogFragment() {
 
             @Parcelize
             private class ListenerArgs(
-                val action: FileJobAction,
+                val action: FileJobErrorAction,
                 val isAll: Boolean
             ) : ParcelableArgs
         }
     }
 
     @Parcelize
-    private class State(val isAllChecked: Boolean) : ParcelableState
+    private class State(
+        val isAllChecked: Boolean
+    ) : ParcelableState
 }

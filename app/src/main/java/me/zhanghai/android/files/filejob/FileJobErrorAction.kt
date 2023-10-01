@@ -5,7 +5,7 @@
 
 package me.zhanghai.android.files.filejob
 
-enum class FileJobAction {
+enum class FileJobErrorAction {
     POSITIVE,
     NEGATIVE,
     NEUTRAL,

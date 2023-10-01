@@ -17,18 +17,15 @@ import java.io.InterruptedIOException
 // See also libarchive/archive_platform.h .
 private const val ARCHIVE_ERRNO_MISC = -1
 
-fun ArchiveException.toFileSystemOrInterruptedIOException(
-    file: String?,
-    other: String? = null
-): IOException =
+fun ArchiveException.toFileSystemOrInterruptedIOException(file: Path): IOException =
     when {
         // See also ReadArchive.toArchiveException .
         code == OsConstants.EINTR -> InterruptedIOException(message)
         // See also libarchive/archive_read_support_format_zip.c .
         code == ARCHIVE_ERRNO_MISC && (
             message == "Incorrect passphrase" || message == "Passphrase required for this entry"
-        ) -> ArchivePasswordRequiredException(file, other, message)
-        else -> FileSystemException(file, other, message)
+        ) -> ArchivePasswordRequiredException(file, message)
+        else -> FileSystemException(file.toString(), null, message)
     }.apply { initCause(this@toFileSystemOrInterruptedIOException) }
 
 class ArchiveExceptionInputStream(
@@ -40,7 +37,7 @@ class ArchiveExceptionInputStream(
         try {
             super.read()
         } catch (e: ArchiveException) {
-            throw e.toFileSystemOrInterruptedIOException(file.toString())
+            throw e.toFileSystemOrInterruptedIOException(file)
         }
 
     @Throws(IOException::class)
@@ -48,7 +45,7 @@ class ArchiveExceptionInputStream(
         try {
             super.read(b)
         } catch (e: ArchiveException) {
-            throw e.toFileSystemOrInterruptedIOException(file.toString())
+            throw e.toFileSystemOrInterruptedIOException(file)
         }
 
     @Throws(IOException::class)
@@ -56,14 +53,14 @@ class ArchiveExceptionInputStream(
         try {
             super.read(b, off, len)
         } catch (e: ArchiveException) {
-            throw e.toFileSystemOrInterruptedIOException(file.toString())
+            throw e.toFileSystemOrInterruptedIOException(file)
         }
 
     @Throws(IOException::class)
     override fun skip(n: Long): Long = try {
         super.skip(n)
     } catch (e: ArchiveException) {
-        throw e.toFileSystemOrInterruptedIOException(file.toString())
+        throw e.toFileSystemOrInterruptedIOException(file)
     }
 
     @Throws(IOException::class)
@@ -71,7 +68,7 @@ class ArchiveExceptionInputStream(
         try {
             super.available()
         } catch (e: ArchiveException) {
-            throw e.toFileSystemOrInterruptedIOException(file.toString())
+            throw e.toFileSystemOrInterruptedIOException(file)
         }
 
     @Throws(IOException::class)
@@ -79,7 +76,7 @@ class ArchiveExceptionInputStream(
         try {
             super.close()
         } catch (e: ArchiveException) {
-            throw e.toFileSystemOrInterruptedIOException(file.toString())
+            throw e.toFileSystemOrInterruptedIOException(file)
         }
     }
 
@@ -88,7 +85,7 @@ class ArchiveExceptionInputStream(
         try {
             super.reset()
         } catch (e: ArchiveException) {
-            throw e.toFileSystemOrInterruptedIOException(file.toString())
+            throw e.toFileSystemOrInterruptedIOException(file)
         }
     }
 }
