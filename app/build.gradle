@@ -85,7 +85,10 @@ android {
             useLegacyPackaging true
         }
         resources {
-            excludes += ['META-INF/DEPENDENCIES']
+            excludes += [
+                    'META-INF/DEPENDENCIES',
+                    'org/bouncycastle/pqc/crypto/picnic/*'
+            ]
         }
     }
     lint {
