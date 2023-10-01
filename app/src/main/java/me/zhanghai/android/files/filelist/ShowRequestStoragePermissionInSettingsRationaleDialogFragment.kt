@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
@@ -21,10 +22,18 @@ class ShowRequestStoragePermissionInSettingsRationaleDialogFragment : AppCompatD
         return MaterialAlertDialogBuilder(requireContext(), theme)
             .setMessage(R.string.storage_permission_rationale_message)
             .setPositiveButton(R.string.open_settings) { _, _ ->
-                listener.requestStoragePermissionInSettings()
+                listener.onShowRequestStoragePermissionInSettingsRationaleResult(true)
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                listener.onShowRequestStoragePermissionInSettingsRationaleResult(false)
+            }
             .create()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+
+        listener.onShowRequestStoragePermissionInSettingsRationaleResult(false)
     }
 
     companion object {
@@ -34,6 +43,6 @@ class ShowRequestStoragePermissionInSettingsRationaleDialogFragment : AppCompatD
     }
 
     interface Listener {
-        fun requestStoragePermissionInSettings()
+        fun onShowRequestStoragePermissionInSettingsRationaleResult(shouldRequest: Boolean)
     }
 }

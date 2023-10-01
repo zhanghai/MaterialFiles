@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
@@ -20,9 +21,19 @@ class ShowRequestAllFilesAccessRationaleDialogFragment : AppCompatDialogFragment
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return MaterialAlertDialogBuilder(requireContext(), theme)
             .setMessage(R.string.all_files_access_rationale_message)
-            .setPositiveButton(android.R.string.ok) { _, _ -> listener.requestAllFilesAccess() }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                listener.onShowRequestAllFilesAccessRationaleResult(true)
+            }
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                listener.onShowRequestAllFilesAccessRationaleResult(false)
+            }
             .create()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+
+        listener.onShowRequestAllFilesAccessRationaleResult(false)
     }
 
     companion object {
@@ -32,6 +43,6 @@ class ShowRequestAllFilesAccessRationaleDialogFragment : AppCompatDialogFragment
     }
 
     interface Listener {
-        fun requestAllFilesAccess()
+        fun onShowRequestAllFilesAccessRationaleResult(shouldRequest: Boolean)
     }
 }

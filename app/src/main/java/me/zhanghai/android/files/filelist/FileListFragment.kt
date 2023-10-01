@@ -331,7 +331,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override fun onResume() {
         super.onResume()
 
-        if (ensureStorageAccess()) {
+        if (!viewModel.isNotificationPermissionRequested) {
+            ensureStorageAccess()
+        }
+        if (!viewModel.isStorageAccessRequested) {
             ensureNotificationPermission()
         }
     }
@@ -515,10 +518,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
         if (viewModel.navigateUp(false)) {
             return true
-        }
-        // See also https://developer.android.com/about/versions/12/behavior-changes-all#back-press
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && requireActivity().isTaskRoot) {
-            viewModel.isStorageAccessRequested = false
         }
         return false
     }
@@ -1321,15 +1320,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         binding.drawerLayout?.closeDrawer(GravityCompat.START)
     }
 
-    private fun ensureStorageAccess(): Boolean {
+    private fun ensureStorageAccess() {
         if (viewModel.isStorageAccessRequested) {
-            return true
+            return
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             if (!Environment.isExternalStorageManager()) {
                 ShowRequestAllFilesAccessRationaleDialogFragment.show(this)
                 viewModel.isStorageAccessRequested = true
-                return false
             }
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
@@ -1343,24 +1341,41 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     requestStoragePermission()
                 }
                 viewModel.isStorageAccessRequested = true
-                return false
             }
         }
-        return true
     }
 
-    override fun requestAllFilesAccess() {
+    override fun onShowRequestAllFilesAccessRationaleResult(shouldRequest: Boolean) {
+        if (shouldRequest) {
+            requestAllFilesAccess()
+        } else {
+            viewModel.isStorageAccessRequested = false
+            // This isn't an onActivityResult() callback so it's not delivered before calling
+            // onResume(), and we need to do this manually.
+            ensureNotificationPermission()
+        }
+    }
+
+    private fun requestAllFilesAccess() {
         requestAllFilesAccessLauncher.launch(Unit)
     }
 
     private fun onRequestAllFilesAccessResult(isGranted: Boolean) {
+        viewModel.isStorageAccessRequested = false
         if (isGranted) {
-            viewModel.isStorageAccessRequested = false
             refresh()
         }
     }
 
-    override fun requestStoragePermission() {
+    override fun onShowRequestStoragePermissionRationaleResult(shouldRequest: Boolean) {
+        if (shouldRequest) {
+            requestStoragePermission()
+        } else {
+            viewModel.isStorageAccessRequested = false
+        }
+    }
+
+    private fun requestStoragePermission() {
         requestStoragePermissionLauncher.launch(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
@@ -1377,20 +1392,28 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
     }
 
-    override fun requestStoragePermissionInSettings() {
+    override fun onShowRequestStoragePermissionInSettingsRationaleResult(shouldRequest: Boolean) {
+        if (shouldRequest) {
+            requestStoragePermissionInSettings()
+        } else {
+            viewModel.isStorageAccessRequested = false
+        }
+    }
+
+    private fun requestStoragePermissionInSettings() {
         requestStoragePermissionInSettingsLauncher.launch(Unit)
     }
 
     private fun onRequestStoragePermissionInSettingsResult(isGranted: Boolean) {
+        viewModel.isStorageAccessRequested = false
         if (isGranted) {
-            viewModel.isStorageAccessRequested = false
             refresh()
         }
     }
 
-    private fun ensureNotificationPermission(): Boolean {
+    private fun ensureNotificationPermission() {
         if (viewModel.isNotificationPermissionRequested) {
-            return true
+            return
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) !=
@@ -1403,14 +1426,21 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     requestNotificationPermission()
                 }
                 viewModel.isNotificationPermissionRequested = true
-                return false
             }
         }
-        return true
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun requestNotificationPermission() {
+    override fun onShowRequestNotificationPermissionRationaleResult(shouldRequest: Boolean) {
+        if (shouldRequest) {
+            requestNotificationPermission()
+        } else {
+            viewModel.isNotificationPermissionRequested = false
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermission() {
         requestNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
 
@@ -1429,7 +1459,18 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun requestNotificationPermissionInSettings() {
+    override fun onShowRequestNotificationPermissionInSettingsRationaleResult(
+        shouldRequest: Boolean
+    ) {
+        if (shouldRequest) {
+            requestNotificationPermissionInSettings()
+        } else {
+            viewModel.isNotificationPermissionRequested = false
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermissionInSettings() {
         requestNotificationPermissionInSettingsLauncher.launch(Unit)
     }
 

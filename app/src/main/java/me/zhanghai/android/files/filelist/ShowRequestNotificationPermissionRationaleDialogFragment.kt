@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.filelist
 
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
@@ -21,10 +22,18 @@ class ShowRequestNotificationPermissionRationaleDialogFragment : AppCompatDialog
         return MaterialAlertDialogBuilder(requireContext(), theme)
             .setMessage(R.string.notification_permission_rationale_message)
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                listener.requestNotificationPermission()
+                listener.onShowRequestNotificationPermissionRationaleResult(true)
             }
-            .setNegativeButton(android.R.string.cancel, null)
+            .setNegativeButton(android.R.string.cancel) { _, _ ->
+                listener.onShowRequestNotificationPermissionRationaleResult(false)
+            }
             .create()
+    }
+
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+
+        listener.onShowRequestNotificationPermissionRationaleResult(false)
     }
 
     companion object {
@@ -34,6 +43,6 @@ class ShowRequestNotificationPermissionRationaleDialogFragment : AppCompatDialog
     }
 
     interface Listener {
-        fun requestNotificationPermission()
+        fun onShowRequestNotificationPermissionRationaleResult(shouldRequest: Boolean)
     }
 }
