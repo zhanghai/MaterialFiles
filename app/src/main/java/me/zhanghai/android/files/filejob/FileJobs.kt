@@ -885,7 +885,7 @@ class CreateFileJob(private val path: Path, private val createDirectory: Boolean
 @Throws(IOException::class)
 private fun FileJob.create(path: Path, createDirectory: Boolean) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             if (createDirectory) {
@@ -918,7 +918,7 @@ private fun FileJob.create(path: Path, createDirectory: Boolean) {
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE, FileJobErrorAction.CANCELED ->
                     throw InterruptedIOException()
@@ -980,7 +980,7 @@ class DeleteFileJob(private val paths: List<Path>) : FileJob() {
 @Throws(IOException::class)
 private fun FileJob.delete(path: Path, transferInfo: TransferInfo?, actionAllInfo: ActionAllInfo) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             path.delete()
@@ -1020,7 +1020,7 @@ private fun FileJob.delete(path: Path, transferInfo: TransferInfo?, actionAllInf
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -1262,7 +1262,7 @@ private fun FileJob.copyOrMove(
     var target = target
     var replaceExisting = false
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         val options = mutableListOf<CopyOption>().apply {
             this += LinkOption.NOFOLLOW_LINKS
@@ -1327,13 +1327,13 @@ private fun FileJob.copyOrMove(
                     } else {
                         replaceExisting = true
                         retry = true
-                        continue@loop
+                        continue
                     }
                 }
                 FileJobConflictAction.RENAME -> {
                     target = target.resolveSibling(result.name)
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobConflictAction.SKIP -> {
                     if (result.isAll) {
@@ -1401,7 +1401,7 @@ private fun FileJob.copyOrMove(
             return when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -1533,7 +1533,7 @@ class RenameFileJob(private val path: Path, private val newName: String) : FileJ
 @Throws(IOException::class)
 private fun FileJob.rename(path: Path, newPath: Path) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             moveAtomically(path, newPath)
@@ -1563,7 +1563,7 @@ private fun FileJob.rename(path: Path, newPath: Path) {
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE, FileJobErrorAction.CANCELED ->
                     throw InterruptedIOException()
@@ -1625,7 +1625,7 @@ private fun FileJob.restoreSeLinuxContext(
     actionAllInfo: ActionAllInfo
 ) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             val options = if (followLinks) arrayOf() else arrayOf(LinkOption.NOFOLLOW_LINKS)
@@ -1663,7 +1663,7 @@ private fun FileJob.restoreSeLinuxContext(
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -1749,7 +1749,7 @@ private fun FileJob.setGroup(
     actionAllInfo: ActionAllInfo
 ) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             val options = if (followLinks) arrayOf() else arrayOf(LinkOption.NOFOLLOW_LINKS)
@@ -1787,7 +1787,7 @@ private fun FileJob.setGroup(
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -1895,7 +1895,7 @@ private fun FileJob.setMode(
     actionAllInfo: ActionAllInfo
 ) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             // This will always follow symbolic links.
@@ -1933,7 +1933,7 @@ private fun FileJob.setMode(
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -2015,7 +2015,7 @@ private fun FileJob.setOwner(
     actionAllInfo: ActionAllInfo
 ) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             val options = if (followLinks) arrayOf() else arrayOf(LinkOption.NOFOLLOW_LINKS)
@@ -2053,7 +2053,7 @@ private fun FileJob.setOwner(
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -2143,7 +2143,7 @@ private fun FileJob.setSeLinuxContext(
     actionAllInfo: ActionAllInfo
 ) {
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         try {
             val options = if (followLinks) arrayOf() else arrayOf(LinkOption.NOFOLLOW_LINKS)
@@ -2183,7 +2183,7 @@ private fun FileJob.setSeLinuxContext(
             when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE -> {
                     if (result.isAll) {
@@ -2235,7 +2235,7 @@ private fun FileJob.write(file: Path, content: ByteArray): Boolean {
         addToSize(content.size.toLong())
     }
     var retry: Boolean
-    loop@ do {
+    do {
         retry = false
         val transferInfo = TransferInfo(scanInfo, file)
         try {
@@ -2271,7 +2271,7 @@ private fun FileJob.write(file: Path, content: ByteArray): Boolean {
             return when (result.action) {
                 FileJobErrorAction.POSITIVE -> {
                     retry = true
-                    continue@loop
+                    continue
                 }
                 FileJobErrorAction.NEGATIVE, FileJobErrorAction.CANCELED -> false
                 FileJobErrorAction.NEUTRAL -> throw InterruptedIOException()
