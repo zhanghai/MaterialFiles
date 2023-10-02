@@ -1448,7 +1448,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun onRequestNotificationPermissionResult(isGranted: Boolean) {
         if (isGranted) {
             viewModel.isNotificationPermissionRequested = false
-            refresh()
         } else if (shouldShowRequestPermissionRationale(
             android.Manifest.permission.POST_NOTIFICATIONS
         )) {
@@ -1478,7 +1477,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun onRequestNotificationPermissionInSettingsResult(isGranted: Boolean) {
         if (isGranted) {
             viewModel.isNotificationPermissionRequested = false
-            refresh()
         }
     }
 
