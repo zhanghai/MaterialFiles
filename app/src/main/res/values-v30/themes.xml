@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <style name="Platform.V30.Theme.MaterialFiles" parent="Platform.V29.Theme.MaterialFiles">
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles" parent="Platform.V30.Theme.MaterialFiles" />
+
+    <style name="Platform.V30.Theme.MaterialFiles.Immersive" parent="Platform.V29.Theme.MaterialFiles.Immersive">
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V30.Theme.MaterialFiles.Immersive" />
+</resources>

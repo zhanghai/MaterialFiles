@@ -7,14 +7,14 @@
 
 <resources>
 
-    <style name="Platform.V29.Theme.MaterialFiles" parent="Platform.V28.Theme.MaterialFiles">
+    <style name="Platform.V29.Theme.MaterialFiles" parent="Platform.V27.Theme.MaterialFiles">
         <item name="android:forceDarkAllowed">false</item>
 
         <item name="colorPrimaryDark">@android:color/transparent</item>
     </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V29.Theme.MaterialFiles" />
 
-    <style name="Platform.V29.Theme.MaterialFiles.Immersive" parent="Platform.V28.Theme.MaterialFiles.Immersive">
+    <style name="Platform.V29.Theme.MaterialFiles.Immersive" parent="Platform.V27.Theme.MaterialFiles.Immersive">
         <item name="android:forceDarkAllowed">false</item>
 
         <item name="colorPrimaryDark">@android:color/transparent</item>

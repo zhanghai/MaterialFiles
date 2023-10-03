@@ -9,7 +9,13 @@
 
     <style name="Platform.V27.Theme.MaterialFiles.Material3" parent="Platform.V23.Theme.MaterialFiles.Material3">
         <item name="android:navigationBarColor">?colorPrimaryDark</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:windowLightNavigationBar">?isLightTheme</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Material3" parent="Platform.V27.Theme.MaterialFiles.Material3" />
+
+    <style name="Platform.V27.Theme.MaterialFiles.Material3.Immersive" parent="Platform.V21.Theme.MaterialFiles.Material3.Immersive">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+    <style name="Platform.Theme.MaterialFiles.Material3.Immersive" parent="Platform.V27.Theme.MaterialFiles.Material3.Immersive" />
 </resources>
