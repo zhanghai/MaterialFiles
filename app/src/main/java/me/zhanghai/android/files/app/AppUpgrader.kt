@@ -57,5 +57,4 @@ private fun upgradeAppFrom(lastVersionCode: Int) {
         upgradeAppTo1_6_0()
     }
     // Continue with new `if`s on lastVersionCode instead of `else if`.
-    removeInvalidDocumentTreeAny()
 }

@@ -41,7 +41,6 @@ import me.zhanghai.android.files.util.readParcelableListCompat
 import me.zhanghai.android.files.util.toBase64
 import me.zhanghai.android.files.util.toByteArray
 import me.zhanghai.android.files.util.use
-import me.zhanghai.android.files.util.withPosition
 
 internal fun upgradeAppTo1_1_0() {
     // Migrate settings.
@@ -541,45 +540,4 @@ private fun addViewTypePathSetting1_6_0() {
         }
         pathSharedPreferences.edit { putString(newKey, defaultViewType) }
     }
-}
-
-// No idea why this would happen when user upgrade to Android 14, but anyway try to work around it.
-// https://github.com/zhanghai/MaterialFiles/issues/1038 .
-internal fun removeInvalidDocumentTreeAny() {
-    val key = application.getString(R.string.pref_key_storages)
-    val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
-        ?: return
-    val newBytes = try {
-        Parcel.obtain().use { newParcel ->
-            Parcel.obtain().use { oldParcel ->
-                oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
-                oldParcel.setDataPosition(0)
-                newParcel.writeInt(oldParcel.readInt())
-                var size = oldParcel.readInt()
-                val sizePosition = newParcel.dataPosition()
-                newParcel.writeInt(size)
-                repeat(size) {
-                    val storage = oldParcel.readValue(appClassLoader)
-                    if (storage is DocumentTree) {
-                        try {
-                            storage.uri.documentId
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                            --size
-                            return@repeat
-                        }
-                    }
-                    newParcel.writeValue(storage)
-                }
-                newParcel.withPosition(sizePosition) {
-                    writeInt(size)
-                }
-            }
-            newParcel.marshall()
-        }
-    } catch (e: Exception) {
-        e.printStackTrace()
-        null
-    }
-    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
 }
