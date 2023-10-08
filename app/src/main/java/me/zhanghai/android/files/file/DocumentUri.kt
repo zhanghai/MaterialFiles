@@ -9,12 +9,14 @@ import android.net.Uri
 import android.os.Parcelable
 import android.provider.DocumentsContract
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.app.contentResolver
 import me.zhanghai.android.files.compat.DocumentsContractCompat
+import me.zhanghai.android.files.compat.UriParcelerCompat
 
 @Parcelize
 @JvmInline
-value class DocumentUri(val value: Uri) : Parcelable {
+value class DocumentUri(val value: @WriteWith<UriParcelerCompat> Uri) : Parcelable {
     val documentId: String
         get() = DocumentsContract.getDocumentId(value)
 }
