@@ -543,13 +543,9 @@ private fun addViewTypePathSetting1_6_0() {
     }
 }
 
-internal fun upgradeAppTo1_6_2() {
-    removeInvalidDocumentTree1_6_2()
-}
-
 // No idea why this would happen when user upgrade to Android 14, but anyway try to work around it.
 // https://github.com/zhanghai/MaterialFiles/issues/1038 .
-private fun removeInvalidDocumentTree1_6_2() {
+internal fun removeInvalidDocumentTreeAny() {
     val key = application.getString(R.string.pref_key_storages)
     val oldBytes = defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray()
         ?: return
