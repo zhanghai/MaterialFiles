@@ -36,3 +36,17 @@ inline fun <R> Parcel.use(block: (Parcel) -> R): R {
         recycle()
     }
 }
+
+@OptIn(ExperimentalContracts::class)
+inline fun <R> Parcel.withPosition(position: Int, block: Parcel.() -> R): R {
+    contract {
+        callsInPlace(block, InvocationKind.EXACTLY_ONCE)
+    }
+    val savedPosition = dataPosition()
+    setDataPosition(position)
+    return try {
+        block(this)
+    } finally {
+        setDataPosition(savedPosition)
+    }
+}
