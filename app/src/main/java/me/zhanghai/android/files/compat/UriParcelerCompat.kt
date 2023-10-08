@@ -41,7 +41,7 @@ object UriParcelerCompat : Parceler<Uri?> {
             OPAQUE_URI_TYPE_ID -> {
                 // Uri.OpaqueUri.readFrom()
                 val scheme = parcel.readUriString()!!
-                // Assume that we never persist an Uri with only a scheme.
+                // Assume that we never persist a Uri with only a scheme.
                 if (scheme.contains(':')) {
                     scheme
                 } else {
@@ -63,7 +63,7 @@ object UriParcelerCompat : Parceler<Uri?> {
                 // Uri.HierarchicalUri.readFrom()
                 // Scheme can be null for HierarchicalUri.
                 val scheme = parcel.readUriString() as String?
-                // Assume that we never persist an Uri with only a scheme.
+                // Assume that we never persist a Uri with only a scheme.
                 if (scheme != null && scheme.contains(':')) {
                     scheme
                 } else {
