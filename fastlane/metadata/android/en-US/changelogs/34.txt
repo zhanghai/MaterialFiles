@@ -1,0 +1,7 @@
+- Added support for reading and creating password-protected ZIP archives.
+- Added support for reading RAR5 archives.
+- Added support for video thumbnail in SMB storage.
+- Targeted Android 14 and added requesting notification permission.
+- Fixed crash after system update to Android 14.
+- Fixed image viewer not preloading adjacent images.
+- Fixed settings page crashing on some LG devices.
