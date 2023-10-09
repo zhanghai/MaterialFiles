@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.compat
+package me.zhanghai.android.files.util
 
 import android.net.Uri
 import android.os.Build
@@ -11,12 +11,14 @@ import android.os.Parcel
 import androidx.annotation.RequiresApi
 import kotlinx.parcelize.Parceler
 import me.zhanghai.android.files.hiddenapi.RestrictedHiddenApi
-import me.zhanghai.android.files.util.lazyReflectedMethod
 
-// Work around Uri parceling changes in
-// https://android.googlesource.com/platform/frameworks/base/+/97f621d81fc51de240ba73bc008d997e0eea7939
-// (and the String8 change in API 30).
-object UriParcelerCompat : Parceler<Uri?> {
+// The built-in parceling of Uri isn't guaranteed to be stable and has changed 2 times, so we should
+// always use our own parceling for persistence.
+// The reading code here is backwards compatible in that it also handles built-in parceling of Uri,
+// including the changes in
+// https://android.googlesource.com/platform/frameworks/base/+/97f621d81fc51de240ba73bc008d997e0eea7939 ,
+// and the String8 change in API 30.
+object StableUriParceler : Parceler<Uri?> {
     private const val NULL_TYPE_ID = 0
     private const val STRING_URI_TYPE_ID = 1
     private const val OPAQUE_URI_TYPE_ID = 2
@@ -31,9 +33,17 @@ object UriParcelerCompat : Parceler<Uri?> {
     private val parcelReadString8Method by lazyReflectedMethod(Parcel::class.java, "readString8")
 
     override fun create(parcel: Parcel): Uri? {
+        val uriString = parcel.readString() ?: return null
         // Parcel.readParcelableCreator()
-        parcel.readString() ?: return null
-        // Uri.CREATOR.createFromParcel()
+        return if (uriString.startsWith(Uri::class.java.name)) {
+            readUri(parcel)
+        } else {
+            Uri.parse(uriString)
+        }
+    }
+
+    // Uri.CREATOR.createFromParcel()
+    private fun readUri(parcel: Parcel): Uri? {
         val uriString = when (val typeId = parcel.readInt()) {
             NULL_TYPE_ID -> return null
             // Uri.StringUri.readFrom()
@@ -62,7 +72,7 @@ object UriParcelerCompat : Parceler<Uri?> {
             HIERARCHICAL_URI_TYPE_ID -> {
                 // Uri.HierarchicalUri.readFrom()
                 // Scheme can be null for HierarchicalUri.
-                val scheme = parcel.readUriString() as String?
+                val scheme = parcel.readUriString()
                 // Assume that we never persist a Uri with only a scheme.
                 if (scheme != null && scheme.contains(':')) {
                     scheme
@@ -102,13 +112,6 @@ object UriParcelerCompat : Parceler<Uri?> {
         return Uri.parse(uriString)
     }
 
-    private fun Parcel.readUriString(): String? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            parcelReadString8Method.invoke(this) as String?
-        } else {
-            readString()
-        }
-
     // Uri.Part.readFrom()
     private fun readEncodedPart(parcel: Parcel): String? =
         when (val representation = parcel.readInt()) {
@@ -141,7 +144,14 @@ object UriParcelerCompat : Parceler<Uri?> {
             "/${encodedPathPart}"
         }
 
+    private fun Parcel.readUriString(): String? =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            parcelReadString8Method.invoke(this) as String?
+        } else {
+            readString()
+        }
+
     override fun Uri?.write(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(this, flags)
+        parcel.writeString(this?.toString())
     }
 }

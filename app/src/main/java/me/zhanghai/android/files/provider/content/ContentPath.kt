@@ -15,14 +15,13 @@ import java8.nio.file.Path
 import java8.nio.file.WatchEvent
 import java8.nio.file.WatchKey
 import java8.nio.file.WatchService
-import me.zhanghai.android.files.compat.UriParcelerCompat
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.UriAuthority
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.content.resolver.Resolver
 import me.zhanghai.android.files.provider.content.resolver.ResolverException
-import me.zhanghai.android.files.util.ValueParceler.write
+import me.zhanghai.android.files.util.StableUriParceler
 import me.zhanghai.android.files.util.readParcelable
 import java.io.File
 import java.net.URI
@@ -138,7 +137,7 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
     private constructor(source: Parcel) : super(source) {
         fileSystem = source.readParcelable()!!
         //uri = source.readParcelable()
-        uri = UriParcelerCompat.create(source)
+        uri = StableUriParceler.create(source)
     }
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
@@ -146,7 +145,7 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
 
         dest.writeParcelable(fileSystem, flags)
         //dest.writeParcelable(uri, flags)
-        with(UriParcelerCompat) { uri.write(dest, flags) }
+        with(StableUriParceler) { uri.write(dest, flags) }
     }
 
     companion object {
