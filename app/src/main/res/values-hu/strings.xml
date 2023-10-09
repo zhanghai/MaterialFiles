@@ -57,10 +57,10 @@
         <item quantity="other">%1$,d bájt</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Az alkalmazásnak hozzáférésre van szüksége az összes fájl kezeléséhez. Engedélyezze a hozzáférést a következő rendszer beállításban.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Kattintson az „Engedélyezésre” a következő rendszerüzeneten.</string>
     <string name="storage_permission_permanently_denied_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Adja meg a „Tároló” engedélyt a rendszerbeállításokban.</string>
-    <string name="all_files_access_rationale_message">Az alkalmazásnak hozzáférésre van szüksége az összes fájl kezeléséhez. Engedélyezze a hozzáférést a következő rendszer beállításban.</string>
-
     <string name="notification_channel_background_activity_start_name">Műveletek a háttérben</string>
     <string name="notification_channel_background_activity_start_description">Műveletek elvégzése, míg az alkalmazás a háttérben van</string>
     <string name="notification_channel_file_job_name">Fájlműveletek</string>

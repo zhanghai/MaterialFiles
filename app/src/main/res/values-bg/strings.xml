@@ -28,7 +28,7 @@
     <string name="none">Няма</string>
     <string name="open_navigation_drawer">Отваря менюто</string>
     <string name="paste">Поставяне</string>
-    <string name="refresh">Опресняване</string>
+    <string name="refresh">Презареждане</string>
     <string name="reload">Презареждане</string>
     <string name="remove">Премахване</string>
     <string name="rename">Преименуване</string>
@@ -38,7 +38,7 @@
     <string name="save">Запазване</string>
     <string name="search">Търсене</string>
     <string name="select">Избиране</string>
-    <string name="select_all">Избиране всички</string>
+    <string name="select_all">Избиране на всички</string>
     <string name="share">Споделяне</string>
     <string name="show">Показване</string>
     <string name="skip">Пропускане</string>
@@ -57,10 +57,10 @@
         <item quantity="other">%1$,d байта</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Необходими са права за управление на всички файлове. Дайте достъп в последващите системни настройки.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Необходими са права за достъп до файлове. Докоснете „Разрешаване“ в следващия системен прозорец</string>
     <string name="storage_permission_permanently_denied_message">Необходими са права за достъпа до файлове. Разрешете правото „ХРАНИЛИЩЕ“ в системните настройки.</string>
-    <string name="all_files_access_rationale_message">Необходими са права за управление на всички файлове. Дайте достъп в последващите системни настройки.</string>
-
     <string name="notification_channel_background_activity_start_name">Действия на заден план</string>
     <string name="notification_channel_background_activity_start_description">Изпълняване на действия докато приложението е на заден план</string>
     <string name="notification_channel_file_job_name">Действия с файлове</string>
@@ -284,7 +284,7 @@
     <string name="file_list_action_view_sort_path_specific">Само за тази папка</string>
     <string name="file_list_action_new_task">Нов прозорец</string>
     <string name="file_list_action_navigate_up">Нагоре</string>
-    <string name="file_list_action_navigate_to">Към</string>
+    <string name="file_list_action_navigate_to">Отваряне на</string>
     <string name="file_list_action_show_hidden_files">Показване на скрити файлове</string>
     <string name="file_list_action_copy_path">Копиране на път</string>
     <string name="file_list_action_open_in_terminal">Отваряне в терминал</string>
@@ -310,7 +310,7 @@
     <string name="file_properties_title_format">Свойства на “%1$s”</string>
     <string name="file_properties_basic">Основни</string>
     <string name="file_properties_basic_name">Име</string>
-    <string name="file_properties_basic_type">Тип</string>
+    <string name="file_properties_basic_type">Вид</string>
     <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_type_symbolic_link_format">Препратка към %1$s(%2$s)</string>
     <string name="file_properties_basic_symbolic_link_target">Цел на препратката</string>
@@ -501,7 +501,7 @@
     <string name="storage_edit_smb_server_path_placeholder">Може да бъде празно</string>
     <string name="storage_edit_smb_server_name">Име</string>
     <string name="storage_edit_smb_server_name_placeholder">Използване на името на машина</string>
-    <string name="storage_edit_smb_server_authentication_type">Тип удостоверяване</string>
+    <string name="storage_edit_smb_server_authentication_type">Вид удостоверяване</string>
     <string-array name="storage_edit_smb_server_authentication_type_entries">
         <item>Парола</item>
         <item>Гост</item>

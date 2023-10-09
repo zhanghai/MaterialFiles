@@ -42,6 +42,7 @@
     <string name="show">Ukázat</string>
     <string name="skip">Přeskočit</string>
     <string name="stop">Zastavit</string>
+    <string name="system_default">Výchozí systému</string>
     <string name="unknown">Neznámý</string>
     <string name="view">Zobrazení</string>
 
@@ -57,10 +58,10 @@
         <item quantity="other">%1$,d bytů</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Aplikace potřebuje přístup k práci se soubory. Povolte přístup v dalším systémovém dialogu, prosím.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplikace vyžaduje povolení přístupu k souborům. V dalším dialogu klikněte na \"POVOLIT\", prosím.</string>
     <string name="storage_permission_permanently_denied_message">Aplikace potřebuje povolení přístupu k souborům. Prosím udělte povolení \"Úložiště\" v nastavení.</string>
-    <string name="all_files_access_rationale_message">Aplikace potřebuje přístup k práci se soubory. Povolte přístup v dalším systémovém dialogu, prosím.</string>
-
     <string name="notification_channel_background_activity_start_name">Akce probíhají v pozadí</string>
     <string name="notification_channel_background_activity_start_description">Podnikněte kroky, když aplikace běžela na pozadí</string>
     <string name="notification_channel_file_job_name">Operace se souborem</string>
@@ -272,6 +273,24 @@
     <string name="file_name_error_already_exists">Soubor s tímto názvem již existuje</string>
     <string name="file_delete_message_file_format">Smazat \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Smazat složku \"%1$s\" a její obsah?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Odstranit %1$,d soubor?</item>
+        <item quantity="few">Odstranit %1$,d soubory?</item>
+        <item quantity="many">Odstranit %1$,d souborů?</item>
+        <item quantity="other">Odstranit %1$,d souborů?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Odstranit %1$,d složku a její obsah?</item>
+        <item quantity="few">Odstranit %1$,d složky a jejich obsahy?</item>
+        <item quantity="many">Odstranit %1$,d složek a jejich obsahy?</item>
+        <item quantity="other">Odstranit %1$,d složek a jejich obsahy?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Odstranit %1$,d položku?</item>
+        <item quantity="few">Odstranit %1$,d položky?</item>
+        <item quantity="many">Odstranit %1$,d položek?</item>
+        <item quantity="other">Odstranit %1$,d položek?</item>
+    </plurals>
     <string name="file_create_archive_title">Vytvořit archiv</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
@@ -306,12 +325,15 @@
         <item quantity="other">%1$,d souborů</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Cesta nemůže být prázná</string>
+    <string name="file_list_path_error_invalid">Neplatná cesta</string>
     <string name="file_list_action_sort_by_name">Název</string>
     <string name="file_list_action_sort_by_type">Typ</string>
     <string name="file_list_action_sort_by_size">Velikost</string>
     <string name="file_list_action_sort_by_last_modified">Naposledy změněno</string>
     <string name="file_list_action_sort_order_ascending">Vzestupně</string>
     <string name="file_list_action_sort_directories_first">Složky jako první</string>
+    <string name="file_list_action_view_sort_path_specific">Jen pro tuto složku</string>
     <string name="file_list_action_new_task">Nové okno</string>
     <string name="file_list_action_navigate_up">Nahoru</string>
     <string name="file_list_action_show_hidden_files">Zobrazit skryté soubory</string>
@@ -451,16 +473,41 @@
     <string name="storage_list_empty">Žádné úložiště</string>
     <string name="storage_add_storage_title">Přidat úložiště</string>
     <string name="storage_add_storage_document_tree">Externí úložiště</string>
+    <string name="storage_add_storage_ftp_server">Server FTP</string>
     <string name="storage_add_storage_sftp_server">Server SFTP</string>
     <string name="storage_add_storage_smb_server">Server SMB</string>
     <string name="storage_edit_device_storage_title">Upravit úložiště zařízení</string>
     <string name="storage_edit_device_storage_name">Název</string>
     <string name="storage_edit_device_storage_path">Cesta</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Neplatná URI</string>
     <string name="storage_add_document_tree_title">Přidat externí úložiště</string>
     <string name="storage_edit_document_tree_title">Upravit externí úložiště</string>
     <string name="storage_edit_document_tree_name">Název</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Cesta</string>
+    <string name="storage_edit_ftp_server_title_edit">Upravit server FTP</string>
+    <string name="storage_edit_ftp_server_title_add">Přidat server FTP</string>
+    <string name="storage_edit_ftp_server_port">Port</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Neplatný port</string>
+    <string name="storage_edit_ftp_server_path">Cesta</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Může zůstat prázdná</string>
+    <string name="storage_edit_ftp_server_name">Název</string>
+    <string name="storage_edit_ftp_server_protocol">Protokol</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Heslo</item>
+        <item>Anonymní</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Uživatelské jméno</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Zadejte uživatelské jméno</string>
+    <string name="storage_edit_ftp_server_password">Heslo</string>
+    <string name="storage_edit_ftp_server_mode">Režim</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Aktivní</item>
+        <item>Pasivní</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Kódování</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Připojit a přidat</string>
+    <string name="storage_edit_ftp_server_add">Přidat</string>
     <string name="storage_edit_sftp_server_title_edit">Upravit server SFTP</string>
     <string name="storage_edit_sftp_server_title_add">Přidat server SFTP</string>
     <string name="storage_edit_sftp_server_host">Název hostitele</string>
@@ -483,6 +530,7 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Otevřít soubor</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Vložit soukromý klíč</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Neplatný soukromý klíč</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Může zůstat prázné</string>
     <string name="storage_edit_sftp_server_connect_and_add">Připojit se a přidat</string>
     <string name="storage_edit_sftp_server_add">Přidat</string>
     <string name="storage_add_lan_smb_server_loading">Hledání SMB serverů…</string>
@@ -528,6 +576,7 @@
     <string name="navigation_edit_bookmark_directory_title">Založená složka</string>
     <string name="navigation_edit_bookmark_directory_name">Název</string>
     <string name="navigation_edit_bookmark_directory_path">Cesta</string>
+    <string name="archive_viewer_title">Prohlížeč archivů</string>
     <string name="image_viewer_title">Prohlížeč obrázků</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">Textový editor</string>
@@ -545,6 +594,7 @@
     <string name="ftp_server_state_summary_stopping">Zastavování…</string>
     <string name="ftp_server_state_summary_stopped">Není spuštěno</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Místní IP adresa je neznámá</string>
     <string name="ftp_server_url_menu_copy_url">Kopírovat URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopírovat heslo</string>
     <string name="ftp_server_configuration_title">Konfigurace</string>
@@ -556,6 +606,7 @@
     <string name="ftp_server_writable_title">Povolit zapisování</string>
     <string name="settings_title">Nastavení</string>
     <string name="settings_interface_title">Rozhraní</string>
+    <string name="settings_locale_title">Jazyk</string>
     <string name="settings_theme_color_title">Barva motivu</string>
     <string name="settings_theme_color_summary">Barva, která se v aplikaci vyskytuje nejvíce</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

@@ -45,6 +45,7 @@
     <string name="show">Mostrar</string>
     <string name="skip">Próximo</string>
     <string name="stop">Parar</string>
+    <string name="system_default">Padrão do sistema</string>
     <string name="unknown">Desconhecido</string>
     <string name="view">Visualizar</string>
 
@@ -59,10 +60,10 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">O aplicativo precisa de permissão para acessar os arquivos. Clique em \"PERMITIR\" na próxima caixa de diálogo do sistema.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">O aplicativo precisa de permissão para acessar os arquivos. Clique em \"PERMITIR\" na próxima caixa de diálogo do sistema.</string>
     <string name="storage_permission_permanently_denied_message">O aplicativo precisa de permissão para acessar os arquivos. Por favor, conceda a permissão de \"Armazenamento\" nas configurações do sistema.</string>
-    <string name="all_files_access_rationale_message">O aplicativo precisa de permissão para acessar os arquivos. Clique em \"PERMITIR\" na próxima caixa de diálogo do sistema.</string>
-
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realize ações enquanto o aplicativo estiver em segundo plano</string>
     <string name="notification_channel_file_job_name">Operações de arquivo</string>
@@ -301,12 +302,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Caminho não pode estar vazio</string>
     <string name="file_list_path_error_invalid">Caminho inválido</string>
+    <string name="file_list_action_view_sort">Visualizar e classificar</string>
+    <string name="file_list_action_view_list">Lista</string>
+    <string name="file_list_action_view_grid">Grade</string>
     <string name="file_list_action_sort_by_name">Nome</string>
     <string name="file_list_action_sort_by_type">Tipo</string>
     <string name="file_list_action_sort_by_size">Tamanho</string>
     <string name="file_list_action_sort_by_last_modified">Última modificação</string>
     <string name="file_list_action_sort_order_ascending">Crescente</string>
     <string name="file_list_action_sort_directories_first">Pastas primeiro</string>
+    <string name="file_list_action_view_sort_path_specific">Apenas para esta pasta</string>
     <string name="file_list_action_new_task">Nova janela</string>
     <string name="file_list_action_navigate_up">Subir</string>
     <string name="file_list_action_navigate_to">Ir para</string>
@@ -316,6 +321,7 @@
     <string name="file_list_action_add_bookmark">Adicionar aos favoritos</string>
     <string name="file_list_action_create_shortcut">Criar atalho</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir em uma nova janela</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">Selecionar “%1$s”</string>
     <string name="file_list_paste_move_title_format">Movendo %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copiando %1$,d</string>
@@ -451,6 +457,10 @@
     <string name="storage_edit_device_storage_title">Editar armazenamento do dispositivo</string>
     <string name="storage_edit_device_storage_name">Nome</string>
     <string name="storage_edit_device_storage_path">Caminho</string>
+    <string name="storage_add_document_manager_shortcut_title">Adicionar atalho DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Editar atalho do DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Insira um URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI inválida</string>
     <string name="storage_add_document_tree_title">Adicionar armazenamento externo</string>
     <string name="storage_edit_document_tree_title">Editar armazenamento externo</string>
     <string name="storage_edit_document_tree_name">Nome</string>
@@ -574,8 +584,13 @@
     <string name="ftp_server_state_summary_stopping">Parando…</string>
     <string name="ftp_server_state_summary_stopped">Não iniciado</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">O endereço IP local é desconhecido</string>
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar senha</string>
+    <string name="ftp_server_add_tile_title">Adicionar às configurações rápidas</string>
+    <string name="ftp_server_add_tile_result_added">\"Servidor FTP\" foi adicionado às configurações rápidas</string>
+    <string name="ftp_server_add_tile_result_already_added">\"Servidor FTP\" já foi adicionado às Configurações rápidas</string>
+    <string name="ftp_server_add_tile_result_error">Erro ao adicionar \"servidor FTP\" às configurações rápidas</string>
     <string name="ftp_server_configuration_title">Configuração</string>
     <string name="ftp_server_anonymous_login_title">Login anônimo</string>
     <string name="ftp_server_username_title">Nome do usuário</string>
@@ -585,6 +600,7 @@
     <string name="ftp_server_writable_title">Permitir escrita</string>
     <string name="settings_title">Configurações</string>
     <string name="settings_interface_title">Interface</string>
+    <string name="settings_locale_title">Idioma</string>
     <string name="settings_theme_color_title">Cor do tema</string>
     <string name="settings_theme_color_summary">Cor que aparece com mais frequência no aplicativo</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

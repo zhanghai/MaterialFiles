@@ -58,10 +58,10 @@
         <item quantity="other">%1$,d de octeți</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Aplicația are nevoie de acces pentru a gestiona toate fișierele. Permite accesul în setarea de sistem viitoare.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplicația necesită permisiunea de accesare a fișierelor. Apasă pe \"PERMITE\" în căsuța următoare.</string>
     <string name="storage_permission_permanently_denied_message">Aplicația are nevoie de permisiunea de a accesa fișierele. Acordă permisiunea „Stocare” în setările sistemului.</string>
-    <string name="all_files_access_rationale_message">Aplicația are nevoie de acces pentru a gestiona toate fișierele. Permite accesul în setarea de sistem viitoare.</string>
-
     <string name="notification_channel_background_activity_start_name">Acțiuni în fundal</string>
     <string name="notification_channel_background_activity_start_description">Efectuează acțiuni în timp ce aplicația este în fundal</string>
     <string name="notification_channel_file_job_name">Operațiuni asupra fișierelor</string>

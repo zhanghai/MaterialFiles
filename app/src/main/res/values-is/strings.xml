@@ -59,10 +59,10 @@
         <item quantity="other">%1$,d bæti</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Forritið þarf heimild til að sýsla með allar skrár. Veittu heimild fyrir að nota skrár í kerfisstillingunum sem munu birtast.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Forritið þarf heimild til að nota skrár. Ýttu á “LEYFA” í kerfisglugganum sem mun birtast.</string>
     <string name="storage_permission_permanently_denied_message">Forritið þarf heimild til að nota skrár. Veittu heimild fyrir að nota “Gagnageymslu” í kerfisstillingunum.</string>
-    <string name="all_files_access_rationale_message">Forritið þarf heimild til að sýsla með allar skrár. Veittu heimild fyrir að nota skrár í kerfisstillingunum sem munu birtast.</string>
-
     <string name="notification_channel_background_activity_start_name">Aðgerðir meðan er í bakgrunni</string>
     <string name="notification_channel_background_activity_start_description">Framkvæma aðgerðir á meðan verið er í bakgrunni</string>
     <string name="notification_channel_file_job_name">Skráaaðgerðir</string>

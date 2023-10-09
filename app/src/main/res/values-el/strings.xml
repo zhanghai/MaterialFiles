@@ -43,6 +43,7 @@
     <string name="show">Εμφάνιση</string>
     <string name="skip">Παράλειψη</string>
     <string name="stop">Stop</string>
+    <string name="system_default">Προεπιλογή συστήματος</string>
     <string name="unknown">Άγνωστο</string>
     <string name="view">Προβολή</string>
 
@@ -56,10 +57,10 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Η εφαρμογή χρειάζεται πρόσβαση για τη διαχείριση όλων των αρχείων. Παρακαλούμε επιτρέψτε την πρόσβαση στην επερχόμενη ρύθμιση συστήματος.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Η εφαρμογή χρειάζεται άδεια πρόσβασης στα αρχεία. Κάντε κλικ στο “ΑΠΟΔΟΧΗ“ στο επόμενο παράθυρο διαλόγου του συστήματος.</string>
     <string name="storage_permission_permanently_denied_message">Η εφαρμογή χρειάζεται άδεια πρόσβασης στα αρχεία. Παρακαλούμε παραχωρήστε την άδεια “Αποθήκευση“ στις ρυθμίσεις συστήματος.</string>
-    <string name="all_files_access_rationale_message">Η εφαρμογή χρειάζεται πρόσβαση για τη διαχείριση όλων των αρχείων. Παρακαλούμε επιτρέψτε την πρόσβαση στην επερχόμενη ρύθμιση συστήματος.</string>
-
     <string name="notification_channel_background_activity_start_name">Ενέργειες στο παρασκήνιο</string>
     <string name="notification_channel_background_activity_start_description">Λήψη ενεργειών με την εφαρμογή στο παρασκήνιο</string>
     <string name="notification_channel_file_job_name">Λειτουργίες αρχείου</string>
@@ -271,12 +272,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Η διαδρομή δεν μπορεί να είναι κενή</string>
     <string name="file_list_path_error_invalid">Άκυρη διαδρομή</string>
+    <string name="file_list_action_view_sort">Προβολή και ταξινόμηση</string>
+    <string name="file_list_action_view_list">Λίστα</string>
+    <string name="file_list_action_view_grid">Πλέγμα</string>
     <string name="file_list_action_sort_by_name">Όνομα</string>
     <string name="file_list_action_sort_by_type">Τύπο</string>
     <string name="file_list_action_sort_by_size">Μέγεθος</string>
     <string name="file_list_action_sort_by_last_modified">Τελευταία τροποποίηση</string>
     <string name="file_list_action_sort_order_ascending">Αύξουσα</string>
     <string name="file_list_action_sort_directories_first">Πρώτα οι φάκελοι</string>
+    <string name="file_list_action_view_sort_path_specific">Μόνο για αυτό τον φάκελο</string>
     <string name="file_list_action_new_task">Νέο παράθυρο</string>
     <string name="file_list_action_navigate_up">Μετάβαση επάνω</string>
     <string name="file_list_action_navigate_to">Μετάβαση σε</string>
@@ -419,6 +424,10 @@
     <string name="storage_edit_device_storage_title">Επεξεργασία αποθήκευσης συσκευής</string>
     <string name="storage_edit_device_storage_name">Όνομα</string>
     <string name="storage_edit_device_storage_path">Διαδρομή</string>
+    <string name="storage_add_document_manager_shortcut_title">Προσθήκη συντόμευσης DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Επεξεργασία συντόμευσης DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Εισάγετε ένα URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Μη έγκυρο URI</string>
     <string name="storage_add_document_tree_title">Προσθήκη εξωτερικής αποθήκευσης</string>
     <string name="storage_edit_document_tree_title">Επεξεργασία εξωτερικής αποθήκευσης</string>
     <string name="storage_edit_document_tree_name">Όνομα</string>
@@ -542,8 +551,13 @@
     <string name="ftp_server_state_summary_stopping">Διακόπτεται…</string>
     <string name="ftp_server_state_summary_stopped">Δεν ξεκίνησε</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Η τοπική διεύθυνση IP είναι άγνωστη</string>
     <string name="ftp_server_url_menu_copy_url">Αντιγραφή URL</string>
     <string name="ftp_server_url_menu_copy_password">Αντιγραφή κωδικού</string>
+    <string name="ftp_server_add_tile_title">Προσθήκη στις Γρήγορες Ρυθμίσεις</string>
+    <string name="ftp_server_add_tile_result_added">\"Διακομιστής FTP\" έχει προστεθεί στις Γρήγορες Ρυθμίσεις</string>
+    <string name="ftp_server_add_tile_result_already_added">\"Διακομιστής FTP\" έχει ήδη προστεθεί στις Γρήγορες Ρυθμίσεις</string>
+    <string name="ftp_server_add_tile_result_error">Σφάλμα κατά την προσθήκη \"Διακομιστής FTP\" στις Γρήγορες Ρυθμίσεις</string>
     <string name="ftp_server_configuration_title">Διαμόρφωση</string>
     <string name="ftp_server_anonymous_login_title">Ανώνυμη σύνδεση</string>
     <string name="ftp_server_username_title">Όνομα χρήστη</string>
@@ -553,6 +567,7 @@
     <string name="ftp_server_writable_title">Αποδοχή εγγραφής</string>
     <string name="settings_title">Ρυθμίσεις</string>
     <string name="settings_interface_title">Διεπαφή</string>
+    <string name="settings_locale_title">Γλώσσα</string>
     <string name="settings_theme_color_title">Χρώμα θέματος</string>
     <string name="settings_theme_color_summary">Χρώμα που εμφανίζεται συχνότερα στην εφαρμογή</string>
     <string name="settings_material_design_3_title">Σχεδίαση υλικού 3</string>

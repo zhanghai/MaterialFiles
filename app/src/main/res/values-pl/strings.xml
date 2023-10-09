@@ -59,10 +59,10 @@
         <item quantity="other">%1$,d bajtów</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Aplikacja potrzebuje dostępu do zarządzania wszystkimi plikami. Zezwól na dostęp w następnym ustawieniu systemu.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplikacja potrzebuje uprawnień dostępu do plików. Kliknij „ZEZWÓL” w następnym oknie dialogowym systemu.</string>
     <string name="storage_permission_permanently_denied_message">Aplikacja potrzebuje uprawnień dostępu do plików. Przyznaj uprawnienie dostępu dla „Pamięć” w ustawieniach systemu.</string>
-    <string name="all_files_access_rationale_message">Aplikacja potrzebuje dostępu do zarządzania wszystkimi plikami. Zezwól na dostęp w następnym ustawieniu systemu.</string>
-
     <string name="notification_channel_background_activity_start_name">Działania w tle</string>
     <string name="notification_channel_background_activity_start_description">Podejmuj działania, gdy aplikacja działa w tle</string>
     <string name="notification_channel_file_job_name">Operacje na plikach</string>

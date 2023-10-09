@@ -60,10 +60,10 @@
         <item quantity="other">%1$,d octets</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">L\'application a besoin d\'un accès pour gérer tous les fichiers. Veuillez autoriser cet accès dans les paramètres du système.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">L’application a besoin de la permission pour accéder aux fichiers. Veuillez cliquer sur “AUTORISER” dans la boîte de dialogue suivante.</string>
     <string name="storage_permission_permanently_denied_message">L’application a besoin de la permission d’accéder aux fichiers. Veuillez accorder la permission de stockage dans les paramètres du système.</string>
-    <string name="all_files_access_rationale_message">L\'application a besoin d\'un accès pour gérer tous les fichiers. Veuillez autoriser cet accès dans les paramètres du système.</string>
-
     <string name="notification_channel_background_activity_start_name">Actions en arrière-plan</string>
     <string name="notification_channel_background_activity_start_description">Maintenir les actions lorsque l’application est en arrière-plan</string>
     <string name="notification_channel_file_job_name">Opérations sur les fichiers</string>

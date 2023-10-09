@@ -57,10 +57,10 @@
         <item quantity="other">%1$,d Bytes</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte den Zugriff in den Systemeinstellungen erlauben.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte klicken Sie im nächsten Dialog auf \"Erlauben\".</string>
     <string name="storage_permission_permanently_denied_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte erteilen Sie die \"Speicher\"-Berechtigung in den Systemeinstellungen.</string>
-    <string name="all_files_access_rationale_message">App benötigt Berechtigungen für den Zugriff auf Dateien. Bitte den Zugriff in den Systemeinstellungen erlauben.</string>
-
     <string name="notification_channel_background_activity_start_name">Aktionen im Hintergrund</string>
     <string name="notification_channel_background_activity_start_description">Aktionen ausführen während die App im Hintergrund läuft</string>
     <string name="notification_channel_file_job_name">Dateioperationen</string>
@@ -370,7 +370,7 @@
     <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
     <string name="file_properties_image_equipment">Kamera</string>
     <string name="file_properties_image_equipment_format">%1$s %2$s</string>
-    <string name="file_properties_image_f_number">Apertur</string>
+    <string name="file_properties_image_f_number">Blende</string>
     <string name="file_properties_image_shutter_speed">Verschlusszeit</string>
     <string name="file_properties_image_focal_length">Brennweite</string>
     <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
@@ -487,7 +487,7 @@
     <string name="storage_edit_sftp_server_private_key_error_invalid">Ungültiger privater Schlüssel</string>
     <string name="storage_edit_sftp_server_private_key_password">Passwort des privaten Schlüssels</string>
     <string name="storage_edit_sftp_server_private_key_password_placeholder">Kann leer gelassen werden</string>
-    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Passwort des privatne Schlüssels ungültig</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Passwort des privaten Schlüssels ungültig</string>
     <string name="storage_edit_sftp_server_connect_and_add">Verbinden und hinzufügen</string>
     <string name="storage_edit_sftp_server_add">Hinzufügen</string>
     <string name="storage_add_lan_smb_server_loading">Suche nach SMB-Servern…</string>
@@ -502,7 +502,7 @@
     <string name="storage_edit_smb_server_path">Pfad</string>
     <string name="storage_edit_smb_server_path_placeholder">Kann leer gelassen werden</string>
     <string name="storage_edit_smb_server_name">Name</string>
-    <string name="storage_edit_smb_server_name_placeholder">Benutze einen Hostnamen</string>
+    <string name="storage_edit_smb_server_name_placeholder">Hostname verwenden</string>
     <string name="storage_edit_smb_server_authentication_type">Authentifizierung</string>
     <string-array name="storage_edit_smb_server_authentication_type_entries">
         <item>Passwort</item>
@@ -552,7 +552,7 @@
     <string name="ftp_server_state_summary_stopping">Beendet…</string>
     <string name="ftp_server_state_summary_stopped">Nicht gestartet</string>
     <string name="ftp_server_url_title">URL</string>
-    <string name="ftp_server_url_summary_no_local_inet_address">Die Lokale IP Adresse ist unbekannt</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Die Lokale IP-Adresse ist unbekannt</string>
     <string name="ftp_server_url_menu_copy_url">Kopiere URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopiere Passwort</string>
     <string name="ftp_server_add_tile_title">Zu  den Schnell-Einstellungen hinzufügen</string>
@@ -569,7 +569,7 @@
     <string name="settings_title">Einstellungen</string>
     <string name="settings_interface_title">Benutzeroberfläche</string>
     <string name="settings_locale_title">Sprache</string>
-    <string name="settings_theme_color_title">Thema Farbe</string>
+    <string name="settings_theme_color_title">Themenfarbe</string>
     <string name="settings_theme_color_summary">Die am häufigsten vorkommende Farbe in der App</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Nachtmodus</string>
@@ -587,7 +587,7 @@
         <item>Den Anfang kürzen</item>
         <item>Die Mitte kürzen</item>
         <item>Das Ende kürzen</item>
-        <item>Kennzeichen</item>
+        <item>Laufschrift</item>
     </string-array>
     <string name="settings_behavior_title">Verhalten</string>
     <string name="settings_default_directory_title">Startordner</string>

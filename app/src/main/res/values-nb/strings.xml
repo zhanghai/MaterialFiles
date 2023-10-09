@@ -10,7 +10,7 @@
     <string name="app_name">Material Filer</string>
 
     <string name="close">Lukk</string>
-    <string name="copy">Kopier</string>
+    <string name="copy">Kopiér</string>
     <string name="cut">Klipp ut</string>
     <string name="default_">Standard</string>
     <string name="delete">Slett</string>
@@ -48,7 +48,7 @@
     <string name="view">Se innholdet</string>
 
     <!-- android.R.string.app_not_found -->
-    <string name="activity_not_found">Finner ingen apper som kan utføre denne handlingen</string>
+    <string name="activity_not_found">Fant ingen apper som kan utføre denne handlingen</string>
     <string name="open_settings">Åpne innstillingene</string>
     <string name="shortcut_created">Snarveien er opprettet</string>
 
@@ -57,10 +57,10 @@
         <item quantity="other">%1$,d byte</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Appen trenger tillatelse til å administrere alle filer. Gi tillatelse i de kommende systeminnstillingene.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Appen trenger tilgang til filene. Trykk på «TILLAT» i den kommende systemdialogen.</string>
     <string name="storage_permission_permanently_denied_message">Appen trenger tilgang til filene. Gi «Lagring»-tillatelsen i systeminnstillingene.</string>
-    <string name="all_files_access_rationale_message">Appen trenger tillatelse til å administrere alle filer. Gi tillatelse i de kommende systeminnstillingene.</string>
-
     <string name="notification_channel_background_activity_start_name">Handlinger i bakgrunnen</string>
     <string name="notification_channel_background_activity_start_description">Utfør handlinger mens appen er i bakgrunnen</string>
     <string name="notification_channel_file_job_name">Filoperasjoner</string>
@@ -286,7 +286,7 @@
     <string name="file_list_action_navigate_up">Gå opp</string>
     <string name="file_list_action_navigate_to">Gå til</string>
     <string name="file_list_action_show_hidden_files">Vis skjulte filer</string>
-    <string name="file_list_action_copy_path">Kopier bane</string>
+    <string name="file_list_action_copy_path">Kopiér bane</string>
     <string name="file_list_action_open_in_terminal">Åpne i terminalen</string>
     <string name="file_list_action_add_bookmark">Legg til bokmerke</string>
     <string name="file_list_action_create_shortcut">Opprett snarvei</string>
@@ -553,8 +553,8 @@
     <string name="ftp_server_state_summary_stopped">Ikke startet</string>
     <string name="ftp_server_url_title">URL</string>
     <string name="ftp_server_url_summary_no_local_inet_address">Lokal IP-adresse er ukjent</string>
-    <string name="ftp_server_url_menu_copy_url">Kopier URL</string>
-    <string name="ftp_server_url_menu_copy_password">Kopier passord</string>
+    <string name="ftp_server_url_menu_copy_url">Kopiér URL</string>
+    <string name="ftp_server_url_menu_copy_password">Kopiér passord</string>
     <string name="ftp_server_add_tile_title">Legg til i hurtiginnstillingene</string>
     <string name="ftp_server_add_tile_result_added">«FTP-tjener» er lagt til i hurtiginnstillingene</string>
     <string name="ftp_server_add_tile_result_already_added">«FTP-tjener» er allerede lagt til i hurtiginnstillingene</string>
@@ -581,8 +581,8 @@
         <item>Basert på batterisparing</item>
     </string-array>
     <string name="settings_black_night_mode">Svart nattmodus</string>
-    <string name="settings_file_list_animation_title">Animer fillisten</string>
-    <string name="settings_file_name_ellipsize_title">Vis lange filnavn</string>
+    <string name="settings_file_list_animation_title">Animér fillisten</string>
+    <string name="settings_file_name_ellipsize_title">Visning av lange filnavn</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Ellipse i starten</item>
         <item>Ellipse i midten</item>
@@ -606,7 +606,7 @@
         <item>Automatisk</item>
         <item>Bare tilgang som rot</item>
     </string-array>
-    <string name="settings_archive_file_name_encoding_title">Tegnkoding for filnavn til arkiv</string>
+    <string name="settings_archive_file_name_encoding_title">Tegnkoding for filnavn i arkiv</string>
     <string name="settings_open_apk_default_action_title">Åpne Android-pakke</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Installer</item>

@@ -57,9 +57,13 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Deze app heeft toegang nodig tot je bestanden. Sta de toegang toe op het volgende scherm.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Deze app heeft toegang nodig tot je bestanden. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
     <string name="storage_permission_permanently_denied_message">Deze app heeft toegang nodig tot je bestanden. Verleen het recht ‘Opslag’ in de systeeminstellingen.</string>
-    <string name="all_files_access_rationale_message">Deze app heeft toegang nodig tot je bestanden. Sta de toegang toe op het volgende scherm.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Deze app heeft toegang nodig tot je meldingen. Druk op het volgende schermpje op ‘TOESTAAN’.</string>
+    <string name="notification_permission_permanently_denied_message">Deze app heeft toegang nodig tot je meldingen. Verleen het recht ‘Meldingen’ in de systeeminstellingen.</string>
 
     <string name="notification_channel_background_activity_start_name">Achtergrondtaken</string>
     <string name="notification_channel_background_activity_start_description">Neem taken aan terwijl de app op de achtergrond draait</string>
@@ -67,6 +71,10 @@
     <string name="notification_channel_file_job_description">Toon en beheer bestandshandelingen</string>
     <string name="notification_channel_ftp_server_name">FTP-server</string>
     <string name="notification_channel_ftp_server_description">Toon en beheer de FTP-server</string>
+
+    <string name="file_action_archive_password_title">Wachtwoord vereist</string>
+    <string name="file_action_archive_password_message_format">‘%1$s’ is beveiligd met een wachtwoord.</string>
+    <string name="file_action_archive_password_error_empty">Voer een wachtwoord in</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Bezig met voorbereiden van %1$,d bestand (%2$s)</item>
@@ -248,6 +256,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Wachtwoord (optioneel)</string>
     <string name="file_add_bookmark_success">Bladwijzer is toegevoegd</string>
     <string name="file_create_file_title">Nieuw bestand</string>
     <string name="file_create_directory_title">Nieuwe map</string>

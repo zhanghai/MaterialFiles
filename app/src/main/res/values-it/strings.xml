@@ -58,10 +58,10 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">L\'app richiede l\'autorizzazione di gestire i file. Consenti l\'accesso nella prossima impostazione di sistema.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">L\'app richiede l\'autorizzazione di accedere ai file. Clicca “CONSENTI” nella prossima finestra.</string>
     <string name="storage_permission_permanently_denied_message">L\'app richiede l\'autorizzazione di accedere ai file. Consenti l\'autorizzazione “Archiviazione” nelle impostazioni di sistema.</string>
-    <string name="all_files_access_rationale_message">L\'app richiede l\'autorizzazione di gestire i file. Consenti l\'accesso nella prossima impostazione di sistema.</string>
-
     <string name="notification_channel_background_activity_start_name">Azioni in secondo piano</string>
     <string name="notification_channel_background_activity_start_description">Esegui azioni mentre l\'app è in secondo piano</string>
     <string name="notification_channel_file_job_name">Operazioni sui file</string>

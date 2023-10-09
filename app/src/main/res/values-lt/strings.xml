@@ -61,10 +61,10 @@
         <item quantity="other">%1$,d baitai</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Programėlei reikia prieigos, kad būtų galima valdyti visus failus. Leisk prieigą būsimame sistemos nustatyme.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Programėlei reikia leidimo pasiekti failus. Būsimame sistemos dialogo lange spustelėk „LEISTI“.</string>
     <string name="storage_permission_permanently_denied_message">Programėlei reikia leidimo pasiekti failus. Suteik saugyklos leidimą sistemos nustatymuose.</string>
-    <string name="all_files_access_rationale_message">Programėlei reikia prieigos, kad būtų galima valdyti visus failus. Leisk prieigą būsimame sistemos nustatyme.</string>
-
     <string name="notification_channel_background_activity_start_name">Veiksmai, kol fone</string>
     <string name="notification_channel_background_activity_start_description">Daryti veiksmus kai programėlė veikia fone</string>
     <string name="notification_channel_file_job_name">Failo operacijos</string>

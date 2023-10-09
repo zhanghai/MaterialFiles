@@ -58,10 +58,10 @@
         <item quantity="other">%1$,d בתים</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">היישום זקוק לגישה כדי לנהל את כל הקבצים. יש לאפשר את הגישה בהגדרת המערכת הבאה.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">היישום זקוק להרשאה כדי לגשת לקבצים. יש ללחוץ על \"אפשר\" בתיבת הדו שיח הבאה של המערכת.</string>
     <string name="storage_permission_permanently_denied_message">היישום זקוק להרשאה כדי לגשת לקבצים. יש להעניק הרשאת \"אחסון\" בהגדרות המערכת.</string>
-    <string name="all_files_access_rationale_message">היישום זקוק לגישה כדי לנהל את כל הקבצים. יש לאפשר את הגישה בהגדרת המערכת הבאה.</string>
-
     <string name="notification_channel_background_activity_start_name">פעולות ברקע</string>
     <string name="notification_channel_background_activity_start_description">ביצוע פעולות כשהיישום פועל ברקע</string>
     <string name="notification_channel_file_job_name">פעולות קובץ</string>

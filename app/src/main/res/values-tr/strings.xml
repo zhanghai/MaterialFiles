@@ -55,10 +55,10 @@
         <item quantity="other">%1$,d bayt</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Uygulamanın tüm dosyaları yönetmek için erişime ihtiyacı var. Lütfen açılan sistem ayarından erişime izin verin.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Uygulamanın dosyalara erişmek için izne ihtiyacı var. Lütfen açılan sistem iletişim kutusunda “İZİN VER” seçeneğini tıklayın.</string>
     <string name="storage_permission_permanently_denied_message">Uygulamanın dosyalara erişmek için izne ihtiyacı var. Lütfen sistem ayarlarında “Depolama” iznini verin.</string>
-    <string name="all_files_access_rationale_message">Uygulamanın tüm dosyaları yönetmek için erişime ihtiyacı var. Lütfen açılan sistem ayarından erişime izin verin.</string>
-
     <string name="notification_channel_background_activity_start_name">Arka plandaki eylemler</string>
     <string name="notification_channel_background_activity_start_description">Uygulama arka plandayken işlem yapın</string>
     <string name="notification_channel_file_job_name">Dosya işlemleri</string>

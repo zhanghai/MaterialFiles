@@ -55,10 +55,10 @@
         <item quantity="other">%1$,d byte</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Ứng dụng cần quyền quản lý tất cả tệp. Vui lòng cấp quyền ở cài đặt hệ thống tiếp theo.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Ứng dụng cần quyền truy cập tệp. Hãy nhấn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
     <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tệp. Hãy cấp quyền \"Bộ nhớ\" trong cài đặt hệ thống.</string>
-    <string name="all_files_access_rationale_message">Ứng dụng cần quyền quản lý tất cả tệp. Vui lòng cấp quyền ở cài đặt hệ thống tiếp theo.</string>
-
     <string name="notification_channel_background_activity_start_name">Hành động khi chạy nền</string>
     <string name="notification_channel_background_activity_start_description">Thực hiện các hành động khi ứng dụng chạy nền</string>
     <string name="notification_channel_file_job_name">Thao tác với tệp</string>

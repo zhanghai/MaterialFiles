@@ -58,10 +58,10 @@
         <item quantity="other">%1$,d بایت</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">برنامه برای مدیریت همهٔ پرونده‌ها نیاز به دسترسی دارد. لطفاً اجازهٔ دسترسی را در تنظیمات سامانهٔ پیش‌رو، بدهید.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">برنامه اجازهٔ دسترسی به پرونده‌ها را نیاز دارد. لطفاً در کادر گفت‌وگوی سامانه که به زودی می‌آید، روی «پذیرش» کلیک کنید.</string>
     <string name="storage_permission_permanently_denied_message">برنامه اجازهٔ دسترسی به پرونده‌ها را نیاز دارد. لطفاً اجازهٔ «ذخیره‌سازی» را در تنظیمات سامانه بدهید.</string>
-    <string name="all_files_access_rationale_message">برنامه برای مدیریت همهٔ پرونده‌ها نیاز به دسترسی دارد. لطفاً اجازهٔ دسترسی را در تنظیمات سامانهٔ پیش‌رو، بدهید.</string>
-
     <string name="notification_channel_background_activity_start_name">کنش‌های در پس‌زمیه</string>
     <string name="notification_channel_background_activity_start_description">هنگامی که برنامه در پس‌زمینه است، کنش‌ها را انجام دهید</string>
     <string name="notification_channel_file_job_name">عملیات‌های پرونده</string>

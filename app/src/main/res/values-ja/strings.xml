@@ -43,6 +43,7 @@
     <string name="show">示す</string>
     <string name="skip">スキップ</string>
     <string name="stop">停止</string>
+    <string name="system_default">システムのデフォルト</string>
     <string name="unknown">不明</string>
     <string name="view">表示</string>
 
@@ -55,10 +56,10 @@
         <item quantity="other">%1$,d バイト</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">アプリが全てのファイルを管理するにはアクセスが必要です。次に表示されるシステム設定でアクセスを許可してください。</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">ファイルをアクセスする権限は必要です。表示されるシステムダイアログで「許可」を選択して下さい。</string>
     <string name="storage_permission_permanently_denied_message">ファイルをアクセスする権限は必要です。システム設定で「ストレージ」権限を許可してください。</string>
-    <string name="all_files_access_rationale_message">アプリが全てのファイルを管理するにはアクセスが必要です。次に表示されるシステム設定でアクセスを許可してください。</string>
-
     <string name="notification_channel_background_activity_start_name">バックグラウンド処理</string>
     <string name="notification_channel_background_activity_start_description">バックグラウンドでアプリを実行</string>
     <string name="notification_channel_file_job_name">ファイル作業</string>
@@ -243,6 +244,8 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">空のパスはできません</string>
     <string name="file_list_path_error_invalid">無効なパス</string>
+    <string name="file_list_action_view_list">リスト</string>
+    <string name="file_list_action_view_grid">グリッド</string>
     <string name="file_list_action_sort_by_name">名前</string>
     <string name="file_list_action_sort_by_type">種類</string>
     <string name="file_list_action_sort_by_size">サイズ</string>
@@ -516,6 +519,7 @@
     <string name="ftp_server_url_title">URL</string>
     <string name="ftp_server_url_menu_copy_url">URL をコピー</string>
     <string name="ftp_server_url_menu_copy_password">パスワードをコピー</string>
+    <string name="ftp_server_add_tile_title">クイック設定に追加</string>
     <string name="ftp_server_configuration_title">環境設定</string>
     <string name="ftp_server_anonymous_login_title">匿名ログイン</string>
     <string name="ftp_server_username_title">ユーザー名</string>
@@ -525,6 +529,7 @@
     <string name="ftp_server_writable_title">書き込みを許可</string>
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">外観</string>
+    <string name="settings_locale_title">言語</string>
     <string name="settings_theme_color_title">テーマ色</string>
     <string name="settings_theme_color_summary">アプリ内での出現頻度が高い色</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

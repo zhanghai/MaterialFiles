@@ -56,10 +56,10 @@
         <item quantity="other">%1$,d 바이트</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">모든 파일 관리 권한이 필요합니다. 곧 나타날 시스템 설정에서 권한을 허용해 주세요.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">파일에 접근하기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 \'허용\'을 선택해 주세요.</string>
     <string name="storage_permission_permanently_denied_message">파일에 접근하기 위한 권한이 필요합니다. 시스템 설정에서 \'저장용량\' 권한을 허용해 주세요.</string>
-    <string name="all_files_access_rationale_message">모든 파일 관리 권한이 필요합니다. 곧 나타날 시스템 설정에서 권한을 허용해 주세요.</string>
-
     <string name="notification_channel_background_activity_start_name">백그라운드에서 작업</string>
     <string name="notification_channel_background_activity_start_description">앱이 백그라운드에 있는 동안 작업합니다</string>
     <string name="notification_channel_file_job_name">파일 작업</string>

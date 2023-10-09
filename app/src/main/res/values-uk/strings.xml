@@ -61,9 +61,13 @@
         <item quantity="other">%1$,d байтів</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Програмі потрібен дозвіл на керування файлами. Будь ласка, надайте дозвіл у майбутніх налаштуваннях системи.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Застосунку потрібен дозвіл на керування файлами. Будь ласка, натисніть «Дозволити» у діалозі.</string>
     <string name="storage_permission_permanently_denied_message">Програма потребує дозволу на доступ до файлів. Будь ласка, надайте доступ до «Cховища» в налаштуваннях системи.</string>
-    <string name="all_files_access_rationale_message">Програмі потрібен дозвіл на керування файлами. Будь ласка, надайте дозвіл у майбутніх налаштуваннях системи.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Додатку потрібен дозвіл на відправку сповіщень про операції з файлами. Будь ласка, натисніть \"Дозволити\" у діалоговому вікні, що з\'явиться.</string>
+    <string name="notification_permission_permanently_denied_message">Додатку потрібен дозвіл на відправку сповіщень про операції з файлами. Будь ласка, надайте дозвіл \"Сповіщення\" у налаштуваннях системи.</string>
 
     <string name="notification_channel_background_activity_start_name">Фонові дії</string>
     <string name="notification_channel_background_activity_start_description">Робити дії, коли програма у фоновому режимі</string>
@@ -71,6 +75,10 @@
     <string name="notification_channel_file_job_description">Відображати та контролювати файлові операції</string>
     <string name="notification_channel_ftp_server_name">FTP-сервер</string>
     <string name="notification_channel_ftp_server_description">Відображати та контролювати FTP сервер</string>
+
+    <string name="file_action_archive_password_title">Потрібен пароль</string>
+    <string name="file_action_archive_password_message_format">“%1$s” захищений паролем.</string>
+    <string name="file_action_archive_password_error_empty">Пароль не може бути порожнім</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Підготовка до стиснення %1$,d файлу (%2$s)</item>
@@ -298,6 +306,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Пароль (необов\'язково)</string>
     <string name="file_add_bookmark_success">Закладку додано</string>
     <string name="file_create_file_title">Новий файл</string>
     <string name="file_create_directory_title">Нова тека</string>

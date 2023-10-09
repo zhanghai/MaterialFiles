@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ImpliedQuantity">
 
-    <string name="app_name">Material Files</string>
+    <string name="app_name">Material Файлы</string>
 
     <string name="close">Закрыть</string>
     <string name="copy">Копировать</string>
@@ -26,7 +26,7 @@
     <string name="keep_editing">Продолжить редактирование</string>
     <string name="loading">Загрузка…</string>
     <string name="maybe_later">Возможно позже</string>
-    <string name="merge">Объеденить</string>
+    <string name="merge">Объединить</string>
     <string name="none">Нет</string>
     <string name="open_navigation_drawer">Открыть боковое меню</string>
     <string name="paste">Вставить</string>
@@ -45,6 +45,7 @@
     <string name="show">Показать</string>
     <string name="skip">Пропустить</string>
     <string name="stop">Остановить</string>
+    <string name="system_default">Системный</string>
     <string name="unknown">Неизвестно</string>
     <string name="view">Просмотр</string>
 
@@ -60,10 +61,10 @@
         <item quantity="other">%1$,d байт</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Приложению требуется доступ для управления всеми файлами. Пожалуйста, разрешите доступ в появившемся окне настроек системы.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, нажмите «РАЗРЕШИТЬ» в появившемся системном диалоговом окне.</string>
     <string name="storage_permission_permanently_denied_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, предоставьте разрешение «Хранилище» в настройках системы.</string>
-    <string name="all_files_access_rationale_message">Приложению требуется доступ для управления всеми файлами. Пожалуйста, разрешите доступ в появившемся окне настроек системы.</string>
-
     <string name="notification_channel_background_activity_start_name">Действия в фоновом режиме</string>
     <string name="notification_channel_background_activity_start_description">Разрешить действия, пока приложение находится в фоновом режиме</string>
     <string name="notification_channel_file_job_name">Операции с файлами</string>
@@ -219,12 +220,12 @@
     <string name="file_job_replace_message_format">Другой файл с таким именем уже существует в “%1$s”.\nЗамена перезапишет его содержимое.</string>
     <string name="file_job_replace_target_name">Исходный файл</string>
     <string name="file_job_replace_source_name">Заменить на</string>
-    <string name="file_job_merge_title_format">Объеденить папку “%1$s”?</string>
+    <string name="file_job_merge_title_format">Объединить папку “%1$s”?</string>
     <string name="file_job_merge_copy_message_format">Объединение будет запрашивать подтверждение перед заменой любых файлов в папке, конфликтующих с копируемыми файлами.</string>
     <string name="file_job_merge_extract_message_format">Объединение будет запрашивать подтверждение перед заменой любых файлов в папке, конфликтующих с извлекаемыми файлами.</string>
     <string name="file_job_merge_move_message_format">Объединение будет запрашивать подтверждение перед заменой любых файлов в папке, конфликтующих с перемещаемыми файлами.</string>
     <string name="file_job_merge_target_name">Исходная папка</string>
-    <string name="file_job_merge_source_name">Объеденить с</string>
+    <string name="file_job_merge_source_name">Объединить с</string>
     <string name="file_job_conflict_show_name">Выберите новое имя для файла назначения</string>
     <string name="file_job_conflict_name_hint">Новое имя</string>
     <string name="file_job_archive_error_title_format">Ошибка при сжатии “%1$s”</string>
@@ -253,7 +254,7 @@
     <string name="file_job_write_error_message_format">Произошла ошибка записи “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">Произошла ошибка при получении информации о “%1$s”.</string>
     <string name="file_job_remount_format">Перемонтировать “%1$s” в режим чтение-запись</string>
-    <string name="file_job_remount_loading_format">Перемонтирование “%1$s” в режим чтение-запиcь…</string>
+    <string name="file_job_remount_loading_format">Перемонтирование “%1$s” в режим чтение-запись…</string>
     <string name="file_job_remount_success_format">“%1$s” был перемонтирован в режим чтение-запись</string>
     <string name="file_job_action_all">Применить действие ко всем файлам</string>
 
@@ -329,12 +330,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Путь не может быть пустым</string>
     <string name="file_list_path_error_invalid">Неверный путь</string>
+    <string name="file_list_action_view_sort">Настройки просмотра</string>
+    <string name="file_list_action_view_list">Список</string>
+    <string name="file_list_action_view_grid">Сетка</string>
     <string name="file_list_action_sort_by_name">Имя</string>
     <string name="file_list_action_sort_by_type">Тип</string>
     <string name="file_list_action_sort_by_size">Размер</string>
     <string name="file_list_action_sort_by_last_modified">Последнее изменение</string>
     <string name="file_list_action_sort_order_ascending">По возрастанию</string>
     <string name="file_list_action_sort_directories_first">Папки первые</string>
+    <string name="file_list_action_view_sort_path_specific">Только для этой папки</string>
     <string name="file_list_action_new_task">Новое окно</string>
     <string name="file_list_action_navigate_up">Вверх</string>
     <string name="file_list_action_navigate_to">Перейти к</string>
@@ -344,6 +349,7 @@
     <string name="file_list_action_add_bookmark">Добавить закладку</string>
     <string name="file_list_action_create_shortcut">Создать ярлык</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Открыть в новом окне</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">Выбрать “%1$s”</string>
     <string name="file_list_paste_move_title_format">Перемещение %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копирование %1$,d</string>
@@ -408,7 +414,7 @@
         <item>GID</item>
         <item>Sticky-бит</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Не устаналивать “Выполнение” для вложенных файлов</string>
+    <string name="file_properties_permissions_set_mode_uppercase_x">Не устанавливать “Выполнение” для вложенных файлов</string>
     <string name="file_properties_permissions_selinux_context">Контекст SELinux</string>
     <string name="file_properties_permissions_set_selinux_context_title">Изменить контекст SELinux</string>
     <string name="file_properties_permissions_set_selinux_context_restore">Восстановить</string>
@@ -481,6 +487,10 @@
     <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
     <string name="storage_edit_device_storage_name">Имя</string>
     <string name="storage_edit_device_storage_path">Путь</string>
+    <string name="storage_add_document_manager_shortcut_title">Создать ярлык DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Редактировать ярлык DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Введите URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Недопустимый URI</string>
     <string name="storage_add_document_tree_title">Добавить внешний накопитель</string>
     <string name="storage_edit_document_tree_title">Редактировать внешний накопитель</string>
     <string name="storage_edit_document_tree_name">Имя</string>
@@ -604,8 +614,13 @@
     <string name="ftp_server_state_summary_stopping">Остановка…</string>
     <string name="ftp_server_state_summary_stopped">Не запущен</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Локальный IP-адрес неизвестен</string>
     <string name="ftp_server_url_menu_copy_url">Скопировать URL</string>
     <string name="ftp_server_url_menu_copy_password">Скопировать пароль</string>
+    <string name="ftp_server_add_tile_title">Добавить в Быстрые настройки</string>
+    <string name="ftp_server_add_tile_result_added">\"FTP сервер\" был добавлен в быстрые настройки</string>
+    <string name="ftp_server_add_tile_result_already_added">\"FTP сервер\" уже добавлен в быстрые настройки</string>
+    <string name="ftp_server_add_tile_result_error">Произошла ошибка при добавлении \"FTP сервера\" в быстрые настройки</string>
     <string name="ftp_server_configuration_title">Конфигурация</string>
     <string name="ftp_server_anonymous_login_title">Анонимный вход</string>
     <string name="ftp_server_username_title">Имя пользователя</string>
@@ -615,6 +630,7 @@
     <string name="ftp_server_writable_title">Разрешить запись</string>
     <string name="settings_title">Настройки</string>
     <string name="settings_interface_title">Интерфейс</string>
+    <string name="settings_locale_title">Язык</string>
     <string name="settings_theme_color_title">Цвет темы</string>
     <string name="settings_theme_color_summary">Цвет который чаще всего используется в приложении</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

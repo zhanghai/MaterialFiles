@@ -55,10 +55,10 @@
         <item quantity="other">%1$,d tavua</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Sovellus tarvitsee kaikkien tiedostojen käyttöoikeuden. Anna käyttöoikeus seuraavaksi avautuvissa järjestelmän asetuksissa.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Sovellus tarvitsee tiedostojen käyttöoikeuden. Klikkaa “HYVÄKSY” seuraavassa järjestelmän ikkunassa.</string>
     <string name="storage_permission_permanently_denied_message">Sovellus tarvitsee tiedostojen käyttöoikeuden. Anna käyttöoikeus tallennustilan käyttöön järjestelmän asetuksista.</string>
-    <string name="all_files_access_rationale_message">Sovellus tarvitsee kaikkien tiedostojen käyttöoikeuden. Anna käyttöoikeus seuraavaksi avautuvissa järjestelmän asetuksissa.</string>
-
     <string name="notification_channel_background_activity_start_name">Toiminnot taustalla</string>
     <string name="notification_channel_background_activity_start_description">Suorita toimintoja sovelluksen ollessa taustalla</string>
     <string name="notification_channel_file_job_name">Tiedostotoiminnot</string>

@@ -52,6 +52,7 @@
         <item quantity="other">%1$,d byte</item>
     </plurals>
 
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplikazioak fitxategiak atzitzeko baimena behar du. Sakatu \"BAIMENDU\" hurrengo elkarrizketa-koadroan.</string>
     <string name="storage_permission_permanently_denied_message">Aplikazioak fitxategiak atzitzeko baimena behar du. Eman \"Memoria\" (sic)  baimena sistemaren ezarpenetan.</string>
     <string name="notification_channel_background_activity_start_name">Ekintzak bigarren planoan</string>

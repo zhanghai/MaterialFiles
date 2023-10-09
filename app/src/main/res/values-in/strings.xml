@@ -43,6 +43,7 @@
     <string name="show">Tampilkan</string>
     <string name="skip">Lewati</string>
     <string name="stop">Hentikan</string>
+    <string name="system_default">Bawaan sistem</string>
     <string name="unknown">Tidak diketahui</string>
     <string name="view">Lihat</string>
 
@@ -55,10 +56,10 @@
         <item quantity="other">%1$,d byte</item>
     </plurals>
 
+    <string name="all_files_access_rationale_message">Aplikasi membutuhkan izin untuk mengelola semua berkas. Silakan izinkan akses di dalam pengaturan sistem berikut.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
     <string name="storage_permission_permanently_denied_message">Apl membutuhkan izin untuk mengakses berkas. Aktifkan izin \"Penyimpanan\" di dalam pengaturan sistem.</string>
-    <string name="all_files_access_rationale_message">Aplikasi membutuhkan izin untuk mengelola semua berkas. Silakan izinkan akses di dalam pengaturan sistem berikut.</string>
-
     <string name="notification_channel_background_activity_start_name">Tindakan saat di latar belakang</string>
     <string name="notification_channel_background_activity_start_description">Ambil tindakan saat apl berada di latar belakang</string>
     <string name="notification_channel_file_job_name">Tindakan berkas</string>
@@ -243,12 +244,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Jalur tidak boleh kosong</string>
     <string name="file_list_path_error_invalid">Jalur tidak valid</string>
+    <string name="file_list_action_view_sort">Lihat dan urutkan</string>
+    <string name="file_list_action_view_list">Daftar</string>
+    <string name="file_list_action_view_grid">Grid</string>
     <string name="file_list_action_sort_by_name">Nama</string>
     <string name="file_list_action_sort_by_type">Tipe</string>
     <string name="file_list_action_sort_by_size">Ukuran</string>
     <string name="file_list_action_sort_by_last_modified">Terakhir diubah</string>
     <string name="file_list_action_sort_order_ascending">Naik</string>
     <string name="file_list_action_sort_directories_first">Folder di atas</string>
+    <string name="file_list_action_view_sort_path_specific">Hanya untuk folder ini</string>
     <string name="file_list_action_new_task">Jendela baru</string>
     <string name="file_list_action_navigate_up">Ke atas</string>
     <string name="file_list_action_navigate_to">Kunjungi</string>
@@ -258,6 +263,7 @@
     <string name="file_list_action_add_bookmark">Tambahkan bookmark</string>
     <string name="file_list_action_create_shortcut">Buat pintasan</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Buka di jendela baru</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">Pilih “%1$s”</string>
     <string name="file_list_paste_move_title_format">Memindahkan %1$,d</string>
     <string name="file_list_paste_copy_title_format">Menyalin %1$,d</string>
@@ -389,6 +395,10 @@
     <string name="storage_edit_device_storage_title">Sunting penyimpanan perangkat</string>
     <string name="storage_edit_device_storage_name">Nama</string>
     <string name="storage_edit_device_storage_path">Jalur</string>
+    <string name="storage_add_document_manager_shortcut_title">Tambahkan pintasan DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Sunting pintasan DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Masukkan URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI tidak valid</string>
     <string name="storage_add_document_tree_title">Tambah penyimpanan eksternal</string>
     <string name="storage_edit_document_tree_title">Sunting penyimpanan eksternal</string>
     <string name="storage_edit_document_tree_name">Nama</string>
@@ -512,8 +522,13 @@
     <string name="ftp_server_state_summary_stopping">Menghentikan…</string>
     <string name="ftp_server_state_summary_stopped">Tidak berjalan</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Alamat IP lokal tidak diketahui</string>
     <string name="ftp_server_url_menu_copy_url">Salin URL</string>
     <string name="ftp_server_url_menu_copy_password">Salin sandi</string>
+    <string name="ftp_server_add_tile_title">Tambahkan ke Pengaturan Cepat</string>
+    <string name="ftp_server_add_tile_result_added">\"Server FTP\" telah ditambahan ke Pengaturan Cepat</string>
+    <string name="ftp_server_add_tile_result_already_added">\"Server FTP\" sudah ditambahan ke Pengaturan Cepat</string>
+    <string name="ftp_server_add_tile_result_error">Terjadi kesalahan saat menambahkan \"server FTP\" ke Pengaturan Cepat</string>
     <string name="ftp_server_configuration_title">Konfigurasi</string>
     <string name="ftp_server_anonymous_login_title">Masuk secara anonim</string>
     <string name="ftp_server_username_title">Nama pengguna</string>
@@ -523,6 +538,7 @@
     <string name="ftp_server_writable_title">Izinkan menyimpan</string>
     <string name="settings_title">Pengaturan</string>
     <string name="settings_interface_title">Antarmuka</string>
+    <string name="settings_locale_title">Bahasa</string>
     <string name="settings_theme_color_title">Warna tema</string>
     <string name="settings_theme_color_summary">Warna yang muncul paling sering di dalam apl</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
