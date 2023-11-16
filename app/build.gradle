@@ -118,7 +118,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
-    implementation 'androidx.activity:activity-ktx:1.8.0'
+    implementation 'androidx.activity:activity-ktx:1.8.1'
     // Appcompat 1.7.0-alpha01 is required for properly changing locale below API 24 (b/243119645).
     implementation 'androidx.appcompat:appcompat:1.7.0-alpha03'
     implementation 'androidx.core:core-ktx:1.12.0'
