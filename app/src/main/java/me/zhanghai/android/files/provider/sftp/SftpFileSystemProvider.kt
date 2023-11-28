@@ -108,7 +108,7 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
     private val URI.sftpAuthority: Authority
         get() {
             val port = if (port != -1) port else Authority.DEFAULT_PORT
-            val username = userInfo ?: ""
+            val username = userInfo.orEmpty()
             return Authority(host, port, username)
         }
 

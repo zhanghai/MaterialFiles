@@ -106,7 +106,7 @@ internal class LocalArchiveFileSystem(
             if (!entry.isSymbolicLink) {
                 throw NotLinkException(link.toString())
             }
-            entry.symbolicLinkTarget ?: ""
+            entry.symbolicLinkTarget.orEmpty()
         }
 
     fun addPassword(password: String) {

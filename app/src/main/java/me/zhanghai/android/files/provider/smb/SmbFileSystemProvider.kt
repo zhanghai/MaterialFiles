@@ -107,7 +107,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
     private val URI.smbAuthority: Authority
         get() {
             val port = if (port != -1) port else Authority.DEFAULT_PORT
-            val userInfo = userInfo ?: ""
+            val userInfo = userInfo.orEmpty()
             val domainSeparatorIndex = userInfo.indexOf('\\')
             val username: String
             val domain: String?

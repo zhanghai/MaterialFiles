@@ -22,6 +22,6 @@ val Address.addressLines: Iterable<String?>
 // @see com.android.documentsui.inspector.MediaView.getAddress
 val Address.userFriendlyString: String?
     get() =
-        addressLines.joinToString("\n") { it ?: "" }.takeIfNotBlank()
+        addressLines.joinToString("\n") { it.orEmpty() }.takeIfNotBlank()
             ?: locality.takeIfNotBlank() ?: subAdminArea.takeIfNotBlank()
             ?: adminArea.takeIfNotBlank() ?: countryName.takeIfNotBlank()

@@ -16,7 +16,7 @@ data class UriAuthority(
             throw IllegalArgumentException(e)
         }
         // URI.getRawAuthority() returns null when authority is empty.
-        return uri.rawAuthority ?: ""
+        return uri.rawAuthority.orEmpty()
     }
 
     // toString() is called by UI when the URI may not be valid, so build the string manually.

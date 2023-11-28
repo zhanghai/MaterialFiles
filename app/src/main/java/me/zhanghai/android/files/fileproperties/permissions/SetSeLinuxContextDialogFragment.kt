@@ -66,7 +66,7 @@ class SetSeLinuxContextDialogFragment : AppCompatDialogFragment() {
     private val argsSeLinuxContext: String
         get() {
             val attributes = args.file.attributes as PosixFileAttributes
-            return attributes.seLinuxContext()?.toString() ?: ""
+            return attributes.seLinuxContext()?.toString().orEmpty()
         }
 
     private fun restoreSeLinuxContext() {
