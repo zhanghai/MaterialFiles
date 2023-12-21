@@ -106,7 +106,7 @@ repositories {
 dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
-    implementation 'com.github.topjohnwu.libsu:service:5.2.1'
+    implementation 'com.github.topjohnwu.libsu:service:5.2.2'
 }
 
 dependencies {
@@ -118,12 +118,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
-    implementation 'androidx.activity:activity-ktx:1.8.1'
+    implementation 'androidx.activity:activity-ktx:1.8.2'
     // Appcompat 1.7.0-alpha01 is required for properly changing locale below API 24 (b/243119645).
     implementation 'androidx.appcompat:appcompat:1.7.0-alpha03'
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.6'
+    implementation 'androidx.exifinterface:exifinterface:1.3.7'
     implementation 'androidx.fragment:fragment-ktx:1.6.2'
     def androidx_lifecycle_version = '2.6.2'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
