@@ -5,8 +5,12 @@
 
 package me.zhanghai.android.files.filelist
 
+import android.content.Context
+import android.os.SystemClock
 import android.text.TextUtils
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -41,6 +45,9 @@ import me.zhanghai.android.files.util.isMaterial3Theme
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
 import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.roundToInt
+
 
 class FileListAdapter(
     private val listener: Listener
@@ -76,6 +83,15 @@ class FileListAdapter(
         }
 
     private val selectedFiles = fileItemSetOf()
+
+    private var _startTouchPosX: Float = 0f
+    private var _startTouchPosY: Float = 0f
+    private var _isDuringClick: Boolean = false
+    private var _isMultipleSelectionStarted: Boolean = false
+    private var _isGestureHorizontal: Boolean = false
+    private var _lastPosSelected: Int = -1
+    private var _clickedLineAnchorY: Float = 0f
+    private lateinit var _threadedWaiter: Thread
 
     private val filePositionMap = mutableMapOf<Path, Int>()
 
@@ -180,6 +196,7 @@ class FileListAdapter(
         return holder.apply {
             itemLayout.apply {
                 val context = context
+
                 val isMaterial3Theme = context.isMaterial3Theme
                 if (viewType == FileViewType.GRID && isMaterial3Theme) {
                     foregroundCompat =
@@ -208,7 +225,6 @@ class FileListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         throw UnsupportedOperationException()
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
         val file = getItem(position)
         val isDirectory = file.attributes.isDirectory
@@ -234,6 +250,7 @@ class FileListAdapter(
             return
         }
         bindViewHolderAnimation(holder)
+
         holder.itemLayout.apply {
             setOnClickListener {
                 if (selectedFiles.isEmpty()) {
@@ -251,7 +268,69 @@ class FileListAdapter(
                 true
             }
         }
-        holder.iconLayout.setOnClickListener { selectFile(file) }
+        fun isClickAction(context: Context, startX: Float, startY: Float, endX: Float, endY: Float): Boolean {
+            val clickActionThreshold = ViewConfiguration.get(context).scaledTouchSlop
+            val differenceX = abs(startX - endX)
+            val differenceY = abs(startY - endY)
+            return differenceX <= clickActionThreshold && differenceY <= clickActionThreshold
+        }
+        // TODO: Check if grid view and change lineHeight accordingly
+        // TODO: Bug on change direction (last selected is always wrong)
+        holder.iconLayout.apply {
+            setOnTouchListener { view, event ->
+                val maxWaitMillisSelection = 400L
+                val lineHeight = resources.getDimension(R.dimen.two_line_list_item_height)
+                val localPosition = holder.absoluteAdapterPosition
+                val horizontalError = 7.5f
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        _startTouchPosX = event.x
+                        _startTouchPosY = event.y
+                        _isDuringClick = true
+                        _isGestureHorizontal = false
+                        _isMultipleSelectionStarted = false
+                        _lastPosSelected = localPosition
+                        _clickedLineAnchorY = view.y
+                        _threadedWaiter = Thread {
+                            SystemClock.sleep(maxWaitMillisSelection)
+                            if (!_isDuringClick || _isMultipleSelectionStarted || _isGestureHorizontal) return@Thread
+                            _isMultipleSelectionStarted = true
+                            selectFile(file)
+                        }
+                        _threadedWaiter.start()
+                        view.parent.requestDisallowInterceptTouchEvent(true)
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        val newPosition: Int = localPosition + ((event.y - _clickedLineAnchorY) / lineHeight).roundToInt()
+                        if (newPosition != _lastPosSelected && !_isGestureHorizontal) {
+                            if (!_isMultipleSelectionStarted) {
+                                _isMultipleSelectionStarted = true
+                                selectFile(file)
+                            }
+                            if (newPosition < 0) return@setOnTouchListener true
+                            selectFile(getItem(newPosition))
+                            _lastPosSelected = newPosition
+                        } else {
+                            if (_isMultipleSelectionStarted) return@setOnTouchListener true
+                            if (abs(event.x - _startTouchPosX) > horizontalError) {
+                                _isGestureHorizontal = true
+                                view.parent.requestDisallowInterceptTouchEvent(false)
+                            }
+                        }
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        if (isClickAction(context, _startTouchPosX, _startTouchPosY, event.x, event.y)) {
+                            view.performClick()
+                            _isDuringClick = false
+                            view.parent.requestDisallowInterceptTouchEvent(false)
+                        }
+                        _isMultipleSelectionStarted = false
+                    }
+                }
+                true
+            }
+            setOnClickListener { selectFile(file) }
+        }
         val iconRes = file.mimeType.iconRes
         holder.iconImage.apply {
             isVisible = true
