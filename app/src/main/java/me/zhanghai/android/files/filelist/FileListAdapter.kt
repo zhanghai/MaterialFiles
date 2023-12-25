@@ -44,6 +44,7 @@ import me.zhanghai.android.files.ui.CheckableItemBackground
 import me.zhanghai.android.files.util.isMaterial3Theme
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
+import java.util.BitSet
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -86,11 +87,15 @@ class FileListAdapter(
 
     private var _startTouchPosX: Float = 0f
     private var _startTouchPosY: Float = 0f
+    private var _isDeltaPosSet: Boolean = false
+    private var _isDeltaPosGrowing: Boolean = false
+    private var _prevDeltaPos: Int = 0
     private var _isDuringClick: Boolean = false
     private var _isMultipleSelectionStarted: Boolean = false
     private var _isGestureHorizontal: Boolean = false
     private var _lastPosSelected: Int = -1
     private var _clickedLineAnchorY: Float = 0f
+    private var _actionIdentifier: Long = 0L
     private lateinit var _threadedWaiter: Thread
 
     private val filePositionMap = mutableMapOf<Path, Int>()
@@ -275,7 +280,6 @@ class FileListAdapter(
             return differenceX <= clickActionThreshold && differenceY <= clickActionThreshold
         }
         // TODO: Check if grid view and change lineHeight accordingly
-        // TODO: Bug on change direction (last selected is always wrong)
         holder.iconLayout.apply {
             setOnTouchListener { view, event ->
                 val maxWaitMillisSelection = 400L
@@ -284,6 +288,7 @@ class FileListAdapter(
                 val horizontalError = 7.5f
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
+                        view.parent.requestDisallowInterceptTouchEvent(true)
                         _startTouchPosX = event.x
                         _startTouchPosY = event.y
                         _isDuringClick = true
@@ -291,23 +296,34 @@ class FileListAdapter(
                         _isMultipleSelectionStarted = false
                         _lastPosSelected = localPosition
                         _clickedLineAnchorY = view.y
+                        _actionIdentifier = event.eventTime
                         _threadedWaiter = Thread {
+                            val id = _actionIdentifier
                             SystemClock.sleep(maxWaitMillisSelection)
-                            if (!_isDuringClick || _isMultipleSelectionStarted || _isGestureHorizontal) return@Thread
+                            if (!_isDuringClick || _isMultipleSelectionStarted || _isGestureHorizontal || id != _actionIdentifier) return@Thread
                             _isMultipleSelectionStarted = true
                             selectFile(file)
                         }
                         _threadedWaiter.start()
-                        view.parent.requestDisallowInterceptTouchEvent(true)
                     }
                     MotionEvent.ACTION_MOVE -> {
-                        val newPosition: Int = localPosition + ((event.y - _clickedLineAnchorY) / lineHeight).roundToInt()
+                        val deltaPos = ((event.y - _clickedLineAnchorY) / lineHeight).roundToInt()
+                        val newPosition: Int = localPosition + deltaPos
                         if (newPosition != _lastPosSelected && !_isGestureHorizontal) {
                             if (!_isMultipleSelectionStarted) {
                                 _isMultipleSelectionStarted = true
                                 selectFile(file)
                             }
                             if (newPosition < 0) return@setOnTouchListener true
+                            if (!_isDeltaPosSet) {
+                                _isDeltaPosSet = true
+                                _prevDeltaPos = 0
+                                _isDeltaPosGrowing = deltaPos > 0
+                            }
+                            if ((deltaPos > _prevDeltaPos) != _isDeltaPosGrowing) {
+                                _isDeltaPosGrowing = !_isDeltaPosGrowing
+                                selectFile(getItem(_lastPosSelected))
+                            }
                             selectFile(getItem(newPosition))
                             _lastPosSelected = newPosition
                         } else {
@@ -317,14 +333,16 @@ class FileListAdapter(
                                 view.parent.requestDisallowInterceptTouchEvent(false)
                             }
                         }
+                        _prevDeltaPos = deltaPos
                     }
                     MotionEvent.ACTION_UP -> {
-                        if (isClickAction(context, _startTouchPosX, _startTouchPosY, event.x, event.y)) {
-                            view.performClick()
+                        if (!_isMultipleSelectionStarted && isClickAction(context, _startTouchPosX, _startTouchPosY, event.x, event.y)) {
                             _isDuringClick = false
+                            view.performClick()
                             view.parent.requestDisallowInterceptTouchEvent(false)
                         }
                         _isMultipleSelectionStarted = false
+                        _isDeltaPosSet = false
                     }
                 }
                 true
