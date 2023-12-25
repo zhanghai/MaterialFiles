@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.filelist
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.SystemClock
 import android.text.TextUtils
@@ -41,9 +42,11 @@ import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.ui.AnimatedListAdapter
 import me.zhanghai.android.files.ui.CheckableForegroundLinearLayout
 import me.zhanghai.android.files.ui.CheckableItemBackground
+import me.zhanghai.android.files.util.activity
 import me.zhanghai.android.files.util.isMaterial3Theme
 import me.zhanghai.android.files.util.layoutInflater
 import me.zhanghai.android.files.util.valueCompat
+import java.io.File
 import java.util.BitSet
 import java.util.Locale
 import kotlin.math.abs
@@ -85,18 +88,7 @@ class FileListAdapter(
 
     private val selectedFiles = fileItemSetOf()
 
-    private var _startTouchPosX: Float = 0f
-    private var _startTouchPosY: Float = 0f
-    private var _isDeltaPosSet: Boolean = false
-    private var _isDeltaPosGrowing: Boolean = false
-    private var _prevDeltaPos: Int = 0
-    private var _isDuringClick: Boolean = false
-    private var _isMultipleSelectionStarted: Boolean = false
-    private var _isGestureHorizontal: Boolean = false
-    private var _lastPosSelected: Int = -1
-    private var _clickedLineAnchorY: Float = 0f
-    private var _actionIdentifier: Long = 0L
-    private lateinit var _threadedWaiter: Thread
+    private val _touchData: TouchData = TouchData()
 
     private val filePositionMap = mutableMapOf<Path, Int>()
 
@@ -230,6 +222,85 @@ class FileListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         throw UnsupportedOperationException()
     }
+
+    private fun onTouchListener(context: Context, holder: ViewHolder, view: View, event: MotionEvent, file: FileItem) {
+        if (_viewType == FileViewType.GRID) return
+        val maxWaitMillisSelection = 400L
+        val lineHeight = (view.parent as CheckableForegroundLinearLayout).height
+        val localPosition = holder.absoluteAdapterPosition
+        val horizontalError = 7.5f
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                view.parent.requestDisallowInterceptTouchEvent(true)
+                _touchData.setup(
+                    pStartTouchPosX = event.x,
+                    pStartTouchPosY = event.y,
+                    pIsDuringClick = true,
+                    pIsGestureHorizontal = false,
+                    pIsMultipleSelectionStarted = false,
+                    pClickedLineAnchorY = view.y,
+                    pLastPosSelected = localPosition,
+                    pActionIdentifier = event.eventTime,
+                )
+                _touchData.threadedWaiter = Thread {
+                    val id = _touchData.actionIdentifier
+                    SystemClock.sleep(maxWaitMillisSelection)
+                    if (!_touchData.isDuringClick || _touchData.isMultipleSelectionStarted || _touchData.isGestureHorizontal || id != _touchData.actionIdentifier) return@Thread
+                    _touchData.isMultipleSelectionStarted = true
+                    selectFile(file)
+                }
+                _touchData.threadedWaiter.start()
+            }
+            MotionEvent.ACTION_MOVE -> {
+                val deltaPos = ((event.y - _touchData.clickedLineAnchorY) / lineHeight).roundToInt()
+                val newPosition: Int = localPosition + deltaPos
+                if (newPosition != _touchData.lastPosSelected && !_touchData.isGestureHorizontal) {
+                    if (!_touchData.isMultipleSelectionStarted) {
+                        _touchData.isMultipleSelectionStarted = true
+                        selectFile(file)
+                    }
+                    if (newPosition < 0) return
+                    if (!_touchData.isDeltaPosSet) {
+                        _touchData.isDeltaPosSet = true
+                        _touchData.prevDeltaPos = 0
+                        _touchData.isDeltaPosGrowing = deltaPos > 0
+                    }
+                    if ((deltaPos > _touchData.prevDeltaPos) != _touchData.isDeltaPosGrowing) {
+                        _touchData.isDeltaPosGrowing = !_touchData.isDeltaPosGrowing
+                        selectFile(getItem(_touchData.lastPosSelected))
+                    }
+                    // Handle fast user input (touch capture may be too slow -- abs(deltaPos) > 1)
+                    if (_touchData.isDeltaPosGrowing) {
+                        for (p in _touchData.lastPosSelected+1..newPosition)
+                            selectFile(getItem(p))
+                    } else {
+                        for (p in newPosition..<_touchData.lastPosSelected) {
+                            selectFile(getItem(p))
+                        }
+                    }
+                    _touchData.lastPosSelected = newPosition
+                } else {
+                    if (_touchData.isMultipleSelectionStarted) return
+                    if (abs(event.x - _touchData.startTouchPosX) > horizontalError) {
+                        _touchData.isGestureHorizontal = true
+                        view.parent.requestDisallowInterceptTouchEvent(false)
+                    }
+                }
+                _touchData.prevDeltaPos = deltaPos
+            }
+            MotionEvent.ACTION_UP -> {
+                if (!_touchData.isMultipleSelectionStarted && TouchData.isClickAction(context, _touchData.startTouchPosX, _touchData.startTouchPosY, event.x, event.y)) {
+                    _touchData.isDuringClick = false
+                    view.performClick()
+                    view.parent.requestDisallowInterceptTouchEvent(false)
+                }
+                _touchData.isMultipleSelectionStarted = false
+                _touchData.isDeltaPosSet = false
+            }
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
         val file = getItem(position)
         val isDirectory = file.attributes.isDirectory
@@ -273,78 +344,9 @@ class FileListAdapter(
                 true
             }
         }
-        fun isClickAction(context: Context, startX: Float, startY: Float, endX: Float, endY: Float): Boolean {
-            val clickActionThreshold = ViewConfiguration.get(context).scaledTouchSlop
-            val differenceX = abs(startX - endX)
-            val differenceY = abs(startY - endY)
-            return differenceX <= clickActionThreshold && differenceY <= clickActionThreshold
-        }
-        // TODO: Check if grid view and change lineHeight accordingly
         holder.iconLayout.apply {
             setOnTouchListener { view, event ->
-                val maxWaitMillisSelection = 400L
-                val lineHeight = resources.getDimension(R.dimen.two_line_list_item_height)
-                val localPosition = holder.absoluteAdapterPosition
-                val horizontalError = 7.5f
-                when (event.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        view.parent.requestDisallowInterceptTouchEvent(true)
-                        _startTouchPosX = event.x
-                        _startTouchPosY = event.y
-                        _isDuringClick = true
-                        _isGestureHorizontal = false
-                        _isMultipleSelectionStarted = false
-                        _lastPosSelected = localPosition
-                        _clickedLineAnchorY = view.y
-                        _actionIdentifier = event.eventTime
-                        _threadedWaiter = Thread {
-                            val id = _actionIdentifier
-                            SystemClock.sleep(maxWaitMillisSelection)
-                            if (!_isDuringClick || _isMultipleSelectionStarted || _isGestureHorizontal || id != _actionIdentifier) return@Thread
-                            _isMultipleSelectionStarted = true
-                            selectFile(file)
-                        }
-                        _threadedWaiter.start()
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        val deltaPos = ((event.y - _clickedLineAnchorY) / lineHeight).roundToInt()
-                        val newPosition: Int = localPosition + deltaPos
-                        if (newPosition != _lastPosSelected && !_isGestureHorizontal) {
-                            if (!_isMultipleSelectionStarted) {
-                                _isMultipleSelectionStarted = true
-                                selectFile(file)
-                            }
-                            if (newPosition < 0) return@setOnTouchListener true
-                            if (!_isDeltaPosSet) {
-                                _isDeltaPosSet = true
-                                _prevDeltaPos = 0
-                                _isDeltaPosGrowing = deltaPos > 0
-                            }
-                            if ((deltaPos > _prevDeltaPos) != _isDeltaPosGrowing) {
-                                _isDeltaPosGrowing = !_isDeltaPosGrowing
-                                selectFile(getItem(_lastPosSelected))
-                            }
-                            selectFile(getItem(newPosition))
-                            _lastPosSelected = newPosition
-                        } else {
-                            if (_isMultipleSelectionStarted) return@setOnTouchListener true
-                            if (abs(event.x - _startTouchPosX) > horizontalError) {
-                                _isGestureHorizontal = true
-                                view.parent.requestDisallowInterceptTouchEvent(false)
-                            }
-                        }
-                        _prevDeltaPos = deltaPos
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        if (!_isMultipleSelectionStarted && isClickAction(context, _startTouchPosX, _startTouchPosY, event.x, event.y)) {
-                            _isDuringClick = false
-                            view.performClick()
-                            view.parent.requestDisallowInterceptTouchEvent(false)
-                        }
-                        _isMultipleSelectionStarted = false
-                        _isDeltaPosSet = false
-                    }
-                }
+                onTouchListener(context, holder, view, event, file)
                 true
             }
             setOnClickListener { selectFile(file) }
@@ -579,5 +581,48 @@ class FileListAdapter(
         fun addBookmark(file: FileItem)
         fun createShortcut(file: FileItem)
         fun showPropertiesDialog(file: FileItem)
+    }
+}
+
+private data class TouchData(
+    var startTouchPosX: Float = 0f,
+    var startTouchPosY: Float = 0f,
+    var isDeltaPosSet: Boolean = false,
+    var isDeltaPosGrowing: Boolean = false,
+    var prevDeltaPos: Int = 0,
+    var isDuringClick: Boolean = false,
+    var isMultipleSelectionStarted: Boolean = false,
+    var isGestureHorizontal: Boolean = false,
+    var lastPosSelected: Int = -1,
+    var clickedLineAnchorY: Float = 0f,
+    var actionIdentifier: Long = 0L
+) {
+    lateinit var threadedWaiter: Thread
+
+    fun setup(pStartTouchPosX: Float,
+              pStartTouchPosY: Float,
+              pIsDuringClick: Boolean,
+              pIsGestureHorizontal: Boolean,
+              pIsMultipleSelectionStarted: Boolean,
+              pClickedLineAnchorY: Float,
+              pLastPosSelected: Int,
+              pActionIdentifier: Long) {
+        startTouchPosX = pStartTouchPosX
+        startTouchPosY = pStartTouchPosY
+        isDuringClick = pIsDuringClick
+        isGestureHorizontal = pIsGestureHorizontal
+        isMultipleSelectionStarted = pIsMultipleSelectionStarted
+        clickedLineAnchorY = pClickedLineAnchorY
+        lastPosSelected = pLastPosSelected
+        actionIdentifier = pActionIdentifier
+    }
+
+    companion object {
+        fun isClickAction(context: Context, startX: Float, startY: Float, endX: Float, endY: Float): Boolean {
+            val clickActionThreshold = ViewConfiguration.get(context).scaledTouchSlop
+            val differenceX = abs(startX - endX)
+            val differenceY = abs(startY - endY)
+            return differenceX <= clickActionThreshold && differenceY <= clickActionThreshold
+        }
     }
 }
