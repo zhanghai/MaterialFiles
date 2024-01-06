@@ -21,27 +21,27 @@ import java.util.concurrent.Executor
 
 val appClassLoader = AppProvider::class.java.classLoader
 
+val clipboardManager: ClipboardManager by lazy {
+    application.getSystemServiceCompat(ClipboardManager::class.java)
+}
+
 val contentResolver: ContentResolver by lazy { application.contentResolver }
 
 val defaultSharedPreferences: SharedPreferences by lazy {
     PreferenceManager.getDefaultSharedPreferences(application)
 }
 
-val mainExecutor: Executor by lazy { application.mainExecutorCompat }
-
-val packageManager: PackageManager by lazy { application.packageManager }
-
-val clipboardManager: ClipboardManager by lazy {
-    application.getSystemServiceCompat(ClipboardManager::class.java)
-}
-
 val inputMethodManager: InputMethodManager by lazy {
     application.getSystemServiceCompat(InputMethodManager::class.java)
 }
 
+val mainExecutor: Executor by lazy { application.mainExecutorCompat }
+
 val notificationManager: NotificationManagerCompat by lazy {
     NotificationManagerCompat.from(application)
 }
+
+val packageManager: PackageManager by lazy { application.packageManager }
 
 val powerManager: PowerManager by lazy {
     application.getSystemServiceCompat(PowerManager::class.java)
