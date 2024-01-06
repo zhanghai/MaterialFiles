@@ -14,9 +14,9 @@ enum class Protocol(val scheme: String, val defaultPort: Int, val createClient: 
     FTPES("ftpes", FTPClient.DEFAULT_PORT, { FTPSClient(false) });
 
     companion object {
-        val SCHEMES = values().map { it.scheme }
+        val SCHEMES = entries.map { it.scheme }
 
         fun fromScheme(scheme: String): Protocol =
-            values().firstOrNull() { it.scheme == scheme } ?: throw IllegalArgumentException(scheme)
+            entries.firstOrNull { it.scheme == scheme } ?: throw IllegalArgumentException(scheme)
     }
 }
