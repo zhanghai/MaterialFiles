@@ -34,7 +34,7 @@ An open source Material Design file manager, for Android 5.0+.
 
 Because I like Material Design, and clean Material Design.
 
-There are already a handful of powerful file managers, but most of them just isn't Material Design. And even among the ones with Material Design, they usually have various minor design flaws (layout, alignment, padding, icon, font, etc) across the app which makes me uncomfortable, while still being minor enough so that not everybody would care to fix it. So I had to create my own.
+There are already a handful of powerful file managers, but most of them just aren't Material Design. And even among the ones with Material Design, they usually have various minor design flaws (layout, alignment, padding, icon, font, etc) across the app which makes me uncomfortable, while still being minor enough so that not everybody would care to fix it. So I had to create my own.
 
 Because I want an open source file manager.
 
