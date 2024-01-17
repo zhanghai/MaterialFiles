@@ -218,7 +218,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     binding.appBarLayout.totalScrollRange + verticalOffset
             )
         }
-        binding.appBarLayout.syncBackgroundElevationTo(binding.overlayToolbar)
+        binding.appBarLayout.syncBackgroundColorTo(binding.overlayToolbar)
         binding.breadcrumbLayout.setListener(this)
         if (!(activity.hasSw600Dp && activity.isOrientationLandscape)) {
             binding.swipeRefreshLayout.setProgressViewEndTarget(
