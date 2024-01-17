@@ -71,7 +71,7 @@ class FileByteChannel(
                 position = getSize()
             }
             return try {
-                file.write(ByteBufferChunkProvider(source, position))
+                file.write(ByteBufferChunkProvider(source, position)).toInt()
             } catch (e: SMBRuntimeException) {
                 throw e.toIOException()
             }.also {

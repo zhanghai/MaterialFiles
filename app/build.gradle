@@ -144,22 +144,20 @@ dependencies {
     //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation ('com.hierynomus:smbj:0.11.5') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    implementation ('com.hierynomus:smbj:0.13.0') {
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
+    // SSHJ 0.36.0 requires Java 8.
+    //noinspection GradleDependency
     implementation ('com.hierynomus:sshj:0.35.0') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
     implementation 'com.leinardi.android:speed-dial:3.3.0'
     implementation ('com.rapid7.client:dcerpc:0.12.0') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+        // This comes from the dependency on SMBJ.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
     // SMBJ-RPC depends on com.google.guava:guava:18.0, which conflicts with
     // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
