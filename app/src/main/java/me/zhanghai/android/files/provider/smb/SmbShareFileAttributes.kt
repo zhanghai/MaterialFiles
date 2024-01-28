@@ -11,10 +11,10 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.provider.common.AbstractBasicFileAttributes
 import me.zhanghai.android.files.provider.common.BasicFileType
+import me.zhanghai.android.files.provider.common.EPOCH
 import me.zhanghai.android.files.provider.common.FileTimeParceler
 import me.zhanghai.android.files.provider.smb.client.ShareInformation
 import me.zhanghai.android.files.provider.smb.client.ShareType
-import org.threeten.bp.Instant
 
 @Parcelize
 internal class SmbShareFileAttributes(
@@ -36,7 +36,7 @@ internal class SmbShareFileAttributes(
 
     companion object {
         fun from(shareInformation: ShareInformation, path: SmbPath): SmbShareFileAttributes {
-            val lastModifiedTime = FileTime.from(Instant.EPOCH)
+            val lastModifiedTime = FileTime::class.EPOCH
             val lastAccessTime = lastModifiedTime
             val creationTime = lastModifiedTime
             val type = when (shareInformation.type) {

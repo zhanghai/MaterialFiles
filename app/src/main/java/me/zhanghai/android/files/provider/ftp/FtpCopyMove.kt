@@ -105,7 +105,7 @@ internal object FtpCopyMove {
             val timestamp = sourceFile.timestamp
             if (timestamp != null) {
                 try {
-                    Client.setLastModifiedTime(target, sourceFile.timestamp.toInstantCompat())
+                    Client.setLastModifiedTime(target, timestamp.toInstantCompat())
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

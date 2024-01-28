@@ -11,8 +11,8 @@ import java8.nio.file.attribute.FileTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.provider.common.AbstractContentProviderFileAttributes
+import me.zhanghai.android.files.provider.common.EPOCH
 import me.zhanghai.android.files.provider.common.FileTimeParceler
-import org.threeten.bp.Instant
 
 @Parcelize
 internal class ContentFileAttributes(
@@ -23,7 +23,7 @@ internal class ContentFileAttributes(
 ) : AbstractContentProviderFileAttributes() {
     companion object {
         fun from(mimeType: String?, size: Long, uri: Uri): ContentFileAttributes {
-            val lastModifiedTime = FileTime.from(Instant.EPOCH)
+            val lastModifiedTime = FileTime::class.EPOCH
             val fileKey = uri
             return ContentFileAttributes(lastModifiedTime, mimeType, size, fileKey)
         }
