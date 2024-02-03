@@ -4,6 +4,7 @@ set -e
 LOCALES=(
     ar
     bg
+    ca
     cs
     de
     el
