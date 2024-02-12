@@ -140,13 +140,13 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
             } catch (e: IOException) {
                 throw e.toFileSystemExceptionForFtp(file.toString())
             }
+            if (openOptions.createNew && fileFile != null) {
+                throw FileAlreadyExistsException(file.toString())
+            }
             if (openOptions.noFollowLinks && fileFile != null && fileFile.isSymbolicLink) {
                 throw FileSystemException(
                     file.toString(), null, "File is a symbolic link: $fileFile"
                 )
-            }
-            if (openOptions.createNew && fileFile != null) {
-                throw FileAlreadyExistsException(file.toString())
             }
             if ((openOptions.create || openOptions.createNew) && fileFile == null) {
                 try {
@@ -220,6 +220,32 @@ object FtpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
         openOptions.checkForFtp()
         if (openOptions.write && !openOptions.truncateExisting) {
             throw UnsupportedOperationException("Missing ${StandardOpenOption.TRUNCATE_EXISTING}")
+        }
+        if (openOptions.write || openOptions.create || openOptions.createNew ||
+            openOptions.noFollowLinks) {
+            val fileFile = try {
+                Client.listFileOrNull(file, true)
+            } catch (e: IOException) {
+                throw e.toFileSystemExceptionForFtp(file.toString())
+            }
+            if (openOptions.createNew && fileFile != null) {
+                throw FileAlreadyExistsException(file.toString())
+            }
+            if (openOptions.noFollowLinks && fileFile != null && fileFile.isSymbolicLink) {
+                throw FileSystemException(
+                    file.toString(), null, "File is a symbolic link: $fileFile"
+                )
+            }
+            if (fileFile == null) {
+                if (!(openOptions.create || openOptions.createNew)) {
+                    throw NoSuchFileException(file.toString())
+                }
+                try {
+                    Client.createFile(file)
+                } catch (e: IOException) {
+                    throw e.toFileSystemExceptionForFtp(file.toString())
+                }
+            }
         }
         if (attributes.isNotEmpty()) {
             throw UnsupportedOperationException(attributes.contentToString())
