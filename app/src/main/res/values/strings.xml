@@ -727,6 +727,8 @@
     <string name="ftp_server_username_title">Username</string>
     <string name="ftp_server_password_title">Password</string>
     <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_custom_data_port_title">Using custom passive data ports</string>
+    <string name="ftp_server_data_port_title">Data Port Range</string>
     <string name="ftp_server_home_directory_title">Root folder</string>
     <string name="ftp_server_writable_title">Allow writing</string>
     <string name="ftp_server_notification_title" translatable="false">@string/ftp_server_title</string>

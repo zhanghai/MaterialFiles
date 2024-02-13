@@ -581,6 +581,8 @@
     <string name="ftp_server_username_title">用户名</string>
     <string name="ftp_server_password_title">密码</string>
     <string name="ftp_server_port_title">端口</string>
+    <string name="ftp_server_custom_data_port_title">自定义被动模式数据端口范围</string>
+    <string name="ftp_server_data_port_title">数据端口范围</string>
     <string name="ftp_server_home_directory_title">根文件夹</string>
     <string name="ftp_server_writable_title">允许写入</string>
 

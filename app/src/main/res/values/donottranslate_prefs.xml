@@ -29,6 +29,10 @@
     <string name="pref_key_ftp_server_password">key_ftp_server_password</string>
     <string name="pref_key_ftp_server_port">key_ftp_server_port</string>
     <integer name="pref_default_value_ftp_server_port">2121</integer>
+    <string name="pref_key_ftp_server_custom_data_port">key_ftp_server_custom_data_port</string>
+    <bool name="pref_default_value_ftp_server_custom_data_port">false</bool>
+    <string name="pref_key_ftp_server_data_port">key_ftp_server_data_port</string>
+    <string name="pref_default_value_ftp_server_data_port">1024-65535</string>
     <string name="pref_key_ftp_server_home_directory">key_ftp_server_home_directory</string>
     <string name="pref_key_ftp_server_writable">key_ftp_server_writable</string>
     <bool name="pref_default_value_ftp_server_writable">true</bool>
