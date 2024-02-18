@@ -16,7 +16,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.0'
+        classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
     }
 }
@@ -28,7 +28,7 @@ android {
     namespace 'me.zhanghai.android.files'
     buildToolsVersion = '34.0.0'
     compileSdk 34
-    ndkVersion '26.1.10909125'
+    ndkVersion '26.2.11394342'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdk 21
@@ -114,7 +114,7 @@ dependencies {
 
     // kotlinx-coroutines-android depends on kotlin-stdlib-jdk8
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    def kotlinx_coroutines_version = '1.7.3'
+    def kotlinx_coroutines_version = '1.8.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
@@ -154,13 +154,15 @@ dependencies {
     }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
     implementation 'com.leinardi.android:speed-dial:3.3.0'
-    implementation ('com.rapid7.client:dcerpc:0.12.0') {
+    implementation ('com.rapid7.client:dcerpc:0.12.1') {
+        // SMBJ-RPC depends on the JRE flavor of Guava which targets Java 8.
+        exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
         // This comes from the dependency on SMBJ.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
-    // SMBJ-RPC depends on com.google.guava:guava:18.0, which conflicts with
-    // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
+    implementation 'com.google.guava:guava:33.0.0-android'
+    // Guava conflicts with com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // Commons Net 3.9.0 started using java.time.Duration in FTPClient.
@@ -204,7 +206,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    implementation platform('com.google.firebase:firebase-bom:32.7.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif
