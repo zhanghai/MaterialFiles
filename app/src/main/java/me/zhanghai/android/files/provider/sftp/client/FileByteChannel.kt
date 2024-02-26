@@ -62,7 +62,10 @@ class FileByteChannel(
     override fun onWrite(position: Long, source: ByteBuffer) {
         // I don't think we are using native or read-only ByteBuffer, so just call array() here.
         try {
-            file.write(position, source.array(), source.position(), source.remaining())
+            file.write(
+                position, source.array(), source.arrayOffset() + source.position(),
+                source.remaining()
+            )
         } catch (e: IOException) {
             throw e.maybeToSpecificException()
         }

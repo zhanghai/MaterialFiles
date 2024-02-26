@@ -30,7 +30,9 @@ class FileByteChannel(
             val inputStream = client.retrieveFileStream(path)
                 ?: client.throwNegativeReplyCodeException()
             try {
-                val limit = inputStream.use { it.readFully(destination.array(), 0, size) }
+                val limit = inputStream.use {
+                    it.readFully(destination.array(), destination.arrayOffset(), size)
+                }
                 destination.limit(limit)
             } finally {
                 // We will likely close the input stream before the file is fully
