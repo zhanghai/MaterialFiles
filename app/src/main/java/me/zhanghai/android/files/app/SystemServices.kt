@@ -17,6 +17,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
 import me.zhanghai.android.files.compat.getSystemServiceCompat
 import me.zhanghai.android.files.compat.mainExecutorCompat
+import okhttp3.OkHttpClient
 import java.util.concurrent.Executor
 
 val appClassLoader = AppProvider::class.java.classLoader
@@ -30,6 +31,8 @@ val contentResolver: ContentResolver by lazy { application.contentResolver }
 val defaultSharedPreferences: SharedPreferences by lazy {
     PreferenceManager.getDefaultSharedPreferences(application)
 }
+
+val okHttpClient: OkHttpClient by lazy { OkHttpClient() }
 
 val inputMethodManager: InputMethodManager by lazy {
     application.getSystemServiceCompat(InputMethodManager::class.java)

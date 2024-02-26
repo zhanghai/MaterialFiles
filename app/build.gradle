@@ -104,6 +104,9 @@ repositories {
     }
 }
 dependencies {
+    // TODO: Remove DavResource.moveCompat once https://github.com/bitfireAT/dav4jvm/issues/39 is
+    //  fixed.
+    implementation 'com.github.bitfireAT:dav4jvm:2.2.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
     implementation 'com.github.topjohnwu.libsu:service:5.2.2'
