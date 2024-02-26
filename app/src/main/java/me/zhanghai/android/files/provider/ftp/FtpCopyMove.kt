@@ -79,7 +79,7 @@ internal object FtpCopyMove {
                         try {
                             targetOutputStream.close()
                         } catch (e: IOException) {
-                            throw IOException(e).toFileSystemExceptionForFtp(target.toString())
+                            throw e.toFileSystemExceptionForFtp(target.toString())
                         } finally {
                             if (!successful) {
                                 try {
@@ -94,7 +94,7 @@ internal object FtpCopyMove {
                     try {
                         sourceInputStream.close()
                     } catch (e: IOException) {
-                        throw IOException(e).toFileSystemExceptionForFtp(source.toString())
+                        throw e.toFileSystemExceptionForFtp(source.toString())
                     }
                 }
             }
