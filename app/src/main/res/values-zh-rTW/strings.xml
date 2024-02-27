@@ -399,6 +399,7 @@
     <string name="storage_add_storage_ftp_server">FTP 伺服器</string>
     <string name="storage_add_storage_sftp_server">SFTP 伺服器</string>
     <string name="storage_add_storage_smb_server">SMB 伺服器</string>
+    <string name="storage_add_storage_webdav_server">WebDAV 伺服器</string>
     <string name="storage_edit_device_storage_title">編輯裝置儲存空間</string>
     <string name="storage_edit_device_storage_name">名稱</string>
     <string name="storage_edit_device_storage_path">路徑</string>
@@ -492,6 +493,31 @@
     <string name="storage_edit_smb_server_domain">網域</string>
     <string name="storage_edit_smb_server_connect_and_add">連線並新增</string>
     <string name="storage_edit_smb_server_add">新增</string>
+    <string name="storage_edit_webdav_server_title_edit">編輯 WebDAV 伺服器</string>
+    <string name="storage_edit_webdav_server_title_add">新增 WebDAV 伺服器</string>
+    <string name="storage_edit_webdav_server_host">主機名稱</string>
+    <string name="storage_edit_webdav_server_host_error_empty">輸入主機名稱</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">無效的主機名稱</string>
+    <string name="storage_edit_webdav_server_port">連接埠</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">無效的連接埠</string>
+    <string name="storage_edit_webdav_server_path">路徑</string>
+    <string name="storage_edit_webdav_server_path_placeholder">可留空</string>
+    <string name="storage_edit_webdav_server_name">名稱</string>
+    <string name="storage_edit_webdav_server_name_placeholder">使用主機名稱</string>
+    <string name="storage_edit_webdav_server_protocol">通訊協定</string>
+    <string name="storage_edit_webdav_server_authentication_type">驗證</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>密碼</item>
+        <item>存取權杖</item>
+        <item>無</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">使用者名稱</string>
+    <string name="storage_edit_webdav_server_username_error_empty">輸入使用者名稱</string>
+    <string name="storage_edit_webdav_server_password">密碼</string>
+    <string name="storage_edit_webdav_server_access_token">存取權杖</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">輸入存取權杖</string>
+    <string name="storage_edit_webdav_server_connect_and_add">連線並新增</string>
+    <string name="storage_edit_webdav_server_add">新增</string>
 
     <string name="navigation_storage_subtitle_format">共 %2$s，剩餘 %1$s</string>
     <string name="navigation_add_storage">新增儲存…</string>

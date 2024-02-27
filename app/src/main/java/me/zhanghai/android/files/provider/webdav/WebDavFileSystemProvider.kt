@@ -110,7 +110,8 @@ object WebDavFileSystemProvider : FileSystemProvider(), PathObservableProvider, 
         get() {
             val protocol = Protocol.fromScheme(scheme)
             val port = if (port != -1) port else protocol.defaultPort
-            return Authority(protocol, host, port, userInfo)
+            val username = userInfo.orEmpty()
+            return Authority(protocol, host, port, username)
         }
 
     @Throws(IOException::class)

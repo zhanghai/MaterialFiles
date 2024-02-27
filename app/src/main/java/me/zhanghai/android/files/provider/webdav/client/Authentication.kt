@@ -40,7 +40,7 @@ data class PasswordAuthentication(
     override fun createAuthenticatorInterceptor(authority: Authority): AuthenticatorInterceptor =
         object : AuthenticatorInterceptor {
             private val basicDigestAuthHandler = BasicDigestAuthHandler(
-                UrlUtils.hostToDomain(authority.host), authority.username!!, password
+                UrlUtils.hostToDomain(authority.host), authority.username, password
             )
 
             override fun authenticate(route: Route?, response: Response): Request? =

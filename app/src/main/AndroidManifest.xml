@@ -218,6 +218,11 @@
             android:theme="@style/Theme.MaterialFiles" />
 
         <activity
+            android:name="me.zhanghai.android.files.storage.EditWebDavServerActivity"
+            android:label="@string/storage_edit_webdav_server_title_edit"
+            android:theme="@style/Theme.MaterialFiles" />
+
+        <activity
             android:name="me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity"
             android:label="@string/navigation_edit_bookmark_directory_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />

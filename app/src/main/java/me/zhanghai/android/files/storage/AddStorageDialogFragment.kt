@@ -64,7 +64,11 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
                 EditFtpServerActivity::class.createIntent().putArgs(EditFtpServerFragment.Args()),
             R.string.storage_add_storage_sftp_server to
                 EditSftpServerActivity::class.createIntent().putArgs(EditSftpServerFragment.Args()),
-            R.string.storage_add_storage_smb_server to AddLanSmbServerActivity::class.createIntent()
+            R.string.storage_add_storage_smb_server to
+                AddLanSmbServerActivity::class.createIntent(),
+            R.string.storage_add_storage_webdav_server to
+                EditWebDavServerActivity::class.createIntent()
+                    .putArgs(EditWebDavServerFragment.Args()),
         )
     }
 }
