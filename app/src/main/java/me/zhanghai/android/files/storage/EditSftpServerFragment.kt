@@ -147,9 +147,8 @@ class EditSftpServerFragment : Fragment() {
                 if (authority.port != Authority.DEFAULT_PORT) {
                     binding.portEdit.setText(authority.port.toString())
                 }
-                val authentication = server.authentication
                 binding.usernameEdit.setText(authority.username)
-                when (authentication) {
+                when (val authentication = server.authentication) {
                     is PasswordAuthentication -> {
                         authenticationType = AuthenticationType.PASSWORD
                         binding.passwordEdit.setText(authentication.password)
@@ -315,7 +314,7 @@ class EditSftpServerFragment : Fragment() {
         val authentication = when (authenticationType) {
             AuthenticationType.PASSWORD -> {
                 val password = binding.passwordEdit.text.toString()
-                if (errorEdit == null) PasswordAuthentication(password) else null
+                PasswordAuthentication(password)
             }
             AuthenticationType.PUBLIC_KEY -> {
                 val privateKey = binding.privateKeyEdit.text.toString().takeIfNotEmpty()
