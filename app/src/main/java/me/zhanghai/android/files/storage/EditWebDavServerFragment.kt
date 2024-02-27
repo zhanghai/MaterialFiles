@@ -149,6 +149,7 @@ class EditWebDavServerFragment : Fragment() {
                 when (val authentication = server.authentication) {
                     is PasswordAuthentication -> {
                         authenticationType = AuthenticationType.PASSWORD
+                        binding.usernameEdit.setText(authority.username)
                         binding.passwordEdit.setText(authentication.password)
                     }
                     is AccessTokenAuthentication -> {
