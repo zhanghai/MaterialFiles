@@ -15,8 +15,8 @@ import me.zhanghai.android.files.provider.common.PosixUser
 import me.zhanghai.android.files.provider.common.toInt
 import me.zhanghai.android.files.provider.linux.syscall.Constants
 import me.zhanghai.android.files.provider.linux.syscall.StructTimespec
-import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.provider.linux.syscall.Syscall
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import java.io.IOException
 
 internal class LocalLinuxFileAttributeView(
