@@ -11,6 +11,9 @@
         <item name="android:forceDarkAllowed">false</item>
 
         <item name="colorPrimaryDark">@android:color/transparent</item>
+
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
     </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V29.Theme.MaterialFiles" />
 
@@ -18,6 +21,9 @@
         <item name="android:forceDarkAllowed">false</item>
 
         <item name="colorPrimaryDark">@android:color/transparent</item>
+
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V29.Theme.MaterialFiles.Immersive" />
 </resources>
