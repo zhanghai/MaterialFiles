@@ -15,7 +15,6 @@ import me.zhanghai.android.files.provider.common.DelegateOutputStream
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Headers
-import okhttp3.HttpUrl
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.Request
@@ -32,15 +31,7 @@ import java.util.concurrent.CountDownLatch
 
 @Throws(DavException::class, IOException::class)
 fun DavResource.getCompat(accept: String, headers: Headers?): InputStream =
-    followRedirects {
-        val request = Request.Builder().get().url(location)
-        if (headers != null) {
-            request.headers(headers)
-        }
-        // always Accept header
-        request.header("Accept", accept)
-        httpClient.newCall(request.build()).execute()
-    }.also { checkStatus(it) }.body!!.byteStream()
+    get(accept, headers).also { checkStatus(it) }.body!!.byteStream()
 
 @Throws(DavException::class, IOException::class)
 fun DavResource.getRangeCompat(
@@ -134,16 +125,6 @@ fun DavResource.getPatchSupport(): PatchSupport {
         }
     }
     return patchSupport
-}
-
-// https://github.com/bitfireAT/dav4jvm/issues/39
-@Throws(DavException::class, IOException::class)
-fun DavResource.moveCompat(
-    destination: HttpUrl,
-    forceOverride: Boolean,
-    callback: ResponseCallback
-) {
-    move(destination, !forceOverride, callback)
 }
 
 // https://sabre.io/dav/http-patch/

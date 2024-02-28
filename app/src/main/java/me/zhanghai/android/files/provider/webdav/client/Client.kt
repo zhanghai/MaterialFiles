@@ -18,10 +18,10 @@ import at.bitfire.dav4jvm.exception.NotFoundException
 import at.bitfire.dav4jvm.exception.PreconditionFailedException
 import at.bitfire.dav4jvm.exception.ServiceUnavailableException
 import at.bitfire.dav4jvm.exception.UnauthorizedException
-import at.bitfire.dav4jvm.property.CreationDate
-import at.bitfire.dav4jvm.property.GetContentLength
-import at.bitfire.dav4jvm.property.GetLastModified
-import at.bitfire.dav4jvm.property.ResourceType
+import at.bitfire.dav4jvm.property.webdav.CreationDate
+import at.bitfire.dav4jvm.property.webdav.GetContentLength
+import at.bitfire.dav4jvm.property.webdav.GetLastModified
+import at.bitfire.dav4jvm.property.webdav.ResourceType
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.app.okHttpClient
 import me.zhanghai.android.files.compat.toDateCompat
@@ -116,7 +116,7 @@ object Client {
             throw IOException("Paths aren't on the same authority")
         }
         try {
-            DavResource(getClient(source.authority), source.url).moveCompat(target.url, false) {}
+            DavResource(getClient(source.authority), source.url).move(target.url, false) {}
         } catch (e: IOException) {
             throw e.toDavException()
         }

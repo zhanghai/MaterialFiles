@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.provider.webdav.client
 
 import at.bitfire.dav4jvm.DavResource
-import at.bitfire.dav4jvm.property.GetContentLength
+import at.bitfire.dav4jvm.property.webdav.GetContentLength
 import me.zhanghai.android.files.provider.common.AbstractFileByteChannel
 import me.zhanghai.android.files.provider.common.readFully
 import okhttp3.RequestBody.Companion.toRequestBody
