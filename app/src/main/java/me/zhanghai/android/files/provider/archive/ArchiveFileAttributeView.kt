@@ -1,37 +1,60 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
 package me.zhanghai.android.files.provider.archive
 
-import android.os.Parcel
-import android.os.Parcelable
-import me.zhanghai.android.files.provider.root.RootablePosixFileAttributeView
-import me.zhanghai.android.files.util.readParcelable
+import java8.nio.file.Path
+import java8.nio.file.attribute.FileTime
+import me.zhanghai.android.files.provider.common.ByteString
+import me.zhanghai.android.files.provider.common.PosixFileAttributeView
+import me.zhanghai.android.files.provider.common.PosixFileModeBit
+import me.zhanghai.android.files.provider.common.PosixGroup
+import me.zhanghai.android.files.provider.common.PosixUser
+import java.io.IOException
 
-internal class ArchiveFileAttributeView(
-    private val path: ArchivePath
-) : RootablePosixFileAttributeView(
-    path, LocalArchiveFileAttributeView(path), { RootArchiveFileAttributeView(it, path) }
-) {
-    private constructor(source: Parcel) : this(source.readParcelable<ArchivePath>()!!)
+internal class ArchiveFileAttributeView(private val path: Path) : PosixFileAttributeView {
+    override fun name(): String = NAME
 
-    override fun describeContents(): Int = 0
+    @Throws(IOException::class)
+    override fun readAttributes(): ArchiveFileAttributes {
+        val fileSystem = path.fileSystem as ArchiveFileSystem
+        val entry = fileSystem.getEntry(path)
+        return ArchiveFileAttributes.from(fileSystem.archiveFile, entry)
+    }
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeParcelable(path as Parcelable, flags)
+    override fun setTimes(
+        lastModifiedTime: FileTime?,
+        lastAccessTime: FileTime?,
+        createTime: FileTime?
+    ) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun setOwner(owner: PosixUser) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun setGroup(group: PosixGroup) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun setMode(mode: Set<PosixFileModeBit>) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun setSeLinuxContext(context: ByteString) {
+        throw UnsupportedOperationException()
+    }
+
+    override fun restoreSeLinuxContext() {
+        throw UnsupportedOperationException()
     }
 
     companion object {
-        val SUPPORTED_NAMES = LocalArchiveFileAttributeView.SUPPORTED_NAMES
+        private val NAME = ArchiveFileSystemProvider.scheme
 
-        @JvmField
-        val CREATOR = object : Parcelable.Creator<ArchiveFileAttributeView> {
-            override fun createFromParcel(source: Parcel): ArchiveFileAttributeView =
-                ArchiveFileAttributeView(source)
-
-            override fun newArray(size: Int): Array<ArchiveFileAttributeView?> = arrayOfNulls(size)
-        }
+        val SUPPORTED_NAMES = setOf("basic", "posix", NAME)
     }
 }
