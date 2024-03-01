@@ -106,7 +106,6 @@ repositories {
 dependencies {
     implementation 'com.github.zhanghai:dav4jvm:59aa867'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
     implementation 'com.github.topjohnwu.libsu:service:5.2.2'
 }
 
@@ -140,9 +139,6 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.drakeet.drawer:drawer:1.0.3'
-    debugImplementation 'com.facebook.stetho:stetho:1.6.0'
-    // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
-    //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
     implementation ('com.hierynomus:smbj:0.13.0') {

@@ -8,7 +8,6 @@ package me.zhanghai.android.files.app
 import android.os.AsyncTask
 import android.os.Build
 import android.webkit.WebView
-import com.facebook.stetho.Stetho
 import com.jakewharton.threetenabp.AndroidThreeTen
 import jcifs.context.SingletonContext
 import me.zhanghai.android.files.BuildConfig
@@ -33,9 +32,9 @@ import me.zhanghai.android.files.provider.webdav.client.Client as WebDavClient
 
 val appInitializers = listOf(
     ::initializeCrashlytics, ::disableHiddenApiChecks, ::initializeThreeTen,
-    ::initializeWebViewDebugging, ::initializeStetho, ::initializeCoil,
-    ::initializeFileSystemProviders, ::upgradeApp, ::initializeLiveDataObjects,
-    ::initializeCustomTheme, ::initializeNightMode, ::createNotificationChannels
+    ::initializeWebViewDebugging, ::initializeCoil, ::initializeFileSystemProviders, ::upgradeApp,
+    ::initializeLiveDataObjects, ::initializeCustomTheme, ::initializeNightMode,
+    ::createNotificationChannels
 )
 
 private fun initializeCrashlytics() {
@@ -56,10 +55,6 @@ private fun initializeWebViewDebugging() {
     if (BuildConfig.DEBUG) {
         WebView.setWebContentsDebuggingEnabled(true)
     }
-}
-
-private fun initializeStetho() {
-    Stetho.initializeWithDefaults(application)
 }
 
 private fun initializeFileSystemProviders() {
