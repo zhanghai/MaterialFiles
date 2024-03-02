@@ -6,8 +6,10 @@
 package me.zhanghai.android.files.provider.webdav.client
 
 import at.bitfire.dav4jvm.DavResource
+import at.bitfire.dav4jvm.exception.HttpException
 import at.bitfire.dav4jvm.property.webdav.GetContentLength
 import me.zhanghai.android.files.provider.common.AbstractFileByteChannel
+import me.zhanghai.android.files.provider.common.EMPTY
 import me.zhanghai.android.files.provider.common.readFully
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.IOException
@@ -25,8 +27,16 @@ class FileByteChannel(
 
     @Throws(IOException::class)
     override fun onRead(position: Long, size: Int): ByteBuffer {
+        val inputStream = try {
+            resource.getRangeCompat("*/*", position, size, null)
+        } catch (e: HttpException) {
+            if (e.code == HTTP_RANGE_NOT_SATISFIABLE) {
+                // We were reading at/past end of file
+                return ByteBuffer::class.EMPTY
+            }
+            throw e
+        }
         val destination = ByteBuffer.allocate(size)
-        val inputStream = resource.getRangeCompat("*/*", position, size, null)
         val limit = inputStream.use {
             it.readFully(destination.array(), destination.arrayOffset(), size)
         }
@@ -78,5 +88,9 @@ class FileByteChannel(
     @Throws(IOException::class)
     override fun onClose() {
         sequentialWriteOutputStream?.close()
+    }
+
+    companion object {
+        private const val HTTP_RANGE_NOT_SATISFIABLE = 416
     }
 }
