@@ -765,7 +765,7 @@
         <item>View contents</item>
         <item>Ask what to do</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Show thumbnail for PDF files</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Show thumbnail for PDF documents</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Might make the app unstable on older versions of Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Read remote files for thumbnail</string>
 

@@ -617,7 +617,7 @@
         <item>查看内容</item>
         <item>询问操作</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">显示 PDF 文件缩略图</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">显示 PDF 文档缩略图</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">可能导致应用在旧版 Android 上不稳定</string>
     <string name="settings_read_remote_files_for_thumbnail_title">读取远程文件以显示缩略图</string>
 
