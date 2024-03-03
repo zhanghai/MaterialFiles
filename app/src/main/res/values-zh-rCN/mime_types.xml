@@ -20,7 +20,7 @@
     <string name="file_type_name_email">%1$s 电子邮件</string>
     <string name="file_type_name_font">%1$s 字体</string>
     <string name="file_type_name_generic">%1$s 文件</string>
-    <string name="file_type_name_image">%1$s 图像</string>
+    <string name="file_type_name_image">%1$s 图片</string>
     <string name="file_type_name_pdf">PDF 文档</string>
     <string name="file_type_name_presentation">%1$s 演示文稿</string>
     <string name="file_type_name_spreadsheet">%1$s 电子表格</string>
