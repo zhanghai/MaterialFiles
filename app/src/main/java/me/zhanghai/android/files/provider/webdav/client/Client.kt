@@ -24,7 +24,6 @@ import at.bitfire.dav4jvm.property.webdav.GetLastModified
 import at.bitfire.dav4jvm.property.webdav.ResourceType
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.app.okHttpClient
-import me.zhanghai.android.files.compat.toDateCompat
 import me.zhanghai.android.files.provider.common.LocalWatchService
 import me.zhanghai.android.files.provider.common.NotifyEntryModifiedOutputStream
 import me.zhanghai.android.files.provider.common.NotifyEntryModifiedSeekableByteChannel
@@ -220,9 +219,7 @@ object Client {
         // https://github.com/sabre-io/dav/issues/1277
         try {
             DavResource(getClient(path.authority), path.url).proppatch(
-                mapOf(
-                    GetLastModified.NAME to HttpUtils.formatDate(lastModifiedTime.toDateCompat())
-                ), emptyList()
+                mapOf(GetLastModified.NAME to HttpUtils.formatDate(lastModifiedTime)), emptyList()
             ) { response, _ -> response.checkSuccess() }
         } catch (e: IOException) {
             throw e.toDavException()

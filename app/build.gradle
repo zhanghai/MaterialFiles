@@ -104,7 +104,7 @@ repositories {
     }
 }
 dependencies {
-    implementation 'com.github.zhanghai:dav4jvm:59aa867'
+    implementation 'com.github.zhanghai:dav4jvm:3f4822d'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.topjohnwu.libsu:service:5.2.2'
 }
