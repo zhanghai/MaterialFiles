@@ -26,6 +26,7 @@ import okio.buffer
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
+import java.net.HttpURLConnection
 import java.nio.ByteBuffer
 import java.util.concurrent.CountDownLatch
 
@@ -49,7 +50,14 @@ fun DavResource.getRangeCompat(
         val lastIndex = offset + size - 1
         request.header("Range", "bytes=$offset-$lastIndex")
         httpClient.newCall(request.build()).execute()
-    }.also { checkStatus(it) }.body!!.byteStream()
+    }
+        .also {
+            checkStatus(it)
+            if (it.code != HttpURLConnection.HTTP_PARTIAL) {
+                throw HttpException(it)
+            }
+        }
+        .body!!.byteStream()
 
 // This doesn't follow redirects since the request body is one-shot anyway.
 @Throws(DavException::class, IOException::class)
