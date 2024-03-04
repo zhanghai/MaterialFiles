@@ -17,6 +17,8 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.view.KeyCharacterMap
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -500,6 +502,28 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    fun onKeyShortcut(keyCode: Int, event: KeyEvent): Boolean {
+        if (bottomActionMode.isActive) {
+            val menu = bottomActionMode.menu
+            menu.setQwertyMode(
+                KeyCharacterMap.load(event.deviceId).keyboardType != KeyCharacterMap.NUMERIC
+            )
+            if (menu.performShortcut(keyCode, event, 0)) {
+                return true
+            }
+        }
+        if (overlayActionMode.isActive) {
+            val menu = overlayActionMode.menu
+            menu.setQwertyMode(
+                KeyCharacterMap.load(event.deviceId).keyboardType != KeyCharacterMap.NUMERIC
+            )
+            if (menu.performShortcut(keyCode, event, 0)) {
+                return true
+            }
+        }
+        return false
     }
 
     fun onBackPressed(): Boolean {
