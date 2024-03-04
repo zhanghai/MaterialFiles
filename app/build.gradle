@@ -104,7 +104,9 @@ repositories {
     }
 }
 dependencies {
-    implementation 'com.github.zhanghai:dav4jvm:c317607'
+    implementation('com.github.zhanghai:dav4jvm:c317607') {
+        exclude group: 'org.ogce', module: 'xpp3'
+    }
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.topjohnwu.libsu:service:5.2.2'
 }
