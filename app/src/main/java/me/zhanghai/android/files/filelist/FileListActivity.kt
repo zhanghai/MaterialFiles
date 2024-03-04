@@ -43,13 +43,6 @@ class FileListActivity : AppActivity() {
         return super.onKeyUp(keyCode, event)
     }
 
-    override fun onBackPressed() {
-        if (fragment.onBackPressed()) {
-            return
-        }
-        super.onBackPressed()
-    }
-
     companion object {
         fun createViewIntent(path: Path): Intent =
             FileListActivity::class.createIntent()

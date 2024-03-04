@@ -27,6 +27,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -81,12 +82,14 @@ import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.terminal.Terminal
 import me.zhanghai.android.files.ui.AppBarLayoutExpandHackListener
 import me.zhanghai.android.files.ui.CoordinatorAppBarLayout
+import me.zhanghai.android.files.ui.DrawerLayoutOnBackPressedCallback
 import me.zhanghai.android.files.ui.FixQueryChangeSearchView
 import me.zhanghai.android.files.ui.OverlayToolbarActionMode
 import me.zhanghai.android.files.ui.PersistentBarLayout
 import me.zhanghai.android.files.ui.PersistentBarLayoutToolbarActionMode
 import me.zhanghai.android.files.ui.PersistentDrawerLayout
 import me.zhanghai.android.files.ui.ScrollingViewOnApplyWindowInsetsListener
+import me.zhanghai.android.files.ui.SpeedDialViewOnBackPressedCallback
 import me.zhanghai.android.files.ui.ThemedFastScroller
 import me.zhanghai.android.files.ui.ToolbarActionMode
 import me.zhanghai.android.files.util.DebouncedRunnable
@@ -95,6 +98,7 @@ import me.zhanghai.android.files.util.Loading
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
+import me.zhanghai.android.files.util.addOnBackPressedCallback
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.checkSelfPermission
 import me.zhanghai.android.files.util.copyText
@@ -248,6 +252,25 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             true
         }
 
+        val viewLifecycleOwner = viewLifecycleOwner
+        addOnBackPressedCallback(
+            object : OnBackPressedCallback(false) {
+                override fun handleOnBackPressed() {
+                    viewModel.navigateUp()
+                }
+            }
+                .also { callback ->
+                    viewModel.breadcrumbLiveData.observe(viewLifecycleOwner) {
+                        callback.isEnabled = viewModel.canNavigateUpBreadcrumb
+                    }
+                }
+        )
+        addOnBackPressedCallback(overlayActionMode.onBackPressedCallback)
+        addOnBackPressedCallback(SpeedDialViewOnBackPressedCallback(binding.speedDialView))
+        binding.drawerLayout?.let {
+            addOnBackPressedCallback(DrawerLayoutOnBackPressedCallback(it))
+        }
+
         if (!viewModel.hasTrail) {
             var path = argsPath
             val intent = args.intent
@@ -299,7 +322,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 viewModel.pickOptions = pickOptions
             }
         }
-        val viewLifecycleOwner = viewLifecycleOwner
         viewModel.currentPathLiveData.observe(viewLifecycleOwner) { onCurrentPathChanged(it) }
         viewModel.searchViewExpandedLiveData.observe(viewLifecycleOwner) {
             onSearchViewExpandedChanged(it)
@@ -526,26 +548,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         return false
     }
 
-    fun onBackPressed(): Boolean {
-        val drawerLayout = binding.drawerLayout
-        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-            return true
-        }
-        if (binding.speedDialView.isOpen) {
-            binding.speedDialView.close()
-            return true
-        }
-        if (overlayActionMode.isActive) {
-            overlayActionMode.finish()
-            return true
-        }
-        if (viewModel.navigateUp(false)) {
-            return true
-        }
-        return false
-    }
-
     private fun onPersistentDrawerOpenChanged(open: Boolean) {
         binding.persistentDrawerLayout?.let {
             if (open) {
@@ -687,7 +689,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     private fun navigateUp() {
         collapseSearchView()
-        viewModel.navigateUp(true)
+        viewModel.navigateUp()
     }
 
     private fun showNavigateToPathDialog() {

@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.Interpolator
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.AnimRes
 import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
@@ -32,6 +33,10 @@ import me.zhanghai.android.files.compat.checkSelfPermissionCompat
 import me.zhanghai.android.files.compat.getColorCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
+
+fun Fragment.addOnBackPressedCallback(callback: OnBackPressedCallback) {
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+}
 
 fun Fragment.checkSelfPermission(permission: String): Int =
     requireContext().checkSelfPermissionCompat(permission)

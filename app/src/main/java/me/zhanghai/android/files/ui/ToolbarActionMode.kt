@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
@@ -26,6 +27,12 @@ abstract class ToolbarActionMode(
         toolbar.setNavigationOnClickListener { finish() }
         toolbar.setOnMenuItemClickListener {
             callback?.onToolbarActionModeItemClicked(this, it) ?: false
+        }
+    }
+
+    val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            finish()
         }
     }
 
@@ -78,6 +85,7 @@ abstract class ToolbarActionMode(
 
     fun start(callback: Callback, animate: Boolean = true) {
         this.callback = callback
+        onBackPressedCallback.isEnabled = true
         show(bar, animate)
         callback.onToolbarActionModeStarted(this)
     }
@@ -87,6 +95,7 @@ abstract class ToolbarActionMode(
     fun finish(animate: Boolean = true) {
         val callback = callback ?: return
         this.callback = null
+        onBackPressedCallback.isEnabled = false
         toolbar.menu.close()
         hide(bar, animate)
         callback.onToolbarActionModeFinished(this)

@@ -34,12 +34,7 @@ class FileListViewModel : ViewModel() {
 
     fun resetTo(path: Path) = trailLiveData.resetTo(path)
 
-    fun navigateUp(overrideBreadcrumb: Boolean): Boolean =
-        if (!overrideBreadcrumb && breadcrumbLiveData.valueCompat.selectedIndex == 0) {
-            false
-        } else {
-            trailLiveData.navigateUp()
-        }
+    fun navigateUp(): Boolean = trailLiveData.navigateUp()
 
     val currentPathLiveData = trailLiveData.map { it.currentPath }
     val currentPath: Path
@@ -102,6 +97,8 @@ class FileListViewModel : ViewModel() {
         }
 
     val breadcrumbLiveData: LiveData<BreadcrumbData> = BreadcrumbLiveData(trailLiveData)
+    val canNavigateUpBreadcrumb: Boolean
+        get() = breadcrumbLiveData.valueCompat.selectedIndex > 0
 
     private val _viewTypeLiveData = FileViewTypeLiveData(currentPathLiveData)
     val viewTypeLiveData: LiveData<FileViewType> = _viewTypeLiveData
