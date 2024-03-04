@@ -392,23 +392,23 @@
     <string name="file_properties_apk_past_signature_digests">旧签名</string>
 
     <string name="storage_file_system_root_title">根目录</string>
-    <string name="storage_list_title">存储</string>
-    <string name="storage_list_empty">无存储</string>
-    <string name="storage_add_storage_title">添加存储</string>
-    <string name="storage_add_storage_document_tree">外部存储</string>
+    <string name="storage_list_title">存储空间</string>
+    <string name="storage_list_empty">无存储空间</string>
+    <string name="storage_add_storage_title">添加存储空间</string>
+    <string name="storage_add_storage_document_tree">外部存储空间</string>
     <string name="storage_add_storage_ftp_server">FTP 服务器</string>
     <string name="storage_add_storage_sftp_server">SFTP 服务器</string>
     <string name="storage_add_storage_smb_server">SMB 服务器</string>
     <string name="storage_add_storage_webdav_server">WebDAV 服务器</string>
-    <string name="storage_edit_device_storage_title">编辑设备存储</string>
+    <string name="storage_edit_device_storage_title">编辑设备存储空间</string>
     <string name="storage_edit_device_storage_name">名称</string>
     <string name="storage_edit_device_storage_path">路径</string>
     <string name="storage_add_document_manager_shortcut_title">添加 DocumentsUI 快捷方式</string>
     <string name="storage_edit_document_manager_shortcut_title">编辑 DocumentsUI 快捷方式</string>
     <string name="storage_edit_document_manager_shortcut_uri_error_empty">输入 URI</string>
     <string name="storage_edit_document_manager_shortcut_uri_error_invalid">无效 URI</string>
-    <string name="storage_add_document_tree_title">添加外部存储</string>
-    <string name="storage_edit_document_tree_title">编辑外部存储</string>
+    <string name="storage_add_document_tree_title">添加外部存储空间</string>
+    <string name="storage_edit_document_tree_title">编辑外部存储空间</string>
     <string name="storage_edit_document_tree_name">名称</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">路径</string>
@@ -520,7 +520,7 @@
     <string name="storage_edit_webdav_server_add">添加</string>
 
     <string name="navigation_storage_subtitle_format">共 %2$s，剩余 %1$s</string>
-    <string name="navigation_add_storage">添加存储…</string>
+    <string name="navigation_add_storage">添加存储空间…</string>
     <string name="navigation_standard_directory_alarms">闹钟</string>
     <string name="navigation_standard_directory_dcim">相片</string>
     <string name="navigation_standard_directory_documents">文档</string>
