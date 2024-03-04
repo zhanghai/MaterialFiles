@@ -37,14 +37,6 @@
 }
 -keepnames class me.zhanghai.android.files.** implements android.os.Parcelable
 
-# Apache Commons Compress
--dontwarn org.apache.commons.compress.compressors.**
--dontwarn org.apache.commons.compress.archivers.**
-# me.zhanghai.android.files.provider.archive.archiver.ArchiveWriter.sTarArchiveEntryLinkFlagsField
--keepclassmembers class org.apache.commons.compress.archivers.tar.TarArchiveEntry {
-    byte linkFlag;
-}
-
 # Apache FtpServer
 -keepclassmembers class * implements org.apache.mina.core.service.IoProcessor {
     public <init>(java.util.concurrent.ExecutorService);
