@@ -42,16 +42,18 @@ class CheckableFrameLayout : FrameLayout, Checkable {
 
     override fun setChecked(checked: Boolean) {
         _isChecked = checked
+        refreshDrawableState()
     }
 
     override fun toggle() {
         _isChecked = !_isChecked
+        refreshDrawableState()
     }
 
     override fun onCreateDrawableState(extraSpace: Int): IntArray =
         super.onCreateDrawableState(extraSpace + 1).apply {
             if (_isChecked) {
-                View.mergeDrawableStates(this, CHECKED_STATE_SET)
+                mergeDrawableStates(this, CHECKED_STATE_SET)
             }
         }
 
