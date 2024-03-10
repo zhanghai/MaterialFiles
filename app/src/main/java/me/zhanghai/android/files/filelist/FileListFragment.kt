@@ -117,6 +117,7 @@ import me.zhanghai.android.files.util.isOrientationLandscape
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.startActivitySafe
+import me.zhanghai.android.files.util.supportsExternalStorageManager
 import me.zhanghai.android.files.util.takeIfNotEmpty
 import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
@@ -1350,7 +1351,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (viewModel.isStorageAccessRequested) {
             return
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Environment::class.supportsExternalStorageManager()) {
             if (!Environment.isExternalStorageManager()) {
                 ShowRequestAllFilesAccessRationaleDialogFragment.show(this)
                 viewModel.isStorageAccessRequested = true
