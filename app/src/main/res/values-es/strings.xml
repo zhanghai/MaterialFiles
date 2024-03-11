@@ -476,7 +476,7 @@
     <string name="storage_edit_ftp_server_title_edit">Editar servidor FTP</string>
     <string name="storage_edit_ftp_server_title_add">Añadir servidor FTP</string>
     <string name="storage_edit_ftp_server_host">Nombre de host</string>
-    <string name="storage_edit_ftp_server_host_error_empty"><br>Introduce un nombre de host</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Introduce un nombre de host</string>
     <string name="storage_edit_ftp_server_host_error_invalid">Nombre de host inválido</string>
     <string name="storage_edit_ftp_server_port">Puerto</string>
     <string name="storage_edit_ftp_server_port_error_invalid">Puerto inválido</string>
