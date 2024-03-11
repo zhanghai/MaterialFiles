@@ -67,6 +67,11 @@ android {
             path 'CMakeLists.txt'
         }
     }
+    lint {
+        // For "Invalid package reference in library; not included in Android: javax.security.sasl.
+        // Referenced from org.apache.mina.proxy.ProxyAuthException."
+        warning 'InvalidPackage', 'MissingTranslation'
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -91,10 +96,10 @@ android {
             ]
         }
     }
-    lint {
-        // For "Invalid package reference in library; not included in Android: javax.security.sasl.
-        // Referenced from org.apache.mina.proxy.ProxyAuthException."
-        warning 'InvalidPackage', 'MissingTranslation'
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 }
 
