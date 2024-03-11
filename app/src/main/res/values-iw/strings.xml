@@ -43,6 +43,7 @@
     <string name="show">הצגה</string>
     <string name="skip">דילוג</string>
     <string name="stop">עצירה</string>
+    <string name="system_default">ברירת המחדל של המערכת</string>
     <string name="unknown">לא ידוע</string>
     <string name="view">הצגה</string>
 
@@ -62,12 +63,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">היישום זקוק להרשאה כדי לגשת לקבצים. יש ללחוץ על \"אפשר\" בתיבת הדו שיח הבאה של המערכת.</string>
     <string name="storage_permission_permanently_denied_message">היישום זקוק להרשאה כדי לגשת לקבצים. יש להעניק הרשאת \"אחסון\" בהגדרות המערכת.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">היישומון צריך הרשאה כדי לפרסם התראות על פעולות קבצים. נא ללחוץ על „הרשאה” בחלונית המערכת שכבר תופיע.</string>
+    <string name="notification_permission_permanently_denied_message">היישומון צריך הרשאה כדי לפרסם התראות על פעולות קבצים. נא להעניק את ההרשאה „התראות” בהגדרות המערכת.</string>
+
     <string name="notification_channel_background_activity_start_name">פעולות ברקע</string>
     <string name="notification_channel_background_activity_start_description">ביצוע פעולות כשהיישום פועל ברקע</string>
     <string name="notification_channel_file_job_name">פעולות קובץ</string>
     <string name="notification_channel_file_job_description">הצגה ושליטה בפעולות הקבצים</string>
     <string name="notification_channel_ftp_server_name">שרת FTP</string>
     <string name="notification_channel_ftp_server_description">הצגה ושליטה בשרת FTP</string>
+
+    <string name="file_action_archive_password_title">צריך סיסמה</string>
+    <string name="file_action_archive_password_message_format">„%1$s” מוגן בסיסמה</string>
+    <string name="file_action_archive_password_error_empty">הסיסמה לא יכולה להיות ריקה</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">מתכונן לדחיסת קובץ אחד (%2$s)</item>
@@ -327,12 +336,16 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">נתיב אינו יכול להיות ריק</string>
     <string name="file_list_path_error_invalid">נתיב לא חוקי</string>
+    <string name="file_list_action_view_sort">הצגה ומיון</string>
+    <string name="file_list_action_view_list">רשימה</string>
+    <string name="file_list_action_view_grid">טבלה</string>
     <string name="file_list_action_sort_by_name">שם</string>
     <string name="file_list_action_sort_by_type">סוג</string>
     <string name="file_list_action_sort_by_size">גודל</string>
     <string name="file_list_action_sort_by_last_modified">השתנה לאחרונה</string>
     <string name="file_list_action_sort_order_ascending">עולה</string>
     <string name="file_list_action_sort_directories_first">תיקיות תחילה</string>
+    <string name="file_list_action_view_sort_path_specific">רק לתיקייה הזאת</string>
     <string name="file_list_action_new_task">חלון חדש</string>
     <string name="file_list_action_navigate_up">עלה</string>
     <string name="file_list_action_navigate_to">מעבר אל</string>
@@ -342,6 +355,7 @@
     <string name="file_list_action_add_bookmark">הוספת סימנייה</string>
     <string name="file_list_action_create_shortcut">יצירת קיצור דרך</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">פתיחה בחלון חדש</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">בחירת “%1$s”</string>
     <string name="file_list_paste_move_title_format">מעביר את %1$,d</string>
     <string name="file_list_paste_copy_title_format">מעתיק את %1$,d</string>
@@ -476,9 +490,14 @@
     <string name="storage_add_storage_ftp_server">שרת FTP</string>
     <string name="storage_add_storage_sftp_server">שרת SFTP</string>
     <string name="storage_add_storage_smb_server">שרת SMB</string>
+    <string name="storage_add_storage_webdav_server">שרת WebDAV</string>
     <string name="storage_edit_device_storage_title">עריכת אחסון ההתקן</string>
     <string name="storage_edit_device_storage_name">שם</string>
     <string name="storage_edit_device_storage_path">נתיב</string>
+    <string name="storage_add_document_manager_shortcut_title">הוספת קיצור דרך ל־DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">עריכת קיצור דרך ל־DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">נא למלא כתובת</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">כתובת שגויה</string>
     <string name="storage_add_document_tree_title">הוספת אחסון חיצוני</string>
     <string name="storage_edit_document_tree_title">עריכת אחסון חיצוני</string>
     <string name="storage_edit_document_tree_name">שם</string>
@@ -565,6 +584,31 @@
     <string name="storage_edit_smb_server_domain">שם תחום</string>
     <string name="storage_edit_smb_server_connect_and_add">התחברות והוספה</string>
     <string name="storage_edit_smb_server_add">הוספה</string>
+    <string name="storage_edit_webdav_server_title_edit">עריכת שרת WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">הוספת שרת WebDAV</string>
+    <string name="storage_edit_webdav_server_host">שם מארח</string>
+    <string name="storage_edit_webdav_server_host_error_empty">נא למלא שם מארח</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">שם מארח שגוי</string>
+    <string name="storage_edit_webdav_server_port">פתחה</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">פתחה שגויה</string>
+    <string name="storage_edit_webdav_server_path">נתיב</string>
+    <string name="storage_edit_webdav_server_path_placeholder">אפשר להשאיר ריק</string>
+    <string name="storage_edit_webdav_server_name">שם</string>
+    <string name="storage_edit_webdav_server_name_placeholder">להשתמש בשם המארח</string>
+    <string name="storage_edit_webdav_server_protocol">פרוטוקול</string>
+    <string name="storage_edit_webdav_server_authentication_type">אימות</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>סיסמה</item>
+        <item>אסימון גישה</item>
+        <item>אין</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">שם משתמש</string>
+    <string name="storage_edit_webdav_server_username_error_empty">נא למלא שם משתמש</string>
+    <string name="storage_edit_webdav_server_password">סיסמה</string>
+    <string name="storage_edit_webdav_server_access_token">אסימון גישה</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">נא לספק אסימון גישה</string>
+    <string name="storage_edit_webdav_server_connect_and_add">התחברות והוספה</string>
+    <string name="storage_edit_webdav_server_add">הוספה</string>
 
     <string name="navigation_storage_subtitle_format">%1$s פנוי מתוך %2$s</string>
     <string name="navigation_add_storage">הוספת אחסון…</string>
@@ -602,8 +646,13 @@
     <string name="ftp_server_state_summary_stopping">עוצר…</string>
     <string name="ftp_server_state_summary_stopped">לא התחיל</string>
     <string name="ftp_server_url_title">כתובת</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">כתובת ה־IP המקומית הזאת לא מוכרת</string>
     <string name="ftp_server_url_menu_copy_url">העתקת כתובת</string>
     <string name="ftp_server_url_menu_copy_password">העתקת סיסמה</string>
+    <string name="ftp_server_add_tile_title">הוספה להגדרות המהירות</string>
+    <string name="ftp_server_add_tile_result_added">\"שרת FTP\" נוסף להגדרות המהירות</string>
+    <string name="ftp_server_add_tile_result_already_added">\"שרת FTP\" כבר נוסף להגדרות המהירות</string>
+    <string name="ftp_server_add_tile_result_error">שגיאה בעת הוספת \"שרת FTP\" להגדרות המהירות</string>
     <string name="ftp_server_configuration_title">תצורה</string>
     <string name="ftp_server_anonymous_login_title">כניסה בעילום שם</string>
     <string name="ftp_server_username_title">שם משתמש</string>
@@ -613,6 +662,7 @@
     <string name="ftp_server_writable_title">איפשור כתיבה</string>
     <string name="settings_title">הגדרות</string>
     <string name="settings_interface_title">ממשק</string>
+    <string name="settings_locale_title">שפה</string>
     <string name="settings_theme_color_title">צבע ערכת נושא</string>
     <string name="settings_theme_color_summary">צבע המופיע בתדירות הגבוהה ביותר ביישום</string>
     <string name="settings_material_design_3_title">Material Design 3</string>

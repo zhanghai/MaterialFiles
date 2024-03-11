@@ -62,12 +62,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplicația necesită permisiunea de accesare a fișierelor. Apasă pe \"PERMITE\" în căsuța următoare.</string>
     <string name="storage_permission_permanently_denied_message">Aplicația are nevoie de permisiunea de a accesa fișierele. Acordă permisiunea „Stocare” în setările sistemului.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Aplicația necesită permisiunea de a afișa notificări legate de operațiunile cu fișiere. Vă rugăm să apăsați pe \"Permite\" în fereastra următoare.</string>
+    <string name="notification_permission_permanently_denied_message">Aplicația necesită permisiunea de a afișa notificări legate de operațiunile cu fișiere. Vă rugăm să permiteți afișarea notificărilor în setări.</string>
+
     <string name="notification_channel_background_activity_start_name">Acțiuni în fundal</string>
     <string name="notification_channel_background_activity_start_description">Efectuează acțiuni în timp ce aplicația este în fundal</string>
     <string name="notification_channel_file_job_name">Operațiuni asupra fișierelor</string>
     <string name="notification_channel_file_job_description">Afișează și controlează operațiunile fișierelor</string>
     <string name="notification_channel_ftp_server_name">Server FTP</string>
     <string name="notification_channel_ftp_server_description">Arată și controlează serverul FTP</string>
+
+    <string name="file_action_archive_password_title">Parola este necesară</string>
+    <string name="file_action_archive_password_message_format">\"%1$s\" este protejat de o parolă.</string>
+    <string name="file_action_archive_password_error_empty">Câmpul parolă nu poate fi gol</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Ss pregătesc de compresie %1$,d fișier (%2$s)</item>
@@ -272,6 +280,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Parolă (opțional)</string>
     <string name="file_add_bookmark_success">Marcaj adăugat</string>
     <string name="file_create_file_title">Fișier nou</string>
     <string name="file_create_directory_title">Dosar nou</string>
@@ -545,7 +554,6 @@
     <string name="storage_edit_smb_server_domain">Domeniu</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectează și adaugă</string>
     <string name="storage_edit_smb_server_add">Adaugă</string>
-
     <string name="navigation_storage_subtitle_format">%1$s liber din %2$s</string>
     <string name="navigation_add_storage">Adăugare stocare…</string>
     <string name="navigation_standard_directory_alarms">Alarme</string>
@@ -586,9 +594,6 @@
     <string name="ftp_server_url_menu_copy_url">Copiază URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiază parola</string>
     <string name="ftp_server_add_tile_title">Adaugă la Setările Rapide</string>
-    <string name="ftp_server_add_tile_result_added">\"Server FTP\" a fost adăugat la Setări Rapide </string>
-    <string name="ftp_server_add_tile_result_already_added">\"Server FTP\" este deja adăugat la Setări Rapide</string>
-    <string name="ftp_server_add_tile_result_error">A apărut o eroare la adăugarea \"Serverului FTP\" la Setările Rapide</string>
     <string name="ftp_server_configuration_title">Configurare</string>
     <string name="ftp_server_anonymous_login_title">Autentificare anonimă</string>
     <string name="ftp_server_username_title">Nume utilizator</string>

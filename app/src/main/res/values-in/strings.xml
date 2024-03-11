@@ -60,12 +60,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Apl membutuhkan izin untuk mengakses berkas. Silakan klik \"IZINKAN\" pada dialog berikutnya</string>
     <string name="storage_permission_permanently_denied_message">Apl membutuhkan izin untuk mengakses berkas. Aktifkan izin \"Penyimpanan\" di dalam pengaturan sistem.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Aplikasi membutuhkan izin untuk mengirimkan notifikasi tentang pemrosesan berkas. Silakan klik \"Izinkan\" pada jendela sistem berikut ini.</string>
+    <string name="notification_permission_permanently_denied_message">Aplikasi membutuhkan izin untuk mengirimkan notifikasi tentang pemrosesan berkas. Izinkan akses \"Notifikasi\" pada pengaturan sistem.</string>
+
     <string name="notification_channel_background_activity_start_name">Tindakan saat di latar belakang</string>
     <string name="notification_channel_background_activity_start_description">Ambil tindakan saat apl berada di latar belakang</string>
     <string name="notification_channel_file_job_name">Tindakan berkas</string>
     <string name="notification_channel_file_job_description">Tampilkan dan kontrol tindakan berkas</string>
     <string name="notification_channel_ftp_server_name">Server FTP</string>
     <string name="notification_channel_ftp_server_description">Tampilkan dan kontrol server FTP</string>
+
+    <string name="file_action_archive_password_title">Membutuhkan sandi</string>
+    <string name="file_action_archive_password_message_format">“%1$s” dilindungi sandi.</string>
+    <string name="file_action_archive_password_error_empty">Sandi tidak boleh kosong</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">Mempersiapkan untuk mengompres %1$,d berkas (%2$s)</item>
@@ -224,6 +232,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Sandi (opsional)</string>
     <string name="file_add_bookmark_success">Bookmark ditambahkan</string>
     <string name="file_create_file_title">Berkas baru</string>
     <string name="file_create_directory_title">Folder baru</string>
@@ -485,7 +494,6 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Sambung dan tambah</string>
     <string name="storage_edit_smb_server_add">Tambah</string>
-
     <string name="navigation_storage_subtitle_format">%1$s kosong dari %2$s</string>
     <string name="navigation_add_storage">Tambah penyimpanan…</string>
     <string name="navigation_standard_directory_alarms">Alarm</string>
@@ -526,9 +534,9 @@
     <string name="ftp_server_url_menu_copy_url">Salin URL</string>
     <string name="ftp_server_url_menu_copy_password">Salin sandi</string>
     <string name="ftp_server_add_tile_title">Tambahkan ke Pengaturan Cepat</string>
-    <string name="ftp_server_add_tile_result_added">\"Server FTP\" telah ditambahan ke Pengaturan Cepat</string>
-    <string name="ftp_server_add_tile_result_already_added">\"Server FTP\" sudah ditambahan ke Pengaturan Cepat</string>
-    <string name="ftp_server_add_tile_result_error">Terjadi kesalahan saat menambahkan \"server FTP\" ke Pengaturan Cepat</string>
+    <string name="ftp_server_add_tile_result_added">“Server FTP” telah ditambahkan ke Pengaturan Cepat</string>
+    <string name="ftp_server_add_tile_result_already_added">“Server FTP” sudah ditambahkan ke Pengaturan Cepat</string>
+    <string name="ftp_server_add_tile_result_error">Terjadi kesalahan saat menambahkan “server FTP” ke Pengaturan Cepat</string>
     <string name="ftp_server_configuration_title">Konfigurasi</string>
     <string name="ftp_server_anonymous_login_title">Masuk secara anonim</string>
     <string name="ftp_server_username_title">Nama pengguna</string>

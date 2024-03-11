@@ -635,7 +635,6 @@
     <string name="storage_edit_smb_server_domain">دومين</string>
     <string name="storage_edit_smb_server_connect_and_add">قم بالاتصال والإضافة</string>
     <string name="storage_edit_smb_server_add">إضافة</string>
-
     <string name="navigation_storage_subtitle_format">%1$s خالي من %2$s</string>
     <string name="navigation_add_storage">إضافة وحدة تخزين…</string>
     <string name="navigation_standard_directory_alarms">المنبه</string>
@@ -676,9 +675,6 @@
     <string name="ftp_server_url_menu_copy_url">نسخ الرابط</string>
     <string name="ftp_server_url_menu_copy_password">نسخ كلمة المرور</string>
     <string name="ftp_server_add_tile_title">أضف إلى الإعدادات السريعة</string>
-    <string name="ftp_server_add_tile_result_added">تمت إضافة \"خادم FTP\" إلى الإعدادات السريعة</string>
-    <string name="ftp_server_add_tile_result_already_added">تمت إضافة \"خادم FTP\" إلى الإعدادات السريعة بالفعل</string>
-    <string name="ftp_server_add_tile_result_error">خطأ أثناء إضافة \"خادم FTP\" إلى الإعدادات السريعة</string>
     <string name="ftp_server_configuration_title">التهيئة</string>
     <string name="ftp_server_anonymous_login_title">تسجيل دخول مجهول</string>
     <string name="ftp_server_username_title">اسم المستخدم</string>

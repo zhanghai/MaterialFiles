@@ -63,12 +63,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Forritið þarf heimild til að nota skrár. Ýttu á “LEYFA” í kerfisglugganum sem mun birtast.</string>
     <string name="storage_permission_permanently_denied_message">Forritið þarf heimild til að nota skrár. Veittu heimild fyrir að nota “Gagnageymslu” í kerfisstillingunum.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Forritið þarf heimild til að senda tilkynningar um skráaaðgerðir. Ýttu á “LEYFA” í kerfisglugganum sem mun birtast.</string>
+    <string name="notification_permission_permanently_denied_message">Forritið þarf heimild til að senda tilkynningar um skráaaðgerðir. Veittu heimild fyrir að nota “Tilkynningar” í kerfisstillingunum.</string>
+
     <string name="notification_channel_background_activity_start_name">Aðgerðir meðan er í bakgrunni</string>
     <string name="notification_channel_background_activity_start_description">Framkvæma aðgerðir á meðan verið er í bakgrunni</string>
     <string name="notification_channel_file_job_name">Skráaaðgerðir</string>
     <string name="notification_channel_file_job_description">Birta og stýra skráaaðgerðum</string>
     <string name="notification_channel_ftp_server_name">FTP-netþjónn</string>
     <string name="notification_channel_ftp_server_description">Birta og stýra FTP-netþjóninum</string>
+
+    <string name="file_action_archive_password_title">Lykilorðs krafist</string>
+    <string name="file_action_archive_password_message_format">“%1$s” er varið með lykilorði.</string>
+    <string name="file_action_archive_password_error_empty">Lykilorð má ekki vera autt</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Undirbý að þjappa %1$,d skrá (%2$s)</item>
@@ -250,6 +258,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Lykilorð (valkvætt)</string>
     <string name="file_add_bookmark_success">Bætt við bókamerki</string>
     <string name="file_create_file_title">Ný skrá</string>
     <string name="file_create_directory_title">Ný mappa</string>
@@ -424,6 +433,7 @@
     <string name="storage_add_storage_ftp_server">FTP-netþjónn</string>
     <string name="storage_add_storage_sftp_server">SFTP-netþjónn</string>
     <string name="storage_add_storage_smb_server">SMB-netþjónn</string>
+    <string name="storage_add_storage_webdav_server">WebDAV-þjónn</string>
     <string name="storage_edit_device_storage_title">Breyta geymslurými tækis</string>
     <string name="storage_edit_device_storage_name">Nafn</string>
     <string name="storage_edit_device_storage_path">Slóð</string>
@@ -517,6 +527,31 @@
     <string name="storage_edit_smb_server_domain">Lén</string>
     <string name="storage_edit_smb_server_connect_and_add">Tengjast og bæta við</string>
     <string name="storage_edit_smb_server_add">Bæta við</string>
+    <string name="storage_edit_webdav_server_title_edit">Breyta WebDAV-þjóni</string>
+    <string name="storage_edit_webdav_server_title_add">Bæta við WebDAV-þjóni</string>
+    <string name="storage_edit_webdav_server_host">Vélarheiti</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Settu inn vélarheiti</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Ógilt vélarheiti</string>
+    <string name="storage_edit_webdav_server_port">Gátt</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Ógild gátt</string>
+    <string name="storage_edit_webdav_server_path">Slóð</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Má skilja eftir autt</string>
+    <string name="storage_edit_webdav_server_name">Nafn</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Nota vélarheiti</string>
+    <string name="storage_edit_webdav_server_protocol">Samskiptamáti</string>
+    <string name="storage_edit_webdav_server_authentication_type">Auðkenning</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Lykilorð</item>
+        <item>Aðgangsteikn</item>
+        <item>Ekkert</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Notandanafn</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Settu inn notandanafn</string>
+    <string name="storage_edit_webdav_server_password">Lykilorð</string>
+    <string name="storage_edit_webdav_server_access_token">Aðgangsteikn</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Settu inn aðgangsteikn</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Tengjast og bæta við</string>
+    <string name="storage_edit_webdav_server_add">Bæta við</string>
 
     <string name="navigation_storage_subtitle_format">%1$s laust af %2$s</string>
     <string name="navigation_add_storage">Bæta við geymslurými…</string>

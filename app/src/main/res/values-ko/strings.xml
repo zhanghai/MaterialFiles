@@ -60,12 +60,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">파일에 접근하기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 \'허용\'을 선택해 주세요.</string>
     <string name="storage_permission_permanently_denied_message">파일에 접근하기 위한 권한이 필요합니다. 시스템 설정에서 \'저장용량\' 권한을 허용해 주세요.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">파일 작업과 관련된 알림을 띄우기 위한 권한이 필요합니다. 곧 나타날 대화 상자에서 “허용”을 선택해 주세요.</string>
+    <string name="notification_permission_permanently_denied_message">파일 작업과 관련된 알림을 띄우기 위한 권한이 필요합니다. 시스템 설정에서 “알림” 권한을 허용해 주세요.</string>
+
     <string name="notification_channel_background_activity_start_name">백그라운드에서 작업</string>
     <string name="notification_channel_background_activity_start_description">앱이 백그라운드에 있는 동안 작업합니다</string>
     <string name="notification_channel_file_job_name">파일 작업</string>
     <string name="notification_channel_file_job_description">파일 작업을 표시하고 제어합니다</string>
     <string name="notification_channel_ftp_server_name">FTP 서버</string>
     <string name="notification_channel_ftp_server_description">FTP 서버를 표시하고 제어합니다</string>
+
+    <string name="file_action_archive_password_title">비밀번호 필요</string>
+    <string name="file_action_archive_password_message_format">“%1$s” 파일은 비밀번호로 보호되어 있습니다.</string>
+    <string name="file_action_archive_password_error_empty">비밀번호를 입력하세요</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">%1$,d개 파일 압축 준비 중 (%2$s)</item>
@@ -224,6 +232,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">비밀번호 (선택)</string>
     <string name="file_add_bookmark_success">즐겨찾기가 추가되었습니다</string>
     <string name="file_create_file_title">새 파일</string>
     <string name="file_create_directory_title">새 폴더</string>
@@ -392,6 +401,7 @@
     <string name="storage_add_storage_ftp_server">FTP 서버</string>
     <string name="storage_add_storage_sftp_server">SFTP 서버</string>
     <string name="storage_add_storage_smb_server">SMB 서버</string>
+    <string name="storage_add_storage_webdav_server">WebDAV 서버</string>
     <string name="storage_edit_device_storage_title">기기 저장소 편집</string>
     <string name="storage_edit_device_storage_name">이름</string>
     <string name="storage_edit_device_storage_path">경로</string>
@@ -485,6 +495,31 @@
     <string name="storage_edit_smb_server_domain">도메인</string>
     <string name="storage_edit_smb_server_connect_and_add">연결 및 추가</string>
     <string name="storage_edit_smb_server_add">추가</string>
+    <string name="storage_edit_webdav_server_title_edit">WebDAV 서버 편집</string>
+    <string name="storage_edit_webdav_server_title_add">WebDAV 서버 추가</string>
+    <string name="storage_edit_webdav_server_host">호스트 이름</string>
+    <string name="storage_edit_webdav_server_host_error_empty">호스트 이름을 입력하세요</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">올바르지 않은 호스트 이름</string>
+    <string name="storage_edit_webdav_server_port">포트</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">올바르지 않은 포트</string>
+    <string name="storage_edit_webdav_server_path">경로</string>
+    <string name="storage_edit_webdav_server_path_placeholder">비워둘 수 있음</string>
+    <string name="storage_edit_webdav_server_name">이름</string>
+    <string name="storage_edit_webdav_server_name_placeholder">호스트 이름 사용</string>
+    <string name="storage_edit_webdav_server_protocol">프로토콜</string>
+    <string name="storage_edit_webdav_server_authentication_type">인증</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>비밀번호</item>
+        <item>액세스 토큰</item>
+        <item>없음</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">사용자 이름</string>
+    <string name="storage_edit_webdav_server_username_error_empty">사용자 이름을 입력하세요</string>
+    <string name="storage_edit_webdav_server_password">비밀번호</string>
+    <string name="storage_edit_webdav_server_access_token">액세스 토큰</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">액세스 토큰을 입력하세요</string>
+    <string name="storage_edit_webdav_server_connect_and_add">연결 및 추가</string>
+    <string name="storage_edit_webdav_server_add">추가</string>
 
     <string name="navigation_storage_subtitle_format">%2$s 중 %1$s 남음</string>
     <string name="navigation_add_storage">저장소 추가…</string>
@@ -526,8 +561,8 @@
     <string name="ftp_server_url_menu_copy_url">URL 복사</string>
     <string name="ftp_server_url_menu_copy_password">비밀번호 복사</string>
     <string name="ftp_server_add_tile_title">빠른 설정에 추가</string>
-    <string name="ftp_server_add_tile_result_added">“FTP 서버”를 빠른 설정에 추가했습니다.</string>
-    <string name="ftp_server_add_tile_result_already_added">“FTP 서버”는 이미 빠른 설정에 추가되어 있습니다.</string>
+    <string name="ftp_server_add_tile_result_added">“FTP 서버”를 빠른 설정에 추가했습니다</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP 서버”는 이미 빠른 설정에 추가되어 있습니다</string>
     <string name="ftp_server_add_tile_result_error">빠른 설정에 “FTP 서버”를 추가하는 중 오류</string>
     <string name="ftp_server_configuration_title">설정</string>
     <string name="ftp_server_anonymous_login_title">익명으로 로그인 허용</string>

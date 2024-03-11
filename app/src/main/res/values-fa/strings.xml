@@ -507,7 +507,6 @@
     <string name="storage_edit_smb_server_domain">دامنه</string>
     <string name="storage_edit_smb_server_connect_and_add">اتّصال و افزودن</string>
     <string name="storage_edit_smb_server_add">افزودن</string>
-
     <string name="navigation_storage_subtitle_format">%1$s آزاد از %2$s</string>
     <string name="navigation_add_storage">افزودن ذخیره‌ساز…</string>
     <string name="navigation_standard_directory_alarms">زنگ‌ها</string>

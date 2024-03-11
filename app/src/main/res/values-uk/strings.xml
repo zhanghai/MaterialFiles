@@ -586,7 +586,6 @@
     <string name="storage_edit_smb_server_domain">Домен</string>
     <string name="storage_edit_smb_server_connect_and_add">З\'єднатися та додати</string>
     <string name="storage_edit_smb_server_add">Додати</string>
-
     <string name="navigation_storage_subtitle_format">%1$s вільно з %2$s</string>
     <string name="navigation_add_storage">Додати сховище…</string>
     <string name="navigation_standard_directory_alarms">Нагадування</string>
@@ -627,9 +626,6 @@
     <string name="ftp_server_url_menu_copy_url">Копіювати URL</string>
     <string name="ftp_server_url_menu_copy_password">Копіювати пароль</string>
     <string name="ftp_server_add_tile_title">Додати до швидких налаштувань</string>
-    <string name="ftp_server_add_tile_result_added">\"FTP сервер\" був доданий до швидких налаштувань</string>
-    <string name="ftp_server_add_tile_result_already_added">\"FTP сервер\" уже доданий до швидких налаштувань</string>
-    <string name="ftp_server_add_tile_result_error">Сталася помилка при додаванні \"FTP сервер\" до швидких налаштувань</string>
     <string name="ftp_server_configuration_title">Конфігурація</string>
     <string name="ftp_server_anonymous_login_title">Анонімний вхід</string>
     <string name="ftp_server_username_title">Імʼя користувача</string>

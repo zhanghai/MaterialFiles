@@ -495,7 +495,6 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Yhdistä ja lisää</string>
     <string name="storage_edit_smb_server_add">Lisää</string>
-
     <string name="navigation_storage_subtitle_format">%1$s/%2$s vapaana</string>
     <string name="navigation_add_storage">Lisää tallennustila…</string>
     <string name="navigation_standard_directory_alarms">Hälytykset</string>
@@ -534,9 +533,6 @@
     <string name="ftp_server_url_menu_copy_url">Kopioi URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopioi salasana</string>
     <string name="ftp_server_add_tile_title">Lisää pika-asetuksiin</string>
-    <string name="ftp_server_add_tile_result_added">“FTP-palvelin” on lisätty pika-asetuksiin</string>
-    <string name="ftp_server_add_tile_result_already_added">“FTP-palvelin” on jo lisättynä pika-asetuksiin</string>
-    <string name="ftp_server_add_tile_result_error">Virhe “FTP-palvelimen” lisäyksessä pika-asetuksiin</string>
     <string name="ftp_server_configuration_title">Asetukset</string>
     <string name="ftp_server_anonymous_login_title">Anonyymi kirjautuminen</string>
     <string name="ftp_server_username_title">Käyttäjänimi</string>

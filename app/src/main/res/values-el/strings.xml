@@ -514,7 +514,6 @@
     <string name="storage_edit_smb_server_domain">Τομέας</string>
     <string name="storage_edit_smb_server_connect_and_add">Σύνδεση και προσθήκη</string>
     <string name="storage_edit_smb_server_add">Προσθήκη</string>
-
     <string name="navigation_storage_subtitle_format">%1$s ελεύθερα από %2$s</string>
     <string name="navigation_add_storage">Προσθήκη αποθήκευσης…</string>
     <string name="navigation_standard_directory_alarms">Ειδοποιήσεις</string>
@@ -555,9 +554,6 @@
     <string name="ftp_server_url_menu_copy_url">Αντιγραφή URL</string>
     <string name="ftp_server_url_menu_copy_password">Αντιγραφή κωδικού</string>
     <string name="ftp_server_add_tile_title">Προσθήκη στις Γρήγορες Ρυθμίσεις</string>
-    <string name="ftp_server_add_tile_result_added">\"Διακομιστής FTP\" έχει προστεθεί στις Γρήγορες Ρυθμίσεις</string>
-    <string name="ftp_server_add_tile_result_already_added">\"Διακομιστής FTP\" έχει ήδη προστεθεί στις Γρήγορες Ρυθμίσεις</string>
-    <string name="ftp_server_add_tile_result_error">Σφάλμα κατά την προσθήκη \"Διακομιστής FTP\" στις Γρήγορες Ρυθμίσεις</string>
     <string name="ftp_server_configuration_title">Διαμόρφωση</string>
     <string name="ftp_server_anonymous_login_title">Ανώνυμη σύνδεση</string>
     <string name="ftp_server_username_title">Όνομα χρήστη</string>

@@ -61,12 +61,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Необходими са права за достъп до файлове. Докоснете „Разрешаване“ в следващия системен прозорец</string>
     <string name="storage_permission_permanently_denied_message">Необходими са права за достъпа до файлове. Разрешете правото „ХРАНИЛИЩЕ“ в системните настройки.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Необходими са права за изпращане на известия относно действия с файлове. Докоснете „Разрешаване“ в следващия системен прозорец</string>
+    <string name="notification_permission_permanently_denied_message">Необходими са права за изпращане на известия относно действия с файлове. Дайте правото „Известия“ в следващия системен прозорец</string>
+
     <string name="notification_channel_background_activity_start_name">Действия на заден план</string>
     <string name="notification_channel_background_activity_start_description">Изпълняване на действия докато приложението е на заден план</string>
     <string name="notification_channel_file_job_name">Действия с файлове</string>
     <string name="notification_channel_file_job_description">Показване и управление на действия с файлове</string>
     <string name="notification_channel_ftp_server_name">Сървър на FTP</string>
     <string name="notification_channel_ftp_server_description">Показване и управление на сървър на FTP</string>
+
+    <string name="file_action_archive_password_title">Необходима е парола</string>
+    <string name="file_action_archive_password_message_format">Файлът „%1$s“ е защитен с парола</string>
+    <string name="file_action_archive_password_error_empty">Паролата не може да е празна</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Подготвя се за компресиране %1$,d файл (%2$s)</item>
@@ -248,6 +256,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Парола (по желание)</string>
     <string name="file_add_bookmark_success">Добавена е отметка</string>
     <string name="file_create_file_title">Нов файл</string>
     <string name="file_create_directory_title">Нова папка</string>
@@ -422,9 +431,12 @@
     <string name="storage_add_storage_ftp_server">Сървър за FTP</string>
     <string name="storage_add_storage_sftp_server">Сървър за SFTP</string>
     <string name="storage_add_storage_smb_server">Сървър за SMB</string>
+    <string name="storage_add_storage_webdav_server">Сървър за WebDAV</string>
     <string name="storage_edit_device_storage_title">Редактиране на хранилище</string>
     <string name="storage_edit_device_storage_name">Име</string>
     <string name="storage_edit_device_storage_path">Път</string>
+    <string name="storage_add_document_manager_shortcut_title">Добавяне на пряк път за DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Променяне на пряк път за DocumentsUI</string>
     <string name="storage_edit_document_manager_shortcut_uri_error_empty">Въведете адрес</string>
     <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Неприемлив адрес</string>
     <string name="storage_add_document_tree_title">Добавяне на външно хранилище</string>
@@ -513,6 +525,31 @@
     <string name="storage_edit_smb_server_domain">Домейн</string>
     <string name="storage_edit_smb_server_connect_and_add">Свързване и добавяне</string>
     <string name="storage_edit_smb_server_add">Добавяне</string>
+    <string name="storage_edit_webdav_server_title_edit">Променяне на сървър за WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Нов сървър за WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Име на машина</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Въведете име на машина</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Недействително име на машина</string>
+    <string name="storage_edit_webdav_server_port">Порт</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Неприемлив порт</string>
+    <string name="storage_edit_webdav_server_path">Път</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Може да бъде празно</string>
+    <string name="storage_edit_webdav_server_name">Име</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Използване на името на машина</string>
+    <string name="storage_edit_webdav_server_protocol">Протокол</string>
+    <string name="storage_edit_webdav_server_authentication_type">Вид удостоверяване</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Парола</item>
+        <item>Код за достъп</item>
+        <item>Няма</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Потребител</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Въведете потребителско име</string>
+    <string name="storage_edit_webdav_server_password">Парола</string>
+    <string name="storage_edit_webdav_server_access_token">Код за достъп</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Въведете код за достъп</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Свързване и добавяне</string>
+    <string name="storage_edit_webdav_server_add">Добавяне</string>
 
     <string name="navigation_storage_subtitle_format">Свободни са %1$s от %2$s</string>
     <string name="navigation_add_storage">Добавяне на хранилище…</string>
@@ -554,6 +591,9 @@
     <string name="ftp_server_url_menu_copy_url">Копиране на URL</string>
     <string name="ftp_server_url_menu_copy_password">Копиране на парола</string>
     <string name="ftp_server_add_tile_title">Добавяне към бързите настройки</string>
+    <string name="ftp_server_add_tile_result_added">Добавено „Сървър за FTP“ в бързите настройки</string>
+    <string name="ftp_server_add_tile_result_already_added">Вече има „Сървър за FTP“ в бързите настройки</string>
+    <string name="ftp_server_add_tile_result_error">Грешка при добавяне на „Сървър за FTP“ в бързите настройки</string>
     <string name="ftp_server_configuration_title">Настройки</string>
     <string name="ftp_server_anonymous_login_title">Анонимно вписване</string>
     <string name="ftp_server_username_title">Потребител</string>
@@ -577,7 +617,7 @@
     </string-array>
     <string name="settings_black_night_mode">Тъмен нощен режим</string>
     <string name="settings_file_list_animation_title">Анимиране на списъка на файлове</string>
-    <string name="settings_file_name_ellipsize_title">Показване на дълги файлови имена</string>
+    <string name="settings_file_name_ellipsize_title">Показване на дълги имена на файлове</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Многоточие в началото</item>
         <item>Многоточие в средата</item>

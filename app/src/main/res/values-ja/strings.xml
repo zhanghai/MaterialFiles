@@ -16,22 +16,22 @@
     <string name="delete">削除</string>
     <string name="discard">破棄</string>
     <string name="edit">編集</string>
-    <string name="empty">空</string>
-    <string name="empty_placeholder">(空)</string>
+    <string name="empty">空白</string>
+    <string name="empty_placeholder">(空白)</string>
     <string name="error">エラー</string>
     <string name="hide">隠す</string>
     <string name="install">インストール</string>
     <string name="keep_editing">編集を続ける</string>
     <string name="loading">読み込み中…</string>
     <string name="maybe_later">あとで</string>
-    <string name="merge">併合</string>
-    <string name="none">無</string>
+    <string name="merge">マージ</string>
+    <string name="none">なし</string>
     <string name="open_navigation_drawer">ナビゲーションドロワーを開く</string>
     <string name="paste">貼り付け</string>
     <string name="refresh">更新</string>
-    <string name="reload">再読込</string>
+    <string name="reload">再読み込み</string>
     <string name="remove">消去</string>
-    <string name="rename">名前の変更</string>
+    <string name="rename">名前を変更</string>
     <string name="replace">入れ替える</string>
     <string name="reset">リセット</string>
     <string name="retry">再試行</string>
@@ -40,7 +40,7 @@
     <string name="select">選択</string>
     <string name="select_all">すべて選択</string>
     <string name="share">共有</string>
-    <string name="show">示す</string>
+    <string name="show">表示</string>
     <string name="skip">スキップ</string>
     <string name="stop">停止</string>
     <string name="system_default">システムのデフォルト</string>
@@ -56,175 +56,184 @@
         <item quantity="other">%1$,d バイト</item>
     </plurals>
 
-    <string name="all_files_access_rationale_message">アプリが全てのファイルを管理するにはアクセスが必要です。次に表示されるシステム設定でアクセスを許可してください。</string>
+    <string name="all_files_access_rationale_message">すべてのファイルを管理するには、アプリにアクセス権が必要です。次に表示されるシステム設定でアクセスを許可してください。</string>
     <!-- The allow button before Android 10 was in all-caps. -->
-    <string name="storage_permission_rationale_message">ファイルをアクセスする権限は必要です。表示されるシステムダイアログで「許可」を選択して下さい。</string>
-    <string name="storage_permission_permanently_denied_message">ファイルをアクセスする権限は必要です。システム設定で「ストレージ」権限を許可してください。</string>
+    <string name="storage_permission_rationale_message">ファイルにアクセスするには、アプリに権限が必要です。次に表示されるシステムダイアログで「許可」を選択してください。</string>
+    <string name="storage_permission_permanently_denied_message">ファイルにアクセスするには、アプリに権限が必要です。システム設定で「ストレージ」の権限を付与してください。</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">ファイル操作に関する通知を表示するには、アプリに権限が必要です。次に表示されるシステムダイアログで「許可」を選択してください。</string>
+    <string name="notification_permission_permanently_denied_message">ファイル操作に関する通知を表示するには、アプリに権限が必要です。システム設定で「通知」の権限を付与してください。</string>
+
     <string name="notification_channel_background_activity_start_name">バックグラウンド処理</string>
-    <string name="notification_channel_background_activity_start_description">バックグラウンドでアプリを実行</string>
-    <string name="notification_channel_file_job_name">ファイル作業</string>
-    <string name="notification_channel_file_job_description">ファイル作業の表示・操作</string>
+    <string name="notification_channel_background_activity_start_description">バックグラウンドでのアプリの実行です</string>
+    <string name="notification_channel_file_job_name">ファイル操作</string>
+    <string name="notification_channel_file_job_description">ファイル操作の表示・制御です</string>
     <string name="notification_channel_ftp_server_name">FTP サーバー</string>
-    <string name="notification_channel_ftp_server_description">FTP サーバーの表示・操作</string>
+    <string name="notification_channel_ftp_server_description">FTP サーバーの表示・制御です</string>
+
+    <string name="file_action_archive_password_title">パスワードが必要</string>
+    <string name="file_action_archive_password_message_format">「%1$s」はパスワードで保護されています。</string>
+    <string name="file_action_archive_password_error_empty">パスワードは空白にはできません</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルを圧縮準備中 (%2$s)</item>
+        <item quantity="other">ファイル %1$,d 件の圧縮を準備中 (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one_format">“%1$s” を “%2$s” へ圧縮</string>
+    <string name="file_job_archive_notification_title_one_format">「%1$s」を「%2$s」に圧縮中</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルを “%2$s” に圧縮しています</item>
+        <item quantity="other">ファイル %1$,d 件を「%2$s」に圧縮中</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルをコピー準備中 (%2$s)</item>
+        <item quantity="other">ファイル %1$,d 件のコピーを準備中 (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one_format">“%1$s” を “%2$s” へコピー</string>
+    <string name="file_job_copy_notification_title_one_format">「%1$s」を「%2$s」にコピー中</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルを “%2$s” にコピーしています</item>
+        <item quantity="other">ファイル %1$,d 件を「%2$s」にコピー中</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルを展開準備中 (%2$s)</item>
+        <item quantity="other">ファイル %1$,d 件の展開を準備中 (%2$s)</item>
     </plurals>
-    <string name="file_job_extract_notification_title_one_format">“%1$s” を “%2$s” へ展開</string>
+    <string name="file_job_extract_notification_title_one_format">「%1$s」を「%2$s」に展開中</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルを “%2$s” に展開しています</item>
+        <item quantity="other">ファイル %1$,d 件を「%2$s」に展開中</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルを移動準備中 (%2$s)</item>
+        <item quantity="other">ファイル %1$,d 件の移動を準備中 (%2$s)</item>
     </plurals>
-    <string name="file_job_move_notification_title_one_format">“%1$s” を “%2$s” へ移動</string>
+    <string name="file_job_move_notification_title_one_format">「%1$s」を「%2$s」へ移動中</string>
     <plurals name="file_job_move_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルを “%2$s” に移動しています</item>
+        <item quantity="other">ファイル %1$,d 件を「%2$s」に移動中</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルを削除準備中</item>
+        <item quantity="other">ファイル %1$,d 件の削除を準備中</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one_format">“%1$s” を削除</string>
+    <string name="file_job_delete_notification_title_one_format">「%1$s」を削除中</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルを削除しています</item>
+        <item quantity="other">ファイル %1$,d 件を削除中</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルの所有者変更を準備中</item>
+        <item quantity="other">ファイル %1$,d 件の所有者変更を準備中</item>
     </plurals>
-    <string name="file_job_set_owner_notification_title_one_format">“%1$s” の所有者を変更</string>
+    <string name="file_job_set_owner_notification_title_one_format">「%1$s」の所有者を変更中</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルの所有者を変更しています</item>
+        <item quantity="other">ファイル %1$,d 件の所有者を変更中</item>
     </plurals>
     <plurals name="file_job_set_group_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルのグループ変更を準備中</item>
+        <item quantity="other">ファイル %1$,d 件のグループ変更を準備中</item>
     </plurals>
-    <string name="file_job_set_group_notification_title_one_format">“%1$s” のグループを変更</string>
+    <string name="file_job_set_group_notification_title_one_format">「%1$s」のグループを変更中</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルのグループを変更しています</item>
+        <item quantity="other">ファイル %1$,d 件のグループを変更中</item>
     </plurals>
     <plurals name="file_job_set_mode_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルのモード変更を準備中です</item>
+        <item quantity="other">ファイル %1$,d 件のモード変更を準備中</item>
     </plurals>
-    <string name="file_job_set_mode_notification_title_one_format">「%1$s」モードに変更</string>
+    <string name="file_job_set_mode_notification_title_one_format">「%1$s」のモードを変更中</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルのモードを変更中</item>
+        <item quantity="other">ファイル %1$,d 件のモードを変更中</item>
     </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルのSELinuxコンテキストを変更中</item>
+        <item quantity="other">ファイル %1$,d 件の SELinux コンテキストを変更中</item>
     </plurals>
-    <string name="file_job_set_selinux_context_notification_title_one_format">“%1$s” のSELinuxコンテキストを変更しています</string>
+    <string name="file_job_set_selinux_context_notification_title_one_format">「%1$s」の SELinux コンテキストを変更中</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルのSELinuxコンテキストを変更しています</item>
+        <item quantity="other">ファイル %1$,d 件の SELinux コンテキストを変更中</item>
     </plurals>
     <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
-        <item quantity="other">%1$,d 個のファイルのSELinuxコンテキストを復元する準備をしています</item>
+        <item quantity="other">ファイル %1$,d 件の SELinux コンテキストの復元を準備中</item>
     </plurals>
-    <string name="file_job_restore_selinux_context_notification_title_one_format">“%1$s” のSELinuxコンテキストを復元しています</string>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">「%1$s」の SELinux コンテキストを復元中</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
-        <item quantity="other">%1$,d 個のファイルのSELinuxコンテキストを復元しています</item>
+        <item quantity="other">ファイル %1$,d 件の SELinux コンテキストを復元中</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
-    <string name="file_job_write_notification_title_format">“%1$s” を書き込み中</string>
+    <string name="file_job_write_notification_title_format">「%1$s」を書き込み中</string>
     <string name="file_job_create_error_title">作成中にエラーが発生しました</string>
-    <string name="file_job_create_error_message_format">“%1$s” の作成中にエラーがが発生しました。\n%2$s</string>
-    <string name="file_job_cannot_copy_into_itself_title">同じフォルダにはコピーできません</string>
-    <string name="file_job_cannot_extract_into_itself_title">同じフォルダの中には展開できません</string>
-    <string name="file_job_cannot_move_into_itself_title">同じフォルダに移動することは出来ません</string>
-    <string name="file_job_cannot_copy_move_into_itself_message">コピー先のフォルダはコピー元のフォルダー内にあります。</string>
-    <string name="file_job_cannot_copy_over_itself_title">同じファイルは上書きコピーできません。</string>
-    <string name="file_job_cannot_extract_over_itself_title">同じファイル上には展開できません。</string>
-    <string name="file_job_cannot_move_over_itself_title">同じファイルを同じフォルダーに移動することはできません。</string>
-    <string name="file_job_cannot_copy_move_over_itself_message">元のファイルはコピー/移動先で上書きされます。</string>
-    <string name="file_job_replace_title_format">“%1$s” を置き換えますか？</string>
-    <string name="file_job_replace_message_format">同じ名前のファイルはすでに “%1$s” に存在します。\n置き換えるとファイルは上書きされます。</string>
+    <string name="file_job_create_error_message_format">「%1$s」の作成中にエラーがが発生しました。\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">フォルダ自身の中にはコピーできません</string>
+    <string name="file_job_cannot_extract_into_itself_title">フォルダ自身の中には展開できません</string>
+    <string name="file_job_cannot_move_into_itself_title">フォルダ自身の中には移動できません</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">コピー先のフォルダがコピー元のフォルダ内にあります。</string>
+    <string name="file_job_cannot_copy_over_itself_title">ファイルを同じ場所にはコピーできません</string>
+    <string name="file_job_cannot_extract_over_itself_title">ファイルを同じ場所には展開できません</string>
+    <string name="file_job_cannot_move_over_itself_title">ファイルを同じ場所には移動できません</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">元のファイルは移動先で上書きされます。</string>
+    <string name="file_job_replace_title_format">ファイル「%1$s」を置換しますか？</string>
+    <string name="file_job_replace_message_format">同じ名前のファイルが「%1$s」に存在します。\n置換するとファイルは上書きされます。</string>
     <string name="file_job_replace_target_name">元のファイル</string>
-    <string name="file_job_replace_source_name">入れ替える</string>
-    <string name="file_job_merge_title_format">「%1$s」フォルダをマージしますか？</string>
-    <string name="file_job_merge_copy_message_format">併合は、コピーするファイルが衝突してる場合、置き換える前には確認を尋ねます。</string>
-    <string name="file_job_merge_extract_message_format">併合は、展開するファイルが衝突してる場合、置き換える前には確認を尋ねます。</string>
-    <string name="file_job_merge_move_message_format">併合は、移動するファイルが衝突してる場合、置き換える前には確認を尋ねます。</string>
+    <string name="file_job_replace_source_name">置換</string>
+    <string name="file_job_merge_title_format">フォルダ「%1$s」をマージしますか？</string>
+    <string name="file_job_merge_copy_message_format">マージでは、コピーしたファイルと衝突する場合、フォルダ内を置換する前に確認します。</string>
+    <string name="file_job_merge_extract_message_format">マージでは、展開したファイルと衝突する場合、フォルダ内を置換する前に確認します。</string>
+    <string name="file_job_merge_move_message_format">マージでは、移動するファイルが衝突する場合、フォルダ内を置換する前に確認します。</string>
     <string name="file_job_merge_target_name">元のフォルダ</string>
-    <string name="file_job_merge_source_name">併合</string>
-    <string name="file_job_conflict_show_name">宛先の新しい名前を選択してください</string>
+    <string name="file_job_merge_source_name">マージ</string>
+    <string name="file_job_conflict_show_name">移動先の新しい名前を選択してください</string>
     <string name="file_job_conflict_name_hint">新しい名前</string>
-    <string name="file_job_archive_error_title_format">“%1$s” の圧縮中にエラーが発生しました</string>
-    <string name="file_job_archive_error_message_format">ファイルを “%1$s” に圧縮する際にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_copy_error_title_format">“%1$s” をコピーする際にエラーが発生しました</string>
-    <string name="file_job_copy_error_message_format">ファイルを “%1$s” にコピーする際にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_extract_error_title_format">“%1$s” の展開中にエラーが発生しました</string>
-    <string name="file_job_extract_error_message_format">ファイルを “%1$s” に展開する際にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_move_error_title_format">“%1$s” の移動中にエラーが発生しました</string>
-    <string name="file_job_move_error_message_format">ファイルを “%1$s” に移動する際にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_archive_error_title_format">「%1$s」の圧縮中にエラーが発生しました</string>
+    <string name="file_job_archive_error_message_format">ファイルを「%1$s」に圧縮中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_copy_error_title_format">「%1$s」のコピー中にエラーが発生しました</string>
+    <string name="file_job_copy_error_message_format">ファイルを「%1$s」にコピー中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_extract_error_title_format">「%1$s」の展開中にエラーが発生しました</string>
+    <string name="file_job_extract_error_message_format">ファイルを「%1$s」に展開中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_move_error_title_format">「%1$s」の移動中にエラーが発生しました</string>
+    <string name="file_job_move_error_message_format">ファイルを「%1$s」に移動中にエラーが発生しました。\n%2$s</string>
     <string name="file_job_delete_error_title">削除中にエラーが発生しました</string>
-    <string name="file_job_delete_error_message_format">“%1$s” の削除中にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_rename_error_title_format">“%1$s” の名前変更中にエラーが発生しました</string>
-    <string name="file_job_rename_error_message_format">ファイルを “%1$s” へ名前変更中にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_set_owner_error_title_format">“%1$s” の所有者を変更中にエラーが発生しました</string>
-    <string name="file_job_set_owner_error_message_format">所有者を “%1$s” に変更する際にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_set_group_error_title_format">グループを “%1$s” に変更する際にエラーが発生しました。</string>
-    <string name="file_job_set_group_error_message_format">グループを “%1$s” に変更する際にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_set_mode_error_title_format">「%1$s」モードの変更中にエラーが発生しました</string>
-    <string name="file_job_set_mode_error_message_format">「%1$s」モードに変更中にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_set_selinux_context_error_title_format">SELinuxコンテキストを “%1$s” に変更する際にエラーが発生しました</string>
-    <string name="file_job_set_selinux_context_error_message_format">SELinuxコンテキストを “%1$s” に変更中にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_restore_selinux_context_error_title">SELinuxコンテキストの復元中にエラーが発生しました</string>
-    <string name="file_job_restore_selinux_context_error_message_format">“%1$s” のSELinuxコンテキストの復元中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_delete_error_message_format">「%1$s」の削除中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_rename_error_title_format">「%1$s」の名前を変更中にエラーが発生しました</string>
+    <string name="file_job_rename_error_message_format">ファイル名を「%1$s」に変更中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">「%1$s」の所有者を変更中にエラーが発生しました</string>
+    <string name="file_job_set_owner_error_message_format">所有者を「%1$s」に変更中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">「%1$s」のグループを変更中にエラーが発生しました。</string>
+    <string name="file_job_set_group_error_message_format">グループを「%1$s」に変更中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">「%1$s」のモード変更中にエラーが発生しました</string>
+    <string name="file_job_set_mode_error_message_format">モードを「%1$s」に変更中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">「%1$s」の SELinux コンテキストを変更中にエラーが発生しました</string>
+    <string name="file_job_set_selinux_context_error_message_format">SELinux コンテキストを「%1$s」に変更中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">SELinux コンテキストの復元中にエラーが発生しました</string>
+    <string name="file_job_restore_selinux_context_error_message_format">「%1$s」の SELinux コンテキストを復元中にエラーが発生しました。\n%2$s</string>
     <string name="file_job_write_error_title">書き込み中にエラーが発生しました</string>
-    <string name="file_job_write_error_message_format">“%1$s” の書き込み中にエラーが発生しました。\n%2$s</string>
-    <string name="file_job_get_information_error_message_format">“%1$s” の情報を取得中にエラーが発生しました。</string>
-    <string name="file_job_remount_format">“%1$s” を読み書き可能なものとして再マウント</string>
-    <string name="file_job_remount_loading_format">“%1$s” を読み書き可能なものとして再マウントしています…</string>
-    <string name="file_job_remount_success_format">“%1$s” が読み書き可能なものとして再マウントされました</string>
+    <string name="file_job_write_error_message_format">「%1$s」の書き込み中にエラーが発生しました。\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">「%1$s」の情報を取得中にエラーが発生しました。</string>
+    <string name="file_job_remount_format">「%1$s」を読み書き可として再マウント</string>
+    <string name="file_job_remount_loading_format">「%1$s」を読み書き可として再マウントしています…</string>
+    <string name="file_job_remount_success_format">「%1$s」が読み書き可として再マウントされました</string>
     <string name="file_job_action_all">この操作をすべてのファイルに適用</string>
 
-    <string name="file_open_apk_message">このファイルは Android パッケージです。インストールしますか？それとも中身を表示しますか？</string>
-    <string name="file_open_as_title">指定形式として開く…</string>
-    <string name="file_open_as_title_format">“%1$s” を指定の形式として開く</string>
+    <string name="file_open_apk_message">このファイルは Android パッケージです。インストールしますか？ それとも中身を表示しますか？</string>
+    <string name="file_open_as_title">…として開く</string>
+    <string name="file_open_as_title_format">「%1$s」を次の形式として開く</string>
     <string name="file_open_as_type_text">テキスト</string>
     <string name="file_open_as_type_image">画像</string>
-    <string name="file_open_as_type_audio">音楽</string>
+    <string name="file_open_as_type_audio">音声</string>
     <string name="file_open_as_type_video">動画</string>
     <string name="file_open_as_type_directory">フォルダ</string>
     <string name="file_open_as_type_any">その他</string>
-    <string name="file_install_apk_from_background_title_format">“%1$s” をインストールする準備が出来ました</string>
+    <string name="file_install_apk_from_background_title_format">「%1$s」をインストールする準備ができました</string>
     <string name="file_install_apk_from_background_text">タップでインストール</string>
-    <string name="file_open_from_background_title_format">“%1$s” を開く準備が出来ました</string>
+    <string name="file_open_from_background_title_format">「%1$s」を開く準備ができました</string>
     <string name="file_open_from_background_text">タップで開く</string>
-    <string name="file_name_error_empty">ファイル名は空に出来ません</string>
+    <string name="file_name_error_empty">ファイル名は空白にできません</string>
     <string name="file_name_error_invalid">無効なファイル名です</string>
     <string name="file_name_error_already_exists">この名前のファイルは既に存在します</string>
-    <string name="file_delete_message_file_format">“%1$s” を削除しますか？</string>
-    <string name="file_delete_message_directory_format">“%1$s” フォルダと中のファイルを削除しますか？</string>
+    <string name="file_delete_message_file_format">「%1$s」を削除しますか？</string>
+    <string name="file_delete_message_directory_format">フォルダ「%1$s」と中のファイルを削除しますか？</string>
     <plurals name="file_delete_message_multiple_files_format">
         <item quantity="other">ファイル %1$,d を削除しますか？</item>
     </plurals>
     <plurals name="file_delete_message_multiple_directories_format">
-        <item quantity="other">フォルダー %1$,d とその内容を削除しますか？</item>
+        <item quantity="other">フォルダ %1$,d 件とコンテンツを削除しますか？</item>
     </plurals>
     <plurals name="file_delete_message_multiple_mixed_format">
-        <item quantity="other">%1$,d 個の項目を削除しますか？</item>
+        <item quantity="other">アイテム %1$,d 件を削除しますか？</item>
     </plurals>
     <string name="file_create_archive_title">アーカイブを作成</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
-    <string name="file_add_bookmark_success">ブックマークに追加しました</string>
+    <string name="file_create_archive_password">パスワード (オプション)</string>
+    <string name="file_add_bookmark_success">ブックマークが追加されました</string>
     <string name="file_create_file_title">新しいファイル</string>
     <string name="file_create_directory_title">新しいフォルダ</string>
 
@@ -236,14 +245,15 @@
         <item quantity="other">フォルダを選択</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
-        <item quantity="other">%1$,d フォルダ</item>
+        <item quantity="other">フォルダ %1$,d 件</item>
     </plurals>
     <plurals name="file_list_subtitle_file_count_format">
-        <item quantity="other">%1$,d ファイル</item>
+        <item quantity="other">ファイル %1$,d 件</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
-    <string name="file_list_path_error_empty">空のパスはできません</string>
-    <string name="file_list_path_error_invalid">無効なパス</string>
+    <string name="file_list_path_error_empty">パスは空白にできません</string>
+    <string name="file_list_path_error_invalid">無効なパスです</string>
+    <string name="file_list_action_view_sort">表示と並べ替え</string>
     <string name="file_list_action_view_list">リスト</string>
     <string name="file_list_action_view_grid">グリッド</string>
     <string name="file_list_action_sort_by_name">名前</string>
@@ -251,24 +261,24 @@
     <string name="file_list_action_sort_by_size">サイズ</string>
     <string name="file_list_action_sort_by_last_modified">更新日時</string>
     <string name="file_list_action_sort_order_ascending">昇順</string>
-    <string name="file_list_action_sort_directories_first">フォルダを先頭に表示</string>
-    <string name="file_list_action_view_sort_path_specific">このフォルダのみに適用</string>
-    <string name="file_list_action_new_task">新しい画面</string>
-    <string name="file_list_action_navigate_up">上へ移動</string>
-    <string name="file_list_action_navigate_to">ここへ移動</string>
-    <string name="file_list_action_show_hidden_files">隠しファイルを表示</string>
+    <string name="file_list_action_sort_directories_first">フォルダを先頭に表示する</string>
+    <string name="file_list_action_view_sort_path_specific">このフォルダにのみ適用する</string>
+    <string name="file_list_action_new_task">新しいウィンドウ</string>
+    <string name="file_list_action_navigate_up">上のパスへ移動</string>
+    <string name="file_list_action_navigate_to">パスを入力して移動</string>
+    <string name="file_list_action_show_hidden_files">隠しファイルを表示する</string>
     <string name="file_list_action_copy_path">パスをコピー</string>
     <string name="file_list_action_open_in_terminal">ターミナルで開く</string>
     <string name="file_list_action_add_bookmark">ブックマークに追加</string>
     <string name="file_list_action_create_shortcut">ショートカットを作成</string>
-    <string name="file_list_breadcrumb_action_open_in_new_task">新しい画面を開く</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">新しいウィンドウで開く</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">“%1$s” を選択</string>
-    <string name="file_list_paste_move_title_format">%1$,d を移動</string>
-    <string name="file_list_paste_copy_title_format">%1$,d をコピー</string>
-    <string name="file_list_paste_extract_title_format">%1$,d を展開</string>
+    <string name="file_list_select_current_directory_format">「%1$s」を選択</string>
+    <string name="file_list_paste_move_title_format">%1$,d を移動中</string>
+    <string name="file_list_paste_copy_title_format">%1$,d をコピー中</string>
+    <string name="file_list_paste_extract_title_format">%1$,d を展開中</string>
     <string name="file_list_paste_action_extract_here">ここに展開</string>
-    <string name="file_list_empty">ファイルなし</string>
+    <string name="file_list_empty">ファイルがありません</string>
     <string name="file_list_action_create_file">ファイル</string>
     <string name="file_list_action_create_directory">フォルダ</string>
 
@@ -278,18 +288,18 @@
     <string name="file_item_action_archive">圧縮</string>
     <string name="file_item_action_properties">プロパティ</string>
 
-    <string name="file_properties_title_format">“%1$s” のプロパティ</string>
-    <string name="file_properties_basic">基本情報</string>
+    <string name="file_properties_title_format">「%1$s」のプロパティ</string>
+    <string name="file_properties_basic">基本</string>
     <string name="file_properties_basic_name">名前</string>
     <string name="file_properties_basic_type">種類</string>
     <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
-    <string name="file_properties_basic_type_symbolic_link_format">%1$sにリンクする (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">%1$s にリンク (%2$s)</string>
     <string name="file_properties_basic_symbolic_link_target">対象をリンクする</string>
     <string name="file_properties_basic_size">サイズ</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">コンテンツ</string>
     <plurals name="file_properties_basic_contents_format">
-        <item quantity="other">合計 %1$,d 個の項目 %2$s</item>
+        <item quantity="other">アイテムの合計 %1$,d 件 %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">更新日時</string>
     <string name="file_properties_basic_parent_directory">親フォルダ</string>
@@ -300,39 +310,39 @@
     <string name="file_properties_permissions_owner">所有者</string>
     <string name="file_properties_permissions_group">グループ</string>
     <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">所有者の変更</string>
-    <string name="file_properties_permissions_set_group_title">グループの変更</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">名前または ID を入力</string>
+    <string name="file_properties_permissions_set_owner_title">所有者を変更</string>
+    <string name="file_properties_permissions_set_group_title">グループを変更</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">名前または ID を入力してください</string>
     <string name="file_properties_permissions_set_principal_system">システム</string>
     <string name="file_properties_permissions_mode">モード</string>
     <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">モードの変更</string>
+    <string name="file_properties_permissions_set_mode_title">モードを変更</string>
     <string name="file_properties_permissions_set_mode_others">その他</string>
     <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
-        <item>読み込み</item>
+        <item>読み取り</item>
         <item>書き込み</item>
         <item>実行</item>
     </string-array>
     <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
-        <item>読み込み</item>
+        <item>読み取り</item>
         <item>書き込み</item>
         <item>検索</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">スペシャル</string>
+    <string name="file_properties_permissions_set_mode_special">特殊</string>
     <string-array name="file_properties_permissions_set_mode_special_mode_bits">
         <item>UID を設定</item>
         <item>GID を設定</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">封入されたファイルに「実行」を付けない</string>
+    <string name="file_properties_permissions_set_mode_uppercase_x">内部のファイルに「実行」を付けない</string>
     <string name="file_properties_permissions_selinux_context">SELinux コンテキスト</string>
-    <string name="file_properties_permissions_set_selinux_context_title">SELinux コンテキストの変更</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">戻す</string>
-    <string name="file_properties_permissions_recursive">封入されたファイルに適応する</string>
+    <string name="file_properties_permissions_set_selinux_context_title">SELinux コンテキストを変更</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">復元</string>
+    <string name="file_properties_permissions_recursive">内部のファイルに適用する</string>
     <string name="file_properties_image">画像</string>
     <string name="file_properties_media_dimensions">大きさ</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
-    <string name="file_properties_media_date_time">撮影日</string>
+    <string name="file_properties_media_date_time">撮影</string>
     <string name="file_properties_media_coordinates">座標</string>
     <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
     <string name="file_properties_media_address">場所</string>
@@ -340,17 +350,17 @@
     <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
     <string name="file_properties_image_equipment">カメラ</string>
     <string name="file_properties_image_equipment_format">%1$s %2$s</string>
-    <string name="file_properties_image_f_number">アパーチャー</string>
+    <string name="file_properties_image_f_number">絞り</string>
     <string name="file_properties_image_shutter_speed">シャッター速度</string>
     <string name="file_properties_image_focal_length">焦点距離</string>
     <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
-    <string name="file_properties_image_photographic_sensitivity">ISO値</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO 感度</string>
     <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
     <string name="file_properties_image_software">ソフトウェア</string>
     <string name="file_properties_image_description">説明</string>
     <string name="file_properties_image_artist">作者</string>
     <string name="file_properties_image_copyright">著作権</string>
-    <string name="file_properties_audio">オーディオ</string>
+    <string name="file_properties_audio">音声</string>
     <string name="file_properties_media_title">タイトル</string>
     <string name="file_properties_audio_artist">アーティスト</string>
     <string name="file_properties_audio_album">アルバム</string>
@@ -375,25 +385,30 @@
     <string name="file_properties_apk_target_sdk_version">対象システムバージョン</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
     <string name="file_properties_apk_requested_permissions">権限</string>
-    <string name="file_properties_apk_requested_permissions_zero">権限要求はいません</string>
+    <string name="file_properties_apk_requested_permissions_zero">権限を要求しません</string>
     <plurals name="file_properties_apk_requested_permissions_positive_format">
-        <item quantity="other">%1$,d 権限を要求</item>
+        <item quantity="other">権限 %1$,d 件を要求</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">署名</string>
-    <string name="file_properties_apk_signature_digests_empty">有効な署名がない</string>
-    <string name="file_properties_apk_past_signature_digests">古い署名</string>
+    <string name="file_properties_apk_signature_digests_empty">有効な署名がありません</string>
+    <string name="file_properties_apk_past_signature_digests">古い署名形式です</string>
 
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">ストレージ</string>
-    <string name="storage_list_empty">ストレージなし</string>
+    <string name="storage_list_empty">ストレージがありません</string>
     <string name="storage_add_storage_title">ストレージを追加</string>
     <string name="storage_add_storage_document_tree">外部ストレージ</string>
     <string name="storage_add_storage_ftp_server">FTP サーバー</string>
     <string name="storage_add_storage_sftp_server">SFTP サーバー</string>
     <string name="storage_add_storage_smb_server">SMB サーバー</string>
+    <string name="storage_add_storage_webdav_server">WebDAV サーバー</string>
     <string name="storage_edit_device_storage_title">デバイスのストレージを編集</string>
     <string name="storage_edit_device_storage_name">名前</string>
     <string name="storage_edit_device_storage_path">パス</string>
+    <string name="storage_add_document_manager_shortcut_title">ドキュメント UI ショートカットを追加</string>
+    <string name="storage_edit_document_manager_shortcut_title">ドキュメント UI ショートカットを編集</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">URI を入力してください</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">無効な URI です</string>
     <string name="storage_add_document_tree_title">外部ストレージを追加</string>
     <string name="storage_edit_document_tree_title">外部ストレージを編集</string>
     <string name="storage_edit_document_tree_name">名前</string>
@@ -402,14 +417,14 @@
     <string name="storage_edit_ftp_server_title_edit">FTP サーバーを編集</string>
     <string name="storage_edit_ftp_server_title_add">FTP サーバーを追加</string>
     <string name="storage_edit_ftp_server_host">ホスト名</string>
-    <string name="storage_edit_ftp_server_host_error_empty">ホスト名を入力</string>
-    <string name="storage_edit_ftp_server_host_error_invalid">無効なホスト名</string>
+    <string name="storage_edit_ftp_server_host_error_empty">ホスト名を入力してください</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">無効なホスト名です</string>
     <string name="storage_edit_ftp_server_port">ポート</string>
-    <string name="storage_edit_ftp_server_port_error_invalid">無効なポート</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">無効なポートです</string>
     <string name="storage_edit_ftp_server_path">パス</string>
-    <string name="storage_edit_ftp_server_path_placeholder">空のままでもいい</string>
+    <string name="storage_edit_ftp_server_path_placeholder">空白にもできます</string>
     <string name="storage_edit_ftp_server_name">名前</string>
-    <string name="storage_edit_ftp_server_name_placeholder">ホスト名を使う</string>
+    <string name="storage_edit_ftp_server_name_placeholder">ホスト名を使用する</string>
     <string name="storage_edit_ftp_server_protocol">プロトコル</string>
     <string name="storage_edit_ftp_server_authentication_type">認証</string>
     <string-array name="storage_edit_ftp_server_authentication_type_entries">
@@ -417,7 +432,7 @@
         <item>匿名</item>
     </string-array>
     <string name="storage_edit_ftp_server_username">ユーザー名</string>
-    <string name="storage_edit_ftp_server_username_error_empty">ユーザー名を入力</string>
+    <string name="storage_edit_ftp_server_username_error_empty">ユーザー名を入力してください</string>
     <string name="storage_edit_ftp_server_password">パスワード</string>
     <string name="storage_edit_ftp_server_mode">モード</string>
     <string-array name="storage_edit_ftp_server_mode_entries">
@@ -425,49 +440,49 @@
         <item>パッシブ</item>
     </string-array>
     <string name="storage_edit_ftp_server_encoding">文字コード</string>
-    <string name="storage_edit_ftp_server_connect_and_add">接続そして追加</string>
+    <string name="storage_edit_ftp_server_connect_and_add">接続して追加</string>
     <string name="storage_edit_ftp_server_add">追加</string>
     <string name="storage_edit_sftp_server_title_edit">SFTP サーバーを編集</string>
     <string name="storage_edit_sftp_server_title_add">SFTP サーバーを追加</string>
     <string name="storage_edit_sftp_server_host">ホスト名</string>
-    <string name="storage_edit_sftp_server_host_error_empty">ホスト名を入力</string>
-    <string name="storage_edit_sftp_server_host_error_invalid">無効なホスト名</string>
+    <string name="storage_edit_sftp_server_host_error_empty">ホスト名を入力してください</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">無効なホスト名です</string>
     <string name="storage_edit_sftp_server_port">ポート</string>
-    <string name="storage_edit_sftp_server_port_error_invalid">無効なポート</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">無効なポートです</string>
     <string name="storage_edit_sftp_server_path">パス</string>
-    <string name="storage_edit_sftp_server_path_placeholder">空のままでもよい</string>
+    <string name="storage_edit_sftp_server_path_placeholder">空白にもできます</string>
     <string name="storage_edit_sftp_server_name">名前</string>
-    <string name="storage_edit_sftp_server_name_placeholder">ホスト名を使う</string>
+    <string name="storage_edit_sftp_server_name_placeholder">ホスト名を使用する</string>
     <string name="storage_edit_sftp_server_authentication_type">認証</string>
     <string-array name="storage_edit_sftp_server_authentication_type_entries">
         <item>パスワード</item>
         <item>公開鍵</item>
     </string-array>
     <string name="storage_edit_sftp_server_username">ユーザー名</string>
-    <string name="storage_edit_sftp_server_username_error_empty">ユーザー名を入力</string>
+    <string name="storage_edit_sftp_server_username_error_empty">ユーザー名を入力してください</string>
     <string name="storage_edit_sftp_server_password">パスワード</string>
     <string name="storage_edit_sftp_server_private_key">秘密鍵</string>
     <string name="storage_edit_sftp_server_private_key_open_file">ファイルを開く</string>
-    <string name="storage_edit_sftp_server_private_key_error_empty">秘密鍵を入力</string>
-    <string name="storage_edit_sftp_server_private_key_error_invalid">無効な秘密鍵</string>
-    <string name="storage_edit_sftp_server_private_key_password">秘密鍵パスワード</string>
-    <string name="storage_edit_sftp_server_private_key_password_placeholder">空のままでもいい</string>
-    <string name="storage_edit_sftp_server_private_key_password_error_invalid">無効な秘密鍵パスワード</string>
-    <string name="storage_edit_sftp_server_connect_and_add">接続と追加</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">秘密鍵を入力してください</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">無効な秘密鍵です</string>
+    <string name="storage_edit_sftp_server_private_key_password">秘密鍵のパスワード</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">空白にもできます</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">無効な秘密鍵のパスワードです</string>
+    <string name="storage_edit_sftp_server_connect_and_add">接続して追加</string>
     <string name="storage_edit_sftp_server_add">追加</string>
     <string name="storage_add_lan_smb_server_loading">SMB サーバーを検索中…</string>
     <string name="storage_add_lan_smb_server_add">手動で追加</string>
     <string name="storage_edit_smb_server_title_edit">SMB サーバーを編集</string>
     <string name="storage_edit_smb_server_title_add">SMB サーバーを追加</string>
     <string name="storage_edit_smb_server_host">ホスト名</string>
-    <string name="storage_edit_smb_server_host_error_empty">ホスト名を入力</string>
-    <string name="storage_edit_smb_server_host_error_invalid">無効なホスト名</string>
+    <string name="storage_edit_smb_server_host_error_empty">ホスト名を入力してください</string>
+    <string name="storage_edit_smb_server_host_error_invalid">無効なホスト名です</string>
     <string name="storage_edit_smb_server_port">ポート</string>
-    <string name="storage_edit_smb_server_port_error_invalid">無効なポート</string>
+    <string name="storage_edit_smb_server_port_error_invalid">無効なポートです</string>
     <string name="storage_edit_smb_server_path">パス</string>
-    <string name="storage_edit_smb_server_path_placeholder">空のままでもよい</string>
+    <string name="storage_edit_smb_server_path_placeholder">空白にもできます</string>
     <string name="storage_edit_smb_server_name">名前</string>
-    <string name="storage_edit_smb_server_name_placeholder">ホスト名を使う</string>
+    <string name="storage_edit_smb_server_name_placeholder">ホスト名を使用する</string>
     <string name="storage_edit_smb_server_authentication_type">認証</string>
     <string-array name="storage_edit_smb_server_authentication_type_entries">
         <item>パスワード</item>
@@ -475,20 +490,45 @@
         <item>匿名</item>
     </string-array>
     <string name="storage_edit_smb_server_username">ユーザー名</string>
-    <string name="storage_edit_smb_server_username_error_empty">ユーザー名を入力</string>
+    <string name="storage_edit_smb_server_username_error_empty">ユーザー名を入力してください</string>
     <string name="storage_edit_smb_server_password">パスワード</string>
     <string name="storage_edit_smb_server_domain">ドメイン</string>
-    <string name="storage_edit_smb_server_connect_and_add">接続と追加</string>
+    <string name="storage_edit_smb_server_connect_and_add">接続して追加</string>
     <string name="storage_edit_smb_server_add">追加</string>
+    <string name="storage_edit_webdav_server_title_edit">WebDAV サーバーを編集</string>
+    <string name="storage_edit_webdav_server_title_add">WebDAV サーバーを追加</string>
+    <string name="storage_edit_webdav_server_host">ホスト名</string>
+    <string name="storage_edit_webdav_server_host_error_empty">ホスト名を入力してください</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">無効なホスト名です</string>
+    <string name="storage_edit_webdav_server_port">ポート</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">無効なポートです</string>
+    <string name="storage_edit_webdav_server_path">パス</string>
+    <string name="storage_edit_webdav_server_path_placeholder">空白にもできます</string>
+    <string name="storage_edit_webdav_server_name">名前</string>
+    <string name="storage_edit_webdav_server_name_placeholder">ホスト名を使用する</string>
+    <string name="storage_edit_webdav_server_protocol">プロトコル</string>
+    <string name="storage_edit_webdav_server_authentication_type">認証</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>パスワード</item>
+        <item>アクセストークン</item>
+        <item>なし</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">ユーザー名</string>
+    <string name="storage_edit_webdav_server_username_error_empty">ユーザー名を入力してください</string>
+    <string name="storage_edit_webdav_server_password">パスワード</string>
+    <string name="storage_edit_webdav_server_access_token">アクセストークン</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">アクセストークンを入力してください</string>
+    <string name="storage_edit_webdav_server_connect_and_add">接続して追加</string>
+    <string name="storage_edit_webdav_server_add">追加</string>
 
-    <string name="navigation_storage_subtitle_format">%1$s 空き / %2$s</string>
+    <string name="navigation_storage_subtitle_format">空き容量 %1$s / %2$s</string>
     <string name="navigation_add_storage">ストレージを追加…</string>
     <string name="navigation_standard_directory_alarms">アラーム</string>
     <string name="navigation_standard_directory_dcim">写真</string>
     <string name="navigation_standard_directory_documents">ドキュメント</string>
     <string name="navigation_standard_directory_downloads">ダウンロード</string>
     <string name="navigation_standard_directory_movies">動画</string>
-    <string name="navigation_standard_directory_music">音楽</string>
+    <string name="navigation_standard_directory_music">音声</string>
     <string name="navigation_standard_directory_notifications">通知</string>
     <string name="navigation_standard_directory_pictures">画像</string>
     <string name="navigation_standard_directory_podcasts">ポッドキャスト</string>
@@ -500,27 +540,31 @@
     <string name="navigation_edit_bookmark_directory_name">名前</string>
     <string name="navigation_edit_bookmark_directory_path">パス</string>
     <string name="archive_viewer_title">アーカイブビューアー</string>
-    <string name="image_viewer_title">画像ビューア</string>
+    <string name="image_viewer_title">画像ビューアー</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
-    <string name="text_editor_title">テキストエディタ</string>
+    <string name="text_editor_title">テキストエディター</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">保存しました</string>
-    <string name="text_editor_reload_message">再読みはよろしですか？未保存の変更は破棄します。</string>
+    <string name="text_editor_reload_message">本当に再読み込みしますか？ このドキュメントの保存していない変更は破棄されます。</string>
     <string name="text_editor_encoding">エンコーディング</string>
-    <string name="text_editor_close_message">保存していない変更を破棄してもいいですか？</string>
+    <string name="text_editor_close_message">本当にこのドキュメントの保存していない変更は破棄しますか？</string>
 
     <string name="ftp_server_title">FTP サーバー</string>
     <string name="ftp_server_state_title">状態</string>
-    <string name="ftp_server_state_summary_starting">開始…</string>
+    <string name="ftp_server_state_summary_starting">開始中…</string>
     <string name="ftp_server_state_summary_running">実行中</string>
-    <string name="ftp_server_state_summary_stopping">停止…</string>
-    <string name="ftp_server_state_summary_stopped">停止中</string>
+    <string name="ftp_server_state_summary_stopping">停止中…</string>
+    <string name="ftp_server_state_summary_stopped">待機中</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">未知のローカル IP です</string>
     <string name="ftp_server_url_menu_copy_url">URL をコピー</string>
     <string name="ftp_server_url_menu_copy_password">パスワードをコピー</string>
     <string name="ftp_server_add_tile_title">クイック設定に追加</string>
-    <string name="ftp_server_configuration_title">環境設定</string>
+    <string name="ftp_server_add_tile_result_added">「FTP サーバー」はクイック設定に追加されました</string>
+    <string name="ftp_server_add_tile_result_already_added">「FTP サーバー」は既にクイック設定に追加されています</string>
+    <string name="ftp_server_add_tile_result_error">クイック設定に「FTP サーバー」を追加中にエラーが発生しました</string>
+    <string name="ftp_server_configuration_title">設定</string>
     <string name="ftp_server_anonymous_login_title">匿名ログイン</string>
     <string name="ftp_server_username_title">ユーザー名</string>
     <string name="ftp_server_password_title">パスワード</string>
@@ -530,28 +574,28 @@
     <string name="settings_title">設定</string>
     <string name="settings_interface_title">外観</string>
     <string name="settings_locale_title">言語</string>
-    <string name="settings_theme_color_title">テーマ色</string>
-    <string name="settings_theme_color_summary">アプリ内での出現頻度が高い色</string>
+    <string name="settings_theme_color_title">テーマカラー</string>
+    <string name="settings_theme_color_summary">アプリ内で優先して使用する色です</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">夜間モード</string>
     <string-array name="settings_night_mode_entries">
         <item>システム設定に従う</item>
         <item>オフ</item>
         <item>オン</item>
-        <item>時刻に依存</item>
-        <item>バッテリーセーバーに依存</item>
+        <item>時刻に従う</item>
+        <item>バッテリーセーバーに従う</item>
     </string-array>
-    <string name="settings_black_night_mode">真っ黒モード</string>
+    <string name="settings_black_night_mode">夜間モードで黒を使用</string>
     <string name="settings_file_list_animation_title">ファイル一覧のアニメーション</string>
     <string name="settings_file_name_ellipsize_title">長いファイル名の表示方法</string>
     <string-array name="settings_file_name_ellipsize_entries">
-        <item>冒頭を省略</item>
+        <item>先頭を省略</item>
         <item>中央を省略</item>
         <item>末尾を省略</item>
-        <item>スクローリング</item>
+        <item>スクロール</item>
     </string-array>
-    <string name="settings_behavior_title">動き方</string>
-    <string name="settings_default_directory_title">既定フォルダ</string>
+    <string name="settings_behavior_title">動作</string>
+    <string name="settings_default_directory_title">デフォルトのフォルダ</string>
     <string name="settings_standard_directories_title">標準フォルダ</string>
     <string name="settings_standard_directories_summary_empty">標準フォルダが有効化されていません</string>
     <string name="settings_bookmark_directory_screenshots">スクリーンショット</string>
@@ -559,29 +603,29 @@
     <string name="settings_bookmark_directories_summary_empty">ブックマークフォルダがありません</string>
     <string name="settings_root_strategy_title">Root アクセスモード</string>
     <plurals name="settings_root_strategy_message_format">
-        <item quantity="other">%1$,d 個のファイルが操作中です。ルートアクセスモードを変更すると不測のエラーが発生することがあります。 今すぐ変更しますか？</item>
+        <item quantity="other">%1$,d 件のファイルが操作を実行中です。ルートアクセスモードを変更すると予期せぬエラーが発生することがあります。本当に今すぐ変更しますか？</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>通常アクセスのみ</item>
         <item>自動</item>
         <item>Root アクセスのみ</item>
     </string-array>
-    <string name="settings_archive_file_name_encoding_title">アーカイブのファイル名のエンコード</string>
+    <string name="settings_archive_file_name_encoding_title">アーカイブのファイル名のエンコーディング</string>
     <string name="settings_open_apk_default_action_title">Android パッケージを開く</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>インストール</item>
-        <item>内容を見る</item>
-        <item>何をすべきか尋ねる</item>
+        <item>内容を表示</item>
+        <item>何をするか確認する</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ファイルのサムネを表示する</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ファイルのサムネイルを表示</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">古いバージョンの Android ではアプリが不安定になる可能性があります</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネを読み込む</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネイルを読み込む</string>
 
     <string name="about_title">このアプリについて</string>
     <string name="about_version_title">バージョン</string>
     <string name="about_github_title">GitHub で見る</string>
     <string name="about_licenses_title">ライセンス</string>
-    <string name="about_privacy_policy_title">プライバシー方針</string>
+    <string name="about_privacy_policy_title">プライバシーポリシー</string>
     <string name="about_author_title">開発者</string>
     <string name="about_author_name_title">張海</string>
     <string name="about_author_github_title">GitHub でフォロー</string>

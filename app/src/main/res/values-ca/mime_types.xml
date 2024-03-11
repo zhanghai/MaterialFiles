@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Fitxer</string>
+    <string name="file_type_name_apk">Paquet Android</string>
+    <string name="file_type_name_archive">Arxiu %1$s</string>
+    <string name="file_type_name_audio">Àudio %1$s </string>
+    <string name="file_type_name_calendar">Calendari %1$s</string>
+    <string name="file_type_name_certificate">Certificat %1$s</string>
+    <string name="file_type_name_code">Document %1$s</string>
+    <string name="file_type_name_contact">Targeta de visita electrònica</string>
+    <string name="file_type_name_directory">Carpeta</string>
+    <string name="file_type_name_document">Document %1$s</string>
+    <string name="file_type_name_ebook">Llibre electrònic %1$s </string>
+    <string name="file_type_name_email">Missatge de correu electrònic %1$s</string>
+    <string name="file_type_name_font">Font %1$s</string>
+    <string name="file_type_name_generic">Fitxer %1$s</string>
+    <string name="file_type_name_image">Imatge %1$s</string>
+    <string name="file_type_name_pdf">Document PDF</string>
+    <string name="file_type_name_presentation">Presentació %1$s </string>
+    <string name="file_type_name_spreadsheet">Full de càlcul %1$s </string>
+    <string name="file_type_name_text">Document %1$s </string>
+    <string name="file_type_name_text_plain">Document de text pla</string>
+    <string name="file_type_name_video">Vídeo %1$s </string>
+    <string name="file_type_name_word">Document Word</string>
+    <string name="file_type_name_powerpoint">Presentació PowerPoint</string>
+    <string name="file_type_name_excel">Full de càlcul Excel</string>
+    <string name="file_type_name_posix_character_device">Dispositiu de caràcters</string>
+    <string name="file_type_name_posix_block_device">Bloca el dispositiu</string>
+    <string name="file_type_name_posix_fifo">Canonada</string>
+    <string name="file_type_name_posix_symbolic_link">Enllaç</string>
+    <string name="file_type_name_posix_socket">Sòcol</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Enllaç (trencat)</string>
+</resources>

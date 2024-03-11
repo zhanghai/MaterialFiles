@@ -64,12 +64,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">A aplicação precisa da permissão para aceder aos ficheiros. Clique em “PERMITIR” na próxima caixa de diálogo.</string>
     <string name="storage_permission_permanently_denied_message">A aplicação precisa da permissão para aceder aos ficheiros. Por favor, conceda a permissão de “Armazenamento” nas definições de sistema.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">A aplicação precisa de aceder às notificações para poder mostrar as operações de ficheiros. Toque em \"Permitir\" no próximo ecrã.</string>
+    <string name="notification_permission_permanently_denied_message">A aplicação precisa de aceder às notificações para poder mostrar as operações de ficheiros. Deve conceder a permissão \"Notificação\" nas definições do sistema.</string>
+
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Executar ações se a aplicação estiver em segundo plano</string>
     <string name="notification_channel_file_job_name">Operações de ficheiro</string>
     <string name="notification_channel_file_job_description">Mostrar e controlar operações de ficheiros</string>
     <string name="notification_channel_ftp_server_name">Servidor FTP</string>
     <string name="notification_channel_ftp_server_description">Mostrar e controlar servidores FTP</string>
+
+    <string name="file_action_archive_password_title">Requer palavra-passe</string>
+    <string name="file_action_archive_password_message_format">\"%1$s\" está protegido por palavra-passe.</string>
+    <string name="file_action_archive_password_error_empty">A palavra-passe não pode estar vazia</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">A preparar para comprimir %1$,d ficheiro (%2$s)</item>
@@ -274,6 +282,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Palavra-passe (opcional)</string>
     <string name="file_add_bookmark_success">Marcador adicionado</string>
     <string name="file_create_file_title">Novo ficheiro</string>
     <string name="file_create_directory_title">Nova pasta</string>
@@ -454,6 +463,7 @@
     <string name="storage_add_storage_ftp_server">Servidor FTP</string>
     <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
     <string name="storage_add_storage_smb_server">Servidor SMB</string>
+    <string name="storage_add_storage_webdav_server">Servidor WebDAV</string>
     <string name="storage_edit_device_storage_title">Editar armazenamento</string>
     <string name="storage_edit_device_storage_name">Nome</string>
     <string name="storage_edit_device_storage_path">Caminho</string>
@@ -547,6 +557,31 @@
     <string name="storage_edit_smb_server_domain">Domínio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectar e adicionar</string>
     <string name="storage_edit_smb_server_add">Adicionar</string>
+    <string name="storage_edit_webdav_server_title_edit">Editar servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Adicionar servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Nome do servidor</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Introduza um nome</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Nome inválido</string>
+    <string name="storage_edit_webdav_server_port">Porta</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Porta inválida</string>
+    <string name="storage_edit_webdav_server_path">Caminho</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Pode ficar vazio</string>
+    <string name="storage_edit_webdav_server_name">Nome</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Utilizar nome do servidor</string>
+    <string name="storage_edit_webdav_server_protocol">Protocolo</string>
+    <string name="storage_edit_webdav_server_authentication_type">Autenticação</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Palavra-passe</item>
+        <item>Token de acesso</item>
+        <item>Não usar</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Nome de utilizador</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Introduza o nome de utilizador</string>
+    <string name="storage_edit_webdav_server_password">Palavra-passe</string>
+    <string name="storage_edit_webdav_server_access_token">Token de acesso</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Introduza o token de acesso</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Conectar e adicionar</string>
+    <string name="storage_edit_webdav_server_add">Adicionar</string>
 
     <string name="navigation_storage_subtitle_format">%1$s livres de %2$s</string>
     <string name="navigation_add_storage">Adicionar armazenamento…</string>
@@ -588,9 +623,9 @@
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar palavra-passe</string>
     <string name="ftp_server_add_tile_title">Adicionar a Definições rápidas</string>
-    <string name="ftp_server_add_tile_result_added">“Servidor FTP” adicionado a Definições rápidas</string>
-    <string name="ftp_server_add_tile_result_already_added">“Servidor FTP” já existe em Definições rápidas</string>
-    <string name="ftp_server_add_tile_result_error">Erro ao adicionar “Servidor FTP” a Definições rápidas</string>
+    <string name="ftp_server_add_tile_result_added">\"Servidor FTP\" foi adicionado às definições rápidas</string>
+    <string name="ftp_server_add_tile_result_already_added">\"Servidor FTP\" já existe nas definições rápidas</string>
+    <string name="ftp_server_add_tile_result_error">Erro ao adicionar “Servidor FTP” às definições rápidas</string>
     <string name="ftp_server_configuration_title">Configuração</string>
     <string name="ftp_server_anonymous_login_title">Sessão anónima</string>
     <string name="ftp_server_username_title">Nome de utilizador</string>

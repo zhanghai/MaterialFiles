@@ -65,12 +65,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, нажмите «РАЗРЕШИТЬ» в появившемся системном диалоговом окне.</string>
     <string name="storage_permission_permanently_denied_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, предоставьте разрешение «Хранилище» в настройках системы.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Приложению требуется разрешение на отправку уведомлений об операциях с файлами. Пожалуйста, нажмите “Разрешить” в появившемся диалоговом окне.</string>
+    <string name="notification_permission_permanently_denied_message">Приложению требуется разрешение на отправку уведомлений о файловых операциях. Пожалуйста, предоставьте разрешение на “Уведомления” в системных настройках.</string>
+
     <string name="notification_channel_background_activity_start_name">Действия в фоновом режиме</string>
     <string name="notification_channel_background_activity_start_description">Разрешить действия, пока приложение находится в фоновом режиме</string>
     <string name="notification_channel_file_job_name">Операции с файлами</string>
     <string name="notification_channel_file_job_description">Отображать и управлять операциями с файлами</string>
     <string name="notification_channel_ftp_server_name">FTP-сервер</string>
     <string name="notification_channel_ftp_server_description">Отображать и управлять FTP-сервером</string>
+
+    <string name="file_action_archive_password_title">Нужен пароль</string>
+    <string name="file_action_archive_password_message_format">“%1$s” защищённый паролем.</string>
+    <string name="file_action_archive_password_error_empty">Пароль не может быть пустым</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Подготовка к сжатию %1$,d файла (%2$s)</item>
@@ -298,6 +306,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Пароль (необязательно)</string>
     <string name="file_add_bookmark_success">Закладка добавлена</string>
     <string name="file_create_file_title">Новый файл</string>
     <string name="file_create_directory_title">Новая папка</string>
@@ -484,6 +493,7 @@
     <string name="storage_add_storage_ftp_server">FTP-сервер</string>
     <string name="storage_add_storage_sftp_server">SFTP сервер</string>
     <string name="storage_add_storage_smb_server">SMB-сервер</string>
+    <string name="storage_add_storage_webdav_server">WebDAV сервер</string>
     <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
     <string name="storage_edit_device_storage_name">Имя</string>
     <string name="storage_edit_device_storage_path">Путь</string>
@@ -577,6 +587,31 @@
     <string name="storage_edit_smb_server_domain">Домен</string>
     <string name="storage_edit_smb_server_connect_and_add">Добавить и соединиться</string>
     <string name="storage_edit_smb_server_add">Добавить</string>
+    <string name="storage_edit_webdav_server_title_edit">Редактировать WebDAV сервер</string>
+    <string name="storage_edit_webdav_server_title_add">Добавить WebDAV сервер</string>
+    <string name="storage_edit_webdav_server_host">Название хоста</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Введите название хоста</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Недействительное название хоста</string>
+    <string name="storage_edit_webdav_server_port">Порт</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Недействительный порт</string>
+    <string name="storage_edit_webdav_server_path">Путь</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Может быть пустым</string>
+    <string name="storage_edit_webdav_server_name">Имя</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Использовать название хоста</string>
+    <string name="storage_edit_webdav_server_protocol">Протокол</string>
+    <string name="storage_edit_webdav_server_authentication_type">Аутентификация</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Пароль</item>
+        <item>Токен доступа</item>
+        <item>Нет</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Имя пользователя</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Введите имя пользователя</string>
+    <string name="storage_edit_webdav_server_password">Пароль</string>
+    <string name="storage_edit_webdav_server_access_token">Токен доступа</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Введите токен доступа</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Соединиться и добавить</string>
+    <string name="storage_edit_webdav_server_add">Добавить</string>
 
     <string name="navigation_storage_subtitle_format">%1$s свободно из %2$s</string>
     <string name="navigation_add_storage">Добавить накопитель…</string>
@@ -618,9 +653,9 @@
     <string name="ftp_server_url_menu_copy_url">Скопировать URL</string>
     <string name="ftp_server_url_menu_copy_password">Скопировать пароль</string>
     <string name="ftp_server_add_tile_title">Добавить в Быстрые настройки</string>
-    <string name="ftp_server_add_tile_result_added">\"FTP сервер\" был добавлен в быстрые настройки</string>
-    <string name="ftp_server_add_tile_result_already_added">\"FTP сервер\" уже добавлен в быстрые настройки</string>
-    <string name="ftp_server_add_tile_result_error">Произошла ошибка при добавлении \"FTP сервера\" в быстрые настройки</string>
+    <string name="ftp_server_add_tile_result_added">“FTP server” был добавлен в Быстрые настройки</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP server” уже добавлен в Быстрые настройки</string>
+    <string name="ftp_server_add_tile_result_error">Ошибка при добавлении “FTP server” в Быстрые настройки</string>
     <string name="ftp_server_configuration_title">Конфигурация</string>
     <string name="ftp_server_anonymous_login_title">Анонимный вход</string>
     <string name="ftp_server_username_title">Имя пользователя</string>
@@ -666,7 +701,7 @@
         <item quantity="other">У вас запущены %1$,d файловых операций и изменение режима root-доступа может привести к непредвиденной ошибке. Вы уверены, что хотите изменить сейчас?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
-        <item>Только нормальный доступ</item>
+        <item>Только обычный доступ</item>
         <item>Автоматически</item>
         <item>Только root-доступ</item>
     </string-array>

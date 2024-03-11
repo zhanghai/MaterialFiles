@@ -69,6 +69,10 @@
     <string name="notification_channel_ftp_server_name">Server FTP</string>
     <string name="notification_channel_ftp_server_description">Zobrazit a kontrolovat FTP server</string>
 
+    <string name="file_action_archive_password_title">Heslo vyžadováno</string>
+    <string name="file_action_archive_password_message_format">\"%1$s\" je chráněno heslem.</string>
+    <string name="file_action_archive_password_error_empty">Heslo nemůže být prázdné</string>
+
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Příprava ke kompresi %1$,d souboru (%2$s)</item>
         <item quantity="few">Příprava ke kompresi %1$,d souborů (%2$s)</item>
@@ -295,6 +299,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Heslo (volitelné)</string>
     <string name="file_add_bookmark_success">Záložka přidána</string>
     <string name="file_create_file_title">Nový soubor</string>
     <string name="file_create_directory_title">Nová složka</string>
@@ -327,6 +332,9 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">Cesta nemůže být prázná</string>
     <string name="file_list_path_error_invalid">Neplatná cesta</string>
+    <string name="file_list_action_view_sort">Zobrazení a seřazení</string>
+    <string name="file_list_action_view_list">Seznam</string>
+    <string name="file_list_action_view_grid">Mřížka</string>
     <string name="file_list_action_sort_by_name">Název</string>
     <string name="file_list_action_sort_by_type">Typ</string>
     <string name="file_list_action_sort_by_size">Velikost</string>
@@ -479,6 +487,7 @@
     <string name="storage_edit_device_storage_title">Upravit úložiště zařízení</string>
     <string name="storage_edit_device_storage_name">Název</string>
     <string name="storage_edit_device_storage_path">Cesta</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Zadejte URI</string>
     <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Neplatná URI</string>
     <string name="storage_add_document_tree_title">Přidat externí úložiště</string>
     <string name="storage_edit_document_tree_title">Upravit externí úložiště</string>
@@ -557,7 +566,6 @@
     <string name="storage_edit_smb_server_domain">Doména</string>
     <string name="storage_edit_smb_server_connect_and_add">Připojit se a přidat</string>
     <string name="storage_edit_smb_server_add">Přidat</string>
-
     <string name="navigation_storage_subtitle_format">%1$svolných z %2$s</string>
     <string name="navigation_add_storage">Přidat úložiště…</string>
     <string name="navigation_standard_directory_alarms">Budíky</string>

@@ -64,12 +64,18 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">O aplicativo precisa de permissão para acessar os arquivos. Clique em \"PERMITIR\" na próxima caixa de diálogo do sistema.</string>
     <string name="storage_permission_permanently_denied_message">O aplicativo precisa de permissão para acessar os arquivos. Por favor, conceda a permissão de \"Armazenamento\" nas configurações do sistema.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">O app precisa de permissão para enviar notificações sobre operações de arquivos. Clique em \"Permitir\" no diálogo de sistema a seguir.</string>
     <string name="notification_channel_background_activity_start_name">Ações em segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realize ações enquanto o aplicativo estiver em segundo plano</string>
     <string name="notification_channel_file_job_name">Operações de arquivo</string>
     <string name="notification_channel_file_job_description">Exibir e controlar operações de arquivo</string>
     <string name="notification_channel_ftp_server_name">Servidor FTP</string>
     <string name="notification_channel_ftp_server_description">Exibir e controlar o servidor FTP</string>
+
+    <string name="file_action_archive_password_title">Senha necessária</string>
+    <string name="file_action_archive_password_message_format">“%1$s” é protegido por senha.</string>
+    <string name="file_action_archive_password_error_empty">A senha não pode estar vazia</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparando para compactar %1$,d arquivo (%2$s)</item>
@@ -274,6 +280,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Senha (opcional)</string>
     <string name="file_add_bookmark_success">Favorito adicionado</string>
     <string name="file_create_file_title">Novo arquivo</string>
     <string name="file_create_directory_title">Nova pasta</string>
@@ -363,7 +370,7 @@
     <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
     <string name="file_properties_permissions_set_owner_title">Alterar proprietário</string>
     <string name="file_properties_permissions_set_group_title">Alterar grupo</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Digite um nome ou ID</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Insira um nome ou ID</string>
     <string name="file_properties_permissions_set_principal_system">Sistema</string>
     <string name="file_properties_permissions_mode">Modo</string>
     <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
@@ -454,6 +461,7 @@
     <string name="storage_add_storage_ftp_server">Servidor FTP</string>
     <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
     <string name="storage_add_storage_smb_server">Servidor SMB</string>
+    <string name="storage_add_storage_webdav_server">Servidor WebDAV</string>
     <string name="storage_edit_device_storage_title">Editar armazenamento do dispositivo</string>
     <string name="storage_edit_device_storage_name">Nome</string>
     <string name="storage_edit_device_storage_path">Caminho</string>
@@ -547,6 +555,24 @@
     <string name="storage_edit_smb_server_domain">Domínio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conecte e adicione</string>
     <string name="storage_edit_smb_server_add">Add</string>
+    <string name="storage_edit_webdav_server_title_edit">Editar servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Adicionar servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Insira o hostname</string>
+    <string name="storage_edit_webdav_server_port">Porta</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Porta inválida</string>
+    <string name="storage_edit_webdav_server_protocol">Protocolo</string>
+    <string name="storage_edit_webdav_server_authentication_type">Autenticação</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Senha</item>
+        <item>Token de acesso</item>
+        <item>None</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username_error_empty">Insira o nome do usuário</string>
+    <string name="storage_edit_webdav_server_password">Senha</string>
+    <string name="storage_edit_webdav_server_access_token">Token de acesso</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Insira o token de acesso</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Conectar e adicionar</string>
+    <string name="storage_edit_webdav_server_add">Adicionar</string>
 
     <string name="navigation_storage_subtitle_format">%1$s livre de %2$s</string>
     <string name="navigation_add_storage">Adicionar armazenamento…</string>
@@ -588,9 +614,6 @@
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar senha</string>
     <string name="ftp_server_add_tile_title">Adicionar às configurações rápidas</string>
-    <string name="ftp_server_add_tile_result_added">\"Servidor FTP\" foi adicionado às configurações rápidas</string>
-    <string name="ftp_server_add_tile_result_already_added">\"Servidor FTP\" já foi adicionado às Configurações rápidas</string>
-    <string name="ftp_server_add_tile_result_error">Erro ao adicionar \"servidor FTP\" às configurações rápidas</string>
     <string name="ftp_server_configuration_title">Configuração</string>
     <string name="ftp_server_anonymous_login_title">Login anônimo</string>
     <string name="ftp_server_username_title">Nome do usuário</string>

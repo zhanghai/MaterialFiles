@@ -577,7 +577,6 @@
     <string name="storage_edit_smb_server_domain">Domenas</string>
     <string name="storage_edit_smb_server_connect_and_add">Prisijungti ir pridėti</string>
     <string name="storage_edit_smb_server_add">Pridėti</string>
-
     <string name="navigation_storage_subtitle_format">%1$s laisva iš %2$s</string>
     <string name="navigation_add_storage">Pridėti saugyklą…</string>
     <string name="navigation_standard_directory_alarms">Aliarmai</string>
@@ -618,9 +617,6 @@
     <string name="ftp_server_url_menu_copy_url">Kopijuoti URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopijuoti slaptažodį</string>
     <string name="ftp_server_add_tile_title">Pridėti prie greitųjų nustatymų</string>
-    <string name="ftp_server_add_tile_result_added">„FTP serveris“ buvo pridėtas prie greitųjų nustatymų</string>
-    <string name="ftp_server_add_tile_result_already_added">„FTP serveris“ jau pridėtas prie greitųjų nustatymų</string>
-    <string name="ftp_server_add_tile_result_error">Klaida pridedant „FTP serveris“ prie greitųjų nustatymų</string>
     <string name="ftp_server_configuration_title">Konfigūracija</string>
     <string name="ftp_server_anonymous_login_title">Anonimiškas prisijungimas</string>
     <string name="ftp_server_username_title">Naudotojo vardas</string>

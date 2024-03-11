@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Files</string>
+
+    <string name="close">Tanca</string>
+    <string name="copy">Copia</string>
+    <string name="cut">Retalla</string>
+    <string name="default_">Per defecte</string>
+    <string name="delete">Suprimeix</string>
+    <string name="discard">Descarta</string>
+    <string name="edit">Edita</string>
+    <string name="empty">Buit</string>
+    <string name="empty_placeholder">(Buit)</string>
+    <string name="error">Error</string>
+    <string name="hide">Amaga</string>
+    <string name="install">Instal·la</string>
+    <string name="keep_editing">Continua editant</string>
+    <string name="loading">S\'està carregant...</string>
+    <string name="maybe_later">Potser més tard</string>
+    <string name="merge">Combina</string>
+    <string name="none">Cap</string>
+    <string name="open_navigation_drawer">Obre el calaix de navegació</string>
+    <string name="paste">Enganxa</string>
+    <string name="refresh">Refresca</string>
+    <string name="reload">Torna a carregar</string>
+    <string name="remove">Elimina</string>
+    <string name="rename">Canvia el nom</string>
+    <string name="replace">Substitueix</string>
+    <string name="reset">Reinicia</string>
+    <string name="retry">Torna a provar</string>
+    <string name="save">Desa</string>
+    <string name="search">Cerca</string>
+    <string name="select">Selecciona</string>
+    <string name="select_all">Selecciona-ho tot</string>
+    <string name="share">Comparteix</string>
+    <string name="show">Mostra</string>
+    <string name="skip">Omet</string>
+    <string name="stop">Atura</string>
+    <string name="system_default">Predeterminat del sistema</string>
+    <string name="unknown">Desconegut</string>
+    <string name="view">Visualitza</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">No s\'ha trobat cap aplicació per gestionar aquesta acció</string>
+    <string name="open_settings">Obre la configuració</string>
+    <string name="shortcut_created">S\'ha creat una drecera</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d byte</item>
+        <item quantity="other">%1$,d bytes</item>
+    </plurals>
+
+    <string name="all_files_access_rationale_message">L\'aplicació necessita accés per gestionar tots els fitxers. Si us plau, permeteu l\'accés a la configuració del sistema.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
+    <string name="storage_permission_rationale_message">L\'aplicació necessita permís per accedir als fitxers. Feu clic a «PERMET» en el diàleg del sistema.</string>
+    <string name="storage_permission_permanently_denied_message">L\'aplicació necessita permís per accedir als fitxers. Si us plau, concedeix el permís “emmagatzematge” a la configuració del sistema.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">L\'aplicació necessita permís per publicar notificacions sobre les operacions dels fitxers. Feu clic a «Permet» en el diàleg del sistema.</string>
+    <string name="notification_permission_permanently_denied_message">L\'aplicació necessita permís per publicar notificacions sobre les operacions dels fitxers. Atorgueu el permís de «Notificació» a la configuració del sistema.</string>
+
+    <string name="notification_channel_background_activity_start_name">Accions en segon pla</string>
+    <string name="notification_channel_background_activity_start_description">Fes accions mentre l\'aplicació estigui en segon pla</string>
+    <string name="notification_channel_file_job_name">Operacions de fitxers</string>
+    <string name="notification_channel_file_job_description">Mostra i controla les operacions de fitxers</string>
+    <string name="notification_channel_ftp_server_name">Servidor FTP</string>
+    <string name="notification_channel_ftp_server_description">Mostra i controla el servidor FTP</string>
+
+    <string name="file_action_archive_password_title">Es requereix una contrasenya</string>
+    <string name="file_action_archive_password_message_format">«%1$s» està protegit amb contrasenya.</string>
+    <string name="file_action_archive_password_error_empty">La contrasenya no pot ser buida</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="one">Preparant la compressió de %1$,d fitxers (%2$s)</item>
+        <item quantity="other">S\'està preparant la compressió de %1$,d fitxers (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">S\'està comprimint «%1$s» a «%2$s»</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="one">Comprimint %1$,d fitxers a “%2$s”</item>
+        <item quantity="other">S\'estan comprimint %1$,d fitxers a «%2$s»</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="one">Preparant la còpia de %1$,d fitxers (%2$s)</item>
+        <item quantity="other">S\'està preparant per a copiar %1$,d fitxers (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">S\'està copiant «%1$s» a «%2$s»</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="one">Copiant %1$,d fitxers a “%2$s”</item>
+        <item quantity="other">S\'estan copiant %1$,d fitxers a «%2$s»</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="one">Preparant l\'extracció de %1$,d fitxers (%2$s)</item>
+        <item quantity="other">S\'està preparant l\'extracció de %1$,d fitxers (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">S\'està extraient «%1$s» a «%2$s»</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="one">Extraient %1$,d fitxers a “%2$s”</item>
+        <item quantity="other">S\'estan extraient %1$,d fitxers a «%2$s»</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="one">Preparant per moure %1$,d fitxers (%2$s)</item>
+        <item quantity="other">S\'està preparant per moure %1$,d fitxers (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">S\'està movent «%1$s» a «%2$s»</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="one">Movent %1$,d fitxers a “%2$s”</item>
+        <item quantity="other">S\'estan movent %1$,d fitxers a «%2$s»</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s de %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d de %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="one">Preparant la supressió de %1$,d fitxers</item>
+        <item quantity="other">S\'està preparant la supressió %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">S\'està suprimint «%1$s»</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="one">Suprimint %1$,d fitxers</item>
+        <item quantity="other">S\'estan suprimint %1$,d fitxers</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="one">Preparant el canvi de propietari per %1$,d fitxers</item>
+        <item quantity="other">S\'està preparant el canvi de propietari per a %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">S\'està canviant el propietari de «%1$s»</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="one">Canviant el propietari per %1$,d fitxers</item>
+        <item quantity="other">S\'està canviant el propietari de %1$,d fitxers</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="one">Preparant el canvi de grup per %1$,d fitxers</item>
+        <item quantity="other">S\'està preparant el canvi de grup per a %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">S\'està canviant el grup per «%1$s»</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="one">Canviant el grup per %1$,d fitxers</item>
+        <item quantity="other">S\'està canviant el grup de %1$,d fitxers</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="one">Preparant el canvi de mode per %1$,d fitxers</item>
+        <item quantity="other">S\'està preparant el mode de canvi per a %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">S\'està canviant el mode per a «%1$s»</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="one">Canviant el mode per %1$,d fitxers</item>
+        <item quantity="other">S\'està canviant el mode de %1$,d fitxers</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="one">Preparant el canvi de context SELinux per %1$,d fitxers</item>
+        <item quantity="other">S\'està preparant canviar el context de SELinux per a %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">S\'està canviant el context de SELinux per a «%1$s»</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Canviant el context SELinux per %1$,d fitxers</item>
+        <item quantity="other">S\'està canviant el context de SELinux per a %1$,d fitxers</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="one">Preparant la restauració del context SELinux pel fitxer %1$,d </item>
+        <item quantity="other">S\'està preparant la restauració del context de SELinux per a %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">S\'està restaurant el context de SELinux per a «%1$s»</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="one">S\'està restaurant el context SELinux per al fitxer %1$,d</item>
+        <item quantity="other">S\'està restaurant el context de SELinux per a %1$,d fitxers</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d de %2$,d</string>
+    <string name="file_job_write_notification_title_format">S\'està escrivint «%1$s»</string>
+    <string name="file_job_create_error_title">S\'ha produït un error en crear</string>
+    <string name="file_job_create_error_message_format">S\'ha produït un error en crear «%1$s».\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">No es pot copiar una carpeta en si mateixa</string>
+    <string name="file_job_cannot_extract_into_itself_title">No es pot extreure una carpeta en si mateixa</string>
+    <string name="file_job_cannot_move_into_itself_title">No es pot moure una carpeta en si mateixa</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">La carpeta de destinació es troba dins de la carpeta d\'origen.</string>
+    <string name="file_job_cannot_copy_over_itself_title">No es pot copiar un fitxer sobre si mateix</string>
+    <string name="file_job_cannot_extract_over_itself_title">No es pot extreure un fitxer sobre si mateix</string>
+    <string name="file_job_cannot_move_over_itself_title">No es pot moure un fitxer sobre si mateix</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">El fitxer d\'origen seria sobreescrit per la destinació.</string>
+    <string name="file_job_replace_title_format">Voleu reemplaçar el fitxer «%1$s»?</string>
+    <string name="file_job_replace_message_format">Ja existeix un altre fitxer amb el mateix nom a «%1$s».\nReemplaçar-lo sobreescriurà el seu contingut.</string>
+    <string name="file_job_replace_target_name">Fitxer original</string>
+    <string name="file_job_replace_source_name">Reemplaça per</string>
+    <string name="file_job_merge_title_format">Voleu fusionar la carpeta «%1$s»?</string>
+    <string name="file_job_merge_copy_message_format">La fusió demanarà confirmació abans de substituir qualsevol fitxer de la carpeta que entri en conflicte amb els fitxers que s\'estan copiant.</string>
+    <string name="file_job_merge_extract_message_format">La fusió demanarà confirmació abans de substituir qualsevol fitxer de la carpeta que entri en conflicte amb els fitxers que s\'estan extraient.</string>
+    <string name="file_job_merge_move_message_format">La fusió demanarà confirmació abans de substituir qualsevol fitxer de la carpeta que entri en conflicte amb els fitxers que s\'estan movent.</string>
+    <string name="file_job_merge_target_name">Carpeta original</string>
+    <string name="file_job_merge_source_name">Fusiona amb</string>
+    <string name="file_job_conflict_show_name">Selecciona un nom nou per la destinació</string>
+    <string name="file_job_conflict_name_hint">Nom nou</string>
+    <string name="file_job_archive_error_title_format">S\'ha produït un error en comprimir «%1$s»</string>
+    <string name="file_job_archive_error_message_format">S\'ha produït un error en comprimir el fitxer a «%1$s».\n%2$s</string>
+    <string name="file_job_copy_error_title_format">S\'ha produït un error en copiar «%1$s»</string>
+    <string name="file_job_copy_error_message_format">S\'ha produït un error en copiar el fitxer a «%1$s».\n%2$s</string>
+    <string name="file_job_extract_error_title_format">S\'ha produït un error en extreure «%1$s»</string>
+    <string name="file_job_extract_error_message_format">S\'ha produït un error en extreure el fitxer a «%1$s».\n%2$s</string>
+    <string name="file_job_move_error_title_format">S\'ha produït un error en moure «%1$s»</string>
+    <string name="file_job_move_error_message_format">S\'ha produït un error en moure el fitxer a «%1$s».\n%2$s</string>
+    <string name="file_job_delete_error_title">S\'ha produït un error en suprimir</string>
+    <string name="file_job_delete_error_message_format">S\'ha produït un error en suprimir «%1$s».\n%2$s</string>
+    <string name="file_job_rename_error_title_format">S\'ha produït un error en canviar el nom de «%1$s»</string>
+    <string name="file_job_rename_error_message_format">S\'ha produït un error en canviar el nom del fitxer a «%1$s».\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">S\'ha produït un error en canviar el propietari de «%1$s»</string>
+    <string name="file_job_set_owner_error_message_format">S\'ha produït un error en canviar el propietari a «%1$s».\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">S\'ha produït un error en canviar el grup per «%1$s»</string>
+    <string name="file_job_set_group_error_message_format">S\'ha produït un error en canviar el grup a «%1$s».\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">S\'ha produït un error en canviar el mode de «%1$s»</string>
+    <string name="file_job_set_mode_error_message_format">S\'ha produït un error en canviar el mode a «%1$s».\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">S\'ha produït un error en canviar el context de SELinux per a «%1$s»</string>
+    <string name="file_job_set_selinux_context_error_message_format">S\'ha produït un error en canviar el context de SELinux a «%1$s».\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">S\'ha produït un error en restaurar el context de SELinux</string>
+    <string name="file_job_restore_selinux_context_error_message_format">S\'ha produït un error en restaurar el context de SELinux per a «%1$s».\n%2$s</string>
+    <string name="file_job_write_error_title">S\'ha produït un error en escriure</string>
+    <string name="file_job_write_error_message_format">S\'ha produït un error en escriure «%1$s».\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">S\'ha produït un error en obtenir informació sobre «%1$s».</string>
+    <string name="file_job_remount_format">Remunta «%1$s» com a lectura-escriptura</string>
+    <string name="file_job_remount_loading_format">S\'està tornant a muntar «%1$s» com a lectura-escriptura...</string>
+    <string name="file_job_remount_success_format">S\'ha tornat a muntar «%1$s» com a lectura-escriptura</string>
+    <string name="file_job_action_all">Aplica aquesta acció a tots els fitxers</string>
+
+    <string name="file_open_apk_message">Aquest fitxer és un paquet Android. Voleu instal·lar-lo, o veure\'n el contingut?</string>
+    <string name="file_open_as_title">Obre com a...</string>
+    <string name="file_open_as_title_format">Obre «%1$s» com a</string>
+    <string name="file_open_as_type_text">Text</string>
+    <string name="file_open_as_type_image">Imatge</string>
+    <string name="file_open_as_type_audio">Àudio</string>
+    <string name="file_open_as_type_video">Vídeo</string>
+    <string name="file_open_as_type_directory">Carpeta</string>
+    <string name="file_open_as_type_any">Altres</string>
+    <string name="file_install_apk_from_background_title_format">«%1$s» està a punt per instal·lar</string>
+    <string name="file_install_apk_from_background_text">Toqueu per instal·lar</string>
+    <string name="file_open_from_background_title_format">«%1$s» està a punt per obrir-se</string>
+    <string name="file_open_from_background_text">Toqueu per obrir</string>
+    <string name="file_name_error_empty">El nom del fitxer no pot estar buit</string>
+    <string name="file_name_error_invalid">El nom del fitxer no és vàlid</string>
+    <string name="file_name_error_already_exists">Ja existeix un fitxer amb aquest nom</string>
+    <string name="file_delete_message_file_format">Voleu suprimir «%1$s»?</string>
+    <string name="file_delete_message_directory_format">Voleu suprimir la carpeta «%1$s» i el seu contingut?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Voleu suprimir el fitxer %1$,d?</item>
+        <item quantity="other">Voleu suprimir els %1$,d fitxers?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Voleu suprimir %1$,d carpeta i el seu contingut?</item>
+        <item quantity="other">Voleu suprimir %1$,d carpetes i el seu contingut?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Voleu suprimir %1$,d element?</item>
+        <item quantity="other">Voleu suprimir %1$,d elements?</item>
+    </plurals>
+    <string name="file_create_archive_title">Crea un arxiu</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Contrasenya (opcional)</string>
+    <string name="file_add_bookmark_success">S\'ha afegit el marcador</string>
+    <string name="file_create_file_title">Fitxer nou</string>
+    <string name="file_create_directory_title">Carpeta nova</string>
+
+    <string name="file_list_title">Fitxers</string>
+    <plurals name="file_list_title_pick_file">
+        <item quantity="one">Seleccioneu un fitxer</item>
+        <item quantity="other">Seleccioneu els fitxers</item>
+    </plurals>
+    <plurals name="file_list_title_pick_directory">
+        <item quantity="one">Seleccioneu una carpeta</item>
+        <item quantity="other">Seleccioneu les carpetes</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d carpeta</item>
+        <item quantity="other">%1$,d carpetes</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d fitxer</item>
+        <item quantity="other">%1$,d fitxers</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">El camí no pot estar buit</string>
+    <string name="file_list_path_error_invalid">El camí no és vàlid</string>
+    <string name="file_list_action_view_sort">Visualitza i ordena</string>
+    <string name="file_list_action_view_list">Llista</string>
+    <string name="file_list_action_view_grid">Graella</string>
+    <string name="file_list_action_sort_by_name">Nom</string>
+    <string name="file_list_action_sort_by_type">Tipus</string>
+    <string name="file_list_action_sort_by_size">Mida</string>
+    <string name="file_list_action_sort_by_last_modified">Última modificació</string>
+    <string name="file_list_action_sort_order_ascending"> Ascendent</string>
+    <string name="file_list_action_sort_directories_first">Carpetes primer</string>
+    <string name="file_list_action_view_sort_path_specific">Només per a aquesta carpeta</string>
+    <string name="file_list_action_new_task">Finestra nova</string>
+    <string name="file_list_action_navigate_up">Puja</string>
+    <string name="file_list_action_navigate_to">Ves a</string>
+    <string name="file_list_action_show_hidden_files">Mostra els fitxers ocults</string>
+    <string name="file_list_action_copy_path">Copia el camí</string>
+    <string name="file_list_action_open_in_terminal">Obre en el terminal</string>
+    <string name="file_list_action_add_bookmark">Afegeix un marcador</string>
+    <string name="file_list_action_create_shortcut">Crea una drecera</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Obre en una finestra nova</string>
+    <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_select_current_directory_format">Selecciona «%1$s»</string>
+    <string name="file_list_paste_move_title_format">S\'està movent %1$,d</string>
+    <string name="file_list_paste_copy_title_format">S\'està copiant %1$,d</string>
+    <string name="file_list_paste_extract_title_format">S\'està extraient %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Extreu aquí</string>
+    <string name="file_list_empty">No hi ha cap fitxer</string>
+    <string name="file_list_action_create_file">Fitxer</string>
+    <string name="file_list_action_create_directory">Carpeta</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Obre amb</string>
+    <string name="file_item_action_extract">Extreu</string>
+    <string name="file_item_action_archive">Comprimeix</string>
+    <string name="file_item_action_properties">Propietats</string>
+
+    <string name="file_properties_title_format">Propietats de «%1$s»</string>
+    <string name="file_properties_basic">Bàsic</string>
+    <string name="file_properties_basic_name">Nom</string>
+    <string name="file_properties_basic_type">Tipus</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Enllaça a %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Destinació de l\'enllaç</string>
+    <string name="file_properties_basic_size">Mida</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Contingut</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d element, amb mida %2$s</item>
+        <item quantity="other">%1$,d elements, en total %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Última modificació</string>
+    <string name="file_properties_basic_parent_directory">Carpeta pare</string>
+    <string name="file_properties_basic_archive_file">Fitxer de l\'arxiu</string>
+    <string name="file_properties_basic_archive_entry">Entrada del fitxer</string>
+    <string name="file_properties_basic_free_space">Espai lliure</string>
+    <string name="file_properties_permissions">Permisos</string>
+    <string name="file_properties_permissions_owner">Propietari</string>
+    <string name="file_properties_permissions_group">Grup</string>
+    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permissions_set_owner_title">Canvia el propietari</string>
+    <string name="file_properties_permissions_set_group_title">Canvia el grup</string>
+    <string name="file_properties_permissions_set_principal_filter_hint">Introduïu un nom o ID</string>
+    <string name="file_properties_permissions_set_principal_system">Sistema</string>
+    <string name="file_properties_permissions_mode">Mode</string>
+    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permissions_set_mode_title">Canvia el mode</string>
+    <string name="file_properties_permissions_set_mode_others">Altres</string>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+        <item>Lectura</item>
+        <item>Escriptura</item>
+        <item>Execució</item>
+    </string-array>
+    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+        <item>Lectura</item>
+        <item>Escriptura</item>
+        <item>Cerca</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_special">Especial</string>
+    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+        <item>Estableix l\'UID</item>
+        <item>Estableix el GID</item>
+        <item>Bit «sticky»</item>
+    </string-array>
+    <string name="file_properties_permissions_set_mode_uppercase_x">No afegeixis «Execució» per als fitxers adjunts</string>
+    <string name="file_properties_permissions_selinux_context">Context SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_title">Canvia el context de SELinux</string>
+    <string name="file_properties_permissions_set_selinux_context_restore">Restaura</string>
+    <string name="file_properties_permissions_recursive">Aplica als fitxers adjunts</string>
+    <string name="file_properties_image">Imatge</string>
+    <string name="file_properties_media_dimensions">Dimensions</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Agafat el</string>
+    <string name="file_properties_media_coordinates">Coordenades</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Ubicació</string>
+    <string name="file_properties_image_gps_altitude">Altitud</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Càmera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Obertura</string>
+    <string name="file_properties_image_shutter_speed">Velocitat de l\'obturador</string>
+    <string name="file_properties_image_focal_length">Longitud focal</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">Equivalent ISO</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Programari</string>
+    <string name="file_properties_image_description">Descripció</string>
+    <string name="file_properties_image_artist">Creador</string>
+    <string name="file_properties_image_copyright">Copyright</string>
+    <string name="file_properties_audio">Àudio</string>
+    <string name="file_properties_media_title">Títol</string>
+    <string name="file_properties_audio_artist">Artista</string>
+    <string name="file_properties_audio_album">Àlbum</string>
+    <string name="file_properties_audio_album_artist">Artista de l\'àlbum</string>
+    <string name="file_properties_audio_composer">Compositor</string>
+    <string name="file_properties_audio_disc_number">Disc</string>
+    <string name="file_properties_audio_track_number">Pista</string>
+    <string name="file_properties_audio_year">Any</string>
+    <string name="file_properties_audio_genre">Gènere</string>
+    <string name="file_properties_media_duration">Durada</string>
+    <string name="file_properties_media_bit_rate">Taxa de bits</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">Freqüència de mostratge</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Vídeo</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Nom</string>
+    <string name="file_properties_apk_package_name">Nom del paquet</string>
+    <string name="file_properties_apk_version">Versió</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Versió mínima del sistema</string>
+    <string name="file_properties_apk_target_sdk_version">Versió del sistema de destinació</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Permisos</string>
+    <string name="file_properties_apk_requested_permissions_zero">No s\'ha sol·licitat cap permís</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d permís sol·licitat</item>
+        <item quantity="other">%1$,d permisos sol·licitats</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">Signatures</string>
+    <string name="file_properties_apk_signature_digests_empty">No hi ha cap signatura vàlida</string>
+    <string name="file_properties_apk_past_signature_digests">Signatures antigues</string>
+
+    <string name="storage_file_system_root_title">Arrel</string>
+    <string name="storage_list_title">Emmagatzematge</string>
+    <string name="storage_list_empty">Sense emmagatzematge</string>
+    <string name="storage_add_storage_title">Afegeix l\'emmagatzematge</string>
+    <string name="storage_add_storage_document_tree">Emmagatzematge extern</string>
+    <string name="storage_add_storage_ftp_server">Servidor FTP</string>
+    <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
+    <string name="storage_add_storage_smb_server">Servidor SMB</string>
+    <string name="storage_add_storage_webdav_server">Servidor WebDAV</string>
+    <string name="storage_edit_device_storage_title">Edita l\'emmagatzematge del dispositiu</string>
+    <string name="storage_edit_device_storage_name">Nom</string>
+    <string name="storage_edit_device_storage_path">Camí</string>
+    <string name="storage_add_document_manager_shortcut_title">Afegeix la drecera DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Edita la drecera DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Introduïu un URI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">L\'URI no és vàlid</string>
+    <string name="storage_add_document_tree_title">Afegeix un emmagatzematge extern</string>
+    <string name="storage_edit_document_tree_title">Edita l\'emmagatzematge extern</string>
+    <string name="storage_edit_document_tree_name">Nom</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Camí</string>
+    <string name="storage_edit_ftp_server_title_edit">Edita el servidor FTP</string>
+    <string name="storage_edit_ftp_server_title_add">Afegeix el servidor FTP</string>
+    <string name="storage_edit_ftp_server_host">Nom d\'amfitrió</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Introduïu un nom d\'amfitrió</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">El nom d\'amfitrió no és vàlid</string>
+    <string name="storage_edit_ftp_server_port">Port</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">El port no és vàlid</string>
+    <string name="storage_edit_ftp_server_path">Camí</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Es pot deixar buit</string>
+    <string name="storage_edit_ftp_server_name">Nom</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Usa el nom d\'amfitrió</string>
+    <string name="storage_edit_ftp_server_protocol">Protocol</string>
+    <string name="storage_edit_ftp_server_authentication_type">Autenticació</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Contrasenya</item>
+        <item>Anònim</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Nom d\'usuari</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Introduïu un nom d\'usuari</string>
+    <string name="storage_edit_ftp_server_password">Contrasenya</string>
+    <string name="storage_edit_ftp_server_mode">Mode</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Actiu</item>
+        <item>Passiu</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Codificació</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Connecta i afegeix</string>
+    <string name="storage_edit_ftp_server_add">Afegeix</string>
+    <string name="storage_edit_sftp_server_title_edit">Edita el servidor SFTP</string>
+    <string name="storage_edit_sftp_server_title_add">Afegeix el servidor SFTP</string>
+    <string name="storage_edit_sftp_server_host">Nom d\'amfitrió</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Introduïu un nom d\'amfitrió</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">El nom d\'amfitrió no és vàlid</string>
+    <string name="storage_edit_sftp_server_port">Port</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">El port no és vàlid</string>
+    <string name="storage_edit_sftp_server_path">Camí</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Es pot deixar buit</string>
+    <string name="storage_edit_sftp_server_name">Nom</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Usa el nom d\'amfitrió</string>
+    <string name="storage_edit_sftp_server_authentication_type">Autenticació</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Contrasenya</item>
+        <item>Clau pública</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Nom d\'usuari</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Introduïu un nom d\'usuari</string>
+    <string name="storage_edit_sftp_server_password">Contrasenya</string>
+    <string name="storage_edit_sftp_server_private_key">Clau privada</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Obre el fitxer</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Introduïu una clau privada</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">La clau privada no és vàlida</string>
+    <string name="storage_edit_sftp_server_private_key_password">Contrasenya de la clau privada</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Es pot deixar buit</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">La contrasenya de la clau privada no és vàlida</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Connecta i afegeix</string>
+    <string name="storage_edit_sftp_server_add">Afegeix</string>
+    <string name="storage_add_lan_smb_server_loading">S\'estan cercant servidors SMB...</string>
+    <string name="storage_add_lan_smb_server_add">Afegeix manualment</string>
+    <string name="storage_edit_smb_server_title_edit">Edita el servidor SMB</string>
+    <string name="storage_edit_smb_server_title_add">Afegeix un servidor SMB</string>
+    <string name="storage_edit_smb_server_host">Nom d\'amfitrió</string>
+    <string name="storage_edit_smb_server_host_error_empty">Introduïu un nom d\'amfitrió</string>
+    <string name="storage_edit_smb_server_host_error_invalid">El nom d\'amfitrió no és vàlid</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">El port no és vàlid</string>
+    <string name="storage_edit_smb_server_path">Camí</string>
+    <string name="storage_edit_smb_server_path_placeholder">Es pot deixar buit</string>
+    <string name="storage_edit_smb_server_name">Nom</string>
+    <string name="storage_edit_smb_server_name_placeholder">Usa el nom d\'amfitrió</string>
+    <string name="storage_edit_smb_server_authentication_type">Autenticació</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Contrasenya</item>
+        <item>Convidat</item>
+        <item>Anònim</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Nom d\'usuari</string>
+    <string name="storage_edit_smb_server_username_error_empty">Introduïu un nom d\'usuari</string>
+    <string name="storage_edit_smb_server_password">Contrasenya</string>
+    <string name="storage_edit_smb_server_domain">Domini</string>
+    <string name="storage_edit_smb_server_connect_and_add">Connecta i afegeix</string>
+    <string name="storage_edit_smb_server_add">Afegeix</string>
+    <string name="storage_edit_webdav_server_title_edit">Edita el servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Afegeix un servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Nom de l\'amfitrió</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Introduïu el nom de l\'amfitrió</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">El nom d\'amfitrió no és vàlid</string>
+    <string name="storage_edit_webdav_server_port">Port</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">El port no és vàlid</string>
+    <string name="storage_edit_webdav_server_path">Camí</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Es pot deixar buit</string>
+    <string name="storage_edit_webdav_server_name">Nom</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Fes servir el nom de l\'amfitrió</string>
+    <string name="storage_edit_webdav_server_protocol">Protocol</string>
+    <string name="storage_edit_webdav_server_authentication_type">Autenticació</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Contrasenya</item>
+        <item>Testimoni d\'accés</item>
+        <item>Cap</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Nom d\'usuari</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Introduïu un nom d\'usuari</string>
+    <string name="storage_edit_webdav_server_password">Contrasenya</string>
+    <string name="storage_edit_webdav_server_access_token">Testimoni d\'accés</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Introduïu un testimoni d\'accés</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Connecta i afegeix</string>
+    <string name="storage_edit_webdav_server_add">Afegeix</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s lliures de %2$s</string>
+    <string name="navigation_add_storage">Afegeix emmagatzematge...</string>
+    <string name="navigation_standard_directory_alarms">Alarmes</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Documents</string>
+    <string name="navigation_standard_directory_downloads">Baixades</string>
+    <string name="navigation_standard_directory_movies">Pel·lícules</string>
+    <string name="navigation_standard_directory_music">Música</string>
+    <string name="navigation_standard_directory_notifications">Notificacions</string>
+    <string name="navigation_standard_directory_pictures">Imatges</string>
+    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_ringtones">Melodies</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Carpeta de marcadors</string>
+    <string name="navigation_edit_bookmark_directory_name">Nom</string>
+    <string name="navigation_edit_bookmark_directory_path">Camí</string>
+    <string name="archive_viewer_title">Visor d\'arxius</string>
+    <string name="image_viewer_title">Visor d\'imatges</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="text_editor_title">Editor de text</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">S\'ha desat</string>
+    <string name="text_editor_reload_message">Esteu segur que voleu tornar-ho a carregar? Es perdran els canvis no desats en aquest document.</string>
+    <string name="text_editor_encoding">Codificació</string>
+    <string name="text_editor_close_message">Esteu segur que voleu descartar els canvis no desats en aquest document?</string>
+
+    <string name="ftp_server_title">Servidor FTP</string>
+    <string name="ftp_server_state_title">Estat</string>
+    <string name="ftp_server_state_summary_starting">S\'està iniciant...</string>
+    <string name="ftp_server_state_summary_running">S\'està executant</string>
+    <string name="ftp_server_state_summary_stopping">S\'està aturant...</string>
+    <string name="ftp_server_state_summary_stopped">No s\'ha iniciat</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">L\'adreça IP local és desconeguda</string>
+    <string name="ftp_server_url_menu_copy_url">Copia l\'URL</string>
+    <string name="ftp_server_url_menu_copy_password">Copia la contrasenya</string>
+    <string name="ftp_server_add_tile_title">Afegeix a la configuració ràpida</string>
+    <string name="ftp_server_add_tile_result_added">S\'ha afegit «servidor FTP» a la configuració ràpida</string>
+    <string name="ftp_server_add_tile_result_already_added">Ja s\'ha afegit «Servidor FTP» a la configuració ràpida</string>
+    <string name="ftp_server_add_tile_result_error">S\'ha produït un error en afegir «servidor FTP» a la configuració ràpida</string>
+    <string name="ftp_server_configuration_title">Configuració</string>
+    <string name="ftp_server_anonymous_login_title">Inici de sessió anònim</string>
+    <string name="ftp_server_username_title">Nom d\'usuari</string>
+    <string name="ftp_server_password_title">Contrasenya</string>
+    <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_home_directory_title">Carpeta arrel</string>
+    <string name="ftp_server_writable_title">Permet l\'escriptura</string>
+    <string name="settings_title">Configuració</string>
+    <string name="settings_interface_title">Interfície</string>
+    <string name="settings_locale_title">Idioma</string>
+    <string name="settings_theme_color_title">Color del tema</string>
+    <string name="settings_theme_color_summary">El color que apareix amb més freqüència a l\'aplicació</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
+    <string name="settings_night_mode_title">Mode nocturn</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Segueix el sistema</item>
+        <item>Desactivat</item>
+        <item>Actiu</item>
+        <item>Basat en el temps</item>
+        <item>Basat en l\'estalvi de bateria</item>
+    </string-array>
+    <string name="settings_black_night_mode">Mode nocturn negre</string>
+    <string name="settings_file_list_animation_title">Animació de la llista de fitxers</string>
+    <string name="settings_file_name_ellipsize_title">Mostra el nom de fitxer llarg</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Escurça el principi</item>
+        <item>Escurça al mig</item>
+        <item>Escurça el final</item>
+        <item>Marquesina</item>
+    </string-array>
+    <string name="settings_behavior_title">Comportament</string>
+    <string name="settings_default_directory_title">Carpeta predeterminada</string>
+    <string name="settings_standard_directories_title">Carpetes estàndard</string>
+    <string name="settings_standard_directories_summary_empty">No hi ha cap carpeta estàndard activada</string>
+    <string name="settings_bookmark_directory_screenshots">Captures de pantalla</string>
+    <string name="settings_bookmark_directories_title">Carpetes de marcadors</string>
+    <string name="settings_bookmark_directories_summary_empty">No hi ha cap carpeta de marcadors</string>
+    <string name="settings_root_strategy_title">Mode d\'accés root</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">Hi ha %1$,d operació de fitxer executant-se ara mateix. Canviar el mode d\'accés root podria provocar un error inesperat. Esteu segur que voleu canviar-lo ara?</item>
+        <item quantity="other">Hi ha %1$,d operacions de fitxer executant-se ara mateix. Canviar el mode d\'accés root podria provocar un error inesperat. Esteu segur que voleu canviar-lo ara?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Només amb accés normal</item>
+        <item>Automàtic</item>
+        <item>Només amb accés root</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Codificació del nom del fitxer d\'arxiu</string>
+    <string name="settings_open_apk_default_action_title">Obre el paquet d\'Android</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Instal·la</item>
+        <item>Mostra el contingut</item>
+        <item>Demana què fer</item>
+    </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostra la miniatura per als fitxers PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Pot fer que l\'aplicació sigui inestable en versions anteriors d\'Android</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Llegeix els fitxers remots per a la miniatura</string>
+
+    <string name="about_title">Quant a</string>
+    <string name="about_version_title">Versió</string>
+    <string name="about_github_title">Visualitza a GitHub</string>
+    <string name="about_licenses_title">Llicències</string>
+    <string name="about_privacy_policy_title">Política de confidencialitat</string>
+    <string name="about_author_title">Autor</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Segueix a GitHub</string>
+    <string name="about_author_twitter_title">Segueix al Twitter</string>
+</resources>

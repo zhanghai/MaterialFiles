@@ -515,7 +515,6 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Kapcsolódás és hozzáadás</string>
     <string name="storage_edit_smb_server_add">Hozzáadás</string>
-
     <string name="navigation_storage_subtitle_format">%1$s szabad ennyiből: %2$s</string>
     <string name="navigation_add_storage">Tároló hozzáadása…</string>
     <string name="navigation_standard_directory_alarms">Riasztások</string>
@@ -556,9 +555,6 @@
     <string name="ftp_server_url_menu_copy_url">Webcím másolása</string>
     <string name="ftp_server_url_menu_copy_password">Jelszó másolása</string>
     <string name="ftp_server_add_tile_title">Hozzáadás a gyors beállításokhoz</string>
-    <string name="ftp_server_add_tile_result_added">Az „FTP-kiszolgáló” hozzá lett adva a gyors beállításokhoz</string>
-    <string name="ftp_server_add_tile_result_already_added">Az „FTP-kiszolgáló” már hozzá van adva a gyors beállításokhoz</string>
-    <string name="ftp_server_add_tile_result_error">Hiba történt az „FTP-kiszolgáló” gyors beállításokhoz történő hozzáadása során </string>
     <string name="ftp_server_configuration_title">Beállítás</string>
     <string name="ftp_server_anonymous_login_title">Névtelen bejelentkezés</string>
     <string name="ftp_server_username_title">Felhasználónév</string>

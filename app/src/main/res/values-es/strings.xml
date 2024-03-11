@@ -62,12 +62,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">La aplicación necesita permiso para acceder a los archivos. Por favor, aprieta \"PERMITIR\" en el diálogo del sistema.</string>
     <string name="storage_permission_permanently_denied_message">La aplicación necesita permiso para acceder a los archivos. Por favor, concede el permiso de \"Almacenamiento\" en la configuración del sistema.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Esta app necesita permiso para mostrar notificaciones acerca de las operaciones de los archivos. Por favor presiona \"Permitir\" en el diálogo del sistema a continuación.</string>
+    <string name="notification_permission_permanently_denied_message">Esta app necesita permiso para mostrar notificaciones acerca de las operaciones de los archivos. Por favor permite el permiso de \"Notificaciones\" en los ajustes del sistema.</string>
+
     <string name="notification_channel_background_activity_start_name">Acciones en segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realiza acciones mientras la aplicación está en segundo plano</string>
     <string name="notification_channel_file_job_name">Operaciones de archivos</string>
     <string name="notification_channel_file_job_description">Muestra y controla las operaciones de archivos</string>
     <string name="notification_channel_ftp_server_name">Servidor FTP</string>
     <string name="notification_channel_ftp_server_description">Muestra y controla el servidor FTP</string>
+
+    <string name="file_action_archive_password_title">Se requiere contraseña</string>
+    <string name="file_action_archive_password_message_format">\"1%1$s\" está protegido por una contraseña.</string>
+    <string name="file_action_archive_password_error_empty">La contraseña no puede estar vacía</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparando para comprimir %1$,d archivos (%2$s)</item>
@@ -253,10 +261,26 @@
     <string name="file_name_error_already_exists">Ya existe un archivo con este nombre</string>
     <string name="file_delete_message_file_format">¿Eliminar \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">¿Eliminar carpeta \"%1$s\" y su contenido?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">¿Añadir %1$,d archivo?</item>
+        <item quantity="many">¿Eliminar %1$,d archivos?</item>
+        <item quantity="other">¿Eliminar %1$,d archivos?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">¿Eliminar %1$,d carpeta junto con su contenido?</item>
+        <item quantity="many">¿Eliminar %1$,d carpetas junto con su contenido?</item>
+        <item quantity="other">¿Eliminar %1$,d carpetas junto con su contenido?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">¿Eliminar %1$,d elemento?</item>
+        <item quantity="many">¿Eliminar %1$,d elementos?</item>
+        <item quantity="other">¿Eliminar %1$,d elementos?</item>
+    </plurals>
     <string name="file_create_archive_title">Crear archivo</string>
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Contraseña (opcional)</string>
     <string name="file_add_bookmark_success">Marcador agregado</string>
     <string name="file_create_file_title">Nuevo archivo</string>
     <string name="file_create_directory_title">Nueva carpeta</string>
@@ -283,20 +307,28 @@
         <item quantity="other">%1$,d archivos</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">La ruta no puede estar vacía</string>
+    <string name="file_list_path_error_invalid">Ruta inválida</string>
+    <string name="file_list_action_view_sort">Ver y ordenar</string>
+    <string name="file_list_action_view_list">Lista</string>
+    <string name="file_list_action_view_grid">Cuadrícula</string>
     <string name="file_list_action_sort_by_name">Nombre</string>
     <string name="file_list_action_sort_by_type">Tipo</string>
     <string name="file_list_action_sort_by_size">Tamaño</string>
     <string name="file_list_action_sort_by_last_modified">Última modificación</string>
     <string name="file_list_action_sort_order_ascending">Ascendente</string>
     <string name="file_list_action_sort_directories_first">Carpetas primero</string>
+    <string name="file_list_action_view_sort_path_specific">Sólo para esta carpeta</string>
     <string name="file_list_action_new_task">Nueva ventana</string>
     <string name="file_list_action_navigate_up">Subir</string>
+    <string name="file_list_action_navigate_to">Ir a</string>
     <string name="file_list_action_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="file_list_action_copy_path">Copiar ruta</string>
     <string name="file_list_action_open_in_terminal">Abrir en la terminal</string>
     <string name="file_list_action_add_bookmark">Agregar marcador</string>
     <string name="file_list_action_create_shortcut">Crear atajo</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir en una nueva ventana</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_current_directory_format">Seleccionar \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Moviendo %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copiando %1$,d</string>
@@ -426,20 +458,54 @@
     <string name="storage_list_empty">No hay almacenamiento</string>
     <string name="storage_add_storage_title">Añadir almacenamiento</string>
     <string name="storage_add_storage_document_tree">Almacenamiento externo</string>
+    <string name="storage_add_storage_ftp_server">Servidor FTP</string>
     <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
     <string name="storage_add_storage_smb_server">Servidor SMB</string>
     <string name="storage_edit_device_storage_title">Editar dispositivo de almacenamiento</string>
     <string name="storage_edit_device_storage_name">Nombre</string>
     <string name="storage_edit_device_storage_path">Ruta</string>
+    <string name="storage_add_document_manager_shortcut_title">Añadir atajo a DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_title">Editar atajo a DocumentsUI</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Introduce una URL</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URL inválida</string>
     <string name="storage_add_document_tree_title">Agregar almacenamiento externo</string>
     <string name="storage_edit_document_tree_title">Editar almacenamiento externo</string>
     <string name="storage_edit_document_tree_name">Nombre</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Ruta</string>
+    <string name="storage_edit_ftp_server_title_edit">Editar servidor FTP</string>
+    <string name="storage_edit_ftp_server_title_add">Añadir servidor FTP</string>
+    <string name="storage_edit_ftp_server_host">Nombre de host</string>
+    <string name="storage_edit_ftp_server_host_error_empty"><br>Introduce un nombre de host</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Nombre de host inválido</string>
+    <string name="storage_edit_ftp_server_port">Puerto</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Puerto inválido</string>
+    <string name="storage_edit_ftp_server_path">Ruta</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Puede dejarse vacío</string>
+    <string name="storage_edit_ftp_server_name">Nombre</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Usar nombre de host</string>
+    <string name="storage_edit_ftp_server_protocol">Protocolo</string>
+    <string name="storage_edit_ftp_server_authentication_type">Autenticación</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Contraseña</item>
+        <item>Anónimo</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Nombre de usuario</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Introduce un nombre de usuario</string>
+    <string name="storage_edit_ftp_server_password">Contraseña</string>
+    <string name="storage_edit_ftp_server_mode">Modo</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Activo</item>
+        <item>Pasivo</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Codificación</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Conectar y añadir</string>
+    <string name="storage_edit_ftp_server_add">Añadir</string>
     <string name="storage_edit_sftp_server_title_edit">Editar servidor SFTP</string>
     <string name="storage_edit_sftp_server_title_add">Añadir servidor SFTP</string>
     <string name="storage_edit_sftp_server_host">Nombre del host</string>
     <string name="storage_edit_sftp_server_host_error_empty">Ingrese el nombre del host</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Nombre de host inválido</string>
     <string name="storage_edit_sftp_server_port">Puerto</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Puerto no válido</string>
     <string name="storage_edit_sftp_server_path">Ruta</string>
@@ -458,6 +524,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Abrir archivo</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Ingrese una clave privada</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Clave privada no válida</string>
+    <string name="storage_edit_sftp_server_private_key_password">Contraseña de la clave privada</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Puede dejarse vacío</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Contraseña de la clave privada inválida</string>
     <string name="storage_edit_sftp_server_connect_and_add">Conectar y añadir</string>
     <string name="storage_edit_sftp_server_add">Añadir</string>
     <string name="storage_add_lan_smb_server_loading">Buscando servidores SMB</string>
@@ -466,6 +535,7 @@
     <string name="storage_edit_smb_server_title_add">Añadir servidor SMB</string>
     <string name="storage_edit_smb_server_host">Nombre de host</string>
     <string name="storage_edit_smb_server_host_error_empty">Ingrese el nombre del host</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Nombre de host inválido</string>
     <string name="storage_edit_smb_server_port">Puerto</string>
     <string name="storage_edit_smb_server_port_error_invalid">Puerto no válido</string>
     <string name="storage_edit_smb_server_path">Ruta</string>
@@ -484,7 +554,6 @@
     <string name="storage_edit_smb_server_domain">Dominio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectar y añadir</string>
     <string name="storage_edit_smb_server_add">Añadir</string>
-
     <string name="navigation_storage_subtitle_format">%1$slibre de %2$s</string>
     <string name="navigation_add_storage">Agregar almacenamiento…</string>
     <string name="navigation_standard_directory_alarms">Alarmas</string>
@@ -503,6 +572,7 @@
     <string name="navigation_edit_bookmark_directory_title">Carpeta de marcador</string>
     <string name="navigation_edit_bookmark_directory_name">Nombre</string>
     <string name="navigation_edit_bookmark_directory_path">Ruta</string>
+    <string name="archive_viewer_title">Visor de archivos</string>
     <string name="image_viewer_title">Visor de imagen</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="text_editor_title">Editor de texto</string>
@@ -520,8 +590,10 @@
     <string name="ftp_server_state_summary_stopping">Deteniendo…</string>
     <string name="ftp_server_state_summary_stopped">Sin iniciar</string>
     <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Dirección IP local desconocida</string>
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar contraseña</string>
+    <string name="ftp_server_add_tile_title">Añadir a Ajustes Rápidos</string>
     <string name="ftp_server_configuration_title">Configuración</string>
     <string name="ftp_server_anonymous_login_title">Ingreso anónimo</string>
     <string name="ftp_server_username_title">Nombre de usuario</string>
@@ -531,8 +603,10 @@
     <string name="ftp_server_writable_title">Permitir escritura</string>
     <string name="settings_title">Ajustes</string>
     <string name="settings_interface_title">Interfaz</string>
+    <string name="settings_locale_title">Idioma</string>
     <string name="settings_theme_color_title">Color de tema</string>
     <string name="settings_theme_color_summary">Color que aparece más frecuentemente en la aplicación</string>
+    <string name="settings_material_design_3_title">Diseño Material 3</string>
     <string name="settings_night_mode_title">Modo nocturno</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir sistema</item>
@@ -565,7 +639,7 @@
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Sólo acceso normal</item>
-        <item>Automatic</item>
+        <item>Automático</item>
         <item>Sólo acceso administrativo</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Codificación del nombre de archivo</string>

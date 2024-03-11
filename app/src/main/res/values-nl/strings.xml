@@ -431,6 +431,7 @@
     <string name="storage_add_storage_ftp_server">FTP-server</string>
     <string name="storage_add_storage_sftp_server">SFTP-server</string>
     <string name="storage_add_storage_smb_server">SMB-server</string>
+    <string name="storage_add_storage_webdav_server">WebDAV-server</string>
     <string name="storage_edit_device_storage_title">Apparaatopslag bewerken</string>
     <string name="storage_edit_device_storage_name">Naam</string>
     <string name="storage_edit_device_storage_path">Locatie</string>
@@ -524,6 +525,31 @@
     <string name="storage_edit_smb_server_domain">Domein</string>
     <string name="storage_edit_smb_server_connect_and_add">Verbinden en toevoegen</string>
     <string name="storage_edit_smb_server_add">Toevoegen</string>
+    <string name="storage_edit_webdav_server_title_edit">WebDAV-server bewerken</string>
+    <string name="storage_edit_webdav_server_title_add">WebDAV-server toevoegen</string>
+    <string name="storage_edit_webdav_server_host">Hostnaam</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Voer een hostnaam in</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Ongeldige hostnaam</string>
+    <string name="storage_edit_webdav_server_port">Poort</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Ongeldig poortnummer</string>
+    <string name="storage_edit_webdav_server_path">Locatie</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Mag leeg worden gelaten</string>
+    <string name="storage_edit_webdav_server_name">Naam</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Hostnaam gebruiken</string>
+    <string name="storage_edit_webdav_server_protocol">Protocol</string>
+    <string name="storage_edit_webdav_server_authentication_type">Authenticatie</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Wachtwoord</item>
+        <item>Toegangssleutel</item>
+        <item>Geen</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Gebruikersnaam</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Voer een gebruikersnaam in</string>
+    <string name="storage_edit_webdav_server_password">Wachtwoord</string>
+    <string name="storage_edit_webdav_server_access_token">Toegangssleutel</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Voer een toegangssleutel in</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Verbinden en toevoegen</string>
+    <string name="storage_edit_webdav_server_add">Toevoegen</string>
 
     <string name="navigation_storage_subtitle_format">%1$s van %2$s vrij</string>
     <string name="navigation_add_storage">Opslagmedium toevoegen…</string>

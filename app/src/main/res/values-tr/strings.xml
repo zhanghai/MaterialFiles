@@ -486,7 +486,6 @@
     <string name="storage_edit_smb_server_domain">Alan adı</string>
     <string name="storage_edit_smb_server_connect_and_add">Bağlan ve ekle</string>
     <string name="storage_edit_smb_server_add">Ekle</string>
-
     <string name="navigation_storage_subtitle_format">%2$s alandan %1$s boş</string>
     <string name="navigation_add_storage">Depolama ekle…</string>
     <string name="navigation_standard_directory_alarms">Alarmlar</string>

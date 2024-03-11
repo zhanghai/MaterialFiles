@@ -475,7 +475,6 @@
     <string name="storage_edit_smb_server_domain">Miền</string>
     <string name="storage_edit_smb_server_connect_and_add">Kết nối và thêm</string>
     <string name="storage_edit_smb_server_add">Thêm</string>
-
     <string name="navigation_storage_subtitle_format">%1$s trống trong số %2$s</string>
     <string name="navigation_add_storage">Thêm kho lưu trữ…</string>
     <string name="navigation_standard_directory_alarms">Báo thức</string>
