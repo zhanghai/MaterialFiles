@@ -6,12 +6,13 @@
 package me.zhanghai.android.files.util
 
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.RequiresApi
+import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
 import kotlin.reflect.KClass
 
@@ -25,11 +26,16 @@ fun KClass<Environment>.supportsExternalStorageManager(): Boolean =
         else -> false
     }
 
+@RequiresApi(Build.VERSION_CODES.R)
+fun KClass<Environment>.createManageAppAllFilesAccessPermissionIntent(packageName: String): Intent =
+    Intent(
+        Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+        Uri.fromParts("package", packageName, null)
+    )
+
 @delegate:RequiresApi(Build.VERSION_CODES.R)
 private val isManageAppAllFilesAccessPermissionIntentResolved: Boolean
     by lazy(LazyThreadSafetyMode.NONE) {
-        packageManager.resolveActivity(
-            Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION),
-            PackageManager.MATCH_DEFAULT_ONLY or PackageManager.MATCH_SYSTEM_ONLY
-        ) != null
+        Environment::class.createManageAppAllFilesAccessPermissionIntent(application.packageName)
+            .resolveActivity(packageManager) != null
     }

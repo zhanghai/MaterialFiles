@@ -105,6 +105,7 @@ import me.zhanghai.android.files.util.copyText
 import me.zhanghai.android.files.util.create
 import me.zhanghai.android.files.util.createInstallPackageIntent
 import me.zhanghai.android.files.util.createIntent
+import me.zhanghai.android.files.util.createManageAppAllFilesAccessPermissionIntent
 import me.zhanghai.android.files.util.createSendStreamIntent
 import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.extraPath
@@ -1517,10 +1518,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private class RequestAllFilesAccessContract : ActivityResultContract<Unit, Boolean>() {
         @RequiresApi(Build.VERSION_CODES.R)
         override fun createIntent(context: Context, input: Unit): Intent =
-            Intent(
-                android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                Uri.fromParts("package", context.packageName, null)
-            )
+            Environment::class.createManageAppAllFilesAccessPermissionIntent(context.packageName)
 
         @RequiresApi(Build.VERSION_CODES.R)
         override fun parseResult(resultCode: Int, intent: Intent?): Boolean =
