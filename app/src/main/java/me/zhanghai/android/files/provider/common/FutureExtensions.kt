@@ -15,9 +15,14 @@ import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
-inline fun <T, R> Future<T>.map(
-    crossinline transform: (T) -> R,
-    crossinline transformException: (Exception) -> Exception = { it }
+// The following causes a NoSuchFieldError during runtime, similar to
+// https://youtrack.jetbrains.com/issue/KT-20245/
+//inline fun <T, R> Future<T>.map(
+//    crossinline transform: (T) -> R,
+//    crossinline transformException: (Exception) -> Exception = { it }
+fun <T, R> Future<T>.map(
+    transform: (T) -> R,
+    transformException: (Exception) -> Exception = { it }
 ): Future<R> =
     object : Future<R> {
         override fun cancel(mayInterruptIfRunning: Boolean): Boolean =
