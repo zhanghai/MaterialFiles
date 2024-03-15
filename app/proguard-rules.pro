@@ -33,7 +33,7 @@
 -keepnames class * extends java.lang.Exception
 # For Class.getEnumConstants()
 -keepclassmembers enum * {
-  public static **[] values();
+    public static **[] values();
 }
 -keepnames class me.zhanghai.android.files.** implements android.os.Parcelable
 
