@@ -1,0 +1,2 @@
+- Fixed crash upon reading SFTP and SMB files.
+- Fixed black and custom color themes.
