@@ -281,7 +281,7 @@
     <string name="file_list_subtitle_separator">,\u0020</string>
     <string name="file_list_path_error_empty">El camí no pot estar buit</string>
     <string name="file_list_path_error_invalid">El camí no és vàlid</string>
-    <string name="file_list_action_view_sort">Visualitza i ordena</string>
+    <string name="file_list_action_view_sort">Mostra i ordena</string>
     <string name="file_list_action_view_list">Llista</string>
     <string name="file_list_action_view_grid">Graella</string>
     <string name="file_list_action_sort_by_name">Nom</string>
@@ -641,8 +641,8 @@
         <item>Automàtic</item>
         <item>Només amb accés root</item>
     </string-array>
-    <string name="settings_archive_file_name_encoding_title">Codificació del nom del fitxer d\'arxiu</string>
-    <string name="settings_open_apk_default_action_title">Obre el paquet d\'Android</string>
+    <string name="settings_archive_file_name_encoding_title">Codificació dels noms dels fitxers als arxius</string>
+    <string name="settings_open_apk_default_action_title">Obre els paquets d\'Android</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Instal·la</item>
         <item>Mostra el contingut</item>
@@ -650,11 +650,11 @@
     </string-array>
     <string name="settings_show_pdf_thumbnail_pre_28_title">Mostra la miniatura per als fitxers PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Pot fer que l\'aplicació sigui inestable en versions anteriors d\'Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Llegeix els fitxers remots per a la miniatura</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Lectura remota de miniatures</string>
 
     <string name="about_title">Quant a</string>
     <string name="about_version_title">Versió</string>
-    <string name="about_github_title">Visualitza a GitHub</string>
+    <string name="about_github_title">Mostra a GitHub</string>
     <string name="about_licenses_title">Llicències</string>
     <string name="about_privacy_policy_title">Política de confidencialitat</string>
     <string name="about_author_title">Autor</string>

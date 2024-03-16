@@ -257,7 +257,7 @@
     <string name="file_open_from_background_title_format">\"%1$s\" está listo para ser abierto</string>
     <string name="file_open_from_background_text">Toca para abrir</string>
     <string name="file_name_error_empty">El nombre de archivo no puede estar vacío</string>
-    <string name="file_name_error_invalid">Nombre de archivo inválido</string>
+    <string name="file_name_error_invalid">Nombre de archivo no válido</string>
     <string name="file_name_error_already_exists">Ya existe un archivo con este nombre</string>
     <string name="file_delete_message_file_format">¿Eliminar \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">¿Eliminar carpeta \"%1$s\" y su contenido?</string>
@@ -281,7 +281,7 @@
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
     <string name="file_create_archive_password">Contraseña (opcional)</string>
-    <string name="file_add_bookmark_success">Marcador agregado</string>
+    <string name="file_add_bookmark_success">Carpeta fijada</string>
     <string name="file_create_file_title">Nuevo archivo</string>
     <string name="file_create_directory_title">Nueva carpeta</string>
 
@@ -325,7 +325,7 @@
     <string name="file_list_action_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="file_list_action_copy_path">Copiar ruta</string>
     <string name="file_list_action_open_in_terminal">Abrir en la terminal</string>
-    <string name="file_list_action_add_bookmark">Agregar marcador</string>
+    <string name="file_list_action_add_bookmark">Fijar carpeta</string>
     <string name="file_list_action_create_shortcut">Crear atajo</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir en una nueva ventana</string>
     <string name="file_list_select_title_format">%1$,d</string>
@@ -357,7 +357,7 @@
     <plurals name="file_properties_basic_contents_format">
         <item quantity="one">%1$,d artículo, con un tamaño %2$s</item>
         <item quantity="many">%1$,d artículos, en total%2$s</item>
-        <item quantity="other">%1$,d artículos, en total%2$s</item>
+        <item quantity="other">%1$,d elementos, en total %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Última modificación</string>
     <string name="file_properties_basic_parent_directory">Carpeta Superior</string>
@@ -461,12 +461,13 @@
     <string name="storage_add_storage_ftp_server">Servidor FTP</string>
     <string name="storage_add_storage_sftp_server">Servidor SFTP</string>
     <string name="storage_add_storage_smb_server">Servidor SMB</string>
+    <string name="storage_add_storage_webdav_server">Servidor WebDAV</string>
     <string name="storage_edit_device_storage_title">Editar dispositivo de almacenamiento</string>
     <string name="storage_edit_device_storage_name">Nombre</string>
     <string name="storage_edit_device_storage_path">Ruta</string>
     <string name="storage_add_document_manager_shortcut_title">Añadir atajo a DocumentsUI</string>
     <string name="storage_edit_document_manager_shortcut_title">Editar atajo a DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Introduce una URL</string>
+    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Ingrese un URI</string>
     <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URL inválida</string>
     <string name="storage_add_document_tree_title">Agregar almacenamiento externo</string>
     <string name="storage_edit_document_tree_title">Editar almacenamiento externo</string>
@@ -476,10 +477,10 @@
     <string name="storage_edit_ftp_server_title_edit">Editar servidor FTP</string>
     <string name="storage_edit_ftp_server_title_add">Añadir servidor FTP</string>
     <string name="storage_edit_ftp_server_host">Nombre de host</string>
-    <string name="storage_edit_ftp_server_host_error_empty">Introduce un nombre de host</string>
-    <string name="storage_edit_ftp_server_host_error_invalid">Nombre de host inválido</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Nombre de host no válido</string>
     <string name="storage_edit_ftp_server_port">Puerto</string>
-    <string name="storage_edit_ftp_server_port_error_invalid">Puerto inválido</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Puerto no válido</string>
     <string name="storage_edit_ftp_server_path">Ruta</string>
     <string name="storage_edit_ftp_server_path_placeholder">Puede dejarse vacío</string>
     <string name="storage_edit_ftp_server_name">Nombre</string>
@@ -491,7 +492,7 @@
         <item>Anónimo</item>
     </string-array>
     <string name="storage_edit_ftp_server_username">Nombre de usuario</string>
-    <string name="storage_edit_ftp_server_username_error_empty">Introduce un nombre de usuario</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Ingrese un nombre de usuario</string>
     <string name="storage_edit_ftp_server_password">Contraseña</string>
     <string name="storage_edit_ftp_server_mode">Modo</string>
     <string-array name="storage_edit_ftp_server_mode_entries">
@@ -504,15 +505,15 @@
     <string name="storage_edit_sftp_server_title_edit">Editar servidor SFTP</string>
     <string name="storage_edit_sftp_server_title_add">Añadir servidor SFTP</string>
     <string name="storage_edit_sftp_server_host">Nombre del host</string>
-    <string name="storage_edit_sftp_server_host_error_empty">Ingrese el nombre del host</string>
-    <string name="storage_edit_sftp_server_host_error_invalid">Nombre de host inválido</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Nombre de host no válido</string>
     <string name="storage_edit_sftp_server_port">Puerto</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Puerto no válido</string>
     <string name="storage_edit_sftp_server_path">Ruta</string>
     <string name="storage_edit_sftp_server_path_placeholder">Puede dejarse vacío</string>
     <string name="storage_edit_sftp_server_name">Nombre</string>
-    <string name="storage_edit_sftp_server_name_placeholder">Usar nombre del host</string>
-    <string name="storage_edit_sftp_server_authentication_type">Autentificación</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Usar nombre de host</string>
+    <string name="storage_edit_sftp_server_authentication_type">Autenticación</string>
     <string-array name="storage_edit_sftp_server_authentication_type_entries">
         <item>Contraseña</item>
         <item>Clave pública</item>
@@ -534,8 +535,8 @@
     <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
     <string name="storage_edit_smb_server_title_add">Añadir servidor SMB</string>
     <string name="storage_edit_smb_server_host">Nombre de host</string>
-    <string name="storage_edit_smb_server_host_error_empty">Ingrese el nombre del host</string>
-    <string name="storage_edit_smb_server_host_error_invalid">Nombre de host inválido</string>
+    <string name="storage_edit_smb_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Nombre de host no válido</string>
     <string name="storage_edit_smb_server_port">Puerto</string>
     <string name="storage_edit_smb_server_port_error_invalid">Puerto no válido</string>
     <string name="storage_edit_smb_server_path">Ruta</string>
@@ -554,6 +555,32 @@
     <string name="storage_edit_smb_server_domain">Dominio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectar y añadir</string>
     <string name="storage_edit_smb_server_add">Añadir</string>
+    <string name="storage_edit_webdav_server_title_edit">Editar servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Añadir servidor WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Nombre de host</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Nombre de host no válido</string>
+    <string name="storage_edit_webdav_server_port">Puerto</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Puerto no válido</string>
+    <string name="storage_edit_webdav_server_path">Ruta</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Puede dejarse vacío</string>
+    <string name="storage_edit_webdav_server_name">Nombre</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Usar nombre de host</string>
+    <string name="storage_edit_webdav_server_protocol">Protocolo</string>
+    <string name="storage_edit_webdav_server_authentication_type">Autenticación</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Contraseña</item>
+        <item>Clave de acceso</item>
+        <item>Ninguna</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Nombre de usuario</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_webdav_server_password">Contraseña</string>
+    <string name="storage_edit_webdav_server_access_token">Clave de acceso</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Ingrese una clave de acceso</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Conectar y añadir</string>
+    <string name="storage_edit_webdav_server_add">Añadir</string>
+
     <string name="navigation_storage_subtitle_format">%1$slibre de %2$s</string>
     <string name="navigation_add_storage">Agregar almacenamiento…</string>
     <string name="navigation_standard_directory_alarms">Alarmas</string>
@@ -569,7 +596,7 @@
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
-    <string name="navigation_edit_bookmark_directory_title">Carpeta de marcador</string>
+    <string name="navigation_edit_bookmark_directory_title">Carpeta fijada</string>
     <string name="navigation_edit_bookmark_directory_name">Nombre</string>
     <string name="navigation_edit_bookmark_directory_path">Ruta</string>
     <string name="archive_viewer_title">Visor de archivos</string>
@@ -580,13 +607,13 @@
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Guardado</string>
     <string name="text_editor_reload_message">¿Estás seguro de recargar? Los cambios que no se hayan guardado en el documento se perderán.</string>
-    <string name="text_editor_encoding">Codificando</string>
+    <string name="text_editor_encoding">Codificación</string>
     <string name="text_editor_close_message">¿Estás seguro que quieres descartar los cambios sin guardar en el documento?</string>
 
     <string name="ftp_server_title">Servidor FTP</string>
     <string name="ftp_server_state_title">Estado</string>
     <string name="ftp_server_state_summary_starting">Iniciando…</string>
-    <string name="ftp_server_state_summary_running">Corriendo</string>
+    <string name="ftp_server_state_summary_running">Activo</string>
     <string name="ftp_server_state_summary_stopping">Deteniendo…</string>
     <string name="ftp_server_state_summary_stopped">Sin iniciar</string>
     <string name="ftp_server_url_title">URL</string>
@@ -594,6 +621,9 @@
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar contraseña</string>
     <string name="ftp_server_add_tile_title">Añadir a Ajustes Rápidos</string>
+    <string name="ftp_server_add_tile_result_added">“Servidor FTP” ha sido añadido a Ajustes Rápidos</string>
+    <string name="ftp_server_add_tile_result_already_added">“Servidor FTP” ya está en los Ajustes Rápidos</string>
+    <string name="ftp_server_add_tile_result_error">Error al añadir “Servidor FTP” a los Ajustes Rápidos</string>
     <string name="ftp_server_configuration_title">Configuración</string>
     <string name="ftp_server_anonymous_login_title">Ingreso anónimo</string>
     <string name="ftp_server_username_title">Nombre de usuario</string>
@@ -615,22 +645,22 @@
         <item>En base al horario</item>
         <item>En base al ahorro de batería</item>
     </string-array>
-    <string name="settings_black_night_mode">Modo noche oscuro</string>
-    <string name="settings_file_list_animation_title">Animación de la lista de archivos</string>
-    <string name="settings_file_name_ellipsize_title">Mostrar nombre de archivo grande</string>
+    <string name="settings_black_night_mode">Modo negro puro</string>
+    <string name="settings_file_list_animation_title">Animación en la lista de archivos</string>
+    <string name="settings_file_name_ellipsize_title">En nombres de archivo extensos</string>
     <string-array name="settings_file_name_ellipsize_entries">
-        <item>Eclipsar al principio</item>
-        <item>Elipsar en la mitad</item>
-        <item>Elipsar el final</item>
-        <item>Marca</item>
+        <item>Mostrar la última parte</item>
+        <item>Mostrar el principio y el final</item>
+        <item>Mostrar la primera parte</item>
+        <item>Animar</item>
     </string-array>
     <string name="settings_behavior_title">Comportamiento</string>
     <string name="settings_default_directory_title">Carpeta por defecto</string>
     <string name="settings_standard_directories_title">Carpetas estándar</string>
     <string name="settings_standard_directories_summary_empty">Ninguna carpeta estándar habilitada</string>
     <string name="settings_bookmark_directory_screenshots">Capturas de pantalla</string>
-    <string name="settings_bookmark_directories_title">Carpeta de marcador</string>
-    <string name="settings_bookmark_directories_summary_empty">Sin carpetas de marcador</string>
+    <string name="settings_bookmark_directories_title">Carpetas fijadas</string>
+    <string name="settings_bookmark_directories_summary_empty">Sin carpetas fijadas</string>
     <string name="settings_root_strategy_title">Modo de acceso administrativo</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
@@ -643,7 +673,7 @@
         <item>Sólo acceso administrativo</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Codificación del nombre de archivo</string>
-    <string name="settings_open_apk_default_action_title">Abrir paquete Android</string>
+    <string name="settings_open_apk_default_action_title">Al abrir un paquete Android</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Instalar</item>
         <item>Ver contenido</item>
@@ -653,9 +683,9 @@
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Podría hacer que la aplicación se vuelva inestable en versiones antiguas de Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para obtener una miniatura</string>
 
-    <string name="about_title">Sobre</string>
+    <string name="about_title">Acerca de</string>
     <string name="about_version_title">Versión</string>
-    <string name="about_github_title">Vista en GitHub</string>
+    <string name="about_github_title">Ver en GitHub</string>
     <string name="about_licenses_title">Licencias</string>
     <string name="about_privacy_policy_title">Política de privacidad</string>
     <string name="about_author_title">Autor</string>

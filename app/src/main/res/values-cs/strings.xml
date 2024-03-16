@@ -62,6 +62,10 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplikace vyžaduje povolení přístupu k souborům. V dalším dialogu klikněte na \"POVOLIT\", prosím.</string>
     <string name="storage_permission_permanently_denied_message">Aplikace potřebuje povolení přístupu k souborům. Prosím udělte povolení \"Úložiště\" v nastavení.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Aplikace potřebuje oprávnění pro posílání oznámení o operacích se soubory. Prosíme vyberte \"Povolit\" v následující výzvě systému.</string>
+    <string name="notification_permission_permanently_denied_message">Aplikace potřebuje oprávnění pro posílání oznámení o operacích se soubory. Prosíme udělte oprávnění \"Oznámení\" v nastavení systému.</string>
+
     <string name="notification_channel_background_activity_start_name">Akce probíhají v pozadí</string>
     <string name="notification_channel_background_activity_start_description">Podnikněte kroky, když aplikace běžela na pozadí</string>
     <string name="notification_channel_file_job_name">Operace se souborem</string>
@@ -344,6 +348,7 @@
     <string name="file_list_action_view_sort_path_specific">Jen pro tuto složku</string>
     <string name="file_list_action_new_task">Nové okno</string>
     <string name="file_list_action_navigate_up">Nahoru</string>
+    <string name="file_list_action_navigate_to">Jít na</string>
     <string name="file_list_action_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="file_list_action_copy_path">Zkopírovat cestu</string>
     <string name="file_list_action_open_in_terminal">Otevřít v příkazovém řádku</string>
@@ -484,6 +489,7 @@
     <string name="storage_add_storage_ftp_server">Server FTP</string>
     <string name="storage_add_storage_sftp_server">Server SFTP</string>
     <string name="storage_add_storage_smb_server">Server SMB</string>
+    <string name="storage_add_storage_webdav_server">Server WebDAV</string>
     <string name="storage_edit_device_storage_title">Upravit úložiště zařízení</string>
     <string name="storage_edit_device_storage_name">Název</string>
     <string name="storage_edit_device_storage_path">Cesta</string>
@@ -496,12 +502,17 @@
     <string name="storage_edit_document_tree_path">Cesta</string>
     <string name="storage_edit_ftp_server_title_edit">Upravit server FTP</string>
     <string name="storage_edit_ftp_server_title_add">Přidat server FTP</string>
+    <string name="storage_edit_ftp_server_host">Název hostitele</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Zadejte název hostitele</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Neplatný název hostitele</string>
     <string name="storage_edit_ftp_server_port">Port</string>
     <string name="storage_edit_ftp_server_port_error_invalid">Neplatný port</string>
     <string name="storage_edit_ftp_server_path">Cesta</string>
     <string name="storage_edit_ftp_server_path_placeholder">Může zůstat prázdná</string>
     <string name="storage_edit_ftp_server_name">Název</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Použít název hostitele</string>
     <string name="storage_edit_ftp_server_protocol">Protokol</string>
+    <string name="storage_edit_ftp_server_authentication_type">Oveření</string>
     <string-array name="storage_edit_ftp_server_authentication_type_entries">
         <item>Heslo</item>
         <item>Anonymní</item>
@@ -521,6 +532,7 @@
     <string name="storage_edit_sftp_server_title_add">Přidat server SFTP</string>
     <string name="storage_edit_sftp_server_host">Název hostitele</string>
     <string name="storage_edit_sftp_server_host_error_empty">Vložit název hostitele</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Neplatný název hostitele</string>
     <string name="storage_edit_sftp_server_port">Port</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Neplatný port</string>
     <string name="storage_edit_sftp_server_path">Cesta</string>
@@ -539,7 +551,9 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Otevřít soubor</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Vložit soukromý klíč</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Neplatný soukromý klíč</string>
+    <string name="storage_edit_sftp_server_private_key_password">Heslo soukromého kliče</string>
     <string name="storage_edit_sftp_server_private_key_password_placeholder">Může zůstat prázné</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Neplatné heslo soukromého klíče</string>
     <string name="storage_edit_sftp_server_connect_and_add">Připojit se a přidat</string>
     <string name="storage_edit_sftp_server_add">Přidat</string>
     <string name="storage_add_lan_smb_server_loading">Hledání SMB serverů…</string>
@@ -548,6 +562,7 @@
     <string name="storage_edit_smb_server_title_add">Přidat server SMB</string>
     <string name="storage_edit_smb_server_host">Název hostitele</string>
     <string name="storage_edit_smb_server_host_error_empty">Vložit název hostitele</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Neplatný název hostitele</string>
     <string name="storage_edit_smb_server_port">Port</string>
     <string name="storage_edit_smb_server_port_error_invalid">Neplatný port</string>
     <string name="storage_edit_smb_server_path">Cesta</string>
@@ -566,6 +581,32 @@
     <string name="storage_edit_smb_server_domain">Doména</string>
     <string name="storage_edit_smb_server_connect_and_add">Připojit se a přidat</string>
     <string name="storage_edit_smb_server_add">Přidat</string>
+    <string name="storage_edit_webdav_server_title_edit">Upravit server WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Přidat server WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Název hostitele</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Zadejte název hostitele</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Neplatný název hostitele</string>
+    <string name="storage_edit_webdav_server_port">Port</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Neplatný port</string>
+    <string name="storage_edit_webdav_server_path">Cesta</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Může být vynechána</string>
+    <string name="storage_edit_webdav_server_name">Název</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Použít název hostitele</string>
+    <string name="storage_edit_webdav_server_protocol">Protokol</string>
+    <string name="storage_edit_webdav_server_authentication_type">Ověření</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Heslo</item>
+        <item>Přístupový token</item>
+        <item>Žádné</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Uživatelské jméno</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Zadejte uživatelské jméno</string>
+    <string name="storage_edit_webdav_server_password">Heslo</string>
+    <string name="storage_edit_webdav_server_access_token">Přístupový token</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Zadejte přístupový token</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Připojit a přidat</string>
+    <string name="storage_edit_webdav_server_add">Přidat</string>
+
     <string name="navigation_storage_subtitle_format">%1$svolných z %2$s</string>
     <string name="navigation_add_storage">Přidat úložiště…</string>
     <string name="navigation_standard_directory_alarms">Budíky</string>
@@ -605,6 +646,10 @@
     <string name="ftp_server_url_summary_no_local_inet_address">Místní IP adresa je neznámá</string>
     <string name="ftp_server_url_menu_copy_url">Kopírovat URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopírovat heslo</string>
+    <string name="ftp_server_add_tile_title">Přidat do rychlých nastavení</string>
+    <string name="ftp_server_add_tile_result_added">\"Server FTP\" byl přidán do rychlých nastavení</string>
+    <string name="ftp_server_add_tile_result_already_added">\"Server FTP\" již byl přidán do rychlých nastavení</string>
+    <string name="ftp_server_add_tile_result_error">Chyba při přidávání \"Server FTP\" do rychlých nastavení</string>
     <string name="ftp_server_configuration_title">Konfigurace</string>
     <string name="ftp_server_anonymous_login_title">Anonymní přihlášení</string>
     <string name="ftp_server_username_title">Uživatelské jméno</string>
