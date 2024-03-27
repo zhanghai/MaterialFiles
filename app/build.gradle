@@ -119,6 +119,7 @@ dependencies {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation 'org.jetbrains.kotlinx:kotlinx-io-core:0.3.2'
     // kotlinx-coroutines-android depends on kotlin-stdlib-jdk8
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     def kotlinx_coroutines_version = '1.8.0'
