@@ -62,7 +62,7 @@ class FileByteChannel(
     override fun onWrite(position: Long, source: ByteBuffer) {
         val sourcePosition = source.position()
         val bytesWritten = try {
-            file.write(ByteBufferChunkProvider(source, position)).toInt()
+            file.write(ByteBufferChunkProvider(source, position))
         } catch (e: SMBRuntimeException) {
             throw e.toIOException()
         }

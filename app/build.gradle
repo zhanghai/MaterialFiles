@@ -148,8 +148,10 @@ dependencies {
     implementation 'com.drakeet.drawer:drawer:1.0.3'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation ('com.hierynomus:smbj:0.13.0') {
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
+    implementation ('com.hierynomus:smbj:0.11.5') {
+        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead.
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     // SSHJ 0.36.0 requires Java 8.
     //noinspection GradleDependency
@@ -162,8 +164,6 @@ dependencies {
         // SMBJ-RPC depends on the JRE flavor of Guava which targets Java 8.
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
-        // This comes from the dependency on SMBJ.
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
     implementation 'com.google.guava:guava:33.0.0-android'
     // Guava conflicts with com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
