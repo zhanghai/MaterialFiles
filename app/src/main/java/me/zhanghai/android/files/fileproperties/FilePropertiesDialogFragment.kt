@@ -111,9 +111,9 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                 }
                 if (FilePropertiesChecksumsTabFragment.isAvailable(args.file)) {
                     add(
-                            R.string.file_properties_checksums to {
-                                FilePropertiesChecksumsTabFragment()
-                            }
+                        R.string.file_properties_checksums to {
+                            FilePropertiesChecksumsTabFragment()
+                        }
                     )
                 }
             }
