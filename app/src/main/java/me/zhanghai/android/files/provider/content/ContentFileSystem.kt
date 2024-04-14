@@ -31,9 +31,7 @@ internal class ContentFileSystem(private val provider: ContentFileSystemProvider
 
     override fun isReadOnly(): Boolean = false
 
-    override fun getSeparator(): String {
-        throw UnsupportedOperationException()
-    }
+    override fun getSeparator(): String = SEPARATOR_STRING
 
     override fun getRootDirectories(): Iterable<Path> = emptyList()
 
@@ -80,6 +78,9 @@ internal class ContentFileSystem(private val provider: ContentFileSystemProvider
     override fun writeToParcel(dest: Parcel, flags: Int) {}
 
     companion object {
+        const val SEPARATOR = '/'.code.toByte()
+        private const val SEPARATOR_STRING = SEPARATOR.toInt().toChar().toString()
+
         @JvmField
         val CREATOR = object : Parcelable.Creator<ContentFileSystem> {
             override fun createFromParcel(source: Parcel): ContentFileSystem =
