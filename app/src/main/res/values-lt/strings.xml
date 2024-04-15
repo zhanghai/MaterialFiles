@@ -303,13 +303,13 @@
     <string name="file_create_directory_title">Naujas aplankas</string>
 
     <string name="file_list_title">Failai</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Pasirinkti failą</item>
         <item quantity="few">Pasirinkti failus</item>
         <item quantity="many">Pasirinkti failus</item>
         <item quantity="other">Pasirinkti failus</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Pasirinkti aplanką</item>
         <item quantity="few">Pasirinkti aplankus</item>
         <item quantity="many">Pasirinkti aplankus</item>
@@ -350,7 +350,7 @@
     <string name="file_list_action_create_shortcut">Sukurti spartųjį kelią</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Atidaryti naujame lange</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Pasirinkti \"%1$s\"</string>
+    <string name="file_list_open_current_directory_format">Pasirinkti \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Perkeliama %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopijuojama %1$,d</string>
     <string name="file_list_paste_extract_title_format">Išskleidžiama %1$,d</string>

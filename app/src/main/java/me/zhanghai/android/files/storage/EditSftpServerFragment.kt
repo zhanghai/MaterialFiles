@@ -43,8 +43,8 @@ import me.zhanghai.android.files.util.viewModels
 import java.net.URI
 
 class EditSftpServerFragment : Fragment() {
-    private val pickPrivateKeyFileLauncher = registerForActivityResult(
-        FileListActivity.PickFileContract(), this::onPickPrivateKeyFileResult
+    private val openPrivateKeyFileLauncher = registerForActivityResult(
+        FileListActivity.OpenFileContract(), this::onOpenPrivateKeyFileResult
     )
 
     private val args by args<Args>()
@@ -204,10 +204,10 @@ class EditSftpServerFragment : Fragment() {
         if (!viewModel.readPrivateKeyFileState.value.isReady) {
             return
         }
-        pickPrivateKeyFileLauncher.launchSafe(listOf(MimeType.ANY), this)
+        openPrivateKeyFileLauncher.launchSafe(listOf(MimeType.ANY), this)
     }
 
-    private fun onPickPrivateKeyFileResult(result: Path?) {
+    private fun onOpenPrivateKeyFileResult(result: Path?) {
         result ?: return
         viewModel.readPrivateKeyFile(result)
     }

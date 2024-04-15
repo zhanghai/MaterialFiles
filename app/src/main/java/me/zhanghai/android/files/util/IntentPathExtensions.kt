@@ -37,6 +37,17 @@ var Intent.extraPath: Path?
         putExtra(EXTRA_PATH_URI, value?.toUri()?.toString())
     }
 
+val Intent.saveAsPath: Path?
+    get() {
+        val uri =
+            when (action) {
+                Intent.ACTION_VIEW -> data
+                Intent.ACTION_SEND -> getParcelableExtraSafe(Intent.EXTRA_STREAM) as? Uri
+                else -> null
+            }
+        return uri?.toPathOrNull()
+    }
+
 private fun Uri.toPathOrNull(): Path? =
     when (scheme) {
         ContentResolver.SCHEME_FILE, null -> path?.takeIfNotEmpty()?.let { Paths.get(it) }

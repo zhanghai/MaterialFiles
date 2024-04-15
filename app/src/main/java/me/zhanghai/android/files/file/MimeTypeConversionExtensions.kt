@@ -79,6 +79,10 @@ private val specialPosixFileTypeToMimeTypeMap = mapOf(
     PosixFileType.SOCKET to "inode/socket"
 ).mapValues { it.value.asMimeType() }
 
+val MimeType.extension: String?
+    // TODO: Add compat implementation as well.
+    get() = MimeTypeMap.getSingleton().getExtensionFromMimeType(value)
+
 val MimeType.intentType: String
     get() = intentMimeType.value
 

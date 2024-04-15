@@ -30,9 +30,8 @@ import me.zhanghai.android.files.util.putState
 import me.zhanghai.android.files.util.setTextWithSelection
 
 class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
-    private val pickPathLauncher = registerForActivityResult(
-        FileListActivity.PickDirectoryContract(), this::onPickPathResult
-    )
+    private val openPathLauncher =
+        registerForActivityResult(FileListActivity.OpenDirectoryContract(), ::onOpenPathResult)
 
     private val args by args<Args>()
 
@@ -75,10 +74,10 @@ class EditBookmarkDirectoryDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun onEditPath() {
-        pickPathLauncher.launchSafe(path, this)
+        openPathLauncher.launchSafe(path, this)
     }
 
-    private fun onPickPathResult(result: Path?) {
+    private fun onOpenPathResult(result: Path?) {
         result ?: return
         path = result
         updatePathText()

@@ -253,11 +253,11 @@
     <string name="file_create_directory_title">Új mappa</string>
 
     <string name="file_list_title">Fájlok</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Fájl kiválasztása</item>
         <item quantity="other">Fájlok kiválasztása</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Mappa kiválasztása</item>
         <item quantity="other">Mappák kiválasztása</item>
     </plurals>
@@ -292,7 +292,7 @@
     <string name="file_list_action_create_shortcut">Parancsikon létrehozása</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Megnyitás új ablakban</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">„%1$s” kiválasztása</string>
+    <string name="file_list_open_current_directory_format">„%1$s” kiválasztása</string>
     <string name="file_list_paste_move_title_format">%1$,d áthelyezése</string>
     <string name="file_list_paste_copy_title_format">%1$,d másolása</string>
     <string name="file_list_paste_extract_title_format">%1$,d fájl kibontása</string>

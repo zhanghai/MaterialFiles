@@ -262,11 +262,11 @@
     <string name="file_create_directory_title">Neuer Ordner</string>
 
     <string name="file_list_title">Dateien</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Wähle eine Datei aus</item>
         <item quantity="other">Wähle Dateien aus</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Wähle einen Ordner aus</item>
         <item quantity="other">Wähle Ordner aus</item>
     </plurals>
@@ -301,7 +301,7 @@
     <string name="file_list_action_create_shortcut">Verknüpfung erstellen</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">In neuem Fenster öffnen</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">“%1$s” auswählen</string>
+    <string name="file_list_open_current_directory_format">“%1$s” auswählen</string>
     <string name="file_list_paste_move_title_format">Verschiebe %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiere %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extrahiere %1$,d</string>

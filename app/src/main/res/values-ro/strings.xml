@@ -286,12 +286,12 @@
     <string name="file_create_directory_title">Dosar nou</string>
 
     <string name="file_list_title">Fișiere</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Selectează fișierul</item>
         <item quantity="few">Selectează fișierele</item>
         <item quantity="other">Selectează fișierele</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Selectează dosarul</item>
         <item quantity="few">Selectează dosarele</item>
         <item quantity="other">Selectează dosarele</item>
@@ -329,7 +329,7 @@
     <string name="file_list_action_create_shortcut">Creează scurtătură</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Deschide într-o fereastră nouă</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Selectat “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Selectat “%1$s”</string>
     <string name="file_list_paste_move_title_format">Se mută %1$,d</string>
     <string name="file_list_paste_copy_title_format">Se copiază %1$,d</string>
     <string name="file_list_paste_extract_title_format">Se extrag %1$,d</string>

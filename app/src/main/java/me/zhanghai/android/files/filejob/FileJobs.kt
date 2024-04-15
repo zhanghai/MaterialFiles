@@ -10,6 +10,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.widget.Toast
 import androidx.annotation.AnyRes
 import androidx.annotation.PluralsRes
 import androidx.annotation.StringRes
@@ -30,6 +31,7 @@ import kotlinx.coroutines.runBlocking
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.BackgroundActivityStarter
 import me.zhanghai.android.files.app.mainExecutor
+import me.zhanghai.android.files.compat.mainExecutorCompat
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asFileSize
@@ -85,6 +87,7 @@ import me.zhanghai.android.files.util.createViewIntent
 import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.toEnumSet
 import me.zhanghai.android.files.util.withChooser
 import java.io.ByteArrayInputStream
@@ -152,6 +155,18 @@ private fun FileJob.postNotification(
 private const val PROGRESS_INTERVAL_MILLIS = 200L
 
 private const val NOTIFICATION_INTERVAL_MILLIS = 500L
+
+private fun FileJob.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
+    service.mainExecutorCompat.execute {
+        service.showToast(textRes, duration)
+    }
+}
+
+private fun FileJob.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
+    service.mainExecutorCompat.execute {
+        service.showToast(text, duration)
+    }
+}
 
 private fun FileJob.getFileName(path: Path): String =
     if (path.isAbsolute && path.nameCount == 0) {
@@ -1693,6 +1708,27 @@ private fun FileJob.postRestoreSeLinuxContextNotification(
         transferInfo, currentPath,
         R.string.file_job_restore_selinux_context_notification_title_one_format,
         R.plurals.file_job_restore_selinux_context_notification_title_multiple_format
+    )
+}
+
+class SaveFileJob(private val source: Path, private val target: Path) : FileJob() {
+    override fun run() {
+        save(source, target)
+    }
+}
+
+@Throws(IOException::class)
+private fun FileJob.save(source: Path, target: Path) {
+    val scanInfo = scan(source, R.plurals.file_job_copy_scan_notification_title_format)
+    val targetParent = target.parent
+    val transferInfo = TransferInfo(scanInfo, targetParent)
+    val actionAllInfo = ActionAllInfo(replace = true)
+    val copied = copy(source, target, false, transferInfo, actionAllInfo)
+    if (!copied) {
+        return
+    }
+    showToast(
+        getString(R.string.save_as_success_format, getFileName(target), getFileName(targetParent))
     )
 }
 

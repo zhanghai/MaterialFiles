@@ -253,11 +253,11 @@
     <string name="file_create_directory_title">Νέος φάκελος</string>
 
     <string name="file_list_title">Αρχεία</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Επιλογή αρχείου</item>
         <item quantity="other">Επιλογή αρχείων</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Επιλογή φακέλου</item>
         <item quantity="other">Επιλογή φακέλων</item>
     </plurals>
@@ -291,7 +291,7 @@
     <string name="file_list_action_add_bookmark">Προσθήκη σελιδοδείκτη</string>
     <string name="file_list_action_create_shortcut">Δημιουργία συντόμευσης</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Άνοιγμα σε νέο παράθυρο</string>
-    <string name="file_list_select_current_directory_format">Επιλογή “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Επιλογή “%1$s”</string>
     <string name="file_list_paste_move_title_format">Μετακίνηση %1$,d</string>
     <string name="file_list_paste_copy_title_format">Αντιγραφή %1$,d</string>
     <string name="file_list_paste_extract_title_format">Εξαγωγή %1$,d</string>

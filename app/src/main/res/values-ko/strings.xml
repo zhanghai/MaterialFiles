@@ -238,10 +238,10 @@
     <string name="file_create_directory_title">새 폴더</string>
 
     <string name="file_list_title">파일</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="other">파일 선택</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="other">폴더 선택</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
@@ -273,7 +273,7 @@
     <string name="file_list_action_create_shortcut">바로가기 만들기</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">새 창에서 열기</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">“%1$s” 선택</string>
+    <string name="file_list_open_current_directory_format">“%1$s” 선택</string>
     <string name="file_list_paste_move_title_format">%1$,d개 항목 이동</string>
     <string name="file_list_paste_copy_title_format">%1$,d개 항목 복사</string>
     <string name="file_list_paste_extract_title_format">%1$,d개 항목 압축 해제</string>

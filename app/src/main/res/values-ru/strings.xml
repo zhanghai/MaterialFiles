@@ -312,13 +312,13 @@
     <string name="file_create_directory_title">Новая папка</string>
 
     <string name="file_list_title">Файлы</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Выбрать файл</item>
         <item quantity="few">Выбрать файлы</item>
         <item quantity="many">Выбрать файлы</item>
         <item quantity="other">Выбрать файлы</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Выбрать папку</item>
         <item quantity="few">Выбрать папки</item>
         <item quantity="many">Выбрать папки</item>
@@ -359,7 +359,7 @@
     <string name="file_list_action_create_shortcut">Создать ярлык</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Открыть в новом окне</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Выбрать “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Выбрать “%1$s”</string>
     <string name="file_list_paste_move_title_format">Перемещение %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копирование %1$,d</string>
     <string name="file_list_paste_extract_title_format">Извлечение %1$,d</string>

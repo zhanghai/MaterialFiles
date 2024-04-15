@@ -288,12 +288,12 @@
     <string name="file_create_directory_title">Nova pasta</string>
 
     <string name="file_list_title">Ficheiros</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Selecionar ficheiro</item>
         <item quantity="many">Selecionar ficheiros</item>
         <item quantity="other">Selecionar ficheiros</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Selecionar pasta</item>
         <item quantity="many">Selecionar pastas</item>
         <item quantity="other">Selecionar pastas</item>
@@ -331,7 +331,7 @@
     <string name="file_list_action_create_shortcut">Criar atalho</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir em nova janela</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">“%1$s” selecionado</string>
+    <string name="file_list_open_current_directory_format">“%1$s” selecionado</string>
     <string name="file_list_paste_move_title_format">A mover %1$,d</string>
     <string name="file_list_paste_copy_title_format">A copiar %1$,d</string>
     <string name="file_list_paste_extract_title_format">A extrair %1$,d</string>

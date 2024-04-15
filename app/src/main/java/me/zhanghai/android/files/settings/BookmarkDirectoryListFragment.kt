@@ -32,9 +32,8 @@ import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.startActivitySafe
 
 class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.Listener {
-    private val pickPathLauncher = registerForActivityResult(
-        FileListActivity.PickDirectoryContract(), this::onPickPathResult
-    )
+    private val openPathLauncher =
+        registerForActivityResult(FileListActivity.OpenDirectoryContract(), ::onOpenPathResult)
 
     private lateinit var binding: BookmarkDirectoryListFragmentBinding
 
@@ -98,10 +97,10 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
     }
 
     private fun onAddBookmarkDirectory() {
-        pickPathLauncher.launchSafe(null, this)
+        openPathLauncher.launchSafe(null, this)
     }
 
-    private fun onPickPathResult(result: Path?) {
+    private fun onOpenPathResult(result: Path?) {
         result ?: return
         BookmarkDirectories.add(BookmarkDirectory(null, result))
     }

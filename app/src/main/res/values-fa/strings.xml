@@ -254,11 +254,11 @@
     <string name="file_create_directory_title">شاخهٔ جدید</string>
 
     <string name="file_list_title">پرونده‌ها</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">گزینش یک پرونده</item>
         <item quantity="other">گزینش پرونده‌ها</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">گزینش یک شاخه</item>
         <item quantity="other">گزینش شاخه‌ها</item>
     </plurals>
@@ -288,7 +288,7 @@
     <string name="file_list_action_add_bookmark">افزودن نشانک</string>
     <string name="file_list_action_create_shortcut">ایجاد میان‌بر</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">گشودن در پنجرهٔ جدید</string>
-    <string name="file_list_select_current_directory_format">گزینش «⁨%1$s⁩»</string>
+    <string name="file_list_open_current_directory_format">گزینش «⁨%1$s⁩»</string>
     <string name="file_list_paste_move_title_format">در حال جابه‌جایی %1$,d</string>
     <string name="file_list_paste_copy_title_format">در حال رونوشت %1$,d</string>
     <string name="file_list_paste_extract_title_format">در حال استخراج %1$,d</string>

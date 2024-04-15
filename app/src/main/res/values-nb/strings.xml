@@ -262,11 +262,11 @@
     <string name="file_create_directory_title">Ny mappe</string>
 
     <string name="file_list_title">Filer</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Velg en fil</item>
         <item quantity="other">Velg filer</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Velg en mappe</item>
         <item quantity="other">Velg mapper</item>
     </plurals>
@@ -301,7 +301,7 @@
     <string name="file_list_action_create_shortcut">Opprett snarvei</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Åpne i et nytt vindu</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Velg «%1$s»</string>
+    <string name="file_list_open_current_directory_format">Velg «%1$s»</string>
     <string name="file_list_paste_move_title_format">Flytter %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopierer %1$,d</string>
     <string name="file_list_paste_extract_title_format">Pakker ut %1$,d</string>

@@ -25,6 +25,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
@@ -38,6 +39,7 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePaddingRelative
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -64,6 +66,7 @@ import me.zhanghai.android.files.databinding.FileListFragmentSpeedDialIncludeBin
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
+import me.zhanghai.android.files.file.extension
 import me.zhanghai.android.files.file.fileProviderUri
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
@@ -100,6 +103,8 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.addOnBackPressedCallback
 import me.zhanghai.android.files.util.args
+import me.zhanghai.android.files.util.asFileName
+import me.zhanghai.android.files.util.asFileNameOrNull
 import me.zhanghai.android.files.util.checkSelfPermission
 import me.zhanghai.android.files.util.copyText
 import me.zhanghai.android.files.util.create
@@ -116,6 +121,7 @@ import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.hasSw600Dp
 import me.zhanghai.android.files.util.isOrientationLandscape
 import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.setOnEditorConfirmActionListener
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.startActivitySafe
 import me.zhanghai.android.files.util.supportsExternalStorageManager
@@ -127,11 +133,11 @@ import me.zhanghai.android.files.viewer.image.ImageViewerActivity
 import kotlin.math.roundToInt
 
 class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.Listener,
-    OpenApkDialogFragment.Listener, ConfirmDeleteFilesDialogFragment.Listener,
-    CreateArchiveDialogFragment.Listener, RenameFileDialogFragment.Listener,
-    CreateFileDialogFragment.Listener, CreateDirectoryDialogFragment.Listener,
-    NavigateToPathDialogFragment.Listener, NavigationFragment.Listener,
-    ShowRequestAllFilesAccessRationaleDialogFragment.Listener,
+    ConfirmReplaceFileDialogFragment.Listener, OpenApkDialogFragment.Listener,
+    ConfirmDeleteFilesDialogFragment.Listener, CreateArchiveDialogFragment.Listener,
+    RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
+    CreateDirectoryDialogFragment.Listener, NavigateToPathDialogFragment.Listener,
+    NavigationFragment.Listener, ShowRequestAllFilesAccessRationaleDialogFragment.Listener,
     ShowRequestNotificationPermissionRationaleDialogFragment.Listener,
     ShowRequestNotificationPermissionInSettingsRationaleDialogFragment.Listener,
     ShowRequestStoragePermissionRationaleDialogFragment.Listener,
@@ -280,23 +286,40 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             when (val action = intent.action ?: Intent.ACTION_VIEW) {
                 Intent.ACTION_GET_CONTENT, Intent.ACTION_OPEN_DOCUMENT,
                 Intent.ACTION_CREATE_DOCUMENT -> {
-                    val readOnly = action == Intent.ACTION_GET_CONTENT
+                    val mode = if (action == Intent.ACTION_CREATE_DOCUMENT) {
+                        PickOptions.Mode.CREATE_FILE
+                    } else {
+                        PickOptions.Mode.OPEN_FILE
+                    }
                     val mimeType = intent.type?.asMimeTypeOrNull() ?: MimeType.ANY
-                    val extraMimeTypes = intent.getStringArrayExtra(Intent.EXTRA_MIME_TYPES)
-                        ?.mapNotNull { it.asMimeTypeOrNull() }?.takeIfNotEmpty()
+                    val fileName = if (mode == PickOptions.Mode.CREATE_FILE) {
+                        intent.getStringExtra(Intent.EXTRA_TITLE)?.asFileNameOrNull()?.value
+                            ?: mimeType.extension?.let { "file.$it" } ?: "file"
+                    } else {
+                        null
+                    }
+                    val readOnly = action == Intent.ACTION_GET_CONTENT
+                    val extraMimeTypes = if (mode == PickOptions.Mode.OPEN_FILE) {
+                        intent.getStringArrayExtra(Intent.EXTRA_MIME_TYPES)
+                            ?.mapNotNull { it.asMimeTypeOrNull() }?.takeIfNotEmpty()
+                    } else {
+                        null
+                    }
                     val mimeTypes = extraMimeTypes ?: listOf(mimeType)
                     val localOnly = intent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false)
-                    val allowMultiple = intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-                    // TODO: Actually support ACTION_CREATE_DOCUMENT.
-                    pickOptions = PickOptions(readOnly, false, mimeTypes, localOnly, allowMultiple)
+                    val allowMultiple = mode != PickOptions.Mode.CREATE_FILE &&
+                        intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
+                    pickOptions =
+                        PickOptions(mode, fileName, readOnly, mimeTypes, localOnly, allowMultiple)
                 }
                 Intent.ACTION_OPEN_DOCUMENT_TREE -> {
                     val localOnly = intent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false)
-                    pickOptions = PickOptions(false, true, emptyList(), localOnly, false)
+                    pickOptions = PickOptions(
+                        PickOptions.Mode.OPEN_DIRECTORY, null, false, emptyList(), localOnly, false
+                    )
                 }
                 ACTION_VIEW_DOWNLOADS ->
                     path = Paths.get(
-                        @Suppress("DEPRECATION")
                         Environment.getExternalStoragePublicDirectory(
                             Environment.DIRECTORY_DOWNLOADS
                         ).path
@@ -768,13 +791,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val title = if (pickOptions == null) {
             getString(R.string.file_list_title)
         } else {
-            val titleRes = if (pickOptions.pickDirectory) {
-                R.plurals.file_list_title_pick_directory
-            } else {
-                R.plurals.file_list_title_pick_file
-            }
             val count = if (pickOptions.allowMultiple) Int.MAX_VALUE else 1
-            getQuantityString(titleRes, count)
+            when (pickOptions.mode) {
+                PickOptions.Mode.OPEN_FILE ->
+                    getQuantityString(R.plurals.file_list_title_open_file, count)
+                PickOptions.Mode.CREATE_FILE -> getString(R.string.file_list_title_create_file)
+                PickOptions.Mode.OPEN_DIRECTORY ->
+                    getQuantityString(R.plurals.file_list_title_open_directory, count)
+            }
         }
         requireActivity().title = title
         updateSelectAllMenuItem()
@@ -813,7 +837,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 flags = flags or (Intent.FLAG_GRANT_WRITE_URI_PERMISSION
                     or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
             }
-            if (pickOptions.pickDirectory) {
+            if (pickOptions.mode == PickOptions.Mode.OPEN_DIRECTORY) {
                 flags = flags or Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
             }
             addFlags(flags)
@@ -871,27 +895,27 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 AppBarLayoutExpandHackListener(binding.recyclerView)
             )
             overlayActionMode.start(object : ToolbarActionMode.Callback {
-                override fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode) {}
-
-                override fun onToolbarActionModeItemClicked(
+                override fun onToolbarActionModeMenuItemClicked(
                     toolbarActionMode: ToolbarActionMode,
                     item: MenuItem
-                ): Boolean = onOverlayActionModeItemClicked(toolbarActionMode, item)
+                ): Boolean = onOverlayActionModeMenuItemClicked(item)
 
                 override fun onToolbarActionModeFinished(toolbarActionMode: ToolbarActionMode) {
-                    onOverlayActionModeFinished(toolbarActionMode)
+                    onOverlayActionModeFinished()
                 }
             })
         }
     }
 
-    private fun onOverlayActionModeItemClicked(
-        toolbarActionMode: ToolbarActionMode,
-        item: MenuItem
-    ): Boolean =
+    private fun onOverlayActionModeMenuItemClicked(item: MenuItem): Boolean =
         when (item.itemId) {
             R.id.action_pick -> {
-                pickFiles(viewModel.selectedFiles)
+                when (viewModel.pickOptions!!.mode) {
+                    PickOptions.Mode.OPEN_FILE,
+                    PickOptions.Mode.OPEN_DIRECTORY -> pickFiles(viewModel.selectedFiles)
+                    PickOptions.Mode.CREATE_FILE ->
+                        confirmReplaceFile(viewModel.selectedFiles.single())
+                }
                 true
             }
             R.id.action_cut -> {
@@ -921,8 +945,23 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             else -> false
         }
 
-    private fun onOverlayActionModeFinished(toolbarActionMode: ToolbarActionMode) {
+    private fun onOverlayActionModeFinished() {
         viewModel.clearSelectedFiles()
+    }
+
+    private fun confirmReplaceFile(file: FileItem, setFileName: Boolean = true) {
+        if (setFileName) {
+            val fileName = file.name
+            binding.bottomCreateFileNameEdit.setText(fileName)
+            binding.bottomCreateFileNameEdit.setSelection(
+                0, fileName.asFileName().baseName.length
+            )
+        }
+        ConfirmReplaceFileDialogFragment.show(file, this)
+    }
+
+    override fun replaceFile(file: FileItem) {
+        pickFiles(fileItemSetOf(file))
     }
 
     private fun cutFiles(files: FileItemSet) {
@@ -978,18 +1017,48 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun updateBottomToolbar() {
         val pickOptions = viewModel.pickOptions
         if (pickOptions != null) {
-            if (!pickOptions.pickDirectory) {
-                if (bottomActionMode.isActive) {
-                    bottomActionMode.finish()
+            bottomActionMode.setMenuResource(R.menu.file_list_pick_bottom)
+            val menu = bottomActionMode.menu
+            when (pickOptions.mode) {
+                PickOptions.Mode.CREATE_FILE -> {
+                    bottomActionMode.setNavigationIcon(
+                        R.drawable.check_icon_control_normal_24dp, R.string.save
+                    )
+                    bottomActionMode.title = null
+                    binding.bottomCreateFileNameEdit.isVisible = true
+                    binding.bottomCreateFileNameEdit.setOnEditorConfirmActionListener {
+                        onBottomActionModeNavigationIconClicked()
+                    }
+                    if (!viewModel.isCreateFileNameEditInitialized) {
+                        val fileName = pickOptions.fileName!!
+                        binding.bottomCreateFileNameEdit.setText(fileName)
+                        binding.bottomCreateFileNameEdit.setSelection(
+                            0, fileName.asFileName().baseName.length
+                        )
+                        binding.bottomCreateFileNameEdit.requestFocus()
+                        viewModel.isCreateFileNameEditInitialized = true
+                    }
+                    menu.findItem(R.id.action_reset).isVisible = true
                 }
-                return
+                PickOptions.Mode.OPEN_DIRECTORY -> {
+                    bottomActionMode.setNavigationIcon(
+                        R.drawable.check_icon_control_normal_24dp, R.string.select
+                    )
+                    val path = viewModel.currentPath
+                    val navigationRoot = NavigationRootMapLiveData.valueCompat[path]
+                    val name = navigationRoot?.getName(requireContext()) ?: path.name
+                    bottomActionMode.title =
+                        getString(R.string.file_list_open_current_directory_format, name)
+                    binding.bottomCreateFileNameEdit.isVisible = false
+                    menu.findItem(R.id.action_reset).isVisible = false
+                }
+                else -> {
+                    if (bottomActionMode.isActive) {
+                        bottomActionMode.finish()
+                    }
+                    return
+                }
             }
-            bottomActionMode.setNavigationIcon(R.drawable.check_icon_control_normal_24dp)
-            val path = viewModel.currentPath
-            val navigationRoot = NavigationRootMapLiveData.valueCompat[path]
-            val name = navigationRoot?.getName(requireContext()) ?: path.name
-            bottomActionMode.title =
-                getString(R.string.file_list_select_current_directory_format, name)
         } else {
             val pasteState = viewModel.pasteState
             val files = pasteState.files
@@ -999,7 +1068,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 }
                 return
             }
-            bottomActionMode.setNavigationIcon(R.drawable.close_icon_control_normal_24dp)
+            bottomActionMode.setNavigationIcon(
+                R.drawable.close_icon_control_normal_24dp, R.string.close
+            )
             val areAllFilesArchivePaths = files.all { it.path.isArchivePath }
             bottomActionMode.title = getString(
                 if (pasteState.copy) {
@@ -1012,6 +1083,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     R.string.file_list_paste_move_title_format
                 }, files.size
             )
+            binding.bottomCreateFileNameEdit.isVisible = false
             bottomActionMode.setMenuResource(R.menu.file_list_paste)
             val isCurrentPathReadOnly = viewModel.currentPath.fileSystem.isReadOnly
             bottomActionMode.menu.findItem(R.id.action_paste)
@@ -1022,25 +1094,62 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
         if (!bottomActionMode.isActive) {
             bottomActionMode.start(object : ToolbarActionMode.Callback {
-                override fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode) {}
+                override fun onToolbarNavigationIconClicked(toolbarActionMode: ToolbarActionMode) {
+                    onBottomActionModeNavigationIconClicked()
+                }
 
-                override fun onToolbarActionModeItemClicked(
+                override fun onToolbarActionModeMenuItemClicked(
                     toolbarActionMode: ToolbarActionMode,
                     item: MenuItem
-                ): Boolean = onBottomActionModeItemClicked(toolbarActionMode, item)
+                ): Boolean = onBottomActionModeMenuItemClicked(item)
 
                 override fun onToolbarActionModeFinished(toolbarActionMode: ToolbarActionMode) {
-                    onBottomActionModeFinished(toolbarActionMode)
+                    onBottomActionModeFinished()
                 }
             })
         }
     }
 
-    private fun onBottomActionModeItemClicked(
-        toolbarActionMode: ToolbarActionMode,
-        item: MenuItem
-    ): Boolean =
+    private fun onBottomActionModeNavigationIconClicked() {
+        val pickOptions = viewModel.pickOptions
+        if (pickOptions != null) {
+            when (pickOptions.mode) {
+                PickOptions.Mode.CREATE_FILE -> {
+                    val fileName = binding.bottomCreateFileNameEdit.text.toString()
+                    if (fileName.isEmpty()) {
+                        showToast(R.string.file_list_create_file_name_error_empty)
+                        return
+                    }
+                    if (fileName.asFileNameOrNull() == null) {
+                        showToast(R.string.file_list_create_file_name_error_invalid)
+                        return
+                    }
+                    val file = getFileWithName(fileName)
+                    if (file != null) {
+                        confirmReplaceFile(file, false)
+                    } else {
+                        val path = viewModel.currentPath.resolve(fileName)
+                        pickPaths(linkedSetOf(path))
+                    }
+                }
+                PickOptions.Mode.OPEN_DIRECTORY -> pickPaths(linkedSetOf(viewModel.currentPath))
+                else -> bottomActionMode.finish()
+            }
+        } else {
+            bottomActionMode.finish()
+        }
+    }
+
+    private fun onBottomActionModeMenuItemClicked(item: MenuItem): Boolean =
         when (item.itemId) {
+            R.id.action_reset -> {
+                val fileName = viewModel.pickOptions!!.fileName!!
+                binding.bottomCreateFileNameEdit.setText(fileName)
+                binding.bottomCreateFileNameEdit.setSelection(
+                    0, fileName.asFileName().baseName.length
+                )
+                true
+            }
             R.id.action_paste -> {
                 pasteFiles(currentPath)
                 true
@@ -1048,13 +1157,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             else -> false
         }
 
-    private fun onBottomActionModeFinished(toolbarActionMode: ToolbarActionMode) {
+    private fun onBottomActionModeFinished() {
         val pickOptions = viewModel.pickOptions
-        if (pickOptions != null) {
-            if (pickOptions.pickDirectory) {
-                pickPaths(linkedSetOf(viewModel.currentPath))
-            }
-        } else {
+        if (pickOptions == null) {
             viewModel.clearPasteState()
         }
     }
@@ -1097,8 +1202,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (pickOptions != null) {
             if (file.attributes.isDirectory) {
                 navigateTo(file.path)
-            } else if (!pickOptions.pickDirectory) {
-                pickFiles(fileItemSetOf(file))
+            } else {
+                when (pickOptions.mode) {
+                    PickOptions.Mode.OPEN_FILE -> pickFiles(fileItemSetOf(file))
+                    PickOptions.Mode.CREATE_FILE -> confirmReplaceFile(file)
+                    PickOptions.Mode.OPEN_DIRECTORY -> {}
+                }
             }
             return
         }
@@ -1219,9 +1328,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         RenameFileDialogFragment.show(file, this)
     }
 
-    override fun hasFileWithName(name: String): Boolean {
+    override fun hasFileWithName(name: String): Boolean = getFileWithName(name) != null
+
+    private fun getFileWithName(name: String): FileItem? {
         val fileListData = viewModel.fileListStateful
-        return fileListData is Success && fileListData.value.any { it.name == name }
+        if (fileListData !is Success) {
+            return null
+        }
+        return fileListData.value.find { it.name == name }
     }
 
     override fun renameFile(file: FileItem, newName: String) {
@@ -1558,6 +1672,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val recyclerView: RecyclerView,
         val bottomBarLayout: ViewGroup,
         val bottomToolbar: Toolbar,
+        val bottomCreateFileNameEdit: EditText,
         val speedDialView: SpeedDialView
     ) {
         companion object {
@@ -1581,7 +1696,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     contentBinding.progress, contentBinding.errorText, contentBinding.emptyView,
                     contentBinding.swipeRefreshLayout, contentBinding.recyclerView,
                     bottomBarBinding.bottomBarLayout, bottomBarBinding.bottomToolbar,
-                    speedDialBinding.speedDialView
+                    bottomBarBinding.bottomCreateFileNameEdit, speedDialBinding.speedDialView
                 )
             }
         }

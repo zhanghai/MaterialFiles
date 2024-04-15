@@ -98,24 +98,21 @@
                 <data android:mimeType="application/x-xz" />
                 <data android:mimeType="@string/intent_filter_data_seven_z_mime_type" />
             </intent-filter>
-            <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/master/AndroidManifest.xml -->
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/main/AndroidManifest.xml -->
             <intent-filter>
                 <action android:name="android.intent.action.OPEN_DOCUMENT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
                 <data android:mimeType="*/*" />
             </intent-filter>
-            <!--
-              ~ Unusable until we implement DocumentsProvider.
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_DOCUMENT" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.OPENABLE" />
-                <data android:mimeType="*/*" />
-            </intent-filter>
-            -->
-            <intent-filter>
-                <action android:name="android.intent.action.GET_CONTENT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
                 <data android:mimeType="*/*" />
@@ -293,6 +290,26 @@
             android:name="me.zhanghai.android.files.filejob.FileJobConflictDialogActivity"
             android:autoRemoveFromRecents="true"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
+
+        <activity
+            android:name="me.zhanghai.android.files.viewer.saveas.SaveAsActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/save_as_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"

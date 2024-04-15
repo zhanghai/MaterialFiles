@@ -309,13 +309,13 @@
     <string name="file_create_directory_title">Nová složka</string>
 
     <string name="file_list_title">Soubory</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Vyberte soubor</item>
         <item quantity="few">Vyberte soubory</item>
         <item quantity="many">Vyberte soubory</item>
         <item quantity="other">Vyberte soubory</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Vyberte složku</item>
         <item quantity="few">Vyberte složky</item>
         <item quantity="many">Vyberte složky</item>
@@ -355,7 +355,7 @@
     <string name="file_list_action_add_bookmark">Přidat záložku</string>
     <string name="file_list_action_create_shortcut">Vytvořit zástupce</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otevřít v novém okně</string>
-    <string name="file_list_select_current_directory_format">Vyberte \"%1$s\"</string>
+    <string name="file_list_open_current_directory_format">Vyberte \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Přesouvání %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopírování %1$,d</string>
     <string name="file_list_paste_extract_title_format">Rozbalování %1$,d</string>

@@ -312,13 +312,13 @@
     <string name="file_create_directory_title">Нова тека</string>
 
     <string name="file_list_title">Файли</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Вибрати файл</item>
         <item quantity="few">Вибрати файли</item>
         <item quantity="many">Вибрати файли</item>
         <item quantity="other">Вибрати файли</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Вибарти теку</item>
         <item quantity="few">Вибрати теки</item>
         <item quantity="many">Вибрати теки</item>
@@ -359,7 +359,7 @@
     <string name="file_list_action_create_shortcut">Створити скорочення</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Відкрити в новому вікні</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Вибрати “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Вибрати “%1$s”</string>
     <string name="file_list_paste_move_title_format">Переміщення %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копіювання %1$,d</string>
     <string name="file_list_paste_extract_title_format">Видобування %1$,d</string>

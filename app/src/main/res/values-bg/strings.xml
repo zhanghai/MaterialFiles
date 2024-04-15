@@ -262,11 +262,11 @@
     <string name="file_create_directory_title">Нова папка</string>
 
     <string name="file_list_title">Файлове</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Избиране на файл</item>
         <item quantity="other">Избиране на файлове</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Избиране на папка</item>
         <item quantity="other">Избиране на папки</item>
     </plurals>
@@ -301,7 +301,7 @@
     <string name="file_list_action_create_shortcut">Създаване на пряк път</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Отваряне в нов прозорез</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Избиране на „%1$s”</string>
+    <string name="file_list_open_current_directory_format">Избиране на „%1$s”</string>
     <string name="file_list_paste_move_title_format">Преместване на %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копиране на %1$,d</string>
     <string name="file_list_paste_extract_title_format">Извличане на %1$,d</string>

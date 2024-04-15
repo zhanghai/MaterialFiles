@@ -238,10 +238,10 @@
     <string name="file_create_directory_title">Folder baru</string>
 
     <string name="file_list_title">File</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="other">Pilih berkas</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="other">Pilih folder</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
@@ -273,7 +273,7 @@
     <string name="file_list_action_create_shortcut">Buat pintasan</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Buka di jendela baru</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Pilih “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Pilih “%1$s”</string>
     <string name="file_list_paste_move_title_format">Memindahkan %1$,d</string>
     <string name="file_list_paste_copy_title_format">Menyalin %1$,d</string>
     <string name="file_list_paste_extract_title_format">Mengekstrak %1$,d</string>

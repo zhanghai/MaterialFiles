@@ -262,11 +262,11 @@
     <string name="file_create_directory_title">Nieuwe map</string>
 
     <string name="file_list_title">Bestanden</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Bestand selecteren</item>
         <item quantity="other">Bestanden selecteren</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Map selecteren</item>
         <item quantity="other">Mappen selecteren</item>
     </plurals>
@@ -301,7 +301,7 @@
     <string name="file_list_action_create_shortcut">Snelkoppeling maken</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Openen in nieuw venster</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">‘%1$s’ selecteren</string>
+    <string name="file_list_open_current_directory_format">‘%1$s’ selecteren</string>
     <string name="file_list_paste_move_title_format">Bezig met verplaatsen van %1$,d</string>
     <string name="file_list_paste_copy_title_format">Bezig met kopiëren van %1$,d</string>
     <string name="file_list_paste_extract_title_format">Bezig met uitpakken van %1$,d</string>

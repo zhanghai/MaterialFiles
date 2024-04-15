@@ -238,10 +238,10 @@
     <string name="file_create_directory_title">新しいフォルダ</string>
 
     <string name="file_list_title">ファイル</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="other">ファイルを選択</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="other">フォルダを選択</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
@@ -273,7 +273,7 @@
     <string name="file_list_action_create_shortcut">ショートカットを作成</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">新しいウィンドウで開く</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">「%1$s」を選択</string>
+    <string name="file_list_open_current_directory_format">「%1$s」を選択</string>
     <string name="file_list_paste_move_title_format">%1$,d を移動中</string>
     <string name="file_list_paste_copy_title_format">%1$,d をコピー中</string>
     <string name="file_list_paste_extract_title_format">%1$,d を展開中</string>

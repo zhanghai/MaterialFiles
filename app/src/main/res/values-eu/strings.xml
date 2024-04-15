@@ -233,11 +233,11 @@
     <string name="file_create_directory_title">Karpeta berria</string>
 
     <string name="file_list_title">Fitxategiak</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Hautatu fitxategia</item>
         <item quantity="other">Hautatu fitxategiak</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Hautatu karpeta</item>
         <item quantity="other">Hautatu karpetak</item>
     </plurals>
@@ -264,7 +264,7 @@
     <string name="file_list_action_add_bookmark">Gehitu laster-marka</string>
     <string name="file_list_action_create_shortcut">Sortu laster-marka</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Ireki leiho berrian</string>
-    <string name="file_list_select_current_directory_format">Hautatu “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Hautatu “%1$s”</string>
     <string name="file_list_paste_move_title_format">%1$,d lekuz aldatzen</string>
     <string name="file_list_paste_copy_title_format">%1$,d kopiatzen</string>
     <string name="file_list_paste_extract_title_format">%1$,d erauzten</string>

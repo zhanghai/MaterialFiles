@@ -309,13 +309,13 @@
     <string name="file_create_directory_title">תיקיה חדשה</string>
 
     <string name="file_list_title">קבצים</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">בחירת קובץ</item>
         <item quantity="two">בחירת קבצים</item>
         <item quantity="many">בחירת קבצים</item>
         <item quantity="other">בחירת קבצים</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">בחירת תיקייה</item>
         <item quantity="two">בחירת תיקיות</item>
         <item quantity="many">בחירת תיקיות</item>
@@ -356,7 +356,7 @@
     <string name="file_list_action_create_shortcut">יצירת קיצור דרך</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">פתיחה בחלון חדש</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">בחירת “%1$s”</string>
+    <string name="file_list_open_current_directory_format">בחירת “%1$s”</string>
     <string name="file_list_paste_move_title_format">מעביר את %1$,d</string>
     <string name="file_list_paste_copy_title_format">מעתיק את %1$,d</string>
     <string name="file_list_paste_extract_title_format">מחלץ את %1$,d</string>

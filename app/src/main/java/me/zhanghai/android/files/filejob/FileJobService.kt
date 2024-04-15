@@ -154,6 +154,10 @@ class FileJobService : Service() {
             startJob(RestoreFileSeLinuxContextJob(path, recursive), context)
         }
 
+        fun save(source: Path, target: Path, context: Context) {
+            startJob(SaveFileJob(source, target), context)
+        }
+
         fun setGroup(path: Path, group: PosixGroup, recursive: Boolean, context: Context) {
             startJob(SetFileGroupJob(path, group, recursive), context)
         }

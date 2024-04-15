@@ -228,10 +228,10 @@
     <string name="file_create_directory_title">Thư mục mới</string>
 
     <string name="file_list_title">Tệp</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="other">Chọn tệp</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="other">Chọn thư mục</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
@@ -258,7 +258,7 @@
     <string name="file_list_action_add_bookmark">Thêm đánh dấu</string>
     <string name="file_list_action_create_shortcut">Tạo lối tắt</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Mở trong cửa sổ mới</string>
-    <string name="file_list_select_current_directory_format">Chọn “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Chọn “%1$s”</string>
     <string name="file_list_paste_move_title_format">Đang di chuyển %1$,d</string>
     <string name="file_list_paste_copy_title_format">Đang sao chép %1$,d</string>
     <string name="file_list_paste_extract_title_format">Đang giải nén %1$,d</string>

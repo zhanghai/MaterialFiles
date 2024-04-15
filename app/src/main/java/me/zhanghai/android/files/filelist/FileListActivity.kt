@@ -50,22 +50,41 @@ class FileListActivity : AppActivity() {
                 .apply { extraPath = path }
     }
 
-    class PickDirectoryContract : ActivityResultContract<Path?, Path?>() {
-        override fun createIntent(context: Context, input: Path?): Intent =
+    class OpenFileContract : ActivityResultContract<List<MimeType>, Path?>() {
+        override fun createIntent(context: Context, input: List<MimeType>): Intent =
             FileListActivity::class.createIntent()
-                .setAction(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                .apply { input?.let { extraPath = it } }
+                .setAction(Intent.ACTION_OPEN_DOCUMENT)
+                .setType(MimeType.ANY.value)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .putExtra(Intent.EXTRA_MIME_TYPES, input.map { it.value }.toTypedArray())
 
         override fun parseResult(resultCode: Int, intent: Intent?): Path? =
             if (resultCode == RESULT_OK) intent?.extraPath else null
     }
 
-    class PickFileContract : ActivityResultContract<List<MimeType>, Path?>() {
-        override fun createIntent(context: Context, input: List<MimeType>): Intent =
+    class CreateFileContract : ActivityResultContract<Triple<MimeType, String?, Path?>, Path?>() {
+        override fun createIntent(
+            context: Context,
+            input: Triple<MimeType, String?, Path?>
+        ): Intent =
             FileListActivity::class.createIntent()
-                .setAction(Intent.ACTION_OPEN_DOCUMENT)
-                .setType(MimeType.ANY.value)
-                .putExtra(Intent.EXTRA_MIME_TYPES, input.map { it.value }.toTypedArray())
+                .setAction(Intent.ACTION_CREATE_DOCUMENT)
+                .setType(input.first.value)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .apply {
+                    input.second?.let { putExtra(Intent.EXTRA_TITLE, it) }
+                    input.third?.let { extraPath = it }
+                }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Path? =
+            if (resultCode == RESULT_OK) intent?.extraPath else null
+    }
+
+    class OpenDirectoryContract : ActivityResultContract<Path?, Path?>() {
+        override fun createIntent(context: Context, input: Path?): Intent =
+            FileListActivity::class.createIntent()
+                .setAction(Intent.ACTION_OPEN_DOCUMENT_TREE)
+                .apply { input?.let { extraPath = it } }
 
         override fun parseResult(resultCode: Int, intent: Intent?): Path? =
             if (resultCode == RESULT_OK) intent?.extraPath else null

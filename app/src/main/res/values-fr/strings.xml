@@ -288,12 +288,12 @@
     <string name="file_create_directory_title">Nouveau dossier</string>
 
     <string name="file_list_title">Fichiers</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Sélectionner un fichier</item>
         <item quantity="many">Sélectionner les fichiers</item>
         <item quantity="other">Sélectionner les fichiers</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Sélectionner un dossier</item>
         <item quantity="many">Sélectionner les dossiers</item>
         <item quantity="other">Sélectionner les dossiers</item>
@@ -331,7 +331,7 @@
     <string name="file_list_action_create_shortcut">Créer un raccourci</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Ouvrir dans une nouvelle fenêtre</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Selectionner “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Selectionner “%1$s”</string>
     <string name="file_list_paste_move_title_format">Déplacer %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copier %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extraire %1$,d</string>

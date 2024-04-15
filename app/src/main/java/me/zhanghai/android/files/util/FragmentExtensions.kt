@@ -163,11 +163,13 @@ val Fragment.mediumAnimTime
 val Fragment.longAnimTime
     get() = requireContext().longAnimTime
 
-fun Fragment.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) =
+fun Fragment.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(textRes, duration)
+}
 
-fun Fragment.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) =
+fun Fragment.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(text, duration)
+}
 
 fun Fragment.startActivitySafe(intent: Intent, options: Bundle? = null) {
     try {

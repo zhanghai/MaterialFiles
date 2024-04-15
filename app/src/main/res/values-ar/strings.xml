@@ -349,7 +349,7 @@
     <string name="file_create_directory_title">مجلد جديد</string>
 
     <string name="file_list_title">ملفات</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="zero">تحديد الملف</item>
         <item quantity="one">تحديد الملف</item>
         <item quantity="two">تحديد الملفان</item>
@@ -357,7 +357,7 @@
         <item quantity="many">تحديد الملفات</item>
         <item quantity="other">تحديد الملفات</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="zero">تحديد المجلد</item>
         <item quantity="one">تحديد المجلد</item>
         <item quantity="two">تحديد المجلدان</item>
@@ -404,7 +404,7 @@
     <string name="file_list_action_create_shortcut">إنشاء اختصار</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">افتح في نافذة جديدة</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">تحديد ”%1$s“</string>
+    <string name="file_list_open_current_directory_format">تحديد ”%1$s“</string>
     <string name="file_list_paste_move_title_format">نقل %1$,d</string>
     <string name="file_list_paste_copy_title_format">نسخ %1$,d</string>
     <string name="file_list_paste_extract_title_format">استخراج %1$,d</string>
