@@ -349,39 +349,39 @@
     <string name="file_properties_basic_archive_file">Archive File</string>
     <string name="file_properties_basic_archive_entry">Archive Entry</string>
     <string name="file_properties_basic_free_space">Free Space</string>
-    <string name="file_properties_permissions">Permissions</string>
-    <string name="file_properties_permissions_owner">Owner</string>
-    <string name="file_properties_permissions_group">Group</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Change owner</string>
-    <string name="file_properties_permissions_set_group_title">Change group</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Enter a name or ID</string>
-    <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Mode</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Change mode</string>
-    <string name="file_properties_permissions_set_mode_others">Others</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Permissions</string>
+    <string name="file_properties_permission_owner">Owner</string>
+    <string name="file_properties_permission_group">Group</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Change owner</string>
+    <string name="file_properties_permission_set_group_title">Change group</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Enter a name or ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Mode</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Change mode</string>
+    <string name="file_properties_permission_set_mode_others">Others</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Read</item>
         <item>Write</item>
         <item>Execute</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Read</item>
         <item>Write</item>
         <item>Search</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Special</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Special</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Set UID</item>
         <item>Set GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Don’t add “Execute” for enclosed files</string>
-    <string name="file_properties_permissions_selinux_context">SELinux Context</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Change SELinux context</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Restore</string>
-    <string name="file_properties_permissions_recursive">Apply to enclosed files</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Don’t add “Execute” for enclosed files</string>
+    <string name="file_properties_permission_selinux_context">SELinux Context</string>
+    <string name="file_properties_permission_set_selinux_context_title">Change SELinux context</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Restore</string>
+    <string name="file_properties_permission_recursive">Apply to enclosed files</string>
     <string name="file_properties_image">Image</string>
     <string name="file_properties_media_dimensions">Dimensions</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

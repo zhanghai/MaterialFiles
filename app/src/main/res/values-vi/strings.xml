@@ -291,39 +291,39 @@
     <string name="file_properties_basic_archive_file">Tệp nén</string>
     <string name="file_properties_basic_archive_entry">Mục lưu trữ nén</string>
     <string name="file_properties_basic_free_space">Không gian trống</string>
-    <string name="file_properties_permissions">Quyền</string>
-    <string name="file_properties_permissions_owner">Chủ sở hữu</string>
-    <string name="file_properties_permissions_group">Nhóm</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Thay đổi chủ sở hữu</string>
-    <string name="file_properties_permissions_set_group_title">Thay đổi nhóm</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Nhập tên hoặc ID</string>
-    <string name="file_properties_permissions_set_principal_system">Hệ thống</string>
-    <string name="file_properties_permissions_mode">Chế độ</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Thay đổi chế độ</string>
-    <string name="file_properties_permissions_set_mode_others">Khác</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Quyền</string>
+    <string name="file_properties_permission_owner">Chủ sở hữu</string>
+    <string name="file_properties_permission_group">Nhóm</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Thay đổi chủ sở hữu</string>
+    <string name="file_properties_permission_set_group_title">Thay đổi nhóm</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Nhập tên hoặc ID</string>
+    <string name="file_properties_permission_set_principal_system">Hệ thống</string>
+    <string name="file_properties_permission_mode">Chế độ</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Thay đổi chế độ</string>
+    <string name="file_properties_permission_set_mode_others">Khác</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Đọc</item>
         <item>Ghi</item>
         <item>Thực thi</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Đọc</item>
         <item>Ghi</item>
         <item>Tìm kiếm</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Đặc biệt</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Đặc biệt</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Đặt UID</item>
         <item>Đặt GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Không thêm “Thực thi” cho các tệp bên trong</string>
-    <string name="file_properties_permissions_selinux_context">Hoàn cảnh SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Thay đổi hoàn cảnh SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Khôi phục</string>
-    <string name="file_properties_permissions_recursive">Áp dụng cho các tệp bên trong</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Không thêm “Thực thi” cho các tệp bên trong</string>
+    <string name="file_properties_permission_selinux_context">Hoàn cảnh SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Thay đổi hoàn cảnh SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Khôi phục</string>
+    <string name="file_properties_permission_recursive">Áp dụng cho các tệp bên trong</string>
     <string name="file_properties_image">Hình ảnh</string>
     <string name="file_properties_media_dimensions">Kích thước</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

@@ -22,7 +22,7 @@ import me.zhanghai.android.files.fileproperties.apk.FilePropertiesApkTabFragment
 import me.zhanghai.android.files.fileproperties.audio.FilePropertiesAudioTabFragment
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment
 import me.zhanghai.android.files.fileproperties.image.FilePropertiesImageTabFragment
-import me.zhanghai.android.files.fileproperties.permissions.FilePropertiesPermissionsTabFragment
+import me.zhanghai.android.files.fileproperties.permission.FilePropertiesPermissionTabFragment
 import me.zhanghai.android.files.fileproperties.video.FilePropertiesVideoTabFragment
 import me.zhanghai.android.files.ui.TabFragmentPagerAdapter
 import me.zhanghai.android.files.util.ParcelableArgs
@@ -64,10 +64,10 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
         val tabs = mutableListOf<Pair<Int, () -> Fragment>>()
             .apply {
                 add(R.string.file_properties_basic to { FilePropertiesBasicTabFragment() })
-                if (FilePropertiesPermissionsTabFragment.isAvailable(args.file)) {
+                if (FilePropertiesPermissionTabFragment.isAvailable(args.file)) {
                     add(
-                        R.string.file_properties_permissions
-                            to { FilePropertiesPermissionsTabFragment() }
+                        R.string.file_properties_permission
+                            to { FilePropertiesPermissionTabFragment() }
                     )
                 }
                 if (FilePropertiesImageTabFragment.isAvailable(args.file)) {

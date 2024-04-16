@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties.permissions
+package me.zhanghai.android.files.fileproperties.permission
 
 import android.app.Dialog
 import android.os.Bundle
@@ -43,16 +43,16 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         MaterialAlertDialogBuilder(requireContext(), theme)
-            .setTitle(R.string.file_properties_permissions_set_mode_title)
+            .setTitle(R.string.file_properties_permission_set_mode_title)
             .apply {
                 binding = SetModeDialogBinding.inflate(context.layoutInflater)
                 binding.ownerText.setOnClickListener { binding.ownerDropDown.show() }
                 val isDirectory = args.file.attributes.isDirectory
                 normalModeBitNames = getStringArray(
                     if (isDirectory) {
-                        R.array.file_properties_permissions_set_mode_normal_mode_bits_directory
+                        R.array.file_properties_permission_set_mode_normal_mode_bits_directory
                     } else {
-                        R.array.file_properties_permissions_set_mode_normal_mode_bits_file
+                        R.array.file_properties_permission_set_mode_normal_mode_bits_file
                     }
                 )
                 ownerAdapter = ModeBitListAdapter(OWNER_MODE_BITS, normalModeBitNames)
@@ -74,7 +74,7 @@ class SetModeDialogFragment : AppCompatDialogFragment() {
                 }
                 binding.specialText.setOnClickListener { binding.specialDropDown.show() }
                 specialModeBitNames = getStringArray(
-                    R.array.file_properties_permissions_set_mode_special_mode_bits
+                    R.array.file_properties_permission_set_mode_special_mode_bits
                 )
                 specialAdapter = ModeBitListAdapter(SPECIAL_MODE_BITS, specialModeBitNames)
                 binding.specialDropDown.setAdapter(specialAdapter)

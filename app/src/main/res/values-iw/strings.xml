@@ -392,39 +392,39 @@
     <string name="file_properties_basic_archive_file">קובץ ארכיון</string>
     <string name="file_properties_basic_archive_entry">ארכיון ריק</string>
     <string name="file_properties_basic_free_space">שטח פנוי</string>
-    <string name="file_properties_permissions">הרשאות</string>
-    <string name="file_properties_permissions_owner">בעלים</string>
-    <string name="file_properties_permissions_group">קבוצה</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">שינוי בעלים</string>
-    <string name="file_properties_permissions_set_group_title">שינוי קבוצה</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">נא לספק שם או מזהה</string>
-    <string name="file_properties_permissions_set_principal_system">מערכת</string>
-    <string name="file_properties_permissions_mode">מצב</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">שינוי מצב</string>
-    <string name="file_properties_permissions_set_mode_others">אחרים</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">הרשאות</string>
+    <string name="file_properties_permission_owner">בעלים</string>
+    <string name="file_properties_permission_group">קבוצה</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">שינוי בעלים</string>
+    <string name="file_properties_permission_set_group_title">שינוי קבוצה</string>
+    <string name="file_properties_permission_set_principal_filter_hint">נא לספק שם או מזהה</string>
+    <string name="file_properties_permission_set_principal_system">מערכת</string>
+    <string name="file_properties_permission_mode">מצב</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">שינוי מצב</string>
+    <string name="file_properties_permission_set_mode_others">אחרים</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>קריאה</item>
         <item>כתיבה</item>
         <item>ביצוע</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>קריאה</item>
         <item>כתיבה</item>
         <item>חיפוש</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">מיוחד</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">מיוחד</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>הגדרת מזהה משתמש</item>
         <item>הגדרת מזהה קבוצה</item>
         <item>קצת דביק</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">נא לא להוסיף \"ביצוע\" עבור הקבצים המוקפים</string>
-    <string name="file_properties_permissions_selinux_context">הקשר SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">שינוי הקשר SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">שיחזור</string>
-    <string name="file_properties_permissions_recursive">החלה על הקבצים המוקפים</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">נא לא להוסיף \"ביצוע\" עבור הקבצים המוקפים</string>
+    <string name="file_properties_permission_selinux_context">הקשר SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">שינוי הקשר SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">שיחזור</string>
+    <string name="file_properties_permission_recursive">החלה על הקבצים המוקפים</string>
     <string name="file_properties_image">תמונה</string>
     <string name="file_properties_media_dimensions">ממדים</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

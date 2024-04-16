@@ -395,39 +395,39 @@
     <string name="file_properties_basic_archive_file">Файл архива</string>
     <string name="file_properties_basic_archive_entry">Элемент архива</string>
     <string name="file_properties_basic_free_space">Свободное место</string>
-    <string name="file_properties_permissions">Разрешения</string>
-    <string name="file_properties_permissions_owner">Владелец</string>
-    <string name="file_properties_permissions_group">Группа</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Изменить владельца</string>
-    <string name="file_properties_permissions_set_group_title">Изменить группу</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Введите имя или ID</string>
-    <string name="file_properties_permissions_set_principal_system">Система</string>
-    <string name="file_properties_permissions_mode">Режим</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Изменить режим</string>
-    <string name="file_properties_permissions_set_mode_others">Другие</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Разрешения</string>
+    <string name="file_properties_permission_owner">Владелец</string>
+    <string name="file_properties_permission_group">Группа</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Изменить владельца</string>
+    <string name="file_properties_permission_set_group_title">Изменить группу</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Введите имя или ID</string>
+    <string name="file_properties_permission_set_principal_system">Система</string>
+    <string name="file_properties_permission_mode">Режим</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Изменить режим</string>
+    <string name="file_properties_permission_set_mode_others">Другие</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Чтение</item>
         <item>Запись</item>
         <item>Выполнение</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Чтение</item>
         <item>Запись</item>
         <item>Поиск</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Специальный</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Специальный</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>UID</item>
         <item>GID</item>
         <item>Sticky-бит</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Не устанавливать “Выполнение” для вложенных файлов</string>
-    <string name="file_properties_permissions_selinux_context">Контекст SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Изменить контекст SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Восстановить</string>
-    <string name="file_properties_permissions_recursive">Применить ко вложенным файлам</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Не устанавливать “Выполнение” для вложенных файлов</string>
+    <string name="file_properties_permission_selinux_context">Контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Изменить контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Восстановить</string>
+    <string name="file_properties_permission_recursive">Применить ко вложенным файлам</string>
     <string name="file_properties_image">Изображение</string>
     <string name="file_properties_media_dimensions">Размеры</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties.permissions
+package me.zhanghai.android.files.fileproperties.permission
 
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
@@ -56,14 +56,14 @@ abstract class PrincipalListAdapter(
         }
         binding.principalText.text = if (principal.name != null) {
             binding.principalText.context.getString(
-                R.string.file_properties_permissions_principal_format, principal.name, principal.id
+                R.string.file_properties_permission_principal_format, principal.name, principal.id
             )
         } else {
             principal.id.toString()
         }
         binding.labelText.text = principal.applicationLabels.firstOrNull()
             ?: binding.labelText.resources.getString(
-                R.string.file_properties_permissions_set_principal_system
+                R.string.file_properties_permission_set_principal_system
             )
     }
 

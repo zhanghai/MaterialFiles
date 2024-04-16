@@ -335,39 +335,39 @@
     <string name="file_properties_basic_archive_file">Archiefbestand</string>
     <string name="file_properties_basic_archive_entry">Archiefitem</string>
     <string name="file_properties_basic_free_space">Vrije ruimte</string>
-    <string name="file_properties_permissions">Rechten</string>
-    <string name="file_properties_permissions_owner">Eigenaar</string>
-    <string name="file_properties_permissions_group">Groep</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Andere eigenaar kiezen</string>
-    <string name="file_properties_permissions_set_group_title">Andere groep kiezen</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Voer een naam of id in</string>
-    <string name="file_properties_permissions_set_principal_system">Systeem</string>
-    <string name="file_properties_permissions_mode">Modus</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Modus aanpassen</string>
-    <string name="file_properties_permissions_set_mode_others">Anderen</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Rechten</string>
+    <string name="file_properties_permission_owner">Eigenaar</string>
+    <string name="file_properties_permission_group">Groep</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Andere eigenaar kiezen</string>
+    <string name="file_properties_permission_set_group_title">Andere groep kiezen</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Voer een naam of id in</string>
+    <string name="file_properties_permission_set_principal_system">Systeem</string>
+    <string name="file_properties_permission_mode">Modus</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Modus aanpassen</string>
+    <string name="file_properties_permission_set_mode_others">Anderen</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Uitlezen</item>
         <item>Wegschrijven</item>
         <item>Uitvoeren</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Uitlezen</item>
         <item>Wegschrijven</item>
         <item>Zoeken</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Speciaal</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Speciaal</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>UID instellen</item>
         <item>GID instellen</item>
         <item>Vastgemaakt</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Uitvoerrecht niet toepassen op bijgesloten bestanden</string>
-    <string name="file_properties_permissions_selinux_context">SELinux-context</string>
-    <string name="file_properties_permissions_set_selinux_context_title">SELinux-context aanpassen</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Herstellen</string>
-    <string name="file_properties_permissions_recursive">Toepassen op bijgesloten bestanden</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Uitvoerrecht niet toepassen op bijgesloten bestanden</string>
+    <string name="file_properties_permission_selinux_context">SELinux-context</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux-context aanpassen</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Herstellen</string>
+    <string name="file_properties_permission_recursive">Toepassen op bijgesloten bestanden</string>
     <string name="file_properties_image">Afbeelding</string>
     <string name="file_properties_media_dimensions">Afmetingen</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

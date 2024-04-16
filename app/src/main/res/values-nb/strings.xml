@@ -335,39 +335,39 @@
     <string name="file_properties_basic_archive_file">Arkivfil</string>
     <string name="file_properties_basic_archive_entry">Arkivoppføring</string>
     <string name="file_properties_basic_free_space">Ledig plass</string>
-    <string name="file_properties_permissions">Tillatelser</string>
-    <string name="file_properties_permissions_owner">Eier</string>
-    <string name="file_properties_permissions_group">Gruppe</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Endre eier</string>
-    <string name="file_properties_permissions_set_group_title">Endre gruppe</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Skriv inn et navn eller ID</string>
-    <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Modus</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Endre modus</string>
-    <string name="file_properties_permissions_set_mode_others">Andre</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Tillatelser</string>
+    <string name="file_properties_permission_owner">Eier</string>
+    <string name="file_properties_permission_group">Gruppe</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Endre eier</string>
+    <string name="file_properties_permission_set_group_title">Endre gruppe</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Skriv inn et navn eller ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Modus</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Endre modus</string>
+    <string name="file_properties_permission_set_mode_others">Andre</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Lese</item>
         <item>Skrive</item>
         <item>Kjøre</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Lese</item>
         <item>Skrive</item>
         <item>Søk</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Spesielt</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Spesielt</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Angi UID</item>
         <item>Angi GID</item>
         <item>Fast</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Ikke legg til «Kjør» på underfilene</string>
-    <string name="file_properties_permissions_selinux_context">SELinux-kontekst</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Endre SELinux-kontekst</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Gjenopprett</string>
-    <string name="file_properties_permissions_recursive">Bruk på alle underfilene</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ikke legg til «Kjør» på underfilene</string>
+    <string name="file_properties_permission_selinux_context">SELinux-kontekst</string>
+    <string name="file_properties_permission_set_selinux_context_title">Endre SELinux-kontekst</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Gjenopprett</string>
+    <string name="file_properties_permission_recursive">Bruk på alle underfilene</string>
     <string name="file_properties_image">Bilde</string>
     <string name="file_properties_media_dimensions">Dimensjoner</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

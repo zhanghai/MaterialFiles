@@ -312,34 +312,34 @@
     <string name="file_properties_basic_last_modification_time">Viimeksi muokattu</string>
     <string name="file_properties_basic_parent_directory">Ylähakemisto</string>
     <string name="file_properties_basic_free_space">Vapaata tilaa</string>
-    <string name="file_properties_permissions">Käyttöoikeudet</string>
-    <string name="file_properties_permissions_owner">Omistaja</string>
-    <string name="file_properties_permissions_group">Ryhmä</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Vaihda omistajaa</string>
-    <string name="file_properties_permissions_set_group_title">Vaihda ryhmää</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Syötä nimi tai ID</string>
-    <string name="file_properties_permissions_set_principal_system">Järjestelmä</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_others">Muu</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Käyttöoikeudet</string>
+    <string name="file_properties_permission_owner">Omistaja</string>
+    <string name="file_properties_permission_group">Ryhmä</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Vaihda omistajaa</string>
+    <string name="file_properties_permission_set_group_title">Vaihda ryhmää</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Syötä nimi tai ID</string>
+    <string name="file_properties_permission_set_principal_system">Järjestelmä</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_others">Muu</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Luku</item>
         <item>Kirjoitus</item>
         <item>Suoritus</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Luku</item>
         <item>Kirjoitus</item>
         <item>Haku</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Aseta UID</item>
         <item>Aseta GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_selinux_context">SELinux-konteksti</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Vaihda SELinux-kontekstia</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Palauta</string>
+    <string name="file_properties_permission_selinux_context">SELinux-konteksti</string>
+    <string name="file_properties_permission_set_selinux_context_title">Vaihda SELinux-kontekstia</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Palauta</string>
     <string name="file_properties_image">Kuva</string>
     <string name="file_properties_media_dimensions">Mitat</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

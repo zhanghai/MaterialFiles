@@ -326,39 +326,39 @@
     <string name="file_properties_basic_archive_file">Fájl archiválása</string>
     <string name="file_properties_basic_archive_entry">Bejegyzés archiválása</string>
     <string name="file_properties_basic_free_space">Szabad hely</string>
-    <string name="file_properties_permissions">Jogosultságok</string>
-    <string name="file_properties_permissions_owner">Tulajdonos</string>
-    <string name="file_properties_permissions_group">Csoport</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Tulajdonos módosítása</string>
-    <string name="file_properties_permissions_set_group_title">Csoport módosítása</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Adjon meg egy nevet vagy azonosítót</string>
-    <string name="file_properties_permissions_set_principal_system">Rendszer</string>
-    <string name="file_properties_permissions_mode">Mód</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Mód módosítása</string>
-    <string name="file_properties_permissions_set_mode_others">Mások</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Jogosultságok</string>
+    <string name="file_properties_permission_owner">Tulajdonos</string>
+    <string name="file_properties_permission_group">Csoport</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Tulajdonos módosítása</string>
+    <string name="file_properties_permission_set_group_title">Csoport módosítása</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Adjon meg egy nevet vagy azonosítót</string>
+    <string name="file_properties_permission_set_principal_system">Rendszer</string>
+    <string name="file_properties_permission_mode">Mód</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Mód módosítása</string>
+    <string name="file_properties_permission_set_mode_others">Mások</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Olvasás</item>
         <item>Írás</item>
         <item>Végrehajtás</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Olvasás</item>
         <item>Írás</item>
         <item>Keresés</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Különleges</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Különleges</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Set UID</item>
         <item>Set GID</item>
         <item>Ragadós bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Ne adja hozzá a „Végrehajtást” a tartalmazott fájlokhoz</string>
-    <string name="file_properties_permissions_selinux_context">SELinux környezet</string>
-    <string name="file_properties_permissions_set_selinux_context_title">SELinux környezet módosítása</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Visszaállítás</string>
-    <string name="file_properties_permissions_recursive">Alkalmazás a tartalmazott fájlokra</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ne adja hozzá a „Végrehajtást” a tartalmazott fájlokhoz</string>
+    <string name="file_properties_permission_selinux_context">SELinux környezet</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux környezet módosítása</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Visszaállítás</string>
+    <string name="file_properties_permission_recursive">Alkalmazás a tartalmazott fájlokra</string>
     <string name="file_properties_image">Kép</string>
     <string name="file_properties_media_dimensions">Méretek</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

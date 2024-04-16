@@ -325,39 +325,39 @@
     <string name="file_properties_basic_archive_file">Αρχειοθέτηση αρχείου</string>
     <string name="file_properties_basic_archive_entry">Καταχώρηση αρχείου</string>
     <string name="file_properties_basic_free_space">Ελεύθερος χώρος</string>
-    <string name="file_properties_permissions">Δικαιώματα</string>
-    <string name="file_properties_permissions_owner">Κάτοχος</string>
-    <string name="file_properties_permissions_group">Ομάδα</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Αλλαγή κατόχου</string>
-    <string name="file_properties_permissions_set_group_title">Αλλαγή ομάδας</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Εισάγετε ένα όνομα ή ID</string>
-    <string name="file_properties_permissions_set_principal_system">Σύστημα</string>
-    <string name="file_properties_permissions_mode">Λειτουργία</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Αλλαγή λειτουργίας</string>
-    <string name="file_properties_permissions_set_mode_others">Άλλα</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Δικαιώματα</string>
+    <string name="file_properties_permission_owner">Κάτοχος</string>
+    <string name="file_properties_permission_group">Ομάδα</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Αλλαγή κατόχου</string>
+    <string name="file_properties_permission_set_group_title">Αλλαγή ομάδας</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Εισάγετε ένα όνομα ή ID</string>
+    <string name="file_properties_permission_set_principal_system">Σύστημα</string>
+    <string name="file_properties_permission_mode">Λειτουργία</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Αλλαγή λειτουργίας</string>
+    <string name="file_properties_permission_set_mode_others">Άλλα</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Ανάγνωση</item>
         <item>Εγγραφή</item>
         <item>Εκτέλεση</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Ανάγνωση</item>
         <item>Εγγραφή</item>
         <item>Αναζήτηση</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Ειδικά</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Ειδικά</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Ορισμός UID</item>
         <item>Ορισμός GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Χωρίς προσθήκη “Εκτέλεση“ για τα κλεισμένα αρχεία</string>
-    <string name="file_properties_permissions_selinux_context">SELinux Context</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Αλλαγή SELinux context</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Επαναφορά</string>
-    <string name="file_properties_permissions_recursive">Εφαρμογή σε κλεισμένα αρχεία</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Χωρίς προσθήκη “Εκτέλεση“ για τα κλεισμένα αρχεία</string>
+    <string name="file_properties_permission_selinux_context">SELinux Context</string>
+    <string name="file_properties_permission_set_selinux_context_title">Αλλαγή SELinux context</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Επαναφορά</string>
+    <string name="file_properties_permission_recursive">Εφαρμογή σε κλεισμένα αρχεία</string>
     <string name="file_properties_image">Εικόνα</string>
     <string name="file_properties_media_dimensions">Διαστάσεις</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

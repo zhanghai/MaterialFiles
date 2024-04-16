@@ -306,39 +306,39 @@
     <string name="file_properties_basic_archive_file">圧縮ファイル</string>
     <string name="file_properties_basic_archive_entry">アーカイブエントリー</string>
     <string name="file_properties_basic_free_space">空き容量</string>
-    <string name="file_properties_permissions">権限</string>
-    <string name="file_properties_permissions_owner">所有者</string>
-    <string name="file_properties_permissions_group">グループ</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">所有者を変更</string>
-    <string name="file_properties_permissions_set_group_title">グループを変更</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">名前または ID を入力してください</string>
-    <string name="file_properties_permissions_set_principal_system">システム</string>
-    <string name="file_properties_permissions_mode">モード</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">モードを変更</string>
-    <string name="file_properties_permissions_set_mode_others">その他</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">権限</string>
+    <string name="file_properties_permission_owner">所有者</string>
+    <string name="file_properties_permission_group">グループ</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">所有者を変更</string>
+    <string name="file_properties_permission_set_group_title">グループを変更</string>
+    <string name="file_properties_permission_set_principal_filter_hint">名前または ID を入力してください</string>
+    <string name="file_properties_permission_set_principal_system">システム</string>
+    <string name="file_properties_permission_mode">モード</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">モードを変更</string>
+    <string name="file_properties_permission_set_mode_others">その他</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>読み取り</item>
         <item>書き込み</item>
         <item>実行</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>読み取り</item>
         <item>書き込み</item>
         <item>検索</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">特殊</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">特殊</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>UID を設定</item>
         <item>GID を設定</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">内部のファイルに「実行」を付けない</string>
-    <string name="file_properties_permissions_selinux_context">SELinux コンテキスト</string>
-    <string name="file_properties_permissions_set_selinux_context_title">SELinux コンテキストを変更</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">復元</string>
-    <string name="file_properties_permissions_recursive">内部のファイルに適用する</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">内部のファイルに「実行」を付けない</string>
+    <string name="file_properties_permission_selinux_context">SELinux コンテキスト</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux コンテキストを変更</string>
+    <string name="file_properties_permission_set_selinux_context_restore">復元</string>
+    <string name="file_properties_permission_recursive">内部のファイルに適用する</string>
     <string name="file_properties_image">画像</string>
     <string name="file_properties_media_dimensions">大きさ</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

@@ -307,39 +307,39 @@
     <string name="file_properties_basic_archive_file">封存檔</string>
     <string name="file_properties_basic_archive_entry">封存條目</string>
     <string name="file_properties_basic_free_space">可用空間</string>
-    <string name="file_properties_permissions">權限</string>
-    <string name="file_properties_permissions_owner">擁有者</string>
-    <string name="file_properties_permissions_group">群組</string>
-    <string name="file_properties_permissions_principal_format">%1$s（%2$d）</string>
-    <string name="file_properties_permissions_set_owner_title">變更擁有者</string>
-    <string name="file_properties_permissions_set_group_title">變更群組</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">輸入名稱或 ID</string>
-    <string name="file_properties_permissions_set_principal_system">系統</string>
-    <string name="file_properties_permissions_mode">模式</string>
-    <string name="file_properties_permissions_mode_format">%1$s（%2$04o）</string>
-    <string name="file_properties_permissions_set_mode_title">變更模式</string>
-    <string name="file_properties_permissions_set_mode_others">其他</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">權限</string>
+    <string name="file_properties_permission_owner">擁有者</string>
+    <string name="file_properties_permission_group">群組</string>
+    <string name="file_properties_permission_principal_format">%1$s（%2$d）</string>
+    <string name="file_properties_permission_set_owner_title">變更擁有者</string>
+    <string name="file_properties_permission_set_group_title">變更群組</string>
+    <string name="file_properties_permission_set_principal_filter_hint">輸入名稱或 ID</string>
+    <string name="file_properties_permission_set_principal_system">系統</string>
+    <string name="file_properties_permission_mode">模式</string>
+    <string name="file_properties_permission_mode_format">%1$s（%2$04o）</string>
+    <string name="file_properties_permission_set_mode_title">變更模式</string>
+    <string name="file_properties_permission_set_mode_others">其他</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>讀取</item>
         <item>寫入</item>
         <item>執行</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>讀取</item>
         <item>寫入</item>
         <item>搜尋</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">特殊</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">特殊</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>設定 UID</item>
         <item>設定 GID</item>
         <item>粘滯位</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">不要為包含的檔案新增「執行」</string>
-    <string name="file_properties_permissions_selinux_context">SELinux 上下文</string>
-    <string name="file_properties_permissions_set_selinux_context_title">變更 SELinux 上下文</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">還原</string>
-    <string name="file_properties_permissions_recursive">套用到包含的檔案</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">不要為包含的檔案新增「執行」</string>
+    <string name="file_properties_permission_selinux_context">SELinux 上下文</string>
+    <string name="file_properties_permission_set_selinux_context_title">變更 SELinux 上下文</string>
+    <string name="file_properties_permission_set_selinux_context_restore">還原</string>
+    <string name="file_properties_permission_recursive">套用到包含的檔案</string>
     <string name="file_properties_image">圖片</string>
     <string name="file_properties_media_dimensions">尺寸</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

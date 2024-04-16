@@ -393,39 +393,39 @@
     <string name="file_properties_basic_archive_file">Zarchiwizuj plik</string>
     <string name="file_properties_basic_archive_entry">Wpis archiwum</string>
     <string name="file_properties_basic_free_space">Wolna przestrzeń</string>
-    <string name="file_properties_permissions">Uprawnienia</string>
-    <string name="file_properties_permissions_owner">Właściciel</string>
-    <string name="file_properties_permissions_group">Grupa</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Zmień właściciela</string>
-    <string name="file_properties_permissions_set_group_title">Zmień grupę</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Wprowadź nazwę lub ID</string>
-    <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Atrybut</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Zmiana atrybutu</string>
-    <string name="file_properties_permissions_set_mode_others">Inni</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Uprawnienia</string>
+    <string name="file_properties_permission_owner">Właściciel</string>
+    <string name="file_properties_permission_group">Grupa</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Zmień właściciela</string>
+    <string name="file_properties_permission_set_group_title">Zmień grupę</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Wprowadź nazwę lub ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Atrybut</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Zmiana atrybutu</string>
+    <string name="file_properties_permission_set_mode_others">Inni</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Odczyt</item>
         <item>Zapis</item>
         <item>Wykonanie</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Odczyt</item>
         <item>Zapis</item>
         <item>Wyszukaj</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Specjalne</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Specjalne</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Ustaw UID</item>
         <item>Ustaw GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nie dodawaj „Wykonaj” do załączonych plików</string>
-    <string name="file_properties_permissions_selinux_context">Kontekst SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Zmień kontekst SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Przywróć</string>
-    <string name="file_properties_permissions_recursive">Zastosuj do załączonych plików</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nie dodawaj „Wykonaj” do załączonych plików</string>
+    <string name="file_properties_permission_selinux_context">Kontekst SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Zmień kontekst SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Przywróć</string>
+    <string name="file_properties_permission_recursive">Zastosuj do załączonych plików</string>
     <string name="file_properties_image">Obraz</string>
     <string name="file_properties_media_dimensions">Wymiary</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

@@ -366,39 +366,39 @@
     <string name="file_properties_basic_archive_file">Fichier d\'archive</string>
     <string name="file_properties_basic_archive_entry">Entrée d\'Archive</string>
     <string name="file_properties_basic_free_space">Espace libre</string>
-    <string name="file_properties_permissions">Permissions</string>
-    <string name="file_properties_permissions_owner">Propriétaire</string>
-    <string name="file_properties_permissions_group">Groupe</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Changer le propriétaire</string>
-    <string name="file_properties_permissions_set_group_title">Changer le groupe</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Entrer un nom ou un ID</string>
-    <string name="file_properties_permissions_set_principal_system">Système</string>
-    <string name="file_properties_permissions_mode">Mode</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Change le mode</string>
-    <string name="file_properties_permissions_set_mode_others">Autres</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Permissions</string>
+    <string name="file_properties_permission_owner">Propriétaire</string>
+    <string name="file_properties_permission_group">Groupe</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Changer le propriétaire</string>
+    <string name="file_properties_permission_set_group_title">Changer le groupe</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Entrer un nom ou un ID</string>
+    <string name="file_properties_permission_set_principal_system">Système</string>
+    <string name="file_properties_permission_mode">Mode</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Change le mode</string>
+    <string name="file_properties_permission_set_mode_others">Autres</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Lire</item>
         <item>Écrire</item>
         <item>Exécuter</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Lire</item>
         <item>Écrire</item>
         <item>Recherche</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Spécial</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Spécial</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Définir l\'UID</item>
         <item>Définir le GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">N\'ajoutez pas \"Exécuter\" pour les fichiers joints</string>
-    <string name="file_properties_permissions_selinux_context">Contexte SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Changer le contexte SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Restaurer</string>
-    <string name="file_properties_permissions_recursive">Appliquer aux fichiers joints</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">N\'ajoutez pas \"Exécuter\" pour les fichiers joints</string>
+    <string name="file_properties_permission_selinux_context">Contexte SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Changer le contexte SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Restaurer</string>
+    <string name="file_properties_permission_recursive">Appliquer aux fichiers joints</string>
     <string name="file_properties_image">Image</string>
     <string name="file_properties_media_dimensions">Dimensions</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

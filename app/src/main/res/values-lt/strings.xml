@@ -386,39 +386,39 @@
     <string name="file_properties_basic_archive_file">Archyvo failas</string>
     <string name="file_properties_basic_archive_entry">Archyvo įrašas</string>
     <string name="file_properties_basic_free_space">Laisvos vietos</string>
-    <string name="file_properties_permissions">Leidimai</string>
-    <string name="file_properties_permissions_owner">Savininkas</string>
-    <string name="file_properties_permissions_group">Grupė</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Keisti savininką</string>
-    <string name="file_properties_permissions_set_group_title">Keisti grupę</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Įvesti pavadinimą ar ID</string>
-    <string name="file_properties_permissions_set_principal_system">Sistema</string>
-    <string name="file_properties_permissions_mode">Režimas</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Keisti režimą</string>
-    <string name="file_properties_permissions_set_mode_others">Kiti</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Leidimai</string>
+    <string name="file_properties_permission_owner">Savininkas</string>
+    <string name="file_properties_permission_group">Grupė</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Keisti savininką</string>
+    <string name="file_properties_permission_set_group_title">Keisti grupę</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Įvesti pavadinimą ar ID</string>
+    <string name="file_properties_permission_set_principal_system">Sistema</string>
+    <string name="file_properties_permission_mode">Režimas</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Keisti režimą</string>
+    <string name="file_properties_permission_set_mode_others">Kiti</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Skaityti</item>
         <item>Rašyti</item>
         <item>Paleisti</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Skaityti</item>
         <item>Rašyti</item>
         <item>Ieškoti</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Specialūs</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Specialūs</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Nustatyti UID</item>
         <item>Nustatyti GID</item>
         <item>Lipnus bitas</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nepridėti „Vykdyti“ pridedamiems failams</string>
-    <string name="file_properties_permissions_selinux_context">SELinux kontekstas</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Keisti SELinux kontekstą</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Atkurti</string>
-    <string name="file_properties_permissions_recursive">Taikyti pridedamiems failams</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nepridėti „Vykdyti“ pridedamiems failams</string>
+    <string name="file_properties_permission_selinux_context">SELinux kontekstas</string>
+    <string name="file_properties_permission_set_selinux_context_title">Keisti SELinux kontekstą</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Atkurti</string>
+    <string name="file_properties_permission_recursive">Taikyti pridedamiems failams</string>
     <string name="file_properties_image">Nuotrauka</string>
     <string name="file_properties_media_dimensions">Matmenys</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

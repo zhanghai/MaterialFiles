@@ -49,7 +49,7 @@
                 android:paddingStart="@dimen/dialog_padding_minus_7dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="@string/file_properties_permissions_recursive"
+                android:text="@string/file_properties_permission_recursive"
                 android:textAppearance="?textAppearanceListItem" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

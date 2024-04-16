@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties.permissions
+package me.zhanghai.android.files.fileproperties.permission
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

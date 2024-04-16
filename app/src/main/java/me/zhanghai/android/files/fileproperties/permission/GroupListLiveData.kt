@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties.permissions
+package me.zhanghai.android.files.fileproperties.permission
 
 import me.zhanghai.android.files.provider.linux.syscall.Syscall.endgrent
 import me.zhanghai.android.files.provider.linux.syscall.Syscall.getgrent

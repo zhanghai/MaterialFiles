@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties.permissions
+package me.zhanghai.android.files.fileproperties.permission
 
 import android.app.Dialog
 import android.os.Bundle
@@ -31,7 +31,7 @@ class SetSeLinuxContextDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         MaterialAlertDialogBuilder(requireContext(), theme)
-            .setTitle(R.string.file_properties_permissions_set_selinux_context_title)
+            .setTitle(R.string.file_properties_permission_set_selinux_context_title)
             .apply {
                 binding = SetSelinuxContextDialogBinding.inflate(context.layoutInflater)
                 if (savedInstanceState == null) {
@@ -43,7 +43,7 @@ class SetSeLinuxContextDialogFragment : AppCompatDialogFragment() {
             .setPositiveButton(android.R.string.ok) { _, _ -> setSeLinuxContext() }
             .setNegativeButton(android.R.string.cancel, null)
             .setNeutralButton(
-                R.string.file_properties_permissions_set_selinux_context_restore
+                R.string.file_properties_permission_set_selinux_context_restore
             ) { _, _ -> restoreSeLinuxContext() }
             .create()
             .apply {

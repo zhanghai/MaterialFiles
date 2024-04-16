@@ -364,39 +364,39 @@
     <string name="file_properties_basic_archive_file">Arhivează fișierul</string>
     <string name="file_properties_basic_archive_entry">Articol din arhivă</string>
     <string name="file_properties_basic_free_space">Spațiu liber</string>
-    <string name="file_properties_permissions">Permisiuni</string>
-    <string name="file_properties_permissions_owner">Proprietar</string>
-    <string name="file_properties_permissions_group">Grup</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Schimbă proprietarul</string>
-    <string name="file_properties_permissions_set_group_title">Schimbă grupul</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Introdu un nume sau ID</string>
-    <string name="file_properties_permissions_set_principal_system">Sistem</string>
-    <string name="file_properties_permissions_mode">Mod</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Schimbă modul</string>
-    <string name="file_properties_permissions_set_mode_others">Altele</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Permisiuni</string>
+    <string name="file_properties_permission_owner">Proprietar</string>
+    <string name="file_properties_permission_group">Grup</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Schimbă proprietarul</string>
+    <string name="file_properties_permission_set_group_title">Schimbă grupul</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Introdu un nume sau ID</string>
+    <string name="file_properties_permission_set_principal_system">Sistem</string>
+    <string name="file_properties_permission_mode">Mod</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Schimbă modul</string>
+    <string name="file_properties_permission_set_mode_others">Altele</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Citire</item>
         <item>Scriere</item>
         <item>Executare</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Citire</item>
         <item>Scriere</item>
         <item>Căutare</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Special</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Special</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Setează UID</item>
         <item>Obține GID</item>
         <item>Bit lipicios</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nu adăuga \"Executare\" pentru fișierele atașate</string>
-    <string name="file_properties_permissions_selinux_context">Context SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Schimbă contextul SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Resaturează</string>
-    <string name="file_properties_permissions_recursive">Aplică la fișierele anexate</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nu adăuga \"Executare\" pentru fișierele atașate</string>
+    <string name="file_properties_permission_selinux_context">Context SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Schimbă contextul SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Resaturează</string>
+    <string name="file_properties_permission_recursive">Aplică la fișierele anexate</string>
     <string name="file_properties_image">Imagine</string>
     <string name="file_properties_media_dimensions">Dimensiuni</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

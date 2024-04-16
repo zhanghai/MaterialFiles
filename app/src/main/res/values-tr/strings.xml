@@ -304,39 +304,39 @@
     <string name="file_properties_basic_archive_file">Arşiv dosyası</string>
     <string name="file_properties_basic_archive_entry">Arşiv Girdisi</string>
     <string name="file_properties_basic_free_space">Boş alan</string>
-    <string name="file_properties_permissions">İzinler</string>
-    <string name="file_properties_permissions_owner">Sahip</string>
-    <string name="file_properties_permissions_group">Grup</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Sahibi değiştir</string>
-    <string name="file_properties_permissions_set_group_title">Grubu değiştir</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Bir isim veya ID girin</string>
-    <string name="file_properties_permissions_set_principal_system">Sistem</string>
-    <string name="file_properties_permissions_mode">Mod</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Modu değiştir</string>
-    <string name="file_properties_permissions_set_mode_others">Diğerleri</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">İzinler</string>
+    <string name="file_properties_permission_owner">Sahip</string>
+    <string name="file_properties_permission_group">Grup</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Sahibi değiştir</string>
+    <string name="file_properties_permission_set_group_title">Grubu değiştir</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Bir isim veya ID girin</string>
+    <string name="file_properties_permission_set_principal_system">Sistem</string>
+    <string name="file_properties_permission_mode">Mod</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Modu değiştir</string>
+    <string name="file_properties_permission_set_mode_others">Diğerleri</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Okuma</item>
         <item>Yazma</item>
         <item>Çalıştırma</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Okuma</item>
         <item>Yazma</item>
         <item>Ara</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Özel</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Özel</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>UID ayarla</item>
         <item>GID ayarla</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Ekteki dosyalar için “Çalıştırma Programı” eklemeyin</string>
-    <string name="file_properties_permissions_selinux_context">SELinux Durumu</string>
-    <string name="file_properties_permissions_set_selinux_context_title">SELinux durumunu değiştir</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Geri al</string>
-    <string name="file_properties_permissions_recursive">Ekli dosyalara uygula</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ekteki dosyalar için “Çalıştırma Programı” eklemeyin</string>
+    <string name="file_properties_permission_selinux_context">SELinux Durumu</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux durumunu değiştir</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Geri al</string>
+    <string name="file_properties_permission_recursive">Ekli dosyalara uygula</string>
     <string name="file_properties_image">Görüntü</string>
     <string name="file_properties_media_dimensions">Boyutlar</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

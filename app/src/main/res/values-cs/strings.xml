@@ -391,39 +391,39 @@
     <string name="file_properties_basic_archive_file">Archivovaný soubor</string>
     <string name="file_properties_basic_archive_entry">Archivovaná položka</string>
     <string name="file_properties_basic_free_space">Volné místo</string>
-    <string name="file_properties_permissions">Oprávnění</string>
-    <string name="file_properties_permissions_owner">Majitel</string>
-    <string name="file_properties_permissions_group">Skupina</string>
-    <string name="file_properties_permissions_principal_format">%1$s(%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Změnit majitele</string>
-    <string name="file_properties_permissions_set_group_title">Změnit skupinu</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Vložte název nebo ID</string>
-    <string name="file_properties_permissions_set_principal_system">Systém</string>
-    <string name="file_properties_permissions_mode">Režim</string>
-    <string name="file_properties_permissions_mode_format">%1$s(%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Změnit režim</string>
-    <string name="file_properties_permissions_set_mode_others">Ostatní</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Oprávnění</string>
+    <string name="file_properties_permission_owner">Majitel</string>
+    <string name="file_properties_permission_group">Skupina</string>
+    <string name="file_properties_permission_principal_format">%1$s(%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Změnit majitele</string>
+    <string name="file_properties_permission_set_group_title">Změnit skupinu</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Vložte název nebo ID</string>
+    <string name="file_properties_permission_set_principal_system">Systém</string>
+    <string name="file_properties_permission_mode">Režim</string>
+    <string name="file_properties_permission_mode_format">%1$s(%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Změnit režim</string>
+    <string name="file_properties_permission_set_mode_others">Ostatní</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Čtení</item>
         <item>Zapisování</item>
         <item>Spuštění</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Čtení</item>
         <item>Zapisování</item>
         <item>Hledat</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Speciální</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Speciální</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Nastavit UID</item>
         <item>Nastavit GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nepřidávat \"Spuštění\" pro přiložené soubory</string>
-    <string name="file_properties_permissions_selinux_context">Kontext SELinuxu</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Změnit kontext SELinuxu</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Obnovit</string>
-    <string name="file_properties_permissions_recursive">Použít na přiložené soubory</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nepřidávat \"Spuštění\" pro přiložené soubory</string>
+    <string name="file_properties_permission_selinux_context">Kontext SELinuxu</string>
+    <string name="file_properties_permission_set_selinux_context_title">Změnit kontext SELinuxu</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Obnovit</string>
+    <string name="file_properties_permission_recursive">Použít na přiložené soubory</string>
     <string name="file_properties_image">Obrázek</string>
     <string name="file_properties_media_dimensions">Rozměry</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

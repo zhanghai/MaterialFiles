@@ -337,39 +337,39 @@
     <string name="file_properties_basic_archive_file">Setja skrá í geymslu</string>
     <string name="file_properties_basic_archive_entry">Setja færslu í geymslu</string>
     <string name="file_properties_basic_free_space">Laust pláss</string>
-    <string name="file_properties_permissions">Heimildir</string>
-    <string name="file_properties_permissions_owner">Eigandi</string>
-    <string name="file_properties_permissions_group">Hópur</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Skipta um eiganda</string>
-    <string name="file_properties_permissions_set_group_title">Skipta um hóp</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Settu inn heiti eða auðkenni</string>
-    <string name="file_properties_permissions_set_principal_system">Kerfi</string>
-    <string name="file_properties_permissions_mode">Hamur</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Skipta um ham</string>
-    <string name="file_properties_permissions_set_mode_others">Aðrir</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Heimildir</string>
+    <string name="file_properties_permission_owner">Eigandi</string>
+    <string name="file_properties_permission_group">Hópur</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Skipta um eiganda</string>
+    <string name="file_properties_permission_set_group_title">Skipta um hóp</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Settu inn heiti eða auðkenni</string>
+    <string name="file_properties_permission_set_principal_system">Kerfi</string>
+    <string name="file_properties_permission_mode">Hamur</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Skipta um ham</string>
+    <string name="file_properties_permission_set_mode_others">Aðrir</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Lesa</item>
         <item>Skrifa</item>
         <item>Keyra</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Lesa</item>
         <item>Skrifa</item>
         <item>Leita</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Sérstakt</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Sérstakt</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Stilla UID</item>
         <item>Stilla GID</item>
         <item>Fastur biti</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Ekki bæta við “Keyra” fyrir umluktar skrár</string>
-    <string name="file_properties_permissions_selinux_context">SELinux-samhengi</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Breyta SELinux-samhengi</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Endurheimta</string>
-    <string name="file_properties_permissions_recursive">Beita á umluktar skrár</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ekki bæta við “Keyra” fyrir umluktar skrár</string>
+    <string name="file_properties_permission_selinux_context">SELinux-samhengi</string>
+    <string name="file_properties_permission_set_selinux_context_title">Breyta SELinux-samhengi</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Endurheimta</string>
+    <string name="file_properties_permission_recursive">Beita á umluktar skrár</string>
     <string name="file_properties_image">Mynd</string>
     <string name="file_properties_media_dimensions">Stærðir</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

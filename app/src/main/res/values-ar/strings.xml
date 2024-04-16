@@ -442,39 +442,39 @@
     <string name="file_properties_basic_archive_file">ملف الأرشيف</string>
     <string name="file_properties_basic_archive_entry">إدخال الأرشيف</string>
     <string name="file_properties_basic_free_space">مساحة فارغة</string>
-    <string name="file_properties_permissions">أذونات</string>
-    <string name="file_properties_permissions_owner">مالك</string>
-    <string name="file_properties_permissions_group">مجموعة</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">تغيير المالك</string>
-    <string name="file_properties_permissions_set_group_title">تغيير المجموعة</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">أدخل اسمًا أو معرفًا</string>
-    <string name="file_properties_permissions_set_principal_system">النظام</string>
-    <string name="file_properties_permissions_mode">الوضع</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">تغيير الوضع</string>
-    <string name="file_properties_permissions_set_mode_others">آخرون</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">أذونات</string>
+    <string name="file_properties_permission_owner">مالك</string>
+    <string name="file_properties_permission_group">مجموعة</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">تغيير المالك</string>
+    <string name="file_properties_permission_set_group_title">تغيير المجموعة</string>
+    <string name="file_properties_permission_set_principal_filter_hint">أدخل اسمًا أو معرفًا</string>
+    <string name="file_properties_permission_set_principal_system">النظام</string>
+    <string name="file_properties_permission_mode">الوضع</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">تغيير الوضع</string>
+    <string name="file_properties_permission_set_mode_others">آخرون</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>قراءة</item>
         <item>كتابة</item>
         <item>تنفيذ</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>قراءة</item>
         <item>كتابة</item>
         <item>بحث</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">مميز</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">مميز</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>تعيين UID</item>
         <item>تعيين GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">لا تقم بإضافة \"تنفيذ\" للملفات المرفقة</string>
-    <string name="file_properties_permissions_selinux_context">سياق SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">تغيير سياق SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">استعادة</string>
-    <string name="file_properties_permissions_recursive">تنطبق على الملفات المرفقة</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">لا تقم بإضافة \"تنفيذ\" للملفات المرفقة</string>
+    <string name="file_properties_permission_selinux_context">سياق SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">تغيير سياق SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">استعادة</string>
+    <string name="file_properties_permission_recursive">تنطبق على الملفات المرفقة</string>
     <string name="file_properties_image">صورة</string>
     <string name="file_properties_media_dimensions">الأبعاد</string>
     <string name="file_properties_media_dimensions_format">%1$d  \u00d7 %2$d</string>

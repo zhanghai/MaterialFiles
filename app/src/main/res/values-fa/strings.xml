@@ -322,39 +322,39 @@
     <string name="file_properties_basic_archive_file">پروندهٔ بایگانی</string>
     <string name="file_properties_basic_archive_entry">ورودی بایگانی</string>
     <string name="file_properties_basic_free_space">فضای خالی</string>
-    <string name="file_properties_permissions">مجوزها</string>
-    <string name="file_properties_permissions_owner">مالک</string>
-    <string name="file_properties_permissions_group">گروه</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">تغییر مالک</string>
-    <string name="file_properties_permissions_set_group_title">تغییر گروه</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">یک نام یا شناسه وارد کنید</string>
-    <string name="file_properties_permissions_set_principal_system">سیستم</string>
-    <string name="file_properties_permissions_mode">حالت</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">تغییر حالت</string>
-    <string name="file_properties_permissions_set_mode_others">دیگران</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">مجوزها</string>
+    <string name="file_properties_permission_owner">مالک</string>
+    <string name="file_properties_permission_group">گروه</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">تغییر مالک</string>
+    <string name="file_properties_permission_set_group_title">تغییر گروه</string>
+    <string name="file_properties_permission_set_principal_filter_hint">یک نام یا شناسه وارد کنید</string>
+    <string name="file_properties_permission_set_principal_system">سیستم</string>
+    <string name="file_properties_permission_mode">حالت</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">تغییر حالت</string>
+    <string name="file_properties_permission_set_mode_others">دیگران</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>خواندن</item>
         <item>نوشتن</item>
         <item>اجرا</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>خواندن</item>
         <item>نوشتن</item>
         <item>جست‌وجو</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">ویژه</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">ویژه</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>تنظیم UID</item>
         <item>تنظیم GID</item>
         <item>بیت چسبنده</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">دسترسی «اجرا» را به پرونده‌های داخلی اضافه نکن</string>
-    <string name="file_properties_permissions_selinux_context">مفاد اس‌ای‌لینوکس</string>
-    <string name="file_properties_permissions_set_selinux_context_title">تغییر مفاد اس‌ای‌لینوکس</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">بازگردانی</string>
-    <string name="file_properties_permissions_recursive">اعمال به پرونده‌های داخلی</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">دسترسی «اجرا» را به پرونده‌های داخلی اضافه نکن</string>
+    <string name="file_properties_permission_selinux_context">مفاد اس‌ای‌لینوکس</string>
+    <string name="file_properties_permission_set_selinux_context_title">تغییر مفاد اس‌ای‌لینوکس</string>
+    <string name="file_properties_permission_set_selinux_context_restore">بازگردانی</string>
+    <string name="file_properties_permission_recursive">اعمال به پرونده‌های داخلی</string>
     <string name="file_properties_image">تصویر</string>
     <string name="file_properties_media_dimensions">ابعاد</string>
     <string name="file_properties_media_dimensions_format">⁦%1$d \u00d7 %2$d⁩</string>

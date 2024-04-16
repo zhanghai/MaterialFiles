@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.fileproperties.permissions
+package me.zhanghai.android.files.fileproperties.permission
 
 import android.os.Bundle
 import me.zhanghai.android.files.R
@@ -17,7 +17,7 @@ import me.zhanghai.android.files.provider.common.toModeString
 import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.viewModels
 
-class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
+class FilePropertiesPermissionTabFragment : FilePropertiesTabFragment() {
     private val viewModel by viewModels<FilePropertiesFileViewModel>({ requireParentFragment() })
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,27 +35,27 @@ class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
             val attributes = file.attributes as PosixFileAttributes
             val owner = attributes.owner()
             addItemView(
-                R.string.file_properties_permissions_owner, getPrincipalText(owner), owner?.let {
-                    { SetOwnerDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment) }
+                R.string.file_properties_permission_owner, getPrincipalText(owner), owner?.let {
+                    { SetOwnerDialogFragment.show(file, this@FilePropertiesPermissionTabFragment) }
                 }
             )
             val group = attributes.group()
             addItemView(
-                R.string.file_properties_permissions_group, getPrincipalText(group), group?.let {
-                    { SetGroupDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment) }
+                R.string.file_properties_permission_group, getPrincipalText(group), group?.let {
+                    { SetGroupDialogFragment.show(file, this@FilePropertiesPermissionTabFragment) }
                 }
             )
             val mode = attributes.mode()
             addItemView(
-                R.string.file_properties_permissions_mode, if (mode != null) {
+                R.string.file_properties_permission_mode, if (mode != null) {
                     getString(
-                        R.string.file_properties_permissions_mode_format, mode.toModeString(),
+                        R.string.file_properties_permission_mode_format, mode.toModeString(),
                         mode.toInt()
                     )
                 } else {
                     getString(R.string.unknown)
                 }, if (mode != null && !attributes.isSymbolicLink) {
-                    { SetModeDialogFragment.show(file, this@FilePropertiesPermissionsTabFragment) }
+                    { SetModeDialogFragment.show(file, this@FilePropertiesPermissionTabFragment) }
                 } else {
                     null
                 }
@@ -63,7 +63,7 @@ class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
             val seLinuxContext = attributes.seLinuxContext()
             if (seLinuxContext != null) {
                 addItemView(
-                    R.string.file_properties_permissions_selinux_context,
+                    R.string.file_properties_permission_selinux_context,
                     if (seLinuxContext.isNotEmpty()) {
                         seLinuxContext.toString()
                     } else {
@@ -71,7 +71,7 @@ class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
                     }
                 ) {
                     SetSeLinuxContextDialogFragment.show(
-                        file, this@FilePropertiesPermissionsTabFragment
+                        file, this@FilePropertiesPermissionTabFragment
                     )
                 }
             }
@@ -82,7 +82,7 @@ class FilePropertiesPermissionsTabFragment : FilePropertiesTabFragment() {
         if (principal != null) {
             if (principal.name != null) {
                 getString(
-                    R.string.file_properties_permissions_principal_format, principal.name,
+                    R.string.file_properties_permission_principal_format, principal.name,
                     principal.id
                 )
             } else {
