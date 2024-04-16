@@ -889,9 +889,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     }
                 )
                 .setTitle(
-                    if (areAllFilesArchivePaths) R.string.file_list_select_action_extract else R.string.copy
+                    if (areAllFilesArchivePaths) {
+                        R.string.file_list_select_action_extract
+                    } else {
+                        R.string.copy
+                    }
                 )
             menu.findItem(R.id.action_delete).isVisible = !isAnyFileReadOnly
+            val areAllFilesArchiveFiles = files.all { it.isArchiveFile }
+            menu.findItem(R.id.action_extract).isVisible = areAllFilesArchiveFiles
             val isCurrentPathReadOnly = viewModel.currentPath.fileSystem.isReadOnly
             menu.findItem(R.id.action_archive).isVisible = !isCurrentPathReadOnly
         }
@@ -933,6 +939,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             }
             R.id.action_delete -> {
                 confirmDeleteFiles(viewModel.selectedFiles)
+                true
+            }
+            R.id.action_extract -> {
+                extractFiles(viewModel.selectedFiles)
                 true
             }
             R.id.action_archive -> {
@@ -985,6 +995,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     override fun deleteFiles(files: FileItemSet) {
         FileJobService.delete(makePathListForJob(files), requireContext())
+        viewModel.selectFiles(files, false)
+    }
+
+    private fun extractFiles(files: FileItemSet) {
+        copyFiles(files.mapTo(fileItemSetOf()) { it.createDummyArchiveRoot() })
         viewModel.selectFiles(files, false)
     }
 
