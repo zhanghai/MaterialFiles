@@ -866,6 +866,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             overlayActionMode.title = getString(R.string.file_list_select_title_format, files.size)
             overlayActionMode.setMenuResource(R.menu.file_list_pick)
             val menu = overlayActionMode.menu
+            val isOpen = when (pickOptions.mode) {
+                PickOptions.Mode.OPEN_FILE, PickOptions.Mode.OPEN_DIRECTORY -> true
+                PickOptions.Mode.CREATE_FILE -> false
+            }
+            menu.findItem(R.id.action_open).isVisible = isOpen
+            menu.findItem(R.id.action_create).isVisible = !isOpen
             menu.findItem(R.id.action_select_all).isVisible = pickOptions.allowMultiple
         } else {
             overlayActionMode.title = getString(R.string.file_list_select_title_format, files.size)
@@ -909,13 +915,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     private fun onOverlayActionModeMenuItemClicked(item: MenuItem): Boolean =
         when (item.itemId) {
-            R.id.action_pick -> {
-                when (viewModel.pickOptions!!.mode) {
-                    PickOptions.Mode.OPEN_FILE,
-                    PickOptions.Mode.OPEN_DIRECTORY -> pickFiles(viewModel.selectedFiles)
-                    PickOptions.Mode.CREATE_FILE ->
-                        confirmReplaceFile(viewModel.selectedFiles.single())
-                }
+            R.id.action_open -> {
+                pickFiles(viewModel.selectedFiles)
+                true
+            }
+            R.id.action_create -> {
+                confirmReplaceFile(viewModel.selectedFiles.single())
                 true
             }
             R.id.action_cut -> {
@@ -1021,13 +1026,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             val menu = bottomActionMode.menu
             when (pickOptions.mode) {
                 PickOptions.Mode.CREATE_FILE -> {
-                    bottomActionMode.setNavigationIcon(
-                        R.drawable.check_icon_control_normal_24dp, R.string.save
-                    )
                     bottomActionMode.title = null
                     binding.bottomCreateFileNameEdit.isVisible = true
+                    val createMenuItem = menu.findItem(R.id.action_create)
                     binding.bottomCreateFileNameEdit.setOnEditorConfirmActionListener {
-                        onBottomActionModeNavigationIconClicked()
+                        onBottomActionModeMenuItemClicked(createMenuItem)
                     }
                     if (!viewModel.isCreateFileNameEditInitialized) {
                         val fileName = pickOptions.fileName!!
@@ -1038,19 +1041,18 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                         binding.bottomCreateFileNameEdit.requestFocus()
                         viewModel.isCreateFileNameEditInitialized = true
                     }
-                    menu.findItem(R.id.action_reset).isVisible = true
+                    menu.findItem(R.id.action_open).isVisible = false
+                    createMenuItem.isVisible = true
                 }
                 PickOptions.Mode.OPEN_DIRECTORY -> {
-                    bottomActionMode.setNavigationIcon(
-                        R.drawable.check_icon_control_normal_24dp, R.string.select
-                    )
                     val path = viewModel.currentPath
                     val navigationRoot = NavigationRootMapLiveData.valueCompat[path]
                     val name = navigationRoot?.getName(requireContext()) ?: path.name
                     bottomActionMode.title =
                         getString(R.string.file_list_open_current_directory_format, name)
                     binding.bottomCreateFileNameEdit.isVisible = false
-                    menu.findItem(R.id.action_reset).isVisible = false
+                    menu.findItem(R.id.action_open).isVisible = true
+                    menu.findItem(R.id.action_create).isVisible = false
                 }
                 else -> {
                     if (bottomActionMode.isActive) {
@@ -1068,9 +1070,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 }
                 return
             }
-            bottomActionMode.setNavigationIcon(
-                R.drawable.close_icon_control_normal_24dp, R.string.close
-            )
             val areAllFilesArchivePaths = files.all { it.path.isArchivePath }
             bottomActionMode.title = getString(
                 if (pasteState.copy) {
@@ -1095,7 +1094,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (!bottomActionMode.isActive) {
             bottomActionMode.start(object : ToolbarActionMode.Callback {
                 override fun onToolbarNavigationIconClicked(toolbarActionMode: ToolbarActionMode) {
-                    onBottomActionModeNavigationIconClicked()
+                    onBottomToolbarNavigationIconClicked()
                 }
 
                 override fun onToolbarActionModeMenuItemClicked(
@@ -1110,20 +1109,28 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
     }
 
-    private fun onBottomActionModeNavigationIconClicked() {
+    private fun onBottomToolbarNavigationIconClicked() {
         val pickOptions = viewModel.pickOptions
         if (pickOptions != null) {
-            when (pickOptions.mode) {
-                PickOptions.Mode.CREATE_FILE -> {
-                    val fileName = binding.bottomCreateFileNameEdit.text.toString()
-                    if (fileName.isEmpty()) {
-                        showToast(R.string.file_list_create_file_name_error_empty)
-                        return
-                    }
-                    if (fileName.asFileNameOrNull() == null) {
-                        showToast(R.string.file_list_create_file_name_error_invalid)
-                        return
-                    }
+            requireActivity().finish()
+        } else {
+            bottomActionMode.finish()
+        }
+    }
+
+    private fun onBottomActionModeMenuItemClicked(item: MenuItem): Boolean =
+        when (item.itemId) {
+            R.id.action_open -> {
+                pickPaths(linkedSetOf(viewModel.currentPath))
+                true
+            }
+            R.id.action_create -> {
+                val fileName = binding.bottomCreateFileNameEdit.text.toString()
+                if (fileName.isEmpty()) {
+                    showToast(R.string.file_list_create_file_name_error_empty)
+                } else if (fileName.asFileNameOrNull() == null) {
+                    showToast(R.string.file_list_create_file_name_error_invalid)
+                } else {
                     val file = getFileWithName(fileName)
                     if (file != null) {
                         confirmReplaceFile(file, false)
@@ -1132,22 +1139,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                         pickPaths(linkedSetOf(path))
                     }
                 }
-                PickOptions.Mode.OPEN_DIRECTORY -> pickPaths(linkedSetOf(viewModel.currentPath))
-                else -> bottomActionMode.finish()
-            }
-        } else {
-            bottomActionMode.finish()
-        }
-    }
-
-    private fun onBottomActionModeMenuItemClicked(item: MenuItem): Boolean =
-        when (item.itemId) {
-            R.id.action_reset -> {
-                val fileName = viewModel.pickOptions!!.fileName!!
-                binding.bottomCreateFileNameEdit.setText(fileName)
-                binding.bottomCreateFileNameEdit.setSelection(
-                    0, fileName.asFileName().baseName.length
-                )
                 true
             }
             R.id.action_paste -> {

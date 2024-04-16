@@ -28,7 +28,6 @@
     <string name="none">None</string>
     <string name="open_navigation_drawer">Open navigation drawer</string>
     <string name="paste">Paste</string>
-    <string name="pick" translatable="false">@string/select</string>
     <string name="refresh">Refresh</string>
     <string name="reload">Reload</string>
     <string name="remove">Remove</string>

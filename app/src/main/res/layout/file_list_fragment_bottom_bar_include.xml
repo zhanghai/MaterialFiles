@@ -26,6 +26,7 @@
             android:paddingStart="@dimen/file_list_toolbar_padding_start"
             android:paddingEnd="@dimen/file_list_toolbar_padding_end_no_overflow"
             app:navigationIcon="@drawable/close_icon_control_normal_24dp"
+            app:navigationContentDescription="@string/close"
             app:popupTheme="?actionBarPopupTheme">
 
             <EditText

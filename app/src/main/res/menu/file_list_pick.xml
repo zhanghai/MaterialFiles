@@ -12,9 +12,17 @@
     tools:ignore="AlwaysShowAction">
 
     <item
-        android:id="@+id/action_pick"
+        android:id="@+id/action_open"
+        android:icon="@drawable/check_icon_control_normal_24dp"
         android:orderInCategory="100"
-        android:title="@string/pick"
+        android:title="@string/select"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_create"
+        android:icon="@drawable/save_icon_control_normal_24dp"
+        android:orderInCategory="100"
+        android:title="@string/save"
         app:showAsAction="always" />
 
     <item
