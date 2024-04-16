@@ -24,6 +24,7 @@ import me.zhanghai.android.files.navigation.BookmarkDirectories
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
+import me.zhanghai.android.files.ui.ScrollingViewOnApplyWindowInsetsListener
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.getDrawable
@@ -71,6 +72,9 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
         binding.recyclerView.adapter = wrappedAdapter
         binding.recyclerView.itemAnimator = DraggableItemAnimator()
         dragDropManager.attachRecyclerView(binding.recyclerView)
+        binding.recyclerView.setOnApplyWindowInsetsListener(
+            ScrollingViewOnApplyWindowInsetsListener(binding.recyclerView)
+        )
         binding.fab.setOnClickListener { onAddBookmarkDirectory() }
 
         Settings.BOOKMARK_DIRECTORIES.observe(viewLifecycleOwner) {
