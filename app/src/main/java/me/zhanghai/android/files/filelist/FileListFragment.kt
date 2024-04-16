@@ -255,7 +255,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 R.id.action_create_directory -> showCreateDirectoryDialog()
             }
             // Returning false causes the speed dial to close without animation.
-            //return false;
+            //return false
             binding.speedDialView.close()
             true
         }

@@ -3,7 +3,7 @@
  * All Rights Reserved.
  */
 
-package me.zhanghai.android.files.filejob;
+package me.zhanghai.android.files.filejob
 
 import android.app.PendingIntent
 import android.content.Intent

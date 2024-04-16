@@ -62,5 +62,5 @@ class ByteBufferInputStream(buffer: ByteBuffer) : InputStream() {
         buffer = null
     }
 
-    private fun ensureOpen(): ByteBuffer = buffer ?: throw IOException("Stream closed");
+    private fun ensureOpen(): ByteBuffer = buffer ?: throw IOException("Stream closed")
 }
