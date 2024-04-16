@@ -283,7 +283,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             var path = argsPath
             val intent = args.intent
             var pickOptions: PickOptions? = null
-            when (val action = intent.action ?: Intent.ACTION_VIEW) {
+            when (val action = intent.action) {
                 Intent.ACTION_GET_CONTENT, Intent.ACTION_OPEN_DOCUMENT,
                 Intent.ACTION_CREATE_DOCUMENT -> {
                     val mode = if (action == Intent.ACTION_CREATE_DOCUMENT) {
@@ -324,13 +324,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                             Environment.DIRECTORY_DOWNLOADS
                         ).path
                     )
-                Intent.ACTION_VIEW ->
-                    if (path != null) {
-                        val mimeType = intent.type?.asMimeTypeOrNull()
-                        if (mimeType != null && path.isArchiveFile(mimeType)) {
-                            path = path.createArchiveRootPath()
-                        }
-                    }
                 else ->
                     if (path != null) {
                         val mimeType = intent.type?.asMimeTypeOrNull()
