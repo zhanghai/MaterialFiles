@@ -99,7 +99,7 @@
                 <data android:mimeType="application/x-lzma" />
                 <data android:mimeType="application/x-tar" />
                 <data android:mimeType="application/x-xz" />
-                <data android:mimeType="@string/intent_filter_data_seven_z_mime_type" />
+                <data android:mimeType="application/x-7z-compressed" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
