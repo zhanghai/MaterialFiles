@@ -8,10 +8,8 @@ package me.zhanghai.android.files.fileproperties.permissions
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
-import coil.clear
 import coil.dispose
 import coil.load
-import coil.loadAny
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.coil.ignoreError
 import me.zhanghai.android.files.compat.getDrawableCompat

@@ -8,7 +8,6 @@ package me.zhanghai.android.files.storage
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Environment
 import androidx.annotation.DrawableRes
 import java8.nio.file.Path
