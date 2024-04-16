@@ -83,8 +83,11 @@
                 <data android:mimeType="application/java-archive" />
                 <data android:mimeType="application/rar" />
                 <data android:mimeType="application/zip" />
+                <data android:mimeType="application/zstd" />
                 <data android:mimeType="application/vnd.android.package-archive" />
                 <data android:mimeType="application/vnd.debian.binary-package" />
+                <data android:mimeType="application/vnd.ms-cab-compressed" />
+                <data android:mimeType="application/vnd.rar" />
                 <data android:mimeType="application/x-bzip2" />
                 <data android:mimeType="application/x-compress" />
                 <data android:mimeType="application/x-cpio" />
@@ -326,6 +329,7 @@
                 <data android:mimeType="application/x-sh" />
                 <data android:mimeType="application/x-shellscript" />
                 <data android:mimeType="application/xml" />
+                <data android:mimeType="application/yaml" />
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>
