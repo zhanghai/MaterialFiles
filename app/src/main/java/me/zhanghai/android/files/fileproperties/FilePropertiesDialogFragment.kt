@@ -72,15 +72,6 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                             to { FilePropertiesPermissionTabFragment() }
                     )
                 }
-                if (FilePropertiesChecksumTabFragment.isAvailable(args.file)) {
-                    add(
-                        R.string.file_properties_checksum to {
-                            FilePropertiesChecksumTabFragment().putArgs(
-                                FilePropertiesChecksumTabFragment.Args(args.file.path)
-                            )
-                        }
-                    )
-                }
                 if (FilePropertiesImageTabFragment.isAvailable(args.file)) {
                     add(
                         R.string.file_properties_image to {
@@ -115,6 +106,15 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                         R.string.file_properties_apk to {
                             FilePropertiesApkTabFragment().putArgs(
                                 FilePropertiesApkTabFragment.Args(args.file.path)
+                            )
+                        }
+                    )
+                }
+                if (FilePropertiesChecksumTabFragment.isAvailable(args.file)) {
+                    add(
+                        R.string.file_properties_checksum to {
+                            FilePropertiesChecksumTabFragment().putArgs(
+                                FilePropertiesChecksumTabFragment.Args(args.file.path)
                             )
                         }
                     )

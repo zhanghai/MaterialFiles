@@ -340,12 +340,6 @@
     <string name="file_properties_permission_set_selinux_context_title">變更 SELinux 上下文</string>
     <string name="file_properties_permission_set_selinux_context_restore">還原</string>
     <string name="file_properties_permission_recursive">套用到包含的檔案</string>
-    <string name="file_properties_checksum">總和檢查碼</string>
-    <string name="file_properties_checksum_compare">比較</string>
-    <string name="file_properties_checksum_compare_placeholder">任何總和檢查碼</string>
-    <string name="file_properties_checksum_compare_match_format">與 %1$s 總和檢查碼相符</string>
-    <string name="file_properties_checksum_compare_prefix_match_format">與 %1$s 總和檢查碼的前綴相符</string>
-    <string name="file_properties_checksum_compare_no_match">找不到相符的總和檢查碼</string>
     <string name="file_properties_image">圖片</string>
     <string name="file_properties_media_dimensions">尺寸</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -399,6 +393,12 @@
     <string name="file_properties_apk_signature_digests">簽名</string>
     <string name="file_properties_apk_signature_digests_empty">無有效簽名</string>
     <string name="file_properties_apk_past_signature_digests">舊簽名</string>
+    <string name="file_properties_checksum">總和檢查碼</string>
+    <string name="file_properties_checksum_compare">比較</string>
+    <string name="file_properties_checksum_compare_placeholder">任何總和檢查碼</string>
+    <string name="file_properties_checksum_compare_match_format">與 %1$s 總和檢查碼相符</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">與 %1$s 總和檢查碼的前綴相符</string>
+    <string name="file_properties_checksum_compare_no_match">找不到相符的總和檢查碼</string>
 
     <string name="storage_file_system_root_title">根目錄</string>
     <string name="storage_list_title">儲存空間</string>
