@@ -47,6 +47,7 @@
         android:fullBackupContent="true"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/netework_security_config"
         android:requestLegacyExternalStorage="true"
         android:requestRawExternalStorageAccess="true"
         android:resizeableActivity="true"
