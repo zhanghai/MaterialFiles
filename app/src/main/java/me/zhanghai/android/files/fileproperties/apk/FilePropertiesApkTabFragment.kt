@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.fileproperties.apk
 
 import android.os.Build
-import android.os.Bundle
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -29,8 +28,8 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
 
     private val viewModel by viewModels { { FilePropertiesApkTabViewModel(args.path) } }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         viewModel.apkInfoLiveData.observe(viewLifecycleOwner) { onApkInfoChanged(it) }
     }

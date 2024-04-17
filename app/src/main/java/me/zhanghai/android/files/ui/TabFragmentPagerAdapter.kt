@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter
 class TabFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     private vararg val tabs: Pair<CharSequence?, () -> Fragment>
-) : FragmentPagerAdapter(fragmentManager) {
+) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getItem(position: Int): Fragment = tabs[position].second()
 
     override fun getCount(): Int = tabs.size
