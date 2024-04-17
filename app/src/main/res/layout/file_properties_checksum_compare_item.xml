@@ -13,6 +13,7 @@
     android:layout_height="wrap_content"
     android:hint="@string/file_properties_checksum_compare"
     app:errorEnabled="true"
+    app:errorIconDrawable="@null"
     app:expandedHintEnabled="false"
     app:placeholderText="@string/file_properties_checksum_compare_placeholder">
 
