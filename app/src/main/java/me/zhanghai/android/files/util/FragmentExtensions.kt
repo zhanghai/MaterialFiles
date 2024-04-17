@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.Interpolator
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.AnimRes
 import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
@@ -32,6 +33,10 @@ import me.zhanghai.android.files.compat.checkSelfPermissionCompat
 import me.zhanghai.android.files.compat.getColorCompat
 import me.zhanghai.android.files.compat.getColorStateListCompat
 import me.zhanghai.android.files.compat.getDrawableCompat
+
+fun Fragment.addOnBackPressedCallback(callback: OnBackPressedCallback) {
+    requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+}
 
 fun Fragment.checkSelfPermission(permission: String): Int =
     requireContext().checkSelfPermissionCompat(permission)
@@ -158,11 +163,13 @@ val Fragment.mediumAnimTime
 val Fragment.longAnimTime
     get() = requireContext().longAnimTime
 
-fun Fragment.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) =
+fun Fragment.showToast(textRes: Int, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(textRes, duration)
+}
 
-fun Fragment.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) =
+fun Fragment.showToast(text: CharSequence, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(text, duration)
+}
 
 fun Fragment.startActivitySafe(intent: Intent, options: Bundle? = null) {
     try {

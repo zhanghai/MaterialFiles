@@ -1,36 +1,42 @@
 /*
- * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2019 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
 package me.zhanghai.android.files.provider.archive
 
-import android.os.Parcel
-import android.os.Parcelable
 import java8.nio.file.Path
-import me.zhanghai.android.files.provider.root.RootPosixFileStore
-import me.zhanghai.android.files.provider.root.RootablePosixFileStore
+import java8.nio.file.attribute.FileAttributeView
+import me.zhanghai.android.files.file.MimeType
+import me.zhanghai.android.files.file.guessFromPath
+import me.zhanghai.android.files.provider.common.PosixFileStore
+import me.zhanghai.android.files.provider.common.size
+import java.io.IOException
 
-internal class ArchiveFileStore(private val archiveFile: Path) : RootablePosixFileStore(
-    archiveFile, LocalArchiveFileStore(archiveFile), { RootPosixFileStore(it) }
-) {
-    private constructor(source: Parcel) : this(
-        source.readParcelable<Parcelable>(Path::class.java.classLoader) as Path
-    )
+internal class ArchiveFileStore(private val archiveFile: Path) : PosixFileStore() {
+    override fun refresh() {}
 
-    override fun describeContents(): Int = 0
+    override fun name(): String = archiveFile.toString()
 
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeParcelable(archiveFile as Parcelable, flags)
+    override fun type(): String = MimeType.guessFromPath(archiveFile.toString()).value
+
+    override fun isReadOnly(): Boolean = true
+
+    @Throws(IOException::class)
+    override fun setReadOnly(readOnly: Boolean) {
+        throw UnsupportedOperationException()
     }
 
-    companion object {
-        @JvmField
-        val CREATOR = object : Parcelable.Creator<ArchiveFileStore> {
-            override fun createFromParcel(source: Parcel): ArchiveFileStore =
-                ArchiveFileStore(source)
+    @Throws(IOException::class)
+    override fun getTotalSpace(): Long = archiveFile.size()
 
-            override fun newArray(size: Int): Array<ArchiveFileStore?> = arrayOfNulls(size)
-        }
-    }
+    override fun getUsableSpace(): Long = 0
+
+    override fun getUnallocatedSpace(): Long = 0
+
+    override fun supportsFileAttributeView(type: Class<out FileAttributeView>): Boolean =
+        ArchiveFileSystemProvider.supportsFileAttributeView(type)
+
+    override fun supportsFileAttributeView(name: String): Boolean =
+        name in ArchiveFileAttributeView.SUPPORTED_NAMES
 }

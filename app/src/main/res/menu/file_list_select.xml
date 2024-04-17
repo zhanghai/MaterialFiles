@@ -13,6 +13,7 @@
 
     <item
         android:id="@+id/action_cut"
+        android:alphabeticShortcut="x"
         android:icon="@drawable/cut_icon_control_normal_24dp"
         android:orderInCategory="100"
         android:title="@string/cut"
@@ -20,6 +21,7 @@
 
     <item
         android:id="@+id/action_copy"
+        android:alphabeticShortcut="c"
         android:icon="@drawable/copy_icon_control_normal_24dp"
         android:orderInCategory="100"
         android:title="@string/copy"
@@ -31,6 +33,12 @@
         android:orderInCategory="100"
         android:title="@string/delete"
         app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_extract"
+        android:orderInCategory="100"
+        android:title="@string/file_list_select_action_extract"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_archive"
@@ -46,6 +54,7 @@
 
     <item
         android:id="@+id/action_select_all"
+        android:alphabeticShortcut="a"
         android:orderInCategory="100"
         android:title="@string/select_all"
         app:showAsAction="never" />

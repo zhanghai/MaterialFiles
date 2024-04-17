@@ -12,7 +12,6 @@ import android.util.AttributeSet
 import androidx.annotation.AttrRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StyleRes
-import androidx.core.content.res.ResourcesCompat
 import androidx.preference.Preference
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.compat.getSystemServiceCompat

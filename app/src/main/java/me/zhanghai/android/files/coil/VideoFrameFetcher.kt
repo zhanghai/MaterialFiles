@@ -22,10 +22,10 @@ import coil.request.videoFrameOption
 import coil.request.videoFramePercent
 import me.zhanghai.android.files.compat.getFrameAtTimeCompat
 import me.zhanghai.android.files.compat.getScaledFrameAtTimeCompat
+import me.zhanghai.android.files.compat.use
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
-import me.zhanghai.android.files.compat.use
 
 class VideoFrameFetcher(
     private val options: Options,

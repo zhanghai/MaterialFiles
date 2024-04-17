@@ -24,7 +24,7 @@ import me.zhanghai.android.files.util.startActivityForResultSafe
 import me.zhanghai.android.files.util.valueCompat
 
 abstract class PathPreference : Preference, PreferenceActivityResultListener {
-    private val pickDirectoryContract = FileListActivity.PickDirectoryContract()
+    private val openPathContract = FileListActivity.OpenDirectoryContract()
 
     var path: Path = persistedPath
         set(value) {
@@ -76,13 +76,13 @@ abstract class PathPreference : Preference, PreferenceActivityResultListener {
 
     override fun onPreferenceClick(fragment: PreferenceFragmentCompat, preference: Preference) {
         fragment.startActivityForResultSafe(
-            pickDirectoryContract.createIntent(fragment.requireContext(), path), requestCode
+            openPathContract.createIntent(fragment.requireContext(), path), requestCode
         )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == this.requestCode) {
-            val result = pickDirectoryContract.parseResult(resultCode, data)
+            val result = openPathContract.parseResult(resultCode, data)
             if (result != null) {
                 path = result
             }

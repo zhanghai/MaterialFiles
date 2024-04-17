@@ -28,7 +28,6 @@
     <string name="none">None</string>
     <string name="open_navigation_drawer">Open navigation drawer</string>
     <string name="paste">Paste</string>
-    <string name="pick" translatable="false">@string/select</string>
     <string name="refresh">Refresh</string>
     <string name="reload">Reload</string>
     <string name="remove">Remove</string>
@@ -241,6 +240,7 @@
     <string name="file_name_error_empty">File name cannot be empty</string>
     <string name="file_name_error_invalid">Invalid file name</string>
     <string name="file_name_error_already_exists">A file with this name already exists</string>
+    <string name="file_replace_message_format">Replace “%1$s”?</string>
     <string name="file_delete_message_file_format">Delete “%1$s”?</string>
     <string name="file_delete_message_directory_format">Delete folder “%1$s” and its contents?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -265,11 +265,12 @@
     <string name="file_create_directory_title">New folder</string>
 
     <string name="file_list_title">Files</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Select a file</item>
         <item quantity="other">Select files</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <string name="file_list_title_create_file">Save file</string>
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Select a folder</item>
         <item quantity="other">Select folders</item>
     </plurals>
@@ -308,7 +309,10 @@
     <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_action_extract" translatable="false">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive" translatable="false">@string/file_item_action_archive</string>
-    <string name="file_list_select_current_directory_format">Select “%1$s”</string>
+    <string name="file_list_create_file_name_hint">File name</string>
+    <string name="file_list_create_file_name_error_empty" translatable="false">@string/file_name_error_empty</string>
+    <string name="file_list_create_file_name_error_invalid" translatable="false">@string/file_name_error_invalid</string>
+    <string name="file_list_open_current_directory_format">Select “%1$s”</string>
     <string name="file_list_paste_move_title_format">Moving %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copying %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extracting %1$,d</string>
@@ -345,39 +349,39 @@
     <string name="file_properties_basic_archive_file">Archive File</string>
     <string name="file_properties_basic_archive_entry">Archive Entry</string>
     <string name="file_properties_basic_free_space">Free Space</string>
-    <string name="file_properties_permissions">Permissions</string>
-    <string name="file_properties_permissions_owner">Owner</string>
-    <string name="file_properties_permissions_group">Group</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Change owner</string>
-    <string name="file_properties_permissions_set_group_title">Change group</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Enter a name or ID</string>
-    <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Mode</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Change mode</string>
-    <string name="file_properties_permissions_set_mode_others">Others</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Permissions</string>
+    <string name="file_properties_permission_owner">Owner</string>
+    <string name="file_properties_permission_group">Group</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Change owner</string>
+    <string name="file_properties_permission_set_group_title">Change group</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Enter a name or ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Mode</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Change mode</string>
+    <string name="file_properties_permission_set_mode_others">Others</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Read</item>
         <item>Write</item>
         <item>Execute</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Read</item>
         <item>Write</item>
         <item>Search</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Special</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Special</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Set UID</item>
         <item>Set GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Don’t add “Execute” for enclosed files</string>
-    <string name="file_properties_permissions_selinux_context">SELinux Context</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Change SELinux context</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Restore</string>
-    <string name="file_properties_permissions_recursive">Apply to enclosed files</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Don’t add “Execute” for enclosed files</string>
+    <string name="file_properties_permission_selinux_context">SELinux Context</string>
+    <string name="file_properties_permission_set_selinux_context_title">Change SELinux context</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Restore</string>
+    <string name="file_properties_permission_recursive">Apply to enclosed files</string>
     <string name="file_properties_image">Image</string>
     <string name="file_properties_media_dimensions">Dimensions</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -510,6 +514,17 @@
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_signature_digests_empty">No valid signatures</string>
     <string name="file_properties_apk_past_signature_digests">Old signatures</string>
+    <string name="file_properties_checksum">Checksums</string>
+    <string name="file_properties_checksum_compare">Compare</string>
+    <string name="file_properties_checksum_compare_placeholder">Any checksum</string>
+    <string name="file_properties_checksum_compare_match_format">Matches %1$s checksum</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Matches prefix of %1$s checksum</string>
+    <string name="file_properties_checksum_compare_no_match">No matching checksum found</string>
+    <string name="file_properties_checksum_crc32" translatable="false">CRC32</string>
+    <string name="file_properties_checksum_md5" translatable="false">MD5</string>
+    <string name="file_properties_checksum_sha_1" translatable="false">SHA-1</string>
+    <string name="file_properties_checksum_sha_256" translatable="false">SHA-256</string>
+    <string name="file_properties_checksum_sha_512" translatable="false">SHA-512</string>
 
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Storage</string>
@@ -521,6 +536,7 @@
     <string name="storage_add_storage_ftp_server">FTP server</string>
     <string name="storage_add_storage_sftp_server">SFTP server</string>
     <string name="storage_add_storage_smb_server">SMB server</string>
+    <string name="storage_add_storage_webdav_server">WebDAV server</string>
     <string name="storage_edit_device_storage_title">Edit device storage</string>
     <string name="storage_edit_device_storage_name">Name</string>
     <string name="storage_edit_device_storage_path">Path</string>
@@ -623,6 +639,36 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Connect and add</string>
     <string name="storage_edit_smb_server_add">Add</string>
+    <string name="storage_edit_webdav_server_title_edit">Edit WebDAV server</string>
+    <string name="storage_edit_webdav_server_title_add">Add WebDAV server</string>
+    <string name="storage_edit_webdav_server_host">Hostname</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Enter a hostname</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Invalid hostname</string>
+    <string name="storage_edit_webdav_server_port">Port</string>
+    <string name="storage_edit_webdav_server_port_placeholder" translatable="false">443</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Invalid port</string>
+    <string name="storage_edit_webdav_server_path">Path</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Can be left empty</string>
+    <string name="storage_edit_webdav_server_name">Name</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Use hostname</string>
+    <string name="storage_edit_webdav_server_protocol">Protocol</string>
+    <string-array name="storage_edit_webdav_server_protocol_entries" translatable="false">
+        <item>HTTP</item>
+        <item>HTTPS</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_authentication_type">Authentication</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Password</item>
+        <item>Access token</item>
+        <item>None</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Username</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Enter a username</string>
+    <string name="storage_edit_webdav_server_password">Password</string>
+    <string name="storage_edit_webdav_server_access_token">Access token</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Enter an access token</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Connect and add</string>
+    <string name="storage_edit_webdav_server_add">Add</string>
 
     <string name="navigation_storage_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_storage">Add storage…</string>
@@ -650,6 +696,9 @@
     <string name="image_viewer_title">Image viewer</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="image_viewer_delete_message_format" translatable="false">@string/file_delete_message_file_format</string>
+    <string name="save_as_title">Save as</string>
+    <string name="save_as_error">Error while saving file</string>
+    <string name="save_as_success_format">“%1$s” has been saved to “%2$s”</string>
     <string name="text_editor_title">Text editor</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -734,7 +783,7 @@
         <item>View contents</item>
         <item>Ask what to do</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Show thumbnail for PDF files</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Show thumbnail for PDF documents</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Might make the app unstable on older versions of Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Read remote files for thumbnail</string>
 

@@ -32,14 +32,15 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
     val uri: Uri?
 
     constructor(fileSystem: ContentFileSystem, uri: Uri) : super(
-        0.toByte(), true, listOf(uri.displayNameOrUri)
+        ContentFileSystem.SEPARATOR, true,
+        listOf(Uri.encode(uri.toString()).toByteString(), uri.bestFileName)
     ) {
         this.fileSystem = fileSystem
         this.uri = uri
     }
 
     private constructor(fileSystem: ContentFileSystem, segments: List<ByteString>) : super(
-        0.toByte(), false, segments
+        ContentFileSystem.SEPARATOR, false, segments
     ) {
         this.fileSystem = fileSystem
         uri = null
@@ -149,14 +150,14 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
     }
 
     companion object {
-        private val Uri.displayNameOrUri: ByteString
+        private val Uri.bestFileName: ByteString
             get() =
                 (try {
                     Resolver.getDisplayName(this)
                 } catch (e: ResolverException) {
                     e.printStackTrace()
                     null
-                } ?: lastPathSegment ?: toString()).toByteString()
+                } ?: lastPathSegment ?: "file").toByteString()
 
         @JvmField
         val CREATOR = object : Parcelable.Creator<ContentPath> {

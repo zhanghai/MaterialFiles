@@ -62,12 +62,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Aplicația necesită permisiunea de accesare a fișierelor. Apasă pe \"PERMITE\" în căsuța următoare.</string>
     <string name="storage_permission_permanently_denied_message">Aplicația are nevoie de permisiunea de a accesa fișierele. Acordă permisiunea „Stocare” în setările sistemului.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Aplicația necesită permisiunea de a afișa notificări legate de operațiunile cu fișiere. Vă rugăm să apăsați pe \"Permite\" în fereastra următoare.</string>
+    <string name="notification_permission_permanently_denied_message">Aplicația necesită permisiunea de a afișa notificări legate de operațiunile cu fișiere. Vă rugăm să permiteți afișarea notificărilor în setări.</string>
+
     <string name="notification_channel_background_activity_start_name">Acțiuni în fundal</string>
     <string name="notification_channel_background_activity_start_description">Efectuează acțiuni în timp ce aplicația este în fundal</string>
     <string name="notification_channel_file_job_name">Operațiuni asupra fișierelor</string>
     <string name="notification_channel_file_job_description">Afișează și controlează operațiunile fișierelor</string>
     <string name="notification_channel_ftp_server_name">Server FTP</string>
     <string name="notification_channel_ftp_server_description">Arată și controlează serverul FTP</string>
+
+    <string name="file_action_archive_password_title">Parola este necesară</string>
+    <string name="file_action_archive_password_message_format">\"%1$s\" este protejat de o parolă.</string>
+    <string name="file_action_archive_password_error_empty">Câmpul parolă nu poate fi gol</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Ss pregătesc de compresie %1$,d fișier (%2$s)</item>
@@ -272,17 +280,18 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Parolă (opțional)</string>
     <string name="file_add_bookmark_success">Marcaj adăugat</string>
     <string name="file_create_file_title">Fișier nou</string>
     <string name="file_create_directory_title">Dosar nou</string>
 
     <string name="file_list_title">Fișiere</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Selectează fișierul</item>
         <item quantity="few">Selectează fișierele</item>
         <item quantity="other">Selectează fișierele</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Selectează dosarul</item>
         <item quantity="few">Selectează dosarele</item>
         <item quantity="other">Selectează dosarele</item>
@@ -320,7 +329,7 @@
     <string name="file_list_action_create_shortcut">Creează scurtătură</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Deschide într-o fereastră nouă</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Selectat “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Selectat “%1$s”</string>
     <string name="file_list_paste_move_title_format">Se mută %1$,d</string>
     <string name="file_list_paste_copy_title_format">Se copiază %1$,d</string>
     <string name="file_list_paste_extract_title_format">Se extrag %1$,d</string>
@@ -355,39 +364,39 @@
     <string name="file_properties_basic_archive_file">Arhivează fișierul</string>
     <string name="file_properties_basic_archive_entry">Articol din arhivă</string>
     <string name="file_properties_basic_free_space">Spațiu liber</string>
-    <string name="file_properties_permissions">Permisiuni</string>
-    <string name="file_properties_permissions_owner">Proprietar</string>
-    <string name="file_properties_permissions_group">Grup</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Schimbă proprietarul</string>
-    <string name="file_properties_permissions_set_group_title">Schimbă grupul</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Introdu un nume sau ID</string>
-    <string name="file_properties_permissions_set_principal_system">Sistem</string>
-    <string name="file_properties_permissions_mode">Mod</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Schimbă modul</string>
-    <string name="file_properties_permissions_set_mode_others">Altele</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Permisiuni</string>
+    <string name="file_properties_permission_owner">Proprietar</string>
+    <string name="file_properties_permission_group">Grup</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Schimbă proprietarul</string>
+    <string name="file_properties_permission_set_group_title">Schimbă grupul</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Introdu un nume sau ID</string>
+    <string name="file_properties_permission_set_principal_system">Sistem</string>
+    <string name="file_properties_permission_mode">Mod</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Schimbă modul</string>
+    <string name="file_properties_permission_set_mode_others">Altele</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Citire</item>
         <item>Scriere</item>
         <item>Executare</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Citire</item>
         <item>Scriere</item>
         <item>Căutare</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Special</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Special</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Setează UID</item>
         <item>Obține GID</item>
         <item>Bit lipicios</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nu adăuga \"Executare\" pentru fișierele atașate</string>
-    <string name="file_properties_permissions_selinux_context">Context SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Schimbă contextul SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Resaturează</string>
-    <string name="file_properties_permissions_recursive">Aplică la fișierele anexate</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nu adăuga \"Executare\" pentru fișierele atașate</string>
+    <string name="file_properties_permission_selinux_context">Context SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Schimbă contextul SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Resaturează</string>
+    <string name="file_properties_permission_recursive">Aplică la fișierele anexate</string>
     <string name="file_properties_image">Imagine</string>
     <string name="file_properties_media_dimensions">Dimensiuni</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -545,7 +554,6 @@
     <string name="storage_edit_smb_server_domain">Domeniu</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectează și adaugă</string>
     <string name="storage_edit_smb_server_add">Adaugă</string>
-
     <string name="navigation_storage_subtitle_format">%1$s liber din %2$s</string>
     <string name="navigation_add_storage">Adăugare stocare…</string>
     <string name="navigation_standard_directory_alarms">Alarme</string>
@@ -586,9 +594,6 @@
     <string name="ftp_server_url_menu_copy_url">Copiază URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiază parola</string>
     <string name="ftp_server_add_tile_title">Adaugă la Setările Rapide</string>
-    <string name="ftp_server_add_tile_result_added">\"Server FTP\" a fost adăugat la Setări Rapide </string>
-    <string name="ftp_server_add_tile_result_already_added">\"Server FTP\" este deja adăugat la Setări Rapide</string>
-    <string name="ftp_server_add_tile_result_error">A apărut o eroare la adăugarea \"Serverului FTP\" la Setările Rapide</string>
     <string name="ftp_server_configuration_title">Configurare</string>
     <string name="ftp_server_anonymous_login_title">Autentificare anonimă</string>
     <string name="ftp_server_username_title">Nume utilizator</string>

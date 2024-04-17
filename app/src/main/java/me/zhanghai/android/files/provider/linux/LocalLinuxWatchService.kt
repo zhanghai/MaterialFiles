@@ -18,8 +18,8 @@ import me.zhanghai.android.files.provider.FileSystemProviders
 import me.zhanghai.android.files.provider.common.AbstractWatchService
 import me.zhanghai.android.files.provider.common.readAttributes
 import me.zhanghai.android.files.provider.linux.syscall.Constants
-import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.provider.linux.syscall.Syscall
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.util.hasBits
 import java.io.Closeable
 import java.io.FileDescriptor

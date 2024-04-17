@@ -26,6 +26,18 @@
             android:paddingStart="@dimen/file_list_toolbar_padding_start"
             android:paddingEnd="@dimen/file_list_toolbar_padding_end_no_overflow"
             app:navigationIcon="@drawable/close_icon_control_normal_24dp"
-            app:popupTheme="?actionBarPopupTheme" />
+            app:navigationContentDescription="@string/close"
+            app:popupTheme="?actionBarPopupTheme">
+
+            <EditText
+                android:id="@+id/bottomCreateFileNameEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/file_list_create_file_name_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1" />
+        </androidx.appcompat.widget.Toolbar>
     </me.zhanghai.android.files.ui.BottomBarLayout>
 </merge>

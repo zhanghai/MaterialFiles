@@ -312,13 +312,13 @@
     <string name="file_create_directory_title">Нова тека</string>
 
     <string name="file_list_title">Файли</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Вибрати файл</item>
         <item quantity="few">Вибрати файли</item>
         <item quantity="many">Вибрати файли</item>
         <item quantity="other">Вибрати файли</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Вибарти теку</item>
         <item quantity="few">Вибрати теки</item>
         <item quantity="many">Вибрати теки</item>
@@ -359,7 +359,7 @@
     <string name="file_list_action_create_shortcut">Створити скорочення</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Відкрити в новому вікні</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Вибрати “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Вибрати “%1$s”</string>
     <string name="file_list_paste_move_title_format">Переміщення %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копіювання %1$,d</string>
     <string name="file_list_paste_extract_title_format">Видобування %1$,d</string>
@@ -395,39 +395,39 @@
     <string name="file_properties_basic_archive_file">Файл архіву</string>
     <string name="file_properties_basic_archive_entry">Точка входу в архіві</string>
     <string name="file_properties_basic_free_space">Вільний простір</string>
-    <string name="file_properties_permissions">Дозволи</string>
-    <string name="file_properties_permissions_owner">Власник</string>
-    <string name="file_properties_permissions_group">Група</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Змінити власника</string>
-    <string name="file_properties_permissions_set_group_title">Змінити групу</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Введіть ім\'я або ID</string>
-    <string name="file_properties_permissions_set_principal_system">Система</string>
-    <string name="file_properties_permissions_mode">Режим</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Змінити режим</string>
-    <string name="file_properties_permissions_set_mode_others">Інше</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Дозволи</string>
+    <string name="file_properties_permission_owner">Власник</string>
+    <string name="file_properties_permission_group">Група</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Змінити власника</string>
+    <string name="file_properties_permission_set_group_title">Змінити групу</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Введіть ім\'я або ID</string>
+    <string name="file_properties_permission_set_principal_system">Система</string>
+    <string name="file_properties_permission_mode">Режим</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Змінити режим</string>
+    <string name="file_properties_permission_set_mode_others">Інше</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Читання</item>
         <item>Запис</item>
         <item>Виконання</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Читання</item>
         <item>Запис</item>
         <item>Пошук</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Особливий</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Особливий</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Встановити UID</item>
         <item>Встановити GID</item>
         <item>Прапорець sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Не додавати «Виконувати» для вкладених файлів</string>
-    <string name="file_properties_permissions_selinux_context">Контекст SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Змінити контекст SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Відновити</string>
-    <string name="file_properties_permissions_recursive">Застосувати до вкладених файлів</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Не додавати «Виконувати» для вкладених файлів</string>
+    <string name="file_properties_permission_selinux_context">Контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Змінити контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Відновити</string>
+    <string name="file_properties_permission_recursive">Застосувати до вкладених файлів</string>
     <string name="file_properties_image">Зображення</string>
     <string name="file_properties_media_dimensions">Розміри</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -586,7 +586,6 @@
     <string name="storage_edit_smb_server_domain">Домен</string>
     <string name="storage_edit_smb_server_connect_and_add">З\'єднатися та додати</string>
     <string name="storage_edit_smb_server_add">Додати</string>
-
     <string name="navigation_storage_subtitle_format">%1$s вільно з %2$s</string>
     <string name="navigation_add_storage">Додати сховище…</string>
     <string name="navigation_standard_directory_alarms">Нагадування</string>
@@ -627,9 +626,6 @@
     <string name="ftp_server_url_menu_copy_url">Копіювати URL</string>
     <string name="ftp_server_url_menu_copy_password">Копіювати пароль</string>
     <string name="ftp_server_add_tile_title">Додати до швидких налаштувань</string>
-    <string name="ftp_server_add_tile_result_added">\"FTP сервер\" був доданий до швидких налаштувань</string>
-    <string name="ftp_server_add_tile_result_already_added">\"FTP сервер\" уже доданий до швидких налаштувань</string>
-    <string name="ftp_server_add_tile_result_error">Сталася помилка при додаванні \"FTP сервер\" до швидких налаштувань</string>
     <string name="ftp_server_configuration_title">Конфігурація</string>
     <string name="ftp_server_anonymous_login_title">Анонімний вхід</string>
     <string name="ftp_server_username_title">Імʼя користувача</string>

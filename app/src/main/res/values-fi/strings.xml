@@ -241,11 +241,11 @@
     <string name="file_create_directory_title">Uusi kansio</string>
 
     <string name="file_list_title">Tiedostot</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Valitse tiedosto</item>
         <item quantity="other">Valitse tiedostot</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Valitse kansio</item>
         <item quantity="other">Valitse kansiot</item>
     </plurals>
@@ -280,7 +280,7 @@
     <string name="file_list_action_create_shortcut">Luo pikakuvake</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Avaa uudessa ikkunassa</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Valitse “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Valitse “%1$s”</string>
     <string name="file_list_paste_move_title_format">Siirretään %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopioidaan %1$,d</string>
     <string name="file_list_paste_extract_title_format">Puretaan %1$,d</string>
@@ -312,34 +312,34 @@
     <string name="file_properties_basic_last_modification_time">Viimeksi muokattu</string>
     <string name="file_properties_basic_parent_directory">Ylähakemisto</string>
     <string name="file_properties_basic_free_space">Vapaata tilaa</string>
-    <string name="file_properties_permissions">Käyttöoikeudet</string>
-    <string name="file_properties_permissions_owner">Omistaja</string>
-    <string name="file_properties_permissions_group">Ryhmä</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Vaihda omistajaa</string>
-    <string name="file_properties_permissions_set_group_title">Vaihda ryhmää</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Syötä nimi tai ID</string>
-    <string name="file_properties_permissions_set_principal_system">Järjestelmä</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_others">Muu</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Käyttöoikeudet</string>
+    <string name="file_properties_permission_owner">Omistaja</string>
+    <string name="file_properties_permission_group">Ryhmä</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Vaihda omistajaa</string>
+    <string name="file_properties_permission_set_group_title">Vaihda ryhmää</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Syötä nimi tai ID</string>
+    <string name="file_properties_permission_set_principal_system">Järjestelmä</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_others">Muu</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Luku</item>
         <item>Kirjoitus</item>
         <item>Suoritus</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Luku</item>
         <item>Kirjoitus</item>
         <item>Haku</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Aseta UID</item>
         <item>Aseta GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_selinux_context">SELinux-konteksti</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Vaihda SELinux-kontekstia</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Palauta</string>
+    <string name="file_properties_permission_selinux_context">SELinux-konteksti</string>
+    <string name="file_properties_permission_set_selinux_context_title">Vaihda SELinux-kontekstia</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Palauta</string>
     <string name="file_properties_image">Kuva</string>
     <string name="file_properties_media_dimensions">Mitat</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -495,7 +495,6 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Yhdistä ja lisää</string>
     <string name="storage_edit_smb_server_add">Lisää</string>
-
     <string name="navigation_storage_subtitle_format">%1$s/%2$s vapaana</string>
     <string name="navigation_add_storage">Lisää tallennustila…</string>
     <string name="navigation_standard_directory_alarms">Hälytykset</string>
@@ -534,9 +533,6 @@
     <string name="ftp_server_url_menu_copy_url">Kopioi URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopioi salasana</string>
     <string name="ftp_server_add_tile_title">Lisää pika-asetuksiin</string>
-    <string name="ftp_server_add_tile_result_added">“FTP-palvelin” on lisätty pika-asetuksiin</string>
-    <string name="ftp_server_add_tile_result_already_added">“FTP-palvelin” on jo lisättynä pika-asetuksiin</string>
-    <string name="ftp_server_add_tile_result_error">Virhe “FTP-palvelimen” lisäyksessä pika-asetuksiin</string>
     <string name="ftp_server_configuration_title">Asetukset</string>
     <string name="ftp_server_anonymous_login_title">Anonyymi kirjautuminen</string>
     <string name="ftp_server_username_title">Käyttäjänimi</string>

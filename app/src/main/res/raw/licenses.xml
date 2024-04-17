@@ -36,6 +36,13 @@
     </notice>
 
     <notice>
+        <name>dav4jvm</name>
+        <url>https://github.com/bitfireAT/dav4jvm</url>
+        <copyright>Copyright 2015 dav4jvm contributors</copyright>
+        <license>Mozilla Public License 2.0</license>
+    </notice>
+
+    <notice>
         <name>PhotoView</name>
         <url>https://github.com/chrisbanes/PhotoView</url>
         <copyright>Copyright 2011, 2012 Chris Banes</copyright>

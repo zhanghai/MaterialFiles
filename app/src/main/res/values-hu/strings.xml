@@ -253,11 +253,11 @@
     <string name="file_create_directory_title">Új mappa</string>
 
     <string name="file_list_title">Fájlok</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Fájl kiválasztása</item>
         <item quantity="other">Fájlok kiválasztása</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Mappa kiválasztása</item>
         <item quantity="other">Mappák kiválasztása</item>
     </plurals>
@@ -292,7 +292,7 @@
     <string name="file_list_action_create_shortcut">Parancsikon létrehozása</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Megnyitás új ablakban</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">„%1$s” kiválasztása</string>
+    <string name="file_list_open_current_directory_format">„%1$s” kiválasztása</string>
     <string name="file_list_paste_move_title_format">%1$,d áthelyezése</string>
     <string name="file_list_paste_copy_title_format">%1$,d másolása</string>
     <string name="file_list_paste_extract_title_format">%1$,d fájl kibontása</string>
@@ -326,39 +326,39 @@
     <string name="file_properties_basic_archive_file">Fájl archiválása</string>
     <string name="file_properties_basic_archive_entry">Bejegyzés archiválása</string>
     <string name="file_properties_basic_free_space">Szabad hely</string>
-    <string name="file_properties_permissions">Jogosultságok</string>
-    <string name="file_properties_permissions_owner">Tulajdonos</string>
-    <string name="file_properties_permissions_group">Csoport</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Tulajdonos módosítása</string>
-    <string name="file_properties_permissions_set_group_title">Csoport módosítása</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Adjon meg egy nevet vagy azonosítót</string>
-    <string name="file_properties_permissions_set_principal_system">Rendszer</string>
-    <string name="file_properties_permissions_mode">Mód</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Mód módosítása</string>
-    <string name="file_properties_permissions_set_mode_others">Mások</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Jogosultságok</string>
+    <string name="file_properties_permission_owner">Tulajdonos</string>
+    <string name="file_properties_permission_group">Csoport</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Tulajdonos módosítása</string>
+    <string name="file_properties_permission_set_group_title">Csoport módosítása</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Adjon meg egy nevet vagy azonosítót</string>
+    <string name="file_properties_permission_set_principal_system">Rendszer</string>
+    <string name="file_properties_permission_mode">Mód</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Mód módosítása</string>
+    <string name="file_properties_permission_set_mode_others">Mások</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Olvasás</item>
         <item>Írás</item>
         <item>Végrehajtás</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Olvasás</item>
         <item>Írás</item>
         <item>Keresés</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Különleges</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Különleges</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Set UID</item>
         <item>Set GID</item>
         <item>Ragadós bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Ne adja hozzá a „Végrehajtást” a tartalmazott fájlokhoz</string>
-    <string name="file_properties_permissions_selinux_context">SELinux környezet</string>
-    <string name="file_properties_permissions_set_selinux_context_title">SELinux környezet módosítása</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Visszaállítás</string>
-    <string name="file_properties_permissions_recursive">Alkalmazás a tartalmazott fájlokra</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ne adja hozzá a „Végrehajtást” a tartalmazott fájlokhoz</string>
+    <string name="file_properties_permission_selinux_context">SELinux környezet</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux környezet módosítása</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Visszaállítás</string>
+    <string name="file_properties_permission_recursive">Alkalmazás a tartalmazott fájlokra</string>
     <string name="file_properties_image">Kép</string>
     <string name="file_properties_media_dimensions">Méretek</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -515,7 +515,6 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Kapcsolódás és hozzáadás</string>
     <string name="storage_edit_smb_server_add">Hozzáadás</string>
-
     <string name="navigation_storage_subtitle_format">%1$s szabad ennyiből: %2$s</string>
     <string name="navigation_add_storage">Tároló hozzáadása…</string>
     <string name="navigation_standard_directory_alarms">Riasztások</string>
@@ -556,9 +555,6 @@
     <string name="ftp_server_url_menu_copy_url">Webcím másolása</string>
     <string name="ftp_server_url_menu_copy_password">Jelszó másolása</string>
     <string name="ftp_server_add_tile_title">Hozzáadás a gyors beállításokhoz</string>
-    <string name="ftp_server_add_tile_result_added">Az „FTP-kiszolgáló” hozzá lett adva a gyors beállításokhoz</string>
-    <string name="ftp_server_add_tile_result_already_added">Az „FTP-kiszolgáló” már hozzá van adva a gyors beállításokhoz</string>
-    <string name="ftp_server_add_tile_result_error">Hiba történt az „FTP-kiszolgáló” gyors beállításokhoz történő hozzáadása során </string>
     <string name="ftp_server_configuration_title">Beállítás</string>
     <string name="ftp_server_anonymous_login_title">Névtelen bejelentkezés</string>
     <string name="ftp_server_username_title">Felhasználónév</string>

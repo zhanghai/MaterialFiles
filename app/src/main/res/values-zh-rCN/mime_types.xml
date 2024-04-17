@@ -13,14 +13,14 @@
     <string name="file_type_name_calendar">%1$s 日历</string>
     <string name="file_type_name_certificate">%1$s 证书</string>
     <string name="file_type_name_code">%1$s 文档</string>
-    <string name="file_type_name_contact">电子商务卡</string>
+    <string name="file_type_name_contact">电子名片</string>
     <string name="file_type_name_directory">文件夹</string>
     <string name="file_type_name_document">%1$s 文档</string>
     <string name="file_type_name_ebook">%1$s 电子书</string>
     <string name="file_type_name_email">%1$s 电子邮件</string>
     <string name="file_type_name_font">%1$s 字体</string>
     <string name="file_type_name_generic">%1$s 文件</string>
-    <string name="file_type_name_image">%1$s 图像</string>
+    <string name="file_type_name_image">%1$s 图片</string>
     <string name="file_type_name_pdf">PDF 文档</string>
     <string name="file_type_name_presentation">%1$s 演示文稿</string>
     <string name="file_type_name_spreadsheet">%1$s 电子表格</string>

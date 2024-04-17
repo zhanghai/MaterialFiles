@@ -19,4 +19,4 @@ fun ByteArray.toHexString(): String {
     return String(chars)
 }
 
-private fun Int.toHexChar(): Char = if (this >= 10) 'a' + (this - 10) else '0' + this
+private fun Int.toHexChar(): Char = if (this >= 10) 'A' + (this - 10) else '0' + this

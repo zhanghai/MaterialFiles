@@ -303,13 +303,13 @@
     <string name="file_create_directory_title">Naujas aplankas</string>
 
     <string name="file_list_title">Failai</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Pasirinkti failą</item>
         <item quantity="few">Pasirinkti failus</item>
         <item quantity="many">Pasirinkti failus</item>
         <item quantity="other">Pasirinkti failus</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Pasirinkti aplanką</item>
         <item quantity="few">Pasirinkti aplankus</item>
         <item quantity="many">Pasirinkti aplankus</item>
@@ -350,7 +350,7 @@
     <string name="file_list_action_create_shortcut">Sukurti spartųjį kelią</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Atidaryti naujame lange</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Pasirinkti \"%1$s\"</string>
+    <string name="file_list_open_current_directory_format">Pasirinkti \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Perkeliama %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopijuojama %1$,d</string>
     <string name="file_list_paste_extract_title_format">Išskleidžiama %1$,d</string>
@@ -386,39 +386,39 @@
     <string name="file_properties_basic_archive_file">Archyvo failas</string>
     <string name="file_properties_basic_archive_entry">Archyvo įrašas</string>
     <string name="file_properties_basic_free_space">Laisvos vietos</string>
-    <string name="file_properties_permissions">Leidimai</string>
-    <string name="file_properties_permissions_owner">Savininkas</string>
-    <string name="file_properties_permissions_group">Grupė</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Keisti savininką</string>
-    <string name="file_properties_permissions_set_group_title">Keisti grupę</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Įvesti pavadinimą ar ID</string>
-    <string name="file_properties_permissions_set_principal_system">Sistema</string>
-    <string name="file_properties_permissions_mode">Režimas</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Keisti režimą</string>
-    <string name="file_properties_permissions_set_mode_others">Kiti</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Leidimai</string>
+    <string name="file_properties_permission_owner">Savininkas</string>
+    <string name="file_properties_permission_group">Grupė</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Keisti savininką</string>
+    <string name="file_properties_permission_set_group_title">Keisti grupę</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Įvesti pavadinimą ar ID</string>
+    <string name="file_properties_permission_set_principal_system">Sistema</string>
+    <string name="file_properties_permission_mode">Režimas</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Keisti režimą</string>
+    <string name="file_properties_permission_set_mode_others">Kiti</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Skaityti</item>
         <item>Rašyti</item>
         <item>Paleisti</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Skaityti</item>
         <item>Rašyti</item>
         <item>Ieškoti</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Specialūs</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Specialūs</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Nustatyti UID</item>
         <item>Nustatyti GID</item>
         <item>Lipnus bitas</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nepridėti „Vykdyti“ pridedamiems failams</string>
-    <string name="file_properties_permissions_selinux_context">SELinux kontekstas</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Keisti SELinux kontekstą</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Atkurti</string>
-    <string name="file_properties_permissions_recursive">Taikyti pridedamiems failams</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nepridėti „Vykdyti“ pridedamiems failams</string>
+    <string name="file_properties_permission_selinux_context">SELinux kontekstas</string>
+    <string name="file_properties_permission_set_selinux_context_title">Keisti SELinux kontekstą</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Atkurti</string>
+    <string name="file_properties_permission_recursive">Taikyti pridedamiems failams</string>
     <string name="file_properties_image">Nuotrauka</string>
     <string name="file_properties_media_dimensions">Matmenys</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -577,7 +577,6 @@
     <string name="storage_edit_smb_server_domain">Domenas</string>
     <string name="storage_edit_smb_server_connect_and_add">Prisijungti ir pridėti</string>
     <string name="storage_edit_smb_server_add">Pridėti</string>
-
     <string name="navigation_storage_subtitle_format">%1$s laisva iš %2$s</string>
     <string name="navigation_add_storage">Pridėti saugyklą…</string>
     <string name="navigation_standard_directory_alarms">Aliarmai</string>
@@ -618,9 +617,6 @@
     <string name="ftp_server_url_menu_copy_url">Kopijuoti URL</string>
     <string name="ftp_server_url_menu_copy_password">Kopijuoti slaptažodį</string>
     <string name="ftp_server_add_tile_title">Pridėti prie greitųjų nustatymų</string>
-    <string name="ftp_server_add_tile_result_added">„FTP serveris“ buvo pridėtas prie greitųjų nustatymų</string>
-    <string name="ftp_server_add_tile_result_already_added">„FTP serveris“ jau pridėtas prie greitųjų nustatymų</string>
-    <string name="ftp_server_add_tile_result_error">Klaida pridedant „FTP serveris“ prie greitųjų nustatymų</string>
     <string name="ftp_server_configuration_title">Konfigūracija</string>
     <string name="ftp_server_anonymous_login_title">Anonimiškas prisijungimas</string>
     <string name="ftp_server_username_title">Naudotojo vardas</string>

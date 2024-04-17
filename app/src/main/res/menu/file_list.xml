@@ -81,24 +81,28 @@
 
     <item
         android:id="@+id/action_navigate_to"
+        android:alphabeticShortcut="l"
         android:orderInCategory="100"
         android:title="@string/file_list_action_navigate_to"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_refresh"
+        android:alphabeticShortcut="r"
         android:orderInCategory="100"
         android:title="@string/refresh"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_select_all"
+        android:alphabeticShortcut="a"
         android:orderInCategory="100"
         android:title="@string/select_all"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_show_hidden_files"
+        android:alphabeticShortcut="h"
         android:orderInCategory="100"
         android:title="@string/file_list_action_show_hidden_files"
         android:checkable="true"

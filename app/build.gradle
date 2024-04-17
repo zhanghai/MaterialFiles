@@ -16,7 +16,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.0'
+        classpath 'com.google.gms:google-services:4.4.1'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
     }
 }
@@ -28,15 +28,15 @@ android {
     namespace 'me.zhanghai.android.files'
     buildToolsVersion = '34.0.0'
     compileSdk 34
-    ndkVersion '26.0.10792818'
+    ndkVersion '26.3.11579264'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdk 21
         // Not supporting notification runtime permission yet.
         //noinspection OldTargetApi
         targetSdk 34
-        versionCode 34
-        versionName '1.6.2'
+        versionCode 36
+        versionName '1.7.1'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
@@ -67,6 +67,11 @@ android {
             path 'CMakeLists.txt'
         }
     }
+    lint {
+        // For "Invalid package reference in library; not included in Android: javax.security.sasl.
+        // Referenced from org.apache.mina.proxy.ProxyAuthException."
+        warning 'InvalidPackage', 'MissingTranslation'
+    }
     buildTypes {
         release {
             minifyEnabled true
@@ -91,10 +96,10 @@ android {
             ]
         }
     }
-    lint {
-        // For "Invalid package reference in library; not included in Android: javax.security.sasl.
-        // Referenced from org.apache.mina.proxy.ProxyAuthException."
-        warning 'InvalidPackage', 'MissingTranslation'
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 }
 
@@ -104,8 +109,10 @@ repositories {
     }
 }
 dependencies {
+    implementation('com.github.zhanghai:dav4jvm:c317607') {
+        exclude group: 'org.ogce', module: 'xpp3'
+    }
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
-    releaseImplementation 'com.github.mypplication:stetho-noop:1.1'
     implementation 'com.github.topjohnwu.libsu:service:5.2.2'
 }
 
@@ -114,18 +121,18 @@ dependencies {
 
     // kotlinx-coroutines-android depends on kotlin-stdlib-jdk8
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    def kotlinx_coroutines_version = '1.7.3'
+    def kotlinx_coroutines_version = '1.8.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
-    implementation 'androidx.activity:activity-ktx:1.8.2'
+    implementation 'androidx.activity:activity-ktx:1.9.0'
     // Appcompat 1.7.0-alpha01 is required for properly changing locale below API 24 (b/243119645).
     implementation 'androidx.appcompat:appcompat:1.7.0-alpha03'
-    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.core:core-ktx:1.13.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.7'
     implementation 'androidx.fragment:fragment-ktx:1.6.2'
-    def androidx_lifecycle_version = '2.6.2'
+    def androidx_lifecycle_version = '2.7.0'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$androidx_lifecycle_version"
@@ -134,35 +141,34 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
 
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.drakeet.drawer:drawer:1.0.3'
-    debugImplementation 'com.facebook.stetho:stetho:1.6.0'
-    // If added along with okhttp3, remove the related dontwarn from proguard-rules.pro.
-    //debugImplementation 'com.facebook.stetho:stetho-okhttp3:1.6.0'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
+    // SMBJ 0.12.0 breaks anonymous authentication: https://github.com/hierynomus/smbj/issues/792
+    //noinspection GradleDependency
     implementation ('com.hierynomus:smbj:0.11.5') {
         // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
+    // SSHJ 0.36.0 requires Java 8.
+    //noinspection GradleDependency
     implementation ('com.hierynomus:sshj:0.35.0') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
     implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
     implementation 'com.leinardi.android:speed-dial:3.3.0'
-    implementation ('com.rapid7.client:dcerpc:0.12.0') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
+    implementation ('com.rapid7.client:dcerpc:0.12.1') {
+        // SMBJ-RPC depends on the JRE flavor of Guava which targets Java 8.
+        exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    // SMBJ-RPC depends on com.google.guava:guava:18.0, which conflicts with
-    // com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
+    implementation 'com.google.guava:guava:33.0.0-android'
+    // Guava conflicts with com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
     // Commons Net 3.9.0 started using java.time.Duration in FTPClient.
@@ -175,14 +181,12 @@ dependencies {
     // dev.chrisbanesinsetter:insetter:0.6.0 makes inset unstable when entering immersive.
     implementation 'dev.chrisbanes:insetter-ktx:0.3.1'
     implementation 'dev.rikka.rikkax.preference:simplemenu-preference:1.0.3'
-    implementation 'dev.rikka.shizuku:api:13.1.4'
-    implementation ('eu.agno3.jcifs:jcifs-ng:2.1.9') {
-        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
-        // org.bouncycastle:bcprov-jdk15to18 instead.
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    implementation 'dev.rikka.shizuku:api:13.1.5'
+    implementation ('eu.agno3.jcifs:jcifs-ng:2.1.10') {
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.76'
-    implementation platform('io.coil-kt:coil-bom:2.5.0')
+    implementation 'org.bouncycastle:bcprov-jdk15to18:1.77'
+    implementation platform('io.coil-kt:coil-bom:2.6.0')
     implementation 'io.coil-kt:coil'
     implementation 'io.coil-kt:coil-gif'
     implementation 'io.coil-kt:coil-svg'
@@ -208,7 +212,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif

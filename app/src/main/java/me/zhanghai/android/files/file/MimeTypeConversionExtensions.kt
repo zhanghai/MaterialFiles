@@ -30,10 +30,8 @@ fun MimeType.Companion.guessFromExtension(extension: String): MimeType {
 // @see /usr/share/mime/packages/freedesktop.org.xml
 private val extensionToMimeTypeOverrideMap = mapOf(
     // Fixes
-    "cab" to "application/vnd.ms-cab-compressed", // Was "application/x-cab"
     "csv" to "text/csv", // Was "text/comma-separated-values"
     "sh" to "application/x-sh", // Was "text/x-sh"
-    "otf" to "font/otf", // Was "font/ttf"
     // Addition
     "bz" to "application/x-bzip",
     "bz2" to "application/x-bzip2",
@@ -41,15 +39,12 @@ private val extensionToMimeTypeOverrideMap = mapOf(
     "lzma" to "application/x-lzma",
     "p7b" to "application/x-pkcs7-certificates",
     "spc" to "application/x-pkcs7-certificates", // Clashes with "chemical/x-galactic-spc"
-    "p7c" to "application/pkcs7-mime",
-    "p7s" to "application/pkcs7-signature",
     "ts" to "application/typescript", // Clashes with "video/mp2ts"
     "py3" to "text/x-python",
     "py3x" to "text/x-python",
     "pyx" to "text/x-python",
     "wsgi" to "text/x-python",
-    "yaml" to "text/x-yaml",
-    "yml" to "text/x-yaml",
+    "yml" to "application/yaml",
     "asm" to "text/x-asm",
     "s" to "text/x-asm",
     "cs" to "text/x-csharp",
@@ -79,6 +74,10 @@ private val specialPosixFileTypeToMimeTypeMap = mapOf(
     PosixFileType.SOCKET to "inode/socket"
 ).mapValues { it.value.asMimeType() }
 
+val MimeType.extension: String?
+    // TODO: Add compat implementation as well.
+    get() = MimeTypeMap.getSingleton().getExtensionFromMimeType(value)
+
 val MimeType.intentType: String
     get() = intentMimeType.value
 
@@ -91,6 +90,7 @@ private val mimeTypeToIntentMimeTypeMap = listOf(
     "application/javascript" to "text/javascript",
     "application/json" to "text/json",
     "application/typescript" to "text/typescript",
+    "application/yaml" to "text/x-yaml",
     "application/x-sh" to "text/x-shellscript",
     "application/x-shellscript" to "text/x-shellscript",
     // Allows matching generic

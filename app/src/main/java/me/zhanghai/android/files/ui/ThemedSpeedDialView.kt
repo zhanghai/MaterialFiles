@@ -42,6 +42,8 @@ import me.zhanghai.android.files.util.shortAnimTime
 import me.zhanghai.android.files.util.withModulatedAlpha
 
 class ThemedSpeedDialView : SpeedDialView {
+    private var onChangeListener: OnChangeListener? = null
+
     private var mainFabAnimator: Animator? = null
 
     constructor(context: Context) : super(context)
@@ -86,8 +88,9 @@ class ThemedSpeedDialView : SpeedDialView {
         }
         mainFabAnimationRotateAngle = 0f
         setMainFabClosedDrawable(mainFabDrawable)
-        setOnChangeListener(object : OnChangeListener {
-            override fun onMainActionSelected(): Boolean = false
+        super.setOnChangeListener(object : OnChangeListener {
+            override fun onMainActionSelected(): Boolean =
+                onChangeListener?.onMainActionSelected() ?: false
 
             override fun onToggleChanged(isOpen: Boolean) {
                 mainFabAnimator?.cancel()
@@ -99,8 +102,13 @@ class ThemedSpeedDialView : SpeedDialView {
                     })
                     start()
                 }
+                onChangeListener?.onToggleChanged(isOpen)
             }
         })
+    }
+
+    override fun setOnChangeListener(onChangeListener: OnChangeListener?) {
+        this.onChangeListener = onChangeListener
     }
 
     private fun createMainFabAnimator(isOpen: Boolean): Animator =

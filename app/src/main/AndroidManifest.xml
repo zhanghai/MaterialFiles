@@ -11,8 +11,7 @@
 
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     <uses-feature android:name="android.hardware.wifi" android:required="false" />
-    <!-- TODO: Google Play requires TV apps to be published with AAB. -->
-    <!--<uses-feature android:name="android.software.leanback" android:required="false" />-->
+    <uses-feature android:name="android.software.leanback" android:required="false" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -30,7 +29,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="30" />
+        android:maxSdkVersion="32" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <!-- Shizuku requires API 23. -->
@@ -44,15 +43,18 @@
     <application
         android:allowBackup="true"
         android:banner="@drawable/banner"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/netework_security_config"
         android:requestLegacyExternalStorage="true"
         android:requestRawExternalStorageAccess="true"
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialFiles"
+        android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
         <activity
@@ -63,8 +65,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!-- TODO: Google Play requires TV apps to be published with AAB. -->
-                <!--<category android:name="android.intent.category.LEANBACK_LAUNCHER" />-->
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
             <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
@@ -83,8 +84,11 @@
                 <data android:mimeType="application/java-archive" />
                 <data android:mimeType="application/rar" />
                 <data android:mimeType="application/zip" />
+                <data android:mimeType="application/zstd" />
                 <data android:mimeType="application/vnd.android.package-archive" />
                 <data android:mimeType="application/vnd.debian.binary-package" />
+                <data android:mimeType="application/vnd.ms-cab-compressed" />
+                <data android:mimeType="application/vnd.rar" />
                 <data android:mimeType="application/x-bzip2" />
                 <data android:mimeType="application/x-compress" />
                 <data android:mimeType="application/x-cpio" />
@@ -96,26 +100,23 @@
                 <data android:mimeType="application/x-lzma" />
                 <data android:mimeType="application/x-tar" />
                 <data android:mimeType="application/x-xz" />
-                <data android:mimeType="@string/intent_filter_data_seven_z_mime_type" />
+                <data android:mimeType="application/x-7z-compressed" />
             </intent-filter>
-            <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/master/AndroidManifest.xml -->
+            <intent-filter>
+                <action android:name="android.intent.action.GET_CONTENT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.OPENABLE" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+            <!-- @see https://android.googlesource.com/platform/packages/apps/DocumentsUI/+/main/AndroidManifest.xml -->
             <intent-filter>
                 <action android:name="android.intent.action.OPEN_DOCUMENT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
                 <data android:mimeType="*/*" />
             </intent-filter>
-            <!--
-              ~ Unusable until we implement DocumentsProvider.
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_DOCUMENT" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.OPENABLE" />
-                <data android:mimeType="*/*" />
-            </intent-filter>
-            -->
-            <intent-filter>
-                <action android:name="android.intent.action.GET_CONTENT" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.OPENABLE" />
                 <data android:mimeType="*/*" />
@@ -218,6 +219,11 @@
             android:theme="@style/Theme.MaterialFiles" />
 
         <activity
+            android:name="me.zhanghai.android.files.storage.EditWebDavServerActivity"
+            android:label="@string/storage_edit_webdav_server_title_edit"
+            android:theme="@style/Theme.MaterialFiles" />
+
+        <activity
             android:name="me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity"
             android:label="@string/navigation_edit_bookmark_directory_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
@@ -290,6 +296,26 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
+            android:name="me.zhanghai.android.files.viewer.saveas.SaveAsActivity"
+            android:autoRemoveFromRecents="true"
+            android:exported="true"
+            android:label="@string/save_as_title"
+            android:theme="@style/Theme.MaterialFiles.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:mimeType="*/*"
+                    android:scheme="content" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="me.zhanghai.android.files.viewer.text.TextEditorActivity"
             android:exported="true"
             android:label="@string/text_editor_title"
@@ -304,6 +330,7 @@
                 <data android:mimeType="application/x-sh" />
                 <data android:mimeType="application/x-shellscript" />
                 <data android:mimeType="application/xml" />
+                <data android:mimeType="application/yaml" />
                 <data android:mimeType="text/*" />
             </intent-filter>
         </activity>

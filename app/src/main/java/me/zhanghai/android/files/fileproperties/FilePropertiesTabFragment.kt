@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.core.view.get
-import androidx.core.view.size
+import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import me.zhanghai.android.files.databinding.FilePropertiesTabFragmentBinding
 import me.zhanghai.android.files.databinding.FilePropertiesTabItemBinding
 import me.zhanghai.android.files.util.Failure
@@ -68,29 +68,41 @@ abstract class FilePropertiesTabFragment : Fragment() {
         }
     }
 
-    protected class ViewBuilder(private val linearLayout: LinearLayout) {
-        private var itemCount = 0
+    protected class ViewBuilder(val linearLayout: LinearLayout) {
+        private val scrapViews = mutableMapOf<Class<out ViewBinding>, MutableList<ViewBinding>>()
+
+        init {
+            linearLayout.forEach { view ->
+                val binding = view.tag as ViewBinding
+                scrapViews.getOrPut(binding.javaClass) { mutableListOf() } += binding
+            }
+            linearLayout.removeAllViews()
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        fun <T : ViewBinding> getScrapItemBinding(bindingClass: Class<T>): T? =
+            scrapViews[bindingClass]?.removeLastOrNull() as T?
+
+        fun addView(binding: ViewBinding) {
+            linearLayout.addView(binding.root)
+        }
 
         fun addItemView(
             hint: String,
             text: String,
             onClickListener: ((View) -> Unit)? = null
         ): TextView {
-            val itemBinding = if (itemCount < linearLayout.size) {
-                linearLayout[itemCount].tag as FilePropertiesTabItemBinding
-            } else {
-                FilePropertiesTabItemBinding.inflate(
-                    linearLayout.context.layoutInflater, linearLayout, true
-                ).also { it.root.tag = it }
-            }
+            val itemBinding =
+                getScrapItemBinding(FilePropertiesTabItemBinding::class.java)?.also { addView(it) }
+                    ?: FilePropertiesTabItemBinding.inflate(
+                        linearLayout.context.layoutInflater, linearLayout, true
+                    )
+                        .also { it.root.tag = it }
             itemBinding.textInputLayout.hint = hint
             itemBinding.textInputLayout.setDropDown(onClickListener != null)
             itemBinding.text.setText(text)
             itemBinding.text.setTextIsSelectable(onClickListener == null)
-            itemBinding.text.setOnClickListener(
-                onClickListener?.let { View.OnClickListener(it) }
-            )
-            ++itemCount
+            itemBinding.text.setOnClickListener(onClickListener?.let { View.OnClickListener(it) })
             return itemBinding.text
         }
 
@@ -101,9 +113,7 @@ abstract class FilePropertiesTabFragment : Fragment() {
         ): TextView = addItemView(linearLayout.context.getString(hintRes), text, onClickListener)
 
         fun build() {
-            for (index in linearLayout.size - 1 downTo itemCount) {
-                linearLayout.removeViewAt(index)
-            }
+            scrapViews.clear()
         }
     }
 }

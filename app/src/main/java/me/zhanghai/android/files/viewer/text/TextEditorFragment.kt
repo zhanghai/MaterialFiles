@@ -14,6 +14,7 @@ import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
@@ -28,6 +29,7 @@ import me.zhanghai.android.files.ui.ThemedFastScroller
 import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.DataState
 import me.zhanghai.android.files.util.ParcelableArgs
+import me.zhanghai.android.files.util.addOnBackPressedCallback
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.extraPath
 import me.zhanghai.android.files.util.fadeInUnsafe
@@ -48,6 +50,8 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
     private val viewModel by viewModels { { TextEditorViewModel(argsFile) } }
 
+    private lateinit var onBackPressedCallback: OnBackPressedCallback
+
     private var isSettingText = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +60,18 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         setHasOptionsMenu(true)
 
         lifecycleScope.launchWhenStarted {
+            onBackPressedCallback = object : OnBackPressedCallback(false) {
+                override fun handleOnBackPressed() {
+                    ConfirmCloseDialogFragment.show(this@TextEditorFragment)
+                }
+            }
+            launch {
+                viewModel.isTextChanged.collect {
+                    onBackPressedCallback.isEnabled = viewModel.isTextChanged.value
+                }
+            }
+            addOnBackPressedCallback(onBackPressedCallback)
+
             launch { viewModel.encoding.collect { onEncodingChanged(it) } }
             launch { viewModel.textState.collect { onTextStateChanged(it) } }
             launch { viewModel.isTextChanged.collect { onIsTextChangedChanged(it) } }
@@ -148,9 +164,9 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             else -> super.onOptionsItemSelected(item)
         }
 
-    fun onFinish(): Boolean {
-        if (viewModel.isTextChanged.value) {
-            ConfirmCloseDialogFragment.show(this)
+    fun onSupportNavigateUp(): Boolean {
+        if (onBackPressedCallback.isEnabled) {
+            onBackPressedCallback.handleOnBackPressed()
             return true
         }
         return false

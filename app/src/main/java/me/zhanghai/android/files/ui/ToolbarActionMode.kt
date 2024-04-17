@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.DrawableRes
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
@@ -23,9 +24,15 @@ abstract class ToolbarActionMode(
     private var callback: Callback? = null
 
     init {
-        toolbar.setNavigationOnClickListener { finish() }
+        toolbar.setNavigationOnClickListener { callback?.onToolbarNavigationIconClicked(this) }
         toolbar.setOnMenuItemClickListener {
-            callback?.onToolbarActionModeItemClicked(this, it) ?: false
+            callback?.onToolbarActionModeMenuItemClicked(this, it) ?: false
+        }
+    }
+
+    val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            finish()
         }
     }
 
@@ -35,8 +42,15 @@ abstract class ToolbarActionMode(
             toolbar.navigationIcon = value
         }
 
-    fun setNavigationIcon(@DrawableRes iconRes: Int) {
+    var navigationContentDescription: CharSequence?
+        get() = toolbar.navigationContentDescription
+        set(value) {
+            toolbar.navigationContentDescription = value
+        }
+
+    fun setNavigationIcon(@DrawableRes iconRes: Int, @StringRes contentDescriptionRes: Int) {
         toolbar.setNavigationIcon(iconRes)
+        toolbar.setNavigationContentDescription(contentDescriptionRes)
     }
 
     var title: CharSequence?
@@ -78,6 +92,7 @@ abstract class ToolbarActionMode(
 
     fun start(callback: Callback, animate: Boolean = true) {
         this.callback = callback
+        onBackPressedCallback.isEnabled = true
         show(bar, animate)
         callback.onToolbarActionModeStarted(this)
     }
@@ -87,6 +102,7 @@ abstract class ToolbarActionMode(
     fun finish(animate: Boolean = true) {
         val callback = callback ?: return
         this.callback = null
+        onBackPressedCallback.isEnabled = false
         toolbar.menu.close()
         hide(bar, animate)
         callback.onToolbarActionModeFinished(this)
@@ -95,9 +111,13 @@ abstract class ToolbarActionMode(
     protected abstract fun hide(bar: ViewGroup, animate: Boolean)
 
     interface Callback {
-        fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode)
+        fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode) {}
 
-        fun onToolbarActionModeItemClicked(
+        fun onToolbarNavigationIconClicked(toolbarActionMode: ToolbarActionMode) {
+            toolbarActionMode.finish()
+        }
+
+        fun onToolbarActionModeMenuItemClicked(
             toolbarActionMode: ToolbarActionMode,
             item: MenuItem
         ): Boolean

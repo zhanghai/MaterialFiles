@@ -9,7 +9,7 @@
     <string name="file_type_name_unknown">ファイル</string>
     <string name="file_type_name_apk">Android パッケージ</string>
     <string name="file_type_name_archive">%1$s アーカイブ</string>
-    <string name="file_type_name_audio">%1$s オーディオ</string>
+    <string name="file_type_name_audio">%1$s 音声</string>
     <string name="file_type_name_calendar">%1$s カレンダー</string>
     <string name="file_type_name_certificate">%1$s 証明書</string>
     <string name="file_type_name_code">%1$s ドキュメント</string>
@@ -26,7 +26,7 @@
     <string name="file_type_name_spreadsheet">%1$s スプレッドシート</string>
     <string name="file_type_name_text">%1$s ドキュメント</string>
     <string name="file_type_name_text_plain">テキストファイル</string>
-    <string name="file_type_name_video">%1$s ビデオ</string>
+    <string name="file_type_name_video">%1$s 動画</string>
     <string name="file_type_name_word">Word 文書</string>
     <string name="file_type_name_powerpoint">PowerPoint プレゼンテーション</string>
     <string name="file_type_name_excel">Excel スプレッドシート</string>
@@ -35,5 +35,5 @@
     <string name="file_type_name_posix_fifo">パイプ</string>
     <string name="file_type_name_posix_symbolic_link">リンク</string>
     <string name="file_type_name_posix_socket">ソケット</string>
-    <string name="file_type_name_posix_symbolic_link_broken">破損リンク</string>
+    <string name="file_type_name_posix_symbolic_link_broken">リンク (破損)</string>
 </resources>

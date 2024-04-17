@@ -11,6 +11,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.provider.common.AbstractPosixFileAttributes
 import me.zhanghai.android.files.provider.common.ByteString
+import me.zhanghai.android.files.provider.common.EPOCH
 import me.zhanghai.android.files.provider.common.FileTimeParceler
 import me.zhanghai.android.files.provider.common.PosixFileMode
 import me.zhanghai.android.files.provider.common.PosixFileModeBit
@@ -41,7 +42,7 @@ internal data class SftpFileAttributes(
                 lastModifiedTime = FileTime.from(Instant.ofEpochSecond(attributes.mtime))
                 lastAccessTime = FileTime.from(Instant.ofEpochSecond(attributes.atime))
             } else {
-                lastModifiedTime = FileTime.from(Instant.EPOCH)
+                lastModifiedTime = FileTime::class.EPOCH
                 lastAccessTime = lastModifiedTime
             }
             val creationTime = lastModifiedTime

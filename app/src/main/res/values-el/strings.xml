@@ -253,11 +253,11 @@
     <string name="file_create_directory_title">Νέος φάκελος</string>
 
     <string name="file_list_title">Αρχεία</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Επιλογή αρχείου</item>
         <item quantity="other">Επιλογή αρχείων</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Επιλογή φακέλου</item>
         <item quantity="other">Επιλογή φακέλων</item>
     </plurals>
@@ -291,7 +291,7 @@
     <string name="file_list_action_add_bookmark">Προσθήκη σελιδοδείκτη</string>
     <string name="file_list_action_create_shortcut">Δημιουργία συντόμευσης</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Άνοιγμα σε νέο παράθυρο</string>
-    <string name="file_list_select_current_directory_format">Επιλογή “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Επιλογή “%1$s”</string>
     <string name="file_list_paste_move_title_format">Μετακίνηση %1$,d</string>
     <string name="file_list_paste_copy_title_format">Αντιγραφή %1$,d</string>
     <string name="file_list_paste_extract_title_format">Εξαγωγή %1$,d</string>
@@ -325,39 +325,39 @@
     <string name="file_properties_basic_archive_file">Αρχειοθέτηση αρχείου</string>
     <string name="file_properties_basic_archive_entry">Καταχώρηση αρχείου</string>
     <string name="file_properties_basic_free_space">Ελεύθερος χώρος</string>
-    <string name="file_properties_permissions">Δικαιώματα</string>
-    <string name="file_properties_permissions_owner">Κάτοχος</string>
-    <string name="file_properties_permissions_group">Ομάδα</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Αλλαγή κατόχου</string>
-    <string name="file_properties_permissions_set_group_title">Αλλαγή ομάδας</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Εισάγετε ένα όνομα ή ID</string>
-    <string name="file_properties_permissions_set_principal_system">Σύστημα</string>
-    <string name="file_properties_permissions_mode">Λειτουργία</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Αλλαγή λειτουργίας</string>
-    <string name="file_properties_permissions_set_mode_others">Άλλα</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Δικαιώματα</string>
+    <string name="file_properties_permission_owner">Κάτοχος</string>
+    <string name="file_properties_permission_group">Ομάδα</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Αλλαγή κατόχου</string>
+    <string name="file_properties_permission_set_group_title">Αλλαγή ομάδας</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Εισάγετε ένα όνομα ή ID</string>
+    <string name="file_properties_permission_set_principal_system">Σύστημα</string>
+    <string name="file_properties_permission_mode">Λειτουργία</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Αλλαγή λειτουργίας</string>
+    <string name="file_properties_permission_set_mode_others">Άλλα</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Ανάγνωση</item>
         <item>Εγγραφή</item>
         <item>Εκτέλεση</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Ανάγνωση</item>
         <item>Εγγραφή</item>
         <item>Αναζήτηση</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Ειδικά</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Ειδικά</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Ορισμός UID</item>
         <item>Ορισμός GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Χωρίς προσθήκη “Εκτέλεση“ για τα κλεισμένα αρχεία</string>
-    <string name="file_properties_permissions_selinux_context">SELinux Context</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Αλλαγή SELinux context</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Επαναφορά</string>
-    <string name="file_properties_permissions_recursive">Εφαρμογή σε κλεισμένα αρχεία</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Χωρίς προσθήκη “Εκτέλεση“ για τα κλεισμένα αρχεία</string>
+    <string name="file_properties_permission_selinux_context">SELinux Context</string>
+    <string name="file_properties_permission_set_selinux_context_title">Αλλαγή SELinux context</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Επαναφορά</string>
+    <string name="file_properties_permission_recursive">Εφαρμογή σε κλεισμένα αρχεία</string>
     <string name="file_properties_image">Εικόνα</string>
     <string name="file_properties_media_dimensions">Διαστάσεις</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -514,7 +514,6 @@
     <string name="storage_edit_smb_server_domain">Τομέας</string>
     <string name="storage_edit_smb_server_connect_and_add">Σύνδεση και προσθήκη</string>
     <string name="storage_edit_smb_server_add">Προσθήκη</string>
-
     <string name="navigation_storage_subtitle_format">%1$s ελεύθερα από %2$s</string>
     <string name="navigation_add_storage">Προσθήκη αποθήκευσης…</string>
     <string name="navigation_standard_directory_alarms">Ειδοποιήσεις</string>
@@ -555,9 +554,6 @@
     <string name="ftp_server_url_menu_copy_url">Αντιγραφή URL</string>
     <string name="ftp_server_url_menu_copy_password">Αντιγραφή κωδικού</string>
     <string name="ftp_server_add_tile_title">Προσθήκη στις Γρήγορες Ρυθμίσεις</string>
-    <string name="ftp_server_add_tile_result_added">\"Διακομιστής FTP\" έχει προστεθεί στις Γρήγορες Ρυθμίσεις</string>
-    <string name="ftp_server_add_tile_result_already_added">\"Διακομιστής FTP\" έχει ήδη προστεθεί στις Γρήγορες Ρυθμίσεις</string>
-    <string name="ftp_server_add_tile_result_error">Σφάλμα κατά την προσθήκη \"Διακομιστής FTP\" στις Γρήγορες Ρυθμίσεις</string>
     <string name="ftp_server_configuration_title">Διαμόρφωση</string>
     <string name="ftp_server_anonymous_login_title">Ανώνυμη σύνδεση</string>
     <string name="ftp_server_username_title">Όνομα χρήστη</string>

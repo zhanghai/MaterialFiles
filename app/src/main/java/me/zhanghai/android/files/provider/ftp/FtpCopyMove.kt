@@ -79,7 +79,7 @@ internal object FtpCopyMove {
                         try {
                             targetOutputStream.close()
                         } catch (e: IOException) {
-                            throw IOException(e).toFileSystemExceptionForFtp(target.toString())
+                            throw e.toFileSystemExceptionForFtp(target.toString())
                         } finally {
                             if (!successful) {
                                 try {
@@ -94,7 +94,7 @@ internal object FtpCopyMove {
                     try {
                         sourceInputStream.close()
                     } catch (e: IOException) {
-                        throw IOException(e).toFileSystemExceptionForFtp(source.toString())
+                        throw e.toFileSystemExceptionForFtp(source.toString())
                     }
                 }
             }
@@ -105,7 +105,7 @@ internal object FtpCopyMove {
             val timestamp = sourceFile.timestamp
             if (timestamp != null) {
                 try {
-                    Client.setLastModifiedTime(target, sourceFile.timestamp.toInstantCompat())
+                    Client.setLastModifiedTime(target, timestamp.toInstantCompat())
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

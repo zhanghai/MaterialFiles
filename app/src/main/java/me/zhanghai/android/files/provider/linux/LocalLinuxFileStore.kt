@@ -18,8 +18,8 @@ import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.linux.syscall.Constants
 import me.zhanghai.android.files.provider.linux.syscall.Int32Ref
 import me.zhanghai.android.files.provider.linux.syscall.StructMntent
-import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.provider.linux.syscall.Syscall
+import me.zhanghai.android.files.provider.linux.syscall.SyscallException
 import me.zhanghai.android.files.util.andInv
 import me.zhanghai.android.files.util.hasBits
 import me.zhanghai.android.files.util.readParcelable

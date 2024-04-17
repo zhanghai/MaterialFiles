@@ -33,13 +33,14 @@ import me.zhanghai.android.files.storage.StorageVolumeListLiveData
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.isMounted
 import me.zhanghai.android.files.util.putArgs
+import me.zhanghai.android.files.util.supportsExternalStorageManager
 import me.zhanghai.android.files.util.valueCompat
 
 val navigationItems: List<NavigationItem?>
     get() =
         mutableListOf<NavigationItem?>().apply {
             addAll(storageItems)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment::class.supportsExternalStorageManager()) {
                 // Starting with R, we can get read/write access to non-primary storage volumes with
                 // MANAGE_EXTERNAL_STORAGE. However before R, we only have read-only access to them
                 // and need to use the Storage Access Framework instead, so hide them in this case

@@ -1,0 +1,8 @@
+- Added WebDAV support.
+- Added keyboard shortcut support.
+- Added Android TV launcher icon.
+- Added predicative back gesture support.
+- Added Catalan translation.
+- Fixed storage permission support for Android TV 11, 12 and 12L.
+- Material Design 2 theme may be removed in the upcoming version 1.8.0.
+- Other bug fixes and improvements.

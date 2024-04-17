@@ -7,7 +7,6 @@ package me.zhanghai.android.files.fileproperties.video
 
 import android.content.Intent
 import android.location.Geocoder
-import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import java8.nio.file.Path
 import kotlinx.coroutines.Job
@@ -41,8 +40,8 @@ class FilePropertiesVideoTabFragment : FilePropertiesTabFragment() {
 
     private var addressJob: Job? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         viewModel.videoInfoLiveData.observe(viewLifecycleOwner) { onVideoInfoChanged(it) }
     }
