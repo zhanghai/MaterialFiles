@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -21,6 +22,7 @@ import me.zhanghai.android.files.filelist.name
 import me.zhanghai.android.files.fileproperties.apk.FilePropertiesApkTabFragment
 import me.zhanghai.android.files.fileproperties.audio.FilePropertiesAudioTabFragment
 import me.zhanghai.android.files.fileproperties.basic.FilePropertiesBasicTabFragment
+import me.zhanghai.android.files.fileproperties.checksum.FilePropertiesChecksumTabFragment
 import me.zhanghai.android.files.fileproperties.image.FilePropertiesImageTabFragment
 import me.zhanghai.android.files.fileproperties.permission.FilePropertiesPermissionTabFragment
 import me.zhanghai.android.files.fileproperties.video.FilePropertiesVideoTabFragment
@@ -70,6 +72,15 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
                             to { FilePropertiesPermissionTabFragment() }
                     )
                 }
+                if (FilePropertiesChecksumTabFragment.isAvailable(args.file)) {
+                    add(
+                        R.string.file_properties_checksum to {
+                            FilePropertiesChecksumTabFragment().putArgs(
+                                FilePropertiesChecksumTabFragment.Args(args.file.path)
+                            )
+                        }
+                    )
+                }
                 if (FilePropertiesImageTabFragment.isAvailable(args.file)) {
                     add(
                         R.string.file_properties_image to {
@@ -115,6 +126,14 @@ class FilePropertiesDialogFragment : AppCompatDialogFragment() {
         binding.viewPager.offscreenPageLimit = tabAdapter.count - 1
         binding.viewPager.adapter = tabAdapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // AlertDialog (its AlertController) adds FLAG_ALT_FOCUSABLE_IM when the initial custom
+        // view doesn't have any view that returns true for onCheckIsTextEditor().
+        requireDialog().window!!.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM)
     }
 
     companion object {

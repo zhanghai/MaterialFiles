@@ -340,6 +340,12 @@
     <string name="file_properties_permission_set_selinux_context_title">更改 SELinux 上下文</string>
     <string name="file_properties_permission_set_selinux_context_restore">还原</string>
     <string name="file_properties_permission_recursive">应用到包含的文件</string>
+    <string name="file_properties_checksum">校验和</string>
+    <string name="file_properties_checksum_compare">比较</string>
+    <string name="file_properties_checksum_compare_placeholder">任意校验和</string>
+    <string name="file_properties_checksum_compare_match_format">与 %1$s 校验和匹配</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">与 %1$s 校验和的前缀匹配</string>
+    <string name="file_properties_checksum_compare_no_match">未找到匹配的校验和</string>
     <string name="file_properties_image">图片</string>
     <string name="file_properties_media_dimensions">尺寸</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>

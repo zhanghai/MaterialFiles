@@ -382,6 +382,17 @@
     <string name="file_properties_permission_set_selinux_context_title">Change SELinux context</string>
     <string name="file_properties_permission_set_selinux_context_restore">Restore</string>
     <string name="file_properties_permission_recursive">Apply to enclosed files</string>
+    <string name="file_properties_checksum">Checksums</string>
+    <string name="file_properties_checksum_compare">Compare</string>
+    <string name="file_properties_checksum_compare_placeholder">Any checksum</string>
+    <string name="file_properties_checksum_compare_match_format">Matches %1$s checksum</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Matches prefix of %1$s checksum</string>
+    <string name="file_properties_checksum_compare_no_match">No matching checksum found</string>
+    <string name="file_properties_checksum_crc32" translatable="false">CRC32</string>
+    <string name="file_properties_checksum_md5" translatable="false">MD5</string>
+    <string name="file_properties_checksum_sha_1" translatable="false">SHA-1</string>
+    <string name="file_properties_checksum_sha_256" translatable="false">SHA-256</string>
+    <string name="file_properties_checksum_sha_512" translatable="false">SHA-512</string>
     <string name="file_properties_image">Image</string>
     <string name="file_properties_media_dimensions">Dimensions</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
