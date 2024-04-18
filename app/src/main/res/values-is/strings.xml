@@ -437,10 +437,6 @@
     <string name="storage_edit_device_storage_title">Breyta geymslurými tækis</string>
     <string name="storage_edit_device_storage_name">Nafn</string>
     <string name="storage_edit_device_storage_path">Slóð</string>
-    <string name="storage_add_document_manager_shortcut_title">Bæta við DocumentsUI-flýtileið</string>
-    <string name="storage_edit_document_manager_shortcut_title">Breyta DocumentsUI-flýtileið</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Settu inn slóð</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ógild slóð</string>
     <string name="storage_add_document_tree_title">Bæta við ytra geymslurými</string>
     <string name="storage_edit_document_tree_title">Breyta ytra geymslurými</string>
     <string name="storage_edit_document_tree_name">Nafn</string>

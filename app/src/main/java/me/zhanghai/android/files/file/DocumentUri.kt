@@ -17,6 +17,9 @@ import me.zhanghai.android.files.util.StableUriParceler
 @Parcelize
 @JvmInline
 value class DocumentUri(val value: @WriteWith<StableUriParceler> Uri) : Parcelable {
+    val treeDocumentId: String
+        get() = DocumentsContract.getTreeDocumentId(value)
+
     val documentId: String
         get() = DocumentsContract.getDocumentId(value)
 }

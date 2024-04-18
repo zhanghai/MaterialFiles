@@ -179,13 +179,13 @@
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
-            android:name="me.zhanghai.android.files.storage.AddDocumentManagerShortcutActivity"
-            android:label="@string/storage_add_document_manager_shortcut_title"
+            android:name="me.zhanghai.android.files.storage.AddExternalStorageShortcutActivity"
+            android:label="@string/storage_add_external_storage_shortcut_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity
-            android:name="me.zhanghai.android.files.storage.EditDocumentManagerShortcutDialogActivity"
-            android:label="@string/storage_edit_document_manager_shortcut_title"
+            android:name="me.zhanghai.android.files.storage.EditExternalStorageShortcutDialogActivity"
+            android:label="@string/storage_edit_external_storage_shortcut_title"
             android:theme="@style/Theme.MaterialFiles.Translucent" />
 
         <activity

@@ -435,10 +435,6 @@
     <string name="storage_edit_device_storage_title">Rediger lagring på enheten</string>
     <string name="storage_edit_device_storage_name">Navn</string>
     <string name="storage_edit_device_storage_path">Bane</string>
-    <string name="storage_add_document_manager_shortcut_title">Legg til DocumentsUI-snarvei</string>
-    <string name="storage_edit_document_manager_shortcut_title">Rediger DocumentsUI-snarvei</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Skriv inn en URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ugyldig URI</string>
     <string name="storage_add_document_tree_title">Legg til ekstern lagring</string>
     <string name="storage_edit_document_tree_title">Rediger ekstern lagring</string>
     <string name="storage_edit_document_tree_name">Navn</string>

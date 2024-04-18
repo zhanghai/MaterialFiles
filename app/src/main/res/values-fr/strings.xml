@@ -467,10 +467,6 @@
     <string name="storage_edit_device_storage_title">Modifier le stockage de l\'appareil</string>
     <string name="storage_edit_device_storage_name">Nom</string>
     <string name="storage_edit_device_storage_path">Chemin</string>
-    <string name="storage_add_document_manager_shortcut_title">Ajouter un raccourci DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Modifier le raccourci DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Entrez un URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI invalide</string>
     <string name="storage_add_document_tree_title">Ajouter un support de stockage externe</string>
     <string name="storage_edit_document_tree_title">Modifier le support de stockage externe</string>
     <string name="storage_edit_document_tree_name">Nom</string>

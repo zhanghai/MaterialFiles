@@ -464,10 +464,6 @@
     <string name="storage_edit_device_storage_title">Editează stocarea dispozitivului</string>
     <string name="storage_edit_device_storage_name">Nume</string>
     <string name="storage_edit_device_storage_path">Cale</string>
-    <string name="storage_add_document_manager_shortcut_title">Adaugă o scurtătură pentru DocumentUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Editează scurtătura pentru DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Introdu un URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI invalid</string>
     <string name="storage_add_document_tree_title">Adaugă stocare externă</string>
     <string name="storage_edit_document_tree_title">Editează stocarea externă</string>
     <string name="storage_edit_document_tree_name">Nume</string>

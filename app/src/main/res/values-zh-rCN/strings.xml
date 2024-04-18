@@ -412,10 +412,11 @@
     <string name="storage_edit_device_storage_title">编辑设备存储空间</string>
     <string name="storage_edit_device_storage_name">名称</string>
     <string name="storage_edit_device_storage_path">路径</string>
-    <string name="storage_add_document_manager_shortcut_title">添加 DocumentsUI 快捷方式</string>
-    <string name="storage_edit_document_manager_shortcut_title">编辑 DocumentsUI 快捷方式</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">输入 URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">无效 URI</string>
+    <string name="storage_add_external_storage_shortcut_title">添加外部存储空间快捷方式</string>
+    <string name="storage_edit_external_storage_shortcut_title">编辑外部存储空间快捷方式</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">存储卷</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">输入存储卷</string>
+    <string name="storage_edit_external_storage_shortcut_path">路径</string>
     <string name="storage_add_document_tree_title">添加外部存储空间</string>
     <string name="storage_edit_document_tree_title">编辑外部存储空间</string>
     <string name="storage_edit_document_tree_name">名称</string>

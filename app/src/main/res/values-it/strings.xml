@@ -465,10 +465,6 @@
     <string name="storage_edit_device_storage_title">Modifica archiviazione dispositivo</string>
     <string name="storage_edit_device_storage_name">Nome</string>
     <string name="storage_edit_device_storage_path">Percorso</string>
-    <string name="storage_add_document_manager_shortcut_title">Aggiungi la scorciatoia DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Modifica la scorciatoia DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Inserisci un URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI non valido</string>
     <string name="storage_add_document_tree_title">Aggiungi archiviazione esterna</string>
     <string name="storage_edit_document_tree_title">Modifica archiviazione esterna</string>
     <string name="storage_edit_document_tree_name">Nome</string>

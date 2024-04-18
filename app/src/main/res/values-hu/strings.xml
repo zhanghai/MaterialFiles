@@ -425,10 +425,6 @@
     <string name="storage_edit_device_storage_title">Tárolóeszköz szerkesztése</string>
     <string name="storage_edit_device_storage_name">Név</string>
     <string name="storage_edit_device_storage_path">Útvonal</string>
-    <string name="storage_add_document_manager_shortcut_title">DocumentsUI parancsikon hozzáadása</string>
-    <string name="storage_edit_document_manager_shortcut_title">DocumentsUI parancsikon szerkesztése</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Adjon meg URI-t</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Érvénytelen URI</string>
     <string name="storage_add_document_tree_title">Külső tároló hozzáadása</string>
     <string name="storage_edit_document_tree_title">Külső tároló szerkesztése</string>
     <string name="storage_edit_document_tree_name">Név</string>

@@ -405,10 +405,6 @@
     <string name="storage_edit_device_storage_title">Muokkaa laitteen tallennustilaa</string>
     <string name="storage_edit_device_storage_name">Nimi</string>
     <string name="storage_edit_device_storage_path">polku</string>
-    <string name="storage_add_document_manager_shortcut_title">Lisää DocumentsUI-pikakuvake</string>
-    <string name="storage_edit_document_manager_shortcut_title">Muokkaa DocumentsUI-pikakuvaketta</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Syötä URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Virheellinen URI</string>
     <string name="storage_add_document_tree_title">Lisää ulkoinen tallennustila</string>
     <string name="storage_edit_document_tree_title">Muokkaa ulkoista tallennustilaa</string>
     <string name="storage_edit_document_tree_name">Nimi</string>

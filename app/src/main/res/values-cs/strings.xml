@@ -493,8 +493,6 @@
     <string name="storage_edit_device_storage_title">Upravit úložiště zařízení</string>
     <string name="storage_edit_device_storage_name">Název</string>
     <string name="storage_edit_device_storage_path">Cesta</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Zadejte URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Neplatná URI</string>
     <string name="storage_add_document_tree_title">Přidat externí úložiště</string>
     <string name="storage_edit_document_tree_title">Upravit externí úložiště</string>
     <string name="storage_edit_document_tree_name">Název</string>

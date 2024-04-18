@@ -30,7 +30,9 @@
                 android:id="@+id/nameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/storage_edit_document_tree_name">
+                android:hint="@string/storage_edit_document_tree_name"
+                app:errorEnabled="true"
+                app:expandedHintEnabled="false">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/nameEdit"
@@ -43,17 +45,31 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/uriLayout"
+                android:id="@+id/rootIdLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/storage_edit_document_tree_uri"
+                android:hint="@string/storage_edit_external_storage_shortcut_root_id"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/uriEdit"
+                    android:id="@+id/rootIdEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/pathLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/storage_edit_external_storage_shortcut_path">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/pathEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:importantForAutofill="no"
                     android:inputType="textUri" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

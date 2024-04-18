@@ -495,10 +495,6 @@
     <string name="storage_edit_device_storage_title">Edytuj pamięć urządzenia</string>
     <string name="storage_edit_device_storage_name">Nazwa</string>
     <string name="storage_edit_device_storage_path">Ścieżka</string>
-    <string name="storage_add_document_manager_shortcut_title">Dodaj skrót DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Edytuj skrót DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Podaj URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Nieprawidłowy URI</string>
     <string name="storage_add_document_tree_title">Dodaj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_title">Edytuj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_name">Nazwa</string>

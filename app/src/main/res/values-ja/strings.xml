@@ -405,10 +405,6 @@
     <string name="storage_edit_device_storage_title">デバイスのストレージを編集</string>
     <string name="storage_edit_device_storage_name">名前</string>
     <string name="storage_edit_device_storage_path">パス</string>
-    <string name="storage_add_document_manager_shortcut_title">ドキュメント UI ショートカットを追加</string>
-    <string name="storage_edit_document_manager_shortcut_title">ドキュメント UI ショートカットを編集</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">URI を入力してください</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">無効な URI です</string>
     <string name="storage_add_document_tree_title">外部ストレージを追加</string>
     <string name="storage_edit_document_tree_title">外部ストレージを編集</string>
     <string name="storage_edit_document_tree_name">名前</string>

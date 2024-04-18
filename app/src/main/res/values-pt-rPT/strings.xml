@@ -467,10 +467,6 @@
     <string name="storage_edit_device_storage_title">Editar armazenamento</string>
     <string name="storage_edit_device_storage_name">Nome</string>
     <string name="storage_edit_device_storage_path">Caminho</string>
-    <string name="storage_add_document_manager_shortcut_title">Adicionar atalho \'DocumentsUI\'</string>
-    <string name="storage_edit_document_manager_shortcut_title">Editar atalho \'DocumentsUI\'</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Indique um URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI inválido</string>
     <string name="storage_add_document_tree_title">Adicionar armazenamento externo</string>
     <string name="storage_edit_document_tree_title">Editar armazenamento externo</string>
     <string name="storage_edit_document_tree_name">Nome</string>

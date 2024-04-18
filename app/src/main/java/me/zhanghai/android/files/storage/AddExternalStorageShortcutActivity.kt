@@ -12,8 +12,8 @@ import me.zhanghai.android.files.app.AppActivity
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.putArgs
 
-class AddDocumentManagerShortcutActivity : AppActivity() {
-    private val args by args<AddDocumentManagerShortcutFragment.Args>()
+class AddExternalStorageShortcutActivity : AppActivity() {
+    private val args by args<AddExternalStorageShortcutFragment.Args>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +21,9 @@ class AddDocumentManagerShortcutActivity : AppActivity() {
         // Calls ensureSubDecor().
         findViewById<View>(android.R.id.content)
         if (savedInstanceState == null) {
-            val fragment = AddDocumentManagerShortcutFragment().putArgs(args)
+            val fragment = AddExternalStorageShortcutFragment().putArgs(args)
             supportFragmentManager.commit {
-                add(fragment, AddDocumentManagerShortcutFragment::class.java.name)
+                add(fragment, AddExternalStorageShortcutFragment::class.java.name)
             }
         }
     }

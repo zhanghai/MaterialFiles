@@ -435,10 +435,6 @@
     <string name="storage_edit_device_storage_title">Редактиране на хранилище</string>
     <string name="storage_edit_device_storage_name">Име</string>
     <string name="storage_edit_device_storage_path">Път</string>
-    <string name="storage_add_document_manager_shortcut_title">Добавяне на пряк път за DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Променяне на пряк път за DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Въведете адрес</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Неприемлив адрес</string>
     <string name="storage_add_document_tree_title">Добавяне на външно хранилище</string>
     <string name="storage_edit_document_tree_title">Редакция на външно хранилище</string>
     <string name="storage_edit_document_tree_name">Име</string>

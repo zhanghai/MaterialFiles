@@ -412,10 +412,11 @@
     <string name="storage_edit_device_storage_title">編輯裝置儲存空間</string>
     <string name="storage_edit_device_storage_name">名稱</string>
     <string name="storage_edit_device_storage_path">路徑</string>
-    <string name="storage_add_document_manager_shortcut_title">新增 DocumentsUI 捷徑</string>
-    <string name="storage_edit_document_manager_shortcut_title">編輯 DocumentsUI 捷徑</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">輸入 URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">無效的 URI</string>
+    <string name="storage_add_external_storage_shortcut_title">新增外部儲存空間捷徑</string>
+    <string name="storage_edit_external_storage_shortcut_title">編輯外部儲存空間捷徑</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">儲存空間</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">輸入儲存空間</string>
+    <string name="storage_edit_external_storage_shortcut_path">路徑</string>
     <string name="storage_add_document_tree_title">新增外部儲存空間</string>
     <string name="storage_edit_document_tree_title">編輯外部儲存空間</string>
     <string name="storage_edit_document_tree_name">名稱</string>

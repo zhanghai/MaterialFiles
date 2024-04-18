@@ -494,10 +494,6 @@
     <string name="storage_edit_device_storage_title">עריכת אחסון ההתקן</string>
     <string name="storage_edit_device_storage_name">שם</string>
     <string name="storage_edit_device_storage_path">נתיב</string>
-    <string name="storage_add_document_manager_shortcut_title">הוספת קיצור דרך ל־DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">עריכת קיצור דרך ל־DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">נא למלא כתובת</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">כתובת שגויה</string>
     <string name="storage_add_document_tree_title">הוספת אחסון חיצוני</string>
     <string name="storage_edit_document_tree_title">עריכת אחסון חיצוני</string>
     <string name="storage_edit_document_tree_name">שם</string>

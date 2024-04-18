@@ -12,7 +12,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import me.zhanghai.android.files.R
-import me.zhanghai.android.files.file.asDocumentUri
+import me.zhanghai.android.files.file.asExternalStorageUri
 import me.zhanghai.android.files.provider.document.resolver.ExternalStorageProviderHacks
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.finish
@@ -42,19 +42,19 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
         private val STORAGE_TYPES = listOfNotNull(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 R.string.storage_add_storage_android_data to
-                    AddDocumentManagerShortcutActivity ::class.createIntent().putArgs(
-                        AddDocumentManagerShortcutFragment.Args(
-                            R.string.storage_add_storage_android_data,
-                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_DATA.asDocumentUri()
+                    AddExternalStorageShortcutActivity ::class.createIntent().putArgs(
+                        AddExternalStorageShortcutFragment.Args(
+                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_DATA
+                                .asExternalStorageUri()
                         )
                     )
             } else null,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 R.string.storage_add_storage_android_obb to
-                    AddDocumentManagerShortcutActivity ::class.createIntent().putArgs(
-                        AddDocumentManagerShortcutFragment.Args(
-                            R.string.storage_add_storage_android_obb,
-                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_OBB.asDocumentUri()
+                    AddExternalStorageShortcutActivity ::class.createIntent().putArgs(
+                        AddExternalStorageShortcutFragment.Args(
+                            ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_OBB
+                                .asExternalStorageUri()
                         )
                     )
             } else null,

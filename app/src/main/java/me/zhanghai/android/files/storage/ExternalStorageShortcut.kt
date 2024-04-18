@@ -9,27 +9,26 @@ import android.content.Context
 import android.content.Intent
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
-import me.zhanghai.android.files.file.DocumentUri
+import me.zhanghai.android.files.file.ExternalStorageUri
 import me.zhanghai.android.files.file.displayName
-import me.zhanghai.android.files.util.createDocumentManagerViewDirectoryIntent
+import me.zhanghai.android.files.util.createDocumentsUiViewDirectoryIntent
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.putArgs
 import kotlin.random.Random
 
 @Parcelize
-data class DocumentManagerShortcut(
+data class ExternalStorageShortcut(
     override val id: Long,
     override val customName: String?,
-    val uri: DocumentUri
+    val uri: ExternalStorageUri
 ) : Storage() {
     constructor(
         id: Long?,
         customName: String?,
-        uri: DocumentUri
+        uri: ExternalStorageUri
     ) : this(id ?: Random.nextLong(), customName, uri)
 
-    override fun getDefaultName(context: Context): String =
-        uri.displayName ?: uri.value.lastPathSegment ?: uri.value.toString()
+    override fun getDefaultName(context: Context): String = uri.displayName
 
     override val description: String
         get() = uri.value.toString()
@@ -37,9 +36,9 @@ data class DocumentManagerShortcut(
     override val path: Path?
         get() = null
 
-    override fun createIntent(): Intent = uri.value.createDocumentManagerViewDirectoryIntent()
+    override fun createIntent(): Intent = uri.value.createDocumentsUiViewDirectoryIntent()
 
     override fun createEditIntent(): Intent =
-        EditDocumentManagerShortcutDialogActivity::class.createIntent()
-            .putArgs(EditDocumentManagerShortcutDialogFragment.Args(this))
+        EditExternalStorageShortcutDialogActivity::class.createIntent()
+            .putArgs(EditExternalStorageShortcutDialogFragment.Args(this))
 }

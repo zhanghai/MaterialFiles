@@ -435,10 +435,6 @@
     <string name="storage_edit_device_storage_title">Edita l\'emmagatzematge del dispositiu</string>
     <string name="storage_edit_device_storage_name">Nom</string>
     <string name="storage_edit_device_storage_path">Camí</string>
-    <string name="storage_add_document_manager_shortcut_title">Afegeix la drecera DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Edita la drecera DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Introduïu un URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">L\'URI no és vàlid</string>
     <string name="storage_add_document_tree_title">Afegeix un emmagatzematge extern</string>
     <string name="storage_edit_document_tree_title">Edita l\'emmagatzematge extern</string>
     <string name="storage_edit_document_tree_name">Nom</string>

@@ -435,10 +435,6 @@
     <string name="storage_edit_device_storage_title">Gerätespeicher bearbeiten</string>
     <string name="storage_edit_device_storage_name">Name</string>
     <string name="storage_edit_device_storage_path">Pfad</string>
-    <string name="storage_add_document_manager_shortcut_title">DocumentsUI Verknüpfung hinzufügen</string>
-    <string name="storage_edit_document_manager_shortcut_title">DocumentsUI Verknüpfung bearbeiten</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Gib eine URI ein</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ungültige URI</string>
     <string name="storage_add_document_tree_title">Externen Speicher hinzufügen</string>
     <string name="storage_edit_document_tree_title">Externen Speicher bearbeiten</string>
     <string name="storage_edit_document_tree_name">Name</string>

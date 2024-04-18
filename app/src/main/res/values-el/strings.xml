@@ -424,10 +424,6 @@
     <string name="storage_edit_device_storage_title">Επεξεργασία αποθήκευσης συσκευής</string>
     <string name="storage_edit_device_storage_name">Όνομα</string>
     <string name="storage_edit_device_storage_path">Διαδρομή</string>
-    <string name="storage_add_document_manager_shortcut_title">Προσθήκη συντόμευσης DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Επεξεργασία συντόμευσης DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Εισάγετε ένα URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Μη έγκυρο URI</string>
     <string name="storage_add_document_tree_title">Προσθήκη εξωτερικής αποθήκευσης</string>
     <string name="storage_edit_document_tree_title">Επεξεργασία εξωτερικής αποθήκευσης</string>
     <string name="storage_edit_document_tree_name">Όνομα</string>

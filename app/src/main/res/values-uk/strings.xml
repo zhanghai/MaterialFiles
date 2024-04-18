@@ -496,10 +496,6 @@
     <string name="storage_edit_device_storage_title">Змінити сховище пристрою</string>
     <string name="storage_edit_device_storage_name">Назва</string>
     <string name="storage_edit_device_storage_path">Шлях</string>
-    <string name="storage_add_document_manager_shortcut_title">Додати ярлик DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Редагувати ярлик DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Введіть URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Невірний URI</string>
     <string name="storage_add_document_tree_title">Додати зовнішнє сховище</string>
     <string name="storage_edit_document_tree_title">Змінити зовнішнє сховище</string>
     <string name="storage_edit_document_tree_name">Назва</string>

@@ -404,10 +404,6 @@
     <string name="storage_edit_device_storage_title">Sunting penyimpanan perangkat</string>
     <string name="storage_edit_device_storage_name">Nama</string>
     <string name="storage_edit_device_storage_path">Jalur</string>
-    <string name="storage_add_document_manager_shortcut_title">Tambahkan pintasan DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Sunting pintasan DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Masukkan URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI tidak valid</string>
     <string name="storage_add_document_tree_title">Tambah penyimpanan eksternal</string>
     <string name="storage_edit_document_tree_title">Sunting penyimpanan eksternal</string>
     <string name="storage_edit_document_tree_name">Nama</string>

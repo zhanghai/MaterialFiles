@@ -545,10 +545,6 @@
     <string name="storage_edit_device_storage_title">تحرير وحدة تخزين الجهاز</string>
     <string name="storage_edit_device_storage_name">الاسم</string>
     <string name="storage_edit_device_storage_path">المسار</string>
-    <string name="storage_add_document_manager_shortcut_title">إضافة اختصار واجهة المستخدم للوثائق</string>
-    <string name="storage_edit_document_manager_shortcut_title">تعديل اختصار واجهة المستخدم للوثائق</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">أدخل URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI غير صالح</string>
     <string name="storage_add_document_tree_title">أضف وحدة تخزين خارجية</string>
     <string name="storage_edit_document_tree_title">تحرير وحدة التخزين الخارجية</string>
     <string name="storage_edit_document_tree_name">الاسم</string>

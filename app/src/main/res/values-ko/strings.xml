@@ -405,10 +405,6 @@
     <string name="storage_edit_device_storage_title">기기 저장소 편집</string>
     <string name="storage_edit_device_storage_name">이름</string>
     <string name="storage_edit_device_storage_path">경로</string>
-    <string name="storage_add_document_manager_shortcut_title">DocumentsUI 바로가기 추가</string>
-    <string name="storage_edit_document_manager_shortcut_title">DocumentsUI 바로가기 편집</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">URI를 입력하세요</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">올바르지 않은 URI</string>
     <string name="storage_add_document_tree_title">외부 저장소 추가</string>
     <string name="storage_edit_document_tree_title">외부 저장소 편집</string>
     <string name="storage_edit_document_tree_name">이름</string>

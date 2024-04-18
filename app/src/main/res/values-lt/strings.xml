@@ -487,10 +487,6 @@
     <string name="storage_edit_device_storage_title">Redaguoti įrenginio saugylką</string>
     <string name="storage_edit_device_storage_name">Pavadinimas</string>
     <string name="storage_edit_device_storage_path">Kelias</string>
-    <string name="storage_add_document_manager_shortcut_title">Pridėti DocumentsUI nuorodą</string>
-    <string name="storage_edit_document_manager_shortcut_title">Redaguoti DocumentsUI nuorodą</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Įvesk URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Neteisingas URI</string>
     <string name="storage_add_document_tree_title">Pridėti išorinę saugyklą</string>
     <string name="storage_edit_document_tree_title">Redaguoti išorinę saugyklą</string>
     <string name="storage_edit_document_tree_name">Pavadinimas</string>
