@@ -35,8 +35,8 @@ android {
         // Not supporting notification runtime permission yet.
         //noinspection OldTargetApi
         targetSdk 34
-        versionCode 36
-        versionName '1.7.1'
+        versionCode 37
+        versionName '1.7.2'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
