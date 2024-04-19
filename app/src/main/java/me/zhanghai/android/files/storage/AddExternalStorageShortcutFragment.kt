@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.storage
 
 import android.os.Bundle
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
@@ -27,7 +28,9 @@ class AddExternalStorageShortcutFragment : Fragment() {
         val hasDocumentsUi = uri.value.createDocumentsUiViewDirectoryIntent()
             .resolveActivity(packageManager) != null
         if (hasDocumentsUi) {
-            val externalStorageShortcut = ExternalStorageShortcut(null, null, uri)
+            val externalStorageShortcut = ExternalStorageShortcut(
+                null, args.customNameRes?.let { getString(it) }, uri
+            )
             Storages.addOrReplace(externalStorageShortcut)
         } else {
             showToast(R.string.activity_not_found)
@@ -36,5 +39,8 @@ class AddExternalStorageShortcutFragment : Fragment() {
     }
 
     @Parcelize
-    class Args(val uri: ExternalStorageUri) : ParcelableArgs
+    class Args(
+        @StringRes val customNameRes: Int?,
+        val uri: ExternalStorageUri
+    ) : ParcelableArgs
 }

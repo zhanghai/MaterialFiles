@@ -44,6 +44,7 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
                 R.string.storage_add_storage_android_data to
                     AddExternalStorageShortcutActivity ::class.createIntent().putArgs(
                         AddExternalStorageShortcutFragment.Args(
+                            R.string.storage_add_storage_android_data,
                             ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_DATA
                                 .asExternalStorageUri()
                         )
@@ -53,6 +54,7 @@ class AddStorageDialogFragment : AppCompatDialogFragment() {
                 R.string.storage_add_storage_android_obb to
                     AddExternalStorageShortcutActivity ::class.createIntent().putArgs(
                         AddExternalStorageShortcutFragment.Args(
+                            R.string.storage_add_storage_android_obb,
                             ExternalStorageProviderHacks.DOCUMENT_URI_ANDROID_OBB
                                 .asExternalStorageUri()
                         )

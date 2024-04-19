@@ -12,15 +12,21 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
 import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.util.StableUriParceler
+import me.zhanghai.android.files.util.takeIfNotEmpty
 
 @Parcelize
 @JvmInline
 value class ExternalStorageUri(val value: @WriteWith<StableUriParceler> Uri) : Parcelable {
-    constructor(rootId: String, path: String) : this(
+    constructor(
+        rootId: String,
+        path: String
+    ) : this(
         DocumentsContract.buildDocumentUriUsingTree(
             DocumentsContract.buildTreeDocumentUri(
-                DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY, rootId
-            ), "$rootId:$path"
+                DocumentsContractCompat.EXTERNAL_STORAGE_PROVIDER_AUTHORITY,
+                rootId
+            ),
+            "$rootId:$path"
         )
     )
 
@@ -47,9 +53,4 @@ private val Uri.isExternalStorageUri: Boolean
             pathSegments.size == 4
 
 val ExternalStorageUri.displayName: String
-    get() =
-        if (rootId == DocumentsContractCompat.EXTERNAL_STORAGE_PRIMARY_EMULATED_ROOT_ID) {
-            path
-        } else {
-            DocumentsContract.getDocumentId(value)
-        }
+    get() = path.takeLastWhile { it != '/' }.takeIfNotEmpty() ?: "/"

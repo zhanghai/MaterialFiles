@@ -16,6 +16,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.compat.DocumentsContractCompat
 import me.zhanghai.android.files.databinding.EditExternalStorageShortcutDialogBinding
 import me.zhanghai.android.files.file.ExternalStorageUri
 import me.zhanghai.android.files.file.displayName
@@ -65,12 +66,9 @@ class EditExternalStorageShortcutDialogFragment : AppCompatDialogFragment() {
 
     private fun updateNamePlaceholder() {
         val rootId = binding.rootIdEdit.text.toString().takeIfNotEmpty()
+            ?: DocumentsContractCompat.EXTERNAL_STORAGE_PRIMARY_EMULATED_ROOT_ID
         val path = binding.pathEdit.text.toString().dropWhile { it == '/' }
-        binding.nameLayout.placeholderText = if (rootId != null) {
-            ExternalStorageUri(rootId, path).displayName
-        } else {
-            path
-        }
+        binding.nameLayout.placeholderText = ExternalStorageUri(rootId, path).displayName
     }
 
     private fun save() {
