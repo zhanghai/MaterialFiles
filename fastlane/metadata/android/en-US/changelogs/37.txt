@@ -1,0 +1,7 @@
+- Added "Save as" functionality.
+- Added "Checksum" properties tab.
+- Improved UI to allow easier shortcut into Android/data subfolders.
+- Marked user-installed certificates in system credential storage as trusted for WebDAV with self signed certificate.
+- Fixed SMB issue with guest and anonymous authentication.
+- Material Design 2 theme may be removed in the upcoming version 1.8.0.
+- Other bug fixes and improvements.
