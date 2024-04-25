@@ -349,22 +349,6 @@
     <string name="file_create_directory_title">مجلد جديد</string>
 
     <string name="file_list_title">ملفات</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="zero">تحديد الملف</item>
-        <item quantity="one">تحديد الملف</item>
-        <item quantity="two">تحديد الملفان</item>
-        <item quantity="few">تحديد الملفات</item>
-        <item quantity="many">تحديد الملفات</item>
-        <item quantity="other">تحديد الملفات</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="zero">تحديد المجلد</item>
-        <item quantity="one">تحديد المجلد</item>
-        <item quantity="two">تحديد المجلدان</item>
-        <item quantity="few">تحديد المجلدات</item>
-        <item quantity="many">تحديد المجلدات</item>
-        <item quantity="other">تحديد المجلدات</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="zero">%1$,d مجلد</item>
         <item quantity="one">%1$,d مجلد</item>
@@ -404,7 +388,6 @@
     <string name="file_list_action_create_shortcut">إنشاء اختصار</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">افتح في نافذة جديدة</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">تحديد ”%1$s“</string>
     <string name="file_list_paste_move_title_format">نقل %1$,d</string>
     <string name="file_list_paste_copy_title_format">نسخ %1$,d</string>
     <string name="file_list_paste_extract_title_format">استخراج %1$,d</string>
@@ -442,39 +425,6 @@
     <string name="file_properties_basic_archive_file">ملف الأرشيف</string>
     <string name="file_properties_basic_archive_entry">إدخال الأرشيف</string>
     <string name="file_properties_basic_free_space">مساحة فارغة</string>
-    <string name="file_properties_permission">أذونات</string>
-    <string name="file_properties_permission_owner">مالك</string>
-    <string name="file_properties_permission_group">مجموعة</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">تغيير المالك</string>
-    <string name="file_properties_permission_set_group_title">تغيير المجموعة</string>
-    <string name="file_properties_permission_set_principal_filter_hint">أدخل اسمًا أو معرفًا</string>
-    <string name="file_properties_permission_set_principal_system">النظام</string>
-    <string name="file_properties_permission_mode">الوضع</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">تغيير الوضع</string>
-    <string name="file_properties_permission_set_mode_others">آخرون</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>قراءة</item>
-        <item>كتابة</item>
-        <item>تنفيذ</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>قراءة</item>
-        <item>كتابة</item>
-        <item>بحث</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">مميز</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>تعيين UID</item>
-        <item>تعيين GID</item>
-        <item>Sticky bit</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">لا تقم بإضافة \"تنفيذ\" للملفات المرفقة</string>
-    <string name="file_properties_permission_selinux_context">سياق SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">تغيير سياق SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">استعادة</string>
-    <string name="file_properties_permission_recursive">تنطبق على الملفات المرفقة</string>
     <string name="file_properties_image">صورة</string>
     <string name="file_properties_media_dimensions">الأبعاد</string>
     <string name="file_properties_media_dimensions_format">%1$d  \u00d7 %2$d</string>
@@ -533,7 +483,6 @@
     <string name="file_properties_apk_signature_digests">التوقيعات</string>
     <string name="file_properties_apk_signature_digests_empty">لاتوجد تواقيع موثقة</string>
     <string name="file_properties_apk_past_signature_digests">التوقيعات القديمة</string>
-
     <string name="storage_file_system_root_title">الجذر/الروت</string>
     <string name="storage_list_title">وحدة تخزين</string>
     <string name="storage_list_empty">لا توجد وحدة تخزين</string>
@@ -729,7 +678,6 @@
         <item>عرض المحتويات</item>
         <item>اسأل ماذا تفعل</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">إظهار الصورة المصغرة لملفات PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">قد يجعل التطبيق غير مستقر على الإصدارات الأقدم من Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">قراءة الملفات البعيدة للصور المصغرة</string>
 

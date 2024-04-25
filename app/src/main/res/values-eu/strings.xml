@@ -233,14 +233,6 @@
     <string name="file_create_directory_title">Karpeta berria</string>
 
     <string name="file_list_title">Fitxategiak</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Hautatu fitxategia</item>
-        <item quantity="other">Hautatu fitxategiak</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Hautatu karpeta</item>
-        <item quantity="other">Hautatu karpetak</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">Karpeta %1$,d</item>
         <item quantity="other">%1$,d karpeta</item>
@@ -264,7 +256,6 @@
     <string name="file_list_action_add_bookmark">Gehitu laster-marka</string>
     <string name="file_list_action_create_shortcut">Sortu laster-marka</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Ireki leiho berrian</string>
-    <string name="file_list_open_current_directory_format">Hautatu “%1$s”</string>
     <string name="file_list_paste_move_title_format">%1$,d lekuz aldatzen</string>
     <string name="file_list_paste_copy_title_format">%1$,d kopiatzen</string>
     <string name="file_list_paste_extract_title_format">%1$,d erauzten</string>
@@ -294,39 +285,6 @@
     <string name="file_properties_basic_archive_file">Artxibo fitxategia</string>
     <string name="file_properties_basic_archive_entry">Artxibo sarrera</string>
     <string name="file_properties_basic_free_space">Espazio librea</string>
-    <string name="file_properties_permission">Baimenak</string>
-    <string name="file_properties_permission_owner">Jabea</string>
-    <string name="file_properties_permission_group">Taldea</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Aldatu jabea</string>
-    <string name="file_properties_permission_set_group_title">Aldatu taldea</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Sartu izena edo IDa</string>
-    <string name="file_properties_permission_set_principal_system">Sistema</string>
-    <string name="file_properties_permission_mode">Modua</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Aldatu modua</string>
-    <string name="file_properties_permission_set_mode_others">Besteak</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Irakurri</item>
-        <item>Idatzi</item>
-        <item>Exekutatu</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Irakurri</item>
-        <item>Idatzi</item>
-        <item>Bilatu</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Berezia</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Ezarri UID</item>
-        <item>Ezarri GID</item>
-        <item>Bit itsaskorra</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Ez gehitu \"exekutatu\" bildutako fitxategiei</string>
-    <string name="file_properties_permission_selinux_context">SELinux testuingurua</string>
-    <string name="file_properties_permission_set_selinux_context_title">Aldatu SELinux testuingurua</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Berrezarri</string>
-    <string name="file_properties_permission_recursive">Aplikatu bildutako fitxategiei</string>
     <string name="storage_file_system_root_title">Erroa</string>
     <string name="navigation_storage_subtitle_format">%1$s libre %2$s guztira</string>
     <string name="navigation_add_storage">Gehitu biltegia…</string>

@@ -239,14 +239,6 @@
     <string name="file_create_directory_title">Yeni klasör</string>
 
     <string name="file_list_title">Dosyalar</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Bir dosya seç</item>
-        <item quantity="other">Dosyaları seç</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Bir klasör seç</item>
-        <item quantity="other">Klasörleri seç</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d klasör</item>
         <item quantity="other">%1$,d klasör</item>
@@ -270,7 +262,6 @@
     <string name="file_list_action_add_bookmark">Yer işareti ekle</string>
     <string name="file_list_action_create_shortcut">Kısayol oluştur</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Yeni pencerede aç</string>
-    <string name="file_list_open_current_directory_format">“%1$s”`i seç</string>
     <string name="file_list_paste_move_title_format">%1$,d taşınıyor</string>
     <string name="file_list_paste_copy_title_format">%1$,d kopyalanıyor</string>
     <string name="file_list_paste_extract_title_format">%1$,d çıkartılıyor</string>
@@ -304,39 +295,6 @@
     <string name="file_properties_basic_archive_file">Arşiv dosyası</string>
     <string name="file_properties_basic_archive_entry">Arşiv Girdisi</string>
     <string name="file_properties_basic_free_space">Boş alan</string>
-    <string name="file_properties_permission">İzinler</string>
-    <string name="file_properties_permission_owner">Sahip</string>
-    <string name="file_properties_permission_group">Grup</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Sahibi değiştir</string>
-    <string name="file_properties_permission_set_group_title">Grubu değiştir</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Bir isim veya ID girin</string>
-    <string name="file_properties_permission_set_principal_system">Sistem</string>
-    <string name="file_properties_permission_mode">Mod</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Modu değiştir</string>
-    <string name="file_properties_permission_set_mode_others">Diğerleri</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Okuma</item>
-        <item>Yazma</item>
-        <item>Çalıştırma</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Okuma</item>
-        <item>Yazma</item>
-        <item>Ara</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Özel</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>UID ayarla</item>
-        <item>GID ayarla</item>
-        <item>Sticky bit</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Ekteki dosyalar için “Çalıştırma Programı” eklemeyin</string>
-    <string name="file_properties_permission_selinux_context">SELinux Durumu</string>
-    <string name="file_properties_permission_set_selinux_context_title">SELinux durumunu değiştir</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Geri al</string>
-    <string name="file_properties_permission_recursive">Ekli dosyalara uygula</string>
     <string name="file_properties_image">Görüntü</string>
     <string name="file_properties_media_dimensions">Boyutlar</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -391,7 +349,6 @@
     <string name="file_properties_apk_signature_digests">İmzalar</string>
     <string name="file_properties_apk_signature_digests_empty">Uygun imza bulunamadı</string>
     <string name="file_properties_apk_past_signature_digests">Eski imzalar</string>
-
     <string name="storage_file_system_root_title">Kök</string>
     <string name="storage_list_title">Depolama</string>
     <string name="storage_list_empty">Depolama yok</string>
@@ -577,7 +534,6 @@
         <item>İçeriği görüntüle</item>
         <item>Ne yapılacağını sor</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF dosyaları için önizlemeyi göster</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Uygulamayı Android\'in eski versiyonlarında kararsız yapabilir</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Küçük resim için uzak dosyaları okuyun</string>
 

@@ -238,12 +238,6 @@
     <string name="file_create_directory_title">Folder baru</string>
 
     <string name="file_list_title">File</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="other">Pilih berkas</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="other">Pilih folder</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="other">%1$,d folder</item>
     </plurals>
@@ -273,7 +267,6 @@
     <string name="file_list_action_create_shortcut">Buat pintasan</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Buka di jendela baru</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Pilih “%1$s”</string>
     <string name="file_list_paste_move_title_format">Memindahkan %1$,d</string>
     <string name="file_list_paste_copy_title_format">Menyalin %1$,d</string>
     <string name="file_list_paste_extract_title_format">Mengekstrak %1$,d</string>
@@ -306,39 +299,6 @@
     <string name="file_properties_basic_archive_file">Berkas Arsip</string>
     <string name="file_properties_basic_archive_entry">Entri Arsip</string>
     <string name="file_properties_basic_free_space">Ruang Kosong</string>
-    <string name="file_properties_permission">Perizinan</string>
-    <string name="file_properties_permission_owner">Pemilik</string>
-    <string name="file_properties_permission_group">Grup</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Ubah pemilik</string>
-    <string name="file_properties_permission_set_group_title">Ubah grup</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Masukkan nama atau ID</string>
-    <string name="file_properties_permission_set_principal_system">Sistem</string>
-    <string name="file_properties_permission_mode">Mode</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Ubah mode</string>
-    <string name="file_properties_permission_set_mode_others">Lainnya</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Baca</item>
-        <item>Tulis</item>
-        <item>Jalankan</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Baca</item>
-        <item>Tulis</item>
-        <item>Cari</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Spesial</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Atur UID</item>
-        <item>Atur GID</item>
-        <item>sedikit lengket</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Jangan tambah \"Eksekusi\" untuk seluruh rekursi berkas</string>
-    <string name="file_properties_permission_selinux_context">Konteks SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">Ubah konteks SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Kembalikan</string>
-    <string name="file_properties_permission_recursive">Terapkan ke seluruh rekursi berkas</string>
     <string name="file_properties_image">Gambar</string>
     <string name="file_properties_media_dimensions">Dimensi</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -392,7 +352,6 @@
     <string name="file_properties_apk_signature_digests">Tanda tangan</string>
     <string name="file_properties_apk_signature_digests_empty">Tidak ada tanda tangan yang valid</string>
     <string name="file_properties_apk_past_signature_digests">Tanda tangan lama</string>
-
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Penyimpanan</string>
     <string name="storage_list_empty">Tidak ada penyimpanan</string>
@@ -586,7 +545,6 @@
         <item>Lihat konten</item>
         <item>Tanyakan yang ingin dilakukan</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Tampilkan thumbnail berkas PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Mungkin membuat apl tidak stabil pada versi Android lama</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Baca berkas remote untuk thumbnail</string>
 

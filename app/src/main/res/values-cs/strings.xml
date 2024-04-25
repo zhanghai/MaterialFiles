@@ -26,6 +26,7 @@
     <string name="maybe_later">Možná později</string>
     <string name="merge">Sloučit</string>
     <string name="none">Nic</string>
+    <string name="open_navigation_drawer">Otevřít navigační panel</string>
     <string name="paste">Vložit</string>
     <string name="refresh">Obnovit</string>
     <string name="reload">Obnovit</string>
@@ -279,6 +280,7 @@
     <string name="file_name_error_empty">Název souboru nemůže být prázdný</string>
     <string name="file_name_error_invalid">Neplatný název souboru</string>
     <string name="file_name_error_already_exists">Soubor s tímto názvem již existuje</string>
+    <string name="file_replace_message_format">Nahradit „%1$s“?</string>
     <string name="file_delete_message_file_format">Smazat \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">Smazat složku \"%1$s\" a její obsah?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -309,18 +311,7 @@
     <string name="file_create_directory_title">Nová složka</string>
 
     <string name="file_list_title">Soubory</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Vyberte soubor</item>
-        <item quantity="few">Vyberte soubory</item>
-        <item quantity="many">Vyberte soubory</item>
-        <item quantity="other">Vyberte soubory</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Vyberte složku</item>
-        <item quantity="few">Vyberte složky</item>
-        <item quantity="many">Vyberte složky</item>
-        <item quantity="other">Vyberte složky</item>
-    </plurals>
+    <string name="file_list_title_create_file">Uložit soubor</string>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d složka</item>
         <item quantity="few">%1$,d složky</item>
@@ -355,7 +346,7 @@
     <string name="file_list_action_add_bookmark">Přidat záložku</string>
     <string name="file_list_action_create_shortcut">Vytvořit zástupce</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otevřít v novém okně</string>
-    <string name="file_list_open_current_directory_format">Vyberte \"%1$s\"</string>
+    <string name="file_list_create_file_name_hint">Název souboru</string>
     <string name="file_list_paste_move_title_format">Přesouvání %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopírování %1$,d</string>
     <string name="file_list_paste_extract_title_format">Rozbalování %1$,d</string>
@@ -392,26 +383,23 @@
     <string name="file_properties_basic_archive_entry">Archivovaná položka</string>
     <string name="file_properties_basic_free_space">Volné místo</string>
     <string name="file_properties_permission">Oprávnění</string>
-    <string name="file_properties_permission_owner">Majitel</string>
+    <string name="file_properties_permission_owner">Vlastník</string>
     <string name="file_properties_permission_group">Skupina</string>
-    <string name="file_properties_permission_principal_format">%1$s(%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Změnit majitele</string>
+    <string name="file_properties_permission_set_owner_title">Změnit vlastníka</string>
     <string name="file_properties_permission_set_group_title">Změnit skupinu</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Vložte název nebo ID</string>
-    <string name="file_properties_permission_set_principal_system">Systém</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Zadejte název nebo ID</string>
     <string name="file_properties_permission_mode">Režim</string>
-    <string name="file_properties_permission_mode_format">%1$s(%2$04o)</string>
     <string name="file_properties_permission_set_mode_title">Změnit režim</string>
     <string name="file_properties_permission_set_mode_others">Ostatní</string>
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Čtení</item>
-        <item>Zapisování</item>
+        <item>Zápis</item>
         <item>Spuštění</item>
     </string-array>
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Čtení</item>
-        <item>Zapisování</item>
-        <item>Hledat</item>
+        <item>Zápis</item>
+        <item>Vyhledání</item>
     </string-array>
     <string name="file_properties_permission_set_mode_special">Speciální</string>
     <string-array name="file_properties_permission_set_mode_special_mode_bits">
@@ -419,11 +407,7 @@
         <item>Nastavit GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Nepřidávat \"Spuštění\" pro přiložené soubory</string>
-    <string name="file_properties_permission_selinux_context">Kontext SELinuxu</string>
-    <string name="file_properties_permission_set_selinux_context_title">Změnit kontext SELinuxu</string>
     <string name="file_properties_permission_set_selinux_context_restore">Obnovit</string>
-    <string name="file_properties_permission_recursive">Použít na přiložené soubory</string>
     <string name="file_properties_image">Obrázek</string>
     <string name="file_properties_media_dimensions">Rozměry</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -480,7 +464,10 @@
     <string name="file_properties_apk_signature_digests">Podpisy</string>
     <string name="file_properties_apk_signature_digests_empty">Žádné platné podpisy</string>
     <string name="file_properties_apk_past_signature_digests">Staré podpisy</string>
-
+    <string name="file_properties_checksum">Kontrolní součty</string>
+    <string name="file_properties_checksum_compare">Porovnat</string>
+    <string name="file_properties_checksum_compare_placeholder">Jakýkoli kontrolní součet</string>
+    <string name="file_properties_checksum_compare_no_match">Žádný odpovídající kontrolní součet</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Úložiště</string>
     <string name="storage_list_empty">Žádné úložiště</string>
@@ -626,6 +613,9 @@
     <string name="archive_viewer_title">Prohlížeč archivů</string>
     <string name="image_viewer_title">Prohlížeč obrázků</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Uložit jako</string>
+    <string name="save_as_error">Chyba při ukládání souboru</string>
+    <string name="save_as_success_format">„%1$s“ byl uložen do „%2$s“</string>
     <string name="text_editor_title">Textový editor</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -704,7 +694,7 @@
         <item>Zobrazit obsah</item>
         <item>Zeptat se, co udělat</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Zobrazit náhled pro soubory PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Zobrazit náhled pro PDF soubory</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Aplikace může být nestabilní na starších verzích systému Android.</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Přečíst vzdálené soubory pro náhled</string>
 

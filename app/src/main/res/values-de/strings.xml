@@ -238,6 +238,7 @@
     <string name="file_name_error_empty">Dateiname darf nicht leer sein</string>
     <string name="file_name_error_invalid">Ungültiger Dateiname</string>
     <string name="file_name_error_already_exists">Eine Datei mit diesem Namen existiert bereits</string>
+    <string name="file_replace_message_format">\"%1$s\" ersetzten?</string>
     <string name="file_delete_message_file_format">“%1$s” löschen?</string>
     <string name="file_delete_message_directory_format">Ordner “%1$s” und dessen Inhalt löschen?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -266,6 +267,7 @@
         <item quantity="one">Wähle eine Datei aus</item>
         <item quantity="other">Wähle Dateien aus</item>
     </plurals>
+    <string name="file_list_title_create_file">Datei speichern</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">Wähle einen Ordner aus</item>
         <item quantity="other">Wähle Ordner aus</item>
@@ -301,7 +303,8 @@
     <string name="file_list_action_create_shortcut">Verknüpfung erstellen</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">In neuem Fenster öffnen</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">“%1$s” auswählen</string>
+    <string name="file_list_create_file_name_hint">Dateiname</string>
+    <string name="file_list_open_current_directory_format">\"%1$s\" auswählen</string>
     <string name="file_list_paste_move_title_format">Verschiebe %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiere %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extrahiere %1$,d</string>
@@ -339,9 +342,9 @@
     <string name="file_properties_permission_owner">Besitzer</string>
     <string name="file_properties_permission_group">Gruppe</string>
     <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Ändere Besitzer</string>
-    <string name="file_properties_permission_set_group_title">Ändere Gruppe</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Einen Namen oder eine ID angeben</string>
+    <string name="file_properties_permission_set_owner_title">Besitzer ändern</string>
+    <string name="file_properties_permission_set_group_title">Gruppe ändern</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Name oder ID eingeben</string>
     <string name="file_properties_permission_set_principal_system">System</string>
     <string name="file_properties_permission_mode">Modus</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
@@ -359,11 +362,11 @@
     </string-array>
     <string name="file_properties_permission_set_mode_special">Besondere</string>
     <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Setze UID</item>
-        <item>Setze GID</item>
-        <item>\"Sticky\"-Bit</item>
+        <item>UID festlegen</item>
+        <item>GID festlegen</item>
+        <item>Sticky Bit</item>
     </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Kein Hinzufügen des \"Ausführen\"-Bits für enthaltene Dateien</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">\"Ausführen\" nicht zu den enthaltenen Dateien hinzufügen</string>
     <string name="file_properties_permission_selinux_context">SELinux Kontext</string>
     <string name="file_properties_permission_set_selinux_context_title">SELinux Kontext ändern</string>
     <string name="file_properties_permission_set_selinux_context_restore">Zurücksetzen</string>
@@ -422,7 +425,12 @@
     <string name="file_properties_apk_signature_digests">Signaturen</string>
     <string name="file_properties_apk_signature_digests_empty">Keine gültigen Signaturen</string>
     <string name="file_properties_apk_past_signature_digests">Alte Signaturen</string>
-
+    <string name="file_properties_checksum">Prüfsummen</string>
+    <string name="file_properties_checksum_compare">Vergleichen</string>
+    <string name="file_properties_checksum_compare_placeholder">Jede Prüfsumme</string>
+    <string name="file_properties_checksum_compare_match_format">Entspricht %1$sPrüfsumme</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Entspricht dem Prefix der %1$s Prüfsumme</string>
+    <string name="file_properties_checksum_compare_no_match">Keine passende Prüfsumme gefunden</string>
     <string name="storage_file_system_root_title">Wurzel</string>
     <string name="storage_list_title">Speicher</string>
     <string name="storage_list_empty">Kein Speicher</string>
@@ -435,6 +443,11 @@
     <string name="storage_edit_device_storage_title">Gerätespeicher bearbeiten</string>
     <string name="storage_edit_device_storage_name">Name</string>
     <string name="storage_edit_device_storage_path">Pfad</string>
+    <string name="storage_add_external_storage_shortcut_title">Shortcut für externen Speicher hinzufügen</string>
+    <string name="storage_edit_external_storage_shortcut_title">Schortcut für externen Speicher bearbeiten</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Speichervolumen</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Speichervolumen eingeben</string>
+    <string name="storage_edit_external_storage_shortcut_path">Pfad</string>
     <string name="storage_add_document_tree_title">Externen Speicher hinzufügen</string>
     <string name="storage_edit_document_tree_title">Externen Speicher bearbeiten</string>
     <string name="storage_edit_document_tree_name">Name</string>
@@ -568,6 +581,9 @@
     <string name="archive_viewer_title">Archivbetrachter</string>
     <string name="image_viewer_title">Bildbetrachter</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Speichern als</string>
+    <string name="save_as_error">Fehler beim Speichern der Datei</string>
+    <string name="save_as_success_format">\"%1$s\" wurde als \"%2$s\" gespeichert</string>
     <string name="text_editor_title">Textbearbeitung</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>

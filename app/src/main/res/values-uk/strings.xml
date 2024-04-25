@@ -312,18 +312,6 @@
     <string name="file_create_directory_title">Нова тека</string>
 
     <string name="file_list_title">Файли</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Вибрати файл</item>
-        <item quantity="few">Вибрати файли</item>
-        <item quantity="many">Вибрати файли</item>
-        <item quantity="other">Вибрати файли</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Вибарти теку</item>
-        <item quantity="few">Вибрати теки</item>
-        <item quantity="many">Вибрати теки</item>
-        <item quantity="other">Вибрати теки</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d тека</item>
         <item quantity="few">%1$,d теки</item>
@@ -359,7 +347,6 @@
     <string name="file_list_action_create_shortcut">Створити скорочення</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Відкрити в новому вікні</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Вибрати “%1$s”</string>
     <string name="file_list_paste_move_title_format">Переміщення %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копіювання %1$,d</string>
     <string name="file_list_paste_extract_title_format">Видобування %1$,d</string>
@@ -395,39 +382,6 @@
     <string name="file_properties_basic_archive_file">Файл архіву</string>
     <string name="file_properties_basic_archive_entry">Точка входу в архіві</string>
     <string name="file_properties_basic_free_space">Вільний простір</string>
-    <string name="file_properties_permission">Дозволи</string>
-    <string name="file_properties_permission_owner">Власник</string>
-    <string name="file_properties_permission_group">Група</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Змінити власника</string>
-    <string name="file_properties_permission_set_group_title">Змінити групу</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Введіть ім\'я або ID</string>
-    <string name="file_properties_permission_set_principal_system">Система</string>
-    <string name="file_properties_permission_mode">Режим</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Змінити режим</string>
-    <string name="file_properties_permission_set_mode_others">Інше</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Читання</item>
-        <item>Запис</item>
-        <item>Виконання</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Читання</item>
-        <item>Запис</item>
-        <item>Пошук</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Особливий</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Встановити UID</item>
-        <item>Встановити GID</item>
-        <item>Прапорець sticky bit</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Не додавати «Виконувати» для вкладених файлів</string>
-    <string name="file_properties_permission_selinux_context">Контекст SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">Змінити контекст SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Відновити</string>
-    <string name="file_properties_permission_recursive">Застосувати до вкладених файлів</string>
     <string name="file_properties_image">Зображення</string>
     <string name="file_properties_media_dimensions">Розміри</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -484,7 +438,6 @@
     <string name="file_properties_apk_signature_digests">Підписи</string>
     <string name="file_properties_apk_signature_digests_empty">Немає дійсних підписів</string>
     <string name="file_properties_apk_past_signature_digests">Старі підписи</string>
-
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Сховище</string>
     <string name="storage_list_empty">Нема сховища</string>
@@ -493,6 +446,7 @@
     <string name="storage_add_storage_ftp_server">FTP-сервер</string>
     <string name="storage_add_storage_sftp_server">SFTP-сервер</string>
     <string name="storage_add_storage_smb_server">SMB-сервер</string>
+    <string name="storage_add_storage_webdav_server">WebDAV сервер</string>
     <string name="storage_edit_device_storage_title">Змінити сховище пристрою</string>
     <string name="storage_edit_device_storage_name">Назва</string>
     <string name="storage_edit_device_storage_path">Шлях</string>
@@ -582,6 +536,32 @@
     <string name="storage_edit_smb_server_domain">Домен</string>
     <string name="storage_edit_smb_server_connect_and_add">З\'єднатися та додати</string>
     <string name="storage_edit_smb_server_add">Додати</string>
+    <string name="storage_edit_webdav_server_title_edit">Змінити WebDAV сервер</string>
+    <string name="storage_edit_webdav_server_title_add">Додати WebDAV сервер</string>
+    <string name="storage_edit_webdav_server_host">Назва хоста</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Уведіть назву хоста</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Недійсна назва хоста</string>
+    <string name="storage_edit_webdav_server_port">Порт</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Недійсний порт</string>
+    <string name="storage_edit_webdav_server_path">Шлях</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Може бути порожнім</string>
+    <string name="storage_edit_webdav_server_name">Назва</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Використовувати назву хоста</string>
+    <string name="storage_edit_webdav_server_protocol">Протокол</string>
+    <string name="storage_edit_webdav_server_authentication_type">Автентифікація</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Пароль</item>
+        <item>Токен доступу</item>
+        <item>Жодного</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Імʼя користувача</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Введіть ім\'я користувача</string>
+    <string name="storage_edit_webdav_server_password">Пароль</string>
+    <string name="storage_edit_webdav_server_access_token">Токен доступу</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Введіть токен доступу</string>
+    <string name="storage_edit_webdav_server_connect_and_add">З\'єднатися та додати</string>
+    <string name="storage_edit_webdav_server_add">Додати</string>
+
     <string name="navigation_storage_subtitle_format">%1$s вільно з %2$s</string>
     <string name="navigation_add_storage">Додати сховище…</string>
     <string name="navigation_standard_directory_alarms">Нагадування</string>
@@ -622,6 +602,9 @@
     <string name="ftp_server_url_menu_copy_url">Копіювати URL</string>
     <string name="ftp_server_url_menu_copy_password">Копіювати пароль</string>
     <string name="ftp_server_add_tile_title">Додати до швидких налаштувань</string>
+    <string name="ftp_server_add_tile_result_added">“FTP сервер” доданий до швидких налаштувань</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP сервер” вже доданий до швидких налаштувань</string>
+    <string name="ftp_server_add_tile_result_error">Помилка під час додавання “FTP серверу” до швидких налаштувань</string>
     <string name="ftp_server_configuration_title">Конфігурація</string>
     <string name="ftp_server_anonymous_login_title">Анонімний вхід</string>
     <string name="ftp_server_username_title">Імʼя користувача</string>
@@ -678,7 +661,6 @@
         <item>Переглянути вміст</item>
         <item>Запитати що робити</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Показувати мініатюри для PDF файлів</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Може зробити застосунок нестабільним на старих версіях Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Зчитувати віддалені файли для ескізів</string>
 

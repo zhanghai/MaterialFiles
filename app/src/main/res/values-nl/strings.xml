@@ -238,6 +238,7 @@
     <string name="file_name_error_empty">Voer een bestandsnaam in</string>
     <string name="file_name_error_invalid">Ongeldige bestandsnaam</string>
     <string name="file_name_error_already_exists">Er is al een bestand met deze naam</string>
+    <string name="file_replace_message_format">Wil je ‘%1$s’ vervangen?</string>
     <string name="file_delete_message_file_format">‘%1$s’ verwijderen?</string>
     <string name="file_delete_message_directory_format">Wil je de map ‘%1$s’ en alle inhoud ervan verwijderen?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -266,6 +267,7 @@
         <item quantity="one">Bestand selecteren</item>
         <item quantity="other">Bestanden selecteren</item>
     </plurals>
+    <string name="file_list_title_create_file">Bestand opslaan</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">Map selecteren</item>
         <item quantity="other">Mappen selecteren</item>
@@ -301,6 +303,7 @@
     <string name="file_list_action_create_shortcut">Snelkoppeling maken</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Openen in nieuw venster</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Bestandsnaam</string>
     <string name="file_list_open_current_directory_format">‘%1$s’ selecteren</string>
     <string name="file_list_paste_move_title_format">Bezig met verplaatsen van %1$,d</string>
     <string name="file_list_paste_copy_title_format">Bezig met kopiëren van %1$,d</string>
@@ -422,7 +425,12 @@
     <string name="file_properties_apk_signature_digests">Ondertekeningen</string>
     <string name="file_properties_apk_signature_digests_empty">Geen geldige ondertekeningen</string>
     <string name="file_properties_apk_past_signature_digests">Oude ondertekeningen</string>
-
+    <string name="file_properties_checksum">Controlesommen</string>
+    <string name="file_properties_checksum_compare">Vergelijken</string>
+    <string name="file_properties_checksum_compare_placeholder">Iedere controlesom</string>
+    <string name="file_properties_checksum_compare_match_format">Komt overeen met %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Komt overeen met het voorvoegsel van %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Er zijn geen overeenkomsten gevonden</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Opslag</string>
     <string name="storage_list_empty">Geen opslag</string>
@@ -435,6 +443,11 @@
     <string name="storage_edit_device_storage_title">Apparaatopslag bewerken</string>
     <string name="storage_edit_device_storage_name">Naam</string>
     <string name="storage_edit_device_storage_path">Locatie</string>
+    <string name="storage_add_external_storage_shortcut_title">Externe opslagsnelkoppeling toevoegen</string>
+    <string name="storage_edit_external_storage_shortcut_title">Externe opslagsnelkoppeling bewerken</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Opslagvolume</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Voer een opslagvolume in</string>
+    <string name="storage_edit_external_storage_shortcut_path">Locatie</string>
     <string name="storage_add_document_tree_title">Externe opslag toevoegen</string>
     <string name="storage_edit_document_tree_title">Externe opslag bewerken</string>
     <string name="storage_edit_document_tree_name">Naam</string>
@@ -568,6 +581,9 @@
     <string name="archive_viewer_title">Archiefweergave</string>
     <string name="image_viewer_title">Afbeeldingsweergave</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Opslaan als</string>
+    <string name="save_as_error">Fout tijdens opslaan van bestand</string>
+    <string name="save_as_success_format">“%1$s” is opgeslagen in ‘%2$s’</string>
     <string name="text_editor_title">Tekstbewerker</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>

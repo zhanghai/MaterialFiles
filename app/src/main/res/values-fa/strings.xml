@@ -254,14 +254,6 @@
     <string name="file_create_directory_title">شاخهٔ جدید</string>
 
     <string name="file_list_title">پرونده‌ها</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">گزینش یک پرونده</item>
-        <item quantity="other">گزینش پرونده‌ها</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">گزینش یک شاخه</item>
-        <item quantity="other">گزینش شاخه‌ها</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d شاخه</item>
         <item quantity="other">%1$,d شاخه</item>
@@ -288,7 +280,6 @@
     <string name="file_list_action_add_bookmark">افزودن نشانک</string>
     <string name="file_list_action_create_shortcut">ایجاد میان‌بر</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">گشودن در پنجرهٔ جدید</string>
-    <string name="file_list_open_current_directory_format">گزینش «⁨%1$s⁩»</string>
     <string name="file_list_paste_move_title_format">در حال جابه‌جایی %1$,d</string>
     <string name="file_list_paste_copy_title_format">در حال رونوشت %1$,d</string>
     <string name="file_list_paste_extract_title_format">در حال استخراج %1$,d</string>
@@ -322,39 +313,6 @@
     <string name="file_properties_basic_archive_file">پروندهٔ بایگانی</string>
     <string name="file_properties_basic_archive_entry">ورودی بایگانی</string>
     <string name="file_properties_basic_free_space">فضای خالی</string>
-    <string name="file_properties_permission">مجوزها</string>
-    <string name="file_properties_permission_owner">مالک</string>
-    <string name="file_properties_permission_group">گروه</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">تغییر مالک</string>
-    <string name="file_properties_permission_set_group_title">تغییر گروه</string>
-    <string name="file_properties_permission_set_principal_filter_hint">یک نام یا شناسه وارد کنید</string>
-    <string name="file_properties_permission_set_principal_system">سیستم</string>
-    <string name="file_properties_permission_mode">حالت</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">تغییر حالت</string>
-    <string name="file_properties_permission_set_mode_others">دیگران</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>خواندن</item>
-        <item>نوشتن</item>
-        <item>اجرا</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>خواندن</item>
-        <item>نوشتن</item>
-        <item>جست‌وجو</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">ویژه</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>تنظیم UID</item>
-        <item>تنظیم GID</item>
-        <item>بیت چسبنده</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">دسترسی «اجرا» را به پرونده‌های داخلی اضافه نکن</string>
-    <string name="file_properties_permission_selinux_context">مفاد اس‌ای‌لینوکس</string>
-    <string name="file_properties_permission_set_selinux_context_title">تغییر مفاد اس‌ای‌لینوکس</string>
-    <string name="file_properties_permission_set_selinux_context_restore">بازگردانی</string>
-    <string name="file_properties_permission_recursive">اعمال به پرونده‌های داخلی</string>
     <string name="file_properties_image">تصویر</string>
     <string name="file_properties_media_dimensions">ابعاد</string>
     <string name="file_properties_media_dimensions_format">⁦%1$d \u00d7 %2$d⁩</string>
@@ -409,7 +367,6 @@
     <string name="file_properties_apk_signature_digests">امضاها</string>
     <string name="file_properties_apk_signature_digests_empty">بدون امضای معتبر</string>
     <string name="file_properties_apk_past_signature_digests">امضاهای قدیمی</string>
-
     <string name="storage_file_system_root_title">ریشه</string>
     <string name="storage_list_title">ذخیره‌ساز</string>
     <string name="storage_list_empty">بدون ذخیره‌ساز</string>
@@ -598,7 +555,6 @@
         <item>دیدن محتویات</item>
         <item>بپرس چه باید کرد</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">برای پرونده‌های پی‌دی‌اف بندانگشتی را نمایش بده</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">ممکن است برنامه را در نگارش‌های قدیمی‌تر اندروید ناپایدار کند</string>
     <string name="settings_read_remote_files_for_thumbnail_title">پرونده‌های دوردست را برای بندانگشتی بخوان</string>
 

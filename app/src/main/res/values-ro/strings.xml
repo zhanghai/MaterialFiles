@@ -286,16 +286,6 @@
     <string name="file_create_directory_title">Dosar nou</string>
 
     <string name="file_list_title">Fișiere</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Selectează fișierul</item>
-        <item quantity="few">Selectează fișierele</item>
-        <item quantity="other">Selectează fișierele</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Selectează dosarul</item>
-        <item quantity="few">Selectează dosarele</item>
-        <item quantity="other">Selectează dosarele</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d dosar</item>
         <item quantity="few">%1$,d dosare</item>
@@ -329,7 +319,6 @@
     <string name="file_list_action_create_shortcut">Creează scurtătură</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Deschide într-o fereastră nouă</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Selectat “%1$s”</string>
     <string name="file_list_paste_move_title_format">Se mută %1$,d</string>
     <string name="file_list_paste_copy_title_format">Se copiază %1$,d</string>
     <string name="file_list_paste_extract_title_format">Se extrag %1$,d</string>
@@ -364,39 +353,6 @@
     <string name="file_properties_basic_archive_file">Arhivează fișierul</string>
     <string name="file_properties_basic_archive_entry">Articol din arhivă</string>
     <string name="file_properties_basic_free_space">Spațiu liber</string>
-    <string name="file_properties_permission">Permisiuni</string>
-    <string name="file_properties_permission_owner">Proprietar</string>
-    <string name="file_properties_permission_group">Grup</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Schimbă proprietarul</string>
-    <string name="file_properties_permission_set_group_title">Schimbă grupul</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Introdu un nume sau ID</string>
-    <string name="file_properties_permission_set_principal_system">Sistem</string>
-    <string name="file_properties_permission_mode">Mod</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Schimbă modul</string>
-    <string name="file_properties_permission_set_mode_others">Altele</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Citire</item>
-        <item>Scriere</item>
-        <item>Executare</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Citire</item>
-        <item>Scriere</item>
-        <item>Căutare</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Special</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Setează UID</item>
-        <item>Obține GID</item>
-        <item>Bit lipicios</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Nu adăuga \"Executare\" pentru fișierele atașate</string>
-    <string name="file_properties_permission_selinux_context">Context SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">Schimbă contextul SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Resaturează</string>
-    <string name="file_properties_permission_recursive">Aplică la fișierele anexate</string>
     <string name="file_properties_image">Imagine</string>
     <string name="file_properties_media_dimensions">Dimensiuni</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -452,7 +408,6 @@
     <string name="file_properties_apk_signature_digests">Semnături</string>
     <string name="file_properties_apk_signature_digests_empty">Nu există semnături valide</string>
     <string name="file_properties_apk_past_signature_digests">Semnături vechi</string>
-
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Stocare</string>
     <string name="storage_list_empty">Nu există stocare</string>
@@ -645,7 +600,6 @@
         <item>Vizualizează conținutul</item>
         <item>Întreabă ce să fac</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Arată miniatură pentru fișiere PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Ar putea face aplicația instabilă pe versiunile vechi de Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Citește fișiere la distanță pentru miniaturi</string>
 

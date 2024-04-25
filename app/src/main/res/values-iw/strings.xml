@@ -22,7 +22,7 @@
     <string name="hide">הסתרה</string>
     <string name="install">התקנה</string>
     <string name="keep_editing">המשך עריכה</string>
-    <string name="loading">טוען…</string>
+    <string name="loading">טעינה…</string>
     <string name="maybe_later">אולי אחר כך</string>
     <string name="merge">מיזוג</string>
     <string name="none">ללא</string>
@@ -84,7 +84,7 @@
         <item quantity="many">מתכונן לדחיסת %1$,d קבצים (%2$s)</item>
         <item quantity="other">מתכונן לדחיסת %1$,d קבצים (%2$s)</item>
     </plurals>
-    <string name="file_job_archive_notification_title_one_format">דוחס את “%1$s” לתוך “%2$s”</string>
+    <string name="file_job_archive_notification_title_one_format">„%1$s” נדחס לתוך „%2$s”</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">דוחס קובץ אחד לתוך “%2$s”</item>
         <item quantity="two">דוחס %1$,d קבצים לתוך “%2$s”</item>
@@ -97,7 +97,7 @@
         <item quantity="many">מתכונן להעתקת %1$,d קבצים (%2$s)</item>
         <item quantity="other">מתכונן להעתקת %1$,d קבצים (%2$s)</item>
     </plurals>
-    <string name="file_job_copy_notification_title_one_format">מעתיק את “%1$s” אל “%2$s”</string>
+    <string name="file_job_copy_notification_title_one_format">„%1$s” מועתק אל „%2$s”</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">מעתיק קובץ אחד אל “%2$s”</item>
         <item quantity="two">מעתיק %1$,d קבצים אל “%2$s”</item>
@@ -138,12 +138,12 @@
         <item quantity="many">מתכונן למחיקת %1$,d קבצים</item>
         <item quantity="other">מתכונן למחיקת %1$,d קבצים</item>
     </plurals>
-    <string name="file_job_delete_notification_title_one_format">מוחק את “%1$s”</string>
+    <string name="file_job_delete_notification_title_one_format">„%1$s” נמחק</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
-        <item quantity="one">Deleting %1$,d file</item>
-        <item quantity="two">Deleting %1$,d files</item>
-        <item quantity="many">Deleting %1$,d files</item>
-        <item quantity="other">מוחק %1$,d קבצים</item>
+        <item quantity="one">קובץ נמחק</item>
+        <item quantity="two">%1$,d קבצים נמחקים</item>
+        <item quantity="many">%1$,d קבצים נמחקים</item>
+        <item quantity="other">%1$,d קבצים נמחקים</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">מתכונן להחליף בעלים לקובץ אחד</item>
@@ -222,7 +222,7 @@
     <string name="file_job_cannot_extract_over_itself_title">לא ניתן לחלץ קובץ לתוך עצמו</string>
     <string name="file_job_cannot_move_over_itself_title">לא ניתן להעביר קובץ לתוך עצמו</string>
     <string name="file_job_cannot_copy_move_over_itself_message">קובץ המקור יוחלף על ידי היעד.</string>
-    <string name="file_job_replace_title_format">להחליף את הקובץ “%1$s”?</string>
+    <string name="file_job_replace_title_format">להחליף את הקובץ „%1$s”?</string>
     <string name="file_job_replace_message_format">קובץ אחר באותו שם כבר קיים ב-“%1$s”.\nהחלפתו תדרוס את התוכן שלו.</string>
     <string name="file_job_replace_target_name">הקובץ המקורי</string>
     <string name="file_job_replace_source_name">החלפה עם</string>
@@ -280,6 +280,7 @@
     <string name="file_name_error_empty">שם הקובץ אינו יכול להיות ריק</string>
     <string name="file_name_error_invalid">שם קובץ לא תקין</string>
     <string name="file_name_error_already_exists">כבר קיים קובץ בשם זה</string>
+    <string name="file_replace_message_format">להחליף את „%1$s”?</string>
     <string name="file_delete_message_file_format">למחוק את \"%1$s\"?</string>
     <string name="file_delete_message_directory_format">למחוק את התיקייה \"%1$s\" ואת תכולתה?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -304,6 +305,7 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">סיסמה (רשות)</string>
     <string name="file_add_bookmark_success">נוספה סימנייה</string>
     <string name="file_create_file_title">קובץ חדש</string>
     <string name="file_create_directory_title">תיקיה חדשה</string>
@@ -315,6 +317,7 @@
         <item quantity="many">בחירת קבצים</item>
         <item quantity="other">בחירת קבצים</item>
     </plurals>
+    <string name="file_list_title_create_file">שמירת קובץ</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">בחירת תיקייה</item>
         <item quantity="two">בחירת תיקיות</item>
@@ -356,7 +359,8 @@
     <string name="file_list_action_create_shortcut">יצירת קיצור דרך</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">פתיחה בחלון חדש</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">בחירת “%1$s”</string>
+    <string name="file_list_create_file_name_hint">שם קובץ</string>
+    <string name="file_list_open_current_directory_format">בחירת „%1$s”</string>
     <string name="file_list_paste_move_title_format">מעביר את %1$,d</string>
     <string name="file_list_paste_copy_title_format">מעתיק את %1$,d</string>
     <string name="file_list_paste_extract_title_format">מחלץ את %1$,d</string>
@@ -396,18 +400,18 @@
     <string name="file_properties_permission_owner">בעלים</string>
     <string name="file_properties_permission_group">קבוצה</string>
     <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">שינוי בעלים</string>
-    <string name="file_properties_permission_set_group_title">שינוי קבוצה</string>
-    <string name="file_properties_permission_set_principal_filter_hint">נא לספק שם או מזהה</string>
+    <string name="file_properties_permission_set_owner_title">החלפת בעלות</string>
+    <string name="file_properties_permission_set_group_title">החלפת קבוצה</string>
+    <string name="file_properties_permission_set_principal_filter_hint">נא למלא שם או מזהה</string>
     <string name="file_properties_permission_set_principal_system">מערכת</string>
     <string name="file_properties_permission_mode">מצב</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">שינוי מצב</string>
+    <string name="file_properties_permission_set_mode_title">החלפת מצב</string>
     <string name="file_properties_permission_set_mode_others">אחרים</string>
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>קריאה</item>
         <item>כתיבה</item>
-        <item>ביצוע</item>
+        <item>הרצה</item>
     </string-array>
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>קריאה</item>
@@ -418,13 +422,13 @@
     <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>הגדרת מזהה משתמש</item>
         <item>הגדרת מזהה קבוצה</item>
-        <item>קצת דביק</item>
+        <item>סיבית דביקה</item>
     </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">נא לא להוסיף \"ביצוע\" עבור הקבצים המוקפים</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">לא להוסיף „הרצה” לקבצים שבפנים</string>
     <string name="file_properties_permission_selinux_context">הקשר SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">שינוי הקשר SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">שיחזור</string>
-    <string name="file_properties_permission_recursive">החלה על הקבצים המוקפים</string>
+    <string name="file_properties_permission_set_selinux_context_title">החלפת הקשר SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">שחזור</string>
+    <string name="file_properties_permission_recursive">החלה על הקבצים שבפנים</string>
     <string name="file_properties_image">תמונה</string>
     <string name="file_properties_media_dimensions">ממדים</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -481,7 +485,12 @@
     <string name="file_properties_apk_signature_digests">חתימות</string>
     <string name="file_properties_apk_signature_digests_empty">אין חתימות תקפות</string>
     <string name="file_properties_apk_past_signature_digests">חתימות ישנות</string>
-
+    <string name="file_properties_checksum">סיכומי ביקורת</string>
+    <string name="file_properties_checksum_compare">השוואה</string>
+    <string name="file_properties_checksum_compare_placeholder">כל סיכום ביקורת שהוא</string>
+    <string name="file_properties_checksum_compare_match_format">תואם לסיכום הביקורת %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">תואם לקידומת של סיכום הביקורת %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">לא נמצא סיכום ביקורת תואם</string>
     <string name="storage_file_system_root_title">שורש</string>
     <string name="storage_list_title">אחסון</string>
     <string name="storage_list_empty">ללא אחסון</string>
@@ -494,6 +503,11 @@
     <string name="storage_edit_device_storage_title">עריכת אחסון ההתקן</string>
     <string name="storage_edit_device_storage_name">שם</string>
     <string name="storage_edit_device_storage_path">נתיב</string>
+    <string name="storage_add_external_storage_shortcut_title">הוספת קיצור לאחסון חיצוני</string>
+    <string name="storage_edit_external_storage_shortcut_title">עריכת קיצור לאחסון חיצוני</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">כרך אחסון</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">נא למלא כרך אחסון</string>
+    <string name="storage_edit_external_storage_shortcut_path">נתיב</string>
     <string name="storage_add_document_tree_title">הוספת אחסון חיצוני</string>
     <string name="storage_edit_document_tree_title">עריכת אחסון חיצוני</string>
     <string name="storage_edit_document_tree_name">שם</string>
@@ -627,6 +641,9 @@
     <string name="archive_viewer_title">מציג ארכיונים</string>
     <string name="image_viewer_title">מציג התמונות</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">שמירה בשם</string>
+    <string name="save_as_error">שגיאה בשמירת הקובץ</string>
+    <string name="save_as_success_format">„%1$s” נשמר אל „%2$s”</string>
     <string name="text_editor_title">עורך טקסט</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -705,7 +722,7 @@
         <item>הצגת תוכן</item>
         <item>לשאול מה לעשות</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">הצג תמונה ממוזערת עבור קובצי PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">הצגת תמונה ממוזערת למסמכי PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">עלול להפוך את היישום לבלתי יציב בגרסאות ישנות יותר של אנדרואיד</string>
     <string name="settings_read_remote_files_for_thumbnail_title">קרא קבצים מרוחקים עבור תמונה ממוזערת</string>
 

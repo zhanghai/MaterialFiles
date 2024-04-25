@@ -217,6 +217,7 @@
     <string name="file_name_error_empty">ファイル名は空白にできません</string>
     <string name="file_name_error_invalid">無効なファイル名です</string>
     <string name="file_name_error_already_exists">この名前のファイルは既に存在します</string>
+    <string name="file_replace_message_format">「%1$s」を置換しますか？</string>
     <string name="file_delete_message_file_format">「%1$s」を削除しますか？</string>
     <string name="file_delete_message_directory_format">フォルダ「%1$s」と中のファイルを削除しますか？</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -241,6 +242,7 @@
     <plurals name="file_list_title_open_file">
         <item quantity="other">ファイルを選択</item>
     </plurals>
+    <string name="file_list_title_create_file">ファイルを保存</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="other">フォルダを選択</item>
     </plurals>
@@ -273,6 +275,7 @@
     <string name="file_list_action_create_shortcut">ショートカットを作成</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">新しいウィンドウで開く</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">ファイル名</string>
     <string name="file_list_open_current_directory_format">「%1$s」を選択</string>
     <string name="file_list_paste_move_title_format">%1$,d を移動中</string>
     <string name="file_list_paste_copy_title_format">%1$,d をコピー中</string>
@@ -312,7 +315,6 @@
     <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
     <string name="file_properties_permission_set_owner_title">所有者を変更</string>
     <string name="file_properties_permission_set_group_title">グループを変更</string>
-    <string name="file_properties_permission_set_principal_filter_hint">名前または ID を入力してください</string>
     <string name="file_properties_permission_set_principal_system">システム</string>
     <string name="file_properties_permission_mode">モード</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
@@ -328,17 +330,13 @@
         <item>書き込み</item>
         <item>検索</item>
     </string-array>
-    <string name="file_properties_permission_set_mode_special">特殊</string>
+    <string name="file_properties_permission_set_mode_special">特別</string>
     <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>UID を設定</item>
         <item>GID を設定</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">内部のファイルに「実行」を付けない</string>
-    <string name="file_properties_permission_selinux_context">SELinux コンテキスト</string>
-    <string name="file_properties_permission_set_selinux_context_title">SELinux コンテキストを変更</string>
     <string name="file_properties_permission_set_selinux_context_restore">復元</string>
-    <string name="file_properties_permission_recursive">内部のファイルに適用する</string>
     <string name="file_properties_image">画像</string>
     <string name="file_properties_media_dimensions">大きさ</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -392,7 +390,6 @@
     <string name="file_properties_apk_signature_digests">署名</string>
     <string name="file_properties_apk_signature_digests_empty">有効な署名がありません</string>
     <string name="file_properties_apk_past_signature_digests">古い署名形式です</string>
-
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">ストレージ</string>
     <string name="storage_list_empty">ストレージがありません</string>
@@ -613,7 +610,6 @@
         <item>内容を表示</item>
         <item>何をするか確認する</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ファイルのサムネイルを表示</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">古いバージョンの Android ではアプリが不安定になる可能性があります</string>
     <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネイルを読み込む</string>
 

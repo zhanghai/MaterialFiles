@@ -261,6 +261,7 @@
     <string name="file_name_error_empty">Le nom du fichier ne peut pas être vide</string>
     <string name="file_name_error_invalid">Nom de fichier invalide</string>
     <string name="file_name_error_already_exists">Un fichier avec ce nom existe déjà</string>
+    <string name="file_replace_message_format">Remplacer \"%1$s\" ?</string>
     <string name="file_delete_message_file_format">Supprimer “%1$s” ?</string>
     <string name="file_delete_message_directory_format">Supprimer le dossier “%1$s” et son contenu ?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -289,10 +290,11 @@
 
     <string name="file_list_title">Fichiers</string>
     <plurals name="file_list_title_open_file">
-        <item quantity="one">Sélectionner un fichier</item>
+        <item quantity="one">Selection un fichier</item>
         <item quantity="many">Sélectionner les fichiers</item>
         <item quantity="other">Sélectionner les fichiers</item>
     </plurals>
+    <string name="file_list_title_create_file">Sauvegarder le fichier</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">Sélectionner un dossier</item>
         <item quantity="many">Sélectionner les dossiers</item>
@@ -331,7 +333,8 @@
     <string name="file_list_action_create_shortcut">Créer un raccourci</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Ouvrir dans une nouvelle fenêtre</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Selectionner “%1$s”</string>
+    <string name="file_list_create_file_name_hint">Nom de fichier</string>
+    <string name="file_list_open_current_directory_format">Sélectionner \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Déplacer %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copier %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extraire %1$,d</string>
@@ -376,7 +379,7 @@
     <string name="file_properties_permission_set_principal_system">Système</string>
     <string name="file_properties_permission_mode">Mode</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Change le mode</string>
+    <string name="file_properties_permission_set_mode_title">Changer le mode</string>
     <string name="file_properties_permission_set_mode_others">Autres</string>
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Lire</item>
@@ -454,7 +457,12 @@
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_signature_digests_empty">Signatures non valides</string>
     <string name="file_properties_apk_past_signature_digests">Anciennes signatures</string>
-
+    <string name="file_properties_checksum">Somme de contrôle</string>
+    <string name="file_properties_checksum_compare">Comparer</string>
+    <string name="file_properties_checksum_compare_placeholder">Toute somme de contrôle</string>
+    <string name="file_properties_checksum_compare_match_format">Correspond à la somme de contrôle %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Correspond au prefix de la somme de contrôle %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Aucune somme de contrôle correspondante trouvée</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Support de stockage</string>
     <string name="storage_list_empty">Pas de support de stockage</string>
@@ -467,6 +475,11 @@
     <string name="storage_edit_device_storage_title">Modifier le stockage de l\'appareil</string>
     <string name="storage_edit_device_storage_name">Nom</string>
     <string name="storage_edit_device_storage_path">Chemin</string>
+    <string name="storage_add_external_storage_shortcut_title">Ajouter un raccourci de stockage externe</string>
+    <string name="storage_edit_external_storage_shortcut_title">Éditer un raccourci de stockage externe</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Volume de stockage</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Entrer un volume de stockage</string>
+    <string name="storage_edit_external_storage_shortcut_path">Chemin</string>
     <string name="storage_add_document_tree_title">Ajouter un support de stockage externe</string>
     <string name="storage_edit_document_tree_title">Modifier le support de stockage externe</string>
     <string name="storage_edit_document_tree_name">Nom</string>
@@ -600,6 +613,9 @@
     <string name="archive_viewer_title">Visionneuse d\'archives</string>
     <string name="image_viewer_title">Visionneuse d\'images</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Enregistrer sous</string>
+    <string name="save_as_error">Erreur lors de l\'enregistrement du fichier</string>
+    <string name="save_as_success_format">\"%1$s\" a été enregister dans \"%2$s\"</string>
     <string name="text_editor_title">Éditeur de texte</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -677,7 +693,7 @@
         <item>Voir le contenu</item>
         <item>Demander quoi faire</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Afficher la vignette des fichiers PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Afficher la miniature des fichiers PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Pourrait rendre l’application instable sur les anciennes versions d’Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Lire les fichiers distants pour les vignettes</string>
 

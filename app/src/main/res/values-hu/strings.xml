@@ -253,14 +253,6 @@
     <string name="file_create_directory_title">Új mappa</string>
 
     <string name="file_list_title">Fájlok</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Fájl kiválasztása</item>
-        <item quantity="other">Fájlok kiválasztása</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Mappa kiválasztása</item>
-        <item quantity="other">Mappák kiválasztása</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d mappa</item>
         <item quantity="other">%1$,d mappa</item>
@@ -292,7 +284,6 @@
     <string name="file_list_action_create_shortcut">Parancsikon létrehozása</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Megnyitás új ablakban</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">„%1$s” kiválasztása</string>
     <string name="file_list_paste_move_title_format">%1$,d áthelyezése</string>
     <string name="file_list_paste_copy_title_format">%1$,d másolása</string>
     <string name="file_list_paste_extract_title_format">%1$,d fájl kibontása</string>
@@ -326,39 +317,6 @@
     <string name="file_properties_basic_archive_file">Fájl archiválása</string>
     <string name="file_properties_basic_archive_entry">Bejegyzés archiválása</string>
     <string name="file_properties_basic_free_space">Szabad hely</string>
-    <string name="file_properties_permission">Jogosultságok</string>
-    <string name="file_properties_permission_owner">Tulajdonos</string>
-    <string name="file_properties_permission_group">Csoport</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Tulajdonos módosítása</string>
-    <string name="file_properties_permission_set_group_title">Csoport módosítása</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Adjon meg egy nevet vagy azonosítót</string>
-    <string name="file_properties_permission_set_principal_system">Rendszer</string>
-    <string name="file_properties_permission_mode">Mód</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Mód módosítása</string>
-    <string name="file_properties_permission_set_mode_others">Mások</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Olvasás</item>
-        <item>Írás</item>
-        <item>Végrehajtás</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Olvasás</item>
-        <item>Írás</item>
-        <item>Keresés</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Különleges</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Set UID</item>
-        <item>Set GID</item>
-        <item>Ragadós bit</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Ne adja hozzá a „Végrehajtást” a tartalmazott fájlokhoz</string>
-    <string name="file_properties_permission_selinux_context">SELinux környezet</string>
-    <string name="file_properties_permission_set_selinux_context_title">SELinux környezet módosítása</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Visszaállítás</string>
-    <string name="file_properties_permission_recursive">Alkalmazás a tartalmazott fájlokra</string>
     <string name="file_properties_image">Kép</string>
     <string name="file_properties_media_dimensions">Méretek</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -413,7 +371,6 @@
     <string name="file_properties_apk_signature_digests">Aláírások</string>
     <string name="file_properties_apk_signature_digests_empty">Nincsenek érvényes aláírások</string>
     <string name="file_properties_apk_past_signature_digests">Régi aláírások</string>
-
     <string name="storage_file_system_root_title">Gyökér</string>
     <string name="storage_list_title">Tároló</string>
     <string name="storage_list_empty">Nincs tároló</string>
@@ -605,7 +562,6 @@
         <item>Tartalom megtekintése</item>
         <item>Kérdezze meg, hogy mit tegyen</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Bélyegkép megjelenítése a PDF-fájlokhoz</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Az Android régebbi verzióinál instabillá teheti az alkalmazást</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Távoli fájlok olvasása a bélyegképekhez</string>
 

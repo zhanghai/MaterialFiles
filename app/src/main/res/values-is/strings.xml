@@ -240,6 +240,7 @@
     <string name="file_name_error_empty">Skráarheiti má ekki vera autt</string>
     <string name="file_name_error_invalid">Ógilt skráarheiti</string>
     <string name="file_name_error_already_exists">Skrá með þessu heiti er þegar til staðar</string>
+    <string name="file_replace_message_format">Skipta út “%1$s”?</string>
     <string name="file_delete_message_file_format">Eyða “%1$s”?</string>
     <string name="file_delete_message_directory_format">Eyða möppunni “%1$s” og öllu innihaldi hennar?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -268,6 +269,7 @@
         <item quantity="one">Veldu skrá</item>
         <item quantity="other">Veldu skrár</item>
     </plurals>
+    <string name="file_list_title_create_file">Vista skrá</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">Veldu möppu</item>
         <item quantity="other">Veldu möppur</item>
@@ -303,6 +305,7 @@
     <string name="file_list_action_create_shortcut">Útbúa flýtileið</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Opna í nýjum glugga</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Skráarheiti</string>
     <string name="file_list_open_current_directory_format">Velja “%1$s”</string>
     <string name="file_list_paste_move_title_format">Færi %1$,d</string>
     <string name="file_list_paste_copy_title_format">Afrita %1$,d</string>
@@ -424,7 +427,12 @@
     <string name="file_properties_apk_signature_digests">Undirritanir</string>
     <string name="file_properties_apk_signature_digests_empty">Engar gildar undirritanir</string>
     <string name="file_properties_apk_past_signature_digests">Gamlar undirritanir</string>
-
+    <string name="file_properties_checksum">Gátsummur</string>
+    <string name="file_properties_checksum_compare">Bera saman</string>
+    <string name="file_properties_checksum_compare_placeholder">Hvaða gátsumma sem er</string>
+    <string name="file_properties_checksum_compare_match_format">Samsvarar %1$s gátsummu</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Samsvarar forskeyti á %1$s gátsummu</string>
+    <string name="file_properties_checksum_compare_no_match">Engin samsvarandi gátsumma fannst</string>
     <string name="storage_file_system_root_title">Rót</string>
     <string name="storage_list_title">Geymslurými</string>
     <string name="storage_list_empty">Ekkert geymslurými</string>
@@ -437,6 +445,11 @@
     <string name="storage_edit_device_storage_title">Breyta geymslurými tækis</string>
     <string name="storage_edit_device_storage_name">Nafn</string>
     <string name="storage_edit_device_storage_path">Slóð</string>
+    <string name="storage_add_external_storage_shortcut_title">Bæta við flýtileið á ytra geymslurými</string>
+    <string name="storage_edit_external_storage_shortcut_title">Breyta flýtileið á ytra geymslurými</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Geymslurými</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Fara í geymslurými</string>
+    <string name="storage_edit_external_storage_shortcut_path">Slóð</string>
     <string name="storage_add_document_tree_title">Bæta við ytra geymslurými</string>
     <string name="storage_edit_document_tree_title">Breyta ytra geymslurými</string>
     <string name="storage_edit_document_tree_name">Nafn</string>
@@ -570,6 +583,9 @@
     <string name="archive_viewer_title">Safnskoðari</string>
     <string name="image_viewer_title">Myndaskoðari</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Vista sem</string>
+    <string name="save_as_error">Villa kom upp við að vista skrá</string>
+    <string name="save_as_success_format">“%1$s” hefur verið vistuð í “%2$s”</string>
     <string name="text_editor_title">Textaritill</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -646,7 +662,7 @@
         <item>Skoða innihald</item>
         <item>Spyrja hvað eigi að gera</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Birta smámyndir fyrir PDF-skrár</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Birta smámyndir fyrir PDF-skjöl</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Gæti gert forritið óstöðugt í eldri útgáfum Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Lesa fjartengdar skrár til að útbúa smámyndir</string>
 

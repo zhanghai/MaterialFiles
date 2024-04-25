@@ -21,7 +21,7 @@
     <string name="error">Σφάλμα</string>
     <string name="hide">Απόκρυψη</string>
     <string name="install">Εγκατάσταση</string>
-    <string name="keep_editing">Συνέχεια Επεξεργασίας</string>
+    <string name="keep_editing">Συνέχεια επεξεργασίας</string>
     <string name="loading">Φόρτωση…</string>
     <string name="maybe_later">Ίσως αργότερα</string>
     <string name="merge">Συγχώνευση</string>
@@ -42,7 +42,7 @@
     <string name="share">Κοινή χρήση</string>
     <string name="show">Εμφάνιση</string>
     <string name="skip">Παράλειψη</string>
-    <string name="stop">Stop</string>
+    <string name="stop">Να σταματήσει</string>
     <string name="system_default">Προεπιλογή συστήματος</string>
     <string name="unknown">Άγνωστο</string>
     <string name="view">Προβολή</string>
@@ -54,19 +54,27 @@
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d byte</item>
-        <item quantity="other">%1$,d bytes</item>
+        <item quantity="other">%1$,d byte</item>
     </plurals>
 
-    <string name="all_files_access_rationale_message">Η εφαρμογή χρειάζεται πρόσβαση για τη διαχείριση όλων των αρχείων. Παρακαλούμε επιτρέψτε την πρόσβαση στην επερχόμενη ρύθμιση συστήματος.</string>
+    <string name="all_files_access_rationale_message">Η εφαρμογή χρειάζεται πρόσβαση για τη διαχείριση όλων των αρχείων. Παρακαλούμε επιτρέψτε την πρόσβαση στην ρύθμιση συστήματος που ακολουθεί.</string>
     <!-- The allow button before Android 10 was in all-caps. -->
-    <string name="storage_permission_rationale_message">Η εφαρμογή χρειάζεται άδεια πρόσβασης στα αρχεία. Κάντε κλικ στο “ΑΠΟΔΟΧΗ“ στο επόμενο παράθυρο διαλόγου του συστήματος.</string>
-    <string name="storage_permission_permanently_denied_message">Η εφαρμογή χρειάζεται άδεια πρόσβασης στα αρχεία. Παρακαλούμε παραχωρήστε την άδεια “Αποθήκευση“ στις ρυθμίσεις συστήματος.</string>
+    <string name="storage_permission_rationale_message">Η εφαρμογή χρειάζεται άδεια πρόσβασης στα αρχεία. Παρακαλούμε πατήστε “Αποδοχή” στον διάλογο συστήματος που ακολουθεί.</string>
+    <string name="storage_permission_permanently_denied_message">Η εφαρμογή χρειάζεται άδεια πρόσβασης στα αρχεία. Παρακαλούμε παραχωρήστε την άδεια “Αποθηκευτικός Χώρος” στις ρυθμίσεις συστήματος.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Η εφαρμογή χρειάζεται άδεια εμφάνισης ειδοποιήσεων για λειτουργίες αρχείων. Παρακαλούμε πατήστε “Αποδοχή” στον διάλογο συστήματος που ακολουθεί.</string>
+    <string name="notification_permission_permanently_denied_message">Η εφαρμογή χρειάζεται άδεια εμφάνισης ειδοποιήσεων για λειτουργίες αρχείων. Παρακαλούμε παραχωρήστε την άδεια “Ειδοποιήσεις” στις ρυθμίσεις συστήματος.</string>
+
     <string name="notification_channel_background_activity_start_name">Ενέργειες στο παρασκήνιο</string>
-    <string name="notification_channel_background_activity_start_description">Λήψη ενεργειών με την εφαρμογή στο παρασκήνιο</string>
-    <string name="notification_channel_file_job_name">Λειτουργίες αρχείου</string>
-    <string name="notification_channel_file_job_description">Προβολή και έλεγχος λειτουργιών αρχείου</string>
-    <string name="notification_channel_ftp_server_name">FTP server</string>
-    <string name="notification_channel_ftp_server_description">Προβολή και έλεγχος του FTP server</string>
+    <string name="notification_channel_background_activity_start_description">Να προβαίνει σε ενέργειες ενώ η εφαρμογή βρίσκεται στο παρασκήνιο</string>
+    <string name="notification_channel_file_job_name">Λειτουργίες αρχείων</string>
+    <string name="notification_channel_file_job_description">Προβολή και έλεγχος λειτουργιών αρχείων</string>
+    <string name="notification_channel_ftp_server_name">Διακομιστής FTP</string>
+    <string name="notification_channel_ftp_server_description">Προβολή και έλεγχος του διακομιστή FTP</string>
+
+    <string name="file_action_archive_password_title">Απαιτείται κωδικός</string>
+    <string name="file_action_archive_password_message_format">Το “%1$s” προστατεύεται από κωδικό.</string>
+    <string name="file_action_archive_password_error_empty">Ο κωδικός δεν μπορεί να είναι άδειος</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Προετοιμασία για συμπίεση %1$,d αρχείο (%2$s)</item>
@@ -75,7 +83,7 @@
     <string name="file_job_archive_notification_title_one_format">Συμπίεση “%1$s” σε “%2$s”</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">Συμπίεση %1$,d αρχείο σε “%2$s”</item>
-        <item quantity="other">Συμπίεση %1$,d αρχεία σε “%2$s”</item>
+        <item quantity="other">Συμπίεση %1$,d αρχείων σε “%2$s”</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Προετοιμασία αντιγραφής %1$,d αρχείο (%2$s)</item>
@@ -84,7 +92,7 @@
     <string name="file_job_copy_notification_title_one_format">Αντιγραφή “%1$s” σε “%2$s”</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">Αντιγραφή %1$,d αρχείο σε “%2$s”</item>
-        <item quantity="other">Αντιγραφή %1$,d αρχεία σε “%2$s”</item>
+        <item quantity="other">Αντιγραφή %1$,d αρχείων σε “%2$s”</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">Προετοιμασία για εξαγωγή %1$,d αρχείο (%2$s)</item>
@@ -93,7 +101,7 @@
     <string name="file_job_extract_notification_title_one_format">Εξαγωγή “%1$s” σε “%2$s”</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">Εξαγωγή %1$,d αρχείο σε “%2$s”</item>
-        <item quantity="other">Εξαγωγή %1$,d αρχεία σε “%2$s”</item>
+        <item quantity="other">Εξαγωγή %1$,d αρχείων σε “%2$s”</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">Προετοιμασία για μετακίνηση %1$,d αρχείο (%2$s)</item>
@@ -102,18 +110,18 @@
     <string name="file_job_move_notification_title_one_format">Μετακίνηση “%1$s” σε “%2$s”</string>
     <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">Μετακίνηση %1$,d αρχείο σε “%2$s”</item>
-        <item quantity="other">Μετακίνηση %1$,d αρχεία σε “%2$s”</item>
+        <item quantity="other">Μετακίνηση %1$,d αρχείων σε “%2$s”</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
     <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
     <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">Προετοιμασία για διαγραφή %1$,d αρχείο</item>
-        <item quantity="other">Προετοιμασία για διαγραφή %1$,d αρχεία</item>
+        <item quantity="other">Προετοιμασία για διαγραφή %1$,d αρχείων</item>
     </plurals>
     <string name="file_job_delete_notification_title_one_format">Διαγραφή “%1$s”</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">Διαγραφή %1$,d αρχείο</item>
-        <item quantity="other">Διαγραφή %1$,d αρχεία</item>
+        <item quantity="other">Διαγραφή %1$,d αρχείων</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">Προετοιμασία αλλαγής κατόχου για %1$,d αρχείο</item>
@@ -171,18 +179,18 @@
     <string name="file_job_cannot_copy_over_itself_title">Αδύνατη η αντιγραφή ενός αρχείου στον εαυτό του</string>
     <string name="file_job_cannot_extract_over_itself_title">Αδύνατη η εξαγωγή ενός αρχείου στον εαυτό του</string>
     <string name="file_job_cannot_move_over_itself_title">Αδύνατη η μετακίνηση ενός αρχείου στον εαυτό του</string>
-    <string name="file_job_cannot_copy_move_over_itself_message">The source file would be overwritten by the destination.</string>
-    <string name="file_job_replace_title_format">Αντικατάσταση αρχείου “%1$s”?</string>
-    <string name="file_job_replace_message_format">Υπάρχει ήδη ένα άλλο αρχείο με το ίδιο όνομα στο "%1$s".\nΗ αντικατάστασή του θα αντικαταστήσει το περιεχόμενό του.</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Το αρχείο προέλευσης θα αντικαθιστόταν από τον προορισμό.</string>
+    <string name="file_job_replace_title_format">Αντικατάσταση αρχείου “%1$s”;</string>
+    <string name="file_job_replace_message_format">Υπάρχει ήδη ένα άλλο αρχείο με το ίδιο όνομα στο “%1$s”.\nΗ αντικατάστασή του θα αντικαταστήσει το περιεχόμενό του.</string>
     <string name="file_job_replace_target_name">Αρχικό αρχείο</string>
     <string name="file_job_replace_source_name">Αντικατάσταση με</string>
-    <string name="file_job_merge_title_format">Συγχώνευση φακέλου “%1$s”?</string>
+    <string name="file_job_merge_title_format">Συγχώνευση φακέλου “%1$s”;</string>
     <string name="file_job_merge_copy_message_format">Η συγχώνευση θα ζητήσει επιβεβαίωση πριν από την αντικατάσταση τυχόν αρχείων στο φάκελο που έρχονται σε σύγκρουση με τα αρχεία που αντιγράφονται.</string>
     <string name="file_job_merge_extract_message_format">Η συγχώνευση θα ζητήσει επιβεβαίωση πριν από την αντικατάσταση τυχόν αρχείων στο φάκελο που έρχονται σε σύγκρουση με τα αρχεία που εξάγονται.</string>
     <string name="file_job_merge_move_message_format">Η συγχώνευση θα ζητήσει επιβεβαίωση πριν αντικαταστήσει τυχόν αρχεία στο φάκελο που έρχονται σε σύγκρουση με τα αρχεία που μετακινούνται.</string>
     <string name="file_job_merge_target_name">Αρχικός φάκελος</string>
     <string name="file_job_merge_source_name">Συγχώνευση με</string>
-    <string name="file_job_conflict_show_name">Επιλογή νέου ονόματος για τον προορισμό</string>
+    <string name="file_job_conflict_show_name">Επιλέξτε ένα νέο όνομα για τον προορισμό</string>
     <string name="file_job_conflict_name_hint">Νέο όνομα</string>
     <string name="file_job_archive_error_title_format">Σφάλμα κατά τη συμπίεση “%1$s”</string>
     <string name="file_job_archive_error_message_format">Υπήρξε σφάλμα συμπίεσης του αρχείου σε “%1$s”.\n%2$s</string>
@@ -209,9 +217,9 @@
     <string name="file_job_write_error_title">Σφάλμα κατά την εγγραφή</string>
     <string name="file_job_write_error_message_format">Υπήρξε σφάλμα κατά την εγγραφή “%1$s”.\n%2$s</string>
     <string name="file_job_get_information_error_message_format">Υπήρξε σφάλμα στη λήψη πληροφοριών για “%1$s”.</string>
-    <string name="file_job_remount_format">Προσάρτηση του "%1$s" ως read-write</string>
-    <string name="file_job_remount_loading_format">Προσάρτηση “%1$s” ως read-write…</string>
-    <string name="file_job_remount_success_format">“%1$s” έχει προσαρτηθεί ξανά ως read-write</string>
+    <string name="file_job_remount_format">Επαναπροσάρτηση “%1$s” ως read-write</string>
+    <string name="file_job_remount_loading_format">Γίνεται επαναπροσάρτηση “%1$s” ως read-write…</string>
+    <string name="file_job_remount_success_format">“%1$s” έχει επαναπροσαρτηθεί ως read-write</string>
     <string name="file_job_action_all">Εφαρμογή αυτής της ενέργειας σε όλα τα αρχεία</string>
 
     <string name="file_open_apk_message">Αυτό το αρχείο είναι ένα πακέτο Android. Θέλετε να το εγκαταστήσετε ή να προβάλετε τα περιεχόμενά του;</string>
@@ -230,8 +238,9 @@
     <string name="file_name_error_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό</string>
     <string name="file_name_error_invalid">Άκυρο όνομα αρχείου</string>
     <string name="file_name_error_already_exists">Υπάρχει ήδη ένα αρχείο με αυτό το όνομα</string>
+    <string name="file_replace_message_format">Να αντικατασταθεί “%1$s”;</string>
     <string name="file_delete_message_file_format">Διαγραφή “%1$s”?</string>
-    <string name="file_delete_message_directory_format">Διαγραφή του φακέλου "%1$s" και των περιεχομένων του;</string>
+    <string name="file_delete_message_directory_format">Διαγραφή φακέλου “%1$s” και των περιεχομένων του;</string>
     <plurals name="file_delete_message_multiple_files_format">
         <item quantity="one">Διαγραφή %1$,d αρχείο?</item>
         <item quantity="other">Διαγραφή %1$,d αρχεία?</item>
@@ -248,18 +257,20 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Κωδικός (προαιρετικά)</string>
     <string name="file_add_bookmark_success">Προστέθηκε σελιδοδείκτης</string>
     <string name="file_create_file_title">Νέο αρχείο</string>
     <string name="file_create_directory_title">Νέος φάκελος</string>
 
     <string name="file_list_title">Αρχεία</string>
     <plurals name="file_list_title_open_file">
-        <item quantity="one">Επιλογή αρχείου</item>
-        <item quantity="other">Επιλογή αρχείων</item>
+        <item quantity="one">Επιλέξτε ένα αρχείο</item>
+        <item quantity="other">Επιλέξτε αρχεία</item>
     </plurals>
+    <string name="file_list_title_create_file">Αποθήκευση αρχείου</string>
     <plurals name="file_list_title_open_directory">
-        <item quantity="one">Επιλογή φακέλου</item>
-        <item quantity="other">Επιλογή φακέλων</item>
+        <item quantity="one">Επιλέξτε έναν φάκελο</item>
+        <item quantity="other">Επιλέξτε φακέλους</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d φάκελος</item>
@@ -276,7 +287,7 @@
     <string name="file_list_action_view_list">Λίστα</string>
     <string name="file_list_action_view_grid">Πλέγμα</string>
     <string name="file_list_action_sort_by_name">Όνομα</string>
-    <string name="file_list_action_sort_by_type">Τύπο</string>
+    <string name="file_list_action_sort_by_type">Τύπος</string>
     <string name="file_list_action_sort_by_size">Μέγεθος</string>
     <string name="file_list_action_sort_by_last_modified">Τελευταία τροποποίηση</string>
     <string name="file_list_action_sort_order_ascending">Αύξουσα</string>
@@ -287,10 +298,12 @@
     <string name="file_list_action_navigate_to">Μετάβαση σε</string>
     <string name="file_list_action_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="file_list_action_copy_path">Αντιγραφή διαδρομής</string>
-    <string name="file_list_action_open_in_terminal">Άνοιγμα στο terminal</string>
+    <string name="file_list_action_open_in_terminal">Άνοιγμα στο τερματικό</string>
     <string name="file_list_action_add_bookmark">Προσθήκη σελιδοδείκτη</string>
     <string name="file_list_action_create_shortcut">Δημιουργία συντόμευσης</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Άνοιγμα σε νέο παράθυρο</string>
+    <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Όνομα αρχείου</string>
     <string name="file_list_open_current_directory_format">Επιλογή “%1$s”</string>
     <string name="file_list_paste_move_title_format">Μετακίνηση %1$,d</string>
     <string name="file_list_paste_copy_title_format">Αντιγραφή %1$,d</string>
@@ -306,13 +319,13 @@
     <string name="file_item_action_archive">Συμπίεση</string>
     <string name="file_item_action_properties">Ιδιότητες</string>
 
-    <string name="file_properties_title_format">“%1$s” ιδιότητες</string>
+    <string name="file_properties_title_format">Ιδιότητες “%1$s”</string>
     <string name="file_properties_basic">Βασικές</string>
     <string name="file_properties_basic_name">Όνομα</string>
     <string name="file_properties_basic_type">Τύπος</string>
     <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_type_symbolic_link_format">Σύνδεση με %1$s (%2$s)</string>
-    <string name="file_properties_basic_symbolic_link_target">Προορισμός σύνδεσης</string>
+    <string name="file_properties_basic_symbolic_link_target">Προορισμός Σύνδεσης</string>
     <string name="file_properties_basic_size">Μέγεθος</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Περιεχόμενα</string>
@@ -320,18 +333,18 @@
         <item quantity="one">%1$,d στοιχείο, με μέγεθος %2$s</item>
         <item quantity="other">%1$,d στοιχεία, συνολικά %2$s</item>
     </plurals>
-    <string name="file_properties_basic_last_modification_time">Τελευταία τροποποίηση</string>
-    <string name="file_properties_basic_parent_directory">Γονικός φάκελος</string>
-    <string name="file_properties_basic_archive_file">Αρχειοθέτηση αρχείου</string>
-    <string name="file_properties_basic_archive_entry">Καταχώρηση αρχείου</string>
-    <string name="file_properties_basic_free_space">Ελεύθερος χώρος</string>
+    <string name="file_properties_basic_last_modification_time">Τελευταία Τροποποίηση</string>
+    <string name="file_properties_basic_parent_directory">Γονικός Φάκελος</string>
+    <string name="file_properties_basic_archive_file">Αρχειοθέτηση Αρχείου</string>
+    <string name="file_properties_basic_archive_entry">Καταχώρηση Αρχειοθήκης</string>
+    <string name="file_properties_basic_free_space">Ελεύθερος Χώρος</string>
     <string name="file_properties_permission">Δικαιώματα</string>
     <string name="file_properties_permission_owner">Κάτοχος</string>
     <string name="file_properties_permission_group">Ομάδα</string>
     <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
     <string name="file_properties_permission_set_owner_title">Αλλαγή κατόχου</string>
     <string name="file_properties_permission_set_group_title">Αλλαγή ομάδας</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Εισάγετε ένα όνομα ή ID</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Εισάγετε ένα όνομα ή αναγνωριστικό</string>
     <string name="file_properties_permission_set_principal_system">Σύστημα</string>
     <string name="file_properties_permission_mode">Λειτουργία</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
@@ -353,15 +366,15 @@
         <item>Ορισμός GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Χωρίς προσθήκη “Εκτέλεση“ για τα κλεισμένα αρχεία</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Χωρίς προσθήκη “Εκτέλεση“ για τα εσώκλειστα αρχεία</string>
     <string name="file_properties_permission_selinux_context">SELinux Context</string>
     <string name="file_properties_permission_set_selinux_context_title">Αλλαγή SELinux context</string>
     <string name="file_properties_permission_set_selinux_context_restore">Επαναφορά</string>
-    <string name="file_properties_permission_recursive">Εφαρμογή σε κλεισμένα αρχεία</string>
+    <string name="file_properties_permission_recursive">Εφαρμογή στα εσώκλειστα αρχεία</string>
     <string name="file_properties_image">Εικόνα</string>
     <string name="file_properties_media_dimensions">Διαστάσεις</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
-    <string name="file_properties_media_date_time">Λήφθηκε σε</string>
+    <string name="file_properties_media_date_time">Λήφθηκε στις</string>
     <string name="file_properties_media_coordinates">Συντεταγμένες</string>
     <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
     <string name="file_properties_media_address">Τοποθεσία</string>
@@ -383,7 +396,7 @@
     <string name="file_properties_media_title">Τίτλος</string>
     <string name="file_properties_audio_artist">Καλλιτέχνης</string>
     <string name="file_properties_audio_album">Άλμπουμ</string>
-    <string name="file_properties_audio_album_artist">Άλμπουμ καλλιτέχνη</string>
+    <string name="file_properties_audio_album_artist">Καλλιτέχνης άλμπουμ</string>
     <string name="file_properties_audio_composer">Συνθέτης</string>
     <string name="file_properties_audio_disc_number">Δίσκος</string>
     <string name="file_properties_audio_track_number">Κομμάτι</string>
@@ -401,53 +414,64 @@
     <string name="file_properties_apk_version">Έκδοση</string>
     <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
     <string name="file_properties_apk_min_sdk_version">Ελάχιστη έκδοση συστήματος</string>
-    <string name="file_properties_apk_target_sdk_version">Έκδοση συστήματος προορισμού</string>
+    <string name="file_properties_apk_target_sdk_version">Στόχος έκδοσης συστήματος</string>
     <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
     <string name="file_properties_apk_requested_permissions">Δικαιώματα</string>
     <string name="file_properties_apk_requested_permissions_zero">Δεν ζητήθηκαν δικαιώματα</string>
     <plurals name="file_properties_apk_requested_permissions_positive_format">
         <item quantity="one">%1$,d απαιτούμενο δικαίωμα</item>
-        <item quantity="other">%1$,d απαιτούμενα δικαιώματα</item>
+        <item quantity="other">%1$,d δικαιώματα ζητήθηκαν</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">Υπογραφές</string>
     <string name="file_properties_apk_signature_digests_empty">Χωρίς έγκυρες υπογραφές</string>
     <string name="file_properties_apk_past_signature_digests">Παλιές υπογραφές</string>
-
-    <string name="storage_file_system_root_title">Root</string>
-    <string name="storage_list_title">Αποθήκευση</string>
-    <string name="storage_list_empty">Καμία αποθήκευση</string>
-    <string name="storage_add_storage_title">Προσθήκη αποθήκευσης</string>
-    <string name="storage_add_storage_document_tree">Εξωτερική αποθήκευση</string>
-    <string name="storage_add_storage_ftp_server">FTP διακομιστής</string>
-    <string name="storage_add_storage_sftp_server">SFTP διακομιστής</string>
-    <string name="storage_add_storage_smb_server">SMB διακομιστής</string>
-    <string name="storage_edit_device_storage_title">Επεξεργασία αποθήκευσης συσκευής</string>
+    <string name="file_properties_checksum">Αθροίσματα ελέγχου</string>
+    <string name="file_properties_checksum_compare">Σύγκριση</string>
+    <string name="file_properties_checksum_compare_placeholder">Οποιοδήποτε άθροισμα ελέγχου</string>
+    <string name="file_properties_checksum_compare_match_format">Ταιρίαζει με το άθροισμα ελέγχου %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Ταιριάζει με το πρόθεμα αθροίσματος ελέγχου %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Δεν βρέθηκε άθροισμα ελέγχου που ταιριάζει</string>
+    <string name="storage_file_system_root_title">Ρίζα</string>
+    <string name="storage_list_title">Χώρος αποθήκευσης</string>
+    <string name="storage_list_empty">Χωρίς χώρο αποθήκευσης</string>
+    <string name="storage_add_storage_title">Προσθήκη χώρου αποθήκευσης</string>
+    <string name="storage_add_storage_document_tree">Εξωτερικός χώρος αποθήκευσης</string>
+    <string name="storage_add_storage_ftp_server">Διακομιστής FTP</string>
+    <string name="storage_add_storage_sftp_server">Διακομιστής SFTP</string>
+    <string name="storage_add_storage_smb_server">Διακομιστής SMB</string>
+    <string name="storage_add_storage_webdav_server">Διακομιστής WebDAV</string>
+    <string name="storage_edit_device_storage_title">Επεξεργασία χώρου αποθήκευσης συσκευής</string>
     <string name="storage_edit_device_storage_name">Όνομα</string>
     <string name="storage_edit_device_storage_path">Διαδρομή</string>
-    <string name="storage_add_document_tree_title">Προσθήκη εξωτερικής αποθήκευσης</string>
-    <string name="storage_edit_document_tree_title">Επεξεργασία εξωτερικής αποθήκευσης</string>
+    <string name="storage_add_external_storage_shortcut_title">Προσθήκη συντόμευσης εξωτερικού χώρου αποθήκευσης</string>
+    <string name="storage_edit_external_storage_shortcut_title">Επεξεργασία συντόμευσης εξωτερικού χώρου αποθήκευσης</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Τόμος χώρου αποθήκευσης</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Εισάγετε έναν τόμο χώρου αποθήκευσης</string>
+    <string name="storage_edit_external_storage_shortcut_path">Διαδρομή</string>
+    <string name="storage_add_document_tree_title">Προσθήκη εξωτερικού χώρου αποθήκευσης</string>
+    <string name="storage_edit_document_tree_title">Επεξεργασία εξωτερικού χώρου αποθήκευσης</string>
     <string name="storage_edit_document_tree_name">Όνομα</string>
     <string name="storage_edit_document_tree_uri">URI</string>
     <string name="storage_edit_document_tree_path">Διαδρομή</string>
     <string name="storage_edit_ftp_server_title_edit">Επεξεργασία διακομιστή FTP</string>
     <string name="storage_edit_ftp_server_title_add">Προσθήκη διακομιστή FTP</string>
-    <string name="storage_edit_ftp_server_host">Hostname</string>
-    <string name="storage_edit_ftp_server_host_error_empty">Εισάγετε ένα hostname</string>
-    <string name="storage_edit_ftp_server_host_error_invalid">Άκυρο hostname</string>
+    <string name="storage_edit_ftp_server_host">Όνομα υπολογιστή</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Εισάγετε ένα όνομα υπολογιστή</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Μη έγκυρο όνομα υπολογιστή</string>
     <string name="storage_edit_ftp_server_port">Θύρα</string>
-    <string name="storage_edit_ftp_server_port_error_invalid">Άκυρη θύρα</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Μη έγκυρη θύρα</string>
     <string name="storage_edit_ftp_server_path">Διαδρομή</string>
     <string name="storage_edit_ftp_server_path_placeholder">Μπορεί να μείνει κενό</string>
     <string name="storage_edit_ftp_server_name">Όνομα</string>
-    <string name="storage_edit_ftp_server_name_placeholder">Χρήση hostname</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Χρήση ονόματος υπολογιστή</string>
     <string name="storage_edit_ftp_server_protocol">Πρωτόκολλο</string>
-    <string name="storage_edit_ftp_server_authentication_type">Πιστοποίηση</string>
+    <string name="storage_edit_ftp_server_authentication_type">Αυθεντικοποίηση</string>
     <string-array name="storage_edit_ftp_server_authentication_type_entries">
         <item>Κωδικός</item>
         <item>Ανώνυμα</item>
     </string-array>
     <string name="storage_edit_ftp_server_username">Όνομα χρήστη</string>
-    <string name="storage_edit_ftp_server_username_error_empty">Εισάγετε όνομα χρήστη</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Εισάγετε ένα όνομα χρήστη</string>
     <string name="storage_edit_ftp_server_password">Κωδικός</string>
     <string name="storage_edit_ftp_server_mode">Λειτουργία</string>
     <string-array name="storage_edit_ftp_server_mode_entries">
@@ -459,60 +483,86 @@
     <string name="storage_edit_ftp_server_add">Προσθήκη</string>
     <string name="storage_edit_sftp_server_title_edit">Επεξεργασία διακομιστή SFTP</string>
     <string name="storage_edit_sftp_server_title_add">Προσθήκη διακομιστή SFTP</string>
-    <string name="storage_edit_sftp_server_host">Hostname</string>
-    <string name="storage_edit_sftp_server_host_error_empty">Εισάγετε ένα hostname</string>
-    <string name="storage_edit_sftp_server_host_error_invalid">Άκυρο hostname</string>
+    <string name="storage_edit_sftp_server_host">Όνομα υπολογιστή</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Εισάγετε ένα όνομα υπολογιστή</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Μη έγκυρο όνομα υπολογιστή</string>
     <string name="storage_edit_sftp_server_port">Θύρα</string>
-    <string name="storage_edit_sftp_server_port_error_invalid">Άκυρη θύρα</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Μη έγκυρη θύρα</string>
     <string name="storage_edit_sftp_server_path">Διαδρομή</string>
     <string name="storage_edit_sftp_server_path_placeholder">Μπορεί να μείνει κενό</string>
     <string name="storage_edit_sftp_server_name">Όνομα</string>
-    <string name="storage_edit_sftp_server_name_placeholder">Χρήση hostname</string>
-    <string name="storage_edit_sftp_server_authentication_type">Πιστοποίηση</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Χρήση ονόματος υπολογιστή</string>
+    <string name="storage_edit_sftp_server_authentication_type">Αυθεντικοποίηση</string>
     <string-array name="storage_edit_sftp_server_authentication_type_entries">
         <item>Κωδικός</item>
         <item>Δημόσιο κλειδί</item>
     </string-array>
     <string name="storage_edit_sftp_server_username">Όνομα χρήστη</string>
-    <string name="storage_edit_sftp_server_username_error_empty">Εισάγετε όνομα χρήστη</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Εισάγετε ένα όνομα χρήστη</string>
     <string name="storage_edit_sftp_server_password">Κωδικός</string>
     <string name="storage_edit_sftp_server_private_key">Ιδιωτικό κλειδί</string>
     <string name="storage_edit_sftp_server_private_key_open_file">Άνοιγμα αρχείου</string>
-    <string name="storage_edit_sftp_server_private_key_error_empty">Εισαγωγή ιδιωτικού κλειδιού</string>
-    <string name="storage_edit_sftp_server_private_key_error_invalid">Άκυρο ιδιωτικό κλειδί</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Εισάγετε ένα ιδιωτικό κλειδί</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Μη έγκυρο ιδιωτικό κλειδί</string>
     <string name="storage_edit_sftp_server_private_key_password">Κωδικός ιδιωτικού κλειδιού</string>
     <string name="storage_edit_sftp_server_private_key_password_placeholder">Μπορεί να μείνει κενό</string>
-    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Άκυρος κωδικός ιδιωτικού κλειδιού</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Μη έγκυρος κωδικός ιδιωτικού κλειδιού</string>
     <string name="storage_edit_sftp_server_connect_and_add">Σύνδεση και προσθήκη</string>
     <string name="storage_edit_sftp_server_add">Προσθήκη</string>
-    <string name="storage_add_lan_smb_server_loading">Αναζήτηση διακομιστών SMB…</string>
-    <string name="storage_add_lan_smb_server_add">Προσθήκη χειροκίνητα</string>
+    <string name="storage_add_lan_smb_server_loading">Αναζήτηση για διακομιστές SMB…</string>
+    <string name="storage_add_lan_smb_server_add">Χειροκίνητη προσθήκη</string>
     <string name="storage_edit_smb_server_title_edit">Επεξεργασία διακομιστή SMB</string>
     <string name="storage_edit_smb_server_title_add">Προσθήκη διακομιστή SMB</string>
-    <string name="storage_edit_smb_server_host">Hostname</string>
-    <string name="storage_edit_smb_server_host_error_empty">Εισάγετε ένα hostname</string>
-    <string name="storage_edit_smb_server_host_error_invalid">Άκυρο hostname</string>
+    <string name="storage_edit_smb_server_host">Όνομα υπολογιστή</string>
+    <string name="storage_edit_smb_server_host_error_empty">Εισάγετε ένα όνομα υπολογιστή</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Μη έγκυρο όνομα υπολογιστή</string>
     <string name="storage_edit_smb_server_port">Θύρα</string>
-    <string name="storage_edit_smb_server_port_error_invalid">Άκυρη θύρα</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Μη έγκυρη θύρα</string>
     <string name="storage_edit_smb_server_path">Διαδρομή</string>
     <string name="storage_edit_smb_server_path_placeholder">Μπορεί να μείνει κενό</string>
     <string name="storage_edit_smb_server_name">Όνομα</string>
-    <string name="storage_edit_smb_server_name_placeholder">Χρήση hostname</string>
-    <string name="storage_edit_smb_server_authentication_type">Πιστοποίηση</string>
+    <string name="storage_edit_smb_server_name_placeholder">Χρήση ονόματος υπολογιστή</string>
+    <string name="storage_edit_smb_server_authentication_type">Αυθεντικοποίηση</string>
     <string-array name="storage_edit_smb_server_authentication_type_entries">
         <item>Κωδικός</item>
         <item>Επισκέπτης</item>
         <item>Ανώνυμα</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Όνομα χρήστη</string>
-    <string name="storage_edit_smb_server_username_error_empty">Εισάγετε όνομα χρήστη</string>
+    <string name="storage_edit_smb_server_username_error_empty">Εισάγετε ένα όνομα χρήστη</string>
     <string name="storage_edit_smb_server_password">Κωδικός</string>
     <string name="storage_edit_smb_server_domain">Τομέας</string>
     <string name="storage_edit_smb_server_connect_and_add">Σύνδεση και προσθήκη</string>
     <string name="storage_edit_smb_server_add">Προσθήκη</string>
+    <string name="storage_edit_webdav_server_title_edit">Επεξεργασία διακομιστή WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Προσθήκη διακομιστή WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Όνομα υπολογιστή</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Εισάγετε ένα όνομα υπολογιστή</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Μη έγκυρο όνομα υπολογιστή</string>
+    <string name="storage_edit_webdav_server_port">Θύρα</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Μη έγκυρη θύρα</string>
+    <string name="storage_edit_webdav_server_path">Διαδρομή</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Μπορεί να μείνει κενό</string>
+    <string name="storage_edit_webdav_server_name">Όνομα</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Χρήση ονόματος υπολογιστή</string>
+    <string name="storage_edit_webdav_server_protocol">Πρωτόκολλο</string>
+    <string name="storage_edit_webdav_server_authentication_type">Αυθεντικοποίηση</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Κωδικός</item>
+        <item>Διακριτικό πρόσβασης</item>
+        <item>Κανένα</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Όνομα χρήστη</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Εισάγετε ένα όνομα χρήστη</string>
+    <string name="storage_edit_webdav_server_password">Κωδικός</string>
+    <string name="storage_edit_webdav_server_access_token">Διακριτικό πρόσβασης</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Εισάγετε ένα διακριτικό πρόσβασης</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Σύνδεση και προσθήκη</string>
+    <string name="storage_edit_webdav_server_add">Προσθήκη</string>
+
     <string name="navigation_storage_subtitle_format">%1$s ελεύθερα από %2$s</string>
-    <string name="navigation_add_storage">Προσθήκη αποθήκευσης…</string>
-    <string name="navigation_standard_directory_alarms">Ειδοποιήσεις</string>
+    <string name="navigation_add_storage">Προσθήκη χώρου αποθήκευσης...</string>
+    <string name="navigation_standard_directory_alarms">Ξυπνητήρια</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Έγγραφα</string>
     <string name="navigation_standard_directory_downloads">Λήψεις</string>
@@ -520,17 +570,20 @@
     <string name="navigation_standard_directory_music">Μουσική</string>
     <string name="navigation_standard_directory_notifications">Ειδοποιήσεις</string>
     <string name="navigation_standard_directory_pictures">Εικόνες</string>
-    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_podcasts">Podcast</string>
     <string name="navigation_standard_directory_ringtones">Ήχοι κλήσεων</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
-    <string name="navigation_edit_bookmark_directory_title">Σελιδοδείκτης φακέλου</string>
+    <string name="navigation_edit_bookmark_directory_title">Φάκελος σελιδοδείκτης</string>
     <string name="navigation_edit_bookmark_directory_name">Όνομα</string>
     <string name="navigation_edit_bookmark_directory_path">Διαδρομή</string>
-    <string name="archive_viewer_title">Προβολή αρχειοθήκης</string>
-    <string name="image_viewer_title">Προβολή εικόνων</string>
+    <string name="archive_viewer_title">Προβολέας αρχειοθήκης</string>
+    <string name="image_viewer_title">Προβολέας εικόνων</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Αποθήκευση ως</string>
+    <string name="save_as_error">Σφάλμα κατά την αποθήκευση του αρχείου</string>
+    <string name="save_as_success_format">“%1$s” αποθηκεύτηκε στο “%2$s”</string>
     <string name="text_editor_title">Επεξεργαστής κειμένου</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -543,35 +596,38 @@
     <string name="ftp_server_state_title">Κατάσταση</string>
     <string name="ftp_server_state_summary_starting">Εκκίνηση…</string>
     <string name="ftp_server_state_summary_running">Εκτελείται</string>
-    <string name="ftp_server_state_summary_stopping">Διακόπτεται…</string>
+    <string name="ftp_server_state_summary_stopping">Διακοπή…</string>
     <string name="ftp_server_state_summary_stopped">Δεν ξεκίνησε</string>
     <string name="ftp_server_url_title">URL</string>
     <string name="ftp_server_url_summary_no_local_inet_address">Η τοπική διεύθυνση IP είναι άγνωστη</string>
     <string name="ftp_server_url_menu_copy_url">Αντιγραφή URL</string>
     <string name="ftp_server_url_menu_copy_password">Αντιγραφή κωδικού</string>
     <string name="ftp_server_add_tile_title">Προσθήκη στις Γρήγορες Ρυθμίσεις</string>
+    <string name="ftp_server_add_tile_result_added">“Διακομιστής FTP” έχει προστεθεί στις Γρήγορες Ρυθμίσεις</string>
+    <string name="ftp_server_add_tile_result_already_added">“Διακομιστής FTP” έχει ήδη προστεθεί στις Γρήγορες Ρυθμίσεις</string>
+    <string name="ftp_server_add_tile_result_error">Σφάλμα κατά την προσθήκη “Διακομιστής FTP” στις Γρήγορες Ρυθμίσεις</string>
     <string name="ftp_server_configuration_title">Διαμόρφωση</string>
     <string name="ftp_server_anonymous_login_title">Ανώνυμη σύνδεση</string>
     <string name="ftp_server_username_title">Όνομα χρήστη</string>
     <string name="ftp_server_password_title">Κωδικός</string>
     <string name="ftp_server_port_title">Θύρα</string>
-    <string name="ftp_server_home_directory_title">Root φάκελος</string>
+    <string name="ftp_server_home_directory_title">Φάκελος ρίζας</string>
     <string name="ftp_server_writable_title">Αποδοχή εγγραφής</string>
     <string name="settings_title">Ρυθμίσεις</string>
     <string name="settings_interface_title">Διεπαφή</string>
     <string name="settings_locale_title">Γλώσσα</string>
     <string name="settings_theme_color_title">Χρώμα θέματος</string>
     <string name="settings_theme_color_summary">Χρώμα που εμφανίζεται συχνότερα στην εφαρμογή</string>
-    <string name="settings_material_design_3_title">Σχεδίαση υλικού 3</string>
+    <string name="settings_material_design_3_title">Σχεδίαση Υλικού 3</string>
     <string name="settings_night_mode_title">Νυχτερινή λειτουργία</string>
     <string-array name="settings_night_mode_entries">
         <item>Ακολουθεί το σύστημα</item>
-        <item>Off</item>
-        <item>On</item>
-        <item>Βάση ώρας</item>
-        <item>Βάση εξοικον. μπαταρίας</item>
+        <item>Κλειστό</item>
+        <item>Ανοιχτό</item>
+        <item>Βάσει ώρας</item>
+        <item>Βάσει εξοικονόμησης μπαταρίας</item>
     </string-array>
-    <string name="settings_black_night_mode">Νυχτερινή λειτουργία Μαύρο</string>
+    <string name="settings_black_night_mode">Μαύρη νυχτερινή λειτουργία</string>
     <string name="settings_file_list_animation_title">Κινούμενη εικόνα λίστας αρχείων</string>
     <string name="settings_file_name_ellipsize_title">Εμφάνιση μακροσκελούς ονόματος αρχείου</string>
     <string-array name="settings_file_name_ellipsize_entries">
@@ -585,28 +641,28 @@
     <string name="settings_standard_directories_title">Τυπικοί φάκελοι</string>
     <string name="settings_standard_directories_summary_empty">Χωρίς ενεργούς τυπικούς φακέλους</string>
     <string name="settings_bookmark_directory_screenshots">Στιγμιότυπα οθόνης</string>
-    <string name="settings_bookmark_directories_title">Σελιδοδείκτης φακέλων</string>
-    <string name="settings_bookmark_directories_summary_empty">Χωρίς σελιδοδείκτη φακέλων</string>
-    <string name="settings_root_strategy_title">Λειτουργία πρόσβασης Root</string>
+    <string name="settings_bookmark_directories_title">Φάκελοι σελιδοδείκτες</string>
+    <string name="settings_bookmark_directories_summary_empty">Χωρίς φακέλους σελιδοδείκτες</string>
+    <string name="settings_root_strategy_title">Λειτουργία πρόσβασης ρίζας</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Έχετε %1$,d αρχείο σε εκτέλεση και αλλαγή της λειτουργίας πρόσβασης root μπορεί να προκαλέσει τώρα μη αναμενόμενο σφάλμα. Είστε βέβαιοι ότι θέλετε να την αλλάξετε;</item>
-        <item quantity="other">Έχετε %1$,d αρχεία σε εκτέλεση και αλλαγή της λειτουργίας πρόσβασης root μπορεί να προκαλέσει τώρα μη αναμενόμενο σφάλμα. Είστε βέβαιοι ότι θέλετε να την αλλάξετε;</item>
+        <item quantity="other">Έχετε %1$,d λειτουργίες αρχείων που εκτελούνται και η αλλαγή της λειτουργίας πρόσβασης ρίζας τώρα ενδέχεται να προκαλέσει μη αναμενόμενο σφάλμα. Είστε βέβαιοι ότι θέλετε να την αλλάξετε;</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
-        <item>Κανονική πρόσβαση μόνο</item>
+        <item>Μόνο κανονική πρόσβαση</item>
         <item>Αυτόματη</item>
-        <item>Πρόσβαση μόνο Root</item>
+        <item>Μόνο πρόσβαση ρίζας</item>
     </string-array>
-    <string name="settings_archive_file_name_encoding_title">Κωδικοπ/ση αρχειοθέτησης ονόμ. αρχείου</string>
+    <string name="settings_archive_file_name_encoding_title">Κωδικοποίηση ονόματος αρχείου αρχειοθήκης</string>
     <string name="settings_open_apk_default_action_title">Άνοιγμα πακέτου Android</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Εγκατάσταση</item>
         <item>Προβολή περιεχομένων</item>
         <item>Ερώτηση για ενέργεια</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Εμφάνιση μικρογραφίας για αρχεία PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Εμφάνιση μικρογραφίας για έγγραφα PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Μπορεί να κάνει την εφαρμογή ασταθή σε παλαιότερες εκδόσεις Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Ανάγν. απόμακρων αρχ. για μικρογραφία</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Ανάγνωση απόμακρων αρχείων για μικρογραφία</string>
 
     <string name="about_title">Σχετικά</string>
     <string name="about_version_title">Έκδοση</string>

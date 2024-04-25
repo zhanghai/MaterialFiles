@@ -288,16 +288,6 @@
     <string name="file_create_directory_title">Nova pasta</string>
 
     <string name="file_list_title">Ficheiros</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Selecionar ficheiro</item>
-        <item quantity="many">Selecionar ficheiros</item>
-        <item quantity="other">Selecionar ficheiros</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Selecionar pasta</item>
-        <item quantity="many">Selecionar pastas</item>
-        <item quantity="other">Selecionar pastas</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d pasta</item>
         <item quantity="many">%1$,d pastas</item>
@@ -331,7 +321,6 @@
     <string name="file_list_action_create_shortcut">Criar atalho</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir em nova janela</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">“%1$s” selecionado</string>
     <string name="file_list_paste_move_title_format">A mover %1$,d</string>
     <string name="file_list_paste_copy_title_format">A copiar %1$,d</string>
     <string name="file_list_paste_extract_title_format">A extrair %1$,d</string>
@@ -366,39 +355,6 @@
     <string name="file_properties_basic_archive_file">Arquivo</string>
     <string name="file_properties_basic_archive_entry">Entrada de arquivo</string>
     <string name="file_properties_basic_free_space">Espaço livre</string>
-    <string name="file_properties_permission">Permissões</string>
-    <string name="file_properties_permission_owner">Proprietário</string>
-    <string name="file_properties_permission_group">Grupo</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Alterar proprietário</string>
-    <string name="file_properties_permission_set_group_title">Alterar grupo</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Introduza um nome ou ID</string>
-    <string name="file_properties_permission_set_principal_system">Sistema</string>
-    <string name="file_properties_permission_mode">Modo</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Alterar modo</string>
-    <string name="file_properties_permission_set_mode_others">Outros</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Leitura</item>
-        <item>Escrita</item>
-        <item>Execução</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Leitura</item>
-        <item>Escrita</item>
-        <item>Pesquisa</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Especial</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Definir UID</item>
-        <item>Definir GID</item>
-        <item>Bit fixo</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">Não adicionar “Execução” a ficheiros anexados</string>
-    <string name="file_properties_permission_selinux_context">Contexto SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">Alterar contexto SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Restaurar</string>
-    <string name="file_properties_permission_recursive">Aplicar aos ficheiros anexos</string>
     <string name="file_properties_image">Imagem</string>
     <string name="file_properties_media_dimensions">Dimensões</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -454,7 +410,6 @@
     <string name="file_properties_apk_signature_digests">Assinaturas</string>
     <string name="file_properties_apk_signature_digests_empty">Não há assinaturas válidas</string>
     <string name="file_properties_apk_past_signature_digests">Assinaturas antigas</string>
-
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Armazenamento</string>
     <string name="storage_list_empty">Nenhum armazenamento</string>
@@ -677,7 +632,6 @@
         <item>Ver conteúdo</item>
         <item>Perguntar o que fazer</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas para ficheiros PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Pode tornar-se instável nas versões mais antigas do Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Ler ficheiros remotos das miniaturas</string>
 

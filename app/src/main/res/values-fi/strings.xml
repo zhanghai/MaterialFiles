@@ -241,14 +241,6 @@
     <string name="file_create_directory_title">Uusi kansio</string>
 
     <string name="file_list_title">Tiedostot</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Valitse tiedosto</item>
-        <item quantity="other">Valitse tiedostot</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Valitse kansio</item>
-        <item quantity="other">Valitse kansiot</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d kansio</item>
         <item quantity="other">%1$,d kansiota</item>
@@ -280,7 +272,6 @@
     <string name="file_list_action_create_shortcut">Luo pikakuvake</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Avaa uudessa ikkunassa</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Valitse “%1$s”</string>
     <string name="file_list_paste_move_title_format">Siirretään %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopioidaan %1$,d</string>
     <string name="file_list_paste_extract_title_format">Puretaan %1$,d</string>
@@ -312,34 +303,6 @@
     <string name="file_properties_basic_last_modification_time">Viimeksi muokattu</string>
     <string name="file_properties_basic_parent_directory">Ylähakemisto</string>
     <string name="file_properties_basic_free_space">Vapaata tilaa</string>
-    <string name="file_properties_permission">Käyttöoikeudet</string>
-    <string name="file_properties_permission_owner">Omistaja</string>
-    <string name="file_properties_permission_group">Ryhmä</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Vaihda omistajaa</string>
-    <string name="file_properties_permission_set_group_title">Vaihda ryhmää</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Syötä nimi tai ID</string>
-    <string name="file_properties_permission_set_principal_system">Järjestelmä</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_others">Muu</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Luku</item>
-        <item>Kirjoitus</item>
-        <item>Suoritus</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Luku</item>
-        <item>Kirjoitus</item>
-        <item>Haku</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Aseta UID</item>
-        <item>Aseta GID</item>
-        <item>Sticky bit</item>
-    </string-array>
-    <string name="file_properties_permission_selinux_context">SELinux-konteksti</string>
-    <string name="file_properties_permission_set_selinux_context_title">Vaihda SELinux-kontekstia</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Palauta</string>
     <string name="file_properties_image">Kuva</string>
     <string name="file_properties_media_dimensions">Mitat</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -393,7 +356,6 @@
     <string name="file_properties_apk_signature_digests">Allerkirjoitukset</string>
     <string name="file_properties_apk_signature_digests_empty">Ei kelvollisia allekirjoituksia</string>
     <string name="file_properties_apk_past_signature_digests">Vanhat allekirjoitukset</string>
-
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Tallennustila</string>
     <string name="storage_list_empty">Ei tallennustilaa</string>
@@ -583,7 +545,6 @@
         <item>Näytä sisältö</item>
         <item>Kysy, mikä toiminto suoritetaan</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Näytä PDF-tiedostojen esikatselukuvat</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Saattaa aiheuttaa sovelluksen epävakauden vanhemmilla Android-versioilla</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Hae esikatselukuvat etätiedostoista</string>
 

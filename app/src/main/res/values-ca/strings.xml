@@ -262,14 +262,6 @@
     <string name="file_create_directory_title">Carpeta nova</string>
 
     <string name="file_list_title">Fitxers</string>
-    <plurals name="file_list_title_open_file">
-        <item quantity="one">Seleccioneu un fitxer</item>
-        <item quantity="other">Seleccioneu els fitxers</item>
-    </plurals>
-    <plurals name="file_list_title_open_directory">
-        <item quantity="one">Seleccioneu una carpeta</item>
-        <item quantity="other">Seleccioneu les carpetes</item>
-    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d carpeta</item>
         <item quantity="other">%1$,d carpetes</item>
@@ -301,7 +293,6 @@
     <string name="file_list_action_create_shortcut">Crea una drecera</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Obre en una finestra nova</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Selecciona «%1$s»</string>
     <string name="file_list_paste_move_title_format">S\'està movent %1$,d</string>
     <string name="file_list_paste_copy_title_format">S\'està copiant %1$,d</string>
     <string name="file_list_paste_extract_title_format">S\'està extraient %1$,d</string>
@@ -335,39 +326,6 @@
     <string name="file_properties_basic_archive_file">Fitxer de l\'arxiu</string>
     <string name="file_properties_basic_archive_entry">Entrada del fitxer</string>
     <string name="file_properties_basic_free_space">Espai lliure</string>
-    <string name="file_properties_permission">Permisos</string>
-    <string name="file_properties_permission_owner">Propietari</string>
-    <string name="file_properties_permission_group">Grup</string>
-    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permission_set_owner_title">Canvia el propietari</string>
-    <string name="file_properties_permission_set_group_title">Canvia el grup</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Introduïu un nom o ID</string>
-    <string name="file_properties_permission_set_principal_system">Sistema</string>
-    <string name="file_properties_permission_mode">Mode</string>
-    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permission_set_mode_title">Canvia el mode</string>
-    <string name="file_properties_permission_set_mode_others">Altres</string>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
-        <item>Lectura</item>
-        <item>Escriptura</item>
-        <item>Execució</item>
-    </string-array>
-    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
-        <item>Lectura</item>
-        <item>Escriptura</item>
-        <item>Cerca</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_special">Especial</string>
-    <string-array name="file_properties_permission_set_mode_special_mode_bits">
-        <item>Estableix l\'UID</item>
-        <item>Estableix el GID</item>
-        <item>Bit «sticky»</item>
-    </string-array>
-    <string name="file_properties_permission_set_mode_uppercase_x">No afegeixis «Execució» per als fitxers adjunts</string>
-    <string name="file_properties_permission_selinux_context">Context SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_title">Canvia el context de SELinux</string>
-    <string name="file_properties_permission_set_selinux_context_restore">Restaura</string>
-    <string name="file_properties_permission_recursive">Aplica als fitxers adjunts</string>
     <string name="file_properties_image">Imatge</string>
     <string name="file_properties_media_dimensions">Dimensions</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -422,7 +380,6 @@
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_signature_digests_empty">No hi ha cap signatura vàlida</string>
     <string name="file_properties_apk_past_signature_digests">Signatures antigues</string>
-
     <string name="storage_file_system_root_title">Arrel</string>
     <string name="storage_list_title">Emmagatzematge</string>
     <string name="storage_list_empty">Sense emmagatzematge</string>
@@ -644,7 +601,6 @@
         <item>Mostra el contingut</item>
         <item>Demana què fer</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostra la miniatura per als fitxers PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Pot fer que l\'aplicació sigui inestable en versions anteriors d\'Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Lectura remota de miniatures</string>
 

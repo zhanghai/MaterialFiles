@@ -280,6 +280,7 @@
     <string name="file_name_error_empty">Nazwa pliku nie może być pusta</string>
     <string name="file_name_error_invalid">Nieprawidłowa nazwa pliku</string>
     <string name="file_name_error_already_exists">Plik o tej nazwie już istnieje</string>
+    <string name="file_replace_message_format">Zastąpić “%1$s”?</string>
     <string name="file_delete_message_file_format">Usunąć „%1$s”?</string>
     <string name="file_delete_message_directory_format">Usunąć katalog „%1$s” i jego zawartość?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -316,6 +317,7 @@
         <item quantity="many">Wybierz pliki</item>
         <item quantity="other">Wybierz pliki</item>
     </plurals>
+    <string name="file_list_title_create_file">Zapisz plik</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">Wybierz katalog</item>
         <item quantity="few">Wybierz katalogi</item>
@@ -357,7 +359,8 @@
     <string name="file_list_action_create_shortcut">Utwórz skrót</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otwórz w nowym oknie</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_open_current_directory_format">Wybierz „%1$s”</string>
+    <string name="file_list_create_file_name_hint">Nazwa pliku</string>
+    <string name="file_list_open_current_directory_format">Wybierz  “%1$s”</string>
     <string name="file_list_paste_move_title_format">Przenoszenie %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiowanie %1$,d</string>
     <string name="file_list_paste_extract_title_format">Rozpakowywanie %1$,d</string>
@@ -482,7 +485,12 @@
     <string name="file_properties_apk_signature_digests">Podpisy cyfrowe</string>
     <string name="file_properties_apk_signature_digests_empty">Brak prawidłowych sygnatur</string>
     <string name="file_properties_apk_past_signature_digests">Starsze podpisy cyfrowe</string>
-
+    <string name="file_properties_checksum">Sumy kontrolne</string>
+    <string name="file_properties_checksum_compare">Porównaj</string>
+    <string name="file_properties_checksum_compare_placeholder">Dowolna suma kontrolna</string>
+    <string name="file_properties_checksum_compare_match_format">Pasuje do sumy kontrolnej %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Pasuje do przedrostka sumy kontrolnej %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Nie znaleziono pasującej sumy kontrolnej</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Pamięć</string>
     <string name="storage_list_empty">Brak nośników</string>
@@ -495,6 +503,11 @@
     <string name="storage_edit_device_storage_title">Edytuj pamięć urządzenia</string>
     <string name="storage_edit_device_storage_name">Nazwa</string>
     <string name="storage_edit_device_storage_path">Ścieżka</string>
+    <string name="storage_add_external_storage_shortcut_title">Dodaj skrót do pamięci zewnętrznej</string>
+    <string name="storage_edit_external_storage_shortcut_title">Edytuj skrót do pamięci zewnętrznej</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Wolumin pamięci</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Podaj wolumin pamięci</string>
+    <string name="storage_edit_external_storage_shortcut_path">Ścieżka</string>
     <string name="storage_add_document_tree_title">Dodaj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_title">Edytuj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_name">Nazwa</string>
@@ -525,7 +538,7 @@
         <item>Aktywny</item>
         <item>Pasywny</item>
     </string-array>
-    <string name="storage_edit_ftp_server_encoding">Szyfrowanie</string>
+    <string name="storage_edit_ftp_server_encoding">Kodowanie</string>
     <string name="storage_edit_ftp_server_connect_and_add">Połącz i dodaj</string>
     <string name="storage_edit_ftp_server_add">Dodaj</string>
     <string name="storage_edit_sftp_server_title_edit">Edytuj serwer SFTP</string>
@@ -628,12 +641,15 @@
     <string name="archive_viewer_title">Przeglądarka archiwum</string>
     <string name="image_viewer_title">Przeglądarka zdjęć</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Zapisz jako</string>
+    <string name="save_as_error">Błąd podczas zapisywania pliku</string>
+    <string name="save_as_success_format">“%1$s” zostało zapisane w “%2$s”</string>
     <string name="text_editor_title">Edytor tekstu</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Zapisano</string>
     <string name="text_editor_reload_message">Czy na pewno chcesz załadować ponownie? Niezapisane zmiany w tym dokumencie zostaną utracone.</string>
-    <string name="text_editor_encoding">Szyfrowanie</string>
+    <string name="text_editor_encoding">Kodowanie</string>
     <string name="text_editor_close_message">Czy na pewno chcesz porzucić niezapisane zmiany w tym dokumencie?</string>
 
     <string name="ftp_server_title">Serwer FTP</string>
@@ -675,10 +691,10 @@
     <string name="settings_file_list_animation_title">Animacja listy plików</string>
     <string name="settings_file_name_ellipsize_title">Wyświetlanie długiej nazwy pliku</string>
     <string-array name="settings_file_name_ellipsize_entries">
-        <item>Wielokropek na początku</item>
-        <item>Wielokropek w środku</item>
-        <item>Wielokropek na końcu</item>
-        <item>Ruchoma nazwa</item>
+        <item>Skrócona na początku</item>
+        <item>Skrócona w środku</item>
+        <item>Skrócona na końcu</item>
+        <item>Przewijanie nazwy</item>
     </string-array>
     <string name="settings_behavior_title">Zachowanie</string>
     <string name="settings_default_directory_title">Domyślny katalog</string>
@@ -700,15 +716,15 @@
         <item>Tylko dostęp do roota</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Kodowanie nazwy pliku archiwum</string>
-    <string name="settings_open_apk_default_action_title">Otwieranie pakietu instalacyjnego</string>
+    <string name="settings_open_apk_default_action_title">Działanie podczas otwarcia pakietu instalacyjnego</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Zainstaluj</item>
         <item>Wyświetl zawartość</item>
-        <item>Zapytaj co zrobić</item>
+        <item>Zapytaj, co zrobić</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Pokaż miniaturę dla plików PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Pokaż miniaturę dokumentów PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Może spowodować niestabilność aplikacji w starszych wersjach systemu Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Odczytaj zdalne pliki jako miniatury</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Odczytaj zdalne pliki w celu uzyskania miniatury</string>
 
     <string name="about_title">O aplikacji</string>
     <string name="about_version_title">Wersja</string>
