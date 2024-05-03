@@ -127,11 +127,11 @@ dependencies {
 
     implementation 'androidx.activity:activity-ktx:1.9.0'
     // Appcompat 1.7.0-alpha01 is required for properly changing locale below API 24 (b/243119645).
-    implementation 'androidx.appcompat:appcompat:1.7.0-alpha03'
-    implementation 'androidx.core:core-ktx:1.13.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0-beta01'
+    implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.7'
-    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+    implementation 'androidx.fragment:fragment-ktx:1.7.0'
     def androidx_lifecycle_version = '2.7.0'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
@@ -141,7 +141,7 @@ dependencies {
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.android.material:material:1.12.0'
 
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'

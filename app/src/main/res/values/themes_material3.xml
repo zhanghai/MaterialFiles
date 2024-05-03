@@ -7,7 +7,7 @@
 
 <resources>
 
-    <style name="Platform.V21.Theme.MaterialFiles.Material3" parent="Theme.Material3.DynamicColors.DayNight">
+    <style name="Platform.V21.Theme.MaterialFiles.Material3" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
         <item name="colorPrimaryDark">@color/system_window_scrim_compat</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Material3" parent="Platform.V21.Theme.MaterialFiles.Material3" />
@@ -17,11 +17,9 @@
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialFiles.ActionBarPopup</item>
         <item name="android:colorBackground">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
-        <item name="windowActionBar">false</item>
         <!-- https://developer.android.com/training/tv/start/start#transition-color -->
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="windowNoTitle">true</item>
 
         <item name="colorAccent">?colorPrimary</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MaterialFiles.Material3.SmallComponent</item>
@@ -61,7 +59,7 @@
     </style>
     <style name="Theme.MaterialFiles.Material3.Translucent" parent="Base.Theme.MaterialFiles.Material3.Translucent" />
 
-    <style name="Platform.V21.Theme.MaterialFiles.Material3.Immersive" parent="Theme.Material3.DynamicColors.Dark">
+    <style name="Platform.V21.Theme.MaterialFiles.Material3.Immersive" parent="Theme.Material3.DynamicColors.Dark.NoActionBar">
         <item name="android:navigationBarColor">?colorPrimaryDark</item>
 
         <item name="colorPrimaryDark">@color/dark_50_percent</item>
@@ -73,12 +71,10 @@
         <item name="actionBarPopupTheme">@style/ThemeOverlay.MaterialFiles.ActionBarPopup</item>
         <item name="android:colorBackground">?colorSurface</item>
         <item name="dropDownListViewStyle">@style/Widget.MaterialFiles.ListView.DropDown</item>
-        <item name="windowActionBar">false</item>
         <!-- https://developer.android.com/training/tv/start/start#transition-color -->
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowBackground">@android:color/black</item>
-        <item name="windowNoTitle">true</item>
 
         <item name="colorAccent">?colorPrimary</item>
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.MaterialFiles.Material3.SmallComponent</item>
