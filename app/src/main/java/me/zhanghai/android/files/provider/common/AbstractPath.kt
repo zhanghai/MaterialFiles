@@ -17,13 +17,6 @@ abstract class AbstractPath<T : AbstractPath<T>> : CovariantPath<T> {
         return if (nameCount != 0) getName(nameCount - 1) else null
     }
 
-    override fun getParent(): T? =
-        when (val nameCount = nameCount) {
-            0 -> null
-            1 -> root
-            else -> root!!.resolve(subpath(0, nameCount - 1))
-        }
-
     override fun startsWith(other: String): Boolean = startsWith(fileSystem.getPath(other))
 
     override fun endsWith(other: String): Boolean = endsWith(fileSystem.getPath(other))

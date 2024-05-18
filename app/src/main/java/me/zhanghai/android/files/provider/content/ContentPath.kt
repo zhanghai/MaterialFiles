@@ -53,13 +53,14 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
     override fun createPath(path: ByteString): ContentPath =
         ContentPath(fileSystem, path.toString().toUri())
 
-    override fun createPath(absolute: Boolean, segments: List<ByteString>): ContentPath =
+    override fun createPath(absolute: Boolean, segments: List<ByteString>): ContentPath {
         if (absolute) {
-            require(segments.size == 1) { segments.toString() }
-            createPath(segments.single())
-        } else {
-            ContentPath(fileSystem, segments)
+            require(segments.size == 2) {
+                "Cannot create absolute ContentPath with segments $segments"
+            }
         }
+        return ContentPath(fileSystem, segments)
+    }
 
     override val uriScheme: String
         get() {
@@ -89,6 +90,8 @@ internal class ContentPath : ByteStringListPath<ContentPath> {
     override fun getFileSystem(): FileSystem = fileSystem
 
     override fun getRoot(): ContentPath? = null
+
+    override fun getParent(): ContentPath? = null
 
     override fun normalize(): ContentPath = this
 

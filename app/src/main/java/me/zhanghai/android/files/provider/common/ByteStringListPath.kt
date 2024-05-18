@@ -76,6 +76,9 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
     val fileNameByteString: ByteString?
         get() = segments.lastOrNull()
 
+    override fun getParent(): T? =
+        if (segments.isNotEmpty()) createPath(isAbsolute, segments.dropLast(1)) else null
+
     override fun getNameCount(): Int = segments.size
 
     override fun getName(index: Int): T = createPath(false, listOf(getNameByteString(index)))
