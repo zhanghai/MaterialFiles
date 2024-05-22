@@ -17,7 +17,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.google.gms:google-services:4.4.1'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.1'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -121,18 +121,18 @@ dependencies {
 
     // kotlinx-coroutines-android depends on kotlin-stdlib-jdk8
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    def kotlinx_coroutines_version = '1.8.0'
+    def kotlinx_coroutines_version = '1.8.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
     implementation 'androidx.activity:activity-ktx:1.9.0'
     // Appcompat 1.7.0-alpha01 is required for properly changing locale below API 24 (b/243119645).
-    implementation 'androidx.appcompat:appcompat:1.7.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.7.0-rc01'
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.3.7'
-    implementation 'androidx.fragment:fragment-ktx:1.7.0'
-    def androidx_lifecycle_version = '2.7.0'
+    implementation 'androidx.fragment:fragment-ktx:1.7.1'
+    def androidx_lifecycle_version = '2.8.0'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$androidx_lifecycle_version"
@@ -212,7 +212,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:32.7.4')
+    implementation platform('com.google.firebase:firebase-bom:33.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif
