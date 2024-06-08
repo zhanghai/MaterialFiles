@@ -57,7 +57,7 @@ class EditExternalStorageShortcutDialogFragment : AppCompatDialogFragment() {
             .setNeutralButton(R.string.remove) { _, _ -> remove() }
             .create()
             .apply {
-                window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+                window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
                 // Override the listener here so that we have control over when to close the dialog.
                 setOnShowListener {
                     getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener { save() }
