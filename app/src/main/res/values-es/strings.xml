@@ -458,9 +458,9 @@
     <string name="file_properties_checksum">Sumas de comprobación</string>
     <string name="file_properties_checksum_compare">Comparar</string>
     <string name="file_properties_checksum_compare_placeholder">Cualquier suma de comprobación</string>
-    <string name="file_properties_checksum_compare_match_format">Coincide con %1$s sumas de comprobación</string>
-    <string name="file_properties_checksum_compare_prefix_match_format">Coincide con el prefijo de %1$s sumas de comprobación</string>
-    <string name="file_properties_checksum_compare_no_match">No se ha encontrado ninguna suma de comprobación</string>
+    <string name="file_properties_checksum_compare_match_format">Coincide con la suma de comprobación %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Coincide con el prefijo de la suma de comprobación %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">No se ha encontrado ninguna coincidencia</string>
     <string name="storage_file_system_root_title">Raíz</string>
     <string name="storage_list_title">Almacenamiento</string>
     <string name="storage_list_empty">No hay almacenamiento</string>
@@ -579,14 +579,14 @@
     <string name="storage_edit_webdav_server_authentication_type">Autenticación</string>
     <string-array name="storage_edit_webdav_server_authentication_type_entries">
         <item>Contraseña</item>
-        <item>Clave de acceso</item>
+        <item>Token de acceso</item>
         <item>Ninguna</item>
     </string-array>
     <string name="storage_edit_webdav_server_username">Nombre de usuario</string>
     <string name="storage_edit_webdav_server_username_error_empty">Ingrese un nombre de usuario</string>
     <string name="storage_edit_webdav_server_password">Contraseña</string>
-    <string name="storage_edit_webdav_server_access_token">Clave de acceso</string>
-    <string name="storage_edit_webdav_server_access_token_error_empty">Ingrese una clave de acceso</string>
+    <string name="storage_edit_webdav_server_access_token">Token de acceso</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Ingrese un token de acceso</string>
     <string name="storage_edit_webdav_server_connect_and_add">Conectar y añadir</string>
     <string name="storage_edit_webdav_server_add">Añadir</string>
 
@@ -618,9 +618,9 @@
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Guardado</string>
-    <string name="text_editor_reload_message">¿Estás seguro de recargar? Los cambios que no se hayan guardado en el documento se perderán.</string>
+    <string name="text_editor_reload_message">¿Está seguro de recargar? Los cambios que no se hayan guardado en el documento se perderán.</string>
     <string name="text_editor_encoding">Codificación</string>
-    <string name="text_editor_close_message">¿Estás seguro que quieres descartar los cambios sin guardar en el documento?</string>
+    <string name="text_editor_close_message">¿Está seguro de que quiere descartar los cambios sin guardar en el documento?</string>
 
     <string name="ftp_server_title">Servidor FTP</string>
     <string name="ftp_server_state_title">Estado</string>
@@ -651,7 +651,7 @@
     <string name="settings_material_design_3_title">Diseño Material 3</string>
     <string name="settings_night_mode_title">Tema oscuro</string>
     <string-array name="settings_night_mode_entries">
-        <item>Seguir sistema</item>
+        <item>Seguir al sistema</item>
         <item>Desactivado</item>
         <item>Activado</item>
         <item>En base al horario</item>
@@ -677,7 +677,7 @@
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
         <item quantity="many">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
-        <item quantity="other">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
+        <item quantity="other">Tiene %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Está seguro de que quiere cambiarlo ahora?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Sólo acceso normal</item>
@@ -691,7 +691,7 @@
         <item>Ver contenido</item>
         <item>Preguntar qué hacer</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas para archivos PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas de documentos PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Podría hacer que la aplicación se vuelva inestable en versiones antiguas de Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para obtener una miniatura</string>
 

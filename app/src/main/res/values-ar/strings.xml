@@ -9,7 +9,7 @@
 
     <string name="app_name">ملفات متيريال</string>
 
-    <string name="close">أغلق</string>
+    <string name="close">غلق</string>
     <string name="copy">نسخ</string>
     <string name="cut">قص</string>
     <string name="default_">الافتراضي</string>
@@ -65,12 +65,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
     <string name="storage_permission_permanently_denied_message">يحتاج التطبيق إلى إذن للوصول إلى الملفات. الرجاء منح إذن \"التخزين\" في إعدادات النظام.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">يحتاج التطبيق إلى إذن لنشر إشعارات حول عمليات الملف. الرجاء النقر فوق \"السماح\" في مربع حوار النظام القادم.</string>
+    <string name="notification_permission_permanently_denied_message">يحتاج التطبيق إلى إذن لنشر إشعارات حول عمليات الملف. يرجى منح إذن \"الإخطار\" في إعدادات النظام.</string>
+
     <string name="notification_channel_background_activity_start_name">الإجراءات أثناء العمل في الخلفية</string>
     <string name="notification_channel_background_activity_start_description">اتخذ إجراءات أثناء عمل التطبيق في الخلفية</string>
     <string name="notification_channel_file_job_name">عمليات الملف</string>
     <string name="notification_channel_file_job_description">عرض والتحكم في عمليات الملف</string>
     <string name="notification_channel_ftp_server_name">خادم FTP </string>
     <string name="notification_channel_ftp_server_description">عرض والتحكم في خادم FTP</string>
+
+    <string name="file_action_archive_password_title">كلمة المرور مطلوبة</string>
+    <string name="file_action_archive_password_message_format">”%1$s“ محمي بكلمة مرور</string>
+    <string name="file_action_archive_password_error_empty">كلمة المرور لا يمكن أن تكون فارغة</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="zero">التحضير لضغط %1$,d ملف (%2$s)</item>
@@ -314,6 +322,7 @@
     <string name="file_name_error_empty">لا يمكن أن يكون اسم الملف فارغًا</string>
     <string name="file_name_error_invalid">اسم الملف غير صالح</string>
     <string name="file_name_error_already_exists">يوجد ملف بهذا الاسم بالفعل</string>
+    <string name="file_replace_message_format">استبدال ”%1$s“؟</string>
     <string name="file_delete_message_file_format">حذف ”%1$s“؟</string>
     <string name="file_delete_message_directory_format">حذف المجلد ”%1$s“  ومحتوياته؟</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -344,11 +353,29 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">كلمة مرور (اختياري)</string>
     <string name="file_add_bookmark_success">تمت إضافة إشارة مرجعية</string>
     <string name="file_create_file_title">ملف جديد</string>
     <string name="file_create_directory_title">مجلد جديد</string>
 
     <string name="file_list_title">ملفات</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="zero">اختيار ملف</item>
+        <item quantity="one">اختيار ملف</item>
+        <item quantity="two">اختيار ملفان</item>
+        <item quantity="few">اختيار ملفات</item>
+        <item quantity="many">اختيار ملفات</item>
+        <item quantity="other">اختيار ملفات</item>
+    </plurals>
+    <string name="file_list_title_create_file">حفظ الملف</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="zero">اختيار مجلد</item>
+        <item quantity="one">اختيار مجلد</item>
+        <item quantity="two">اختيار مجلدان</item>
+        <item quantity="few">اختيار مجلدات</item>
+        <item quantity="many">اختيار مجلدات</item>
+        <item quantity="other">اختيار مجلدات</item>
+    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="zero">%1$,d مجلد</item>
         <item quantity="one">%1$,d مجلد</item>
@@ -388,6 +415,8 @@
     <string name="file_list_action_create_shortcut">إنشاء اختصار</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">افتح في نافذة جديدة</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">اسم الملف</string>
+    <string name="file_list_open_current_directory_format">اختيار ”%1$s“</string>
     <string name="file_list_paste_move_title_format">نقل %1$,d</string>
     <string name="file_list_paste_copy_title_format">نسخ %1$,d</string>
     <string name="file_list_paste_extract_title_format">استخراج %1$,d</string>
@@ -425,6 +454,39 @@
     <string name="file_properties_basic_archive_file">ملف الأرشيف</string>
     <string name="file_properties_basic_archive_entry">إدخال الأرشيف</string>
     <string name="file_properties_basic_free_space">مساحة فارغة</string>
+    <string name="file_properties_permission">الصلاحيات</string>
+    <string name="file_properties_permission_owner">المالك</string>
+    <string name="file_properties_permission_group">المجموعة</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">تغيير المالك</string>
+    <string name="file_properties_permission_set_group_title">تغيير المجموعة</string>
+    <string name="file_properties_permission_set_principal_filter_hint">أدخل اسماً أو عنوان ID</string>
+    <string name="file_properties_permission_set_principal_system">النظام</string>
+    <string name="file_properties_permission_mode">الوضع</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">تغيير الوضع</string>
+    <string name="file_properties_permission_set_mode_others">الآخرون</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
+        <item>قراءة</item>
+        <item>كتابة</item>
+        <item>تنفيذ</item>
+    </string-array>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
+        <item>قراءة</item>
+        <item>كتابة</item>
+        <item>بحث</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_special">خاص</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>تعيين UID</item>
+        <item>تعيين GID</item>
+        <item>بت لزجة</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_uppercase_x">لا تقم بإضافة \"تنفيذ\" للملفات المرفقة</string>
+    <string name="file_properties_permission_selinux_context">سياق SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">تغيير سياق SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">استعادة</string>
+    <string name="file_properties_permission_recursive">تطبيق على الملفات المرفقة</string>
     <string name="file_properties_image">صورة</string>
     <string name="file_properties_media_dimensions">الأبعاد</string>
     <string name="file_properties_media_dimensions_format">%1$d  \u00d7 %2$d</string>
@@ -483,7 +545,13 @@
     <string name="file_properties_apk_signature_digests">التوقيعات</string>
     <string name="file_properties_apk_signature_digests_empty">لاتوجد تواقيع موثقة</string>
     <string name="file_properties_apk_past_signature_digests">التوقيعات القديمة</string>
-    <string name="storage_file_system_root_title">الجذر/الروت</string>
+    <string name="file_properties_checksum">مجاميع الإختبارية</string>
+    <string name="file_properties_checksum_compare">مقارنة</string>
+    <string name="file_properties_checksum_compare_placeholder">أي مجموع الاختباري</string>
+    <string name="file_properties_checksum_compare_match_format">تطابقات %1$s المجموع الاختباري</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">تطابقات بادئة %1$s المجموع الاختباري</string>
+    <string name="file_properties_checksum_compare_no_match">لم يتم العثور على المجموع الاختباري المطابق</string>
+    <string name="storage_file_system_root_title">الروت</string>
     <string name="storage_list_title">وحدة تخزين</string>
     <string name="storage_list_empty">لا توجد وحدة تخزين</string>
     <string name="storage_add_storage_title">إضافة وحدة تخزين</string>
@@ -491,9 +559,15 @@
     <string name="storage_add_storage_ftp_server">خادم FTP </string>
     <string name="storage_add_storage_sftp_server">خادم SFTP </string>
     <string name="storage_add_storage_smb_server">خادم SMB</string>
+    <string name="storage_add_storage_webdav_server">خادم WebDAV</string>
     <string name="storage_edit_device_storage_title">تحرير وحدة تخزين الجهاز</string>
     <string name="storage_edit_device_storage_name">الاسم</string>
     <string name="storage_edit_device_storage_path">المسار</string>
+    <string name="storage_add_external_storage_shortcut_title">إضافة اختصار التخزين الخارجي</string>
+    <string name="storage_edit_external_storage_shortcut_title">تعديل اختصار التخزين الخارجي</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">حجم التخزين</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">أدخل حجم التخزين</string>
+    <string name="storage_edit_external_storage_shortcut_path">المسار</string>
     <string name="storage_add_document_tree_title">أضف وحدة تخزين خارجية</string>
     <string name="storage_edit_document_tree_title">تحرير وحدة التخزين الخارجية</string>
     <string name="storage_edit_document_tree_name">الاسم</string>
@@ -580,6 +654,32 @@
     <string name="storage_edit_smb_server_domain">دومين</string>
     <string name="storage_edit_smb_server_connect_and_add">قم بالاتصال والإضافة</string>
     <string name="storage_edit_smb_server_add">إضافة</string>
+    <string name="storage_edit_webdav_server_title_edit">تعديل خادم WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">إضافة خادم WebDAV</string>
+    <string name="storage_edit_webdav_server_host">اسم المضيف</string>
+    <string name="storage_edit_webdav_server_host_error_empty">أدخل اسم المضيف</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">اسم مضيف غير صالح</string>
+    <string name="storage_edit_webdav_server_port">منفذ</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">منفذ غير صالح</string>
+    <string name="storage_edit_webdav_server_path">المسار</string>
+    <string name="storage_edit_webdav_server_path_placeholder">يمكن تركه فارغاً</string>
+    <string name="storage_edit_webdav_server_name">الاسم</string>
+    <string name="storage_edit_webdav_server_name_placeholder">استخدم اسم المضيف</string>
+    <string name="storage_edit_webdav_server_protocol">بروتوكول</string>
+    <string name="storage_edit_webdav_server_authentication_type">مصداقة</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>كلمة المرور</item>
+        <item>رمز الوصول</item>
+        <item>لا شيء</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">اسم المستخدم</string>
+    <string name="storage_edit_webdav_server_username_error_empty">أدخل اسم المستخدم</string>
+    <string name="storage_edit_webdav_server_password">كلمة المرور</string>
+    <string name="storage_edit_webdav_server_access_token">رمز الوصول</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">أدخل رمز الوصول</string>
+    <string name="storage_edit_webdav_server_connect_and_add">ربط وإضافة</string>
+    <string name="storage_edit_webdav_server_add">إضافة</string>
+
     <string name="navigation_storage_subtitle_format">%1$s خالي من %2$s</string>
     <string name="navigation_add_storage">إضافة وحدة تخزين…</string>
     <string name="navigation_standard_directory_alarms">المنبه</string>
@@ -601,6 +701,9 @@
     <string name="archive_viewer_title">عارض الأرشيف</string>
     <string name="image_viewer_title">عارض الصور</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">حفظ كـ</string>
+    <string name="save_as_error">خطأ أثناء حفظ الملف</string>
+    <string name="save_as_success_format">تم حفظ ”%1$s“ إلى ”%2$s“</string>
     <string name="text_editor_title">محرر النص</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -620,6 +723,9 @@
     <string name="ftp_server_url_menu_copy_url">نسخ الرابط</string>
     <string name="ftp_server_url_menu_copy_password">نسخ كلمة المرور</string>
     <string name="ftp_server_add_tile_title">أضف إلى الإعدادات السريعة</string>
+    <string name="ftp_server_add_tile_result_added">تم إضافة ”خادم FTP“ للإعدادات السريعة</string>
+    <string name="ftp_server_add_tile_result_already_added">تمت إضافة \"خادم FTP\" بالفعل إلى الإعدادات السريعة</string>
+    <string name="ftp_server_add_tile_result_error">حدث خطأ أثناء إضافة \"خادم FTP\" إلى الإعدادات السريعة</string>
     <string name="ftp_server_configuration_title">التهيئة</string>
     <string name="ftp_server_anonymous_login_title">تسجيل دخول مجهول</string>
     <string name="ftp_server_username_title">اسم المستخدم</string>
@@ -657,19 +763,19 @@
     <string name="settings_bookmark_directory_screenshots">لقطات الشاشة</string>
     <string name="settings_bookmark_directories_title">مجلدات الإشارات المرجعية</string>
     <string name="settings_bookmark_directories_summary_empty">لا توجد مجلدات الإشارات المرجعية</string>
-    <string name="settings_root_strategy_title">وضع الوصول إلى الجذر/الروت</string>
+    <string name="settings_root_strategy_title">وضع الروت</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="zero">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
         <item quantity="one">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
         <item quantity="two">لديك %1$,d عمليتان ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
         <item quantity="few">لديك %1$,d عمليات ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
         <item quantity="many">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
-        <item quantity="other">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الوصول إلى الجذر الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
+        <item quantity="other">لديك %1$,d عملية ملف قيد التشغيل وقد يؤدي تغيير وضع الروت الآن إلى حدوث خطأ غير متوقع. هل أنت متأكد أنك تريد تغييره الآن؟</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>الوصول العادي فقط</item>
         <item>تلقائي</item>
-        <item>الوصول إلى الجذر فقط</item>
+        <item>الروت فقط</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">أرشيف اسم ملف الترميز</string>
     <string name="settings_open_apk_default_action_title">افتح حزمة Android</string>
@@ -678,6 +784,7 @@
         <item>عرض المحتويات</item>
         <item>اسأل ماذا تفعل</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">عرض الصور المصغرة لمستندات PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">قد يجعل التطبيق غير مستقر على الإصدارات الأقدم من Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">قراءة الملفات البعيدة للصور المصغرة</string>
 

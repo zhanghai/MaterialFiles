@@ -36,7 +36,7 @@
     <string name="reset">Tilbakestill</string>
     <string name="retry">Prøv på nytt</string>
     <string name="save">Lagre</string>
-    <string name="search">Søk</string>
+    <string name="search">Søke</string>
     <string name="select">Velg</string>
     <string name="select_all">Velg alle</string>
     <string name="share">Del</string>
@@ -334,7 +334,7 @@
         <item quantity="other">%1$,d filer, totalt %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Sist endret</string>
-    <string name="file_properties_basic_parent_directory">Plassering</string>
+    <string name="file_properties_basic_parent_directory">Overordnet mappe</string>
     <string name="file_properties_basic_archive_file">Arkivfil</string>
     <string name="file_properties_basic_archive_entry">Arkivoppføring</string>
     <string name="file_properties_basic_free_space">Ledig plass</string>
@@ -358,7 +358,7 @@
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Lese</item>
         <item>Skrive</item>
-        <item>Søk</item>
+        <item>Søke</item>
     </string-array>
     <string name="file_properties_permission_set_mode_special">Spesielt</string>
     <string-array name="file_properties_permission_set_mode_special_mode_bits">
@@ -443,6 +443,11 @@
     <string name="storage_edit_device_storage_title">Rediger lagring på enheten</string>
     <string name="storage_edit_device_storage_name">Navn</string>
     <string name="storage_edit_device_storage_path">Bane</string>
+    <string name="storage_add_external_storage_shortcut_title">Legg til snarvei til ekstern lagring</string>
+    <string name="storage_edit_external_storage_shortcut_title">Rediger snarvei til ekstern lagring</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Lagringsvolum</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Angi et lagringsvolum</string>
+    <string name="storage_edit_external_storage_shortcut_path">Bane</string>
     <string name="storage_add_document_tree_title">Legg til ekstern lagring</string>
     <string name="storage_edit_document_tree_title">Rediger ekstern lagring</string>
     <string name="storage_edit_document_tree_name">Navn</string>

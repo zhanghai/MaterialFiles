@@ -30,7 +30,7 @@
     <string name="file_type_name_word">Documento do Word</string>
     <string name="file_type_name_powerpoint">Apresentação do PowerPoint</string>
     <string name="file_type_name_excel">Folha de cálculo do Excel</string>
-    <string name="file_type_name_posix_character_device">Dispositivo de caracteres</string>
+    <string name="file_type_name_posix_character_device">Dispositivo de carateres</string>
     <string name="file_type_name_posix_block_device">Dispositivos de bloco</string>
     <string name="file_type_name_posix_fifo">Canal</string>
     <string name="file_type_name_posix_symbolic_link">Ligação</string>

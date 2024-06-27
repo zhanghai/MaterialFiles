@@ -221,7 +221,7 @@
     <string name="file_delete_message_file_format">「%1$s」を削除しますか？</string>
     <string name="file_delete_message_directory_format">フォルダ「%1$s」と中のファイルを削除しますか？</string>
     <plurals name="file_delete_message_multiple_files_format">
-        <item quantity="other">ファイル %1$,d を削除しますか？</item>
+        <item quantity="other">ファイル %1$,d 件を削除しますか？</item>
     </plurals>
     <plurals name="file_delete_message_multiple_directories_format">
         <item quantity="other">フォルダ %1$,d 件とコンテンツを削除しますか？</item>
@@ -277,9 +277,9 @@
     <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_create_file_name_hint">ファイル名</string>
     <string name="file_list_open_current_directory_format">「%1$s」を選択</string>
-    <string name="file_list_paste_move_title_format">%1$,d を移動中</string>
-    <string name="file_list_paste_copy_title_format">%1$,d をコピー中</string>
-    <string name="file_list_paste_extract_title_format">%1$,d を展開中</string>
+    <string name="file_list_paste_move_title_format">%1$,d 件を移動中</string>
+    <string name="file_list_paste_copy_title_format">%1$,d 件をコピー中</string>
+    <string name="file_list_paste_extract_title_format">%1$,d 件を展開中</string>
     <string name="file_list_paste_action_extract_here">ここに展開</string>
     <string name="file_list_empty">ファイルがありません</string>
     <string name="file_list_action_create_file">ファイル</string>
@@ -315,6 +315,7 @@
     <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
     <string name="file_properties_permission_set_owner_title">所有者を変更</string>
     <string name="file_properties_permission_set_group_title">グループを変更</string>
+    <string name="file_properties_permission_set_principal_filter_hint">名前または ID を入力してください</string>
     <string name="file_properties_permission_set_principal_system">システム</string>
     <string name="file_properties_permission_mode">モード</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
@@ -334,9 +335,13 @@
     <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>UID を設定</item>
         <item>GID を設定</item>
-        <item>Sticky bit</item>
+        <item>スティッキービット</item>
     </string-array>
+    <string name="file_properties_permission_set_mode_uppercase_x">内部のファイルに「実行」を付けない</string>
+    <string name="file_properties_permission_selinux_context">SELinux コンテキスト</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux コンテキストを変更</string>
     <string name="file_properties_permission_set_selinux_context_restore">復元</string>
+    <string name="file_properties_permission_recursive">内部のファイルに適用する</string>
     <string name="file_properties_image">画像</string>
     <string name="file_properties_media_dimensions">大きさ</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -390,6 +395,12 @@
     <string name="file_properties_apk_signature_digests">署名</string>
     <string name="file_properties_apk_signature_digests_empty">有効な署名がありません</string>
     <string name="file_properties_apk_past_signature_digests">古い署名形式です</string>
+    <string name="file_properties_checksum">チェックサム</string>
+    <string name="file_properties_checksum_compare">比較</string>
+    <string name="file_properties_checksum_compare_placeholder">すべてのチェックサム</string>
+    <string name="file_properties_checksum_compare_match_format">%1$s チェックサムが一致</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">%1$s チェックサムが先頭から検索して一致</string>
+    <string name="file_properties_checksum_compare_no_match">一致するチェックサムが見つかりません</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">ストレージ</string>
     <string name="storage_list_empty">ストレージがありません</string>
@@ -402,6 +413,11 @@
     <string name="storage_edit_device_storage_title">デバイスのストレージを編集</string>
     <string name="storage_edit_device_storage_name">名前</string>
     <string name="storage_edit_device_storage_path">パス</string>
+    <string name="storage_add_external_storage_shortcut_title">外部ストレージのショートカットを追加</string>
+    <string name="storage_edit_external_storage_shortcut_title">外部ストレージのショートカットを編集</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">ストレージ領域</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">ストレージ領域を入力してください</string>
+    <string name="storage_edit_external_storage_shortcut_path">パス</string>
     <string name="storage_add_document_tree_title">外部ストレージを追加</string>
     <string name="storage_edit_document_tree_title">外部ストレージを編集</string>
     <string name="storage_edit_document_tree_name">名前</string>
@@ -535,6 +551,9 @@
     <string name="archive_viewer_title">アーカイブビューアー</string>
     <string name="image_viewer_title">画像ビューアー</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">保存</string>
+    <string name="save_as_error">ファイルを保存中にエラーが発生しました</string>
+    <string name="save_as_success_format">「%1$s」は「%2$s」に保存されました</string>
     <string name="text_editor_title">テキストエディター</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -610,6 +629,7 @@
         <item>内容を表示</item>
         <item>何をするか確認する</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF ドキュメントのサムネイルを表示する</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">古いバージョンの Android ではアプリが不安定になる可能性があります</string>
     <string name="settings_read_remote_files_for_thumbnail_title">リモートファイルのサムネイルを読み込む</string>
 

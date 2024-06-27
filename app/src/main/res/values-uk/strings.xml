@@ -282,6 +282,7 @@
     <string name="file_name_error_empty">Назва файлу не може бути порожньою</string>
     <string name="file_name_error_invalid">Недійсне ім\'я файлу</string>
     <string name="file_name_error_already_exists">Файл з такою назвою вже існує</string>
+    <string name="file_replace_message_format">Замінити “%1$s”?</string>
     <string name="file_delete_message_file_format">Видалити «%1$s»?</string>
     <string name="file_delete_message_directory_format">Видалити теку «%1$s» і її вміст?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -312,6 +313,19 @@
     <string name="file_create_directory_title">Нова тека</string>
 
     <string name="file_list_title">Файли</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="one">Вибрати файл</item>
+        <item quantity="few">Вибрати файли</item>
+        <item quantity="many">Вибрати файли</item>
+        <item quantity="other">Вибрати файли</item>
+    </plurals>
+    <string name="file_list_title_create_file">Зберегти файл</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="one">Вибарти теку</item>
+        <item quantity="few">Вибрати теки</item>
+        <item quantity="many">Вибрати теки</item>
+        <item quantity="other">Вибрати теки</item>
+    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d тека</item>
         <item quantity="few">%1$,d теки</item>
@@ -347,6 +361,8 @@
     <string name="file_list_action_create_shortcut">Створити скорочення</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Відкрити в новому вікні</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Назва файлу</string>
+    <string name="file_list_open_current_directory_format">Вибрати “%1$s”</string>
     <string name="file_list_paste_move_title_format">Переміщення %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копіювання %1$,d</string>
     <string name="file_list_paste_extract_title_format">Видобування %1$,d</string>
@@ -382,6 +398,39 @@
     <string name="file_properties_basic_archive_file">Файл архіву</string>
     <string name="file_properties_basic_archive_entry">Точка входу в архіві</string>
     <string name="file_properties_basic_free_space">Вільний простір</string>
+    <string name="file_properties_permission">Дозволи</string>
+    <string name="file_properties_permission_owner">Власник</string>
+    <string name="file_properties_permission_group">Група</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Змінити власника</string>
+    <string name="file_properties_permission_set_group_title">Змінити групу</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Введіть ім\'я або ID</string>
+    <string name="file_properties_permission_set_principal_system">Система</string>
+    <string name="file_properties_permission_mode">Режим</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Змінити режим</string>
+    <string name="file_properties_permission_set_mode_others">Інші</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
+        <item>Читання</item>
+        <item>Запис</item>
+        <item>Виконання</item>
+    </string-array>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
+        <item>Читання</item>
+        <item>Запис</item>
+        <item>Пошук</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_special">Особливий</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>Встановити UID</item>
+        <item>Встановити GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_uppercase_x">Не додавати «Виконання» для вкладених файлів</string>
+    <string name="file_properties_permission_selinux_context">Контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Змінити контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Відновити</string>
+    <string name="file_properties_permission_recursive">Застосувати до вкладених файлів</string>
     <string name="file_properties_image">Зображення</string>
     <string name="file_properties_media_dimensions">Розміри</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -438,6 +487,12 @@
     <string name="file_properties_apk_signature_digests">Підписи</string>
     <string name="file_properties_apk_signature_digests_empty">Немає дійсних підписів</string>
     <string name="file_properties_apk_past_signature_digests">Старі підписи</string>
+    <string name="file_properties_checksum">Контрольні суми</string>
+    <string name="file_properties_checksum_compare">Порівняти</string>
+    <string name="file_properties_checksum_compare_placeholder">Довільна контрольна сума</string>
+    <string name="file_properties_checksum_compare_match_format">Збігається з контрольною сумою %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Збігається з префіксом контрольної суми %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Відповідної контрольної суми не знайдено</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Сховище</string>
     <string name="storage_list_empty">Нема сховища</string>
@@ -450,6 +505,11 @@
     <string name="storage_edit_device_storage_title">Змінити сховище пристрою</string>
     <string name="storage_edit_device_storage_name">Назва</string>
     <string name="storage_edit_device_storage_path">Шлях</string>
+    <string name="storage_add_external_storage_shortcut_title">Додати ярлик зовнішнього сховища</string>
+    <string name="storage_edit_external_storage_shortcut_title">Редагувати ярлик зовнішнього сховища</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Об\'єм сховища</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Введіть об\'єм сховища</string>
+    <string name="storage_edit_external_storage_shortcut_path">Шлях</string>
     <string name="storage_add_document_tree_title">Додати зовнішнє сховище</string>
     <string name="storage_edit_document_tree_title">Змінити зовнішнє сховище</string>
     <string name="storage_edit_document_tree_name">Назва</string>
@@ -583,6 +643,9 @@
     <string name="archive_viewer_title">Переглядач архівів</string>
     <string name="image_viewer_title">Переглядач зображень</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Зберегти як</string>
+    <string name="save_as_error">Помилка при збереженні файлу</string>
+    <string name="save_as_success_format">“%1$s” збережено у “%2$s”</string>
     <string name="text_editor_title">Текстовий редактор</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -661,6 +724,7 @@
         <item>Переглянути вміст</item>
         <item>Запитати що робити</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Показувати прев\'ю для PDF-документів</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Може зробити застосунок нестабільним на старих версіях Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Зчитувати віддалені файли для ескізів</string>
 

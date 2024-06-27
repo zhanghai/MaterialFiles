@@ -43,7 +43,7 @@
     <string name="show">Pokaż</string>
     <string name="skip">Pomiń</string>
     <string name="stop">Zatrzymaj</string>
-    <string name="system_default">Domyślne systemu</string>
+    <string name="system_default">Ustawienie domyślne systemu</string>
     <string name="unknown">Nieznany</string>
     <string name="view">Podgląd</string>
 
@@ -280,7 +280,7 @@
     <string name="file_name_error_empty">Nazwa pliku nie może być pusta</string>
     <string name="file_name_error_invalid">Nieprawidłowa nazwa pliku</string>
     <string name="file_name_error_already_exists">Plik o tej nazwie już istnieje</string>
-    <string name="file_replace_message_format">Zastąpić “%1$s”?</string>
+    <string name="file_replace_message_format">Zastąpić „%1$s”?</string>
     <string name="file_delete_message_file_format">Usunąć „%1$s”?</string>
     <string name="file_delete_message_directory_format">Usunąć katalog „%1$s” i jego zawartość?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -360,7 +360,7 @@
     <string name="file_list_breadcrumb_action_open_in_new_task">Otwórz w nowym oknie</string>
     <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_create_file_name_hint">Nazwa pliku</string>
-    <string name="file_list_open_current_directory_format">Wybierz  “%1$s”</string>
+    <string name="file_list_open_current_directory_format">Wybierz „%1$s”</string>
     <string name="file_list_paste_move_title_format">Przenoszenie %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiowanie %1$,d</string>
     <string name="file_list_paste_extract_title_format">Rozpakowywanie %1$,d</string>
@@ -486,8 +486,8 @@
     <string name="file_properties_apk_signature_digests_empty">Brak prawidłowych sygnatur</string>
     <string name="file_properties_apk_past_signature_digests">Starsze podpisy cyfrowe</string>
     <string name="file_properties_checksum">Sumy kontrolne</string>
-    <string name="file_properties_checksum_compare">Porównaj</string>
-    <string name="file_properties_checksum_compare_placeholder">Dowolna suma kontrolna</string>
+    <string name="file_properties_checksum_compare">Porównanie</string>
+    <string name="file_properties_checksum_compare_placeholder">Wprowadź dowolną sumę kontrolną</string>
     <string name="file_properties_checksum_compare_match_format">Pasuje do sumy kontrolnej %1$s</string>
     <string name="file_properties_checksum_compare_prefix_match_format">Pasuje do przedrostka sumy kontrolnej %1$s</string>
     <string name="file_properties_checksum_compare_no_match">Nie znaleziono pasującej sumy kontrolnej</string>
@@ -643,7 +643,7 @@
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="save_as_title">Zapisz jako</string>
     <string name="save_as_error">Błąd podczas zapisywania pliku</string>
-    <string name="save_as_success_format">“%1$s” zostało zapisane w “%2$s”</string>
+    <string name="save_as_success_format">„%1$s” zostało zapisane w „%2$s”</string>
     <string name="text_editor_title">Edytor tekstu</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -657,7 +657,7 @@
     <string name="ftp_server_state_summary_starting">Uruchomianie…</string>
     <string name="ftp_server_state_summary_running">Uruchomiony</string>
     <string name="ftp_server_state_summary_stopping">Zatrzymywanie…</string>
-    <string name="ftp_server_state_summary_stopped">Nie uruchomiony</string>
+    <string name="ftp_server_state_summary_stopped">Nieuruchomiony</string>
     <string name="ftp_server_url_title">Adres URL</string>
     <string name="ftp_server_url_summary_no_local_inet_address">Lokalny adres IP jest nieznany</string>
     <string name="ftp_server_url_menu_copy_url">Skopiuj adres URL</string>
@@ -679,15 +679,15 @@
     <string name="settings_theme_color_title">Kolor motywu</string>
     <string name="settings_theme_color_summary">Kolor pojawiający się najczęściej w aplikacji</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
-    <string name="settings_night_mode_title">Tryb nocny</string>
+    <string name="settings_night_mode_title">Ciemny motyw</string>
     <string-array name="settings_night_mode_entries">
-        <item>Zgodnie z systemem</item>
+        <item>Zgodnie z ustawieniem systemu</item>
         <item>Wyłączony</item>
         <item>Włączony</item>
         <item>W oparciu o czas</item>
         <item>W oparciu o oszczędzanie baterii</item>
     </string-array>
-    <string name="settings_black_night_mode">Czarny tryb nocny</string>
+    <string name="settings_black_night_mode">Czarny motyw ciemny</string>
     <string name="settings_file_list_animation_title">Animacja listy plików</string>
     <string name="settings_file_name_ellipsize_title">Wyświetlanie długiej nazwy pliku</string>
     <string-array name="settings_file_name_ellipsize_entries">
