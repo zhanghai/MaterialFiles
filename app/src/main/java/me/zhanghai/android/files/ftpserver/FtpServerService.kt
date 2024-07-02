@@ -102,9 +102,12 @@ class FtpServerService : Service() {
             password = Settings.FTP_SERVER_PASSWORD.valueCompat
         }
         val port = Settings.FTP_SERVER_PORT.valueCompat
+        val passiveDataPort: String? = if (Settings.FTP_SERVER_CUSTOM_DATA_PORT.valueCompat) {
+            Settings.FTP_SERVER_DATA_PORT.valueCompat
+        } else null
         val homeDirectory = Settings.FTP_SERVER_HOME_DIRECTORY.valueCompat
         val writable = Settings.FTP_SERVER_WRITABLE.valueCompat
-        val server = FtpServer(username, password, port, homeDirectory, writable)
+        val server = FtpServer(username, password, port, passiveDataPort, homeDirectory, writable)
         this.server = server
         try {
             server.start()
@@ -153,9 +156,6 @@ class FtpServerService : Service() {
     }
 
     enum class State {
-        STARTING,
-        RUNNING,
-        STOPPING,
-        STOPPED
+        STARTING, RUNNING, STOPPING, STOPPED
     }
 }
