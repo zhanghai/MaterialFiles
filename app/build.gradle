@@ -185,7 +185,7 @@ dependencies {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
     implementation 'org.bouncycastle:bcprov-jdk15to18:1.77'
-    implementation platform('io.coil-kt:coil-bom:2.6.0')
+    implementation platform('io.coil-kt:coil-bom:2.7.0')
     implementation 'io.coil-kt:coil'
     implementation 'io.coil-kt:coil-gif'
     implementation 'io.coil-kt:coil-svg'
