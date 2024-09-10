@@ -15,7 +15,7 @@ buildscript {
     }
     dependencies {
         // https://issuetracker.google.com/issues/349872492
-        classpath 'com.android.tools.build:gradle:8.5.2'
+        classpath 'com.android.tools.build:gradle:8.3.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
