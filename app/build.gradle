@@ -26,13 +26,13 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     namespace 'me.zhanghai.android.files'
-    buildToolsVersion = '34.0.0'
-    compileSdk 34
-    ndkVersion '26.3.11579264'
+    buildToolsVersion = '35.0.0'
+    compileSdk 35
+    ndkVersion '27.1.12297006'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdk 21
-        // Not supporting notification runtime permission yet.
+        // Not supporting foreground service timeout yet.
         //noinspection OldTargetApi
         targetSdk 34
         versionCode 39

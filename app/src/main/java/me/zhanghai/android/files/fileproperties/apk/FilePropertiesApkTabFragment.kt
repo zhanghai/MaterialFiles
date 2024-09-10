@@ -49,7 +49,7 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                     packageInfo.longVersionCodeCompat
                 )
             )
-            val applicationInfo = packageInfo.applicationInfo
+            val applicationInfo = packageInfo.applicationInfo!!
             // PackageParser didn't return minSdkVersion before N, so it's hard to implement a
             // compat version.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -77,7 +77,7 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                 } else {
                     {
                         PermissionListDialogFragment.show(
-                            packageInfo.requestedPermissions, this@FilePropertiesApkTabFragment
+                            packageInfo.requestedPermissions!!, this@FilePropertiesApkTabFragment
                         )
                     }
                 }

@@ -122,7 +122,7 @@ class VideoFrameFetcher(
             } else {
                 outBitmap.width == width && outBitmap.height == height
             }
-            val isValidConfig = !outBitmap.config.isHardware || options.config.isHardware
+            val isValidConfig = outBitmap.config?.isHardware != true || options.config.isHardware
             val bitmap = if (isValidSize && isValidConfig) {
                 outBitmap
             } else {
