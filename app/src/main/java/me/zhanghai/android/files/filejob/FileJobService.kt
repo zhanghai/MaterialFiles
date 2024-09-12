@@ -20,6 +20,7 @@ import me.zhanghai.android.files.util.WakeWifiLock
 import me.zhanghai.android.files.util.removeFirst
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
+import me.zhanghai.android.files.compat.removeFirstCompat
 
 class FileJobService : Service() {
     private lateinit var wakeWifiLock: WakeWifiLock
@@ -39,7 +40,7 @@ class FileJobService : Service() {
         instance = this
 
         while (pendingJobs.isNotEmpty()) {
-            startJob(pendingJobs.removeFirst())
+            startJob(pendingJobs.removeFirstCompat())
         }
     }
 

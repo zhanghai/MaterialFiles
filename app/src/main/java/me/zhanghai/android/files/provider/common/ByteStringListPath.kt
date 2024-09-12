@@ -7,18 +7,19 @@ package me.zhanghai.android.files.provider.common
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.net.URI
 import java8.nio.file.InvalidPathException
 import java8.nio.file.Path
 import java8.nio.file.ProviderMismatchException
+import kotlin.math.min
 import me.zhanghai.android.files.compat.readBooleanCompat
+import me.zhanghai.android.files.compat.removeLastCompat
 import me.zhanghai.android.files.compat.writeBooleanCompat
 import me.zhanghai.android.files.compat.writeParcelableListCompat
 import me.zhanghai.android.files.util.endsWith
 import me.zhanghai.android.files.util.hash
 import me.zhanghai.android.files.util.readParcelableListCompat
 import me.zhanghai.android.files.util.startsWith
-import java.net.URI
-import kotlin.math.min
 
 abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, Parcelable {
     protected val separator: Byte
@@ -132,8 +133,7 @@ abstract class ByteStringListPath<T : ByteStringListPath<T>> : AbstractPath<T>, 
                     if (normalizedSegments.last() == BYTE_STRING_DOT_DOT) {
                         normalizedSegments += segment
                     } else {
-                        @OptIn(ExperimentalStdlibApi::class)
-                        normalizedSegments.removeLast()
+                        normalizedSegments.removeLastCompat()
                     }
                 }
             } else {
