@@ -193,7 +193,7 @@ dependencies {
     implementation 'me.zhanghai.android.appiconloader:appiconloader:1.5.0'
     implementation 'me.zhanghai.android.fastscroll:library:1.3.0'
     implementation 'me.zhanghai.android.foregroundcompat:library:1.0.2'
-    implementation 'me.zhanghai.android.libarchive:library:1.1.0'
+    implementation 'me.zhanghai.android.libarchive:library:1.1.1'
     implementation 'me.zhanghai.android.libselinux:library:2.1.0'
     implementation 'me.zhanghai.android.retrofile:library:1.1.1'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
@@ -211,7 +211,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:33.1.1')
+    implementation platform('com.google.firebase:firebase-bom:33.3.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif
