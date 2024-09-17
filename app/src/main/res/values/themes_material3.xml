@@ -99,4 +99,6 @@
     <style name="Theme.MaterialFiles.Material3.Immersive" parent="Base.Theme.MaterialFiles.Material3.Immersive" />
 
     <style name="Theme.MaterialFiles.Material3.Black" />
+    <style name="Theme.MaterialFiles.Material3.Translucent.Black" />
+    <style name="Theme.MaterialFiles.Material3.Immersive.Black" />
 </resources>
