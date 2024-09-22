@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.sftp
 
+import java.io.IOException
+import java.time.Instant
 import java8.nio.file.FileAlreadyExistsException
 import java8.nio.file.FileSystemException
 import java8.nio.file.NoSuchFileException
@@ -19,8 +21,6 @@ import me.zhanghai.android.files.util.enumSetOf
 import net.schmizz.sshj.sftp.FileAttributes
 import net.schmizz.sshj.sftp.FileMode
 import net.schmizz.sshj.sftp.OpenMode
-import org.threeten.bp.Instant
-import java.io.IOException
 
 internal object SftpCopyMove {
     @Throws(IOException::class)

@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.linux
 
 import android.os.Parcelable
+import java.time.Instant
 import java8.nio.file.attribute.FileTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -18,7 +19,6 @@ import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.PosixGroup
 import me.zhanghai.android.files.provider.common.PosixUser
 import me.zhanghai.android.files.provider.linux.syscall.StructStat
-import org.threeten.bp.Instant
 
 @Parcelize
 internal class LinuxFileAttributes(

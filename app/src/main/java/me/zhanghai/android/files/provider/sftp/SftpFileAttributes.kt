@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.sftp
 
 import android.os.Parcelable
+import java.time.Instant
 import java8.nio.file.attribute.FileTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -19,7 +20,6 @@ import me.zhanghai.android.files.provider.common.PosixFileType
 import me.zhanghai.android.files.provider.common.PosixGroup
 import me.zhanghai.android.files.provider.common.PosixUser
 import net.schmizz.sshj.sftp.FileAttributes
-import org.threeten.bp.Instant
 
 @Parcelize
 internal data class SftpFileAttributes(

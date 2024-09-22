@@ -6,13 +6,13 @@
 package me.zhanghai.android.files.fileproperties
 
 import android.media.MediaMetadataRetriever
-import me.zhanghai.android.files.util.takeIfNotBlank
-import org.threeten.bp.Instant
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
+import java.time.Instant
 import java.util.Locale
 import java.util.TimeZone
 import kotlin.math.max
+import me.zhanghai.android.files.util.takeIfNotBlank
 
 fun MediaMetadataRetriever.extractMetadataNotBlank(keyCode: Int): String? =
     extractMetadata(keyCode)?.takeIfNotBlank()

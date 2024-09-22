@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.webdav.client
 
+import java8.nio.file.Path as Java8Path
+import okhttp3.Response as OkHttpResponse
 import at.bitfire.dav4jvm.DavCollection
 import at.bitfire.dav4jvm.DavResource
 import at.bitfire.dav4jvm.HttpUtils
@@ -22,6 +24,13 @@ import at.bitfire.dav4jvm.property.webdav.CreationDate
 import at.bitfire.dav4jvm.property.webdav.GetContentLength
 import at.bitfire.dav4jvm.property.webdav.GetLastModified
 import at.bitfire.dav4jvm.property.webdav.ResourceType
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.net.HttpURLConnection
+import java.time.Instant
+import java.util.Collections
+import java.util.WeakHashMap
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.app.okHttpClient
 import me.zhanghai.android.files.provider.common.LocalWatchService
@@ -32,15 +41,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Route
-import org.threeten.bp.Instant
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
-import java.net.HttpURLConnection
-import java.util.Collections
-import java.util.WeakHashMap
-import java8.nio.file.Path as Java8Path
-import okhttp3.Response as OkHttpResponse
 
 // See also https://github.com/miquels/webdavfs/blob/master/fuse.go
 object Client {

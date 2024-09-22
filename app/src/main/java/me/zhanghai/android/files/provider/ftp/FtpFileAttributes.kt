@@ -6,15 +6,14 @@
 package me.zhanghai.android.files.provider.ftp
 
 import android.os.Parcelable
+import java.time.Instant
 import java8.nio.file.attribute.FileTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
-import me.zhanghai.android.files.compat.toInstantCompat
 import me.zhanghai.android.files.provider.common.AbstractBasicFileAttributes
 import me.zhanghai.android.files.provider.common.BasicFileType
 import me.zhanghai.android.files.provider.common.FileTimeParceler
 import org.apache.commons.net.ftp.FTPFile
-import org.threeten.bp.Instant
 
 @Parcelize
 internal data class FtpFileAttributes(
@@ -27,7 +26,7 @@ internal data class FtpFileAttributes(
 ) : AbstractBasicFileAttributes() {
     companion object {
         fun from(file: FTPFile, path: FtpPath): FtpFileAttributes {
-            val lastModifiedTime = FileTime.from(file.timestamp?.toInstantCompat() ?: Instant.EPOCH)
+            val lastModifiedTime = FileTime.from(file.timestamp?.toInstant() ?: Instant.EPOCH)
             val lastAccessTime = lastModifiedTime
             val creationTime = lastModifiedTime
             val type = when {

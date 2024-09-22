@@ -8,7 +8,6 @@ package me.zhanghai.android.files.app
 import android.os.AsyncTask
 import android.os.Build
 import android.webkit.WebView
-import com.jakewharton.threetenabp.AndroidThreeTen
 import jcifs.context.SingletonContext
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.coil.initializeCoil
@@ -31,9 +30,15 @@ import me.zhanghai.android.files.provider.smb.client.Client as SmbClient
 import me.zhanghai.android.files.provider.webdav.client.Client as WebDavClient
 
 val appInitializers = listOf(
-    ::initializeCrashlytics, ::disableHiddenApiChecks, ::initializeThreeTen,
-    ::initializeWebViewDebugging, ::initializeCoil, ::initializeFileSystemProviders, ::upgradeApp,
-    ::initializeLiveDataObjects, ::initializeCustomTheme, ::initializeNightMode,
+    ::initializeCrashlytics,
+    ::disableHiddenApiChecks,
+    ::initializeWebViewDebugging,
+    ::initializeCoil,
+    ::initializeFileSystemProviders,
+    ::upgradeApp,
+    ::initializeLiveDataObjects,
+    ::initializeCustomTheme,
+    ::initializeNightMode,
     ::createNotificationChannels
 )
 
@@ -45,10 +50,6 @@ private fun initializeCrashlytics() {
 
 private fun disableHiddenApiChecks() {
     HiddenApi.disableHiddenApiChecks()
-}
-
-private fun initializeThreeTen() {
-    AndroidThreeTen.init(application)
 }
 
 private fun initializeWebViewDebugging() {
