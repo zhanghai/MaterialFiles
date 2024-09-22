@@ -157,11 +157,13 @@ dependencies {
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    // SSHJ 0.36.0 requires Java 8.
-    //noinspection GradleDependency
-    implementation ('com.hierynomus:sshj:0.35.0') {
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
+    def bouncy_castle_version = '1.78.1'
+    implementation "org.bouncycastle:bcprov-jdk15to18:$bouncy_castle_version"
+    implementation ('com.hierynomus:sshj:0.39.0') {
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
+        exclude group: 'org.bouncycastle', module: 'bcpkix-jdk18on'
     }
+    implementation "org.bouncycastle:bcpkix-jdk15to18:$bouncy_castle_version"
     implementation 'com.leinardi.android:speed-dial:3.3.0'
     implementation ('com.rapid7.client:dcerpc:0.12.1') {
         // SMBJ-RPC depends on the JRE flavor of Guava which targets Java 8.
@@ -186,7 +188,6 @@ dependencies {
     implementation ('eu.agno3.jcifs:jcifs-ng:2.1.10') {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.78.1'
     implementation platform('io.coil-kt:coil-bom:2.7.0')
     implementation 'io.coil-kt:coil'
     implementation 'io.coil-kt:coil-gif'
