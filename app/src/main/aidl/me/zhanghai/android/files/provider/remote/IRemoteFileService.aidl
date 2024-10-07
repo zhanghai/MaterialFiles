@@ -16,8 +16,4 @@ interface IRemoteFileService {
     IRemotePosixFileAttributeView getRemotePosixFileAttributeViewInterface(
         in ParcelableObject attributeView
     );
-
-    void setArchivePasswords(in ParcelableObject fileSystem, in List<String> passwords);
-
-    void refreshArchiveFileSystem(in ParcelableObject fileSystem);
 }

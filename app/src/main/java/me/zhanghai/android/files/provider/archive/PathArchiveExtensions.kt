@@ -13,11 +13,6 @@ fun Path.archiveAddPassword(password: String) {
     fileSystem.addPassword(password)
 }
 
-fun Path.archiveSetPasswords(passwords: List<String>) {
-    this as? ArchivePath ?: throw ProviderMismatchException(toString())
-    fileSystem.setPasswords(passwords)
-}
-
 val Path.archiveFile: Path
     get() {
         this as? ArchivePath ?: throw ProviderMismatchException(toString())

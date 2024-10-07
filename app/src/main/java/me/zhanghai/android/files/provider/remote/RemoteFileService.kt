@@ -29,14 +29,4 @@ abstract class RemoteFileService(private val remoteInterface: RemoteInterface<IR
         remoteInterface.get().call {
             getRemotePosixFileAttributeViewInterface(attributeView.toParcelable())
         }
-
-    @Throws(RemoteFileSystemException::class)
-    fun setArchivePasswords(fileSystem: FileSystem, passwords: List<String>) {
-        remoteInterface.get().call { setArchivePasswords(fileSystem.toParcelable(), passwords) }
-    }
-
-    @Throws(RemoteFileSystemException::class)
-    fun refreshArchiveFileSystem(fileSystem: FileSystem) {
-        remoteInterface.get().call { refreshArchiveFileSystem(fileSystem.toParcelable()) }
-    }
 }

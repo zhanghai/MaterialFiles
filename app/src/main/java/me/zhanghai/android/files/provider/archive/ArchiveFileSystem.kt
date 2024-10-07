@@ -119,15 +119,6 @@ internal class ArchiveFileSystem(
         }
     }
 
-    fun setPasswords(passwords: List<String>) {
-        synchronized(lock) {
-            if (!isOpen) {
-                throw ClosedFileSystemException()
-            }
-            this.passwords = passwords
-        }
-    }
-
     fun refresh() {
         synchronized(lock) {
             if (!isOpen) {
