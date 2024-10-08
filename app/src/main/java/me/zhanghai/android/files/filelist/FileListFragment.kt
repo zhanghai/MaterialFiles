@@ -362,6 +362,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         }
         viewModel.pickOptionsLiveData.observe(viewLifecycleOwner) { onPickOptionsChanged(it) }
         viewModel.selectedFilesLiveData.observe(viewLifecycleOwner) { onSelectedFilesChanged(it) }
+        Settings.FILE_LIST_DENSE_LAYOUT.observe(viewLifecycleOwner) { onDenseLayoutChanged(it) }
         viewModel.pasteStateLiveData.observe(viewLifecycleOwner) { onPasteStateChanged(it) }
         Settings.FILE_NAME_ELLIPSIZE.observe(viewLifecycleOwner) { onFileNameEllipsizeChanged(it) }
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { onFileListChanged(it) }
@@ -663,7 +664,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
-                (widthDp / 180).coerceAtLeast(2)
+                (widthDp / 180).coerceAtLeast(if (adapter.denseLayout) 3 else 2 )
             }
         }
     }
@@ -844,6 +845,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun onSelectedFilesChanged(files: FileItemSet) {
         updateOverlayToolbar()
         adapter.replaceSelectedFiles(files)
+    }
+
+    private fun onDenseLayoutChanged(denseLayout: Boolean) {
+        adapter.denseLayout = denseLayout
+        updateSpanCount()
+        // re-set adapter to prevent RecyclerView from recycling views and reusing old padding
+        // values on refresh. Neither notifyDataSetChanged() / notifyItemRangeChanged
+        // nor adapter.refresh() does work here.
+        binding.recyclerView.adapter = adapter
     }
 
     private fun updateOverlayToolbar() {
