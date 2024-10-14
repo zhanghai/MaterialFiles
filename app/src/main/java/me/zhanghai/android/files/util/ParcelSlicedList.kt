@@ -10,7 +10,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 // @see android.content.pm.ParceledListSlice
-class ParcelSlicedList<T : Parcelable?> : Parcelable {
+class ParcelSlicedList<out T> : Parcelable {
     val list: List<T>
 
     constructor(list: List<T>) {
@@ -38,24 +38,19 @@ class ParcelSlicedList<T : Parcelable?> : Parcelable {
     private fun readSliceFromParcel(list: MutableList<T>, source: Parcel) {
         val size = source.readInt()
         repeat(size) {
-            @Suppress("UNCHECKED_CAST")
-            val element = source.readParcelable<T>(ParcelSlicedList::class.java.classLoader) as T
+            @Suppress("UNCHECKED_CAST") val element = source.readValue<T>() as T
             list += element
         }
     }
 
-    override fun describeContents(): Int =
-        list.fold(0) { contentFlags, parcelable ->
-            contentFlags or (parcelable?.describeContents() ?: 0)
-        }
+    override fun describeContents(): Int = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) {
         val size = list.size
         dest.writeInt(size)
         val iterator = list.iterator()
-        writeSliceToParcel(iterator, dest, flags)
+        writeSliceToParcel(iterator, dest)
         if (iterator.hasNext()) {
-            val writeFlags = flags
             dest.writeStrongBinder(object : Binder() {
                 override fun onTransact(
                     code: Int,
@@ -66,7 +61,7 @@ class ParcelSlicedList<T : Parcelable?> : Parcelable {
                     when (code) {
                         FIRST_CALL_TRANSACTION -> {
                             if (reply != null) {
-                                writeSliceToParcel(iterator, reply, writeFlags)
+                                writeSliceToParcel(iterator, reply)
                             }
                             true
                         }
@@ -76,13 +71,13 @@ class ParcelSlicedList<T : Parcelable?> : Parcelable {
         }
     }
 
-    private fun writeSliceToParcel(iterator: Iterator<T>, dest: Parcel, flags: Int) {
+    private fun writeSliceToParcel(iterator: Iterator<T>, dest: Parcel) {
         val startPosition = dest.dataPosition()
         dest.writeInt(0)
         var size = 0
         while (iterator.hasNext() && dest.dataSize() < MAX_IPC_SIZE) {
             val element = iterator.next()
-            dest.writeParcelable(element, flags)
+            dest.writeValue(element)
             ++size
         }
         val endPosition = dest.dataPosition()
@@ -93,7 +88,7 @@ class ParcelSlicedList<T : Parcelable?> : Parcelable {
 
     companion object {
         // @see IBinder.MAX_IPC_SIZE
-        const val MAX_IPC_SIZE = 64 * 1024
+        private const val MAX_IPC_SIZE = 64 * 1024
 
         @JvmField
         val CREATOR = object : Parcelable.Creator<ParcelSlicedList<Parcelable?>> {
