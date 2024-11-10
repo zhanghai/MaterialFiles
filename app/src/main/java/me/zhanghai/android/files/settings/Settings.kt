@@ -126,6 +126,11 @@ object Settings {
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation
         )
 
+    val FILE_LIST_DENSE_LAYOUT: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_file_list_dense_layout, R.bool.pref_default_value_file_list_dense_layout
+        )
+
     val FILE_NAME_ELLIPSIZE: SettingLiveData<TextUtils.TruncateAt> =
         EnumSettingLiveData(
             R.string.pref_key_file_name_ellipsize, R.string.pref_default_value_file_name_ellipsize,
