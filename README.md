@@ -50,7 +50,7 @@ In a word, this app tries to follow the best practices on Android and do the rig
 
 Because I know people can do it right.
 
-[Nautilus](https://wiki.gnome.org/Apps/Files) is a beautifully-designed and user-friendly file manager on Linux desktop, and it's fully Linux-aware. [Phonograph](https://github.com/kabouzeid/Phonograph) is an open source Material Design music player app (which I've been using for years), and it has just the right Material Design and implementation.
+[Nautilus](https://apps.gnome.org/Nautilus) is a beautifully-designed and user-friendly file manager on Linux desktop, and it's fully Linux-aware. [Phonograph](https://github.com/kabouzeid/Phonograph) is an open source Material Design music player app (which I've been using for years), and it has just the right Material Design and implementation.
 
 So, it's time for yet another Android file manager.
 
