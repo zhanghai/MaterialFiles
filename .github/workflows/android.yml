@@ -12,13 +12,17 @@ jobs:
       uses: actions/checkout@v4
       with:
         submodules: true
-    - name: Set up JDK 17
+        
+    - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '21'
+        
     - name: Build with Gradle
-      run: ./gradlew assembleDebug lintVitalRelease
+      # run: ./gradlew assembleDebug lintVitalRelease
+      run: ./gradlew build --warning-mode=all
+      
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
