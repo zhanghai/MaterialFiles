@@ -20,8 +20,7 @@ jobs:
         java-version: '21'
         
     - name: Build with Gradle
-      # run: ./gradlew assembleDebug lintVitalRelease
-      run: ./gradlew build --warning-mode=all
+      run: ./gradlew assembleDebug lintVitalRelease
       
     - name: Upload artifact
       uses: actions/upload-artifact@v4
