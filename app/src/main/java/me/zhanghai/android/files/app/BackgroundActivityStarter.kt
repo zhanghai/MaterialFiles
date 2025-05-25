@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.app
 
+import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -51,6 +52,9 @@ object BackgroundActivityStarter {
             Lifecycle.State.STARTED
         )
 
+    // We'll just throw exception for the file job if we don't have the permission to post
+    // notifications.
+    @SuppressLint("MissingPermission")
     private fun notifyStartActivity(
         intent: Intent,
         title: CharSequence,
