@@ -106,7 +106,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
         }
         binding.viewPager.apply {
             // 1 is the default for the old androidx.viewpager.widget.ViewPager.
-            offscreenPageLimit = 1
+            offscreenPageLimit = 6
             adapter = this@ImageViewerFragment.adapter
             // ViewPager saves its position and will restore it later.
             setCurrentItem(args.position, false)
