@@ -130,12 +130,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
     implementation 'androidx.activity:activity-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.4.1'
-    implementation 'androidx.fragment:fragment-ktx:1.8.7'
-    def androidx_lifecycle_version = '2.9.0'
+    implementation 'androidx.fragment:fragment-ktx:1.8.8'
+    def androidx_lifecycle_version = '2.9.1'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$androidx_lifecycle_version"
@@ -158,7 +158,7 @@ dependencies {
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    def bouncy_castle_version = '1.80'
+    def bouncy_castle_version = '1.81'
     implementation "org.bouncycastle:bcprov-jdk15to18:$bouncy_castle_version"
     implementation ('com.hierynomus:sshj:0.40.0') {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
@@ -166,7 +166,7 @@ dependencies {
     }
     implementation "org.bouncycastle:bcpkix-jdk15to18:$bouncy_castle_version"
     implementation 'com.leinardi.android:speed-dial:3.3.0'
-    implementation ('com.rapid7.client:dcerpc:0.12.12') {
+    implementation ('com.rapid7.client:dcerpc:0.12.13') {
         // SMBJ-RPC depends on the JRE flavor of Guava which targets Java 8.
         exclude group: 'com.google.guava', module: 'guava'
         // Prevent promotion of SMBJ version to 0.12.2.
@@ -214,7 +214,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:33.14.0')
+    implementation platform('com.google.firebase:firebase-bom:33.15.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif
