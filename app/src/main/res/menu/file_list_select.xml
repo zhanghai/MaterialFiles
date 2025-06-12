@@ -58,4 +58,9 @@
         android:orderInCategory="100"
         android:title="@string/select_all"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_select_range"
+        android:orderInCategory="100"
+        android:title="@string/select_range"
+        app:showAsAction="never" />
 </menu>
