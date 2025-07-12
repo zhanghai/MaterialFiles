@@ -595,7 +595,7 @@
     <string name="navigation_storage_subtitle_format">%1$svolných z %2$s</string>
     <string name="navigation_add_storage">Přidat úložiště…</string>
     <string name="navigation_standard_directory_alarms">Budíky</string>
-    <string name="navigation_standard_directory_dcim">DCMI</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumenty</string>
     <string name="navigation_standard_directory_downloads">Stahování</string>
     <string name="navigation_standard_directory_movies">Filmy</string>
