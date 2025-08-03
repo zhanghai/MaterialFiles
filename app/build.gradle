@@ -16,8 +16,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.2'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
+        classpath 'com.google.gms:google-services:4.4.3'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.5'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -135,7 +135,7 @@ dependencies {
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.4.1'
     implementation 'androidx.fragment:fragment-ktx:1.8.8'
-    def androidx_lifecycle_version = '2.9.1'
+    def androidx_lifecycle_version = '2.9.2'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$androidx_lifecycle_version"
@@ -177,7 +177,7 @@ dependencies {
     // Guava conflicts with com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
-    implementation 'commons-net:commons-net:3.11.1'
+    implementation 'commons-net:commons-net:3.12.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors.
     //noinspection GradleDependency
@@ -214,7 +214,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:33.15.0')
+    implementation platform('com.google.firebase:firebase-bom:34.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif

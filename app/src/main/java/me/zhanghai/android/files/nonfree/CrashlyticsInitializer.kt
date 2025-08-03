@@ -8,6 +8,7 @@ package me.zhanghai.android.files.nonfree
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.pm.Signature
+import android.os.Build
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -20,6 +21,9 @@ object CrashlyticsInitializer {
     private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
 
     fun initialize() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
         if (BuildConfig.DEBUG) {
             return
         }
@@ -27,7 +31,7 @@ object CrashlyticsInitializer {
             // Please, don't spam.
             return
         }
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
     }
 
     private fun verifyPackageName(): Boolean {

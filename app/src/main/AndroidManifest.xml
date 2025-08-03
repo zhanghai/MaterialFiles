@@ -32,8 +32,8 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
-    <!-- Shizuku requires API 23. -->
-    <uses-sdk tools:overrideLibrary="rikka.shizuku.aidl,rikka.shizuku.api,rikka.shizuku.shared" />
+    <!-- Crashlytics and Shizuku requires API 23. -->
+    <uses-sdk tools:overrideLibrary="com.google.firebase,com.google.firebase.components,com.google.firebase.crashlytics,com.google.firebase.crashlytics.ndk,com.google.firebase.installations,com.google.firebase.sessions,rikka.shizuku.aidl,rikka.shizuku.api,rikka.shizuku.shared" />
 
     <!--
       ~ Samsung DeX requires explicitly setting android:resizeableActivity="true" for the app to be
