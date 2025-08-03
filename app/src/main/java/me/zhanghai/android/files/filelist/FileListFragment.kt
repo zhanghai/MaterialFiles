@@ -825,10 +825,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 clipData = ClipData::class.create(null, mimeTypes, items)
                 extraPathList = paths.toList()
             }
-            var flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+            var flags =
+                Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
             if (!pickOptions.readOnly) {
-                flags = flags or (Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                flags = flags or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             }
             if (pickOptions.mode == PickOptions.Mode.OPEN_DIRECTORY) {
                 flags = flags or Intent.FLAG_GRANT_PREFIX_URI_PERMISSION
