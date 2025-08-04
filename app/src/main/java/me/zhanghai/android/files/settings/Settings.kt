@@ -87,6 +87,17 @@ object Settings {
             R.string.pref_key_ftp_server_port, R.integer.pref_default_value_ftp_server_port
         )
 
+    val FTP_SERVER_CUSTOM_DATA_PORT: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_ftp_server_custom_data_port,
+            R.bool.pref_default_value_ftp_server_custom_data_port
+        )
+
+    val FTP_SERVER_DATA_PORT: SettingLiveData<String> =
+        StringSettingLiveData(
+            R.string.pref_key_ftp_server_data_port, R.string.pref_default_value_ftp_server_data_port
+        )
+
     val FTP_SERVER_HOME_DIRECTORY: SettingLiveData<Path> =
         ParcelValueSettingLiveData(
             R.string.pref_key_ftp_server_home_directory,

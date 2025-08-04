@@ -5,7 +5,7 @@
   ~ All Rights Reserved.
   -->
 
-<PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -51,6 +51,18 @@
             android:defaultValue="@integer/pref_default_value_ftp_server_port"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_ftp_server_custom_data_port"
+            android:title="@string/ftp_server_custom_data_port_title"
+            android:defaultValue="@bool/pref_default_value_ftp_server_custom_data_port" />
+
+        <me.zhanghai.android.files.settings.DefaultIfEmptyEditTextPreference
+            android:key="@string/pref_key_ftp_server_data_port"
+            android:title="@string/ftp_server_data_port_title"
+            android:defaultValue="@string/pref_default_value_ftp_server_data_port"
+            android:dependency="@string/pref_key_ftp_server_custom_data_port"
+            app:useSimpleSummaryProvider="true" />
+
         <me.zhanghai.android.files.ftpserver.FtpServerHomeDirectoryPreference
             android:key="@string/pref_key_ftp_server_home_directory"
             android:title="@string/ftp_server_home_directory_title"
@@ -61,4 +73,4 @@
             android:title="@string/ftp_server_writable_title"
             android:defaultValue="@bool/pref_default_value_ftp_server_writable" />
     </PreferenceCategory>
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>
