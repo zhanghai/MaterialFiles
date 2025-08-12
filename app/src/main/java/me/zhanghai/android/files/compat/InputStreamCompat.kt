@@ -15,7 +15,7 @@ fun KClass<InputStream>.nullInputStream(): InputStream =
 
         override fun read(): Int {
             ensureOpen()
-            return -1;
+            return -1
         }
 
         override fun read(bytes: ByteArray, offset: Int, length: Int): Int {

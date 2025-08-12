@@ -238,6 +238,7 @@
     <string name="file_name_error_empty">Файлът не може да е празен</string>
     <string name="file_name_error_invalid">Невалидно име на файл</string>
     <string name="file_name_error_already_exists">Файл с това име вече съществува</string>
+    <string name="file_replace_message_format">Заменяне на „%1$s“?</string>
     <string name="file_delete_message_file_format">Изтриване на “%1$s”?</string>
     <string name="file_delete_message_directory_format">Изтриване на папката „%1$s“ и нейното съдържание?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -262,11 +263,12 @@
     <string name="file_create_directory_title">Нова папка</string>
 
     <string name="file_list_title">Файлове</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Избиране на файл</item>
         <item quantity="other">Избиране на файлове</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <string name="file_list_title_create_file">Запазване на файл</string>
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Избиране на папка</item>
         <item quantity="other">Избиране на папки</item>
     </plurals>
@@ -301,7 +303,8 @@
     <string name="file_list_action_create_shortcut">Създаване на пряк път</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Отваряне в нов прозорез</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Избиране на „%1$s”</string>
+    <string name="file_list_create_file_name_hint">Име на файл</string>
+    <string name="file_list_open_current_directory_format">Избиране на „%1$s”</string>
     <string name="file_list_paste_move_title_format">Преместване на %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копиране на %1$,d</string>
     <string name="file_list_paste_extract_title_format">Извличане на %1$,d</string>
@@ -335,39 +338,38 @@
     <string name="file_properties_basic_archive_file">Архивен файл</string>
     <string name="file_properties_basic_archive_entry">Запис в архива</string>
     <string name="file_properties_basic_free_space">Свободно пространство</string>
-    <string name="file_properties_permissions">Права</string>
-    <string name="file_properties_permissions_owner">Притежател</string>
-    <string name="file_properties_permissions_group">Група</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Промяна на притежател</string>
-    <string name="file_properties_permissions_set_group_title">Промяна на група</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Въведете име или ID</string>
-    <string name="file_properties_permissions_set_principal_system">Система</string>
-    <string name="file_properties_permissions_mode">Права</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Промяна на права</string>
-    <string name="file_properties_permissions_set_mode_others">Други</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Права</string>
+    <string name="file_properties_permission_owner">Собственик</string>
+    <string name="file_properties_permission_group">Група</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Промяна на собственик</string>
+    <string name="file_properties_permission_set_group_title">Промяна на група</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Въведете име или ID</string>
+    <string name="file_properties_permission_set_principal_system">Система</string>
+    <string name="file_properties_permission_mode">Права</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Промяна на права</string>
+    <string name="file_properties_permission_set_mode_others">Други</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Четене</item>
         <item>Писане</item>
         <item>Изпълняване</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Четене</item>
         <item>Писане</item>
         <item>Търсене</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Специални</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Специални</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Задаване на UID</item>
         <item>Задаване на GID</item>
         <item>Лепкав бит</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Да не се добавя „Изпълняване“ рекурсивно</string>
-    <string name="file_properties_permissions_selinux_context">Контекст на SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Смяна на контекста на SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Възстановяване</string>
-    <string name="file_properties_permissions_recursive">Рекурсивно прилагане</string>
+    <string name="file_properties_permission_selinux_context">Контекст на SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Смяна на контекста на SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Възстановяване</string>
+    <string name="file_properties_permission_recursive">Рекурсивно прилагане</string>
     <string name="file_properties_image">Изображение</string>
     <string name="file_properties_media_dimensions">Размери</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -422,7 +424,6 @@
     <string name="file_properties_apk_signature_digests">Подписи</string>
     <string name="file_properties_apk_signature_digests_empty">Няма валидни подписи</string>
     <string name="file_properties_apk_past_signature_digests">Стари подписи</string>
-
     <string name="storage_file_system_root_title">Коренова папка</string>
     <string name="storage_list_title">Хранилище</string>
     <string name="storage_list_empty">Няма хранилища</string>
@@ -435,10 +436,6 @@
     <string name="storage_edit_device_storage_title">Редактиране на хранилище</string>
     <string name="storage_edit_device_storage_name">Име</string>
     <string name="storage_edit_device_storage_path">Път</string>
-    <string name="storage_add_document_manager_shortcut_title">Добавяне на пряк път за DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Променяне на пряк път за DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Въведете адрес</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Неприемлив адрес</string>
     <string name="storage_add_document_tree_title">Добавяне на външно хранилище</string>
     <string name="storage_edit_document_tree_title">Редакция на външно хранилище</string>
     <string name="storage_edit_document_tree_name">Име</string>
@@ -648,7 +645,6 @@
         <item>Преглед на съдържанието</item>
         <item>Питане за действие</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Миниатюри за файловете на PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Има опасност да направи приложението нестабилно под по-ранни издания на Андроид</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Четене на отдалечени файлове за миниатюри</string>
 

@@ -7,7 +7,6 @@ package me.zhanghai.android.files.fileproperties.image
 
 import android.content.Intent
 import android.location.Geocoder
-import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import java8.nio.file.Path
 import kotlinx.coroutines.Job
@@ -44,8 +43,8 @@ class FilePropertiesImageTabFragment : FilePropertiesTabFragment() {
 
     private var addressJob: Job? = null
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         viewModel.imageInfoLiveData.observe(viewLifecycleOwner) { onImageInfoChanged(it) }
     }

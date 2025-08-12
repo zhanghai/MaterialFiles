@@ -5,6 +5,17 @@
 
 package me.zhanghai.android.files.provider.ftp.client
 
+import java8.nio.file.Path as Java8Path
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.chrono.IsoChronology
+import java.time.format.DateTimeFormatter
+import java.util.Collections
+import java.util.Locale
+import java.util.WeakHashMap
 import java8.nio.channels.SeekableByteChannel
 import me.zhanghai.android.files.provider.common.DelegateInputStream
 import me.zhanghai.android.files.provider.common.DelegateOutputStream
@@ -17,17 +28,6 @@ import org.apache.commons.net.ftp.FTPCmd
 import org.apache.commons.net.ftp.FTPFile
 import org.apache.commons.net.ftp.FTPReply
 import org.apache.commons.net.ftp.FTPSClient
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneOffset
-import org.threeten.bp.chrono.IsoChronology
-import org.threeten.bp.format.DateTimeFormatter
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
-import java.util.Collections
-import java.util.Locale
-import java.util.WeakHashMap
-import java8.nio.file.Path as Java8Path
 
 object Client {
     private val TIMESTAMP_FORMATTER =

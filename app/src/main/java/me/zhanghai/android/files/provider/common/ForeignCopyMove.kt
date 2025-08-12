@@ -15,6 +15,7 @@ import java8.nio.file.StandardCopyOption
 import java8.nio.file.StandardOpenOption
 import java8.nio.file.attribute.BasicFileAttributeView
 import java8.nio.file.attribute.BasicFileAttributes
+import java8.nio.file.attribute.FileTime
 import java.io.IOException
 
 internal object ForeignCopyMove {
@@ -102,12 +103,17 @@ internal object ForeignCopyMove {
         // now on.
         val targetAttributeView = target.getFileAttributeView(BasicFileAttributeView::class.java)!!
         val lastModifiedTime = sourceAttributes.lastModifiedTime()
+            .takeIf { it != FileTime::class.EPOCH }
         val lastAccessTime = if (copyOptions.copyAttributes) {
-            sourceAttributes.lastAccessTime()
+            sourceAttributes.lastAccessTime().takeIf { it != FileTime::class.EPOCH }
         } else {
             null
         }
-        val creationTime = if (copyOptions.copyAttributes) sourceAttributes.creationTime() else null
+        val creationTime = if (copyOptions.copyAttributes) {
+            sourceAttributes.creationTime().takeIf { it != FileTime::class.EPOCH }
+        } else {
+            null
+        }
         try {
             targetAttributeView.setTimes(lastModifiedTime, lastAccessTime, creationTime)
         } catch (e: IOException) {

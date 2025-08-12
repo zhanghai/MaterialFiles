@@ -22,10 +22,10 @@ import coil.request.videoFrameOption
 import coil.request.videoFramePercent
 import me.zhanghai.android.files.compat.getFrameAtTimeCompat
 import me.zhanghai.android.files.compat.getScaledFrameAtTimeCompat
+import me.zhanghai.android.files.compat.use
 import java.util.concurrent.TimeUnit
 import kotlin.math.roundToInt
 import kotlin.math.roundToLong
-import me.zhanghai.android.files.compat.use
 
 class VideoFrameFetcher(
     private val options: Options,
@@ -122,7 +122,7 @@ class VideoFrameFetcher(
             } else {
                 outBitmap.width == width && outBitmap.height == height
             }
-            val isValidConfig = !outBitmap.config.isHardware || options.config.isHardware
+            val isValidConfig = outBitmap.config?.isHardware != true || options.config.isHardware
             val bitmap = if (isValidSize && isValidConfig) {
                 outBitmap
             } else {

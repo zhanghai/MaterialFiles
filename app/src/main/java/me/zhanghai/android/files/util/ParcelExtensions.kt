@@ -7,23 +7,25 @@ package me.zhanghai.android.files.util
 
 import android.os.Parcel
 import android.os.Parcelable
-import me.zhanghai.android.files.compat.readParcelableListCompat
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import me.zhanghai.android.files.app.appClassLoader
+import me.zhanghai.android.files.compat.readParcelableListCompat
 
-inline fun <reified T : Parcelable> Parcel.readParcelable(): T? =
-    readParcelable(T::class.java.classLoader)
+@Suppress("DEPRECATION")
+fun <T : Parcelable> Parcel.readParcelable(): T? = readParcelable(appClassLoader)
 
 fun <T : Parcelable?> Parcel.readParcelableListCompat(classLoader: ClassLoader?): List<T> =
     readParcelableListCompat(mutableListOf(), classLoader)
 
-inline fun <reified E : Parcelable?, L : MutableList<E>> Parcel.readParcelableListCompat(
-    list: L
-): L = readParcelableListCompat(list, E::class.java.classLoader)
+fun <E : Parcelable?, L : MutableList<E>> Parcel.readParcelableListCompat(list: L): L =
+    readParcelableListCompat(list, appClassLoader)
 
-inline fun <reified T : Parcelable?> Parcel.readParcelableListCompat(): List<T> =
+fun <T : Parcelable?> Parcel.readParcelableListCompat(): List<T> =
     readParcelableListCompat(mutableListOf())
+
+@Suppress("UNCHECKED_CAST") fun <T> Parcel.readValue(): T? = readValue(appClassLoader) as T?
 
 @OptIn(ExperimentalContracts::class)
 inline fun <R> Parcel.use(block: (Parcel) -> R): R {

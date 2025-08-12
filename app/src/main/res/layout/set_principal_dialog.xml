@@ -22,7 +22,7 @@
         android:background="@null"
         android:drawablePadding="24dp"
         app:drawableStartCompat="@drawable/filter_icon_control_normal_24dp"
-        android:hint="@string/file_properties_permissions_set_principal_filter_hint"
+        android:hint="@string/file_properties_permission_set_principal_filter_hint"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textAppearance="?textAppearanceListItem" />
@@ -78,6 +78,6 @@
         android:paddingEnd="?dialogPreferredPadding"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:text="@string/file_properties_permissions_recursive"
+        android:text="@string/file_properties_permission_recursive"
         android:textAppearance="?textAppearanceListItem" />
 </LinearLayout>

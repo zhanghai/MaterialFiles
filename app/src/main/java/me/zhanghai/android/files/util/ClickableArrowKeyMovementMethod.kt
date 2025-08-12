@@ -196,7 +196,7 @@ object ClickableArrowKeyMovementMethod : ArrowKeyMovementMethod() {
                 }
                 // Removed
                 //else {
-                //    Selection.removeSelection(text);
+                //    Selection.removeSelection(text)
                 //}
             }
         }

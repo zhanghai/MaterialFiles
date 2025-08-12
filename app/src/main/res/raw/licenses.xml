@@ -8,6 +8,13 @@
 <notices>
 
     <notice>
+        <name>Material Files</name>
+        <url>https://github.com/zhanghai/MaterialFiles</url>
+        <copyright>Copyright 2018 Hai Zhang</copyright>
+        <license>GNU General Public License 3.0</license>
+    </notice>
+
+    <notice>
         <name>AndroidSVG</name>
         <url>https://github.com/BigBadaboom/androidsvg</url>
         <copyright>Copyright 2013 Paul LeBeau, Cave Rock Software Ltd.</copyright>

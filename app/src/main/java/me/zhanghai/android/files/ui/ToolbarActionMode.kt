@@ -24,9 +24,9 @@ abstract class ToolbarActionMode(
     private var callback: Callback? = null
 
     init {
-        toolbar.setNavigationOnClickListener { finish() }
+        toolbar.setNavigationOnClickListener { callback?.onToolbarNavigationIconClicked(this) }
         toolbar.setOnMenuItemClickListener {
-            callback?.onToolbarActionModeItemClicked(this, it) ?: false
+            callback?.onToolbarActionModeMenuItemClicked(this, it) ?: false
         }
     }
 
@@ -42,8 +42,15 @@ abstract class ToolbarActionMode(
             toolbar.navigationIcon = value
         }
 
-    fun setNavigationIcon(@DrawableRes iconRes: Int) {
+    var navigationContentDescription: CharSequence?
+        get() = toolbar.navigationContentDescription
+        set(value) {
+            toolbar.navigationContentDescription = value
+        }
+
+    fun setNavigationIcon(@DrawableRes iconRes: Int, @StringRes contentDescriptionRes: Int) {
         toolbar.setNavigationIcon(iconRes)
+        toolbar.setNavigationContentDescription(contentDescriptionRes)
     }
 
     var title: CharSequence?
@@ -104,9 +111,13 @@ abstract class ToolbarActionMode(
     protected abstract fun hide(bar: ViewGroup, animate: Boolean)
 
     interface Callback {
-        fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode)
+        fun onToolbarActionModeStarted(toolbarActionMode: ToolbarActionMode) {}
 
-        fun onToolbarActionModeItemClicked(
+        fun onToolbarNavigationIconClicked(toolbarActionMode: ToolbarActionMode) {
+            toolbarActionMode.finish()
+        }
+
+        fun onToolbarActionModeMenuItemClicked(
             toolbarActionMode: ToolbarActionMode,
             item: MenuItem
         ): Boolean

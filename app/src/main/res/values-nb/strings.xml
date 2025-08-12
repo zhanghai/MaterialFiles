@@ -36,7 +36,7 @@
     <string name="reset">Tilbakestill</string>
     <string name="retry">Prøv på nytt</string>
     <string name="save">Lagre</string>
-    <string name="search">Søk</string>
+    <string name="search">Søke</string>
     <string name="select">Velg</string>
     <string name="select_all">Velg alle</string>
     <string name="share">Del</string>
@@ -238,6 +238,7 @@
     <string name="file_name_error_empty">Filnavnet kan ikke være tomt</string>
     <string name="file_name_error_invalid">Ugyldig filnavn</string>
     <string name="file_name_error_already_exists">Det finnes allerede en fil med dette navnet</string>
+    <string name="file_replace_message_format">Vil du erstatte «%1$s»?</string>
     <string name="file_delete_message_file_format">Vil du slette «%1$s»?</string>
     <string name="file_delete_message_directory_format">Vil du slette «%1$s»-mappen og innholdet i den?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -262,11 +263,12 @@
     <string name="file_create_directory_title">Ny mappe</string>
 
     <string name="file_list_title">Filer</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Velg en fil</item>
         <item quantity="other">Velg filer</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <string name="file_list_title_create_file">Lagre fil</string>
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Velg en mappe</item>
         <item quantity="other">Velg mapper</item>
     </plurals>
@@ -301,7 +303,8 @@
     <string name="file_list_action_create_shortcut">Opprett snarvei</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Åpne i et nytt vindu</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Velg «%1$s»</string>
+    <string name="file_list_create_file_name_hint">Filnavn</string>
+    <string name="file_list_open_current_directory_format">Velg «%1$s»</string>
     <string name="file_list_paste_move_title_format">Flytter %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopierer %1$,d</string>
     <string name="file_list_paste_extract_title_format">Pakker ut %1$,d</string>
@@ -331,43 +334,43 @@
         <item quantity="other">%1$,d filer, totalt %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Sist endret</string>
-    <string name="file_properties_basic_parent_directory">Plassering</string>
+    <string name="file_properties_basic_parent_directory">Overordnet mappe</string>
     <string name="file_properties_basic_archive_file">Arkivfil</string>
     <string name="file_properties_basic_archive_entry">Arkivoppføring</string>
     <string name="file_properties_basic_free_space">Ledig plass</string>
-    <string name="file_properties_permissions">Tillatelser</string>
-    <string name="file_properties_permissions_owner">Eier</string>
-    <string name="file_properties_permissions_group">Gruppe</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Endre eier</string>
-    <string name="file_properties_permissions_set_group_title">Endre gruppe</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Skriv inn et navn eller ID</string>
-    <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Modus</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Endre modus</string>
-    <string name="file_properties_permissions_set_mode_others">Andre</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Tillatelser</string>
+    <string name="file_properties_permission_owner">Eier</string>
+    <string name="file_properties_permission_group">Gruppe</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Endre eier</string>
+    <string name="file_properties_permission_set_group_title">Endre gruppe</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Skriv inn et navn eller en ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Modus</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Endre modus</string>
+    <string name="file_properties_permission_set_mode_others">Andre</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Lese</item>
         <item>Skrive</item>
         <item>Kjøre</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Lese</item>
         <item>Skrive</item>
-        <item>Søk</item>
+        <item>Søke</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Spesielt</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Spesielt</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Angi UID</item>
         <item>Angi GID</item>
-        <item>Fast</item>
+        <item>Låst</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Ikke legg til «Kjør» på underfilene</string>
-    <string name="file_properties_permissions_selinux_context">SELinux-kontekst</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Endre SELinux-kontekst</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Gjenopprett</string>
-    <string name="file_properties_permissions_recursive">Bruk på alle underfilene</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ikke legg til «Kjør» på underfilene</string>
+    <string name="file_properties_permission_selinux_context">SELinux-kontekst</string>
+    <string name="file_properties_permission_set_selinux_context_title">Endre SELinux-kontekst</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Gjenopprett</string>
+    <string name="file_properties_permission_recursive">Bruk på alle underfilene</string>
     <string name="file_properties_image">Bilde</string>
     <string name="file_properties_media_dimensions">Dimensjoner</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -422,7 +425,12 @@
     <string name="file_properties_apk_signature_digests">Signaturer</string>
     <string name="file_properties_apk_signature_digests_empty">Ingen gyldige signaturer</string>
     <string name="file_properties_apk_past_signature_digests">Gamle signaturer</string>
-
+    <string name="file_properties_checksum">Sjekksummer</string>
+    <string name="file_properties_checksum_compare">Sammenlign</string>
+    <string name="file_properties_checksum_compare_placeholder">Hvilken som helst sjekksum</string>
+    <string name="file_properties_checksum_compare_match_format">Samsvarer med %1$s-sjekksumen</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Samsvarer med starten av %1$s-sjekksumen</string>
+    <string name="file_properties_checksum_compare_no_match">Fant ingen samsvarende sjekksum</string>
     <string name="storage_file_system_root_title">Rot</string>
     <string name="storage_list_title">Lagring</string>
     <string name="storage_list_empty">Ingen lagring</string>
@@ -435,10 +443,11 @@
     <string name="storage_edit_device_storage_title">Rediger lagring på enheten</string>
     <string name="storage_edit_device_storage_name">Navn</string>
     <string name="storage_edit_device_storage_path">Bane</string>
-    <string name="storage_add_document_manager_shortcut_title">Legg til DocumentsUI-snarvei</string>
-    <string name="storage_edit_document_manager_shortcut_title">Rediger DocumentsUI-snarvei</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Skriv inn en URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Ugyldig URI</string>
+    <string name="storage_add_external_storage_shortcut_title">Legg til snarvei til ekstern lagring</string>
+    <string name="storage_edit_external_storage_shortcut_title">Rediger snarvei til ekstern lagring</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Lagringsvolum</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Angi et lagringsvolum</string>
+    <string name="storage_edit_external_storage_shortcut_path">Bane</string>
     <string name="storage_add_document_tree_title">Legg til ekstern lagring</string>
     <string name="storage_edit_document_tree_title">Rediger ekstern lagring</string>
     <string name="storage_edit_document_tree_name">Navn</string>
@@ -572,6 +581,9 @@
     <string name="archive_viewer_title">Arkivleser</string>
     <string name="image_viewer_title">Bildefremviser</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Lagre som</string>
+    <string name="save_as_error">Feil under lagring av fil</string>
+    <string name="save_as_success_format">«%1$s» er lagret i «%2$s»</string>
     <string name="text_editor_title">Tekstredigering</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>

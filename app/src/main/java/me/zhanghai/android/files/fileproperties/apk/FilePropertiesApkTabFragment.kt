@@ -6,7 +6,6 @@
 package me.zhanghai.android.files.fileproperties.apk
 
 import android.os.Build
-import android.os.Bundle
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -29,8 +28,8 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
 
     private val viewModel by viewModels { { FilePropertiesApkTabViewModel(args.path) } }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         viewModel.apkInfoLiveData.observe(viewLifecycleOwner) { onApkInfoChanged(it) }
     }
@@ -50,7 +49,7 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                     packageInfo.longVersionCodeCompat
                 )
             )
-            val applicationInfo = packageInfo.applicationInfo
+            val applicationInfo = packageInfo.applicationInfo!!
             // PackageParser didn't return minSdkVersion before N, so it's hard to implement a
             // compat version.
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -78,7 +77,7 @@ class FilePropertiesApkTabFragment : FilePropertiesTabFragment() {
                 } else {
                     {
                         PermissionListDialogFragment.show(
-                            packageInfo.requestedPermissions, this@FilePropertiesApkTabFragment
+                            packageInfo.requestedPermissions!!, this@FilePropertiesApkTabFragment
                         )
                     }
                 }

@@ -7,6 +7,7 @@ package me.zhanghai.android.files.provider.webdav
 
 import android.os.Parcelable
 import at.bitfire.dav4jvm.Response
+import java.time.Instant
 import java8.nio.file.attribute.FileTime
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -19,7 +20,6 @@ import me.zhanghai.android.files.provider.webdav.client.isDirectory
 import me.zhanghai.android.files.provider.webdav.client.isSymbolicLink
 import me.zhanghai.android.files.provider.webdav.client.lastModifiedTime
 import me.zhanghai.android.files.provider.webdav.client.size
-import org.threeten.bp.Instant
 
 @Parcelize
 internal data class WebDavFileAttributes(

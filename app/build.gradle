@@ -16,8 +16,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.gms:google-services:4.4.1'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        classpath 'com.google.gms:google-services:4.4.3'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.5'
     }
 }
 apply plugin: 'com.google.gms.google-services'
@@ -26,17 +26,17 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     namespace 'me.zhanghai.android.files'
-    buildToolsVersion = '34.0.0'
-    compileSdk 34
-    ndkVersion '26.2.11394342'
+    buildToolsVersion = '36.0.0'
+    compileSdk 36
+    ndkVersion '28.1.13356709'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdk 21
-        // Not supporting notification runtime permission yet.
+        // Not supporting foreground service timeout yet.
         //noinspection OldTargetApi
         targetSdk 34
-        versionCode 36
-        versionName '1.7.1'
+        versionCode 39
+        versionName '1.7.4'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
@@ -56,6 +56,7 @@ android {
         generateLocaleConfig true
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -109,7 +110,8 @@ repositories {
     }
 }
 dependencies {
-    implementation('com.github.zhanghai:dav4jvm:c317607') {
+    // We need https://github.com/bitfireAT/dav4jvm/commit/c1bc14348831bcdb00f3a6eec4859b81c7dc3728
+    implementation('com.github.bitfireAT:dav4jvm:ec6264d427') {
         exclude group: 'org.ogce', module: 'xpp3'
     }
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
@@ -119,60 +121,66 @@ dependencies {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+filesystem
     implementation 'org.jetbrains.kotlinx:kotlinx-io-core:0.3.2'
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+
+
     // kotlinx-coroutines-android depends on kotlin-stdlib-jdk8
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    def kotlinx_coroutines_version = '1.8.0'
+    def kotlinx_coroutines_version = '1.10.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
 
-    implementation 'androidx.activity:activity-ktx:1.8.2'
-    // Appcompat 1.7.0-alpha01 is required for properly changing locale below API 24 (b/243119645).
-    implementation 'androidx.appcompat:appcompat:1.7.0-alpha03'
-    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.activity:activity-ktx:1.10.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
-    implementation 'androidx.exifinterface:exifinterface:1.3.7'
-    implementation 'androidx.fragment:fragment-ktx:1.6.2'
-    def androidx_lifecycle_version = '2.7.0'
+    implementation 'androidx.exifinterface:exifinterface:1.4.1'
+    implementation 'androidx.fragment:fragment-ktx:1.8.8'
+    def androidx_lifecycle_version = '2.9.2'
     implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$androidx_lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$androidx_lifecycle_version"
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.android.material:material:1.12.0'
 
     implementation 'com.caverock:androidsvg-aar:1.4'
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
     implementation 'com.drakeet.drawer:drawer:1.0.3'
     implementation 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:1.0.0'
     implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-    implementation ('com.hierynomus:smbj:0.13.0') {
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
-    }
-    // SSHJ 0.36.0 requires Java 8.
+    // SMBJ 0.12.0 breaks anonymous authentication: https://github.com/hierynomus/smbj/issues/792
     //noinspection GradleDependency
-    implementation ('com.hierynomus:sshj:0.35.0') {
+    implementation ('com.hierynomus:smbj:0.11.5') {
+        // org.bouncycastle:bcprov-jdk15on uses bytecode version unsupported by Jetifier, so use
+        // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.4.6'
+    def bouncy_castle_version = '1.81'
+    implementation "org.bouncycastle:bcprov-jdk15to18:$bouncy_castle_version"
+    implementation ('com.hierynomus:sshj:0.40.0') {
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
+        exclude group: 'org.bouncycastle', module: 'bcpkix-jdk18on'
+    }
+    implementation "org.bouncycastle:bcpkix-jdk15to18:$bouncy_castle_version"
     implementation 'com.leinardi.android:speed-dial:3.3.0'
-    implementation ('com.rapid7.client:dcerpc:0.12.1') {
+    implementation ('com.rapid7.client:dcerpc:0.12.13') {
         // SMBJ-RPC depends on the JRE flavor of Guava which targets Java 8.
         exclude group: 'com.google.guava', module: 'guava'
-        exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
-        // This comes from the dependency on SMBJ.
+        // Prevent promotion of SMBJ version to 0.12.2.
+        exclude group: 'com.hierynomus', module: 'smbj'
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
-    implementation 'com.google.guava:guava:33.0.0-android'
+    implementation 'com.google.guava:guava:33.4.8-android'
     // Guava conflicts with com.google.guava:listenablefuture:1.0 pulled in by AndroidX Core
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
     implementation 'com.takisoft.preferencex:preferencex:1.1.0'
-    // Commons Net 3.9.0 started using java.time.Duration in FTPClient.
-    //noinspection GradleDependency
-    implementation 'commons-net:commons-net:3.8.0'
+    implementation 'commons-net:commons-net:3.12.0'
     // LicensesDialog 2.2.0 pulls in androidx.webkit and uses setForceDark() instead of correctly
     // setting colors._
     //noinspection GradleDependency
@@ -184,8 +192,7 @@ dependencies {
     implementation ('eu.agno3.jcifs:jcifs-ng:2.1.10') {
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
     }
-    implementation 'org.bouncycastle:bcprov-jdk15to18:1.77'
-    implementation platform('io.coil-kt:coil-bom:2.6.0')
+    implementation platform('io.coil-kt:coil-bom:2.7.0')
     implementation 'io.coil-kt:coil'
     implementation 'io.coil-kt:coil-gif'
     implementation 'io.coil-kt:coil-svg'
@@ -193,14 +200,13 @@ dependencies {
     implementation 'me.zhanghai.android.appiconloader:appiconloader:1.5.0'
     implementation 'me.zhanghai.android.fastscroll:library:1.3.0'
     implementation 'me.zhanghai.android.foregroundcompat:library:1.0.2'
-    implementation 'me.zhanghai.android.libarchive:library:1.0.3'
-    implementation 'me.zhanghai.android.libselinux:library:2.1.0'
-    implementation 'me.zhanghai.android.retrofile:library:1.1.1'
+    implementation 'me.zhanghai.android.libarchive:library:1.1.6'
+    implementation 'me.zhanghai.android.libselinux:library:2.1.1'
+    implementation 'me.zhanghai.android.retrofile:library:1.2.0'
     implementation 'me.zhanghai.android.systemuihelper:library:1.0.0'
-    implementation 'net.sourceforge.streamsupport:android-retrostreams:1.7.4'
-    implementation 'org.apache.ftpserver:ftpserver-core:1.2.0'
+    implementation 'org.apache.ftpserver:ftpserver-core:1.2.1'
     // This is a dependency of org.apache.ftpserver:ftpserver-core but org.apache.mina:mina-core
-    // 2.1.3+ became incompatible before API 24 due to dependency on StandardSocketOptions
+    // 2.1.4+ became incompatible before API 24 due to dependency on StandardSocketOptions
     // (DIRMINA-1123) and NetworkChannel.supportedOptions() (DIRMINA-1130).
     implementation ('org.apache.mina:mina-core') {
         version {
@@ -211,7 +217,7 @@ dependencies {
     implementation 'org.slf4j:slf4j-android:1.7.36'
 
 //#ifdef NONFREE
-    implementation platform('com.google.firebase:firebase-bom:32.7.4')
+    implementation platform('com.google.firebase:firebase-bom:34.0.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics-ndk'
 //#endif

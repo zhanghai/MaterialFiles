@@ -82,7 +82,7 @@ class FileByteChannel(
         val getContentLength =
             Client.findProperties(resource, GetContentLength.NAME)[GetContentLength::class.java]
                 ?: throw IOException("Missing GetContentLength")
-        return getContentLength.contentLength
+        return getContentLength.contentLength ?: throw IOException("Invalid GetContentLength")
     }
 
     @Throws(IOException::class)

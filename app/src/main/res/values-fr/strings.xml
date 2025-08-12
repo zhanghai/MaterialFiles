@@ -261,6 +261,7 @@
     <string name="file_name_error_empty">Le nom du fichier ne peut pas être vide</string>
     <string name="file_name_error_invalid">Nom de fichier invalide</string>
     <string name="file_name_error_already_exists">Un fichier avec ce nom existe déjà</string>
+    <string name="file_replace_message_format">Remplacer \"%1$s\" ?</string>
     <string name="file_delete_message_file_format">Supprimer “%1$s” ?</string>
     <string name="file_delete_message_directory_format">Supprimer le dossier “%1$s” et son contenu ?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -288,12 +289,13 @@
     <string name="file_create_directory_title">Nouveau dossier</string>
 
     <string name="file_list_title">Fichiers</string>
-    <plurals name="file_list_title_pick_file">
-        <item quantity="one">Sélectionner un fichier</item>
+    <plurals name="file_list_title_open_file">
+        <item quantity="one">Selection un fichier</item>
         <item quantity="many">Sélectionner les fichiers</item>
         <item quantity="other">Sélectionner les fichiers</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <string name="file_list_title_create_file">Sauvegarder le fichier</string>
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Sélectionner un dossier</item>
         <item quantity="many">Sélectionner les dossiers</item>
         <item quantity="other">Sélectionner les dossiers</item>
@@ -331,7 +333,8 @@
     <string name="file_list_action_create_shortcut">Créer un raccourci</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Ouvrir dans une nouvelle fenêtre</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Selectionner “%1$s”</string>
+    <string name="file_list_create_file_name_hint">Nom de fichier</string>
+    <string name="file_list_open_current_directory_format">Sélectionner \"%1$s\"</string>
     <string name="file_list_paste_move_title_format">Déplacer %1$,d</string>
     <string name="file_list_paste_copy_title_format">Copier %1$,d</string>
     <string name="file_list_paste_extract_title_format">Extraire %1$,d</string>
@@ -366,39 +369,39 @@
     <string name="file_properties_basic_archive_file">Fichier d\'archive</string>
     <string name="file_properties_basic_archive_entry">Entrée d\'Archive</string>
     <string name="file_properties_basic_free_space">Espace libre</string>
-    <string name="file_properties_permissions">Permissions</string>
-    <string name="file_properties_permissions_owner">Propriétaire</string>
-    <string name="file_properties_permissions_group">Groupe</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Changer le propriétaire</string>
-    <string name="file_properties_permissions_set_group_title">Changer le groupe</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Entrer un nom ou un ID</string>
-    <string name="file_properties_permissions_set_principal_system">Système</string>
-    <string name="file_properties_permissions_mode">Mode</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Change le mode</string>
-    <string name="file_properties_permissions_set_mode_others">Autres</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Permissions</string>
+    <string name="file_properties_permission_owner">Propriétaire</string>
+    <string name="file_properties_permission_group">Groupe</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Changer le propriétaire</string>
+    <string name="file_properties_permission_set_group_title">Changer le groupe</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Entrer un nom ou un ID</string>
+    <string name="file_properties_permission_set_principal_system">Système</string>
+    <string name="file_properties_permission_mode">Mode</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Changer le mode</string>
+    <string name="file_properties_permission_set_mode_others">Autres</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Lire</item>
         <item>Écrire</item>
         <item>Exécuter</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Lire</item>
         <item>Écrire</item>
         <item>Recherche</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Spécial</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Spécial</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Définir l\'UID</item>
         <item>Définir le GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">N\'ajoutez pas \"Exécuter\" pour les fichiers joints</string>
-    <string name="file_properties_permissions_selinux_context">Contexte SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Changer le contexte SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Restaurer</string>
-    <string name="file_properties_permissions_recursive">Appliquer aux fichiers joints</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">N\'ajoutez pas \"Exécuter\" pour les fichiers joints</string>
+    <string name="file_properties_permission_selinux_context">Contexte SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Changer le contexte SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Restaurer</string>
+    <string name="file_properties_permission_recursive">Appliquer aux fichiers joints</string>
     <string name="file_properties_image">Image</string>
     <string name="file_properties_media_dimensions">Dimensions</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -454,7 +457,12 @@
     <string name="file_properties_apk_signature_digests">Signatures</string>
     <string name="file_properties_apk_signature_digests_empty">Signatures non valides</string>
     <string name="file_properties_apk_past_signature_digests">Anciennes signatures</string>
-
+    <string name="file_properties_checksum">Somme de contrôle</string>
+    <string name="file_properties_checksum_compare">Comparer</string>
+    <string name="file_properties_checksum_compare_placeholder">Toute somme de contrôle</string>
+    <string name="file_properties_checksum_compare_match_format">Correspond à la somme de contrôle %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Correspond au prefix de la somme de contrôle %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Aucune somme de contrôle correspondante trouvée</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Support de stockage</string>
     <string name="storage_list_empty">Pas de support de stockage</string>
@@ -467,10 +475,11 @@
     <string name="storage_edit_device_storage_title">Modifier le stockage de l\'appareil</string>
     <string name="storage_edit_device_storage_name">Nom</string>
     <string name="storage_edit_device_storage_path">Chemin</string>
-    <string name="storage_add_document_manager_shortcut_title">Ajouter un raccourci DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Modifier le raccourci DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Entrez un URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">URI invalide</string>
+    <string name="storage_add_external_storage_shortcut_title">Ajouter un raccourci de stockage externe</string>
+    <string name="storage_edit_external_storage_shortcut_title">Éditer un raccourci de stockage externe</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Volume de stockage</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Entrer un volume de stockage</string>
+    <string name="storage_edit_external_storage_shortcut_path">Chemin</string>
     <string name="storage_add_document_tree_title">Ajouter un support de stockage externe</string>
     <string name="storage_edit_document_tree_title">Modifier le support de stockage externe</string>
     <string name="storage_edit_document_tree_name">Nom</string>
@@ -604,6 +613,9 @@
     <string name="archive_viewer_title">Visionneuse d\'archives</string>
     <string name="image_viewer_title">Visionneuse d\'images</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Enregistrer sous</string>
+    <string name="save_as_error">Erreur lors de l\'enregistrement du fichier</string>
+    <string name="save_as_success_format">\"%1$s\" a été enregister dans \"%2$s\"</string>
     <string name="text_editor_title">Éditeur de texte</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -681,7 +693,7 @@
         <item>Voir le contenu</item>
         <item>Demander quoi faire</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Afficher la vignette des fichiers PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Afficher la miniature des fichiers PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Pourrait rendre l’application instable sur les anciennes versions d’Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Lire les fichiers distants pour les vignettes</string>
 

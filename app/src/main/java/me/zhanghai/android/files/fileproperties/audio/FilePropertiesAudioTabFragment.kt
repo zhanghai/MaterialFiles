@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.fileproperties.audio
 
-import android.os.Bundle
 import java8.nio.file.Path
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.WriteWith
@@ -26,8 +25,8 @@ class FilePropertiesAudioTabFragment : FilePropertiesTabFragment() {
 
     private val viewModel by viewModels { { FilePropertiesAudioTabViewModel(args.path) } }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onResume() {
+        super.onResume()
 
         viewModel.audioInfoLiveData.observe(viewLifecycleOwner) { onAudioInfoChanged(it) }
     }

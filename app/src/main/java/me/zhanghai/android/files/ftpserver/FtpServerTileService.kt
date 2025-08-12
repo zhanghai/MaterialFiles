@@ -10,6 +10,7 @@ import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
+import me.zhanghai.android.files.compat.doWithStartForegroundServiceAllowed
 
 @RequiresApi(Build.VERSION_CODES.N)
 class FtpServerTileService : TileService() {
@@ -30,8 +31,8 @@ class FtpServerTileService : TileService() {
     private fun onFtpServerStateChanged(state: FtpServerService.State) {
         val tile = qsTile
         when (state) {
-            FtpServerService.State.STARTING, FtpServerService.State.RUNNING ->
-                tile.state = Tile.STATE_ACTIVE
+            FtpServerService.State.STARTING,
+            FtpServerService.State.RUNNING -> tile.state = Tile.STATE_ACTIVE
             FtpServerService.State.STOPPING -> tile.state = Tile.STATE_UNAVAILABLE
             FtpServerService.State.STOPPED -> tile.state = Tile.STATE_INACTIVE
         }
@@ -49,6 +50,6 @@ class FtpServerTileService : TileService() {
     }
 
     private fun toggle() {
-        FtpServerService.toggle(this)
+        doWithStartForegroundServiceAllowed { FtpServerService.toggle(this) }
     }
 }

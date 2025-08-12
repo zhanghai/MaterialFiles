@@ -49,11 +49,11 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                     val signingCertificates = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                         // PackageInfo.signatures returns only the oldest certificate if there are
                         // past certificates on P and above for compatibility.
-                        packageInfo.signingInfo.apkContentsSigners ?: emptyArray()
+                        packageInfo.signingInfo?.apkContentsSigners
                     } else {
                         @Suppress("DEPRECATION")
                         packageInfo.signatures
-                    }
+                    } ?: emptyArray()
                     val signingCertificateDigests = signingCertificates
                         .map { it.toByteArray().sha1Digest().toHexString() }
                     val pastSigningCertificates =
@@ -61,7 +61,7 @@ class ApkInfoLiveData(path: Path) : PathObserverLiveData<Stateful<ApkInfo>>(path
                             val signingInfo = packageInfo.signingInfo
                             // SigningInfo.getSigningCertificateHistory() may return the current
                             // certificate if there are no past certificates.
-                            if (signingInfo.hasPastSigningCertificates()) {
+                            if (signingInfo?.hasPastSigningCertificates() == true) {
                                 // SigningInfo.getSigningCertificateHistory() also returns the
                                 // current certificate.
                                 signingInfo.signingCertificateHistory?.toMutableList()

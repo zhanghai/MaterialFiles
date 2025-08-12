@@ -6,7 +6,7 @@
 package me.zhanghai.android.files.fileproperties.image
 
 import android.util.Size
-import org.threeten.bp.Instant
+import java.time.Instant
 
 class ImageInfo(
     val dimensions: Size?,

@@ -5,8 +5,8 @@
 
 package me.zhanghai.android.files.file
 
+import java.time.Instant
 import java8.nio.file.attribute.BasicFileAttributes
-import org.threeten.bp.Instant
 
 val BasicFileAttributes.fileSize: FileSize
     get() = size().asFileSize()

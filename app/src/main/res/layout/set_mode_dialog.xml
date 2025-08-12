@@ -29,7 +29,7 @@
             <me.zhanghai.android.files.ui.ReadOnlyTextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/file_properties_permissions_owner">
+                android:hint="@string/file_properties_permission_owner">
 
                 <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
                     android:id="@+id/ownerText"
@@ -46,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_permissions_group">
+                android:hint="@string/file_properties_permission_group">
 
                 <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
                     android:id="@+id/groupText"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_permissions_set_mode_others">
+                android:hint="@string/file_properties_permission_set_mode_others">
 
                 <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
                     android:id="@+id/othersText"
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/file_properties_permissions_set_mode_special">
+                android:hint="@string/file_properties_permission_set_mode_special">
 
                 <me.zhanghai.android.files.ui.ReadOnlyTextInputEditText
                     android:id="@+id/specialText"
@@ -102,7 +102,7 @@
                 android:paddingStart="@dimen/dialog_padding_minus_7dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="@string/file_properties_permissions_recursive"
+                android:text="@string/file_properties_permission_recursive"
                 android:textAppearance="?textAppearanceListItem" />
 
             <CheckBox
@@ -113,7 +113,7 @@
                 android:paddingStart="@dimen/dialog_padding_minus_7dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:text="@string/file_properties_permissions_set_mode_uppercase_x"
+                android:text="@string/file_properties_permission_set_mode_uppercase_x"
                 android:textAppearance="?textAppearanceListItem" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

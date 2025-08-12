@@ -8,18 +8,22 @@ package me.zhanghai.android.files.nonfree
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.content.pm.Signature
+import android.os.Build
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.app.packageManager
 import me.zhanghai.android.files.util.getPackageInfoOrNull
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 object CrashlyticsInitializer {
     private val HEX_CHARS = "0123456789ABCDEF".toCharArray()
 
     fun initialize() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return
+        }
         if (BuildConfig.DEBUG) {
             return
         }
@@ -27,7 +31,7 @@ object CrashlyticsInitializer {
             // Please, don't spam.
             return
         }
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true)
+        FirebaseCrashlytics.getInstance().isCrashlyticsCollectionEnabled = true
     }
 
     private fun verifyPackageName(): Boolean {
@@ -39,9 +43,10 @@ object CrashlyticsInitializer {
         val packageInfo = packageManager.getPackageInfoOrNull(
             application.packageName, PackageManager.GET_SIGNATURES
         ) ?: return false
-        return packageInfo.signatures.size == 1
-            && computeCertificateFingerprint(packageInfo.signatures[0]) == ("87:3B:9B:60:C7:7C:F7"
-            + ":F3:CD:5F:AE:66:D0:FE:11:2C:4A:86:97:3E:11:8E:E8:A2:9C:34:6C:4C:67:3C:97:F0")
+        val signatures = packageInfo.signatures ?: return false
+        return signatures.size == 1 &&
+            computeCertificateFingerprint(signatures[0]) == "87:3B:9B:60:C7:7C:F7:F3:CD:5F:AE:66" +
+                ":D0:FE:11:2C:4A:86:97:3E:11:8E:E8:A2:9C:34:6C:4C:67:3C:97:F0"
     }
 
     private fun computeCertificateFingerprint(certificate: Signature): String {

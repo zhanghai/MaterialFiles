@@ -134,10 +134,11 @@ class FileListAdapter(
 
     private fun isFileSelectable(file: FileItem): Boolean {
         val pickOptions = pickOptions ?: return true
-        return if (pickOptions.pickDirectory) {
-            file.attributes.isDirectory
-        } else {
-            !file.attributes.isDirectory && pickOptions.mimeTypes.any { it.match(file.mimeType) }
+        return when (pickOptions.mode) {
+            PickOptions.Mode.OPEN_FILE, PickOptions.Mode.CREATE_FILE ->
+                !file.attributes.isDirectory &&
+                    pickOptions.mimeTypes.any { it.match(file.mimeType) }
+            PickOptions.Mode.OPEN_DIRECTORY -> file.attributes.isDirectory
         }
     }
 

@@ -20,7 +20,7 @@ class ShowRequestNotificationPermissionInSettingsRationaleDialogFragment : AppCo
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return MaterialAlertDialogBuilder(requireContext(), theme)
-            .setMessage(R.string.notification_permission_rationale_message)
+            .setMessage(R.string.notification_permission_permanently_denied_message)
             .setPositiveButton(R.string.open_settings) { _, _ ->
                 listener.onShowRequestNotificationPermissionInSettingsRationaleResult(true)
             }

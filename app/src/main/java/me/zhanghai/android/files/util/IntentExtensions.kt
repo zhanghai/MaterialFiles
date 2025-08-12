@@ -154,7 +154,7 @@ fun Collection<Uri>.createSendStreamIntent(mimeTypes: Collection<MimeType>): Int
             removeFlagsCompat(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
         }
 
-fun Uri.createDocumentManagerViewDirectoryIntent(): Intent =
+fun Uri.createDocumentsUiViewDirectoryIntent(): Intent =
     createViewIntent(MimeType.DIRECTORY)
         .apply { DocumentsContractCompat.getDocumentsUiPackage()?.let { setPackage(it) } }
 

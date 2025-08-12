@@ -43,7 +43,7 @@
     <string name="show">Pokaż</string>
     <string name="skip">Pomiń</string>
     <string name="stop">Zatrzymaj</string>
-    <string name="system_default">Domyślne systemu</string>
+    <string name="system_default">Ustawienie domyślne systemu</string>
     <string name="unknown">Nieznany</string>
     <string name="view">Podgląd</string>
 
@@ -280,6 +280,7 @@
     <string name="file_name_error_empty">Nazwa pliku nie może być pusta</string>
     <string name="file_name_error_invalid">Nieprawidłowa nazwa pliku</string>
     <string name="file_name_error_already_exists">Plik o tej nazwie już istnieje</string>
+    <string name="file_replace_message_format">Zastąpić „%1$s”?</string>
     <string name="file_delete_message_file_format">Usunąć „%1$s”?</string>
     <string name="file_delete_message_directory_format">Usunąć katalog „%1$s” i jego zawartość?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -310,13 +311,14 @@
     <string name="file_create_directory_title">Nowy katalog</string>
 
     <string name="file_list_title">Pliki</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Wybierz plik</item>
         <item quantity="few">Wybierz pliki</item>
         <item quantity="many">Wybierz pliki</item>
         <item quantity="other">Wybierz pliki</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <string name="file_list_title_create_file">Zapisz plik</string>
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Wybierz katalog</item>
         <item quantity="few">Wybierz katalogi</item>
         <item quantity="many">Wybierz katalogi</item>
@@ -357,7 +359,8 @@
     <string name="file_list_action_create_shortcut">Utwórz skrót</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otwórz w nowym oknie</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Wybierz „%1$s”</string>
+    <string name="file_list_create_file_name_hint">Nazwa pliku</string>
+    <string name="file_list_open_current_directory_format">Wybierz „%1$s”</string>
     <string name="file_list_paste_move_title_format">Przenoszenie %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopiowanie %1$,d</string>
     <string name="file_list_paste_extract_title_format">Rozpakowywanie %1$,d</string>
@@ -393,39 +396,39 @@
     <string name="file_properties_basic_archive_file">Zarchiwizuj plik</string>
     <string name="file_properties_basic_archive_entry">Wpis archiwum</string>
     <string name="file_properties_basic_free_space">Wolna przestrzeń</string>
-    <string name="file_properties_permissions">Uprawnienia</string>
-    <string name="file_properties_permissions_owner">Właściciel</string>
-    <string name="file_properties_permissions_group">Grupa</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Zmień właściciela</string>
-    <string name="file_properties_permissions_set_group_title">Zmień grupę</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Wprowadź nazwę lub ID</string>
-    <string name="file_properties_permissions_set_principal_system">System</string>
-    <string name="file_properties_permissions_mode">Atrybut</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Zmiana atrybutu</string>
-    <string name="file_properties_permissions_set_mode_others">Inni</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Uprawnienia</string>
+    <string name="file_properties_permission_owner">Właściciel</string>
+    <string name="file_properties_permission_group">Grupa</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Zmień właściciela</string>
+    <string name="file_properties_permission_set_group_title">Zmień grupę</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Wprowadź nazwę lub ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Atrybut</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Zmiana atrybutu</string>
+    <string name="file_properties_permission_set_mode_others">Inni</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Odczyt</item>
         <item>Zapis</item>
         <item>Wykonanie</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Odczyt</item>
         <item>Zapis</item>
         <item>Wyszukaj</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Specjalne</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
+    <string name="file_properties_permission_set_mode_special">Specjalne</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
         <item>Ustaw UID</item>
         <item>Ustaw GID</item>
         <item>Sticky bit</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Nie dodawaj „Wykonaj” do załączonych plików</string>
-    <string name="file_properties_permissions_selinux_context">Kontekst SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Zmień kontekst SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Przywróć</string>
-    <string name="file_properties_permissions_recursive">Zastosuj do załączonych plików</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Nie dodawaj „Wykonaj” do załączonych plików</string>
+    <string name="file_properties_permission_selinux_context">Kontekst SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Zmień kontekst SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Przywróć</string>
+    <string name="file_properties_permission_recursive">Zastosuj do załączonych plików</string>
     <string name="file_properties_image">Obraz</string>
     <string name="file_properties_media_dimensions">Wymiary</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -482,7 +485,12 @@
     <string name="file_properties_apk_signature_digests">Podpisy cyfrowe</string>
     <string name="file_properties_apk_signature_digests_empty">Brak prawidłowych sygnatur</string>
     <string name="file_properties_apk_past_signature_digests">Starsze podpisy cyfrowe</string>
-
+    <string name="file_properties_checksum">Sumy kontrolne</string>
+    <string name="file_properties_checksum_compare">Porównanie</string>
+    <string name="file_properties_checksum_compare_placeholder">Wprowadź dowolną sumę kontrolną</string>
+    <string name="file_properties_checksum_compare_match_format">Pasuje do sumy kontrolnej %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Pasuje do przedrostka sumy kontrolnej %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Nie znaleziono pasującej sumy kontrolnej</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Pamięć</string>
     <string name="storage_list_empty">Brak nośników</string>
@@ -495,10 +503,11 @@
     <string name="storage_edit_device_storage_title">Edytuj pamięć urządzenia</string>
     <string name="storage_edit_device_storage_name">Nazwa</string>
     <string name="storage_edit_device_storage_path">Ścieżka</string>
-    <string name="storage_add_document_manager_shortcut_title">Dodaj skrót DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Edytuj skrót DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Podaj URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Nieprawidłowy URI</string>
+    <string name="storage_add_external_storage_shortcut_title">Dodaj skrót do pamięci zewnętrznej</string>
+    <string name="storage_edit_external_storage_shortcut_title">Edytuj skrót do pamięci zewnętrznej</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Wolumin pamięci</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Podaj wolumin pamięci</string>
+    <string name="storage_edit_external_storage_shortcut_path">Ścieżka</string>
     <string name="storage_add_document_tree_title">Dodaj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_title">Edytuj nośnik zewnętrzny</string>
     <string name="storage_edit_document_tree_name">Nazwa</string>
@@ -529,7 +538,7 @@
         <item>Aktywny</item>
         <item>Pasywny</item>
     </string-array>
-    <string name="storage_edit_ftp_server_encoding">Szyfrowanie</string>
+    <string name="storage_edit_ftp_server_encoding">Kodowanie</string>
     <string name="storage_edit_ftp_server_connect_and_add">Połącz i dodaj</string>
     <string name="storage_edit_ftp_server_add">Dodaj</string>
     <string name="storage_edit_sftp_server_title_edit">Edytuj serwer SFTP</string>
@@ -632,12 +641,15 @@
     <string name="archive_viewer_title">Przeglądarka archiwum</string>
     <string name="image_viewer_title">Przeglądarka zdjęć</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Zapisz jako</string>
+    <string name="save_as_error">Błąd podczas zapisywania pliku</string>
+    <string name="save_as_success_format">„%1$s” zostało zapisane w „%2$s”</string>
     <string name="text_editor_title">Edytor tekstu</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Zapisano</string>
     <string name="text_editor_reload_message">Czy na pewno chcesz załadować ponownie? Niezapisane zmiany w tym dokumencie zostaną utracone.</string>
-    <string name="text_editor_encoding">Szyfrowanie</string>
+    <string name="text_editor_encoding">Kodowanie</string>
     <string name="text_editor_close_message">Czy na pewno chcesz porzucić niezapisane zmiany w tym dokumencie?</string>
 
     <string name="ftp_server_title">Serwer FTP</string>
@@ -645,7 +657,7 @@
     <string name="ftp_server_state_summary_starting">Uruchomianie…</string>
     <string name="ftp_server_state_summary_running">Uruchomiony</string>
     <string name="ftp_server_state_summary_stopping">Zatrzymywanie…</string>
-    <string name="ftp_server_state_summary_stopped">Nie uruchomiony</string>
+    <string name="ftp_server_state_summary_stopped">Nieuruchomiony</string>
     <string name="ftp_server_url_title">Adres URL</string>
     <string name="ftp_server_url_summary_no_local_inet_address">Lokalny adres IP jest nieznany</string>
     <string name="ftp_server_url_menu_copy_url">Skopiuj adres URL</string>
@@ -667,22 +679,22 @@
     <string name="settings_theme_color_title">Kolor motywu</string>
     <string name="settings_theme_color_summary">Kolor pojawiający się najczęściej w aplikacji</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
-    <string name="settings_night_mode_title">Tryb nocny</string>
+    <string name="settings_night_mode_title">Ciemny motyw</string>
     <string-array name="settings_night_mode_entries">
-        <item>Zgodnie z systemem</item>
+        <item>Zgodnie z ustawieniem systemu</item>
         <item>Wyłączony</item>
         <item>Włączony</item>
         <item>W oparciu o czas</item>
         <item>W oparciu o oszczędzanie baterii</item>
     </string-array>
-    <string name="settings_black_night_mode">Czarny tryb nocny</string>
+    <string name="settings_black_night_mode">Czarny motyw ciemny</string>
     <string name="settings_file_list_animation_title">Animacja listy plików</string>
     <string name="settings_file_name_ellipsize_title">Wyświetlanie długiej nazwy pliku</string>
     <string-array name="settings_file_name_ellipsize_entries">
-        <item>Wielokropek na początku</item>
-        <item>Wielokropek w środku</item>
-        <item>Wielokropek na końcu</item>
-        <item>Ruchoma nazwa</item>
+        <item>Skrócona na początku</item>
+        <item>Skrócona w środku</item>
+        <item>Skrócona na końcu</item>
+        <item>Przewijanie nazwy</item>
     </string-array>
     <string name="settings_behavior_title">Zachowanie</string>
     <string name="settings_default_directory_title">Domyślny katalog</string>
@@ -704,15 +716,15 @@
         <item>Tylko dostęp do roota</item>
     </string-array>
     <string name="settings_archive_file_name_encoding_title">Kodowanie nazwy pliku archiwum</string>
-    <string name="settings_open_apk_default_action_title">Otwieranie pakietu instalacyjnego</string>
+    <string name="settings_open_apk_default_action_title">Działanie podczas otwarcia pakietu instalacyjnego</string>
     <string-array name="settings_open_apk_default_action_entries">
         <item>Zainstaluj</item>
         <item>Wyświetl zawartość</item>
-        <item>Zapytaj co zrobić</item>
+        <item>Zapytaj, co zrobić</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Pokaż miniaturę dla plików PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Pokaż miniaturę dokumentów PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Może spowodować niestabilność aplikacji w starszych wersjach systemu Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Odczytaj zdalne pliki jako miniatury</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Odczytaj zdalne pliki w celu uzyskania miniatury</string>
 
     <string name="about_title">O aplikacji</string>
     <string name="about_version_title">Wersja</string>

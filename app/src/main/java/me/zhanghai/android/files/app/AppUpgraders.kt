@@ -7,6 +7,7 @@ package me.zhanghai.android.files.app
 
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.StringRes
@@ -18,6 +19,7 @@ import me.zhanghai.android.files.compat.readBooleanCompat
 import me.zhanghai.android.files.compat.writeBooleanCompat
 import me.zhanghai.android.files.compat.writeParcelableListCompat
 import me.zhanghai.android.files.file.DocumentTreeUri
+import me.zhanghai.android.files.file.asExternalStorageUriOrNull
 import me.zhanghai.android.files.file.displayName
 import me.zhanghai.android.files.file.storageVolume
 import me.zhanghai.android.files.filelist.FileSortOptions
@@ -28,6 +30,7 @@ import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.moveToByteString
 import me.zhanghai.android.files.provider.content.ContentFileSystem
 import me.zhanghai.android.files.provider.document.DocumentFileSystem
+import me.zhanghai.android.files.provider.document.resolver.ExternalStorageProviderHacks
 import me.zhanghai.android.files.provider.linux.LinuxFileSystem
 import me.zhanghai.android.files.provider.root.RootStrategy
 import me.zhanghai.android.files.provider.sftp.SftpFileSystem
@@ -35,6 +38,7 @@ import me.zhanghai.android.files.provider.smb.SmbFileSystem
 import me.zhanghai.android.files.storage.DocumentTree
 import me.zhanghai.android.files.storage.FileSystemRoot
 import me.zhanghai.android.files.storage.PrimaryStorageVolume
+import me.zhanghai.android.files.util.StableUriParceler
 import me.zhanghai.android.files.util.asBase64
 import me.zhanghai.android.files.util.readParcelable
 import me.zhanghai.android.files.util.readParcelableListCompat
@@ -539,5 +543,90 @@ private fun addViewTypePathSetting1_6_0() {
             continue
         }
         pathSharedPreferences.edit { putString(newKey, defaultViewType) }
+    }
+}
+
+internal fun upgradeAppTo1_7_2() {
+    migrateDocumentManagerShortcutSetting1_7_2()
+}
+
+private fun migrateDocumentManagerShortcutSetting1_7_2() {
+    val key = application.getString(R.string.pref_key_storages)
+    val oldBytes =
+        defaultSharedPreferences.getString(key, null)?.asBase64()?.toByteArray() ?: return
+    val newBytes =
+        try {
+            Parcel.obtain().use { newParcel ->
+                Parcel.obtain().use { oldParcel ->
+                    oldParcel.unmarshall(oldBytes, 0, oldBytes.size)
+                    oldParcel.setDataPosition(0)
+                    newParcel.writeInt(oldParcel.readInt())
+                    readWriteLengthPrefixedValue(oldParcel, newParcel) {
+                        val size = oldParcel.readInt()
+                        newParcel.writeInt(size)
+                        repeat(size) {
+                            val oldPosition = oldParcel.dataPosition()
+                            oldParcel.readInt()
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                // Skip prefix length.
+                                oldParcel.readInt()
+                            }
+                            val className = oldParcel.readString()
+                            oldParcel.setDataPosition(oldPosition)
+                            when (className) {
+                                "me.zhanghai.android.files.storage.DocumentManagerShortcut" -> {
+                                    newParcel.writeInt(oldParcel.readInt())
+                                    readWriteLengthPrefixedValue(oldParcel, newParcel) {
+                                        oldParcel.readString()
+                                        newParcel.writeString(
+                                            "me.zhanghai.android.files.storage" +
+                                                ".ExternalStorageShortcut"
+                                        )
+                                        val id = oldParcel.readLong()
+                                        newParcel.writeLong(id)
+                                        val customName = oldParcel.readString()
+                                        newParcel.writeString(customName)
+                                        var uri = StableUriParceler.create(oldParcel)!!
+                                        if (uri.asExternalStorageUriOrNull() == null) {
+                                            // Reset to a valid external storage URI.
+                                            uri =
+                                                ExternalStorageProviderHacks
+                                                    .DOCUMENT_URI_ANDROID_DATA
+                                        }
+                                        with(StableUriParceler) { uri.write(newParcel, 0) }
+                                    }
+                                }
+                                else -> {
+                                    val storage = oldParcel.readValue(appClassLoader)
+                                    newParcel.writeValue(storage)
+                                }
+                            }
+                        }
+                    }
+                }
+                newParcel.marshall()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    defaultSharedPreferences.edit { putString(key, newBytes?.toBase64()?.value) }
+}
+
+private fun readWriteLengthPrefixedValue(oldParcel: Parcel, newParcel: Parcel, block: () -> Unit) {
+    var lengthPosition = 0
+    var startPosition = 0
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        oldParcel.readInt()
+        lengthPosition = newParcel.dataPosition()
+        newParcel.writeInt(-1)
+        startPosition = newParcel.dataPosition()
+    }
+    block()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val endPosition = newParcel.dataPosition()
+        newParcel.setDataPosition(lengthPosition)
+        newParcel.writeInt(endPosition - startPosition)
+        newParcel.setDataPosition(endPosition)
     }
 }

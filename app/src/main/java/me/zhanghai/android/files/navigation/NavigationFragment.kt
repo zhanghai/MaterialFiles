@@ -38,7 +38,7 @@ class NavigationFragment : Fragment(), NavigationItem.Listener {
 
         binding.recyclerView.setHasFixedSize(true)
         // TODO: Needed?
-        //binding.recyclerView.setItemAnimator(new NoChangeAnimationItemAnimator());
+        //binding.recyclerView.setItemAnimator(new NoChangeAnimationItemAnimator())
         val context = requireContext()
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         adapter = NavigationListAdapter(this, context)

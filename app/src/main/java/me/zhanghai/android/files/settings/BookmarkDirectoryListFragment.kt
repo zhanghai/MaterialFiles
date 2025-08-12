@@ -24,6 +24,7 @@ import me.zhanghai.android.files.navigation.BookmarkDirectories
 import me.zhanghai.android.files.navigation.BookmarkDirectory
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogActivity
 import me.zhanghai.android.files.navigation.EditBookmarkDirectoryDialogFragment
+import me.zhanghai.android.files.ui.ScrollingViewOnApplyWindowInsetsListener
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.getDrawable
@@ -32,9 +33,8 @@ import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.startActivitySafe
 
 class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.Listener {
-    private val pickPathLauncher = registerForActivityResult(
-        FileListActivity.PickDirectoryContract(), this::onPickPathResult
-    )
+    private val openPathLauncher =
+        registerForActivityResult(FileListActivity.OpenDirectoryContract(), ::onOpenPathResult)
 
     private lateinit var binding: BookmarkDirectoryListFragmentBinding
 
@@ -72,6 +72,9 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
         binding.recyclerView.adapter = wrappedAdapter
         binding.recyclerView.itemAnimator = DraggableItemAnimator()
         dragDropManager.attachRecyclerView(binding.recyclerView)
+        binding.recyclerView.setOnApplyWindowInsetsListener(
+            ScrollingViewOnApplyWindowInsetsListener(binding.recyclerView)
+        )
         binding.fab.setOnClickListener { onAddBookmarkDirectory() }
 
         Settings.BOOKMARK_DIRECTORIES.observe(viewLifecycleOwner) {
@@ -98,10 +101,10 @@ class BookmarkDirectoryListFragment : Fragment(), BookmarkDirectoryListAdapter.L
     }
 
     private fun onAddBookmarkDirectory() {
-        pickPathLauncher.launchSafe(null, this)
+        openPathLauncher.launchSafe(null, this)
     }
 
-    private fun onPickPathResult(result: Path?) {
+    private fun onOpenPathResult(result: Path?) {
         result ?: return
         BookmarkDirectories.add(BookmarkDirectory(null, result))
     }

@@ -282,6 +282,7 @@
     <string name="file_name_error_empty">Имя файла не может быть пустым</string>
     <string name="file_name_error_invalid">Неверное имя файла</string>
     <string name="file_name_error_already_exists">Файл с таким именем уже существует</string>
+    <string name="file_replace_message_format">Заменить “%1$s”?</string>
     <string name="file_delete_message_file_format">Удалить “%1$s”?</string>
     <string name="file_delete_message_directory_format">Удалить папку “%1$s” и её содержимое?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -312,13 +313,14 @@
     <string name="file_create_directory_title">Новая папка</string>
 
     <string name="file_list_title">Файлы</string>
-    <plurals name="file_list_title_pick_file">
+    <plurals name="file_list_title_open_file">
         <item quantity="one">Выбрать файл</item>
         <item quantity="few">Выбрать файлы</item>
         <item quantity="many">Выбрать файлы</item>
         <item quantity="other">Выбрать файлы</item>
     </plurals>
-    <plurals name="file_list_title_pick_directory">
+    <string name="file_list_title_create_file">Сохранить файл</string>
+    <plurals name="file_list_title_open_directory">
         <item quantity="one">Выбрать папку</item>
         <item quantity="few">Выбрать папки</item>
         <item quantity="many">Выбрать папки</item>
@@ -359,7 +361,8 @@
     <string name="file_list_action_create_shortcut">Создать ярлык</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Открыть в новом окне</string>
     <string name="file_list_select_title_format">%1$,d</string>
-    <string name="file_list_select_current_directory_format">Выбрать “%1$s”</string>
+    <string name="file_list_create_file_name_hint">Имя файла</string>
+    <string name="file_list_open_current_directory_format">Выбрать “%1$s”</string>
     <string name="file_list_paste_move_title_format">Перемещение %1$,d</string>
     <string name="file_list_paste_copy_title_format">Копирование %1$,d</string>
     <string name="file_list_paste_extract_title_format">Извлечение %1$,d</string>
@@ -395,39 +398,39 @@
     <string name="file_properties_basic_archive_file">Файл архива</string>
     <string name="file_properties_basic_archive_entry">Элемент архива</string>
     <string name="file_properties_basic_free_space">Свободное место</string>
-    <string name="file_properties_permissions">Разрешения</string>
-    <string name="file_properties_permissions_owner">Владелец</string>
-    <string name="file_properties_permissions_group">Группа</string>
-    <string name="file_properties_permissions_principal_format">%1$s (%2$d)</string>
-    <string name="file_properties_permissions_set_owner_title">Изменить владельца</string>
-    <string name="file_properties_permissions_set_group_title">Изменить группу</string>
-    <string name="file_properties_permissions_set_principal_filter_hint">Введите имя или ID</string>
-    <string name="file_properties_permissions_set_principal_system">Система</string>
-    <string name="file_properties_permissions_mode">Режим</string>
-    <string name="file_properties_permissions_mode_format">%1$s (%2$04o)</string>
-    <string name="file_properties_permissions_set_mode_title">Изменить режим</string>
-    <string name="file_properties_permissions_set_mode_others">Другие</string>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_file">
+    <string name="file_properties_permission">Разрешения</string>
+    <string name="file_properties_permission_owner">Владелец</string>
+    <string name="file_properties_permission_group">Группа</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Изменить владельца</string>
+    <string name="file_properties_permission_set_group_title">Изменить группу</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Введите имя или идентификатор</string>
+    <string name="file_properties_permission_set_principal_system">Система</string>
+    <string name="file_properties_permission_mode">Режим</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Изменить режим</string>
+    <string name="file_properties_permission_set_mode_others">Другие</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
         <item>Чтение</item>
         <item>Запись</item>
         <item>Выполнение</item>
     </string-array>
-    <string-array name="file_properties_permissions_set_mode_normal_mode_bits_directory">
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
         <item>Чтение</item>
         <item>Запись</item>
         <item>Поиск</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_special">Специальный</string>
-    <string-array name="file_properties_permissions_set_mode_special_mode_bits">
-        <item>UID</item>
-        <item>GID</item>
+    <string name="file_properties_permission_set_mode_special">Специальный</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>Установить UID</item>
+        <item>Установить GID</item>
         <item>Sticky-бит</item>
     </string-array>
-    <string name="file_properties_permissions_set_mode_uppercase_x">Не устанавливать “Выполнение” для вложенных файлов</string>
-    <string name="file_properties_permissions_selinux_context">Контекст SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_title">Изменить контекст SELinux</string>
-    <string name="file_properties_permissions_set_selinux_context_restore">Восстановить</string>
-    <string name="file_properties_permissions_recursive">Применить ко вложенным файлам</string>
+    <string name="file_properties_permission_set_mode_uppercase_x">Не устанавливать “Выполнить” для вложенных файлов</string>
+    <string name="file_properties_permission_selinux_context">Контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Изменить контекст SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Восстановить</string>
+    <string name="file_properties_permission_recursive">Применить ко вложенным файлам</string>
     <string name="file_properties_image">Изображение</string>
     <string name="file_properties_media_dimensions">Размеры</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -484,7 +487,12 @@
     <string name="file_properties_apk_signature_digests">Подписи</string>
     <string name="file_properties_apk_signature_digests_empty">Нет действительных подписей</string>
     <string name="file_properties_apk_past_signature_digests">Старые подписи</string>
-
+    <string name="file_properties_checksum">Контрольные суммы</string>
+    <string name="file_properties_checksum_compare">Сравнить</string>
+    <string name="file_properties_checksum_compare_placeholder">Любая контрольная сумма</string>
+    <string name="file_properties_checksum_compare_match_format">Контрольная сумма %1$s совпадений</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Совпадение префикса контрольной суммы %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Соответствующая контрольная сумма не найдена</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Накопитель</string>
     <string name="storage_list_empty">Нет накопителей</string>
@@ -497,10 +505,11 @@
     <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
     <string name="storage_edit_device_storage_name">Имя</string>
     <string name="storage_edit_device_storage_path">Путь</string>
-    <string name="storage_add_document_manager_shortcut_title">Создать ярлык DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_title">Редактировать ярлык DocumentsUI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_empty">Введите URI</string>
-    <string name="storage_edit_document_manager_shortcut_uri_error_invalid">Недопустимый URI</string>
+    <string name="storage_add_external_storage_shortcut_title">Добавить ярлык внешнего хранилища</string>
+    <string name="storage_edit_external_storage_shortcut_title">Изменить ярлык внешнего хранилища</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Объем хранилища</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Введите объем хранилища</string>
+    <string name="storage_edit_external_storage_shortcut_path">Путь</string>
     <string name="storage_add_document_tree_title">Добавить внешний накопитель</string>
     <string name="storage_edit_document_tree_title">Редактировать внешний накопитель</string>
     <string name="storage_edit_document_tree_name">Имя</string>
@@ -634,6 +643,9 @@
     <string name="archive_viewer_title">Просмотрщик архивов</string>
     <string name="image_viewer_title">Просмотрщик изображений</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Сохранить как</string>
+    <string name="save_as_error">Ошибка при сохранении файла</string>
+    <string name="save_as_success_format">“%1$s” было сохранено в “%2$s”</string>
     <string name="text_editor_title">Текстовый редактор</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -712,7 +724,7 @@
         <item>Просмотр содержимого</item>
         <item>Спрашивать что делать</item>
     </string-array>
-    <string name="settings_show_pdf_thumbnail_pre_28_title">Показывать миниатюры для файлов PDF</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Показывать миниатюры для документов PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Приложение может стать нестабильным на старых версиях Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Считывать удалённые (сетевые) файлы для миниатюр</string>
 

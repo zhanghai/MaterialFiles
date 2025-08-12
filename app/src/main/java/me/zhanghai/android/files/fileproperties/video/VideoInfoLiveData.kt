@@ -8,6 +8,7 @@ package me.zhanghai.android.files.fileproperties.video
 import android.media.MediaMetadataRetriever
 import android.os.AsyncTask
 import android.util.Size
+import java.time.Duration
 import java8.nio.file.Path
 import me.zhanghai.android.files.compat.use
 import me.zhanghai.android.files.fileproperties.PathObserverLiveData
@@ -20,7 +21,6 @@ import me.zhanghai.android.files.util.Stateful
 import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.setDataSource
 import me.zhanghai.android.files.util.valueCompat
-import org.threeten.bp.Duration
 
 class VideoInfoLiveData(path: Path) : PathObserverLiveData<Stateful<VideoInfo>>(path) {
     init {

@@ -7,7 +7,6 @@ package me.zhanghai.android.files.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import android.widget.Checkable
 import android.widget.FrameLayout
 import androidx.annotation.AttrRes

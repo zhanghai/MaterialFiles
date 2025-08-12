@@ -23,5 +23,5 @@ enum class ThemeColor(@ColorRes val resourceId: Int) {
     MATERIAL_DEEP_ORANGE(R.color.material_deep_orange),
     MATERIAL_BROWN(R.color.material_brown),
     MATERIAL_GREY(R.color.material_grey),
-    MATERIAL_BLUE_GREY(R.color.material_blue_grey);
+    MATERIAL_BLUE_GREY(R.color.material_blue_grey)
 }

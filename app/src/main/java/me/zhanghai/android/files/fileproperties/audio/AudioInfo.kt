@@ -5,7 +5,7 @@
 
 package me.zhanghai.android.files.fileproperties.audio
 
-import org.threeten.bp.Duration
+import java.time.Duration
 
 // @see com.android.providers.media.scan.ModernMediaScanner.scanItemAudio
 // @see com.android.documentsui.inspector.MediaView.showAudioData

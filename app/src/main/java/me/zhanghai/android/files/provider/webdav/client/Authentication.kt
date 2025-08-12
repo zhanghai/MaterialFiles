@@ -6,8 +6,8 @@
 package me.zhanghai.android.files.provider.webdav.client
 
 import android.os.Parcelable
+import android.util.Log
 import at.bitfire.dav4jvm.BasicDigestAuthHandler
-import at.bitfire.dav4jvm.Dav4jvm
 import at.bitfire.dav4jvm.UrlUtils
 import kotlinx.parcelize.Parcelize
 import okhttp3.Authenticator
@@ -64,7 +64,8 @@ data class AccessTokenAuthentication(
                 val requestHost = request.url.host
                 val domain = UrlUtils.hostToDomain(authority.host)
                 if (!UrlUtils.hostToDomain(requestHost).equals(domain, true)) {
-                    Dav4jvm.log.warning(
+                    Log.w(
+                        LOG_TAG,
                         "Not authenticating against $requestHost because it doesn't belong to " +
                             domain
                     )
@@ -76,4 +77,8 @@ data class AccessTokenAuthentication(
                 return chain.proceed(newRequest)
             }
         }
+
+    companion object {
+        private val LOG_TAG = AccessTokenAuthentication::class.java.simpleName
+    }
 }

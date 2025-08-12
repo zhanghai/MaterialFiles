@@ -6,8 +6,8 @@
 package me.zhanghai.android.files.fileproperties.video
 
 import android.util.Size
-import org.threeten.bp.Duration
-import org.threeten.bp.Instant
+import java.time.Duration
+import java.time.Instant
 
 // @see com.android.providers.media.scan.ModernMediaScanner.scanItemVideo
 // @see com.android.documentsui.inspector.MediaView.showVideoData

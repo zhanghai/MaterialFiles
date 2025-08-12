@@ -7,12 +7,13 @@ package me.zhanghai.android.files.provider.remote
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.io.IOException
 import java8.nio.file.DirectoryIteratorException
 import java8.nio.file.DirectoryStream
 import java8.nio.file.Path
 import me.zhanghai.android.files.provider.common.PathListDirectoryStream
 import me.zhanghai.android.files.util.ParcelSlicedList
-import java.io.IOException
+import me.zhanghai.android.files.util.readParcelable
 
 class ParcelableDirectoryStream : Parcelable {
     private val paths: List<Path>
@@ -38,8 +39,7 @@ class ParcelableDirectoryStream : Parcelable {
 
     private constructor(source: Parcel) {
         @Suppress("UNCHECKED_CAST")
-        paths = source.readParcelable<ParcelSlicedList<Parcelable>>(Path::class.java.classLoader)!!
-            .list as List<Path>
+        paths = source.readParcelable<ParcelSlicedList<Parcelable>>()!!.list as List<Path>
     }
 
     companion object {

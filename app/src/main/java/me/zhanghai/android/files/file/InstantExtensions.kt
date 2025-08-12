@@ -8,10 +8,10 @@ package me.zhanghai.android.files.file
 import android.content.Context
 import android.text.format.DateUtils
 import android.text.format.Time
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
-import org.threeten.bp.format.FormatStyle
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 /* @see com.android.documentsui.base.Shared#formatTime(Context, long) */
 @Suppress("DEPRECATION")

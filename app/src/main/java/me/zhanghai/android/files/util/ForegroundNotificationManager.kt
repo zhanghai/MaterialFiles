@@ -5,15 +5,19 @@
 
 package me.zhanghai.android.files.util
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.Service
+import androidx.core.app.ServiceCompat
 import me.zhanghai.android.files.app.notificationManager
+import me.zhanghai.android.files.compat.stopForegroundCompat
 
 class ForegroundNotificationManager(private val service: Service) {
     private val notifications = mutableMapOf<Int, Notification>()
 
     private var foregroundId = 0
 
+    @SuppressLint("MissingPermission")
     fun notify(id: Int, notification: Notification) {
         synchronized(notifications) {
             if (notifications.isEmpty()) {
@@ -38,7 +42,7 @@ class ForegroundNotificationManager(private val service: Service) {
             }
             if (id == foregroundId) {
                 if (notifications.size == 1) {
-                    service.stopForeground(true)
+                    service.stopForegroundCompat(ServiceCompat.STOP_FOREGROUND_REMOVE)
                     notifications -= id
                     foregroundId = 0
                 } else {

@@ -19,6 +19,7 @@ import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropM
 import com.h6ah4i.android.widget.advrecyclerview.utils.WrapperAdapterUtils
 import me.zhanghai.android.files.databinding.StorageListFragmentBinding
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.ui.ScrollingViewOnApplyWindowInsetsListener
 import me.zhanghai.android.files.util.createIntent
 import me.zhanghai.android.files.util.fadeToVisibilityUnsafe
 import me.zhanghai.android.files.util.getDrawable
@@ -61,6 +62,9 @@ class StorageListFragment : Fragment(), StorageListAdapter.Listener {
         binding.recyclerView.adapter = wrappedAdapter
         binding.recyclerView.itemAnimator = DraggableItemAnimator()
         dragDropManager.attachRecyclerView(binding.recyclerView)
+        binding.recyclerView.setOnApplyWindowInsetsListener(
+            ScrollingViewOnApplyWindowInsetsListener(binding.recyclerView)
+        )
         binding.fab.setOnClickListener { onAddStorage() }
 
         Settings.STORAGES.observe(viewLifecycleOwner) { onStorageListChanged(it) }
