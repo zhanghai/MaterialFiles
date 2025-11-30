@@ -48,6 +48,19 @@ val Intent.saveAsPath: Path?
         return uri?.toPathOrNull()
     }
 
+val Intent.saveAsPaths: List<Path>
+    get() =
+        when (action) {
+            Intent.ACTION_VIEW -> listOfNotNull(data?.toPathOrNull())
+            Intent.ACTION_SEND ->
+                listOfNotNull((getParcelableExtraSafe(Intent.EXTRA_STREAM) as? Uri)?.toPathOrNull())
+            Intent.ACTION_SEND_MULTIPLE ->
+                getParcelableArrayListExtraSafe<Uri>(Intent.EXTRA_STREAM)
+                    ?.mapNotNull { it.toPathOrNull() }
+                    ?: emptyList()
+            else -> emptyList()
+        }
+
 private fun Uri.toPathOrNull(): Path? =
     when (scheme) {
         ContentResolver.SCHEME_FILE, null -> path?.takeIfNotEmpty()?.let { Paths.get(it) }
