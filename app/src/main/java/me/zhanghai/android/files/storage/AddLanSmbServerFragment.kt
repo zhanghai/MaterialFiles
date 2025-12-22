@@ -57,6 +57,10 @@ class AddLanSmbServerFragment : Fragment() {
         loadingAdapter = StaticAdapter(R.layout.lan_smb_server_loading_item)
         serverListAdapter = LanSmbServerListAdapter { addSmbServer(it) }
         val addAdapter = StaticAdapter(R.layout.lan_smb_server_add_item) { addSmbServer(null) }
+
+        // 追加: addAdapterもStaticAdapterなので初期化（表示）が必要
+        addAdapter.submitList(listOf(Any()))
+
         binding.recyclerView.adapter = ConcatAdapter(
             ConcatAdapter.Config.Builder()
                 .setStableIdMode(ConcatAdapter.Config.StableIdMode.ISOLATED_STABLE_IDS)
@@ -77,7 +81,15 @@ class AddLanSmbServerFragment : Fragment() {
         binding.swipeRefreshLayout.isRefreshing = false
         binding.progress.fadeToVisibilityUnsafe(isLoading)
         val servers = stateful.value ?: emptyList()
-        loadingAdapter.itemCount = if (isLoading && servers.isEmpty()) 1 else 0
+
+        // --- 修正箇所：itemCount への直接代入から submitList へ変更 ---
+        if (isLoading && servers.isEmpty()) {
+            loadingAdapter.submitList(listOf(Any()))
+        } else {
+            loadingAdapter.submitList(null)
+        }
+        // --------------------------------------------------------
+
         serverListAdapter.replace(servers)
     }
 
