@@ -65,6 +65,7 @@ fun DavResource.putCompat(
     ifETag: String? = null,
     ifScheduleTag: String? = null,
     ifNoneMatch: Boolean = false,
+    headers: Map<String, String> = emptyMap(),
 ): OutputStream {
     val pipe = Pipe(DEFAULT_BUFFER_SIZE.toLong())
     val body = object : RequestBody() {
@@ -86,6 +87,10 @@ fun DavResource.putCompat(
     if (ifNoneMatch) {
         // don't overwrite anything existing
         builder.header("If-None-Match", "*")
+    }
+    // Add custom headers
+    for ((key, value) in headers) {
+        builder.header(key, value)
     }
     var exceptionRef: IOException? = null
     var responseRef: Response? = null
