@@ -250,6 +250,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         )
         binding.speedDialView.inflate(R.menu.file_list_speed_dial)
         binding.speedDialView.setOnActionSelectedListener {
+            if(viewModel.currentPath.isArchivePath){
+                showToast("Cannot write to read-only archive")
+                binding.speedDialView.close()
+                return@setOnActionSelectedListener false
+            }
             when (it.id) {
                 R.id.action_create_file -> showCreateFileDialog()
                 R.id.action_create_directory -> showCreateDirectoryDialog()
