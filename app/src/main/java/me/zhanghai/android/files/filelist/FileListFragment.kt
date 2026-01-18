@@ -420,8 +420,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     return false
                 }
                 viewModel.searchViewQuery = query
-                debouncedSearchRunnable()
-                return false
+                if (query.isBlank()) {
+                    viewModel.stopSearching()
+                } else {
+                    debouncedSearchRunnable()
+                }
+                return true
             }
         })
         if (viewModel.isSearchViewExpanded) {
