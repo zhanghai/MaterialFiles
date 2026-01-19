@@ -53,7 +53,7 @@
         android:resizeableActivity="true"
         android:roundIcon="@mipmap/launcher_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MaterialFiles"
+        android:theme="@style/Theme.MaterialFiles.Material3"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
@@ -255,6 +255,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="me.zhanghai.android.files.recent.RecentFilesActivity"
+            android:exported="true"
+            android:label="@string/recent_files_title"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.MaterialFiles" />
 
         <activity
             android:name="me.zhanghai.android.files.storage.StorageListActivity"

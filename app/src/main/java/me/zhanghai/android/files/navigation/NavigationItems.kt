@@ -24,6 +24,7 @@ import me.zhanghai.android.files.file.JavaFile
 import me.zhanghai.android.files.file.asFileSize
 import me.zhanghai.android.files.ftpserver.FtpServerActivity
 import me.zhanghai.android.files.settings.Settings
+import me.zhanghai.android.files.recent.RecentFilesActivity
 import me.zhanghai.android.files.settings.SettingsActivity
 import me.zhanghai.android.files.settings.StandardDirectoryListActivity
 import me.zhanghai.android.files.storage.AddStorageDialogActivity
@@ -356,6 +357,10 @@ private class BookmarkDirectoryItem(
 private val menuItems: List<NavigationItem>
     @Size(3)
     get() = listOf(
+        IntentMenuItem(
+            R.drawable.history_icon_white_24dp, R.string.recent_files_title,
+            RecentFilesActivity::class.createIntent()
+        ),
         IntentMenuItem(
             R.drawable.shared_directory_icon_white_24dp, R.string.navigation_ftp_server,
             FtpServerActivity::class.createIntent()

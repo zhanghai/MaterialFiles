@@ -15,11 +15,11 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.AttrRes
-import androidx.appcompat.widget.Toolbar
+import com.google.android.material.appbar.MaterialToolbar
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import me.zhanghai.android.files.util.shortAnimTime
 
-class CrossfadeSubtitleToolbar : Toolbar {
+class CrossfadeSubtitleToolbar : MaterialToolbar {
     private val subtitleAnimator = ObjectAnimator.ofFloat(null, View.ALPHA, 1f, 0f, 1f).apply {
         duration = (2 * context.shortAnimTime).toLong()
         interpolator = FastOutSlowInInterpolator()
