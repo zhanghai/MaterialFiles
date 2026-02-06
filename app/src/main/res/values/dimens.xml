@@ -6,10 +6,10 @@
   -->
 
 <resources>
-    <dimen name="screen_edge_margin">16dp</dimen>
+    <dimen name="screen_edge_margin">1dp</dimen>
     <dimen name="screen_edge_margin_minus_4dp">12dp</dimen>
     <dimen name="screen_edge_margin_minus_8dp">8dp</dimen>
-    <dimen name="screen_edge_margin_minus_12dp">4dp</dimen>
+    <dimen name="screen_edge_margin_minus_12dp">0dp</dimen>
     <dimen name="screen_edge_margin_minus_12dp_at_least_8dp">8dp</dimen>
     <dimen name="screen_edge_margin_minus_16dp">0dp</dimen>
     <dimen name="content_start_margin">72dp</dimen>
@@ -38,7 +38,7 @@
     <dimen name="small_icon_size">18dp</dimen>
     <dimen name="icon_size">24dp</dimen>
     <dimen name="large_icon_size">40dp</dimen>
-    <dimen name="touch_target_size">48dp</dimen>
+    <dimen name="touch_target_size">30dp</dimen>
     <dimen name="touch_target_icon_padding">12dp</dimen>
     <dimen name="touch_target_large_icon_padding">4dp</dimen>
     <dimen name="badge_size">18dp</dimen>
