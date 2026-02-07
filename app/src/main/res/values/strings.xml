@@ -757,7 +757,7 @@
     </string-array>
     <string name="settings_grid_columns_title">Grid columns count</string>
     <string-array name="settings_grid_columns_entries">
-        <item>2</item>
+        <item>Default</item>
         <item>3</item>
         <item>4</item>
         <item>5</item>
