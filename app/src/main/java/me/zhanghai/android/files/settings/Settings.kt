@@ -133,11 +133,10 @@ object Settings {
             TextUtils.TruncateAt::class.java
         )
 
-//    val GRID_COLUMNS: SettingLiveData<String> =
-//        EnumSettingLiveData(
-//            R.string.pref_key_grid_colums, R.string.pref_default_value_grid_colums
-//            FileListFragment.updateSpanCount.coerceAtLeast()
-//        )
+   val GRID_COLUMNS: SettingLiveData<String> =
+        StringSettingLiveData(
+           R.string.pref_key_grid_columns, R.string.pref_default_value_grid_columns
+       )
 
     val STANDARD_DIRECTORY_SETTINGS: SettingLiveData<List<StandardDirectorySettings>> =
         ParcelValueSettingLiveData(R.string.pref_key_standard_directory_settings, emptyList())

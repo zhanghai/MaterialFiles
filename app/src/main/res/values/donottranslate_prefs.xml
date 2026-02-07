@@ -60,7 +60,7 @@
         <item>3</item>
     </string-array>
     <string name="pref_key_grid_columns">key_grid_columns</string>
-    <string name="pref_default_value_grid_columns">0</string>
+    <string name="pref_default_value_grid_columns">2</string>
     <string-array name="pref_entry_values_grid_columns">
         <item>0</item>
         <item>1</item>
