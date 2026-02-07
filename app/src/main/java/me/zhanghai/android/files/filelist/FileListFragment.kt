@@ -659,7 +659,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun updateSpanCount() {
         val lm = binding.recyclerView.layoutManager as? GridLayoutManager ?: return
 
-        lm.spanCount = when (viewModel.viewType) {
+        val newSpan = when (viewModel.viewType) {
             FileViewType.LIST -> 1
 
             FileViewType.GRID -> {
@@ -673,11 +673,16 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 val pref = Settings.GRID_COLUMNS.value?.toIntOrNull() ?: 0
 
                 if (pref == 0) {
-                    (widthDp / 120).coerceAtLeast(2) // AUTO (default)
+                    (widthDp / 120).coerceAtLeast(2)
                 } else {
-                    pref // USER CHOICE
+                    pref
                 }
             }
+        }
+
+        if (lm.spanCount != newSpan) {
+            lm.spanCount = newSpan
+            binding.recyclerView.requestLayout()
         }
     }
 
