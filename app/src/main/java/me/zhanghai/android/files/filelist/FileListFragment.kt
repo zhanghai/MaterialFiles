@@ -367,6 +367,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { onFileListChanged(it) }
         Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(viewLifecycleOwner) {
             onShowHiddenFilesChanged(it)
+        Settings.GRID_COLUMNS.observe(viewLifecycleOwner) {
+            updateSpanCount()
+            }
         }
     }
 
