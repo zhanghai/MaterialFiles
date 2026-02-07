@@ -654,16 +654,26 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun updateSpanCount() {
-        layoutManager.spanCount = when (viewModel.viewType) {
+        val lm = binding.recyclerView.layoutManager as? GridLayoutManager ?: return
+
+        lm.spanCount = when (viewModel.viewType) {
             FileViewType.LIST -> 1
+
             FileViewType.GRID -> {
                 var widthDp = resources.configuration.screenWidthDp
-                val persistentDrawerLayout = binding.persistentDrawerLayout
-                if (persistentDrawerLayout != null &&
-                    persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                val drawer = binding.persistentDrawerLayout
+
+                if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
                     widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
-                (widthDp / 120).coerceAtLeast(2)
+
+                val pref = Settings.GRID_COLUMNS.value?.toIntOrNull() ?: 0
+
+                if (pref == 0) {
+                    (widthDp / 120).coerceAtLeast(2) // AUTO (default)
+                } else {
+                    pref // USER CHOICE
+                }
             }
         }
     }
