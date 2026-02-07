@@ -12,6 +12,7 @@ import java8.nio.file.Paths
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.compat.EnvironmentCompat2
+import me.zhanghai.android.files.filelist.FileListFragment
 import me.zhanghai.android.files.filelist.FileSortOptions
 import me.zhanghai.android.files.filelist.FileViewType
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction
@@ -131,6 +132,12 @@ object Settings {
             R.string.pref_key_file_name_ellipsize, R.string.pref_default_value_file_name_ellipsize,
             TextUtils.TruncateAt::class.java
         )
+
+//    val GRID_COLUMNS: SettingLiveData<String> =
+//        EnumSettingLiveData(
+//            R.string.pref_key_grid_colums, R.string.pref_default_value_grid_colums
+//            FileListFragment.updateSpanCount.coerceAtLeast()
+//        )
 
     val STANDARD_DIRECTORY_SETTINGS: SettingLiveData<List<StandardDirectorySettings>> =
         ParcelValueSettingLiveData(R.string.pref_key_standard_directory_settings, emptyList())

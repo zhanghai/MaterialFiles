@@ -59,6 +59,15 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string name="pref_key_grid_columns">key_grid_columns</string>
+    <string name="pref_default_value_grid_columns">0</string>
+    <string-array name="pref_entry_values_grid_columns">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
     <string name="pref_key_standard_directory_settings">key_standard_directories</string>
     <string name="pref_key_bookmark_directories">key_bookmark_directories</string>
     <string name="pref_key_root_strategy">key_root_strategy</string>
