@@ -14,30 +14,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?colorSurface"
+        android:background="@android:color/transparent"
         android:elevation="@dimen/design_appbar_elevation"
         android:fitsSystemWindows="true"
+        android:paddingStart="@dimen/file_list_bottom_bar_outer_padding"
+        android:paddingEnd="@dimen/file_list_bottom_bar_outer_padding"
+        android:paddingBottom="@dimen/file_list_bottom_bar_outer_padding"
         android:theme="?actionBarTheme">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/bottomToolbar"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bottomBarCard"
+            style="@style/Widget.MaterialFiles.CardView"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:paddingStart="@dimen/file_list_toolbar_padding_start"
-            android:paddingEnd="@dimen/file_list_toolbar_padding_end_no_overflow"
-            app:navigationIcon="@drawable/close_icon_control_normal_24dp"
-            app:navigationContentDescription="@string/close"
-            app:popupTheme="?actionBarPopupTheme">
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="?colorSurface"
+            app:cardUseCompatPadding="true">
 
-            <EditText
-                android:id="@+id/bottomCreateFileNameEdit"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/bottomToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/file_list_create_file_name_hint"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:maxLines="1" />
-        </androidx.appcompat.widget.Toolbar>
+                android:layout_height="?actionBarSize"
+                android:background="@android:color/transparent"
+                android:paddingStart="@dimen/file_list_toolbar_padding_start"
+                android:paddingEnd="@dimen/file_list_toolbar_padding_end_no_overflow"
+                app:navigationIcon="@drawable/close_icon_control_normal_24dp"
+                app:navigationContentDescription="@string/close"
+                app:popupTheme="?actionBarPopupTheme">
+
+                <EditText
+                    android:id="@+id/bottomCreateFileNameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/file_list_create_file_name_hint"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.card.MaterialCardView>
     </me.zhanghai.android.files.ui.BottomBarLayout>
 </merge>

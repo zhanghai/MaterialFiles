@@ -47,6 +47,18 @@
     <dimen name="file_list_toolbar_padding_start">8dp</dimen>
     <dimen name="file_list_toolbar_padding_end_no_overflow">14dp</dimen>
     <dimen name="file_list_toolbar_padding_end_with_overflow">10dp</dimen>
+    <dimen name="file_list_header_horizontal_padding">16dp</dimen>
+    <dimen name="file_list_header_vertical_padding">12dp</dimen>
+    <dimen name="file_list_quick_access_padding">16dp</dimen>
+    <dimen name="file_list_quick_access_spacing">8dp</dimen>
+    <dimen name="file_list_quick_access_item_padding">8dp</dimen>
+    <dimen name="file_list_quick_access_label_spacing">6dp</dimen>
+    <dimen name="file_list_bottom_bar_outer_padding">12dp</dimen>
+    <dimen name="file_list_speed_dial_margin">12dp</dimen>
+    <dimen name="file_list_empty_state_margin_horizontal">24dp</dimen>
+    <dimen name="file_list_empty_state_padding">24dp</dimen>
+    <dimen name="file_list_empty_state_radius">16dp</dimen>
+    <dimen name="file_list_empty_state_inner_padding">8dp</dimen>
 
     <!-- Reduce fast scroll thumb touch target size because we have the popup menu beside it. -->
     <dimen name="afs_min_touch_target_size">24dp</dimen>
