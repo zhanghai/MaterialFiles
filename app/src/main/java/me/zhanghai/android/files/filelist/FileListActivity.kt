@@ -23,6 +23,14 @@ class FileListActivity : AppActivity() {
     private lateinit var fragment: FileListFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.requestFeature(android.view.Window.FEATURE_ACTIVITY_TRANSITIONS)
+        val forward = com.google.android.material.transition.platform.MaterialSharedAxis(com.google.android.material.transition.platform.MaterialSharedAxis.Z, true)
+        val backward = com.google.android.material.transition.platform.MaterialSharedAxis(com.google.android.material.transition.platform.MaterialSharedAxis.Z, false)
+        window.enterTransition = forward
+        window.exitTransition = forward
+        window.returnTransition = backward
+        window.reenterTransition = backward
+
         super.onCreate(savedInstanceState)
 
         // Calls ensureSubDecor().

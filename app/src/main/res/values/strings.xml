@@ -320,6 +320,10 @@
     <string name="file_list_empty">No files</string>
     <string name="file_list_action_create_file">File</string>
     <string name="file_list_action_create_directory">Folder</string>
+    <string name="file_list_quick_access_title">Quick access</string>
+    <string name="file_list_quick_access_recent">Recent</string>
+    <string name="file_list_quick_access_downloads">Downloads</string>
+    <string name="file_list_quick_access_documents">Documents</string>
 
     <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
     <string name="file_item_action_open_with">Open with</string>
@@ -692,6 +696,7 @@
     <string name="navigation_ftp_server" translatable="false">@string/ftp_server_title</string>
     <string name="navigation_settings" translatable="false">@string/settings_title</string>
     <string name="navigation_about" translatable="false">@string/about_title</string>
+    <string name="recent_files_title">Recent files</string>
 
     <string name="archive_viewer_title">Archive viewer</string>
     <string name="image_viewer_title">Image viewer</string>

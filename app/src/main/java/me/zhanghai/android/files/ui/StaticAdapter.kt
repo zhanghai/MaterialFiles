@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Hai Zhang <dreaming.in.code.zh@gmail.com>
+ * Copyright (c) 2024 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
 
@@ -8,33 +8,24 @@ package me.zhanghai.android.files.ui
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import me.zhanghai.android.files.util.layoutInflater
 
+/**
+ * A modern [ListAdapter] implementation for static layouts or simple lists.
+ * Refactored to use DiffUtil and clean Kotlin 1.9.0+ syntax.
+ */
 class StaticAdapter(
-    @LayoutRes val layoutRes: Int,
-    val listener: ((Int) -> Unit)? = null
-) : RecyclerView.Adapter<StaticAdapter.ViewHolder>() {
+    @LayoutRes private val layoutRes: Int,
+    private val listener: ((Int) -> Unit)? = null
+) : ListAdapter<Any, StaticAdapter.ViewHolder>(StaticDiffCallback) {
+
     init {
+        // ListAdapter uses DiffUtil for animations, but we can still enable stable IDs if needed
         setHasStableIds(true)
     }
-
-    @get:JvmName("_getItemCount")
-    var itemCount: Int = 1
-        set(value) {
-            if (field == value) {
-                return
-            }
-            val oldValue = field
-            field = value
-            if (value < oldValue) {
-                notifyItemRangeRemoved(value, oldValue - value)
-            } else {
-                notifyItemRangeInserted(oldValue, value - oldValue)
-            }
-        }
-
-    override fun getItemCount(): Int = itemCount
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -42,13 +33,23 @@ class StaticAdapter(
         ViewHolder(parent.context.layoutInflater.inflate(layoutRes, parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (listener != null) {
-            // TODO: kotlinc: Reference has a nullable type '((Int) -> Unit)?', use explicit
-            //  '?.invoke()' to make a function-like call instead
-            //holder.itemView.setOnClickListener { listener(position) }
-            holder.itemView.setOnClickListener { listener.invoke(position) }
+        // Resolved TODO: Using safe call with invoke() for the nullable listener
+        holder.itemView.setOnClickListener {
+            listener?.invoke(position)
         }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    /**
+     * Minimal DiffUtil callback. Since this is a "Static" adapter, 
+     * items are often identical or simple markers.
+     */
+    private object StaticDiffCallback : DiffUtil.ItemCallback<Any>() {
+        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean =
+            oldItem == newItem
+
+        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean =
+            oldItem == newItem
+    }
 }

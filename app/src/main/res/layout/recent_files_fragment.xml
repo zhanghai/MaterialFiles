@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.zhanghai.android.files.ui.CoordinatorAppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/appBarLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorAppBarSurface"
+    android:theme="?actionBarTheme">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="@integer/file_list_toolbar_scroll_flags">
+
+        <me.zhanghai.android.files.ui.CrossfadeSubtitleToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:popupTheme="?actionBarPopupTheme" />
+
+        <me.zhanghai.android.files.ui.OverlayToolbar
+            android:id="@+id/overlayToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="?colorAppBarSurface"
+            android:visibility="gone"
+            app:navigationIcon="@drawable/close_icon_control_normal_24dp"
+            app:popupTheme="?actionBarPopupTheme" />
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/empty"
+        android:textAppearance="?textAppearanceHeadline5"
+        android:textColor="?android:textColorSecondary"
+        android:visibility="gone"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</me.zhanghai.android.files.ui.CoordinatorAppBarLayout>

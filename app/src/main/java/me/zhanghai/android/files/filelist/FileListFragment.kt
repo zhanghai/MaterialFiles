@@ -80,7 +80,9 @@ import me.zhanghai.android.files.navigation.NavigationFragment
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData
 import me.zhanghai.android.files.provider.archive.createArchiveRootPath
 import me.zhanghai.android.files.provider.archive.isArchivePath
+import me.zhanghai.android.files.provider.archive.isArchivePath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
+import me.zhanghai.android.files.recent.RecentFilesRepository
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.terminal.Terminal
 import me.zhanghai.android.files.ui.AppBarLayoutExpandHackListener
@@ -1220,6 +1222,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             return
         }
         openFileWithIntent(file, false)
+        RecentFilesRepository.add(requireContext(), file.path)
     }
 
     private fun openApk(file: FileItem) {

@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:layout_margin="@dimen/screen_edge_margin_minus_16dp"
+            android:layout_margin="@dimen/file_list_speed_dial_margin"
             app:sdMainFabAnimationRotateAngle="135"
             app:sdMainFabClosedSrc="@drawable/add_icon_white_24dp"
             app:sdOverlayLayout="@id/speedDialOverlayLayout" />
