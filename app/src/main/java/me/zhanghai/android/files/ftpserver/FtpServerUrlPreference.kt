@@ -12,6 +12,7 @@ import android.view.ContextMenu.ContextMenuInfo
 import android.view.Menu
 import android.view.View
 import android.view.View.OnCreateContextMenuListener
+import android.widget.ImageButton
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
 import androidx.lifecycle.Observer
@@ -46,6 +47,7 @@ class FtpServerUrlPreference : Preference {
 
     init {
         isPersistent = false
+        widgetLayoutResource = R.layout.ftp_server_url_preference_widget
         updateUrl()
     }
 
@@ -70,6 +72,7 @@ class FtpServerUrlPreference : Preference {
     private fun updateUrl() {
         url = FtpServerUrl.getUrl()
         summary = url ?: context.getString(R.string.ftp_server_url_summary_no_local_inet_address)
+        notifyChanged()
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
@@ -104,5 +107,12 @@ class FtpServerUrlPreference : Preference {
                 }
             }
         })
+
+        val copyButton = holder.findViewById(R.id.copy_button) as ImageButton
+        copyButton.setOnClickListener {
+            val url = url ?: return@setOnClickListener
+            clipboardManager.copyText(url, context)
+        }
+        copyButton.isEnabled = url != null
     }
 }

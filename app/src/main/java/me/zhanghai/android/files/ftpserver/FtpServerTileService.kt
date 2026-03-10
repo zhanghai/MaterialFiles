@@ -5,12 +5,14 @@
 
 package me.zhanghai.android.files.ftpserver
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
-import me.zhanghai.android.files.compat.doWithStartForegroundServiceAllowed
+import me.zhanghai.android.files.util.createIntent
 
 @RequiresApi(Build.VERSION_CODES.N)
 class FtpServerTileService : TileService() {
@@ -29,7 +31,7 @@ class FtpServerTileService : TileService() {
     }
 
     private fun onFtpServerStateChanged(state: FtpServerService.State) {
-        val tile = qsTile
+        val tile = qsTile ?: return
         when (state) {
             FtpServerService.State.STARTING,
             FtpServerService.State.RUNNING -> tile.state = Tile.STATE_ACTIVE
@@ -42,14 +44,23 @@ class FtpServerTileService : TileService() {
     override fun onClick() {
         super.onClick()
 
-        if (isLocked) {
-            unlockAndRun { toggle() }
+        val intent = FtpServerBiometricActivity::class.createIntent()
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0, intent, PendingIntent.FLAG_IMMUTABLE
+            )
+            startActivityAndCollapse(pendingIntent)
         } else {
-            toggle()
+            @Suppress("DEPRECATION")
+            if (isLocked) {
+                unlockAndRun {
+                    startActivityAndCollapse(intent)
+                }
+            } else {
+                startActivityAndCollapse(intent)
+            }
         }
-    }
-
-    private fun toggle() {
-        doWithStartForegroundServiceAllowed { FtpServerService.toggle(this) }
     }
 }

@@ -7,7 +7,7 @@
 
 <resources>
 
-    <string name="app_name">Material Files</string>
+    <string name="app_name">FTP Server by AP</string>
 
     <string name="close">Close</string>
     <string name="copy">Copy</string>
@@ -708,7 +708,7 @@
     <string name="text_editor_encoding">Encoding</string>
     <string name="text_editor_close_message">Are you sure you want to discard unsaved changes to this document?</string>
 
-    <string name="ftp_server_title">FTP server</string>
+    <string name="ftp_server_title">FTP Server by AP</string>
     <string name="ftp_server_state_title">Status</string>
     <string name="ftp_server_state_summary_starting">Starting…</string>
     <string name="ftp_server_state_summary_running">Running</string>
@@ -719,9 +719,9 @@
     <string name="ftp_server_url_menu_copy_url">Copy URL</string>
     <string name="ftp_server_url_menu_copy_password">Copy password</string>
     <string name="ftp_server_add_tile_title">Add to Quick Settings</string>
-    <string name="ftp_server_add_tile_result_added">“FTP server” has been added to Quick Settings</string>
-    <string name="ftp_server_add_tile_result_already_added">“FTP server” is already added to Quick Settings</string>
-    <string name="ftp_server_add_tile_result_error">Error while adding “FTP server” to Quick Settings</string>
+    <string name="ftp_server_add_tile_result_added">“FTP Server by AP” has been added to Quick Settings</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP Server by AP” is already added to Quick Settings</string>
+    <string name="ftp_server_add_tile_result_error">Error while adding “FTP Server by AP” to Quick Settings</string>
     <string name="ftp_server_configuration_title">Configuration</string>
     <string name="ftp_server_anonymous_login_title">Anonymous login</string>
     <string name="ftp_server_username_title">Username</string>
@@ -731,6 +731,9 @@
     <string name="ftp_server_writable_title">Allow writing</string>
     <string name="ftp_server_notification_title" translatable="false">@string/ftp_server_title</string>
     <string name="ftp_server_notification_text_no_local_inet_address" translatable="false">@string/ftp_server_url_summary_no_local_inet_address</string>
+    <string name="ftp_server_biometric_title">Authentication required</string>
+    <string name="ftp_server_biometric_subtitle">Authenticate to access FTP Server by AP</string>
+    <string name="ftp_server_copy_url">Copy URL</string>
 
     <string name="settings_title">Settings</string>
     <string name="settings_interface_title">Interface</string>

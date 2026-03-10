@@ -34,9 +34,9 @@ android {
         minSdk 21
         // Not supporting foreground service timeout yet.
         //noinspection OldTargetApi
-        targetSdk 34
-        versionCode 39
-        versionName '1.7.4'
+        targetSdk 36
+        versionCode 40
+        versionName '2.0.0(10-09-26)'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
@@ -131,6 +131,7 @@ dependencies {
 
     implementation 'androidx.activity:activity-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.biometric:biometric:1.1.0'
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
     implementation 'androidx.exifinterface:exifinterface:1.4.1'

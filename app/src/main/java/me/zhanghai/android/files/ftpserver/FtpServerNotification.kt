@@ -7,6 +7,7 @@ package me.zhanghai.android.files.ftpserver
 
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -45,7 +46,8 @@ class FtpServerNotification(private val service: Service) {
     }
 
     private fun doStartForeground() {
-        val contextText = FtpServerUrl.getUrl()
+        val url = FtpServerUrl.getUrl()
+        val contextText = url
             ?: service.getString(R.string.ftp_server_notification_text_no_local_inet_address)
         val contentIntent = FtpServerActivity::class.createIntent()
         var pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT
@@ -59,13 +61,28 @@ class FtpServerNotification(private val service: Service) {
         val stopPendingIntent = PendingIntent.getBroadcast(
             service, FtpServerReceiver::class.hashCode(), stopIntent, pendingIntentFlags
         )
-        val notification = ftpServerServiceNotificationTemplate.createBuilder(service)
+
+        val builder = ftpServerServiceNotificationTemplate.createBuilder(service)
             .setContentText(contextText)
             .setContentIntent(contentPendingIntent)
             .addAction(
                 R.drawable.stop_icon_white_24dp, service.getString(R.string.stop), stopPendingIntent
             )
-            .build()
+
+        if (url != null) {
+            val copyIntent = Intent(service, FtpServerReceiver::class.java).apply {
+                action = FtpServerReceiver.ACTION_COPY_URL
+            }
+            val copyPendingIntent = PendingIntent.getBroadcast(
+                service, FtpServerReceiver.hashCode() + 1, copyIntent, pendingIntentFlags
+            )
+            builder.addAction(
+                R.drawable.copy_icon_white_24dp, service.getString(R.string.ftp_server_copy_url),
+                copyPendingIntent
+            )
+        }
+
+        val notification = builder.build()
         service.startForeground(NotificationIds.FTP_SERVER, notification)
     }
 

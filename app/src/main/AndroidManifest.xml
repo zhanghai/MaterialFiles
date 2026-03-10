@@ -45,13 +45,13 @@
         android:banner="@drawable/banner"
         android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="true"
-        android:icon="@mipmap/launcher_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/netework_security_config"
         android:requestLegacyExternalStorage="true"
         android:requestRawExternalStorageAccess="true"
         android:resizeableActivity="true"
-        android:roundIcon="@mipmap/launcher_icon"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialFiles"
         android:usesCleartextTraffic="true"
@@ -101,6 +101,7 @@
                 <data android:mimeType="application/x-tar" />
                 <data android:mimeType="application/x-xz" />
                 <data android:mimeType="application/x-7z-compressed" />
+
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.GET_CONTENT" />
@@ -243,6 +244,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="me.zhanghai.android.files.ftpserver.FtpServerBiometricActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.MaterialFiles.BiometricActivity" />
 
         <activity
             android:name="me.zhanghai.android.files.settings.SettingsActivity"

@@ -55,6 +55,11 @@
     </style>
     <style name="Theme.MaterialFiles.Translucent" parent="Base.Theme.MaterialFiles.Translucent" />
 
+    <style name="Theme.MaterialFiles.BiometricActivity" parent="Theme.MaterialFiles.Translucent">
+        <item name="android:windowBackground">@color/dark_50_percent</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
     <style name="Platform.V21.Theme.MaterialFiles.Immersive" parent="Theme.MaterialComponents.NoActionBar">
         <item name="android:navigationBarColor">?colorPrimaryDark</item>
 

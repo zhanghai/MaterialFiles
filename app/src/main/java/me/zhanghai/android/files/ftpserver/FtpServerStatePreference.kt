@@ -9,9 +9,11 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.annotation.AttrRes
 import androidx.annotation.StyleRes
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.preference.SwitchPreferenceCompat
 import me.zhanghai.android.files.R
+import me.zhanghai.android.files.util.BiometricAuthenticator
 
 class FtpServerStatePreference : SwitchPreferenceCompat {
     private val observer = Observer<FtpServerService.State> { onStateChanged(it) }
@@ -62,6 +64,18 @@ class FtpServerStatePreference : SwitchPreferenceCompat {
     }
 
     override fun onClick() {
-        FtpServerService.toggle(context)
+        val activity = context as? FragmentActivity
+        if (activity != null) {
+            BiometricAuthenticator.authenticate(
+                activity,
+                context.getString(R.string.ftp_server_biometric_title),
+                context.getString(R.string.ftp_server_biometric_subtitle),
+                onSuccess = {
+                    FtpServerService.toggle(context)
+                }
+            )
+        } else {
+            FtpServerService.toggle(context)
+        }
     }
 }
