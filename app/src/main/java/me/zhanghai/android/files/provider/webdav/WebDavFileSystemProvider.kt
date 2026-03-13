@@ -46,6 +46,7 @@ import me.zhanghai.android.files.provider.common.toOpenOptions
 import me.zhanghai.android.files.provider.webdav.client.Authority
 import me.zhanghai.android.files.provider.webdav.client.Client
 import me.zhanghai.android.files.provider.webdav.client.Protocol
+import me.zhanghai.android.files.provider.webdav.client.isDirectory
 import me.zhanghai.android.files.provider.webdav.client.isSymbolicLink
 import java.io.IOException
 import java.io.InputStream
@@ -300,8 +301,13 @@ object WebDavFileSystemProvider : FileSystemProvider(), PathObservableProvider, 
     @Throws(IOException::class)
     override fun delete(path: Path) {
         path as? WebDavPath ?: throw ProviderMismatchException(path.toString())
+        val pathResponse = try {
+            Client.findProperties(path, true)
+        } catch (e: DavException) {
+            throw e.toFileSystemException(path.toString())
+        }
         try {
-            Client.delete(path)
+            Client.delete(path, pathResponse.isDirectory)
         } catch (e: DavException) {
             throw e.toFileSystemException(path.toString())
         }
