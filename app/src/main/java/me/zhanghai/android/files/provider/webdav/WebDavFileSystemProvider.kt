@@ -301,13 +301,22 @@ object WebDavFileSystemProvider : FileSystemProvider(), PathObservableProvider, 
     @Throws(IOException::class)
     override fun delete(path: Path) {
         path as? WebDavPath ?: throw ProviderMismatchException(path.toString())
-        val pathResponse = try {
-            Client.findProperties(path, true)
-        } catch (e: DavException) {
-            throw e.toFileSystemException(path.toString())
+        delete(path, null)
+    }
+
+    @Throws(IOException::class)
+    internal fun delete(path: WebDavPath, isDirectory: Boolean?) {
+        val resolvedIsDirectory = if (isDirectory != null) {
+            isDirectory
+        } else {
+            try {
+                Client.findProperties(path, true).isDirectory
+            } catch (e: DavException) {
+                throw e.toFileSystemException(path.toString())
+            }
         }
         try {
-            Client.delete(path, pathResponse.isDirectory)
+            Client.delete(path, resolvedIsDirectory)
         } catch (e: DavException) {
             throw e.toFileSystemException(path.toString())
         }

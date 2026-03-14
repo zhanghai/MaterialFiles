@@ -964,7 +964,7 @@ class DeleteFileJob(private val paths: List<Path>) : FileJob() {
         Files.walkFileTree(path, object : SimpleFileVisitor<Path>() {
             @Throws(IOException::class)
             override fun visitFile(file: Path, attributes: BasicFileAttributes): FileVisitResult {
-                delete(file, transferInfo, actionAllInfo)
+                delete(file, attributes.isDirectory, transferInfo, actionAllInfo)
                 throwIfInterrupted()
                 return FileVisitResult.CONTINUE
             }
@@ -984,7 +984,7 @@ class DeleteFileJob(private val paths: List<Path>) : FileJob() {
                 if (exception != null) {
                     throw exception
                 }
-                delete(directory, transferInfo, actionAllInfo)
+                delete(directory, true, transferInfo, actionAllInfo)
                 throwIfInterrupted()
                 return FileVisitResult.CONTINUE
             }
@@ -993,12 +993,17 @@ class DeleteFileJob(private val paths: List<Path>) : FileJob() {
 }
 
 @Throws(IOException::class)
-private fun FileJob.delete(path: Path, transferInfo: TransferInfo?, actionAllInfo: ActionAllInfo) {
+private fun FileJob.delete(
+    path: Path,
+    isDirectory: Boolean?,
+    transferInfo: TransferInfo?,
+    actionAllInfo: ActionAllInfo
+) {
     var retry: Boolean
     do {
         retry = false
         try {
-            path.delete()
+            path.delete(isDirectory)
             if (transferInfo != null) {
                 transferInfo.incrementTransferredFileCount()
                 postDeleteNotification(transferInfo, path)
@@ -1152,7 +1157,7 @@ class MoveFileJob(private val sources: List<Path>, private val targetDirectory: 
                 if (exception != null) {
                     throw exception
                 }
-                delete(directory, null, actionAllInfo)
+                delete(directory, true, null, actionAllInfo)
                 throwIfInterrupted()
                 return FileVisitResult.CONTINUE
             }
