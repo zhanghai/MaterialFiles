@@ -4,7 +4,6 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
 
 apply from: '../signing.gradle'
@@ -26,8 +25,8 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     namespace 'me.zhanghai.android.files'
-    buildToolsVersion = '36.0.0'
-    compileSdk 36
+    buildToolsVersion = '37.0.0'
+    compileSdk = 36
     ndkVersion '28.1.13356709'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
@@ -50,6 +49,7 @@ android {
     buildFeatures {
         aidl true
         buildConfig true
+        resValues true
         viewBinding true
     }
     androidResources {
@@ -59,9 +59,6 @@ android {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     externalNativeBuild {
         cmake {
@@ -111,7 +108,7 @@ repositories {
 }
 dependencies {
     // We need https://github.com/bitfireAT/dav4jvm/commit/c1bc14348831bcdb00f3a6eec4859b81c7dc3728
-    implementation('com.github.bitfireAT:dav4jvm:ec6264d427') {
+    implementation('com.github.bitfireAT:dav4jvm:02fe1a95e6') {
         exclude group: 'org.ogce', module: 'xpp3'
     }
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
