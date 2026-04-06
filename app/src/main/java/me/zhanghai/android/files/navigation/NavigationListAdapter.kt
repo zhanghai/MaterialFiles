@@ -70,7 +70,7 @@ class NavigationListAdapter(
             itemShapeInsetStart, itemShapeInsetEnd, itemShapeInsetTop, itemShapeInsetBottom, context
         )
         val controlHighlightColor = context.getColorStateListByAttr(
-            com.google.android.material.R.attr.colorControlHighlight
+            androidx.appcompat.R.attr.colorControlHighlight
         )
         val itemForegroundMaskFillColor = ColorStateList.valueOf(Color.WHITE)
         val itemForegroundMask = createItemShapeDrawable(
