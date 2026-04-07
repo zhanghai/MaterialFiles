@@ -151,7 +151,7 @@ class ProviderFtpFile(
             false
         } else {
             try {
-                path.delete()
+                path.delete(null)
                 true
             } catch (e: IOException) {
                 e.printStackTrace()
