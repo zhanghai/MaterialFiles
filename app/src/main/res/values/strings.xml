@@ -755,6 +755,14 @@
         <item>Ellipsize the end</item>
         <item>Marquee</item>
     </string-array>
+    <string name="settings_grid_columns_title">Grid columns count</string>
+    <string-array name="settings_grid_columns_entries">
+        <item>Default</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
     <string name="settings_behavior_title">Behavior</string>
     <string name="settings_default_directory_title">Default folder</string>
     <string name="settings_storages_title" translatable="false">@string/storage_list_title</string>

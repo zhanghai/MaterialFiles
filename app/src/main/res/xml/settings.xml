@@ -53,6 +53,14 @@
             android:entries="@array/settings_file_name_ellipsize_entries"
             android:entryValues="@array/pref_entry_values_file_name_ellipsize"
             app:useSimpleSummaryProvider="true" />
+
+        <rikka.preference.SimpleMenuPreference
+            android:key="@string/pref_key_grid_columns"
+            android:title="@string/settings_grid_columns_title"
+            android:defaultValue="@string/pref_default_value_grid_columns"
+            android:entries="@array/settings_grid_columns_entries"
+            android:entryValues="@array/pref_entry_values_grid_columns"
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/settings_behavior_title">
