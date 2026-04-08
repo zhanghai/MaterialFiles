@@ -8,6 +8,7 @@ package me.zhanghai.android.files.provider.linux
 import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import java8.nio.file.LinkOption
 import java8.nio.file.Path
 import java8.nio.file.ProviderMismatchException
@@ -78,48 +79,10 @@ internal class LinuxPath : ByteStringListPath<LinuxPath>, RootablePath {
     }
 
     override fun isRootRequired(isAttributeAccess: Boolean): Boolean {
-        val file = toFile()
-        return StorageVolumeListLiveData.valueCompat.none {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R && !it.isPrimaryCompat) {
-                return@none false
-            }
-            val storageVolumeDirectory = it.pathFileCompat
-            if (!file.startsWith(storageVolumeDirectory)) {
-                return@none false
-            }
-            return@none file.isAccessibleInStorageVolume(storageVolumeDirectory, isAttributeAccess)
-        }
-    }
-
-    private fun File.isAccessibleInStorageVolume(
-        storageVolumeDirectory: File,
-        isAttributeAccess: Boolean
-    ): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val parentDirectory = parentFile
-            val androidDataDirectory = storageVolumeDirectory.resolve(FILE_ANDROID_DATA)
-            val isInAndroidDataDirectory = if (isAttributeAccess && parentDirectory != null) {
-                parentDirectory.startsWith(androidDataDirectory)
-            } else {
-                startsWith(androidDataDirectory)
-            }
-            val appPackageName = application.packageName
-            if (isInAndroidDataDirectory) {
-                val appDataDirectory = androidDataDirectory.resolve(appPackageName)
-                return startsWith(appDataDirectory)
-            }
-            val androidObbDirectory = storageVolumeDirectory.resolve(FILE_ANDROID_OBB)
-            val isInAndroidObbDirectory = if (isAttributeAccess && parentDirectory != null) {
-                parentDirectory.startsWith(androidObbDirectory)
-            } else {
-                startsWith(androidObbDirectory)
-            }
-            if (isInAndroidObbDirectory) {
-                val appObbDirectory = androidObbDirectory.resolve(appPackageName)
-                return startsWith(appObbDirectory)
-            }
-        }
-        return true
+        // ALWAYS return false - let the system fail naturally
+        // The root fallback should only happen AFTER a real permission failure
+        Log.d("LinuxPath", "isRootRequired called for ${toFile().path}, attributeAccess=$isAttributeAccess - returning FALSE to try normal path first")
+        return false
     }
 
     private constructor(source: Parcel) : super(source) {

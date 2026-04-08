@@ -10,6 +10,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.IBinder
+import android.util.Log
 import com.topjohnwu.superuser.NoShellException
 import com.topjohnwu.superuser.Shell
 import com.topjohnwu.superuser.ipc.RootService
@@ -30,6 +31,7 @@ import kotlin.coroutines.resumeWithException
 
 object LibSuFileServiceLauncher {
     private val lock = Any()
+    private const val TAG = "LibSuLauncher"
 
     init {
         Shell.enableVerboseLogging = true
@@ -45,19 +47,26 @@ object LibSuFileServiceLauncher {
         // @see com.topjohnwu.superuser.Shell.rootAccess
         try {
             Runtime.getRuntime().exec("su --version")
+            Log.d(TAG, "su binary found on device")
             true
         } catch (e: IOException) {
             // java.io.IOException: Cannot run program "su": error=2, No such file or directory
+            Log.d(TAG, "No su binary found on device")
             false
         }
 
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
+        Log.d(TAG, "Attempting to launch root service")
+
         synchronized(lock) {
             // libsu won't call back when su isn't available.
             if (!isSuAvailable()) {
+                Log.w(TAG, "Root isn't available - throwing exception")
                 throw RemoteFileSystemException("Root isn't available")
             }
+            Log.d(TAG, "Root is available, proceeding with service launch")
+
             return try {
                 runBlocking {
                     try {
@@ -71,6 +80,7 @@ object LibSuFileServiceLauncher {
                                         Shell.getShell()
                                         continuation.resume(Unit)
                                     } catch (e: NoShellException) {
+                                        Log.w(TAG, "NoShellException: ${e.message}")
                                         continuation.resumeWithException(
                                             RemoteFileSystemException(e)
                                         )
@@ -84,12 +94,14 @@ object LibSuFileServiceLauncher {
                                         name: ComponentName,
                                         service: IBinder
                                     ) {
+                                        Log.d(TAG, "Root service connected successfully")
                                         val serviceInterface =
                                             IRemoteFileService.Stub.asInterface(service)
                                         continuation.resume(serviceInterface)
                                     }
 
                                     override fun onServiceDisconnected(name: ComponentName) {
+                                        Log.w(TAG, "Root service disconnected")
                                         if (continuation.isActive) {
                                             continuation.resumeWithException(
                                                 RemoteFileSystemException(
@@ -100,6 +112,7 @@ object LibSuFileServiceLauncher {
                                     }
 
                                     override fun onBindingDied(name: ComponentName) {
+                                        Log.w(TAG, "Root service binding died")
                                         if (continuation.isActive) {
                                             continuation.resumeWithException(
                                                 RemoteFileSystemException("libsu binding died")
@@ -108,6 +121,7 @@ object LibSuFileServiceLauncher {
                                     }
 
                                     override fun onNullBinding(name: ComponentName) {
+                                        Log.w(TAG, "Root service binding is null")
                                         if (continuation.isActive) {
                                             continuation.resumeWithException(
                                                 RemoteFileSystemException("libsu binding is null")
@@ -116,8 +130,10 @@ object LibSuFileServiceLauncher {
                                     }
                                 }
                                 launch(Dispatchers.Main.immediate) {
+                                    Log.d(TAG, "Binding to root service")
                                     RootService.bind(intent, connection)
                                     continuation.invokeOnCancellation {
+                                        Log.d(TAG, "Service binding cancelled, unbinding")
                                         launch(Dispatchers.Main.immediate) {
                                             RootService.unbind(connection)
                                         }
@@ -126,10 +142,12 @@ object LibSuFileServiceLauncher {
                             }
                         }
                     } catch (e: TimeoutCancellationException) {
+                        Log.w(TAG, "Timeout while launching root service: ${e.message}")
                         throw RemoteFileSystemException(e)
                     }
                 }
             } catch (e: InterruptedException) {
+                Log.w(TAG, "Interrupted while launching root service: ${e.message}")
                 throw RemoteFileSystemException(e)
             }
         }
@@ -144,9 +162,12 @@ private class LibSuShellInitializer : Shell.Initializer() {
 class LibSuFileService : RootService() {
     override fun onCreate() {
         super.onCreate()
-
+        Log.d("LibSuFileService", "Root file service created")
         RootFileService.main()
     }
 
-    override fun onBind(intent: Intent): IBinder = RemoteFileServiceInterface()
+    override fun onBind(intent: Intent): IBinder {
+        Log.d("LibSuFileService", "Root file service bound")
+        return RemoteFileServiceInterface()
+    }
 }
