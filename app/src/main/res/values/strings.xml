@@ -686,6 +686,11 @@
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_media_category_images">Images</string>
+    <string name="navigation_media_category_videos">Videos</string>
+    <string name="navigation_media_category_audio">Audio</string>
+    <string name="navigation_media_category_documents">Documents</string>
+    <string name="navigation_media_category_apks">APKs</string>
     <string name="navigation_edit_bookmark_directory_title">Bookmark folder</string>
     <string name="navigation_edit_bookmark_directory_name">Name</string>
     <string name="navigation_edit_bookmark_directory_path">Path</string>

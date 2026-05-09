@@ -54,6 +54,103 @@ Because I know people can do it right.
 
 So, it's time for yet another Android file manager.
 
+## Development
+
+### Prerequisites
+
+- Android Studio Ladybug or newer
+- Android SDK with API level 36 (compileSdk)
+- Android NDK 28.1.13356709 (required for native code — install via SDK Manager → SDK Tools → NDK)
+- JDK 17+
+
+### Building an APK
+
+**Debug APK** (no signing config needed):
+
+```bash
+./gradlew assembleDebug
+```
+
+Output: `app/build/outputs/apk/debug/app-debug.apk`
+
+**Release APK** (requires signing):
+
+1. Copy `signing.properties.example` to `signing.properties` and fill in your keystore details:
+
+```properties
+storeFile=/path/to/your.keystore
+storePassword=yourStorePassword
+keyAlias=yourKeyAlias
+keyPassword=yourKeyPassword
+```
+
+2. Build:
+
+```bash
+./gradlew assembleRelease
+```
+
+Output: `app/build/outputs/apk/release/app-release.apk`
+
+Alternatively, pass signing config via environment variables (useful for CI):
+
+```bash
+STORE_FILE=/path/to/your.keystore \
+STORE_PASSWORD=... \
+KEY_ALIAS=... \
+KEY_PASSWORD=... \
+./gradlew assembleRelease
+```
+
+### Running in Android Studio
+
+1. Open Android Studio and select **File → Open**, then choose this project's root directory.
+2. Wait for Gradle sync to complete (first sync downloads dependencies and compiles NDK code — may take several minutes).
+3. Connect a device or start an emulator (API 23+ required).
+4. Click **Run → Run 'app'** or press `Shift+F10`.
+
+To install a pre-built APK directly via ADB:
+
+```bash
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+### Debugging Crashes
+
+**Logcat (runtime logs and crash stack traces):**
+
+In Android Studio, open **View → Tool Windows → Logcat**. Filter by package `me.zhanghai.android.files` or tag `AndroidRuntime` to isolate crash output.
+
+From the command line:
+
+```bash
+adb logcat --pid=$(adb shell pidof -s me.zhanghai.android.files) | grep -E "E/|F/"
+```
+
+**Attaching the debugger:**
+
+1. Run the app in debug mode (`Shift+F10` or `Run → Debug 'app'`).
+2. Set breakpoints in the source by clicking the gutter next to any line.
+3. Use **Run → Attach Debugger to Android Process** to attach to an already-running process.
+
+**Native crash debugging (NDK):**
+
+The app contains native code compiled with CMake. For native crashes:
+
+1. Enable **LLDB** in the run configuration: **Run → Edit Configurations → Debugger tab → set Debug type to "Dual"**.
+2. Native stack frames appear in the debugger automatically on crash.
+3. Symbolicate a tombstone manually with `ndk-stack`:
+
+```bash
+adb logcat | ndk-stack -sym app/build/intermediates/cmake/debug/obj/<abi>/
+```
+
+Replace `<abi>` with `arm64-v8a`, `armeabi-v7a`, `x86`, or `x86_64` as appropriate.
+
+**Firebase Crashlytics (release builds):**
+
+Release builds include Crashlytics. Crashes are uploaded automatically to the Firebase console. Native symbol upload is enabled (`nativeSymbolUploadEnabled true`), so native crashes are symbolicated server-side.
+
 ## Inclusion in custom ROMs
 
 Thank you if you choose to include Material Files in your custom ROM! However since I've received several user complaints due to improper inclusion, I'd like to offer some suggestions on including this app properly for the good of end users:
