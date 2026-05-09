@@ -42,6 +42,7 @@ import me.zhanghai.android.files.provider.common.isEncrypted
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.RemoteCallback
+import me.zhanghai.android.files.util.AnimationConfig
 import me.zhanghai.android.files.util.args
 import me.zhanghai.android.files.util.finish
 import me.zhanghai.android.files.util.getArgs
@@ -107,7 +108,7 @@ class FileJobConflictDialogFragment : AppCompatDialogFragment() {
                     val visible = !binding.nameLayout.isVisible
                     binding.showNameArrowImage.animate()
                         .rotation(if (visible) 90f else 0f)
-                        .setDuration(shortAnimTime.toLong())
+                        .setDuration(AnimationConfig.getAnimDuration(shortAnimTime).toLong())
                         .setInterpolator(FastOutSlowInInterpolator())
                         .start()
                     binding.nameLayout.isVisible = visible

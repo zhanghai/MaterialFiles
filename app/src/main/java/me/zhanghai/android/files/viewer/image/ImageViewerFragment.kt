@@ -28,6 +28,7 @@ import me.zhanghai.android.files.databinding.ImageViewerFragmentBinding
 import me.zhanghai.android.files.file.fileProviderUri
 import me.zhanghai.android.files.provider.common.delete
 import me.zhanghai.android.files.ui.DepthPageTransformer
+import me.zhanghai.android.files.util.AnimationConfig
 import me.zhanghai.android.files.util.ParcelableArgs
 import me.zhanghai.android.files.util.ParcelableListParceler
 import me.zhanghai.android.files.util.ParcelableState
@@ -95,7 +96,7 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             binding.appBarLayout.animate()
                 .alpha(if (visible) 1f else 0f)
                 .translationY(if (visible) 0f else -binding.appBarLayout.bottom.toFloat())
-                .setDuration(mediumAnimTime.toLong())
+                .setDuration(AnimationConfig.getAnimDuration(mediumAnimTime).toLong())
                 .setInterpolator(FastOutSlowInInterpolator())
                 .start()
         }
@@ -110,7 +111,9 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
             adapter = this@ImageViewerFragment.adapter
             // ViewPager saves its position and will restore it later.
             setCurrentItem(args.position, false)
-            setPageTransformer(DepthPageTransformer)
+            if (AnimationConfig.shouldAnimate()) {
+                setPageTransformer(DepthPageTransformer)
+            }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     updateTitle()

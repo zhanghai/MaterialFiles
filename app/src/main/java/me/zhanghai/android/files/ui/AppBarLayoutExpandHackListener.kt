@@ -8,12 +8,13 @@ package me.zhanghai.android.files.ui
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
+import me.zhanghai.android.files.util.AnimationConfig
 
 class AppBarLayoutExpandHackListener(
     private val recyclerView: RecyclerView
 ) : AppBarLayout.OnOffsetChangedListener {
     private val offsetAnimationMaxEndTime = (AnimationUtils.currentAnimationTimeMillis()
-        + MAX_OFFSET_ANIMATION_DURATION)
+        + AnimationConfig.getAnimDuration(MAX_OFFSET_ANIMATION_DURATION.toLong()))
 
     private var lastVerticalOffset: Int? = null
 

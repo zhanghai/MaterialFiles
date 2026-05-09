@@ -126,6 +126,11 @@ object Settings {
             R.string.pref_key_file_list_animation, R.bool.pref_default_value_file_list_animation
         )
 
+    val EPAPER_BACK_BUTTON: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_epaper_back_button, R.bool.pref_default_value_epaper_back_button
+        )
+
     val FILE_NAME_ELLIPSIZE: SettingLiveData<TextUtils.TruncateAt> =
         EnumSettingLiveData(
             R.string.pref_key_file_name_ellipsize, R.string.pref_default_value_file_name_ellipsize,

@@ -24,18 +24,18 @@ apply plugin: 'com.google.firebase.crashlytics'
 //#endif
 
 android {
-    namespace 'me.zhanghai.android.files'
+    namespace = 'me.zhanghai.android.files'
     buildToolsVersion = '37.0.0'
     compileSdk = 36
-    ndkVersion '28.1.13356709'
+    ndkVersion = '28.1.13356709'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
-        minSdk 23
+        minSdk = 23
         // Not supporting foreground service timeout yet.
         //noinspection OldTargetApi
-        targetSdk 34
-        versionCode 39
-        versionName '1.7.4'
+        targetSdk = 34
+        versionCode = 39
+        versionName = '1.7.4'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
@@ -56,9 +56,9 @@ android {
         generateLocaleConfig true
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     externalNativeBuild {
         cmake {
@@ -68,24 +68,24 @@ android {
     lint {
         // For "Invalid package reference in library; not included in Android: javax.security.sasl.
         // Referenced from org.apache.mina.proxy.ProxyAuthException."
-        warning 'InvalidPackage', 'MissingTranslation'
+        warning += ['InvalidPackage', 'MissingTranslation']
     }
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled = true
+            shrinkResources = true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig = signingConfigs.release
 //#ifdef NONFREE
             firebaseCrashlytics {
-                nativeSymbolUploadEnabled true
+                nativeSymbolUploadEnabled = true
             }
 //#endif
         }
     }
     packagingOptions {
         jniLibs {
-            useLegacyPackaging true
+            useLegacyPackaging = true
         }
         resources {
             excludes += [

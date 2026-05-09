@@ -33,6 +33,7 @@ import me.zhanghai.android.files.compat.createCompat
 import me.zhanghai.android.files.compat.drawableCompat
 import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.compat.setTextAppearanceCompat
+import me.zhanghai.android.files.util.AnimationConfig
 import me.zhanghai.android.files.util.ParcelableState
 import me.zhanghai.android.files.util.asColor
 import me.zhanghai.android.files.util.dpToDimensionPixelSize
@@ -128,7 +129,7 @@ class ThemedSpeedDialView : SpeedDialView {
                     mainFab.drawable, DRAWABLE_PROPERTY_LEVEL, if (isOpen) 10000 else 0
                 )
             )
-            duration = context.shortAnimTime.toLong()
+            duration = AnimationConfig.getAnimDuration(context.shortAnimTime).toLong()
             interpolator = FastOutSlowInInterpolator()
         }
 

@@ -41,6 +41,7 @@
       ~ TODO: Remove this attribute once Samsung respects the default value for it.
       -->
     <application
+        android:name="me.zhanghai.android.files.App"
         android:allowBackup="true"
         android:banner="@drawable/banner"
         android:enableOnBackInvokedCallback="true"

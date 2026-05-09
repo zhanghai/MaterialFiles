@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import androidx.annotation.Dimension
 import androidx.appcompat.graphics.drawable.AnimatedStateListDrawableCompat
+import me.zhanghai.android.files.util.AnimationConfig
 import me.zhanghai.android.files.util.asColor
 import me.zhanghai.android.files.util.dpToDimension
 import me.zhanghai.android.files.util.dpToDimensionPixelOffset
@@ -34,7 +35,7 @@ object CheckableItemBackground {
         context: Context
     ): Drawable =
         AnimatedStateListDrawableCompat().apply {
-            val shortAnimTime = context.shortAnimTime
+            val shortAnimTime = AnimationConfig.getAnimDuration(context.shortAnimTime)
             setEnterFadeDuration(shortAnimTime)
             setExitFadeDuration(shortAnimTime)
             val checkedDrawable = GradientDrawable().apply {

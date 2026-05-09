@@ -49,6 +49,7 @@
 
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">No application found to handle this action</string>
+    <string name="preference_copied">Copied to clipboard</string>
     <string name="copied_to_clipboard_format" translatable="false">@string/preference_copied</string>
     <string name="open_settings">Open settings</string>
     <string name="shortcut_created">Shortcut created</string>
@@ -748,6 +749,7 @@
     </string-array>
     <string name="settings_black_night_mode">Black night mode</string>
     <string name="settings_file_list_animation_title">File list animation</string>
+    <string name="settings_epaper_back_button_title">Bottom back button</string>
     <string name="settings_file_name_ellipsize_title">Display long file name</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Ellipsize the beginning</item>

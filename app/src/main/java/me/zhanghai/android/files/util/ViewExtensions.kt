@@ -112,7 +112,7 @@ suspend fun View.fadeIn(force: Boolean = false) {
         if (!(isLaidOut || force) || (isVisible && alpha == 1f)) {
             duration = 0
         } else {
-            duration = context.shortAnimTime.toLong()
+            duration = AnimationConfig.getAnimDuration(context.shortAnimTime).toLong()
             interpolator = context.getInterpolator(android.R.interpolator.fast_out_slow_in)
         }
         start()
@@ -130,7 +130,7 @@ suspend fun View.fadeOut(force: Boolean = false, gone: Boolean = false) {
         if (!(isLaidOut || force) || (!isVisible || alpha == 0f)) {
             duration = 0
         } else {
-            duration = context.shortAnimTime.toLong()
+            duration = AnimationConfig.getAnimDuration(context.shortAnimTime).toLong()
             interpolator = context.getInterpolator(android.R.interpolator.fast_out_linear_in)
         }
         start()
@@ -170,7 +170,7 @@ suspend fun View.slideIn(gravity: Int, force: Boolean = false) {
         if (!(isLaidOut || force)) {
             duration = 0
         } else {
-            duration = context.shortAnimTime.toLong()
+            duration = AnimationConfig.getAnimDuration(context.shortAnimTime).toLong()
             interpolator = context.getInterpolator(android.R.interpolator.fast_out_slow_in)
         }
         start()
@@ -194,7 +194,7 @@ suspend fun View.slideOut(gravity: Int, force: Boolean = false, gone: Boolean = 
         if (!(isLaidOut || force)) {
             duration = 0
         } else {
-            duration = context.shortAnimTime.toLong()
+            duration = AnimationConfig.getAnimDuration(context.shortAnimTime).toLong()
             interpolator = context.getInterpolator(android.R.interpolator.fast_out_linear_in)
         }
         start()
