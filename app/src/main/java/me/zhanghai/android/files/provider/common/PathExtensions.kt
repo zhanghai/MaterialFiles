@@ -275,8 +275,9 @@ private fun ClosedByInterruptException.toInterruptedIOException(): InterruptedIO
 }
 
 @Throws(IOException::class)
-fun Path.observe(intervalMillis: Long): PathObservable =
-    (provider as PathObservableProvider).observe(this, intervalMillis)
+fun Path.observe(intervalMillis: Long): PathObservable {
+    return (provider as? PathObservableProvider)?.observe(this, intervalMillis) ?: NoOpPathObservable()
+}
 
 val Path.provider: FileSystemProvider
     get() = fileSystem.provider()
@@ -340,7 +341,7 @@ fun Path.resolveForeign(other: Path): Path {
 
 @Throws(IOException::class)
 fun Path.search(query: String, intervalMillis: Long, listener: (List<Path>) -> Unit) {
-    (provider as Searchable).search(this, query, intervalMillis, listener)
+    (provider as? Searchable)?.search(this, query, intervalMillis, listener) ?: listener(emptyList())
 }
 
 @Throws(IOException::class)
