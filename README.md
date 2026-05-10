@@ -102,7 +102,28 @@ KEY_PASSWORD=... \
 ./gradlew assembleRelease
 ```
 
+### Building with Docker
+
+Use the provided script to build APKs in a consistent environment without installing SDK/NDK locally:
+
+**Debug APK**:
+```bash
+./docker-build.sh debug
+```
+
+**Release APK**:
+```bash
+STORE_FILE=/path/to/your.keystore \
+STORE_PASSWORD=... \
+KEY_ALIAS=... \
+KEY_PASSWORD=... \
+./docker-build.sh release
+```
+
+The output APKs will be available on your local system in `app/build/outputs/apk/...` due to volume mounting.
+
 ### Running in Android Studio
+
 
 1. Open Android Studio and select **File → Open**, then choose this project's root directory.
 2. Wait for Gradle sync to complete (first sync downloads dependencies and compiles NDK code — may take several minutes).
@@ -113,6 +134,18 @@ To install a pre-built APK directly via ADB:
 
 ```bash
 adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+To uninstall the app from a device or emulator:
+
+```bash
+adb uninstall me.zhanghai.android.files
+```
+
+### Testing MediaStore
+
+```bash
+adb push <local_path> /sdcard/Download/
 ```
 
 ### Debugging Crashes

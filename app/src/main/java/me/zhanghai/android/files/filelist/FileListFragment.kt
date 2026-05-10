@@ -583,6 +583,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         updateOverlayToolbar()
         updateBottomToolbar()
         updateSearchMenuItem()
+        updateSpeedDial()
+    }
+
+    private fun updateSpeedDial() {
+        binding.speedDialView.visibility = if (viewModel.currentPath.isMediaStorePath) {
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
     }
 
     private fun updateSearchMenuItem() {
@@ -597,14 +606,18 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun onFileListChanged(stateful: Stateful<List<FileItem>>) {
         val files = stateful.value
         val isSearching = viewModel.searchState.isSearching
+        val isMediaStore = viewModel.currentPath.isMediaStorePath
+        val isScanning = stateful is Loading && isMediaStore && !(files != null && files.isNotEmpty())
         when {
             stateful is Failure -> binding.toolbar.setSubtitle(R.string.error)
+            isScanning -> binding.toolbar.setSubtitle(R.string.file_list_scanning_media)
             stateful is Loading && !isSearching -> binding.toolbar.setSubtitle(R.string.loading)
             else -> binding.toolbar.subtitle = getSubtitle(files!!)
         }
         val hasFiles = !files.isNullOrEmpty()
-        binding.swipeRefreshLayout.isRefreshing = stateful is Loading && (hasFiles || isSearching)
-        binding.progress.fadeToVisibilityUnsafe(stateful is Loading && !(hasFiles || isSearching))
+        binding.swipeRefreshLayout.isRefreshing = stateful is Loading && (hasFiles || isSearching) && !isScanning
+        binding.scanningView.fadeToVisibilityUnsafe(isScanning)
+        binding.progress.fadeToVisibilityUnsafe(stateful is Loading && !(hasFiles || isSearching) && !isScanning)
         binding.errorText.fadeToVisibilityUnsafe(stateful is Failure && !hasFiles)
         val throwable = (stateful as? Failure)?.throwable
         if (throwable != null) {
@@ -1674,6 +1687,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val breadcrumbLayout: BreadcrumbLayout,
         val contentLayout: ViewGroup,
         val progress: ProgressBar,
+        val scanningView: View,
         val errorText: TextView,
         val emptyView: View,
         val swipeRefreshLayout: SwipeRefreshLayout,
@@ -1701,7 +1715,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     includeBinding.persistentBarLayout, appBarBinding.appBarLayout,
                     appBarBinding.toolbar, appBarBinding.overlayToolbar,
                     appBarBinding.breadcrumbLayout, contentBinding.contentLayout,
-                    contentBinding.progress, contentBinding.errorText, contentBinding.emptyView,
+                    contentBinding.progress, contentBinding.scanningView,
+                    contentBinding.errorText, contentBinding.emptyView,
                     contentBinding.swipeRefreshLayout, contentBinding.recyclerView,
                     bottomBarBinding.bottomBarLayout, bottomBarBinding.bottomToolbar,
                     bottomBarBinding.bottomCreateFileNameEdit, speedDialBinding.speedDialView

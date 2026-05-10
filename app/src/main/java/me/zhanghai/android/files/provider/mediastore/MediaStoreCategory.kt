@@ -43,7 +43,9 @@ enum class MediaStoreCategory(
     );
 
     fun getSelection(): String = when (this) {
-        IMAGES, VIDEOS, AUDIO -> "${MediaStore.Files.FileColumns.MEDIA_TYPE} = ?"
+        IMAGES -> "${MediaStore.Files.FileColumns.MEDIA_TYPE} = ?"
+        VIDEOS -> "(${MediaStore.Files.FileColumns.MEDIA_TYPE} = ? OR ${MediaStore.MediaColumns.MIME_TYPE} LIKE ?)"
+        AUDIO -> "${MediaStore.Files.FileColumns.MEDIA_TYPE} = ?"
         DOCUMENTS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             "${MediaStore.Files.FileColumns.MEDIA_TYPE} = ?"
         } else {
@@ -55,7 +57,7 @@ enum class MediaStoreCategory(
 
     fun getSelectionArgs(): Array<String> = when (this) {
         IMAGES -> arrayOf(MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE.toString())
-        VIDEOS -> arrayOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO.toString())
+        VIDEOS -> arrayOf(MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO.toString(), "video%")
         AUDIO -> arrayOf(MediaStore.Files.FileColumns.MEDIA_TYPE_AUDIO.toString())
         DOCUMENTS -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             arrayOf(MEDIA_TYPE_DOCUMENT.toString())
