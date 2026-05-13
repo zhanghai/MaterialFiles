@@ -309,6 +309,9 @@
     <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_select_action_extract" translatable="false">@string/file_item_action_extract</string>
     <string name="file_list_select_action_archive" translatable="false">@string/file_item_action_archive</string>
+    <string name="file_list_select_action_strip_metadata">Strip metadata</string>
+    <string name="file_list_strip_metadata_none">No image files selected</string>
+    <string name="file_list_strip_metadata_result_format">Stripped %1$,d, unchanged %2$,d, failed %3$,d</string>
     <string name="file_list_create_file_name_hint">File name</string>
     <string name="file_list_create_file_name_error_empty" translatable="false">@string/file_name_error_empty</string>
     <string name="file_list_create_file_name_error_invalid" translatable="false">@string/file_name_error_invalid</string>

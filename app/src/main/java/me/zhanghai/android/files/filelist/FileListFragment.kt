@@ -45,12 +45,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import java8.nio.file.Path
 import java8.nio.file.Paths
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
@@ -71,6 +75,7 @@ import me.zhanghai.android.files.file.fileProviderUri
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.filejob.FileJobService
+import me.zhanghai.android.files.filejob.MetadataStripper
 import me.zhanghai.android.files.filelist.FileSortOptions.By
 import me.zhanghai.android.files.filelist.FileSortOptions.Order
 import me.zhanghai.android.files.fileproperties.FilePropertiesDialogFragment
@@ -947,12 +952,48 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 shareFiles(viewModel.selectedFiles)
                 true
             }
+            R.id.action_strip_metadata -> {
+                stripMetadataFromFiles(viewModel.selectedFiles)
+                true
+            }
             R.id.action_select_all -> {
                 selectAllFiles()
                 true
             }
             else -> false
         }
+
+    private fun stripMetadataFromFiles(files: FileItemSet) {
+        val targets = files.filter { fileItem ->
+            fileItem.mimeType.isImage && fileItem.path.isLinuxPath
+        }
+        if (targets.isEmpty()) {
+            showToast(R.string.file_list_strip_metadata_none)
+            viewModel.selectFiles(files, false)
+            return
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                var stripped = 0
+                var unchanged = 0
+                var failed = 0
+                for (fileItem in targets) {
+                    runCatching {
+                        if (MetadataStripper.stripFromFile(fileItem.path.toFile())) stripped++
+                        else unchanged++
+                    }.onFailure { failed++ }
+                }
+                Triple(stripped, unchanged, failed)
+            }
+            showToast(
+                getString(
+                    R.string.file_list_strip_metadata_result_format,
+                    result.first, result.second, result.third
+                )
+            )
+            viewModel.selectFiles(files, false)
+        }
+    }
 
     private fun onOverlayActionModeFinished() {
         viewModel.clearSelectedFiles()

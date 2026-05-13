@@ -53,6 +53,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_strip_metadata"
+        android:orderInCategory="100"
+        android:title="@string/file_list_select_action_strip_metadata"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_select_all"
         android:alphabeticShortcut="a"
         android:orderInCategory="100"
