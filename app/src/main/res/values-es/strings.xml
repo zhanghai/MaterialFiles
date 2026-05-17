@@ -363,7 +363,7 @@
         <item quantity="other">%1$,d elementos, en total %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Última modificación</string>
-    <string name="file_properties_basic_parent_directory">Carpeta Superior</string>
+    <string name="file_properties_basic_parent_directory">Ruta</string>
     <string name="file_properties_basic_archive_file">Archivo</string>
     <string name="file_properties_basic_archive_entry">Entrada de archivo</string>
     <string name="file_properties_basic_free_space">Espacio libre</string>
@@ -648,7 +648,7 @@
     <string name="settings_locale_title">Idioma</string>
     <string name="settings_theme_color_title">Color de tema</string>
     <string name="settings_theme_color_summary">Color que aparece más frecuentemente en la aplicación</string>
-    <string name="settings_material_design_3_title">Diseño Material 3</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Tema oscuro</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir al sistema</item>
@@ -659,7 +659,7 @@
     </string-array>
     <string name="settings_black_night_mode">Usar negro puro</string>
     <string name="settings_file_list_animation_title">Animación en la lista de archivos</string>
-    <string name="settings_file_name_ellipsize_title">En nombres de archivo extensos</string>
+    <string name="settings_file_name_ellipsize_title">Visualización en nombres de archivo largos</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Mostrar la última parte</item>
         <item>Mostrar el principio y el final</item>
@@ -693,7 +693,7 @@
     </string-array>
     <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas de documentos PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Podría hacer que la aplicación se vuelva inestable en versiones antiguas de Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para obtener una miniatura</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para miniaturas</string>
 
     <string name="about_title">Información</string>
     <string name="about_version_title">Versión</string>
