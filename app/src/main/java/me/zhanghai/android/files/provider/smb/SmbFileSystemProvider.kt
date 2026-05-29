@@ -120,7 +120,7 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
                 username = userInfo
                 domain = null
             }
-            val queryUri = decodedQueryByteString?.toString()?.let { Uri.parse(it) }
+            val queryUri = decodedQueryByteString?.toString()?.let { Uri.parse("?$it") }
             val encrypt = queryUri?.getQueryParameter(SmbPath.QUERY_PARAMETER_ENCRYPT)?.toBoolean()
                 ?: Authority.DEFAULT_ENCRYPT
             return Authority(host, port, username, domain, encrypt)
