@@ -532,6 +532,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Voer een gebruikersnaam in</string>
     <string name="storage_edit_smb_server_password">Wachtwoord</string>
     <string name="storage_edit_smb_server_domain">Domein</string>
+    <string name="storage_edit_smb_server_encrypt">SMB-versleuteling</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Schakelt ondersteuning voor SMB3-versleuteling in. Vereist door sommige servers; valt terug op onversleutelde SMB wanneer dit niet wordt ondersteund.</string>
     <string name="storage_edit_smb_server_connect_and_add">Verbinden en toevoegen</string>
     <string name="storage_edit_smb_server_add">Toevoegen</string>
     <string name="storage_edit_webdav_server_title_edit">WebDAV-server bewerken</string>

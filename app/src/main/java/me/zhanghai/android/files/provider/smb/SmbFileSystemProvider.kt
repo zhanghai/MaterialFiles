@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.smb
 
+import android.net.Uri
 import com.hierynomus.msdtyp.AccessMask
 import java8.nio.channels.FileChannel
 import java8.nio.channels.SeekableByteChannel
@@ -33,6 +34,7 @@ import me.zhanghai.android.files.provider.common.Searchable
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable
 import me.zhanghai.android.files.provider.common.WatchServicePathObservable
 import me.zhanghai.android.files.provider.common.decodedPathByteString
+import me.zhanghai.android.files.provider.common.decodedQueryByteString
 import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.common.toCopyOptions
@@ -118,7 +120,10 @@ object SmbFileSystemProvider : FileSystemProvider(), PathObservableProvider, Sea
                 username = userInfo
                 domain = null
             }
-            return Authority(host, port, username, domain)
+            val queryUri = decodedQueryByteString?.toString()?.let { Uri.parse("?$it") }
+            val encrypt = queryUri?.getQueryParameter(SmbPath.QUERY_PARAMETER_ENCRYPT)?.toBoolean()
+                ?: Authority.DEFAULT_ENCRYPT
+            return Authority(host, port, username, domain, encrypt)
         }
 
     @Throws(IOException::class)

@@ -432,6 +432,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Nhập tên người dùng</string>
     <string name="storage_edit_smb_server_password">Mật khẩu</string>
     <string name="storage_edit_smb_server_domain">Miền</string>
+    <string name="storage_edit_smb_server_encrypt">Mã hóa SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Bật hỗ trợ mã hóa SMB3. Một số máy chủ yêu cầu; quay lại SMB không mã hóa khi không được hỗ trợ.</string>
     <string name="storage_edit_smb_server_connect_and_add">Kết nối và thêm</string>
     <string name="storage_edit_smb_server_add">Thêm</string>
     <string name="navigation_storage_subtitle_format">%1$s trống trong số %2$s</string>

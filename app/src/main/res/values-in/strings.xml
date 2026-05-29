@@ -447,6 +447,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Masukkan nama pengguna</string>
     <string name="storage_edit_smb_server_password">Sandi</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_encrypt">Enkripsi SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Mengaktifkan dukungan enkripsi SMB3. Diperlukan oleh beberapa server; kembali ke SMB tanpa enkripsi bila tidak didukung.</string>
     <string name="storage_edit_smb_server_connect_and_add">Sambung dan tambah</string>
     <string name="storage_edit_smb_server_add">Tambah</string>
     <string name="navigation_storage_subtitle_format">%1$s kosong dari %2$s</string>

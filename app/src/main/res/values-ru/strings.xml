@@ -594,6 +594,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Введите имя пользователя</string>
     <string name="storage_edit_smb_server_password">Пароль</string>
     <string name="storage_edit_smb_server_domain">Домен</string>
+    <string name="storage_edit_smb_server_encrypt">Шифрование SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Включает поддержку шифрования SMB3. Требуется некоторыми серверами; при отсутствии поддержки используется незашифрованный SMB.</string>
     <string name="storage_edit_smb_server_connect_and_add">Добавить и соединиться</string>
     <string name="storage_edit_smb_server_add">Добавить</string>
     <string name="storage_edit_webdav_server_title_edit">Редактировать WebDAV сервер</string>

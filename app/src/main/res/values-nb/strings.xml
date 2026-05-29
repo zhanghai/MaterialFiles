@@ -532,6 +532,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Skriv inn et brukernavn</string>
     <string name="storage_edit_smb_server_password">Passord</string>
     <string name="storage_edit_smb_server_domain">Domene</string>
+    <string name="storage_edit_smb_server_encrypt">SMB-kryptering</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Slår på støtte for SMB3-kryptering. Kreves av enkelte tjenere; faller tilbake til ukryptert SMB når det ikke støttes.</string>
     <string name="storage_edit_smb_server_connect_and_add">Koble til og legg til</string>
     <string name="storage_edit_smb_server_add">Legg til</string>
     <string name="storage_edit_webdav_server_title_edit">Rediger WebDAV-tjener</string>

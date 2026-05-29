@@ -188,6 +188,22 @@
                                 android:inputType="textPassword" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
+
+                    <CheckBox
+                        android:id="@+id/encryptCheck"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/storage_edit_smb_server_encrypt"
+                        android:textAppearance="?textAppearanceListItem" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/touch_target_size"
+                        android:text="@string/storage_edit_smb_server_encrypt_summary"
+                        android:textAppearance="?textAppearanceListItemSecondary"
+                        android:textColor="?android:textColorSecondary" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
         </FrameLayout>

@@ -476,6 +476,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Introduïu un nom d\'usuari</string>
     <string name="storage_edit_smb_server_password">Contrasenya</string>
     <string name="storage_edit_smb_server_domain">Domini</string>
+    <string name="storage_edit_smb_server_encrypt">Xifratge SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Activa la compatibilitat amb el xifratge SMB3. El requereixen alguns servidors; recorre a SMB sense xifrar quan no és compatible.</string>
     <string name="storage_edit_smb_server_connect_and_add">Connecta i afegeix</string>
     <string name="storage_edit_smb_server_add">Afegeix</string>
     <string name="storage_edit_webdav_server_title_edit">Edita el servidor WebDAV</string>

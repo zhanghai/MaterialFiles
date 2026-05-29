@@ -506,6 +506,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Introduza um nome de utilizador</string>
     <string name="storage_edit_smb_server_password">Palavra-passe</string>
     <string name="storage_edit_smb_server_domain">Domínio</string>
+    <string name="storage_edit_smb_server_encrypt">Encriptação SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Ativa o suporte à encriptação SMB3. Exigida por alguns servidores; recorre ao SMB sem encriptação quando não é suportada.</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectar e adicionar</string>
     <string name="storage_edit_smb_server_add">Adicionar</string>
     <string name="storage_edit_webdav_server_title_edit">Editar servidor WebDAV</string>

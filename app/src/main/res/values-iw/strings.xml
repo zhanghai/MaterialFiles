@@ -592,6 +592,8 @@
     <string name="storage_edit_smb_server_username_error_empty">הזנת שם משתמש</string>
     <string name="storage_edit_smb_server_password">סיסמה</string>
     <string name="storage_edit_smb_server_domain">שם תחום</string>
+    <string name="storage_edit_smb_server_encrypt">הצפנת SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">מפעיל תמיכה בהצפנת SMB3. נדרש על ידי שרתים מסוימים; חוזר ל-SMB לא מוצפן כשאין תמיכה.</string>
     <string name="storage_edit_smb_server_connect_and_add">התחברות והוספה</string>
     <string name="storage_edit_smb_server_add">הוספה</string>
     <string name="storage_edit_webdav_server_title_edit">עריכת שרת WebDAV</string>

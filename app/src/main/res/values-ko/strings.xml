@@ -502,6 +502,8 @@
     <string name="storage_edit_smb_server_username_error_empty">사용자 이름을 입력하세요</string>
     <string name="storage_edit_smb_server_password">비밀번호</string>
     <string name="storage_edit_smb_server_domain">도메인</string>
+    <string name="storage_edit_smb_server_encrypt">SMB 암호화</string>
+    <string name="storage_edit_smb_server_encrypt_summary">SMB3 암호화 지원을 사용합니다. 일부 서버에서 필요하며, 지원되지 않으면 암호화되지 않은 SMB로 대체됩니다.</string>
     <string name="storage_edit_smb_server_connect_and_add">연결 및 추가</string>
     <string name="storage_edit_smb_server_add">추가</string>
     <string name="storage_edit_webdav_server_title_edit">WebDAV 서버 편집</string>

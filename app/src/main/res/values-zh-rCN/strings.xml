@@ -501,6 +501,8 @@
     <string name="storage_edit_smb_server_username_error_empty">输入用户名</string>
     <string name="storage_edit_smb_server_password">密码</string>
     <string name="storage_edit_smb_server_domain">域</string>
+    <string name="storage_edit_smb_server_encrypt">SMB 加密</string>
+    <string name="storage_edit_smb_server_encrypt_summary">启用 SMB3 加密支持。某些服务器需要；不支持时回退到未加密的 SMB。</string>
     <string name="storage_edit_smb_server_connect_and_add">连接并添加</string>
     <string name="storage_edit_smb_server_add">添加</string>
     <string name="storage_edit_webdav_server_title_edit">编辑 WebDAV 服务器</string>
