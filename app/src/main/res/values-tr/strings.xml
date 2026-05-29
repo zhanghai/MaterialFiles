@@ -441,6 +441,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Bir kullanıcı adı gir</string>
     <string name="storage_edit_smb_server_password">Şifre</string>
     <string name="storage_edit_smb_server_domain">Alan adı</string>
+    <string name="storage_edit_smb_server_encrypt">SMB şifrelemesi</string>
+    <string name="storage_edit_smb_server_encrypt_summary">SMB3 şifreleme desteğini etkinleştirir. Bazı sunucular tarafından gereklidir; desteklenmediğinde şifrelenmemiş SMB\'ye geri döner.</string>
     <string name="storage_edit_smb_server_connect_and_add">Bağlan ve ekle</string>
     <string name="storage_edit_smb_server_add">Ekle</string>
     <string name="navigation_storage_subtitle_format">%2$s alandan %1$s boş</string>

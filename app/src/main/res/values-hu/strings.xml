@@ -466,6 +466,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Adjon meg egy felhasználónevet</string>
     <string name="storage_edit_smb_server_password">Jelszót</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_encrypt">SMB-titkosítás</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Bekapcsolja az SMB3-titkosítás támogatását. Egyes kiszolgálók megkövetelik; ha nem támogatott, visszavált a titkosítatlan SMB-re.</string>
     <string name="storage_edit_smb_server_connect_and_add">Kapcsolódás és hozzáadás</string>
     <string name="storage_edit_smb_server_add">Hozzáadás</string>
     <string name="navigation_storage_subtitle_format">%1$s szabad ennyiből: %2$s</string>

@@ -652,6 +652,8 @@
     <string name="storage_edit_smb_server_username_error_empty">أدخل اسم مستخدم</string>
     <string name="storage_edit_smb_server_password">كلمة المرور</string>
     <string name="storage_edit_smb_server_domain">دومين</string>
+    <string name="storage_edit_smb_server_encrypt">تشفير SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">تفعيل دعم تشفير SMB3. مطلوب من بعض الخوادم، ويعود إلى SMB غير المشفّر عند عدم دعمه.</string>
     <string name="storage_edit_smb_server_connect_and_add">قم بالاتصال والإضافة</string>
     <string name="storage_edit_smb_server_add">إضافة</string>
     <string name="storage_edit_webdav_server_title_edit">تعديل خادم WebDAV</string>

@@ -524,6 +524,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Įvesti naudotojo vardą</string>
     <string name="storage_edit_smb_server_password">Slaptažodis</string>
     <string name="storage_edit_smb_server_domain">Domenas</string>
+    <string name="storage_edit_smb_server_encrypt">SMB šifravimas</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Įjungia SMB3 šifravimo palaikymą. Reikalingas kai kuriems serveriams; jei nepalaikoma, grįžtama prie nešifruoto SMB.</string>
     <string name="storage_edit_smb_server_connect_and_add">Prisijungti ir pridėti</string>
     <string name="storage_edit_smb_server_add">Pridėti</string>
     <string name="navigation_storage_subtitle_format">%1$s laisva iš %2$s</string>

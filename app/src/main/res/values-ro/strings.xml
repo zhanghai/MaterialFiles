@@ -503,6 +503,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Introdu un nume de utilizator</string>
     <string name="storage_edit_smb_server_password">Parolă</string>
     <string name="storage_edit_smb_server_domain">Domeniu</string>
+    <string name="storage_edit_smb_server_encrypt">Criptare SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Activează suportul pentru criptarea SMB3. Necesară pentru unele servere; revine la SMB necriptat când nu este acceptată.</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectează și adaugă</string>
     <string name="storage_edit_smb_server_add">Adaugă</string>
     <string name="navigation_storage_subtitle_format">%1$s liber din %2$s</string>

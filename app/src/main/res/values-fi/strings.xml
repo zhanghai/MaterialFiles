@@ -451,6 +451,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Syötä käyttäjänimi</string>
     <string name="storage_edit_smb_server_password">Salasana</string>
     <string name="storage_edit_smb_server_domain">Domain</string>
+    <string name="storage_edit_smb_server_encrypt">SMB-salaus</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Ottaa käyttöön SMB3-salauksen tuen. Jotkin palvelimet vaativat sen; palaa salaamattomaan SMB-yhteyteen, jos sitä ei tueta.</string>
     <string name="storage_edit_smb_server_connect_and_add">Yhdistä ja lisää</string>
     <string name="storage_edit_smb_server_add">Lisää</string>
     <string name="navigation_storage_subtitle_format">%1$s/%2$s vapaana</string>

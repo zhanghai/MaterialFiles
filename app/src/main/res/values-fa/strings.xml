@@ -462,6 +462,8 @@
     <string name="storage_edit_smb_server_username_error_empty">یک نام کاربری وارد کنید</string>
     <string name="storage_edit_smb_server_password">گذرواژه</string>
     <string name="storage_edit_smb_server_domain">دامنه</string>
+    <string name="storage_edit_smb_server_encrypt">رمزگذاری SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">پشتیبانی از رمزگذاری SMB3 را فعال می‌کند. برخی سرورها به آن نیاز دارند؛ در صورت پشتیبانی‌نشدن، به SMB بدون رمزگذاری بازمی‌گردد.</string>
     <string name="storage_edit_smb_server_connect_and_add">اتّصال و افزودن</string>
     <string name="storage_edit_smb_server_add">افزودن</string>
     <string name="navigation_storage_subtitle_format">%1$s آزاد از %2$s</string>

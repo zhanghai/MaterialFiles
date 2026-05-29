@@ -564,6 +564,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Entrer un nom d\'utilisateur</string>
     <string name="storage_edit_smb_server_password">Mot de passe</string>
     <string name="storage_edit_smb_server_domain">Domaine</string>
+    <string name="storage_edit_smb_server_encrypt">Chiffrement SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Active la prise en charge du chiffrement SMB3. Requis par certains serveurs ; revient au SMB non chiffré lorsqu\'il n\'est pas pris en charge.</string>
     <string name="storage_edit_smb_server_connect_and_add">Connecter et ajouter</string>
     <string name="storage_edit_smb_server_add">Ajouter</string>
     <string name="storage_edit_webdav_server_title_edit">Modifier le serveur WebDAV</string>

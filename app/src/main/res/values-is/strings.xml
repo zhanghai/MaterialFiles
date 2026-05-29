@@ -534,6 +534,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Settu inn notandanafn</string>
     <string name="storage_edit_smb_server_password">Lykilorð</string>
     <string name="storage_edit_smb_server_domain">Lén</string>
+    <string name="storage_edit_smb_server_encrypt">SMB-dulkóðun</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Virkjar stuðning við SMB3-dulkóðun. Sumir netþjónar krefjast hennar; fellur aftur í ódulkóðað SMB þegar það er ekki stutt.</string>
     <string name="storage_edit_smb_server_connect_and_add">Tengjast og bæta við</string>
     <string name="storage_edit_smb_server_add">Bæta við</string>
     <string name="storage_edit_webdav_server_title_edit">Breyta WebDAV-þjóni</string>

@@ -502,6 +502,8 @@
     <string name="storage_edit_smb_server_username_error_empty">ユーザー名を入力してください</string>
     <string name="storage_edit_smb_server_password">パスワード</string>
     <string name="storage_edit_smb_server_domain">ドメイン</string>
+    <string name="storage_edit_smb_server_encrypt">SMB 暗号化</string>
+    <string name="storage_edit_smb_server_encrypt_summary">SMB3 暗号化のサポートを有効にします。一部のサーバーで必要です。対応していない場合は暗号化なしの SMB にフォールバックします。</string>
     <string name="storage_edit_smb_server_connect_and_add">接続して追加</string>
     <string name="storage_edit_smb_server_add">追加</string>
     <string name="storage_edit_webdav_server_title_edit">WebDAV サーバーを編集</string>

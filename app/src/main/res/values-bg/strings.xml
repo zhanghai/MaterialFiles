@@ -520,6 +520,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Въведете потребителско име</string>
     <string name="storage_edit_smb_server_password">Парола</string>
     <string name="storage_edit_smb_server_domain">Домейн</string>
+    <string name="storage_edit_smb_server_encrypt">SMB шифроване</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Включва поддръжка на SMB3 шифроване. Изисква се от някои сървъри; връща се към нешифрован SMB, когато не се поддържа.</string>
     <string name="storage_edit_smb_server_connect_and_add">Свързване и добавяне</string>
     <string name="storage_edit_smb_server_add">Добавяне</string>
     <string name="storage_edit_webdav_server_title_edit">Променяне на сървър за WebDAV</string>

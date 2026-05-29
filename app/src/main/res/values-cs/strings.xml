@@ -564,6 +564,8 @@
     <string name="storage_edit_smb_server_username_error_empty">Vložit uživatelské jméno</string>
     <string name="storage_edit_smb_server_password">Heslo</string>
     <string name="storage_edit_smb_server_domain">Doména</string>
+    <string name="storage_edit_smb_server_encrypt">Šifrování SMB</string>
+    <string name="storage_edit_smb_server_encrypt_summary">Zapne podporu šifrování SMB3. Vyžadováno některými servery; pokud není podporováno, použije se nešifrované SMB.</string>
     <string name="storage_edit_smb_server_connect_and_add">Připojit se a přidat</string>
     <string name="storage_edit_smb_server_add">Přidat</string>
     <string name="storage_edit_webdav_server_title_edit">Upravit server WebDAV</string>
