@@ -5,6 +5,7 @@
 
 package me.zhanghai.android.files.provider.smb
 
+import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
 import java8.nio.file.FileSystem
@@ -17,6 +18,7 @@ import java8.nio.file.WatchService
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringListPath
 import me.zhanghai.android.files.provider.common.UriAuthority
+import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.smb.client.Authority
 import me.zhanghai.android.files.provider.smb.client.Client
 import me.zhanghai.android.files.util.readParcelable
@@ -51,6 +53,15 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
 
     override val uriAuthority: UriAuthority
         get() = fileSystem.authority.toUriAuthority()
+
+    override val uriQuery: ByteString?
+        get() =
+            Uri.Builder().apply {
+                val authority = fileSystem.authority
+                if (authority.encrypt != Authority.DEFAULT_ENCRYPT) {
+                    appendQueryParameter(QUERY_PARAMETER_ENCRYPT, authority.encrypt.toString())
+                }
+            }.build().query?.toByteString()
 
     override val defaultDirectory: SmbPath
         get() = fileSystem.defaultDirectory
@@ -137,6 +148,8 @@ internal class SmbPath : ByteStringListPath<SmbPath>, Client.Path {
 
             override fun newArray(size: Int): Array<SmbPath?> = arrayOfNulls(size)
         }
+
+        const val QUERY_PARAMETER_ENCRYPT = "encrypt"
     }
 }
 
