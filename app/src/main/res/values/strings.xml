@@ -613,6 +613,10 @@
     <string name="storage_edit_sftp_server_private_key_password_error_invalid">Invalid private key password</string>
     <string name="storage_edit_sftp_server_connect_and_add">Connect and add</string>
     <string name="storage_edit_sftp_server_add">Add</string>
+    <string name="storage_sftp_host_key_changed_title">SFTP host key changed</string>
+    <string name="storage_sftp_host_key_changed_message_format">The host key for %1$s has changed. This may indicate a man-in-the-middle attack. Only trust the new key if you expected this change.</string>
+    <string name="storage_sftp_host_key_changed_message_with_keys_format">The host key for %1$s has changed. This may indicate a man-in-the-middle attack. Only trust the new key if you expected this change.\n\nOld key:\n%2$s\n\nNew key:\n%3$s</string>
+    <string name="storage_sftp_host_key_changed_trust">Trust</string>
     <string name="storage_add_lan_smb_server_title" translatable="false">@string/storage_edit_smb_server_title_add</string>
     <string name="storage_add_lan_smb_server_loading">Searching for SMB servers…</string>
     <string name="storage_add_lan_smb_server_add">Add manually</string>
