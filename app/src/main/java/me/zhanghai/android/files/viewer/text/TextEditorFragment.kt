@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.viewer.text
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,8 +15,11 @@ import android.view.MenuItem
 import android.view.SubMenu
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.widget.NestedScrollView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -25,6 +29,9 @@ import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.databinding.TextEditorFragmentBinding
+import me.zhanghai.android.files.file.MimeType
+import me.zhanghai.android.files.file.PreviewType
+import me.zhanghai.android.files.file.PreviewableFileDetector
 import me.zhanghai.android.files.ui.ThemedFastScroller
 import me.zhanghai.android.files.util.ActionState
 import me.zhanghai.android.files.util.DataState
@@ -40,7 +47,7 @@ import me.zhanghai.android.files.util.viewModels
 import java.nio.charset.Charset
 
 class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
-    ConfirmCloseDialogFragment.Listener {
+    ConfirmCloseDialogFragment.Listener, ConfirmLargeFileDialogFragment.Listener {
     private val args by args<Args>()
     private lateinit var argsFile: Path
 
@@ -53,6 +60,14 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     private lateinit var onBackPressedCallback: OnBackPressedCallback
 
     private var isSettingText = false
+
+    private var isPreviewMode = false
+
+    private var previewWebViewInitialized = false
+
+    private var previewRenderer: PreviewRenderer? = null
+
+    private var currentText: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +91,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             launch { viewModel.textState.collect { onTextStateChanged(it) } }
             launch { viewModel.isTextChanged.collect { onIsTextChangedChanged(it) } }
             launch { viewModel.writeFileState.collect { onWriteFileStateChanged(it) } }
+            launch { viewModel.largeFileSize.collect { onLargeFileSizeChanged(it) } }
         }
     }
 
@@ -93,7 +109,6 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
 
         val argsFile = args.intent.extraPath
         if (argsFile == null) {
-            // TODO: Show a toast.
             finish()
             return
         }
@@ -105,10 +120,16 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
 
-        // TODO: Move reload-prevent here so that we can also handle save-as, etc. Or maybe just get
-        //  rid of the mPathLiveData in TextEditorViewModel.
+        initPreviewWebView()
+
+        binding.lineNumberView.editText = binding.textEdit
+        binding.scrollView.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+                binding.lineNumberView.setScrollOffset(scrollY)
+            }
+        )
+
         ThemedFastScroller.create(binding.scrollView)
-        // Manually save and restore state in view model to avoid TransactionTooLargeException.
         binding.textEdit.isSaveEnabled = false
         val textEditSavedState = viewModel.removeEditTextSavedState()
         if (textEditSavedState != null) {
@@ -118,14 +139,15 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             if (isSettingText) {
                 return@doAfterTextChanged
             }
-            // Might happen if the animation is running and user is quick enough.
             if (viewModel.textState.value !is DataState.Success) {
                 return@doAfterTextChanged
             }
             viewModel.isTextChanged.value = true
         }
 
-        // TODO: Request storage permission if not granted.
+        if (args.startInPreview) {
+            showPreviewMode()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -143,12 +165,17 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
 
+        updatePreviewToggleMenuItem()
         updateSaveMenuItem()
         updateEncodingMenuItems()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
+            R.id.action_preview_edit_toggle -> {
+                togglePreviewMode()
+                true
+            }
             R.id.action_save -> {
                 save()
                 true
@@ -176,6 +203,82 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         requireActivity().finish()
     }
 
+    private fun initPreviewWebView() {
+        val webView = binding.previewWebView
+        val webViewClient = PreviewWebViewClient(
+            onPageLoaded = {
+                previewRenderer?.onReady()
+                renderCurrentContent()
+            }
+        )
+        webView.webViewClient = webViewClient
+        webView.settings.javaScriptEnabled = true
+        webView.settings.allowFileAccess = true
+        webView.settings.allowContentAccess = true
+        webView.loadUrl("file:///android_asset/preview/preview.html")
+        previewRenderer = PreviewRenderer(webView)
+        previewWebViewInitialized = true
+    }
+
+    private fun showPreviewMode() {
+        isPreviewMode = true
+        binding.scrollView.visibility = View.GONE
+        binding.webViewContainer.visibility = View.VISIBLE
+        binding.lineNumberView.visibility = View.GONE
+        renderCurrentContent()
+        requireActivity().invalidateOptionsMenu()
+    }
+
+    private fun showEditMode() {
+        isPreviewMode = false
+        binding.webViewContainer.visibility = View.GONE
+        binding.scrollView.visibility = View.VISIBLE
+        binding.lineNumberView.visibility = View.VISIBLE
+        requireActivity().invalidateOptionsMenu()
+    }
+
+    private fun togglePreviewMode() {
+        if (isPreviewMode) {
+            showEditMode()
+        } else {
+            showPreviewMode()
+        }
+    }
+
+    private fun renderCurrentContent() {
+        val text = currentText ?: return
+        val renderer = previewRenderer ?: return
+        val path = argsFile
+        val previewType = PreviewableFileDetector.getPreviewType(path)
+        val language = PreviewableFileDetector.getHighlightLanguage(path)
+        val theme = getCurrentTheme()
+        renderer.render(previewType, text, language, theme)
+    }
+
+    private fun getCurrentTheme(): String {
+        return when (AppCompatDelegate.getDefaultNightMode()) {
+            AppCompatDelegate.MODE_NIGHT_YES -> "dark"
+            AppCompatDelegate.MODE_NIGHT_NO -> "light"
+            else -> {
+                val uiMode = resources.configuration.uiMode and
+                    android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                if (uiMode == android.content.res.Configuration.UI_MODE_NIGHT_YES) "dark" else "light"
+            }
+        }
+    }
+
+    private fun updatePreviewToggleMenuItem() {
+        if (!this::menuBinding.isInitialized) {
+            return
+        }
+        menuBinding.previewToggleItem.isVisible = true
+        menuBinding.previewToggleItem.title = if (isPreviewMode) {
+            getString(R.string.file_viewer_editor_action_edit)
+        } else {
+            getString(R.string.file_viewer_editor_action_preview)
+        }
+    }
+
     private fun onEncodingChanged(encoding: Charset) {
         updateEncodingMenuItems()
     }
@@ -201,9 +304,14 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
             is DataState.Success -> {
                 binding.progress.fadeOutUnsafe()
                 binding.errorText.fadeOutUnsafe()
-                binding.textEdit.fadeInUnsafe()
                 if (!viewModel.isTextChanged.value) {
                     setText(state.data)
+                }
+                currentText = state.data
+                if (isPreviewMode) {
+                    renderCurrentContent()
+                } else {
+                    binding.textEdit.fadeInUnsafe()
                 }
             }
             is DataState.Error -> {
@@ -221,6 +329,7 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         binding.textEdit.setText(text)
         isSettingText = false
         viewModel.isTextChanged.value = false
+        binding.lineNumberView.post { binding.lineNumberView.invalidate() }
     }
 
     private fun onIsTextChangedChanged(changed: Boolean) {
@@ -252,6 +361,26 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
         viewModel.reload()
     }
 
+    override fun loadLargeFile() {
+        viewModel.loadLargeFile()
+    }
+
+    private fun onLargeFileSizeChanged(size: Long?) {
+        if (size != null && size > 0) {
+            ConfirmLargeFileDialogFragment.show(this, formatFileSize(size))
+        }
+    }
+
+    private fun formatFileSize(bytes: Long): String {
+        val mb = bytes.toDouble() / (1024 * 1024)
+        return if (mb >= 1.0) {
+            String.format("%.1f MB", mb)
+        } else {
+            val kb = bytes.toDouble() / 1024
+            String.format("%.0f KB", kb)
+        }
+    }
+
     private fun save() {
         val text = binding.textEdit.text.toString()
         viewModel.writeFile(argsFile, text, requireContext())
@@ -265,7 +394,6 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                 viewModel.finishWritingFile()
                 viewModel.isTextChanged.value = false
             }
-            // The error will be toasted by service so we should never show it in UI.
             is ActionState.Error -> viewModel.finishWritingFile()
         }
     }
@@ -278,10 +406,11 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     }
 
     @Parcelize
-    class Args(val intent: Intent) : ParcelableArgs
+    class Args(val intent: Intent, val startInPreview: Boolean = false) : ParcelableArgs
 
     private class MenuBinding private constructor(
         val menu: Menu,
+        val previewToggleItem: MenuItem,
         val saveItem: MenuItem,
         val encodingSubMenu: SubMenu
     ) {
@@ -290,12 +419,16 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
                 inflater.inflate(R.menu.text_editor, menu)
                 val encodingSubMenu = menu.findItem(R.id.action_encoding).subMenu!!
                 for ((charsetName, charset) in Charset.availableCharsets()) {
-                    // HACK: Use titleCondensed to store charset name.
                     encodingSubMenu.add(Menu.NONE, Menu.FIRST, Menu.NONE, charset.displayName())
                         .titleCondensed = charsetName
                 }
                 encodingSubMenu.setGroupCheckable(Menu.NONE, true, true)
-                return MenuBinding(menu, menu.findItem(R.id.action_save), encodingSubMenu)
+                return MenuBinding(
+                    menu,
+                    menu.findItem(R.id.action_preview_edit_toggle),
+                    menu.findItem(R.id.action_save),
+                    encodingSubMenu
+                )
             }
         }
     }

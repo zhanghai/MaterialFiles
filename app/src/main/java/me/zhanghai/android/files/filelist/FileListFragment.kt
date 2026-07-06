@@ -65,6 +65,7 @@ import me.zhanghai.android.files.databinding.FileListFragmentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentSpeedDialIncludeBinding
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
+import me.zhanghai.android.files.file.PreviewableFileDetector
 import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.file.extension
 import me.zhanghai.android.files.file.fileProviderUri
@@ -130,6 +131,7 @@ import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 import me.zhanghai.android.files.util.withChooser
 import me.zhanghai.android.files.viewer.image.ImageViewerActivity
+import me.zhanghai.android.files.viewer.text.FileViewerEditorActivity
 import kotlin.math.roundToInt
 
 class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.Listener,
@@ -894,6 +896,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             menu.findItem(R.id.action_extract).isVisible = areAllFilesArchiveFiles
             val isCurrentPathReadOnly = viewModel.currentPath.fileSystem.isReadOnly
             menu.findItem(R.id.action_archive).isVisible = !isCurrentPathReadOnly
+            val areAllFilesPreviewable = files.isNotEmpty() && files.all {
+                PreviewableFileDetector.isPreviewable(it.path)
+            }
+            menu.findItem(R.id.action_preview).isVisible = areAllFilesPreviewable
         }
         if (!overlayActionMode.isActive) {
             binding.appBarLayout.setExpanded(true)
@@ -945,6 +951,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             }
             R.id.action_share -> {
                 shareFiles(viewModel.selectedFiles)
+                true
+            }
+            R.id.action_preview -> {
+                previewSelectedFiles()
                 true
             }
             R.id.action_select_all -> {
@@ -1176,6 +1186,18 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             )
         }
         viewModel.clearPasteState()
+    }
+
+    private fun previewSelectedFiles() {
+        val files = viewModel.selectedFiles.toList()
+        if (files.isEmpty()) return
+        val previewableFiles = files.filter { PreviewableFileDetector.isPreviewable(it.path) }
+        if (previewableFiles.isEmpty()) return
+        val paths = previewableFiles.map { it.path }
+        var position = 0
+        val intent = FileViewerEditorActivity::class.createIntent()
+        FileViewerEditorActivity.putExtras(intent, paths, position)
+        startActivitySafe(intent)
     }
 
     private fun makePathListForJob(files: FileItemSet): List<Path> =

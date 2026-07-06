@@ -58,7 +58,61 @@ private val extensionToMimeTypeOverrideMap = mapOf(
     "log" to "text/plain",
     "prop" to "text/plain",
     "properties" to "text/plain",
-    "rc" to "text/plain"
+    "rc" to "text/plain",
+    "md" to "text/markdown",
+    "markdown" to "text/markdown",
+    "mdown" to "text/markdown",
+    "kt" to "text/x-kotlin",
+    "ktm" to "text/x-kotlin",
+    "kts" to "text/x-kotlin",
+    "gradle" to "text/x-gradle",
+    "gradle.kts" to "text/x-kotlin",
+    "jsx" to "text/jsx",
+    "tsx" to "text/typescript",
+    "mjs" to "application/javascript",
+    "cjs" to "application/javascript",
+    "scss" to "text/x-scss",
+    "sass" to "text/x-sass",
+    "less" to "text/x-less",
+    "styl" to "text/x-stylus",
+    "toml" to "text/toml",
+    "php" to "text/x-php",
+    "rb" to "text/x-ruby",
+    "go" to "text/x-go",
+    "rs" to "text/x-rust",
+    "swift" to "text/x-swift",
+    "c" to "text/x-c",
+    "cpp" to "text/x-c++",
+    "cxx" to "text/x-c++",
+    "h" to "text/x-c",
+    "hpp" to "text/x-c++",
+    "sql" to "text/x-sql",
+    "r" to "text/x-r",
+    "m" to "text/x-objective-c",
+    "mm" to "text/x-objective-c",
+    "pl" to "text/x-perl",
+    "pm" to "text/x-perl",
+    "lua" to "text/x-lua",
+    "dart" to "text/x-dart",
+    "groovy" to "text/x-groovy",
+    "bat" to "text/x-bat",
+    "cmd" to "text/x-bat",
+    "ps1" to "text/x-powershell",
+    "psm1" to "text/x-powershell",
+    "diff" to "text/x-diff",
+    "patch" to "text/x-diff",
+    "proto" to "text/x-protobuf",
+    "graphql" to "text/x-graphql",
+    "gql" to "text/x-graphql",
+    "dockerfile" to "text/x-dockerfile",
+    "makefile" to "text/x-makefile",
+    "cmake" to "text/x-cmake",
+    "editorconfig" to "text/plain",
+    "gitignore" to "text/plain",
+    "gitattributes" to "text/plain",
+    "asc" to "text/plain",
+    "nfo" to "text/plain",
+    "env" to "text/plain"
 ).mapValues { it.value.asMimeType() }
 
 fun MimeType.Companion.forSpecialPosixFileType(type: PosixFileType): MimeType? =
@@ -97,7 +151,64 @@ private val mimeTypeToIntentMimeTypeMap = listOf(
     MimeType.GENERIC.value to MimeType.ANY.value
 ).associate { it.first.asMimeType() to it.second.asMimeType() }
 
-val Collection<MimeType>.intentType: String
+val MimeType.isPreviewable: Boolean
+    get() = this in previewableMimeTypes
+
+private val previewableMimeTypes = listOf(
+    "text/markdown",
+    "text/x-kotlin",
+    "text/x-gradle",
+    "text/x-python",
+    "text/x-php",
+    "text/x-ruby",
+    "text/x-go",
+    "text/x-rust",
+    "text/x-swift",
+    "text/x-c",
+    "text/x-c++",
+    "text/x-objective-c",
+    "text/x-perl",
+    "text/x-lua",
+    "text/x-dart",
+    "text/x-groovy",
+    "text/x-bat",
+    "text/x-powershell",
+    "text/x-diff",
+    "text/x-protobuf",
+    "text/x-graphql",
+    "text/x-dockerfile",
+    "text/x-makefile",
+    "text/x-cmake",
+    "text/x-java",
+    "text/x-php",
+    "text/x-asm",
+    "text/x-csharp",
+    "text/x-sql",
+    "text/x-r",
+    "text/x-scss",
+    "text/x-sass",
+    "text/x-less",
+    "text/x-stylus",
+    "text/toml",
+    "text/jsx",
+    "text/typescript",
+    "application/javascript",
+    "application/json",
+    "application/typescript",
+    "application/x-sh",
+    "application/x-shellscript",
+    "application/yaml",
+    "application/xml",
+    "application/ecmascript"
+).map { it.asMimeType() }.toSet()
+
+val MimeType.isMarkdown: Boolean
+    get() = this == "text/markdown".asMimeType()
+
+val MimeType.isCode: Boolean
+    get() = isPreviewable && !isMarkdown && this != MimeType.TEXT_PLAIN
+
+private val Collection<MimeType>.intentType: String
     get() {
         if (isEmpty()) {
             return MimeType.ANY.value
