@@ -708,6 +708,14 @@
     <string name="text_editor_encoding">Encoding</string>
     <string name="text_editor_close_message">Are you sure you want to discard unsaved changes to this document?</string>
 
+    <string name="file_viewer_editor_title">Preview</string>
+    <string name="file_viewer_editor_subtitle_format">%1$,d/%2$,d</string>
+    <string name="file_viewer_editor_action_preview">Preview</string>
+    <string name="file_viewer_editor_action_edit">Edit</string>
+    <string name="file_viewer_editor_large_file_title">Large file</string>
+    <string name="file_viewer_editor_large_file_message_format">This file is %1$s. Load anyway?</string>
+    <string name="file_viewer_editor_large_file_load">Load anyway</string>
+
     <string name="ftp_server_title">FTP server</string>
     <string name="ftp_server_state_title">Status</string>
     <string name="ftp_server_state_summary_starting">Starting…</string>

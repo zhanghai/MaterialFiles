@@ -8,3 +8,5 @@
 /signing.properties
 .DS_Store
 *.iml
+/.ssh-keys
+/thoughts/

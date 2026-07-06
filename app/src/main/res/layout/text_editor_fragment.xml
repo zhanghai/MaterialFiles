@@ -51,7 +51,18 @@
             android:visibility="gone"
             app:drawableTopCompat="@drawable/error_icon_240dp" />
 
-        <!-- TODO: Use a WebView for large amount of text. -->
+        <FrameLayout
+            android:id="@+id/webViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <WebView
+                android:id="@+id/previewWebView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
         <me.zhanghai.android.fastscroll.FastScrollNestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
@@ -59,18 +70,32 @@
             android:clipToPadding="false"
             android:fillViewport="true">
 
-            <me.zhanghai.android.files.ui.ScrollingChildEditText
-                android:id="@+id/textEdit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/screen_edge_margin"
-                android:background="@null"
-                android:gravity="top"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                android:textAppearance="?textAppearanceListItemSecondary">
-                <requestFocus />
-            </me.zhanghai.android.files.ui.ScrollingChildEditText>
+                android:orientation="horizontal">
+
+                <me.zhanghai.android.files.ui.LineNumberView
+                    android:id="@+id/lineNumberView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/screen_edge_margin"
+                    android:visibility="gone" />
+
+                <me.zhanghai.android.files.ui.ScrollingChildEditText
+                    android:id="@+id/textEdit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/screen_edge_margin"
+                    android:background="@null"
+                    android:gravity="top"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:textAppearance="?textAppearanceListItemSecondary">
+                    <requestFocus />
+                </me.zhanghai.android.files.ui.ScrollingChildEditText>
+            </LinearLayout>
         </me.zhanghai.android.fastscroll.FastScrollNestedScrollView>
     </me.zhanghai.android.files.ui.CoordinatorScrollingFrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -44,19 +44,48 @@ class TextEditorViewModel(file: Path) : ViewModel() {
     private var loadJob: Job? = null
     private var reloadJob: Job? = null
 
+    private var forceLargeFile = false
+
+    private val _largeFileSize = MutableStateFlow<Long?>(null)
+    val largeFileSize = _largeFileSize.asStateFlow()
+
     init {
         viewModelScope.launch {
             _file.collectLatest {
                 loadJob?.cancel()?.also { loadJob = null }
                 reloadJob?.cancel()?.also { reloadJob = null }
                 loadJob = launch {
-                    mapFileToBytesState(it)
+                    checkFileAndLoad(it)
                     if (isActive) {
                         loadJob = null
                     }
                 }
             }
         }
+    }
+
+    private suspend fun checkFileAndLoad(file: Path) {
+        _largeFileSize.value = null
+        if (forceLargeFile) {
+            mapFileToBytesState(file)
+            return
+        }
+        val size = try {
+            runInterruptible(Dispatchers.IO) { file.size() }
+        } catch (e: Exception) {
+            mapFileToBytesState(file)
+            return
+        }
+        if (size > WARN_FILE_SIZE && size <= MAX_FILE_SIZE) {
+            _largeFileSize.value = size
+        } else {
+            mapFileToBytesState(file)
+        }
+    }
+
+    fun loadLargeFile() {
+        forceLargeFile = true
+        reload()
     }
 
     fun reload() {
@@ -146,8 +175,6 @@ class TextEditorViewModel(file: Path) : ViewModel() {
                 _writeFileState.value = if (successful) {
                     ActionState.Success(argument, Unit)
                 } else {
-                    // The error will be toasted by service so we should never show it in UI, but we
-                    // need a non-null value here.
                     ActionState.Error(argument, Throwable())
                 }
             }
@@ -174,6 +201,7 @@ class TextEditorViewModel(file: Path) : ViewModel() {
     }
 
     companion object {
-        private const val MAX_FILE_SIZE = 1024 * 1024.toLong()
+        private val WARN_FILE_SIZE = 1024 * 1024
+        private val MAX_FILE_SIZE = 5 * 1024 * 1024
     }
 }

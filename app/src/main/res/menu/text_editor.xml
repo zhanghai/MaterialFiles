@@ -11,6 +11,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <item
+        android:id="@+id/action_preview_edit_toggle"
+        android:icon="@drawable/eye_icon"
+        android:orderInCategory="50"
+        android:title="@string/file_viewer_editor_action_edit"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
         android:id="@+id/action_save"
         android:icon="@drawable/save_icon_control_normal_24dp"
         android:orderInCategory="100"

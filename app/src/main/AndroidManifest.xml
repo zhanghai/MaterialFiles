@@ -336,6 +336,52 @@
         </activity>
 
         <activity
+            android:name="me.zhanghai.android.files.viewer.text.FileViewerEditorActivity"
+            android:exported="true"
+            android:label="@string/file_viewer_editor_title"
+            android:theme="@style/Theme.MaterialFiles">
+            <intent-filter tools:ignore="AppLinkUrlError">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/markdown" />
+                <data android:mimeType="text/x-kotlin" />
+                <data android:mimeType="text/x-python" />
+                <data android:mimeType="text/x-go" />
+                <data android:mimeType="text/x-rust" />
+                <data android:mimeType="text/x-java" />
+                <data android:mimeType="text/x-c" />
+                <data android:mimeType="text/x-c++" />
+                <data android:mimeType="text/x-swift" />
+                <data android:mimeType="text/x-ruby" />
+                <data android:mimeType="text/x-php" />
+                <data android:mimeType="text/x-sql" />
+                <data android:mimeType="text/x-dart" />
+                <data android:mimeType="text/x-groovy" />
+                <data android:mimeType="text/x-perl" />
+                <data android:mimeType="text/x-lua" />
+                <data android:mimeType="text/x-objective-c" />
+                <data android:mimeType="text/x-bat" />
+                <data android:mimeType="text/x-powershell" />
+                <data android:mimeType="text/x-diff" />
+                <data android:mimeType="text/x-protobuf" />
+                <data android:mimeType="text/x-graphql" />
+                <data android:mimeType="text/x-dockerfile" />
+                <data android:mimeType="text/x-makefile" />
+                <data android:mimeType="text/x-cmake" />
+                <data android:mimeType="text/x-asm" />
+                <data android:mimeType="text/x-csharp" />
+                <data android:mimeType="text/x-r" />
+                <data android:mimeType="text/x-scss" />
+                <data android:mimeType="text/x-sass" />
+                <data android:mimeType="text/x-less" />
+                <data android:mimeType="text/x-stylus" />
+                <data android:mimeType="text/toml" />
+                <data android:mimeType="text/jsx" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="me.zhanghai.android.files.viewer.image.ImageViewerActivity"
             android:exported="true"
             android:label="@string/image_viewer_title"

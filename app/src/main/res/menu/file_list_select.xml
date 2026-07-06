@@ -53,6 +53,12 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_preview"
+        android:orderInCategory="100"
+        android:title="@string/file_viewer_editor_action_preview"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_select_all"
         android:alphabeticShortcut="a"
         android:orderInCategory="100"

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" id="theme-css" href="github-light.css">
+<style>
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0d1117;
+        --fg: #c9d1d9;
+        --pre-bg: #161b22;
+        --inline-code-bg: rgba(240,246,252,0.15);
+        --border: #30363d;
+        --th-bg: #161b22;
+        --quote-color: #8b949e;
+        --quote-border: #30363d;
+        --hr-bg: #21262d;
+        --link: #58a6ff;
+        --link-visited: #bc8cff;
+        --scrollbar-thumb: rgba(255,255,255,0.2);
+    }
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #ffffff;
+        --fg: #24292e;
+        --pre-bg: #f6f8fa;
+        --inline-code-bg: rgba(27,31,35,0.05);
+        --border: #dfe2e5;
+        --th-bg: #f6f8fa;
+        --quote-color: #6a737d;
+        --quote-border: #dfe2e5;
+        --hr-bg: #e1e4e8;
+        --link: #0366d6;
+        --link-visited: #6f42c1;
+        --scrollbar-thumb: rgba(0,0,0,0.2);
+    }
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 16px;
+    margin: 0;
+    word-wrap: break-word;
+    background: var(--bg);
+    color: var(--fg);
+}
+pre {
+    padding: 12px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.45;
+    background: var(--pre-bg);
+}
+code {
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 12px;
+}
+code:not(pre code) {
+    background: var(--inline-code-bg);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+pre code {
+    background: none;
+    padding: 0;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 8px 0;
+}
+th, td {
+    border: 1px solid var(--border);
+    padding: 6px 10px;
+    text-align: left;
+}
+th {
+    font-weight: 600;
+    background: var(--th-bg);
+}
+blockquote {
+    margin: 8px 0;
+    padding: 0 12px;
+    color: var(--quote-color);
+    border-left: 4px solid var(--quote-border);
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+h1 { font-size: 1.6em; }
+h2 { font-size: 1.3em; }
+h3 { font-size: 1.1em; }
+h4 { font-size: 1em; }
+hr {
+    height: 1px;
+    border: 0;
+    background: var(--hr-bg);
+}
+a { color: var(--link); }
+a:visited { color: var(--link-visited); }
+ul, ol {
+    padding-left: 24px;
+}
+input[type="checkbox"] {
+    margin-right: 4px;
+}
+.task-list-item {
+    list-style-type: none;
+}
+.task-list-item input {
+    margin: 0 4px 0 -20px;
+}
+p {
+    margin: 0 0 8px;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 2px;
+}
+</style>
+</head>
+<body>
+<div id="content"></div>
+<script src="marked.min.js"></script>
+<script src="highlight.min.js"></script>
+<script>
+function setTheme(theme) {
+    var cssLink = document.getElementById('theme-css');
+    cssLink.href = theme === 'dark' ? 'github-dark.css' : 'github-light.css';
+    if (theme === 'dark') {
+        document.body.style.setProperty('--bg', '#0d1117');
+        document.body.style.setProperty('--fg', '#c9d1d9');
+        document.body.style.setProperty('--pre-bg', '#161b22');
+        document.body.style.setProperty('--inline-code-bg', 'rgba(240,246,252,0.15)');
+        document.body.style.setProperty('--border', '#30363d');
+        document.body.style.setProperty('--th-bg', '#161b22');
+        document.body.style.setProperty('--quote-color', '#8b949e');
+        document.body.style.setProperty('--quote-border', '#30363d');
+        document.body.style.setProperty('--hr-bg', '#21262d');
+        document.body.style.setProperty('--link', '#58a6ff');
+        document.body.style.setProperty('--link-visited', '#bc8cff');
+        document.body.style.setProperty('--scrollbar-thumb', 'rgba(255,255,255,0.2)');
+    } else {
+        document.body.style.setProperty('--bg', '#ffffff');
+        document.body.style.setProperty('--fg', '#24292e');
+        document.body.style.setProperty('--pre-bg', '#f6f8fa');
+        document.body.style.setProperty('--inline-code-bg', 'rgba(27,31,35,0.05)');
+        document.body.style.setProperty('--border', '#dfe2e5');
+        document.body.style.setProperty('--th-bg', '#f6f8fa');
+        document.body.style.setProperty('--quote-color', '#6a737d');
+        document.body.style.setProperty('--quote-border', '#dfe2e5');
+        document.body.style.setProperty('--hr-bg', '#e1e4e8');
+        document.body.style.setProperty('--link', '#0366d6');
+        document.body.style.setProperty('--link-visited', '#6f42c1');
+        document.body.style.setProperty('--scrollbar-thumb', 'rgba(0,0,0,0.2)');
+    }
+}
+
+function renderMarkdown(text) {
+    var html = marked.parse(text, {
+        gfm: true,
+        breaks: true,
+        headerIds: false,
+        mangle: false
+    });
+    document.getElementById('content').innerHTML = html;
+    document.querySelectorAll('pre code').forEach(function(block) {
+        hljs.highlightElement(block);
+    });
+}
+
+function renderCode(code, language) {
+    var escaped = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    var html;
+    if (language) {
+        try {
+            var result = hljs.highlight(code, { language: language, ignoreIllegals: true });
+            html = '<pre><code class="hljs language-' + language + '">' + result.value + '</code></pre>';
+        } catch(e) {
+            html = '<pre><code>' + escaped + '</code></pre>';
+        }
+    } else {
+        html = '<pre><code>' + escaped + '</code></pre>';
+    }
+    document.getElementById('content').innerHTML = html;
+}
+
+function renderText(text) {
+    var escaped = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    document.getElementById('content').innerHTML = '<pre><code>' + escaped + '</code></pre>';
+}
+</script>
+</body>
+</html>
