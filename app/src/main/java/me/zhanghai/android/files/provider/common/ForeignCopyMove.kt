@@ -54,23 +54,23 @@ internal object ForeignCopyMove {
                     )
                     var successful = false
                     try {
-                        inputStream.copyTo(
-                            outputStream, copyOptions.progressIntervalMillis,
-                            copyOptions.progressListener
-                        )
+                        try {
+                            inputStream.copyTo(
+                                outputStream, copyOptions.progressIntervalMillis,
+                                copyOptions.progressListener
+                            )
+                        } finally {
+                            outputStream.close()
+                        }
                         successful = true
                     } finally {
-                        try {
-                            outputStream.close()
-                        } finally {
-                            if (!successful) {
-                                try {
-                                    target.deleteIfExists()
-                                } catch (e: IOException) {
-                                    e.printStackTrace()
-                                } catch (e: UnsupportedOperationException) {
-                                    e.printStackTrace()
-                                }
+                        if (!successful) {
+                            try {
+                                target.deleteIfExists()
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            } catch (e: UnsupportedOperationException) {
+                                e.printStackTrace()
                             }
                         }
                     }

@@ -6,6 +6,7 @@
 package me.zhanghai.android.files.provider.sftp
 
 import java.io.IOException
+import java.io.InterruptedIOException
 import java.time.Instant
 import java8.nio.file.FileAlreadyExistsException
 import java8.nio.file.FileSystemException
@@ -14,7 +15,6 @@ import java8.nio.file.StandardCopyOption
 import me.zhanghai.android.files.provider.common.CopyOptions
 import me.zhanghai.android.files.provider.common.copyTo
 import me.zhanghai.android.files.provider.common.newInputStream
-import me.zhanghai.android.files.provider.common.newOutputStream
 import me.zhanghai.android.files.provider.sftp.client.Client
 import me.zhanghai.android.files.provider.sftp.client.ClientException
 import me.zhanghai.android.files.util.enumSetOf
@@ -94,29 +94,33 @@ internal object SftpCopyMove {
                         targetFlags += OpenMode.EXCL
                     }
                     val targetOutputStream = try {
-                        Client.openByteChannel(target, targetFlags, sourceModeAttributes)
+                        Client.openOutputStream(target, targetFlags, sourceModeAttributes)
                     } catch (e: ClientException) {
                         throw e.toFileSystemException(target.toString())
-                    }.newOutputStream()
+                    }
                     var successful = false
                     try {
-                        sourceInputStream.copyTo(
-                            targetOutputStream, copyOptions.progressIntervalMillis,
-                            copyOptions.progressListener
-                        )
+                        try {
+                            sourceInputStream.copyTo(
+                                targetOutputStream, copyOptions.progressIntervalMillis,
+                                copyOptions.progressListener
+                            )
+                        } finally {
+                            try {
+                                targetOutputStream.close()
+                            } catch (e: InterruptedIOException) {
+                                throw e
+                            } catch (e: IOException) {
+                                throw ClientException(e).toFileSystemException(target.toString())
+                            }
+                        }
                         successful = true
                     } finally {
-                        try {
-                            targetOutputStream.close()
-                        } catch (e: IOException) {
-                            throw ClientException(e).toFileSystemException(target.toString())
-                        } finally {
-                            if (!successful) {
-                                try {
-                                    Client.remove(target)
-                                } catch (e: ClientException) {
-                                    e.printStackTrace()
-                                }
+                        if (!successful) {
+                            try {
+                                Client.remove(target)
+                            } catch (e: ClientException) {
+                                e.printStackTrace()
                             }
                         }
                     }
