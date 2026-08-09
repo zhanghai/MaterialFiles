@@ -10,6 +10,8 @@ import java.io.InputStream
 import java.io.InterruptedIOException
 import java.io.OutputStream
 
+private const val COPY_BUFFER_SIZE = 16 * 1024
+
 // Can handle ProgressCopyOption.
 @Throws(IOException::class)
 fun InputStream.copyTo(
@@ -17,7 +19,7 @@ fun InputStream.copyTo(
     intervalMillis: Long,
     listener: ((Long) -> Unit)?
 ) {
-    val buffer = ByteArray(DEFAULT_BUFFER_SIZE)
+    val buffer = ByteArray(COPY_BUFFER_SIZE)
     var lastProgressMillis = System.currentTimeMillis()
     var copiedSize = 0L
     while (true) {

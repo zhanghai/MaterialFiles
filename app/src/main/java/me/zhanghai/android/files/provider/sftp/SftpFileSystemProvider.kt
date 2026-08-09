@@ -18,6 +18,7 @@ import java8.nio.file.LinkOption
 import java8.nio.file.OpenOption
 import java8.nio.file.Path
 import java8.nio.file.ProviderMismatchException
+import java8.nio.file.StandardOpenOption
 import java8.nio.file.attribute.BasicFileAttributes
 import java8.nio.file.attribute.FileAttribute
 import java8.nio.file.attribute.FileAttributeView
@@ -31,6 +32,7 @@ import me.zhanghai.android.files.provider.common.Searchable
 import me.zhanghai.android.files.provider.common.WalkFileTreeSearchable
 import me.zhanghai.android.files.provider.common.WatchServicePathObservable
 import me.zhanghai.android.files.provider.common.decodedPathByteString
+import me.zhanghai.android.files.provider.common.newOutputStream
 import me.zhanghai.android.files.provider.common.toAccessModes
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.common.toCopyOptions
@@ -43,6 +45,7 @@ import me.zhanghai.android.files.provider.sftp.client.SecurityProviderHelper
 import me.zhanghai.android.files.util.enumSetOf
 import net.schmizz.sshj.sftp.OpenMode
 import java.io.IOException
+import java.io.OutputStream
 import java.net.URI
 
 object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Searchable {
@@ -120,6 +123,29 @@ object SftpFileSystemProvider : FileSystemProvider(), PathObservableProvider, Se
     ): FileChannel {
         file as? SftpPath ?: throw ProviderMismatchException(file.toString())
         throw UnsupportedOperationException()
+    }
+
+    @Throws(IOException::class)
+    override fun newOutputStream(file: Path, vararg options: OpenOption): OutputStream {
+        file as? SftpPath ?: throw ProviderMismatchException(file.toString())
+        val optionsSet = mutableSetOf(*options)
+        if (optionsSet.isEmpty()) {
+            optionsSet += StandardOpenOption.CREATE
+            optionsSet += StandardOpenOption.TRUNCATE_EXISTING
+        }
+        optionsSet += StandardOpenOption.WRITE
+        val openOptions = optionsSet.toOpenOptions()
+        val flags = openOptions.toSftpFlags()
+        val attributes = PosixFileMode.CREATE_FILE_DEFAULT.toSftpAttributes()
+        return try {
+            if (openOptions.append) {
+                Client.openByteChannel(file, flags, attributes).newOutputStream()
+            } else {
+                Client.openOutputStream(file, flags, attributes)
+            }
+        } catch (e: ClientException) {
+            throw e.toFileSystemException(file.toString())
+        }
     }
 
     @Throws(IOException::class)
