@@ -107,16 +107,16 @@ repositories {
     }
 }
 dependencies {
-    // We need https://github.com/bitfireAT/dav4jvm/commit/c1bc14348831bcdb00f3a6eec4859b81c7dc3728
-    implementation('com.github.bitfireAT:dav4jvm:02fe1a95e6') {
-        exclude group: 'org.ogce', module: 'xpp3'
-    }
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'com.github.topjohnwu.libsu:service:5.2.2'
 }
 
 dependencies {
+    // dav4jvm is built from commit 02fe1a95e6 (which includes c1bc1434883); JitPack no
+    // longer serves commit builds. The jar is loaded by this file tree, while xpp3 is
+    // intentionally omitted because Android provides XmlPullParser.
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.squareup.okhttp3:okhttp:5.1.0'
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
 
