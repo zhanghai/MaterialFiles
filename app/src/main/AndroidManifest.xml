@@ -31,6 +31,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.termux.permission.RUN_COMMAND" />
 
     <!-- Crashlytics and Shizuku requires API 23. -->
     <uses-sdk tools:overrideLibrary="com.google.firebase,com.google.firebase.components,com.google.firebase.crashlytics,com.google.firebase.crashlytics.ndk,com.google.firebase.installations,com.google.firebase.sessions,rikka.shizuku.aidl,rikka.shizuku.api,rikka.shizuku.shared" />
@@ -380,12 +381,12 @@
 
         <provider
             android:name="me.zhanghai.android.files.app.AppProvider"
-            android:authorities="@string/app_provider_authority"
+            android:authorities="${applicationId}.app_provider"
             android:exported="false" />
 
         <provider
             android:name="me.zhanghai.android.files.file.FileProvider"
-            android:authorities="@string/file_provider_authority"
+            android:authorities="${applicationId}.file_provider"
             android:exported="false"
             android:grantUriPermissions="true" />
 
