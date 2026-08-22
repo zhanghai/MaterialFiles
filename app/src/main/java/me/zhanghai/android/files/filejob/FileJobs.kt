@@ -47,6 +47,7 @@ import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.ByteStringBuilder
 import me.zhanghai.android.files.provider.common.InvalidFileNameException
 import me.zhanghai.android.files.provider.common.PosixFileModeBit
+import me.zhanghai.android.files.provider.common.PosixFileAttributeView
 import me.zhanghai.android.files.provider.common.PosixFileStore
 import me.zhanghai.android.files.provider.common.PosixGroup
 import me.zhanghai.android.files.provider.common.PosixPrincipal
@@ -63,6 +64,7 @@ import me.zhanghai.android.files.provider.common.delete
 import me.zhanghai.android.files.provider.common.deleteIfExists
 import me.zhanghai.android.files.provider.common.exists
 import me.zhanghai.android.files.provider.common.getFileStore
+import me.zhanghai.android.files.provider.common.getFileAttributeView
 import me.zhanghai.android.files.provider.common.getMode
 import me.zhanghai.android.files.provider.common.getPath
 import me.zhanghai.android.files.provider.common.isDirectory
@@ -80,6 +82,7 @@ import me.zhanghai.android.files.provider.common.setSeLinuxContext
 import me.zhanghai.android.files.provider.common.toByteString
 import me.zhanghai.android.files.provider.common.toModeString
 import me.zhanghai.android.files.provider.linux.isLinuxPath
+import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.util.asFileName
 import me.zhanghai.android.files.util.createInstallPackageIntent
 import me.zhanghai.android.files.util.createIntent
@@ -89,6 +92,7 @@ import me.zhanghai.android.files.util.getQuantityString
 import me.zhanghai.android.files.util.putArgs
 import me.zhanghai.android.files.util.showToast
 import me.zhanghai.android.files.util.toEnumSet
+import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.withChooser
 import java.io.ByteArrayInputStream
 import java.io.File
@@ -1171,6 +1175,92 @@ private fun FileJob.copyForMove(
 @Throws(IOException::class)
 private fun FileJob.moveAtomically(source: Path, target: Path) {
     source.moveTo(target, LinkOption.NOFOLLOW_LINKS, StandardCopyOption.ATOMIC_MOVE)
+    inheritOwnershipFromParent(target)
+    if (!Settings.COPY_MOVE_INHERIT_OWNER.valueCompat) {
+        return
+    }
+    val targetAttributes = try {
+        target.readAttributes(BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS)
+    } catch (e: IOException) {
+        e.printStackTrace()
+        return
+    }
+    if (!targetAttributes.isDirectory) {
+        return
+    }
+    // An atomic rename relocates the whole subtree without visiting children, which would keep
+    // owners from another user when moving between /data/media/<user> directories.
+    try {
+        Files.walkFileTree(target, object : SimpleFileVisitor<Path>() {
+            @Throws(InterruptedIOException::class)
+            override fun preVisitDirectory(
+                directory: Path,
+                attributes: BasicFileAttributes
+            ): FileVisitResult {
+                inheritOwnershipFromParent(directory)
+                throwIfInterrupted()
+                return FileVisitResult.CONTINUE
+            }
+
+            @Throws(InterruptedIOException::class)
+            override fun visitFile(
+                file: Path,
+                attributes: BasicFileAttributes
+            ): FileVisitResult {
+                inheritOwnershipFromParent(file)
+                throwIfInterrupted()
+                return FileVisitResult.CONTINUE
+            }
+
+            override fun visitFileFailed(file: Path, exception: IOException): FileVisitResult {
+                exception.printStackTrace()
+                return FileVisitResult.CONTINUE
+            }
+        })
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+}
+
+private fun inheritOwnershipFromParent(target: Path) {
+    if (!Settings.COPY_MOVE_INHERIT_OWNER.valueCompat) {
+        return
+    }
+    try {
+        val targetParent = target.parent ?: return
+        val parentView =
+            targetParent.getFileAttributeView(PosixFileAttributeView::class.java) ?: return
+        val parentAttributes = parentView.readAttributes()
+        val owner = parentAttributes.owner() ?: return
+        val group = parentAttributes.group()
+        val view = target.getFileAttributeView(
+            PosixFileAttributeView::class.java, LinkOption.NOFOLLOW_LINKS
+        ) ?: return
+        try {
+            // Setting the same owner still requires the privilege, so skip it when unchanged.
+            val attributes = view.readAttributes()
+            if (attributes.owner() == owner && (group == null || group == attributes.group())) {
+                return
+            }
+        } catch (ignored: IOException) {
+        }
+        try {
+            view.setOwner(owner)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        if (group != null) {
+            try {
+                view.setGroup(group)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    } catch (e: Exception) {
+        // Inheriting ownership is best-effort: the file system may not support POSIX attributes,
+        // or we may not have the privilege to change the owner.
+        e.printStackTrace()
+    }
 }
 
 @Throws(IOException::class)
@@ -1299,6 +1389,7 @@ private fun FileJob.copyOrMove(
             } else {
                 source.moveTo(target, *options)
             }
+            inheritOwnershipFromParent(target)
             transferInfo.incrementTransferredFileCount()
             postCopyMoveNotification(transferInfo, source, type)
         } catch (e: FileAlreadyExistsException) {

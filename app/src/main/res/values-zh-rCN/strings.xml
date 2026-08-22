@@ -615,6 +615,8 @@
     <string name="settings_bookmark_directories_title">书签文件夹</string>
     <string name="settings_bookmark_directories_summary_empty">无书签文件夹</string>
     <string name="settings_root_strategy_title">Root 访问模式</string>
+    <string name="settings_copy_move_inherit_owner_title">从目标目录继承所有者</string>
+    <string name="settings_copy_move_inherit_owner_summary">将复制或移动后的文件的所有者递归地设置为其目标父目录的所有者。配合 root 权限向 /data/data/&lt;包名&gt; 等应用数据目录复制文件时非常有用。</string>
     <string-array name="settings_root_strategy_entries">
         <item>仅普通访问</item>
         <item>自动</item>

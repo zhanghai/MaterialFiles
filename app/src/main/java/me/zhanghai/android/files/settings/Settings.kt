@@ -158,6 +158,12 @@ object Settings {
             RootStrategy::class.java
         )
 
+    val COPY_MOVE_INHERIT_OWNER: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_copy_move_inherit_owner,
+            R.bool.pref_default_value_copy_move_inherit_owner
+        )
+
     val ARCHIVE_FILE_NAME_ENCODING: SettingLiveData<String> =
         StringSettingLiveData(
             R.string.pref_key_archive_file_name_encoding,

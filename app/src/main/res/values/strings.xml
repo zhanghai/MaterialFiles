@@ -768,6 +768,8 @@
     <string name="settings_bookmark_directory_list_title" translatable="false">@string/settings_bookmark_directories_title</string>
     <string name="settings_bookmark_directory_list_empty" translatable="false">@string/settings_bookmark_directories_summary_empty</string>
     <string name="settings_root_strategy_title">Root access mode</string>
+    <string name="settings_copy_move_inherit_owner_title">Inherit owner from target directory</string>
+    <string name="settings_copy_move_inherit_owner_summary">Set the owner of copied or moved files to that of their target parent directory, recursively. Useful for copying into app data directories such as /data/data/&lt;package&gt; with root access.</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">You have %1$,d file operation running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>
         <item quantity="other">You have %1$,d file operations running and changing root access mode now may result in unexpected error. Are you sure you want to change it now?</item>
