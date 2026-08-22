@@ -118,7 +118,7 @@ abstract class SetPrincipalDialogFragment : AppCompatDialogFragment() {
                 return
             }
         }
-        val principalListStateful = viewModel.principalListStateful
+        val principalListStateful = viewModel.filteredPrincipalListLiveData.valueCompat
         if (principalListStateful !is Success) {
             return
         }

@@ -25,9 +25,10 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     namespace 'me.zhanghai.android.files'
-    buildToolsVersion = '37.0.0'
+    buildToolsVersion = '35.0.0'
+    // Termux: androidx.activity 1.13.0 et al. require compileSdk 36.
     compileSdk = 36
-    ndkVersion '28.1.13356709'
+    ndkVersion '27.1.12297006'
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdk 23
@@ -38,8 +39,6 @@ android {
         versionName '1.7.4'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
-        resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
-        resValue 'string', 'file_provider_authority', applicationId + '.file_provider'
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=none'
@@ -71,6 +70,10 @@ android {
         warning 'InvalidPackage', 'MissingTranslation'
     }
     buildTypes {
+        debug {
+            // Termux: install alongside the release app as a separate package.
+            applicationIdSuffix '.tmp'
+        }
         release {
             minifyEnabled true
             shrinkResources true
@@ -108,6 +111,7 @@ repositories {
 }
 dependencies {
     // We need https://github.com/bitfireAT/dav4jvm/commit/c1bc14348831bcdb00f3a6eec4859b81c7dc3728
+    // Termux: resolved from mavenLocal, where it is published by building the commit below.
     implementation('com.github.bitfireAT:dav4jvm:02fe1a95e6') {
         exclude group: 'org.ogce', module: 'xpp3'
     }

@@ -82,6 +82,12 @@
             android:entryValues="@array/pref_entry_values_root_strategy"
             app:useSimpleSummaryProvider="true" />
 
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_copy_move_inherit_owner"
+            android:title="@string/settings_copy_move_inherit_owner_title"
+            android:summary="@string/settings_copy_move_inherit_owner_summary"
+            android:defaultValue="@bool/pref_default_value_copy_move_inherit_owner" />
+
         <me.zhanghai.android.files.settings.CharsetPreference
             android:key="@string/pref_key_archive_file_name_encoding"
             android:title="@string/settings_archive_file_name_encoding_title"
