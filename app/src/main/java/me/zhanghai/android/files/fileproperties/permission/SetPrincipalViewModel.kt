@@ -15,7 +15,7 @@ import me.zhanghai.android.files.util.Success
 import me.zhanghai.android.files.util.valueCompat
 
 abstract class SetPrincipalViewModel(
-    private val principalListLiveData: MutableLiveData<Stateful<List<PrincipalItem>>>
+    private val principalListLiveData: PrincipalListLiveData
 ) : ViewModel() {
     val principalListStateful: Stateful<List<PrincipalItem>>
         get() = principalListLiveData.valueCompat
@@ -35,7 +35,7 @@ abstract class SetPrincipalViewModel(
     val selectionLiveData = SelectionLiveData<Int>()
 
     private class FilteredPrincipalListLiveData(
-        private val principalListLiveData: LiveData<Stateful<List<PrincipalItem>>>,
+        private val principalListLiveData: PrincipalListLiveData,
         private val filterLiveData: LiveData<String>
     ) : MediatorLiveData<Stateful<List<PrincipalItem>>>() {
         init {
@@ -47,9 +47,23 @@ abstract class SetPrincipalViewModel(
             var principalListStateful = principalListLiveData.valueCompat
             val filter = filterLiveData.valueCompat
             if (principalListStateful is Success && filter.isNotEmpty()) {
-                principalListStateful = Success(
-                    principalListStateful.value.filter { it.applyFilter(filter) }
-                )
+                var filteredPrincipalList =
+                    principalListStateful.value.filterTo(ArrayList()) { it.applyFilter(filter) }
+                // Allow selecting an arbitrary id by typing it into the filter box, e.g. the uid
+                // of an app from another Android user which we may not be able to enumerate.
+                val filterId = filter.toIntOrNull()
+                if (filterId != null && filterId >= 0
+                    && filteredPrincipalList.none { it.id == filterId }) {
+                    filteredPrincipalList.add(
+                        0, PrincipalItem(
+                            filterId,
+                            principalListLiveData.getAppPrincipalName(filterId),
+                            emptyList(),
+                            emptyList()
+                        )
+                    )
+                }
+                principalListStateful = Success(filteredPrincipalList)
             }
             value = principalListStateful
         }
