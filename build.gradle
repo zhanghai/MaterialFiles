@@ -24,6 +24,8 @@ buildscript {
 
 allprojects {
     repositories {
+        // Termux: dav4jvm is built locally because jitpack lost its artifacts.
+        mavenLocal()
         google()
         mavenCentral()
     }
