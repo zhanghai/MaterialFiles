@@ -41,6 +41,7 @@
                     android:minHeight="@dimen/dense_single_line_list_item_height"
                     android:layout_weight="1"
                     android:text="@string/file_create_archive_type_zip"
+                    android:textAlignment="viewStart"
                     android:textAppearance="?textAppearanceListItem" />
 
                 <RadioButton
@@ -50,6 +51,7 @@
                     android:minHeight="@dimen/dense_single_line_list_item_height"
                     android:layout_weight="1"
                     android:text="@string/file_create_archive_type_tar_xz"
+                    android:textAlignment="viewStart"
                     android:textAppearance="?textAppearanceListItem" />
 
                 <RadioButton
@@ -59,6 +61,7 @@
                     android:minHeight="@dimen/dense_single_line_list_item_height"
                     android:layout_weight="1"
                     android:text="@string/file_create_archive_type_7z"
+                    android:textAlignment="viewStart"
                     android:textAppearance="?textAppearanceListItem"
                     android:visibility="@integer/create_archive_type_seven_z_visibility" />
             </me.zhanghai.android.files.filelist.CreateArchiveTypeRadioGroup>
