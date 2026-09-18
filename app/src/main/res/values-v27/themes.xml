@@ -14,7 +14,7 @@
     </style>
     <style name="Platform.Theme.MaterialFiles" parent="Platform.V27.Theme.MaterialFiles" />
 
-    <style name="Platform.V27.Theme.MaterialFiles.Immersive" parent="Platform.V21.Theme.MaterialFiles.Immersive">
+    <style name="Platform.V27.Theme.MaterialFiles.Immersive" parent="Platform.V23.Theme.MaterialFiles.Immersive">
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
     <style name="Platform.Theme.MaterialFiles.Immersive" parent="Platform.V27.Theme.MaterialFiles.Immersive" />

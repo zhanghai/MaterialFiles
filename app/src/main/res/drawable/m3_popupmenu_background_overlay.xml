@@ -5,13 +5,27 @@
   ~ All Rights Reserved.
   -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="?colorSurface" />
+    <item>
+        <shape>
+            <solid android:color="?colorSurface" />
+            <corners
+                android:bottomLeftRadius="4dp"
+                android:bottomRightRadius="4dp"
+                android:topLeftRadius="4dp"
+                android:topRightRadius="4dp" />
+        </shape>
+    </item>
 
-    <corners
-        android:bottomLeftRadius="4dp"
-        android:bottomRightRadius="4dp"
-        android:topLeftRadius="4dp"
-        android:topRightRadius="4dp" />
-</shape>
+    <item>
+        <shape>
+            <solid android:color="@color/m3_popupmenu_overlay_color" />
+            <corners
+                android:bottomLeftRadius="4dp"
+                android:bottomRightRadius="4dp"
+                android:topLeftRadius="4dp"
+                android:topRightRadius="4dp" />
+        </shape>
+    </item>
+</layer-list>
