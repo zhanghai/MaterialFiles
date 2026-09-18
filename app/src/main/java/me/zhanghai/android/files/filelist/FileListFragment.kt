@@ -51,6 +51,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import java8.nio.file.Path
 import java8.nio.file.Paths
+import kotlin.math.roundToInt
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
@@ -130,7 +131,6 @@ import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 import me.zhanghai.android.files.util.withChooser
 import me.zhanghai.android.files.viewer.image.ImageViewerActivity
-import kotlin.math.roundToInt
 
 class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.Listener,
     ConfirmReplaceFileDialogFragment.Listener, OpenApkDialogFragment.Listener,
@@ -221,7 +221,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val activity = requireActivity() as AppCompatActivity
         activity.setTitle(R.string.file_list_title)
         activity.setSupportActionBar(binding.toolbar)
-        overlayActionMode = OverlayToolbarActionMode(binding.overlayToolbar)
+        overlayActionMode = OverlayToolbarActionMode(binding.overlayToolbar, binding.toolbar)
         bottomActionMode = PersistentBarLayoutToolbarActionMode(
             binding.persistentBarLayout, binding.bottomBarLayout, binding.bottomToolbar
         )

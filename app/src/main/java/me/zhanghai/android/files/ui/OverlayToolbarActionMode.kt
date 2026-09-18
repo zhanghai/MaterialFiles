@@ -11,11 +11,12 @@ import androidx.core.view.isVisible
 import me.zhanghai.android.files.util.fadeInUnsafe
 import me.zhanghai.android.files.util.fadeOutUnsafe
 
-class OverlayToolbarActionMode(bar: ViewGroup, toolbar: Toolbar) : ToolbarActionMode(bar, toolbar) {
-    constructor(toolbar: Toolbar) : this(toolbar, toolbar)
-
+class OverlayToolbarActionMode(
+    toolbar: Toolbar,
+    private val overlaidLayout: ViewGroup
+) : ToolbarActionMode(toolbar, toolbar) {
     init {
-        bar.isVisible = false
+        toolbar.isVisible = false
     }
 
     override fun show(bar: ViewGroup, animate: Boolean) {
@@ -24,6 +25,7 @@ class OverlayToolbarActionMode(bar: ViewGroup, toolbar: Toolbar) : ToolbarAction
         } else {
             bar.isVisible = true
         }
+        overlaidLayout.descendantFocusability = ViewGroup.FOCUS_BLOCK_DESCENDANTS
     }
 
     override fun hide(bar: ViewGroup, animate: Boolean) {
@@ -32,5 +34,6 @@ class OverlayToolbarActionMode(bar: ViewGroup, toolbar: Toolbar) : ToolbarAction
         } else {
             bar.isVisible = false
         }
+        overlaidLayout.descendantFocusability = ViewGroup.FOCUS_BEFORE_DESCENDANTS
     }
 }
