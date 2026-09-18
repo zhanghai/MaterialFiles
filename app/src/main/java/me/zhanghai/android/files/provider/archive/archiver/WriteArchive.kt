@@ -39,8 +39,10 @@ class WriteArchive @Throws(ArchiveException::class) constructor(
             if (password != null) {
                 require(format == Archive.FORMAT_ZIP)
                 Archive.writeSetPassphrase(archive, password.toByteArray())
+                // Nautilus uses AES-256 encryption as well, as it uses gnome-autoar where
+                // autoar_compressor_step_initialize_object() sets encryption to aes256.
                 Archive.writeSetFormatOption(
-                    archive, null, "encryption".toByteArray(), "zipcrypt".toByteArray()
+                    archive, null, "encryption".toByteArray(), "aes256".toByteArray()
                 )
             }
             Archive.writeOpen(
