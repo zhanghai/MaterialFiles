@@ -29,7 +29,7 @@ public class OnWindowInsetChangedAppBarLayout extends AppBarLayout {
     }
 
     @Override
-    public WindowInsetsCompat onWindowInsetChanged(@NonNull WindowInsetsCompat insets) {
+    protected WindowInsetsCompat onWindowInsetChanged(@NonNull WindowInsetsCompat insets) {
         return super.onWindowInsetChanged(insets);
     }
 }
