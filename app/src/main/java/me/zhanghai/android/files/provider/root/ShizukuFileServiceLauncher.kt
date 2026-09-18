@@ -13,6 +13,8 @@ import android.os.IBinder
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -23,35 +25,20 @@ import me.zhanghai.android.files.provider.remote.IRemoteFileService
 import me.zhanghai.android.files.provider.remote.RemoteFileServiceInterface
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException
 import rikka.shizuku.Shizuku
-import rikka.sui.Sui
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
-object SuiFileServiceLauncher {
+object ShizukuFileServiceLauncher {
     private val lock = Any()
 
-    private var isSuiIntialized = false
-
     @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.M)
-    fun isSuiAvailable(): Boolean {
-        synchronized(lock) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                return false
-            }
-            if (!isSuiIntialized) {
-                Sui.init(application.packageName)
-                isSuiIntialized = true
-            }
-            return Sui.isSui()
-        }
-    }
+    fun isAvailable(): Boolean =
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Shizuku.pingBinder()
 
     @RequiresApi(Build.VERSION_CODES.M)
     @Throws(RemoteFileSystemException::class)
     fun launchService(): IRemoteFileService {
         synchronized(lock) {
-            if (!isSuiAvailable()) {
-                throw RemoteFileSystemException("Sui isn't available")
+            if (!isAvailable()) {
+                throw RemoteFileSystemException("Shizuku isn't available")
             }
             if (Shizuku.checkSelfPermission() != PackageManager.PERMISSION_GRANTED) {
                 val granted = try {
@@ -78,7 +65,7 @@ object SuiFileServiceLauncher {
                     throw RemoteFileSystemException(e)
                 }
                 if (!granted) {
-                    throw RemoteFileSystemException("Sui permission isn't granted")
+                    throw RemoteFileSystemException("Shizuku permission isn't granted")
                 }
             }
             return try {
@@ -87,11 +74,14 @@ object SuiFileServiceLauncher {
                         withTimeout(RootFileService.TIMEOUT_MILLIS) {
                             suspendCancellableCoroutine { continuation ->
                                 val serviceArgs = Shizuku.UserServiceArgs(
-                                    ComponentName(application, SuiFileServiceInterface::class.java)
+                                    ComponentName(
+                                        application,
+                                        ShizukuFileServiceInterface::class.java
+                                    )
                                 )
                                     .debuggable(BuildConfig.DEBUG)
                                     .daemon(false)
-                                    .processNameSuffix("sui")
+                                    .processNameSuffix("shizuku")
                                     .version(BuildConfig.VERSION_CODE)
                                 val connection = object : ServiceConnection {
                                     override fun onServiceConnected(
@@ -107,7 +97,7 @@ object SuiFileServiceLauncher {
                                         if (continuation.isActive) {
                                             continuation.resumeWithException(
                                                 RemoteFileSystemException(
-                                                    "Sui service disconnected"
+                                                    "Shizuku service disconnected"
                                                 )
                                             )
                                         }
@@ -116,7 +106,7 @@ object SuiFileServiceLauncher {
                                     override fun onBindingDied(name: ComponentName) {
                                         if (continuation.isActive) {
                                             continuation.resumeWithException(
-                                                RemoteFileSystemException("Sui binding died")
+                                                RemoteFileSystemException("Shizuku binding died")
                                             )
                                         }
                                     }
@@ -124,7 +114,7 @@ object SuiFileServiceLauncher {
                                     override fun onNullBinding(name: ComponentName) {
                                         if (continuation.isActive) {
                                             continuation.resumeWithException(
-                                                RemoteFileSystemException("Sui binding is null")
+                                                RemoteFileSystemException("Shizuku binding is null")
                                             )
                                         }
                                     }
@@ -148,7 +138,7 @@ object SuiFileServiceLauncher {
 
 @Keep
 @RequiresApi(Build.VERSION_CODES.M)
-class SuiFileServiceInterface : RemoteFileServiceInterface() {
+class ShizukuFileServiceInterface : RemoteFileServiceInterface() {
     init {
         RootFileService.main()
     }
