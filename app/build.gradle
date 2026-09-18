@@ -32,9 +32,9 @@ android {
     defaultConfig {
         applicationId 'me.zhanghai.android.files'
         minSdk 23
-        // Not supporting foreground service timeout yet.
+        // Not supporting the ACCESS_LOCAL_NETWORK runtime permission yet.
         //noinspection OldTargetApi
-        targetSdk 34
+        targetSdk 36
         versionCode 39
         versionName '1.7.4'
         resValue 'string', 'app_version', versionName + ' (' + versionCode + ')'
