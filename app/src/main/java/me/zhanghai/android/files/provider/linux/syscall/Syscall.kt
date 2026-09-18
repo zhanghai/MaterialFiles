@@ -5,7 +5,6 @@
 
 package me.zhanghai.android.files.provider.linux.syscall
 
-import android.os.Build
 import android.system.ErrnoException
 import android.system.Int64Ref
 import android.system.Os
@@ -13,12 +12,12 @@ import android.system.OsConstants
 import android.system.StructPollfd
 import android.system.StructStatVfs
 import androidx.annotation.Size
+import java.io.FileDescriptor
+import java.io.InterruptedIOException
 import me.zhanghai.android.files.compat.SELinuxCompat
 import me.zhanghai.android.files.provider.common.ByteString
 import me.zhanghai.android.files.provider.common.moveToByteString
 import me.zhanghai.android.libselinux.SeLinux
-import java.io.FileDescriptor
-import java.io.InterruptedIOException
 
 object Syscall {
     init {
@@ -184,35 +183,10 @@ object Syscall {
     @Throws(SyscallException::class)
     fun poll(fds: Array<StructPollfd>, timeout: Int): Int =
         try {
-            Os_poll(fds, timeout)
+            Os.poll(fds, timeout)
         } catch (e: ErrnoException) {
             throw SyscallException(e)
         }
-
-    @Throws(ErrnoException::class)
-    private fun Os_poll(fds: Array<StructPollfd>, timeout: Int): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M || timeout < 0) {
-            return Os.poll(fds, timeout)
-        } else {
-            val timeoutTime = System.currentTimeMillis() + timeout
-            var timeout = timeout
-            while (true) {
-                return try {
-                    Os.poll(fds, timeout)
-                } catch (e: ErrnoException) {
-                    if (e.errno == OsConstants.EINTR) {
-                        val newTimeout = timeoutTime - System.currentTimeMillis()
-                        if (newTimeout <= 0) {
-                            return 0
-                        }
-                        timeout = newTimeout.toInt()
-                        continue
-                    }
-                    throw e
-                }
-            }
-        }
-    }
 
     @Throws(InterruptedIOException::class, SyscallException::class)
     fun read(

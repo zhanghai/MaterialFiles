@@ -29,8 +29,6 @@ import com.leinardi.android.speeddial.FabWithLabelView
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.parcelize.Parcelize
-import me.zhanghai.android.files.compat.createCompat
-import me.zhanghai.android.files.compat.drawableCompat
 import me.zhanghai.android.files.compat.foregroundCompat
 import me.zhanghai.android.files.compat.setTextAppearanceCompat
 import me.zhanghai.android.files.util.ParcelableState
@@ -84,8 +82,8 @@ class ThemedSpeedDialView : SpeedDialView {
             mainFabOpenedIconColor = mainFabClosedIconColor
         }
         // Always use our own animation to fix the library issue that ripple is rotated as well.
-        val mainFabDrawable = RotateDrawable::class.createCompat().apply {
-            drawableCompat = mainFab.drawable
+        val mainFabDrawable = RotateDrawable().apply {
+            drawable = mainFab.drawable
             toDegrees = mainFabAnimationRotateAngle
         }
         mainFabAnimationRotateAngle = 0f

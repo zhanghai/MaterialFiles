@@ -1471,19 +1471,17 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 ShowRequestAllFilesAccessRationaleDialogFragment.show(this)
                 viewModel.isStorageAccessRequested = true
             }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PackageManager.PERMISSION_GRANTED
-            ) {
-                if (shouldShowRequestPermissionRationale(
-                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )) {
-                    ShowRequestStoragePermissionRationaleDialogFragment.show(this)
-                } else {
-                    requestStoragePermission()
-                }
-                viewModel.isStorageAccessRequested = true
+        } else if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            if (shouldShowRequestPermissionRationale(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                )) {
+                ShowRequestStoragePermissionRationaleDialogFragment.show(this)
+            } else {
+                requestStoragePermission()
             }
+            viewModel.isStorageAccessRequested = true
         }
     }
 
