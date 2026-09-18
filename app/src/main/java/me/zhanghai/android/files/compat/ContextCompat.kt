@@ -12,6 +12,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.util.AttributeSet
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -68,6 +69,14 @@ inline fun <R> TintTypedArray.use(block: (TintTypedArray) -> R): R {
         recycle()
     }
 }
+
+val Context.opPackageNameCompat: String
+    get() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            opPackageName
+        } else {
+            applicationContext.packageName
+        }
 
 fun Context.registerReceiverCompat(
     receiver: BroadcastReceiver?,
