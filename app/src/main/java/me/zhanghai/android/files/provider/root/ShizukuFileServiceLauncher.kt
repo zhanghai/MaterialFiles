@@ -5,16 +5,19 @@
 
 package me.zhanghai.android.files.provider.root
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.ServiceConnection
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.IBinder
+import android.os.Parcel
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.system.exitProcess
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -25,6 +28,7 @@ import me.zhanghai.android.files.provider.remote.IRemoteFileService
 import me.zhanghai.android.files.provider.remote.RemoteFileServiceInterface
 import me.zhanghai.android.files.provider.remote.RemoteFileSystemException
 import rikka.shizuku.Shizuku
+import rikka.shizuku.ShizukuApiConstants
 
 object ShizukuFileServiceLauncher {
     private val lock = Any()
@@ -141,5 +145,27 @@ object ShizukuFileServiceLauncher {
 class ShizukuFileServiceInterface : RemoteFileServiceInterface() {
     init {
         RootFileService.main()
+    }
+
+    override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
+        if (code in FIRST_CALL_TRANSACTION..LAST_CALL_TRANSACTION) {
+            data.enforceInterface(DESCRIPTOR);
+        }
+        return if (code == TRANSACTION_destroy) {
+            destroy()
+            true
+        } else {
+            super.onTransact(code, data, reply, flags)
+        }
+    }
+
+    private fun destroy() {
+        exitProcess(0)
+    }
+
+    companion object {
+        @Suppress("ConstPropertyName")
+        @SuppressLint("RestrictedApi")
+        private const val TRANSACTION_destroy = ShizukuApiConstants.USER_SERVICE_TRANSACTION_destroy
     }
 }
