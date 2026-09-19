@@ -356,7 +356,7 @@
             android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="This is a generic file manager app supporting both local and network storages, and background file operations with large files or a large amount of files, potentially over a slow network connection, may exceed the six-hour limit of dataSync, so that this service has to use specialUse to maintain the user expected behavior of completing the requested file operations in all cases." />
+                android:value="This is a generic file manager app supporting both local and network storages, and background file operations with large files or a large amount of files, potentially over a slow network connection, can easily exceed the six-hour limit of dataSync, so that this service has to use specialUse to maintain the user expected behavior of completing the requested file operations in all cases." />
         </service>
 
         <service
@@ -364,7 +364,7 @@
             android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="This is a generic file manager app offering a FTP server functionality that allows serving files from local or network storages to the local network, and users expect it to keep serving in the background once they start it and until they manually end it, so that this service has to use specialUse to maintain the user expected behavior of keeping serving the files until manually ended." />
+                android:value="This is a generic file manager app offering a FTP server functionality that allows serving files from local or network storages to the local network, and users expect it to keep serving in the background for days or even weeks once they start it and until they manually end it, so that this service has to use specialUse to maintain the user expected behavior of keeping serving the files until manually ended." />
         </service>
 
         <service
