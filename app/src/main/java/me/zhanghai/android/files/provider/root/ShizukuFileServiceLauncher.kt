@@ -141,14 +141,15 @@ class ShizukuFileServiceInterface : RemoteFileServiceInterface() {
     }
 
     override fun onTransact(code: Int, data: Parcel, reply: Parcel?, flags: Int): Boolean {
-        if (code in FIRST_CALL_TRANSACTION..LAST_CALL_TRANSACTION) {
-            data.enforceInterface(DESCRIPTOR);
+        // Let super call data.enforceInterface() exactly once.
+        if (super.onTransact(code, data, reply, flags)) {
+            return true
         }
         return if (code == TRANSACTION_destroy) {
             destroy()
             true
         } else {
-            super.onTransact(code, data, reply, flags)
+            false
         }
     }
 
