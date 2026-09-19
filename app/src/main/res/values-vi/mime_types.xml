@@ -30,7 +30,7 @@
     <string name="file_type_name_word">Tài liệu Word</string>
     <string name="file_type_name_powerpoint">Bản trình chiếu PowerPoint</string>
     <string name="file_type_name_excel">Bảng tính Excel</string>
-    <string name="file_type_name_posix_character_device">Thiết bị kí tự</string>
+    <string name="file_type_name_posix_character_device">Thiết bị ký tự</string>
     <string name="file_type_name_posix_block_device">Thiết bị khối</string>
     <string name="file_type_name_posix_fifo">Pipe</string>
     <string name="file_type_name_posix_symbolic_link">Liên kết</string>

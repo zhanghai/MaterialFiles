@@ -21,7 +21,7 @@
     <string name="error">Lỗi</string>
     <string name="hide">Ẩn</string>
     <string name="install">Cài đặt</string>
-    <string name="keep_editing">Tiếp tục sửa đổi</string>
+    <string name="keep_editing">Tiếp tục chỉnh sửa</string>
     <string name="loading">Đang tải…</string>
     <string name="maybe_later">Có lẽ để sau</string>
     <string name="merge">Hợp nhất</string>
@@ -40,9 +40,10 @@
     <string name="select">Chọn</string>
     <string name="select_all">Chọn tất cả</string>
     <string name="share">Chia sẻ</string>
-    <string name="show">Hiện</string>
+    <string name="show">Hiển thị</string>
     <string name="skip">Bỏ qua</string>
     <string name="stop">Dừng</string>
+    <string name="system_default">Mặc định hệ thống</string>
     <string name="unknown">Không rõ</string>
     <string name="view">Xem</string>
 
@@ -57,14 +58,22 @@
 
     <string name="all_files_access_rationale_message">Ứng dụng cần quyền quản lý tất cả tệp. Vui lòng cấp quyền ở cài đặt hệ thống tiếp theo.</string>
     <!-- The allow button before Android 10 was in all-caps. -->
-    <string name="storage_permission_rationale_message">Ứng dụng cần quyền truy cập tệp. Hãy nhấn \"CHO PHÉP\" trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
-    <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tệp. Hãy cấp quyền \"Bộ nhớ\" trong cài đặt hệ thống.</string>
+    <string name="storage_permission_rationale_message">Ứng dụng cần quyền truy cập tệp. Hãy nhấn “Cho phép” trong hộp thoại hệ thống sắp hiện ra sau đây.</string>
+    <string name="storage_permission_permanently_denied_message">Ứng dụng cần quyền truy cập tệp. Hãy cấp quyền “Bộ nhớ” trong cài đặt hệ thống.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Ứng dụng cần quyền để gửi thông báo về các thao tác với tệp. Vui lòng chọn “Cho phép” trong hộp thoại hệ thống sẽ xuất hiện.</string>
+    <string name="notification_permission_permanently_denied_message">Ứng dụng cần quyền để gửi thông báo về các thao tác với tệp. Vui lòng cấp quyền “Thông báo” trong phần cài đặt hệ thống.</string>
+
     <string name="notification_channel_background_activity_start_name">Hành động khi chạy nền</string>
     <string name="notification_channel_background_activity_start_description">Thực hiện các hành động khi ứng dụng chạy nền</string>
     <string name="notification_channel_file_job_name">Thao tác với tệp</string>
     <string name="notification_channel_file_job_description">Hiển thị và điều khiển các thao tác với tệp</string>
     <string name="notification_channel_ftp_server_name">Máy chủ FTP</string>
     <string name="notification_channel_ftp_server_description">Hiển thị và điều khiển máy chủ FTP</string>
+
+    <string name="file_action_archive_password_title">Yêu cầu mật khẩu</string>
+    <string name="file_action_archive_password_message_format">“%1$s” được bảo vệ bằng mật khẩu.</string>
+    <string name="file_action_archive_password_error_empty">Mật khẩu không được để trống</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="other">Đang chuẩn bị nén %1$,d tệp (%2$s)</item>

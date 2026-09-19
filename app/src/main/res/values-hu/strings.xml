@@ -61,12 +61,20 @@
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Kattintson az „Engedélyezésre” a következő rendszerüzeneten.</string>
     <string name="storage_permission_permanently_denied_message">Az alkalmazásnak engedélyre van szüksége, hogy elérje a fájlokat. Adja meg a „Tároló” engedélyt a rendszerbeállításokban.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Az alkalmazásnak engedélyre van szüksége ahhoz, hogy a fájlműveletekről értesítéseket küldjön. Kérjük, kattints az \"Engedélyezés\" gombra a következő rendszer-párbeszédpanelen.</string>
+    <string name="notification_permission_permanently_denied_message">Az alkalmazásnak engedélyre van szüksége ahhoz, hogy a fájlműveletekről értesítéseket küldjön. Kérjük, add meg az \"Értesítés\" engedélyt a rendszerbeállításokban.</string>
+
     <string name="notification_channel_background_activity_start_name">Műveletek a háttérben</string>
     <string name="notification_channel_background_activity_start_description">Műveletek elvégzése, míg az alkalmazás a háttérben van</string>
     <string name="notification_channel_file_job_name">Fájlműveletek</string>
     <string name="notification_channel_file_job_description">Fájlműveletek megjelenítése és vezérlése</string>
     <string name="notification_channel_ftp_server_name">FTP-kiszolgáló</string>
     <string name="notification_channel_ftp_server_description">FTP-kiszolgáló megjelenítése és vezérlése</string>
+
+    <string name="file_action_archive_password_title">Jelszó szükséges</string>
+    <string name="file_action_archive_password_message_format">“%1$s” jelszóval védett.</string>
+    <string name="file_action_archive_password_error_empty">A jelszó nem lehet üres</string>
 
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Felkészülés %1$,d fájl tömörítésére (%2$s)</item>
@@ -230,6 +238,7 @@
     <string name="file_name_error_empty">A fájlnév nem lehet üres</string>
     <string name="file_name_error_invalid">Érvénytelen fájlnév</string>
     <string name="file_name_error_already_exists">Már létezik egy fájl ezzel a névvel</string>
+    <string name="file_replace_message_format">“%1$s” cserélése?</string>
     <string name="file_delete_message_file_format">Törli a(z) „%1$s” fájlt?</string>
     <string name="file_delete_message_directory_format">Törli a(z) „%1$s” mappát és a tartalmát?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -248,11 +257,21 @@
     <string name="file_create_archive_type_zip">.zip</string>
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Jelszó (opcionális)</string>
     <string name="file_add_bookmark_success">Könyvjelző hozzáadva</string>
     <string name="file_create_file_title">Új fájl</string>
     <string name="file_create_directory_title">Új mappa</string>
 
     <string name="file_list_title">Fájlok</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="one">Fájl kiválasztása</item>
+        <item quantity="other">Fájlok kiválasztása</item>
+    </plurals>
+    <string name="file_list_title_create_file">Fájl mentése</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="one">Mappa kiválasztása</item>
+        <item quantity="other">Mappák kiválasztása</item>
+    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d mappa</item>
         <item quantity="other">%1$,d mappa</item>
@@ -284,6 +303,8 @@
     <string name="file_list_action_create_shortcut">Parancsikon létrehozása</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Megnyitás új ablakban</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Fájlnév</string>
+    <string name="file_list_open_current_directory_format">“%1$s” kiválasztása</string>
     <string name="file_list_paste_move_title_format">%1$,d áthelyezése</string>
     <string name="file_list_paste_copy_title_format">%1$,d másolása</string>
     <string name="file_list_paste_extract_title_format">%1$,d fájl kibontása</string>
@@ -317,6 +338,39 @@
     <string name="file_properties_basic_archive_file">Fájl archiválása</string>
     <string name="file_properties_basic_archive_entry">Bejegyzés archiválása</string>
     <string name="file_properties_basic_free_space">Szabad hely</string>
+    <string name="file_properties_permission">Engedélyek</string>
+    <string name="file_properties_permission_owner">Tulajdonos</string>
+    <string name="file_properties_permission_group">Csoport</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Tulajdonos módosítása</string>
+    <string name="file_properties_permission_set_group_title">Csoport módosítása</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Adj meg egy nevet vagy azonosítót</string>
+    <string name="file_properties_permission_set_principal_system">Rendszer</string>
+    <string name="file_properties_permission_mode">Mód</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Módváltás</string>
+    <string name="file_properties_permission_set_mode_others">Mások</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
+        <item>Olvasás</item>
+        <item>Írás</item>
+        <item>Végrehajtás</item>
+    </string-array>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
+        <item>Olvasás</item>
+        <item>Írás</item>
+        <item>Keresés</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_special">Speciális</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>UID beálítása</item>
+        <item>GID beállítása</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_uppercase_x">Ne adjon \"Végrehajtás\" jogosultságot a mappán belüli fájlokra</string>
+    <string name="file_properties_permission_selinux_context">SELinux Kontextus</string>
+    <string name="file_properties_permission_set_selinux_context_title">SELinux kontextus módosítása</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Visszaállítás</string>
+    <string name="file_properties_permission_recursive">Mappán belüli fájlokra alkalmazás</string>
     <string name="file_properties_image">Kép</string>
     <string name="file_properties_media_dimensions">Méretek</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -371,6 +425,12 @@
     <string name="file_properties_apk_signature_digests">Aláírások</string>
     <string name="file_properties_apk_signature_digests_empty">Nincsenek érvényes aláírások</string>
     <string name="file_properties_apk_past_signature_digests">Régi aláírások</string>
+    <string name="file_properties_checksum">Ellenőrző összeg</string>
+    <string name="file_properties_checksum_compare">Összehasonlítás</string>
+    <string name="file_properties_checksum_compare_placeholder">Bármilyen ellenőrző összeg</string>
+    <string name="file_properties_checksum_compare_match_format">Egyező %1$s ellenőrző összeg</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Egyező %1$s ellenőrző összeg prefix</string>
+    <string name="file_properties_checksum_compare_no_match">Nem található egyező ellenőrző összeg</string>
     <string name="storage_file_system_root_title">Gyökér</string>
     <string name="storage_list_title">Tároló</string>
     <string name="storage_list_empty">Nincs tároló</string>
@@ -379,9 +439,15 @@
     <string name="storage_add_storage_ftp_server">FTP-kiszolgáló</string>
     <string name="storage_add_storage_sftp_server">SFTP-kiszolgáló</string>
     <string name="storage_add_storage_smb_server">SMB-kiszolgáló</string>
+    <string name="storage_add_storage_webdav_server">WebDAV kiszolgáló</string>
     <string name="storage_edit_device_storage_title">Tárolóeszköz szerkesztése</string>
     <string name="storage_edit_device_storage_name">Név</string>
     <string name="storage_edit_device_storage_path">Útvonal</string>
+    <string name="storage_add_external_storage_shortcut_title">Külső tároló parancsikon hozzáadása</string>
+    <string name="storage_edit_external_storage_shortcut_title">Külső tároló parancsikon szerkesztése</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Tároló kötet</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Adj meg egy tároló kötetet</string>
+    <string name="storage_edit_external_storage_shortcut_path">Útvonal</string>
     <string name="storage_add_document_tree_title">Külső tároló hozzáadása</string>
     <string name="storage_edit_document_tree_title">Külső tároló szerkesztése</string>
     <string name="storage_edit_document_tree_name">Név</string>
@@ -468,6 +534,32 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Kapcsolódás és hozzáadás</string>
     <string name="storage_edit_smb_server_add">Hozzáadás</string>
+    <string name="storage_edit_webdav_server_title_edit">WebDAV kiszolgáló szerkesztése</string>
+    <string name="storage_edit_webdav_server_title_add">WebDAV kiszolgáló hozzáadása</string>
+    <string name="storage_edit_webdav_server_host">Állomásnév</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Írj be egy állomásnevet</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Érvénytelen állomásnév</string>
+    <string name="storage_edit_webdav_server_port">Port</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Érvénytelen port</string>
+    <string name="storage_edit_webdav_server_path">Útvonal</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Üresen hagyható</string>
+    <string name="storage_edit_webdav_server_name">Név</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Állomásnév használata</string>
+    <string name="storage_edit_webdav_server_protocol">Protokoll</string>
+    <string name="storage_edit_webdav_server_authentication_type">Hitelesítés</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Jelszó</item>
+        <item>Hozzáférési token</item>
+        <item>Nincs</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Felhasználónév</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Adj meg egy felhasználónevet</string>
+    <string name="storage_edit_webdav_server_password">Jelszó</string>
+    <string name="storage_edit_webdav_server_access_token">Hozzáférési token</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Hozzáférési token megadása</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Csatlakozás és hozzáadás</string>
+    <string name="storage_edit_webdav_server_add">Hozzáadás</string>
+
     <string name="navigation_storage_subtitle_format">%1$s szabad ennyiből: %2$s</string>
     <string name="navigation_add_storage">Tároló hozzáadása…</string>
     <string name="navigation_standard_directory_alarms">Riasztások</string>
@@ -489,6 +581,9 @@
     <string name="archive_viewer_title">Archívum megjelenítő</string>
     <string name="image_viewer_title">Képmegjelenítő</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Mentés mint</string>
+    <string name="save_as_error">Hiba a fájl mentése során</string>
+    <string name="save_as_success_format">“%1$s” el lett mentve a “%2$s” helyre</string>
     <string name="text_editor_title">Szövegszerkesztő</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -508,6 +603,9 @@
     <string name="ftp_server_url_menu_copy_url">Webcím másolása</string>
     <string name="ftp_server_url_menu_copy_password">Jelszó másolása</string>
     <string name="ftp_server_add_tile_title">Hozzáadás a gyors beállításokhoz</string>
+    <string name="ftp_server_add_tile_result_added">“FTP kiszolgáló” hozzádva a Gyors Beállításokhoz</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP kiszolgáló” már a gyors beállítások része</string>
+    <string name="ftp_server_add_tile_result_error">Hiba a “FTP kiszolgáló” gyors beállítások hozzáadása közben</string>
     <string name="ftp_server_configuration_title">Beállítás</string>
     <string name="ftp_server_anonymous_login_title">Névtelen bejelentkezés</string>
     <string name="ftp_server_username_title">Felhasználónév</string>
@@ -562,6 +660,7 @@
         <item>Tartalom megtekintése</item>
         <item>Kérdezze meg, hogy mit tegyen</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">PDF dokumentumok miniatűrképének mutatása</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Az Android régebbi verzióinál instabillá teheti az alkalmazást</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Távoli fájlok olvasása a bélyegképekhez</string>
 

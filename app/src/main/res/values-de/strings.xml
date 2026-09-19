@@ -431,7 +431,7 @@
     <string name="file_properties_checksum_compare_match_format">Entspricht %1$sPrüfsumme</string>
     <string name="file_properties_checksum_compare_prefix_match_format">Entspricht dem Prefix der %1$s Prüfsumme</string>
     <string name="file_properties_checksum_compare_no_match">Keine passende Prüfsumme gefunden</string>
-    <string name="storage_file_system_root_title">Wurzel</string>
+    <string name="storage_file_system_root_title">Stammverzeichnis</string>
     <string name="storage_list_title">Speicher</string>
     <string name="storage_list_empty">Kein Speicher</string>
     <string name="storage_add_storage_title">Speicher hinzufügen</string>

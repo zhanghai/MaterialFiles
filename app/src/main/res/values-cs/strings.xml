@@ -311,7 +311,19 @@
     <string name="file_create_directory_title">Nová složka</string>
 
     <string name="file_list_title">Soubory</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="one">Vybrat soubor</item>
+        <item quantity="few">Vybrat soubory</item>
+        <item quantity="many">Vybrat soubory</item>
+        <item quantity="other">Vybrat soubory</item>
+    </plurals>
     <string name="file_list_title_create_file">Uložit soubor</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="one">Vybrat složku</item>
+        <item quantity="few">Vybrat složky</item>
+        <item quantity="many">Vybrat složky</item>
+        <item quantity="other">Vybrat složky</item>
+    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d složka</item>
         <item quantity="few">%1$,d složky</item>
@@ -346,7 +358,9 @@
     <string name="file_list_action_add_bookmark">Přidat záložku</string>
     <string name="file_list_action_create_shortcut">Vytvořit zástupce</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Otevřít v novém okně</string>
+    <string name="file_list_select_title_format">%1$,d</string>
     <string name="file_list_create_file_name_hint">Název souboru</string>
+    <string name="file_list_open_current_directory_format">Vybrat “%1$s”</string>
     <string name="file_list_paste_move_title_format">Přesouvání %1$,d</string>
     <string name="file_list_paste_copy_title_format">Kopírování %1$,d</string>
     <string name="file_list_paste_extract_title_format">Rozbalování %1$,d</string>
@@ -385,10 +399,13 @@
     <string name="file_properties_permission">Oprávnění</string>
     <string name="file_properties_permission_owner">Vlastník</string>
     <string name="file_properties_permission_group">Skupina</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
     <string name="file_properties_permission_set_owner_title">Změnit vlastníka</string>
     <string name="file_properties_permission_set_group_title">Změnit skupinu</string>
     <string name="file_properties_permission_set_principal_filter_hint">Zadejte název nebo ID</string>
+    <string name="file_properties_permission_set_principal_system">Systém</string>
     <string name="file_properties_permission_mode">Režim</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
     <string name="file_properties_permission_set_mode_title">Změnit režim</string>
     <string name="file_properties_permission_set_mode_others">Ostatní</string>
     <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
@@ -407,6 +424,8 @@
         <item>Nastavit GID</item>
         <item>Sticky bit</item>
     </string-array>
+    <string name="file_properties_permission_selinux_context">Kontext SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Změnit kontext SELinux</string>
     <string name="file_properties_permission_set_selinux_context_restore">Obnovit</string>
     <string name="file_properties_image">Obrázek</string>
     <string name="file_properties_media_dimensions">Rozměry</string>
@@ -480,6 +499,9 @@
     <string name="storage_edit_device_storage_title">Upravit úložiště zařízení</string>
     <string name="storage_edit_device_storage_name">Název</string>
     <string name="storage_edit_device_storage_path">Cesta</string>
+    <string name="storage_add_external_storage_shortcut_title">Přidat zkratku na externí úložiště</string>
+    <string name="storage_edit_external_storage_shortcut_title">Upravit zkratku na externí úložiště</string>
+    <string name="storage_edit_external_storage_shortcut_path">Cesta</string>
     <string name="storage_add_document_tree_title">Přidat externí úložiště</string>
     <string name="storage_edit_document_tree_title">Upravit externí úložiště</string>
     <string name="storage_edit_document_tree_name">Název</string>
@@ -595,7 +617,7 @@
     <string name="navigation_storage_subtitle_format">%1$svolných z %2$s</string>
     <string name="navigation_add_storage">Přidat úložiště…</string>
     <string name="navigation_standard_directory_alarms">Budíky</string>
-    <string name="navigation_standard_directory_dcim">DCMI</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Dokumenty</string>
     <string name="navigation_standard_directory_downloads">Stahování</string>
     <string name="navigation_standard_directory_movies">Filmy</string>
@@ -670,7 +692,7 @@
     </string-array>
     <string name="settings_behavior_title">Chování</string>
     <string name="settings_default_directory_title">Výchozí složka</string>
-    <string name="settings_standard_directories_title">Standartní složky</string>
+    <string name="settings_standard_directories_title">Standardní složky</string>
     <string name="settings_standard_directories_summary_empty">Nejsou povoleny žádné standartní složky</string>
     <string name="settings_bookmark_directory_screenshots">Snímky obrazovky</string>
     <string name="settings_bookmark_directories_title">Založené složky</string>

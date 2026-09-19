@@ -561,7 +561,7 @@
     <string name="storage_edit_webdav_server_add">Προσθήκη</string>
 
     <string name="navigation_storage_subtitle_format">%1$s ελεύθερα από %2$s</string>
-    <string name="navigation_add_storage">Προσθήκη χώρου αποθήκευσης...</string>
+    <string name="navigation_add_storage">Προσθήκη χώρου αποθήκευσης…</string>
     <string name="navigation_standard_directory_alarms">Ξυπνητήρια</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Έγγραφα</string>

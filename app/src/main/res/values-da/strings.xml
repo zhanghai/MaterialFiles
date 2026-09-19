@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+
+    <string name="app_name">Material Filer</string>
+
+    <string name="close">Luk</string>
+    <string name="copy">Kopiér</string>
+    <string name="cut">Klip</string>
+    <string name="default_">Standard</string>
+    <string name="delete">Slet</string>
+    <string name="discard">Kassér</string>
+    <string name="edit">Rediger</string>
+    <string name="empty">Tom</string>
+    <string name="empty_placeholder">(Tom)</string>
+    <string name="error">Fejl</string>
+    <string name="hide">Skjul</string>
+    <string name="install">Installer</string>
+    <string name="keep_editing">Fortsæt redigering</string>
+    <string name="loading">Indlæser…</string>
+    <string name="maybe_later">Måske senere</string>
+    <string name="merge">Flet</string>
+    <string name="none">Ingen</string>
+    <string name="open_navigation_drawer">Åbn navigationsskuffen</string>
+    <string name="paste">Indsæt</string>
+    <string name="refresh">Opdater</string>
+    <string name="reload">Genindlæs</string>
+    <string name="remove">Fjern</string>
+    <string name="rename">Omdøb</string>
+    <string name="replace">Erstat</string>
+    <string name="reset">Nulstil</string>
+    <string name="retry">Prøv igen</string>
+    <string name="save">Gem</string>
+    <string name="search">Søg</string>
+    <string name="select">Vælg</string>
+    <string name="select_all">Vælg alle</string>
+    <string name="share">Del</string>
+    <string name="show">Vis</string>
+    <string name="skip">Spring over</string>
+    <string name="stop">Stop</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="unknown">Ukendt</string>
+    <string name="view">Se</string>
+
+    <!-- android.R.string.app_not_found -->
+    <string name="activity_not_found">Fandt ingen applikation til at håndtere denne handling</string>
+    <string name="open_settings">Åbn indstillinger</string>
+    <string name="shortcut_created">Genvej oprettet</string>
+
+    <plurals name="size_in_bytes_format">
+        <item quantity="one">%1$,d byte</item>
+        <item quantity="other">%1$,d bytes</item>
+    </plurals>
+
+    <string name="all_files_access_rationale_message">Appen skal have adgang til at administrere alle filer. Giv venligst adgang i den kommende systemindstilling.</string>
+    <!-- The allow button before Android 10 was in all-caps. -->
+    <string name="storage_permission_rationale_message">Appen skal have tilladelse til at få adgang til filer. Klik på “Tillad” i den kommende systemdialog.</string>
+    <string name="storage_permission_permanently_denied_message">Appen skal have tilladelse til at få adgang til filer. Giv venligst tilladelsen “Lagring” i systemindstillinger.</string>
+    <!-- The allow button is in sentence case now. -->
+    <string name="notification_permission_rationale_message">Appen skal have tilladelse til at sende meddelelser om filoperationer. Klik venligst på “Tillad” i den kommende systemdialog.</string>
+    <string name="notification_permission_permanently_denied_message">Appen skal have tilladelse til at sende meddelelser om filoperationer. Giv venligst tilladelsen “Notifikationer” i systemindstillinger.</string>
+
+    <string name="notification_channel_background_activity_start_name">Handlinger i baggrunden</string>
+    <string name="notification_channel_background_activity_start_description">Udfør handlinger, mens appen er i baggrunden</string>
+    <string name="notification_channel_file_job_name">Filoperationer</string>
+    <string name="notification_channel_file_job_description">Vis og kontrollér filoperationer</string>
+    <string name="notification_channel_ftp_server_name">FTP-server</string>
+    <string name="notification_channel_ftp_server_description">Vis og kontrollér FTP-serveren</string>
+
+    <string name="file_action_archive_password_title">Adgangskode påkrævet</string>
+    <string name="file_action_archive_password_message_format">“%1$s” er adgangskodebeskyttet.</string>
+    <string name="file_action_archive_password_error_empty">Adgangskode må ikke være tom</string>
+
+    <plurals name="file_job_archive_scan_notification_title_format">
+        <item quantity="one">Forbereder komprimering af %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder komprimering af %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_archive_notification_title_one_format">Komprimerer “%1$s” til “%2$s”</string>
+    <plurals name="file_job_archive_notification_title_multiple_format">
+        <item quantity="one">Komprimerer %1$,d fil til “%2$s”</item>
+        <item quantity="other">Komprimerer %1$,d filer til “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_copy_scan_notification_title_format">
+        <item quantity="one">Forbereder kopiering af %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder kopiering af %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_copy_notification_title_one_format">Kopierer “%1$s” til “%2$s”</string>
+    <plurals name="file_job_copy_notification_title_multiple_format">
+        <item quantity="one">Kopierer %1$,d fil til “%2$s”</item>
+        <item quantity="other">Kopierer %1$,d filer til “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_extract_scan_notification_title_format">
+        <item quantity="one">Forbereder udpakning af %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder udpakning af %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_extract_notification_title_one_format">Udpakker “%1$s” til “%2$s”</string>
+    <plurals name="file_job_extract_notification_title_multiple_format">
+        <item quantity="one">Udpakker %1$,d fil til “%2$s”</item>
+        <item quantity="other">Udpakker %1$,d filer til “%2$s”</item>
+    </plurals>
+    <plurals name="file_job_move_scan_notification_title_format">
+        <item quantity="one">Forbereder flytning af %1$,d fil (%2$s)</item>
+        <item quantity="other">Forbereder flytning af %1$,d filer (%2$s)</item>
+    </plurals>
+    <string name="file_job_move_notification_title_one_format">Flytter “%1$s” til “%2$s”</string>
+    <plurals name="file_job_move_notification_title_multiple_format">
+        <item quantity="one">Flytter %1$,d fil til “%2$s”</item>
+        <item quantity="other">Flytter %1$,d filer til “%2$s”</item>
+    </plurals>
+    <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
+    <string name="file_job_transfer_size_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <plurals name="file_job_delete_scan_notification_title_format">
+        <item quantity="one">Forbereder sletning af %1$,d fil</item>
+        <item quantity="other">Forbereder sletning af %1$,d filer</item>
+    </plurals>
+    <string name="file_job_delete_notification_title_one_format">Sletter “%1$s”</string>
+    <plurals name="file_job_delete_notification_title_multiple_format">
+        <item quantity="one">Sletter %1$,d fil</item>
+        <item quantity="other">Sletter %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_owner_scan_notification_title_format">
+        <item quantity="one">Forbereder ændring af ejer for %1$,d fil</item>
+        <item quantity="other">Forbereder ændring af ejer for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_owner_notification_title_one_format">Ændrer ejer for “%1$s”</string>
+    <plurals name="file_job_set_owner_notification_title_multiple_format">
+        <item quantity="one">Ændrer ejer for %1$,d fil</item>
+        <item quantity="other">Ændrer ejer for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_group_scan_notification_title_format">
+        <item quantity="one">Forbereder ændring af gruppe for %1$,d fil</item>
+        <item quantity="other">Forbereder ændring af gruppe for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_group_notification_title_one_format">Ændrer gruppe for “%1$s”</string>
+    <plurals name="file_job_set_group_notification_title_multiple_format">
+        <item quantity="one">Ændrer gruppe for %1$,d fil</item>
+        <item quantity="other">Ændrer gruppe for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_mode_scan_notification_title_format">
+        <item quantity="one">Forbereder ændring af tilstand for %1$,d fil</item>
+        <item quantity="other">Forbereder ændring af tilstand for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_mode_notification_title_one_format">Ændrer tilstand for “%1$s”</string>
+    <plurals name="file_job_set_mode_notification_title_multiple_format">
+        <item quantity="one">Ændrer tilstand for %1$,d fil</item>
+        <item quantity="other">Ændrer tilstand for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_set_selinux_context_scan_notification_title_format">
+        <item quantity="one">Forbereder ændring af SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Forbereder ændring af SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_set_selinux_context_notification_title_one_format">Ændrer SELinux-kontekst for “%1$s”</string>
+    <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Ændrer SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Ændrer SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
+        <item quantity="one">Forbereder gendannelse af SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Forbereder gendannelse af SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_restore_selinux_context_notification_title_one_format">Gendanner SELinux-kontekst for “%1$s”</string>
+    <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
+        <item quantity="one">Gendanner SELinux-kontekst for %1$,d fil</item>
+        <item quantity="other">Gendanner SELinux-kontekst for %1$,d filer</item>
+    </plurals>
+    <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
+    <string name="file_job_write_notification_title_format">Skriver “%1$s”</string>
+    <string name="file_job_create_error_title">Fejl under oprettelse</string>
+    <string name="file_job_create_error_message_format">En fejl opstod ved oprettelsen af “%1$s”.\n%2$s</string>
+    <string name="file_job_cannot_copy_into_itself_title">Kan ikke kopiere en mappe til sig selv</string>
+    <string name="file_job_cannot_extract_into_itself_title">Kan ikke udpakke en mappe til sig selv</string>
+    <string name="file_job_cannot_move_into_itself_title">Kan ikke flytte en mappe til sig selv</string>
+    <string name="file_job_cannot_copy_move_into_itself_message">Destinationsmappen er inde i kildemappen.</string>
+    <string name="file_job_cannot_copy_over_itself_title">Kan ikke kopiere en fil over sig selv</string>
+    <string name="file_job_cannot_extract_over_itself_title">Kan ikke udpakke en fil over sig selv</string>
+    <string name="file_job_cannot_move_over_itself_title">Kan ikke flytte en fil over sig selv</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">Kildefilen overskrives af destinationen.</string>
+    <string name="file_job_replace_title_format">Erstat filen “%1$s”?</string>
+    <string name="file_job_replace_message_format">En anden fil med samme navn findes allerede i “%1$s”.\nErstatning af den overskriver dens indhold.</string>
+    <string name="file_job_replace_target_name">Oprindelig fil</string>
+    <string name="file_job_replace_source_name">Erstat med</string>
+    <string name="file_job_merge_title_format">Flet mappen “%1$s”?</string>
+    <string name="file_job_merge_copy_message_format">Fletningen beder om bekræftelse, før den erstatter nogen filer i mappen, som er i konflikt med de filer, der kopieres.</string>
+    <string name="file_job_merge_extract_message_format">Fletningen beder om bekræftelse, før den erstatter nogen filer i mappen, som er i konflikt med de filer, der udpakkes.</string>
+    <string name="file_job_merge_move_message_format">Fletningen beder om bekræftelse, før den erstatter nogen filer i mappen, som er i konflikt med de filer, der flyttes.</string>
+    <string name="file_job_merge_target_name">Oprindelig mappe</string>
+    <string name="file_job_merge_source_name">Flet med</string>
+    <string name="file_job_conflict_show_name">Vælg et nyt navn til destinationen</string>
+    <string name="file_job_conflict_name_hint">Nyt navn</string>
+    <string name="file_job_archive_error_title_format">Fejl under komprimering af “%1$s”</string>
+    <string name="file_job_archive_error_message_format">En fejl opstod ved komprimering af filen til “%1$s”.\n%2$s</string>
+    <string name="file_job_copy_error_title_format">Fejl under kopiering af “%1$s”</string>
+    <string name="file_job_copy_error_message_format">En fejl opstod ved kopiering af filen til “%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_title_format">Fejl under udpakning af “%1$s”</string>
+    <string name="file_job_extract_error_message_format">En fejl opstod ved udpakning af filen til “%1$s”.\n%2$s</string>
+    <string name="file_job_move_error_title_format">Fejl under flytning af “%1$s”</string>
+    <string name="file_job_move_error_message_format">En fejl opstod ved flytning af filen til “%1$s”.\n%2$s</string>
+    <string name="file_job_delete_error_title">Fejl under sletning</string>
+    <string name="file_job_delete_error_message_format">En fejl opstod ved sletning af “%1$s”.\n%2$s</string>
+    <string name="file_job_rename_error_title_format">Fejl under omdøbning af “%1$s”</string>
+    <string name="file_job_rename_error_message_format">En fejl opstod ved omdøbning af filen til “%1$s”.\n%2$s</string>
+    <string name="file_job_set_owner_error_title_format">Fejl under ændring af ejer for “%1$s”</string>
+    <string name="file_job_set_owner_error_message_format">En fejl opstod ved ændring af ejer for “%1$s”.\n%2$s</string>
+    <string name="file_job_set_group_error_title_format">Fejl under ændring af gruppe for “%1$s”</string>
+    <string name="file_job_set_group_error_message_format">En fejl opstod ved ændring af gruppe for “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_title_format">Fejl under ændring af tilstand for “%1$s”</string>
+    <string name="file_job_set_mode_error_message_format">En fejl opstod ved ændring af tilstand til “%1$s”.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_title_format">Fejl under ændring af SELinux-kontekst for “%1$s”</string>
+    <string name="file_job_set_selinux_context_error_message_format">En fejl opstod ved ændring af SELinux-kontekst til “%1$s”.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_title">Fejl under gendannelse af SELinux-kontekst</string>
+    <string name="file_job_restore_selinux_context_error_message_format">En fejl opstod ved gendannelse af SELinux-kontekst for “%1$s”.\n%2$s</string>
+    <string name="file_job_write_error_title">Fejl under skrivning</string>
+    <string name="file_job_write_error_message_format">En fejl opstod ved skrivning af “%1$s”.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">En fejl opstod ved indhentning af oplysninger om “%1$s”.</string>
+    <string name="file_job_remount_format">Genmonter “%1$s” som læs-skriv</string>
+    <string name="file_job_remount_loading_format">Genmonterer “%1$s” som læs-skriv…</string>
+    <string name="file_job_remount_success_format">“%1$s” er blevet genmonteret som læs-skriv</string>
+    <string name="file_job_action_all">Anvend denne handling på alle filer</string>
+
+    <string name="file_open_apk_message">Denne fil er en Android-pakke. Vil du installere den eller se dens indhold?</string>
+    <string name="file_open_as_title">Åbn som…</string>
+    <string name="file_open_as_title_format">Åbn “%1$s” som</string>
+    <string name="file_open_as_type_text">Tekst</string>
+    <string name="file_open_as_type_image">Billede</string>
+    <string name="file_open_as_type_audio">Lyd</string>
+    <string name="file_open_as_type_video">Video</string>
+    <string name="file_open_as_type_directory">Mappe</string>
+    <string name="file_open_as_type_any">Andet</string>
+    <string name="file_install_apk_from_background_title_format">“%1$s” er klar til at blive installeret</string>
+    <string name="file_install_apk_from_background_text">Tryk for at installere</string>
+    <string name="file_open_from_background_title_format">“%1$s” er klar til at blive åbnet</string>
+    <string name="file_open_from_background_text">Tryk for at åbne</string>
+    <string name="file_name_error_empty">Filnavn må ikke være tomt</string>
+    <string name="file_name_error_invalid">Ugyldigt filnavn</string>
+    <string name="file_name_error_already_exists">En fil med dette navn findes allerede</string>
+    <string name="file_replace_message_format">Erstat “%1$s”?</string>
+    <string name="file_delete_message_file_format">Slet “%1$s”?</string>
+    <string name="file_delete_message_directory_format">Slet mappen “%1$s” og dens indhold?</string>
+    <plurals name="file_delete_message_multiple_files_format">
+        <item quantity="one">Slet %1$,d fil?</item>
+        <item quantity="other">Slet %1$,d filer?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_directories_format">
+        <item quantity="one">Slet %1$,d mappe og dens indhold?</item>
+        <item quantity="other">Slet %1$,d mapper og deres indhold?</item>
+    </plurals>
+    <plurals name="file_delete_message_multiple_mixed_format">
+        <item quantity="one">Slet %1$,d element?</item>
+        <item quantity="other">Slet %1$,d elementer?</item>
+    </plurals>
+    <string name="file_create_archive_title">Opret arkiv</string>
+    <string name="file_create_archive_type_zip">.zip</string>
+    <string name="file_create_archive_type_tar_xz">.tar.xz</string>
+    <string name="file_create_archive_type_7z">.7z</string>
+    <string name="file_create_archive_password">Adgangskode (valgfrit)</string>
+    <string name="file_add_bookmark_success">Bogmærke tilføjet</string>
+    <string name="file_create_file_title">Ny fil</string>
+    <string name="file_create_directory_title">Ny mappe</string>
+
+    <string name="file_list_title">Filer</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="one">Vælg en fil</item>
+        <item quantity="other">Vælg filer</item>
+    </plurals>
+    <string name="file_list_title_create_file">Gem fil</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="one">Vælg en mappe</item>
+        <item quantity="other">Vælg mapper</item>
+    </plurals>
+    <plurals name="file_list_subtitle_directory_count_format">
+        <item quantity="one">%1$,d mappe</item>
+        <item quantity="other">%1$,d mapper</item>
+    </plurals>
+    <plurals name="file_list_subtitle_file_count_format">
+        <item quantity="one">%1$,d fil</item>
+        <item quantity="other">%1$,d filer</item>
+    </plurals>
+    <string name="file_list_subtitle_separator">,\u0020</string>
+    <string name="file_list_path_error_empty">Sti må ikke være tom</string>
+    <string name="file_list_path_error_invalid">Ugyldig sti</string>
+    <string name="file_list_action_view_sort">Se og sorter</string>
+    <string name="file_list_action_view_list">Liste</string>
+    <string name="file_list_action_view_grid">Gitter</string>
+    <string name="file_list_action_sort_by_name">Navn</string>
+    <string name="file_list_action_sort_by_type">Type</string>
+    <string name="file_list_action_sort_by_size">Størrelse</string>
+    <string name="file_list_action_sort_by_last_modified">Sidst ændret</string>
+    <string name="file_list_action_sort_order_ascending">Stigende</string>
+    <string name="file_list_action_sort_directories_first">Mapper først</string>
+    <string name="file_list_action_view_sort_path_specific">Kun for denne mappe</string>
+    <string name="file_list_action_new_task">Nyt vindue</string>
+    <string name="file_list_action_navigate_up">Gå op</string>
+    <string name="file_list_action_navigate_to">Gå til</string>
+    <string name="file_list_action_show_hidden_files">Vis skjulte filer</string>
+    <string name="file_list_action_copy_path">Kopiér sti</string>
+    <string name="file_list_action_open_in_terminal">Åbn i terminal</string>
+    <string name="file_list_action_add_bookmark">Tilføj bogmærke</string>
+    <string name="file_list_action_create_shortcut">Opret genvej</string>
+    <string name="file_list_breadcrumb_action_open_in_new_task">Åbn i nyt vindue</string>
+    <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Filnavn</string>
+    <string name="file_list_open_current_directory_format">Vælg “%1$s”</string>
+    <string name="file_list_paste_move_title_format">Flytter %1$,d</string>
+    <string name="file_list_paste_copy_title_format">Kopierer %1$,d</string>
+    <string name="file_list_paste_extract_title_format">Udpakker %1$,d</string>
+    <string name="file_list_paste_action_extract_here">Udpak her</string>
+    <string name="file_list_empty">Ingen filer</string>
+    <string name="file_list_action_create_file">Fil</string>
+    <string name="file_list_action_create_directory">Mappe</string>
+
+    <string name="file_item_description_separator">\u0020\u0020\u0020\u0020</string>
+    <string name="file_item_action_open_with">Åbn med</string>
+    <string name="file_item_action_extract">Udpak</string>
+    <string name="file_item_action_archive">Komprimer</string>
+    <string name="file_item_action_properties">Egenskaber</string>
+
+    <string name="file_properties_title_format">“%1$s” egenskaber</string>
+    <string name="file_properties_basic">Basal</string>
+    <string name="file_properties_basic_name">Navn</string>
+    <string name="file_properties_basic_type">Type</string>
+    <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_type_symbolic_link_format">Link til %1$s (%2$s)</string>
+    <string name="file_properties_basic_symbolic_link_target">Mål for Link</string>
+    <string name="file_properties_basic_size">Størrelse</string>
+    <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
+    <string name="file_properties_basic_contents">Indhold</string>
+    <plurals name="file_properties_basic_contents_format">
+        <item quantity="one">%1$,d element med størrelse %2$s</item>
+        <item quantity="other">%1$,d elementer; i alt %2$s</item>
+    </plurals>
+    <string name="file_properties_basic_last_modification_time">Sidst Ændret</string>
+    <string name="file_properties_basic_parent_directory">Forældremappe</string>
+    <string name="file_properties_basic_archive_file">Arkivfil</string>
+    <string name="file_properties_basic_archive_entry">Arkivindgang</string>
+    <string name="file_properties_basic_free_space">Ledig Plads</string>
+    <string name="file_properties_permission">Tilladelser</string>
+    <string name="file_properties_permission_owner">Ejer</string>
+    <string name="file_properties_permission_group">Gruppe</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Skift ejer</string>
+    <string name="file_properties_permission_set_group_title">Skift gruppe</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Indtast et navn eller ID</string>
+    <string name="file_properties_permission_set_principal_system">System</string>
+    <string name="file_properties_permission_mode">Tilstand</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Skift tilstand</string>
+    <string name="file_properties_permission_set_mode_others">Andre</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
+        <item>Læs</item>
+        <item>Skriv</item>
+        <item>Udfør</item>
+    </string-array>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
+        <item>Læs</item>
+        <item>Skriv</item>
+        <item>Søg</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_special">Speciel</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>Indstil UID</item>
+        <item>Indstil GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_uppercase_x">Tilføj ikke “Udfør” for vedlagte filer</string>
+    <string name="file_properties_permission_selinux_context">SELinux-kontekst</string>
+    <string name="file_properties_permission_set_selinux_context_title">Ændr SELinux-kontekst</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Gendan</string>
+    <string name="file_properties_permission_recursive">Anvend på vedlagte filer</string>
+    <string name="file_properties_image">Billede</string>
+    <string name="file_properties_media_dimensions">Dimensioner</string>
+    <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
+    <string name="file_properties_media_date_time">Taget på</string>
+    <string name="file_properties_media_coordinates">Koordinater</string>
+    <string name="file_properties_media_coordinates_format">%1$.3f, %2$.3f</string>
+    <string name="file_properties_media_address">Lokation</string>
+    <string name="file_properties_image_gps_altitude">Højde</string>
+    <string name="file_properties_image_gps_altitude_format">%1$,.3f m</string>
+    <string name="file_properties_image_equipment">Kamera</string>
+    <string name="file_properties_image_equipment_format">%1$s %2$s</string>
+    <string name="file_properties_image_f_number">Blænde</string>
+    <string name="file_properties_image_shutter_speed">Lukkerhastighed</string>
+    <string name="file_properties_image_focal_length">Brændvidde</string>
+    <string name="file_properties_image_focal_length_format">%1$.2f mm</string>
+    <string name="file_properties_image_photographic_sensitivity">ISO-ækvivalent</string>
+    <string name="file_properties_image_photographic_sensitivity_format">ISO %1$d</string>
+    <string name="file_properties_image_software">Software</string>
+    <string name="file_properties_image_description">Beskrivelse</string>
+    <string name="file_properties_image_artist">Skaber</string>
+    <string name="file_properties_image_copyright">Copyright</string>
+    <string name="file_properties_audio">Lyd</string>
+    <string name="file_properties_media_title">Titel</string>
+    <string name="file_properties_audio_artist">Kunstner</string>
+    <string name="file_properties_audio_album">Album</string>
+    <string name="file_properties_audio_album_artist">Albumkunstner</string>
+    <string name="file_properties_audio_composer">Komponist</string>
+    <string name="file_properties_audio_disc_number">Disk</string>
+    <string name="file_properties_audio_track_number">Nummer</string>
+    <string name="file_properties_audio_year">År</string>
+    <string name="file_properties_audio_genre">Genre</string>
+    <string name="file_properties_media_duration">Varighed</string>
+    <string name="file_properties_media_bit_rate">Bitrate</string>
+    <string name="file_properties_media_bit_rate_format">%1$d kbps</string>
+    <string name="file_properties_audio_sample_rate">Samplingsfrekvens</string>
+    <string name="file_properties_audio_sample_rate_format">%1$d Hz</string>
+    <string name="file_properties_video">Video</string>
+    <string name="file_properties_apk">APK</string>
+    <string name="file_properties_apk_label">Navn</string>
+    <string name="file_properties_apk_package_name">Pakkenavn</string>
+    <string name="file_properties_apk_version">Version</string>
+    <string name="file_properties_apk_version_format">%1$s (%2$d)</string>
+    <string name="file_properties_apk_min_sdk_version">Minimum systemversion</string>
+    <string name="file_properties_apk_target_sdk_version">Mål systemversion</string>
+    <string name="file_properites_apk_sdk_version_format">%1$s (%2$s, %3$d)</string>
+    <string name="file_properties_apk_requested_permissions">Tilladelser</string>
+    <string name="file_properties_apk_requested_permissions_zero">Ingen tilladelser anmodet</string>
+    <plurals name="file_properties_apk_requested_permissions_positive_format">
+        <item quantity="one">%1$,d tilladelse anmodet</item>
+        <item quantity="other">%1$,d tilladelser anmodet</item>
+    </plurals>
+    <string name="file_properties_apk_signature_digests">Signaturer</string>
+    <string name="file_properties_apk_signature_digests_empty">Ingen gyldige signaturer</string>
+    <string name="file_properties_apk_past_signature_digests">Gamle signaturer</string>
+    <string name="file_properties_checksum">Kontrolsummer</string>
+    <string name="file_properties_checksum_compare">Sammenlign</string>
+    <string name="file_properties_checksum_compare_placeholder">Enhver kontrolsum</string>
+    <string name="file_properties_checksum_compare_match_format">Matcher %1$s kontrolsum</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Matcher præfiks af %1$s kontrolsum</string>
+    <string name="file_properties_checksum_compare_no_match">Ingen matchende kontrolsum fundet</string>
+    <string name="storage_file_system_root_title">Rod</string>
+    <string name="storage_list_title">Lager</string>
+    <string name="storage_list_empty">Intet lager</string>
+    <string name="storage_add_storage_title">Tilføj lager</string>
+    <string name="storage_add_storage_document_tree">Eksternt lager</string>
+    <string name="storage_add_storage_ftp_server">FTP-server</string>
+    <string name="storage_add_storage_sftp_server">SFTP-server</string>
+    <string name="storage_add_storage_smb_server">SMB-server</string>
+    <string name="storage_add_storage_webdav_server">WebDAV-server</string>
+    <string name="storage_edit_device_storage_title">Rediger enhedens lager</string>
+    <string name="storage_edit_device_storage_name">Navn</string>
+    <string name="storage_edit_device_storage_path">Sti</string>
+    <string name="storage_add_external_storage_shortcut_title">Tilføj genvej til eksternt lager</string>
+    <string name="storage_edit_external_storage_shortcut_title">Rediger genvej til eksternt lager</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Lagerkapacitet</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Indtast en lagerkapacitet</string>
+    <string name="storage_edit_external_storage_shortcut_path">Sti</string>
+    <string name="storage_add_document_tree_title">Tilføj eksternt lager</string>
+    <string name="storage_edit_document_tree_title">Rediger eksternt lager</string>
+    <string name="storage_edit_document_tree_name">Navn</string>
+    <string name="storage_edit_document_tree_uri">URI</string>
+    <string name="storage_edit_document_tree_path">Sti</string>
+    <string name="storage_edit_ftp_server_title_edit">Rediger FTP-server</string>
+    <string name="storage_edit_ftp_server_title_add">Tilføj FTP-server</string>
+    <string name="storage_edit_ftp_server_host">Værtsnavn</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Indtast et værtsnavn</string>
+    <string name="storage_edit_ftp_server_host_error_invalid">Ugyldigt værtsnavn</string>
+    <string name="storage_edit_ftp_server_port">Port</string>
+    <string name="storage_edit_ftp_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_ftp_server_path">Sti</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Kan efterlades tom</string>
+    <string name="storage_edit_ftp_server_name">Navn</string>
+    <string name="storage_edit_ftp_server_name_placeholder">Brug værtsnavn</string>
+    <string name="storage_edit_ftp_server_protocol">Protokol</string>
+    <string name="storage_edit_ftp_server_authentication_type">Godkendelse</string>
+    <string-array name="storage_edit_ftp_server_authentication_type_entries">
+        <item>Adgangskode</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_username">Brugernavn</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Indtast et brugernavn</string>
+    <string name="storage_edit_ftp_server_password">Adgangskode</string>
+    <string name="storage_edit_ftp_server_mode">Tilstand</string>
+    <string-array name="storage_edit_ftp_server_mode_entries">
+        <item>Aktiv</item>
+        <item>Passiv</item>
+    </string-array>
+    <string name="storage_edit_ftp_server_encoding">Kodning</string>
+    <string name="storage_edit_ftp_server_connect_and_add">Forbind og tilføj</string>
+    <string name="storage_edit_ftp_server_add">Tilføj</string>
+    <string name="storage_edit_sftp_server_title_edit">Rediger SFTP-server</string>
+    <string name="storage_edit_sftp_server_title_add">Tilføj SFTP-server</string>
+    <string name="storage_edit_sftp_server_host">Værtsnavn</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Indtast et værtsnavn</string>
+    <string name="storage_edit_sftp_server_host_error_invalid">Ugyldigt værtsnavn</string>
+    <string name="storage_edit_sftp_server_port">Port</string>
+    <string name="storage_edit_sftp_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_sftp_server_path">Sti</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Kan efterlades tom</string>
+    <string name="storage_edit_sftp_server_name">Navn</string>
+    <string name="storage_edit_sftp_server_name_placeholder">Brug værtsnavn</string>
+    <string name="storage_edit_sftp_server_authentication_type">Godkendelse</string>
+    <string-array name="storage_edit_sftp_server_authentication_type_entries">
+        <item>Adgangskode</item>
+        <item>Offentlig nøgle</item>
+    </string-array>
+    <string name="storage_edit_sftp_server_username">Brugernavn</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Indtast et brugernavn</string>
+    <string name="storage_edit_sftp_server_password">Adgangskode</string>
+    <string name="storage_edit_sftp_server_private_key">Privat nøgle</string>
+    <string name="storage_edit_sftp_server_private_key_open_file">Åbn fil</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Indtast en privat nøgle</string>
+    <string name="storage_edit_sftp_server_private_key_error_invalid">Ugyldig privat nøgle</string>
+    <string name="storage_edit_sftp_server_private_key_password">Adgangskode til privat nøgle</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Kan efterlades tom</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Ugyldig adgangskode til privat nøgle</string>
+    <string name="storage_edit_sftp_server_connect_and_add">Forbind og tilføj</string>
+    <string name="storage_edit_sftp_server_add">Tilføj</string>
+    <string name="storage_add_lan_smb_server_loading">Søger efter SMB-servere…</string>
+    <string name="storage_add_lan_smb_server_add">Tilføj manuelt</string>
+    <string name="storage_edit_smb_server_title_edit">Rediger SMB-server</string>
+    <string name="storage_edit_smb_server_title_add">Tilføj SMB-server</string>
+    <string name="storage_edit_smb_server_host">Værtsnavn</string>
+    <string name="storage_edit_smb_server_host_error_empty">Indtast et værtsnavn</string>
+    <string name="storage_edit_smb_server_host_error_invalid">Ugyldigt værtsnavn</string>
+    <string name="storage_edit_smb_server_port">Port</string>
+    <string name="storage_edit_smb_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_smb_server_path">Sti</string>
+    <string name="storage_edit_smb_server_path_placeholder">Kan efterlades tom</string>
+    <string name="storage_edit_smb_server_name">Navn</string>
+    <string name="storage_edit_smb_server_name_placeholder">Brug værtsnavn</string>
+    <string name="storage_edit_smb_server_authentication_type">Godkendelse</string>
+    <string-array name="storage_edit_smb_server_authentication_type_entries">
+        <item>Adgangskode</item>
+        <item>Gæst</item>
+        <item>Anonym</item>
+    </string-array>
+    <string name="storage_edit_smb_server_username">Brugernavn</string>
+    <string name="storage_edit_smb_server_username_error_empty">Indtast et brugernavn</string>
+    <string name="storage_edit_smb_server_password">Adgangskode</string>
+    <string name="storage_edit_smb_server_domain">Domæne</string>
+    <string name="storage_edit_smb_server_connect_and_add">Forbind og tilføj</string>
+    <string name="storage_edit_smb_server_add">Tilføj</string>
+    <string name="storage_edit_webdav_server_title_edit">Rediger WebDAV-server</string>
+    <string name="storage_edit_webdav_server_title_add">Tilføj WebDAV-server</string>
+    <string name="storage_edit_webdav_server_host">Værtsnavn</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Indtast et værtsnavn</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Ugyldigt værtsnavn</string>
+    <string name="storage_edit_webdav_server_port">Port</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Ugyldig port</string>
+    <string name="storage_edit_webdav_server_path">Sti</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Kan efterlades tom</string>
+    <string name="storage_edit_webdav_server_name">Navn</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Brug værtsnavn</string>
+    <string name="storage_edit_webdav_server_protocol">Protokol</string>
+    <string name="storage_edit_webdav_server_authentication_type">Godkendelse</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Adgangskode</item>
+        <item>Adgangstoken</item>
+        <item>Ingen</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Brugernavn</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Indtast et brugernavn</string>
+    <string name="storage_edit_webdav_server_password">Adgangskode</string>
+    <string name="storage_edit_webdav_server_access_token">Adgangstoken</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Indtast en adgangstoken</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Forbind og tilføj</string>
+    <string name="storage_edit_webdav_server_add">Tilføj</string>
+
+    <string name="navigation_storage_subtitle_format">%1$s ledig af %2$s</string>
+    <string name="navigation_add_storage">Tilføj lager…</string>
+    <string name="navigation_standard_directory_alarms">Alarmer</string>
+    <string name="navigation_standard_directory_dcim">DCIM</string>
+    <string name="navigation_standard_directory_documents">Dokumenter</string>
+    <string name="navigation_standard_directory_downloads">Overførsler</string>
+    <string name="navigation_standard_directory_movies">Film</string>
+    <string name="navigation_standard_directory_music">Musik</string>
+    <string name="navigation_standard_directory_notifications">Notifikationer</string>
+    <string name="navigation_standard_directory_pictures">Billeder</string>
+    <string name="navigation_standard_directory_podcasts">Podcasts</string>
+    <string name="navigation_standard_directory_ringtones">Ringetoner</string>
+    <string name="navigation_standard_directory_qq">QQ</string>
+    <string name="navigation_standard_directory_tim">TIM</string>
+    <string name="navigation_standard_directory_wechat">WeChat</string>
+    <string name="navigation_edit_bookmark_directory_title">Bogmærkemappe</string>
+    <string name="navigation_edit_bookmark_directory_name">Navn</string>
+    <string name="navigation_edit_bookmark_directory_path">Sti</string>
+    <string name="archive_viewer_title">Arkivfremviser</string>
+    <string name="image_viewer_title">Billedfremviser</string>
+    <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Gem som</string>
+    <string name="save_as_error">Fejl under lagring af fil</string>
+    <string name="save_as_success_format">“%1$s” blev gemt til “%2$s”</string>
+    <string name="text_editor_title">Teksteditor</string>
+    <string name="text_editor_title_format">%1$s</string>
+    <string name="text_editor_title_changed_format">*%1$s</string>
+    <string name="text_editor_save_success">Gemt</string>
+    <string name="text_editor_reload_message">Er du sikker på, at du vil genindlæse? Ikke-gemte ændringer i dette dokument går tabt.</string>
+    <string name="text_editor_encoding">Kodning</string>
+    <string name="text_editor_close_message">Er du sikker på, at du vil kassere ikke-gemte ændringer i dette dokument?</string>
+
+    <string name="ftp_server_title">FTP-server</string>
+    <string name="ftp_server_state_title">Status</string>
+    <string name="ftp_server_state_summary_starting">Starter…</string>
+    <string name="ftp_server_state_summary_running">Kører</string>
+    <string name="ftp_server_state_summary_stopping">Stopper…</string>
+    <string name="ftp_server_state_summary_stopped">Ikke startet</string>
+    <string name="ftp_server_url_title">URL</string>
+    <string name="ftp_server_url_summary_no_local_inet_address">Lokal IP-adresse er ukendt</string>
+    <string name="ftp_server_url_menu_copy_url">Kopiér URL</string>
+    <string name="ftp_server_url_menu_copy_password">Kopiér adgangskode</string>
+    <string name="ftp_server_add_tile_title">Føj til Hurtigindstillinger</string>
+    <string name="ftp_server_add_tile_result_added">“FTP-server” er blevet føjet til Hurtigindstillinger</string>
+    <string name="ftp_server_add_tile_result_already_added">“FTP-server” er allerede føjet til Hurtigindstillinger</string>
+    <string name="ftp_server_add_tile_result_error">Fejl under tilføjelse af “FTP-server” til Hurtigindstillinger</string>
+    <string name="ftp_server_configuration_title">Konfiguration</string>
+    <string name="ftp_server_anonymous_login_title">Anonymt login</string>
+    <string name="ftp_server_username_title">Brugernavn</string>
+    <string name="ftp_server_password_title">Adgangskode</string>
+    <string name="ftp_server_port_title">Port</string>
+    <string name="ftp_server_home_directory_title">Rodmappe</string>
+    <string name="ftp_server_writable_title">Tillad skrivning</string>
+    <string name="settings_title">Indstillinger</string>
+    <string name="settings_interface_title">Grænseflade</string>
+    <string name="settings_locale_title">Sprog</string>
+    <string name="settings_theme_color_title">Temafarve</string>
+    <string name="settings_theme_color_summary">Farve som vises oftest i appen</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
+    <string name="settings_night_mode_title">Nattilstand</string>
+    <string-array name="settings_night_mode_entries">
+        <item>Følg system</item>
+        <item>Fra</item>
+        <item>Til</item>
+        <item>Baseret på tid</item>
+        <item>Baseret på batterisparer</item>
+    </string-array>
+    <string name="settings_black_night_mode">Sort nattilstand</string>
+    <string name="settings_file_list_animation_title">Animation af filliste</string>
+    <string name="settings_file_name_ellipsize_title">Vis langt filnavn</string>
+    <string-array name="settings_file_name_ellipsize_entries">
+        <item>Ellipsér begyndelsen</item>
+        <item>Ellipsér midten</item>
+        <item>Ellipsér slutningen</item>
+        <item>Rullende tekst</item>
+    </string-array>
+    <string name="settings_behavior_title">Adfærd</string>
+    <string name="settings_default_directory_title">Standardmappe</string>
+    <string name="settings_standard_directories_title">Standardmapper</string>
+    <string name="settings_standard_directories_summary_empty">Ingen standardmapper aktiveret</string>
+    <string name="settings_bookmark_directory_screenshots">Skærmbilleder</string>
+    <string name="settings_bookmark_directories_title">Bogmærkemapper</string>
+    <string name="settings_bookmark_directories_summary_empty">Ingen bogmærkemapper</string>
+    <string name="settings_root_strategy_title">Root-adgangstilstand</string>
+    <plurals name="settings_root_strategy_message_format">
+        <item quantity="one">Du har %1$,d filoperation kørende, og hvis du ændrer root-adgangstilstand nu, kan det resultere i en uventet fejl. Er du sikker på, at du vil ændre det nu?</item>
+        <item quantity="other">Du har %1$,d filoperationer kørende, og hvis du ændrer root-adgangstilstand nu, kan det resultere i en uventet fejl. Er du sikker på, at du vil ændre det nu?</item>
+    </plurals>
+    <string-array name="settings_root_strategy_entries">
+        <item>Kun normal adgang</item>
+        <item>Automatisk</item>
+        <item>Kun root-adgang</item>
+    </string-array>
+    <string name="settings_archive_file_name_encoding_title">Kodning af arkivfilnavn</string>
+    <string name="settings_open_apk_default_action_title">Åbn Android-pakke</string>
+    <string-array name="settings_open_apk_default_action_entries">
+        <item>Installer</item>
+        <item>Se indhold</item>
+        <item>Spørg, hvad der skal gøres</item>
+    </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Vis miniaturebillede for PDF-dokumenter</string>
+    <string name="settings_show_pdf_thumbnail_pre_28_summary">Kan gøre appen ustabil på ældre versioner af Android</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Læs eksterne filer til miniaturebillede</string>
+
+    <string name="about_title">Om</string>
+    <string name="about_version_title">Version</string>
+    <string name="about_github_title">Se på GitHub</string>
+    <string name="about_licenses_title">Licenser</string>
+    <string name="about_privacy_policy_title">Privatlivspolitik</string>
+    <string name="about_author_title">Udvikler</string>
+    <string name="about_author_name_title">Hai Zhang</string>
+    <string name="about_author_github_title">Følg på Github</string>
+    <string name="about_author_twitter_title">Følg på X (Twitter)</string>
+</resources>

@@ -261,6 +261,7 @@
     <string name="file_name_error_empty">O nome do ficheiro não pode estar vazio</string>
     <string name="file_name_error_invalid">Nome de ficheiro inválido</string>
     <string name="file_name_error_already_exists">Já existe um ficheiro com este nome</string>
+    <string name="file_replace_message_format">Substituir “%1$s”?</string>
     <string name="file_delete_message_file_format">Eliminar “%1$s”?</string>
     <string name="file_delete_message_directory_format">Eliminar a pasta “%1$s” e todo o seu conteúdo?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -288,6 +289,17 @@
     <string name="file_create_directory_title">Nova pasta</string>
 
     <string name="file_list_title">Ficheiros</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="one">Selecionar ficheiro</item>
+        <item quantity="many">Selecionar ficheiros</item>
+        <item quantity="other">Selecionar ficheiros</item>
+    </plurals>
+    <string name="file_list_title_create_file">Guardar ficheiro</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="one">Selecionar pasta</item>
+        <item quantity="many">Selecionar pastas</item>
+        <item quantity="other">Selecionar pastas</item>
+    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">%1$,d pasta</item>
         <item quantity="many">%1$,d pastas</item>
@@ -321,6 +333,8 @@
     <string name="file_list_action_create_shortcut">Criar atalho</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir em nova janela</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Nome do ficheiro</string>
+    <string name="file_list_open_current_directory_format">Selecionar “%1$s”</string>
     <string name="file_list_paste_move_title_format">A mover %1$,d</string>
     <string name="file_list_paste_copy_title_format">A copiar %1$,d</string>
     <string name="file_list_paste_extract_title_format">A extrair %1$,d</string>
@@ -355,6 +369,37 @@
     <string name="file_properties_basic_archive_file">Arquivo</string>
     <string name="file_properties_basic_archive_entry">Entrada de arquivo</string>
     <string name="file_properties_basic_free_space">Espaço livre</string>
+    <string name="file_properties_permission">Permissões</string>
+    <string name="file_properties_permission_owner">Proprietário</string>
+    <string name="file_properties_permission_group">Grupo</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Alterar proprietário</string>
+    <string name="file_properties_permission_set_group_title">Alterar grupo</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Indique um nome ou ID</string>
+    <string name="file_properties_permission_set_principal_system">Sistema</string>
+    <string name="file_properties_permission_mode">Modo</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Alterar modo</string>
+    <string name="file_properties_permission_set_mode_others">Outras</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
+        <item>Leitura</item>
+        <item>Escrita</item>
+        <item>Execução</item>
+    </string-array>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
+        <item>Leitura</item>
+        <item>Escrita</item>
+        <item>Pesquisa</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_special">Especial</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>Definir UID</item>
+        <item>Definir GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permission_selinux_context">Contexto SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Alterar contexto SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Restaurar</string>
     <string name="file_properties_image">Imagem</string>
     <string name="file_properties_media_dimensions">Dimensões</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -410,6 +455,7 @@
     <string name="file_properties_apk_signature_digests">Assinaturas</string>
     <string name="file_properties_apk_signature_digests_empty">Não há assinaturas válidas</string>
     <string name="file_properties_apk_past_signature_digests">Assinaturas antigas</string>
+    <string name="file_properties_checksum_compare">Comparar</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Armazenamento</string>
     <string name="storage_list_empty">Nenhum armazenamento</string>
@@ -422,6 +468,11 @@
     <string name="storage_edit_device_storage_title">Editar armazenamento</string>
     <string name="storage_edit_device_storage_name">Nome</string>
     <string name="storage_edit_device_storage_path">Caminho</string>
+    <string name="storage_add_external_storage_shortcut_title">Adicionar atalho para armazenamento externo</string>
+    <string name="storage_edit_external_storage_shortcut_title">Editar atalho do armazenamento externo</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Armazenamento</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Indique um armazenamento</string>
+    <string name="storage_edit_external_storage_shortcut_path">Caminho</string>
     <string name="storage_add_document_tree_title">Adicionar armazenamento externo</string>
     <string name="storage_edit_document_tree_title">Editar armazenamento externo</string>
     <string name="storage_edit_document_tree_name">Nome</string>
@@ -555,6 +606,9 @@
     <string name="archive_viewer_title">Visualizador de arquivos</string>
     <string name="image_viewer_title">Visualizador de imagens</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Guardar como</string>
+    <string name="save_as_error">Erro ao guardar o ficheiro</string>
+    <string name="save_as_success_format">“%1$s” foi guardado em “%2$s”</string>
     <string name="text_editor_title">Editor de texto</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -632,6 +686,7 @@
         <item>Ver conteúdo</item>
         <item>Perguntar o que fazer</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniatura para ficheiros PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Pode tornar-se instável nas versões mais antigas do Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Ler ficheiros remotos das miniaturas</string>
 

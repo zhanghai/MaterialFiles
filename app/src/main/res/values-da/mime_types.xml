@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Fil</string>
+    <string name="file_type_name_apk">Android pakke</string>
+    <string name="file_type_name_archive">%1$s arkiv</string>
+    <string name="file_type_name_calendar">%1$s kalender</string>
+    <string name="file_type_name_certificate">%1$s certifikat</string>
+    <string name="file_type_name_code">%1$s dokument</string>
+    <string name="file_type_name_directory">Mappe</string>
+    <string name="file_type_name_document">%1$s dokument</string>
+    <string name="file_type_name_ebook">%1$s e-bog</string>
+    <string name="file_type_name_font">%1$s skrifttype</string>
+    <string name="file_type_name_generic">%1$s fil</string>
+    <string name="file_type_name_image">%1$s billede</string>
+    <string name="file_type_name_video">%1$s video</string>
+    <string name="file_type_name_posix_symbolic_link">Link</string></resources>

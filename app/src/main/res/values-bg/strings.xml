@@ -366,6 +366,7 @@
         <item>Задаване на GID</item>
         <item>Лепкав бит</item>
     </string-array>
+    <string name="file_properties_permission_set_mode_uppercase_x">Да не се добавя „Изпълняване“ рекурсивно</string>
     <string name="file_properties_permission_selinux_context">Контекст на SELinux</string>
     <string name="file_properties_permission_set_selinux_context_title">Смяна на контекста на SELinux</string>
     <string name="file_properties_permission_set_selinux_context_restore">Възстановяване</string>
@@ -424,6 +425,12 @@
     <string name="file_properties_apk_signature_digests">Подписи</string>
     <string name="file_properties_apk_signature_digests_empty">Няма валидни подписи</string>
     <string name="file_properties_apk_past_signature_digests">Стари подписи</string>
+    <string name="file_properties_checksum">Контролни суми</string>
+    <string name="file_properties_checksum_compare">Сравняване</string>
+    <string name="file_properties_checksum_compare_placeholder">Контролна сума по избор</string>
+    <string name="file_properties_checksum_compare_match_format">Съвпада с контролната сума %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Съвпада с началото на контролната сума %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Няма съвпадаща контролна сума</string>
     <string name="storage_file_system_root_title">Коренова папка</string>
     <string name="storage_list_title">Хранилище</string>
     <string name="storage_list_empty">Няма хранилища</string>
@@ -436,6 +443,11 @@
     <string name="storage_edit_device_storage_title">Редактиране на хранилище</string>
     <string name="storage_edit_device_storage_name">Име</string>
     <string name="storage_edit_device_storage_path">Път</string>
+    <string name="storage_add_external_storage_shortcut_title">Добавяне на препратка към външно хранилище</string>
+    <string name="storage_edit_external_storage_shortcut_title">Промяна на препратка към външно хранилище</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Дял от хранилището</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Въведете дял от хранилището</string>
+    <string name="storage_edit_external_storage_shortcut_path">Път</string>
     <string name="storage_add_document_tree_title">Добавяне на външно хранилище</string>
     <string name="storage_edit_document_tree_title">Редакция на външно хранилище</string>
     <string name="storage_edit_document_tree_name">Име</string>
@@ -569,6 +581,9 @@
     <string name="archive_viewer_title">Преглед на архиви</string>
     <string name="image_viewer_title">Преглед на изображение</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Запазване като</string>
+    <string name="save_as_error">Грешка при запазване на файла</string>
+    <string name="save_as_success_format">Файлът „%1$s“ е запазен в „%2$s“</string>
     <string name="text_editor_title">Текстов редактор</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -645,6 +660,7 @@
         <item>Преглед на съдържанието</item>
         <item>Питане за действие</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Миниатюра на документите на PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Има опасност да направи приложението нестабилно под по-ранни издания на Андроид</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Четене на отдалечени файлове за миниатюри</string>
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
+  ~ All Rights Reserved.
+  -->
+
+<resources>
+    <string name="file_type_name_unknown">Ficheiro</string>
+    <string name="file_type_name_apk">Paquete de Android</string>
+    <string name="file_type_name_archive">%1$s arquivo</string>
+    <string name="file_type_name_audio">%1$s audio</string>
+    <string name="file_type_name_calendar">%1$s calendario</string>
+    <string name="file_type_name_certificate">%1$s certificado</string>
+    <string name="file_type_name_code">%1$s documento</string>
+    <string name="file_type_name_contact">Tarxeta de negocios dixital</string>
+    <string name="file_type_name_directory">Cartafol</string>
+    <string name="file_type_name_document">%1$s documento</string>
+    <string name="file_type_name_ebook">%1$s libro electrónico</string>
+    <string name="file_type_name_email">%1$s mensaxe de correo electrónico</string>
+    <string name="file_type_name_font">%1$s tipo de letra</string>
+    <string name="file_type_name_generic">%1$s ficheiro</string>
+    <string name="file_type_name_image">%1$s imaxe</string>
+    <string name="file_type_name_pdf">Documento PDF</string>
+    <string name="file_type_name_presentation">%1$s presentación</string>
+    <string name="file_type_name_spreadsheet">%1$s folla de cálculo</string>
+    <string name="file_type_name_text">%1$s documento</string>
+    <string name="file_type_name_text_plain">Documento de texto sinxelo</string>
+    <string name="file_type_name_video">%1$s vídeo</string>
+    <string name="file_type_name_word">Documento de Word</string>
+    <string name="file_type_name_powerpoint">Presentación de PowerPoint</string>
+    <string name="file_type_name_excel">Folla de cálculo de Excel</string>
+    <string name="file_type_name_posix_character_device">Dispositivo de caracteres</string>
+    <string name="file_type_name_posix_block_device">Dispositivo de bloque</string>
+    <string name="file_type_name_posix_fifo">Canle</string>
+    <string name="file_type_name_posix_symbolic_link">Ligazón</string>
+    <string name="file_type_name_posix_socket">Zócolo</string>
+    <string name="file_type_name_posix_symbolic_link_broken">Ligazón (rota)</string>
+</resources>

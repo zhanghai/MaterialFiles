@@ -55,7 +55,6 @@
     <plurals name="size_in_bytes_format">
         <item quantity="one">בייט %1$,d</item>
         <item quantity="two">%1$,d בייטים</item>
-        <item quantity="many">%1$,d בייטים</item>
         <item quantity="other">%1$,d בתים</item>
     </plurals>
 
@@ -81,53 +80,45 @@
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">מתכונן לדחיסת קובץ אחד (%2$s)</item>
         <item quantity="two">מתכונן לדחיסת %1$,d קבצים (%2$s)</item>
-        <item quantity="many">מתכונן לדחיסת %1$,d קבצים (%2$s)</item>
         <item quantity="other">מתכונן לדחיסת %1$,d קבצים (%2$s)</item>
     </plurals>
     <string name="file_job_archive_notification_title_one_format">„%1$s” נדחס לתוך „%2$s”</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
         <item quantity="one">דוחס קובץ אחד לתוך “%2$s”</item>
         <item quantity="two">דוחס %1$,d קבצים לתוך “%2$s”</item>
-        <item quantity="many">דוחס %1$,d קבצים לתוך “%2$s”</item>
         <item quantity="other">דוחס %1$,d קבצים לתוך “%2$s”</item>
     </plurals>
     <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">מתכונן להעתקת קובץ אחד (%2$s)</item>
         <item quantity="two">מתכונן להעתקת %1$,d קבצים (%2$s)</item>
-        <item quantity="many">מתכונן להעתקת %1$,d קבצים (%2$s)</item>
         <item quantity="other">מתכונן להעתקת %1$,d קבצים (%2$s)</item>
     </plurals>
     <string name="file_job_copy_notification_title_one_format">„%1$s” מועתק אל „%2$s”</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
         <item quantity="one">מעתיק קובץ אחד אל “%2$s”</item>
         <item quantity="two">מעתיק %1$,d קבצים אל “%2$s”</item>
-        <item quantity="many">מעתיק %1$,d קבצים אל “%2$s”</item>
         <item quantity="other">מעתיק %1$,d קבצים אל “%2$s”</item>
     </plurals>
     <plurals name="file_job_extract_scan_notification_title_format">
         <item quantity="one">מתכונן לחילוץ קובץ אחד (%2$s)</item>
         <item quantity="two">מתכונן לחילוץ %1$,d קבצים (%2$s)</item>
-        <item quantity="many">מתכונן לחילוץ %1$,d קבצים (%2$s)</item>
         <item quantity="other">מתכונן לחילוץ %1$,d קבצים (%2$s)</item>
     </plurals>
     <string name="file_job_extract_notification_title_one_format">מחלץ את “%1$s” אל “%2$s”</string>
     <plurals name="file_job_extract_notification_title_multiple_format">
         <item quantity="one">מחלץ קובץ אחד אל “%2$s”</item>
         <item quantity="two">מחלץ %1$,d קבצים אל “%2$s”</item>
-        <item quantity="many">מחלץ %1$,d קבצים אל “%2$s”</item>
         <item quantity="other">מחלץ %1$,d קבצים אל “%2$s”</item>
     </plurals>
     <plurals name="file_job_move_scan_notification_title_format">
         <item quantity="one">מתכונן להעברת קובץ אחד (%2$s)</item>
         <item quantity="two">מתכונן להעברת %1$,d קבצים (%2$s)</item>
-        <item quantity="many">מתכונן להעברת %1$,d קבצים (%2$s)</item>
         <item quantity="other">מתכונן להעברת %1$,d קבצים (%2$s)</item>
     </plurals>
     <string name="file_job_move_notification_title_one_format">מעביר את “%1$s” אל “%2$s”</string>
     <plurals name="file_job_move_notification_title_multiple_format">
         <item quantity="one">מעביר קובץ אחד אל “%2$s”</item>
         <item quantity="two">מעביר %1$,d קבצים אל “%2$s”</item>
-        <item quantity="many">מעביר %1$,d קבצים אל “%2$s”</item>
         <item quantity="other">מעביר %1$,d קבצים אל “%2$s”</item>
     </plurals>
     <string name="file_job_transfer_size_notification_text_one_format">%1$s / %2$s</string>
@@ -135,79 +126,67 @@
     <plurals name="file_job_delete_scan_notification_title_format">
         <item quantity="one">מתכונן למחיקת קובץ אחד</item>
         <item quantity="two">מתכונן למחיקת %1$,d קבצים</item>
-        <item quantity="many">מתכונן למחיקת %1$,d קבצים</item>
         <item quantity="other">מתכונן למחיקת %1$,d קבצים</item>
     </plurals>
     <string name="file_job_delete_notification_title_one_format">„%1$s” נמחק</string>
     <plurals name="file_job_delete_notification_title_multiple_format">
         <item quantity="one">קובץ נמחק</item>
         <item quantity="two">%1$,d קבצים נמחקים</item>
-        <item quantity="many">%1$,d קבצים נמחקים</item>
         <item quantity="other">%1$,d קבצים נמחקים</item>
     </plurals>
     <plurals name="file_job_set_owner_scan_notification_title_format">
         <item quantity="one">מתכונן להחליף בעלים לקובץ אחד</item>
         <item quantity="two">מתכונן להחליף בעלים עבור %1$,d קבצים</item>
-        <item quantity="many">מתכונן להחליף בעלים עבור %1$,d קבצים</item>
         <item quantity="other">מתכונן להחליף בעלים עבור %1$,d קבצים</item>
     </plurals>
     <string name="file_job_set_owner_notification_title_one_format">מחליף בעלים עבור  “%1$s”</string>
     <plurals name="file_job_set_owner_notification_title_multiple_format">
         <item quantity="one">מחליף בעלים עבור קובץ אחד</item>
         <item quantity="two">מחליף בעלים עבור %1$,d קבצים</item>
-        <item quantity="many">מחליף בעלים עבור %1$,d קבצים</item>
         <item quantity="other">מחליף בעלים עבור %1$,d קבצים</item>
     </plurals>
     <plurals name="file_job_set_group_scan_notification_title_format">
         <item quantity="one">מתכונן לחלפת קבוצה עבור קובץ אחד</item>
         <item quantity="two">מתכונן לחלפת קבוצה עבור %1$,d קבצים</item>
-        <item quantity="many">מתכונן לחלפת קבוצה עבור %1$,d קבצים</item>
         <item quantity="other">מתכונן לחלפת קבוצה עבור %1$,d קבצים</item>
     </plurals>
     <string name="file_job_set_group_notification_title_one_format">מחליף קבוצה עבור “%1$s”</string>
     <plurals name="file_job_set_group_notification_title_multiple_format">
         <item quantity="one">מחליף קבוצה עבור קובץ אחד</item>
         <item quantity="two">מחליף קבוצה עבור %1$,d קבצים</item>
-        <item quantity="many">מחליף קבוצה עבור %1$,d קבצים</item>
         <item quantity="other">מחליף קבוצה עבור %1$,d קבצים</item>
     </plurals>
     <plurals name="file_job_set_mode_scan_notification_title_format">
         <item quantity="one">מתכון להחלפת מצב עבור קובץ אחד</item>
         <item quantity="two">מתכון להחלפת מצב עבור %1$,d קבצים</item>
-        <item quantity="many">מתכון להחלפת מצב עבור %1$,d קבצים</item>
         <item quantity="other">מתכון להחלפת מצב עבור %1$,d קבצים</item>
     </plurals>
     <string name="file_job_set_mode_notification_title_one_format">מחליף מצב עבור “%1$s”</string>
     <plurals name="file_job_set_mode_notification_title_multiple_format">
         <item quantity="one">מחליף מצב עבור קובץ אחד</item>
         <item quantity="two">מחליף מצב עבור %1$,d קבצים</item>
-        <item quantity="many">מחליף מצב עבור %1$,d קבצים</item>
         <item quantity="other">מחליף מצב עבור %1$,d קבצים</item>
     </plurals>
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">מתכונן לשנות את ההקשר של SELinux עבור קובץ אחד</item>
         <item quantity="two">מתכונן לשנות את ההקשר של SELinux עבור %1$,d קבצים</item>
-        <item quantity="many">מתכונן לשנות את ההקשר של SELinux עבור %1$,d קבצים</item>
         <item quantity="other">מתכונן לשנות את ההקשר של SELinux עבור %1$,d קבצים</item>
     </plurals>
     <string name="file_job_set_selinux_context_notification_title_one_format">משנה את ההקשר של SELinux עבור “%1$s”</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
         <item quantity="one">משנה את ההקשר של SELinux עבור קובץ אחד</item>
         <item quantity="two">משנה את ההקשר של SELinux עבור %1$,d קבצים</item>
-        <item quantity="many">משנה את ההקשר של SELinux עבור %1$,d קבצים</item>
         <item quantity="other">משנה את ההקשר של SELinux עבור %1$,d קבצים</item>
     </plurals>
     <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">מתכונן לשחזר את ההקשר של SELinux עבור קובץ אחד</item>
         <item quantity="two">מתכונן לשחזר את ההקשר של SELinux עבור %1$,d קבצים</item>
-        <item quantity="many">מתכונן לשחזר את ההקשר של SELinux עבור %1$,d קבצים</item>
         <item quantity="other">מתכונן לשחזר את ההקשר של SELinux עבור %1$,d קבצים</item>
     </plurals>
     <string name="file_job_restore_selinux_context_notification_title_one_format">משחזר את ההקשר של SELinux עבור “%1$s”</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
         <item quantity="one">משחזר את ההקשר של SELinux עבור קובץ אחד</item>
         <item quantity="two">משחזר את ההקשר של SELinux עבור %1$,d קבצים</item>
-        <item quantity="many">משחזר את ההקשר של SELinux עבור %1$,d קבצים</item>
         <item quantity="other">משחזר את ההקשר של SELinux עבור %1$,d קבצים</item>
     </plurals>
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
@@ -286,19 +265,16 @@
     <plurals name="file_delete_message_multiple_files_format">
         <item quantity="one">למחוק קובץ אחד?</item>
         <item quantity="two">למחוק %1$,d קבצים?</item>
-        <item quantity="many">למחוק %1$,d קבצים?</item>
         <item quantity="other">למחוק %1$,d קבצים?</item>
     </plurals>
     <plurals name="file_delete_message_multiple_directories_format">
         <item quantity="one">למחוק את התיקייה ותכולתה?</item>
         <item quantity="two">למחוק %1$,d תיקיות ואת תכולתן?</item>
-        <item quantity="many">למחוק %1$,d תיקיות ואת תכולתן?</item>
         <item quantity="other">למחוק %1$,d תיקיות ואת תכולתן?</item>
     </plurals>
     <plurals name="file_delete_message_multiple_mixed_format">
         <item quantity="one">למחוק פריט אחד?</item>
         <item quantity="two">למחוק %1$,d פריטים?</item>
-        <item quantity="many">למחוק %1$,d פריטים?</item>
         <item quantity="other">למחוק %1$,d פריטים?</item>
     </plurals>
     <string name="file_create_archive_title">יצירת ארכיון</string>
@@ -314,26 +290,22 @@
     <plurals name="file_list_title_open_file">
         <item quantity="one">בחירת קובץ</item>
         <item quantity="two">בחירת קבצים</item>
-        <item quantity="many">בחירת קבצים</item>
         <item quantity="other">בחירת קבצים</item>
     </plurals>
     <string name="file_list_title_create_file">שמירת קובץ</string>
     <plurals name="file_list_title_open_directory">
         <item quantity="one">בחירת תיקייה</item>
         <item quantity="two">בחירת תיקיות</item>
-        <item quantity="many">בחירת תיקיות</item>
         <item quantity="other">בחירת תיקיות</item>
     </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="one">תיקיה %1$,d</item>
         <item quantity="two">%1$,d תיקיות</item>
-        <item quantity="many">%1$,d תיקיות</item>
         <item quantity="other">%1$,d תיקיות</item>
     </plurals>
     <plurals name="file_list_subtitle_file_count_format">
         <item quantity="one">קובץ %1$,d</item>
         <item quantity="two">%1$,d קבצים</item>
-        <item quantity="many">%1$,d קבצים</item>
         <item quantity="other">%1$,d קבצים</item>
     </plurals>
     <string name="file_list_subtitle_separator">,\u0020</string>
@@ -388,7 +360,6 @@
     <plurals name="file_properties_basic_contents_format">
         <item quantity="one">פריט אחד, בסך הכל %2$s</item>
         <item quantity="two">%1$,d פריטים, בסך הכל %2$s</item>
-        <item quantity="many">%1$,d פריטים, בסך הכל %2$s</item>
         <item quantity="other">%1$,d פריטים, בסך הכל %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">השתנה לאחרונה</string>
@@ -479,7 +450,6 @@
     <plurals name="file_properties_apk_requested_permissions_positive_format">
         <item quantity="one">הרשאה אחת התבקשה</item>
         <item quantity="two">%1$,d הרשאות התבקשו</item>
-        <item quantity="many">%1$,d הרשאות התבקשו</item>
         <item quantity="other">%1$,d הרשאות התבקשו</item>
     </plurals>
     <string name="file_properties_apk_signature_digests">חתימות</string>
@@ -707,7 +677,6 @@
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">יש לך פעולה קובץ שרצה ושינוי מצב גישת שורש כעת עלול לגרום לשגיאה בלתי צפויה. האם בוודאות ברצונך לשנות זאת כעת?</item>
         <item quantity="two">יש לך %1$,d פעולות קבצים שרצות ושינוי מצב גישת שורש כעת עלול לגרום לשגיאה בלתי צפויה. האם בוודאות ברצונך לשנות זאת כעת?</item>
-        <item quantity="many">יש לך %1$,d פעולות קבצים שרצות ושינוי מצב גישת שורש כעת עלול לגרום לשגיאה בלתי צפויה. האם בוודאות ברצונך לשנות זאת כעת?</item>
         <item quantity="other">יש לך %1$,d פעולות קבצים שרצות ושינוי מצב גישת שורש כעת עלול לגרום לשגיאה בלתי צפויה. האם בוודאות ברצונך לשנות זאת כעת?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">

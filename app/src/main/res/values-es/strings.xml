@@ -24,7 +24,7 @@
     <string name="keep_editing">Continuar editando</string>
     <string name="loading">Cargando…</string>
     <string name="maybe_later">Quizás más tarde</string>
-    <string name="merge">Fusionar</string>
+    <string name="merge">Combinar</string>
     <string name="none">Ninguno</string>
     <string name="open_navigation_drawer">Abrir barra de navegación</string>
     <string name="paste">Pegar</string>
@@ -33,7 +33,7 @@
     <string name="remove">Remover</string>
     <string name="rename">Renombrar</string>
     <string name="replace">Reemplazar</string>
-    <string name="reset">Restrablecer</string>
+    <string name="reset">Restablecer</string>
     <string name="retry">Reintentar</string>
     <string name="save">Guardar</string>
     <string name="search">Buscar</string>
@@ -41,14 +41,14 @@
     <string name="select_all">Seleccionar todo</string>
     <string name="share">Compartir</string>
     <string name="show">Mostrar</string>
-    <string name="skip">Saltar</string>
+    <string name="skip">Omitir</string>
     <string name="stop">Detener</string>
     <string name="system_default">Predeterminado del sistema</string>
     <string name="unknown">Desconocido</string>
     <string name="view">Ver</string>
 
     <!-- android.R.string.app_not_found -->
-    <string name="activity_not_found">No se encontró ninguna aplicación para esta acción</string>
+    <string name="activity_not_found">No se ha encontrado ninguna aplicación que pueda realizar esta acción</string>
     <string name="open_settings">Abrir ajustes</string>
     <string name="shortcut_created">Acceso directo creado</string>
 
@@ -58,13 +58,13 @@
         <item quantity="other">%1$,d bytes</item>
     </plurals>
 
-    <string name="all_files_access_rationale_message">La aplicación necesita administrar todos los archivos. Por favor permita el acceso en la siguiente configuración del sistema.</string>
+    <string name="all_files_access_rationale_message">La aplicación necesita poder administrar todos los archivos. Permite el acceso en el siguiente ajuste del sistema.</string>
     <!-- The allow button before Android 10 was in all-caps. -->
-    <string name="storage_permission_rationale_message">La aplicación necesita permiso para acceder a los archivos. Por favor, aprieta “PERMITIR” en el diálogo del sistema.</string>
-    <string name="storage_permission_permanently_denied_message">La aplicación necesita permiso para acceder a los archivos. Por favor, concede el permiso de “Almacenamiento” en la configuración del sistema.</string>
+    <string name="storage_permission_rationale_message">La aplicación necesita permiso para acceder a los archivos. Presiona “PERMITIR” en el diálogo del sistema.</string>
+    <string name="storage_permission_permanently_denied_message">La aplicación necesita permiso para acceder a los archivos. Concede el permiso de “Almacenamiento” en los ajustes del sistema.</string>
     <!-- The allow button is in sentence case now. -->
-    <string name="notification_permission_rationale_message">Esta app necesita permiso para mostrar notificaciones acerca de las operaciones de los archivos. Por favor presiona “Permitir” en el diálogo del sistema a continuación.</string>
-    <string name="notification_permission_permanently_denied_message">Esta app necesita permiso para mostrar notificaciones acerca de las operaciones de los archivos. Por favor permite el permiso de “Notificaciones” en los ajustes del sistema.</string>
+    <string name="notification_permission_rationale_message">La aplicación necesita permiso para mostrar notificaciones sobre las operaciones en archivos. Presiona “Permitir” en el diálogo del sistema a continuación.</string>
+    <string name="notification_permission_permanently_denied_message">La aplicación necesita permiso para mostrar notificaciones sobre las operaciones en archivos. Concede el permiso de “Notificaciones” en los ajustes del sistema.</string>
 
     <string name="notification_channel_background_activity_start_name">Acciones en segundo plano</string>
     <string name="notification_channel_background_activity_start_description">Realiza acciones mientras la aplicación está en segundo plano</string>
@@ -80,7 +80,7 @@
     <plurals name="file_job_archive_scan_notification_title_format">
         <item quantity="one">Preparando para comprimir %1$,d archivos (%2$s)</item>
         <item quantity="many">Preparándose para comprimir %1$,d archivos (%2$s)</item>
-        <item quantity="other">Preparándose para comprimir %1$,d archivos (%2$s)</item>
+        <item quantity="other">Preparando para comprimir %1$,d archivos (%2$s)</item>
     </plurals>
     <string name="file_job_archive_notification_title_one_format">Comprimiendo “%1$s” en “%2$s”</string>
     <plurals name="file_job_archive_notification_title_multiple_format">
@@ -91,7 +91,7 @@
     <plurals name="file_job_copy_scan_notification_title_format">
         <item quantity="one">Preparando para copiar %1$,d archivos (%2$s)</item>
         <item quantity="many">Preparándose para copiar %1$,d archivos (%2$s)</item>
-        <item quantity="other">Preparándose para copiar %1$,d archivos (%2$s)</item>
+        <item quantity="other">Preparando para copiar %1$,d archivos (%2$s)</item>
     </plurals>
     <string name="file_job_copy_notification_title_one_format">Copiando “%1$s” a “%2$s”</string>
     <plurals name="file_job_copy_notification_title_multiple_format">
@@ -170,7 +170,7 @@
     <plurals name="file_job_set_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparándose para cambiar el contexto de SELinux de %1$,d archivos</item>
         <item quantity="many">Preparándose para cambiar el contexto de SELinux de %1$,d archivos</item>
-        <item quantity="other">Preparándose para cambiar el contexto de SELinux de %1$,d archivos</item>
+        <item quantity="other">Preparando para cambiar el contexto de SELinux de %1$,d archivos</item>
     </plurals>
     <string name="file_job_set_selinux_context_notification_title_one_format">Cambiando el contexto SELinux de “%1$s”</string>
     <plurals name="file_job_set_selinux_context_notification_title_multiple_format">
@@ -181,7 +181,7 @@
     <plurals name="file_job_restore_selinux_context_scan_notification_title_format">
         <item quantity="one">Preparándose para restaurar el contexto de SELinux de %1$,d archivos</item>
         <item quantity="many">Preparándose para restaurar el contexto de SELinux de %1$,d archivos</item>
-        <item quantity="other">Preparándose para restaurar el contexto de SELinux de %1$,d archivos</item>
+        <item quantity="other">Preparando para restaurar el contexto de SELinux de %1$,d archivos</item>
     </plurals>
     <string name="file_job_restore_selinux_context_notification_title_one_format">Restaurando el contexto de SELinux de “%1$s”</string>
     <plurals name="file_job_restore_selinux_context_notification_title_multiple_format">
@@ -192,7 +192,7 @@
     <string name="file_job_transfer_count_notification_text_multiple_format">%1$,d / %2$,d</string>
     <string name="file_job_write_notification_title_format">Escribiendo “%1$s”</string>
     <string name="file_job_create_error_title">Error durante la creación</string>
-    <string name="file_job_create_error_message_format">Hubo un error creando “%1$s”.\n%2$s</string>
+    <string name="file_job_create_error_message_format">Se produjo un error al crear “%1$s”.\n%2$s</string>
     <string name="file_job_cannot_copy_into_itself_title">No se puede copiar una carpeta dentro de sí misma</string>
     <string name="file_job_cannot_extract_into_itself_title">No se puede extraer una carpeta dentro de sí misma</string>
     <string name="file_job_cannot_move_into_itself_title">No se puede mover una carpeta dentro de sí misma</string>
@@ -200,47 +200,47 @@
     <string name="file_job_cannot_copy_over_itself_title">No se puede copiar un archivo sobre sí mismo</string>
     <string name="file_job_cannot_extract_over_itself_title">No se puede extraer un archivo sobre sí mismo</string>
     <string name="file_job_cannot_move_over_itself_title">No se puede mover un archivo sobre sí mismo</string>
-    <string name="file_job_cannot_copy_move_over_itself_message">El archivo de origen será sobreescrito por el de destino</string>
+    <string name="file_job_cannot_copy_move_over_itself_message">El archivo de origen será sobrescrito por el de destino.</string>
     <string name="file_job_replace_title_format">¿Reemplazar el archivo “%1$s”?</string>
-    <string name="file_job_replace_message_format">Existe otro archivo con el mismo nombre en “%1$s”.\nReemplazarlo va a sobreescribir su contenido.</string>
+    <string name="file_job_replace_message_format">Existe otro archivo con el mismo nombre en “%1$s”.\nReemplazarlo va a sobrescribir su contenido.</string>
     <string name="file_job_replace_target_name">Archivo original</string>
     <string name="file_job_replace_source_name">Reemplazar con</string>
-    <string name="file_job_merge_title_format">¿Fusionar la carpeta “%1$s”?</string>
-    <string name="file_job_merge_copy_message_format">Fusionando se le preguntará por confirmación antes de reemplazar cualquier archivo en la carpeta que entre en conflicto con los archivos que se estén copiando.</string>
-    <string name="file_job_merge_extract_message_format">Fusionando se le preguntará por confirmación antes de reemplazar cualquier archivo en la carpeta que entre en conflicto con los archivos que se estén extrayendo.</string>
-    <string name="file_job_merge_move_message_format">Fusionando se le preguntará por confirmación antes de reemplazar cualquier archivo en la carpeta que entre en conflicto con los archivos que se estén moviendo.</string>
+    <string name="file_job_merge_title_format">¿Combinar la carpeta “%1$s”?</string>
+    <string name="file_job_merge_copy_message_format">Al combinar deberás confirmar antes de reemplazar cualquier archivo en la carpeta que entre en conflicto con los archivos que se estén copiando.</string>
+    <string name="file_job_merge_extract_message_format">Al combinar deberás confirmar antes de reemplazar cualquier archivo en la carpeta que entre en conflicto con los archivos que se estén extrayendo.</string>
+    <string name="file_job_merge_move_message_format">Al combinar deberás confirmar antes de reemplazar cualquier archivo en la carpeta que entre en conflicto con los archivos que se estén moviendo.</string>
     <string name="file_job_merge_target_name">Carpeta original</string>
-    <string name="file_job_merge_source_name">Fusionar con</string>
-    <string name="file_job_conflict_show_name">Elegir un nuevo nombre para el destino</string>
+    <string name="file_job_merge_source_name">Combinar con</string>
+    <string name="file_job_conflict_show_name">Seleccionar un nuevo nombre para el destino</string>
     <string name="file_job_conflict_name_hint">Nombre nuevo</string>
     <string name="file_job_archive_error_title_format">Error al comprimir “%1$s”</string>
-    <string name="file_job_archive_error_message_format">Hubo un error comprimiendo el archivo en “%1$s”.\n%2$s</string>
+    <string name="file_job_archive_error_message_format">Se produjo un error al comprimir el archivo en “%1$s”.\n%2$s</string>
     <string name="file_job_copy_error_title_format">Error al copiar “%1$s”</string>
-    <string name="file_job_copy_error_message_format">Hubo un error copiando el archivo en “%1$s”.\n%2$s</string>
+    <string name="file_job_copy_error_message_format">Se produjo un error al copiar el archivo en “%1$s”.\n%2$s</string>
     <string name="file_job_extract_error_title_format">Error al extraer “%1$s”</string>
-    <string name="file_job_extract_error_message_format">Hubo un error extrayendo el archivo en “%1$s”.\n%2$s</string>
+    <string name="file_job_extract_error_message_format">Se produjo un error al extraer el archivo en “%1$s”.\n%2$s</string>
     <string name="file_job_move_error_title_format">Error al mover “%1$s”</string>
-    <string name="file_job_move_error_message_format">Hubo un error movimiento el archivo en “%1$s”.\n%2$s</string>
+    <string name="file_job_move_error_message_format">Se produjo un error al mover el archivo en “%1$s”.\n%2$s</string>
     <string name="file_job_delete_error_title">Error al eliminar</string>
-    <string name="file_job_delete_error_message_format">Hubo un error eliminando “%1$s”.\n%2$s</string>
+    <string name="file_job_delete_error_message_format">Se produjo un error al eliminar “%1$s”.\n%2$s</string>
     <string name="file_job_rename_error_title_format">Error al renombrar “%1$s”</string>
-    <string name="file_job_rename_error_message_format">Hubo un error renombrando “%1$s”.\n%2$s</string>
+    <string name="file_job_rename_error_message_format">Se produjo un error al renombrar “%1$s”.\n%2$s</string>
     <string name="file_job_set_owner_error_title_format">Error al cambiar el propietario de “%1$s”</string>
-    <string name="file_job_set_owner_error_message_format">Hubo un error cambiando el propietario de “%1$s”.\n%2$s</string>
+    <string name="file_job_set_owner_error_message_format">Se produjo un error al cambiar el propietario de “%1$s”.\n%2$s</string>
     <string name="file_job_set_group_error_title_format">Error al cambiar el grupo de “%1$s”</string>
-    <string name="file_job_set_group_error_message_format">Hubo un error cambiando el grupo de “%1$s”.\n%2$s</string>
+    <string name="file_job_set_group_error_message_format">Se produjo un error al cambiar el grupo de “%1$s”.\n%2$s</string>
     <string name="file_job_set_mode_error_title_format">Error al cambiar el modo de “%1$s”</string>
-    <string name="file_job_set_mode_error_message_format">Hubo un error cambiando el modo de “%1$s”.\n%2$s</string>
+    <string name="file_job_set_mode_error_message_format">Se produjo un error al cambiar el modo de “%1$s”.\n%2$s</string>
     <string name="file_job_set_selinux_context_error_title_format">Error al cambiar el contexto de SELinux de “%1$s”</string>
-    <string name="file_job_set_selinux_context_error_message_format">Hubo un error cambiando el contexto de SELinux de “%1$s”.\n%2$s</string>
+    <string name="file_job_set_selinux_context_error_message_format">Se produjo un error al cambiar el contexto de SELinux de “%1$s”.\n%2$s</string>
     <string name="file_job_restore_selinux_context_error_title">Error al restaurar el contexto de SELinux</string>
-    <string name="file_job_restore_selinux_context_error_message_format">Hubo un error restaurando el contexto de SELinux de “%1$s”.\n%2$s</string>
+    <string name="file_job_restore_selinux_context_error_message_format">Se produjo un error al restaurar el contexto de SELinux de “%1$s”.\n%2$s</string>
     <string name="file_job_write_error_title">Error al escribir</string>
-    <string name="file_job_write_error_message_format">Hubo un error escribiendo “%1$s”.\n%2$s</string>
-    <string name="file_job_get_information_error_message_format">Hubo un error obteniendo información sobre “%1$s”.</string>
+    <string name="file_job_write_error_message_format">Se produjo un error al escribir “%1$s”.\n%2$s</string>
+    <string name="file_job_get_information_error_message_format">Se produjo un error al obtener información sobre “%1$s”.</string>
     <string name="file_job_remount_format">Volver a montar “%1$s” como lectura-escritura</string>
     <string name="file_job_remount_loading_format">Volviendo a montar “%1$s” como lectura-escritura…</string>
-    <string name="file_job_remount_success_format">“%1$s” fue vuelto a montar como lectura-escritura</string>
+    <string name="file_job_remount_success_format">“%1$s” se ha vuelto a montar como lectura-escritura</string>
     <string name="file_job_action_all">Aplicar esta acción a todos los archivos</string>
 
     <string name="file_open_apk_message">Este archivo es un paquete de Android. ¿Quieres instalarlo o ver su contenido?</string>
@@ -253,9 +253,9 @@
     <string name="file_open_as_type_directory">Carpeta</string>
     <string name="file_open_as_type_any">Otro</string>
     <string name="file_install_apk_from_background_title_format">“%1$s” está listo para ser instalado</string>
-    <string name="file_install_apk_from_background_text">Toca para instalar</string>
+    <string name="file_install_apk_from_background_text">Presiona para instalar</string>
     <string name="file_open_from_background_title_format">“%1$s” está listo para ser abierto</string>
-    <string name="file_open_from_background_text">Toca para abrir</string>
+    <string name="file_open_from_background_text">Presiona para abrir</string>
     <string name="file_name_error_empty">El nombre de archivo no puede estar vacío</string>
     <string name="file_name_error_invalid">Nombre de archivo no válido</string>
     <string name="file_name_error_already_exists">Ya existe un archivo con este nombre</string>
@@ -282,7 +282,7 @@
     <string name="file_create_archive_type_tar_xz">.tar.xz</string>
     <string name="file_create_archive_type_7z">.7z</string>
     <string name="file_create_archive_password">Contraseña (opcional)</string>
-    <string name="file_add_bookmark_success">Carpeta fijada</string>
+    <string name="file_add_bookmark_success">Carpeta añadida a favoritos</string>
     <string name="file_create_file_title">Nuevo archivo</string>
     <string name="file_create_directory_title">Nueva carpeta</string>
 
@@ -327,7 +327,7 @@
     <string name="file_list_action_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="file_list_action_copy_path">Copiar ruta</string>
     <string name="file_list_action_open_in_terminal">Abrir en terminal</string>
-    <string name="file_list_action_add_bookmark">Fijar carpeta</string>
+    <string name="file_list_action_add_bookmark">Añadir a favoritos</string>
     <string name="file_list_action_create_shortcut">Crear acceso directo</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Abrir en una nueva ventana</string>
     <string name="file_list_select_title_format">%1$,d</string>
@@ -353,7 +353,7 @@
     <string name="file_properties_basic_type">Tipo</string>
     <string name="file_properties_basic_type_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_type_symbolic_link_format">Enlace a %1$s (%2$s)</string>
-    <string name="file_properties_basic_symbolic_link_target">Objetivo de Enlace</string>
+    <string name="file_properties_basic_symbolic_link_target">Objetivo de enlace</string>
     <string name="file_properties_basic_size">Tamaño</string>
     <string name="file_properties_basic_size_with_human_readable_format">%1$s (%2$s)</string>
     <string name="file_properties_basic_contents">Contenido</string>
@@ -363,7 +363,7 @@
         <item quantity="other">%1$,d elementos, en total %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Última modificación</string>
-    <string name="file_properties_basic_parent_directory">Carpeta Superior</string>
+    <string name="file_properties_basic_parent_directory">Carpeta superior</string>
     <string name="file_properties_basic_archive_file">Archivo</string>
     <string name="file_properties_basic_archive_entry">Entrada de archivo</string>
     <string name="file_properties_basic_free_space">Espacio libre</string>
@@ -373,7 +373,7 @@
     <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
     <string name="file_properties_permission_set_owner_title">Cambiar propietario</string>
     <string name="file_properties_permission_set_group_title">Cambiar grupo</string>
-    <string name="file_properties_permission_set_principal_filter_hint">Ingrese un nombre o ID</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Ingresa un nombre o ID</string>
     <string name="file_properties_permission_set_principal_system">Sistema</string>
     <string name="file_properties_permission_mode">Modo</string>
     <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
@@ -476,7 +476,7 @@
     <string name="storage_add_external_storage_shortcut_title">Añadir acceso directo a almacenamiento externo</string>
     <string name="storage_edit_external_storage_shortcut_title">Editar acceso directo de almacenamiento externo</string>
     <string name="storage_edit_external_storage_shortcut_root_id">Volumen de almacenamiento</string>
-    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Ingrese un volumen de almacenamiento</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Ingresa un volumen de almacenamiento</string>
     <string name="storage_edit_external_storage_shortcut_path">Ruta</string>
     <string name="storage_add_document_tree_title">Agregar almacenamiento externo</string>
     <string name="storage_edit_document_tree_title">Editar almacenamiento externo</string>
@@ -486,7 +486,7 @@
     <string name="storage_edit_ftp_server_title_edit">Editar servidor FTP</string>
     <string name="storage_edit_ftp_server_title_add">Añadir servidor FTP</string>
     <string name="storage_edit_ftp_server_host">Nombre de host</string>
-    <string name="storage_edit_ftp_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_ftp_server_host_error_empty">Ingresa un nombre de host</string>
     <string name="storage_edit_ftp_server_host_error_invalid">Nombre de host no válido</string>
     <string name="storage_edit_ftp_server_port">Puerto</string>
     <string name="storage_edit_ftp_server_port_error_invalid">Puerto no válido</string>
@@ -501,7 +501,7 @@
         <item>Anónimo</item>
     </string-array>
     <string name="storage_edit_ftp_server_username">Nombre de usuario</string>
-    <string name="storage_edit_ftp_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_ftp_server_username_error_empty">Ingresa un nombre de usuario</string>
     <string name="storage_edit_ftp_server_password">Contraseña</string>
     <string name="storage_edit_ftp_server_mode">Modo</string>
     <string-array name="storage_edit_ftp_server_mode_entries">
@@ -514,7 +514,7 @@
     <string name="storage_edit_sftp_server_title_edit">Editar servidor SFTP</string>
     <string name="storage_edit_sftp_server_title_add">Añadir servidor SFTP</string>
     <string name="storage_edit_sftp_server_host">Nombre del host</string>
-    <string name="storage_edit_sftp_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_sftp_server_host_error_empty">Ingresa un nombre de host</string>
     <string name="storage_edit_sftp_server_host_error_invalid">Nombre de host no válido</string>
     <string name="storage_edit_sftp_server_port">Puerto</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Puerto no válido</string>
@@ -528,11 +528,11 @@
         <item>Clave pública</item>
     </string-array>
     <string name="storage_edit_sftp_server_username">Nombre de usuario</string>
-    <string name="storage_edit_sftp_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_sftp_server_username_error_empty">Ingresa un nombre de usuario</string>
     <string name="storage_edit_sftp_server_password">Contraseña</string>
     <string name="storage_edit_sftp_server_private_key">Clave privada</string>
     <string name="storage_edit_sftp_server_private_key_open_file">Abrir archivo</string>
-    <string name="storage_edit_sftp_server_private_key_error_empty">Ingrese una clave privada</string>
+    <string name="storage_edit_sftp_server_private_key_error_empty">Ingresa una clave privada</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Clave privada no válida</string>
     <string name="storage_edit_sftp_server_private_key_password">Contraseña de la clave privada</string>
     <string name="storage_edit_sftp_server_private_key_password_placeholder">Puede dejarse vacío</string>
@@ -544,7 +544,7 @@
     <string name="storage_edit_smb_server_title_edit">Editar servidor SMB</string>
     <string name="storage_edit_smb_server_title_add">Añadir servidor SMB</string>
     <string name="storage_edit_smb_server_host">Nombre de host</string>
-    <string name="storage_edit_smb_server_host_error_empty">Ingrese un nombre de host</string>
+    <string name="storage_edit_smb_server_host_error_empty">Ingresa un nombre de host</string>
     <string name="storage_edit_smb_server_host_error_invalid">Nombre de host no válido</string>
     <string name="storage_edit_smb_server_port">Puerto</string>
     <string name="storage_edit_smb_server_port_error_invalid">Puerto no válido</string>
@@ -559,7 +559,7 @@
         <item>Anónimo</item>
     </string-array>
     <string name="storage_edit_smb_server_username">Nombre de usuario</string>
-    <string name="storage_edit_smb_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_smb_server_username_error_empty">Ingresa un nombre de usuario</string>
     <string name="storage_edit_smb_server_password">Contraseña</string>
     <string name="storage_edit_smb_server_domain">Dominio</string>
     <string name="storage_edit_smb_server_connect_and_add">Conectar y añadir</string>
@@ -583,10 +583,10 @@
         <item>Ninguna</item>
     </string-array>
     <string name="storage_edit_webdav_server_username">Nombre de usuario</string>
-    <string name="storage_edit_webdav_server_username_error_empty">Ingrese un nombre de usuario</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Ingresa un nombre de usuario</string>
     <string name="storage_edit_webdav_server_password">Contraseña</string>
     <string name="storage_edit_webdav_server_access_token">Token de acceso</string>
-    <string name="storage_edit_webdav_server_access_token_error_empty">Ingrese un token de acceso</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Ingresa un token de acceso</string>
     <string name="storage_edit_webdav_server_connect_and_add">Conectar y añadir</string>
     <string name="storage_edit_webdav_server_add">Añadir</string>
 
@@ -599,17 +599,17 @@
     <string name="navigation_standard_directory_movies">Películas</string>
     <string name="navigation_standard_directory_music">Música</string>
     <string name="navigation_standard_directory_notifications">Notificaciones</string>
-    <string name="navigation_standard_directory_pictures">Fotos</string>
+    <string name="navigation_standard_directory_pictures">Imágenes</string>
     <string name="navigation_standard_directory_podcasts">Podcasts</string>
-    <string name="navigation_standard_directory_ringtones">Ringtones</string>
+    <string name="navigation_standard_directory_ringtones">Tonos de llamada</string>
     <string name="navigation_standard_directory_qq">QQ</string>
     <string name="navigation_standard_directory_tim">TIM</string>
     <string name="navigation_standard_directory_wechat">WeChat</string>
-    <string name="navigation_edit_bookmark_directory_title">Carpeta fijada</string>
+    <string name="navigation_edit_bookmark_directory_title">Carpeta favorita</string>
     <string name="navigation_edit_bookmark_directory_name">Nombre</string>
     <string name="navigation_edit_bookmark_directory_path">Ruta</string>
     <string name="archive_viewer_title">Visor de archivos</string>
-    <string name="image_viewer_title">Visor de imagen</string>
+    <string name="image_viewer_title">Visor de imágenes</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
     <string name="save_as_title">Guardar como</string>
     <string name="save_as_error">Error al guardar el archivo</string>
@@ -618,9 +618,9 @@
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
     <string name="text_editor_save_success">Guardado</string>
-    <string name="text_editor_reload_message">¿Está seguro de recargar? Los cambios que no se hayan guardado en el documento se perderán.</string>
+    <string name="text_editor_reload_message">¿Seguro que quieres recargar? Los cambios que no se hayan guardado en el documento se perderán.</string>
     <string name="text_editor_encoding">Codificación</string>
-    <string name="text_editor_close_message">¿Está seguro de que quiere descartar los cambios sin guardar en el documento?</string>
+    <string name="text_editor_close_message">¿Seguro que quieres descartar los cambios sin guardar en el documento?</string>
 
     <string name="ftp_server_title">Servidor FTP</string>
     <string name="ftp_server_state_title">Estado</string>
@@ -632,10 +632,10 @@
     <string name="ftp_server_url_summary_no_local_inet_address">Dirección IP local desconocida</string>
     <string name="ftp_server_url_menu_copy_url">Copiar URL</string>
     <string name="ftp_server_url_menu_copy_password">Copiar contraseña</string>
-    <string name="ftp_server_add_tile_title">Añadir a Ajustes Rápidos</string>
-    <string name="ftp_server_add_tile_result_added">“Servidor FTP” ha sido añadido a Ajustes Rápidos</string>
-    <string name="ftp_server_add_tile_result_already_added">“Servidor FTP” ya está en los Ajustes Rápidos</string>
-    <string name="ftp_server_add_tile_result_error">Error al añadir “Servidor FTP” a los Ajustes Rápidos</string>
+    <string name="ftp_server_add_tile_title">Añadir a Ajustes rápidos</string>
+    <string name="ftp_server_add_tile_result_added">“Servidor FTP” se ha añadido a Ajustes rápidos</string>
+    <string name="ftp_server_add_tile_result_already_added">“Servidor FTP” ya está en Ajustes rápidos</string>
+    <string name="ftp_server_add_tile_result_error">Error al añadir “Servidor FTP” a Ajustes rápidos</string>
     <string name="ftp_server_configuration_title">Configuración</string>
     <string name="ftp_server_anonymous_login_title">Ingreso anónimo</string>
     <string name="ftp_server_username_title">Nombre de usuario</string>
@@ -648,36 +648,36 @@
     <string name="settings_locale_title">Idioma</string>
     <string name="settings_theme_color_title">Color de tema</string>
     <string name="settings_theme_color_summary">Color que aparece más frecuentemente en la aplicación</string>
-    <string name="settings_material_design_3_title">Diseño Material 3</string>
+    <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Tema oscuro</string>
     <string-array name="settings_night_mode_entries">
         <item>Seguir al sistema</item>
         <item>Desactivado</item>
         <item>Activado</item>
-        <item>En base al horario</item>
-        <item>En base al ahorro de batería</item>
+        <item>Según el horario</item>
+        <item>Según el ahorro de batería</item>
     </string-array>
     <string name="settings_black_night_mode">Usar negro puro</string>
     <string name="settings_file_list_animation_title">Animación en la lista de archivos</string>
     <string name="settings_file_name_ellipsize_title">En nombres de archivo extensos</string>
     <string-array name="settings_file_name_ellipsize_entries">
-        <item>Mostrar la última parte</item>
-        <item>Mostrar el principio y el final</item>
-        <item>Mostrar la primera parte</item>
-        <item>Animar</item>
+        <item>Recortar al principio</item>
+        <item>Recortar en el medio</item>
+        <item>Recortar al final</item>
+        <item>Desplazar</item>
     </string-array>
     <string name="settings_behavior_title">Comportamiento</string>
     <string name="settings_default_directory_title">Carpeta predeterminada</string>
     <string name="settings_standard_directories_title">Carpetas estándar</string>
     <string name="settings_standard_directories_summary_empty">Ninguna carpeta estándar habilitada</string>
     <string name="settings_bookmark_directory_screenshots">Capturas de pantalla</string>
-    <string name="settings_bookmark_directories_title">Carpetas fijadas</string>
-    <string name="settings_bookmark_directories_summary_empty">Sin carpetas fijadas</string>
+    <string name="settings_bookmark_directories_title">Carpetas favoritas</string>
+    <string name="settings_bookmark_directories_summary_empty">Sin carpetas favoritas</string>
     <string name="settings_root_strategy_title">Modo de acceso administrativo</string>
     <plurals name="settings_root_strategy_message_format">
         <item quantity="one">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
         <item quantity="many">Tienes %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Estás seguro que quieres cambiarlo ahora?</item>
-        <item quantity="other">Tiene %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Está seguro de que quiere cambiarlo ahora?</item>
+        <item quantity="other">Hay %1$,d operaciones de archivo ejecutándose y cambiar el modo de acceso administrativo puede causar errores inesperados. ¿Seguro que quieres cambiarlo ahora?</item>
     </plurals>
     <string-array name="settings_root_strategy_entries">
         <item>Sólo acceso normal</item>
@@ -693,7 +693,7 @@
     </string-array>
     <string name="settings_show_pdf_thumbnail_pre_28_title">Mostrar miniaturas de documentos PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Podría hacer que la aplicación se vuelva inestable en versiones antiguas de Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para obtener una miniatura</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Leer archivos remotos para obtener miniatura</string>
 
     <string name="about_title">Información</string>
     <string name="about_version_title">Versión</string>

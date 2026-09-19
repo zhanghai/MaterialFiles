@@ -217,6 +217,7 @@
     <string name="file_name_error_empty">Nama berkas tidak boleh kosong</string>
     <string name="file_name_error_invalid">Nama berkas tidak valid</string>
     <string name="file_name_error_already_exists">Berkas dengan nama ini sudah ada</string>
+    <string name="file_replace_message_format">Ganti “%1$s”?</string>
     <string name="file_delete_message_file_format">Hapus “%1$s”?</string>
     <string name="file_delete_message_directory_format">Hapus folder “%1$s” dan isinya?</string>
     <plurals name="file_delete_message_multiple_files_format">
@@ -238,6 +239,13 @@
     <string name="file_create_directory_title">Folder baru</string>
 
     <string name="file_list_title">File</string>
+    <plurals name="file_list_title_open_file">
+        <item quantity="other">Pilih berkas</item>
+    </plurals>
+    <string name="file_list_title_create_file">Simpan berkas</string>
+    <plurals name="file_list_title_open_directory">
+        <item quantity="other">Pilih folder</item>
+    </plurals>
     <plurals name="file_list_subtitle_directory_count_format">
         <item quantity="other">%1$,d folder</item>
     </plurals>
@@ -267,6 +275,8 @@
     <string name="file_list_action_create_shortcut">Buat pintasan</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Buka di jendela baru</string>
     <string name="file_list_select_title_format">%1$,d</string>
+    <string name="file_list_create_file_name_hint">Nama berkas</string>
+    <string name="file_list_open_current_directory_format">Pilih “%1$s”</string>
     <string name="file_list_paste_move_title_format">Memindahkan %1$,d</string>
     <string name="file_list_paste_copy_title_format">Menyalin %1$,d</string>
     <string name="file_list_paste_extract_title_format">Mengekstrak %1$,d</string>
@@ -299,6 +309,37 @@
     <string name="file_properties_basic_archive_file">Berkas Arsip</string>
     <string name="file_properties_basic_archive_entry">Entri Arsip</string>
     <string name="file_properties_basic_free_space">Ruang Kosong</string>
+    <string name="file_properties_permission">Perizinan</string>
+    <string name="file_properties_permission_owner">Pemilik</string>
+    <string name="file_properties_permission_group">Grup</string>
+    <string name="file_properties_permission_principal_format">%1$s (%2$d)</string>
+    <string name="file_properties_permission_set_owner_title">Ubah pemilik</string>
+    <string name="file_properties_permission_set_group_title">Ubah grup</string>
+    <string name="file_properties_permission_set_principal_filter_hint">Masukkan nama atau ID</string>
+    <string name="file_properties_permission_set_principal_system">Sistem</string>
+    <string name="file_properties_permission_mode">Mode</string>
+    <string name="file_properties_permission_mode_format">%1$s (%2$04o)</string>
+    <string name="file_properties_permission_set_mode_title">Ubah mode</string>
+    <string name="file_properties_permission_set_mode_others">Lainnya</string>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_file">
+        <item>Baca</item>
+        <item>Tulis</item>
+        <item>Eksekusi</item>
+    </string-array>
+    <string-array name="file_properties_permission_set_mode_normal_mode_bits_directory">
+        <item>Baca</item>
+        <item>Tulis</item>
+        <item>Cari</item>
+    </string-array>
+    <string name="file_properties_permission_set_mode_special">Spesial</string>
+    <string-array name="file_properties_permission_set_mode_special_mode_bits">
+        <item>Atur UID</item>
+        <item>Atur GID</item>
+        <item>Sticky bit</item>
+    </string-array>
+    <string name="file_properties_permission_selinux_context">Konteks SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_title">Ubah konteks SELinux</string>
+    <string name="file_properties_permission_set_selinux_context_restore">Pulihkan</string>
     <string name="file_properties_image">Gambar</string>
     <string name="file_properties_media_dimensions">Dimensi</string>
     <string name="file_properties_media_dimensions_format">%1$d \u00d7 %2$d</string>
@@ -352,6 +393,12 @@
     <string name="file_properties_apk_signature_digests">Tanda tangan</string>
     <string name="file_properties_apk_signature_digests_empty">Tidak ada tanda tangan yang valid</string>
     <string name="file_properties_apk_past_signature_digests">Tanda tangan lama</string>
+    <string name="file_properties_checksum">Checksum</string>
+    <string name="file_properties_checksum_compare">Bandingkan</string>
+    <string name="file_properties_checksum_compare_placeholder">Semua checksum</string>
+    <string name="file_properties_checksum_compare_match_format">Cocok %1$s checksum</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Cocok prefiks dari %1$s checksum</string>
+    <string name="file_properties_checksum_compare_no_match">Tidak ditemukan checksum yang cocok</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Penyimpanan</string>
     <string name="storage_list_empty">Tidak ada penyimpanan</string>
@@ -360,9 +407,15 @@
     <string name="storage_add_storage_ftp_server">Server FTP</string>
     <string name="storage_add_storage_sftp_server">Server SFTP</string>
     <string name="storage_add_storage_smb_server">Server SMB</string>
+    <string name="storage_add_storage_webdav_server">Peladen WebDAV</string>
     <string name="storage_edit_device_storage_title">Sunting penyimpanan perangkat</string>
     <string name="storage_edit_device_storage_name">Nama</string>
     <string name="storage_edit_device_storage_path">Jalur</string>
+    <string name="storage_add_external_storage_shortcut_title">Tambahkan pintasan penyimpanan eksternal</string>
+    <string name="storage_edit_external_storage_shortcut_title">Sunting pintasan penyimpanan eksternal</string>
+    <string name="storage_edit_external_storage_shortcut_root_id">Volume penyimpanan</string>
+    <string name="storage_edit_external_storage_shortcut_root_id_error_empty">Masukkan volume penyimpanan</string>
+    <string name="storage_edit_external_storage_shortcut_path">Jalur</string>
     <string name="storage_add_document_tree_title">Tambah penyimpanan eksternal</string>
     <string name="storage_edit_document_tree_title">Sunting penyimpanan eksternal</string>
     <string name="storage_edit_document_tree_name">Nama</string>
@@ -449,6 +502,32 @@
     <string name="storage_edit_smb_server_domain">Domain</string>
     <string name="storage_edit_smb_server_connect_and_add">Sambung dan tambah</string>
     <string name="storage_edit_smb_server_add">Tambah</string>
+    <string name="storage_edit_webdav_server_title_edit">Sunting peladen WebDAV</string>
+    <string name="storage_edit_webdav_server_title_add">Tambahkan peladen WebDAV</string>
+    <string name="storage_edit_webdav_server_host">Nama hos</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Masukkan nama hos</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Nama hos tidak valid</string>
+    <string name="storage_edit_webdav_server_port">Porta</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Porta tidak valid</string>
+    <string name="storage_edit_webdav_server_path">Jalur</string>
+    <string name="storage_edit_webdav_server_path_placeholder">Boleh dikosongkan</string>
+    <string name="storage_edit_webdav_server_name">Nama</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Gunakan nama hos</string>
+    <string name="storage_edit_webdav_server_protocol">Protokol</string>
+    <string name="storage_edit_webdav_server_authentication_type">Otentikasi</string>
+    <string-array name="storage_edit_webdav_server_authentication_type_entries">
+        <item>Sandi</item>
+        <item>Token akses</item>
+        <item>Tidak ada</item>
+    </string-array>
+    <string name="storage_edit_webdav_server_username">Nama pengguna</string>
+    <string name="storage_edit_webdav_server_username_error_empty">Masukkan nama pengguna</string>
+    <string name="storage_edit_webdav_server_password">Sandi</string>
+    <string name="storage_edit_webdav_server_access_token">Token akses</string>
+    <string name="storage_edit_webdav_server_access_token_error_empty">Masukkan token akses</string>
+    <string name="storage_edit_webdav_server_connect_and_add">Sambung dan tambahkan</string>
+    <string name="storage_edit_webdav_server_add">Tambahkan</string>
+
     <string name="navigation_storage_subtitle_format">%1$s kosong dari %2$s</string>
     <string name="navigation_add_storage">Tambah penyimpanan…</string>
     <string name="navigation_standard_directory_alarms">Alarm</string>
@@ -470,6 +549,9 @@
     <string name="archive_viewer_title">Penilik arsip</string>
     <string name="image_viewer_title">Penampil gambar</string>
     <string name="image_viewer_subtitle_format">%1$,d/%2$,d</string>
+    <string name="save_as_title">Simpan sebagai</string>
+    <string name="save_as_error">Galat saat menyimpan berkas</string>
+    <string name="save_as_success_format">“%1$s” berhasil disimpan ke “%2$s”</string>
     <string name="text_editor_title">Penyunting teks</string>
     <string name="text_editor_title_format">%1$s</string>
     <string name="text_editor_title_changed_format">*%1$s</string>
@@ -545,6 +627,7 @@
         <item>Lihat konten</item>
         <item>Tanyakan yang ingin dilakukan</item>
     </string-array>
+    <string name="settings_show_pdf_thumbnail_pre_28_title">Tampilkan thumbnail untuk dokumen PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Mungkin membuat apl tidak stabil pada versi Android lama</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Baca berkas remote untuk thumbnail</string>
 

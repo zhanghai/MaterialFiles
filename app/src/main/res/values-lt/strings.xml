@@ -13,7 +13,7 @@
 
     <string name="close">Uždaryti</string>
     <string name="copy">Kopijuoti</string>
-    <string name="cut">Iškirpti</string>
+    <string name="cut">Kirpti</string>
     <string name="default_">Numatytasis</string>
     <string name="delete">Ištrinti</string>
     <string name="discard">Atmesti</string>
@@ -22,17 +22,17 @@
     <string name="empty_placeholder">(Tuščia)</string>
     <string name="error">Klaida</string>
     <string name="hide">Slėpti</string>
-    <string name="install">Įdiegti</string>
-    <string name="keep_editing">Tęsti redagavimą</string>
-    <string name="loading">Kraunama…</string>
-    <string name="maybe_later">Gal vėliau</string>
+    <string name="install">Diegti</string>
+    <string name="keep_editing">Toliau redaguoti</string>
+    <string name="loading">Įkeliama…</string>
+    <string name="maybe_later">Galbūt vėliau</string>
     <string name="merge">Sujungti</string>
     <string name="none">Nėra</string>
-    <string name="open_navigation_drawer">Atidaryti navigacijos dėklą</string>
+    <string name="open_navigation_drawer">Atidaryti naršymo dėklą</string>
     <string name="paste">Įklijuoti</string>
     <string name="refresh">Atnaujinti</string>
     <string name="reload">Įkelti iš naujo</string>
-    <string name="remove">Pašalinti</string>
+    <string name="remove">Šalinti</string>
     <string name="rename">Pervadinti</string>
     <string name="replace">Pakeisti</string>
     <string name="reset">Nustatyti iš naujo</string>
@@ -44,7 +44,7 @@
     <string name="share">Bendrinti</string>
     <string name="show">Rodyti</string>
     <string name="skip">Praleisti</string>
-    <string name="stop">Sustabdyti</string>
+    <string name="stop">Stabdyti</string>
     <string name="system_default">Sistemos numatytasis</string>
     <string name="unknown">Nežinomas</string>
     <string name="view">Peržiūrėti</string>
@@ -52,16 +52,16 @@
     <!-- android.R.string.app_not_found -->
     <string name="activity_not_found">Nerasta jokių programų, galinčių atlikti šį veiksmą</string>
     <string name="open_settings">Atidaryti nustatymus</string>
-    <string name="shortcut_created">Sukurtas trumpasis kelias</string>
+    <string name="shortcut_created">Sukurta trumpoji nuoroda</string>
 
     <plurals name="size_in_bytes_format">
         <item quantity="one">%1$,d baitas</item>
         <item quantity="few">%1$,d baitai</item>
-        <item quantity="many">%1$,d baitų</item>
-        <item quantity="other">%1$,d baitai</item>
+        <item quantity="many">%1$,d baito</item>
+        <item quantity="other">%1$,d baitų</item>
     </plurals>
 
-    <string name="all_files_access_rationale_message">Programėlei reikia prieigos, kad būtų galima valdyti visus failus. Leisk prieigą būsimame sistemos nustatyme.</string>
+    <string name="all_files_access_rationale_message">Programai reikia prieigos, kad būtų galima valdyti visus failus. Leiskite prieigą būsimame sistemos nustatyme.</string>
     <!-- The allow button before Android 10 was in all-caps. -->
     <string name="storage_permission_rationale_message">Programėlei reikia leidimo pasiekti failus. Būsimame sistemos dialogo lange spustelėk „LEISTI“.</string>
     <string name="storage_permission_permanently_denied_message">Programėlei reikia leidimo pasiekti failus. Suteik saugyklos leidimą sistemos nustatymuose.</string>

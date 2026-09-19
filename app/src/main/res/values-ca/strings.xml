@@ -22,7 +22,7 @@
     <string name="hide">Amaga</string>
     <string name="install">Instal·la</string>
     <string name="keep_editing">Continua editant</string>
-    <string name="loading">S\'està carregant...</string>
+    <string name="loading">S\'està carregant…</string>
     <string name="maybe_later">Potser més tard</string>
     <string name="merge">Combina</string>
     <string name="none">Cap</string>
@@ -218,12 +218,12 @@
     <string name="file_job_write_error_message_format">S\'ha produït un error en escriure «%1$s».\n%2$s</string>
     <string name="file_job_get_information_error_message_format">S\'ha produït un error en obtenir informació sobre «%1$s».</string>
     <string name="file_job_remount_format">Remunta «%1$s» com a lectura-escriptura</string>
-    <string name="file_job_remount_loading_format">S\'està tornant a muntar «%1$s» com a lectura-escriptura...</string>
+    <string name="file_job_remount_loading_format">S\'està tornant a muntar «%1$s» com a lectura-escriptura…</string>
     <string name="file_job_remount_success_format">S\'ha tornat a muntar «%1$s» com a lectura-escriptura</string>
     <string name="file_job_action_all">Aplica aquesta acció a tots els fitxers</string>
 
     <string name="file_open_apk_message">Aquest fitxer és un paquet Android. Voleu instal·lar-lo, o veure\'n el contingut?</string>
-    <string name="file_open_as_title">Obre com a...</string>
+    <string name="file_open_as_title">Obre com a…</string>
     <string name="file_open_as_title_format">Obre «%1$s» com a</string>
     <string name="file_open_as_type_text">Text</string>
     <string name="file_open_as_type_image">Imatge</string>
@@ -453,7 +453,7 @@
     <string name="storage_edit_sftp_server_private_key_password_error_invalid">La contrasenya de la clau privada no és vàlida</string>
     <string name="storage_edit_sftp_server_connect_and_add">Connecta i afegeix</string>
     <string name="storage_edit_sftp_server_add">Afegeix</string>
-    <string name="storage_add_lan_smb_server_loading">S\'estan cercant servidors SMB...</string>
+    <string name="storage_add_lan_smb_server_loading">S\'estan cercant servidors SMB…</string>
     <string name="storage_add_lan_smb_server_add">Afegeix manualment</string>
     <string name="storage_edit_smb_server_title_edit">Edita el servidor SMB</string>
     <string name="storage_edit_smb_server_title_add">Afegeix un servidor SMB</string>
@@ -505,7 +505,7 @@
     <string name="storage_edit_webdav_server_add">Afegeix</string>
 
     <string name="navigation_storage_subtitle_format">%1$s lliures de %2$s</string>
-    <string name="navigation_add_storage">Afegeix emmagatzematge...</string>
+    <string name="navigation_add_storage">Afegeix emmagatzematge…</string>
     <string name="navigation_standard_directory_alarms">Alarmes</string>
     <string name="navigation_standard_directory_dcim">DCIM</string>
     <string name="navigation_standard_directory_documents">Documents</string>
@@ -535,9 +535,9 @@
 
     <string name="ftp_server_title">Servidor FTP</string>
     <string name="ftp_server_state_title">Estat</string>
-    <string name="ftp_server_state_summary_starting">S\'està iniciant...</string>
+    <string name="ftp_server_state_summary_starting">S\'està iniciant…</string>
     <string name="ftp_server_state_summary_running">S\'està executant</string>
-    <string name="ftp_server_state_summary_stopping">S\'està aturant...</string>
+    <string name="ftp_server_state_summary_stopping">S\'està aturant…</string>
     <string name="ftp_server_state_summary_stopped">No s\'ha iniciat</string>
     <string name="ftp_server_url_title">URL</string>
     <string name="ftp_server_url_summary_no_local_inet_address">L\'adreça IP local és desconeguda</string>

@@ -610,7 +610,7 @@
     <string-array name="storage_edit_webdav_server_authentication_type_entries">
         <item>Hasło</item>
         <item>Token dostępu</item>
-        <item>Żaden</item>
+        <item>Brak</item>
     </string-array>
     <string name="storage_edit_webdav_server_username">Nazwa użytkownika</string>
     <string name="storage_edit_webdav_server_username_error_empty">Podaj nazwę użytkownika</string>

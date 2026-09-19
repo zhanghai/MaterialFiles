@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="ImpliedQuantity">
 
-    <string name="app_name">Material Файлы</string>
+    <string name="app_name">Material Files</string>
 
     <string name="close">Закрыть</string>
     <string name="copy">Копировать</string>
@@ -50,7 +50,7 @@
     <string name="view">Просмотр</string>
 
     <!-- android.R.string.app_not_found -->
-    <string name="activity_not_found">Приложение не найдено для обработки данного действия</string>
+    <string name="activity_not_found">Нет приложений для обработки данного действия</string>
     <string name="open_settings">Открыть настройки</string>
     <string name="shortcut_created">Ярлык создан</string>
 
@@ -63,11 +63,11 @@
 
     <string name="all_files_access_rationale_message">Приложению требуется доступ для управления всеми файлами. Пожалуйста, разрешите доступ в появившемся окне настроек системы.</string>
     <!-- The allow button before Android 10 was in all-caps. -->
-    <string name="storage_permission_rationale_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, нажмите «РАЗРЕШИТЬ» в появившемся системном диалоговом окне.</string>
+    <string name="storage_permission_rationale_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, нажмите «РАЗРЕШИТЬ» в появившемся диалоговом окне.</string>
     <string name="storage_permission_permanently_denied_message">Приложению требуется разрешение для доступа к файлам. Пожалуйста, предоставьте разрешение «Хранилище» в настройках системы.</string>
     <!-- The allow button is in sentence case now. -->
     <string name="notification_permission_rationale_message">Приложению требуется разрешение на отправку уведомлений об операциях с файлами. Пожалуйста, нажмите “Разрешить” в появившемся диалоговом окне.</string>
-    <string name="notification_permission_permanently_denied_message">Приложению требуется разрешение на отправку уведомлений о файловых операциях. Пожалуйста, предоставьте разрешение на “Уведомления” в системных настройках.</string>
+    <string name="notification_permission_permanently_denied_message">Приложению требуется разрешение на отправку уведомлений о файловых операциях. Пожалуйста, предоставьте разрешение на “Уведомления” в настройках системы.</string>
 
     <string name="notification_channel_background_activity_start_name">Действия в фоновом режиме</string>
     <string name="notification_channel_background_activity_start_description">Разрешить действия, пока приложение находится в фоновом режиме</string>
@@ -391,7 +391,7 @@
         <item quantity="one">%1$,d элемент, размер %2$s</item>
         <item quantity="few">%1$,d элемента, суммарный размер %2$s</item>
         <item quantity="many">%1$,d элементов, суммарный размер %2$s</item>
-        <item quantity="other">%1$,d элементов, суммарный размер %2$s</item>
+        <item quantity="other">%1$,d элементов, всего %2$s</item>
     </plurals>
     <string name="file_properties_basic_last_modification_time">Последнее изменение</string>
     <string name="file_properties_basic_parent_directory">Родительская папка</string>
@@ -489,18 +489,18 @@
     <string name="file_properties_apk_past_signature_digests">Старые подписи</string>
     <string name="file_properties_checksum">Контрольные суммы</string>
     <string name="file_properties_checksum_compare">Сравнить</string>
-    <string name="file_properties_checksum_compare_placeholder">Любая контрольная сумма</string>
-    <string name="file_properties_checksum_compare_match_format">Контрольная сумма %1$s совпадений</string>
-    <string name="file_properties_checksum_compare_prefix_match_format">Совпадение префикса контрольной суммы %1$s</string>
-    <string name="file_properties_checksum_compare_no_match">Соответствующая контрольная сумма не найдена</string>
+    <string name="file_properties_checksum_compare_placeholder">Введите контрольную сумму</string>
+    <string name="file_properties_checksum_compare_match_format">Контрольная сумма совпадает с %1$s</string>
+    <string name="file_properties_checksum_compare_prefix_match_format">Префикс совпадает с %1$s</string>
+    <string name="file_properties_checksum_compare_no_match">Нет совпадающей контрольной суммы</string>
     <string name="storage_file_system_root_title">Root</string>
     <string name="storage_list_title">Накопитель</string>
     <string name="storage_list_empty">Нет накопителей</string>
     <string name="storage_add_storage_title">Добавить накопитель</string>
     <string name="storage_add_storage_document_tree">Внешний накопитель</string>
-    <string name="storage_add_storage_ftp_server">FTP-сервер</string>
+    <string name="storage_add_storage_ftp_server">FTP сервер</string>
     <string name="storage_add_storage_sftp_server">SFTP сервер</string>
-    <string name="storage_add_storage_smb_server">SMB-сервер</string>
+    <string name="storage_add_storage_smb_server">SMB сервер</string>
     <string name="storage_add_storage_webdav_server">WebDAV сервер</string>
     <string name="storage_edit_device_storage_title">Редактировать накопитель</string>
     <string name="storage_edit_device_storage_name">Имя</string>
@@ -523,7 +523,7 @@
     <string name="storage_edit_ftp_server_port">Порт</string>
     <string name="storage_edit_ftp_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_ftp_server_path">Путь</string>
-    <string name="storage_edit_ftp_server_path_placeholder">Можно оставить пустым</string>
+    <string name="storage_edit_ftp_server_path_placeholder">Может быть пустым</string>
     <string name="storage_edit_ftp_server_name">Имя</string>
     <string name="storage_edit_ftp_server_name_placeholder">Используйте имя хоста</string>
     <string name="storage_edit_ftp_server_protocol">Протокол</string>
@@ -551,7 +551,7 @@
     <string name="storage_edit_sftp_server_port">Порт</string>
     <string name="storage_edit_sftp_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_sftp_server_path">Путь</string>
-    <string name="storage_edit_sftp_server_path_placeholder">Можно оставить пустым</string>
+    <string name="storage_edit_sftp_server_path_placeholder">Может быть пустым</string>
     <string name="storage_edit_sftp_server_name">Имя</string>
     <string name="storage_edit_sftp_server_name_placeholder">Используйте имя хоста</string>
     <string name="storage_edit_sftp_server_authentication_type">Авторизация</string>
@@ -566,24 +566,24 @@
     <string name="storage_edit_sftp_server_private_key_open_file">Открыть файл</string>
     <string name="storage_edit_sftp_server_private_key_error_empty">Введите приватный ключ</string>
     <string name="storage_edit_sftp_server_private_key_error_invalid">Неверный приватный ключ</string>
-    <string name="storage_edit_sftp_server_private_key_password">Пароль закрытого ключа</string>
-    <string name="storage_edit_sftp_server_private_key_password_placeholder">Можно оставить пустым</string>
-    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Неверный пароль закрытого ключа</string>
+    <string name="storage_edit_sftp_server_private_key_password">Пароль приватного ключа</string>
+    <string name="storage_edit_sftp_server_private_key_password_placeholder">Может быть пустым</string>
+    <string name="storage_edit_sftp_server_private_key_password_error_invalid">Неверный пароль приватного ключа</string>
     <string name="storage_edit_sftp_server_connect_and_add">Соединиться и добавить</string>
     <string name="storage_edit_sftp_server_add">Добавить</string>
-    <string name="storage_add_lan_smb_server_loading">Поиск SMB-серверов…</string>
+    <string name="storage_add_lan_smb_server_loading">Поиск SMB серверов…</string>
     <string name="storage_add_lan_smb_server_add">Добавить вручную</string>
-    <string name="storage_edit_smb_server_title_edit">Редактировать SMB-сервер</string>
-    <string name="storage_edit_smb_server_title_add">Добавить SMB-сервер</string>
+    <string name="storage_edit_smb_server_title_edit">Редактировать SMB сервер</string>
+    <string name="storage_edit_smb_server_title_add">Добавить SMB сервер</string>
     <string name="storage_edit_smb_server_host">Имя хоста</string>
     <string name="storage_edit_smb_server_host_error_empty">Введите имя хоста</string>
     <string name="storage_edit_smb_server_host_error_invalid">Неверное имя хоста</string>
     <string name="storage_edit_smb_server_port">Порт</string>
     <string name="storage_edit_smb_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_smb_server_path">Путь</string>
-    <string name="storage_edit_smb_server_path_placeholder">Можно оставить пустым</string>
+    <string name="storage_edit_smb_server_path_placeholder">Может быть пустым</string>
     <string name="storage_edit_smb_server_name">Имя</string>
-    <string name="storage_edit_smb_server_name_placeholder">Используйте имя хоста</string>
+    <string name="storage_edit_smb_server_name_placeholder">Используется имя хоста</string>
     <string name="storage_edit_smb_server_authentication_type">Авторизация</string>
     <string-array name="storage_edit_smb_server_authentication_type_entries">
         <item>Пароль</item>
@@ -598,15 +598,15 @@
     <string name="storage_edit_smb_server_add">Добавить</string>
     <string name="storage_edit_webdav_server_title_edit">Редактировать WebDAV сервер</string>
     <string name="storage_edit_webdav_server_title_add">Добавить WebDAV сервер</string>
-    <string name="storage_edit_webdav_server_host">Название хоста</string>
-    <string name="storage_edit_webdav_server_host_error_empty">Введите название хоста</string>
-    <string name="storage_edit_webdav_server_host_error_invalid">Недействительное название хоста</string>
+    <string name="storage_edit_webdav_server_host">Имя хоста</string>
+    <string name="storage_edit_webdav_server_host_error_empty">Введите имя хоста</string>
+    <string name="storage_edit_webdav_server_host_error_invalid">Неверное имя хоста</string>
     <string name="storage_edit_webdav_server_port">Порт</string>
-    <string name="storage_edit_webdav_server_port_error_invalid">Недействительный порт</string>
+    <string name="storage_edit_webdav_server_port_error_invalid">Неверный порт</string>
     <string name="storage_edit_webdav_server_path">Путь</string>
     <string name="storage_edit_webdav_server_path_placeholder">Может быть пустым</string>
     <string name="storage_edit_webdav_server_name">Имя</string>
-    <string name="storage_edit_webdav_server_name_placeholder">Использовать название хоста</string>
+    <string name="storage_edit_webdav_server_name_placeholder">Используется имя хоста</string>
     <string name="storage_edit_webdav_server_protocol">Протокол</string>
     <string name="storage_edit_webdav_server_authentication_type">Аутентификация</string>
     <string-array name="storage_edit_webdav_server_authentication_type_entries">
@@ -654,7 +654,7 @@
     <string name="text_editor_encoding">Кодировка</string>
     <string name="text_editor_close_message">Вы уверены что хотите отказаться от несохраненных изменений в документе?</string>
 
-    <string name="ftp_server_title">FTP-сервер</string>
+    <string name="ftp_server_title">FTP сервер</string>
     <string name="ftp_server_state_title">Статус</string>
     <string name="ftp_server_state_summary_starting">Запуск…</string>
     <string name="ftp_server_state_summary_running">Запущен</string>
@@ -679,11 +679,11 @@
     <string name="settings_interface_title">Интерфейс</string>
     <string name="settings_locale_title">Язык</string>
     <string name="settings_theme_color_title">Цвет темы</string>
-    <string name="settings_theme_color_summary">Цвет который чаще всего используется в приложении</string>
+    <string name="settings_theme_color_summary">Цвет для элементов в приложении</string>
     <string name="settings_material_design_3_title">Material Design 3</string>
     <string name="settings_night_mode_title">Ночной режим</string>
     <string-array name="settings_night_mode_entries">
-        <item>Использовать системную тему</item>
+        <item>Использовать системные настройки</item>
         <item>Выключить</item>
         <item>Включить</item>
         <item>На основе времени</item>
@@ -691,7 +691,7 @@
     </string-array>
     <string name="settings_black_night_mode">Ночная тема</string>
     <string name="settings_file_list_animation_title">Анимация списка файлов</string>
-    <string name="settings_file_name_ellipsize_title">Отображать длинные имена файлов</string>
+    <string name="settings_file_name_ellipsize_title">Отображение длинных имен файлов</string>
     <string-array name="settings_file_name_ellipsize_entries">
         <item>Многоточие в начале</item>
         <item>Многоточие в середине</item>
@@ -726,7 +726,7 @@
     </string-array>
     <string name="settings_show_pdf_thumbnail_pre_28_title">Показывать миниатюры для документов PDF</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Приложение может стать нестабильным на старых версиях Android</string>
-    <string name="settings_read_remote_files_for_thumbnail_title">Считывать удалённые (сетевые) файлы для миниатюр</string>
+    <string name="settings_read_remote_files_for_thumbnail_title">Показывать миниатюры для сетевых файлов</string>
 
     <string name="about_title">О программе</string>
     <string name="about_version_title">Версия</string>
