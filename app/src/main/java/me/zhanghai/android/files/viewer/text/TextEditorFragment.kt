@@ -217,9 +217,14 @@ class TextEditorFragment : Fragment(), ConfirmReloadDialogFragment.Listener,
     }
 
     private fun setText(text: String?) {
-        isSettingText = true
-        binding.textEdit.setText(text)
-        isSettingText = false
+        // This is also called after saving because we'll be updating our state of the unchanged
+        // text, but we don't want to call TextView.setText() again which resets things like cursor
+        // position.
+        if (binding.textEdit.text.toString() != text) {
+            isSettingText = true
+            binding.textEdit.setText(text)
+            isSettingText = false
+        }
         viewModel.isTextChanged.value = false
     }
 
