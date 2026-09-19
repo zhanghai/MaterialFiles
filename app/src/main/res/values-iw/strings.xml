@@ -5,7 +5,9 @@
   ~ All Rights Reserved.
   -->
 
-<resources>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingQuantity">
 
     <string name="app_name">Material Files</string>
 
