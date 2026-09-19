@@ -90,8 +90,9 @@ android {
         }
         resources {
             excludes += [
-                    'META-INF/DEPENDENCIES',
-                    'org/bouncycastle/pqc/crypto/picnic/*'
+                    // https://github.com/kotlin/kotlinx.coroutines#avoiding-including-the-debug-infrastructure-in-the-resulting-apk
+                    '/DebugProbesKt.bin',
+                    '/META-INF/DEPENDENCIES',
             ]
         }
     }
