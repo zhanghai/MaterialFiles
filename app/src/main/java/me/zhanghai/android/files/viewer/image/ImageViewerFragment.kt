@@ -162,7 +162,8 @@ class ImageViewerFragment : Fragment(), ConfirmDeleteDialogFragment.Listener {
 
     override fun delete(path: Path) {
         try {
-            path.delete()
+            // The image viewer only deletes files, se we pass isDirectory=false
+            path.delete(false)
         } catch (e: IOException) {
             e.printStackTrace()
             showToast(e.toString())
