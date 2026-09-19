@@ -1,0 +1,5 @@
+- Added support for Shizuku.
+- Added Danish and Galician translation.
+- Changed encryption when creating ZIP archive from ZipCrypto to AES-256.
+- Material Design 2 theme may be removed in the upcoming version 1.8.0.
+- Other bug fixes and improvements.
