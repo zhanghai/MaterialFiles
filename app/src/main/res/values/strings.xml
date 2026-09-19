@@ -465,6 +465,9 @@
         <item>Android 12L</item>
         <item>Android 13</item>
         <item>Android 14</item>
+        <item>Android 15</item>
+        <item>Android 16</item>
+        <item>Android 17</item>
         <item>Android ?</item>
     </string-array>
     <string-array name="file_properites_apk_sdk_version_codenames" translatable="false">
@@ -503,6 +506,9 @@
         <item>S_V2</item>
         <item>T</item>
         <item>U</item>
+        <item>V</item>
+        <item>B</item>
+        <item>C</item>
         <item>\?</item>
     </string-array>
     <string name="file_properties_apk_requested_permissions">Permissions</string>
