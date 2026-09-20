@@ -403,6 +403,11 @@
             android:grantUriPermissions="true" />
 
         <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="${applicationId}.firebaseinitprovider"
+            tools:node="remove" />
+
+        <provider
             android:name="rikka.shizuku.ShizukuProvider"
             android:authorities="${applicationId}.shizuku"
             android:enabled="true"
@@ -413,9 +418,5 @@
         <receiver android:name="me.zhanghai.android.files.filejob.FileJobReceiver" />
 
         <receiver android:name="me.zhanghai.android.files.ftpserver.FtpServerReceiver" />
-
-        <meta-data
-            android:name="firebase_crashlytics_collection_enabled"
-            android:value="false" />
     </application>
 </manifest>
