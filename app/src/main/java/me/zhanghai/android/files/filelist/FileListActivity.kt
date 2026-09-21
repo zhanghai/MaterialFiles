@@ -44,10 +44,16 @@ class FileListActivity : AppActivity() {
     }
 
     companion object {
+        const val ACTION_VIEW_RECENT_FILES =
+            "me.zhanghai.android.files.intent.action.VIEW_RECENT_FILES"
+
         fun createViewIntent(path: Path): Intent =
             FileListActivity::class.createIntent()
                 .setAction(Intent.ACTION_VIEW)
                 .apply { extraPath = path }
+
+        fun createViewRecentFilesIntent(): Intent =
+            FileListActivity::class.createIntent().setAction(ACTION_VIEW_RECENT_FILES)
     }
 
     class OpenFileContract : ActivityResultContract<List<MimeType>, Path?>() {

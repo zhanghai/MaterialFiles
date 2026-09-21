@@ -70,7 +70,8 @@ private val storageItems: List<NavigationItem>
         }
 
 private abstract class PathItem(val path: Path) : NavigationItem() {
-    override fun isChecked(listener: Listener): Boolean = listener.currentPath == path
+    override fun isChecked(listener: Listener): Boolean =
+        !listener.isRecentFiles && listener.currentPath == path
 
     override fun onClick(listener: Listener) {
         if (this is NavigationRoot) {
@@ -202,10 +203,30 @@ private class AddStorageItem : NavigationItem() {
 
 private val standardDirectoryItems: List<NavigationItem>
     @Size(min = 0)
-    get() =
-        StandardDirectoriesLiveData.valueCompat
-            .filter { it.isEnabled }
-            .map { StandardDirectoryItem(it) }
+    get() {
+        val standardDirectories = StandardDirectoriesLiveData.valueCompat.filter { it.isEnabled }
+        val items = standardDirectories.mapTo(mutableListOf<NavigationItem>()) {
+            StandardDirectoryItem(it)
+        }
+        if (Settings.FILE_LIST_SHOW_RECENT_FILES.valueCompat) {
+            items.add(standardDirectories.recentFilesIndex, RecentFilesItem())
+        }
+        return items
+    }
+
+// Standard directories are in alphabetical order, apart from the app specific ones at the end, so
+// recent files goes where it belongs alphabetically among them, which is right before ringtones.
+private val List<StandardDirectory>.recentFilesIndex: Int
+    get() {
+        val ringtonesIndex = DEFAULT_STANDARD_DIRECTORIES.indexOfFirst {
+            it.relativePath == Environment.DIRECTORY_RINGTONES
+        }
+        val index = indexOfFirst { standardDirectory ->
+            DEFAULT_STANDARD_DIRECTORIES.indexOfFirst { it.iconRes == standardDirectory.iconRes } >=
+                ringtonesIndex
+        }
+        return if (index != -1) index else size
+    }
 
 private class StandardDirectoryItem(
     private val standardDirectory: StandardDirectory
@@ -226,6 +247,23 @@ private class StandardDirectoryItem(
     override fun onLongClick(listener: Listener): Boolean {
         listener.launchIntent(StandardDirectoryListActivity::class.createIntent())
         return true
+    }
+}
+
+private class RecentFilesItem : NavigationItem() {
+    override val id: Long = R.string.navigation_recent_files.toLong()
+
+    @DrawableRes
+    override val iconRes: Int = R.drawable.recent_icon_white_24dp
+
+    override fun getTitle(context: Context): String =
+        context.getString(R.string.navigation_recent_files)
+
+    override fun isChecked(listener: Listener): Boolean = listener.isRecentFiles
+
+    override fun onClick(listener: Listener) {
+        listener.navigateToRecentFiles()
+        listener.closeNavigationDrawer()
     }
 }
 
