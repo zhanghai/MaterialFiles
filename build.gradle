@@ -1,3 +1,5 @@
+import org.gradle.internal.extensibility.DefaultExtraPropertiesExtension
+
 /*
  * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
@@ -7,7 +9,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '2.4.0'
+        kotlin_version = '2.4.20'
     }
     repositories {
         google()
