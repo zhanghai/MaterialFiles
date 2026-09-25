@@ -367,6 +367,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         viewModel.fileListLiveData.observe(viewLifecycleOwner) { onFileListChanged(it) }
         Settings.FILE_LIST_SHOW_HIDDEN_FILES.observe(viewLifecycleOwner) {
             onShowHiddenFilesChanged(it)
+        Settings.GRID_COLUMNS.observe(viewLifecycleOwner) {
+            updateSpanCount()
+            }
         }
     }
 
@@ -654,17 +657,32 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun updateSpanCount() {
-        layoutManager.spanCount = when (viewModel.viewType) {
+        val lm = binding.recyclerView.layoutManager as? GridLayoutManager ?: return
+
+        val newSpan = when (viewModel.viewType) {
             FileViewType.LIST -> 1
+
             FileViewType.GRID -> {
                 var widthDp = resources.configuration.screenWidthDp
-                val persistentDrawerLayout = binding.persistentDrawerLayout
-                if (persistentDrawerLayout != null &&
-                    persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                val drawer = binding.persistentDrawerLayout
+
+                if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
                     widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
-                (widthDp / 180).coerceAtLeast(2)
+
+                val pref = Settings.GRID_COLUMNS.value?.toIntOrNull() ?: 0
+
+                if (pref == 0) {
+                    (widthDp / 120).coerceAtLeast(2)
+                } else {
+                    pref
+                }
             }
+        }
+
+        if (lm.spanCount != newSpan) {
+            lm.spanCount = newSpan
+            binding.recyclerView.requestLayout()
         }
     }
 
