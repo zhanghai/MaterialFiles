@@ -273,6 +273,18 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     }
                 }
         )
+        addOnBackPressedCallback(
+            object : OnBackPressedCallback(false) {
+                override fun handleOnBackPressed() {
+                    viewModel.hideRecentFiles()
+                }
+            }
+                .also { callback ->
+                    viewModel.recentFilesLiveData.observe(viewLifecycleOwner) {
+                        callback.isEnabled = it
+                    }
+                }
+        )
         addOnBackPressedCallback(overlayActionMode.onBackPressedCallback)
         addOnBackPressedCallback(SpeedDialViewOnBackPressedCallback(binding.speedDialView))
         binding.drawerLayout?.let {
@@ -283,6 +295,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             var path = argsPath
             val intent = args.intent
             var pickOptions: PickOptions? = null
+            var showRecentFiles = false
             when (val action = intent.action) {
                 Intent.ACTION_GET_CONTENT, Intent.ACTION_OPEN_DOCUMENT,
                 Intent.ACTION_CREATE_DOCUMENT -> {
@@ -324,6 +337,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                             Environment.DIRECTORY_DOWNLOADS
                         ).path
                     )
+                FileListActivity.ACTION_VIEW_RECENT_FILES -> showRecentFiles = true
                 else ->
                     if (path != null) {
                         val mimeType = intent.type?.asMimeTypeOrNull()
@@ -336,11 +350,24 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 path = Settings.FILE_LIST_DEFAULT_DIRECTORY.valueCompat
             }
             viewModel.resetTo(path)
+            if (showRecentFiles) {
+                viewModel.showRecentFiles()
+            }
             if (pickOptions != null) {
                 viewModel.pickOptions = pickOptions
             }
         }
         viewModel.currentPathLiveData.observe(viewLifecycleOwner) { onCurrentPathChanged(it) }
+        viewModel.recentFilesLiveData.observe(viewLifecycleOwner) { onRecentFilesChanged(it) }
+        var wasShowingRecentFiles = Settings.FILE_LIST_SHOW_RECENT_FILES.valueCompat
+        Settings.FILE_LIST_SHOW_RECENT_FILES.observe(viewLifecycleOwner) {
+            // A pinned shortcut can still show recent files while the setting is off, so only
+            // leave when the setting is actually turned off.
+            if (wasShowingRecentFiles && !it) {
+                viewModel.hideRecentFiles()
+            }
+            wasShowingRecentFiles = it
+        }
         viewModel.searchViewExpandedLiveData.observe(viewLifecycleOwner) {
             onSearchViewExpandedChanged(it)
         }
@@ -441,6 +468,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         updateViewSortMenuItems()
         updateSelectAllMenuItem()
         updateShowHiddenFilesMenuItem()
+        updatePathMenuItems()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -582,21 +610,40 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         updateBottomToolbar()
     }
 
+    private fun onRecentFilesChanged(isRecentFiles: Boolean) {
+        binding.breadcrumbLayout.isVisible = !isRecentFiles
+        if (isRecentFiles) {
+            binding.speedDialView.hide()
+        } else {
+            binding.speedDialView.show()
+        }
+        updateTitle()
+        updateViewSortMenuItems()
+        updatePathMenuItems()
+        updateOverlayToolbar()
+        updateBottomToolbar()
+    }
+
     private fun onSearchViewExpandedChanged(expanded: Boolean) {
         updateViewSortMenuItems()
     }
 
     private fun onFileListChanged(stateful: Stateful<List<FileItem>>) {
         val files = stateful.value
-        val isSearching = viewModel.searchState.isSearching
+        // Search results and recent files are published while they are still being loaded.
+        val isLoadedIncrementally = viewModel.searchState.isSearching || viewModel.isRecentFiles
         when {
             stateful is Failure -> binding.toolbar.setSubtitle(R.string.error)
-            stateful is Loading && !isSearching -> binding.toolbar.setSubtitle(R.string.loading)
+            stateful is Loading && !isLoadedIncrementally ->
+                binding.toolbar.setSubtitle(R.string.loading)
             else -> binding.toolbar.subtitle = getSubtitle(files!!)
         }
         val hasFiles = !files.isNullOrEmpty()
-        binding.swipeRefreshLayout.isRefreshing = stateful is Loading && (hasFiles || isSearching)
-        binding.progress.fadeToVisibilityUnsafe(stateful is Loading && !(hasFiles || isSearching))
+        binding.swipeRefreshLayout.isRefreshing =
+            stateful is Loading && (hasFiles || isLoadedIncrementally)
+        binding.progress.fadeToVisibilityUnsafe(
+            stateful is Loading && !(hasFiles || isLoadedIncrementally)
+        )
         binding.errorText.fadeToVisibilityUnsafe(stateful is Failure && !hasFiles)
         val throwable = (stateful as? Failure)?.throwable
         if (throwable != null) {
@@ -686,6 +733,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (searchViewExpanded) {
             return
         }
+        // Recent files are always sorted by the time they were last modified.
+        val isRecentFiles = viewModel.isRecentFiles
+        menuBinding.viewSortItem.subMenu!!.setGroupVisible(R.id.group_sort, !isRecentFiles)
+        menuBinding.viewSortPathSpecificItem.isVisible = !isRecentFiles
         val viewType = viewModel.viewType
         val checkedViewTypeItem = when (viewType) {
             FileViewType.LIST -> menuBinding.viewListItem
@@ -703,6 +754,20 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         menuBinding.sortOrderAscendingItem.isChecked = sortOptions.order == Order.ASCENDING
         menuBinding.sortDirectoriesFirstItem.isChecked = sortOptions.isDirectoriesFirst
         menuBinding.viewSortPathSpecificItem.isChecked = viewModel.isViewSortPathSpecific
+    }
+
+    private fun updatePathMenuItems() {
+        if (!this::menuBinding.isInitialized) {
+            return
+        }
+        val isVisible = !viewModel.isRecentFiles
+        menuBinding.newTaskItem.isVisible = isVisible
+        menuBinding.navigateUpItem.isVisible = isVisible
+        menuBinding.shareItem.isVisible = isVisible
+        menuBinding.copyPathItem.isVisible = isVisible
+        menuBinding.openInTerminalItem.isVisible = isVisible
+        menuBinding.addBookmarkItem.isVisible = isVisible
+        menuBinding.createShortcutItem.isVisible = isVisible
     }
 
     private fun navigateUp() {
@@ -727,6 +792,11 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun onShowHiddenFilesChanged(showHiddenFiles: Boolean) {
+        if (viewModel.isRecentFiles) {
+            // Recent files are loaded up to a limit, so which files are hidden changes what gets
+            // loaded in the first place.
+            viewModel.reload()
+        }
         updateAdapterFileList()
         updateShowHiddenFilesMenuItem()
     }
@@ -736,7 +806,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         if (!Settings.FILE_LIST_SHOW_HIDDEN_FILES.valueCompat) {
             files = files.filterNot { it.isHidden }
         }
-        adapter.replaceListAndIsSearching(files, viewModel.searchState.isSearching)
+        adapter.replaceListAndIsUnsorted(
+            files, viewModel.searchState.isSearching || viewModel.isRecentFiles
+        )
     }
 
     private fun updateShowHiddenFilesMenuItem() {
@@ -781,8 +853,21 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun onPickOptionsChanged(pickOptions: PickOptions?) {
+        updateTitle()
+        updateSelectAllMenuItem()
+        updateOverlayToolbar()
+        updateBottomToolbar()
+        adapter.pickOptions = pickOptions
+    }
+
+    private fun updateTitle() {
+        val pickOptions = viewModel.pickOptions
         val title = if (pickOptions == null) {
-            getString(R.string.file_list_title)
+            if (viewModel.isRecentFiles) {
+                getString(R.string.navigation_recent_files)
+            } else {
+                getString(R.string.file_list_title)
+            }
         } else {
             val count = if (pickOptions.allowMultiple) Int.MAX_VALUE else 1
             when (pickOptions.mode) {
@@ -794,10 +879,6 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             }
         }
         requireActivity().title = title
-        updateSelectAllMenuItem()
-        updateOverlayToolbar()
-        updateBottomToolbar()
-        adapter.pickOptions = pickOptions
     }
 
     private fun updateSelectAllMenuItem() {
@@ -893,7 +974,8 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
             val areAllFilesArchiveFiles = files.all { it.isArchiveFile }
             menu.findItem(R.id.action_extract).isVisible = areAllFilesArchiveFiles
             val isCurrentPathReadOnly = viewModel.currentPath.fileSystem.isReadOnly
-            menu.findItem(R.id.action_archive).isVisible = !isCurrentPathReadOnly
+            menu.findItem(R.id.action_archive).isVisible =
+                !isCurrentPathReadOnly && !viewModel.isRecentFiles
         }
         if (!overlayActionMode.isActive) {
             binding.appBarLayout.setExpanded(true)
@@ -1029,6 +1111,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     }
 
     private fun updateBottomToolbar() {
+        if (viewModel.isRecentFiles) {
+            if (bottomActionMode.isActive) {
+                bottomActionMode.finish()
+            }
+            return
+        }
         val pickOptions = viewModel.pickOptions
         if (pickOptions != null) {
             bottomActionMode.setMenuResource(R.menu.file_list_pick_bottom)
@@ -1445,9 +1533,17 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     override val currentPath: Path
         get() = viewModel.currentPath
 
+    override val isRecentFiles: Boolean
+        get() = viewModel.isRecentFiles
+
     override fun navigateToRoot(path: Path) {
         collapseSearchView()
         viewModel.resetTo(path)
+    }
+
+    override fun navigateToRecentFiles() {
+        collapseSearchView()
+        viewModel.showRecentFiles()
     }
 
     override fun navigateToDefaultRoot() {
@@ -1456,6 +1552,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
 
     override fun observeCurrentPath(owner: LifecycleOwner, observer: (Path) -> Unit) {
         viewModel.currentPathLiveData.observe(owner, observer)
+    }
+
+    override fun observeRecentFiles(owner: LifecycleOwner, observer: (Boolean) -> Unit) {
+        viewModel.recentFilesLiveData.observe(owner, observer)
     }
 
     override fun closeNavigationDrawer() {
@@ -1714,7 +1814,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val sortDirectoriesFirstItem: MenuItem,
         val viewSortPathSpecificItem: MenuItem,
         val selectAllItem: MenuItem,
-        val showHiddenFilesItem: MenuItem
+        val showHiddenFilesItem: MenuItem,
+        val newTaskItem: MenuItem,
+        val navigateUpItem: MenuItem,
+        val shareItem: MenuItem,
+        val copyPathItem: MenuItem,
+        val openInTerminalItem: MenuItem,
+        val addBookmarkItem: MenuItem,
+        val createShortcutItem: MenuItem
     ) {
         companion object {
             fun inflate(menu: Menu, inflater: MenuInflater): MenuBinding {
@@ -1730,7 +1837,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     menu.findItem(R.id.action_sort_directories_first),
                     menu.findItem(R.id.action_view_sort_path_specific),
                     menu.findItem(R.id.action_select_all),
-                    menu.findItem(R.id.action_show_hidden_files)
+                    menu.findItem(R.id.action_show_hidden_files),
+                    menu.findItem(R.id.action_new_task),
+                    menu.findItem(R.id.action_navigate_up),
+                    menu.findItem(R.id.action_share),
+                    menu.findItem(R.id.action_copy_path),
+                    menu.findItem(R.id.action_open_in_terminal),
+                    menu.findItem(R.id.action_add_bookmark),
+                    menu.findItem(R.id.action_create_shortcut)
                 )
             }
         }

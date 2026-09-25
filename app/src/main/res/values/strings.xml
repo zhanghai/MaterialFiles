@@ -677,6 +677,7 @@
     <string name="storage_edit_webdav_server_connect_and_add">Connect and add</string>
     <string name="storage_edit_webdav_server_add">Add</string>
 
+    <string name="navigation_recent_files">Recent files</string>
     <string name="navigation_storage_subtitle_format">%1$s free of %2$s</string>
     <string name="navigation_add_storage">Add storage…</string>
     <string name="navigation_standard_directory_alarms">Alarms</string>
@@ -793,6 +794,8 @@
     <string name="settings_show_pdf_thumbnail_pre_28_title">Show thumbnail for PDF documents</string>
     <string name="settings_show_pdf_thumbnail_pre_28_summary">Might make the app unstable on older versions of Android</string>
     <string name="settings_read_remote_files_for_thumbnail_title">Read remote files for thumbnail</string>
+    <string name="settings_show_recent_files_title">Show recent files</string>
+    <string name="settings_show_recent_files_summary">Files that were modified most recently on this device</string>
 
     <string name="about_title">About</string>
     <string name="about_version_title">Version</string>
@@ -806,4 +809,5 @@
 
     <string name="shortcut_downloads_title" translatable="false">@string/navigation_standard_directory_downloads</string>
     <string name="shortcut_ftp_server_title" translatable="false">@string/ftp_server_title</string>
+    <string name="shortcut_recent_files_title" translatable="false">@string/navigation_recent_files</string>
 </resources>

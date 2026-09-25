@@ -45,14 +45,16 @@ import java.util.Locale
 class FileListAdapter(
     private val listener: Listener
 ) : AnimatedListAdapter<FileItem, FileListAdapter.ViewHolder>(CALLBACK), PopupTextProvider {
-    private var isSearching = false
+    // Some file lists, e.g. search results and recent files, come in the order they should be
+    // displayed in and must not be sorted again.
+    private var isUnsorted = false
 
     private lateinit var _viewType: FileViewType
     var viewType: FileViewType
         get() = _viewType
         set(value) {
             _viewType = value
-            if (!isSearching) {
+            if (!isUnsorted) {
                 super.replace(list, true)
             }
         }
@@ -62,7 +64,7 @@ class FileListAdapter(
         get() = _sortOptions
         set(value) {
             _sortOptions = value
-            if (!isSearching) {
+            if (!isUnsorted) {
                 val sortedList = list.sortedWith(value.createComparator())
                 super.replace(sortedList, true)
                 rebuildFilePositionMap()
@@ -148,15 +150,15 @@ class FileListAdapter(
         rebuildFilePositionMap()
     }
 
-    @Deprecated("", ReplaceWith("replaceListAndSearching(list, searching)"))
+    @Deprecated("", ReplaceWith("replaceListAndIsUnsorted(list, isUnsorted)"))
     override fun replace(list: List<FileItem>, clear: Boolean) {
         throw UnsupportedOperationException()
     }
 
-    fun replaceListAndIsSearching(list: List<FileItem>, isSearching: Boolean) {
-        val clear = this.isSearching != isSearching
-        this.isSearching = isSearching
-        val sortedList = if (!isSearching) list.sortedWith(sortOptions.createComparator()) else list
+    fun replaceListAndIsUnsorted(list: List<FileItem>, isUnsorted: Boolean) {
+        val clear = this.isUnsorted != isUnsorted
+        this.isUnsorted = isUnsorted
+        val sortedList = if (!isUnsorted) list.sortedWith(sortOptions.createComparator()) else list
         super.replace(sortedList, clear)
         rebuildFilePositionMap()
     }

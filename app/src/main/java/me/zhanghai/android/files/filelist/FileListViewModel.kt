@@ -30,11 +30,20 @@ class FileListViewModel : ViewModel() {
     val pendingState: Parcelable?
         get() = trailLiveData.valueCompat.pendingState
 
-    fun navigateTo(lastState: Parcelable, path: Path) = trailLiveData.navigateTo(lastState, path)
+    fun navigateTo(lastState: Parcelable, path: Path) {
+        hideRecentFiles()
+        trailLiveData.navigateTo(lastState, path)
+    }
 
-    fun resetTo(path: Path) = trailLiveData.resetTo(path)
+    fun resetTo(path: Path) {
+        hideRecentFiles()
+        trailLiveData.resetTo(path)
+    }
 
-    fun navigateUp(): Boolean = trailLiveData.navigateUp()
+    fun navigateUp(): Boolean {
+        hideRecentFiles()
+        return trailLiveData.navigateUp()
+    }
 
     val currentPathLiveData = trailLiveData.map { it.currentPath }
     val currentPath: Path
@@ -61,17 +70,38 @@ class FileListViewModel : ViewModel() {
         _searchStateLiveData.value = SearchState(false, "")
     }
 
+    private val _recentFilesLiveData = MutableLiveData(false)
+    val recentFilesLiveData: LiveData<Boolean> = _recentFilesLiveData
+    val isRecentFiles: Boolean
+        get() = _recentFilesLiveData.valueCompat
+
+    fun showRecentFiles() {
+        if (_recentFilesLiveData.valueCompat) {
+            return
+        }
+        _recentFilesLiveData.value = true
+    }
+
+    fun hideRecentFiles() {
+        if (!_recentFilesLiveData.valueCompat) {
+            return
+        }
+        _recentFilesLiveData.value = false
+    }
+
     private val _fileListLiveData =
-        FileListSwitchMapLiveData(currentPathLiveData, _searchStateLiveData)
+        FileListSwitchMapLiveData(currentPathLiveData, _searchStateLiveData, _recentFilesLiveData)
     val fileListLiveData: LiveData<Stateful<List<FileItem>>>
         get() = _fileListLiveData
     val fileListStateful: Stateful<List<FileItem>>
         get() = _fileListLiveData.valueCompat
 
     fun reload() {
-        val path = currentPath
-        if (path.isArchivePath) {
-            path.archiveRefresh()
+        if (!isRecentFiles) {
+            val path = currentPath
+            if (path.isArchivePath) {
+                path.archiveRefresh()
+            }
         }
         _fileListLiveData.reload()
     }
@@ -243,13 +273,15 @@ class FileListViewModel : ViewModel() {
 
     private class FileListSwitchMapLiveData(
         private val pathLiveData: LiveData<Path>,
-        private val searchStateLiveData: LiveData<SearchState>
+        private val searchStateLiveData: LiveData<SearchState>,
+        private val recentFilesLiveData: LiveData<Boolean>
     ) : MediatorLiveData<Stateful<List<FileItem>>>(), Closeable {
         private var liveData: CloseableLiveData<Stateful<List<FileItem>>>? = null
 
         init {
             addSource(pathLiveData) { updateSource() }
             addSource(searchStateLiveData) { updateSource() }
+            addSource(recentFilesLiveData) { updateSource() }
         }
 
         private fun updateSource() {
@@ -259,10 +291,12 @@ class FileListViewModel : ViewModel() {
             }
             val path = pathLiveData.valueCompat
             val searchState = searchStateLiveData.valueCompat
-            val liveData = if (searchState.isSearching) {
-                SearchFileListLiveData(path, searchState.query)
-            } else {
-                FileListLiveData(path)
+            val liveData = when {
+                // Searching within recent files filters them by name instead.
+                recentFilesLiveData.valueCompat ->
+                    RecentFilesLiveData(searchState.query.takeIf { searchState.isSearching })
+                searchState.isSearching -> SearchFileListLiveData(path, searchState.query)
+                else -> FileListLiveData(path)
             }
             this.liveData = liveData
             addSource(liveData) { value = it }
@@ -272,6 +306,7 @@ class FileListViewModel : ViewModel() {
             when (val liveData = liveData) {
                 is FileListLiveData -> liveData.loadValue()
                 is SearchFileListLiveData -> liveData.loadValue()
+                is RecentFilesLiveData -> liveData.loadValue()
             }
         }
 
