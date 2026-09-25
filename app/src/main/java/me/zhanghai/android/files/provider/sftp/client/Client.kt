@@ -10,6 +10,8 @@ import me.zhanghai.android.files.provider.common.LocalWatchService
 import me.zhanghai.android.files.provider.common.NotifyEntryModifiedSeekableByteChannel
 import me.zhanghai.android.files.util.closeSafe
 import net.schmizz.sshj.SSHClient
+import net.schmizz.sshj.common.KeyType
+import net.schmizz.sshj.common.SecurityUtils
 import net.schmizz.sshj.sftp.FileAttributes
 import net.schmizz.sshj.sftp.FileMode
 import net.schmizz.sshj.sftp.OpenMode
@@ -18,9 +20,10 @@ import net.schmizz.sshj.sftp.Response
 import net.schmizz.sshj.sftp.SFTPClient
 import net.schmizz.sshj.sftp.SFTPException
 import net.schmizz.sshj.transport.TransportException
-import net.schmizz.sshj.transport.verification.PromiscuousVerifier
+import net.schmizz.sshj.transport.verification.HostKeyVerifier
 import net.schmizz.sshj.userauth.UserAuthException
 import java.io.IOException
+import java.security.PublicKey
 import java.util.Collections
 import java.util.WeakHashMap
 import java8.nio.file.Path as Java8Path
@@ -237,12 +240,13 @@ object Client {
             }
             val authentication = authenticator.getAuthentication(authority)
                 ?: throw ClientException("No authentication found for $authority")
-            val sshClient = SSHClient().apply { addHostKeyVerifier(PromiscuousVerifier()) }
+            val hostKeyVerifier = PersistentHostKeyVerifier(authority, authenticator)
+            val sshClient = SSHClient().apply { addHostKeyVerifier(hostKeyVerifier) }
             try {
                 sshClient.connect(authority.host, authority.port)
             } catch (e: IOException) {
                 sshClient.closeSafe()
-                throw ClientException(e)
+                throw ClientException(hostKeyVerifier.exception ?: e)
             }
             try {
                 sshClient.auth(authority.username, authentication.toAuthMethod())
@@ -257,6 +261,49 @@ object Client {
             clients[authority] = client
             return client
         }
+    }
+
+    private class PersistentHostKeyVerifier(
+        private val authority: Authority,
+        private val authenticator: Authenticator
+    ) : HostKeyVerifier {
+        var exception: IOException? = null
+            private set
+
+        override fun verify(hostname: String, port: Int, key: PublicKey): Boolean {
+            val hostKey = key.toHostKey()
+            val knownHostKey = authenticator.getHostKey(authority)
+
+            return when {
+                knownHostKey == null -> {
+                    authenticator.putHostKey(authority, hostKey)
+                    true
+                }
+
+                knownHostKey == hostKey -> true
+
+                authenticator.confirmChangedHostKey(
+                    authority,
+                    knownHostKey,
+                    hostKey
+                ) -> true
+
+                else -> {
+                    exception = IOException(
+                        "Host key for $authority has changed: expected $knownHostKey, got $hostKey. " +
+                                "This may indicate a man-in-the-middle attack."
+                    )
+                    false
+                }
+            }
+        }
+
+        override fun findExistingAlgorithms(hostname: String, port: Int): List<String> =
+            authenticator.getHostKey(authority)?.substringBefore(' ')?.let { listOf(it) }
+                ?: emptyList()
+
+        private fun PublicKey.toHostKey(): String =
+            "${KeyType.fromKey(this)} ${SecurityUtils.getFingerprint(this)}"
     }
 
     interface Path {
