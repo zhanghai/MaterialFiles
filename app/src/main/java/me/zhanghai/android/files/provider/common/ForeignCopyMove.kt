@@ -142,11 +142,11 @@ internal object ForeignCopyMove {
         }
         copy(source, target, *optionsForCopy)
         try {
-            source.delete()
+            source.delete(null)
         } catch (e: IOException) {
             if (e !is NoSuchFileException) {
                 try {
-                    target.delete()
+                    target.delete(null)
                 } catch (e2: IOException) {
                     e.addSuppressed(e2)
                 } catch (e2: UnsupportedOperationException) {
@@ -156,7 +156,7 @@ internal object ForeignCopyMove {
             throw e
         } catch (e: UnsupportedOperationException) {
             try {
-                target.delete()
+                target.delete(null)
             } catch (e2: IOException) {
                 e.addSuppressed(e2)
             } catch (e2: UnsupportedOperationException) {
