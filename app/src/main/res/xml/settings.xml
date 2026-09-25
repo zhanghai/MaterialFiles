@@ -46,6 +46,11 @@
             android:title="@string/settings_file_list_animation_title"
             android:defaultValue="@bool/pref_default_value_file_list_animation" />
 
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_file_list_dense_layout"
+            android:title="@string/settings_file_list_dense_layout_title"
+            android:defaultValue="@bool/pref_default_value_file_list_dense_layout" />
+
         <rikka.preference.SimpleMenuPreference
             android:key="@string/pref_key_file_name_ellipsize"
             android:title="@string/settings_file_name_ellipsize_title"
