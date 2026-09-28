@@ -82,4 +82,6 @@
     <bool name="pref_visible_show_pdf_thumbnail_pre_28">true</bool>
     <string name="pref_key_read_remote_files_for_thumbnail">key_read_remote_files_for_thumbnail</string>
     <bool name="pref_default_value_read_remote_files_for_thumbnail">true</bool>
+	<string name="pref_key_notification_permission_reminder_dismissed">key_notification_permission_reminder_dismissed</string>
+	<bool name="pref_default_value_notification_permission_reminder_dismissed">false</bool>
 </resources>

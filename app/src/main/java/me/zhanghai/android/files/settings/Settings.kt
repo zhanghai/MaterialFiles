@@ -1,4 +1,4 @@
-/*
+	/*
  * Copyright (c) 2018 Hai Zhang <dreaming.in.code.zh@gmail.com>
  * All Rights Reserved.
  */
@@ -181,4 +181,9 @@ object Settings {
             R.string.pref_key_read_remote_files_for_thumbnail,
             R.bool.pref_default_value_read_remote_files_for_thumbnail
         )
+	val NOTIFICATION_PERMISSION_REMINDER_DISMISSED: SettingLiveData<Boolean> =
+		BooleanSettingLiveData(
+			R.string.pref_key_notification_permission_reminder_dismissed,
+			R.bool.pref_default_value_notification_permission_reminder_dismissed
+		)
 }
