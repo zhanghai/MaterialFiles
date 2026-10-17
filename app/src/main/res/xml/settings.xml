@@ -74,6 +74,12 @@
             android:title="@string/settings_bookmark_directories_title"
             android:summary="@string/settings_bookmark_directories_summary_empty" />
 
+        <SwitchPreferenceCompat
+            android:key="@string/pref_key_file_list_show_recent_files"
+            android:title="@string/settings_show_recent_files_title"
+            android:defaultValue="@bool/pref_default_value_file_list_show_recent_files"
+            android:summary="@string/settings_show_recent_files_summary" />
+
         <me.zhanghai.android.files.settings.RootStrategyPreference
             android:key="@string/pref_key_root_strategy"
             android:title="@string/settings_root_strategy_title"

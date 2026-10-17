@@ -12,6 +12,7 @@ import jcifs.context.SingletonContext
 import me.zhanghai.android.files.BuildConfig
 import me.zhanghai.android.files.coil.initializeCoil
 import me.zhanghai.android.files.filejob.fileJobNotificationTemplate
+import me.zhanghai.android.files.filelist.updateRecentFilesShortcut
 import me.zhanghai.android.files.ftpserver.ftpServerServiceNotificationTemplate
 import me.zhanghai.android.files.hiddenapi.HiddenApi
 import me.zhanghai.android.files.provider.FileSystemProviders
@@ -37,6 +38,7 @@ val appInitializers = listOf(
     ::initializeFileSystemProviders,
     ::upgradeApp,
     ::initializeLiveDataObjects,
+    ::initializeRecentFilesShortcut,
     ::initializeCustomTheme,
     ::initializeNightMode,
     ::createNotificationChannels
@@ -80,6 +82,12 @@ private fun initializeLiveDataObjects() {
     // Force initialization of LiveData objects so that it won't happen on a background thread.
     StorageVolumeListLiveData.value
     Settings.FILE_LIST_DEFAULT_DIRECTORY.value
+}
+
+private fun initializeRecentFilesShortcut() {
+    Settings.FILE_LIST_SHOW_RECENT_FILES.observeForever {
+        AsyncTask.THREAD_POOL_EXECUTOR.execute { updateRecentFilesShortcut(it) }
+    }
 }
 
 private fun initializeCustomTheme() {

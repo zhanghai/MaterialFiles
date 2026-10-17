@@ -51,6 +51,12 @@ object Settings {
             R.bool.pref_default_value_file_list_show_hidden_files
         )
 
+    val FILE_LIST_SHOW_RECENT_FILES: SettingLiveData<Boolean> =
+        BooleanSettingLiveData(
+            R.string.pref_key_file_list_show_recent_files,
+            R.bool.pref_default_value_file_list_show_recent_files
+        )
+
     val FILE_LIST_VIEW_TYPE: SettingLiveData<FileViewType> =
         EnumSettingLiveData(
             R.string.pref_key_file_list_view_type, R.string.pref_default_value_file_list_view_type,
