@@ -44,7 +44,7 @@ internal object WebDavCopyMove {
                 throw FileAlreadyExistsException(source.toString(), target.toString(), null)
             }
             try {
-                Client.delete(target)
+                Client.delete(target, targetFile.isDirectory)
             } catch (e: DavException) {
                 throw e.toFileSystemException(target.toString())
             }
@@ -139,14 +139,14 @@ internal object WebDavCopyMove {
                 throw FileAlreadyExistsException(source.toString(), target.toString(), null)
             }
             try {
-                Client.delete(target)
+                Client.delete(target, targetResponse.isDirectory)
             } catch (e: DavException) {
                 throw e.toFileSystemException(target.toString())
             }
         }
         var renameSuccessful = false
         try {
-            Client.move(source, target)
+            Client.move(source, target, sourceResponse.isDirectory)
             renameSuccessful = true
         } catch (e: DavException) {
             if (copyOptions.atomicMove) {
@@ -170,11 +170,11 @@ internal object WebDavCopyMove {
         }
         copy(source, target, copyOptions)
         try {
-            Client.delete(source)
+            Client.delete(source, sourceResponse.isDirectory)
         } catch (e: DavException) {
             if (e.toFileSystemException(source.toString()) !is NoSuchFileException) {
                 try {
-                    Client.delete(target)
+                    Client.delete(target, sourceResponse.isDirectory)
                 } catch (e2: DavException) {
                     e.addSuppressed(e2.toFileSystemException(target.toString()))
                 }

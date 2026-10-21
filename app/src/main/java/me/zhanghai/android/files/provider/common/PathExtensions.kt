@@ -5,6 +5,8 @@
 
 package me.zhanghai.android.files.provider.common
 
+import me.zhanghai.android.files.provider.webdav.WebDavFileSystemProvider
+import me.zhanghai.android.files.provider.webdav.WebDavPath
 import java8.nio.channels.SeekableByteChannel
 import java8.nio.file.AccessMode
 import java8.nio.file.CopyOption
@@ -81,8 +83,12 @@ fun Path.createSymbolicLink(target: ByteString, vararg attributes: FileAttribute
     createSymbolicLink(ByteStringPath(target), *attributes)
 
 @Throws(IOException::class)
-fun Path.delete() {
-    Files.delete(this)
+fun Path.delete(isDirectory: Boolean?) {
+    if (provider == WebDavFileSystemProvider && this is WebDavPath) {
+        WebDavFileSystemProvider.delete(this, isDirectory)
+    } else {
+        Files.delete(this)
+    }
 }
 
 @Throws(IOException::class)
