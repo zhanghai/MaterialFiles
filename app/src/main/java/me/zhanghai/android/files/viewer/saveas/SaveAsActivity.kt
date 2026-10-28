@@ -15,30 +15,37 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.filejob.FileJobService
 import me.zhanghai.android.files.filelist.FileListActivity
-import me.zhanghai.android.files.util.saveAsPath
+import me.zhanghai.android.files.util.saveAsPaths
 import me.zhanghai.android.files.util.showToast
 
 class SaveAsActivity : AppActivity() {
     private val createFileLauncher =
         registerForActivityResult(FileListActivity.CreateFileContract(), ::onCreateFileResult)
 
+    private val openDirectoryLauncher =
+        registerForActivityResult(FileListActivity.OpenDirectoryContract(), ::onOpenDirectoryResult)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val intent = intent
-        val mimeType = intent.type?.asMimeTypeOrNull() ?: MimeType.ANY
-        val path = intent.saveAsPath
-        if (path == null) {
+        val paths = intent.saveAsPaths
+        if (paths.isEmpty()) {
             showToast(R.string.save_as_error)
             finish()
             return
         }
-        val title = path.fileName.toString()
         val initialPath =
             Paths.get(
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
             )
-        createFileLauncher.launch(Triple(mimeType, title, initialPath))
+        if (paths.size == 1) {
+            val mimeType = intent.type?.asMimeTypeOrNull() ?: MimeType.ANY
+            val title = paths.first().fileName.toString()
+            createFileLauncher.launch(Triple(mimeType, title, initialPath))
+        } else {
+            openDirectoryLauncher.launch(initialPath)
+        }
     }
 
     private fun onCreateFileResult(result: Path?) {
@@ -46,7 +53,16 @@ class SaveAsActivity : AppActivity() {
             finish()
             return
         }
-        FileJobService.save(intent.saveAsPath!!, result, this)
+        FileJobService.save(intent.saveAsPaths.first(), result, this)
+        finish()
+    }
+
+    private fun onOpenDirectoryResult(result: Path?) {
+        if (result == null) {
+            finish()
+            return
+        }
+        FileJobService.copy(intent.saveAsPaths, result, this)
         finish()
     }
 }
