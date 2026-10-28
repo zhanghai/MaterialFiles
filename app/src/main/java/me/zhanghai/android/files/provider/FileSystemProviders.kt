@@ -11,6 +11,7 @@ import java8.nio.file.spi.FileSystemProvider
 import me.zhanghai.android.files.provider.archive.ArchiveFileSystemProvider
 import me.zhanghai.android.files.provider.common.AndroidFileTypeDetector
 import me.zhanghai.android.files.provider.content.ContentFileSystemProvider
+import me.zhanghai.android.files.provider.mediastore.MediaStoreFileSystemProvider
 import me.zhanghai.android.files.provider.document.DocumentFileSystemProvider
 import me.zhanghai.android.files.provider.ftp.FtpFileSystemProvider
 import me.zhanghai.android.files.provider.ftp.FtpesFileSystemProvider
@@ -38,6 +39,7 @@ object FileSystemProviders {
         FileSystemProvider.installProvider(ArchiveFileSystemProvider)
         if (!isRunningAsRoot) {
             FileSystemProvider.installProvider(ContentFileSystemProvider)
+            FileSystemProvider.installProvider(MediaStoreFileSystemProvider)
             FileSystemProvider.installProvider(DocumentFileSystemProvider)
             FileSystemProvider.installProvider(FtpFileSystemProvider)
             FileSystemProvider.installProvider(FtpsFileSystemProvider)

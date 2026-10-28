@@ -17,6 +17,8 @@ import java8.nio.file.Path
 import java8.nio.file.Paths
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.about.AboutActivity
+import me.zhanghai.android.files.provider.mediastore.MediaStoreCategory
+import me.zhanghai.android.files.provider.mediastore.MediaStoreFileSystemProvider
 import me.zhanghai.android.files.compat.getDescriptionCompat
 import me.zhanghai.android.files.compat.isPrimaryCompat
 import me.zhanghai.android.files.compat.pathCompat
@@ -48,6 +50,8 @@ val navigationItems: List<NavigationItem?>
                 addAll(storageVolumeItems)
             }
             add(AddStorageItem())
+            add(null)
+            addAll(mediaCategoryItems)
             val standardDirectoryItems = standardDirectoryItems
             if (standardDirectoryItems.isNotEmpty()) {
                 add(null)
@@ -198,6 +202,24 @@ private class AddStorageItem : NavigationItem() {
     override fun onClick(listener: Listener) {
         listener.launchIntent(AddStorageDialogActivity::class.createIntent())
     }
+}
+
+private val mediaCategoryItems: List<NavigationItem>
+    get() = MediaStoreCategory.values().map { MediaCategoryItem(it) }
+
+private class MediaCategoryItem(
+    private val category: MediaStoreCategory
+) : PathItem(MediaStoreFileSystemProvider.getCategoryPath(category)), NavigationRoot {
+    override val id: Long
+        get() = category.titleRes.toLong()
+
+    override val iconRes: Int
+        @DrawableRes
+        get() = category.iconRes
+
+    override fun getTitle(context: Context): String = context.getString(category.titleRes)
+
+    override fun getName(context: Context): String = getTitle(context)
 }
 
 private val standardDirectoryItems: List<NavigationItem>
