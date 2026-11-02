@@ -382,6 +382,10 @@ class FileListAdapter(
                     listener.createShortcut(file)
                     true
                 }
+                R.id.action_customize_folder -> { // <-- ОБРАБОТКА НАШЕЙ КНОПКИ
+                    listener.showCustomizeFolderDialog(file)
+                    true
+                }
                 R.id.action_properties -> {
                     listener.showPropertiesDialog(file)
                     true
@@ -484,5 +488,6 @@ class FileListAdapter(
         fun addBookmark(file: FileItem)
         fun createShortcut(file: FileItem)
         fun showPropertiesDialog(file: FileItem)
+        fun showCustomizeFolderDialog(file: FileItem) // <-- НАШ МЕТОД
     }
 }
