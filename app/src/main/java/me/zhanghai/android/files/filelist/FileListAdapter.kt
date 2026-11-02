@@ -335,6 +335,7 @@ class FileListAdapter(
         menu.findItem(R.id.action_extract).isVisible = file.isArchiveFile
         menu.findItem(R.id.action_archive).isVisible = !isArchivePath
         menu.findItem(R.id.action_add_bookmark).isVisible = isDirectory
+        menu.findItem(R.id.action_customize_folder)?.isVisible = isDirectory // <-- НАША СТРОКА
         holder.popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_open_with -> {
