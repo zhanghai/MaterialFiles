@@ -1424,6 +1424,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         FilePropertiesDialogFragment.show(file, this)
     }
 
+    // --- НАШ НОВЫЙ МЕТОД ---
+    override fun showCustomizeFolderDialog(file: FileItem) {
+        // Временно покажем всплывающее уведомление для теста.
+        // Чуть позже мы заменим эту строку на вызов диалога выбора цвета и эмодзи!
+        showToast("Настройка папки: ${file.name}")
+    }
+    // -----------------------
+
     private fun showCreateFileDialog() {
         CreateFileDialogFragment.show(this)
     }
