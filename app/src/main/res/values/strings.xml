@@ -543,6 +543,20 @@
     <string name="storage_add_storage_sftp_server">SFTP server</string>
     <string name="storage_add_storage_smb_server">SMB server</string>
     <string name="storage_add_storage_webdav_server">WebDAV server</string>
+    <string name="storage_add_storage_rclone" translatable="false">Rclone</string>
+    <string name="storage_add_rclone_title">Add Rclone storage</string>
+    <string name="storage_edit_rclone_title">Edit Rclone storage</string>
+    <string name="storage_rclone_choose_file">Choose rclone.conf file</string>
+    <string name="storage_rclone_or_paste">Or paste rclone.conf content:</string>
+    <string name="storage_rclone_config_hint">Paste the content of rclone.conf here</string>
+    <string name="storage_rclone_import">Import</string>
+    <string name="storage_rclone_empty_config_error">Please select or paste rclone.conf content</string>
+    <string name="storage_rclone_no_remotes_error">No remotes found in rclone.conf</string>
+    <string name="storage_rclone_remotes_added">Added Rclone remotes: %1$s</string>
+    <string name="storage_rclone_remote_name">Remote</string>
+    <string name="storage_rclone_name">Name</string>
+    <string name="storage_rclone_path">Relative path</string>
+    <string name="storage_rclone_binary_not_found">Rclone binary not found. Place rclone in app directory or install Termux rclone.</string>
     <string name="storage_edit_device_storage_title">Edit device storage</string>
     <string name="storage_edit_device_storage_name">Name</string>
     <string name="storage_edit_device_storage_path">Path</string>

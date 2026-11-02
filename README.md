@@ -23,6 +23,7 @@ An open source Material Design file manager, for Android 5.0+.
 - Root support: View and manage files with root access.
 - Archive support: View, extract and create common compressed files.
 - NAS support: View and manage files on FTP, SFTP, SMB and WebDAV servers.
+- Cloud storage (Rclone): View and manage files on Google Drive, OneDrive, Nextcloud, Dropbox, S3, and dozens of cloud storage providers via Rclone. To install, install the APK (`./gradlew assembleDebug` or grab from releases), tap **Add storage** > **Rclone** in the drawer menu, and import or paste your `rclone.conf`. Rclone remotes appear right in the side menu and the background daemon runs only while the app is active.
 - Themes: Customizable UI colors, plus night mode with optional true black.
 - Linux-aware: Like [Nautilus](https://apps.gnome.org/Nautilus/), knows symbolic links, file permissions and SELinux context.
 - Robust: Uses Linux system calls under the hood, not yet another [`ls` parser](https://news.ycombinator.com/item?id=7994720).
