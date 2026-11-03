@@ -326,19 +326,16 @@ class FileListAdapter(
         }
         if (customization != null && customization.emoji.isNotEmpty() && file.attributes.isDirectory) {
             // Вставляем эмодзи перед именем папки (например, "💼 Работа")
-            holder.nameText.text = "${customization.emoji} ${file.name}"
+            // Обычное имя файла/папки без примесей
+        holder.nameText.text = file.name
+
+        // Отображение эмодзи прямо поверх иконки!
+        if (customization != null && customization.emoji.isNotEmpty() && file.attributes.isDirectory) {
+            holder.emojiText.isVisible = true
+            holder.emojiText.text = customization.emoji
         } else {
-            holder.nameText.text = file.name
-        }
-        holder.descriptionText?.text = if (isDirectory) {
-            null
-        } else {
-            val context = holder.descriptionText!!.context
-            val lastModificationTime = attributes.lastModifiedTime().toInstant()
-                .formatShort(context)
-            val size = attributes.fileSize.formatHumanReadable(context)
-            val descriptionSeparator = context.getString(R.string.file_item_description_separator)
-            listOf(lastModificationTime, size).joinToString(descriptionSeparator)
+            holder.emojiText.isVisible = false
+            holder.emojiText.text = ""
         }
         val isArchivePath = path.isArchivePath
         menu.findItem(R.id.action_copy)
@@ -447,8 +444,26 @@ class FileListAdapter(
         val badgeImage: ImageView,
         val nameText: TextView,
         val descriptionText: TextView?,
-        val menuButton: ImageButton
+        val menuButton: ImageButton,
+        val emojiText: TextView // <-- ДОБАВИЛИ ЭЛЕМЕНТ
     ) : RecyclerView.ViewHolder(root) {
+        constructor(binding: FileItemListBinding) : this(
+            binding.root, binding.itemLayout, binding.iconLayout, binding.iconImage,
+            null, null, null, binding.thumbnailImage, binding.appIconBadgeImage,
+            binding.badgeImage, binding.nameText, binding.descriptionText, binding.menuButton,
+            binding.emojiText // <-- СВЯЗАЛИ ДЛЯ СПИСКА
+        )
+
+        constructor(binding: FileItemGridBinding) : this(
+            binding.root, binding.itemLayout, binding.iconLayout, binding.iconImage,
+            binding.directoryThumbnailImage, binding.thumbnailOutlineView, binding.thumbnailIconImage,
+            binding.thumbnailImage, binding.appIconBadgeImage, binding.badgeImage, binding.nameText,
+            null, binding.menuButton,
+            binding.emojiText // <-- СВЯЗАЛИ ДЛЯ СЕТКИ
+        )
+
+        lateinit var popupMenu: PopupMenu
+    }
         constructor(binding: FileItemListBinding) : this(
             binding.root,
             binding.itemLayout,
