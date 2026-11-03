@@ -23,18 +23,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Выберите цвет (HEX):"
+        android:text="Выберите цвет:"
         android:textSize="16sp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="12dp" />
 
-    <!-- Для простоты пока сделаем ввод цвета текстом. 
-         Позже мы можем заменить это на красивую палитру с кружочками! -->
-    <EditText
-        android:id="@+id/colorEditText"
+    <!-- Наша визуальная палитра вместо текста -->
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="#FF5252 (Красный)"
-        android:inputType="text" />
+        android:columnCount="4"
+        android:rowCount="2"
+        android:alignmentMode="alignBounds"
+        android:layout_gravity="center">
+
+        <!-- Первый ряд -->
+        <View android:id="@+id/colorRed" android:layout_width="48dp" android:layout_height="48dp" android:background="#F44336" android:layout_margin="8dp" />
+        <View android:id="@+id/colorCyan" android:layout_width="48dp" android:layout_height="48dp" android:background="#00BCD4" android:layout_margin="8dp" />
+        <View android:id="@+id/colorBlue" android:layout_width="48dp" android:layout_height="48dp" android:background="#2196F3" android:layout_margin="8dp" />
+        <View android:id="@+id/colorGreen" android:layout_width="48dp" android:layout_height="48dp" android:background="#4CAF50" android:layout_margin="8dp" />
+
+        <!-- Второй ряд -->
+        <View android:id="@+id/colorMagenta" android:layout_width="48dp" android:layout_height="48dp" android:background="#E91E63" android:layout_margin="8dp" />
+        <View android:id="@+id/colorYellow" android:layout_width="48dp" android:layout_height="48dp" android:background="#FFEB3B" android:layout_margin="8dp" />
+        <View android:id="@+id/colorOrange" android:layout_width="48dp" android:layout_height="48dp" android:background="#FF9800" android:layout_margin="8dp" />
+        <View android:id="@+id/colorGray" android:layout_width="48dp" android:layout_height="48dp" android:background="#9E9E9E" android:layout_margin="8dp" />
+        
+    </GridLayout>
 
 </LinearLayout>
