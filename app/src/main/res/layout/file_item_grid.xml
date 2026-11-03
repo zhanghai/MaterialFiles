@@ -40,10 +40,6 @@
             android:duplicateParentState="true"
             android:scaleType="centerCrop" />
 
-        <!--
-          ~ Can't use ShapeableImageView stroke support due to
-          ~ https://github.com/material-components/material-components-android/issues/1329
-          -->
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
             android:id="@+id/thumbnailImage"
             android:layout_width="match_parent"
@@ -84,7 +80,7 @@
                 android:duplicateParentState="true"
                 android:scaleType="centerCrop" />
 
-            <!-- Наш эмодзи теперь внутри FrameLayout, прямо поверх иконки! -->
+            <!-- Эмодзи поверх иконки -->
             <TextView
                 android:id="@+id/emojiText"
                 android:layout_width="wrap_content"
@@ -122,7 +118,7 @@
                 android:src="@drawable/checkable_badge_18dp" />
         </FrameLayout>
 
-        <!-- ВОССТАНОВЛЕННЫЙ ТЕКСТ ИМЕНИ ФАЙЛА -->
+        <!-- Текст имени файла -->
         <TextView
             android:id="@+id/nameText"
             android:layout_width="0dp"
@@ -133,23 +129,6 @@
             android:duplicateParentState="true"
             android:textAppearance="?textAppearanceListItem" />
 
-        <me.zhanghai.android.foregroundcompat.ForegroundImageButton
-            android:id="@+id/menuButton"
-            android:layout_width="@dimen/touch_target_size"
-            android:layout_height="@dimen/touch_target_size"
-            android:layout_marginEnd="@dimen/screen_edge_margin_minus_12dp"
-            android:padding="@dimen/touch_target_icon_padding"
-            android:background="@null"
-            android:foreground="@drawable/selectable_item_background_oval"
-            android:src="@drawable/more_vertical_icon_white_24dp"
-            app:tint="?colorControlNormal" />
-    </LinearLayout>
-</me.zhanghai.android.files.ui.CheckableForegroundLinearLayout>
-        <!--
-          ~ Cannot use android:duplicateParentState="true" because a button needs to have its own
-          ~ pressed state, etc. Necessary states will be duplicated manually in the adapter
-          ~ implementation.
-          -->
         <me.zhanghai.android.foregroundcompat.ForegroundImageButton
             android:id="@+id/menuButton"
             android:layout_width="@dimen/touch_target_size"
