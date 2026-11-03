@@ -254,9 +254,17 @@ class FileListAdapter(
         }
         holder.iconLayout.setOnClickListener { selectFile(file) }
         val iconRes = file.mimeType.iconRes
+        val customization = FolderCustomizationStore.getCustomization(file.path.toString())
+        
         holder.iconImage.apply {
             isVisible = true
             setImageResource(iconRes)
+            // Если есть настройки и это папка — красим иконку!
+            if (customization != null && file.attributes.isDirectory) {
+                setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                clearColorFilter() // Сбрасываем цвет для обычных файлов
+            }
         }
         holder.directoryThumbnailImage?.isVisible = isDirectory
         holder.thumbnailOutlineView?.isVisible = !isDirectory
@@ -316,7 +324,12 @@ class FileListAdapter(
                 setImageDrawable(null)
             }
         }
-        holder.nameText.text = file.name
+        if (customization != null && customization.emoji.isNotEmpty() && file.attributes.isDirectory) {
+            // Вставляем эмодзи перед именем папки (например, "💼 Работа")
+            holder.nameText.text = "${customization.emoji} ${file.name}"
+        } else {
+            holder.nameText.text = file.name
+        }
         holder.descriptionText?.text = if (isDirectory) {
             null
         } else {
