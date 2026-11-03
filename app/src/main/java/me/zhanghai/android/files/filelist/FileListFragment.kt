@@ -1398,35 +1398,41 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val iconCompat = if (isDirectory) {
             val customization = FolderCustomizationStore.getCustomization(path.toString())
             if (customization != null) {
-                // Берем чистый контур папки, а не сложную иконку целиком
-                val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.drawable.file_directory_thumbnail)?.mutate()
-                
+                // Размер иконки для рабочего стола (используем побольше для четкости)
                 val size = 256
                 val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
                 val canvas = android.graphics.Canvas(bitmap)
                 
+                // 1. Принудительно заливаем фон БЕЛЫМ цветом (чтобы не было черной подложки)
+                canvas.drawColor(android.graphics.Color.WHITE)
+                
+                // Берем чистый контур папки
+                val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.drawable.file_directory_thumbnail)?.mutate()
+                
                 if (drawable != null) {
                     drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
-                    // Оставляем безопасные отступы, чтобы лаунчер не обрезал края папки
-                    val padding = 32
-                    drawable.setBounds(padding, padding, canvas.width - padding, canvas.height - padding)
+                    // 2. Делаем БОЛЬШИЕ отступы (22% от края с каждой стороны), 
+                    // чтобы папка была маленькой в центре белого фона
+                    val padding = (size * 0.22).toInt()
+                    drawable.setBounds(padding, padding, size - padding, size - padding)
                     drawable.draw(canvas)
                 }
                 
+                // Рисуем эмодзи
                 if (customization.emoji.isNotEmpty()) {
                     val paint = android.graphics.Paint().apply {
-                        textSize = size * 0.35f
+                        textSize = size * 0.25f // Уменьшили эмодзи пропорционально папке
                         textAlign = android.graphics.Paint.Align.CENTER
                         isAntiAlias = true
                     }
-                    val xPos = canvas.width / 2f
-                    // Сдвигаем чуть ниже центра, чтобы эмодзи сидел на "пузике" папки, а не на корешке
-                    val yPos = (canvas.height / 2f) - ((paint.descent() + paint.ascent()) / 2f) + (size * 0.05f)
+                    val xPos = size / 2f
+                    // Центрируем эмодзи ровно на "пузике" папки
+                    val yPos = (size / 2f) - ((paint.descent() + paint.ascent()) / 2f) + (size * 0.03f)
                     canvas.drawText(customization.emoji, xPos, yPos, paint)
                 }
                 
-                // Специальный метод для адаптивных иконок: лаунчер сам обернет её в красивую форму
-                androidx.core.graphics.drawable.IconCompat.createWithAdaptiveBitmap(bitmap)
+                // 3. Используем обычный Bitmap. Лаунчер сам скруглит ему углы.
+                androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
             } else {
                 androidx.core.graphics.drawable.IconCompat.createWithResource(context, R.mipmap.directory_shortcut_icon)
             }
