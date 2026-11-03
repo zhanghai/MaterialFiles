@@ -34,16 +34,20 @@
             android:scaleType="centerCrop" />
 
         <!-- Эмодзи перенесен ВНУТРЬ FrameLayout, чтобы быть поверх иконки! -->
+        <!-- Эмодзи-бейдж в правом нижнем углу -->
         <TextView
             android:id="@+id/emojiText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="14sp"
-            android:layout_marginTop="1dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="-4dp"
+            android:layout_marginBottom="-4dp"
+            android:background="@drawable/bg_emoji_badge"
             android:elevation="4dp"
-            android:visibility="gone"
-            android:includeFontPadding="false" />
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
             android:id="@+id/thumbnailImage"
