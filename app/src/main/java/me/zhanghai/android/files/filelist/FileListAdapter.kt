@@ -259,7 +259,7 @@ class FileListAdapter(
         holder.iconImage.apply {
             isVisible = true
             setImageResource(iconRes)
-            if (customization != null && file.attributes.isDirectory) {
+            if (customization != null) { // Убрали проверку на папку, теперь красим всё!
                 setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
             } else {
                 clearColorFilter()
@@ -268,7 +268,6 @@ class FileListAdapter(
         
         holder.directoryThumbnailImage?.apply {
             isVisible = isDirectory
-            // Красим БОЛЬШУЮ папку в режиме сетки
             if (customization != null && file.attributes.isDirectory) {
                 setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
             } else {
@@ -278,8 +277,7 @@ class FileListAdapter(
         
         holder.thumbnailOutlineView?.isVisible = !isDirectory
         val supportsThumbnail = file.supportsThumbnail
-        val shouldLoadThumbnailIcon = supportsThumbnail && holder.thumbnailIconImage != null &&
-            file.mimeType.isApk
+        val shouldLoadThumbnailIcon = supportsThumbnail && holder.thumbnailIconImage != null && file.mimeType.isApk
         val attributes = file.attributes
         holder.thumbnailIconImage?.apply {
             dispose()
@@ -287,6 +285,12 @@ class FileListAdapter(
             setImageResource(iconRes)
             if (shouldLoadThumbnailIcon) {
                 load(path to attributes)
+            }
+            // НОВОЕ: красим большую иконку файла в режиме сетки
+            if (customization != null && !shouldLoadThumbnailIcon) {
+                setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                clearColorFilter()
             }
         }
         holder.thumbnailImage.apply {
@@ -337,8 +341,8 @@ class FileListAdapter(
         // Обычное имя файла/папки без примесей
         holder.nameText.text = file.name
 
-        // Отображение эмодзи прямо поверх иконки
-        if (customization != null && customization.emoji.isNotEmpty() && file.attributes.isDirectory) {
+        // Отображение эмодзи прямо поверх иконки (теперь для папок И файлов)
+        if (customization != null && customization.emoji.isNotEmpty()) {
             holder.emojiText.isVisible = true
             holder.emojiText.text = customization.emoji
         } else {
@@ -354,7 +358,8 @@ class FileListAdapter(
         menu.findItem(R.id.action_extract).isVisible = file.isArchiveFile
         menu.findItem(R.id.action_archive).isVisible = !isArchivePath
         menu.findItem(R.id.action_add_bookmark).isVisible = isDirectory
-        menu.findItem(R.id.action_customize_folder)?.isVisible = isDirectory // <-- НАША СТРОКА
+        // Теперь меню кастомизации открывается для любых файлов
+        menu.findItem(R.id.action_customize_folder)?.isVisible = true
         holder.popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_open_with -> {
