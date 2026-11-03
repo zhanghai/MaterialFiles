@@ -1407,13 +1407,14 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 // Заливаем фон БЕЛЫМ цветом
                 canvas.drawColor(android.graphics.Color.WHITE)
                 
+                // Объявляем отступы заранее, чтобы эмодзи тоже мог их использовать
+                val padding = (size * 0.22).toInt()
+                
                 // Берем чистый контур папки
                 val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.drawable.file_directory_thumbnail)?.mutate()
                 
                 if (drawable != null) {
                     drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
-                    // Делаем отступы
-                    val padding = (size * 0.22).toInt()
                     drawable.setBounds(padding, padding, size - padding, size - padding)
                     drawable.draw(canvas)
                 }
