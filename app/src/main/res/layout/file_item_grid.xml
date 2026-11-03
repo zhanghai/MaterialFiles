@@ -60,12 +60,15 @@
             android:id="@+id/emojiText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp" 
-            android:textSize="40sp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_emoji_badge"
             android:elevation="4dp"
-            android:visibility="gone"
-            android:includeFontPadding="false" />
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="20sp"
+            android:visibility="gone" />
     </me.zhanghai.android.files.ui.AspectRatioFrameLayout>
 
     <LinearLayout
