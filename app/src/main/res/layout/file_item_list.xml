@@ -33,6 +33,17 @@
             android:duplicateParentState="true"
             android:scaleType="centerCrop" />
 
+        <!-- Эмодзи перенесен ВНУТРЬ FrameLayout, чтобы быть поверх иконки! -->
+        <TextView
+            android:id="@+id/emojiText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:elevation="4dp"
+            android:visibility="gone"
+            android:includeFontPadding="false" />
+
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
             android:id="@+id/thumbnailImage"
             android:layout_width="@dimen/large_icon_size"
@@ -74,16 +85,14 @@
         android:duplicateParentState="true"
         android:orientation="vertical">
 
+        <!-- ВОССТАНОВЛЕННЫЙ ТЕКСТ ИМЕНИ ФАЙЛА -->
         <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
         <TextView
-        android:id="@+id/emojiText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="18sp"
-        android:elevation="4dp"
-        android:visibility="gone"
-        android:includeFontPadding="false" />
+            android:id="@+id/nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            android:textAppearance="?textAppearanceListItem" />
 
         <me.zhanghai.android.files.ui.AutoGoneTextView
             android:id="@+id/descriptionText"
@@ -96,11 +105,6 @@
             android:textColor="?android:textColorSecondary" />
     </LinearLayout>
 
-    <!--
-      ~ Cannot use android:duplicateParentState="true" because a button needs to have its own
-      ~ pressed state, etc. Necessary states will be duplicated manually in the adapter
-      ~ implementation.
-      -->
     <me.zhanghai.android.foregroundcompat.ForegroundImageButton
         android:id="@+id/menuButton"
         android:layout_width="@dimen/touch_target_size"
