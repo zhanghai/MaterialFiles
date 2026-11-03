@@ -46,16 +46,16 @@ class FolderCustomizationDialogFragment : DialogFragment() {
             selectedColor = existing.color
         }
 
-        // Карта связи ID квадратиков из XML с реальными цветами
+        // Новые спокойные пастельные (Material) цвета, приятные для светлой и темной темы
         val colorMap = mapOf(
-            R.id.colorRed to Color.parseColor("#F44336"),
-            R.id.colorCyan to Color.parseColor("#00BCD4"),
-            R.id.colorBlue to Color.parseColor("#2196F3"),
-            R.id.colorGreen to Color.parseColor("#4CAF50"),
-            R.id.colorMagenta to Color.parseColor("#E91E63"),
-            R.id.colorYellow to Color.parseColor("#FFEB3B"),
-            R.id.colorOrange to Color.parseColor("#FF9800"),
-            R.id.colorGray to Color.parseColor("#9E9E9E")
+            R.id.colorRed to Color.parseColor("#E57373"),     // Приглушенный красный
+            R.id.colorCyan to Color.parseColor("#4DD0E1"),    // Спокойный бирюзовый
+            R.id.colorBlue to Color.parseColor("#64B5F6"),    // Мягкий синий
+            R.id.colorGreen to Color.parseColor("#81C784"),   // Пастельный зеленый
+            R.id.colorMagenta to Color.parseColor("#F06292"), // Мягкий розовый
+            R.id.colorYellow to Color.parseColor("#FFD54F"),  // Теплый желтый (не режущий глаз)
+            R.id.colorOrange to Color.parseColor("#FFB74D"),  // Приглушенный оранжевый
+            R.id.colorGray to Color.parseColor("#90A4AE")     // Сине-серый
         )
 
         // Вешаем обработчик нажатий на каждый квадратик
