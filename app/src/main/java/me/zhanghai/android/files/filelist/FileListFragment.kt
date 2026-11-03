@@ -69,6 +69,7 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.file.extension
 import me.zhanghai.android.files.file.fileProviderUri
+import me.zhanghai.android.files.file.iconRes // <-- ДОБАВИЛИ ЭТУ СТРОКУ (исправляет ошибку сборки!)
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.filejob.FileJobService
