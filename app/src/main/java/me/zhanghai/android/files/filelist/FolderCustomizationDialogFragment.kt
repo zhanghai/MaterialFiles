@@ -14,8 +14,8 @@ class FolderCustomizationDialogFragment : DialogFragment() {
 
     private lateinit var file: FileItem
     
-    // По умолчанию ставим стандартный синий цвет папки
-    private var selectedColor: Int = Color.parseColor("#4285F4") 
+    // Ставим приятный синий цвет по умолчанию
+    private var selectedColor: Int = Color.parseColor("#5486B8") 
 
     companion object {
         private const val ARG_FILE = "file"
@@ -46,23 +46,30 @@ class FolderCustomizationDialogFragment : DialogFragment() {
             selectedColor = existing.color
         }
 
-        // Новые спокойные пастельные (Material) цвета, приятные для светлой и темной темы
+        // Карта связи 16 ID квадратиков из XML с реальными цветами Material You
         val colorMap = mapOf(
-            R.id.colorRed to Color.parseColor("#E57373"),     // Приглушенный красный
-            R.id.colorCyan to Color.parseColor("#4DD0E1"),    // Спокойный бирюзовый
-            R.id.colorBlue to Color.parseColor("#64B5F6"),    // Мягкий синий
-            R.id.colorGreen to Color.parseColor("#81C784"),   // Пастельный зеленый
-            R.id.colorMagenta to Color.parseColor("#F06292"), // Мягкий розовый
-            R.id.colorYellow to Color.parseColor("#FFD54F"),  // Теплый желтый (не режущий глаз)
-            R.id.colorOrange to Color.parseColor("#FFB74D"),  // Приглушенный оранжевый
-            R.id.colorGray to Color.parseColor("#90A4AE")     // Сине-серый
+            R.id.colorRed to Color.parseColor("#C25953"),
+            R.id.colorCoral to Color.parseColor("#D97B66"),
+            R.id.colorOrange to Color.parseColor("#D68A47"),
+            R.id.colorGold to Color.parseColor("#C49B45"),
+            R.id.colorOlive to Color.parseColor("#909B53"),
+            R.id.colorSage to Color.parseColor("#6F9B73"),
+            R.id.colorGreen to Color.parseColor("#50916E"),
+            R.id.colorTeal to Color.parseColor("#409489"),
+            R.id.colorCyan to Color.parseColor("#4F92A6"),
+            R.id.colorBlue to Color.parseColor("#5486B8"),
+            R.id.colorIndigo to Color.parseColor("#6A79BA"),
+            R.id.colorPurple to Color.parseColor("#8B6EB8"),
+            R.id.colorPlum to Color.parseColor("#A8679A"),
+            R.id.colorPink to Color.parseColor("#C46487"),
+            R.id.colorBrown to Color.parseColor("#8D7666"),
+            R.id.colorSlate to Color.parseColor("#7A8994")
         )
 
-        // Вешаем обработчик нажатий на каждый квадратик
+        // Вешаем обработчик нажатий на каждый из 16 квадратиков
         for ((viewId, color) in colorMap) {
             view.findViewById<View>(viewId).setOnClickListener {
-                selectedColor = color // Запоминаем цвет, на который нажал пользователь
-                // TODO: Позже можно добавить белую рамку вокруг выбранного цвета для красоты
+                selectedColor = color // Запоминаем цвет
             }
         }
 
