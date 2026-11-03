@@ -1395,80 +1395,57 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun createShortcut(path: Path, mimeType: MimeType) {
         val context = requireContext()
         val isDirectory = mimeType == MimeType.DIRECTORY
+        val customization = FolderCustomizationStore.getCustomization(path.toString())
+
+        // Генерируем 100% кастомную иконку для ярлыка
+        val size = 256
+        val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
+        val canvas = android.graphics.Canvas(bitmap)
         
-        val iconCompat = if (isDirectory) {
-            val customization = FolderCustomizationStore.getCustomization(path.toString())
+        // Заливаем фон белым цветом
+        canvas.drawColor(android.graphics.Color.WHITE)
+        
+        // Выбираем базовую форму: папка или значок файла
+        val baseIconRes = if (isDirectory) R.drawable.file_directory_thumbnail else mimeType.iconRes
+        val drawable = androidx.core.content.ContextCompat.getDrawable(context, baseIconRes)?.mutate()
+
+        // Рассчитываем отступы (у файлов иконка чуть меньше, чем у папок, поэтому padding больше)
+        val paddingF = if (isDirectory) size * 0.22f else size * 0.25f
+        
+        if (drawable != null) {
+            // Если есть настройки цвета, применяем их ко всему
             if (customization != null) {
-                // Размер иконки для рабочего стола
-                val size = 256
-                val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
-                val canvas = android.graphics.Canvas(bitmap)
-                
-                // Заливаем фон БЕЛЫМ цветом
-                canvas.drawColor(android.graphics.Color.WHITE)
-                
-                // Объявляем отступы заранее, чтобы эмодзи тоже мог их использовать
-                val padding = (size * 0.22).toInt()
-                
-                // Берем чистый контур папки
-                val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.drawable.file_directory_thumbnail)?.mutate()
-                
-                if (drawable != null) {
-                    drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
-                    drawable.setBounds(padding, padding, size - padding, size - padding)
-                    drawable.draw(canvas)
-                }
-                
-                // Рисуем эмодзи как круглый бейдж в правом нижнем углу папки
-                if (customization.emoji.isNotEmpty()) {
-                    val badgeRadius = size * 0.16f
-                    // Смещаем кружок в правый нижний угол (с учетом отступов папки)
-                    val badgeCenterX = size - padding - badgeRadius + (size * 0.02f)
-                    val badgeCenterY = size - padding - badgeRadius + (size * 0.02f)
-
-                    // Сначала рисуем белый круглый фон
-                    val bgPaint = android.graphics.Paint().apply {
-                        color = android.graphics.Color.WHITE
-                        isAntiAlias = true
-                    }
-                    canvas.drawCircle(badgeCenterX, badgeCenterY, badgeRadius, bgPaint)
-
-                    // Рисуем сам эмодзи по центру этого круга
-                    val textPaint = android.graphics.Paint().apply {
-                        textSize = badgeRadius * 1.35f
-                        textAlign = android.graphics.Paint.Align.CENTER
-                        isAntiAlias = true
-                    }
-                    val textY = badgeCenterY - ((textPaint.descent() + textPaint.ascent()) / 2f)
-                    canvas.drawText(customization.emoji, badgeCenterX, textY, textPaint)
-                }
-                
-                androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
-            } else {
-                androidx.core.graphics.drawable.IconCompat.createWithResource(context, R.mipmap.directory_shortcut_icon)
+                drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
             }
-        } else {
-            // ЛОГИКА ДЛЯ ФАЙЛОВ: Берем иконку по типу файла
-            val size = 256
-            val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
-            val canvas = android.graphics.Canvas(bitmap)
-            
-            // Заливаем фон БЕЛЫМ цветом для красивого квадрата на рабочем столе
-            canvas.drawColor(android.graphics.Color.WHITE)
-            
-            // Получаем правильную иконку для этого типа файла (PDF, музыка, таблица и т.д.)
-            val iconRes = mimeType.iconRes
-            val drawable = androidx.core.content.ContextCompat.getDrawable(context, iconRes)?.mutate()
-            
-            if (drawable != null) {
-                // Отступы для файла (чуть больше, чтобы иконка не была огромной)
-                val padding = (size * 0.25).toInt()
-                drawable.setBounds(padding, padding, size - padding, size - padding)
-                drawable.draw(canvas)
-            }
-            
-            androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
+            drawable.setBounds(paddingF.toInt(), paddingF.toInt(), (size - paddingF).toInt(), (size - paddingF).toInt())
+            drawable.draw(canvas)
         }
+        
+        // Рисуем эмодзи-бейдж, если он задан (для папок И для файлов)
+        if (customization != null && customization.emoji.isNotEmpty()) {
+            val badgeRadius = size * 0.16f
+            val badgeCenterX = size - paddingF - badgeRadius + (size * 0.02f)
+            val badgeCenterY = size - paddingF - badgeRadius + (size * 0.02f)
+
+            // Рисуем белый круг с легкой тенью
+            val bgPaint = android.graphics.Paint().apply {
+                color = android.graphics.Color.WHITE
+                isAntiAlias = true
+                setShadowLayer(6f, 0f, 2f, android.graphics.Color.argb(70, 0, 0, 0))
+            }
+            canvas.drawCircle(badgeCenterX, badgeCenterY, badgeRadius, bgPaint)
+
+            // Рисуем эмодзи
+            val textPaint = android.graphics.Paint().apply {
+                textSize = badgeRadius * 1.35f
+                textAlign = android.graphics.Paint.Align.CENTER
+                isAntiAlias = true
+            }
+            val textY = badgeCenterY - ((textPaint.descent() + textPaint.ascent()) / 2f)
+            canvas.drawText(customization.emoji, badgeCenterX, textY, textPaint)
+        }
+        
+        val iconCompat = androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
 
         val shortcutInfo = androidx.core.content.pm.ShortcutInfoCompat.Builder(context, path.toString())
             .setShortLabel(path.name)
