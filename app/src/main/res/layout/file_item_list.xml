@@ -76,13 +76,14 @@
 
         <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
         <TextView
-            android:id="@+id/nameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:duplicateParentState="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-            android:textAppearance="?textAppearanceListItem" />
+        android:id="@+id/emojiText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:elevation="4dp"
+        android:visibility="gone"
+        android:includeFontPadding="false" />
 
         <me.zhanghai.android.files.ui.AutoGoneTextView
             android:id="@+id/descriptionText"
