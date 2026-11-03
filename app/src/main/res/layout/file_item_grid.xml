@@ -80,17 +80,6 @@
                 android:duplicateParentState="true"
                 android:scaleType="centerCrop" />
 
-            <!-- Эмодзи поверх иконки -->
-            <TextView
-                android:id="@+id/emojiText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="32sp"
-                android:elevation="4dp"
-                android:visibility="gone"
-                android:includeFontPadding="false" />
-
             <me.zhanghai.android.files.ui.DisabledAlphaImageView
                 android:id="@+id/appIconBadgeImage"
                 android:layout_width="@dimen/badge_size_plus_1dp"
