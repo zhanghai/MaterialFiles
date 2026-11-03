@@ -259,14 +259,23 @@ class FileListAdapter(
         holder.iconImage.apply {
             isVisible = true
             setImageResource(iconRes)
-            // Если есть настройки и это папка — красим иконку!
             if (customization != null && file.attributes.isDirectory) {
                 setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
             } else {
-                clearColorFilter() // Сбрасываем цвет для обычных файлов
+                clearColorFilter()
             }
         }
-        holder.directoryThumbnailImage?.isVisible = isDirectory
+        
+        holder.directoryThumbnailImage?.apply {
+            isVisible = isDirectory
+            // Красим БОЛЬШУЮ папку в режиме сетки
+            if (customization != null && file.attributes.isDirectory) {
+                setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                clearColorFilter()
+            }
+        }
+        
         holder.thumbnailOutlineView?.isVisible = !isDirectory
         val supportsThumbnail = file.supportsThumbnail
         val shouldLoadThumbnailIcon = supportsThumbnail && holder.thumbnailIconImage != null &&
