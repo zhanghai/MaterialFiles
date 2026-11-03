@@ -1395,58 +1395,60 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val context = requireContext()
         val isDirectory = mimeType == MimeType.DIRECTORY
         
-        // Генерируем иконку для ярлыка на лету
         val iconCompat = if (isDirectory) {
             val customization = FolderCustomizationStore.getCustomization(path.toString())
             if (customization != null) {
-                // Если есть настройки, рисуем кастомную иконку
-                val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.mipmap.directory_shortcut_icon)?.mutate()
-                drawable?.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+                // Берем чистый контур папки, а не сложную иконку целиком
+                val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.drawable.file_directory_thumbnail)?.mutate()
                 
-                val size = 192 // Качественный размер (HDPI) для рабочего стола
+                val size = 256
                 val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
                 val canvas = android.graphics.Canvas(bitmap)
                 
                 if (drawable != null) {
-                    drawable.setBounds(0, 0, canvas.width, canvas.height)
+                    drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+                    // Оставляем безопасные отступы, чтобы лаунчер не обрезал края папки
+                    val padding = 32
+                    drawable.setBounds(padding, padding, canvas.width - padding, canvas.height - padding)
                     drawable.draw(canvas)
                 }
                 
-                // Отрисовываем эмодзи поверх папки
                 if (customization.emoji.isNotEmpty()) {
                     val paint = android.graphics.Paint().apply {
-                        textSize = size * 0.4f // Размер шрифта эмодзи
+                        textSize = size * 0.35f
                         textAlign = android.graphics.Paint.Align.CENTER
                         isAntiAlias = true
                     }
                     val xPos = canvas.width / 2f
-                    val yPos = (canvas.height / 2f) - ((paint.descent() + paint.ascent()) / 2f)
+                    // Сдвигаем чуть ниже центра, чтобы эмодзи сидел на "пузике" папки, а не на корешке
+                    val yPos = (canvas.height / 2f) - ((paint.descent() + paint.ascent()) / 2f) + (size * 0.05f)
                     canvas.drawText(customization.emoji, xPos, yPos, paint)
                 }
-                IconCompat.createWithBitmap(bitmap)
+                
+                // Специальный метод для адаптивных иконок: лаунчер сам обернет её в красивую форму
+                androidx.core.graphics.drawable.IconCompat.createWithAdaptiveBitmap(bitmap)
             } else {
-                // Стандартная иконка, если папка не настроена
-                IconCompat.createWithResource(context, R.mipmap.directory_shortcut_icon)
+                androidx.core.graphics.drawable.IconCompat.createWithResource(context, R.mipmap.directory_shortcut_icon)
             }
         } else {
-            IconCompat.createWithResource(context, R.mipmap.file_shortcut_icon)
+            androidx.core.graphics.drawable.IconCompat.createWithResource(context, R.mipmap.file_shortcut_icon)
         }
 
-        val shortcutInfo = ShortcutInfoCompat.Builder(context, path.toString())
+        val shortcutInfo = androidx.core.content.pm.ShortcutInfoCompat.Builder(context, path.toString())
             .setShortLabel(path.name)
             .setIntent(
                 if (isDirectory) {
                     FileListActivity.createViewIntent(path)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 } else {
                     OpenFileActivity.createIntent(path, mimeType)
                 }
             )
-            .setIcon(iconCompat) // Передаем сгенерированную иконку
+            .setIcon(iconCompat)
             .build()
             
-        ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        androidx.core.content.pm.ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
             showToast(R.string.shortcut_created)
         }
     }
