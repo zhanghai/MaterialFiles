@@ -1398,12 +1398,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val iconCompat = if (isDirectory) {
             val customization = FolderCustomizationStore.getCustomization(path.toString())
             if (customization != null) {
-                // Размер иконки для рабочего стола (используем побольше для четкости)
+                // Размер иконки для рабочего стола
                 val size = 256
                 val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
                 val canvas = android.graphics.Canvas(bitmap)
                 
-                // 1. Принудительно заливаем фон БЕЛЫМ цветом (чтобы не было черной подложки)
+                // Заливаем фон БЕЛЫМ цветом
                 canvas.drawColor(android.graphics.Color.WHITE)
                 
                 // Берем чистый контур папки
@@ -1411,8 +1411,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 
                 if (drawable != null) {
                     drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
-                    // 2. Делаем БОЛЬШИЕ отступы (22% от края с каждой стороны), 
-                    // чтобы папка была маленькой в центре белого фона
+                    // Делаем отступы
                     val padding = (size * 0.22).toInt()
                     drawable.setBounds(padding, padding, size - padding, size - padding)
                     drawable.draw(canvas)
@@ -1421,23 +1420,40 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 // Рисуем эмодзи
                 if (customization.emoji.isNotEmpty()) {
                     val paint = android.graphics.Paint().apply {
-                        textSize = size * 0.25f // Уменьшили эмодзи пропорционально папке
+                        textSize = size * 0.25f 
                         textAlign = android.graphics.Paint.Align.CENTER
                         isAntiAlias = true
                     }
                     val xPos = size / 2f
-                    // Центрируем эмодзи ровно на "пузике" папки
                     val yPos = (size / 2f) - ((paint.descent() + paint.ascent()) / 2f) + (size * 0.03f)
                     canvas.drawText(customization.emoji, xPos, yPos, paint)
                 }
                 
-                // 3. Используем обычный Bitmap. Лаунчер сам скруглит ему углы.
                 androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
             } else {
                 androidx.core.graphics.drawable.IconCompat.createWithResource(context, R.mipmap.directory_shortcut_icon)
             }
         } else {
-            androidx.core.graphics.drawable.IconCompat.createWithResource(context, R.mipmap.file_shortcut_icon)
+            // ЛОГИКА ДЛЯ ФАЙЛОВ: Берем иконку по типу файла
+            val size = 256
+            val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
+            val canvas = android.graphics.Canvas(bitmap)
+            
+            // Заливаем фон БЕЛЫМ цветом для красивого квадрата на рабочем столе
+            canvas.drawColor(android.graphics.Color.WHITE)
+            
+            // Получаем правильную иконку для этого типа файла (PDF, музыка, таблица и т.д.)
+            val iconRes = mimeType.iconRes
+            val drawable = androidx.core.content.ContextCompat.getDrawable(context, iconRes)?.mutate()
+            
+            if (drawable != null) {
+                // Отступы для файла (чуть больше, чтобы иконка не была огромной)
+                val padding = (size * 0.25).toInt()
+                drawable.setBounds(padding, padding, size - padding, size - padding)
+                drawable.draw(canvas)
+            }
+            
+            androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
         }
 
         val shortcutInfo = androidx.core.content.pm.ShortcutInfoCompat.Builder(context, path.toString())
