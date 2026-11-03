@@ -38,16 +38,16 @@
         android:layout_gravity="center">
 
         <!-- Первый ряд -->
-        <View android:id="@+id/colorRed" android:layout_width="48dp" android:layout_height="48dp" android:background="#F44336" android:layout_margin="8dp" />
-        <View android:id="@+id/colorCyan" android:layout_width="48dp" android:layout_height="48dp" android:background="#00BCD4" android:layout_margin="8dp" />
-        <View android:id="@+id/colorBlue" android:layout_width="48dp" android:layout_height="48dp" android:background="#2196F3" android:layout_margin="8dp" />
-        <View android:id="@+id/colorGreen" android:layout_width="48dp" android:layout_height="48dp" android:background="#4CAF50" android:layout_margin="8dp" />
+        <View android:id="@+id/colorRed" android:layout_width="48dp" android:layout_height="48dp" android:background="#E57373" android:layout_margin="8dp" />
+        <View android:id="@+id/colorCyan" android:layout_width="48dp" android:layout_height="48dp" android:background="#4DD0E1" android:layout_margin="8dp" />
+        <View android:id="@+id/colorBlue" android:layout_width="48dp" android:layout_height="48dp" android:background="#64B5F6" android:layout_margin="8dp" />
+        <View android:id="@+id/colorGreen" android:layout_width="48dp" android:layout_height="48dp" android:background="#81C784" android:layout_margin="8dp" />
 
         <!-- Второй ряд -->
-        <View android:id="@+id/colorMagenta" android:layout_width="48dp" android:layout_height="48dp" android:background="#E91E63" android:layout_margin="8dp" />
-        <View android:id="@+id/colorYellow" android:layout_width="48dp" android:layout_height="48dp" android:background="#FFEB3B" android:layout_margin="8dp" />
-        <View android:id="@+id/colorOrange" android:layout_width="48dp" android:layout_height="48dp" android:background="#FF9800" android:layout_margin="8dp" />
-        <View android:id="@+id/colorGray" android:layout_width="48dp" android:layout_height="48dp" android:background="#9E9E9E" android:layout_margin="8dp" />
+        <View android:id="@+id/colorMagenta" android:layout_width="48dp" android:layout_height="48dp" android:background="#F06292" android:layout_margin="8dp" />
+        <View android:id="@+id/colorYellow" android:layout_width="48dp" android:layout_height="48dp" android:background="#FFD54F" android:layout_margin="8dp" />
+        <View android:id="@+id/colorOrange" android:layout_width="48dp" android:layout_height="48dp" android:background="#FFB74D" android:layout_margin="8dp" />
+        <View android:id="@+id/colorGray" android:layout_width="48dp" android:layout_height="48dp" android:background="#90A4AE" android:layout_margin="8dp" />
         
     </GridLayout>
 
