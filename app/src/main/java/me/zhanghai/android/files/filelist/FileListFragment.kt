@@ -1394,6 +1394,44 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun createShortcut(path: Path, mimeType: MimeType) {
         val context = requireContext()
         val isDirectory = mimeType == MimeType.DIRECTORY
+        
+        // Генерируем иконку для ярлыка на лету
+        val iconCompat = if (isDirectory) {
+            val customization = FolderCustomizationStore.getCustomization(path.toString())
+            if (customization != null) {
+                // Если есть настройки, рисуем кастомную иконку
+                val drawable = androidx.core.content.ContextCompat.getDrawable(context, R.mipmap.directory_shortcut_icon)?.mutate()
+                drawable?.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+                
+                val size = 192 // Качественный размер (HDPI) для рабочего стола
+                val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
+                val canvas = android.graphics.Canvas(bitmap)
+                
+                if (drawable != null) {
+                    drawable.setBounds(0, 0, canvas.width, canvas.height)
+                    drawable.draw(canvas)
+                }
+                
+                // Отрисовываем эмодзи поверх папки
+                if (customization.emoji.isNotEmpty()) {
+                    val paint = android.graphics.Paint().apply {
+                        textSize = size * 0.4f // Размер шрифта эмодзи
+                        textAlign = android.graphics.Paint.Align.CENTER
+                        isAntiAlias = true
+                    }
+                    val xPos = canvas.width / 2f
+                    val yPos = (canvas.height / 2f) - ((paint.descent() + paint.ascent()) / 2f)
+                    canvas.drawText(customization.emoji, xPos, yPos, paint)
+                }
+                IconCompat.createWithBitmap(bitmap)
+            } else {
+                // Стандартная иконка, если папка не настроена
+                IconCompat.createWithResource(context, R.mipmap.directory_shortcut_icon)
+            }
+        } else {
+            IconCompat.createWithResource(context, R.mipmap.file_shortcut_icon)
+        }
+
         val shortcutInfo = ShortcutInfoCompat.Builder(context, path.toString())
             .setShortLabel(path.name)
             .setIntent(
@@ -1404,16 +1442,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     OpenFileActivity.createIntent(path, mimeType)
                 }
             )
-            .setIcon(
-                IconCompat.createWithResource(
-                    context, if (isDirectory) {
-                        R.mipmap.directory_shortcut_icon
-                    } else {
-                        R.mipmap.file_shortcut_icon
-                    }
-                )
-            )
+            .setIcon(iconCompat) // Передаем сгенерированную иконку
             .build()
+            
         ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             showToast(R.string.shortcut_created)
