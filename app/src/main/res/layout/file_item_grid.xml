@@ -54,6 +54,18 @@
             android:layout_height="match_parent"
             android:background="@drawable/file_item_grid_thumbnail_outline"
             android:duplicateParentState="true" />
+
+        <!-- Эмодзи перенесен сюда, чтобы быть по центру большой папки -->
+        <TextView
+            android:id="@+id/emojiText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp" 
+            android:textSize="40sp"
+            android:elevation="4dp"
+            android:visibility="gone"
+            android:includeFontPadding="false" />
     </me.zhanghai.android.files.ui.AspectRatioFrameLayout>
 
     <LinearLayout
