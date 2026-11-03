@@ -1418,16 +1418,28 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     drawable.draw(canvas)
                 }
                 
-                // Рисуем эмодзи
+                // Рисуем эмодзи как круглый бейдж в правом нижнем углу папки
                 if (customization.emoji.isNotEmpty()) {
-                    val paint = android.graphics.Paint().apply {
-                        textSize = size * 0.25f 
+                    val badgeRadius = size * 0.16f
+                    // Смещаем кружок в правый нижний угол (с учетом отступов папки)
+                    val badgeCenterX = size - padding - badgeRadius + (size * 0.02f)
+                    val badgeCenterY = size - padding - badgeRadius + (size * 0.02f)
+
+                    // Сначала рисуем белый круглый фон
+                    val bgPaint = android.graphics.Paint().apply {
+                        color = android.graphics.Color.WHITE
+                        isAntiAlias = true
+                    }
+                    canvas.drawCircle(badgeCenterX, badgeCenterY, badgeRadius, bgPaint)
+
+                    // Рисуем сам эмодзи по центру этого круга
+                    val textPaint = android.graphics.Paint().apply {
+                        textSize = badgeRadius * 1.35f
                         textAlign = android.graphics.Paint.Align.CENTER
                         isAntiAlias = true
                     }
-                    val xPos = size / 2f
-                    val yPos = (size / 2f) - ((paint.descent() + paint.ascent()) / 2f) + (size * 0.03f)
-                    canvas.drawText(customization.emoji, xPos, yPos, paint)
+                    val textY = badgeCenterY - ((textPaint.descent() + textPaint.ascent()) / 2f)
+                    canvas.drawText(customization.emoji, badgeCenterX, textY, textPaint)
                 }
                 
                 androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
