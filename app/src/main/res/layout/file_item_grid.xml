@@ -55,19 +55,19 @@
             android:background="@drawable/file_item_grid_thumbnail_outline"
             android:duplicateParentState="true" />
 
-        <!-- Эмодзи перенесен сюда, чтобы быть по центру большой папки -->
+        <!-- Эмодзи-бейдж в правом нижнем углу -->
         <TextView
             android:id="@+id/emojiText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/bg_emoji_badge"
             android:elevation="4dp"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:textSize="20sp"
+            android:textSize="30sp"
             android:visibility="gone" />
     </me.zhanghai.android.files.ui.AspectRatioFrameLayout>
 
