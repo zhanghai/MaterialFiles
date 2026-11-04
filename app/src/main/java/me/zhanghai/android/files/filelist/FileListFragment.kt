@@ -1424,8 +1424,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         // Рисуем эмодзи-бейдж, если он задан (для папок И для файлов)
         if (customization != null && customization.emoji.isNotEmpty()) {
             val badgeRadius = size * 0.16f
-            val badgeCenterX = size - paddingF - badgeRadius + (size * 0.02f)
-            val badgeCenterY = size - paddingF - badgeRadius + (size * 0.02f)
+            // Смещаем кружок правее и ниже (теперь центр бейджа находится ровно на нижнем правом углу иконки файла)
+            val badgeCenterX = size - paddingF + (size * 0.02f)
+            val badgeCenterY = size - paddingF + (size * 0.02f)
 
             // Рисуем белый круг с легкой тенью
             val bgPaint = android.graphics.Paint().apply {
