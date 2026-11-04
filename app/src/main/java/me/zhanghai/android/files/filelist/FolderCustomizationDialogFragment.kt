@@ -74,7 +74,7 @@ class FolderCustomizationDialogFragment : DialogFragment() {
         }
 
         return MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Настройка папки ${file.name}")
+            .setTitle("Настройка: ${file.name}")
             .setView(view)
             .setPositiveButton("Сохранить") { _, _ ->
                 val emoji = emojiEditText.text.toString().trim()
