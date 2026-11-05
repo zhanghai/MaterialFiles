@@ -69,7 +69,7 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.file.extension
 import me.zhanghai.android.files.file.fileProviderUri
-import me.zhanghai.android.files.file.iconRes // <-- ДОБАВИЛИ ЭТУ СТРОКУ (исправляет ошибку сборки!)
+import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.filejob.FileJobService
@@ -459,8 +459,16 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 viewModel.viewType = FileViewType.LIST
                 true
             }
+            R.id.action_view_double_list -> {
+                viewModel.viewType = FileViewType.DOUBLE_LIST
+                true
+            }
             R.id.action_view_grid -> {
                 viewModel.viewType = FileViewType.GRID
+                true
+            }
+            R.id.action_view_small_grid -> {
+                viewModel.viewType = FileViewType.SMALL_GRID
                 true
             }
             R.id.action_sort_by_name -> {
@@ -657,7 +665,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun updateSpanCount() {
         layoutManager.spanCount = when (viewModel.viewType) {
             FileViewType.LIST -> 1
-            FileViewType.DOUBLE_LIST -> 2 // Фиксированно 2 колонки для двойного списка[cite: 19]
+            FileViewType.DOUBLE_LIST -> 2
             FileViewType.GRID -> {
                 var widthDp = resources.configuration.screenWidthDp
                 val persistentDrawerLayout = binding.persistentDrawerLayout
@@ -674,8 +682,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
                     widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
-                // Делим на меньшее число (например, 120 вместо 180), чтобы получить больше колонок
-                (widthDp / 120).coerceAtLeast(3) // Минимум 3 колонки для мелкой сетки
+                (widthDp / 120).coerceAtLeast(3)
             }
         }
     }
@@ -701,9 +708,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val viewType = viewModel.viewType
         val checkedViewTypeItem = when (viewType) {
             FileViewType.LIST -> menuBinding.viewListItem
+            FileViewType.DOUBLE_LIST -> menuBinding.viewDoubleListItem
             FileViewType.GRID -> menuBinding.viewGridItem
+            FileViewType.SMALL_GRID -> menuBinding.viewSmallGridItem
         }
-        checkedViewTypeItem.isChecked = true
+        checkedViewTypeItem?.isChecked = true
+        
         val sortOptions = viewModel.sortOptions
         val checkedSortByItem = when (sortOptions.by) {
             By.NAME -> menuBinding.sortByNameItem
@@ -1420,7 +1430,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val baseIconRes = if (isDirectory) R.drawable.file_directory_thumbnail else mimeType.iconRes
         val drawable = androidx.core.content.ContextCompat.getDrawable(context, baseIconRes)?.mutate()
 
-        // Рассчитываем отступы (у файлов иконка чуть меньше, чем у папок, поэтому padding больше)
+        // Рассчитываем отступы
         val paddingF = if (isDirectory) size * 0.22f else size * 0.25f
         
         if (drawable != null) {
@@ -1435,7 +1445,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         // Рисуем эмодзи-бейдж, если он задан (для папок И для файлов)
         if (customization != null && customization.emoji.isNotEmpty()) {
             val badgeRadius = size * 0.16f
-            // Смещаем кружок правее и ниже (теперь центр бейджа находится ровно на нижнем правом углу иконки файла)
+            // Смещаем кружок правее и ниже (центр бейджа на нижнем правом углу иконки файла)
             val badgeCenterX = size - paddingF + (size * 0.02f)
             val badgeCenterY = size - paddingF + (size * 0.02f)
 
@@ -1767,7 +1777,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val searchItem: MenuItem,
         val viewSortItem: MenuItem,
         val viewListItem: MenuItem,
+        val viewDoubleListItem: MenuItem?, // <-- Добавили
         val viewGridItem: MenuItem,
+        val viewSmallGridItem: MenuItem?, // <-- Добавили
         val sortByNameItem: MenuItem,
         val sortByTypeItem: MenuItem,
         val sortBySizeItem: MenuItem,
@@ -1783,7 +1795,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 inflater.inflate(R.menu.file_list, menu)
                 return MenuBinding(
                     menu, menu.findItem(R.id.action_search), menu.findItem(R.id.action_view_sort),
-                    menu.findItem(R.id.action_view_list), menu.findItem(R.id.action_view_grid),
+                    menu.findItem(R.id.action_view_list),
+                    menu.findItem(R.id.action_view_double_list), // <-- Находим по ID
+                    menu.findItem(R.id.action_view_grid),
+                    menu.findItem(R.id.action_view_small_grid), // <-- Находим по ID
                     menu.findItem(R.id.action_sort_by_name),
                     menu.findItem(R.id.action_sort_by_type),
                     menu.findItem(R.id.action_sort_by_size),
