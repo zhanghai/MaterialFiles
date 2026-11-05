@@ -169,7 +169,12 @@ class FileListAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int = viewType.ordinal
+    override fun getItemViewType(position: Int): Int {
+        return when (viewType) {
+            FileViewType.LIST, FileViewType.DOUBLE_LIST -> R.layout.file_item_list // Используем макет списка для обоих режимов
+            FileViewType.GRID, FileViewType.SMALL_GRID -> R.layout.file_item_grid_custom // Используй новый макет для сетки
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewType = FileViewType.entries[viewType]
