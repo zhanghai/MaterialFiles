@@ -26,15 +26,21 @@
         android:title="@string/file_list_action_view_sort"
         app:showAsAction="always">
         <menu>
-            <group
-                android:id="@+id/group_view"
-                android:checkableBehavior="single">
+            <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/action_view_list"
-                    android:title="@string/file_list_action_view_list" />
+                    android:icon="@drawable/view_list_icon_white_24dp"
+                    android:title="@string/file_list_menu_view_list" />
+                <item
+                    android:id="@+id/action_view_double_list"
+                    android:title="Двойной список" /> <!-- Замени на строковый ресурс -->
                 <item
                     android:id="@+id/action_view_grid"
-                    android:title="@string/file_list_action_view_grid" />
+                    android:icon="@drawable/view_module_icon_white_24dp"
+                    android:title="@string/file_list_menu_view_grid" />
+                <item
+                    android:id="@+id/action_view_small_grid"
+                    android:title="Мелкая сетка" /> <!-- Замени на строковый ресурс -->
             </group>
             <group
                 android:id="@+id/group_sort"
