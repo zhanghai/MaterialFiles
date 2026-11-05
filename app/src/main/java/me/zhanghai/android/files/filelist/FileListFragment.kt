@@ -657,6 +657,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun updateSpanCount() {
         layoutManager.spanCount = when (viewModel.viewType) {
             FileViewType.LIST -> 1
+            FileViewType.DOUBLE_LIST -> 2 // Фиксированно 2 колонки для двойного списка[cite: 19]
             FileViewType.GRID -> {
                 var widthDp = resources.configuration.screenWidthDp
                 val persistentDrawerLayout = binding.persistentDrawerLayout
@@ -665,6 +666,16 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
                 (widthDp / 180).coerceAtLeast(2)
+            }
+            FileViewType.SMALL_GRID -> {
+                var widthDp = resources.configuration.screenWidthDp
+                val persistentDrawerLayout = binding.persistentDrawerLayout
+                if (persistentDrawerLayout != null &&
+                    persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
+                }
+                // Делим на меньшее число (например, 120 вместо 180), чтобы получить больше колонок
+                (widthDp / 120).coerceAtLeast(3) // Минимум 3 колонки для мелкой сетки
             }
         }
     }
