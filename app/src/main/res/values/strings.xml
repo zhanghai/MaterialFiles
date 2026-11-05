@@ -8,7 +8,8 @@
 <resources>
 
     <string name="app_name">Material Files</string>
-
+    <string name="file_list_menu_view_double_list">Double list</string>
+    <string name="file_list_menu_view_small_grid">Small grid</string>
     <string name="close">Close</string>
     <string name="copy">Copy</string>
     <string name="cut">Cut</string>
