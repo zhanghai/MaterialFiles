@@ -40,10 +40,6 @@
             android:duplicateParentState="true"
             android:scaleType="centerCrop" />
 
-        <!--
-          ~ Can't use ShapeableImageView stroke support due to
-          ~ https://github.com/material-components/material-components-android/issues/1329
-          -->
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
             android:id="@+id/thumbnailImage"
             android:layout_width="match_parent"
@@ -58,6 +54,21 @@
             android:layout_height="match_parent"
             android:background="@drawable/file_item_grid_thumbnail_outline"
             android:duplicateParentState="true" />
+
+        <!-- Эмодзи-бейдж в правом нижнем углу -->
+        <TextView
+            android:id="@+id/emojiText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_emoji_badge"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="30sp"
+            android:visibility="gone" />
     </me.zhanghai.android.files.ui.AspectRatioFrameLayout>
 
     <LinearLayout
@@ -111,22 +122,17 @@
                 android:src="@drawable/checkable_badge_18dp" />
         </FrameLayout>
 
+        <!-- Текст имени файла -->
         <TextView
             android:id="@+id/nameText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="@dimen/screen_edge_margin_minus_16dp"
+            android:layout_marginEnd="@dimen/screen_edge_margin_minus_16dp"
             android:duplicateParentState="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="2"
-            android:textAppearance="?textAppearanceListItemSecondary" />
+            android:textAppearance="?textAppearanceListItem" />
 
-        <!--
-          ~ Cannot use android:duplicateParentState="true" because a button needs to have its own
-          ~ pressed state, etc. Necessary states will be duplicated manually in the adapter
-          ~ implementation.
-          -->
         <me.zhanghai.android.foregroundcompat.ForegroundImageButton
             android:id="@+id/menuButton"
             android:layout_width="@dimen/touch_target_size"

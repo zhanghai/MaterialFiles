@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите эмодзи (1 символ):"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/emojiEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="2"
+        android:hint="Например: 💼"
+        android:inputType="text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выберите цвет:"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Сетка 4x4 для 16 цветов -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="4"
+        android:alignmentMode="alignBounds"
+        android:layout_gravity="center">
+
+        <!-- Ряд 1: Красные и Оранжевые -->
+        <View android:id="@+id/colorRed" android:layout_width="48dp" android:layout_height="48dp" android:background="#C25953" android:layout_margin="8dp" />
+        <View android:id="@+id/colorCoral" android:layout_width="48dp" android:layout_height="48dp" android:background="#D97B66" android:layout_margin="8dp" />
+        <View android:id="@+id/colorOrange" android:layout_width="48dp" android:layout_height="48dp" android:background="#D68A47" android:layout_margin="8dp" />
+        <View android:id="@+id/colorGold" android:layout_width="48dp" android:layout_height="48dp" android:background="#C49B45" android:layout_margin="8dp" />
+
+        <!-- Ряд 2: Зеленые -->
+        <View android:id="@+id/colorOlive" android:layout_width="48dp" android:layout_height="48dp" android:background="#909B53" android:layout_margin="8dp" />
+        <View android:id="@+id/colorSage" android:layout_width="48dp" android:layout_height="48dp" android:background="#6F9B73" android:layout_margin="8dp" />
+        <View android:id="@+id/colorGreen" android:layout_width="48dp" android:layout_height="48dp" android:background="#50916E" android:layout_margin="8dp" />
+        <View android:id="@+id/colorTeal" android:layout_width="48dp" android:layout_height="48dp" android:background="#409489" android:layout_margin="8dp" />
+
+        <!-- Ряд 3: Синие и Фиолетовые -->
+        <View android:id="@+id/colorCyan" android:layout_width="48dp" android:layout_height="48dp" android:background="#4F92A6" android:layout_margin="8dp" />
+        <View android:id="@+id/colorBlue" android:layout_width="48dp" android:layout_height="48dp" android:background="#5486B8" android:layout_margin="8dp" />
+        <View android:id="@+id/colorIndigo" android:layout_width="48dp" android:layout_height="48dp" android:background="#6A79BA" android:layout_margin="8dp" />
+        <View android:id="@+id/colorPurple" android:layout_width="48dp" android:layout_height="48dp" android:background="#8B6EB8" android:layout_margin="8dp" />
+
+        <!-- Ряд 4: Розовые и Нейтральные -->
+        <View android:id="@+id/colorPlum" android:layout_width="48dp" android:layout_height="48dp" android:background="#A8679A" android:layout_margin="8dp" />
+        <View android:id="@+id/colorPink" android:layout_width="48dp" android:layout_height="48dp" android:background="#C46487" android:layout_margin="8dp" />
+        <View android:id="@+id/colorBrown" android:layout_width="48dp" android:layout_height="48dp" android:background="#8D7666" android:layout_margin="8dp" />
+        <View android:id="@+id/colorSlate" android:layout_width="48dp" android:layout_height="48dp" android:background="#7A8994" android:layout_margin="8dp" />
+        
+    </GridLayout>
+
+</LinearLayout>

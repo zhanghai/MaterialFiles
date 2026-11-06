@@ -169,7 +169,12 @@ class FileListAdapter(
         }
     }
 
-    override fun getItemViewType(position: Int): Int = viewType.ordinal
+    override fun getItemViewType(position: Int): Int {
+        return when (viewType) {
+            FileViewType.LIST, FileViewType.DOUBLE_LIST -> R.layout.file_item_list // Используем макет списка для обоих режимов
+            FileViewType.GRID, FileViewType.SMALL_GRID -> R.layout.file_item_grid_custom // Используй новый макет для сетки
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewType = FileViewType.entries[viewType]
@@ -254,15 +259,30 @@ class FileListAdapter(
         }
         holder.iconLayout.setOnClickListener { selectFile(file) }
         val iconRes = file.mimeType.iconRes
+        val customization = FolderCustomizationStore.getCustomization(file.path.toString())
+        
         holder.iconImage.apply {
             isVisible = true
             setImageResource(iconRes)
+            if (customization != null) { // Убрали проверку на папку, теперь красим всё!
+                setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                clearColorFilter()
+            }
         }
-        holder.directoryThumbnailImage?.isVisible = isDirectory
+        
+        holder.directoryThumbnailImage?.apply {
+            isVisible = isDirectory
+            if (customization != null && file.attributes.isDirectory) {
+                setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                clearColorFilter()
+            }
+        }
+        
         holder.thumbnailOutlineView?.isVisible = !isDirectory
         val supportsThumbnail = file.supportsThumbnail
-        val shouldLoadThumbnailIcon = supportsThumbnail && holder.thumbnailIconImage != null &&
-            file.mimeType.isApk
+        val shouldLoadThumbnailIcon = supportsThumbnail && holder.thumbnailIconImage != null && file.mimeType.isApk
         val attributes = file.attributes
         holder.thumbnailIconImage?.apply {
             dispose()
@@ -270,6 +290,12 @@ class FileListAdapter(
             setImageResource(iconRes)
             if (shouldLoadThumbnailIcon) {
                 load(path to attributes)
+            }
+            // НОВОЕ: красим большую иконку файла в режиме сетки
+            if (customization != null && !shouldLoadThumbnailIcon) {
+                setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            } else {
+                clearColorFilter()
             }
         }
         holder.thumbnailImage.apply {
@@ -316,17 +342,19 @@ class FileListAdapter(
                 setImageDrawable(null)
             }
         }
+        
+        // Обычное имя файла/папки без примесей
         holder.nameText.text = file.name
-        holder.descriptionText?.text = if (isDirectory) {
-            null
+
+        // Отображение эмодзи прямо поверх иконки (теперь для папок И файлов)
+        if (customization != null && customization.emoji.isNotEmpty()) {
+            holder.emojiText.isVisible = true
+            holder.emojiText.text = customization.emoji
         } else {
-            val context = holder.descriptionText!!.context
-            val lastModificationTime = attributes.lastModifiedTime().toInstant()
-                .formatShort(context)
-            val size = attributes.fileSize.formatHumanReadable(context)
-            val descriptionSeparator = context.getString(R.string.file_item_description_separator)
-            listOf(lastModificationTime, size).joinToString(descriptionSeparator)
+            holder.emojiText.isVisible = false
+            holder.emojiText.text = ""
         }
+
         val isArchivePath = path.isArchivePath
         menu.findItem(R.id.action_copy)
             .setTitle(if (isArchivePath) R.string.file_item_action_extract else R.string.copy)
@@ -335,6 +363,8 @@ class FileListAdapter(
         menu.findItem(R.id.action_extract).isVisible = file.isArchiveFile
         menu.findItem(R.id.action_archive).isVisible = !isArchivePath
         menu.findItem(R.id.action_add_bookmark).isVisible = isDirectory
+        // Теперь меню кастомизации открывается для любых файлов
+        menu.findItem(R.id.action_customize_folder)?.isVisible = true
         holder.popupMenu.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_open_with -> {
@@ -379,6 +409,10 @@ class FileListAdapter(
                 }
                 R.id.action_create_shortcut -> {
                     listener.createShortcut(file)
+                    true
+                }
+                R.id.action_customize_folder -> { // <-- ОБРАБОТКА НАШЕЙ КНОПКИ
+                    listener.showCustomizeFolderDialog(file)
                     true
                 }
                 R.id.action_properties -> {
@@ -429,38 +463,22 @@ class FileListAdapter(
         val badgeImage: ImageView,
         val nameText: TextView,
         val descriptionText: TextView?,
-        val menuButton: ImageButton
+        val menuButton: ImageButton,
+        val emojiText: TextView // <-- ДОБАВИЛИ ЭЛЕМЕНТ
     ) : RecyclerView.ViewHolder(root) {
         constructor(binding: FileItemListBinding) : this(
-            binding.root,
-            binding.itemLayout,
-            binding.iconLayout,
-            binding.iconImage,
-            null,
-            null,
-            null,
-            binding.thumbnailImage,
-            binding.appIconBadgeImage,
-            binding.badgeImage,
-            binding.nameText,
-            binding.descriptionText,
-            binding.menuButton
+            binding.root, binding.itemLayout, binding.iconLayout, binding.iconImage,
+            null, null, null, binding.thumbnailImage, binding.appIconBadgeImage,
+            binding.badgeImage, binding.nameText, binding.descriptionText, binding.menuButton,
+            binding.emojiText // <-- СВЯЗАЛИ ДЛЯ СПИСКА
         )
 
         constructor(binding: FileItemGridBinding) : this(
-            binding.root,
-            binding.itemLayout,
-            binding.iconLayout,
-            binding.iconImage,
-            binding.directoryThumbnailImage,
-            binding.thumbnailOutlineView,
-            binding.thumbnailIconImage,
-            binding.thumbnailImage,
-            binding.appIconBadgeImage,
-            binding.badgeImage,
-            binding.nameText,
-            null,
-            binding.menuButton
+            binding.root, binding.itemLayout, binding.iconLayout, binding.iconImage,
+            binding.directoryThumbnailImage, binding.thumbnailOutlineView, binding.thumbnailIconImage,
+            binding.thumbnailImage, binding.appIconBadgeImage, binding.badgeImage, binding.nameText,
+            null, binding.menuButton,
+            binding.emojiText // <-- СВЯЗАЛИ ДЛЯ СЕТКИ
         )
 
         lateinit var popupMenu: PopupMenu
@@ -483,5 +501,6 @@ class FileListAdapter(
         fun addBookmark(file: FileItem)
         fun createShortcut(file: FileItem)
         fun showPropertiesDialog(file: FileItem)
+        fun showCustomizeFolderDialog(file: FileItem) // <-- НАШ МЕТОД
     }
 }

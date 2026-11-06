@@ -33,6 +33,21 @@
             android:duplicateParentState="true"
             android:scaleType="centerCrop" />
 
+        <!-- Эмодзи-бейдж в правом нижнем углу -->
+        <TextView
+            android:id="@+id/emojiText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="-8dp"
+            android:layout_marginBottom="-8dp"
+            android:background="@drawable/bg_emoji_badge"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
         <me.zhanghai.android.files.ui.DisabledAlphaImageView
             android:id="@+id/thumbnailImage"
             android:layout_width="@dimen/large_icon_size"
@@ -74,14 +89,13 @@
         android:duplicateParentState="true"
         android:orientation="vertical">
 
+        <!-- ВОССТАНОВЛЕННЫЙ ТЕКСТ ИМЕНИ ФАЙЛА -->
         <!-- Lint says android:ellipsize="middle" and android:maxLines="1" crashes. -->
         <TextView
             android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:duplicateParentState="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
             android:textAppearance="?textAppearanceListItem" />
 
         <me.zhanghai.android.files.ui.AutoGoneTextView
@@ -95,11 +109,6 @@
             android:textColor="?android:textColorSecondary" />
     </LinearLayout>
 
-    <!--
-      ~ Cannot use android:duplicateParentState="true" because a button needs to have its own
-      ~ pressed state, etc. Necessary states will be duplicated manually in the adapter
-      ~ implementation.
-      -->
     <me.zhanghai.android.foregroundcompat.ForegroundImageButton
         android:id="@+id/menuButton"
         android:layout_width="@dimen/touch_target_size"

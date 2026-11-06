@@ -52,6 +52,11 @@
         android:title="@string/file_item_action_create_shortcut" />
 
     <item
+        android:id="@+id/action_customize_folder"
+        android:title="Настроить папку" />
+
+    <item
         android:id="@+id/action_properties"
         android:title="@string/file_item_action_properties" />
+
 </menu>

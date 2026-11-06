@@ -69,6 +69,7 @@ import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
 import me.zhanghai.android.files.file.extension
 import me.zhanghai.android.files.file.fileProviderUri
+import me.zhanghai.android.files.file.iconRes
 import me.zhanghai.android.files.file.isApk
 import me.zhanghai.android.files.file.isImage
 import me.zhanghai.android.files.filejob.FileJobService
@@ -458,8 +459,16 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 viewModel.viewType = FileViewType.LIST
                 true
             }
+            R.id.action_view_double_list -> {
+                viewModel.viewType = FileViewType.DOUBLE_LIST
+                true
+            }
             R.id.action_view_grid -> {
                 viewModel.viewType = FileViewType.GRID
+                true
+            }
+            R.id.action_view_small_grid -> {
+                viewModel.viewType = FileViewType.SMALL_GRID
                 true
             }
             R.id.action_sort_by_name -> {
@@ -656,6 +665,7 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun updateSpanCount() {
         layoutManager.spanCount = when (viewModel.viewType) {
             FileViewType.LIST -> 1
+            FileViewType.DOUBLE_LIST -> 2
             FileViewType.GRID -> {
                 var widthDp = resources.configuration.screenWidthDp
                 val persistentDrawerLayout = binding.persistentDrawerLayout
@@ -664,6 +674,15 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
                 }
                 (widthDp / 180).coerceAtLeast(2)
+            }
+            FileViewType.SMALL_GRID -> {
+                var widthDp = resources.configuration.screenWidthDp
+                val persistentDrawerLayout = binding.persistentDrawerLayout
+                if (persistentDrawerLayout != null &&
+                    persistentDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    widthDp -= getDimensionDp(R.dimen.navigation_max_width).roundToInt()
+                }
+                (widthDp / 120).coerceAtLeast(3)
             }
         }
     }
@@ -689,9 +708,12 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val viewType = viewModel.viewType
         val checkedViewTypeItem = when (viewType) {
             FileViewType.LIST -> menuBinding.viewListItem
+            FileViewType.DOUBLE_LIST -> menuBinding.viewDoubleListItem
             FileViewType.GRID -> menuBinding.viewGridItem
+            FileViewType.SMALL_GRID -> menuBinding.viewSmallGridItem
         }
-        checkedViewTypeItem.isChecked = true
+        checkedViewTypeItem?.isChecked = true
+        
         val sortOptions = viewModel.sortOptions
         val checkedSortByItem = when (sortOptions.by) {
             By.NAME -> menuBinding.sortByNameItem
@@ -1394,34 +1416,84 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun createShortcut(path: Path, mimeType: MimeType) {
         val context = requireContext()
         val isDirectory = mimeType == MimeType.DIRECTORY
-        val shortcutInfo = ShortcutInfoCompat.Builder(context, path.toString())
+        val customization = FolderCustomizationStore.getCustomization(path.toString())
+
+        // Генерируем 100% кастомную иконку для ярлыка
+        val size = 256
+        val bitmap = android.graphics.Bitmap.createBitmap(size, size, android.graphics.Bitmap.Config.ARGB_8888)
+        val canvas = android.graphics.Canvas(bitmap)
+        
+        // Заливаем фон белым цветом
+        canvas.drawColor(android.graphics.Color.WHITE)
+        
+        // Выбираем базовую форму: папка или значок файла
+        val baseIconRes = if (isDirectory) R.drawable.file_directory_thumbnail else mimeType.iconRes
+        val drawable = androidx.core.content.ContextCompat.getDrawable(context, baseIconRes)?.mutate()
+
+        // Рассчитываем отступы
+        val paddingF = if (isDirectory) size * 0.22f else size * 0.25f
+        
+        if (drawable != null) {
+            // Если есть настройки цвета, применяем их ко всему
+            if (customization != null) {
+                drawable.setColorFilter(customization.color, android.graphics.PorterDuff.Mode.SRC_IN)
+            }
+            drawable.setBounds(paddingF.toInt(), paddingF.toInt(), (size - paddingF).toInt(), (size - paddingF).toInt())
+            drawable.draw(canvas)
+        }
+        
+        // Рисуем эмодзи-бейдж, если он задан (для папок И для файлов)
+        if (customization != null && customization.emoji.isNotEmpty()) {
+            val badgeRadius = size * 0.16f
+            // Смещаем кружок правее и ниже (центр бейджа на нижнем правом углу иконки файла)
+            val badgeCenterX = size - paddingF + (size * 0.02f)
+            val badgeCenterY = size - paddingF + (size * 0.02f)
+
+            // Рисуем белый круг с легкой тенью
+            val bgPaint = android.graphics.Paint().apply {
+                color = android.graphics.Color.WHITE
+                isAntiAlias = true
+                setShadowLayer(6f, 0f, 2f, android.graphics.Color.argb(70, 0, 0, 0))
+            }
+            canvas.drawCircle(badgeCenterX, badgeCenterY, badgeRadius, bgPaint)
+
+            // Рисуем эмодзи
+            val textPaint = android.graphics.Paint().apply {
+                textSize = badgeRadius * 1.35f
+                textAlign = android.graphics.Paint.Align.CENTER
+                isAntiAlias = true
+            }
+            val textY = badgeCenterY - ((textPaint.descent() + textPaint.ascent()) / 2f)
+            canvas.drawText(customization.emoji, badgeCenterX, textY, textPaint)
+        }
+        
+        val iconCompat = androidx.core.graphics.drawable.IconCompat.createWithBitmap(bitmap)
+
+        val shortcutInfo = androidx.core.content.pm.ShortcutInfoCompat.Builder(context, path.toString())
             .setShortLabel(path.name)
             .setIntent(
                 if (isDirectory) {
                     FileListActivity.createViewIntent(path)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK or android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 } else {
                     OpenFileActivity.createIntent(path, mimeType)
                 }
             )
-            .setIcon(
-                IconCompat.createWithResource(
-                    context, if (isDirectory) {
-                        R.mipmap.directory_shortcut_icon
-                    } else {
-                        R.mipmap.file_shortcut_icon
-                    }
-                )
-            )
+            .setIcon(iconCompat)
             .build()
-        ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            
+        androidx.core.content.pm.ShortcutManagerCompat.requestPinShortcut(context, shortcutInfo, null)
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) {
             showToast(R.string.shortcut_created)
         }
     }
 
     override fun showPropertiesDialog(file: FileItem) {
         FilePropertiesDialogFragment.show(file, this)
+    }
+
+    override fun showCustomizeFolderDialog(file: FileItem) {
+        FolderCustomizationDialogFragment.show(file, this)
     }
 
     private fun showCreateFileDialog() {
@@ -1705,7 +1777,9 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         val searchItem: MenuItem,
         val viewSortItem: MenuItem,
         val viewListItem: MenuItem,
+        val viewDoubleListItem: MenuItem?, // <-- Добавили
         val viewGridItem: MenuItem,
+        val viewSmallGridItem: MenuItem?, // <-- Добавили
         val sortByNameItem: MenuItem,
         val sortByTypeItem: MenuItem,
         val sortBySizeItem: MenuItem,
@@ -1721,7 +1795,10 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                 inflater.inflate(R.menu.file_list, menu)
                 return MenuBinding(
                     menu, menu.findItem(R.id.action_search), menu.findItem(R.id.action_view_sort),
-                    menu.findItem(R.id.action_view_list), menu.findItem(R.id.action_view_grid),
+                    menu.findItem(R.id.action_view_list),
+                    menu.findItem(R.id.action_view_double_list), // <-- Находим по ID
+                    menu.findItem(R.id.action_view_grid),
+                    menu.findItem(R.id.action_view_small_grid), // <-- Находим по ID
                     menu.findItem(R.id.action_sort_by_name),
                     menu.findItem(R.id.action_sort_by_type),
                     menu.findItem(R.id.action_sort_by_size),
