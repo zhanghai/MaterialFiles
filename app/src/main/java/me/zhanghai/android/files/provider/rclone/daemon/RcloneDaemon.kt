@@ -7,11 +7,14 @@ package me.zhanghai.android.files.provider.rclone.daemon
 
 import android.content.Context
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.ProcessLifecycleOwner
 import me.zhanghai.android.files.filejob.FileJobService
+import me.zhanghai.android.files.provider.rclone.client.RcloneClient
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.storage.RcloneStorage
 import me.zhanghai.android.files.util.valueCompat
@@ -28,10 +31,20 @@ import java.util.concurrent.TimeUnit
 object RcloneDaemon {
     private const val TAG = "RcloneDaemon"
     private const val DEFAULT_EXTERNAL_URL = "http://127.0.0.1:5572/"
+    private const val STOP_DELAY_MILLIS = 30_000L // 30s grace period when app goes to background
 
     private val lock = Any()
     private var process: Process? = null
     private var appContext: Context? = null
+    private val mainHandler = Handler(Looper.getMainLooper())
+
+    private val stopRunnable = Runnable {
+        synchronized(lock) {
+            if (FileJobService.runningJobCount == 0) {
+                stop()
+            }
+        }
+    }
 
     @Volatile
     var baseUrl: String? = null
@@ -43,6 +56,7 @@ object RcloneDaemon {
             LifecycleEventObserver { _, event ->
                 when (event) {
                     Lifecycle.Event.ON_START -> {
+                        cancelStop()
                         if (hasRcloneStorages()) {
                             try {
                                 ensureRunning()
@@ -52,15 +66,22 @@ object RcloneDaemon {
                         }
                     }
                     Lifecycle.Event.ON_STOP -> {
-                        if (FileJobService.runningJobCount == 0) {
-                            stop()
-                        }
+                        scheduleStop()
                     }
                     else -> {}
                 }
             }
         )
         Runtime.getRuntime().addShutdownHook(Thread { stop() })
+    }
+
+    private fun scheduleStop() {
+        mainHandler.removeCallbacks(stopRunnable)
+        mainHandler.postDelayed(stopRunnable, STOP_DELAY_MILLIS)
+    }
+
+    private fun cancelStop() {
+        mainHandler.removeCallbacks(stopRunnable)
     }
 
     fun hasRcloneStorages(): Boolean =
@@ -130,6 +151,7 @@ object RcloneDaemon {
 
     @Throws(IOException::class)
     fun ensureRunning(context: Context? = appContext) {
+        cancelStop()
         val ctx = context ?: appContext ?: throw IOException("App context not available")
         synchronized(lock) {
             if (process?.isAlive == true && baseUrl != null) {
@@ -146,15 +168,16 @@ object RcloneDaemon {
                 throw FileNotFoundException("rclone.conf not found at ${configFile.absolutePath}")
             }
             val cacheDir = File(ctx.cacheDir, "rclone").apply { mkdirs() }
-            val command = listOf(
-                binary.absolutePath,
+            val args = listOf(
                 "rcd",
                 "--rc-serve",
                 "--rc-no-auth",
                 "--rc-addr", "127.0.0.1:0",
+                "--fast-list",
                 "--cache-dir", cacheDir.absolutePath,
                 "--config", configFile.absolutePath
             )
+            val command = listOf(binary.absolutePath) + args
             val processBuilder = ProcessBuilder(command)
             processBuilder.environment()["TMPDIR"] = ctx.cacheDir.absolutePath
             processBuilder.redirectErrorStream(true)
@@ -205,6 +228,7 @@ object RcloneDaemon {
     }
 
     fun stop() {
+        cancelStop()
         synchronized(lock) {
             process?.let {
                 try {
@@ -218,6 +242,7 @@ object RcloneDaemon {
                 process = null
             }
             baseUrl = null
+            RcloneClient.invalidateCache()
             Log.i(TAG, "Rclone daemon stopped")
         }
     }
