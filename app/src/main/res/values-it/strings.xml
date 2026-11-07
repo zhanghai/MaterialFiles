@@ -327,6 +327,7 @@
     <string name="file_list_action_show_hidden_files">Mostra file nascosti</string>
     <string name="file_list_action_copy_path">Copia percorso</string>
     <string name="file_list_action_open_in_terminal">Apri nel terminale</string>
+    <string name="terminal_termux_permission_required">È richiesta l\'autorizzazione per eseguire comandi in Termux. Concedila nelle impostazioni di sistema.</string>
     <string name="file_list_action_add_bookmark">Aggiungi segnalibro</string>
     <string name="file_list_action_create_shortcut">Crea segnalibro</string>
     <string name="file_list_breadcrumb_action_open_in_new_task">Apri in una nuova finestra</string>
