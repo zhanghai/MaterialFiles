@@ -302,6 +302,7 @@
     <string name="file_list_action_show_hidden_files">Show hidden files</string>
     <string name="file_list_action_copy_path">Copy path</string>
     <string name="file_list_action_open_in_terminal">Open in terminal</string>
+    <string name="terminal_termux_permission_required">Permission to run Termux commands is required. Please grant it in system settings.</string>
     <string name="file_list_action_add_bookmark">Add bookmark</string>
     <string name="file_list_action_create_shortcut">Create shortcut</string>
     <string name="file_list_breadcrumb_action_copy_path" translatable="false">@string/file_list_action_copy_path</string>
