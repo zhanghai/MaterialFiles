@@ -233,6 +233,13 @@ class FileListViewModel : ViewModel() {
             _isRequestingNotificationPermissionLiveData.value = value
         }
 
+    private val _isRequestingTermuxPermissionLiveData = MutableLiveData(false)
+    var isTermuxPermissionRequested: Boolean
+        get() = _isRequestingTermuxPermissionLiveData.valueCompat
+        set(value) {
+            _isRequestingTermuxPermissionLiveData.value = value
+        }
+
     override fun onCleared() {
         _fileListLiveData.close()
     }

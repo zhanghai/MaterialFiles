@@ -161,6 +161,13 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         RequestPermissionInSettingsContract(android.Manifest.permission.POST_NOTIFICATIONS),
         this::onRequestNotificationPermissionInSettingsResult
     )
+    private val requestTermuxPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(), this::onRequestTermuxPermissionResult
+    )
+    private val requestTermuxPermissionInSettingsLauncher = registerForActivityResult(
+        RequestPermissionInSettingsContract(Terminal.TERMUX_PERMISSION_RUN_COMMAND),
+        this::onRequestTermuxPermissionInSettingsResult
+    )
 
     private val args by args<Args>()
     private val argsPath by lazy { args.intent.extraPath }
@@ -758,7 +765,22 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun openInTerminal() {
         val path = currentPath
         if (path.isLinuxPath) {
-            Terminal.open(path.toFile().path, requireContext())
+            val linuxPath = path.toFile().path
+            if (Terminal.isTermuxInstalled) {
+                if (checkSelfPermission(Terminal.TERMUX_PERMISSION_RUN_COMMAND) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                    Terminal.openTermux(linuxPath, requireContext())
+                } else if (!viewModel.isTermuxPermissionRequested ||
+                    shouldShowRequestPermissionRationale(Terminal.TERMUX_PERMISSION_RUN_COMMAND)) {
+                    viewModel.isTermuxPermissionRequested = true
+                    requestTermuxPermissionLauncher.launch(Terminal.TERMUX_PERMISSION_RUN_COMMAND)
+                } else {
+                    showToast(R.string.terminal_termux_permission_required)
+                    requestTermuxPermissionInSettingsLauncher.launch(Unit)
+                }
+            } else {
+                Terminal.openAndroidTerminal(linuxPath, requireContext())
+            }
         } else {
             // TODO
         }
@@ -1617,6 +1639,29 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
     private fun onRequestNotificationPermissionInSettingsResult(isGranted: Boolean) {
         if (isGranted) {
             viewModel.isNotificationPermissionRequested = false
+        }
+    }
+
+    private fun onRequestTermuxPermissionResult(isGranted: Boolean) {
+        if (isGranted) {
+            val path = currentPath
+            if (path.isLinuxPath) {
+                Terminal.openTermux(path.toFile().path, requireContext())
+            }
+        } else if (shouldShowRequestPermissionRationale(Terminal.TERMUX_PERMISSION_RUN_COMMAND)) {
+            showToast(R.string.terminal_termux_permission_required)
+        } else {
+            showToast(R.string.terminal_termux_permission_required)
+            requestTermuxPermissionInSettingsLauncher.launch(Unit)
+        }
+    }
+
+    private fun onRequestTermuxPermissionInSettingsResult(isGranted: Boolean) {
+        if (isGranted) {
+            val path = currentPath
+            if (path.isLinuxPath) {
+                Terminal.openTermux(path.toFile().path, requireContext())
+            }
         }
     }
 
