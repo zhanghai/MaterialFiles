@@ -21,6 +21,7 @@
 - Root 支持：使用 root 权限查看和管理文件。
 - 压缩文件支持：查看、提取和创建常见的压缩文件。
 - NAS 支持：查看和管理 FTP、SFTP、SMB 和 WebDAV 服务器上的文件。
+- 云存储 (Rclone) 支持：通过 Rclone 查看和管理 Google Drive、OneDrive、Nextcloud、Dropbox、S3 等数十种云存储。安装方法：安装编译生成的 APK 或从 Releases 下载，在侧边抽屉菜单中点击 **添加存储** > **Rclone** 并导入或粘贴您的 `rclone.conf`。Rclone 远程存储将直接显示在侧边菜单中，且守护进程仅在应用处于前台活跃时运行。
 - 主题：可定制的界面颜色，以及可选纯黑的夜间模式。
 - Linux 友好：类似 [Nautilus](https://wiki.gnome.org/action/show/Apps/Files)，支持符号链接、文件权限和 SELinux 上下文。
 - 健壮性：使用 Linux 系统调用实现，而不是另一个 [`ls` 解析器](https://news.ycombinator.com/item?id=7994720)。
