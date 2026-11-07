@@ -57,13 +57,6 @@ object RcloneDaemon {
                 when (event) {
                     Lifecycle.Event.ON_START -> {
                         cancelStop()
-                        if (hasRcloneStorages()) {
-                            try {
-                                ensureRunning()
-                            } catch (e: Exception) {
-                                Log.w(TAG, "Failed to start rclone daemon on app start", e)
-                            }
-                        }
                     }
                     Lifecycle.Event.ON_STOP -> {
                         scheduleStop()
@@ -224,7 +217,6 @@ object RcloneDaemon {
 
     fun restart(context: Context? = appContext) {
         stop()
-        ensureRunning(context)
     }
 
     fun stop() {
