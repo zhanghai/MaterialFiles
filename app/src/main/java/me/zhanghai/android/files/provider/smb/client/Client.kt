@@ -22,6 +22,7 @@ import com.hierynomus.mssmb2.messages.SMB2ChangeNotifyResponse
 import com.hierynomus.protocol.commons.EnumWithValue
 import com.hierynomus.smbj.ProgressListener
 import com.hierynomus.smbj.SMBClient
+import com.hierynomus.smbj.SmbConfig
 import com.hierynomus.smbj.auth.AuthenticationContext
 import com.hierynomus.smbj.common.SMBRuntimeException
 import com.hierynomus.smbj.session.Session
@@ -53,7 +54,11 @@ object Client {
     @Volatile
     lateinit var authenticator: Authenticator
 
-    private val client = SMBClient()
+    private val client = SMBClient(
+        SmbConfig.builder()
+            .withAuthenticators(MicFixedNtlmAuthenticator.replaceInDefaultAuthenticators())
+            .build()
+    )
 
     private val sessions = mutableMapOf<Authority, Session>()
 
