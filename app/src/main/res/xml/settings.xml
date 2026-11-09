@@ -82,6 +82,17 @@
             android:entryValues="@array/pref_entry_values_root_strategy"
             app:useSimpleSummaryProvider="true" />
 
+        <rikka.preference.SimpleMenuPreference
+            android:key="@string/pref_key_external_root_access"
+            android:title="@string/settings_external_root_access_title"
+            android:defaultValue="@string/pref_default_value_external_root_access"
+            android:entries="@array/settings_external_root_access_entries"
+            android:entryValues="@array/pref_entry_values_external_root_access"
+            app:useSimpleSummaryProvider="true" />
+
+        <me.zhanghai.android.files.settings.RevokeExternalRootAccessPreference
+            android:title="@string/settings_revoke_external_root_access_title" />
+
         <me.zhanghai.android.files.settings.CharsetPreference
             android:key="@string/pref_key_archive_file_name_encoding"
             android:title="@string/settings_archive_file_name_encoding_title"

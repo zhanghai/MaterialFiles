@@ -41,6 +41,8 @@ android {
         buildConfigField 'String', 'FILE_PROVIDIER_AUTHORITY', 'APPLICATION_ID + ".file_provider"'
         resValue 'string', 'app_provider_authority', applicationId + '.app_provider'
         resValue 'string', 'file_provider_authority', applicationId + '.file_provider'
+        buildConfigField 'String', 'DOCUMENTS_PROVIDER_AUTHORITY', 'APPLICATION_ID + ".documents_provider"'
+        resValue 'string', 'documents_provider_authority', applicationId + '.documents_provider'
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=none'

@@ -125,13 +125,10 @@
                 <category android:name="android.intent.category.OPENABLE" />
                 <data android:mimeType="*/*" />
             </intent-filter>
-            <!--
-              ~ Unusable until we implement DocumentsProvider.
             <intent-filter>
                 <action android:name="android.intent.action.OPEN_DOCUMENT_TREE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            -->
             <intent-filter>
                 <action android:name="me.zhanghai.android.files.intent.action.VIEW_DOWNLOADS" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -401,6 +398,17 @@
             android:authorities="@string/file_provider_authority"
             android:exported="false"
             android:grantUriPermissions="true" />
+
+        <provider
+            android:name="me.zhanghai.android.files.documentsprovider.FilesDocumentsProvider"
+            android:authorities="@string/documents_provider_authority"
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:permission="android.permission.MANAGE_DOCUMENTS">
+            <intent-filter>
+                <action android:name="android.content.action.DOCUMENTS_PROVIDER" />
+            </intent-filter>
+        </provider>
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
