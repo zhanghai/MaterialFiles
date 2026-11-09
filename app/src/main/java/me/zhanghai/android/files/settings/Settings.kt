@@ -12,6 +12,7 @@ import java8.nio.file.Paths
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
 import me.zhanghai.android.files.compat.EnvironmentCompat2
+import me.zhanghai.android.files.documentsprovider.ExternalRootAccess
 import me.zhanghai.android.files.filelist.FileSortOptions
 import me.zhanghai.android.files.filelist.FileViewType
 import me.zhanghai.android.files.filelist.OpenApkDefaultAction
@@ -156,6 +157,12 @@ object Settings {
         EnumSettingLiveData(
             R.string.pref_key_root_strategy, R.string.pref_default_value_root_strategy,
             RootStrategy::class.java
+        )
+
+    val EXTERNAL_ROOT_ACCESS: SettingLiveData<ExternalRootAccess> =
+        EnumSettingLiveData(
+            R.string.pref_key_external_root_access,
+            R.string.pref_default_value_external_root_access, ExternalRootAccess::class.java
         )
 
     val ARCHIVE_FILE_NAME_ENCODING: SettingLiveData<String> =

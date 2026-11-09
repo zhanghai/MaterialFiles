@@ -45,13 +45,16 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import java8.nio.file.Path
 import java8.nio.file.Paths
-import kotlin.math.roundToInt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.parcelize.Parcelize
 import me.zhanghai.android.files.R
 import me.zhanghai.android.files.app.application
@@ -64,6 +67,13 @@ import me.zhanghai.android.files.databinding.FileListFragmentBottomBarIncludeBin
 import me.zhanghai.android.files.databinding.FileListFragmentContentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentIncludeBinding
 import me.zhanghai.android.files.databinding.FileListFragmentSpeedDialIncludeBinding
+import me.zhanghai.android.files.documentsprovider.ExternalRootAccess
+import me.zhanghai.android.files.documentsprovider.ExternalRootAccessGrants
+import me.zhanghai.android.files.documentsprovider.documentId
+import me.zhanghai.android.files.documentsprovider.documentsProviderTreeUri
+import me.zhanghai.android.files.documentsprovider.documentsProviderUri
+import me.zhanghai.android.files.documentsprovider.requiresRootForExternalAccess
+import me.zhanghai.android.files.documentsprovider.toDocumentPathOrNull
 import me.zhanghai.android.files.file.FileItem
 import me.zhanghai.android.files.file.MimeType
 import me.zhanghai.android.files.file.asMimeTypeOrNull
@@ -81,6 +91,9 @@ import me.zhanghai.android.files.navigation.NavigationFragment
 import me.zhanghai.android.files.navigation.NavigationRootMapLiveData
 import me.zhanghai.android.files.provider.archive.createArchiveRootPath
 import me.zhanghai.android.files.provider.archive.isArchivePath
+import me.zhanghai.android.files.provider.common.createFile
+import me.zhanghai.android.files.provider.common.exists
+import me.zhanghai.android.files.provider.document.isDocumentPath
 import me.zhanghai.android.files.provider.linux.isLinuxPath
 import me.zhanghai.android.files.settings.Settings
 import me.zhanghai.android.files.terminal.Terminal
@@ -131,9 +144,12 @@ import me.zhanghai.android.files.util.valueCompat
 import me.zhanghai.android.files.util.viewModels
 import me.zhanghai.android.files.util.withChooser
 import me.zhanghai.android.files.viewer.image.ImageViewerActivity
+import java.io.IOException
+import kotlin.math.roundToInt
 
 class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.Listener,
-    ConfirmReplaceFileDialogFragment.Listener, OpenApkDialogFragment.Listener,
+    ConfirmReplaceFileDialogFragment.Listener, ConfirmExternalRootAccessDialogFragment.Listener,
+    OpenApkDialogFragment.Listener,
     ConfirmDeleteFilesDialogFragment.Listener, CreateArchiveDialogFragment.Listener,
     RenameFileDialogFragment.Listener, CreateFileDialogFragment.Listener,
     CreateDirectoryDialogFragment.Listener, NavigateToPathDialogFragment.Listener,
@@ -309,13 +325,17 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
                     val localOnly = intent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false)
                     val allowMultiple = mode != PickOptions.Mode.CREATE_FILE &&
                         intent.getBooleanExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-                    pickOptions =
-                        PickOptions(mode, fileName, readOnly, mimeTypes, localOnly, allowMultiple)
+                    val returnsDocumentUris = action != Intent.ACTION_GET_CONTENT
+                    pickOptions = PickOptions(
+                        mode, fileName, readOnly, mimeTypes, localOnly, allowMultiple,
+                        returnsDocumentUris
+                    )
                 }
                 Intent.ACTION_OPEN_DOCUMENT_TREE -> {
                     val localOnly = intent.getBooleanExtra(Intent.EXTRA_LOCAL_ONLY, false)
                     pickOptions = PickOptions(
-                        PickOptions.Mode.OPEN_DIRECTORY, null, false, emptyList(), localOnly, false
+                        PickOptions.Mode.OPEN_DIRECTORY, null, false, emptyList(), localOnly, false,
+                        true
                     )
                 }
                 ACTION_VIEW_DOWNLOADS ->
@@ -812,16 +832,102 @@ class FileListFragment : Fragment(), BreadcrumbLayout.Listener, FileListAdapter.
         pickPaths(files.mapTo(linkedSetOf()) { it.path })
     }
 
-    private fun pickPaths(paths: LinkedHashSet<Path>) {
+    private fun pickPaths(
+        paths: LinkedHashSet<Path>,
+        isExternalRootAccessAllowed: Boolean = false
+    ) {
+        val activity = requireActivity()
+        val callingPackage = activity.callingPackage
+        val isExternalPick = callingPackage != null && callingPackage != activity.packageName
+        if (isExternalPick) {
+            val rootPaths = paths.filter { it.requiresRootForExternalAccess }
+            if (rootPaths.isNotEmpty()) {
+                when (Settings.EXTERNAL_ROOT_ACCESS.valueCompat) {
+                    ExternalRootAccess.NEVER -> {
+                        showToast(R.string.file_list_pick_root_access_denied)
+                        return
+                    }
+                    ExternalRootAccess.ASK -> {
+                        if (!isExternalRootAccessAllowed) {
+                            ConfirmExternalRootAccessDialogFragment.show(
+                                paths.map { it.documentId }, rootPaths.map { it.toString() },
+                                getApplicationLabel(callingPackage!!), this
+                            )
+                            return
+                        }
+                        ExternalRootAccessGrants.grant(callingPackage!!, rootPaths)
+                    }
+                    ExternalRootAccess.ALWAYS -> {}
+                }
+            }
+        }
+        val pickOptions = viewModel.pickOptions!!
+        val returnsDocumentUris = isExternalPick && pickOptions.returnsDocumentUris
+        if (returnsDocumentUris && pickOptions.mode == PickOptions.Mode.CREATE_FILE) {
+            // Like DocumentsUI, create the document before returning it, so that the caller can
+            // query it right away.
+            val path = paths.single()
+            viewLifecycleOwner.lifecycleScope.launch {
+                val exception = withContext(Dispatchers.IO) {
+                    try {
+                        if (!path.exists()) {
+                            path.createFile()
+                        }
+                        null
+                    } catch (e: IOException) {
+                        e
+                    }
+                }
+                if (exception != null) {
+                    exception.printStackTrace()
+                    showToast(exception.toString())
+                    return@launch
+                }
+                setPickResult(paths, pickOptions, true)
+            }
+            return
+        }
+        setPickResult(paths, pickOptions, returnsDocumentUris)
+    }
+
+    override fun allowExternalRootAccess(documentIds: List<String>) {
+        val paths = documentIds.mapNotNullTo(linkedSetOf()) { it.toDocumentPathOrNull() }
+        pickPaths(paths, true)
+    }
+
+    private fun getApplicationLabel(packageName: String): String? {
+        val packageManager = requireContext().packageManager
+        return try {
+            packageManager.getApplicationInfo(packageName, 0).loadLabel(packageManager).toString()
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+
+    private fun Path.getPickUri(pickOptions: PickOptions, returnsDocumentUris: Boolean): Uri =
+        when {
+            !returnsDocumentUris -> fileProviderUri
+            pickOptions.mode == PickOptions.Mode.OPEN_DIRECTORY -> documentsProviderTreeUri
+            // Hand out the original document URI for document trees from other providers.
+            isDocumentPath -> fileProviderUri
+            else -> documentsProviderUri
+        }
+
+    private fun setPickResult(
+        paths: LinkedHashSet<Path>,
+        pickOptions: PickOptions,
+        returnsDocumentUris: Boolean
+    ) {
         val intent = Intent().apply {
-            val pickOptions = viewModel.pickOptions!!
             if (paths.size == 1) {
                 val path = paths.single()
-                data = path.fileProviderUri
+                data = path.getPickUri(pickOptions, returnsDocumentUris)
                 extraPath = path
             } else {
                 val mimeTypes = pickOptions.mimeTypes.map { it.value }
-                val items = paths.map { ClipData.Item(it.fileProviderUri) }
+                val items = paths.map {
+                    ClipData.Item(it.getPickUri(pickOptions, returnsDocumentUris))
+                }
                 clipData = ClipData::class.create(null, mimeTypes, items)
                 extraPathList = paths.toList()
             }

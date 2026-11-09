@@ -783,6 +783,23 @@
         <item>Automatic</item>
         <item>Root access only</item>
     </string-array>
+    <string name="settings_external_root_access_title">Root access for other apps</string>
+    <string-array name="settings_external_root_access_entries">
+        <item>Never allow</item>
+        <item>Ask each time</item>
+        <item>Always allow</item>
+    </string-array>
+    <string name="settings_revoke_external_root_access_title">Revoke root access granted to other apps</string>
+    <plurals name="settings_revoke_external_root_access_summary_format">
+        <item quantity="one">%1$,d location granted</item>
+        <item quantity="other">%1$,d locations granted</item>
+    </plurals>
+    <string name="settings_revoke_external_root_access_done">Root access revoked for all other apps</string>
+    <string name="file_list_pick_root_access_title">Allow root access?</string>
+    <string name="file_list_pick_root_access_message_format">%1$s will be able to access the following using root or Shizuku, including anything inside folders:\n\n%2$s</string>
+    <string name="file_list_pick_root_access_unknown_app">The requesting app</string>
+    <string name="file_list_pick_root_access_allow">Allow</string>
+    <string name="file_list_pick_root_access_denied">Root access for other apps is turned off in settings</string>
     <string name="settings_archive_file_name_encoding_title">Archive file name encoding</string>
     <string name="settings_open_apk_default_action_title">Open Android package</string>
     <string-array name="settings_open_apk_default_action_entries">
