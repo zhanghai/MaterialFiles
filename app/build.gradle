@@ -162,6 +162,9 @@ dependencies {
         // org.bouncycastle:bcprov-jdk15to18 instead.
         exclude group: 'org.bouncycastle', module: 'bcprov-jdk15on'
     }
+    // SMBJ only declares ASN-One as a runtime dependency, but MicFixedNtlmAuthenticator needs it at
+    // compile time.
+    implementation 'com.hierynomus:asn-one:0.6.0'
     def bouncy_castle_version = '1.86'
     implementation "org.bouncycastle:bcprov-jdk15to18:$bouncy_castle_version"
     implementation ('com.hierynomus:sshj:0.40.0') {
