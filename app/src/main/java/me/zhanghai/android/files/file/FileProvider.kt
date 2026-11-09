@@ -90,7 +90,12 @@ class FileProvider : ContentProvider() {
         selection: String?,
         selectionArgs: Array<String?>?,
         sortOrder: String?
-    ): Cursor? {
+    ): Cursor? =
+        // Strict mode thread policy is passed through binder, and many apps query the display name
+        // and size on their main thread, which needs network access for remote files.
+        StrictMode::class.withoutPenaltyDeathOnNetwork { queryPath(uri, projection) }
+
+    private fun queryPath(uri: Uri, projection: Array<String?>?): Cursor {
         // ContentProvider has already checked granted permissions
         val projectionColumns = projection ?: getDefaultProjection()
         val path = uri.fileProviderPath
