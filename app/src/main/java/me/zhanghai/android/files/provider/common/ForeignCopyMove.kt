@@ -40,15 +40,22 @@ internal object ForeignCopyMove {
         }
         when {
             sourceAttributes.isRegularFile -> {
-                if (copyOptions.replaceExisting) {
-                    target.deleteIfExists()
-                }
                 val openOptions = if (copyOptions.noFollowLinks) {
                     arrayOf(LinkOption.NOFOLLOW_LINKS)
                 } else {
                     emptyArray()
                 }
+                // Open the source before deleting the target, so that we never end up with
+                // both ends of the copy pointing at a deleted file. When the source and the
+                // target are in fact the same file reached via different providers (e.g. a
+                // content URI saved over its underlying local file, #1664), the open stream
+                // keeps the data alive across the delete and the copy rewrites it in place;
+                // and if the source cannot be opened at all, the target is left untouched
+                // instead of being deleted first.
                 source.newInputStream(*openOptions).use { inputStream ->
+                    if (copyOptions.replaceExisting) {
+                        target.deleteIfExists()
+                    }
                     val outputStream = target.newOutputStream(
                         StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE
                     )
